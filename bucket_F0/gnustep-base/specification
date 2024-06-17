@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.29.0
+DEF[PORTVERSION]=	1.30.0
 DEF[FOLDER]=		base-${PORTVERSION:S/./_/g}
 DEF[SOVERSION]=		${PORTVERSION}
 # ----------------------------------------------------------------------------
@@ -13,11 +13,9 @@ CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
 DOWNLOAD_GROUPS=	main patchsite
 SITES[main]=		https://github.com/gnustep/libs-base/releases/download/${FOLDER}/
-SITES[patchsite]=	https://github.com/gnustep/libs-base/commit/
-DISTFILE[1]=		gnustep-base-1.29.0.tar.gz:main
-DISTFILE[2]=		37913d006d96a6bdcb963f4ca4889888dcce6094.patch:patchsite
+DISTFILE[1]=		gnustep-base-${PORTVERSION}.tar.gz:main
 DIST_SUBDIR=		gnustep
-DF_INDEX=		1 2
+DF_INDEX=		1
 
 SPKGS[standard]=	complete primary tools dev man
 
@@ -33,10 +31,6 @@ LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_SCHEME=		multi
 
 FPC_EQUIVALENT=		lang/gnustep-base
-
-EXTRACT_ONLY=		1
-PATCHFILES=		2
-PATCHFILES_STRIP=	-p1
 
 BUILD_DEPENDS=		avahi:dev:standard
 			curl:dev:standard
@@ -70,6 +64,7 @@ CONFIGURE_ENV=		ac_cv_header_bfd_h=no
 			LIBS=-lobjc
 			OBJCFLAGS='-fobjc-runtime=gnustep-2.0 -fblocks'
 SOVERSION=		${SOVERSION}
+PLIST_SUB=		VERSION=${PORTVERSION:R}
 
 # see special.mk.  That code needs to be in USES=gnustep extension
 MAKEFILE=		GNUmakefile
