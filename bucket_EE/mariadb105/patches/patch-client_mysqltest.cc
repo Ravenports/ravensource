@@ -1,4 +1,4 @@
---- client/mysqltest.cc.orig	2024-01-31 16:38:20 UTC
+--- client/mysqltest.cc.orig	2024-05-08 18:05:51 UTC
 +++ client/mysqltest.cc
 @@ -46,6 +46,7 @@
  #include <stdarg.h>

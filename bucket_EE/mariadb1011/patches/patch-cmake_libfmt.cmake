@@ -1,4 +1,4 @@
---- cmake/libfmt.cmake.orig	2023-11-08 15:51:39 UTC
+--- cmake/libfmt.cmake.orig	2024-05-10 21:02:17 UTC
 +++ cmake/libfmt.cmake
 @@ -15,8 +15,8 @@ MACRO(BUNDLE_LIBFMT)
    ExternalProject_Add(
