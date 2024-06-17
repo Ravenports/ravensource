@@ -1,9 +1,11 @@
-DEF[ORIGVERSION]=	4.9.1
+DEF[ORIGVERSION]=	4.10
 DEF[PORTVERSION]=	${ORIGVERSION}
 DEF[CCLINKDIR]=		libexec/ccache
 # Don't link "CC" because it is same as "cc" on case-insensitive file systems
 # CC should not be used anyway as it is specific to Solaris
 DEF[CC_COMPILERS]=	cc c++ gcc g++ clang clang++
+DEF[FMT_VERSION]=	10.2.1
+DEF[XXHASH_VERSION]=	0.8.2
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ccache
@@ -14,9 +16,15 @@ SDESC[standard]=	Fast C/C++ compiler cache tool
 HOMEPAGE=		https://ccache.samba.org/
 CONTACT=		nobody
 
-DOWNLOAD_GROUPS=	main
+DOWNLOAD_GROUPS=	main fmt xxhash
 SITES[main]=		https://github.com/ccache/ccache/releases/download/v${PORTVERSION}/
+SITES[fmt]=		https://github.com/fmtlib/fmt/releases/download/${FMT_VERSION}/
+SITES[xxhash]=		https://github.com/Cyan4973/xxhash/archive/refs/tags/
 DISTFILE[1]=		ccache-${PORTVERSION}.tar.xz:main
+DISTFILE[2]=		fmt-${FMT_VERSION}.zip:fmt
+DISTFILE[3]=		v${XXHASH_VERSION}.tar.gz:xxhash
+DIST_SUBDIR=		ccache
+DF_INDEX=		1
 
 SPKGS[standard]=	complete primary docs
 
@@ -31,6 +39,7 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		devel/ccache
 
 BUILD_DEPENDS=		ruby-asciidoctor:single:ruby_default
+			fmt:single:standard
 
 USES=			cmake perl:build c++:primary zstd:build
 CMAKE_ARGS=		-DENABLE_TESTING:BOOL=OFF
