@@ -1,15 +1,14 @@
---- CMakeLists.txt.orig	2023-01-01 23:36:03 UTC
+--- CMakeLists.txt.orig	2024-05-25 21:51:22 UTC
 +++ CMakeLists.txt
-@@ -380,11 +380,7 @@ foreach(_c_l ${_config_lines} )
- 			if (NOT LYX_RELEASE_PATCH)
- 				set(LYX_RELEASE_PATCH 0)
- 			endif()
--			if ("${LYX_SUFFIX_VALUE}" MATCHES "")
--			  set(LYX_INSTALL_SUFFIX "${LYX_MAJOR_VERSION}.${LYX_MINOR_VERSION}")
--			else()
--			  set(LYX_INSTALL_SUFFIX "${LYX_SUFFIX_VALUE}")
--			endif()
-+                       set(LYX_INSTALL_SUFFIX "")
- 		endif()
- 	endif()
- 	if(_c_l MATCHES "^AC_SUBST\\( *LYX_DATE *, *\\[\\\"(.*)\\\"\\].*")
+@@ -305,11 +305,7 @@ if(help OR HELP)
+ 	RETURN()
+ endif()
+ 
+-if ("${LYX_SUFFIX_VALUE}" MATCHES "")
+-  set(LYX_INSTALL_SUFFIX "${LYX_MAJOR_VERSION}.${LYX_MINOR_VERSION}")
+-else()
+   set(LYX_INSTALL_SUFFIX "${LYX_SUFFIX_VALUE}")
+-endif()
+ 
+ # Check option dependencies
+ if (LYX_ENABLE_VALGRIND_TESTS)

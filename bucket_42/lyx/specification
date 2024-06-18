@@ -1,6 +1,6 @@
-DEF[FILEVERSION]=	2.3.7-1
-DEF[PORTVERSION]=	2.3.7.1
-DEF[MAJORVER]=		${PORTVERSION:R:R}
+DEF[FILEVERSION]=	2.4.0
+DEF[PORTVERSION]=	2.4.0
+DEF[MAJORVER]=		${PORTVERSION:R}
 # configure.ac date
 DEF[LYX_DATE]=		2023-01-03
 DEF[XY]=		${MAJORVER:S/.//}
@@ -9,7 +9,6 @@ DEF[DISTVER]=		${PORTVERSION:R}-${PORTVERSION:S|.|/|g:T}
 
 NAMEBASE=		lyx
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		print editors
 VARIANTS=		standard
 SDESC[standard]=	Document Processor WYSIWYM Editor & Latex frontend
@@ -54,7 +53,7 @@ BUILDRUN_DEPENDS=	mythes:single:standard
 RUN_DEPENDS=		texlive-bin:primary:standard
 
 EXTRACT_HEAD[1]=	{{TAR}} -xf
-EXTRACT_TAIL[1]=	--no-same-owner --no-same-permissions --exclude 3rdparty --exclude cygwin --exclude MacOSX --exclude Win32
+EXTRACT_TAIL[1]=	--no-same-owner --no-same-permissions --exclude cygwin --exclude MacOSX --exclude Win32
 
 USES=			cmake iconv zlib perl python pkgconfig gettext
 			shebangfix desktop-utils:primary
@@ -73,6 +72,7 @@ CMAKE_ARGS=		-DLYX_NLS:BOOL=OFF
 			-DLYX_EXTERNAL_MYTHES:BOOL=ON
 			-DLYX_EXTERNAL_BOOST:BOOL=ON
 			-DLYX_USE_QT=QT5
+			-DPROGRAM_SUFFIX:STRING=""
 			-DCMAKE_PREFIX_PATH:PATH="{{PREFIX}}/lib/qt5/cmake/"
 			-Wno-dev
 SHEBANG_FILES=		lib/configure.py
@@ -83,7 +83,16 @@ SHEBANG_FILES=		lib/configure.py
 			lib/scripts/svg2pstex.py
 LDFLAGS=		{{ICONV_LIB}}
 PLIST_SUB=		MV=${MAJORVER}
-DISTNAME=		lyx-${PORTVERSION:R}
+DISTNAME=		lyx-${PORTVERSION}
+
+post-extract:
+	${RM} -r ${WRKSRC}/3rdparty/boost
+	${RM} -r ${WRKSRC}/3rdparty/dtl
+	${RM} -r ${WRKSRC}/3rdparty/hunspell
+	${RM} -r ${WRKSRC}/3rdparty/libiconv
+	${RM} -r ${WRKSRC}/3rdparty/mythes
+	${RM} -r ${WRKSRC}/3rdparty/scripts
+	${RM} -r ${WRKSRC}/3rdparty/zlib
 
 post-patch:
 	${GREP} -rl "python -tt" ${WRKSRC} | ${XARGS} \
@@ -113,7 +122,5 @@ post-install:
 
 	# relocate examples and docs
 	${MKDIR} ${STAGEDIR}${STD_EXAMPLESDIR:H}
-	${MV} ${STAGEDIR}${PREFIX}/share/lyx/examples \
-		${STAGEDIR}${STD_EXAMPLESDIR}
-	${MV} ${STAGEDIR}${PREFIX}/share/lyx/doc \
-		${STAGEDIR}${STD_DOCDIR}
+	${MV} ${STAGEDIR}${PREFIX}/share/lyx/examples ${STAGEDIR}${STD_EXAMPLESDIR}
+	${MV} ${STAGEDIR}${PREFIX}/share/lyx/doc ${STAGEDIR}${STD_DOCDIR}
