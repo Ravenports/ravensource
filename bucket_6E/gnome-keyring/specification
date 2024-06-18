@@ -55,5 +55,6 @@ CONFIGURE_ARGS=		--with-pam-dir={{PREFIX}}/lib
 INSTALL_TARGET=		install-strip
 GLIB_SCHEMAS=		org.gnome.crypto.cache.gschema.xml
 
-post-patch:
-	${REINPLACE_CMD} -e 's|__DBPATH__|${PREFIX}/share/xsl/docbook/manpages|' ${WRKSRC}/docs/Makefile.am
+pre-configure:
+	${REINPLACE_CMD} -e 's|__DBPATH__|${PREFIX}/share/xsl/docbook/manpages|' \
+		${WRKSRC}/docs/Makefile.am
