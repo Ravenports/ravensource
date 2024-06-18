@@ -21,10 +21,9 @@ SITES[main]=		https://github.com/ccache/ccache/releases/download/v${PORTVERSION}
 SITES[fmt]=		https://github.com/fmtlib/fmt/releases/download/${FMT_VERSION}/
 SITES[xxhash]=		https://github.com/Cyan4973/xxhash/archive/refs/tags/
 DISTFILE[1]=		ccache-${PORTVERSION}.tar.xz:main
-DISTFILE[2]=		fmt-${FMT_VERSION}.zip:fmt
-DISTFILE[3]=		v${XXHASH_VERSION}.tar.gz:xxhash
+DISTFILE[2]=		v${XXHASH_VERSION}.tar.gz:xxhash
 DIST_SUBDIR=		ccache
-DF_INDEX=		1
+DF_INDEX=		1 2
 
 SPKGS[standard]=	complete primary docs
 
@@ -40,6 +39,8 @@ FPC_EQUIVALENT=		devel/ccache
 
 BUILD_DEPENDS=		ruby-asciidoctor:single:ruby_default
 			fmt:single:standard
+
+EXTRACT_ONLY=		1
 
 USES=			cmake perl:build c++:primary zstd:build
 CMAKE_ARGS=		-DENABLE_TESTING:BOOL=OFF
