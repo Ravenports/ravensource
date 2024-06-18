@@ -42,7 +42,7 @@ INSTALL_REQ_TOOLCHAIN=	yes
 SHEBANG_FILES=		meson_post_install.py
 SOVERSION=		${SOVERSION}
 
-post-patch:
+pre-configure:
 	${REINPLACE_CMD} -e \
 		's|__DBPATH__|${PREFIX}/share/xsl/docbook/manpages|' \
 		${WRKSRC}/docs/meson.build
