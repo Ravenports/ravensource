@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.11
 NAMEBASE=		perl-Commandable
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		536 538
-SDESC[536]=		Utilities for commandline-based programs (5.36)
+VARIANTS=		538 540
 SDESC[538]=		Utilities for commandline-based programs (5.38)
+SDESC[540]=		Utilities for commandline-based programs (5.40)
 HOMEPAGE=		none
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:P/PE/PEVANS
 DISTFILE[1]=		Commandable-${PORTVERSION}.tar.gz:main
 
-SPKGS[536]=		single
 SPKGS[538]=		single
+SPKGS[540]=		single
 
-OPTIONS_AVAILABLE=	PERL_536 PERL_538
+OPTIONS_AVAILABLE=	PERL_538 PERL_540
 OPTIONS_STANDARD=	none
-VOPTS[536]=		PERL_536=ON PERL_538=OFF
-VOPTS[538]=		PERL_536=OFF PERL_538=ON
+VOPTS[538]=		PERL_538=ON PERL_540=OFF
+VOPTS[540]=		PERL_538=OFF PERL_540=ON
 
 # License listed in CPAN directory:
 # perl_5
@@ -34,13 +34,13 @@ DISTNAME=		Commandable-${PORTVERSION}
 # ----------------------------------------------
 # |      runtime : Module::Pluggable::Object
 # |    configure : Module::Build
-# |         test : Test2::V0
+# |         test : Test2::V0 (perl 5.40 core)
 # |         test : Test::NoWarnings
 
-[PERL_536].USES_ON=			perl:536,buildmod,run
-[PERL_536].BUILDRUN_DEPENDS_ON=		perl-Module-Pluggable:single:536
-[PERL_536].BUILD_DEPENDS_ON=		perl-Module-Build:single:536
 [PERL_538].USES_ON=			perl:538,buildmod,run
 [PERL_538].BUILDRUN_DEPENDS_ON=		perl-Module-Pluggable:single:538
 [PERL_538].BUILD_DEPENDS_ON=		perl-Module-Build:single:538
+[PERL_540].USES_ON=			perl:540,buildmod,run
+[PERL_540].BUILDRUN_DEPENDS_ON=		perl-Module-Pluggable:single:540
+[PERL_540].BUILD_DEPENDS_ON=		perl-Module-Build:single:540
 

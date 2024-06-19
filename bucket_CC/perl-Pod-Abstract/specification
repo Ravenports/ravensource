@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.20
 NAMEBASE=		perl-Pod-Abstract
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		536 538
-SDESC[536]=		Abstract document tree for POD documents (5.36)
+VARIANTS=		538 540
 SDESC[538]=		Abstract document tree for POD documents (5.38)
+SDESC[540]=		Abstract document tree for POD documents (5.40)
 HOMEPAGE=		none
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:B/BL/BLILBURNE
 DISTFILE[1]=		Pod-Abstract-${PORTVERSION}.tar.gz:main
 
-SPKGS[536]=		single
 SPKGS[538]=		single
+SPKGS[540]=		single
 
-OPTIONS_AVAILABLE=	PERL_536 PERL_538
+OPTIONS_AVAILABLE=	PERL_538 PERL_540
 OPTIONS_STANDARD=	none
-VOPTS[536]=		PERL_536=ON PERL_538=OFF
-VOPTS[538]=		PERL_536=OFF PERL_538=ON
+VOPTS[538]=		PERL_538=ON PERL_540=OFF
+VOPTS[540]=		PERL_538=OFF PERL_540=ON
 
 # License listed in CPAN directory:
 # Not provided in META.yml
@@ -32,19 +32,19 @@ DISTNAME=		Pod-Abstract-${PORTVERSION}
 # ---------------------------------------------
 # |   Prerequisites extracted from META.yml
 # ---------------------------------------------
-# |           requires : File::Temp (perl 5.36.1 core) (perl 5.38.2 core)
+# |           requires : File::Temp (perl 5.38.2 core) (perl 5.40.0 core)
 # |           requires : IO::String
 # |           requires : Pod::Parser
-# |           requires : Scalar::Util (perl 5.36.1 core) (perl 5.38.2 core)
+# |           requires : Scalar::Util (perl 5.38.2 core) (perl 5.40.0 core)
 # |           requires : Task::Weaken
-# |           requires : Test::More (perl 5.36.1 core) (perl 5.38.2 core)
+# |           requires : Test::More (perl 5.38.2 core) (perl 5.40.0 core)
 
-[PERL_536].USES_ON=			perl:536,configure
-[PERL_536].BUILDRUN_DEPENDS_ON=		perl-IO-String:single:536
-					perl-Pod-Parser:single:536
-					perl-Task-Weaken:single:536
 [PERL_538].USES_ON=			perl:538,configure
 [PERL_538].BUILDRUN_DEPENDS_ON=		perl-IO-String:single:538
 					perl-Pod-Parser:single:538
 					perl-Task-Weaken:single:538
+[PERL_540].USES_ON=			perl:540,configure
+[PERL_540].BUILDRUN_DEPENDS_ON=		perl-IO-String:single:540
+					perl-Pod-Parser:single:540
+					perl-Task-Weaken:single:540
 

@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	4.11
 NAMEBASE=		perl-Onyphe
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		536 538
-SDESC[536]=		ONYPHE base class (5.36)
+VARIANTS=		538 540
 SDESC[538]=		ONYPHE base class (5.38)
+SDESC[540]=		ONYPHE base class (5.40)
 HOMEPAGE=		none
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:G/GO/GOMOR
 DISTFILE[1]=		Onyphe-${PORTVERSION}.tar.gz:main
 
-SPKGS[536]=		single
 SPKGS[538]=		single
+SPKGS[540]=		single
 
-OPTIONS_AVAILABLE=	PERL_536 PERL_538
+OPTIONS_AVAILABLE=	PERL_538 PERL_540
 OPTIONS_STANDARD=	none
-VOPTS[536]=		PERL_536=ON PERL_538=OFF
-VOPTS[538]=		PERL_536=OFF PERL_538=ON
+VOPTS[538]=		PERL_538=ON PERL_540=OFF
+VOPTS[540]=		PERL_538=OFF PERL_540=ON
 
 # License listed in CPAN directory:
 # bsd
@@ -32,35 +32,23 @@ DISTNAME=		Onyphe-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |      runtime : Carp (perl 5.36 core) (perl 5.38 core)
+# |      runtime : Carp (perl 5.38 core) (perl 5.40 core)
 # |      runtime : Config::INI::Tiny
-# |      runtime : Data::Dumper (perl 5.36 core) (perl 5.38 core)
+# |      runtime : Data::Dumper (perl 5.38 core) (perl 5.40 core)
 # |      runtime : File::Slurp
-# |      runtime : File::Temp (perl 5.36 core) (perl 5.38 core)
+# |      runtime : File::Temp (perl 5.38 core) (perl 5.40 core)
 # |      runtime : JSON::XS
 # |      runtime : LWP::Protocol::https
 # |      runtime : Mojolicious
 # |      runtime : Net::IPv4Addr
 # |      runtime : Regexp::IPv4
 # |      runtime : Regexp::IPv6
-# |      runtime : Storable (perl 5.36 core) (perl 5.38 core)
+# |      runtime : Storable (perl 5.38 core) (perl 5.40 core)
 # |      runtime : Text::CSV_XS
-# |      runtime : Text::ParseWords (perl 5.36 core) (perl 5.38 core)
+# |      runtime : Text::ParseWords (perl 5.38 core) (perl 5.40 core)
 # |      runtime : Tie::IxHash
 # |    configure : Module::Build
 
-[PERL_536].USES_ON=			perl:536,buildmod,run
-[PERL_536].BUILDRUN_DEPENDS_ON=		perl-Config-INI-Tiny:single:536
-					perl-File-Slurp:single:536
-					perl-JSON-XS:single:536
-					perl-LWP-Protocol-https:single:536
-					perl-Mojolicious:single:536
-					perl-Net-IPv4Addr:single:536
-					perl-Regexp-IPv4:single:536
-					perl-Regexp-IPv6:single:536
-					perl-Text-CSV_XS:single:536
-					perl-Tie-IxHash:single:536
-[PERL_536].BUILD_DEPENDS_ON=		perl-Module-Build:single:536
 [PERL_538].USES_ON=			perl:538,buildmod,run
 [PERL_538].BUILDRUN_DEPENDS_ON=		perl-Config-INI-Tiny:single:538
 					perl-File-Slurp:single:538
@@ -73,4 +61,16 @@ DISTNAME=		Onyphe-${PORTVERSION}
 					perl-Text-CSV_XS:single:538
 					perl-Tie-IxHash:single:538
 [PERL_538].BUILD_DEPENDS_ON=		perl-Module-Build:single:538
+[PERL_540].USES_ON=			perl:540,buildmod,run
+[PERL_540].BUILDRUN_DEPENDS_ON=		perl-Config-INI-Tiny:single:540
+					perl-File-Slurp:single:540
+					perl-JSON-XS:single:540
+					perl-LWP-Protocol-https:single:540
+					perl-Mojolicious:single:540
+					perl-Net-IPv4Addr:single:540
+					perl-Regexp-IPv4:single:540
+					perl-Regexp-IPv6:single:540
+					perl-Text-CSV_XS:single:540
+					perl-Tie-IxHash:single:540
+[PERL_540].BUILD_DEPENDS_ON=		perl-Module-Build:single:540
 

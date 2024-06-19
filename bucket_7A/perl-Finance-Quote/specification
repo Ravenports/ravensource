@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	1.62
 NAMEBASE=		perl-Finance-Quote
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		536 538
-SDESC[536]=		Get quotes from various stock exchanges (5.36)
+VARIANTS=		538 540
 SDESC[538]=		Get quotes from various stock exchanges (5.38)
+SDESC[540]=		Get quotes from various stock exchanges (5.40)
 HOMEPAGE=		https://github.com/finance-quote/finance-quote
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:B/BP/BPSCHUCK
 DISTFILE[1]=		Finance-Quote-${PORTVERSION}.tar.gz:main
 
-SPKGS[536]=		single
 SPKGS[538]=		single
+SPKGS[540]=		single
 
-OPTIONS_AVAILABLE=	PERL_536 PERL_538
+OPTIONS_AVAILABLE=	PERL_538 PERL_540
 OPTIONS_STANDARD=	none
-VOPTS[536]=		PERL_536=ON PERL_538=OFF
-VOPTS[538]=		PERL_536=OFF PERL_538=ON
+VOPTS[538]=		PERL_538=ON PERL_540=OFF
+VOPTS[540]=		PERL_538=OFF PERL_540=ON
 
 # License listed in CPAN directory:
 # gpl_2
@@ -32,12 +32,12 @@ DISTNAME=		Finance-Quote-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |      runtime : Carp (perl 5.36 core) (perl 5.38 core)
-# |      runtime : Compress::Zlib (perl 5.36 core) (perl 5.38 core)
+# |      runtime : Carp (perl 5.38 core) (perl 5.40 core)
+# |      runtime : Compress::Zlib (perl 5.38 core) (perl 5.40 core)
 # |      runtime : DateTime
 # |      runtime : DateTime::Format::Strptime
-# |      runtime : Encode (perl 5.36 core) (perl 5.38 core)
-# |      runtime : Exporter (perl 5.36 core) (perl 5.38 core)
+# |      runtime : Encode (perl 5.38 core) (perl 5.40 core)
+# |      runtime : Exporter (perl 5.38 core) (perl 5.40 core)
 # |      runtime : HTML::Entities
 # |      runtime : HTML::TableExtract
 # |      runtime : HTML::TokeParser
@@ -49,75 +49,52 @@ DISTNAME=		Finance-Quote-${PORTVERSION}
 # |      runtime : HTTP::Request
 # |      runtime : HTTP::Request::Common
 # |      runtime : HTTP::Status
-# |      runtime : IO::Handle (perl 5.36 core) (perl 5.38 core)
+# |      runtime : IO::Handle (perl 5.38 core) (perl 5.40 core)
 # |      runtime : IO::String
-# |      runtime : IO::Uncompress::Unzip (perl 5.36 core) (perl 5.38 core)
+# |      runtime : IO::Uncompress::Unzip (perl 5.38 core) (perl 5.40 core)
 # |      runtime : JSON
 # |      runtime : LWP::Protocol::http
 # |      runtime : LWP::Protocol::https
 # |      runtime : LWP::Simple
 # |      runtime : LWP::UserAgent
-# |      runtime : Module::Load (perl 5.36 core) (perl 5.38 core)
+# |      runtime : Module::Load (perl 5.38 core) (perl 5.40 core)
 # |      runtime : Mozilla::CA
-# |      runtime : POSIX (perl 5.36 core) (perl 5.38 core)
+# |      runtime : POSIX (perl 5.38 core) (perl 5.40 core)
 # |      runtime : Readonly
-# |      runtime : Scalar::Util (perl 5.36 core) (perl 5.38 core)
+# |      runtime : Scalar::Util (perl 5.38 core) (perl 5.40 core)
 # |      runtime : Spreadsheet::XLSX
 # |      runtime : String::Util
-# |      runtime : Test2 (perl 5.36 core) (perl 5.38 core)
+# |      runtime : Test2 (perl 5.38 core) (perl 5.40 core)
 # |      runtime : Text::Template
-# |      runtime : Time::Piece (perl 5.36 core) (perl 5.38 core)
-# |      runtime : Time::Seconds (perl 5.36 core) (perl 5.38 core)
+# |      runtime : Time::Piece (perl 5.38 core) (perl 5.40 core)
+# |      runtime : Time::Seconds (perl 5.38 core) (perl 5.40 core)
 # |      runtime : Try::Tiny
 # |      runtime : URI::Escape
 # |      runtime : Web::Scraper
 # |      runtime : XML::LibXML
-# |      runtime : base (perl 5.36 core) (perl 5.38 core)
-# |      runtime : constant (perl 5.36 core) (perl 5.38 core)
-# |      runtime : if (perl 5.36 core) (perl 5.38 core)
-# |      runtime : strict (perl 5.36 core) (perl 5.38 core)
-# |      runtime : utf8 (perl 5.36 core) (perl 5.38 core)
-# |      runtime : vars (perl 5.36 core) (perl 5.38 core)
-# |      runtime : warnings (perl 5.36 core) (perl 5.38 core)
-# |    configure : ExtUtils::MakeMaker (perl 5.36 core) (perl 5.38 core)
+# |      runtime : base (perl 5.38 core) (perl 5.40 core)
+# |      runtime : constant (perl 5.38 core) (perl 5.40 core)
+# |      runtime : if (perl 5.38 core) (perl 5.40 core)
+# |      runtime : strict (perl 5.38 core) (perl 5.40 core)
+# |      runtime : utf8 (perl 5.38 core) (perl 5.40 core)
+# |      runtime : vars (perl 5.38 core) (perl 5.40 core)
+# |      runtime : warnings (perl 5.38 core) (perl 5.40 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.38 core) (perl 5.40 core)
 # |         test : Date::Manip
 # |         test : Date::Range
 # |         test : Date::Simple
 # |         test : DateTime::Duration
 # |         test : DateTime::Format::ISO8601
-# |         test : File::Spec (perl 5.36 core) (perl 5.38 core)
+# |         test : File::Spec (perl 5.38 core) (perl 5.40 core)
 # |         test : Module::CPANTS::Analyse
 # |         test : String::Util
 # |         test : Test::Kwalitee
-# |         test : Test::More (perl 5.36 core) (perl 5.38 core)
+# |         test : Test::More (perl 5.38 core) (perl 5.40 core)
 # |         test : Test::Perl::Critic
 # |         test : Test::Pod
 # |         test : Test::Pod::Coverage
-# |         test : feature (perl 5.36 core) (perl 5.38 core)
+# |         test : feature (perl 5.38 core) (perl 5.40 core)
 
-[PERL_536].USES_ON=			perl:536,configure
-[PERL_536].BUILDRUN_DEPENDS_ON=		perl-DateTime:single:536
-					perl-DateTime-Format-Strptime:single:536
-					perl-HTML-Parser:single:536
-					perl-HTML-TableExtract:single:536
-					perl-HTML-Tree:single:536
-					perl-HTML-TreeBuilder-XPath:single:536
-					perl-HTTP-CookieJar:single:536
-					perl-HTTP-Cookies:single:536
-					perl-HTTP-Message:single:536
-					perl-IO-String:single:536
-					perl-JSON:single:536
-					perl-libwww-perl:single:536
-					perl-LWP-Protocol-https:single:536
-					perl-Mozilla-CA:single:536
-					perl-Readonly:single:536
-					perl-Spreadsheet-XLSX:single:536
-					perl-String-Util:single:536
-					perl-Text-Template:single:536
-					perl-Try-Tiny:single:536
-					perl-URI:single:536
-					perl-Web-Scraper:single:536
-					perl-XML-LibXML:single:536
 [PERL_538].USES_ON=			perl:538,configure
 [PERL_538].BUILDRUN_DEPENDS_ON=		perl-DateTime:single:538
 					perl-DateTime-Format-Strptime:single:538
@@ -141,4 +118,27 @@ DISTNAME=		Finance-Quote-${PORTVERSION}
 					perl-URI:single:538
 					perl-Web-Scraper:single:538
 					perl-XML-LibXML:single:538
+[PERL_540].USES_ON=			perl:540,configure
+[PERL_540].BUILDRUN_DEPENDS_ON=		perl-DateTime:single:540
+					perl-DateTime-Format-Strptime:single:540
+					perl-HTML-Parser:single:540
+					perl-HTML-TableExtract:single:540
+					perl-HTML-Tree:single:540
+					perl-HTML-TreeBuilder-XPath:single:540
+					perl-HTTP-CookieJar:single:540
+					perl-HTTP-Cookies:single:540
+					perl-HTTP-Message:single:540
+					perl-IO-String:single:540
+					perl-JSON:single:540
+					perl-libwww-perl:single:540
+					perl-LWP-Protocol-https:single:540
+					perl-Mozilla-CA:single:540
+					perl-Readonly:single:540
+					perl-Spreadsheet-XLSX:single:540
+					perl-String-Util:single:540
+					perl-Text-Template:single:540
+					perl-Try-Tiny:single:540
+					perl-URI:single:540
+					perl-Web-Scraper:single:540
+					perl-XML-LibXML:single:540
 

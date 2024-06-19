@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.9917
 NAMEBASE=		perl-Perl-PrereqScanner-NotQuiteLite
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		536 538
-SDESC[536]=		Perl code prerequisite scanner (5.36)
+VARIANTS=		538 540
 SDESC[538]=		Perl code prerequisite scanner (5.38)
+SDESC[540]=		Perl code prerequisite scanner (5.40)
 HOMEPAGE=		https://github.com/charsbar/Perl-PrereqScanner-NotQuiteLite
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:I/IS/ISHIGAKI
 DISTFILE[1]=		Perl-PrereqScanner-NotQuiteLite-${PORTVERSION}.tar.gz:main
 
-SPKGS[536]=		single
 SPKGS[538]=		single
+SPKGS[540]=		single
 
-OPTIONS_AVAILABLE=	PERL_536 PERL_538
+OPTIONS_AVAILABLE=	PERL_538 PERL_540
 OPTIONS_STANDARD=	none
-VOPTS[536]=		PERL_536=ON PERL_538=OFF
-VOPTS[538]=		PERL_536=OFF PERL_538=ON
+VOPTS[538]=		PERL_538=ON PERL_540=OFF
+VOPTS[540]=		PERL_538=OFF PERL_540=ON
 
 # License listed in CPAN directory:
 # perl_5
@@ -32,29 +32,22 @@ DISTNAME=		Perl-PrereqScanner-NotQuiteLite-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |      runtime : CPAN::Meta::Prereqs (perl 5.36 core) (perl 5.38 core)
-# |      runtime : CPAN::Meta::Requirements (perl 5.36 core) (perl 5.38 core)
+# |      runtime : CPAN::Meta::Prereqs (perl 5.38 core) (perl 5.40 core)
+# |      runtime : CPAN::Meta::Requirements (perl 5.38 core) (perl 5.40 core)
 # |      runtime : Data::Dump
-# |      runtime : Exporter (perl 5.36 core) (perl 5.38 core)
+# |      runtime : Exporter (perl 5.38 core) (perl 5.40 core)
 # |      runtime : Module::CPANfile
-# |      runtime : Module::CoreList (perl 5.36 core) (perl 5.38 core)
+# |      runtime : Module::CoreList (perl 5.38 core) (perl 5.40 core)
 # |      runtime : Module::Find
 # |      runtime : Parse::Distname
 # |      runtime : Regexp::Trie
-# |      runtime : parent (perl 5.36 core) (perl 5.38 core)
-# |        build : ExtUtils::MakeMaker (perl 5.36 core) (perl 5.38 core)
+# |      runtime : parent (perl 5.38 core) (perl 5.40 core)
+# |        build : ExtUtils::MakeMaker (perl 5.38 core) (perl 5.40 core)
 # |    configure : ExtUtils::MakeMaker::CPANfile
 # |         test : Test::FailWarnings
-# |         test : Test::More (perl 5.36 core) (perl 5.38 core)
+# |         test : Test::More (perl 5.38 core) (perl 5.40 core)
 # |         test : Test::UseAllModules
 
-[PERL_536].USES_ON=			perl:536,configure
-[PERL_536].BUILDRUN_DEPENDS_ON=		perl-Data-Dump:single:536
-					perl-Module-CPANfile:single:536
-					perl-Module-Find:single:536
-					perl-Parse-Distname:single:536
-					perl-Regexp-Trie:single:536
-[PERL_536].BUILD_DEPENDS_ON=		perl-ExtUtils-MakeMaker-CPANfile:single:536
 [PERL_538].USES_ON=			perl:538,configure
 [PERL_538].BUILDRUN_DEPENDS_ON=		perl-Data-Dump:single:538
 					perl-Module-CPANfile:single:538
@@ -62,4 +55,11 @@ DISTNAME=		Perl-PrereqScanner-NotQuiteLite-${PORTVERSION}
 					perl-Parse-Distname:single:538
 					perl-Regexp-Trie:single:538
 [PERL_538].BUILD_DEPENDS_ON=		perl-ExtUtils-MakeMaker-CPANfile:single:538
+[PERL_540].USES_ON=			perl:540,configure
+[PERL_540].BUILDRUN_DEPENDS_ON=		perl-Data-Dump:single:540
+					perl-Module-CPANfile:single:540
+					perl-Module-Find:single:540
+					perl-Parse-Distname:single:540
+					perl-Regexp-Trie:single:540
+[PERL_540].BUILD_DEPENDS_ON=		perl-ExtUtils-MakeMaker-CPANfile:single:540
 

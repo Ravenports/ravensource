@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	2.6
 NAMEBASE=		perl-FusionInventory-Agent
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		536 538
-SDESC[536]=		FusionInventory unified Agent for UNIX (5.36)
+VARIANTS=		538 540
 SDESC[538]=		FusionInventory unified Agent for UNIX (5.38)
+SDESC[540]=		FusionInventory unified Agent for UNIX (5.40)
 HOMEPAGE=		https://github.com/fusioninventory/fusioninventory-agent/
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:G/GB/GBOUGARD
 DISTFILE[1]=		FusionInventory-Agent-${PORTVERSION}.tar.gz:main
 
-SPKGS[536]=		single
 SPKGS[538]=		single
+SPKGS[540]=		single
 
-OPTIONS_AVAILABLE=	PERL_536 PERL_538
+OPTIONS_AVAILABLE=	PERL_538 PERL_540
 OPTIONS_STANDARD=	none
-VOPTS[536]=		PERL_536=ON PERL_538=OFF
-VOPTS[538]=		PERL_536=OFF PERL_538=ON
+VOPTS[538]=		PERL_538=ON PERL_540=OFF
+VOPTS[540]=		PERL_538=OFF PERL_540=ON
 
 # License listed in CPAN directory:
 # gpl
@@ -32,8 +32,8 @@ DISTNAME=		FusionInventory-Agent-${PORTVERSION}
 # ---------------------------------------------
 # |   Prerequisites extracted from META.yml
 # ---------------------------------------------
-# | configure_requires : ExtUtils::MakeMaker (perl 5.36.1 core) (perl 5.38.2 core)
-# |     build_requires : ExtUtils::MakeMaker (perl 5.36.1 core) (perl 5.38.2 core)
+# | configure_requires : ExtUtils::MakeMaker (perl 5.38.2 core) (perl 5.40.0 core)
+# |     build_requires : ExtUtils::MakeMaker (perl 5.38.2 core) (perl 5.40.0 core)
 # |     build_requires : File::Copy::Recursive
 # |     build_requires : HTTP::Proxy
 # |     build_requires : HTTP::Server::Simple
@@ -41,7 +41,7 @@ DISTNAME=		FusionInventory-Agent-${PORTVERSION}
 # |     build_requires : IO::Capture::Stderr
 # |     build_requires : IO::Socket::SSL
 # |     build_requires : IPC::Run
-# |     build_requires : JSON::PP (perl 5.36.1 core) (perl 5.38.2 core)
+# |     build_requires : JSON::PP (perl 5.38.2 core) (perl 5.40.0 core)
 # |     build_requires : LWP::Protocol::https
 # |     build_requires : Net::SNMP
 # |     build_requires : Parallel::ForkManager
@@ -50,11 +50,11 @@ DISTNAME=		FusionInventory-Agent-${PORTVERSION}
 # |     build_requires : Test::Exception
 # |     build_requires : Test::MockModule
 # |     build_requires : Test::MockObject
-# |     build_requires : Test::More (perl 5.36.1 core) (perl 5.38.2 core)
+# |     build_requires : Test::More (perl 5.38.2 core) (perl 5.40.0 core)
 # |     build_requires : Test::NoWarnings
 # |           requires : File::Which
 # |           requires : LWP::UserAgent
-# |           requires : Memoize (perl 5.36.1 core) (perl 5.38.2 core)
+# |           requires : Memoize (perl 5.38.2 core) (perl 5.40.0 core)
 # |           requires : Net::IP
 # |           requires : Text::Template
 # |           requires : UNIVERSAL::require
@@ -62,59 +62,25 @@ DISTNAME=		FusionInventory-Agent-${PORTVERSION}
 # |           requires : XML::XPath
 # |           requires : YAML::Tiny
 # |         recommends : Archive::Extract
-# |         recommends : Compress::Zlib (perl 5.36.1 core) (perl 5.38.2 core)
+# |         recommends : Compress::Zlib (perl 5.38.2 core) (perl 5.40.0 core)
 # |         recommends : DateTime
-# |         recommends : Digest::SHA (perl 5.36.1 core) (perl 5.38.2 core)
+# |         recommends : Digest::SHA (perl 5.38.2 core) (perl 5.40.0 core)
 # |         recommends : File::Copy::Recursive
 # |         recommends : HTTP::Daemon
 # |         recommends : IO::Socket::SSL
-# |         recommends : JSON::PP (perl 5.36.1 core) (perl 5.38.2 core)
+# |         recommends : JSON::PP (perl 5.38.2 core) (perl 5.40.0 core)
 # |         recommends : LWP::Protocol::https
 # |         recommends : Net::CUPS
 # |         recommends : Net::NBName
-# |         recommends : Net::Ping (perl 5.36.1 core) (perl 5.38.2 core)
+# |         recommends : Net::Ping (perl 5.38.2 core) (perl 5.40.0 core)
 # |         recommends : Net::SNMP
 # |         recommends : Net::Write::Layer2
 # |         recommends : Parallel::ForkManager
 # |         recommends : Parse::EDID
 # |         recommends : Proc::Daemon
-# |         recommends : Thread::Queue (perl 5.36.1 core) (perl 5.38.2 core)
+# |         recommends : Thread::Queue (perl 5.38.2 core) (perl 5.40.0 core)
 # |         recommends : URI::Escape
 
-[PERL_536].USES_ON=			perl:536,configure
-[PERL_536].BUILDRUN_DEPENDS_ON=		perl-File-Which:single:536
-					perl-libwww-perl:single:536
-					perl-Net-IP:single:536
-					perl-Text-Template:single:536
-					perl-UNIVERSAL-require:single:536
-					perl-XML-TreePP:single:536
-					perl-XML-XPath:single:536
-					perl-YAML-Tiny:single:536
-					perl-Archive-Extract:single:536
-					perl-DateTime:single:536
-					perl-File-Copy-Recursive:single:536
-					perl-HTTP-Daemon:single:536
-					perl-IO-Socket-SSL:single:536
-					perl-LWP-Protocol-https:single:536
-					perl-Net-CUPS:single:536
-					perl-Net-NBName:single:536
-					perl-Net-SNMP:single:536
-					perl-Net-Write:single:536
-					perl-Parallel-ForkManager:single:536
-					perl-Parse-EDID:single:536
-					perl-Proc-Daemon:single:536
-					perl-URI:single:536
-[PERL_536].BUILD_DEPENDS_ON=		perl-HTTP-Proxy:single:536
-					perl-HTTP-Server-Simple:single:536
-					perl-HTTP-Server-Simple-Authen:single:536
-					perl-IO-Capture:single:536
-					perl-IPC-Run:single:536
-					perl-Test-Compile:single:536
-					perl-Test-Deep:single:536
-					perl-Test-Exception:single:536
-					perl-Test-MockModule:single:536
-					perl-Test-MockObject:single:536
-					perl-Test-NoWarnings:single:536
 [PERL_538].USES_ON=			perl:538,configure
 [PERL_538].BUILDRUN_DEPENDS_ON=		perl-File-Which:single:538
 					perl-libwww-perl:single:538
@@ -149,4 +115,38 @@ DISTNAME=		FusionInventory-Agent-${PORTVERSION}
 					perl-Test-MockModule:single:538
 					perl-Test-MockObject:single:538
 					perl-Test-NoWarnings:single:538
+[PERL_540].USES_ON=			perl:540,configure
+[PERL_540].BUILDRUN_DEPENDS_ON=		perl-File-Which:single:540
+					perl-libwww-perl:single:540
+					perl-Net-IP:single:540
+					perl-Text-Template:single:540
+					perl-UNIVERSAL-require:single:540
+					perl-XML-TreePP:single:540
+					perl-XML-XPath:single:540
+					perl-YAML-Tiny:single:540
+					perl-Archive-Extract:single:540
+					perl-DateTime:single:540
+					perl-File-Copy-Recursive:single:540
+					perl-HTTP-Daemon:single:540
+					perl-IO-Socket-SSL:single:540
+					perl-LWP-Protocol-https:single:540
+					perl-Net-CUPS:single:540
+					perl-Net-NBName:single:540
+					perl-Net-SNMP:single:540
+					perl-Net-Write:single:540
+					perl-Parallel-ForkManager:single:540
+					perl-Parse-EDID:single:540
+					perl-Proc-Daemon:single:540
+					perl-URI:single:540
+[PERL_540].BUILD_DEPENDS_ON=		perl-HTTP-Proxy:single:540
+					perl-HTTP-Server-Simple:single:540
+					perl-HTTP-Server-Simple-Authen:single:540
+					perl-IO-Capture:single:540
+					perl-IPC-Run:single:540
+					perl-Test-Compile:single:540
+					perl-Test-Deep:single:540
+					perl-Test-Exception:single:540
+					perl-Test-MockModule:single:540
+					perl-Test-MockObject:single:540
+					perl-Test-NoWarnings:single:540
 

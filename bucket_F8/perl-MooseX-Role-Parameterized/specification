@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	1.11
 NAMEBASE=		perl-MooseX-Role-Parameterized
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		536 538
-SDESC[536]=		Moose roles with composition parameters (5.36)
+VARIANTS=		538 540
 SDESC[538]=		Moose roles with composition parameters (5.38)
+SDESC[540]=		Moose roles with composition parameters (5.40)
 HOMEPAGE=		https://github.com/moose/MooseX-Role-Parameterized
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:E/ET/ETHER
 DISTFILE[1]=		MooseX-Role-Parameterized-${PORTVERSION}.tar.gz:main
 
-SPKGS[536]=		single
 SPKGS[538]=		single
+SPKGS[540]=		single
 
-OPTIONS_AVAILABLE=	PERL_536 PERL_538
+OPTIONS_AVAILABLE=	PERL_538 PERL_540
 OPTIONS_STANDARD=	none
-VOPTS[536]=		PERL_536=ON PERL_538=OFF
-VOPTS[538]=		PERL_536=OFF PERL_538=ON
+VOPTS[538]=		PERL_538=ON PERL_540=OFF
+VOPTS[540]=		PERL_538=OFF PERL_540=ON
 
 # License listed in CPAN directory:
 # perl_5
@@ -32,7 +32,7 @@ DISTNAME=		MooseX-Role-Parameterized-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |      runtime : Carp (perl 5.36 core) (perl 5.38 core)
+# |      runtime : Carp (perl 5.38 core) (perl 5.40 core)
 # |      runtime : Module::Runtime
 # |      runtime : Moose
 # |      runtime : Moose::Exporter
@@ -41,35 +41,35 @@ DISTNAME=		MooseX-Role-Parameterized-${PORTVERSION}
 # |      runtime : Moose::Util
 # |      runtime : namespace::autoclean
 # |      runtime : namespace::clean
-# |      runtime : strict (perl 5.36 core) (perl 5.38 core)
-# |      runtime : warnings (perl 5.36 core) (perl 5.38 core)
-# |    configure : ExtUtils::MakeMaker (perl 5.36 core) (perl 5.38 core)
+# |      runtime : strict (perl 5.38 core) (perl 5.40 core)
+# |      runtime : warnings (perl 5.38 core) (perl 5.40 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.38 core) (perl 5.40 core)
 # |    configure : Module::Build::Tiny
 # |         test : CPAN::Meta::Check
-# |         test : CPAN::Meta::Requirements (perl 5.36 core) (perl 5.38 core)
-# |         test : Data::Dumper (perl 5.36 core) (perl 5.38 core)
-# |         test : File::Spec (perl 5.36 core) (perl 5.38 core)
-# |         test : Module::Metadata (perl 5.36 core) (perl 5.38 core)
+# |         test : CPAN::Meta::Requirements (perl 5.38 core) (perl 5.40 core)
+# |         test : Data::Dumper (perl 5.38 core) (perl 5.40 core)
+# |         test : File::Spec (perl 5.38 core) (perl 5.40 core)
+# |         test : Module::Metadata (perl 5.38 core) (perl 5.40 core)
 # |         test : Moose::Util::TypeConstraints
-# |         test : Storable (perl 5.36 core) (perl 5.38 core)
+# |         test : Storable (perl 5.38 core) (perl 5.40 core)
 # |         test : Test::Fatal
 # |         test : Test::Moose
-# |         test : Test::More (perl 5.36 core) (perl 5.38 core)
+# |         test : Test::More (perl 5.38 core) (perl 5.40 core)
 # |         test : Test::Needs
-# |         test : lib (perl 5.36 core) (perl 5.38 core)
-# |         test : overload (perl 5.36 core) (perl 5.38 core)
-# |         test : CPAN::Meta (perl 5.36 core) (perl 5.38 core)
+# |         test : lib (perl 5.38 core) (perl 5.40 core)
+# |         test : overload (perl 5.38 core) (perl 5.40 core)
+# |         test : CPAN::Meta (perl 5.38 core) (perl 5.40 core)
 
-[PERL_536].USES_ON=			perl:536,buildmodtiny,run
-[PERL_536].BUILDRUN_DEPENDS_ON=		perl-Module-Runtime:single:536
-					perl-Moose:single:536
-					perl-namespace-autoclean:single:536
-					perl-namespace-clean:single:536
-[PERL_536].BUILD_DEPENDS_ON=		perl-Module-Build-Tiny:single:536
 [PERL_538].USES_ON=			perl:538,buildmodtiny,run
 [PERL_538].BUILDRUN_DEPENDS_ON=		perl-Module-Runtime:single:538
 					perl-Moose:single:538
 					perl-namespace-autoclean:single:538
 					perl-namespace-clean:single:538
 [PERL_538].BUILD_DEPENDS_ON=		perl-Module-Build-Tiny:single:538
+[PERL_540].USES_ON=			perl:540,buildmodtiny,run
+[PERL_540].BUILDRUN_DEPENDS_ON=		perl-Module-Runtime:single:540
+					perl-Moose:single:540
+					perl-namespace-autoclean:single:540
+					perl-namespace-clean:single:540
+[PERL_540].BUILD_DEPENDS_ON=		perl-Module-Build-Tiny:single:540
 
