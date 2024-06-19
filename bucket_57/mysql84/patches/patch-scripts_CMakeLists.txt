@@ -1,0 +1,76 @@
+--- scripts/CMakeLists.txt.orig	2024-04-10 06:26:28 UTC
++++ scripts/CMakeLists.txt
+@@ -275,11 +275,7 @@ IF(MY_COMPILER_IS_GNU_OR_CLANG)
+   STRING(REGEX REPLACE "-std=c..[0-9]+" "" CXXFLAGS "${CXXFLAGS}")
+ ENDIF()
+ 
+-IF(FREEBSD)
+-  SET (PERL_PATH "/usr/local/bin/perl")
+-ELSE()
+-  SET (PERL_PATH "/usr/bin/perl")
+-ENDIF()
++  SET (PERL_PATH "@LOCALBASE@/bin/perl")
+ 
+ IF(UNIX)
+   # SHELL_PATH, FIND_PROC, CHECK_PID are used by mysqld_safe
+@@ -298,14 +294,9 @@ IF(UNIX)
+       "ps -p $PID | grep -v mysqld_safe | grep -- $MYSQLD > /dev/null")
+   ENDIF()
+ 
+-  IF(NOT FIND_PROC)
+-    # BSD style
+-    EXECUTE_PROCESS(COMMAND ps -uaxww
+-      OUTPUT_QUIET ERROR_QUIET RESULT_VARIABLE result)
+-    IF(result MATCHES 0)
++IF(NOT FIND_PROC AND CMAKE_SYSTEM_NAME MATCHES "DragonFly|FreeBSD|MidnightBSD")
+       SET( FIND_PROC
+         "ps -uaxww | grep -v mysqld_safe | grep -- $MYSQLD | grep $PID > /dev/null")
+-    ENDIF()
+   ENDIF()
+ 
+   IF(NOT FIND_PROC)
+@@ -341,7 +332,7 @@ SET(pkglibdir ${prefix}/${INSTALL_LIBDIR
+ SET(pkgplugindir ${prefix}/${INSTALL_PLUGINDIR})
+ SET(localstatedir ${MYSQL_DATADIR})
+ 
+-IF(SOLARIS)
++IF(TRUE)
+   SET(RPATH_OPTION " -R$pkglibdir")
+ ENDIF()
+ 
+@@ -411,6 +402,8 @@ MACRO(EXTRACT_LINK_LIBRARIES target var)
+           SET(${var} "${${var}}-L${dir} " )
+         ENDIF()
+         SET(${var} "${${var}}-l${lib} " )
++      ELSEIF(lib STREQUAL "-pthread")
++        SET(${var} "${${var}}-pthread " )
+       ELSE()
+         SET(${var} "${${var}}-l${lib} " )
+       ENDIF()
+@@ -437,17 +430,6 @@ SET(CONFIG_CLIENT_LIBS "${CLIENT_LIBS}")
+ SET(CONFIG_LIBS_PRIVATE "${CLIENT_LIBS}")
+ SET(CONFIG_REQUIRES_PRIVATE "")
+ 
+-IF (WITH_SSL STREQUAL "system")
+-  # We have implemented "system" for other platforms as well, but those
+-  # are non-native packages.
+-  IF(LINUX OR SOLARIS OR FREEBSD)
+-    SET(CONFIG_REQUIRES_PRIVATE "openssl")
+-    STRING(REPLACE "-lssl" "" CONFIG_LIBS_PRIVATE "${CONFIG_LIBS_PRIVATE}")
+-    STRING(REPLACE "-lcrypto" "" CONFIG_LIBS_PRIVATE "${CONFIG_LIBS_PRIVATE}")
+-    STRING(REGEX REPLACE "[ ]+" " " CONFIG_LIBS_PRIVATE
+-      "${CONFIG_LIBS_PRIVATE}")
+-  ENDIF()
+-ENDIF()
+ 
+ MESSAGE(STATUS "CONFIG_CLIENT_LIBS ${CONFIG_CLIENT_LIBS}")
+ MESSAGE(STATUS "CONFIG_LIBS_PRIVATE ${CONFIG_LIBS_PRIVATE}")
+@@ -513,7 +495,7 @@ ELSE()
+   FOREACH(file ${BIN_SCRIPTS})
+     IF(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/${file}.sh)
+       CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/${file}.sh
+-        ${CMAKE_CURRENT_BINARY_DIR}/${file} ESCAPE_QUOTES @ONLY
++        ${CMAKE_CURRENT_BINARY_DIR}/${file} @ONLY
+         )
+     ELSEIF(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/${file}.pl.in)
+       CONFIGURE_FILE(${CMAKE_CURRENT_SOURCE_DIR}/${file}.pl.in

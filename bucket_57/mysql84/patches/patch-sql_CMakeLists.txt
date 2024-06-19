@@ -1,0 +1,26 @@
+--- sql/CMakeLists.txt.orig	2024-04-10 06:26:28 UTC
++++ sql/CMakeLists.txt
+@@ -647,6 +647,10 @@ IF(BUILD_IS_SINGLE_CONFIG)
+   ENDIF()
+ ENDIF()
+ 
++IF(NOT HAVE_FFSLL)
++LIST(APPEND SQL_SHARED_SOURCES ffsll.cc)
++ENDIF()
++
+ # BISON_TARGET(<Name> <YaccInput> <CodeOutput>
+ #              [COMPILE_FLAGS <flags>]
+ #              [DEFINES_FILE <file>]
+@@ -741,10 +745,10 @@ ENDIF()
+ IF(LINUX)
+   LIST(APPEND SQL_SHARED_SOURCES
+     resourcegroups/platform/thread_attrs_api_linux.cc)
+-ELSEIF(APPLE)
++ELSEIF(APPLE OR CMAKE_SYSTEM_NAME MATCHES "(DragonFly|NetBSD)")
+   LIST(APPEND SQL_SHARED_SOURCES
+     resourcegroups/platform/thread_attrs_api_apple.cc)
+-ELSEIF(FREEBSD)
++ELSEIF(CMAKE_SYSTEM_NAME MATCHES "FreeBSD|MidnightBSD")
+   LIST(APPEND SQL_SHARED_SOURCES
+     resourcegroups/platform/thread_attrs_api_freebsd.cc)
+ ELSEIF(SOLARIS)
