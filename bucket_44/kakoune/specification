@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2023.08.05
+DEF[PORTVERSION]=	2024.05.18
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		kakoune
@@ -29,6 +29,7 @@ USES=			c++:primary gmake ncurses
 # kakoune's makefile can not detect g++ using "c++ --version"
 CXXFLAGS=		-I{{NCURSESINC}} -Wno-init-list-lifetime
 MAKE_ARGS=		debug=no static=no
+			PREFIX={{PREFIX}}
 MAKE_ENV=		CXX="{{CXX}}"
 MANDIRS=		{{PREFIX}}/share/kak/man/man1
 
