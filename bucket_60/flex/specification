@@ -16,7 +16,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/westes/flex/releases/download/v${PORTVERSION}/
 DISTFILE[1]=		flex-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary examples nls
+SPKGS[standard]=	complete primary examples nls info
 SPKGS[ravensys]=	primary
 
 OPTIONS_AVAILABLE=	RAVENSYS
@@ -33,7 +33,6 @@ BUILD_DEPENDS=		help2man:single:standard
 BUILDRUN_DEPENDS=	m4:primary:standard
 
 USES=			bison gmake libtool mbsdfix
-INFO=			primary:flex
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--includedir={{PREFIX}}/include/flex
 CONFIGURE_ENV=		M4={{LOCALBASE}}/bin/gm4
@@ -45,6 +44,7 @@ VAR_OPSYS[netbsd]=	CONFIGURE_ENV=ac_cv_func_reallocarray=no
 
 [RAVENSYS].DESCRIPTION=			For ravensys-root - built without NLS
 [RAVENSYS].USES_OFF=			gettext
+[RAVENSYS].INFO_OFF=			info:flex
 [RAVENSYS].CONFIGURE_ARGS_OFF=		--enable-nls
 					--enable-shared
 [RAVENSYS].CONFIGURE_ARGS_ON=		--disable-nls

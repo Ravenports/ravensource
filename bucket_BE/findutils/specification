@@ -16,8 +16,8 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNU/findutils
 DISTFILE[1]=		findutils-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary nls
-SPKGS[noprefix]=	complete primary nls
+SPKGS[standard]=	complete primary nls info
+SPKGS[noprefix]=	complete primary nls info
 SPKGS[ravensys]=	primary
 
 OPTIONS_AVAILABLE=	NOTSTD RAVENSYS
@@ -38,8 +38,6 @@ USES=			charsetfix cpe gmake
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--localstatedir="${LOCALSTATEDIR}"
 MAKE_ARGS=		INSTALL_SCRIPT="{{INSTALL_SCRIPT}}"
-INFO=			primary:find
-			primary:find-maint
 CPE_VENDOR=		gnu
 
 # All platforms except for Darwin build properly
@@ -53,6 +51,8 @@ CPE_VENDOR=		gnu
 
 [RAVENSYS].DESCRIPTION=			For ravensys-root - built without NLS
 [RAVENSYS].USES_OFF=			gettext
+[RAVENSYS].INFO_OFF=			info:find
+					info:find-maint
 [RAVENSYS].CONFIGURE_ARGS_OFF=		--enable-nls
 [RAVENSYS].CONFIGURE_ARGS_ON=		--disable-nls
 

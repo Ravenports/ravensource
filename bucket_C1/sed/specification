@@ -15,7 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNU/sed
 DISTFILE[1]=		sed-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary nls
+SPKGS[standard]=	complete primary nls info
 SPKGS[ravensys]=	primary
 
 OPTIONS_AVAILABLE=	RAVENSYS
@@ -33,7 +33,6 @@ FPC_EQUIVALENT=		textproc/gsed
 
 USES=			cpe charsetfix gmake
 CPE_VENDOR=		gnu
-INFO=			primary:sed
 MUST_CONFIGURE=		gnu
 
 # All platforms except for Darwin build properly
@@ -47,6 +46,7 @@ MUST_CONFIGURE=		gnu
 [RAVENSYS].CONFIGURE_ARGS_OFF=		--program-prefix=g
 					--enable-nls
 [RAVENSYS].CONFIGURE_ARGS_ON=		--disable-nls
+[RAVENSYS].INFO_OFF=			info:sed
 
 post-patch-darwin:
 	${REINPLACE_CMD} -e "s|'cr'|'Scr'|" ${WRKSRC}/configure

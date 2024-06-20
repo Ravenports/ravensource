@@ -15,7 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNUPG/gpgme
 DISTFILE[1]=		gpgme-${PORTVERSION}.tar.bz2:main
 
-SPKGS[standard]=	complete primary tools cpp dev cppdev
+SPKGS[standard]=	complete primary tools cpp dev cppdev info
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -54,7 +54,7 @@ CONFIGURE_ARGS=		--enable-languages="cl cpp"
 SOVERSION=		${SOVERSION}
 PLIST_SUB=		CPP_SOMAJOR=${CPP_SOVERSION:R:R}
 			CPP_SOVERSION=${CPP_SOVERSION}
-INFO=			primary:gpgme
+INFO=			info:gpgme
 
 post-patch:
 	${REINPLACE_CMD} -e 's|^clfilesdir.*|clfilesdir=$$\(libdir\)/common-lisp/gpgme|g' \

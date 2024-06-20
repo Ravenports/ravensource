@@ -13,7 +13,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNU/nano
 DISTFILE[1]=		nano-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary docs nls
+SPKGS[standard]=	complete primary docs nls info
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -38,7 +38,7 @@ CONFIGURE_ARGS=		--enable-utf8
 CONFIGURE_ENV=		LIBS=-ltinfo CURSES_LIB_WIDE=yes
 MAKE_ARGS=		install_htmlmanDATA=install-htmlmanDATA
 CPPFLAGS=		-I{{NCURSESINC}}
-INFO=			primary:nano
+INFO=			info:nano
 
 post-extract:
 	# LICENSE_AWK writes to all defined terms, so create them manually

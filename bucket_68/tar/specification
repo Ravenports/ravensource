@@ -14,8 +14,8 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNU/tar
 DISTFILE[1]=		tar-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary nls man
-SPKGS[noprefix]=	complete primary nls man
+SPKGS[standard]=	complete primary nls man info
+SPKGS[noprefix]=	complete primary nls man info
 
 OPTIONS_AVAILABLE=	NOPREFIX
 OPTIONS_STANDARD=	none
@@ -37,7 +37,7 @@ CONFIGURE_ARGS=		--enable-nls
 CONFIGURE_ENV=		DEFAULT_ARCHIVE=/dev/sa0
 			DEFAULT_RMT_COMMAND=/etc/rmt
 			gl_cv_func_mknod_works=yes
-INFO=			primary:tar
+INFO=			info:tar
 
 [NOPREFIX].DESCRIPTION=			Build without prefixing all programs with "g"
 [NOPREFIX].CONFIGURE_ARGS_OFF=		--program-prefix=g

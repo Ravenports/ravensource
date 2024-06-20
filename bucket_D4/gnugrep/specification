@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNU/grep
 DISTFILE[1]=		grep-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary nls man
+SPKGS[standard]=	complete primary nls man info
 SPKGS[ravensys]=	complete primary man
 
 OPTIONS_AVAILABLE=	RAVENSYS
@@ -33,13 +33,13 @@ FPC_EQUIVALENT=		textproc/gnugrep
 USES=			charsetfix cpe pcre2:build
 DISTNAME=		grep-${PORTVERSION}
 MUST_CONFIGURE=		gnu
-INFO=			primary:grep
 CPE_VENDOR=		gnu
 CPE_PRODUCT=		grep
 CONFIGURE_ARGS=		--enable-perl-regexp
 
 [RAVENSYS].DESCRIPTION=			For ravensys-root - built without NLS
 [RAVENSYS].USES_OFF=			gettext
+[RAVENSYS].INFO_OFF=			info:grep
 [RAVENSYS].BUILDRUN_DEPENDS_OFF=	pcre2:primary:standard
 [RAVENSYS].BUILD_DEPENDS_ON=		pcre2:primary:standard
 [RAVENSYS].CONFIGURE_ARGS_OFF=		--enable-nls

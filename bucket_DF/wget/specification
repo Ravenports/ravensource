@@ -13,7 +13,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNU/wget
 DISTFILE[1]=		wget-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary docs nls
+SPKGS[standard]=	complete primary docs nls info
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -47,7 +47,7 @@ CONFIGURE_ARGS=		--with-ssl=openssl
 			--with-libidn={{LOCALBASE}}
 			--with-libunistring-prefix={{LOCALBASE}}
 CONFIGURE_ENV=		MAKEINFO="{{MAKEINFO}}"
-INFO=			primary:wget
+INFO=			info:wget
 
 post-patch:
 	${REINPLACE_CMD} -e 's,WGETRC = $$(sysconfdir)/wgetrc,&.sample,' \
