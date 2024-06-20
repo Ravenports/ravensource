@@ -14,14 +14,14 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNU/bc
 DISTFILE[1]=		bc-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary man info
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv3+:single
+LICENSE=		GPLv3+:primary
 LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/dc/dc.h
 LICENSE_SCHEME=		solo
@@ -32,4 +32,5 @@ USES=			makeinfo readline shebangfix
 SHEBANG_ADD_SH=		bc/fix-libmath_h
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-readline
-INFO=			single:bc single:dc
+INFO=			info:bc
+			info:dc
