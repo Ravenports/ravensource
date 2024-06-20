@@ -1,4 +1,4 @@
---- lib/tsan/sanitizer_common/sanitizer_freebsd.h.orig	2024-04-19 21:00:35 UTC
+--- lib/tsan/sanitizer_common/sanitizer_freebsd.h.orig	2024-06-06 19:05:11 UTC
 +++ lib/tsan/sanitizer_common/sanitizer_freebsd.h
 @@ -19,8 +19,7 @@
  // x86-64 FreeBSD 9.2 and older define 'ucontext_t' incorrectly in

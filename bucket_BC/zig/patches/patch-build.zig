@@ -1,6 +1,6 @@
---- build.zig.orig	2024-04-19 21:00:35 UTC
+--- build.zig.orig	2024-06-06 19:05:11 UTC
 +++ build.zig
-@@ -723,25 +723,14 @@ fn addCmakeCfgOptionsToExe(
+@@ -714,25 +714,14 @@ fn addCmakeCfgOptionsToExe(
              .windows => {
                  if (exe.rootModuleTarget().abi != .msvc) exe.linkLibCpp();
              },
