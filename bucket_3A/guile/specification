@@ -15,14 +15,14 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNU/guile
 DISTFILE[1]=		guile-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev man info
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		LGPL21+:single
+LICENSE=		LGPL21+:primary
 LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING.LESSER
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/libguile/guile.c
 LICENSE_SCHEME=		solo
@@ -47,8 +47,8 @@ INSTALL_REQ_TOOLCHAIN=	yes
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-nls
 			--with-threads
-INFO=			single:guile
-			single:r5rs
+INFO=			info:guile
+			info:r5rs
 PLIST_SUB=		GUILE_VER=${PORTVERSION:R}
 			RLSOVERSION=${RLSOVERSION}
 			RLSOMAJOR=${RLSOVERSION:R:R}
