@@ -6,21 +6,20 @@ django-rich
 
 Extensions for using [Rich] with Django.
 
+----
+
+**Work smarter and faster** with my book [Boost Your Django DX] which
+covers many ways to improve your development experience.
+I wrote django-rich whilst working on the book!
+
+----
+
 Requirements
 ------------
 
 Python 3.8 to 3.12 supported.
 
-Django 3.2 to 5.0 supported.
-
-----
-
-**Want to work smarter and faster?**
-Check out my book [Boost Your Django DX] which covers many ways to improve
-your development experience.
-I wrote django-rich whilst working on the book!
-
-----
+Django 3.2 to 5.1 supported.
 
 Installation
 ------------
@@ -54,15 +53,24 @@ https://docs.djangoproject.com/en/stable/howto/custom-management-commands/#djang
 .. |Console| replace:: Console
 __ https://rich.readthedocs.io/en/stable/console.html
 
-You can use ``self.console`` like so:
+Use the features of ``self.console`` as you like:
 
 .. code-block:: python
+
+    from time import sleep
 
     from django_rich.management import RichCommand
 
     class Command(RichCommand):
         def handle(self, *args, **options):
-            self.console.print("[bold red]Alert![/bold red]")
+            self.console.print("[bold blue]Frobnicating widgets:[/bold
+blue]")
+
+            with self.console.status("Starting...") as status:
+                for i in range(1, 11):
+                    status.update(f"Widget {i}...")
+                    sleep(1)
+                    self.console.log(f"Widget {i} frobnicated.")
 
 You can customize the construction of the Console by overriding the
 make_rich_console class attribute.
@@ -90,11 +98,3 @@ __ https://docs.python.org/3/library/functools.html#functools.partial
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 A subclass of Django's |DiscoverRunner|__ with colourized outputs and [nice
-traceback rendering].
-
-.. image::
-https://raw.githubusercontent.com/adamchainz/django-rich/main/img/RichRunner.png
-
-.. |DiscoverRunner| replace:: DiscoverRunner
-__
-https://docs.djangoproject.com/en/stable/topics/testing/advanced/#defining-a-test-runner
