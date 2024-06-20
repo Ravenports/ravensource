@@ -4,7 +4,7 @@ DEF[WORKVERSION]=	1.4.0
 
 NAMEBASE=		aalib
 VERSION=		${PORTVERSION}
-REVISION=		3
+REVISION=		4
 KEYWORDS=		graphics
 VARIANTS=		standard
 SDESC[standard]=	ASCII art library
@@ -15,19 +15,21 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		SF/aa-project/aa-lib/${PORTVERSION}
 DISTFILE[1]=		aalib-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev tools man info
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv2:single
+LICENSE=		GPLv2:primary
 LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^\#ifndef"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/aalib.h
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		graphics/aalib
+
+EXRUN[tools]=		primary
 
 USES=			libtool ncurses makeinfo fbsd10fix
 DISTNAME=		aalib-${WORKVERSION}
@@ -36,7 +38,7 @@ CONFIGURE_ARGS=		--with-x=no
 			--with-ncurses={{LOCALBASE}}
 CFLAGS=			-I{{NCURSESINC}}
 INSTALL_TARGET=		install-strip
-INFO=			single:aalib
+INFO=			info:aalib
 
 post-extract:
 	${RM} ${WRKSRC}/doc/aalib.info*
