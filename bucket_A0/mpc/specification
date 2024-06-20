@@ -14,24 +14,24 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNU/mpc
 DISTFILE[1]=		mpc-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete static shared
+SPKGS[standard]=	complete primary dev info
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		math/mpc
 
-BUILD_DEPENDS=		gmp:complete:standard
-			mpfr:complete:standard
-EXRUN[shared]=		gmp:shared:standard
-			mpfr:shared:standard
+BUILD_DEPENDS=		gmp:dev:standard
+			mpfr:dev:standard
+BUILDRUN_DEPENDS=	gmp:primary:standard
+			mpfr:primary:standard
 
 USES=			libtool
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-gmp={{LOCALBASE}}
 			--with-mpfr={{LOCALBASE}}
 INSTALL_TARGET=		install-strip
-INFO=			static:mpc
+INFO=			info:mpc
 SOVERSION=		${SOVERSION}
 
 do-test:

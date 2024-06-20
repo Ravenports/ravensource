@@ -5,6 +5,7 @@ DEF[LIBGMPXX_VER]=	4.7.0
 
 NAMEBASE=		gmp
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		math devel
 VARIANTS=		standard
 SDESC[standard]=	Free library for arbitrary precision arithmetic
@@ -15,30 +16,30 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNU/gmp
 DISTFILE[1]=		gmp-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete static shared
+SPKGS[standard]=	complete primary dev info
 
 OPTIONS_AVAILABLE=	ASM
 OPTIONS_STANDARD=	ASM
 
-LICENSE=		LGPL3+:static
-			GPLv2+:static
+LICENSE=		LGPL3+:primary
+			GPLv2+:primary
 LICENSE_FILE=		LGPL3+:{{WRKSRC}}/COPYING.LESSERv3
 			GPLv2+:{{WRKSRC}}/COPYINGv2
-LICENSE_TERMS=		static:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"__GMP_H__"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/gmp-h.in
 LICENSE_SCHEME=		dual
 
 FPC_EQUIVALENT=		math/gmp
 
-USES=			cpe libtool mbsdfix c++:shared
+USES=			cpe libtool mbsdfix c++:primary
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--prefix={{PREFIX}}
 			--infodir={{PREFIX}}/share/info
 			--mandir={{MANPREFIX}}/man
 			--build={{CONFIGURE_TARGET}}
 			--enable-cxx
-INFO=			static:gmp
+INFO=			info:gmp
 INSTALL_REQ_TOOLCHAIN=	yes
 INSTALL_TARGET=		install-strip
 TEST_TARGET=		check
