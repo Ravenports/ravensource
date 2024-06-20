@@ -14,22 +14,22 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/hyperrealm:libconfig:v${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev info
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		LGPL21+:single
+LICENSE=		LGPL21+:primary
 LICENSE_FILE=		LGPL21+:{{WRKSRC}}/LICENSE
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"__libconfig_h"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/lib/libconfig.h
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/libconfig
 
-USES=			autoreconf libtool makeinfo c++:single
+USES=			autoreconf libtool makeinfo c++:primary
 MUST_CONFIGURE=		gnu
-INFO=			single:libconfig
+INFO=			info:libconfig
 INSTALL_TARGET=		install-strip
 SOVERSION=		${SOVERSION}
