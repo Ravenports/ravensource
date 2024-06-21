@@ -4,6 +4,7 @@ DEF[SOVERSION]=		20.5.0
 
 NAMEBASE=		libgcrypt
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		security
 VARIANTS=		standard
 SDESC[standard]=	General purpose crypto library based on GnuPG
@@ -49,3 +50,7 @@ SOVERSION=		${SOVERSION}
 
 post-patch:
 	${RM} ${WRKSRC}/doc/gcrypt.info*
+
+post-install:
+	# not sure why this stopped being installed
+	${INSTALL_SCRIPT} ${WRKSRC}/src/libgcrypt-config ${STAGEDIR}${PREFIX}/bin/
