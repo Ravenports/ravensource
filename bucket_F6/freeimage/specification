@@ -1,5 +1,6 @@
 DEF[PORTVERSION]=	3.18.0
 DEF[DISTVERSION]=	3180
+DEF[SOVERSION]=		3.18.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		freeimage
@@ -53,8 +54,9 @@ SUB_LIST=		VERSION="${PORTVERSION}"
 CFLAGS=			-std=c++14 -DPNG_ARM_NEON_OPT=0 -fexceptions -fvisibility=hidden -fPIC
 CXXFLAGS=		-std=c++14 -DPNG_ARM_NEON_OPT=0 -fexceptions -fvisibility=hidden -fPIC
 MAKE_ARGS=		CC="{{CC}}" CPP="{{CPP}}" CXX="{{CXX}}"
+SOVERSION=		${SOVERSION}
 
-post-patch:
+pre-configure:
 		${REINPLACE_CMD} -e 's|/usr|${PREFIX}| ; s|-o root -g root || ; \
 			/^-fPIC/d' ${WRKSRC}/Makefile.gnu ${WRKSRC}/Makefile.fip
 
