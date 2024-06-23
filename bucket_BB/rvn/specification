@@ -1,0 +1,64 @@
+DEF[PORTVERSION]=	0.1.0
+DEF[TAG]=		v0.2.1
+DEF[FORMAT_TAG]=	v2.4
+DEF[SQLITE_VER]=	3.44.2
+DEF[SQLITE_LONGVER]=	${SQLITE_VER:S/.//:S/./0/}00
+DEF[SQLITE_YEAR]=	2023
+DEF[PY3_DEFAULT]=	EXTRACT_VERSION(PYTHON3_DEFAULT)
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		rvn
+VERSION=		${PORTVERSION}
+KEYWORDS=		raven
+VARIANTS=		standard
+SDESC[standard]=	Ravenports binary package manager
+HOMEPAGE=		https://github.com/ravenports/rvn
+CONTACT=		John_Marino[draco@marino.st]
+
+DOWNLOAD_GROUPS=	main sqlite format
+SITES[main]=		GITHUB/ravenports:rvn:${TAG}
+SITES[format]=		GITHUB/ravenports:rvn-format:${FORMAT_TAG}:src/rvn-format
+SITES[sqlite]=		https://www.sqlite.org/${SQLITE_YEAR}/
+			http://www2.sqlite.org/${SQLITE_YEAR}/
+DISTFILE[1]=		generated:main
+DISTFILE[2]=		generated:format
+DISTFILE[3]=		sqlite-autoconf-${SQLITE_LONGVER}.tar.gz:sqlite
+DF_INDEX=		1 2 3
+
+SPKGS[standard]=	complete primary man
+
+OPTIONS_AVAILABLE=	RUNTESTS
+OPTIONS_STANDARD=	RUNTESTS
+
+LICENSE=		ISCL:primary
+LICENSE_FILE=		ISCL:{{WRKSRC}}/License.txt
+LICENSE_SCHEME=		solo
+
+BUILD_DEPENDS=		lua54:dev:standard
+			libucl:single:ravensw
+			linenoise:single:standard
+			libblake3:single:standard
+			mbedtls:dev:standard
+			curl:dev:embed
+			libssh2:dev:embed
+
+USERS=			rvnsign
+GROUPS=			rvnsign
+USERGROUP_SPKG=		primary
+
+USES=			pkgconfig zstd:build zlib:build gprbuild
+MAKE_ENV=		WRKSRC={{WRKSRC}}
+			RVNUSER=rvnsign
+			RVNGROUP=rvnsign
+			PY3COMMAND={{LOCALBASE}}/bin/python${PY3_DEFAULT}
+INFRASTRUCTURE=		yes
+
+[RUNTESTS].DESCRIPTION=			Run kyua tests after build
+[RUNTESTS].BUILD_DEPENDS_ON=		kyua:single:standard
+
+post-build-RUNTESTS-ON:
+	(cd ${WRKSRC} && ${SETENV} KEYWORDS_DIR=/xports/Mk/Keywords \
+	${MAKE_CMD} kyua-test)
+
+post-extract:
+	${MV} ${WRKDIR}/sqlite-autoconf-${SQLITE_LONGVER} ${WRKSRC}/vendor/sqlite3
