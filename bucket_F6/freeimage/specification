@@ -1,0 +1,69 @@
+DEF[PORTVERSION]=	3.18.0
+DEF[DISTVERSION]=	3180
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		freeimage
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		standard
+SDESC[standard]=	Simple C/C++ bitmap graphics library
+HOMEPAGE=		https://freeimage.sourceforge.io/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SF/freeimage/Source%20Distribution/${PORTVERSION}
+DISTFILE[1]=		FreeImage${DISTVERSION}.zip:main
+
+SPKGS[standard]=	complete primary dev
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# Licensing is probably invalid; source files contain references to "this license"
+# but do not actually define which license that is. The Whatsnew.txt file states
+# that the code is dual-licensed: "FI-License and the GPL license" which is vague
+# at best. As the project bundles several other libraries, overall its license
+# scheme is definitely multi. I've prepared a license block but will leave it
+# commented due to the absence of any proper terms.
+
+# LICENSE=		GPLv2:primary
+# #			GPLv3:primary
+# #			CUSTOM1:primary
+# LICENSE_FILE=		GPLv2:{{WRKSRC}}/license-gplv2.txt
+# #			GPLv3:{{WRKSRC}}/license-gplv3.txt
+# #			CUSTOM1:{{WRKSRC}}/license-fi.txt
+# LICENSE_NAME=		CUSTOM1:"FreeImage Public License - Version 1.0"
+# LICENSE_SCHEME=	multi
+
+FPC_EQUIVALENT=		graphics/freeimage
+
+DOS2UNIX_FILES=		Source/LibOpenJPEG/opj_malloc.h
+			Source/LibRawLite/dcraw/dcraw.c
+			Source/LibRawLite/internal/dcraw_common.cpp
+			Source/FreeImage/PluginBMP.cpp
+			Source/FreeImage/PluginDDS.cpp
+			Source/LibPNG/pngpriv.h
+
+USES=			c++:primary dos2unix gmake
+
+DISTNAME=		FreeImage
+SUB_FILES=		freeimage.pc
+SUB_LIST=		VERSION="${PORTVERSION}"
+
+CFLAGS=			-std=c++14 -DPNG_ARM_NEON_OPT=0 -fexceptions -fvisibility=hidden -fPIC
+CXXFLAGS=		-std=c++14 -DPNG_ARM_NEON_OPT=0 -fexceptions -fvisibility=hidden -fPIC
+MAKE_ARGS=		CC="{{CC}}" CPP="{{CPP}}" CXX="{{CXX}}"
+
+post-patch:
+		${REINPLACE_CMD} -e 's|/usr|${PREFIX}| ; s|-o root -g root || ; \
+			/^-fPIC/d' ${WRKSRC}/Makefile.gnu ${WRKSRC}/Makefile.fip
+
+do-build:
+		( cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} gmake -f Makefile.gnu ${_MAKE_JOBS} ${MAKE_ARGS} && \
+			${SETENV} ${MAKE_ENV} gmake -f Makefile.fip ${_MAKE_JOBS} ${MAKE_ARGS} )
+
+do-install:
+		( cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} gmake -f Makefile.gnu install ${MAKE_ARGS} && \
+			${SETENV} ${MAKE_ENV} gmake -f Makefile.fip install ${MAKE_ARGS} )
+		${MKDIR} -p ${STAGEDIR}${PREFIX}/lib/pkgconfig
+		${INSTALL_DATA} ${WRKDIR}/freeimage.pc ${STAGEDIR}${PREFIX}/lib/pkgconfig
