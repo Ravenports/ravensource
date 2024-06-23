@@ -30,8 +30,6 @@ _INCLUDE_USES_SCHEMAS_MK=	yes
 
 .  if defined(GLIB_SCHEMAS)
 
-# we put the @unexec behind the plist schema entry, because it compiles files 
-# in the directory. So we should remove the port file first before recompiling.
 _USES_install+=	780:gnome-post-glib-schemas
 
 .    if !target(gnome-post-glib-schemas)
@@ -42,7 +40,6 @@ gnome-post-glib-schemas:
 	  for i in ${GLIB_SCHEMAS}; do \
 	    echo "share/glib-2.0/schemas/$${i}" >> $${splist}; \
 	  done; \
-	  echo "@glib-schemas" >> $${splist}; \
 	fi
 .    endif
 .  endif	# GLIB_SCHEMAS
