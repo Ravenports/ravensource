@@ -1346,7 +1346,7 @@ SUB_FILES+= 		${RC_SUBR_${sp}}
 # transform files like pkg-message-primary-freebsd.in to
 # pkg-message-primary-opsys.in
 
-SUB_FILES:=	${SUB_FILES:S/-${OPSYS:tl}/-opsys/}
+SUB_FILES:=	${SUB_FILES:S/-${OPSYS:tl}/-opsys/:S/${ARCH}/-arch/}
 
 apply-slist:
 .  for file in ${SUB_FILES}
