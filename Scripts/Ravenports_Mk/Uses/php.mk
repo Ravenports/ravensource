@@ -207,6 +207,12 @@ PHP_MOD_PRIORITY=	20
 .    endif
 PHP_EXT_INI_FILE=	etc/${PHPXX}/ext-${PHP_MOD_PRIORITY}-${PHP_MODNAME}.ini
 
+.    if ${php_ARGS:Mzend}
+TYPEXT="zend_extension=${PHP_MODNAME}.so"
+.    else
+TYPEXT="extension=${PHP_MODNAME}.so"
+.    endif
+
 do-install:
 	@${MKDIR} ${STAGEDIR}${PREFIX}/lib/${PHPXX}/${PHP_EXT_DIR}
 	@${INSTALL_LIB} ${WRKSRC}/modules/${PHP_MODNAME}.so \
@@ -245,18 +251,23 @@ add-plist-phpext:
 		>> ${WRKDIR}/.manifest.single.mktmp
 
 	# message file located at ${WRKDIR}/.PKG_DISPLAY.single
-	@${ECHO_CMD} "****************************************************************************" >> ${_MESSAGE_FILE}.single
-	@${ECHO_CMD} ""                                                                             >> ${_MESSAGE_FILE}.single
-	@${ECHO_CMD} "The following contents of the installed ${PREFIX}/${PHP_EXT_INI_FILE}"        >> ${_MESSAGE_FILE}.single
-	@${ECHO_CMD} "configuration file automatically loads the ${PHP_MODNAME} extension:"         >> ${_MESSAGE_FILE}.single
-	@${ECHO_CMD} ""                                                                             >> ${_MESSAGE_FILE}.single
-.    if ${php_ARGS:Mzend}
-	@${ECHO_CMD} "zend_extension=${PHP_MODNAME}.so"                                             >> ${_MESSAGE_FILE}.single
-.    else
-	@${ECHO_CMD} "extension=${PHP_MODNAME}.so"                                                  >> ${_MESSAGE_FILE}.single
-.    endif
-	@${ECHO_CMD} ""                                                                             >> ${_MESSAGE_FILE}.single
-	@${ECHO_CMD} "****************************************************************************" >> ${_MESSAGE_FILE}.single
+
+	cat <<EOF >> ${_MESSAGE_FILE}.single
+php: [
+  {
+    type: "install"
+    message: <<EOS
+The following contents of the installed ${PREFIX}/${PHP_EXT_INI_FILE}"
+configuration file automatically loads the ${PHP_MODNAME} extension:"
+${TYPEXT}
+EOS
+  }
+  {
+    type: "remove"
+    message: "The ${PHP_MODNAME} extension has been removed from ${PREFIX}/${PHP_EXT_INI_FILE}"
+  }
+]
+EOF
 
 add-desc-phpext:
 .    if !exists(${_DESC_FILE}.single)
