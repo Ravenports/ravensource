@@ -378,6 +378,7 @@ _PKGSCRIPT=		${.CURDIR}/files/scripts-xxx.ucl
 _PKGSCRIPTOPSYS=	${.CURDIR}/files/scripts-xxx-opsys.ucl
 _PKGSCRIPTOPSYSARCH=	${.CURDIR}/files/scripts-xxx-opsys-arch.ucl
 _PKGSCRIPTARCH=		${.CURDIR}/files/scripts-xxx-arch.ucl
+_PKGTRIGGER=		${.CURDIR}/files/triggers-xxx.ucl
 _IN_PKGMESSAGE=		${WRKDIR}/messages-xxx.ucl
 _IN_PKGMESSAGEOPSYS=	${WRKDIR}/messages-xxx-opsys
 _IN_PKGMESSAGEOPSYSARCH=${WRKDIR}/messages-xxx-opsys-arch
@@ -386,8 +387,10 @@ _IN_PKGSCRIPT=		${WRKDIR}/scripts-xxx.ucl
 _IN_PKGSCRIPTOPSYS=	${WRKDIR}/scripts-xxx-opsys.ucl
 _IN_PKGSCRIPTOPSYSARCH=	${WRKDIR}/scripts-xxx-opsys-arch.ucl
 _IN_PKGSCRIPTARCH=	${WRKDIR}/scripts-xxx-arch.ucl
+_IN_PKGTRIGGER=		${WRKDIR}/triggers-xxx.ucl
 
 _MESSAGE_FILE=		${WRKDIR}/.PKG_MESSAGES
+_TRIGGER_FILE=		${WRKDIR}/.PKG_TRIGGERS
 _SCRIPT_FILE=		${WRKDIR}/.PKG_SCRIPTS
 _DESC_FILE=		${WRKDIR}/.PKG_DESC
 
@@ -399,6 +402,7 @@ compile-package-desc:
 	@${RM} ${_MESSAGE_FILE}.${sp}
 	@${RM} ${_SCRIPT_FILE}.${sp}
 	@${RM} ${_DESC_FILE}.${sp}
+	@${RM} ${_TRIGGER_FILE}.${sp}
 	@${ECHO_MSG} "===>  Assembling package metadata files (${sp})"
 .    for suffix in ${_CPDLIST}
 	@if [ -f "${_IN_PKGMESS${suffix}:S/-xxx/-${sp}/}" ]; then \
@@ -411,9 +415,14 @@ compile-package-desc:
 	@if [ -f "${_IN_PKGSCR${suffix}:S/-xxx/-${sp}/}" ]; then \
 	   ${CAT} ${_IN_PKGSCR${suffix}:S/-xxx/-${sp}/} >> ${_SCRIPT_FILE}.${sp}; \
 	elif [ -f "${_PKGSCR${suffix}:S/-xxx/-${sp}/}" ]; then \
-	   ${CAT} ${_PKGMSRC${suffix}:S/-xxx/-${sp}/} >> ${_SCRIPT_FILE}.${sp}; \
+	   ${CAT} ${_PKGSCR${suffix}:S/-xxx/-${sp}/} >> ${_SCRIPT_FILE}.${sp}; \
 	fi
 .    endfor
+	@if [ -f "${_IN_PKGTRIGGER:S/-xxx/-${sp}/}" ]; then \
+	   ${CAT} ${_IN_PKGTRIGGER:S/-xxx/-${sp}/} >> ${_TRIGGER_FILE}.${sp}; \
+	elif [ -f "${_PKGTRIGGER:S/-xxx/-${sp}/}" ]; then \
+	   ${CAT} ${_PKGTRIGGER${s:S/-xxx/-${sp}/} >> ${_TRIGGER_FILE}.${sp}; \
+	fi
 .    if exists(${.CURDIR}/descriptions/desc.${sp}.${VARIANT})
 	@${CP} ${.CURDIR}/descriptions/desc.${sp}.${VARIANT} ${_DESC_FILE}.${sp}
 .    elif exists(${.CURDIR}/descriptions/desc.${sp})
