@@ -4,7 +4,6 @@
 # Reason: meson breaks on sunos just about every update (mispatch) so
 # it needs to be checked on each platform first.
 DEF[PORTVERSION]=	1.4.1
-DEF[EXMTREE]=		/etc/mtree.preconfig.exclude
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		meson
@@ -37,8 +36,3 @@ RUN_DEPENDS=		ninja:single:standard
 			python-setuptools:single:python_used
 
 USES=			python:sutools
-
-post-patch:
-	echo ".${LOCALBASE}/lib/python*/site-packages/setuptools/*/__pycache__"     >> ${EXMTREE}
-	echo ".${LOCALBASE}/lib/python*/site-packages/setuptools/*/*/__pycache__"     >> ${EXMTREE}
-	echo ".${LOCALBASE}/lib/python*/site-packages/setuptools/_vendor/*/*/__pycache__"     >> ${EXMTREE}
