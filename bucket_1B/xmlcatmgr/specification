@@ -8,7 +8,7 @@ DEF[XMLCATMGR]=		{{PREFIX}}/bin/xmlcatmgr
 
 NAMEBASE=		xmlcatmgr
 VERSION=		${PORTVERSION}
-REVISION=		3
+REVISION=		4
 KEYWORDS=		textproc
 VARIANTS=		standard
 SDESC[standard]=	SGML and XML catalog manager
@@ -19,12 +19,12 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		SF/xmlcatmgr/xmlcatmgr/${PORTVERSION}
 DISTFILE[1]=		xmlcatmgr-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		BSD3CLAUSE:single
+LICENSE=		BSD3CLAUSE:primary
 LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
@@ -39,13 +39,10 @@ SUB_LIST=		CATALOG_MASTER_SGML=${CAT_MASTER_SGML}
 			CATALOG_PORTS_SGML=${CAT_PORTS_SGML}
 			CATALOG_PORTS_XML=${CAT_PORTS_XML}
 			XMLCATMGR=${XMLCATMGR}
-SUB_FILES=		pkg-install-single
-			pkg-deinstall-single
-			pkg-message-single
+SUB_FILES=		scripts-primary.ucl
+			messages-primary.ucl
 			refresh_xmlcatmgr_catalogs
 
 post-install:
-	${MKDIR} ${STAGEDIR}${PREFIX}/share/sgml
-	${MKDIR} ${STAGEDIR}${PREFIX}/share/xml
 	${INSTALL_SCRIPT} ${WRKDIR}/refresh_xmlcatmgr_catalogs \
 		${STAGEDIR}${PREFIX}/bin/

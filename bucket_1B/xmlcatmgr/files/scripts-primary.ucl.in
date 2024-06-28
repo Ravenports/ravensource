@@ -1,0 +1,117 @@
+post-install: [{
+     args: ""
+     code: <<EOS
+#!/bin/sh
+
+PATH=/bin:/usr/bin:%%LOCALBASE%%/bin
+
+export PATH
+XMLCATMGR="%%XMLCATMGR%%"
+CATALOG_MASTER_SGML="%%CATALOG_MASTER_SGML%%"
+CATALOG_MASTER_XML="%%CATALOG_MASTER_XML%%"
+CATALOG_PORTS_SGML="%%CATALOG_PORTS_SGML%%"
+CATALOG_PORTS_XML="%%CATALOG_PORTS_XML%%"
+
+SGML_DIR=$(dirname "${CATALOG_MASTER_SGML}")
+XML_DIR=$(dirname "${CATALOG_MASTER_XML}")
+
+if [ ! -d "${SGML_DIR}" ]; then
+   echo " + Creating ${SGML_DIR} directory"
+   mkdir -p "${SGML_DIR}"
+fi
+
+if [ ! -r ${CATALOG_MASTER_SGML} ]; then
+	echo " + Creating ${CATALOG_MASTER_SGML}"
+	${XMLCATMGR} -sc "${CATALOG_MASTER_SGML}" create
+fi
+
+if ! ${XMLCATMGR} -sc ${CATALOG_MASTER_SGML} lookup catalog.ports > /dev/null 2>&1; then
+	echo " + Registering CATALOG catalog.ports (SGML)"
+	${XMLCATMGR} -sc "${CATALOG_MASTER_SGML}" add CATALOG catalog.ports
+fi
+
+if [ ! -r ${CATALOG_PORTS_SGML} ]; then
+	echo " + Creating ${CATALOG_PORTS_SGML}"
+	${XMLCATMGR} -sc "${CATALOG_PORTS_SGML}" create
+fi
+
+if [ ! -d "${XML_DIR}" ]; then
+   echo " + Creating ${XML_DIR} directory"
+   mkdir -p "${XML_DIR}"
+fi
+
+if [ ! -r ${CATALOG_MASTER_XML} ]; then
+	echo " + Creating ${CATALOG_MASTER_XML}"
+	${XMLCATMGR} -c "${CATALOG_MASTER_XML}" create
+fi
+
+if ! ${XMLCATMGR} -c ${CATALOG_MASTER_XML} lookup ${CATALOG_PORTS_XML} > /dev/null 2>&1 ; then
+	echo " + Registering nextCatalog catalog.ports (XML)"
+	${XMLCATMGR} -c "${CATALOG_MASTER_XML}" add nextCatalog "${CATALOG_PORTS_XML}"
+fi
+
+if [ ! -r ${CATALOG_PORTS_XML} ]; then
+	echo " + Creating ${CATALOG_PORTS_XML}"
+	${XMLCATMGR} -c "${CATALOG_PORTS_XML}" create
+fi
+EOS
+  }]
+pre-deinstall: [{
+     args: ""
+     code: <<EOS
+#!/bin/sh
+
+PATH=/bin:/usr/bin:%%LOCALBASE%%/bin
+
+export PATH
+XMLCATMGR="%%XMLCATMGR%%"
+CATALOG_MASTER_SGML="%%CATALOG_MASTER_SGML%%"
+CATALOG_MASTER_XML="%%CATALOG_MASTER_XML%%"
+CATALOG_PORTS_SGML="%%CATALOG_PORTS_SGML%%"
+CATALOG_PORTS_XML="%%CATALOG_PORTS_XML%%"
+
+SGML_DIR=$(dirname "${CATALOG_MASTER_SGML}")
+XML_DIR=$(dirname "${CATALOG_MASTER_XML}")
+
+T=/tmp/catalog.$$
+
+${XMLCATMGR} -sc "${CATALOG_MASTER_SGML}" remove CATALOG catalog.ports
+${XMLCATMGR} -sc "${T}" create
+if cmp -s "${T}" "${CATALOG_MASTER_SGML}"
+then
+	echo " + Removing ${CATALOG_MASTER_SGML}.  (empty)"
+	rm -f "${CATALOG_MASTER_SGML}"
+fi
+if cmp -s "${T}" "${CATALOG_PORTS_SGML}"
+then
+	echo " + Removing ${CATALOG_PORTS_SGML}.  (empty)"
+	rm -f "${CATALOG_PORTS_SGML}"
+fi
+rm -f "${T}"
+
+if [ -n "$(find ${SGML_DIR} -type d -empty)" ]; then
+   echo " + Removing ${SGML_DIR} directory"
+   rmdir "${SGML_DIR}"
+fi
+
+${XMLCATMGR} -c "${CATALOG_MASTER_XML}" remove nextCatalog ${CATALOG_PORTS_XML}
+${XMLCATMGR} -c "${T}" create
+if cmp -s ${T} "${CATALOG_MASTER_XML}"
+then
+	echo " + Removing ${CATALOG_MASTER_XML}.  (empty)"
+	rm -f "${CATALOG_MASTER_XML}"
+fi
+if cmp -s "${T}" "${CATALOG_PORTS_XML}"
+then
+	echo " + Removing ${CATALOG_PORTS_XML}.  (empty)"
+	rm -f "${CATALOG_PORTS_XML}"
+fi
+rm -f "${T}"
+
+if [ -n "$(find ${XML_DIR} -type d -empty)" ]; then
+   echo " + Removing ${XML_DIR} directory"
+   rmdir "${XML_DIR}"
+fi
+
+EOS
+  }]
