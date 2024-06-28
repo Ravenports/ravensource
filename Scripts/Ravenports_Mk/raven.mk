@@ -421,7 +421,7 @@ compile-package-desc:
 	@if [ -f "${_IN_PKGTRIGGER:S/-xxx/-${sp}/}" ]; then \
 	   ${CAT} ${_IN_PKGTRIGGER:S/-xxx/-${sp}/} >> ${_TRIGGER_FILE}.${sp}; \
 	elif [ -f "${_PKGTRIGGER:S/-xxx/-${sp}/}" ]; then \
-	   ${CAT} ${_PKGTRIGGER${s:S/-xxx/-${sp}/} >> ${_TRIGGER_FILE}.${sp}; \
+	   ${CAT} ${_PKGTRIGGER:S/-xxx/-${sp}/} >> ${_TRIGGER_FILE}.${sp}; \
 	fi
 .    if exists(${.CURDIR}/descriptions/desc.${sp}.${VARIANT})
 	@${CP} ${.CURDIR}/descriptions/desc.${sp}.${VARIANT} ${_DESC_FILE}.${sp}
