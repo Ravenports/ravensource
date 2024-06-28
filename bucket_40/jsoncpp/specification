@@ -8,6 +8,7 @@ DEF[RELEASE_TAG]=	${PORTVERSION}
 
 NAMEBASE=		jsoncpp
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	JSON reader and writer library for C++
@@ -18,18 +19,18 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/open-source-parsers:jsoncpp:${RELEASE_TAG}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		MIT:single
+LICENSE=		MIT:primary
 LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/jsoncpp
 
-USES=			c++:single
+USES=			c++:primary
 SOVERSION=		${SOVERSION}
 SUB_FILES=		Makefile.BSD
 SUB_LIST=		SHLIB_MAJOR=${SOVERSION:R:R}
