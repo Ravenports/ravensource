@@ -7,6 +7,7 @@ DEF[DBCAT]=		{{PREFIX}}/${DBKDIR}/catalog
 
 NAMEBASE=		docbook-sgml
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		textproc
 VARIANTS=		standard
 SDESC[standard]=	DocBook SGML DTD
@@ -42,14 +43,14 @@ OPTIONS_STANDARD=	none
 FPC_EQUIVALENT=		textproc/docbook-sgml
 
 RUN_DEPENDS=		ISO_8879:single:standard
-			xmlcatmgr:single:standard
+			xmlcatmgr:primary:standard
 
 SKIP_BUILD=		yes
 EXTRACT_DIRTY=		1 2 3 4 5 6 7 8 9
 PLIST_SUB=		DBKDIR=${DBKDIR}
 
 pre-install:
-	@${MKDIR} ${STAGEDIR}${PREFIX}/${DBKDIR}
+	${MKDIR} ${STAGEDIR}${PREFIX}/${DBKDIR}
 	${ECHO_CMD} "CATALOG \"${LOCALBASE}/${ISOCAT}\"" \
 	    > ${STAGEDIR}${DBCAT}
 

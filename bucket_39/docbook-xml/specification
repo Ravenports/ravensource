@@ -7,7 +7,7 @@ DEF[DBCAT_XML]=		{{PREFIX}}/${DBKDIR}/catalog.xml
 
 NAMEBASE=		docbook-xml
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		textproc
 VARIANTS=		standard
 SDESC[standard]=	DocBook XML DTD
@@ -39,7 +39,7 @@ OPTIONS_STANDARD=	none
 FPC_EQUIVALENT=		textproc/docbook-xml
 
 BUILDRUN_DEPENDS=	xmlcharent:single:standard
-			xmlcatmgr:single:standard
+			xmlcatmgr:primary:standard
 
 SKIP_BUILD=		yes
 EXTRACT_DIRTY=		1 2 3 4 5 7
@@ -49,7 +49,7 @@ post-extract:
 	${MV} ${WRKDIR}/docbook-5.0.1 ${WRKDIR}/docbook-xml_6
 
 pre-install:
-	@${MKDIR} ${STAGEDIR}${PREFIX}/${DBKDIR}
+	${MKDIR} ${STAGEDIR}${PREFIX}/${DBKDIR}
 	${ECHO_CMD} "CATALOG \"${LOCALBASE}/share/xml/xmlcharent/catalog\"" \
 	    > ${STAGEDIR}${DBCAT_SGML}
 	xmlcatmgr -c ${STAGEDIR}${DBCAT_XML} create
