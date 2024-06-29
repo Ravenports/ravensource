@@ -1,0 +1,11 @@
+post-deinstall: [{
+     args: ""
+     code: <<EOS
+if [ -d %%DATADIR%% ]; then
+   echo "To completely remove the port, you may need to remove"
+   echo "the following directories and the content manually:"
+   echo ""
+   echo "    %%DATADIR%%"
+fi
+EOS
+}]
