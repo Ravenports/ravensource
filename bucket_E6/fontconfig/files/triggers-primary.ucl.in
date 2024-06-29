@@ -1,5 +1,7 @@
-dir_path: ["%%PREFIX%%/share/fonts", "%%PREFIX%%/etc/fonts/conf.d" ]
-trigger: <<EOS
+fc_cache: {
+    dir_path: ["%%PREFIX%%/share/fonts", "%%PREFIX%%/etc/fonts/conf.d" ]
+    trigger: <<EOS
 print("Running fc-cache to build fontconfig cache...")
 pkg.exec({"%%PREFIX%%/bin/fc-cache", "-s" })
 EOS
+}
