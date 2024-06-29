@@ -1,0 +1,30 @@
+mimeinfo-cache: {
+    dir_path: ["%%PREFIX%%/%%MIMEDIRS%%"]
+
+    cleanup: <<EOS
+local mimedir = "%%PREFIX%%/%%MIMEDIRS%%/"
+local mdparent = "%%PREFIX%%/%%MDPARENT%%"
+local cache = mimedir .. "mimeinfo.cache"
+local st = pkg.stat(cache)
+if st then
+	os.remove(cache)
+end
+local res = pkg.readdir(mimedir)
+if #res == 0 then
+	os.remove(mimedir)
+	res = pkg.readdir(mdparent)
+	if #res == 0 then
+		os.remove(mdparent)
+		res = pkg.readdir("%%PREFIX%%")
+		if #res == 0 then
+			os.remove("%%PREFIX%%")
+		end
+	end
+end
+EOS
+
+    trigger: <<EOS
+pkg.print_msg("Building cache database of MIME types")
+pkg.exec({"%%PREFIX%%/bin/update-desktop-database","-q"})
+EOS
+}

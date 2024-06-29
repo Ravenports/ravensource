@@ -1,0 +1,7 @@
+post-install-lua: [{
+    args: ""
+    code: <<EOS
+pkg.print_msg("Building cache database of MIME types")
+pkg.exec({"%%PREFIX%%/bin/update-desktop-database", "-q"})
+EOS
+}]
