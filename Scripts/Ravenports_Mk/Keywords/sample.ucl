@@ -17,29 +17,25 @@ actions: [file]
 prepackaging: <<EOS
   if #arg == 1 then
     if string.find(arg[1], "%.sample$") == nil then
-      io.stderr:write("@sample with 1 single argument expect \".sample\" extension\n")
+      pkg.print_msg("@sample error: 1 single argument requires the '.sample' extension")
       return(1)
     end
   elseif #arg == 2 then
     if arg[1] == arg[2] then
-      io.stderr:write("@sample: 2 identicals arguments are provided\n")
+      pkg.print_msg("@sample error: both arguments are identical")
       return(1)
     end
   else
-    io.stderr:write("@sample expect 1 or 2 arguments, got " .. #arg .. "\n")
+    pkg.print_msg("@sample error: 1 or 2 arguments expected, but got " .. #arg)
     return(1)
   end
 EOS
 post-install-lua: <<EOS
-  args = {}
-  for arg in string.gmatch("%@", "%S+") do
-    table.insert(args, arg)
-  end
-  sample_file = pkg.prefixed_path(args[1])
-  if args[2] == nil then
+  sample_file = pkg.prefixed_path(arg[1])
+  if arg[2] == nil then
     target_file = string.gsub(sample_file,'%.sample$', "")
   else
-    target_file = pkg.prefixed_path(args[2])
+    target_file = pkg.prefixed_path(arg[2])
   end
   if not pkg.stat(target_file) then
     pkg.copy(sample_file, target_file)
@@ -47,15 +43,11 @@ post-install-lua: <<EOS
 EOS
 
 pre-deinstall-lua: <<EOS
-  args = {}
-  for arg in string.gmatch("%@", "%S+") do
-    table.insert(args, arg)
-  end
-  sample_file = pkg.prefixed_path(args[1])
-  if args[2] == nil then
+  sample_file = pkg.prefixed_path(arg[1])
+  if arg[2] == nil then
     target_file = string.gsub(sample_file,'%.sample$', "")
   else
-    target_file = pkg.prefixed_path(args[2])
+    target_file = pkg.prefixed_path(arg[2])
   end
   if pkg.filecmp(sample_file, target_file) == 0 then
     os.remove(target_file)
