@@ -1360,7 +1360,9 @@ SUB_FILES:=	${SUB_FILES:S/-${OPSYS:tl}/-opsys/:S/${ARCH}/-arch/}
 apply-slist:
 .  for file in ${SUB_FILES}
 .    if exists(${FILESDIR}/${file}.in)
-	@${SED} ${_SUB_LIST_TEMP} -e '/^@comment /d' ${FILESDIR}/${file}.in > ${WRKDIR}/${file}
+	@if ! ${SED} ${_SUB_LIST_TEMP} -e '/^@comment /d' ${FILESDIR}/${file}.in > ${WRKDIR}/${file} 2>/dev/null; then \
+	${ECHO_MSG} "** FAILED SUB_FILE REPLACEMENT OF ${file}"; \
+	${ECHO_MSG} "** SED ARGS: ${_SUB_LIST_TEMP}"; exit 1; fi
 .    else
 	@${ECHO_MSG} "** Checked ${FILESDIR}:"
 	@${ECHO_MSG} "** Missing ${file}.in for ${TWO_PART_ID}."
