@@ -1,0 +1,14 @@
+post-install: [{
+     args: ""
+     code: <<EOS
+%%PERL5%% -MXML::SAX -e "XML::SAX->add_parser('XML::LibXML::SAX'.\$_)->save_parsers()"
+%%PERL5%% -MXML::SAX -e "XML::SAX->add_parser('XML::LibXML::SAX::Parser'.\$_)->save_parsers()"
+EOS
+}]
+pre-deinstall: [{
+     args: ""
+     code: <<EOS
+%%PERL5%% -MXML::SAX -e "XML::SAX->remove_parser('XML::LibXML::SAX'.\$_)->save_parsers()"
+%%PERL5%% -MXML::SAX -e "XML::SAX->remove_parser('XML::LibXML::SAX::Parser'.\$_)->save_parsers()"
+EOS
+}]

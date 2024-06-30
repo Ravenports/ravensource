@@ -70,14 +70,13 @@ CFLAGS=			-I{{OPENSSLINC}}
 LDFLAGS=		-L{{OPENSSLLIB}}
 MAKE_ENV=		V=1
 
-SUB_FILES=		pkg-message-single-dragonfly
-			pkg-message-single-freebsd
-
 VAR_OPSYS[freebsd]=	LDFLAGS=-lutil
 VAR_OPSYS[dragonfly]=	LDFLAGS=-lutil
 VAR_OPSYS[netbsd]=	LDFLAGS=-lutil
 
 [BSD].DESCRIPTION=			BSD net80211 interface
+[BSD].SUB_FILES_ON=			messages-single.ucl
+
 [NDIS].DESCRIPTION=			Windows NDIS interface
 [WIRED].DESCRIPTION=			Wired ethernet interface
 [TEST].DESCRIPTION=			Development testing interface
