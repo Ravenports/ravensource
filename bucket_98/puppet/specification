@@ -18,8 +18,12 @@ DISTFILE[1]=		generated:main
 
 SPKGS[standard]=	complete primary man examples
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	BSD
+OPTIONS_STANDARD=	BSD
+OPT_ON[dragonfly]=	BSD
+OPT_ON[freebsd]=	BSD
+OPT_ON[netbsd]=		BSD
+OPT_ON[midnightbsd]=	BSD
 
 LICENSE=		APACHE20:primary
 LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE
@@ -48,8 +52,9 @@ USERGROUP_SPKG=		primary
 RC_SUBR=		puppet:primary
 			puppetmaster:primary
 SUB_LIST=		RUBY={{RUBY}}
-SUB_FILES=		pkg-message-primary-freebsd
-			pkg-message-primary-dragonfly
+
+[BSD].DESCRIPTION=			Build for *BSD
+[BSD].SUB_FILES_ON=			messages-primary.ucl
 
 post-extract:
 	${AWK} '/Licensing/,/info@puppet.com/' \
