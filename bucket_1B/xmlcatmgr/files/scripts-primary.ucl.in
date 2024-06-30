@@ -1,8 +1,6 @@
 post-install: [{
      args: ""
      code: <<EOS
-#!/bin/sh
-
 PATH=/bin:/usr/bin:%%LOCALBASE%%/bin
 
 export PATH
@@ -55,63 +53,73 @@ if [ ! -r ${CATALOG_PORTS_XML} ]; then
 	${XMLCATMGR} -c "${CATALOG_PORTS_XML}" create
 fi
 EOS
-  }]
-pre-deinstall: [{
+}]
+pre-deinstall-lua: [{
      args: ""
      code: <<EOS
-#!/bin/sh
+function dirname(str)
+	strx = str:match("(.*".. "/" ..")")
+	return strx:sub(1, #strx - 1)
+end
 
-PATH=/bin:/usr/bin:%%LOCALBASE%%/bin
+XMLCATMGR = "%%XMLCATMGR%%"
+CATALOG_MASTER_SGML = "%%CATALOG_MASTER_SGML%%"
+CATALOG_MASTER_XML = "%%CATALOG_MASTER_XML%%"
+CATALOG_PORTS_SGML = "%%CATALOG_PORTS_SGML%%"
+CATALOG_PORTS_XML = "%%CATALOG_PORTS_XML%%"
 
-export PATH
-XMLCATMGR="%%XMLCATMGR%%"
-CATALOG_MASTER_SGML="%%CATALOG_MASTER_SGML%%"
-CATALOG_MASTER_XML="%%CATALOG_MASTER_XML%%"
-CATALOG_PORTS_SGML="%%CATALOG_PORTS_SGML%%"
-CATALOG_PORTS_XML="%%CATALOG_PORTS_XML%%"
+T = "/tmp/catalog." .. math.random (100000, 999999)
 
-SGML_DIR=$(dirname "${CATALOG_MASTER_SGML}")
-XML_DIR=$(dirname "${CATALOG_MASTER_XML}")
+------------
+--  SGML  --
+------------
 
-T=/tmp/catalog.$$
+pkg.exec({XMLCATMGR, "-sc", CATALOG_MASTER_SGML, "remove", "CATALOG", "catalog.ports"})
+pkg.exec({XMLCATMGR, "-sc", T, "create"})
 
-${XMLCATMGR} -sc "${CATALOG_MASTER_SGML}" remove CATALOG catalog.ports
-${XMLCATMGR} -sc "${T}" create
-if cmp -s "${T}" "${CATALOG_MASTER_SGML}"
-then
-	echo " + Removing ${CATALOG_MASTER_SGML}.  (empty)"
-	rm -f "${CATALOG_MASTER_SGML}"
-fi
-if cmp -s "${T}" "${CATALOG_PORTS_SGML}"
-then
-	echo " + Removing ${CATALOG_PORTS_SGML}.  (empty)"
-	rm -f "${CATALOG_PORTS_SGML}"
-fi
-rm -f "${T}"
+if pkg.filecmp(CATALOG_MASTER_SGML, T) == 0 then
+   pkg.print_msg(" + Removing " .. CATALOG_MASTER_SGML .. ".  (empty)")
+   os.remove(CATALOG_MASTER_SGML)
+end
 
-if [ -n "$(find ${SGML_DIR} -type d -empty)" ]; then
-   echo " + Removing ${SGML_DIR} directory"
-   rmdir "${SGML_DIR}"
-fi
+if pkg.filecmp(CATALOG_PORTS_SGML, T) == 0 then
+   pkg.print_msg(" + Removing " .. CATALOG_PORTS_SGML .. ".  (empty)")
+   os.remove(CATALOG_PORTS_SGML)
+end
+os.remove(T)
 
-${XMLCATMGR} -c "${CATALOG_MASTER_XML}" remove nextCatalog ${CATALOG_PORTS_XML}
-${XMLCATMGR} -c "${T}" create
-if cmp -s ${T} "${CATALOG_MASTER_XML}"
-then
-	echo " + Removing ${CATALOG_MASTER_XML}.  (empty)"
-	rm -f "${CATALOG_MASTER_XML}"
-fi
-if cmp -s "${T}" "${CATALOG_PORTS_XML}"
-then
-	echo " + Removing ${CATALOG_PORTS_XML}.  (empty)"
-	rm -f "${CATALOG_PORTS_XML}"
-fi
-rm -f "${T}"
+sgml_dir = dirname (CATALOG_MASTER_SGML)
+local sres = pkg.readdir(sgml_dir)
+if #sres == 0 then
+        pkg.print_msg(" + Removing " .. sgml_dir .. " directory")
+	os.remove(sgml_dir)
+end
 
-if [ -n "$(find ${XML_DIR} -type d -empty)" ]; then
-   echo " + Removing ${XML_DIR} directory"
-   rmdir "${XML_DIR}"
-fi
+
+-----------
+--  XML  --
+-----------
+
+pkg.exec({XMLCATMGR, "-c", CATALOG_MASTER_XML, "remove", "nextCatalog", CATALOG_PORTS_XML})
+pkg.exec({XMLCATMGR, "-c", T, "create"})
+
+if pkg.filecmp(CATALOG_MASTER_XML, T) == 0 then
+   pkg.print_msg(" + Removing " .. CATALOG_MASTER_XML .. ".  (empty)")
+   os.remove(CATALOG_MASTER_XML)
+end
+
+if pkg.filecmp(CATALOG_PORTS_XML, T) == 0 then
+   pkg.print_msg(" + Removing " .. CATALOG_PORTS_XML .. ".  (empty)")
+   os.remove(CATALOG_PORTS_XML)
+end
+os.remove(T)
+
+xml_dir = dirname (CATALOG_MASTER_XML)
+local xres = pkg.readdir(xml_dir)
+if #xres == 0 then
+        pkg.print_msg(" + Removing " .. xml_dir .. " directory")
+	os.remove(xml_dir)
+end
 
 EOS
-  }]
+}]
