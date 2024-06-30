@@ -3,7 +3,7 @@ DEF[PORTVERSION]=	2.4.10
 
 NAMEBASE=		cups
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		print
 VARIANTS=		standard
 SDESC[standard]=	Common UNIX Printing System
@@ -28,10 +28,10 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		print/cups
 
-RC_SUBR=		cupsd:primary
+RC_SUBR=		cupsd:tools
 GROUPS=			cups
 USERS=			cups
-USERGROUP_SPKG=		primary
+USERGROUP_SPKG=		tools
 
 BUILD_DEPENDS=		dbus:dev:standard
 			gnutls:dev:standard
@@ -105,7 +105,7 @@ post-patch-sunos:
 
 post-install:
 	${LN} -sf lpr ${STAGEDIR}${PREFIX}/bin/lpr-cups
-	@${MKDIR} ${STAGEDIR}${PREFIX}/etc/pam.d \
+	${MKDIR} ${STAGEDIR}${PREFIX}/etc/pam.d \
 		${STAGEDIR}${PREFIX}/etc/devd \
 		${STAGEDIR}${STD_EXAMPLESDIR}
 	${INSTALL_DATA} ${FILESDIR}/cups.conf.sample \
@@ -115,3 +115,4 @@ post-install:
 		${STAGEDIR}${STD_EXAMPLESDIR}
 	${RMDIR} ${STAGEDIR}${PREFIX}/share/cups/examples
 	${RM} ${STAGEDIR}${PREFIX}/etc/cups/*.conf
+	${MKDIR} /var/spool/cups /var/cache/cups
