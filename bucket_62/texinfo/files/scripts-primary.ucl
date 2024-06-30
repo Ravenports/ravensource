@@ -1,0 +1,27 @@
+post-install: [{
+     args: ""
+     code: <<EOS
+PKGNAME=$1
+PATH="${PKG_PREFIX}/bin:${LOCALBASE}/bin:/usr/bin:${PATH}"
+SETENV=env
+TEXHASH=texhash
+TRUE=true
+
+${SETENV} PATH="${PATH}" ${TEXHASH} 2>/dev/null || ${TRUE}
+
+EOS
+}]
+
+pre-deinstall: [{
+     args: ""
+     code: <<EOS
+PKGNAME=$1
+PATH="${PKG_PREFIX}/bin:${LOCALBASE}/bin:/usr/bin:${PATH}"
+SETENV=env
+TEXHASH=texhash
+TRUE=true
+
+${SETENV} PATH="${PATH}" ${TEXHASH} 2>/dev/null || ${TRUE}
+
+EOS
+}]
