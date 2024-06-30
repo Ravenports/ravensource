@@ -6,7 +6,7 @@ DEF[CAT1]=		http://docbook.sourceforge.net/release/xsl/current/
 
 NAMEBASE=		glib
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Some useful routines of C programming
@@ -96,3 +96,6 @@ post-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/share/GConf/gsettings
 	${MKDIR} ${STAGEDIR}${PREFIX}/lib/gio/modules
 	${RM} -r ${STAGEDIR}${PREFIX}/libexec
+	# set python cache files
+	(cd ${STAGEDIR}${PREFIX}/share/glib-2.0/codegen && ${PYTHON_CMD} -m compileall -d / . ||:)
+	(cd ${STAGEDIR}${PREFIX}/share/glib-2.0/gdb && ${PYTHON_CMD} -m compileall -d / . ||:)
