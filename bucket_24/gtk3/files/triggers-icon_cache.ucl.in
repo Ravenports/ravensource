@@ -39,19 +39,33 @@ function rmtry (mydir)
   end
 end
 
-pkg.print_msg("Triggered: Removing icon-theme cache directory")
-name = pkg.prefixed_path("share/icons/hicolor/icon-theme.cache")
-dir2 = pkg.prefixed_path("share/icons/hicolor")
-dir3 = pkg.prefixed_path("share/icons")
-dir4 = pkg.prefixed_path("share")
+pkg.print_msg("Triggered: Removing icon-theme cache directories")
+local cres = pkg.readdir(pkg.prefixed_path("share/icons"))
+if cres == nil then goto done end
 
-os.remove(name)
-if rmtry (dir2) then
-   if rmtry (dir3) then
-      if rmtry (dir4) then
-        a = 0
+for _,dir in ipairs(cres) do
+   local itcache = "share/icons/" .. dir .. "/icon-theme.cache"
+   if itcache then
+      local name = pkg.prefixed_path(itcache)
+      local dir2 = pkg.prefixed_path("share/icons/" .. dir)
+      pkg.print_msg("           Removing " .. itcache)
+      os.remove(name)
+      if rmtry(dir2) then
+         noop = 1
       end
    end
 end
+
+dir3 = pkg.prefixed_path("share/icons")
+dir4 = pkg.prefixed_path("share")
+
+if rmtry (dir3) then
+   if rmtry (dir4) then
+     noop = 1
+   end
+end
+
+::done::
+
 EOS
 }
