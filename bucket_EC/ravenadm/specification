@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.23
+DEF[PORTVERSION]=	3.00
 DEF[PORTREVISION]=	0
 DEF[RELEASE_TAG]=	v${PORTVERSION}
 # ----------------------------------------------------------------------------
@@ -30,6 +30,8 @@ LICENSE=		ISCL:single
 LICENSE_FILE=		ISCL:{{WRKSRC}}/License.txt
 LICENSE_SCHEME=		solo
 
+BUILD_DEPENDS=		libucl:single:ravensw
+
 R_DEPS[sunos]=		mandoc:single:standard
 
 SET_DEBUGGING_ON=	yes
@@ -51,17 +53,6 @@ post-extract:
 	${REINPLACE_CMD} -e 's|/raven"|${LOCALBASE}"|' \
 		-e 's|:= dragonfly|:= ${OPSYS:tl}|' \
 		${WRKSRC}/src/definitions.ads
-	# ensure Tampering_Check is active
-	${REINPLACE_CMD} -e '/pragma Suppress/ s|--  ||' \
-		${WRKSRC}/src/portscan.ads \
-		${WRKSRC}/src/port_specification.ads
-
-	# don't use post-extract-macos, cause circular dep on ravenadm
-	# versions < 1.11
-.if "${.MAKE.OS.NAME}" == "Darwin"
-	${SED} -i.mac -e 's|/var/ravenports|/ravendata|' \
-		-e 's|darwin|macos|' ${WRKSRC}/src/definitions.ads
-.endif
 
 post-patch-WATCHDOG-OFF:
 	@${ECHO_MSG} "Disabling watchdog monitor ..."
