@@ -1,14 +1,11 @@
---- build/Makefile.orig	2024-07-01 06:27:53 UTC
+--- build/Makefile.orig	2024-07-01 22:51:03 UTC
 +++ build/Makefile
-@@ -22,9 +22,9 @@ ravenadm: unix_core.o
- 	gnatmake -I../src ../ravenadm.adb -o ${.TARGET}\
- 		${CFLAGS} ${ADAFLAGS} -largs unix_core.o
+@@ -22,7 +22,7 @@ ravenadm: unix_core.o
+ 	gnatmake -I../src -I../src/ucl ../ravenadm.adb -o ${.TARGET}\
+ 		${CFLAGS} ${ADAFLAGS} -largs unix_core.o -lucl_pic -lm
  .else
 -	gnatmake -I../src ../ravenadm.adb -o ${.TARGET}\
 +	gnatmake -I../src -I../src/ucl ../ravenadm.adb -o ${.TARGET}\
  		-aI${LOCALBASE}/include/adacurses\
  		-aO${LOCALBASE}/lib/adacurses\
  		${CFLAGS} ${ADAFLAGS}\
--		-largs unix_core.o -lncurses -ltinfo -lAdaCurses
-+		-largs unix_core.o -lucl_pic -lm -lncurses -ltinfo -lAdaCurses
- .endif
