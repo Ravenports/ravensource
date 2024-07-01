@@ -55,3 +55,6 @@ pre-configure:
 		${WRKSRC}/src/egrep.sh
 	${REINPLACE_CMD} 's|mkinstalldirs = .*|mkinstalldirs = ${MKDIR}|g' \
 		${WRKSRC}/po/Makefile.in.in
+
+post-install-RAVENSYS-ON:
+	${RM} -r ${STAGEDIR}${PREFIX}/share/info
