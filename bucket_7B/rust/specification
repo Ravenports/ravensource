@@ -70,6 +70,7 @@ RUN_DEPENDS=		libexecinfo:dev:standard
 # required for rust linking (also pulls in c++ and gcc-libs so
 # USES=c++:single is redundant
 EXRUN[single]=		ravensys-gcc:compilers:standard
+			ravensys-binutils:single:standard
 
 USES=			cpe gmake zlib:build python:build shebangfix
 			execinfo c++:single dos2unix ssl:build
@@ -210,6 +211,12 @@ post-install:
 	# Remove cargo-fmt.old, rustfmt.old, cargo-clippy.old, clippy-driver.old
 	${RM} ${STAGEDIR}${PREFIX}/bin/*.old
 
+	# relocate bash completion scripts
+	${MKDIR} ${STAGEDIR}${PREFIX}/etc/bash_completion.d
+	${MV} ${STAGEDIR}/etc/bash_completion.d/cargo \
+		${STAGEDIR}${PREFIX}/etc/bash_completion.d/cargo
+	${RM} -r ${STAGEDIR}/etc
+
 	# Taken from FreeBSD Ports
 	# In post-install, we use the manifests generated during Rust install
 	# to in turn generate the PLIST. We do that because several libraries
@@ -228,6 +235,7 @@ post-install:
 	for f in ${STAGEDIR}${PREFIX}/lib/rustlib/manifest-*; do \
 	    ${SED} -i'' -E \
 		-e '/share\/doc\/rust/d' \
+		-e '/bash_completion/d' \
 	        -e 's|:${STAGEDIR}|:|' \
 	        -e 's|(man/man[1-9]/.*\.[0-9])|\1.gz|' \
 	        $$f; \
