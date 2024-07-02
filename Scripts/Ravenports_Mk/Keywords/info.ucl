@@ -6,12 +6,17 @@ post-install-lua: <<EOD
 EOD
 post-deinstall-lua: <<EOD
   file=pkg.prefixed_path(arg[1])
-  parentdir= pkg_rootdir .. file:match("(.*[/])")
+  parentdir = file:match("(.*[/])")
+  sinfo = pkg_prefix .. "/share/info"
+  if pkg_rootdir ~= "/" then
+     parentdir = pkg_rootdir .. file:match("(.*[/])")
+     sinfo = pkg_rootdir .. pkg_prefix .. "/share/info"
+  end
   st = pkg.stat(parentdir)
   if st ~= nil and st.type == "dir" then
     pkg.exec({pkg_prefix .. "/bin/indexinfo", parentdir})
   end
-  sinfo = pkg_rootdir .. pkg_prefix .. "/share/info"
+
   info = pkg.stat(sinfo)
   if info ~= nil and info.type == "dir" then
     pkg.exec({"/usr/bin/find", sinfo, "-type", "d", "-empty", "-delete"})
