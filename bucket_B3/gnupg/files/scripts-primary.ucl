@@ -1,0 +1,21 @@
+post-install-lua: [{
+    args: ""
+    code: <<EOS
+gpg = pkg.prefixed_path("bin/gpg")
+st = pkg.stat(gpg)
+if st == nil then
+  pkg.exec({"/bin/ln", "-sf", "gpg2", gpg})
+end
+EOS
+}]
+pre-deinstall-lua: [{
+    args: ""
+    code: <<EOS
+gpg = pkg.prefixed_path("bin/gpg")
+st = pkg.stat(gpg)
+if st then
+  os.remove(gpg)
+end
+
+EOS
+}]
