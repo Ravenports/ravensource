@@ -239,35 +239,15 @@ add-plist-phpext:
 	@${FIND} -P ${STAGEDIR}${PREFIX}/include/${PHPXX}/ext/${PHP_MODNAME} ! -type d 2>/dev/null | \
 		${SED} -ne 's,^${STAGEDIR}${PREFIX}/,,p' \
 		>> ${WRKDIR}/.manifest.single.mktmp
-	@${ECHO_CMD} "@postexec echo \#include \\\"ext/${PHP_MODNAME}/config.h\\\" >> %D/include/${PHPXX}/ext/php_config.h" \
-		>> ${WRKDIR}/.manifest.single.mktmp
-	@${ECHO_CMD} "@postunexec cp %D/include/${PHPXX}/ext/php_config.h %D/include/${PHPXX}/ext/php_config.h.orig" \
-		>> ${WRKDIR}/.manifest.single.mktmp
-	@${ECHO_CMD} "@postunexec grep -v ext/${PHP_MODNAME}/config.h %D/include/${PHPXX}/ext/php_config.h.orig > %D/include/${PHPXX}/ext/php_config.h || true" \
-		>> ${WRKDIR}/.manifest.single.mktmp
-	@${ECHO_CMD} "@postunexec ${RM} %D/include/${PHPXX}/ext/php_config.h.orig" \
-		>> ${WRKDIR}/.manifest.single.mktmp
 	@${ECHO_CMD} "${PHP_EXT_INI_FILE}" \
 		>> ${WRKDIR}/.manifest.single.mktmp
+	# old postexec/postunexec commands
+	@${SH} ${MK_SCRIPTS}/php_heredoc.sh script "${_SCRIPT_FILE}.single" \
+		"${PHP_MODNAME}" "${PHPXX}"
 
 	# message file located at ${WRKDIR}/.PKG_DISPLAY.single
-
-	cat <<EOF >> ${_MESSAGE_FILE}.single
-php: [
-  {
-    type: "install"
-    message: <<EOS
-The following contents of the installed ${PREFIX}/${PHP_EXT_INI_FILE}"
-configuration file automatically loads the ${PHP_MODNAME} extension:"
-${TYPEXT}
-EOS
-  }
-  {
-    type: "remove"
-    message: "The ${PHP_MODNAME} extension has been removed from ${PREFIX}/${PHP_EXT_INI_FILE}"
-  }
-]
-EOF
+	@${SH} ${MK_SCRIPTS}/php_heredoc.sh message "${_MESSAGE_FILE}.single" \
+		"${PHP_MODNAME}" "${TYPEXT}" "${PREFIX}/${PHP_EXT_INI_FILE}"
 
 add-desc-phpext:
 .    if !exists(${_DESC_FILE}.single)
