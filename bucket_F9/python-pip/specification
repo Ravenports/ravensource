@@ -6,6 +6,7 @@ DEF[EXMTREE]=		/etc/mtree.preconfig.exclude
 
 NAMEBASE=		python-pip
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		python
 VARIANTS=		v11 v12
 SDESC[v11]=		Tool for installing python packages (3.11)
@@ -64,7 +65,8 @@ do-install:
 	${RM} -r ${STAGEDIR}${PYTHON_SITELIBDIR}/setuptools \
 		${STAGEDIR}${PYTHON_SITELIBDIR}/pkg_resources \
 		${STAGEDIR}${PYTHON_SITELIBDIR}/setuptools-* \
-		${STAGEDIR}${PYTHON_SITELIBDIR}//distutils-precedence.pth
+		${STAGEDIR}${PYTHON_SITELIBDIR}/_distutils_hack \
+		${STAGEDIR}${PYTHON_SITELIBDIR}/distutils-precedence.pth
 
 post-install:
 	(cd ${STAGEDIR} && ${PYTHON_CMD} -m compileall -d / . ||:)
