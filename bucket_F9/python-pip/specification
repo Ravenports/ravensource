@@ -60,4 +60,11 @@ do-install:
 	${FIND} /root/.local/ -type d --name __pycache__ | xargs rm -rf
 	${RM} /root/.local/bin/pip3
 	${MV} /root/.local ${STAGEDIR}${PREFIX}
+	# version 11 installs setuptools.  Remove this line when 11 is dropped
+	${RM} -r ${STAGEDIR}${PYTHON_SITELIBDIR}/setuptools \
+		${STAGEDIR}${PYTHON_SITELIBDIR}/pkg_resources \
+		${STAGEDIR}${PYTHON_SITELIBDIR}/setuptools-* \
+		${STAGEDIR}${PYTHON_SITELIBDIR}//distutils-precedence.pth
+
+post-install:
 	(cd ${STAGEDIR} && ${PYTHON_CMD} -m compileall -d / . ||:)
