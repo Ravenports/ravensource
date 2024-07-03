@@ -1,0 +1,14 @@
+post-install: [{
+    args: ""
+    code: <<EOS
+/bin/mkdir -p /var/log/ConsoleKit
+/usr/bin/touch /var/log/ConsoleKit/history 
+EOS
+}]
+pre-deinstall: [{
+    args: ""
+    code: <<EOS
+/bin/rm -f /var/log/ConsoleKit/history
+/usr/bin/find "/var/log/ConsoleKit" -type d -empty -delete
+EOS
+}]
