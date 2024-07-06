@@ -1,7 +1,7 @@
-DEF[PORTVERSION]=	3.01
-DEF[PORTREVISION]=	3
-DEF[RELEASE_TAG]=	19ab35f
-# DEF[RELEASE_TAG]=	v${PORTVERSION}
+DEF[PORTVERSION]=	3.02
+DEF[PORTREVISION]=	0
+DEF[RELEASE_TAG]=	v${PORTVERSION}
+DEF[FORMAT_TAG]=	v2.7
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ravenadm
@@ -13,9 +13,12 @@ SDESC[standard]=	Ravenports administration utility
 HOMEPAGE=		https://github.com/ravenports/ravenadm
 CONTACT=		John_Marino[draco@marino.st]
 
-DOWNLOAD_GROUPS=	main
+DOWNLOAD_GROUPS=	main format
 SITES[main]=		GITHUB/ravenports:ravenadm:${RELEASE_TAG}
+SITES[format]=		GITHUB/ravenports:rvn-format:${FORMAT_TAG}:rvn-format
 DISTFILE[1]=		generated:main
+DISTFILE[2]=		generated:format
+DF_INDEX=		1 2
 
 SPKGS[standard]=	single
 
@@ -32,9 +35,11 @@ LICENSE_FILE=		ISCL:{{WRKSRC}}/License.txt
 LICENSE_SCHEME=		solo
 
 BUILD_DEPENDS=		libucl:single:ravensw
+			libblake3:single:standard
 
 R_DEPS[sunos]=		mandoc:single:standard
 
+USES=			zstd:build
 SET_DEBUGGING_ON=	yes
 BUILD_WRKSRC=		{{WRKSRC}}/build
 INFRASTRUCTURE=		yes
