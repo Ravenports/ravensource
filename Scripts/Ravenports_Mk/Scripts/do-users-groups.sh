@@ -203,6 +203,7 @@ eot2
 					else
 					  echo "${dp_INSTALL} -d -g $group -o $login $homedir" >> "${dp_UG_INSTALL}"
 					fi
+					echo "[ -d \"$homedir\" ] && /bin/rmdir $homedir 2> /dev/null || true" >> /tmp/removal-plus
 					;;
 			esac
 		done <<-eot
@@ -315,4 +316,8 @@ eot
 			fi
 		fi
 	done
+fi
+
+if [ -n "${SYSUSERS}" ]; then
+	[ -f /tmp/removal-plus ] && cat /tmp/removal-plus >> "${dp_UG_DEINSTALL}"
 fi
