@@ -152,7 +152,7 @@ if [ -n "${SYSUSERS}" ]; then
 			fi
 			homedir=$(echo "$homedir" | sed "s|^LOCALBASE/|${dp_PREFIX}/|")
 			cat >> "${dp_UG_INSTALL}" <<-eot2
-if id ${user} >/dev/null 2>&1; then
+if /usr/bin/id ${user} >/dev/null 2>&1; then
   echo "Using existing user '$login'."
 else
   echo "Creating user '$login' with uid '$uid', member of $group group."
@@ -282,7 +282,7 @@ if [ -n "${SYSUSERS}" ]; then
 	for user in ${SYSUSERS}; do
 		if ! echo "${USERS_BLACKLIST}" | grep -qw "${user}"; then
 			cat >> "${dp_UG_DEINSTALL}" <<-eot
-if id ${user} >/dev/null 2>&1; then
+if /usr/bin/id ${user} >/dev/null 2>&1; then
   echo "==> You should manually remove the \"${user}\" user. "
 fi
 eot
@@ -319,5 +319,7 @@ eot
 fi
 
 if [ -n "${SYSUSERS}" ]; then
-	[ -f /tmp/removal-plus ] && cat /tmp/removal-plus >> "${dp_UG_DEINSTALL}"
+   if [ -f /tmp/removal-plus ]; then
+       cat /tmp/removal-plus >> "${dp_UG_DEINSTALL}"
+   fi
 fi
