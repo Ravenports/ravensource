@@ -1,4 +1,4 @@
---- src/crypto/x509/root_linux.go.orig	2024-05-01 19:49:47 UTC
+--- src/crypto/x509/root_linux.go.orig	2024-06-27 20:11:12 UTC
 +++ src/crypto/x509/root_linux.go
 @@ -8,18 +8,13 @@ import "internal/goos"
  
