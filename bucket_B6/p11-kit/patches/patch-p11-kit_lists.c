@@ -1,4 +1,4 @@
---- p11-kit/lists.c.orig	2023-10-26 09:56:44 UTC
+--- p11-kit/lists.c.orig	2024-01-03 12:31:03 UTC
 +++ p11-kit/lists.c
 @@ -44,6 +44,7 @@
  #include <stdint.h>
