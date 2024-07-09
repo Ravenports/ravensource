@@ -20,6 +20,7 @@ lib/guile/%%GUILE_VER%%/ccache/ice-9/common-list.go
 lib/guile/%%GUILE_VER%%/ccache/ice-9/control.go
 lib/guile/%%GUILE_VER%%/ccache/ice-9/copy-tree.go
 lib/guile/%%GUILE_VER%%/ccache/ice-9/curried-definitions.go
+lib/guile/%%GUILE_VER%%/ccache/ice-9/custom-ports.go
 lib/guile/%%GUILE_VER%%/ccache/ice-9/deprecated.go
 lib/guile/%%GUILE_VER%%/ccache/ice-9/documentation.go
 lib/guile/%%GUILE_VER%%/ccache/ice-9/eval-string.go
@@ -70,6 +71,7 @@ lib/guile/%%GUILE_VER%%/ccache/ice-9/scm-style-repl.go
 lib/guile/%%GUILE_VER%%/ccache/ice-9/serialize.go
 lib/guile/%%GUILE_VER%%/ccache/ice-9/session.go
 lib/guile/%%GUILE_VER%%/ccache/ice-9/slib.go
+lib/guile/%%GUILE_VER%%/ccache/ice-9/soft-ports.go
 lib/guile/%%GUILE_VER%%/ccache/ice-9/stack-catch.go
 lib/guile/%%GUILE_VER%%/ccache/ice-9/streams.go
 lib/guile/%%GUILE_VER%%/ccache/ice-9/string-fun.go
@@ -89,6 +91,7 @@ lib/guile/%%GUILE_VER%%/ccache/ice-9/peg/using-parsers.go
 lib/guile/%%GUILE_VER%%/ccache/language/bytecode.go
 lib/guile/%%GUILE_VER%%/ccache/language/cps.go
 lib/guile/%%GUILE_VER%%/ccache/language/tree-il.go
+lib/guile/%%GUILE_VER%%/ccache/language/wisp.go
 lib/guile/%%GUILE_VER%%/ccache/language/brainfuck/compile-scheme.go
 lib/guile/%%GUILE_VER%%/ccache/language/brainfuck/compile-tree-il.go
 lib/guile/%%GUILE_VER%%/ccache/language/brainfuck/parse.go
@@ -104,14 +107,13 @@ lib/guile/%%GUILE_VER%%/ccache/language/cps/dump.go
 lib/guile/%%GUILE_VER%%/ccache/language/cps/effects-analysis.go
 lib/guile/%%GUILE_VER%%/ccache/language/cps/elide-arity-checks.go
 lib/guile/%%GUILE_VER%%/ccache/language/cps/graphs.go
+lib/guile/%%GUILE_VER%%/ccache/language/cps/guile-vm.go
 lib/guile/%%GUILE_VER%%/ccache/language/cps/intmap.go
 lib/guile/%%GUILE_VER%%/ccache/language/cps/intset.go
 lib/guile/%%GUILE_VER%%/ccache/language/cps/licm.go
-lib/guile/%%GUILE_VER%%/ccache/language/cps/loop-instrumentation.go
 lib/guile/%%GUILE_VER%%/ccache/language/cps/optimize.go
 lib/guile/%%GUILE_VER%%/ccache/language/cps/peel-loops.go
 lib/guile/%%GUILE_VER%%/ccache/language/cps/prune-top-level-scopes.go
-lib/guile/%%GUILE_VER%%/ccache/language/cps/reify-primitives.go
 lib/guile/%%GUILE_VER%%/ccache/language/cps/renumber.go
 lib/guile/%%GUILE_VER%%/ccache/language/cps/return-types.go
 lib/guile/%%GUILE_VER%%/ccache/language/cps/rotate-loops.go
@@ -129,6 +131,9 @@ lib/guile/%%GUILE_VER%%/ccache/language/cps/types.go
 lib/guile/%%GUILE_VER%%/ccache/language/cps/utils.go
 lib/guile/%%GUILE_VER%%/ccache/language/cps/verify.go
 lib/guile/%%GUILE_VER%%/ccache/language/cps/with-cps.go
+lib/guile/%%GUILE_VER%%/ccache/language/cps/guile-vm/loop-instrumentation.go
+lib/guile/%%GUILE_VER%%/ccache/language/cps/guile-vm/lower-primcalls.go
+lib/guile/%%GUILE_VER%%/ccache/language/cps/guile-vm/reify-primitives.go
 lib/guile/%%GUILE_VER%%/ccache/language/ecmascript/array.go
 lib/guile/%%GUILE_VER%%/ccache/language/ecmascript/base.go
 lib/guile/%%GUILE_VER%%/ccache/language/ecmascript/compile-tree-il.go
@@ -155,6 +160,7 @@ lib/guile/%%GUILE_VER%%/ccache/language/tree-il/compile-bytecode.go
 lib/guile/%%GUILE_VER%%/ccache/language/tree-il/compile-cps.go
 lib/guile/%%GUILE_VER%%/ccache/language/tree-il/cps-primitives.go
 lib/guile/%%GUILE_VER%%/ccache/language/tree-il/debug.go
+lib/guile/%%GUILE_VER%%/ccache/language/tree-il/demux-lambda.go
 lib/guile/%%GUILE_VER%%/ccache/language/tree-il/effects.go
 lib/guile/%%GUILE_VER%%/ccache/language/tree-il/eta-expand.go
 lib/guile/%%GUILE_VER%%/ccache/language/tree-il/fix-letrec.go
@@ -166,6 +172,7 @@ lib/guile/%%GUILE_VER%%/ccache/language/tree-il/primitives.go
 lib/guile/%%GUILE_VER%%/ccache/language/tree-il/resolve-free-vars.go
 lib/guile/%%GUILE_VER%%/ccache/language/tree-il/spec.go
 lib/guile/%%GUILE_VER%%/ccache/language/value/spec.go
+lib/guile/%%GUILE_VER%%/ccache/language/wisp/spec.go
 lib/guile/%%GUILE_VER%%/ccache/oop/goops.go
 lib/guile/%%GUILE_VER%%/ccache/oop/goops/accessors.go
 lib/guile/%%GUILE_VER%%/ccache/oop/goops/active-slot.go
@@ -359,6 +366,7 @@ share/guile/%%GUILE_VER%%/ice-9/common-list.scm
 share/guile/%%GUILE_VER%%/ice-9/control.scm
 share/guile/%%GUILE_VER%%/ice-9/copy-tree.scm
 share/guile/%%GUILE_VER%%/ice-9/curried-definitions.scm
+share/guile/%%GUILE_VER%%/ice-9/custom-ports.scm
 share/guile/%%GUILE_VER%%/ice-9/deprecated.scm
 share/guile/%%GUILE_VER%%/ice-9/documentation.scm
 share/guile/%%GUILE_VER%%/ice-9/eval-string.scm
@@ -415,6 +423,7 @@ share/guile/%%GUILE_VER%%/ice-9/scm-style-repl.scm
 share/guile/%%GUILE_VER%%/ice-9/serialize.scm
 share/guile/%%GUILE_VER%%/ice-9/session.scm
 share/guile/%%GUILE_VER%%/ice-9/slib.scm
+share/guile/%%GUILE_VER%%/ice-9/soft-ports.scm
 share/guile/%%GUILE_VER%%/ice-9/stack-catch.scm
 share/guile/%%GUILE_VER%%/ice-9/streams.scm
 share/guile/%%GUILE_VER%%/ice-9/string-fun.scm
@@ -434,6 +443,7 @@ share/guile/%%GUILE_VER%%/ice-9/peg/using-parsers.scm
 share/guile/%%GUILE_VER%%/language/bytecode.scm
 share/guile/%%GUILE_VER%%/language/cps.scm
 share/guile/%%GUILE_VER%%/language/tree-il.scm
+share/guile/%%GUILE_VER%%/language/wisp.scm
 share/guile/%%GUILE_VER%%/language/brainfuck/compile-scheme.scm
 share/guile/%%GUILE_VER%%/language/brainfuck/compile-tree-il.scm
 share/guile/%%GUILE_VER%%/language/brainfuck/parse.scm
@@ -449,14 +459,13 @@ share/guile/%%GUILE_VER%%/language/cps/dump.scm
 share/guile/%%GUILE_VER%%/language/cps/effects-analysis.scm
 share/guile/%%GUILE_VER%%/language/cps/elide-arity-checks.scm
 share/guile/%%GUILE_VER%%/language/cps/graphs.scm
+share/guile/%%GUILE_VER%%/language/cps/guile-vm.scm
 share/guile/%%GUILE_VER%%/language/cps/intmap.scm
 share/guile/%%GUILE_VER%%/language/cps/intset.scm
 share/guile/%%GUILE_VER%%/language/cps/licm.scm
-share/guile/%%GUILE_VER%%/language/cps/loop-instrumentation.scm
 share/guile/%%GUILE_VER%%/language/cps/optimize.scm
 share/guile/%%GUILE_VER%%/language/cps/peel-loops.scm
 share/guile/%%GUILE_VER%%/language/cps/prune-top-level-scopes.scm
-share/guile/%%GUILE_VER%%/language/cps/reify-primitives.scm
 share/guile/%%GUILE_VER%%/language/cps/renumber.scm
 share/guile/%%GUILE_VER%%/language/cps/return-types.scm
 share/guile/%%GUILE_VER%%/language/cps/rotate-loops.scm
@@ -474,6 +483,9 @@ share/guile/%%GUILE_VER%%/language/cps/types.scm
 share/guile/%%GUILE_VER%%/language/cps/utils.scm
 share/guile/%%GUILE_VER%%/language/cps/verify.scm
 share/guile/%%GUILE_VER%%/language/cps/with-cps.scm
+share/guile/%%GUILE_VER%%/language/cps/guile-vm/loop-instrumentation.scm
+share/guile/%%GUILE_VER%%/language/cps/guile-vm/lower-primcalls.scm
+share/guile/%%GUILE_VER%%/language/cps/guile-vm/reify-primitives.scm
 share/guile/%%GUILE_VER%%/language/ecmascript/array.scm
 share/guile/%%GUILE_VER%%/language/ecmascript/base.scm
 share/guile/%%GUILE_VER%%/language/ecmascript/compile-tree-il.scm
@@ -500,6 +512,7 @@ share/guile/%%GUILE_VER%%/language/tree-il/compile-bytecode.scm
 share/guile/%%GUILE_VER%%/language/tree-il/compile-cps.scm
 share/guile/%%GUILE_VER%%/language/tree-il/cps-primitives.scm
 share/guile/%%GUILE_VER%%/language/tree-il/debug.scm
+share/guile/%%GUILE_VER%%/language/tree-il/demux-lambda.scm
 share/guile/%%GUILE_VER%%/language/tree-il/effects.scm
 share/guile/%%GUILE_VER%%/language/tree-il/eta-expand.scm
 share/guile/%%GUILE_VER%%/language/tree-il/fix-letrec.scm
@@ -511,6 +524,7 @@ share/guile/%%GUILE_VER%%/language/tree-il/primitives.scm
 share/guile/%%GUILE_VER%%/language/tree-il/resolve-free-vars.scm
 share/guile/%%GUILE_VER%%/language/tree-il/spec.scm
 share/guile/%%GUILE_VER%%/language/value/spec.scm
+share/guile/%%GUILE_VER%%/language/wisp/spec.scm
 share/guile/%%GUILE_VER%%/oop/goops.scm
 share/guile/%%GUILE_VER%%/oop/goops/accessors.scm
 share/guile/%%GUILE_VER%%/oop/goops/active-slot.scm
