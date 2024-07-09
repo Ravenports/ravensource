@@ -1,4 +1,4 @@
---- modules/ssl/ssl_engine_init.c.orig	2024-02-22 14:17:43 UTC
+--- modules/ssl/ssl_engine_init.c.orig	2024-06-21 14:28:25 UTC
 +++ modules/ssl/ssl_engine_init.c
 @@ -617,7 +617,7 @@ static apr_status_t ssl_init_ctx_protoco
      char *cp;
