@@ -24,9 +24,9 @@ Django's behavior:
 - Django == 4.X: `use_pytz` defaults to the value of
   [`django.conf.settings.USE_DEPRECATED_PYTZ`],
   which itself defaults to `False`
-- Django >= 5.X: django plans to
-  [drop support for `pytz` altogether],
-  and this app will likely do the same.
+- Django >= 5.X: 
+  [drops support for `pytz` altogether],
+  and this app has done the same.
 
 Note that this app does _not_ declare `pytz` to be a dependency, so if
 you're using this app with `use_pytz=True`, you'll need
@@ -87,14 +87,14 @@ my_model.tz3          # value returned as pytz timezone: <DstTzInfo
 'America/Vancouver' LMT-1 day, 15:48:00 STD>
 my_model.tz4          # value returned as zoneinfo:
 zoneinfo.ZoneInfo(key='America/Vancouver')
+
+my_model.tz1 = "UTC"  # assignment of a string, immediately converted to
+timezone object
+my_model.tz1          # zoneinfo.ZoneInfo(key='UTC') or pytz.utc, depending
+on use_pytz default
+my_model.tz2 = "Invalid/Not_A_Zone"  # immediately raises ValidationError
 ```
 
 ### Form Field
 
 ```python
-from django import forms
-from timezone_field import TimeZoneFormField
-
-class MyForm(forms.Form):
-    tz1 = TimeZoneFormField()                                   # renders
-like "Asia/Dubai"

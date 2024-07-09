@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	4.3.0
+DEF[PORTVERSION]=	4.4.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-netmiko
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/ktbyers/netmiko
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/a8/4c/504be61a9f24e1971807d78a796db45e0580eb237c9563b1637ba819a4cf
+SITES[main]=		PYPIWHL/89/c1/04060c529da57c4736ff01450a64d9d9385c2fa79d03d53202bbce45871d
 DISTFILE[1]=		netmiko-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[v11]=		single
@@ -29,26 +29,32 @@ GENERATED=		yes
 DISTNAME=		netmiko-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# ntc-templates (>=2.0.0)
+# cffi (>=1.17.0rc1)
+# ntc-templates (>=3.1.0)
 # paramiko (>=2.9.5)
 # pyserial (>=3.3)
 # pyyaml (>=5.3)
 # scp (>=0.13.6)
+# setuptools (>=65.0.0)
 # textfsm (>=1.1.3)
 
 [PY311].USES_ON=			python:v11,wheel
-[PY311].RUN_DEPENDS_ON=			python-ntc-templates:single:v11
+[PY311].RUN_DEPENDS_ON=			python-cffi:single:v11
+					python-ntc-templates:single:v11
 					python-paramiko:single:v11
 					python-pyserial:single:v11
 					python-PyYAML:single:v11
 					python-scp:single:v11
+					python-setuptools:single:v11
 					python-textfsm:single:v11
 [PY312].USES_ON=			python:v12,wheel
-[PY312].RUN_DEPENDS_ON=			python-ntc-templates:single:v12
+[PY312].RUN_DEPENDS_ON=			python-cffi:single:v12
+					python-ntc-templates:single:v12
 					python-paramiko:single:v12
 					python-pyserial:single:v12
 					python-PyYAML:single:v12
 					python-scp:single:v12
+					python-setuptools:single:v12
 					python-textfsm:single:v12
 
 USES=			shebangfix
