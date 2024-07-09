@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.82
+DEF[PORTVERSION]=	2.83
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-GD
@@ -36,14 +36,17 @@ DISTNAME=		GD-${PORTVERSION}
 # |        build : ExtUtils::MakeMaker (perl 5.38 core) (perl 5.40 core)
 # |    configure : ExtUtils::Constant (perl 5.38 core) (perl 5.40 core)
 # |    configure : ExtUtils::PkgConfig
+# |    configure : File::Which
 # |         test : Test::Fork
 # |         test : Test::More (perl 5.38 core) (perl 5.40 core)
 # |         test : Test::NoWarnings
 
 [PERL_538].USES_ON=			perl:538,configure
 [PERL_538].BUILD_DEPENDS_ON=		perl-ExtUtils-PkgConfig:single:538
+					perl-File-Which:single:538
 [PERL_540].USES_ON=			perl:540,configure
 [PERL_540].BUILD_DEPENDS_ON=		perl-ExtUtils-PkgConfig:single:540
+					perl-File-Which:single:540
 
 USES=			pkgconfig
 BUILDRUN_DEPENDS=	libGD:single:standard

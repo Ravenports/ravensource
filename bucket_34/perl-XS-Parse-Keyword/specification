@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.420
+DEF[PORTVERSION]=	0.430
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-XS-Parse-Keyword
@@ -12,7 +12,7 @@ CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:P/PE/PEVANS
-DISTFILE[1]=		XS-Parse-Keyword-0.42.tar.gz:main
+DISTFILE[1]=		XS-Parse-Keyword-0.43.tar.gz:main
 
 SPKGS[538]=		single
 SPKGS[540]=		single
@@ -27,11 +27,12 @@ VOPTS[540]=		PERL_538=OFF PERL_540=ON
 
 GENERATED=		yes
 SINGLE_JOB=		yes
-DISTNAME=		XS-Parse-Keyword-0.42
+DISTNAME=		XS-Parse-Keyword-0.43
 
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
+# |      runtime : File::ShareDir
 # |        build : ExtUtils::CBuilder (perl 5.38 core) (perl 5.40 core)
 # |        build : ExtUtils::ParseXS (perl 5.38 core) (perl 5.40 core)
 # |    configure : ExtUtils::CChecker
@@ -39,9 +40,11 @@ DISTNAME=		XS-Parse-Keyword-0.42
 # |         test : Test2::V0 (perl 5.40 core)
 
 [PERL_538].USES_ON=			perl:538,buildmod,run
+[PERL_538].BUILDRUN_DEPENDS_ON=		perl-File-ShareDir:single:538
 [PERL_538].BUILD_DEPENDS_ON=		perl-ExtUtils-CChecker:single:538
 					perl-Module-Build:single:538
 [PERL_540].USES_ON=			perl:540,buildmod,run
+[PERL_540].BUILDRUN_DEPENDS_ON=		perl-File-ShareDir:single:540
 [PERL_540].BUILD_DEPENDS_ON=		perl-ExtUtils-CChecker:single:540
 					perl-Module-Build:single:540
 
