@@ -1,4 +1,4 @@
---- plugin/xlib/vimdot.sh.orig	2024-02-10 21:58:27 UTC
+--- plugin/xlib/vimdot.sh.orig	2024-07-04 07:54:20 UTC
 +++ plugin/xlib/vimdot.sh
 @@ -9,8 +9,8 @@ fi
  error() { echo "$0: $*" >&2; exit 1; }
