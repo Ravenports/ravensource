@@ -1,0 +1,14 @@
+post-install-lua: [{
+     args: ""
+     code: <<EOS
+dotprog = pkg.prefixed_path ("bin/dot")
+pkg.exec({dotprog, "-c"})
+EOS
+}]
+pre-deinstall-lua: [{
+     args: ""
+     code: <<EOS
+config6 = pkg.prefixed_path ("lib/graphviz/config6")
+os.remove(config6)
+EOS
+}]

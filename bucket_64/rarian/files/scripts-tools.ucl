@@ -1,0 +1,13 @@
+post-install-lua: [{
+    args: ""
+    code: <<EOS
+prog = pkg.prefixed_path("bin/rarian-sk-update")
+pkg.exec({prog})
+EOS
+}]
+pre-deinstall-lua: [{
+    args: ""
+    code: <<EOS
+pkg.exec({"/usr/bin/find", "/var/db/rarian", "-type", "d", "-empty", "-delete"})
+EOS
+}]

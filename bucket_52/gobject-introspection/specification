@@ -6,6 +6,7 @@ DEF[PORTVERSION]=	1.80.1
 
 NAMEBASE=		gobject-introspection
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Introspection data generator for GObject libraries
@@ -58,3 +59,5 @@ post-install:
 	${INSTALL_DATA} ${WRKSRC}/${MESON_BUILD_DIR}/gir/${base}-2.0.gir \
 		${STAGEDIR}${PREFIX}/share/gir-1.0/
 .endfor
+	# generate python cache to avoid leftover files
+	(cd ${STAGEDIR}${PREFIX}/lib/gobject-introspection/giscanner && python -m compileall -d / . ||:)

@@ -38,6 +38,7 @@ BUILD_DEPENDS=		dbus:dev:standard
 			libdrm:dev:standard
 			libtool:single:standard
 			openpam:dev:standard
+			polkit:dev:standard
 BUILDRUN_DEPENDS=	dbus:primary:standard
 			libdrm:primary:standard
 			openpam:primary:standard
@@ -81,3 +82,5 @@ post-install:
 	(cd ${STAGEDIR}${PREFIX}/lib/ConsoleKit/scripts && \
 		${MV} ck-system-${script} ck-system-${script}.sample)
 .endfor
+	# created by script file instead
+	${RM} -r ${STAGEDIR}/var/log

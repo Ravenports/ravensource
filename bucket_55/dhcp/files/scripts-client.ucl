@@ -1,0 +1,12 @@
+post-install: [{
+     args: ""
+     code: <<EOS
+[ -f /var/run/dhclient.leases ] || touch /var/run/dhclient.leases
+EOS
+}]
+post-deinstall: [{
+     args: ""
+     code: <<EOS
+[ -s /var/run/dhclient.leases ] || rm -f /var/run/dhclient.leases
+EOS
+}]

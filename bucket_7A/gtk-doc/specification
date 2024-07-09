@@ -4,6 +4,7 @@ DEF[DL_FOLDER]=		${PORTVERSION:R}
 
 NAMEBASE=		gtk-doc
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		textproc
 VARIANTS=		standard
 SDESC[standard]=	GTK+ DocBook Documentation Generator
@@ -42,3 +43,6 @@ pre-configure:
 	${GREP} -rl "http://docbook.sourceforge.net" ${WRKSRC} | \
 		${SED} '/configure\.ac/d' | ${XARGS} \
 		${SED} -i'' -e 's|/docbook.sourceforge.net/|/cdn.docbook.org/|'
+
+post-install:
+	(cd ${STAGEDIR}${PREFIX}/share/gtk-doc/python && python -m compileall -d / . ||:)

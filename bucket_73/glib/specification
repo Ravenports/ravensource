@@ -6,6 +6,7 @@ DEF[CAT1]=		http://docbook.sourceforge.net/release/xsl/current/
 
 NAMEBASE=		glib
 VERSION=		${PORTVERSION}
+REVISION=		2
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Some useful routines of C programming
@@ -59,6 +60,7 @@ SHEBANG_FILES=		*/*.pl
 			{{pyscripts}}
 PLIST_SUB=		LIBVERSION=${LIBVERSION}
 			RESETPREFIX={{PREFIX}}
+SUB_FILES=		triggers-primary.ucl
 
 VAR_OPSYS[darwin]=	MAKE_ENV=DYLD_FALLBACK_LIBRARY_PATH="$$DYLD_FALLBACK_LIBRARY_PATH:{{WRKSRC}}/_build/glib:{{WRKSRC}}/_build/gio:{{WRKSRC}}/_build/gobject:{{WRKSRC}}/_build/gmodule"
 VAR_OPSYS[sunos]=	CFLAGS=-fPIC
@@ -94,3 +96,6 @@ post-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/share/GConf/gsettings
 	${MKDIR} ${STAGEDIR}${PREFIX}/lib/gio/modules
 	${RM} -r ${STAGEDIR}${PREFIX}/libexec
+	# set python cache files
+	(cd ${STAGEDIR}${PREFIX}/share/glib-2.0/codegen && ${PYTHON_CMD} -m compileall -d / . ||:)
+	(cd ${STAGEDIR}${PREFIX}/share/glib-2.0/gdb && ${PYTHON_CMD} -m compileall -d / . ||:)

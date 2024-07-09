@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	0.27
 
 NAMEBASE=		desktop-file-utils
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		sysutils
 VARIANTS=		standard
 SDESC[standard]=	Utilities for manipulating .desktop files
@@ -24,8 +25,10 @@ USES=			gmake pkgconfig meson
 GNOME_COMPONENTS=	glib
 CONFIGURE_ENV=		EMACS="no"
 
-SUB_FILES=		pkg-deinstall-single
-SUB_LIST=		MIMEDIRS="{{LOCALBASE}}/share/applications"
+SUB_FILES=		triggers-primary.ucl
+			scripts-primary.ucl
+SUB_LIST=		MIMEDIRS="share/applications"
+			MDPARENT="share"
 
 VAR_OPSYS[sunos]=	LDFLAGS=-lintl
 

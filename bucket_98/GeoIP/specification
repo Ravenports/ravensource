@@ -13,7 +13,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/maxmind:geoip-api-c:v${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev tools man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -21,13 +21,15 @@ OPTIONS_STANDARD=	none
 # removed from ports
 # FPC_EQUIVALENT=		net/GeoIP
 
+EXRUN[tools]=		primary
+
 USES=			autoreconf libtool
 INSTALL_TARGET=		install-strip
 MUST_CONFIGURE=		gnu
-SUB_FILES=		pkg-message-single
+SUB_FILES=		messages-tools.ucl
 			geoipupdate.sh
 SOVERSION=		${PORTVERSION}
 
 post-install:
-	@${MKDIR} ${STAGEDIR}${PREFIX}/share/GeoIP
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/GeoIP
 	${INSTALL_SCRIPT} ${WRKDIR}/geoipupdate.sh ${STAGEDIR}${PREFIX}/bin

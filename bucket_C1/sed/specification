@@ -4,6 +4,7 @@ DEF[PATCH_SUBDIRS]=	. doc lib sed
 
 NAMEBASE=		sed
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		textproc
 VARIANTS=		standard ravensys
 SDESC[standard]=	GNU stream editor
@@ -15,8 +16,8 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNU/sed
 DISTFILE[1]=		sed-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary nls info
-SPKGS[ravensys]=	primary
+SPKGS[standard]=	complete primary nls info man
+SPKGS[ravensys]=	complete primary man
 
 OPTIONS_AVAILABLE=	RAVENSYS
 OPTIONS_STANDARD=	none
@@ -53,3 +54,6 @@ post-patch-darwin:
 
 do-test:
 	(cd ${WRKSRC}/testsuite && ${MAKE} check)
+
+post-install-RAVENSYS-ON:
+	${RM} -r ${STAGEDIR}${PREFIX}/share/info

@@ -1,6 +1,8 @@
-DEF[PORTVERSION]=	2.23
-DEF[PORTREVISION]=	0
-DEF[RELEASE_TAG]=	v${PORTVERSION}
+DEF[PORTVERSION]=	3.03
+DEF[PORTREVISION]=	2
+# DEF[RELEASE_TAG]=	v${PORTVERSION}
+DEF[RELEASE_TAG]=	36a4c56
+DEF[FORMAT_TAG]=	v2.9
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ravenadm
@@ -12,9 +14,12 @@ SDESC[standard]=	Ravenports administration utility
 HOMEPAGE=		https://github.com/ravenports/ravenadm
 CONTACT=		John_Marino[draco@marino.st]
 
-DOWNLOAD_GROUPS=	main
+DOWNLOAD_GROUPS=	main format
 SITES[main]=		GITHUB/ravenports:ravenadm:${RELEASE_TAG}
+SITES[format]=		GITHUB/ravenports:rvn-format:${FORMAT_TAG}:rvn-format
 DISTFILE[1]=		generated:main
+DISTFILE[2]=		generated:format
+DF_INDEX=		1 2
 
 SPKGS[standard]=	single
 
@@ -30,8 +35,12 @@ LICENSE=		ISCL:single
 LICENSE_FILE=		ISCL:{{WRKSRC}}/License.txt
 LICENSE_SCHEME=		solo
 
+BUILD_DEPENDS=		libucl:single:ravensw
+			libblake3:single:standard
+
 R_DEPS[sunos]=		mandoc:single:standard
 
+USES=			zstd:build
 SET_DEBUGGING_ON=	yes
 BUILD_WRKSRC=		{{WRKSRC}}/build
 INFRASTRUCTURE=		yes
@@ -51,17 +60,6 @@ post-extract:
 	${REINPLACE_CMD} -e 's|/raven"|${LOCALBASE}"|' \
 		-e 's|:= dragonfly|:= ${OPSYS:tl}|' \
 		${WRKSRC}/src/definitions.ads
-	# ensure Tampering_Check is active
-	${REINPLACE_CMD} -e '/pragma Suppress/ s|--  ||' \
-		${WRKSRC}/src/portscan.ads \
-		${WRKSRC}/src/port_specification.ads
-
-	# don't use post-extract-macos, cause circular dep on ravenadm
-	# versions < 1.11
-.if "${.MAKE.OS.NAME}" == "Darwin"
-	${SED} -i.mac -e 's|/var/ravenports|/ravendata|' \
-		-e 's|darwin|macos|' ${WRKSRC}/src/definitions.ads
-.endif
 
 post-patch-WATCHDOG-OFF:
 	@${ECHO_MSG} "Disabling watchdog monitor ..."

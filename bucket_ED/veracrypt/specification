@@ -39,9 +39,10 @@ FPC_EQUIVALENT=		security/veracrypt
 ONLY_FOR_OPSYS=		freebsd linux sunos
 
 BUILD_DEPENDS=		wxWidgets:dev:standard
-			yasm:single:standard
+			yasm:primary:standard
 			pcsc-lite:dev:standard
-BUILDRUN_DEPENDS=	fuse2:single:standard
+			fuse2:dev:standard
+BUILDRUN_DEPENDS=	fuse2:primary:standard
 			wxWidgets:primary:standard
 RUN_DEPENDS=		sudo:primary:standard
 
@@ -53,7 +54,7 @@ CONFIGURE_ARGS=		--wxWidgets-build=0
 			--wxWidgets-unicode=1
 CONFIGURE_ENV=		WX_CONFIG="{{LOCALBASE}}${WXCONFIG}"
 MAKE_ENV=		WX_CONFIG="{{LOCALBASE}}${WXCONFIG}"
-SUB_FILES=		pkg-message-primary-freebsd
+SUB_FILES=		messages-primary-freebsd.ucl
 
 # std::byte clashes with src/Common/Tcdefs.h typedef
 CXXFLAGS=		-std=c++14

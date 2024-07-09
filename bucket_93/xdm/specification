@@ -8,16 +8,23 @@ KEYWORDS=		x11
 VARIANTS=		standard
 SDESC[standard]=	X.Org display manager (a.k.a. login manager)
 HOMEPAGE=		https://www.x.org/wiki/
-CONTACT=		Leonid_Bobrov[goleo@disroot.org]
+CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		https://www.x.org/releases/individual/app/
 DISTFILE[1]=		xdm-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
+
+LICENSE=		CUSTOM1:primary
+LICENSE_NAME=		CUSTOM1:"The Open Group License"
+LICENSE_FILE=		CUSTOM1:{{WRKDIR}}/LICENSE_TOG
+LICENSE_SOURCE=		CUSTOM1:{{WRKSRC}}/include/dm.h
+LICENSE_AWK=		CUSTOM1:"xdm - display manager daemon"
+LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		x11/xdm
 

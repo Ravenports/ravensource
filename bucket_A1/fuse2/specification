@@ -13,14 +13,14 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/libfuse:libfuse:fuse-${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev tools man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		LGPL21:single
+LICENSE=		LGPL21:primary
 LICENSE_FILE=		LGPL21:{{WRKSRC}}/COPYING.LIB
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/include/fuse.h
 LICENSE_AWK=		TERMS:"\*\/"
 LICENSE_SCHEME=		solo
@@ -29,6 +29,8 @@ FPC_EQUIVALENT=		sysutils/fusefs-libs
 
 # FUSE not available on solaris until release 11 (tbc)
 NOT_FOR_OPSYS=		dragonfly sunos
+
+EXRUN[tools]=		primary
 
 USES=			cpe iconv libtool autoreconf gettext:build
 INSTALL_TARGET=		install-strip

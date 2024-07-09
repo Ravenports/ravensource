@@ -1,0 +1,36 @@
+post-install-lua: [{
+     args: ""
+     code: <<EOS
+gqi = pkg.prefixed_path("bin/gtk-query-immodules-3.0")
+pkg.exec({gqi, "--update-cache"})
+EOS
+}]
+post-deinstall-lua: [{
+     args: ""
+     code: <<EOS
+function rmtry (mydir)
+  local res = pkg.readdir(mydir)
+  if res ~= nil then
+    if #res == 0 then
+      os.remove(mydir)
+      return true
+    end
+    return false
+  end
+end
+
+name = pkg.prefixed_path("lib/gtk-3.0/%%GTK_VERSION%%/immodules.cache")
+dir2 = pkg.prefixed_path("lib/gtk-3.0/%%GTK_VERSION%%")
+dir3 = pkg.prefixed_path("lib/gtk-3.0")
+dir4 = pkg.prefixed_path("lib")
+
+os.remove(name)
+if rmtry (dir2) then
+   if rmtry (dir3) then
+      if rmtry (dir4) then
+        a = 0
+      end
+   end
+end
+EOS
+}]

@@ -1,0 +1,71 @@
+icon_cache: {
+  file_glob: ["*/share/icons/*"]
+
+  trigger: <<EOS
+-- make sure we only get the path one level after share/icons
+-- Ensure each path is uniq
+local hash = {}
+for _,path in ipairs(arg) do
+	path = string.match(path, ".*share/icons/[^/]*")
+	if (not hash[path]) and pkg.stat(path) then
+		local res = pkg.readdir(path)
+		if #res == 1 and res[1] == "icon-theme.cache" then
+			os.remove(path .. "/" .. res[1])
+			os.remove(path)
+			-- remove share icons if empty
+			local share_icons = path:gsub("(.*share/icons)/.*", "%1")
+			local res = pkg.readdir(share_icons)
+			if #res == 0 then
+				os.remove(share_icons)
+			end
+		else
+			print("Triggered: Generating GTK icon cache for " .. path)
+			pkg.exec({"%%PREFIX%%/bin/gtk-update-icon-cache", "-q", "-t", "-f", path})
+		end
+		hash[path] = true
+	end
+end
+EOS
+
+  cleanup: <<EOS
+function rmtry (mydir)
+  local res = pkg.readdir(mydir)
+  if res ~= nil then
+    if #res == 0 then
+      os.remove(mydir)
+      return true
+    end
+    return false
+  end
+end
+
+pkg.print_msg("Triggered: Removing icon-theme cache directories")
+local cres = pkg.readdir(pkg.prefixed_path("share/icons"))
+if cres == nil then goto done end
+
+for _,dir in ipairs(cres) do
+   local itcache = "share/icons/" .. dir .. "/icon-theme.cache"
+   if itcache then
+      local name = pkg.prefixed_path(itcache)
+      local dir2 = pkg.prefixed_path("share/icons/" .. dir)
+      pkg.print_msg("           Removing " .. itcache)
+      os.remove(name)
+      if rmtry(dir2) then
+         noop = 1
+      end
+   end
+end
+
+dir3 = pkg.prefixed_path("share/icons")
+dir4 = pkg.prefixed_path("share")
+
+if rmtry (dir3) then
+   if rmtry (dir4) then
+     noop = 1
+   end
+end
+
+::done::
+
+EOS
+}

@@ -57,8 +57,7 @@ CONFIGURE_ARGS=		--localstatedir=/var
 			--with-lmdb
 			STD_CDEFINES="-DDIG_SIGCHASE=1"
 RC_SUBR=		named:server
-SUB_FILES=		pkg-message-server
-			named.conf
+SUB_FILES=		named.conf
 PLIST_SUB=		ETCDIR={{BIND_ETCDIR}}
 			LIBVER=${PORTVERSION}
 INSTALL_REQ_TOOLCHAIN=	yes
@@ -70,7 +69,8 @@ INSTALL_REQ_TOOLCHAIN=	yes
 
 [FIXED_RRSET].CONFIGURE_ENABLE_BOTH=	fixed-rrset
 [GEOIP].CONFIGURE_ENABLE_BOTH=		geoip
-[GEOIP].BUILDRUN_DEPENDS_ON=		GeoIP:single:standard
+[GEOIP].BUILD_DEPENDS_ON=		GeoIP:dev:standard
+[GEOIP].BUILDRUN_DEPENDS_ON=		GeoIP:primary:standard
 [LARGE_FILE].CONFIGURE_ENABLE_BOTH=	largefile
 [QUERYTRACE].CONFIGURE_ENABLE_BOTH=	querytrace
 

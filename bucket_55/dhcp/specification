@@ -17,8 +17,12 @@ DISTFILE[1]=		dhcp-${DISTRIBUTION}.tar.gz:main
 
 SPKGS[standard]=	complete server client relay
 
-OPTIONS_AVAILABLE=	BINLEASES DHCP4O6 LDAP BIND_SYMBOLS
-OPTIONS_STANDARD=	BINLEASES DHCP4O6 LDAP BIND_SYMBOLS
+OPTIONS_AVAILABLE=	BINLEASES DHCP4O6 LDAP BIND_SYMBOLS BSD
+OPTIONS_STANDARD=	BINLEASES DHCP4O6 LDAP BIND_SYMBOLS BSD
+OPT_ON[dragonfly]=	BSD
+OPT_ON[freebsd]=	BSD
+OPT_ON[netbsd]=		BSD
+OPT_ON[midnightbsd]=	BSD
 
 LICENSE=		ISCL:server
 LICENSE_FILE=		ISCL:{{WRKSRC}}/LICENSE
@@ -36,14 +40,6 @@ USERGROUP_SPKG=		server
 EXRUN[client]=		ssl
 EXRUN[relay]=		ssl
 
-SUB_FILES=		pkg-message-client-netbsd
-			pkg-message-client-freebsd
-			pkg-message-client-dragonfly
-			pkg-message-client-midnightbsd
-			pkg-message-server-netbsd
-			pkg-message-server-freebsd
-			pkg-message-server-dragonfly
-			pkg-message-server-midnightbsd
 SUB_LIST=		MANPREFIX={{MANPREFIX}}
 
 USES=			cpe gmake ssl shebangfix cclibs:server,client,relay
@@ -78,6 +74,11 @@ VAR_OPSYS[midnightbsd]=	MAKEFILE_LINE=CONFIGURE_TARGET=${MBSD64_TARGET}
 
 [BIND_SYMBOLS].DESCRIPTION=		Enable BIND internal symbol table
 [BIND_SYMBOLS].USES_ON=			perl:build
+
+[BSD].DESCRIPTION=			Build for *BSD
+[BSD].SUB_FILES_ON=			messages-relay.ucl
+					messages-client.ucl
+					messages-server.ucl
 
 post-patch:
 	${REINPLACE_CMD} -e 's|/usr/local||g' \

@@ -1,0 +1,31 @@
+post-install-lua: [{
+    args: ""
+    code: <<EOS
+real = pkg.prefixed_path("www/nginx")
+dist = pkg.prefixed_path("www/nginx-dist")
+pkg.exec({"/bin/mkdir", "-p", "-m", "755", dist})
+pkg.exec({"/bin/chmod", "a-w", dist})
+st = pkg.stat(real)
+make_link = true
+if st then
+   if st.type == "dir" then
+      make_link = false
+   end
+end
+if make_link then
+   pkg.exec({"/bin/ln", "-fs", dist, real})
+end
+EOS
+}]
+pre-deinstall-lua: [{
+   args: ""
+   code: <<EOS
+real = pkg.prefixed_path("www/nginx")
+st = pkg.stat(real)
+if st then
+   if st.type == "lnk" then
+      os.remove(real)
+   end
+end
+EOS
+}]

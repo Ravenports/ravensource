@@ -1,0 +1,34 @@
+single: {
+  type: "install"
+  message: <<EOM
+cbsd is now installed, but requires additional setup steps:
+Upon initial installation, run:
+
+  env workdir="/path" %%PREFIX%%/cbsd/sudoexec/initenv
+
+Where /path is the path to the cbsd workdir, e.g.: /usr/jails
+For upgrading an existing installation, run:
+
+  cbsd initenv
+EOM
+}
+final: {
+  type: "remove"
+  message: <<EOM
+The cbsd package has been deleted.
+
+If you are *not* upgrading this package, you may want to
+remove the following to complete the deinstallation process:
+
+1) Records in /etc/rc.conf
+  cbsdrsyncd_enable="YES"
+  cbsdrsyncd_flags="--config=$workdir/etc/rsyncd.conf"
+  cbsdd_enable="YES"
+  devfs_load_rulesets="YES"
+  cbsd_workdir="$workdir"
+  rcshutdown_timeout="900"
+  sshd_flags="-oPort=22222"
+
+2) Remove %%LOCALBASE%%/etc/sudoers.d/cbsd_sudoers
+EOM
+}

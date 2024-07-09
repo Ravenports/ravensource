@@ -1,0 +1,8 @@
+post-install-lua: [{
+    args: ""
+    code: <<EOS
+rdir = pkg.prefixed_path("share/polkit-1/rules.d")
+pkg.exec({"/usr/bin/chown", "polkitd", rdir})
+pkg.exec({"/bin/chmod", "700", rdir})
+EOS
+}]
