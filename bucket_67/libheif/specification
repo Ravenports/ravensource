@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.17.6
+DEF[PORTVERSION]=	1.18.0
 DEF[SOVERSION]=		${PORTVERSION}
 # ----------------------------------------------------------------------------
 
@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/strukturag:libheif:v${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	complete primary dev man
+SPKGS[standard]=	complete primary dev man tools
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -23,7 +23,7 @@ LICENSE=		LGPL3+:primary
 LICENSE_FILE=		LGPL3+:{{WRKSRC}}/COPYING
 LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"LIBHEIF_HEIF_H"
-LICENSE_SOURCE=		TERMS:{{WRKSRC}}/libheif/heif.h
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/libheif/api/libheif/heif.h
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		graphics/libheif
@@ -33,6 +33,7 @@ BUILD_DEPENDS=		libde265:dev:standard
 BUILDRUN_DEPENDS=	x265:primary:standard
 			libde265:primary:standard
 
+EXRUN[tools]=		primary
 EXRUN[dev]=		libde265:dev:standard
 			x265:dev:standard
 
@@ -46,3 +47,5 @@ post-install:
 	${RMDIR} ${STAGEDIR}${PREFIX}/lib/libheif
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/heif-*
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libheif.so
+	# create symlink that the CMake file botches
+	${LN} -s heif-dec ${STAGEDIR}${PREFIX}/bin/heif-convert
