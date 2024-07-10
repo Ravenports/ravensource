@@ -1,4 +1,4 @@
---- src/python_interpreter/get_interpreter_metadata.py.orig	2023-08-06 08:59:35 UTC
+--- src/python_interpreter/get_interpreter_metadata.py.orig	2024-07-07 02:31:46 UTC
 +++ src/python_interpreter/get_interpreter_metadata.py
 @@ -19,6 +19,13 @@ if platform.python_implementation() == "
  else:
