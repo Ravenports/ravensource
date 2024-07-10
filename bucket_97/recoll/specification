@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	1.37.5
+DEF[PORTVERSION]=	1.39.1
+DEF[SOVERSION]=		39.1.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		recoll
@@ -15,8 +16,13 @@ DISTFILE[1]=		recoll-${PORTVERSION}.tar.gz:main
 
 SPKGS[standard]=	complete primary tools dev lang man docs examples
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	LINUX QT6 WEBKIT ONLYTEXT
+OPTIONS_STANDARD=	LINUX QT6 WEBKIT ONLYTEXT
+OPTGROUP_RADIO=		GUI
+OPTDESCR[GUI]=		Graphical Interface Selection
+OPTGROUP[GUI]=		QT6 WEBKIT ONLYTEXT
+OPT_ON[linux]=		LINUX
+OPT_ON[all]=		QT6
 
 FPC_EQUIVALENT=		deskutils/recoll
 
@@ -28,15 +34,14 @@ LICENSE_SOURCE=		TERMS:{{WRKSRC}}/python/recoll/pyrecoll.h
 LICENSE_SCHEME=		solo
 
 EXRUN[tools]=		primary
-			qt5-qttools:primary:standard
 
 BUILD_DEPENDS=		xapian-core:dev:standard
-			qt5-qttools:dev:standard
-			qt5-qttools:primary:standard
 			chmlib:dev:standard
+			file:dev:standard
 BUILDRUN_DEPENDS=	xapian-core:primary:standard
 			aspell:primary:standard
 			chmlib:primary:standard
+			file:primary:standard
 RUN_DEPENDS=		unrar:primary:standard
 			antiword:primary:standard
 			catdoc:primary:standard
@@ -47,48 +52,47 @@ RUN_DEPENDS=		unrar:primary:standard
 			pstotext:single:standard
 			python-mutagen:single:python_default
 
-USES=			bison gmake iconv libtool pkgconfig shebangfix
-			python:sutools qt5 zlib:build mbsdfix
+USES=			bison meson pkgconfig shebangfix
+			zlib:build python:build
 XORG_COMPONENTS=	x11
 GNOME_COMPONENTS=	libxslt
 SHEBANG_FILES=		filters/*.py
 			filters/rclimg
 			desktop/hotrecoll.py
-MUST_CONFIGURE=		gnu
 MAKE_ENV=		PYTHON_CMD={{PYTHON_CMD}}
 PLIST_SUB=		VERSION=${PORTVERSION}
-CONFIGURE_ARGS=		--with-aspell
-			--enable-qtgui
-			--disable-webkit
-CONFIGURE_ENV=		QMAKE="{{QMAKE_CMD}}"
-			QMAKESPEC="{{QMAKESPEC}}"
-			QTDIR="{{PREFIX}}"
-# overwritten by qt5.mk DESTDIRNAME
-MAKE_ARGS=		DESTDIR={{STAGEDIR}}
-QMAKE_ARGS=		PREFIX={{PREFIX}}
-LDFLAGS=		-Wl,-rpath,{{PREFIX}}/lib/qt5
-CXXFLAGS=		-I{{PREFIX}}/include/qt5/QtNetwork
+MESON_ARGS=		-Daspell=true
+			-Drecollq=true
+			-Dsystemd-system-unit-dir="{{LOCALBASE}}/lib/systemd/system"
+SOVERSION=		${SOVERSION}
+SINGLE_JOB=		yes
 
-pre-build:
-	cd ${WRKSRC}/qtgui && ${SETENV} ${QMAKE_ENV} ${QMAKE_CMD} \
-		${QMAKE_ARGS} recoll.pro
+[LINUX].DESCRIPTION=			Build on Linux systems
+[LINUX].USES_OFF=			iconv
+[LINUX].LDFLAGS_OFF=			{{ICONV_LIB}}
+[LINUX].CONFIGURE_ARGS_OFF=		-Dsystemd=false
+[LINUX].CONFIGURE_ARGS_ON=		-Dystemdd=true
 
-post-patch:
-	${REINPLACE_CMD} -e \
-		's|@QMAKE@|${TRUE}|' \
-		${WRKSRC}/Makefile.in
-	${REINPLACE_CMD} \
-		-e 's|/usr/local/lib|${LOCALBASE}/lib|' \
-		-e '/LTLIBICONV=/ s|-R|-Wl,-rpath,|' \
-		${WRKSRC}/configure
-	${REINPLACE_CMD} -e \
-		's|%%PYTHON_CMD%%|${PYTHON_CMD}|' \
-		${WRKSRC}/Makefile.in
+[QT6].DESCRIPTION=			Build QT6 Graphical User Interface
+[QT6].BUILD_DEPENDS_ON=			qt6-qttools:dev:standard
+[QT6].BUILDRUN_DEPENDS_ON=		qt6-qttools:primary:standard
+[QT6].MAKE_ENV_ON=			QMAKE={{LOCALBASE}}/lib/qt6/bin/qmake
+[QT6].CONFIGURE_ARGS_ON=		-Dqtgui=true
+[QT6].CONFIGURE_ARGS_OFF=		-Dqtgui=false
+
+[WEBKIT].DESCRIPTION=			Build Webkit Graphical User Interface
+[WEBKIT].CONFIGURE_ARGS_OFF=		-Dwebkit=false
+[WEBKIT].CONFIGURE_ARGS_ON=		-Dwebkit=true
+[WEBKIT].BROKEN_ON=			Webkit option not yet implemented
+
+[ONLYTEXT].DESCRIPTION=			Build without Grapical User Interface
+
+post-install-QT6-ON:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/recoll   # only with QT6
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PYTHON_SITELIBDIR}/recoll*/*.so \
-		${STAGEDIR}${PREFIX}/lib/*.so \
-		${STAGEDIR}${PREFIX}/bin/recoll
+		${STAGEDIR}${PREFIX}/lib/*.so
 	# relocate examples
 	${MKDIR} ${STAGEDIR}${STD_EXAMPLESDIR}
 	${MV} ${STAGEDIR}${PREFIX}/share/recoll/examples/* \
@@ -99,10 +103,6 @@ post-install:
 	${MV} ${STAGEDIR}${PREFIX}/share/recoll/doc/* \
 		${STAGEDIR}${STD_DOCDIR}/
 	${RM} -r ${STAGEDIR}${PREFIX}/share/recoll/doc
-	# language file installation broke -working around it
-	${MKDIR} ${STAGEDIR}${PREFIX}/share/recoll/translations
-	${INSTALL_DATA} ${WRKSRC}/qtgui/.qm/recoll_*.qm \
-		${STAGEDIR}${PREFIX}/share/recoll/translations/
 	# autoplist for python files
 	@(cd ${STAGEDIR}${PREFIX} && \
 	${FIND} lib/python* \( -type f -o -type l \) 2>/dev/null | ${SORT}) \
