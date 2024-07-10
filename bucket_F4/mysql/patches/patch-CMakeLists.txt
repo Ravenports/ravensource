@@ -1,0 +1,35 @@
+--- CMakeLists.txt.orig	2024-06-07 11:57:16 UTC
++++ CMakeLists.txt
+@@ -2255,7 +2255,6 @@ ADD_SUBDIRECTORY(share)
+ ADD_SUBDIRECTORY(libservices)
+ 
+ IF(NOT WITHOUT_SERVER)
+-  ADD_SUBDIRECTORY(testclients)
+   ADD_SUBDIRECTORY(sql)
+ ENDIF()
+ 
+@@ -2334,8 +2333,6 @@ ENDIF()
+ ADD_SUBDIRECTORY(scripts)
+ 
+ IF(NOT WITHOUT_SERVER)
+-  ADD_SUBDIRECTORY(mysql-test)
+-  ADD_SUBDIRECTORY(mysql-test/lib/My/SafeProcess)
+   ADD_SUBDIRECTORY(support-files)
+   IF(WITH_INTERNAL)
+     ADD_SUBDIRECTORY(internal)
+@@ -2538,6 +2535,7 @@ ENDIF()
+ #
+ # RPM installs documentation directly from the source tree
+ #
++IF(FALSE)
+ IF(NOT INSTALL_LAYOUT MATCHES "RPM")
+   INSTALL(FILES
+     README
+@@ -2564,6 +2562,7 @@ IF(HAVE_ASAN AND WIN32_CLANG)
+   STRING_APPEND(CMAKE_CXX_FLAGS
+     " -fsanitize=address -fsanitize-address-use-after-scope")
+ ENDIF()
++ENDIF()
+ 
+ IF(UNIX)
+   EXECUTE_PROCESS(
