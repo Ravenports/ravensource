@@ -95,10 +95,9 @@ PGSQL_16_VERSION=	16.3
 
 #-------------------------------------------------------------------------
 # MYSQL and derivatives
-# Possible values: oracle-(8.0,8.4),innovation,mariadb-(10.[456], 10.1[1], 11)
+# Possible values: oracle-(8.0,8.4),innovation,mariadb-(10.[56], 10.1[1], 11)
 #
 # MariaDB releases:
-#   MariaDB 10.4   EOL 18 JUN 2024 (STABLE)
 #   MariaDB 10.5   EOL 24 JUN 2025 (STABLE)
 #   MariaDB 10.6   EOL 06 JUL 2026 (STABLE-LTS)
 #   MariaDB 10.7   EOL 14 Feb 2023 (REMOVED)
