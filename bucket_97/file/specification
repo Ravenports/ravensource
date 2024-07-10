@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	5.45
 
 NAMEBASE=		file
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		sysutils
 VARIANTS=		standard ravensys
 SDESC[standard]=	Utility to determine file type
@@ -14,14 +15,14 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://ftp.astron.com/pub/file/
 DISTFILE[1]=		file-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
-SPKGS[ravensys]=	single
+SPKGS[standard]=	complete primary dev man
+SPKGS[ravensys]=	complete primary dev man
 
 OPTIONS_AVAILABLE=	RAVENSYS
 OPTIONS_STANDARD=	none
 VOPTS[ravensys]=	RAVENSYS=ON
 
-LICENSE=		BSD2CLAUSE:single
+LICENSE=		BSD2CLAUSE:primary
 LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
