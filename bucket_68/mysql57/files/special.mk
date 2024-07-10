@@ -1,1 +1,0 @@
-ETCDIR=	${PREFIX}/etc/mysql
