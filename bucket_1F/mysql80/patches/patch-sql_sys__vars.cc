@@ -1,4 +1,4 @@
---- sql/sys_vars.cc.orig	2024-03-27 19:22:56 UTC
+--- sql/sys_vars.cc.orig	2024-06-13 07:46:31 UTC
 +++ sql/sys_vars.cc
 @@ -2332,7 +2332,7 @@ static Sys_var_ulong Sys_interactive_tim
      "The number of seconds the server waits for activity on an interactive "

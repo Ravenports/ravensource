@@ -95,7 +95,7 @@ PGSQL_16_VERSION=	16.3
 
 #-------------------------------------------------------------------------
 # MYSQL and derivatives
-# Possible values: oracle-(5.7,8.0,8.4), mariadb-(10.[456], 10.1[1], 11)
+# Possible values: oracle-(8.0,8.4),innovation,mariadb-(10.[456], 10.1[1], 11)
 #
 # MariaDB releases:
 #   MariaDB 10.4   EOL 18 JUN 2024 (STABLE)
@@ -112,9 +112,9 @@ PGSQL_16_VERSION=	16.3
 
 MYSQL_DEFAULT=			oracle-8.0
 
-MYSQL_oracle-5.7_VERSION=	5.7.44
-MYSQL_oracle-8.0_VERSION=	8.0.37
+MYSQL_oracle-8.0_VERSION=	8.0.38
 MYSQL_oracle-8.4_VERSION=	8.4.0
+MYSQL_innovation_VERSION=	9.0.0
 MYSQL_mariadb-10.4_VERSION=	10.4.34
 MYSQL_mariadb-10.5_VERSION=	10.5.25
 MYSQL_mariadb-10.6_VERSION=	10.6.18
