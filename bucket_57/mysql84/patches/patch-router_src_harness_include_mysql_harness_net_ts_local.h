@@ -2,7 +2,7 @@ $NetBSD: patch-router_src_harness_include_mysql_harness_net_ts_local.h,v 1.1 202
 
 NetBSD has uucred, not sockpeercred.
 
---- router/src/harness/include/mysql/harness/net_ts/local.h.orig	2024-04-10 06:26:28 UTC
+--- router/src/harness/include/mysql/harness/net_ts/local.h.orig	2024-06-03 11:39:00 UTC
 +++ router/src/harness/include/mysql/harness/net_ts/local.h
 @@ -45,7 +45,7 @@
  

@@ -1,4 +1,4 @@
---- include/my_compare.h.orig	2024-04-10 06:26:28 UTC
+--- include/my_compare.h.orig	2024-06-03 11:39:00 UTC
 +++ include/my_compare.h
 @@ -50,7 +50,7 @@
    But beware the dependency of MI_MAX_POSSIBLE_KEY_BUFF and HA_MAX_KEY_LENGTH.
