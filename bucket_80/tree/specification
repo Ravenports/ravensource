@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.1.1
+DEF[PORTVERSION]=	2.1.2
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		tree
@@ -6,14 +6,12 @@ VERSION=		${PORTVERSION}
 KEYWORDS=		sysutils
 VARIANTS=		standard
 SDESC[standard]=	Display tree-view of directories
-# HOMEPAGE=		http://mama.indstate.edu/users/ice/tree (shutting down)
 HOMEPAGE=		https://gitlab.com/OldManProgrammer/unix-tree
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
 DOWNLOAD_GROUPS=	main
-# SITES[main]=		http://mama.indstate.edu/users/ice/tree/src/
-SITES[main]=		https://fossies.org/linux/misc/
-DISTFILE[1]=		tree-${PORTVERSION}.tgz:main
+SITES[main]=		https://gitlab.com/OldManProgrammer/unix-tree/-/archive/${PORTVERSION}/
+DISTFILE[1]=		unix-tree-${PORTVERSION}.tar.gz:main
 
 SPKGS[standard]=	single
 
@@ -30,6 +28,7 @@ LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SCHEME=		solo
 
 USES=			gmake
+DISTNAME=		unix-tree-${PORTVERSION}
 
 post-patch:
 	${REINPLACE_CMD} -e 's|__TARGET__|${PREFIX}/share/xsl/docbook/manpages|' \
