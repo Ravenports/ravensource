@@ -1,4 +1,4 @@
---- elf/mold-wrapper.c.orig	2024-05-03 01:04:55 UTC
+--- elf/mold-wrapper.c.orig	2024-06-27 05:04:26 UTC
 +++ elf/mold-wrapper.c
 @@ -9,7 +9,7 @@
  #include <string.h>

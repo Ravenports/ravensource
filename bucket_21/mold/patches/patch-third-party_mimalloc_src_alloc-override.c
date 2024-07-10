@@ -1,6 +1,6 @@
---- third-party/mimalloc/src/alloc-override.c.orig	2024-05-03 01:04:55 UTC
+--- third-party/mimalloc/src/alloc-override.c.orig	2024-06-27 05:04:26 UTC
 +++ third-party/mimalloc/src/alloc-override.c
-@@ -232,7 +232,7 @@ extern "C" {
+@@ -248,7 +248,7 @@ extern "C" {
    // Forward Posix/Unix calls as well
    void*  reallocf(void* p, size_t newsize) MI_FORWARD2(mi_reallocf,p,newsize)
    size_t malloc_size(const void* p)        MI_FORWARD1(mi_usable_size,p)
