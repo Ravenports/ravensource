@@ -1,4 +1,4 @@
---- lib/TargetParser/Triple.cpp.orig	2024-05-18 14:14:07 UTC
+--- lib/TargetParser/Triple.cpp.orig	2024-06-15 17:21:32 UTC
 +++ lib/TargetParser/Triple.cpp
 @@ -610,6 +610,7 @@ static Triple::OSType parseOS(StringRef
      .StartsWith("darwin", Triple::Darwin)
