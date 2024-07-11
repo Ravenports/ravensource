@@ -1,4 +1,4 @@
---- mesonbuild/cmake/toolchain.py.orig	2024-02-26 20:51:28 UTC
+--- mesonbuild/cmake/toolchain.py.orig	2024-05-30 17:10:13 UTC
 +++ mesonbuild/cmake/toolchain.py
 @@ -148,6 +148,7 @@ class CMakeToolchain:
              'linux': 'Linux',

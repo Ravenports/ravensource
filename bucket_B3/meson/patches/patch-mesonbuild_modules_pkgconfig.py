@@ -1,4 +1,4 @@
---- mesonbuild/modules/pkgconfig.py.orig	2024-02-26 20:51:35 UTC
+--- mesonbuild/modules/pkgconfig.py.orig	2024-06-24 16:26:36 UTC
 +++ mesonbuild/modules/pkgconfig.py
 @@ -693,7 +693,7 @@ class PkgConfigModule(NewExtensionModule
          pcfile = filebase + '.pc'
