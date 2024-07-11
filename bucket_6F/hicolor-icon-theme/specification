@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	0.18
 
 NAMEBASE=		hicolor-icon-theme
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		misc
 VARIANTS=		standard
 SDESC[standard]=	High-color icon theme shell from FreeDesktop
@@ -13,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://icon-theme.freedesktop.org/releases/
 DISTFILE[1]=		hicolor-icon-theme-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -21,3 +22,7 @@ OPTIONS_STANDARD=	none
 FPC_EQUIVALENT=		misc/hicolor-icon-theme
 
 USES=			meson
+
+post-install:
+	# install the PC file in the standard location
+	${MV} ${STAGEDIR}${PREFIX}/share/pkgconfig ${STAGEDIR}${PREFIX}/lib
