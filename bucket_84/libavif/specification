@@ -1,7 +1,7 @@
-DEF[PORTVERSION]=	1.0.4
+DEF[PORTVERSION]=	1.1.0
 DEF[GTK_VERSION]=	EXTRACT_INFO(GTK2_VERSION)
 DEF[RELEASE]=		v${PORTVERSION}
-DEF[SOVERSION]=		16.0.4
+DEF[SOVERSION]=		16.1.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libavif
@@ -31,15 +31,17 @@ EXRUN[tools]=		libavif:primary:standard
 
 BUILD_DEPENDS=		aom:dev:standard
 			dav1d:dev:standard
+			libyuv:dev:standard
 BUILDRUN_DEPENDS=	aom:primary:standard
 			dav1d:primary:standard
+			libyuv:primary:standard
 
 USES=			cpe cmake jpeg png pkgconfig
 GNOME_COMPONENTS=	gdkpixbuf
 CPE_VENDOR=		aomedia
 CMAKE_ARGS=		-DAVIF_BUILD_APPS:BOOL=ON
-			-DAVIF_CODEC_AOM:BOOL=ON
-			-DAVIF_CODEC_DAV1D:BOOL=ON
+			-DAVIF_CODEC_AOM:STRING="SYSTEM"
+			-DAVIF_CODEC_DAV1D:STRING="SYSTEM"
 			-DAVIF_BUILD_GDK_PIXBUF:BOOL=ON
 			-DAVIF_ENABLE_WERROR:BOOL=OFF
 SOVERSION=		${SOVERSION}
