@@ -1,8 +1,8 @@
 - Define CLOCK_MONOTONIC_RAW if missing
 
---- src/amd/vulkan/radv_device.c.orig	2024-05-08 13:28:59 UTC
+--- src/amd/vulkan/radv_device.c.orig	2024-07-03 14:51:12 UTC
 +++ src/amd/vulkan/radv_device.c
-@@ -462,6 +462,14 @@ radv_parse_force_vrs_config_file(const c
+@@ -423,6 +423,14 @@ radv_parse_force_vrs_config_file(const c
  
  #define BUF_LEN ((10 * (sizeof(struct inotify_event) + NAME_MAX + 1)))
  

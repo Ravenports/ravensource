@@ -1,8 +1,8 @@
---- src/intel/compiler/brw_eu_validate.c.orig	2024-05-08 13:28:59 UTC
+--- src/intel/compiler/brw_eu_validate.c.orig	2024-07-03 14:51:12 UTC
 +++ src/intel/compiler/brw_eu_validate.c
-@@ -41,6 +41,39 @@
- #include <stdlib.h>
+@@ -42,6 +42,39 @@
  #include "brw_eu.h"
+ #include "brw_disasm_info.h"
  
 +#ifdef __sun__
 +#include <string.h>

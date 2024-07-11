@@ -1,6 +1,6 @@
---- src/egl/drivers/dri2/egl_dri2.c.orig	2024-05-08 13:28:59 UTC
+--- src/egl/drivers/dri2/egl_dri2.c.orig	2024-07-03 14:51:12 UTC
 +++ src/egl/drivers/dri2/egl_dri2.c
-@@ -941,11 +941,13 @@ dri2_setup_screen(_EGLDisplay *disp)
+@@ -854,11 +854,13 @@ dri2_setup_screen(_EGLDisplay *disp)
           disp->Extensions.KHR_gl_texture_3D_image = EGL_TRUE;
  
  #ifdef HAVE_LIBDRM

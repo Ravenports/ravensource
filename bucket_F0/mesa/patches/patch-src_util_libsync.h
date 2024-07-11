@@ -1,8 +1,8 @@
---- src/util/libsync.h.orig	2024-05-08 13:28:59 UTC
+--- src/util/libsync.h.orig	2024-07-03 14:51:12 UTC
 +++ src/util/libsync.h
-@@ -38,6 +38,10 @@
- #include <unistd.h>
- #include <time.h>
+@@ -40,6 +40,10 @@
+ 
+ #include "util/detect_os.h"
  
 +#ifdef __sun__
 +#include <sys/ioccom.h>
