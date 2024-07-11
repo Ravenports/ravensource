@@ -1,0 +1,49 @@
+DEF[HASH_DATE]=		20240710
+DEF[HASH]=		c1fe5663f5c386d03892c9d9b82cbb169ddea171
+# where to find version:
+# include/libyuv/version.h
+# -> #define LIBYUV_VERSION 1891
+DEF[YUV_VERSION]=	1891
+DEF[PORTVERSION]=	${YUV_VERSION}.${HASH_DATE}
+DEF[SOVERSION]=		1.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libyuv
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		standard
+SDESC[standard]=	Library for freeswitch yuv graphics manipulation
+HOMEPAGE=		https://chromium.googlesource.com/libyuv/libyuv/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://chromium.googlesource.com/libyuv/libyuv/+archive/
+DISTFILE[1]=		${HASH}.tar.gz:main
+DIST_SUBDIR=		libyuv
+
+SPKGS[standard]=	complete primary dev
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		graphics/libyuv
+
+LICENSE=		BSD3CLAUSE:primary
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+EXTRACT_DIRTY=		1
+
+SUB_FILES=		libyuv.pc
+SUB_LIST=		VERSION=${YUV_VERSION}
+
+USES=			cmake pkgconfig jpeg c++:primary
+SOVERSION=		${SOVERSION}
+
+EXRUN[dev]=		jpeg-turbo:dev:standard
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/yuvconvert
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libyuv.so
+	${MKDIR} ${STAGEDIR}${PREFIX}/lib/pkgconfig
+	${INSTALL_DATA} ${WRKDIR}/libyuv.pc ${STAGEDIR}${PREFIX}/lib/pkgconfig
