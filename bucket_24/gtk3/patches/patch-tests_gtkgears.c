@@ -3,7 +3,7 @@ $NetBSD: patch-tests_gtkgears.c,v 1.1 2023/01/02 12:04:53 adam Exp $
 sincos() is problematic, because it is built-in GCC, gets detected by meson,
 but then making docs fails.
 
---- tests/gtkgears.c.orig	2024-01-24 01:14:34 UTC
+--- tests/gtkgears.c.orig	2024-07-10 17:03:14 UTC
 +++ tests/gtkgears.c
 @@ -48,14 +48,12 @@
  #define VERTICES_PER_TOOTH 34

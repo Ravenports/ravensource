@@ -1,4 +1,4 @@
---- gtk/a11y/gtkaccessibility.c.orig	2024-01-24 01:14:34 UTC
+--- gtk/a11y/gtkaccessibility.c.orig	2024-07-10 17:03:14 UTC
 +++ gtk/a11y/gtkaccessibility.c
 @@ -37,7 +37,7 @@
  #include <gtk/gtktogglebutton.h>
@@ -9,7 +9,7 @@
  #include <atk-bridge.h>
  #endif
  
-@@ -988,7 +988,7 @@ _gtk_accessibility_init (void)
+@@ -986,7 +986,7 @@ _gtk_accessibility_init (void)
    _gtk_accessibility_override_atk_util ();
    do_window_event_initialization ();
  
