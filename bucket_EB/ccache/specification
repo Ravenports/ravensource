@@ -10,6 +10,7 @@ DEF[XXHASH_VERSION]=	0.8.2
 
 NAMEBASE=		ccache
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		standard
 SDESC[standard]=	Fast C/C++ compiler cache tool
@@ -18,7 +19,6 @@ CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main fmt xxhash
 SITES[main]=		https://github.com/ccache/ccache/releases/download/v${PORTVERSION}/
-SITES[fmt]=		https://github.com/fmtlib/fmt/releases/download/${FMT_VERSION}/
 SITES[xxhash]=		https://github.com/Cyan4973/xxhash/archive/refs/tags/
 DISTFILE[1]=		ccache-${PORTVERSION}.tar.xz:main
 DISTFILE[2]=		v${XXHASH_VERSION}.tar.gz:xxhash
@@ -38,13 +38,14 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		devel/ccache
 
 BUILD_DEPENDS=		ruby-asciidoctor:single:ruby_default
-			fmt:single:standard
+			libblake3:dev:standard
 
 EXTRACT_ONLY=		1
 
 USES=			cmake perl:build c++:primary zstd:build
 CMAKE_ARGS=		-DENABLE_TESTING:BOOL=OFF
 			-DREDIS_STORAGE_BACKEND:BOOL=OFF
+			-DDEP_FMT:STRING=BUNDLED
 PLIST_SUB=		CCLINKDIR="${CCLINKDIR}"
 DISTNAME=		ccache-${ORIGVERSION}
 BUILD_TARGET=		all doc
