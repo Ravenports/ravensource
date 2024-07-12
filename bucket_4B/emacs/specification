@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	29.3
+DEF[PORTVERSION]=	29.4
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		emacs
@@ -159,6 +159,10 @@ INSTALL_REQ_TOOLCHAIN=	yes
 					webkit2:complete:api40
 
 # gconf, imagemagick
+
+post-extract:
+	# /var/games directory gets removed at deinstall
+	echo "/var/games" > /tmp/skip_file_check
 
 post-patch:
 	${RM} ${WRKSRC}/doc/man/ctags.1
