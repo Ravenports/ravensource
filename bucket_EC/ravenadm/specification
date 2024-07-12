@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.05
+DEF[PORTVERSION]=	3.06
 DEF[PORTREVISION]=	0
 DEF[RELEASE_TAG]=	v${PORTVERSION}
 DEF[FORMAT_TAG]=	v3.0
@@ -20,7 +20,7 @@ DISTFILE[1]=		generated:main
 DISTFILE[2]=		generated:format
 DF_INDEX=		1 2
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary man
 
 OPTIONS_AVAILABLE=	WATCHDOG NCURSES
 OPTIONS_STANDARD=	WATCHDOG NCURSES
@@ -30,7 +30,7 @@ OPT_ON[netbsd]=		WATCHDOG
 OPT_ON[midnightbsd]=	WATCHDOG
 OPT_ON[all]=		NCURSES
 
-LICENSE=		ISCL:single
+LICENSE=		ISCL:primary
 LICENSE_FILE=		ISCL:{{WRKSRC}}/License.txt
 LICENSE_SCHEME=		solo
 
@@ -60,12 +60,12 @@ post-extract:
 		-e 's|:= dragonfly|:= ${OPSYS:tl}|' \
 		${WRKSRC}/src/definitions.ads
 
-post-patch-WATCHDOG-OFF:
+pre-configure-WATCHDOG-OFF:
 	@${ECHO_MSG} "Disabling watchdog monitor ..."
 	${REINPLACE_CMD} -e "/hangmonitor :/ s|True|False|" \
 		${WRKSRC}/src/portscan-buildcycle.adb
 
-post-patch-NCURSES-ON:
+pre-configure-NCURSES-ON:
 	# Code disabled curses support by default, we have to
 	# inline patch to activate it.
 	${REINPLACE_CMD} -e '/adacurses.gpr/ s|-- ||' \
