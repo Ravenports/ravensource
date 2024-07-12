@@ -32,6 +32,10 @@ SUB_LIST=		SLIME_LISPDIR="{{PREFIX}}/${LISPSITE}/slime"
 
 USES=			gmake makeinfo
 
+post-extract:
+	# /var/games directory gets removed at deinstall
+	echo "/var/games" > /tmp/skip_file_check
+
 post-build:
 	(cd ${WRKSRC}/doc && ${DO_MAKE_BUILD} slime.info html/index.html)
 
