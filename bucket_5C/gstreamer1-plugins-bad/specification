@@ -17,8 +17,9 @@ DISTFILE[1]=		gst-plugins-bad-${PORTVERSION}.tar.xz:main
 
 SPKGS[standard]=	complete primary dev nls
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	LINUX
+OPTIONS_STANDARD=	LINUX
+OPT_ON[linux]=		LINUX
 
 LICENSE=		LGPL20+:primary
 LICENSE_FILE=		LGPL20+:{{WRKSRC}}/COPYING
@@ -205,6 +206,9 @@ MESON_ARGS=		-Daccurip=enabled
 DISTNAME=		gst-plugins-bad-${PORTVERSION}
 PLIST_SUB=		GSTVER=${GST_VERSION}
 SOVERSION=		${SOVERSION}
+
+[LINUX].DESCRIPTION=			Additional components for Linux
+[LINUX].USES_ON=			c++:primary
 
 post-patch:
 	# even though sctp is disabled, libsctp is being built
