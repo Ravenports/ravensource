@@ -134,10 +134,13 @@ VOPTS[v11]=		PY312=OFF PY311=ON
 
 DISTNAME=		cryptography-${PORTVERSION}
 PLIST_SUB=		VERSION=${PORTVERSION}
+			CPYTHON={{CPYTHON:U{{PYTHON_SUFFIX}}}}
 
 # install_requires extracted from setup.py
 # cffi>=1.12
 # setuptools-rust>=0.11.4
+
+VAR_OPSYS[linux]=	MAKEFILE_LINE=CPYTHON={{PYTHON_SUFFIX}}-x86_64-linux-gnu
 
 [PY312].USES_ON=			python:v12
 [PY312].BUILD_DEPENDS_ON=		python-pip:single:v12
