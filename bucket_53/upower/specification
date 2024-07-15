@@ -84,12 +84,6 @@ VAR_OPSYS[linux]=	CONFIGURE_ARGS=-Dos_backend=linux
 			CONFIGURE_ARGS=-Dudevhwdbdir=/etc/udev/hwdb.d
 VAR_OPSYS[sunos]=	CONFIGURE_ARGS=-Dos_backend=dummy
 
-post-extract:
-	# /etc/udev/* directories are installed in Linux but not removed
-	echo "/etc/udev/hwdb.d"   > /tmp/skip_file_check
-	echo "/etc/udev/rules.d" >> /tmp/skip_file_check
-	echo "/etc/udev"         >> /tmp/skip_file_check
-
 pre-configure:
 	${REINPLACE_CMD} -e "s|${CAT1}|file://${LOCALBASE}/share/xsl/docbook/|" \
 		${WRKSRC}/doc/man/meson.build
