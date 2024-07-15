@@ -97,10 +97,10 @@ pre-configure:
 	${REINPLACE_CMD} -e 's|%%GNOME_SUBR%%|${LOCALBASE}/etc/gnome.subr|' \
 		${WRKSRC}/initscript/freebsd/avahi-dnsconfd.sh.in \
 		${WRKSRC}/initscript/freebsd/avahi-daemon.sh.in
-
-pre-configure-BSD-ON:
 	${REINPLACE_CMD} -e 's|avahi_runtime_dir="/run"|avahi_runtime_dir="/var/run"|' \
 		${WRKSRC}/configure
+
+pre-configure-BSD-ON:
 	${REINPLACE_CMD} -e 's|-ldl||g ; s|netdev|network|g' \
 		${WRKSRC}/configure \
 		${WRKSRC}/avahi-client/Makefile.in \
