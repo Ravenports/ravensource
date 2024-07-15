@@ -7,6 +7,7 @@ DEF[PLUGIN_VER]=	${PORTVERSION:R}
 
 NAMEBASE=		wireshark
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		net
 VARIANTS=		standard
 SDESC[standard]=	Network traffic analyzer
@@ -24,11 +25,11 @@ OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 LICENSE=		GPLv2+:primary
-			BSD3CLAUSE:primary
 LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
-LICENSE_FILE=		GPLv2+:{{WRKDIR}}/GPL2
-			BSD3CLAUSE:{{WRKDIR}}/BSD_LICENSE
-LICENSE_SCHEME=		dual
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/include/wireshark.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		net/wireshark
 
@@ -104,14 +105,6 @@ PLIST_SUB=		SO_WIRETAP=${SO_WIRETAP}
 # USES=cmake + qt6 don't play nice together wrt DESTDIR
 # manually set until a framework fix is found
 MAKE_ARGS=		DESTDIR={{STAGEDIR}}
-
-post-extract:
-	${AWK} '/^Part I:$$/,/^The full text of the GNU GPL/' \
-		${WRKSRC}/COPYING > ${WRKDIR}/TERMS
-	${AWK} '/^Part II:$$/,/^Public License instead of this License./' \
-		${WRKSRC}/COPYING > ${WRKDIR}/GPL2
-	${AWK} '/^Part III:$$/,/^---------------/' \
-		${WRKSRC}/COPYING > ${WRKDIR}/BSD_LICENSE
 
 pre-configure:
 	${REINPLACE_CMD} -e 's|libssh/libssh.h|libssh/libssh_version.h|' \
