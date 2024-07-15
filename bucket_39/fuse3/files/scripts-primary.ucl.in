@@ -1,0 +1,12 @@
+pre-install: [{
+     args: ""
+     code: <<EOS
+EOS
+/bin/mknod -m 0666 /dev/fuse c 10 229 || true
+}]
+post-deinstall: [{
+     args: ""
+     code: <<EOS
+/bin/rm -f /dev/fuse
+EOS
+}]
