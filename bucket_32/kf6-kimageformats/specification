@@ -1,6 +1,6 @@
 DEF[PORTVERSION]=	EXTRACT_INFO(KDE6_FRAMEWORKS_VERSION)
 DEF[KF6_COMPONENT]=	kimageformats
-DEF[PLUGINS]=		ani avif eps exr hdr jxl kra ora pcx pic psd qoi ras raw rgb tga xcf
+DEF[PLUGINS]=		ani eps exr hdr jxl kra ora pcx pic psd qoi ras raw rgb tga xcf
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		kf6-${KF6_COMPONENT}
@@ -18,8 +18,9 @@ DIST_SUBDIR=		kde6
 
 SPKGS[standard]=	single
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	LINUX
+OPTIONS_STANDARD=	LINUX
+OPT_ON[linux]=		LINUX
 
 LICENSE=		BSD2CLAUSE:single
 			BSD3CLAUSE:single
@@ -38,7 +39,6 @@ BUILD_DEPENDS=		brotli:dev:standard
 			highway:dev:standard
 			kf6-extra-cmake-modules:primary:standard
 			kf6-karchive:dev:standard
-			libavif:dev:standard
 			libheif:dev:standard
 			libjxl:dev:standard
 			libraw:dev:standard
@@ -46,7 +46,6 @@ BUILD_DEPENDS=		brotli:dev:standard
 			qt6-qtbase:dev:standard
 BUILDRUN_DEPENDS=	kf6-kconfig:primary:standard
 			kf6-karchive:primary:standard
-			libavif:primary:standard
 			libheif:primary:standard
 			libjxl:primary:standard
 			libraw:primary:standard
@@ -58,7 +57,13 @@ CPE_VENDOR=		kde
 CPE_PRODUCT=		kimageformats
 DISTNAME=		${KF6_COMPONENT}-${PORTVERSION}
 CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt6/cmake
+			-DKIMAGEFORMATS_HEIF:BOOL=ON
 SOVERSION=		${PORTVERSION}
+
+# The libavif module can't link the libraries even though -rpath is set and libraries are present
+[LINUX].DESCRIPTION=			Special instructions for Linux
+[LINUX].BUILD_DEPENDS_OFF=		libavif:dev:standard
+[LINUX].BUILDRUN_DEPENDS_OFF=		libavif:primary:standard
 
 post-extract:
 	${ECHO} "Terms extracted from 'src/imageformats/jxl.cpp':" > ${WRKDIR}/TERMS
@@ -70,7 +75,10 @@ post-extract:
 	${ECHO} "Terms extracted from 'src/imageformats/gimp_p.h':" >> ${WRKDIR}/TERMS
 	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/src/imageformats/gimp_p.h >> ${WRKDIR}/TERMS
 
-post-stage:
+post-install:
 .for p in ${PLUGINS}
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/qt6/plugins/imageformats/kimg_${p}.so
 .endfor
+
+post-install-LINUX-OFF:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/qt6/plugins/imageformats/kimg_avif.so
