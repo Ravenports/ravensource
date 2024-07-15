@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	4.1
 
 NAMEBASE=		xvkbd
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		x11
 VARIANTS=		standard
 SDESC[standard]=	Virtual (on-screen) keyboard for X
@@ -13,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://t-sato.in.coocan.jp/xvkbd/
 DISTFILE[1]=		xvkbd-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -27,7 +28,8 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		x11/xvkbd
 
-BUILD_DEPENDS=		imake:single:standard
+BUILD_DEPENDS=		imake:primary:standard
+
 XORG_COMPONENTS=	x11 ice sm xaw xext xmu xpm xt xtst
 
 post-patch:
@@ -49,3 +51,9 @@ post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/xvkbd
 	${INSTALL_MAN} ${WRKSRC}/xvkbd.man \
 		${STAGEDIR}${MANPREFIX}/man/man1/xvkbd.1
+
+post-install-linux:
+	# Can't figure out how to prevent link on xorg-cf-files, so just move it for now
+	${RM} ${STAGEDIR}${PREFIX}/lib/X11/app-defaults
+	${MV} ${STAGEDIR}/etc/X11/app-defaults ${STAGEDIR}${PREFIX}/lib/X11/app-defaults
+	${RM} -r ${STAGEDIR}/etc
