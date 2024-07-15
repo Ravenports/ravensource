@@ -67,11 +67,12 @@ MESON_ARGS=		-Daspell=true
 SOVERSION=		${SOVERSION}
 SINGLE_JOB=		yes
 
+# disable systemd support for now (ON should be -Dsystemd=true)
 [LINUX].DESCRIPTION=			Build on Linux systems
 [LINUX].USES_OFF=			iconv
 [LINUX].LDFLAGS_OFF=			{{ICONV_LIB}}
 [LINUX].CONFIGURE_ARGS_OFF=		-Dsystemd=false
-[LINUX].CONFIGURE_ARGS_ON=		-Dystemdd=true
+[LINUX].CONFIGURE_ARGS_ON=		-Dsystemd=false
 
 [QT6].DESCRIPTION=			Build QT6 Graphical User Interface
 [QT6].BUILD_DEPENDS_ON=			qt6-qttools:dev:standard
