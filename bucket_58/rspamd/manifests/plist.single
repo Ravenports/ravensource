@@ -25,6 +25,7 @@ etc/rspamd/worker-fuzzy.inc
 etc/rspamd/worker-normal.inc
 etc/rspamd/worker-proxy.inc
 etc/rspamd/maps.d/dmarc_whitelist.inc
+etc/rspamd/maps.d/exe_clickbait.inc
 etc/rspamd/maps.d/maillist.inc
 etc/rspamd/maps.d/mid.inc
 etc/rspamd/maps.d/mime_types.inc
@@ -35,6 +36,7 @@ etc/rspamd/modules.d/antivirus.conf
 etc/rspamd/modules.d/arc.conf
 etc/rspamd/modules.d/asn.conf
 etc/rspamd/modules.d/aws_s3.conf
+etc/rspamd/modules.d/bayes_expiry.conf
 etc/rspamd/modules.d/bimi.conf
 etc/rspamd/modules.d/chartable.conf
 etc/rspamd/modules.d/clickhouse.conf
@@ -49,6 +51,7 @@ etc/rspamd/modules.d/external_services.conf
 etc/rspamd/modules.d/force_actions.conf
 etc/rspamd/modules.d/forged_recipients.conf
 etc/rspamd/modules.d/fuzzy_check.conf
+etc/rspamd/modules.d/gpt.conf
 etc/rspamd/modules.d/greylist.conf
 etc/rspamd/modules.d/hfilter.conf
 etc/rspamd/modules.d/history_redis.conf
@@ -234,6 +237,7 @@ share/rspamd/lualib/redis_scripts/neural_train_size.lua
 share/rspamd/lualib/redis_scripts/ratelimit_check.lua
 share/rspamd/lualib/redis_scripts/ratelimit_cleanup_pending.lua
 share/rspamd/lualib/redis_scripts/ratelimit_update.lua
+share/rspamd/lualib/rspamadm/classifier_test.lua
 share/rspamd/lualib/rspamadm/clickhouse.lua
 share/rspamd/lualib/rspamadm/configgraph.lua
 share/rspamd/lualib/rspamadm/confighelp.lua
@@ -274,6 +278,7 @@ share/rspamd/plugins/external_services.lua
 share/rspamd/plugins/force_actions.lua
 share/rspamd/plugins/forged_recipients.lua
 share/rspamd/plugins/fuzzy_collect.lua
+share/rspamd/plugins/gpt.lua
 share/rspamd/plugins/greylist.lua
 share/rspamd/plugins/hfilter.lua
 share/rspamd/plugins/history_redis.lua
@@ -305,6 +310,7 @@ share/rspamd/plugins/spf.lua
 share/rspamd/plugins/trie.lua
 share/rspamd/plugins/url_redirector.lua
 share/rspamd/plugins/whitelist.lua
+share/rspamd/rules/archives.lua
 share/rspamd/rules/bitcoin.lua
 share/rspamd/rules/bounce.lua
 share/rspamd/rules/content.lua
@@ -350,6 +356,7 @@ share/rspamd/www/fonts/glyphicons-halflings-regular.woff
 share/rspamd/www/fonts/glyphicons-halflings-regular.woff2
 share/rspamd/www/img/asc.png
 share/rspamd/www/img/desc.png
+share/rspamd/www/img/drop-area.svg
 share/rspamd/www/img/rspamd_logo_navbar.png
 share/rspamd/www/js/main.js
 share/rspamd/www/js/app/common.js
