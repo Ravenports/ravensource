@@ -1,11 +1,10 @@
-DEF[PORTVERSION]=	1.5.1
+DEF[PORTVERSION]=	1.5.3
 DEF[RELEASE_TAG]=	${PORTVERSION}
 DEF[SOVERSION]=		${PORTVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libblake3
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		security
 VARIANTS=		standard
 SDESC[standard]=	C implementation of BLAKE3 is a cryptographic hash
@@ -23,9 +22,8 @@ OPTIONS_STANDARD=	none
 
 LICENSE=		CC0_10:primary APACHE20:primary
 LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
-LICENSE_FILE=		CC0_10:stock APACHE20:stock
-LICENSE_SOURCE=		TERMS:{{WRKSRC}}/../LICENSE
-LICENSE_AWK=		TERMS:"^------"
+LICENSE_FILE=		CC0_10:{{WRKSRC}}/../LICENSE_CC0
+			APACHE20:{{WRKSRC}}/../LICENSE_A2LLVM
 LICENSE_SCHEME=		dual
 
 SUB_FILES=		CMakeLists.txt
@@ -36,6 +34,9 @@ USES=			cmake
 SOVERSION=		${SOVERSION}
 DISTNAME=		BLAKE3-${PORTVERSION}/c
 SINGLE_JOB=		yes
+
+post-extract:
+	${AWK} "/Licenses/,/Adoption/" ${WRKSRC}/../README.md > ${WRKDIR}/TERMS
 
 pre-configure:
 	# Install makefile
