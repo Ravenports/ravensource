@@ -1,4 +1,4 @@
---- util/coroutine-ucontext.c.orig	2024-06-10 18:35:25 UTC
+--- util/coroutine-ucontext.c.orig	2024-07-16 21:34:43 UTC
 +++ util/coroutine-ucontext.c
 @@ -160,7 +160,15 @@ static void coroutine_trampoline(int i0,
      co = &self->base;

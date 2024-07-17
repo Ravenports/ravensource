@@ -1,4 +1,4 @@
---- bsd-user/freebsd/os-sys.c.orig	2024-06-10 18:35:24 UTC
+--- bsd-user/freebsd/os-sys.c.orig	2024-07-16 21:34:42 UTC
 +++ bsd-user/freebsd/os-sys.c
 @@ -426,7 +426,9 @@ static abi_long do_freebsd_sysctl_oid(CP
              switch (snamep[1]) {
