@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	70.3.0
+DEF[PORTVERSION]=	71.0.3
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-setuptools
@@ -11,7 +11,7 @@ HOMEPAGE=		none
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/ef/15/88e46eb9387e905704b69849618e699dc2f54407d8953cc4ec4b8b46528d
+SITES[main]=		PYPIWHL/32/10/e72bb221cdd2f11e649cf38bd7ba8ea6d527c77f330366e10ae9bb798730
 DISTFILE[1]=		setuptools-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[v11]=		single
@@ -29,6 +29,15 @@ GENERATED=		yes
 DISTNAME=		setuptools-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
+# packaging >=24 ; extra == 'core'
+# ordered-set >=3.1.1 ; extra == 'core'
+# more-itertools >=8.8 ; extra == 'core'
+# jaraco.text >=3.7 ; extra == 'core'
+# importlib-resources >=5.10.2 ; extra == 'core'
+# importlib-metadata >=6 ; extra == 'core'
+# tomli >=2.0.1 ; extra == 'core'
+# wheel >=0.43.0 ; extra == 'core'
+# platformdirs >=2.6.2 ; extra == 'core'
 # sphinx >=3.5 ; extra == 'doc'
 # jaraco.packaging >=9.3 ; extra == 'doc'
 # rst.linker >=1.9 ; extra == 'doc'
@@ -42,6 +51,7 @@ DISTNAME=		setuptools-${PORTVERSION}.dist-info
 # sphinxcontrib-towncrier ; extra == 'doc'
 # sphinx-notfound-page <2,>=1 ; extra == 'doc'
 # pyproject-hooks !=1.1 ; extra == 'doc'
+# sphinx <7.4 ; extra == 'doc'
 # pytest !=8.1.*,>=6 ; extra == 'test'
 # pytest-checkdocs >=2.4 ; extra == 'test'
 # pytest-cov ; extra == 'test'
@@ -66,9 +76,11 @@ DISTNAME=		setuptools-${PORTVERSION}.dist-info
 # pytest-subprocess ; extra == 'test'
 # pyproject-hooks !=1.1 ; extra == 'test'
 # jaraco.test ; extra == 'test'
+# pytest-ruff <0.4 ; (platform_system == "Windows") and extra == 'test'
 # jaraco.develop >=7.21 ; (python_version >= "3.9" and sys_platform != "cygwin") and extra == 'test'
-# pytest-ruff >=0.3.2 ; (sys_platform != "cygwin") and extra == 'test'
+# pytest-ruff >=0.2.1 ; (sys_platform != "cygwin") and extra == 'test'
 # pytest-perf ; (sys_platform != "cygwin") and extra == 'test'
+# pytest-ruff >=0.3.2 ; (sys_platform != "cygwin") and extra == 'test'
 
 [PY311].USES_ON=			python:v11,wheel
 [PY312].USES_ON=			python:v12,wheel
