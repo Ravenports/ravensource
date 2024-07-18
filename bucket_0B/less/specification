@@ -1,12 +1,11 @@
-DEF[PORTVERSION]=	633
+DEF[PORTVERSION]=	661
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		less
 VERSION=		${PORTVERSION}
 KEYWORDS=		sysutils
-VARIANTS=		standard color
+VARIANTS=		standard
 SDESC[standard]=	Popular open-source file pager
-SDESC[color]=		Popular file pager with color sequence support
 HOMEPAGE=		http://www.greenwoodsoftware.com/less/
 CONTACT=		nobody
 
@@ -15,11 +14,9 @@ SITES[main]=		http://www.greenwoodsoftware.com/less/
 DISTFILE[1]=		less-${PORTVERSION}.tar.gz:main
 
 SPKGS[standard]=	single
-SPKGS[color]=		single
 
-OPTIONS_AVAILABLE=	COLOR
+OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
-VOPTS[color]=		COLOR=ON
 
 LICENSE=		GPLv3:single CUSTOM1:single
 LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
@@ -36,9 +33,6 @@ MUST_CONFIGURE=		yes
 CONFIGURE_ARGS=		--prefix={{PREFIX}}
 
 VAR_OPSYS[sunos]=	CONFIGURE_ENV=LIBS="-lrt -lsocket"
-
-[COLOR].DESCRIPTION=			Color support via escape sequences
-[COLOR].CPPFLAGS_ON=			-DCOLOR_LESS
 
 post-extract:
 	# support static linking
