@@ -1,44 +1,41 @@
-DEF[PORTVERSION]=	3.01
+DEF[PORTVERSION]=	2024-03-21
+DEF[BASELIBS]=		libscg librscg libparanoia libmdigest libdeflt libscgcmd libschily libcdrdeflt libedc libfile libsiconv libfind libhfs_iso
+DEF[COMPONENTS]=	cdda2wav cdrecord mkisofs mkisofs/diag readcd scgcheck scgskeleton
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		cdrtools
 VERSION=		${PORTVERSION}
-REVISION=		2
 KEYWORDS=		sysutils audio
 VARIANTS=		standard
 SDESC[standard]=	CD/DVD/BluRay command line recording software
-HOMEPAGE=		https://cdrtools.sourceforge.net/private/cdrecord.html
+HOMEPAGE=		https://codeberg.org/schilytools/schilytools
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		SF/cdrtools
-DISTFILE[1]=		cdrtools-${PORTVERSION}.tar.gz:main
+SITES[main]=		https://codeberg.org/schilytools/schilytools/releases/download/${PORTVERSION}/
+DISTFILE[1]=		schily-${PORTVERSION}.tar.bz2:main
 
-SPKGS[standard]=	complete primary mp3 ogg docs
+SPKGS[standard]=	complete primary mp3 ogg docs man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		CDDL:primary GPLv2:primary LGPL21:primary BSD2CLAUSE:primary
-LICENSE_TERMS=		primary:{{WRKSRC}}/COPYING
-LICENSE_FILE=		CDDL:{{WRKSRC}}/CDDL.Schily.txt
-			GPLv2:{{WRKSRC}}/GPL-2.0.txt
-			LGPL21:{{WRKSRC}}/LGPL-2.1.txt
-			BSD2CLAUSE:{{WRKSRC}}/libfile/LEGAL.NOTICE
-LICENSE_SCHEME=		multi
-
 FPC_EQUIVALENT=		sysutils/cdrtools
 
-EXRUN[mp3]=		lame:complete:standard
+LICENSE=		CDDL:primary
+LICENSE_TERMS=		primary:{{WRKSRC}}/Schily.Copyright
+LICENSE_FILE=		CDDL:{{WRKSRC}}/CDDL.Schily.txt
+LICENSE_SCHEME=		solo
+
+EXRUN[mp3]=		lame:primary:standard
 EXRUN[ogg]=		vorbis-tools:primary:standard
 
-USES=			cpe gmake iconv
-SINGLE_JOB=		yes
-MAKE_ENV=		CCOM=cc
-			GMAKE_NOWARN=true
-			INS_BASE="{{LOCALBASE}}"
-			DEFOSINCDIRS="{{LOCALBASE}}/include"
-			LDPATH="-L{{LOCALBASE}}/lib -Wl,-rpath,{{LOCALBASE}}/lib"
+USES=			cpe gmake
+DISTNAME=		schily-${PORTVERSION}
+MAKE_ARGS=		DESTDIR={{STAGEDIR}}
+			INS_BASE={{PREFIX}}
+			INS_RBASE={{PREFIX}}
+			STRIPFLAGS={{STRIP}}
 
 post-patch:
 	(cd ${WRKSRC}/RULES && \
@@ -46,77 +43,30 @@ post-patch:
 	 ${LN} -sf i386-freebsd-cc.rul x86_64-dragonfly-cc.rul && \
 	 ${LN} -sf i386-freebsd-cc.rul x86_64-midnightbsd-cc.rul && \
 	 ${LN} -sf i586-linux-cc.rul x86_64-linux-cc.rul)
-	${REINPLACE_CMD} -e 's|.(C_ARCH)|gcc|; /VOLMGT/d' \
-	 ${WRKSRC}/RULES/i86pc-sunos5-gcc.rul
-	${RM} ${WRKSRC}/TARGETS/55scgskeleton ${WRKSRC}/TARGETS/85man
-	${RM} ${WRKSRC}/TARGETS/55rscsi
-	(cd ${WRKSRC} && ${REINPLACE_CMD} -e \
-	 's|\/opt\/schily|${PREFIX}|g; \
-	  s|\/usr\/local|${PREFIX}|g; s|\/etc\/default|${PREFIX}\/etc|g; \
-	  s|\/var\/adm\/messages|\/var\/run\/dmesg.boot|g; \
-	  s|^CDDA2WAV=|&${PREFIX}\/bin\/|g; \
-	  s|^MP_CODER=|&${LOCALBASE}\/bin\/|g' ${RPTARGETS})
-	${MV} -f ${WRKSRC}/libparanoia/cdda_paranoia.h \
-		${WRKSRC}/libparanoia/js_cdda_paranoia.h
-	(cd ${WRKSRC} && ${REINPLACE_CMD} -e \
-	 's|cdda_paranoia\.h|js_cdda_paranoia.h|g' ${RPTARGETS2})
-	${CP} ${WRKSRC}/DEFAULTS/Defaults.freebsd ${WRKSRC}/DEFAULTS/Defaults.midnightbsd
-	${CP} ${WRKSRC}/RULES/os-freebsd.def ${WRKSRC}/RULES/os-midnightbsd.def
-	${CP} ${WRKSRC}/RULES/os-freebsd.id ${WRKSRC}/RULES/os-midnightbsd.id
-	${REINPLACE_CMD} -e '/LDPATH=/d; /DEFOSINCDIRS=/d' \
-		${WRKSRC}/DEFAULTS/Defaults.${OPSYS:tl:S/sunos/sunos5/}
+
+do-configure:
+	@${ECHO_MSG} "=> building a bootstrap smake"
+	cd ${WRKSRC}/psmake && ${SETENV} ${MAKE_ENV} ${SH} ./MAKE-all
+
+pre-build:
+.for component in ${BASELIBS}
+	cd ${WRKSRC}/${component} && ${SETENV} ${MAKE_ENV} ${MAKE_CMD} ${MAKE_ARGS} all
+.endfor
+
+do-build:
+.for component in ${COMPONENTS}
+	cd ${WRKSRC}/${component} && ${SETENV} ${MAKE_ENV} ${MAKE_CMD} ${MAKE_ARGS} all
+.endfor
 
 do-install:
-	${INSTALL_SCRIPT} \
-		${WRKSRC}/cdda2wav/cdda2mp3 \
-		${WRKSRC}/cdda2wav/cdda2ogg \
-		${STAGEDIR}${PREFIX}/bin
-	${INSTALL_PROGRAM} \
-		${WRKSRC}/btcflash/OBJ/*-cc/btcflash \
-		${WRKSRC}/cdda2wav/OBJ/*-cc/cdda2wav \
-		${WRKSRC}/mkisofs/diag/OBJ/*-cc/devdump \
-		${WRKSRC}/mkisofs/diag/OBJ/*-cc/isodebug \
-		${WRKSRC}/mkisofs/diag/OBJ/*-cc/isodump \
-		${WRKSRC}/mkisofs/diag/OBJ/*-cc/isoinfo \
-		${WRKSRC}/mkisofs/diag/OBJ/*-cc/isovfy \
-		${WRKSRC}/mkisofs/OBJ/*-cc/mkisofs \
-		${WRKSRC}/readcd/OBJ/*-cc/readcd \
-		${WRKSRC}/scgcheck/OBJ/*-cc/scgcheck \
-		${WRKSRC}/cdrecord/OBJ/*-cc/cdrecord \
-		${STAGEDIR}${PREFIX}/bin
-	${LN} -sf mkisofs ${STAGEDIR}${PREFIX}/bin/mkhybrid
-	${LN} -sf cdda2wav ${STAGEDIR}${PREFIX}/bin/list_audio_tracks
-	${INSTALL_MAN} \
-		${WRKSRC}/btcflash/btcflash.1 \
-		${WRKSRC}/cdda2wav/cdda2wav.1 \
-		${WRKSRC}/cdrecord/cdrecord.1 \
-		${WRKSRC}/readcd/readcd.1 \
-		${WRKSRC}/cdda2wav/cdda2ogg.1 \
-		${WRKSRC}/scgcheck/scgcheck.1 \
-		${STAGEDIR}${MANPREFIX}/man/man1
-	${INSTALL_MAN} ${WRKSRC}/cdda2wav/cdda2ogg.1 \
-		${STAGEDIR}${MANPREFIX}/man/man1/cdda2mp3.1
-	${INSTALL_MAN} \
-		${WRKSRC}/mkisofs/mkisofs.8 \
-		${WRKSRC}/mkisofs/diag/isoinfo.8 \
-		${STAGEDIR}${MANPREFIX}/man/man8
-	${INSTALL_DATA} ${WRKSRC}/cdrecord/cdrecord.dfl \
-		${STAGEDIR}${PREFIX}/etc/cdrecord.sample
-
-	# SICONVTABLES
-	${MKDIR} ${STAGEDIR}${PREFIX}/lib/siconv
-	(cd ${WRKSRC}/libsiconv/tables && ${INSTALL_DATA} ${SICONVTABLES} \
-		${STAGEDIR}${PREFIX}/lib/siconv)
-
-	# Documentation package
-	${MKDIR} \
-		${STAGEDIR}${STD_DOCDIR}/cdda2wav \
-		${STAGEDIR}${STD_DOCDIR}/cdrecord \
-		${STAGEDIR}${STD_DOCDIR}/mkisofs
-	(cd ${WRKSRC} && ${INSTALL_DATA} ${DOCS} ${STAGEDIR}${STD_DOCDIR})
-	(cd ${WRKSRC}/cdda2wav && ${INSTALL_DATA} ${CDDA2WAVDOCS} \
-		 ${STAGEDIR}${STD_DOCDIR}/cdda2wav)
-	(cd ${WRKSRC}/cdrecord && ${INSTALL_DATA} ${CDRECORDDOCS} \
-		${STAGEDIR}${STD_DOCDIR}/cdrecord)
-	(cd ${WRKSRC}/mkisofs && ${INSTALL_DATA} ${MKISOFSDOCS} \
-		${STAGEDIR}${STD_DOCDIR}/mkisofs)
+.for component in ${COMPONENTS}
+	cd ${WRKSRC}/${component} && ${SETENV} ${MAKE_ENV} ${MAKE_CMD} ${MAKE_ARGS} install
+.endfor
+	# relocate doc pages
+	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
+	${RM} ${STAGEDIR}${PREFIX}/share/doc/cdrecord/README.rscsi
+	${MV} ${STAGEDIR}${PREFIX}/share/doc/cdrecord ${STAGEDIR}${STD_DOCDIR}/
+	${MV} ${STAGEDIR}${PREFIX}/share/doc/mkisofs ${STAGEDIR}${STD_DOCDIR}/
+	${MV} ${STAGEDIR}${PREFIX}/share/doc/cdda2wav ${STAGEDIR}${STD_DOCDIR}/
+	# remove setuid
+	(cd ${STAGEDIR}${PREFIX}/bin && ${CHMOD} 755 cdda2wav cdrecord readcd)
