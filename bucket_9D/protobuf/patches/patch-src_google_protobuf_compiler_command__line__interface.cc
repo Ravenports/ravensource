@@ -1,6 +1,6 @@
---- src/google/protobuf/compiler/command_line_interface.cc.orig	2024-03-27 17:31:42 UTC
+--- src/google/protobuf/compiler/command_line_interface.cc.orig	2024-06-25 17:53:13 UTC
 +++ src/google/protobuf/compiler/command_line_interface.cc
-@@ -57,7 +57,7 @@
+@@ -62,7 +62,7 @@
  
  #if defined(__APPLE__)
  #include <mach-o/dyld.h>
@@ -9,7 +9,7 @@
  #include <sys/sysctl.h>
  #endif
  
-@@ -208,7 +208,7 @@ bool GetProtocAbsolutePath(std::string*
+@@ -219,7 +219,7 @@ bool GetProtocAbsolutePath(std::string*
      realpath(dirtybuffer, buffer);
      len = strlen(buffer);
    }
