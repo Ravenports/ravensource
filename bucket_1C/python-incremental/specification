@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	22.10.0
+DEF[PORTVERSION]=	24.7.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-incremental
@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/twisted/incremental
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/77/51/8073577012492fcd15628e811db585f447c500fa407e944ab3a18ec55fb7
-DISTFILE[1]=		incremental-${PORTVERSION}-py2.py3-none-any.whl:main
+SITES[main]=		PYPIWHL/f8/0c/2e1762d2c1277524be7ba184156152a442e15e725266607d6a3a97cad77b
+DISTFILE[1]=		incremental-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[v11]=		single
 SPKGS[v12]=		single
@@ -23,18 +23,18 @@ VOPTS[v11]=		PY311=ON PY312=OFF
 VOPTS[v12]=		PY311=OFF PY312=ON
 
 # License listed at PyPI
-# MIT
+# Not provided.
 
 GENERATED=		yes
 DISTNAME=		incremental-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# click (>=6.0) ; extra == 'mypy'
-# twisted (>=16.4.0) ; extra == 'mypy'
-# mypy (==0.812) ; extra == 'mypy'
-# click (>=6.0) ; extra == 'scripts'
-# twisted (>=16.4.0) ; extra == 'scripts'
+# setuptools >=61.0
+# tomli ; python_version < "3.11"
+# click >=6.0 ; extra == 'scripts'
 
 [PY311].USES_ON=			python:v11,wheel
+[PY311].RUN_DEPENDS_ON=			python-setuptools:single:v11
 [PY312].USES_ON=			python:v12,wheel
+[PY312].RUN_DEPENDS_ON=			python-setuptools:single:v12
 
