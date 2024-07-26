@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	8.7.0
+DEF[PORTVERSION]=	8.8.1
 # ------------------------------------------------------------------------
 
 NAMEBASE=		ruby-puppet
@@ -13,7 +13,7 @@ CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		RUBYGEMS/
-DISTFILE[1]=		puppet-8.7.0.gem:main
+DISTFILE[1]=		puppet-8.8.1.gem:main
 DIST_SUBDIR=		ruby
 
 SPKGS[v31]=		single
@@ -30,47 +30,51 @@ VOPTS[v33]=		RUBY31=OFF RUBY32=OFF RUBY33=ON
 # => "Apache-2.0"
 
 # Requirements according to gem specification:
+#   concurrent-ruby (~> 1.0)
+#   deep_merge (~> 1.0)
 #   facter (>= 4.3.0, < 5)
-#   semantic_puppet (~> 1.0)
-#   fast_gettext (>= 2.1, < 3)
+#   fast_gettext (>= 2.1, < 4)
+#   getoptlong (~> 0.2.0)
 #   locale (~> 2.1)
 #   multi_json (~> 1.13)
 #   puppet-resource_api (~> 1.5)
-#   concurrent-ruby (~> 1.0)
-#   deep_merge (~> 1.0)
 #   scanf (~> 1.0)
+#   semantic_puppet (~> 1.0)
 
 DISTNAME=		puppet-${PORTVERSION}
 GENERATED=		yes
 
 [RUBY31].USES_ON=			gem:v31
-[RUBY31].BUILDRUN_DEPENDS_ON=		ruby-facter:single:v31
-					ruby-semantic_puppet:single:v31
+[RUBY31].BUILDRUN_DEPENDS_ON=		ruby-concurrent-ruby:single:v31
+					ruby-deep_merge:single:v31
+					ruby-facter:single:v31
 					ruby-fast_gettext:single:v31
+					ruby-getoptlong:single:v31
 					ruby-locale:single:v31
 					ruby-multi_json:single:v31
 					ruby-puppet-resource_api:single:v31
-					ruby-concurrent-ruby:single:v31
-					ruby-deep_merge:single:v31
 					ruby-scanf:single:v31
+					ruby-semantic_puppet:single:v31
 [RUBY32].USES_ON=			gem:v32
-[RUBY32].BUILDRUN_DEPENDS_ON=		ruby-facter:single:v32
-					ruby-semantic_puppet:single:v32
+[RUBY32].BUILDRUN_DEPENDS_ON=		ruby-concurrent-ruby:single:v32
+					ruby-deep_merge:single:v32
+					ruby-facter:single:v32
 					ruby-fast_gettext:single:v32
+					ruby-getoptlong:single:v32
 					ruby-locale:single:v32
 					ruby-multi_json:single:v32
 					ruby-puppet-resource_api:single:v32
-					ruby-concurrent-ruby:single:v32
-					ruby-deep_merge:single:v32
 					ruby-scanf:single:v32
+					ruby-semantic_puppet:single:v32
 [RUBY33].USES_ON=			gem:v33
-[RUBY33].BUILDRUN_DEPENDS_ON=		ruby-facter:single:v33
-					ruby-semantic_puppet:single:v33
+[RUBY33].BUILDRUN_DEPENDS_ON=		ruby-concurrent-ruby:single:v33
+					ruby-deep_merge:single:v33
+					ruby-facter:single:v33
 					ruby-fast_gettext:single:v33
+					ruby-getoptlong:single:v33
 					ruby-locale:single:v33
 					ruby-multi_json:single:v33
 					ruby-puppet-resource_api:single:v33
-					ruby-concurrent-ruby:single:v33
-					ruby-deep_merge:single:v33
 					ruby-scanf:single:v33
+					ruby-semantic_puppet:single:v33
 
