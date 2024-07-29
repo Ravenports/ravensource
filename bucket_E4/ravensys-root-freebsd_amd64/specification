@@ -81,13 +81,13 @@ MAKE_ARGS=		BASE={{RSYS}}
 [NOTSTD].DF_INDEX_OFF=			2
 [NOTSTD].MAKEFILE_OFF=			SYSTEM=${X_CURRENT}
 [NOTSTD].BUILD_DEPENDS_OFF=		bmake:single:standard
-					ravensys-utils:single:standard
+					ravensys-utils:primary:standard
 
 [R12].DESCRIPTION=			FreeBSD/AMD64 Release ${R12_RELEASE} system root
 [R12].DF_INDEX_ON=			3
 [R12].MAKEFILE_ON=			SYSTEM=${X_R12}
 [R12].BUILD_DEPENDS_ON=			bmake:single:prevfbsd
-					ravensys-utils:single:prevfbsd
+					ravensys-utils:primary:prevfbsd
 
 pre-fetch:
 	${SH} ${MK_SCRIPTS}/ravensys-root-validate_pkgs.sh ${PREFIX} \
