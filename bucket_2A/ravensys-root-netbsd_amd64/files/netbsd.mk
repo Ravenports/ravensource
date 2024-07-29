@@ -99,7 +99,7 @@ static_lib_NetBSD=\
 # /bin/sh (for now)
 ONLY_SO=\
 	/usr/lib/libedit.so.3 \
-	/usr/lib/libterminfo.so.1 \
+	/usr/lib/libterminfo.so.2 \
 	/usr/lib/libexecinfo.so.0 \
 	/usr/lib/libelf.so.2 \
 	# end
@@ -143,7 +143,6 @@ headers_NetBSD_dirs=\
 	netinet \
 	netinet6 \
 	netipsec \
-	netsmb \
 	nfs \
 	ntfs \
 	prop \
