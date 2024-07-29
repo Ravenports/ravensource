@@ -14,6 +14,7 @@ DEF[OLDSR_LINUX_1]=	EXTRACT_VERSION(PREVIOUS_Linux_K44)
 
 NAMEBASE=		ravensys-utils
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		raven sysutils
 VARIANTS=		standard prevdbsd prevfbsd prevlinux
 SDESC[standard]=	Consistent tools for Ravenports system root
@@ -27,10 +28,10 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/ravenports:ravensys-utils:${TAG}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	single
-SPKGS[prevdbsd]=	single
-SPKGS[prevfbsd]=	single
-SPKGS[prevlinux]=	single
+SPKGS[standard]=	complete primary man
+SPKGS[prevdbsd]=	complete primary man
+SPKGS[prevfbsd]=	complete primary man
+SPKGS[prevlinux]=	complete primary man
 
 OPTIONS_AVAILABLE=	PREV_DBSD PREV_FBSD PREV_LINUX
 OPTIONS_STANDARD=	none
@@ -38,7 +39,7 @@ VOPTS[prevdbsd]=	PREV_DBSD=ON PREV_FBSD=OFF PREV_LINUX=OFF
 VOPTS[prevfbsd]=	PREV_DBSD=OFF PREV_FBSD=ON PREV_LINUX=OFF
 VOPTS[prevlinux]=	PREV_DBSD=OFF PREV_FBSD=OFF PREV_LINUX=ON
 
-LICENSE=		CUSTOM1:single
+LICENSE=		CUSTOM1:primary
 LICENSE_NAME=		CUSTOM1:"ravensys-utils: all tools feature BSD-like license"
 LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/LICENSES.aggregated
 LICENSE_SCHEME=		solo
