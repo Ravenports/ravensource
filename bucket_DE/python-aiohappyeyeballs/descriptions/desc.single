@@ -1,0 +1,90 @@
+# aiohappyeyeballs
+
+<p align="center">
+  
+    [image]
+  
+  
+    [image]
+  
+  
+    [image]
+  
+</p>
+<p align="center">
+  
+    [image]
+  
+  
+    [image]
+  
+  
+    [image]
+  
+</p>
+<p align="center">
+  
+    [image]
+  
+  [image]
+  [image]
+</p>
+
+---
+
+**Documentation**: https://aiohappyeyeballs.readthedocs.io 
+
+**Source Code**: https://github.com/aio-libs/aiohappyeyeballs 
+
+---
+
+Happy Eyeballs
+
+## Use case
+
+This library exists to allow connecting with Happy Eyeballs when you
+already have a list of addrinfo and not a DNS name.
+
+The stdlib version of `loop.create_connection()`
+will only work when you pass in an unresolved name which
+is not a good fit when using DNS caching or resolving
+names via another method such was `zeroconf`.
+
+## Installation
+
+Install this via pip (or your favourite package manager):
+
+`pip install aiohappyeyeballs`
+
+## Example usage
+
+```python
+
+addr_infos = await loop.getaddrinfo("example.org", 80)
+
+socket = await start_connection(addr_infos)
+socket = await start_connection(addr_infos,
+local_addr_infos=local_addr_infos, happy_eyeballs_delay=0.2)
+
+transport, protocol = await loop.create_connection(
+    MyProtocol, sock=socket, ...)
+
+# Remove the first address for each family from addr_info
+pop_addr_infos_interleave(addr_info, 1)
+
+# Remove all matching address from addr_info
+remove_addr_infos(addr_info, "dead::beef::")
+
+# Convert a local_addr to local_addr_infos
+local_addr_infos = addr_to_addr_infos(("127.0.0.1",0))
+```
+
+## Credits
+
+This package contains code from cpython and is licensed under the same
+terms as cpython itself.
+
+This package was created with
+[Copier] and the
+[browniebroke/pypackage-template]
+project template.
