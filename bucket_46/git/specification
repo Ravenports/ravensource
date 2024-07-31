@@ -1,12 +1,11 @@
-DEF[PORTVERSION]=	2.45.2
+DEF[PORTVERSION]=	2.46.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		git
 VERSION=		${PORTVERSION}
 KEYWORDS=		devel net
-VARIANTS=		standard lite
+VARIANTS=		standard
 SDESC[standard]=	Distributed version control system
-SDESC[lite]=		Distributed version control system (minimal)
 HOMEPAGE=		https://git-scm.com/
 CONTACT=		nobody
 
@@ -15,14 +14,12 @@ SITES[main]=		https://www.kernel.org/pub/software/scm/git/
 DISTFILE[1]=		git-${PORTVERSION}.tar.xz:main
 DISTFILE[2]=		git-manpages-${PORTVERSION}.tar.xz:main
 DISTFILE[3]=		git-htmldocs-${PORTVERSION}.tar.xz:main
-DF_INDEX=		1 2
+DF_INDEX=		1 2 3
 
-SPKGS[standard]=	complete primary man nls examples docs
-SPKGS[lite]=		complete primary man
+SPKGS[standard]=	complete primary man nls examples docs gui svn contrib
 
-OPTIONS_AVAILABLE=	LITE SVN
-OPTIONS_STANDARD=	SVN
-VOPTS[lite]=		LITE=ON SVN=OFF
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
 
 LICENSE=		GPLv2:primary
 LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING
@@ -39,15 +36,31 @@ USERGROUP_SPKG=		primary
 
 EXTRACT_DIRTY=		3
 
+BUILD_DEPENDS=		perl-Error:single:perl_default
+			xmlto:single:standard
+			asciidoc:single:standard
+
+EXRUN[svn]=		perl-TermReadKey:single:perl_default
+			perl-subversion:single:perl_default
+			perl-Error:single:perl_default
+
+EXRUN[gui]=		gettext:primary:standard
+			tk86:tools:standard
+
 USES=			cpe autoreconf gmake iconv ssl zlib shebangfix
-			curl pcre expat python:build
+			curl pcre expat python:build perl:build
+			gettext:build tcl:tk,build
 INSTALL_REQ_TOOLCHAIN=	yes
 BUILD_TARGET=		all strip
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-pthreads=-pthread
 			--with-libpcre
+			--with-perl={{PERL}}
+			--with-python={{PYTHON_CMD}}
 MAKE_ENV=		V=1
 			CURLDIR={{LOCALBASE}}
+MAKE_ARGS=		TCL_PATH={{TCLSH}}
+			TCLTK_PATH={{WISH}}
 SHEBANG_FILES=		*.perl
 			*/*.perl
 			*/*/*.perl
@@ -67,58 +80,15 @@ SHEBANG_FILES=		*.perl
 			contrib/contacts/git-contacts
 			contrib/credential/netrc/git-credential-netrc.perl
 			templates/hooks--fsmonitor-watchman.sample
+
 RC_SUBR=		git_daemon:primary
+SUB_FILES=		messages-primary.ucl
 
-[LITE].DESCRIPTION=			Drop non-essential functionality and their deps
-[LITE].MAKE_ARGS_ON=			NO_TCLTK=yes
-					NO_PERL=yes
-					NO_GETTEXT=yes
-[LITE].CONFIGURE_ARGS_ON=		--without-python
-[LITE].DF_INDEX_OFF=			3
-[LITE].USES_OFF=			gettext
-					tcl:tk
-					perl
-[LITE].USES_ON=				perl:build
-[LITE].MAKE_ARGS_OFF=			TCL_PATH={{TCLSH}}
-					TCLTK_PATH={{WISH}}
-[LITE].CONFIGURE_ARGS_OFF=		--with-python={{PYTHON_CMD}}
-					--with-perl={{PERL}}
-[LITE].BUILDRUN_DEPENDS_OFF=		perl-Error:single:perl_default
-[LITE].BUILD_DEPENDS_OFF=		xmlto:single:standard
-					asciidoc:single:standard
-[LITE].SUB_FILES_OFF=			messages-primary.ucl
-
-[SVN].DESCRIPTION=			Support for subversion repositories
-[SVN].RUN_DEPENDS_ON=			perl-TermReadKey:single:perl_default
-					perl-subversion:single:perl_default
-
-pre-configure-LITE-ON:
-.for FILE in git-citool.1 git-gui.1 gitk.1 git-cvsimport.1 \
-	git-cvsexportcommit.1 git-cvsserver.1
-	${RM} ${WRKDIR}/man1/${FILE}
-.endfor
-	${RM} ${WRKDIR}/man7/gitcvs-migration.7
-	${REINPLACE_CMD} -e '/git-cvsexportcommit.perl/d; \
-		/git-cvsimport.perl/d; \
-		/git-cvsserver.perl/d; \
-		/documented,gitcvs-migration/d; \
-		/$$(MAKE) -C gitweb install/d; \
-		/^SCRIPT_PYTHON += git-p4.py$$/d; \
-		/(INSTALL) .(BINDIR_PROGRAMS_NO_X)/d; \
-		s/git-cvsserver//' \
-		${WRKSRC}/Makefile
-	${REINPLACE_CMD} -e 's|/bin/bash|/bin/sh|' \
-		${WRKSRC}/contrib/subtree/git-subtree.sh
-
-pre-configure-LITE-OFF:
+pre-configure:
 	${REINPLACE_CMD} -e "s,/usr/bin/perl,${PERL}," \
 		${WRKSRC}/contrib/diff-highlight/Makefile
 
-pre-configure-SVN-OFF:
-	${RM} ${WRKDIR}/man1/git-svn.1
-	${REINPLACE_CMD} -e '/git-svn.perl/d' ${WRKSRC}/Makefile
-
-post-build-LITE-OFF:
+post-build:
 	${FIND} ${WRKSRC} -name "*.bak" -delete
 	${SETENV} ${MAKE_ENV} ${MAKE_CMD} -C ${WRKSRC}/contrib/diff-highlight
 	${RM} ${WRKSRC}/contrib/diff-highlight/shebang.perl
@@ -138,13 +108,6 @@ post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/scalar
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/libexec/git-core/scalar
 
-post-install-LITE-ON:
-	# contrib support
-	${MKDIR} ${STAGEDIR}${PREFIX}/etc/bash_completion.d
-	${INSTALL_SCRIPT} ${WRKSRC}/contrib/completion/git-completion.bash \
-		${STAGEDIR}${PREFIX}/etc/bash_completion.d/git.sh
-
-post-install-LITE-OFF:
 	# p4 support
 	${INSTALL_SCRIPT} ${WRKSRC}/git-p4.py ${STAGEDIR}${PREFIX}/bin/
 
