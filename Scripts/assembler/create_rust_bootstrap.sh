@@ -32,10 +32,10 @@ THISDIR=$(dirname $0)
 SCRIPTSDIR=$(cd ${THISDIR} && pwd -P)
 DISTDIR=$(/raven/bin/ravenadm dev info F)
 BBASE=$(/raven/bin/ravenadm dev info J)
-PKGDIR=$(/raven/bin/ravenadm dev info H)/All
+PKGDIR=$(/raven/bin/ravenadm dev info H)/files
 RASSY=${BBASE}/rust-assy
 RINST=${BBASE}/rust-installer
-RPKG=${PKGDIR}/rust-single-standard-${1}${REVEPOCH}.tzst
+RPKG=${PKGDIR}/rust-single-standard-${1}${REVEPOCH}.rvn
 MYTAR=/raven/share/raven/sysroot/DragonFly/usr/bin/tar
 DFLY=x86_64-unknown-dragonfly
 NAME_STD=rust-std-${1}-${DFLY}
@@ -53,7 +53,7 @@ fi
 
 mkdir -p ${RASSY}/${NAME_STD}/${RUSTLIB}/${DFLY}
 echo "Extracting ${RPKG} ..."
-(cd ${RASSY} && ${MYTAR} -xf ${RPKG})
+/raven/bin/xrvn -x -o "${RASSY}" "${RPKG}"
 echo "Bootstrap rust at ${RASSY}/raven/bin"
 sleep 2
 
