@@ -1,4 +1,4 @@
---- src/llvm-project/llvm/lib/Support/Unix/Path.inc.orig	2024-04-29 14:03:41 UTC
+--- src/llvm-project/llvm/lib/Support/Unix/Path.inc.orig	2006-07-24 01:21:28 UTC
 +++ src/llvm-project/llvm/lib/Support/Unix/Path.inc
 @@ -42,6 +42,9 @@
  #if __has_include(<sys/clonefile.h>)

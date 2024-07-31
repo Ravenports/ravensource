@@ -1,5 +1,5 @@
---- vendor/libc-0.2.151/src/unix/bsd/freebsdlike/dragonfly/mod.rs.orig	2006-07-24 01:21:28 UTC
-+++ vendor/libc-0.2.151/src/unix/bsd/freebsdlike/dragonfly/mod.rs
+--- vendor/libc-0.2.155/src/unix/bsd/freebsdlike/dragonfly/mod.rs.orig	2006-07-24 01:21:28 UTC
++++ vendor/libc-0.2.155/src/unix/bsd/freebsdlike/dragonfly/mod.rs
 @@ -442,8 +442,8 @@ s_no_extra_traits! {
          pub d_fileno: ::ino_t,
          pub d_namlen: u16,

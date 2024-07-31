@@ -1,6 +1,6 @@
---- src/bootstrap/bootstrap.py.orig	2024-04-29 14:03:23 UTC
+--- src/bootstrap/bootstrap.py.orig	2006-07-24 01:21:28 UTC
 +++ src/bootstrap/bootstrap.py
-@@ -265,6 +265,7 @@ def default_build_triple(verbose):
+@@ -264,6 +264,7 @@ def default_build_triple(verbose):
          'Darwin': 'apple-darwin',
          'DragonFly': 'unknown-dragonfly',
          'FreeBSD': 'unknown-freebsd',
