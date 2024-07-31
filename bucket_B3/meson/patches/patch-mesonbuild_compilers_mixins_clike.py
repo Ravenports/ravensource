@@ -1,4 +1,4 @@
---- mesonbuild/compilers/mixins/clike.py.orig	2024-06-24 16:26:41 UTC
+--- mesonbuild/compilers/mixins/clike.py.orig	2024-07-26 18:05:04 UTC
 +++ mesonbuild/compilers/mixins/clike.py
 @@ -73,7 +73,7 @@ class CLikeCompilerArgs(arglist.Compiler
          # This covers all ld.bfd, ld.gold, ld.gold, and xild on Linux, which
