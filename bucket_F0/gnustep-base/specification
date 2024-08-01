@@ -19,8 +19,9 @@ DF_INDEX=		1
 
 SPKGS[standard]=	complete primary tools dev man
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	ONELINK
+OPTIONS_STANDARD=	ONELINK
+OPT_ON[netbsd]=		ONELINK
 
 # Library is LGPL, tools are GPL
 LICENSE=		GPLv3+:primary
@@ -68,6 +69,8 @@ PLIST_SUB=		VERSION=${PORTVERSION:R}
 
 # see special.mk.  That code needs to be in USES=gnustep extension
 MAKEFILE=		GNUmakefile
+
+[ONELINK].DESCRIPTION=			Only one libgnustep-base.so symlink used
 
 post-extract:
 	${ECHO} "Terms extracted from 'Source/GSArray.m':" > ${WRKDIR}/TERMS
