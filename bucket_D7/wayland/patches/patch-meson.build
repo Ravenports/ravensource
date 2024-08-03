@@ -5,7 +5,7 @@
  
  cc_args = []
 -if host_machine.system() not in ['freebsd', 'openbsd']
-+if host_machine.system() not in ['freebsd', 'openbsd', 'dragonfly', 'midnightbsd']
++if host_machine.system() not in ['freebsd', 'openbsd', 'dragonfly', 'midnightbsd','netbsd']
  	cc_args += ['-D_POSIX_C_SOURCE=200809L']
  endif
  add_project_arguments(cc_args, language: 'c')
@@ -23,7 +23,7 @@
  
  if get_option('libraries')
 -	if host_machine.system() in ['freebsd', 'openbsd']
-+	if host_machine.system() in ['freebsd', 'openbsd', 'dragonfly', 'midnightbsd']
++	if host_machine.system() in ['freebsd', 'openbsd', 'dragonfly', 'midnightbsd','netbsd']
  		# When building for FreeBSD, epoll(7) is provided by a userspace
  		# wrapper around kqueue(2).
  		epoll_dep = dependency('epoll-shim')
