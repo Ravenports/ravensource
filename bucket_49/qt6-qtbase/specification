@@ -5,7 +5,7 @@ DEF[CLANGBASE]=		clang17
 
 NAMEBASE=		qt6-qtbase
 VERSION=		${PORTVERSION}
-REVISION=		5
+REVISION=		6
 KEYWORDS=		x11_toolkits devel
 VARIANTS=		standard
 SDESC[standard]=	Qt6 - QtBase component
@@ -19,13 +19,14 @@ DISTFILE[1]=		qtbase-everywhere-src-${PORTVERSION}.tar.xz:main
 
 SPKGS[standard]=	complete primary dev docs
 
-OPTIONS_AVAILABLE=	X11 WAYLAND
-OPTIONS_STANDARD=	X11 WAYLAND
+OPTIONS_AVAILABLE=	X11 WAYLAND EPOLLSHIM
+OPTIONS_STANDARD=	X11 WAYLAND EPOLLSHIM
 OPT_ON[all]=		X11
-OPT_ON[dragonfly]=	WAYLAND
-OPT_ON[freebsd]=	WAYLAND
+OPT_ON[dragonfly]=	WAYLAND EPOLLSHIM
+OPT_ON[freebsd]=	WAYLAND EPOLLSHIM
+OPT_ON[midnightbsd]=	WAYLAND EPOLLSHIM
+OPT_ON[netbsd]=		WAYLAND EPOLLSHIM
 OPT_ON[linux]=		WAYLAND
-OPT_ON[midnightbsd]=	WAYLAND
 
 BUILD_DEPENDS=		evdev-proto:single:standard
 			elftoolchain:dev:standard
@@ -122,6 +123,10 @@ VAR_OPSYS[linux]=	VAR1=linux
 [WAYLAND].DESCRIPTION=			Build with wayland support
 [WAYLAND].BUILD_DEPENDS_ON=		wayland:dev:standard
 [WAYLAND].BUILDRUN_DEPENDS_ON=		wayland:primary:standard
+[WAYLAND].CMAKE_ARGS_ON=		-DFEATURE_wayland=ON
+
+[EPOLLSHIM].DESCRIPTION=		Platform depends on libepoll-shim
+[EPOLLSHIM].BUILD_DEPENDS_ON=		libepoll-shim:dev:standard
 
 post-patch:
 	${MKDIR} ${WRKSRC}/mkspecs/dragonfly-g++

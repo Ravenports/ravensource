@@ -14,7 +14,7 @@
  qt_find_package(WrapVulkanHeaders PROVIDED_TARGETS WrapVulkanHeaders::WrapVulkanHeaders
      MODULE_NAME gui QMAKE_LIB vulkan MARK_OPTIONAL)
 -if((LINUX) OR QT_FIND_ALL_PACKAGES_ALWAYS)
-+if((LINUX OR FREEBSD OR DRAGONFLY OR MIDNIGHT) OR QT_FIND_ALL_PACKAGES_ALWAYS)
++if((LINUX OR FREEBSD OR DRAGONFLY OR MIDNIGHT OR NETBSD) OR QT_FIND_ALL_PACKAGES_ALWAYS)
      qt_find_package(Wayland PROVIDED_TARGETS Wayland::Server MODULE_NAME gui QMAKE_LIB wayland_server)
      qt_find_package(Wayland PROVIDED_TARGETS Wayland::Client MODULE_NAME gui QMAKE_LIB wayland_client)
  endif()
