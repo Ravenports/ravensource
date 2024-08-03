@@ -4,6 +4,7 @@ DEF[PORTVERSION]=	1.24.8
 
 NAMEBASE=		mupdf
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		graphics
 VARIANTS=		standard
 SDESC[standard]=	Lightweight PDF and XPS viewer
@@ -83,7 +84,7 @@ post-install:
 		${STAGEDIR}${PREFIX}/lib/libmupdf.so
 	${LN} -s libmupdfthird.so.${PORTVERSION} \
 		${STAGEDIR}${PREFIX}/lib/libmupdfthird.so
-	${MKDIR ${STAGEDIR}${PREFIX}/share/examples
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/examples
 	${MV} ${STAGEDIR}${PREFIX}/share/doc/mupdf/examples \
 		${STAGEDIR}${STD_EXAMPLESDIR}
 	${RM} ${STAGEDIR}${STD_DOCDIR}/COPYING
