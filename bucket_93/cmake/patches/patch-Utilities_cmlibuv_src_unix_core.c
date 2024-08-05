@@ -1,4 +1,4 @@
---- Utilities/cmlibuv/src/unix/core.c.orig	2024-06-17 18:49:43 UTC
+--- Utilities/cmlibuv/src/unix/core.c.orig	2024-08-02 13:57:10 UTC
 +++ Utilities/cmlibuv/src/unix/core.c
 @@ -86,6 +86,11 @@ extern char** environ;
  # include <sys/cpuset.h>
