@@ -1,4 +1,4 @@
---- libavutil/common.h.orig	2024-04-04 23:23:00 UTC
+--- libavutil/common.h.orig	2024-08-02 22:55:22 UTC
 +++ libavutil/common.h
 @@ -50,6 +50,10 @@
  #   include "internal.h"
