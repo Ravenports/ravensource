@@ -1,4 +1,4 @@
---- absl/base/internal/sysinfo.cc.orig	2024-01-22 17:59:25 UTC
+--- absl/base/internal/sysinfo.cc.orig	2024-08-01 18:05:11 UTC
 +++ absl/base/internal/sysinfo.cc
 @@ -26,11 +26,19 @@
  #include <unistd.h>
