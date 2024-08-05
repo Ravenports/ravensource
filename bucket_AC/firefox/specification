@@ -72,9 +72,11 @@ BUILDRUN_DEPENDS=	dav1d:primary:standard
 RUN_DEPENDS=		icu:data:standard
 
 B_DEPS[linux]=		alsa-lib:dev:standard
-BR_DEPS[linux]=		sndio:single:standard
+			sndio:dev:standard
+BR_DEPS[linux]=		sndio:primary:standard
 			alsa-lib:primary:standard
-BR_DEPS[netbsd]=	sndio:single:standard
+B_DEPS[netbsd]=		sndio:dev:standard
+BR_DEPS[netbsd]=	sndio:primary:standard
 
 USES=			cpe desktop-utils:single gmake jpeg perl:build
 			pkgconfig png python:v11,build zlib
