@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	1.9.0
-DEF[SOVERSION]=		7.2
+DEF[PORTVERSION]=	1.10.0
+DEF[SOVERSION]=		7.3
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		sndio
@@ -14,12 +14,12 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://www.sndio.org/
 DISTFILE[1]=		sndio-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[standard]=	complete primary dev tools man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		ISCL:single
+LICENSE=		ISCL:primary
 LICENSE_FILE=		ISCL:{{WRKDIR}}/ISC_LICENSE
 LICENSE_AWK=		ISCL:"^\#ifndef"
 LICENSE_SOURCE=		ISCL:{{WRKSRC}}/libsndio/sndio.h
@@ -35,10 +35,10 @@ BR_DEPS[linux]=		libbsd:primary:standard
 
 USERS=			_sndio
 GROUPS=			_sndio
-USERGROUP_SPKG=		single
+USERGROUP_SPKG=		tools
 
 SINGLE_JOB=		yes
-RC_SUBR=		sndiod:single
+RC_SUBR=		sndiod:tools
 
 MUST_CONFIGURE=		yes
 CONFIGURE_ARGS=		--prefix={{PREFIX}}
@@ -47,12 +47,12 @@ SOVERSION=		${SOVERSION}
 
 VAR_OPSYS[linux]=	CONFIGURE_ARGS=	--with-libbsd
 
-post-patch:
+pre-configure:
 	# Make sure sndiod can be started inside jails as root
 	${REINPLACE_CMD} 's|err(1, "setpriority")|warn("setpriority")|' \
 		${WRKSRC}/sndiod/sndiod.c
 
-post-patch-dragonfly:
+pre-configure-dragonfly:
 	${REINPLACE_CMD} -e 's@\(FreeBSD\))@\1|DragonFly)@g' \
 		${WRKSRC}/configure
 
@@ -63,3 +63,4 @@ post-install:
 		${STAGEDIR}${PREFIX}/bin/sndiod \
 		${STAGEDIR}${PREFIX}/bin/aucat \
 		${STAGEDIR}${PREFIX}/bin/midicat
+	${RM} ${STAGEDIR}${PREFIX}/lib/libsndio.so.7.0
