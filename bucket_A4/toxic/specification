@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	0.15.1
 
 NAMEBASE=		toxic
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		net net_im net_p2p
 VARIANTS=		standard
 SDESC[standard]=	Ncurses-based Tox client
@@ -41,8 +42,9 @@ BUILDRUN_DEPENDS=	freealut:single:standard
 			libconfig:primary:standard
 
 USES=			desktop-utils:single gmake ncurses pkgconfig
-			curl png zlib:build gettext shebangfix
+			curl png zlib:build gettext shebangfix ssl:build
 XORG_COMPONENTS=	x11
+GNOME_COMPONENTS=	glib
 SHEBANG_FILES=		apidoc/python/source/conf.py
 CFLAGS=			-I{{NCURSESINC}}
 MAKE_ARGS=		ENABLE_PYTHON=0
