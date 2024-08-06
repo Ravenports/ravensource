@@ -59,3 +59,6 @@ DISTNAME=		Alien-Role-Dino-${PORTVERSION}
 					perl-Path-Tiny:single:540
 					perl-Role-Tiny:single:540
 
+pre-configure:
+	${SED} -e 's/freebsd/dragonfly/' ${WRKSRC}/lib/Alien/Role/Dino/freebsd.pm \
+		> ${WRKSRC}/lib/Alien/Role/Dino/dragonfly.pm
