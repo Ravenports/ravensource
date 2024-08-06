@@ -5,6 +5,7 @@ DEF[UNDERSCORE]=	EXTRACT_INFO(SPHINX_UNDERSCORE)
 
 NAMEBASE=		qemu
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		emulators
 VARIANTS=		standard
 SDESC[standard]=	Fast CPU emulator and virtualizer for x86 platform
@@ -110,7 +111,6 @@ post-install:
 	${INSTALL_SCRIPT} ${FILESDIR}/qemu-ifdown.sample \
 		${STAGEDIR}${PREFIX}/etc
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/qemu-*
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/elf2dmp
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/share/qemu/palcode-clipper
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/share/qemu/hppa-firmware.img
 	(cd ${WRKSRC} && ${COPYTREE_SHARE} docs ${STAGEDIR}${STD_DOCDIR}/)
