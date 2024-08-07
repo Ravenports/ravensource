@@ -1,5 +1,6 @@
 DEF[PORTVERSION]=	0.14.0
 DEF[SOVERSION]=		8.1.0
+DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		liburcu
@@ -35,6 +36,8 @@ INSTALL_TARGET=		install-strip
 SOVERSION=		${SOVERSION}
 DISTNAME=		userspace-rcu-${PORTVERSION}
 INSTALL_REQ_TOOLCHAIN=	yes
+
+VAR_OPSYS[midnightbsd]=	MAKEFILE_LINE=CONFIGURE_TARGET=${MBSD64_TARGET}
 
 post-install:
 	# remove duplicate
