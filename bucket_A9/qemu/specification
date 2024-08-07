@@ -18,8 +18,9 @@ DISTFILE[1]=		qemu-${PORTVERSION}.tar.xz:main
 
 SPKGS[standard]=	complete primary dev docs nls man
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	NO_GA
+OPTIONS_STANDARD=	NO_GA
+OPT_ON[midnightbsd]=	NO_GA
 
 LICENSE=		GPLv2:primary
 LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING
@@ -93,6 +94,8 @@ VAR_OPSYS[linux]=	CONFIGURE_ARGS=--disable-netmap
 
 B_DEPS[freebsd]=	elftoolchain:dev:standard
 B_DEPS[midnightbsd]=	elftoolchain:dev:standard
+
+[NO_GA].DESCRIPTION=			This platform does not build ga executable
 
 post-patch:
 	# silence some include warnings
