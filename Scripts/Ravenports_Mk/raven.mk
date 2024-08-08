@@ -968,6 +968,7 @@ QA_ENV+=	STAGEDIR=${STAGEDIR} \
 		NAMEBASE="${NAMEBASE}" \
 		VARIANT="${VARIANT}" \
 		TMPPLIST="${_PLIST_LIST}" \
+		SPKGS="${SUBPACKAGES}" \
 		BUNDLE_LIBS="${BUNDLE_LIBS}"
 
 .    if !empty(USES:Mssl)
@@ -1040,7 +1041,7 @@ ${TMP_MANIFESTS}:
 # Incorporated in ravenadm
 # -----------------------------------------------
 # 1) .if defined(INFO)
-#    BUILD_DEPENDS+= indexinfo:single:standard
+#    BUILD_DEPENDS+= indexinfo:single:std
 #    .endif
 # 2) validation of a single unique INFO_SUBDIR
 # 3) definition of INFO_SUBDIR (default = ".")
