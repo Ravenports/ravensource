@@ -6,8 +6,8 @@ DEF[BINS]=		CallbackMaker Fractals Fractals_random Lorenz One multi-touch shapes
 NAMEBASE=		freeglut
 VERSION=		${PORTVERSION}
 KEYWORDS=		graphics
-VARIANTS=		standard
-SDESC[standard]=	FOSS implementation of the GLUT library
+VARIANTS=		std
+SDESC[std]=		FOSS implementation of the GLUT library
 HOMEPAGE=		https://freeglut.sourceforge.net/
 CONTACT=		nobody
 
@@ -15,7 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		SF/freeglut/freeglut/${PORTVERSION}
 DISTFILE[1]=		freeglut-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary dev examples
+SPKGS[std]=		set primary dev examples
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -26,12 +26,12 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		graphics/freeglut
 
-BUILD_DEPENDS=		libGLU:dev:standard
-			libglvnd:dev:standard
-BUILDRUN_DEPENDS=	libGLU:primary:standard
-			libglvnd:primary:standard
+BUILD_DEPENDS=		libGLU:dev:std
+			libglvnd:dev:std
+BUILDRUN_DEPENDS=	libGLU:primary:std
+			libglvnd:primary:std
 
-EXRUN[dev]=		libGLU:dev:standard
+EXRUN[dev]=		libGLU:dev:std
 
 USES=			cmake:insource
 XORG_COMPONENTS=	ice x11 xi xrandr xrender

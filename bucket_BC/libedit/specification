@@ -5,8 +5,8 @@ DEF[SOVERSION]=		0.0.73
 NAMEBASE=		libedit
 VERSION=		${PORTVERSION}
 KEYWORDS=		devel
-VARIANTS=		standard
-SDESC[standard]=	Command line editor library
+VARIANTS=		std
+SDESC[std]=		Command line editor library
 HOMEPAGE=		http://thrysoee.dk/editline/
 CONTACT=		nobody
 
@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://thrysoee.dk/editline/
 DISTFILE[1]=		libedit-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[std]=		single
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -34,7 +34,7 @@ CPPFLAGS=		-I{{NCURSESINC}}
 LDFLAGS=		-L{{NCURSESLIB}}
 SOVERSION=		${SOVERSION}
 
-B_DEPS[sunos]=		libbsd4sol:single:standard
+B_DEPS[sunos]=		libbsd4sol:single:std
 VAR_OPSYS[sunos]=	LDFLAGS=-lbsd
 			CFLAGS=-I{{PREFIX}}/include/bsd
 			CONFIGURE_ARGS=ac_cv_func_getline=yes

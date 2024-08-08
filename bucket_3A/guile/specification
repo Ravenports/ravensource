@@ -6,8 +6,8 @@ DEF[RLSOVERSION]=	0.0.0
 NAMEBASE=		guile
 VERSION=		${PORTVERSION}
 KEYWORDS=		lang
-VARIANTS=		standard
-SDESC[standard]=	GNU Ubiquitous Intelligent Language for Extensions
+VARIANTS=		std
+SDESC[std]=		GNU Ubiquitous Intelligent Language for Extensions
 HOMEPAGE=		https://www.gnu.org/software/guile/
 CONTACT=		nobody
 
@@ -15,7 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNU/guile
 DISTFILE[1]=		guile-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary dev man info
+SPKGS[std]=		set primary dev man info
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -29,14 +29,14 @@ LICENSE_SCHEME=		solo
 
 # FPC_EQUIVALENT=		lang/guile3
 
-BUILD_DEPENDS=		gmp:dev:standard
+BUILD_DEPENDS=		gmp:dev:std
 			boehm_garbage_collector:dev:threaded
-			libunistring:dev:standard
-			libffi:dev:standard
-BUILDRUN_DEPENDS=	gmp:primary:standard
-			libffi:primary:standard
-			libltdl:single:standard
-			libunistring:primary:standard
+			libunistring:dev:std
+			libffi:dev:std
+BUILDRUN_DEPENDS=	gmp:primary:std
+			libffi:primary:std
+			libltdl:single:std
+			libunistring:primary:std
 			boehm_garbage_collector:primary:threaded
 
 USES=			gmake libtool makeinfo ncurses pkgconfig readline

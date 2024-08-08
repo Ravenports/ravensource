@@ -4,8 +4,8 @@ DEF[PORTVERSION]=	1.4.1
 NAMEBASE=		pcmanfm-qt
 VERSION=		${PORTVERSION}
 KEYWORDS=		x11_fm
-VARIANTS=		standard
-SDESC[standard]=	File manager for the LXQt desktop
+VARIANTS=		std
+SDESC[std]=		File manager for the LXQt desktop
 HOMEPAGE=		https://lxqt.github.io/
 CONTACT=		nobody
 
@@ -13,7 +13,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/lxqt/pcmanfm-qt/releases/download/${PORTVERSION}/
 DISTFILE[1]=		pcmanfm-qt-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary lang man
+SPKGS[std]=		set primary lang man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -27,18 +27,18 @@ LICENSE_AWK=		TERMS:"^\#include"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/pcmanfm/application.cpp
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		qt5-qttools:complete:standard
-			lxqt-build-tools:single:standard
-			libfm-qt:dev:standard
-			qt5-qtx11extras:dev:standard
-			libexif:dev:standard
-BUILDRUN_DEPENDS=	libfm-qt:primary:standard
-			menu-cache:single:standard
-			libexif:primary:standard
-			qt5-qtbase:primary:standard
-			qt5-qtx11extras:primary:standard
+BUILD_DEPENDS=		qt5-qttools:complete:std
+			lxqt-build-tools:single:std
+			libfm-qt:dev:std
+			qt5-qtx11extras:dev:std
+			libexif:dev:std
+BUILDRUN_DEPENDS=	libfm-qt:primary:std
+			menu-cache:single:std
+			libexif:primary:std
+			qt5-qtbase:primary:std
+			qt5-qtx11extras:primary:std
 
-EXRUN[lang]=		libfm-qt:lang:standard
+EXRUN[lang]=		libfm-qt:lang:std
 
 USES=			cmake desktop-utils:primary pkgconfig
 			c++:primary perl:build

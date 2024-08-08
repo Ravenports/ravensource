@@ -7,8 +7,8 @@ DEF[KEYWORD]=		textproc
 NAMEBASE=		php${SUFFIX}-${MODULE}
 VERSION=		${PORTVERSION}
 KEYWORDS=		lang www php ${KEYWORD}
-VARIANTS=		standard
-SDESC[standard]=	PHP ${PORTVERSION:R} extension: ${MODULE} spell checking
+VARIANTS=		std
+SDESC[std]=		PHP ${PORTVERSION:R} extension: ${MODULE} spell checking
 HOMEPAGE=		https://php.net/
 CONTACT=		nobody
 
@@ -16,16 +16,16 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		PHP/distributions
 DISTFILE[1]=		php-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	single
+SPKGS[std]=		single
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		${KEYWORD}/php${SUFFIX}-${MODULE}
 
-BUILD_DEPENDS=		glib:dev:standard
-			enchant:dev:standard
-BUILDRUN_DEPENDS=	enchant:primary:standard
+BUILD_DEPENDS=		glib:dev:std
+			enchant:dev:std
+BUILDRUN_DEPENDS=	enchant:primary:std
 
 USES=			php:ext,${SUFFIX} pkgconfig cpe
 CPE_VENDOR=		php

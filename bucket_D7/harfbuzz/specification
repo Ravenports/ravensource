@@ -5,8 +5,8 @@ DEF[SOVERSION]=		0.60900.0
 NAMEBASE=		harfbuzz
 VERSION=		${PORTVERSION}
 KEYWORDS=		print
-VARIANTS=		standard
-SDESC[standard]=	OpenType text shaping engine
+VARIANTS=		std
+SDESC[std]=		OpenType text shaping engine
 HOMEPAGE=		http://www.freedesktop.org/wiki/Software/HarfBuzz
 CONTACT=		nobody
 
@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/harfbuzz:harfbuzz:${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	complete primary tools dev icu docs
+SPKGS[std]=		set primary tools dev icu docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -25,20 +25,20 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		print/harfbuzz
 
-BUILD_DEPENDS=		icu:dev:standard
-			icu:primary:standard
-			graphite:dev:standard
-BUILDRUN_DEPENDS=	graphite:primary:standard
+BUILD_DEPENDS=		icu:dev:std
+			icu:primary:std
+			graphite:dev:std
+BUILDRUN_DEPENDS=	graphite:primary:std
 
-EXRUN[dev]=		icu:dev:standard
-			glib:dev:standard
-			graphite:dev:standard
-			freetype:dev:standard
+EXRUN[dev]=		icu:dev:std
+			glib:dev:std
+			graphite:dev:std
+			freetype:dev:std
 
 EXRUN[tools]=		primary
 EXRUN[icu]=		primary
-			icu:primary:standard
-			icu:data:standard
+			icu:primary:std
+			icu:data:std
 
 USES=			cpe meson zlib pkgconfig gtk-doc c++:primary
 			shebangfix python:build

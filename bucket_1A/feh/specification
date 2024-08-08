@@ -4,8 +4,8 @@ DEF[PORTVERSION]=	3.10.3
 NAMEBASE=		feh
 VERSION=		${PORTVERSION}
 KEYWORDS=		graphics
-VARIANTS=		standard
-SDESC[standard]=	Fast command line image viewer using Imlib2
+VARIANTS=		std
+SDESC[std]=		Fast command line image viewer using Imlib2
 HOMEPAGE=		https://feh.finalrewind.org/
 CONTACT=		nobody
 
@@ -13,7 +13,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://feh.finalrewind.org/
 DISTFILE[1]=		feh-${PORTVERSION}.tar.bz2:main
 
-SPKGS[standard]=	complete primary man
+SPKGS[std]=		set primary man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -24,10 +24,10 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		graphics/feh
 
-BUILD_DEPENDS=		imlib2:dev:standard
-			libexif:dev:standard
-BUILDRUN_DEPENDS=	libexif:primary:standard
-			imlib2:primary:standard
+BUILD_DEPENDS=		imlib2:dev:std
+			libexif:dev:std
+BUILDRUN_DEPENDS=	libexif:primary:std
+			imlib2:primary:std
 
 USES=			cpe gmake perl:run png desktop-utils:primary
 			curl solaris-funcs

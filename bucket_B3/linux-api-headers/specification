@@ -4,8 +4,8 @@ DEF[PORTVERSION]=	6.4.3
 NAMEBASE=		linux-api-headers
 VERSION=		${PORTVERSION}
 KEYWORDS=		devel
-VARIANTS=		standard
-SDESC[standard]=	Linux kernel headers sanitized for userspace
+VARIANTS=		std
+SDESC[std]=		Linux kernel headers sanitized for userspace
 HOMEPAGE=		https://www.kernel.org
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
@@ -16,7 +16,7 @@ DISTFILE[2]=		patch-${PORTVERSION}.xz:main
 DIST_SUBDIR=		linux-kernel
 DF_INDEX=		1 2
 
-SPKGS[standard]=	single
+SPKGS[std]=		single
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -36,7 +36,7 @@ DISTNAME=		linux-${PORTVERSION:R}
 USES=			cpe gmake
 CPE_VENDOR=		linux
 CPE_PRODUCT=		linux_kernel
-BUILD_DEPENDS=		rsync:single:standard
+BUILD_DEPENDS=		rsync:single:std
 
 INSTALL_REQ_TOOLCHAIN=	yes
 BUILD_TARGET=		mrproper

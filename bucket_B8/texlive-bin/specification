@@ -12,8 +12,8 @@ NAMEBASE=		texlive-bin
 VERSION=		${PORTVERSION}
 REVISION=		1
 KEYWORDS=		print
-VARIANTS=		standard
-SDESC[standard]=	Binary and input files for TeXlive
+VARIANTS=		std
+SDESC[std]=		Binary and input files for TeXlive
 HOMEPAGE=		https://www.tug.org/texlive
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
@@ -28,7 +28,7 @@ DISTFILE[4]=		lppl.txt:lppl
 DIST_SUBDIR=		texlive
 DF_INDEX=		1 2 3 4
 
-SPKGS[standard]=	complete primary docs bibtex engine_hitex
+SPKGS[std]=		set primary docs bibtex engine_hitex
 			engine_luatex engine_pdftex engine_xetex
 			synctex tlmgr utils xindy
 
@@ -49,34 +49,34 @@ EXRUN[bibtex]=		primary
 EXRUN[engine_hitex]=	primary
 EXRUN[engine_luatex]=	primary
 EXRUN[engine_pdftex]=	primary
-EXRUN[engine_xetex]=	icu:data:standard
+EXRUN[engine_xetex]=	icu:data:std
 			primary
 EXRUN[synctex]=		primary
 # from xindy.run, copy of clisp's base/lisp.run
 EXRUN[utils]=		primary
-			libsigsegv:primary:standard
-			libffcall:primary:standard
+			libsigsegv:primary:std
+			libffcall:primary:std
 
-BUILD_DEPENDS=		gmp:dev:standard
-			mpfr:dev:standard
-			clisp:primary:standard
-			harfbuzz:dev:standard
-			icu:dev:standard
-			libpaper:dev:standard
-			poppler:dev:standard
-			graphite:dev:standard
-			zziplib:dev:standard
-BUILDRUN_DEPENDS=	gmp:primary:standard
-			graphite:primary:standard
-			harfbuzz:icu:standard
-			icu:primary:standard
-			libGD:single:standard
-			libpaper:primary:standard
-			mpfr:primary:standard
-			poppler:primary:standard
-			potrace:library:standard
-			zziplib:primary:standard
-RUN_DEPENDS=		texlive-texmf:primary:standard
+BUILD_DEPENDS=		gmp:dev:std
+			mpfr:dev:std
+			clisp:primary:std
+			harfbuzz:dev:std
+			icu:dev:std
+			libpaper:dev:std
+			poppler:dev:std
+			graphite:dev:std
+			zziplib:dev:std
+BUILDRUN_DEPENDS=	gmp:primary:std
+			graphite:primary:std
+			harfbuzz:icu:std
+			icu:primary:std
+			libGD:single:std
+			libpaper:primary:std
+			mpfr:primary:std
+			poppler:primary:std
+			potrace:library:std
+			zziplib:primary:std
+RUN_DEPENDS=		texlive-texmf:primary:std
 
 USES=			cpe freetype gmake libtool ncurses perl png readline
 			shebangfix zlib mbsdfix

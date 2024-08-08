@@ -10,8 +10,8 @@ DEF[SED_MODULES]=	-e 's/\(moduleload[     ]*back_[a-z]*\)\.la/\1/' -e 's/\# *\(m
 NAMEBASE=		openldap
 VERSION=		${PORTVERSION}
 KEYWORDS=		net databases
-VARIANTS=		standard
-SDESC[standard]=	Lightweight Directory Access Protocol server
+VARIANTS=		std
+SDESC[std]=		Lightweight Directory Access Protocol server
 HOMEPAGE=		https://www.openldap.org/
 CONTACT=		nobody
 
@@ -21,20 +21,20 @@ SITES[main]=		ftp://ftp.openldap.org/pub/OpenLDAP/openldap-release/
 			ftp://ftp.dti.ad.jp/pub/net/OpenLDAP/openldap-release/
 DISTFILE[1]=		openldap-${PORTVERSION}.tgz:main
 
-SPKGS[standard]=	complete server client dev man docs
+SPKGS[std]=		set server client dev man docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		net/openldap24-server
 
-BUILD_DEPENDS=		mandoc:single:standard
-			icu:dev:standard
-			unixODBC:dev:standard
-BUILDRUN_DEPENDS=	libltdl:single:standard
-			icu:primary:standard
-			unixODBC:primary:standard
-EXRUN[client]=		openssl30:primary:standard
+BUILD_DEPENDS=		mandoc:single:std
+			icu:dev:std
+			unixODBC:dev:std
+BUILDRUN_DEPENDS=	libltdl:single:std
+			icu:primary:std
+			unixODBC:primary:std
+EXRUN[client]=		openssl30:primary:std
 
 USERS=			${LDAP_USER}
 GROUPS=			${LDAP_GROUP}

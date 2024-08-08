@@ -6,8 +6,8 @@ NAMEBASE=		pcsc-ada
 VERSION=		${PORTVERSION}
 REVISION=		1
 KEYWORDS=		devel ada
-VARIANTS=		standard
-SDESC[standard]=	Ada binding to Smart card interface (PC/SC)
+VARIANTS=		std
+SDESC[std]=		Ada binding to Smart card interface (PC/SC)
 HOMEPAGE=		http://www.codelabs.ch/pcscada
 CONTACT=		John_Marino[draco@marino.st]
 
@@ -15,7 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://www.codelabs.ch/download/
 DISTFILE[1]=		libpcscada-${PORTVERSION}.tar.bz2:main
 
-SPKGS[standard]=	complete primary dev docs
+SPKGS[std]=		set primary dev docs
 # examples
 
 OPTIONS_AVAILABLE=	TESTED INTF_TEST
@@ -30,8 +30,8 @@ LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/pcsc.ads
 LICENSE_SCHEME=		solo
 
 BUILD_DEPENDS=		ruby-asciidoctor:single:ruby_default
-			pcsc-lite:dev:standard
-BUILDRUN_DEPENDS=	pcsc-lite:primary:standard
+			pcsc-lite:dev:std
+BUILDRUN_DEPENDS=	pcsc-lite:primary:std
 
 USES=			gprbuild gmake ada:primary
 DISTNAME=		libpcscada-${PORTVERSION}
@@ -41,11 +41,11 @@ SOVERSION=		${SOVERSION}
 INSTALL_REQ_TOOLCHAIN=	yes
 
 [TESTED].DESCRIPTION=			Run unit test suite before installation
-[TESTED].BUILD_DEPENDS_ON=		ahven:complete:standard
+[TESTED].BUILD_DEPENDS_ON=		ahven:complete:std
 [TESTED].BUILD_TARGET_ON=		build-utests
 
 [INTF_TEST].DESCRIPTION=		Run interface tests against installed smart card
-[INTF_TEST].BUILD_DEPENDS_ON=		ahven:complete:standard
+[INTF_TEST].BUILD_DEPENDS_ON=		ahven:complete:std
 [INTF_TEST].BUILD_TARGET_ON=		build-itests
 
 post-install:

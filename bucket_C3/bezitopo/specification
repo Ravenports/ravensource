@@ -5,8 +5,8 @@ NAMEBASE=		bezitopo
 VERSION=		${PORTVERSION}
 REVISION=		1
 KEYWORDS=		graphics
-VARIANTS=		standard
-SDESC[standard]=	Land surveying program based on Bezier splines
+VARIANTS=		std
+SDESC[std]=		Land surveying program based on Bezier splines
 HOMEPAGE=		https://github.com/phma/bezitopo
 CONTACT=		nobody
 
@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/phma:bezitopo:${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	complete primary nls
+SPKGS[std]=		set primary nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -26,9 +26,9 @@ LICENSE_AWK=		TERMS:"BEZITOPO_H"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/bezitopo.h
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		qt5-qttools:complete:standard
-			fftw:single:standard
-BUILDRUN_DEPENDS=	qt5-qtbase:primary:standard
+BUILD_DEPENDS=		qt5-qttools:complete:std
+			fftw:single:std
+BUILDRUN_DEPENDS=	qt5-qtbase:primary:std
 
 USES=			cmake
 CMAKE_ARGS=		-DQT_INCLUDE_DIR:PATH="{{PREFIX}}/include/qt5"

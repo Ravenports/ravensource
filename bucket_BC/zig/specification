@@ -11,15 +11,15 @@ DEF[LLDBASE]=		lld
 NAMEBASE=		zig
 VERSION=		${PORTVERSION}
 KEYWORDS=		devel lang
-VARIANTS=		standard
-SDESC[standard]=	Programming language
+VARIANTS=		std
+SDESC[std]=		Programming language
 HOMEPAGE=		https://ziglang.org/
 CONTACT=		Tse_[tse@tse.gratis]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/ziglang:zig:${PORTVERSION}
 DISTFILE[1]=		generated:main
-SPKGS[standard]=	single
+SPKGS[std]=		single
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -34,12 +34,12 @@ ONLY_FOR_OPSYS=		freebsd dragonfly netbsd linux midnightbsd
 
 BROKEN[midnightbsd]=	error: UnknownOperatingSystem
 
-BUILD_DEPENDS=		${CLANGBASE}:compiler:standard
-			${LLDBASE}:dev:standard
-			${LLDBASE}:primary:standard
-			${LLVMBASE}:tools:standard
-			${LLVMBASE}:dev:standard
-BUILDRUN_DEPENDS=	${CLANGBASE}:dynlibs:standard
+BUILD_DEPENDS=		${CLANGBASE}:compiler:std
+			${LLDBASE}:dev:std
+			${LLDBASE}:primary:std
+			${LLVMBASE}:tools:std
+			${LLVMBASE}:dev:std
+BUILDRUN_DEPENDS=	${CLANGBASE}:dynlibs:std
 
 USES=			cmake ncurses execinfo zlib
 GNOME_COMPONENTS=	libxml2

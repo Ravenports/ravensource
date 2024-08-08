@@ -7,8 +7,8 @@ DEF[DBUS_SOCKET]=	/var/run/dbus/system_bus_socket
 NAMEBASE=		avahi
 VERSION=		${PORTVERSION}
 KEYWORDS=		net
-VARIANTS=		standard
-SDESC[standard]=	Service Discovery using mDNS/DNS-SD
+VARIANTS=		std
+SDESC[std]=		Service Discovery using mDNS/DNS-SD
 HOMEPAGE=		https://www.avahi.org/
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
@@ -16,7 +16,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://avahi.org/download/
 DISTFILE[1]=		avahi-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary tools dev nls man
+SPKGS[std]=		set primary tools dev nls man
 
 OPTIONS_AVAILABLE=	BSD LINUX SOLARIS
 OPTIONS_STANDARD=	BSD LINUX SOLARIS
@@ -40,17 +40,17 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		net/avahi
 
-BUILD_DEPENDS=		dbus:dev:standard
-			expat:dev:standard
-			gdbm:dev:standard
-			libdaemon:dev:standard
-			libevent:dev:standard
-			harfbuzz:dev:standard
-BUILDRUN_DEPENDS=	dbus:primary:standard
-			expat:primary:standard
-			gdbm:primary:standard
-			libdaemon:primary:standard
-			libevent:primary:standard
+BUILD_DEPENDS=		dbus:dev:std
+			expat:dev:std
+			gdbm:dev:std
+			libdaemon:dev:std
+			libevent:dev:std
+			harfbuzz:dev:std
+BUILDRUN_DEPENDS=	dbus:primary:std
+			expat:primary:std
+			gdbm:primary:std
+			libdaemon:primary:std
+			libevent:primary:std
 
 USERS=			avahi
 GROUPS=			avahi

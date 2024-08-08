@@ -11,8 +11,8 @@ DEF[CLAMAV_GROUP]=	clamav
 NAMEBASE=		clamav
 VERSION=		${PORTVERSION}
 KEYWORDS=		security
-VARIANTS=		standard
-SDESC[standard]=	Clam Anti-Virus Scanner
+VARIANTS=		std
+SDESC[std]=		Clam Anti-Virus Scanner
 HOMEPAGE=		https://www.clamav.net/
 CONTACT=		nobody
 
@@ -20,7 +20,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://www.clamav.net/downloads/production/
 DISTFILE[1]=		clamav-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary dev man docs
+SPKGS[std]=		set primary dev man docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -37,16 +37,16 @@ FPC_EQUIVALENT=		security/clamav
 # libmilter support requires path to sbin/sendmail,
 # so it can't be implemented until there is a sendmail port I think.
 
-BUILD_DEPENDS=		json-c:dev:standard
-			doxygen:primary:standard
-			rust:single:standard
-			libmspack:dev:standard
-BUILDRUN_DEPENDS=	libltdl:single:standard
-			libmspack:primary:standard
+BUILD_DEPENDS=		json-c:dev:std
+			doxygen:primary:std
+			rust:single:std
+			libmspack:dev:std
+BUILDRUN_DEPENDS=	libltdl:single:std
+			libmspack:primary:std
 
-RUN_DEPENDS=		arc:single:standard
-			arj:single:standard
-			unzoo:single:standard
+RUN_DEPENDS=		arc:single:std
+			arj:single:std
+			unzoo:single:std
 
 USERS=			${CLAMAV_USER}
 GROUPS=			${CLAMAV_GROUP}

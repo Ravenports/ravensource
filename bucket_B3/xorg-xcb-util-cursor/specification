@@ -6,8 +6,8 @@ DEF[ALTNAME]=		${XNAME}
 NAMEBASE=		xorg-${XNAME}
 VERSION=		${PORTVERSION}
 KEYWORDS=		x11
-VARIANTS=		standard
-SDESC[standard]=	XCB cursor library
+VARIANTS=		std
+SDESC[std]=		XCB cursor library
 HOMEPAGE=		https://xcb.freedesktop.org/
 CONTACT=		nobody
 
@@ -16,7 +16,7 @@ SITES[main]=		XORG/individual/lib
 DISTFILE[1]=		${ALTNAME}-${PORTVERSION}.tar.xz:main
 DIST_SUBDIR=		xorg
 
-SPKGS[standard]=	complete primary dev
+SPKGS[std]=		set primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -25,10 +25,10 @@ LICENSE=		MIT:primary
 LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		gperf:primary:standard
+BUILD_DEPENDS=		gperf:primary:std
 
-EXRUN[dev]=		xorg-xcb-render-util:dev:standard
-			xorg-xcb-util-image:dev:standard
+EXRUN[dev]=		xorg-xcb-render-util:dev:std
+			xorg-xcb-util-image:dev:std
 
 USES=			libtool gmake solaris-funcs
 XORG_COMPONENTS=	xorgproto xcb xcb-render-util xcb-util xcb-util-image

@@ -5,8 +5,8 @@ DEF[SWITCHES]=		-version v${PORTVERSION} -no-upgrade
 NAMEBASE=		syncthing
 VERSION=		${PORTVERSION}
 KEYWORDS=		net
-VARIANTS=		standard
-SDESC[standard]=	Open Source Continuous File Synchronization
+VARIANTS=		std
+SDESC[std]=		Open Source Continuous File Synchronization
 HOMEPAGE=		https://syncthing.net/
 CONTACT=		nobody
 
@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main quic qtls
 SITES[main]=		https://github.com/syncthing/syncthing/releases/download/v${PORTVERSION}/
 DISTFILE[1]=		syncthing-source-v${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[std]=		single
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -25,7 +25,7 @@ LICENSE=		MPL:single
 LICENSE_FILE=		MPL:{{WRKSRC}}/syncthing/LICENSE
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		golang:single:standard
+BUILD_DEPENDS=		golang:single:std
 
 RC_SUBR=		syncthing:single
 			syncthing-discosrv:single

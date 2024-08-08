@@ -16,8 +16,8 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://download.kde.org/stable/polkit-qt-1/
 DISTFILE[1]=		polkit-qt-1-${PORTVERSION}.tar.xz:main
 
-SPKGS[qt5]=		complete primary dev
-SPKGS[qt6]=		complete primary dev
+SPKGS[qt5]=		set primary dev
+SPKGS[qt6]=		set primary dev
 
 OPTIONS_AVAILABLE=	QT5 QT6
 OPTIONS_STANDARD=	none
@@ -33,8 +33,8 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		sysutils/polkit-qt
 
-BUILD_DEPENDS=		polkit:dev:standard
-BUILDRUN_DEPENDS=	polkit:primary:standard
+BUILD_DEPENDS=		polkit:dev:std
+BUILDRUN_DEPENDS=	polkit:primary:std
 
 USES=			cmake pkgconfig zlib
 GNOME_COMPONENTS=	glib
@@ -42,14 +42,14 @@ GNOME_COMPONENTS=	glib
 SOVERSION=		${SOVERSION}
 
 [QT5].DESCRIPTION=			Built Qt5 variant
-[QT5].BUILD_DEPENDS_ON=			qt5-qtbase:dev:standard
-[QT5].BUILDRUN_DEPENDS_ON=		qt5-qtbase:primary:standard
+[QT5].BUILD_DEPENDS_ON=			qt5-qtbase:dev:std
+[QT5].BUILDRUN_DEPENDS_ON=		qt5-qtbase:primary:std
 [QT5].CMAKE_ARGS_ON=			-DQT_MAJOR_VERSION=5
 					-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt5/cmake
 
 [QT6].DESCRIPTION=			Built Qt6 variant
-[QT6].BUILD_DEPENDS_ON=			qt6-qtbase:dev:standard
-[QT6].BUILDRUN_DEPENDS_ON=		qt6-qtbase:primary:standard
+[QT6].BUILD_DEPENDS_ON=			qt6-qtbase:dev:std
+[QT6].BUILDRUN_DEPENDS_ON=		qt6-qtbase:primary:std
 [QT6].CMAKE_ARGS_ON=			-DQT_MAJOR_VERSION=6
 					-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt6/cmake
 

@@ -7,8 +7,8 @@ NAMEBASE=		${PORTNAME}
 VERSION=		${PORTVERSION}
 REVISION=		1
 KEYWORDS=		databases
-VARIANTS=		standard
-SDESC[standard]=	Fast SQL database server, derived from MySQL
+VARIANTS=		std
+SDESC[std]=		Fast SQL database server, derived from MySQL
 HOMEPAGE=		https://mariadb.org/
 CONTACT=		nobody
 
@@ -19,7 +19,7 @@ DISTFILE[1]=		mariadb-${PORTVERSION}.tar.gz:main
 DISTFILE[2]=		generated:fmtsrc
 DF_INDEX=		1 2
 
-SPKGS[standard]=	complete server client dev man docs
+SPKGS[std]=		set server client dev man docs
 
 OPTIONS_AVAILABLE=	ROCKSDB
 OPTIONS_STANDARD=	ROCKSDB
@@ -34,22 +34,22 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		databases/mariadb1011-server
 
-BUILD_DEPENDS=		bison:primary:standard
-			msgpack:dev:standard
-			snappy:dev:standard
-			boost-libraries:dev:standard
-			krb5:dev:standard
+BUILD_DEPENDS=		bison:primary:std
+			msgpack:dev:std
+			snappy:dev:std
+			boost-libraries:dev:std
+			krb5:dev:std
 # zeromq detected but not used (?)
-# #			zeromq:dev:standard
-BUILDRUN_DEPENDS=	boost-libraries:primary:standard
-			snappy:primary:standard
-			msgpack:primary:standard
-			judy:primary:standard
-			krb5:primary:standard
-# #			zeromq:primary:standard
+# #			zeromq:dev:std
+BUILDRUN_DEPENDS=	boost-libraries:primary:std
+			snappy:primary:std
+			msgpack:primary:std
+			judy:primary:std
+			krb5:primary:std
+# #			zeromq:primary:std
 
-B_DEPS[netbsd]=		openpam:dev:standard
-BR_DEPS[netbsd]=	openpam:primary:standard
+B_DEPS[netbsd]=		openpam:dev:std
+BR_DEPS[netbsd]=	openpam:primary:std
 
 USERS=			mysql
 GROUPS=			mysql

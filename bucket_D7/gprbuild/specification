@@ -10,8 +10,8 @@ NAMEBASE=		gprbuild
 VERSION=		${PORTVERSION}
 EPOCH=			1
 KEYWORDS=		devel ada
-VARIANTS=		standard
-SDESC[standard]=	Adacore multi-language software build tool
+VARIANTS=		std
+SDESC[std]=		Adacore multi-language software build tool
 HOMEPAGE=		https://docs.adacore.com/live/wave/gprbuild/html/gprbuild_ug/gprbuild_ug.html
 CONTACT=		John_Marino[draco@marino.st]
 
@@ -24,7 +24,7 @@ DISTFILE[2]=		generated:xmlada
 DISTFILE[3]=		generated:kbase
 DF_INDEX=		1 2 3
 
-SPKGS[standard]=	complete primary dev gprlib examples
+SPKGS[std]=		set primary dev gprlib examples
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -36,8 +36,8 @@ LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/gprbuild.ads
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		xmlada:dev:standard
-BUILDRUN_DEPENDS=	xmlada:primary:standard
+BUILD_DEPENDS=		xmlada:dev:std
+BUILDRUN_DEPENDS=	xmlada:primary:std
 
 USES=			gmake
 MAKE_ARGS=		prefix={{STAGEDIR}}{{PREFIX}}

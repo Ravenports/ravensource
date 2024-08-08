@@ -8,8 +8,8 @@ DEF[DYN_EXT]=		pcre mysql pgsql sqlite ldap cdb lmdb
 NAMEBASE=		postfix
 VERSION=		${PORTVERSION}
 KEYWORDS=		mail
-VARIANTS=		standard
-SDESC[standard]=	Fast and robust mail transfer agent
+VARIANTS=		std
+SDESC[std]=		Fast and robust mail transfer agent
 HOMEPAGE=		http://www.postfix.org/
 CONTACT=		nobody
 
@@ -19,7 +19,7 @@ SITES[main]=		https://de.postfix.org/ftpmirror/official/
 			http://mirror.lhsolutions.nl/postfix-release/official/
 DISTFILE[1]=		postfix-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary cdb ldap lmdb mysqlmod pgsqlmod test man docs
+SPKGS[std]=		set primary cdb ldap lmdb mysqlmod pgsqlmod test man docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -36,21 +36,21 @@ LICENSE_SCHEME=		dual
 
 FPC_EQUIVALENT=		mail/postfix
 
-BUILD_DEPENDS=		openldap:dev:standard
-			openldap:client:standard
-			tinycdb:dev:standard
-			tinycdb:primary:standard
-			lmdb:primary:standard
-			lmdb:dev:standard
-			icu:dev:standard
-BUILDRUN_DEPENDS=	icu:primary:standard
+BUILD_DEPENDS=		openldap:dev:std
+			openldap:client:std
+			tinycdb:dev:std
+			tinycdb:primary:std
+			lmdb:primary:std
+			lmdb:dev:std
+			icu:dev:std
+BUILDRUN_DEPENDS=	icu:primary:std
 
-EXRUN[cdb]=		tinycdb:primary:standard
-EXRUN[ldap]=		openldap:client:standard
-EXRUN[lmdb]=		lmdb:primary:standard
+EXRUN[cdb]=		tinycdb:primary:std
+EXRUN[ldap]=		openldap:client:std
+EXRUN[lmdb]=		lmdb:primary:std
 EXRUN[pgsqlmod]=	pgsql
 EXRUN[mysqlmod]=	mysql
-			zlib:primary:standard
+			zlib:primary:std
 
 # the "mail" group is blacklisted by every OPSYS (or at least should be)
 USERS=			postfix

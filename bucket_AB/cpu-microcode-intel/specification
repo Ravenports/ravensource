@@ -5,8 +5,8 @@ DEF[TAG]=		microcode-${PORTVERSION}
 NAMEBASE=		cpu-microcode-intel
 VERSION=		${PORTVERSION}
 KEYWORDS=		sysutils
-VARIANTS=		standard
-SDESC[standard]=	Intel CPU microcode updates
+VARIANTS=		std
+SDESC[std]=		Intel CPU microcode updates
 HOMEPAGE=		none
 CONTACT=		nobody
 
@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/intel:Intel-Linux-Processor-Microcode-Data-Files:${TAG}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	single
+SPKGS[std]=		single
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -29,7 +29,7 @@ FPC_EQUIVALENT=		sysutils/cpu-microcode-intel
 NOT_FOR_ARCH=		aarch64
 ONLY_FOR_OPSYS=		freebsd dragonfly netbsd midnightbsd
 
-RUN_DEPENDS=		cpu-microcode-rc:single:standard
+RUN_DEPENDS=		cpu-microcode-rc:single:std
 
 post-extract:
 	${INSTALL_DATA} ${FILESDIR}/ucode-split.c ${WRKSRC}

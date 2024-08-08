@@ -7,8 +7,8 @@ NAMEBASE=		apq-odbc
 VERSION=		${PORTVERSION}
 REVISION=		${PORTREVISION}
 KEYWORDS=		databases ada
-VARIANTS=		standard
-SDESC[standard]=	APQ Ada95 ODBC database driver
+VARIANTS=		std
+SDESC[std]=		APQ Ada95 ODBC database driver
 HOMEPAGE=		none
 CONTACT=		John_Marino[draco@marino.st]
 
@@ -16,7 +16,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		FREELOCAL/marino
 DISTFILE[1]=		apq-odbc-${PORTVERSION}.tar.bz2:main
 
-SPKGS[standard]=	single
+SPKGS[std]=		single
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -28,10 +28,10 @@ LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/apq-odbc.ads
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		bash:primary:standard
-			unixODBC:dev:standard
-BUILDRUN_DEPENDS=	apq-base:single:standard
-			unixODBC:primary:standard
+BUILD_DEPENDS=		bash:primary:std
+			unixODBC:dev:std
+BUILDRUN_DEPENDS=	apq-base:single:std
+			unixODBC:primary:std
 
 USES=			gprbuild
 MUST_CONFIGURE=		yes

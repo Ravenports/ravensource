@@ -4,8 +4,8 @@ DEF[PORTVERSION]=	1.22.5
 NAMEBASE=		golang
 VERSION=		${PORTVERSION}
 KEYWORDS=		lang
-VARIANTS=		standard
-SDESC[standard]=	Go programming language compiler
+VARIANTS=		std
+SDESC[std]=		Go programming language compiler
 HOMEPAGE=		https://golang.org/
 CONTACT=		nobody
 
@@ -20,7 +20,7 @@ DISTFILE[5]=		bootstrap-golang-1.22.2-NetBSD-amd64.tzst:ravdist
 DISTFILE[6]=		bootstrap-golang-1.22.2-FreeBSD-amd64.tzst:ravdist
 DF_INDEX=		1
 
-SPKGS[standard]=	single
+SPKGS[std]=		single
 
 OPTIONS_AVAILABLE=	DRAGONFLY FREEBSD LINUX SUNOS MACOS NETBSD MIDNIGHT PORTBOOT
 OPTIONS_STANDARD=	DRAGONFLY FREEBSD LINUX SUNOS MACOS NETBSD MIDNIGHT PORTBOOT
@@ -44,8 +44,8 @@ FPC_EQUIVALENT=		lang/go
 
 NOT_FOR_ARCH=		aarch64
 
-BUILD_DEPENDS=		bash:primary:standard
-BUILDRUN_DEPENDS=	nss:caroot:standard
+BUILD_DEPENDS=		bash:primary:std
+BUILDRUN_DEPENDS=	nss:caroot:std
 
 USES=			cpe shebangfix
 CPE_VENDOR=		golang
@@ -81,7 +81,7 @@ PLIST_SUB=		opsys_ARCH={{GOSYS}}_{{GOARCH}}
 [NETBSD].DF_INDEX_ON=			5
 [FREEBSD].DF_INDEX_ON=			6
 
-[PORTBOOT].BUILD_DEPENDS_ON=		go121:single:standard
+[PORTBOOT].BUILD_DEPENDS_ON=		go121:single:std
 [PORTBOOT].MAKEFILE_ON=			BOOTSTRAP_DIR={{LOCALBASE}}/go121
 					PREPEND_PATH={{LOCALBASE}}/go121/bin
 [PORTBOOT].MAKEFILE_OFF=		BOOTSTRAP_DIR={{WRKDIR}}/bootstrap/go

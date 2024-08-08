@@ -7,8 +7,8 @@ NAMEBASE=		libmypaint
 VERSION=		${PORTVERSION}
 REVISION=		1
 KEYWORDS=		graphics
-VARIANTS=		standard
-SDESC[standard]=	Library for making brushstrokes
+VARIANTS=		std
+SDESC[std]=		Library for making brushstrokes
 HOMEPAGE=		https://github.com/mypaint/libmypaint
 CONTACT=		nobody
 
@@ -16,7 +16,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/mypaint/libmypaint/releases/download/v${PORTVERSION}/
 DISTFILE[1]=		libmypaint-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary dev nls
+SPKGS[std]=		set primary dev nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -27,10 +27,10 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		graphics/libmypaint
 
-BUILD_DEPENDS=		json-c:dev:standard
-BUILDRUN_DEPENDS=	json-c:primary:standard
+BUILD_DEPENDS=		json-c:dev:std
+BUILDRUN_DEPENDS=	json-c:primary:std
 
-EXRUN[dev]=		json-c:dev:standard
+EXRUN[dev]=		json-c:dev:std
 
 USES=			gmake libtool pkgconfig mbsdfix
 GNOME_COMPONENTS=	glib introspection intltool

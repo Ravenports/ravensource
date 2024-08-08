@@ -4,8 +4,8 @@ DEF[PORTVERSION]=	2.0.16
 NAMEBASE=		raptor
 VERSION=		${PORTVERSION}
 KEYWORDS=		textproc
-VARIANTS=		standard
-SDESC[standard]=	RDF Parser Toolkit for Redland
+VARIANTS=		std
+SDESC[std]=		RDF Parser Toolkit for Redland
 HOMEPAGE=		https://librdf.org/raptor/
 CONTACT=		nobody
 
@@ -13,17 +13,17 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://download.librdf.org/source/
 DISTFILE[1]=		raptor2-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary tools dev man docs
+SPKGS[std]=		set primary tools dev man docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		textproc/raptor2
 
-BUILD_DEPENDS=		icu:dev:standard
-			yajl:dev:standard
-BUILDRUN_DEPENDS=	icu:primary:standard
-			yajl:primary:standard
+BUILD_DEPENDS=		icu:dev:std
+			yajl:dev:std
+BUILDRUN_DEPENDS=	icu:primary:std
+			yajl:primary:std
 
 USES=			libtool pkgconfig iconv:build curl
 GNOME_COMPONENTS=	libxml2 libxslt

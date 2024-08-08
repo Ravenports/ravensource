@@ -7,8 +7,8 @@ DEF[LIBSYN]=		0.2.3
 NAMEBASE=		mpg123
 VERSION=		${PORTVERSION}
 KEYWORDS=		audio
-VARIANTS=		standard
-SDESC[standard]=	Console MP3 player and decoder library
+VARIANTS=		std
+SDESC[std]=		Console MP3 player and decoder library
 HOMEPAGE=		https://www.mpg123.org/
 CONTACT=		nobody
 
@@ -16,16 +16,16 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://www.mpg123.de/download/
 DISTFILE[1]=		mpg123-${PORTVERSION}.tar.bz2:main
 
-SPKGS[standard]=	complete primary tools dev man
+SPKGS[std]=		set primary tools dev man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		audio/mpg123
 
-BUILDRUN_DEPENDS=	libltdl:single:standard
+BUILDRUN_DEPENDS=	libltdl:single:std
 
-EXRUN[tools]=		mpg123:primary:standard
+EXRUN[tools]=		mpg123:primary:std
 
 USES=			cpe gmake libtool mbsdfix
 MUST_CONFIGURE=		gnu

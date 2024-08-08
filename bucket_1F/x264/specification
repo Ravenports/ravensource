@@ -15,8 +15,8 @@ NAMEBASE=		x264
 VERSION=		${PORTVERSION}
 REVISION=		1
 KEYWORDS=		multimedia
-VARIANTS=		standard
-SDESC[standard]=	H.264/MPEG-4 AVC Video Encoder
+VARIANTS=		std
+SDESC[std]=		H.264/MPEG-4 AVC Video Encoder
 HOMEPAGE=		https://www.videolan.org/developers/x264.html
 CONTACT=		nobody
 
@@ -25,7 +25,7 @@ SITES[main]=		https://code.videolan.org/videolan/x264/-/archive/${X264_GITVER}/
 DISTFILE[1]=		${X264_GITVER}.tar.bz2:main
 DIST_SUBDIR=		x264
 
-SPKGS[standard]=	complete primary dev tools
+SPKGS[std]=		set primary dev tools
 
 OPTIONS_AVAILABLE=	H10P ASM
 OPTIONS_STANDARD=	H10P ASM
@@ -41,9 +41,9 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		multimedia/x264
 
-BUILD_DEPENDS=		bash:primary:standard
-			l-smash:dev:standard
-BUILDRUN_DEPENDS=	l-smash:primary:standard
+BUILD_DEPENDS=		bash:primary:std
+			l-smash:dev:std
+BUILDRUN_DEPENDS=	l-smash:primary:std
 
 USES=			pkgconfig gmake shebangfix
 SHEBANG_FILES=		configure
@@ -68,10 +68,10 @@ CONFIGURE_ARGS=		--host="{{CONFIGURE_TARGET}}"
 			--disable-lavf
 
 [H10P].DESCRIPTION=			Enable High 10 Profile 10-bit encoding
-[H10P].BUILD_DEPENDS_OFF=		opencl-headers:single:standard
+[H10P].BUILD_DEPENDS_OFF=		opencl-headers:single:std
 [H10P].CONFIGURE_ARGS_ON=		--bit-depth=10
 
-[ASM].BUILD_DEPENDS_ON=			nasm:primary:standard
+[ASM].BUILD_DEPENDS_ON=			nasm:primary:std
 [ASM].CONFIGURE_ARGS_OFF=		--disable-asm
 
 post-patch:

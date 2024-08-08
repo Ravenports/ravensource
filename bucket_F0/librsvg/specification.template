@@ -10,8 +10,8 @@ DEF[SKIP_CRATE]=	librsvg-c
 NAMEBASE=		librsvg
 VERSION=		${PORTVERSION}
 KEYWORDS=		graphics
-VARIANTS=		standard
-SDESC[standard]=	SVG vector-graphic files rendering library
+VARIANTS=		std
+SDESC[std]=		SVG vector-graphic files rendering library
 HOMEPAGE=		http://live.gnome.org/LibRsvg
 CONTACT=		nobody
 
@@ -23,7 +23,7 @@ DISTFILE[1]=		librsvg-${PORTVERSION}.tar.xz:main
 %%CR_DISTFILES%%
 %%DF_INDEX%%
 
-SPKGS[standard]=	complete primary dev man docs
+SPKGS[std]=		set primary dev man docs
 
 OPTIONS_AVAILABLE=	INTROSPECTION
 OPTIONS_STANDARD=	INTROSPECTION
@@ -39,9 +39,9 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		graphics/librsvg2-rust
 
 BUILD_DEPENDS=		python-docutils:single:python_default
-			harfbuzz:dev:standard
+			harfbuzz:dev:std
 
-EXRUN[dev]=		cairo:dev:standard
+EXRUN[dev]=		cairo:dev:std
 
 USES=			cpe gmake gtk-doc png libtool pkgconfig freetype
 			perl:build python:build cargo execinfo

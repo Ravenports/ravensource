@@ -6,8 +6,8 @@ DEF[TDS_VER]=		7.4
 NAMEBASE=		freetds
 VERSION=		${PORTVERSION}
 KEYWORDS=		databases
-VARIANTS=		standard
-SDESC[standard]=	Sybase/Microsoft TDS protocol library
+VARIANTS=		std
+SDESC[std]=		Sybase/Microsoft TDS protocol library
 HOMEPAGE=		https://www.freetds.org/
 CONTACT=		nobody
 
@@ -15,7 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://www.freetds.org/files/stable/
 DISTFILE[1]=		freetds-${PORTVERSION}.tar.bz2:main
 
-SPKGS[standard]=	complete primary tools dev man docs
+SPKGS[std]=		set primary tools dev man docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -29,12 +29,12 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		databases/freetds
 
-BUILD_DEPENDS=		libgcrypt:dev:standard
-			unixODBC:dev:standard
-BUILDRUN_DEPENDS=	libgcrypt:primary:standard
-			unixODBC:primary:standard
+BUILD_DEPENDS=		libgcrypt:dev:std
+			unixODBC:dev:std
+BUILDRUN_DEPENDS=	libgcrypt:primary:std
+			unixODBC:primary:std
 
-EXRUN[tools]=		freetds:primary:standard
+EXRUN[tools]=		freetds:primary:std
 
 USES=			autoreconf cpe gettext:build gmake iconv
 			libtool pkgconfig readline ssl:openssl11

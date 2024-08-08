@@ -4,8 +4,8 @@ DEF[PORTVERSION]=	0.3.0
 NAMEBASE=		cpp-hocon
 VERSION=		${PORTVERSION}
 KEYWORDS=		devel
-VARIANTS=		standard
-SDESC[standard]=	C++ port of the Typesafe Config library
+VARIANTS=		std
+SDESC[std]=		C++ port of the Typesafe Config library
 HOMEPAGE=		https://github.com/puppetlabs/cpp-hocon
 CONTACT=		nobody
 
@@ -13,7 +13,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/puppetlabs:cpp-hocon:${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	single
+SPKGS[std]=		single
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -25,9 +25,9 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/cpp-hocon
 
-BUILD_DEPENDS=		boost-libraries:dev:standard
-BUILDRUN_DEPENDS=	leatherman:primary:standard
-			boost-libraries:primary:standard
+BUILD_DEPENDS=		boost-libraries:dev:std
+BUILDRUN_DEPENDS=	leatherman:primary:std
+			boost-libraries:primary:std
 
 USES=			cmake curl:build
 CMAKE_ARGS=		-DBUILD_SHARED_LIBS=SHARED

@@ -4,8 +4,8 @@ DEF[PORTVERSION]=	1.23.0
 NAMEBASE=		groff
 VERSION=		${PORTVERSION}
 KEYWORDS=		textproc
-VARIANTS=		standard
-SDESC[standard]=	GNU troff text-formatting system
+VARIANTS=		std
+SDESC[std]=		GNU troff text-formatting system
 HOMEPAGE=		http://www.gnu.org/software/groff/
 CONTACT=		nobody
 
@@ -13,7 +13,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNU/groff
 DISTFILE[1]=		groff-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary examples docs man info
+SPKGS[std]=		set primary examples docs man info
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -27,11 +27,11 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		textproc/groff
 
-BUILD_DEPENDS=		gsfonts:single:standard
-BUILDRUN_DEPENDS=	ghostscript:primary:standard
-			ghostscript:x11:standard
-			uchardet:single:standard
-			netpbm:single:standard
+BUILD_DEPENDS=		gsfonts:single:std
+BUILDRUN_DEPENDS=	ghostscript:primary:std
+			ghostscript:x11:std
+			uchardet:single:std
+			netpbm:single:std
 			python-pspdfutils:single:python_default
 
 USES=			cpe gmake perl autoreconf makeinfo shebangfix

@@ -9,8 +9,8 @@ DEF[LUAJIT_API]=	2.1
 NAMEBASE=		luajit-openresty
 VERSION=		${PORTVERSION}
 KEYWORDS=		lang
-VARIANTS=		standard
-SDESC[standard]=	Just-in-time compiler for Lua, OpenResty branch
+VARIANTS=		std
+SDESC[std]=		Just-in-time compiler for Lua, OpenResty branch
 HOMEPAGE=		https://github.com/openresty/luajit2
 CONTACT=		nobody
 
@@ -18,7 +18,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/openresty:luajit2:${TAG}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	complete primary tools dev man
+SPKGS[std]=		set primary tools dev man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -29,7 +29,7 @@ LICENSE=		MIT:primary
 LICENSE_FILE=		MIT:{{WRKSRC}}/COPYRIGHT
 LICENSE_SCHEME=		solo
 
-EXRUN[tools]=		luajit-openresty:primary:standard
+EXRUN[tools]=		luajit-openresty:primary:std
 
 USES=			cpe gmake cclibs:primary
 CPE_VENDOR=		luajit

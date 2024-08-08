@@ -7,8 +7,8 @@ NAMEBASE=		gtk4
 VERSION=		${PORTVERSION}
 REVISION=		1
 KEYWORDS=		x11_toolkits
-VARIANTS=		standard
-SDESC[standard]=	Gimp Toolkit for X11 GUI
+VARIANTS=		std
+SDESC[std]=		Gimp Toolkit for X11 GUI
 HOMEPAGE=		https://www.gtk.org/
 CONTACT=		nobody
 
@@ -17,7 +17,7 @@ SITES[main]=		GNOME/gtk/${PORTVERSION:R}
 DISTFILE[1]=		gtk-${PORTVERSION}.tar.xz:main
 DIST_SUBDIR=		gnome4
 
-SPKGS[standard]=	complete primary dev man nls icon_cache
+SPKGS[std]=		set primary dev man nls icon_cache
 
 # When introspection option is set, the build segfaults on DragonFly
 # Until this is understood and fixed, leave it off by default
@@ -27,28 +27,28 @@ OPT_ON[all]=		CUPS BROADWAY
 
 FPC_EQUIVALENT=		x11-toolkits/gtk40
 
-BUILD_DEPENDS=		sassc:single:standard
-			git:primary:standard
+BUILD_DEPENDS=		sassc:single:std
+			git:primary:std
 			python-docutils:single:python_used
-			harfbuzz:dev:standard
-			libepoxy:dev:standard
-			graphene:dev:standard
-			libxkbcommon:dev:standard
-			libidn2:dev:standard
-			libdrm:dev:standard
-BUILDRUN_DEPENDS=	libepoxy:primary:standard
-			libxkbcommon:primary:standard
-			graphene:primary:standard
-			libidn2:primary:standard
-			libdrm:primary:standard
+			harfbuzz:dev:std
+			libepoxy:dev:std
+			graphene:dev:std
+			libxkbcommon:dev:std
+			libidn2:dev:std
+			libdrm:dev:std
+BUILDRUN_DEPENDS=	libepoxy:primary:std
+			libxkbcommon:primary:std
+			graphene:primary:std
+			libidn2:primary:std
+			libdrm:primary:std
 
-EXRUN[icon_cache]=	gdk-pixbuf:primary:standard
+EXRUN[icon_cache]=	gdk-pixbuf:primary:std
 
 # dev also needs headers from gdk-pixbuf but currently dev subpackage isn't there
-EXRUN[dev]=		graphene:dev:standard
-			cairo:dev:standard
-			pango:dev:standard
-			glib:dev:standard
+EXRUN[dev]=		graphene:dev:std
+			cairo:dev:std
+			pango:dev:std
+			glib:dev:std
 
 USES=			gmake pkgconfig cpe meson gtk-doc
 			jpeg tiff schemas:primary perl:build python:build
@@ -87,8 +87,8 @@ VAR_OPSYS[sunos]=	LDFLAGS=-lsocket
 
 [CUPS].CONFIGURE_ARGS_ON=		-Dprint-cups=enabled
 [CUPS].CONFIGURE_ARGS_OFF=		-Dprint-cups=disabled
-[CUPS].BUILD_DEPENDS_ON=		cups:dev:standard
-[CUPS].BUILDRUN_DEPENDS_ON=		cups:primary:standard
+[CUPS].BUILD_DEPENDS_ON=		cups:dev:std
+[CUPS].BUILDRUN_DEPENDS_ON=		cups:primary:std
 
 [BROADWAY].CONFIGURE_ARGS_ON=		-Dbroadway-backend=true
 [BROADWAY].CONFIGURE_ARGS_OFF=		-Dbroadway-backend=false

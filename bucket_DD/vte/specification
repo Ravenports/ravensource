@@ -7,8 +7,8 @@ DEF[SOVERSION]=		0.7600.3
 NAMEBASE=		vte
 VERSION=		${PORTVERSION}
 KEYWORDS=		x11_toolkits
-VARIANTS=		standard
-SDESC[standard]=	Virtual Terminal Emulator widget
+VARIANTS=		std
+SDESC[std]=		Virtual Terminal Emulator widget
 HOMEPAGE=		https://wiki.gnome.org/Apps/Terminal/VTE
 CONTACT=		nobody
 
@@ -17,7 +17,7 @@ SITES[main]=		https://gitlab.gnome.org/GNOME/vte/-/archive/${PORTVERSION}/
 DISTFILE[1]=		vte-${PORTVERSION}.tar.bz2:main
 DIST_SUBDIR=		gnome3
 
-SPKGS[standard]=	complete primary dev docs nls
+SPKGS[std]=		set primary dev docs nls
 
 OPTIONS_AVAILABLE=	INTROSPECTION
 OPTIONS_STANDARD=	INTROSPECTION
@@ -31,17 +31,17 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		x11-toolkits/vte3
 
-BUILD_DEPENDS=		bash:primary:standard
-			cmake:primary:standard
-			gnutls:dev:standard
-			harfbuzz:dev:standard
-			icu:dev:standard
-			lz4:dev:standard
-			nettle:dev:standard
-			vala:single:standard
-BUILDRUN_DEPENDS=	gnutls:primary:standard
-			icu:primary:standard
-			lz4:primary:standard
+BUILD_DEPENDS=		bash:primary:std
+			cmake:primary:std
+			gnutls:dev:std
+			harfbuzz:dev:std
+			icu:dev:std
+			lz4:dev:std
+			nettle:dev:std
+			vala:single:std
+BUILDRUN_DEPENDS=	gnutls:primary:std
+			icu:primary:std
+			lz4:primary:std
 
 USES=			meson pkgconfig pcre2
 GNOME_COMPONENTS=	cairo gdkpixbuf gtk3 gtk4 intltool

@@ -5,8 +5,8 @@ DEF[KF6_COMPONENT]=	kwindowsystem
 NAMEBASE=		kf6-${KF6_COMPONENT}
 VERSION=		${PORTVERSION}
 KEYWORDS=		x11
-VARIANTS=		standard
-SDESC[standard]=	KF6 library for accessing the windowing system
+VARIANTS=		std
+SDESC[std]=		KF6 library for accessing the windowing system
 HOMEPAGE=		https://api.kde.org/frameworks/${KF6_COMPONENT}/html/index.html
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
@@ -15,7 +15,7 @@ SITES[main]=		https://download.kde.org/stable/frameworks/${PORTVERSION:R}/
 DISTFILE[1]=		${KF6_COMPONENT}-${PORTVERSION}.tar.xz:main
 DIST_SUBDIR=		kde6
 
-SPKGS[standard]=	complete primary dev nls
+SPKGS[std]=		set primary dev nls
 
 OPTIONS_AVAILABLE=	EPOLLSHIM
 OPTIONS_STANDARD=	EPOLLSHIM
@@ -34,22 +34,22 @@ LICENSE_SCHEME=		multi
 
 FPC_EQUIVALENT=		x11/kf6-${KF6_COMPONENT}
 
-BUILD_DEPENDS=		kf6-extra-cmake-modules:primary:standard
-			libffi:dev:standard
-			plasma-wayland-protocols:complete:standard
-			qt6-qtbase:dev:standard
-			qt6-qtdeclarative:dev:standard
-			qt6-qttools:dev:standard
-			qt6-qtwayland:dev:standard
-			wayland:dev:standard
-			wayland:tools:standard
-			wayland-protocols:single:standard
-BUILDRUN_DEPENDS=	libffi:primary:standard
-			qt6-qtbase:primary:standard
-			qt6-qtdeclarative:primary:standard
-			qt6-qttools:primary:standard
-			qt6-qtwayland:primary:standard
-			wayland:primary:standard
+BUILD_DEPENDS=		kf6-extra-cmake-modules:primary:std
+			libffi:dev:std
+			plasma-wayland-protocols:complete:std
+			qt6-qtbase:dev:std
+			qt6-qtdeclarative:dev:std
+			qt6-qttools:dev:std
+			qt6-qtwayland:dev:std
+			wayland:dev:std
+			wayland:tools:std
+			wayland-protocols:single:std
+BUILDRUN_DEPENDS=	libffi:primary:std
+			qt6-qtbase:primary:std
+			qt6-qtdeclarative:primary:std
+			qt6-qttools:primary:std
+			qt6-qtwayland:primary:std
+			wayland:primary:std
 
 USES=			cmake
 XORG_COMPONENTS=	x11 xcb xcb-util-keysyms xcb-util-wm xfixes
@@ -58,8 +58,8 @@ CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt6/cmake
 SOVERSION=		${PORTVERSION}
 
 [EPOLLSHIM].DESCRIPTION=		Platform depends on libepoll-shim
-[EPOLLSHIM].BUILDRUN_DEPENDS_ON=	libepoll-shim:primary:standard
-[EPOLLSHIM].BUILD_DEPENDS_ON=		libepoll-shim:dev:standard
+[EPOLLSHIM].BUILDRUN_DEPENDS_ON=	libepoll-shim:primary:std
+[EPOLLSHIM].BUILD_DEPENDS_ON=		libepoll-shim:dev:std
 
 post-extract:
 	${ECHO} "Terms extracted from 'src/kwindowinfo.cpp':" > ${WRKDIR}/TERMS

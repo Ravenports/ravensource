@@ -5,8 +5,8 @@ DEF[SOVERSION]=		3.0.0
 NAMEBASE=		discount
 VERSION=		${PORTVERSION}
 KEYWORDS=		textproc
-VARIANTS=		standard
-SDESC[standard]=	C implementation of the Markdown specification
+VARIANTS=		std
+SDESC[std]=		C implementation of the Markdown specification
 HOMEPAGE=		https://www.pell.portland.or.us/~orc/Code/discount/
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/Orc:discount:v${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	complete primary dev man samples
+SPKGS[std]=		set primary dev man samples
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -38,7 +38,7 @@ CONFIGURE_ARGS=		--prefix={{PREFIX}}
 INSTALL_TARGET=		install.everything
 SOVERSION=		${SOVERSION}
 
-EXRUN[samples]=		discount:primary:standard
+EXRUN[samples]=		discount:primary:std
 
 post-stage:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libmarkdown.so

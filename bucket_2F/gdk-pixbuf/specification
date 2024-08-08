@@ -6,8 +6,8 @@ DEF[GTK_VERSION]=	EXTRACT_INFO(GTK2_VERSION)
 NAMEBASE=		gdk-pixbuf
 VERSION=		${PORTVERSION}
 KEYWORDS=		graphics
-VARIANTS=		standard
-SDESC[standard]=	Graphic library for GIMP toolkit
+VARIANTS=		std
+SDESC[std]=		Graphic library for GIMP toolkit
 HOMEPAGE=		https://gitlab.gnome.org/GNOME/gdk-pixbuf
 CONTACT=		nobody
 
@@ -16,7 +16,7 @@ SITES[main]=		GNOME/gdk-pixbuf/${PORTVERSION:R}
 DISTFILE[1]=		gdk-pixbuf-${PORTVERSION}.tar.xz:main
 DIST_SUBDIR=		gnome2
 
-SPKGS[standard]=	complete primary dev man docs nls
+SPKGS[std]=		set primary dev man docs nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -31,10 +31,10 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		graphics/gdk-pixbuf2
 
 BUILD_DEPENDS=		python-docutils:single:python_used
-			xmlto:single:standard
-			zstd:dev:standard
+			xmlto:single:std
+			zstd:dev:std
 
-EXRUN[dev]=		shared-mime-info:dev:standard
+EXRUN[dev]=		shared-mime-info:dev:std
 
 SUB_FILES=		triggers-primary.ucl
 SUB_LIST=		GTK2_VERSION=${GTK_VERSION}

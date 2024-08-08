@@ -6,8 +6,8 @@ DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM17_VERSION)
 NAMEBASE=		${NAMEBASE}
 VERSION=		${LLVM_VERSION}
 KEYWORDS=		lang sysutils
-VARIANTS=		standard
-SDESC[standard]=	Linker from the LLVM project
+VARIANTS=		std
+SDESC[std]=		Linker from the LLVM project
 HOMEPAGE=		http://llvm.org/
 CONTACT=		nobody
 
@@ -19,7 +19,7 @@ DISTFILE[2]=		libunwind-${LLVM_VERSION}.src.tar.xz:main
 DISTFILE[3]=		cmake-${LLVM_VERSION}.src.tar.xz:main
 DF_INDEX=		1 2 3
 
-SPKGS[standard]=	complete primary dev
+SPKGS[std]=		set primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -33,9 +33,9 @@ LICENSE_SCHEME=		solo
 # 1) it doesn't actually build any docs
 # 2) it pulls in shared ncurses, libz, etc.
 
-BUILD_DEPENDS=		${LLVMBASE}:dev:standard
-			${LLVMBASE}:tools:standard
-BUILDRUN_DEPENDS=	${LLVMBASE}:primary:standard
+BUILD_DEPENDS=		${LLVMBASE}:dev:std
+			${LLVMBASE}:tools:std
+BUILDRUN_DEPENDS=	${LLVMBASE}:primary:std
 
 USES=			cpe cmake c++:primary solaris-funcs zlib:build
 CPE_VENDOR=		llvm

@@ -6,8 +6,8 @@ DEF[SOVERSION]=		0.1.0
 NAMEBASE=		libexo
 VERSION=		${PORTVERSION}
 KEYWORDS=		x11
-VARIANTS=		standard
-SDESC[standard]=	Xfce application development library
+VARIANTS=		std
+SDESC[std]=		Xfce application development library
 HOMEPAGE=		https://xfce.org
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
@@ -15,7 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://archive.xfce.org/src/xfce/exo/${PORTVERSION:R}/
 DISTFILE[1]=		exo-${PORTVERSION}.tar.bz2:main
 
-SPKGS[standard]=	complete primary docs nls
+SPKGS[std]=		set primary docs nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -29,11 +29,11 @@ LICENSE_TERMS=		complete:{{WRKSRC}}/TERMS
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/exo/exo.h
 
-BUILD_DEPENDS=		harfbuzz:dev:standard
-			libxfce4ui:dev:standard
-			libxfce4util:dev:standard
-BUILDRUN_DEPENDS=	libxfce4ui:primary:standard
-			libxfce4util:primary:standard
+BUILD_DEPENDS=		harfbuzz:dev:std
+			libxfce4ui:dev:std
+			libxfce4util:dev:std
+BUILDRUN_DEPENDS=	libxfce4ui:primary:std
+			libxfce4util:primary:std
 			perl-URI:single:perl_default
 
 USES=			gmake libtool perl pkgconfig fontconfig

@@ -6,8 +6,8 @@ NAMEBASE=		libadalang-tools
 VERSION=		${PORTVERSION}
 EPOCH=			1
 KEYWORDS=		python lang devel
-VARIANTS=		standard
-SDESC[standard]=	Development tools based on libadalang
+VARIANTS=		std
+SDESC[std]=		Development tools based on libadalang
 HOMEPAGE=		https://github.com/AdaCore/libadalang-tools
 CONTACT=		John_Marino[draco@marino.st]
 
@@ -15,7 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/AdaCore:libadalang-tools:${RELEASE}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	complete primary dev tools
+SPKGS[std]=		set primary dev tools
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -27,22 +27,22 @@ LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/pp.ads
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		gmp:dev:standard
-			libvss:dev:standard
-			libadalang:dev:standard
-			langkit_support:dev:standard
-			templates-parser:dev:standard
-BUILDRUN_DEPENDS=	libvss:primary:standard
-			AdaSAT:primary:standard
-			libgpr2:primary:standard
-			libadalang:primary:standard
-			templates-parser:primary:standard
-			gmp:primary:standard
+BUILD_DEPENDS=		gmp:dev:std
+			libvss:dev:std
+			libadalang:dev:std
+			langkit_support:dev:std
+			templates-parser:dev:std
+BUILDRUN_DEPENDS=	libvss:primary:std
+			AdaSAT:primary:std
+			libgpr2:primary:std
+			libadalang:primary:std
+			templates-parser:primary:std
+			gmp:primary:std
 
-EXRUN[dev]=		templates-parser:dev:standard
-			langkit_support:dev:standard
-			libadalang:dev:standard
-			libvss:dev:standard
+EXRUN[dev]=		templates-parser:dev:std
+			langkit_support:dev:std
+			libadalang:dev:std
+			libvss:dev:std
 EXRUN[tools]=		primary
 
 USES=			gprbuild iconv

@@ -65,8 +65,8 @@ NAMEBASE=		nginx
 VERSION=		${PORTVERSION}
 REVISION=		${REVISION}
 KEYWORDS=		www
-VARIANTS=		standard loaded
-SDESC[standard]=	HTTP and reverse proxy server (basic options)
+VARIANTS=		std loaded
+SDESC[std]=		HTTP and reverse proxy server (basic options)
 SDESC[loaded]=		HTTP and reverse proxy server (all options)
 HOMEPAGE=		https://nginx.org/
 CONTACT=		nobody
@@ -176,7 +176,7 @@ DF_INDEX=		1
 
 # TODO MODULES: KRB, LDAP FASTDFS(?) IP2LOCATION IP2PROXY
 
-SPKGS[standard]=	single
+SPKGS[std]=		single
 SPKGS[loaded]=		single
 
 OPTIONS_AVAILABLE=	LOADED
@@ -313,8 +313,8 @@ VAR_OPSYS[dragonfly]=	CONFIGURE_ARGS=--with-file-aio
 [LOADED].DF_INDEX_ON=			2 3 4 5 6 7 8 9 10 12 14 15 16 18 20 21 22
 					23 24 25 26 27 28 29 30 31 32 33 34 35 36
 					37 38 39 40 41 42 43 44 45 46 47
-[LOADED].BUILDRUN_DEPENDS_ON=		libmaxminddb:single:standard
-					libGD:single:standard
+[LOADED].BUILDRUN_DEPENDS_ON=		libmaxminddb:single:std
+					libGD:single:std
 [LOADED].EXTRA_PATCHES_ON=		extra-patch-ngx_http_notice_module.c
 					extra-patch-iconv
 					extra-patch-postgresql

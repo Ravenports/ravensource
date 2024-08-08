@@ -5,8 +5,8 @@ DEF[SOVERSION]=		0.37.0
 NAMEBASE=		libgpg-error
 VERSION=		${PORTVERSION}
 KEYWORDS=		security devel
-VARIANTS=		standard
-SDESC[standard]=	Common error values for all GnuPG components
+VARIANTS=		std
+SDESC[std]=		Common error values for all GnuPG components
 HOMEPAGE=		https://gnupg.org/software/libgpg-error/index.html
 CONTACT=		nobody
 
@@ -16,7 +16,7 @@ DISTFILE[1]=		libgpg-error-${PORTVERSION}.tar.bz2:main
 
 # Used to have "nls" subpackage, but it caused segfaults in mutt.
 # Until this is solved, don't support or package NLS
-SPKGS[standard]=	complete primary tools dev man info
+SPKGS[std]=		set primary tools dev man info
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -30,7 +30,7 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		security/libgpg-error
 
-EXRUN[tools]=		libgpg-error:primary:standard
+EXRUN[tools]=		libgpg-error:primary:std
 
 # drop USES+=gettext due to NLS disabled
 USES=			cpe gmake libtool iconv mbsdfix

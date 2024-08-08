@@ -5,8 +5,8 @@ DEF[API]=		0.18
 NAMEBASE=		ixion
 VERSION=		${PORTVERSION}
 KEYWORDS=		math
-VARIANTS=		standard
-SDESC[standard]=	General purpose formula parser and interpreter
+VARIANTS=		std
+SDESC[std]=		General purpose formula parser and interpreter
 HOMEPAGE=		https://gitlab.com/ixion/ixion
 CONTACT=		nobody
 
@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main libre
 SITES[main]=		https://gitlab.com/ixion/ixion/-/archive/${PORTVERSION}/
 DISTFILE[1]=		ixion-${PORTVERSION}.tar.bz2:main
 
-SPKGS[standard]=	complete primary dev
+SPKGS[std]=		set primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -26,10 +26,10 @@ LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/libixion/address.cpp
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		spdlog:single:standard
-			boost-libraries:dev:standard
-			mdds:single:standard
-BUILDRUN_DEPENDS=	boost-libraries:primary:standard
+BUILD_DEPENDS=		spdlog:single:std
+			boost-libraries:dev:std
+			mdds:single:std
+BUILDRUN_DEPENDS=	boost-libraries:primary:std
 
 USES=			cmake python:build zlib
 PLIST_SUB=		VER=${API}

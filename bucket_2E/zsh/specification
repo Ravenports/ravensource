@@ -6,8 +6,8 @@ NAMEBASE=		zsh
 VERSION=		${PORTVERSION}
 REVISION=		1
 KEYWORDS=		shells
-VARIANTS=		standard
-SDESC[standard]=	Interactive Z Shell
+VARIANTS=		std
+SDESC[std]=		Interactive Z Shell
 HOMEPAGE=		https://www.zsh.org/
 CONTACT=		nobody
 
@@ -17,7 +17,7 @@ DISTFILE[1]=		zsh-${PORTVERSION}.tar.xz:main
 DISTFILE[2]=		zsh-${PORTVERSION}-doc.tar.xz:main
 DF_INDEX=		1 2
 
-SPKGS[standard]=	complete primary examples docs man
+SPKGS[std]=		set primary examples docs man
 
 OPTIONS_AVAILABLE=	CCLOCK
 OPTIONS_STANDARD=	CCLOCK
@@ -32,11 +32,11 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		shells/zsh
 
-BUILD_DEPENDS=		gdbm:dev:standard
-			texinfo:primary:standard
-BUILDRUN_DEPENDS=	gdbm:primary:standard
+BUILD_DEPENDS=		gdbm:dev:std
+			texinfo:primary:std
+BUILDRUN_DEPENDS=	gdbm:primary:std
 
-BR_DEPS[sunos]=		termcap:single:standard
+BR_DEPS[sunos]=		termcap:single:std
 
 USES=			autoreconf cpe iconv ncurses pcre shebangfix
 SINGLE_JOB=		yes

@@ -4,8 +4,8 @@ DEF[PORTVERSION]=	4.8.31
 NAMEBASE=		midnight-commander
 VERSION=		${PORTVERSION}
 KEYWORDS=		misc shells
-VARIANTS=		standard desktop
-SDESC[standard]=	Free Norton Commander clone
+VARIANTS=		std desktop
+SDESC[std]=		Free Norton Commander clone
 SDESC[desktop]=		Free Norton Commander clone (X11)
 HOMEPAGE=		http://midnight-commander.org/
 CONTACT=		nobody
@@ -17,8 +17,8 @@ DISTFILE[1]=		mc-${PORTVERSION}.tar.xz:main
 DISTFILE[2]=		MidnightCommander.png:icon
 DF_INDEX=		1 2
 
-SPKGS[standard]=	complete primary nls man
-SPKGS[desktop]=		complete primary nls man
+SPKGS[std]=		set primary nls man
+SPKGS[desktop]=		set primary nls man
 
 OPTIONS_AVAILABLE=	X11
 OPTIONS_STANDARD=	none
@@ -26,9 +26,9 @@ VOPTS[desktop]=		X11=ON
 
 FPC_EQUIVALENT=		misc/mc
 
-RUN_DEPENDS=		diffutils:primary:standard
-BUILD_DEPENDS=		libssh2:dev:standard
-BUILDRUN_DEPENDS=	libssh2:primary:standard
+RUN_DEPENDS=		diffutils:primary:std
+BUILD_DEPENDS=		libssh2:dev:std
+BUILDRUN_DEPENDS=	libssh2:primary:std
 
 DISTNAME=		mc-${PORTVERSION}
 EXTRACT_ONLY=		1

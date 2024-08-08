@@ -4,8 +4,8 @@ DEF[PORTVERSION]=	2.4.122
 NAMEBASE=		libdrm
 VERSION=		${PORTVERSION}
 KEYWORDS=		graphics x11
-VARIANTS=		standard
-SDESC[standard]=	Direct Rendering Module services kernel interface
+VARIANTS=		std
+SDESC[std]=		Direct Rendering Module services kernel interface
 HOMEPAGE=		https://dri.freedesktop.org
 CONTACT=		nobody
 
@@ -13,7 +13,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://dri.freedesktop.org/libdrm/
 DISTFILE[1]=		libdrm-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary man dev
+SPKGS[std]=		set primary man dev
 
 OPTIONS_AVAILABLE=	ARM X86 NOUVEAU
 OPTIONS_STANDARD=	ARM X86 NOUVEAU
@@ -30,7 +30,7 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		graphics/libdrm
 
-BUILD_DEPENDS=		libxslt:primary:standard
+BUILD_DEPENDS=		libxslt:primary:std
 			python-docutils:single:python_default
 
 USES=			gmake pkgconfig solaris-funcs meson

@@ -5,14 +5,14 @@ NAMEBASE=		lockf
 VERSION=		${PORTVERSION}
 REVISION=		3
 KEYWORDS=		sysutils
-VARIANTS=		standard
-SDESC[standard]=	FreeBSD's lockf command
+VARIANTS=		std
+SDESC[std]=		FreeBSD's lockf command
 HOMEPAGE=		https://www.freebsd.org/cgi/man.cgi?query=lockf
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	none
 
-SPKGS[standard]=	single
+SPKGS[std]=		single
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -23,7 +23,7 @@ LICENSE_AWK=		BSD2CLAUSE:"^$$"
 LICENSE_SOURCE=		BSD2CLAUSE:{{FILESDIR}}/lockf.c
 LICENSE_SCHEME=		solo
 
-B_DEPS[sunos]=		libbsd4sol:single:standard
+B_DEPS[sunos]=		libbsd4sol:single:std
 VAR_OPSYS[sunos]=	CFLAGS=-I{{LOCALBASE}}/include/bsd
 			LDFLAGS=-lbsd
 

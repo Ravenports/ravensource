@@ -5,8 +5,8 @@ DEF[SOVERSION]=		${PORTVERSION}
 NAMEBASE=		pciutils
 VERSION=		${PORTVERSION}
 KEYWORDS=		sysutils devel
-VARIANTS=		standard
-SDESC[standard]=	Library / tools to access PCI bus config registers
+VARIANTS=		std
+SDESC[std]=		Library / tools to access PCI bus config registers
 HOMEPAGE=		https://mj.ucw.cz/sw/pciutils
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/pciutils:pciutils:v${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	complete primary tools dev man
+SPKGS[std]=		set primary tools dev man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -30,8 +30,8 @@ FPC_EQUIVALENT=		sysutils/pciutils
 
 USES=			gmake
 
-RUN_DEPENDS=		pciids:single:standard
-EXRUN[tools]=		pciutils:primary:standard
+RUN_DEPENDS=		pciids:single:std
+EXRUN[tools]=		pciutils:primary:std
 
 MAKE_ARGS=		PREFIX={{PREFIX}} SHARED=yes
 CFLAGS=			-fPIC

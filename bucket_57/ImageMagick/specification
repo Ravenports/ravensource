@@ -7,8 +7,8 @@ DEF[SOVERSION]=		10.0.1
 NAMEBASE=		ImageMagick
 VERSION=		${PORTVERSION}
 KEYWORDS=		graphics
-VARIANTS=		standard x11
-SDESC[standard]=	Suite to create, edit, compose, or convert images
+VARIANTS=		std x11
+SDESC[std]=		Suite to create, edit, compose, or convert images
 SDESC[x11]=		Image manipulation tool suite with X support
 HOMEPAGE=		https://www.imagemagick.org/
 CONTACT=		nobody
@@ -19,8 +19,8 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/ImageMagick:ImageMagick:${RELEASE_TAG}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	complete primary dev man docs
-SPKGS[x11]=		complete primary dev man docs
+SPKGS[std]=		set primary dev man docs
+SPKGS[x11]=		set primary dev man docs
 
 OPTIONS_AVAILABLE=	X11
 OPTIONS_STANDARD=	none
@@ -34,29 +34,29 @@ LICENSE_SCHEME=		solo
 # Uses W.Y.X.Z instead of RP's W.Y.X-Z
 # FPC_EQUIVALENT=		graphics/ImageMagick7
 
-BUILD_DEPENDS=		libde265:dev:standard
-			x265:dev:standard
-			libheif:dev:standard
-			openexr:dev:standard
-			graphviz:dev:standard
-			Imath:dev:standard
-			libraqm:dev:standard
-			libwmf:dev:standard
-			libraw:dev:standard
-			WebP:dev:standard
-			openjpeg:dev:standard
-BUILDRUN_DEPENDS=	libltdl:single:standard
-			fftw:single:standard
-			WebP:primary:standard
-			graphviz:primary:standard
-			ghostscript:primary:standard
-			openjpeg:primary:standard
-			liblqr:primary:standard
-			libwmf:primary:standard
-			libheif:primary:standard
-			libraw:primary:standard
-			libraqm:primary:standard
-			openexr:primary:standard
+BUILD_DEPENDS=		libde265:dev:std
+			x265:dev:std
+			libheif:dev:std
+			openexr:dev:std
+			graphviz:dev:std
+			Imath:dev:std
+			libraqm:dev:std
+			libwmf:dev:std
+			libraw:dev:std
+			WebP:dev:std
+			openjpeg:dev:std
+BUILDRUN_DEPENDS=	libltdl:single:std
+			fftw:single:std
+			WebP:primary:std
+			graphviz:primary:std
+			ghostscript:primary:std
+			openjpeg:primary:std
+			liblqr:primary:std
+			libwmf:primary:std
+			libheif:primary:std
+			libraw:primary:std
+			libraqm:primary:std
+			openexr:primary:std
 
 USES=			cpe shebangfix gmake libtool:keepla perl:build
 			fontconfig pkgconfig bz2 png tiff
@@ -99,7 +99,7 @@ INSTALL_REQ_TOOLCHAIN=	yes
 VAR_OPSYS[netbsd]=	CONFIGURE_ENV=ac_cv_lib_dl_dlopen=no
 
 [X11].DESCRIPTION=			Variant with X support
-[X11].BUILDRUN_DEPENDS_ON=		ghostscript:x11:standard
+[X11].BUILDRUN_DEPENDS_ON=		ghostscript:x11:std
 [X11].GNOME_COMPONENTS_ON=		pango cairo gdkpixbuf librsvg
 [X11].XORG_COMPONENTS_ON=		sm ice x11 xext xt
 [X11].CONFIGURE_WITH_BOTH=		rsvg x

@@ -4,8 +4,8 @@ DEF[PORTVERSION]=	1.2.7
 NAMEBASE=		rpcbind
 VERSION=		${PORTVERSION}
 KEYWORDS=		net
-VARIANTS=		standard
-SDESC[standard]=	Universal address to RPC program number mapper
+VARIANTS=		std
+SDESC[std]=		Universal address to RPC program number mapper
 HOMEPAGE=		https://sourceforge.net/projects/rpcbind/
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
@@ -13,7 +13,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		SF/rpcbind/rpcbind/${PORTVERSION}
 DISTFILE[1]=		rpcbind-${PORTVERSION}.tar.bz2:main
 
-SPKGS[standard]=	single
+SPKGS[std]=		single
 
 OPTIONS_AVAILABLE=	TIRPC
 OPTIONS_STANDARD=	TIRPC
@@ -33,4 +33,4 @@ CONFIGURE_ARGS=		--enable-warmstarts
 			--with-systemdsystemunitdir=no
 
 [TIRPC].DESCRIPTION=			Build with Ravenports tirpc library
-[TIRPC].BUILDRUN_DEPENDS_ON=		libtirpc:single:standard
+[TIRPC].BUILDRUN_DEPENDS_ON=		libtirpc:single:std

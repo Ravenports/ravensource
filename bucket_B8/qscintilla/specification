@@ -15,8 +15,8 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://www.riverbankcomputing.com/static/Downloads/QScintilla/${PORTVERSION}/
 DISTFILE[1]=		QScintilla_src-${PORTVERSION}.tar.gz:main
 
-SPKGS[qt5]=		complete primary dev docs
-SPKGS[qt6]=		complete primary dev docs
+SPKGS[qt5]=		set primary dev docs
+SPKGS[qt6]=		set primary dev docs
 
 OPTIONS_AVAILABLE=	QT5 QT6
 OPTIONS_STANDARD=	none
@@ -42,15 +42,15 @@ SOVERSION=		${SOVERSION}
 [QT5].DESCRIPTION=			Qt5 variant
 [QT5].USES_ON=				qt5
 [QT5].MAKEFILE_ON=			VAR1=qt5
-[QT5].BUILD_DEPENDS_ON=			qt5-qtbase:dev:standard
-[QT5].BUILDRUN_DEPENDS_ON=		qt5-qtbase:primary:standard
+[QT5].BUILD_DEPENDS_ON=			qt5-qtbase:dev:std
+[QT5].BUILDRUN_DEPENDS_ON=		qt5-qtbase:primary:std
 
 [QT6].DESCRIPTION=			Qt6 variant
 [QT6].USES_ON=				qt6
 [QT6].MAKEFILE_ON=			VAR1=qt6
-[QT6].BUILD_DEPENDS_ON=			qt6-qtbase:dev:standard
-[QT6].BUILDRUN_DEPENDS_ON=		qt6-qtbase:primary:standard
-					libglvnd:primary:standard
+[QT6].BUILD_DEPENDS_ON=			qt6-qtbase:dev:std
+[QT6].BUILDRUN_DEPENDS_ON=		qt6-qtbase:primary:std
+					libglvnd:primary:std
 
 post-install:
 	${MKDIR} ${STAGEDIR}${STD_DOCDIR}/html

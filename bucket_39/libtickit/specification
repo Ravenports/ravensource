@@ -5,8 +5,8 @@ DEF[SOVERSION]=		3.0.0
 NAMEBASE=		libtickit
 VERSION=		${PORTVERSION}
 KEYWORDS=		devel
-VARIANTS=		standard
-SDESC[standard]=	Terminal Interface Construction Kit
+VARIANTS=		std
+SDESC[std]=		Terminal Interface Construction Kit
 HOMEPAGE=		http://www.leonerd.org.uk/code/libtickit/
 CONTACT=		nobody
 
@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://launchpad.net/libtickit/trunk/v${PORTVERSION:R}/+download/
 DISTFILE[1]=		libtickit-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary dev man
+SPKGS[std]=		set primary dev man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -25,8 +25,8 @@ LICENSE_SCHEME=		solo
 
 # No FPC equivalent
 
-BUILDRUN_DEPENDS=	libtermkey:single:standard
-B_DEPS[sunos]=		libbsd4sol:single:standard
+BUILDRUN_DEPENDS=	libtermkey:single:std
+B_DEPS[sunos]=		libbsd4sol:single:std
 
 USES=			gmake pkgconfig libtool:build
 MAKE_ARGS=		PREFIX="{{PREFIX}}"

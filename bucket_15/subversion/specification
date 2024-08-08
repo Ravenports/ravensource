@@ -4,8 +4,8 @@ DEF[PORTVERSION]=	EXTRACT_INFO(SUBVERSION_VERSION)
 NAMEBASE=		subversion
 VERSION=		${PORTVERSION}
 KEYWORDS=		devel
-VARIANTS=		standard
-SDESC[standard]=	Version control system
+VARIANTS=		std
+SDESC[std]=		Version control system
 HOMEPAGE=		https://subversion.apache.org/
 CONTACT=		nobody
 
@@ -13,19 +13,19 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		APACHE/subversion
 DISTFILE[1]=		subversion-${PORTVERSION}.tar.bz2:main
 
-SPKGS[standard]=	complete primary nls
+SPKGS[std]=		set primary nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		devel/subversion
 
-BUILD_DEPENDS=		apr-util:dev:standard
-			apr1:dev:standard
-BUILDRUN_DEPENDS=	serf:single:standard
-			utf8proc:single:standard
-			apr-util:primary:standard
-			apr1:primary:standard
+BUILD_DEPENDS=		apr-util:dev:std
+			apr1:dev:std
+BUILDRUN_DEPENDS=	serf:single:std
+			utf8proc:single:std
+			apr-util:primary:std
+			apr1:primary:std
 
 RC_SUBR=		svnserve:primary
 

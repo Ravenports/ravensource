@@ -6,8 +6,8 @@ DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
 NAMEBASE=		mozjs128
 VERSION=		${PORTVERSION}
 KEYWORDS=		lang
-VARIANTS=		standard
-SDESC[standard]=	Standalone JS interpreter from Mozilla ${MAJOR}-esr
+VARIANTS=		std
+SDESC[std]=		Standalone JS interpreter from Mozilla ${MAJOR}-esr
 HOMEPAGE=		https://spidermonkey.dev
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
@@ -15,7 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		MOZILLA/firefox/releases/${PORTVERSION}esr/source
 DISTFILE[1]=		firefox-${PORTVERSION}esr.source.tar.xz:main
 
-SPKGS[standard]=	complete primary dev
+SPKGS[std]=		set primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -27,17 +27,17 @@ LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/js-config.h.in
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		zip:single:standard
-			rust:single:standard
-			icu:dev:standard
-			llvm:tools:standard
-			nspr:dev:standard
-			cbindgen:single:standard
-BUILDRUN_DEPENDS=	icu:primary:standard
-			icu:data:standard
-			nspr:primary:standard
+BUILD_DEPENDS=		zip:single:std
+			rust:single:std
+			icu:dev:std
+			llvm:tools:std
+			nspr:dev:std
+			cbindgen:single:std
+BUILDRUN_DEPENDS=	icu:primary:std
+			icu:data:std
+			nspr:primary:std
 
-EXRUN[dev]=		nspr:dev:standard
+EXRUN[dev]=		nspr:dev:std
 
 DISTNAME=		firefox-${PORTVERSION}/js/src
 

@@ -4,8 +4,8 @@ DEF[PORTVERSION]=	1.9.0
 NAMEBASE=		sword
 VERSION=		${PORTVERSION}
 KEYWORDS=		misc
-VARIANTS=		standard
-SDESC[standard]=	Framework for manipulating Bible texts
+VARIANTS=		std
+SDESC[std]=		Framework for manipulating Bible texts
 HOMEPAGE=		https://crosswire.org/sword/index.jsp
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
@@ -13,7 +13,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://crosswire.org/ftpmirror/pub/sword/source/v${PORTVERSION:R}/
 DISTFILE[1]=		sword-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary dev
+SPKGS[std]=		set primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -27,16 +27,16 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		misc/sword
 
-BUILDRUN_DEPENDS=	bzip2:primary:standard
-			clucene:single:standard
-			curl:primary:standard
-			icu:primary:standard
-			xapian-core:primary:standard
-BUILD_DEPENDS=		bzip2:dev:standard
-			curl:dev:standard
-			icu:dev:standard
-			xapian-core:dev:standard
-RUN_DEPENDS=		icu:data:standard
+BUILDRUN_DEPENDS=	bzip2:primary:std
+			clucene:single:std
+			curl:primary:std
+			icu:primary:std
+			xapian-core:primary:std
+BUILD_DEPENDS=		bzip2:dev:std
+			curl:dev:std
+			icu:dev:std
+			xapian-core:dev:std
+RUN_DEPENDS=		icu:data:std
 USES=			gmake libtool mbsdfix pkgconfig xz zlib
 
 MUST_CONFIGURE=		gnu

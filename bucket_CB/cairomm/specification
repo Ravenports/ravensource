@@ -6,8 +6,8 @@ DEF[API]=		1.16
 NAMEBASE=		cairomm
 VERSION=		${PORTVERSION}
 KEYWORDS=		graphics
-VARIANTS=		standard
-SDESC[standard]=	C++ API for the cairo graphics library
+VARIANTS=		std
+SDESC[std]=		C++ API for the cairo graphics library
 HOMEPAGE=		https://www.cairographics.org/cairomm/
 CONTACT=		nobody
 
@@ -15,7 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://cairographics.org/releases/
 DISTFILE[1]=		cairomm-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary dev
+SPKGS[std]=		set primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -29,10 +29,10 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		graphics/cairomm
 
-BUILD_DEPENDS=		glib:dev:standard
+BUILD_DEPENDS=		glib:dev:std
 
-EXRUN[dev]=		fontconfig:dev:standard
-			libsigcxx:dev:standard
+EXRUN[dev]=		fontconfig:dev:std
+			libsigcxx:dev:std
 
 USES=			gmake pkgconfig png freetype meson zlib:build
 GNOME_COMPONENTS=	cairo libsigc++30

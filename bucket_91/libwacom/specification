@@ -5,8 +5,8 @@ DEF[SOVERSION]=		9.0.0
 NAMEBASE=		libwacom
 VERSION=		${PORTVERSION}
 KEYWORDS=		x11
-VARIANTS=		standard
-SDESC[standard]=	Library to supply metadata about tablet devices
+VARIANTS=		std
+SDESC[std]=		Library to supply metadata about tablet devices
 HOMEPAGE=		https://github.com/linuxwacom/libwacom/
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/linuxwacom/libwacom/releases/download/libwacom-${PORTVERSION}/
 DISTFILE[1]=		libwacom-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary dev man tools
+SPKGS[std]=		set primary dev man tools
 
 OPTIONS_AVAILABLE=	NODEVD
 OPTIONS_STANDARD=	NODEVD
@@ -30,14 +30,14 @@ FPC_EQUIVALENT=		x11/libwacom
 
 EXRUN[tools]=		primary
 
-BUILD_DEPENDS=		doxygen:primary:standard
-			evdev-proto:single:standard
-			gtk2:dev:standard
-			harfbuzz:dev:standard
-			libevdev:dev:standard
-			libxml2:dev:standard
-BUILDRUN_DEPENDS=	libevdev:primary:standard
-			libxml2:primary:standard
+BUILD_DEPENDS=		doxygen:primary:std
+			evdev-proto:single:std
+			gtk2:dev:std
+			harfbuzz:dev:std
+			libevdev:dev:std
+			libxml2:dev:std
+BUILDRUN_DEPENDS=	libevdev:primary:std
+			libxml2:primary:std
 
 USES=			meson pkgconfig
 GNOME_COMPONENTS=	glib gtk2 librsvg
@@ -46,7 +46,7 @@ MESON_ARGS=		-Dtests=disabled
 SOVERSION=		${SOVERSION}
 
 [NODEVD].DESCRIPTION=			Build with devd-enabled libgudev fork
-[NODEVD].BUILD_DEPENDS_OFF=		libgudev-devd:dev:standard
-[NODEVD].BUILDRUN_DEPENDS_OFF=		libgudev-devd:primary:standard
-[NODEVD].BUILD_DEPENDS_ON=		libgudev:dev:standard
-[NODEVD].BUILDRUN_DEPENDS_ON=		libgudev:primary:standard
+[NODEVD].BUILD_DEPENDS_OFF=		libgudev-devd:dev:std
+[NODEVD].BUILDRUN_DEPENDS_OFF=		libgudev-devd:primary:std
+[NODEVD].BUILD_DEPENDS_ON=		libgudev:dev:std
+[NODEVD].BUILDRUN_DEPENDS_ON=		libgudev:primary:std

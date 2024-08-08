@@ -6,8 +6,8 @@ NAMEBASE=		libgxps
 VERSION=		${PORTVERSION}
 REVISION=		2
 KEYWORDS=		graphics
-VARIANTS=		standard
-SDESC[standard]=	GObject-based lib for handling/rendering XPS docs
+VARIANTS=		std
+SDESC[std]=		GObject-based lib for handling/rendering XPS docs
 HOMEPAGE=		https://gitlab.gnome.org/GNOME/libgxps
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
@@ -15,7 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNOME/libgxps/${PORTVERSION:R}/
 DISTFILE[1]=		libgxps-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	single
+SPKGS[std]=		single
 
 OPTIONS_AVAILABLE=	INTROSPECTION
 OPTIONS_STANDARD=	INTROSPECTION
@@ -33,10 +33,10 @@ USES=			cpe meson pkgconfig tiff jpeg
 			ssl:build zstd:build
 CPE_VENDOR=		gnome
 GNOME_COMPONENTS=	cairo glib
-BUILD_DEPENDS=		lcms2:dev:standard
-			libarchive:dev:standard
-BUILDRUN_DEPENDS=	lcms2:primary:standard
-			libarchive:primary:standard
+BUILD_DEPENDS=		lcms2:dev:std
+			libarchive:dev:std
+BUILDRUN_DEPENDS=	lcms2:primary:std
+			libarchive:primary:std
 
 MESON_ARGS=		-Denable-test=false
 			-Denable-gtk-doc=false

@@ -5,8 +5,8 @@ DEF[SOVERSION]=		0.0.0
 NAMEBASE=		gtksourceview5
 VERSION=		${PORTVERSION}
 KEYWORDS=		x11_toolkits
-VARIANTS=		standard
-SDESC[standard]=	GTK4 syntax highlighting text widget
+VARIANTS=		std
+SDESC[std]=		GTK4 syntax highlighting text widget
 HOMEPAGE=		https://wiki.gnome.org/Projects/GtkSourceView
 CONTACT=		nobody
 
@@ -15,7 +15,7 @@ SITES[main]=		GNOME/gtksourceview/${PORTVERSION:R}
 DISTFILE[1]=		gtksourceview-${PORTVERSION}.tar.xz:main
 DIST_SUBDIR=		gnome4
 
-SPKGS[standard]=	complete primary dev nls docs
+SPKGS[std]=		set primary dev nls docs
 
 # gtk4 introspection currently off, so INTROSPECTION off by default
 OPTIONS_AVAILABLE=	INTROSPECTION
@@ -30,8 +30,8 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		x11-toolkits/gtksourceview4
 
-BUILD_DEPENDS=		harfbuzz:dev:standard
-BUILDRUN_DEPENDS=	gtk4:icon_cache:standard
+BUILD_DEPENDS=		harfbuzz:dev:std
+BUILDRUN_DEPENDS=	gtk4:icon_cache:std
 
 USES=			meson pkgconfig pcre2
 GNOME_COMPONENTS=	cairo gdkpixbuf gtk4 libxml2
@@ -46,4 +46,4 @@ SOVERSION=		${SOVERSION}
 [INTROSPECTION].CONFIGURE_ARGS_ON=	-Dvapi=true -Ddocumentation=true -Dintrospection=enabled
 [INTROSPECTION].CONFIGURE_ARGS_OFF=	-Dvapi=false -Ddocumentation=false -Dintrospection=disabled
 [INTROSPECTION].BUILD_DEPENDS_ON=	python-gi-docgen:complete:python_default
-					vala:single:standard
+					vala:single:std

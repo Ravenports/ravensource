@@ -5,8 +5,8 @@ DEF[SOVERSION]=		${PORTVERSION}
 NAMEBASE=		libppd
 VERSION=		${PORTVERSION}
 KEYWORDS=		devel print
-VARIANTS=		standard
-SDESC[standard]=	Library for retro-fitting legacy printer drivers
+VARIANTS=		std
+SDESC[std]=		Library for retro-fitting legacy printer drivers
 HOMEPAGE=		https://github.com/OpenPrinting/libppd
 CONTACT=		nobody
 
@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/OpenPrinting/libppd/releases/download/${PORTVERSION}/
 DISTFILE[1]=		libppd-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary tools dev docs
+SPKGS[std]=		set primary tools dev docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -24,12 +24,12 @@ LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE
 LICENSE_TERMS=		primary:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		libcupsfilters:dev:standard
-BUILDRUN_DEPENDS=	libcupsfilters:primary:standard
-			poppler:utils:standard
-			ghostscript:primary:standard
+BUILD_DEPENDS=		libcupsfilters:dev:std
+BUILDRUN_DEPENDS=	libcupsfilters:primary:std
+			poppler:utils:std
+			ghostscript:primary:std
 
-EXRUN[dev]=		cups:dev:standard
+EXRUN[dev]=		cups:dev:std
 
 USES=			gmake pkgconfig libtool
 MUST_CONFIGURE=		gnu

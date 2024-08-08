@@ -5,8 +5,8 @@ DEF[SOVERSION]=		2.2200.0
 NAMEBASE=		libva
 VERSION=		${PORTVERSION}
 KEYWORDS=		multimedia
-VARIANTS=		standard
-SDESC[standard]=	VAAPI wrapper and dummy driver
+VARIANTS=		std
+SDESC[std]=		VAAPI wrapper and dummy driver
 HOMEPAGE=		https://github.com/intel/libva
 CONTACT=		nobody
 
@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/intel:libva:${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	complete primary dev
+SPKGS[std]=		set primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -25,10 +25,10 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		multimedia/libva
 
-BUILD_DEPENDS=		libdrm:dev:standard
-			libglvnd:dev:standard
-BUILDRUN_DEPENDS=	libdrm:primary:standard
-			libglvnd:primary:standard
+BUILD_DEPENDS=		libdrm:dev:std
+			libglvnd:dev:std
+BUILDRUN_DEPENDS=	libdrm:primary:std
+			libglvnd:primary:std
 
 USES=			gmake meson pkgconfig solaris-funcs
 XORG_COMPONENTS=	xorgproto pciaccess xext xfixes x11

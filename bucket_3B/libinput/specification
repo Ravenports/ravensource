@@ -5,8 +5,8 @@ DEF[SOVERSION]=		10.13.0
 NAMEBASE=		libinput
 VERSION=		${PORTVERSION}
 KEYWORDS=		x11
-VARIANTS=		standard
-SDESC[standard]=	Generic input library
+VARIANTS=		std
+SDESC[std]=		Generic input library
 HOMEPAGE=		https://www.freedesktop.org/wiki/Software/libinput/
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://gitlab.freedesktop.org/libinput/libinput/-/archive/${PORTVERSION}/
 DISTFILE[1]=		libinput-${PORTVERSION}.tar.bz2:main
 
-SPKGS[standard]=	complete primary dev man
+SPKGS[std]=		set primary dev man
 
 OPTIONS_AVAILABLE=	BSD
 OPTIONS_STANDARD=	BSD
@@ -32,13 +32,13 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		x11/libinput
 
-BUILD_DEPENDS=		glib:dev:standard
-			harfbuzz:dev:standard
-			libevdev:dev:standard
-			libwacom:dev:standard
-BUILDRUN_DEPENDS=	libevdev:primary:standard
-			libwacom:primary:standard
-			mtdev:single:standard
+BUILD_DEPENDS=		glib:dev:std
+			harfbuzz:dev:std
+			libevdev:dev:std
+			libwacom:dev:std
+BUILDRUN_DEPENDS=	libevdev:primary:std
+			libwacom:primary:std
+			mtdev:single:std
 
 USES=			meson pkgconfig
 GNOME_COMPONENTS=	gtk3
@@ -46,10 +46,10 @@ MESON_ARGS=		-Dtests=false
 SOVERSION=		${SOVERSION}
 
 [BSD].DESCRIPTION=			Support BSD platform
-[BSD].BUILD_DEPENDS_ON=			libepoll-shim:dev:standard
-					libgudev-devd:dev:standard
-					libudev-devd:dev:standard
-[BSD].BUILDRUN_DEPENDS_ON=		libepoll-shim:primary:standard
-					libudev-devd:primary:standard
+[BSD].BUILD_DEPENDS_ON=			libepoll-shim:dev:std
+					libgudev-devd:dev:std
+					libudev-devd:dev:std
+[BSD].BUILDRUN_DEPENDS_ON=		libepoll-shim:primary:std
+					libudev-devd:primary:std
 # linux
-[BSD].BUILD_DEPENDS_OFF=		libgudev:dev:standard
+[BSD].BUILD_DEPENDS_OFF=		libgudev:dev:std

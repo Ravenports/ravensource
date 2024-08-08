@@ -5,8 +5,8 @@ DEF[DLFOLDER]=		${PORTVERSION:R}
 NAMEBASE=		glib-networking
 VERSION=		${PORTVERSION}
 KEYWORDS=		net devel
-VARIANTS=		standard
-SDESC[standard]=	Network-related giomodules for GLib
+VARIANTS=		std
+SDESC[std]=		Network-related giomodules for GLib
 HOMEPAGE=		https://git.gnome.org/browse/glib-networking
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://ftp.gnome.org/pub/GNOME/sources/glib-networking/${DLFOLDER}/
 DISTFILE[1]=		glib-networking-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary dev nls
+SPKGS[std]=		set primary dev nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -28,18 +28,18 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		net/glib-networking
 
-BUILD_DEPENDS=		dbus:dev:standard
-			gnutls:dev:standard
-			libgcrypt:dev:standard
-			libproxy:dev:standard
-			p11-kit:dev:standard
-BUILDRUN_DEPENDS=	nss:caroot:standard
-			gsettings-desktop-schemas:primary:standard
-			gnutls:primary:standard
-			libgcrypt:primary:standard
-			p11-kit:primary:standard
-			dbus:primary:standard
-			libproxy:primary:standard
+BUILD_DEPENDS=		dbus:dev:std
+			gnutls:dev:std
+			libgcrypt:dev:std
+			libproxy:dev:std
+			p11-kit:dev:std
+BUILDRUN_DEPENDS=	nss:caroot:std
+			gsettings-desktop-schemas:primary:std
+			gnutls:primary:std
+			libgcrypt:primary:std
+			p11-kit:primary:std
+			dbus:primary:std
+			libproxy:primary:std
 
 USES=			cpe libtool meson pkgconfig
 CPE_VENDOR=		gnome

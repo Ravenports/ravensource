@@ -5,8 +5,8 @@ DEF[SOVERSION]=		0.4.4
 NAMEBASE=		libopenmpt
 VERSION=		${PORTVERSION}
 KEYWORDS=		audio
-VARIANTS=		standard
-SDESC[standard]=	Cross-platform mod music library & player
+VARIANTS=		std
+SDESC[std]=		Cross-platform mod music library & player
 HOMEPAGE=		https://lib.openmpt.org/libopenmpt/
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://lib.openmpt.org/files/libopenmpt/src/
 DISTFILE[1]=		libopenmpt-${PORTVERSION}+release.autotools.tar.gz:main
 
-SPKGS[standard]=	complete primary dev man docs
+SPKGS[std]=		set primary dev man docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -27,13 +27,13 @@ LICENSE_SCHEME=		solo
 
 DISTNAME=		libopenmpt-${PORTVERSION}+release.autotools
 
-BUILD_DEPENDS=		mpg123:dev:standard
-			libvorbis:dev:standard
-			libsndfile:dev:standard
-BUILDRUN_DEPENDS=	libsndfile:primary:standard
-			libvorbis:primary:standard
-			mpg123:primary:standard
-			portaudio:primary:standard
+BUILD_DEPENDS=		mpg123:dev:std
+			libvorbis:dev:std
+			libsndfile:dev:std
+BUILDRUN_DEPENDS=	libsndfile:primary:std
+			libvorbis:primary:std
+			mpg123:primary:std
+			portaudio:primary:std
 
 USES=			cpe libtool pkgconfig zlib
 CPE_VENDOR=		openmpt

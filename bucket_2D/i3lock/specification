@@ -4,8 +4,8 @@ DEF[PORTVERSION]=	2.15
 NAMEBASE=		i3lock
 VERSION=		${PORTVERSION}
 KEYWORDS=		x11
-VARIANTS=		standard
-SDESC[standard]=	Slightly improved screen locker based on slock
+VARIANTS=		std
+SDESC[std]=		Slightly improved screen locker based on slock
 HOMEPAGE=		https://i3wm.org/i3lock/
 CONTACT=		nobody
 
@@ -13,7 +13,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://i3wm.org/i3lock/
 DISTFILE[1]=		i3lock-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	single
+SPKGS[std]=		single
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -24,13 +24,13 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		x11/i3lock
 
-BUILD_DEPENDS=		libev:dev:standard
-			glib:dev:standard
-			openpam:dev:standard
-			libxkbcommon:dev:standard
-BUILDRUN_DEPENDS=	libxkbcommon:primary:standard
-			libev:primary:standard
-			openpam:primary:standard
+BUILD_DEPENDS=		libev:dev:std
+			glib:dev:std
+			openpam:dev:std
+			libxkbcommon:dev:std
+BUILDRUN_DEPENDS=	libxkbcommon:primary:std
+			libev:primary:std
+			openpam:primary:std
 
 USES=			meson pkgconfig zlib:build
 XORG_COMPONENTS=	xcb-util xcb-util-keysyms xcb-util-image

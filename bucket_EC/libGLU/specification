@@ -5,8 +5,8 @@ DEF[SOVERSION]=		1.3.1
 NAMEBASE=		libGLU
 VERSION=		${PORTVERSION}
 KEYWORDS=		graphics
-VARIANTS=		standard
-SDESC[standard]=	OpenGL utility library
+VARIANTS=		std
+SDESC[std]=		OpenGL utility library
 HOMEPAGE=		http://www.freedesktop.org/Software/xorg
 CONTACT=		nobody
 
@@ -14,17 +14,17 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		ftp://ftp.freedesktop.org/pub/mesa/glu/
 DISTFILE[1]=		glu-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary dev
+SPKGS[std]=		set primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		graphics/libGLU
 
-BUILD_DEPENDS=		libglvnd:dev:standard
-BUILDRUN_DEPENDS=	libglvnd:primary:standard
+BUILD_DEPENDS=		libglvnd:dev:std
+BUILDRUN_DEPENDS=	libglvnd:primary:std
 
-EXRUN[dev]=		libglvnd:dev:standard
+EXRUN[dev]=		libglvnd:dev:std
 
 USES=			meson pkgconfig c++:primary
 DISTNAME=		glu-${PORTVERSION}

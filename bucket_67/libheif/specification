@@ -5,8 +5,8 @@ DEF[SOVERSION]=		${PORTVERSION}
 NAMEBASE=		libheif
 VERSION=		${PORTVERSION}
 KEYWORDS=		graphics
-VARIANTS=		standard
-SDESC[standard]=	HEIF file format decoder and encoder
+VARIANTS=		std
+SDESC[std]=		HEIF file format decoder and encoder
 HOMEPAGE=		https://github.com/strukturag/libheif
 CONTACT=		nobody
 
@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/strukturag:libheif:v${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	complete primary dev man tools
+SPKGS[std]=		set primary dev man tools
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -28,14 +28,14 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		graphics/libheif
 
-BUILD_DEPENDS=		libde265:dev:standard
-			x265:dev:standard
-BUILDRUN_DEPENDS=	x265:primary:standard
-			libde265:primary:standard
+BUILD_DEPENDS=		libde265:dev:std
+			x265:dev:std
+BUILDRUN_DEPENDS=	x265:primary:std
+			libde265:primary:std
 
 EXRUN[tools]=		primary
-EXRUN[dev]=		libde265:dev:standard
-			x265:dev:standard
+EXRUN[dev]=		libde265:dev:std
+			x265:dev:std
 
 USES=			cmake pkgconfig shebangfix
 			cpe jpeg png mime-info:primary zlib:build

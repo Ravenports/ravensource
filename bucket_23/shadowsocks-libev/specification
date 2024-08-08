@@ -9,8 +9,8 @@ NAMEBASE=		shadowsocks-libev
 VERSION=		${PORTVERSION}
 REVISION=		3
 KEYWORDS=		net
-VARIANTS=		standard
-SDESC[standard]=	Secure socks5 proxy
+VARIANTS=		std
+SDESC[std]=		Secure socks5 proxy
 HOMEPAGE=		https://github.com/shadowsocks/shadowsocks-libev/blob/master/README.md
 CONTACT=		nobody
 
@@ -25,7 +25,7 @@ DISTFILE[3]=		generated:cork
 DISTFILE[4]=		generated:ipset
 DF_INDEX=		1 2 3 4
 
-SPKGS[standard]=	complete primary man docs
+SPKGS[std]=		set primary man docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -37,16 +37,16 @@ LICENSE_FILE=		GPLv3+:stock
 LICENSE_TERMS=		primary:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		asciidoc:single:standard
-			libev:dev:standard
-			libsodium:dev:standard
-			xmlto:single:standard
-			c-ares:dev:standard
-			mbedtls13:dev:standard
-BUILDRUN_DEPENDS=	libev:primary:standard
-			mbedtls13:primary:standard
-			libsodium:primary:standard
-			c-ares:primary:standard
+BUILD_DEPENDS=		asciidoc:single:std
+			libev:dev:std
+			libsodium:dev:std
+			xmlto:single:std
+			c-ares:dev:std
+			mbedtls13:dev:std
+BUILDRUN_DEPENDS=	libev:primary:std
+			mbedtls13:primary:std
+			libsodium:primary:std
+			c-ares:primary:std
 
 RC_SUBR=		shadowsocks_libev:primary
 

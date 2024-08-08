@@ -4,8 +4,8 @@ DEF[PORTVERSION]=	17.1.3
 NAMEBASE=		tint2
 VERSION=		${PORTVERSION}
 KEYWORDS=		x11 deskutils
-VARIANTS=		standard
-SDESC[standard]=	Lightweight panel/taskbar/systray/clock
+VARIANTS=		std
+SDESC[std]=		Lightweight panel/taskbar/systray/clock
 HOMEPAGE=		https://gitlab.com/o9000/tint2
 CONTACT=		nobody
 
@@ -13,7 +13,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITLAB/nick87720z:tint2:v${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	complete primary examples docs nls
+SPKGS[std]=		set primary examples docs nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -27,10 +27,10 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		x11/tint
 
-BUILD_DEPENDS=		imlib2:dev:standard
-BUILDRUN_DEPENDS=	imlib2:primary:standard
-			harfbuzz:dev:standard
-			startup-notification:single:standard
+BUILD_DEPENDS=		imlib2:dev:std
+BUILDRUN_DEPENDS=	imlib2:primary:std
+			harfbuzz:dev:std
+			startup-notification:single:std
 
 USES=			cmake pkgconfig gnome-icons:primary
 			desktop-utils:primary

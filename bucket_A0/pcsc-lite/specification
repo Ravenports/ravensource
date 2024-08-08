@@ -4,8 +4,8 @@ DEF[PORTVERSION]=	2.3.0
 NAMEBASE=		pcsc-lite
 VERSION=		${PORTVERSION}
 KEYWORDS=		devel security
-VARIANTS=		standard
-SDESC[standard]=	Smartcard development library
+VARIANTS=		std
+SDESC[std]=		Smartcard development library
 HOMEPAGE=		https://pcsclite.apdu.fr/
 CONTACT=		nobody
 
@@ -13,7 +13,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://pcsclite.apdu.fr/files/
 DISTFILE[1]=		pcsc-lite-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary tools dev man docs
+SPKGS[std]=		set primary tools dev man docs
 
 OPTIONS_AVAILABLE=	FILTER
 OPTIONS_STANDARD=	FILTER
@@ -26,14 +26,14 @@ FPC_EQUIVALENT=		devel/pcsc-lite
 
 EXRUN[tools]=		primary
 
-B_DEPS[linux]=		libusb:dev:standard
-B_DEPS[sunos]=		libusb:dev:standard
+B_DEPS[linux]=		libusb:dev:std
+B_DEPS[sunos]=		libusb:dev:std
 
-BR_DEPS[linux]=		libusb:primary:standard
-BR_DEPS[sunos]=		libusb:primary:standard
+BR_DEPS[linux]=		libusb:primary:std
+BR_DEPS[sunos]=		libusb:primary:std
 
-BUILD_DEPENDS=		polkit:dev:standard
-BUILDRUN_DEPENDS=	polkit:primary:standard
+BUILD_DEPENDS=		polkit:dev:std
+BUILDRUN_DEPENDS=	polkit:primary:std
 
 RC_SUBR=		pcscd:primary
 SUB_FILES=		messages-primary.ucl

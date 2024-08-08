@@ -6,8 +6,8 @@ DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
 NAMEBASE=		dhcp
 VERSION=		${PORTVERSION}
 KEYWORDS=		net
-VARIANTS=		standard
-SDESC[standard]=	ISC DHCP Server and Relay Agent
+VARIANTS=		std
+SDESC[std]=		ISC DHCP Server and Relay Agent
 HOMEPAGE=		https://www.isc.org/downloads/dhcp/
 CONTACT=		nobody
 
@@ -15,7 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://ftp.isc.org/isc/dhcp/${DISTRIBUTION}/
 DISTFILE[1]=		dhcp-${DISTRIBUTION}.tar.gz:main
 
-SPKGS[standard]=	complete server client relay
+SPKGS[std]=		set server client relay
 
 OPTIONS_AVAILABLE=	BINLEASES DHCP4O6 LDAP BIND_SYMBOLS BSD
 OPTIONS_STANDARD=	BINLEASES DHCP4O6 LDAP BIND_SYMBOLS BSD
@@ -69,8 +69,8 @@ VAR_OPSYS[midnightbsd]=	MAKEFILE_LINE=CONFIGURE_TARGET=${MBSD64_TARGET}
 [DHCP4O6].CONFIGURE_ENABLE_BOTH=	dhcpv4o6
 
 [LDAP].CONFIGURE_WITH_BOTH=		ldap ldapcrypto
-[LDAP].BUILD_DEPENDS_ON=		openldap:dev:standard
-[LDAP].BUILDRUN_DEPENDS_ON=		openldap:client:standard
+[LDAP].BUILD_DEPENDS_ON=		openldap:dev:std
+[LDAP].BUILDRUN_DEPENDS_ON=		openldap:client:std
 
 [BIND_SYMBOLS].DESCRIPTION=		Enable BIND internal symbol table
 [BIND_SYMBOLS].USES_ON=			perl:build

@@ -5,8 +5,8 @@ DEF[SOVERSION]=		${PORTVERSION}
 NAMEBASE=		libtorrent-rasterbar
 VERSION=		${PORTVERSION}
 KEYWORDS=		net_p2p
-VARIANTS=		standard
-SDESC[standard]=	Feature complete C++ bittorrent implementation
+VARIANTS=		std
+SDESC[std]=		Feature complete C++ bittorrent implementation
 HOMEPAGE=		https://www.rasterbar.com/products/libtorrent/
 CONTACT=		nobody
 
@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/arvidn/libtorrent/releases/download/v${PORTVERSION}/
 DISTFILE[1]=		libtorrent-rasterbar-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary dev
+SPKGS[std]=		set primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -25,8 +25,8 @@ LICENSE=		BSD3CLAUSE:primary
 LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		boost-libraries:dev:standard
-BUILDRUN_DEPENDS=	boost-libraries:primary:standard
+BUILD_DEPENDS=		boost-libraries:dev:std
+BUILDRUN_DEPENDS=	boost-libraries:primary:std
 
 USES=			cpe cmake libtool pkgconfig ssl c++:primary
 CPE_VENDOR=		rasterbar_software

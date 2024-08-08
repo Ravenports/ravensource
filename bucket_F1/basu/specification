@@ -4,8 +4,8 @@ DEF[PORTVERSION]=	0.2.1
 NAMEBASE=		basu
 VERSION=		${PORTVERSION}
 KEYWORDS=		devel
-VARIANTS=		standard
-SDESC[standard]=	Sd-bus library, extracted from systemd
+VARIANTS=		std
+SDESC[std]=		Sd-bus library, extracted from systemd
 HOMEPAGE=		https://sr.ht/~emersion/basu/
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
@@ -13,7 +13,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://git.sr.ht/~emersion/basu/refs/download/v${PORTVERSION}/
 DISTFILE[1]=		basu-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary dev
+SPKGS[std]=		set primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -29,7 +29,7 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/basu
 
-BUILD_DEPENDS=		gperf:primary:standard
+BUILD_DEPENDS=		gperf:primary:std
 USES=			meson
 CONFIGURE_ARGS=		-Daudit=disabled
 			-Dlibcap=disabled

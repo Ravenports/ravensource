@@ -4,8 +4,8 @@ DEF[PORTVERSION]=	9.5
 NAMEBASE=		coreutils
 VERSION=		${PORTVERSION}
 KEYWORDS=		sysutils textproc
-VARIANTS=		standard noprefix ravensys
-SDESC[standard]=	FSF core utilities (prefixed with g)
+VARIANTS=		std noprefix ravensys
+SDESC[std]=		FSF core utilities (prefixed with g)
 SDESC[noprefix]=	FSF core utilities (standard names)
 SDESC[ravensys]=	FSF core utilities for raven sysroot (no nls)
 HOMEPAGE=		http://www.gnu.org/software/coreutils/
@@ -15,9 +15,9 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNU/coreutils
 DISTFILE[1]=		coreutils-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary man nls info
-SPKGS[noprefix]=	complete primary man nls info
-SPKGS[ravensys]=	complete primary man
+SPKGS[std]=		set primary man nls info
+SPKGS[noprefix]=	set primary man nls info
+SPKGS[ravensys]=	set primary man
 
 OPTIONS_AVAILABLE=	NOTSTD RAVENSYS
 OPTIONS_STANDARD=	none
@@ -33,7 +33,7 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		sysutils/coreutils
 
-BUILD_DEPENDS=		gmp:dev:standard
+BUILD_DEPENDS=		gmp:dev:std
 
 USES=			cpe gmake iconv:build charsetfix
 CPE_VENDOR=		gnu

@@ -7,8 +7,8 @@ DEF[PLUGIN_DESC]=	XvImageSink
 NAMEBASE=		gstreamer1-plugins-${PLUGIN}
 VERSION=		${PORTVERSION}
 KEYWORDS=		multimedia x11
-VARIANTS=		standard
-SDESC[standard]=	GStreamer1 ${PLUGIN_DESC} plugin
+VARIANTS=		std
+SDESC[std]=		GStreamer1 ${PLUGIN_DESC} plugin
 HOMEPAGE=		https://gstreamer.freedesktop.org/
 CONTACT=		nobody
 
@@ -16,7 +16,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://gstreamer.freedesktop.org/src/gst-plugins-base/
 DISTFILE[1]=		gst-plugins-base-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	single
+SPKGS[std]=		single
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -28,10 +28,10 @@ LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/sys/xvimage/xvimagesink.h
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		gstreamer1:dev:standard
-			gstreamer1-plugins-base:dev:standard
-BUILDRUN_DEPENDS=	gstreamer1:primary:standard
-			gstreamer1-plugins-base:primary:standard
+BUILD_DEPENDS=		gstreamer1:dev:std
+			gstreamer1-plugins-base:dev:std
+BUILDRUN_DEPENDS=	gstreamer1:primary:std
+			gstreamer1-plugins-base:primary:std
 
 USES=			gmake pkgconfig meson
 XORG_COMPONENTS=	x11 xext xv

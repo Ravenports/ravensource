@@ -6,8 +6,8 @@ DEF[SOVERSION]=		79.10.2
 NAMEBASE=		gwenhywfar
 VERSION=		${PORTVERSION}
 KEYWORDS=		devel net security
-VARIANTS=		standard
-SDESC[standard]=	Networking and security application library
+VARIANTS=		std
+SDESC[std]=		Networking and security application library
 HOMEPAGE=		https://www.aquamaniac.de/rdm/
 CONTACT=		nobody
 
@@ -15,7 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://www.aquamaniac.de/rdm/attachments/download/${FOLDER}/
 DISTFILE[1]=		gwenhywfar-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary gtk2 gtk3 qt5 nls
+SPKGS[std]=		set primary gtk2 gtk3 qt5 nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -29,41 +29,41 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/gwenhywfar
 
-BUILD_DEPENDS=		at-spi2-core:dev:standard
-			at-spi2-core:primary:standard
-			cairo:dev:standard
-			cairo:primary:standard
-			gdk-pixbuf:primary:standard
-			glib:dev:standard
-			gnutls:dev:standard
-			gtk2:dev:standard
-			gtk2:primary:standard
-			gtk3:dev:standard
-			gtk3:primary:standard
-			harfbuzz:dev:standard
-			libgcrypt:dev:standard
-			pango:primary:standard
-			qt5-qtbase:dev:standard
-			qt5-qtbase:primary:standard
-BUILDRUN_DEPENDS=	gnutls:primary:standard
-			libgcrypt:primary:standard
+BUILD_DEPENDS=		at-spi2-core:dev:std
+			at-spi2-core:primary:std
+			cairo:dev:std
+			cairo:primary:std
+			gdk-pixbuf:primary:std
+			glib:dev:std
+			gnutls:dev:std
+			gtk2:dev:std
+			gtk2:primary:std
+			gtk3:dev:std
+			gtk3:primary:std
+			harfbuzz:dev:std
+			libgcrypt:dev:std
+			pango:primary:std
+			qt5-qtbase:dev:std
+			qt5-qtbase:primary:std
+BUILDRUN_DEPENDS=	gnutls:primary:std
+			libgcrypt:primary:std
 
-EXRUN[gtk2]=		gwenhywfar:primary:standard
-			at-spi2-core:primary:standard
-			pango:primary:standard
-			cairo:primary:standard
-			gdk-pixbuf:primary:standard
-			gtk2:primary:standard
+EXRUN[gtk2]=		gwenhywfar:primary:std
+			at-spi2-core:primary:std
+			pango:primary:std
+			cairo:primary:std
+			gdk-pixbuf:primary:std
+			gtk2:primary:std
 
-EXRUN[gtk3]=		gwenhywfar:primary:standard
-			at-spi2-core:primary:standard
-			pango:primary:standard
-			cairo:primary:standard
-			gdk-pixbuf:primary:standard
-			gtk3:primary:standard
+EXRUN[gtk3]=		gwenhywfar:primary:std
+			at-spi2-core:primary:std
+			pango:primary:std
+			cairo:primary:std
+			gdk-pixbuf:primary:std
+			gtk3:primary:std
 
-EXRUN[qt5]=		gwenhywfar:primary:standard
-			qt5-qtbase:primary:standard
+EXRUN[qt5]=		gwenhywfar:primary:std
+			qt5-qtbase:primary:std
 
 USES=			gmake iconv libtool pkgconfig ssl zlib:build
 			fontconfig gettext mbsdfix

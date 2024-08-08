@@ -6,8 +6,8 @@ NAMEBASE=		fontconfig
 VERSION=		${PORTVERSION}
 REVISION=		1
 KEYWORDS=		x11_fonts
-VARIANTS=		standard
-SDESC[standard]=	XML-based font configuration API for X Windows
+VARIANTS=		std
+SDESC[std]=		XML-based font configuration API for X Windows
 HOMEPAGE=		http://www.freedesktop.org/wiki/Software/fontconfig
 CONTACT=		nobody
 
@@ -15,7 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://www.freedesktop.org/software/fontconfig/release/
 DISTFILE[1]=		fontconfig-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary dev man docs
+SPKGS[std]=		set primary dev man docs
 
 OPTIONS_AVAILABLE=	HINTING_NONE HINTING_SLIGHT HINTING_MEDIUM HINTING_FULL
 			NO_BITMAPS
@@ -33,9 +33,9 @@ LICENSE_SCHEME=		solo
 # FPC is using dev version so break link
 # FPC_EQUIVALENT=		x11-fonts/fontconfig
 
-BUILD_DEPENDS=		gperf:primary:standard
+BUILD_DEPENDS=		gperf:primary:std
 
-EXRUN[dev]=		freetype:dev:standard
+EXRUN[dev]=		freetype:dev:std
 
 USES=			cpe gmake libtool pkgconfig freetype expat
 			python:build zlib:build

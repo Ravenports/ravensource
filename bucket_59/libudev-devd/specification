@@ -5,8 +5,8 @@ DEF[SOVERSION]=		0.0.0
 NAMEBASE=		libudev-devd
 VERSION=		${PORTVERSION}
 KEYWORDS=		devel
-VARIANTS=		standard
-SDESC[standard]=	Libudev-compatible interface for devd
+VARIANTS=		std
+SDESC[std]=		Libudev-compatible interface for devd
 HOMEPAGE=		https://github.com/wulf7/libudev-devd
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/wulf7:libudev-devd:v${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	complete primary dev
+SPKGS[std]=		set primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -27,10 +27,10 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/libudev-devd
 
-BUILD_DEPENDS=		evdev-proto:single:standard
+BUILD_DEPENDS=		evdev-proto:single:std
 
-B_DEPS[linux]=		libbsd:dev:standard
-			libbsd:primary:standard
+B_DEPS[linux]=		libbsd:dev:std
+			libbsd:primary:std
 
 USES=			meson
 MESON_ARGS=		-Denable-gpl=true

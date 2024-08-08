@@ -6,8 +6,8 @@ NAMEBASE=		re2
 VERSION=		${PORTVERSION}
 EPOCH=			1
 KEYWORDS=		devel
-VARIANTS=		standard
-SDESC[standard]=	Fast, safe, thread-friendly C++ regex library
+VARIANTS=		std
+SDESC[std]=		Fast, safe, thread-friendly C++ regex library
 HOMEPAGE=		https://github.com/google/re2
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
@@ -15,7 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/google:re2:${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	complete primary dev
+SPKGS[std]=		set primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -27,8 +27,8 @@ LICENSE_SCHEME=		solo
 # Version considers FBSD 20230301 higher than RP
 # FPC_EQUIVALENT=		devel/re2
 
-BUILD_DEPENDS=		abseil-cpp:dev:standard
-BUILDRUN_DEPENDS=	abseil-cpp:primary:standard
+BUILD_DEPENDS=		abseil-cpp:dev:std
+BUILDRUN_DEPENDS=	abseil-cpp:primary:std
 
 USES=			c++:primary gmake pkgconfig
 MAKE_ARGS=		prefix={{PREFIX}}

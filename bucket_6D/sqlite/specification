@@ -6,9 +6,9 @@ DEF[YEAR]=		2024
 NAMEBASE=		sqlite
 VERSION=		${PORTVERSION}
 KEYWORDS=		databases
-VARIANTS=		standard editline
+VARIANTS=		std editline
 # variants only affect sqlite binary (history not linked to library)
-SDESC[standard]=	SQL database engine library (GNU/readline)
+SDESC[std]=		SQL database engine library (GNU/readline)
 SDESC[editline]=	SQL database engine library (BSD/editline)
 HOMEPAGE=		https://www.sqlite.org/
 CONTACT=		nobody
@@ -19,8 +19,8 @@ SITES[main]=		https://www.sqlite.org/${YEAR}/
 			http://www3.sqlite.org/${YEAR}/
 DISTFILE[1]=		sqlite-autoconf-${LONGVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary dev man
-SPKGS[editline]=	complete primary dev man
+SPKGS[std]=		set primary dev man
+SPKGS[editline]=	set primary dev man
 
 OPTIONS_AVAILABLE=	SKIP_READLINE EDITLINE
 OPTIONS_STANDARD=	none
@@ -56,7 +56,7 @@ LDFLAGS=		-lpthread
 
 [EDITLINE].DESCRIPTION=			Build with editline shell history
 [EDITLINE].CONFIGURE_ARGS_ON=		--enable-editline
-[EDITLINE].BUILDRUN_DEPENDS_ON=		libedit:single:standard
+[EDITLINE].BUILDRUN_DEPENDS_ON=		libedit:single:std
 
 [SKIP_READLINE].DESCRIPTION=		Don't build with readline shell history
 [SKIP_READLINE].CONFIGURE_ARGS_ON=	--disable-readline

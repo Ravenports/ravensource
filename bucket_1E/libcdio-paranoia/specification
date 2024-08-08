@@ -5,8 +5,8 @@ DEF[SOVERSION]=		2.0.0
 NAMEBASE=		libcdio-paranoia
 VERSION=		${PORTVERSION}
 KEYWORDS=		devel audio
-VARIANTS=		standard
-SDESC[standard]=	Accurately read audio from Compact Discs
+VARIANTS=		std
+SDESC[std]=		Accurately read audio from Compact Discs
 HOMEPAGE=		https://github.com/rocky/libcdio-paranoia
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/rocky:libcdio-paranoia:release-${PORTVERSION:S/_/+/g}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	complete primary reader dev man
+SPKGS[std]=		set primary reader dev man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -29,11 +29,11 @@ LICENSE_SOURCE=		TERMS:{{WRKSRC}}/include/cdio/paranoia/paranoia.h
 LICENSE_AWK=		TERMS:"file"
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		libcdio:dev:standard
-BUILDRUN_DEPENDS=	libcdio:primary:standard
+BUILD_DEPENDS=		libcdio:dev:std
+BUILDRUN_DEPENDS=	libcdio:primary:std
 
 EXRUN[reader]=		primary
-EXRUN[dev]=		libcdio:dev:standard
+EXRUN[dev]=		libcdio:dev:std
 
 USES=			autoreconf gmake iconv libtool pkgconfig
 MUST_CONFIGURE=		gnu

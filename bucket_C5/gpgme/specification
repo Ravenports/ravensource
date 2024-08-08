@@ -6,8 +6,8 @@ DEF[CPP_SOVERSION]=	6.20.1
 NAMEBASE=		gpgme
 VERSION=		${PORTVERSION}
 KEYWORDS=		security
-VARIANTS=		standard
-SDESC[standard]=	GnuPG Made Easy - high level crypto API
+VARIANTS=		std
+SDESC[std]=		GnuPG Made Easy - high level crypto API
 HOMEPAGE=		https://www.gnupg.org/related_software/gpgme/
 CONTACT=		nobody
 
@@ -15,7 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNUPG/gpgme
 DISTFILE[1]=		gpgme-${PORTVERSION}.tar.bz2:main
 
-SPKGS[standard]=	complete primary tools cpp dev cppdev info
+SPKGS[std]=		set primary tools cpp dev cppdev info
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -29,15 +29,15 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		security/gpgme
 
-BUILD_DEPENDS=		libgpg-error:dev:standard
-			libassuan:dev:standard
-BUILDRUN_DEPENDS=	libgpg-error:primary:standard
-			gnupg:primary:standard
+BUILD_DEPENDS=		libgpg-error:dev:std
+			libassuan:dev:std
+BUILDRUN_DEPENDS=	libgpg-error:primary:std
+			gnupg:primary:std
 
-EXRUN[tools]=		gpgme:primary:standard
-EXRUN[cpp]=		gpgme:primary:standard
-EXRUN[dev]=		libassuan:dev:standard
-			libgpg-error:dev:standard
+EXRUN[tools]=		gpgme:primary:std
+EXRUN[cpp]=		gpgme:primary:std
+EXRUN[dev]=		libassuan:dev:std
+			libgpg-error:dev:std
 
 USES=			cpe gmake libtool shebangfix mbsdfix c++:cpp
 SHEBANG_FILES=		tests/gpg/pinentry

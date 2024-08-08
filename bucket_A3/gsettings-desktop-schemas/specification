@@ -6,8 +6,8 @@ DEF[PORTVERSION]=	46.1
 NAMEBASE=		gsettings-desktop-schemas
 VERSION=		${PORTVERSION}
 KEYWORDS=		sysutils devel
-VARIANTS=		standard
-SDESC[standard]=	Shared GSettings schemas for the desktop
+VARIANTS=		std
+SDESC[std]=		Shared GSettings schemas for the desktop
 HOMEPAGE=		https://gitlab.gnome.org/GNOME/gsettings-desktop-schemas
 CONTACT=		nobody
 
@@ -15,7 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNOME/gsettings-desktop-schemas/${PORTVERSION:R}
 DISTFILE[1]=		gsettings-desktop-schemas-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary nls
+SPKGS[std]=		set primary nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -31,7 +31,7 @@ LICENSE_SCHEME=		solo
 
 # circular dep on cantarell, needed by libsoup, which is a required
 # dependency for font dep appstream-glib (needed to build fonts-cantarell)
-# RUN_DEPENDS=		fonts-cantarell:single:standard
+# RUN_DEPENDS=		fonts-cantarell:single:std
 
 USES=			gmake perl:build pkgconfig schemas:primary
 			meson

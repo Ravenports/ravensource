@@ -4,8 +4,8 @@ DEF[PORTVERSION]=	2.30
 NAMEBASE=		links
 VERSION=		${PORTVERSION}
 KEYWORDS=		www
-VARIANTS=		standard x11
-SDESC[standard]=	Lynx-like web browser (terminal-only variant)
+VARIANTS=		std x11
+SDESC[std]=		Lynx-like web browser (terminal-only variant)
 SDESC[x11]=		Lynx-like web browser for the terminal and X11
 HOMEPAGE=		http://links.twibright.com
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
@@ -14,8 +14,8 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://links.twibright.com/download/
 DISTFILE[1]=		links-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary man
-SPKGS[x11]=		complete primary man
+SPKGS[std]=		set primary man
+SPKGS[x11]=		set primary man
 
 OPTIONS_AVAILABLE=	X11
 OPTIONS_STANDARD=	none
@@ -30,12 +30,12 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		www/links
 
-BUILD_DEPENDS=		lzlib:dev:standard
-			brotli:dev:standard
-			libevent:dev:standard
-BUILDRUN_DEPENDS=	brotli:primary:standard
-			libevent:primary:standard
-			lzlib:primary:standard
+BUILD_DEPENDS=		lzlib:dev:std
+			brotli:dev:std
+			libevent:dev:std
+BUILDRUN_DEPENDS=	brotli:primary:std
+			libevent:primary:std
+			lzlib:primary:std
 
 USES=			pkgconfig ssl zstd zlib bz2 xz
 

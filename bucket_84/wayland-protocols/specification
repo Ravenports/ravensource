@@ -4,8 +4,8 @@ DEF[PORTVERSION]=	1.36
 NAMEBASE=		wayland-protocols
 VERSION=		${PORTVERSION}
 KEYWORDS=		graphics wayland
-VARIANTS=		standard
-SDESC[standard]=	Wayland protocol extensions
+VARIANTS=		std
+SDESC[std]=		Wayland protocol extensions
 HOMEPAGE=		https://wayland.freedesktop.org/
 CONTACT=		nobody
 
@@ -13,7 +13,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://gitlab.freedesktop.org/wayland/wayland-protocols/-/releases/${PORTVERSION}/downloads/
 DISTFILE[1]=		wayland-protocols-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	single
+SPKGS[std]=		single
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -24,7 +24,7 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		graphics/wayland-protocols
 
-BUILD_DEPENDS=		wayland:complete:standard
+BUILD_DEPENDS=		wayland:complete:std
 
 USES=			meson pkgconfig
 MESON_ARGS=		-Dtests=false

@@ -4,8 +4,8 @@ DEF[PORTVERSION]=	21.1.13
 NAMEBASE=		xorg-server
 VERSION=		${PORTVERSION}
 KEYWORDS=		x11_servers
-VARIANTS=		standard virtual xephyr nest
-SDESC[standard]=	X.Org X server and related programs
+VARIANTS=		std virtual xephyr nest
+SDESC[std]=		X.Org X server and related programs
 SDESC[virtual]=		X virtual framebuffer server from X.Org
 SDESC[nest]=		Nesting X server from X.Org
 SDESC[xephyr]=		X server from X.Org based on kdrive
@@ -16,10 +16,10 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		XORG/individual/xserver
 DISTFILE[1]=		xorg-server-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary man dev
-SPKGS[virtual]=		complete primary man
-SPKGS[nest]=		complete primary man
-SPKGS[xephyr]=		complete primary man
+SPKGS[std]=		set primary man dev
+SPKGS[virtual]=		set primary man
+SPKGS[nest]=		set primary man
+SPKGS[xephyr]=		set primary man
 
 OPTIONS_AVAILABLE=	XORG VIRTUAL XEPHYR NEST UDEV
 OPTIONS_STANDARD=	XORG UDEV
@@ -45,13 +45,13 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		x11-servers/xorg-server
 
-BUILD_DEPENDS=		libdrm:dev:standard
-			libgpg-error:dev:standard
-RUN_DEPENDS=		xorg-xkeyboard-config:primary:standard
-BUILDRUN_DEPENDS=	xorg-xkbcomp:single:standard
+BUILD_DEPENDS=		libdrm:dev:std
+			libgpg-error:dev:std
+RUN_DEPENDS=		xorg-xkeyboard-config:primary:std
+BUILDRUN_DEPENDS=	xorg-xkbcomp:single:std
 
-EXRUN[dev]=		xorg-pixman:dev:standard
-			xorg-pciaccess:dev:standard
+EXRUN[dev]=		xorg-pixman:dev:std
+			xorg-pciaccess:dev:std
 
 USES=			cpe perl:build ssl solaris-funcs meson zlib:build
 XORG_COMPONENTS=	xorgproto xtransproto
@@ -84,37 +84,37 @@ VAR_OPSYS[netbsd]=	CPPFLAGS=-D_OPENBSD_SOURCE
 [NEST].DESCRIPTION=			Build as nesting X server
 [UDEV].DESCRIPTION=			Use udev for autoconfiguration of input devices
 
-[XORG].BUILD_DEPENDS_ON=		xmlto:single:standard
-					xorg-sgml-doctools:single:standard
-					mesa:dev:standard
-					libepoxy:dev:standard
-					xorg-xcvt:dev:standard
-[XORG].BUILDRUN_DEPENDS_ON=		libdrm:primary:standard
-					libepoxy:primary:standard
-					mesa:drivers:standard
-					xorg-xcvt:primary:standard
+[XORG].BUILD_DEPENDS_ON=		xmlto:single:std
+					xorg-sgml-doctools:single:std
+					mesa:dev:std
+					libepoxy:dev:std
+					xorg-xcvt:dev:std
+[XORG].BUILDRUN_DEPENDS_ON=		libdrm:primary:std
+					libepoxy:primary:std
+					mesa:drivers:std
+					xorg-xcvt:primary:std
 
-[XEPHYR].BUILD_DEPENDS_ON=		mesa:drivers:standard
-					mesa:dev:standard
-					libepoxy:dev:standard
-					libglvnd:dev:standard
-[XEPHYR].BUILDRUN_DEPENDS_ON=		libdrm:primary:standard
-					libepoxy:primary:standard
-					libglvnd:primary:standard
+[XEPHYR].BUILD_DEPENDS_ON=		mesa:drivers:std
+					mesa:dev:std
+					libepoxy:dev:std
+					libglvnd:dev:std
+[XEPHYR].BUILDRUN_DEPENDS_ON=		libdrm:primary:std
+					libepoxy:primary:std
+					libglvnd:primary:std
 
-[VIRTUAL].BUILD_DEPENDS_ON=		libepoxy:primary:standard
-					libepoxy:dev:standard
-					mesa:drivers:standard
-					mesa:dev:standard
-					libglvnd:dev:standard
-[VIRTUAL].BUILDRUN_DEPENDS_ON=		libglvnd:primary:standard
+[VIRTUAL].BUILD_DEPENDS_ON=		libepoxy:primary:std
+					libepoxy:dev:std
+					mesa:drivers:std
+					mesa:dev:std
+					libglvnd:dev:std
+[VIRTUAL].BUILDRUN_DEPENDS_ON=		libglvnd:primary:std
 
-[NEST].BUILD_DEPENDS_ON=		libepoxy:primary:standard
-					libepoxy:dev:standard
-					mesa:drivers:standard
-					mesa:dev:standard
-					libglvnd:dev:standard
-[NEST].BUILDRUN_DEPENDS_ON=		libglvnd:primary:standard
+[NEST].BUILD_DEPENDS_ON=		libepoxy:primary:std
+					libepoxy:dev:std
+					mesa:drivers:std
+					mesa:dev:std
+					libglvnd:dev:std
+[NEST].BUILDRUN_DEPENDS_ON=		libglvnd:primary:std
 
 [NEST].CONFIGURE_ARGS_ON=		-Dxnest=true
 [NEST].CONFIGURE_ARGS_OFF=		-Dxnest=false
@@ -136,8 +136,8 @@ VAR_OPSYS[netbsd]=	CPPFLAGS=-D_OPENBSD_SOURCE
 					xcb-util-wm xcb-util-keysyms xcb-render-util
 [XORG].XORG_COMPONENTS_ON=		pciaccess xfont2
 
-[UDEV].BUILD_DEPENDS_ON=		libudev-devd:dev:standard
-[UDEV].BUILDRUN_DEPENDS_ON=		libudev-devd:primary:standard
+[UDEV].BUILD_DEPENDS_ON=		libudev-devd:dev:std
+[UDEV].BUILDRUN_DEPENDS_ON=		libudev-devd:primary:std
 [UDEV].CONFIGURE_ARGS_ON=		-Dudev=true
 [UDEV].CONFIGURE_ARGS_OFF=		-Dudev=false
 

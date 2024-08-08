@@ -6,8 +6,8 @@ NAMEBASE=		libdvdnav
 VERSION=		${PORTVERSION}
 REVISION=		1
 KEYWORDS=		multimedia
-VARIANTS=		standard
-SDESC[standard]=	DVD navigation library
+VARIANTS=		std
+SDESC[std]=		DVD navigation library
 HOMEPAGE=		http://dvdnav.mplayerhq.hu/
 CONTACT=		nobody
 
@@ -16,7 +16,7 @@ SITES[main]=		http://download.videolan.org/pub/videolan/libdvdnav/${PORTVERSION}
 			http://dvdnav.mplayerhq.hu/releases/
 DISTFILE[1]=		libdvdnav-${PORTVERSION}.tar.bz2:main
 
-SPKGS[standard]=	complete primary dev
+SPKGS[std]=		set primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -30,10 +30,10 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		multimedia/libdvdnav
 
-BUILD_DEPENDS=		libdvdread:dev:standard
-BUILDRUN_DEPENDS=	libdvdread:primary:standard
+BUILD_DEPENDS=		libdvdread:dev:std
+BUILDRUN_DEPENDS=	libdvdread:primary:std
 
-EXRUN[dev]=		libdvdread:dev:standard
+EXRUN[dev]=		libdvdread:dev:std
 
 USES=			gmake libtool pkgconfig mbsdfix
 INSTALL_TARGET=		install-strip

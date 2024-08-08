@@ -6,8 +6,8 @@ DEF[ALTNAME]=		libpciaccess
 NAMEBASE=		xorg-${XNAME}
 VERSION=		${PORTVERSION}
 KEYWORDS=		x11
-VARIANTS=		standard
-SDESC[standard]=	Generic PCI access library
+VARIANTS=		std
+SDESC[std]=		Generic PCI access library
 HOMEPAGE=		https://www.x.org/
 CONTACT=		nobody
 
@@ -19,7 +19,7 @@ DISTFILE[1]=		${ALTNAME}-${PORTVERSION}.tar.xz:main
 # DISTFILE[3]=		4ee437c98c2d.patch:patch
 DIST_SUBDIR=		xorg/pciaccess
 
-SPKGS[standard]=	complete primary dev
+SPKGS[std]=		set primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -30,7 +30,7 @@ LICENSE_AWK=		ISCL:"^$$"
 LICENSE_SOURCE=		ISCL:{{WRKSRC}}/src/x86_pci.h
 LICENSE_SCHEME=		solo
 
-BUILDRUN_DEPENDS=	pciids:single:standard
+BUILDRUN_DEPENDS=	pciids:single:std
 
 # PATCHFILES=		2 3
 # PATCHFILES_STRIP=	-p1

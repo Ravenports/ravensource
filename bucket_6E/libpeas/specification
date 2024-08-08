@@ -16,8 +16,8 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNOME/libpeas/${PORTVERSION:R}/
 DISTFILE[1]=		libpeas-${PORTVERSION}.tar.xz:main
 
-SPKGS[v12]=		complete primary dev python nls docs
-SPKGS[v11]=		complete primary dev python nls docs
+SPKGS[v12]=		set primary dev python nls docs
+SPKGS[v11]=		set primary dev python nls docs
 
 OPTIONS_AVAILABLE=	PY312 PY311 INTROSPECTION
 OPTIONS_STANDARD=	INTROSPECTION
@@ -36,9 +36,9 @@ FPC_EQUIVALENT=		devel/libpeas
 # We don't have very old Lua5.1, so no Lua support for now.
 # Libpeas still only supports 5.1 as of 1.32.0. Maybe re-check later.
 
-BUILD_DEPENDS=		harfbuzz:dev:standard
-			gjs:dev:standard
-BUILDRUN_DEPENDS=	gjs:primary:standard
+BUILD_DEPENDS=		harfbuzz:dev:std
+			gjs:dev:std
+BUILDRUN_DEPENDS=	gjs:primary:std
 
 USES=			cpe meson pkgconfig
 GNOME_COMPONENTS=	gtk3 intltool pygobject introspection

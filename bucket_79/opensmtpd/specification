@@ -4,8 +4,8 @@ DEF[PORTVERSION]=	7.5.0p0
 NAMEBASE=		opensmtpd
 VERSION=		${PORTVERSION}
 KEYWORDS=		mail
-VARIANTS=		standard
-SDESC[standard]=	Free implementation of server-side SMTP protocol
+VARIANTS=		std
+SDESC[std]=		Free implementation of server-side SMTP protocol
 HOMEPAGE=		https://www.opensmtpd.org/
 CONTACT=		nobody
 
@@ -13,7 +13,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://www.opensmtpd.org/archives/
 DISTFILE[1]=		opensmtpd-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary man
+SPKGS[std]=		set primary man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -24,11 +24,11 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		mail/opensmtpd
 
-BUILD_DEPENDS=		groff:primary:standard
-			libevent:dev:standard
-BUILDRUN_DEPENDS=	libevent:primary:standard
-			libasr:single:standard
-RUN_DEPENDS=		nss:caroot:standard
+BUILD_DEPENDS=		groff:primary:std
+			libevent:dev:std
+BUILDRUN_DEPENDS=	libevent:primary:std
+			libasr:single:std
+RUN_DEPENDS=		nss:caroot:std
 
 RC_SUBR=		smtpd:primary
 SUB_FILES=		messages-primary.ucl

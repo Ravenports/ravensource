@@ -6,8 +6,8 @@ DEF[SOVERSION]=		3.0.0
 NAMEBASE=		xfconf
 VERSION=		${PORTVERSION}
 KEYWORDS=		x11
-VARIANTS=		standard
-SDESC[standard]=	Simple client-server configuration system for Xfce
+VARIANTS=		std
+SDESC[std]=		Simple client-server configuration system for Xfce
 HOMEPAGE=		https://xfce.org
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
@@ -16,7 +16,7 @@ SITES[main]=		https://archive.xfce.org/src/xfce/xfconf/${PORTVERSION:R}/
 DISTFILE[1]=		xfconf-${PORTVERSION}.tar.bz2:main
 DIST_SUBDIR=		xfce
 
-SPKGS[standard]=	complete primary dev docs nls
+SPKGS[std]=		set primary dev docs nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -31,10 +31,10 @@ LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/xfconf/xfconf.h
 
 BUILD_DEPENDS=		perl-XML-Parser:single:perl_default
-			dbus:dev:standard
-			libxfce4util:dev:standard
-BUILDRUN_DEPENDS=	dbus:primary:standard
-			libxfce4util:primary:standard
+			dbus:dev:std
+			libxfce4util:dev:std
+BUILDRUN_DEPENDS=	dbus:primary:std
+			libxfce4util:primary:std
 
 USES=			gmake libtool perl:build pkgconfig python:build,sutools
 XORG_COMPONENTS=	x11

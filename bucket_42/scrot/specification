@@ -4,8 +4,8 @@ DEF[PORTVERSION]=	1.11.1
 NAMEBASE=		scrot
 VERSION=		${PORTVERSION}
 KEYWORDS=		graphics
-VARIANTS=		standard
-SDESC[standard]=	Simple screen capture utility (SCReen shOT)
+VARIANTS=		std
+SDESC[std]=		Simple screen capture utility (SCReen shOT)
 HOMEPAGE=		https://github.com/resurrecting-open-source-projects/scrot
 CONTACT=		nobody
 
@@ -13,7 +13,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/resurrecting-open-source-projects:scrot:${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	complete primary man
+SPKGS[std]=		set primary man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -24,14 +24,14 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		graphics/scrot
 
-BUILD_DEPENDS=		automake:primary:standard
-			autoconf-archive:primary:standard
-			giblib:dev:standard
-			imlib2:dev:standard
-BUILDRUN_DEPENDS=	giblib:primary:standard
+BUILD_DEPENDS=		automake:primary:std
+			autoconf-archive:primary:std
+			giblib:dev:std
+			imlib2:dev:std
+BUILDRUN_DEPENDS=	giblib:primary:std
 
-B_DEPS[linux]=		libbsd:dev:standard
-BR_DEPS[linux]=		libbsd:primary:standard
+B_DEPS[linux]=		libbsd:dev:std
+BR_DEPS[linux]=		libbsd:primary:std
 
 XORG_COMPONENTS=	x11 xfixes xcursor xcomposite xinerama xext
 MUST_CONFIGURE=		gnu

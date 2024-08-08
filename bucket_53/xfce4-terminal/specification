@@ -5,8 +5,8 @@ DEF[DL_FOLDER]=		${PORTVERSION:R}
 NAMEBASE=		xfce4-terminal
 VERSION=		${PORTVERSION}
 KEYWORDS=		x11
-VARIANTS=		standard
-SDESC[standard]=	Terminal emulator for Xfce
+VARIANTS=		std
+SDESC[std]=		Terminal emulator for Xfce
 HOMEPAGE=		https://docs.xfce.org/apps/terminal/start
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://archive.xfce.org/src/apps/xfce4-terminal/${DL_FOLDER}/
 DISTFILE[1]=		xfce4-terminal-${PORTVERSION}.tar.bz2:main
 
-SPKGS[standard]=	complete primary nls themes
+SPKGS[std]=		set primary nls themes
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -28,9 +28,9 @@ LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/terminal/terminal-app.h
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		harfbuzz:dev:standard
-			libxfce4ui:dev:standard
-BUILDRUN_DEPENDS=	libxfce4ui:primary:standard
+BUILD_DEPENDS=		harfbuzz:dev:std
+			libxfce4ui:dev:std
+BUILDRUN_DEPENDS=	libxfce4ui:primary:std
 
 USES=			gmake pkgconfig
 XORG_COMPONENTS=	x11

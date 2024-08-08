@@ -6,8 +6,8 @@ DEF[ALTNAME]=		libXt
 NAMEBASE=		xorg-${XNAME}
 VERSION=		${PORTVERSION}
 KEYWORDS=		x11 x11_toolkits
-VARIANTS=		standard
-SDESC[standard]=	X Toolkit library
+VARIANTS=		std
+SDESC[std]=		X Toolkit library
 HOMEPAGE=		https://www.x.org/
 CONTACT=		nobody
 
@@ -16,7 +16,7 @@ SITES[main]=		XORG/individual/lib
 DISTFILE[1]=		${ALTNAME}-${PORTVERSION}.tar.xz:main
 DIST_SUBDIR=		xorg
 
-SPKGS[standard]=	complete primary dev man
+SPKGS[std]=		set primary dev man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -25,8 +25,8 @@ LICENSE=		MIT:primary
 LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
-EXRUN[dev]=		xorg-sm:dev:standard
-			xorg-x11:dev:standard
+EXRUN[dev]=		xorg-sm:dev:std
+			xorg-x11:dev:std
 
 USES=			cpe libtool
 XORG_COMPONENTS=	x11 sm

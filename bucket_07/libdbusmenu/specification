@@ -7,8 +7,8 @@ NAMEBASE=		libdbusmenu
 VERSION=		${PORTVERSION}
 REVISION=		1
 KEYWORDS=		devel
-VARIANTS=		standard
-SDESC[standard]=	Library for passing menus over DBus
+VARIANTS=		std
+SDESC[std]=		Library for passing menus over DBus
 HOMEPAGE=		https://launchpad.net/libdbusmenu
 CONTACT=		nobody
 
@@ -16,7 +16,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://launchpad.net/libdbusmenu/${DLFOLDER}/${PORTVERSION}/+download/
 DISTFILE[1]=		libdbusmenu-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary docs
+SPKGS[std]=		set primary docs
 
 OPTIONS_AVAILABLE=	INTROSPECTION
 OPTIONS_STANDARD=	INTROSPECTION
@@ -31,9 +31,9 @@ LICENSE_SOURCE=		TERMS:{{WRKSRC}}/libdbusmenu-gtk/client.h
 
 FPC_EQUIVALENT=		devel/libdbusmenu
 
-BUILD_DEPENDS=		harfbuzz:dev:standard
-			json-glib:dev:standard
-BUILDRUN_DEPENDS=	json-glib:primary:standard
+BUILD_DEPENDS=		harfbuzz:dev:std
+			json-glib:dev:std
+BUILDRUN_DEPENDS=	json-glib:primary:std
 
 USES=			gmake libtool gtk-doc pkgconfig
 			python:run shebangfix mbsdfix
@@ -56,7 +56,7 @@ GTKDOC_OUTPUT_BASEDIR=	libdbusmenu-gtk
 [INTROSPECTION].DESCRIPTION=		Build with introspection and vala bindings
 [INTROSPECTION].GNOME_COMPONENTS_ON=	introspection
 [INTROSPECTION].CONFIGURE_ENABLE_BOTH=	introspection vala
-[INTROSPECTION].BUILD_DEPENDS_ON=	vala:single:standard
+[INTROSPECTION].BUILD_DEPENDS_ON=	vala:single:std
 
 post-install:
 	# gtk-doc can only handle one directory, so pre-move the other one

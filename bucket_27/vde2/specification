@@ -4,8 +4,8 @@ DEF[PORTVERSION]=	2.3.3
 NAMEBASE=		vde2
 VERSION=		${PORTVERSION}
 KEYWORDS=		net
-VARIANTS=		standard
-SDESC[standard]=	User-mode virtual ethernet infrastructure
+VARIANTS=		std
+SDESC[std]=		User-mode virtual ethernet infrastructure
 HOMEPAGE=		https://vde.sourceforge.net/
 CONTACT=		nobody
 
@@ -13,7 +13,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/virtualsquare:vde-2:v${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	single
+SPKGS[std]=		single
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -31,8 +31,8 @@ FPC_EQUIVALENT=		net/vde2
 
 ONLY_FOR_OPSYS=		dragonfly freebsd netbsd linux darwin midnightbsd
 
-BUILD_DEPENDS=		libpcap:dev:standard
-BUILDRUN_DEPENDS=	libpcap:primary:standard
+BUILD_DEPENDS=		libpcap:dev:std
+BUILDRUN_DEPENDS=	libpcap:primary:std
 
 USES=			autoreconf gmake libtool ssl
 MUST_CONFIGURE=		gnu

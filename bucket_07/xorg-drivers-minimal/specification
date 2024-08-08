@@ -5,14 +5,14 @@ DEF[DRVLIST]=		KEYBOARD MOUSE VESA EVDEV
 NAMEBASE=		xorg-drivers-minimal
 VERSION=		${PORTVERSION}
 KEYWORDS=		x11_drivers
-VARIANTS=		standard
-SDESC[standard]=	X.Org minimal drivers meta-port
+VARIANTS=		std
+SDESC[std]=		X.Org minimal drivers meta-port
 HOMEPAGE=		https://www.x.org/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	none
 
-SPKGS[standard]=	single
+SPKGS[std]=		single
 
 OPTIONS_AVAILABLE=	${DRVLIST}
 OPTIONS_STANDARD=	${DRVLIST}
@@ -35,7 +35,7 @@ SKIP_INSTALL=		yes
 [VESA].DESCRIPTION=			Generic VESA video driver
 [EVDEV].DESCRIPTION=			Linux event interface driver
 
-[KEYBOARD].RUN_DEPENDS_ON=		xorg-driver-input-keyboard:single:standard
-[MOUSE].RUN_DEPENDS_ON=			xorg-driver-input-mouse:primary:standard
-[VESA].RUN_DEPENDS_ON=			xorg-driver-video-vesa:single:standard
-[EVDEV].RUN_DEPENDS_ON=			xorg-driver-input-evdev:single:standard
+[KEYBOARD].RUN_DEPENDS_ON=		xorg-driver-input-keyboard:single:std
+[MOUSE].RUN_DEPENDS_ON=			xorg-driver-input-mouse:primary:std
+[VESA].RUN_DEPENDS_ON=			xorg-driver-video-vesa:single:std
+[EVDEV].RUN_DEPENDS_ON=			xorg-driver-input-evdev:single:std

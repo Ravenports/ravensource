@@ -7,8 +7,8 @@ NAMEBASE=		openexr
 VERSION=		${PORTVERSION}
 EPOCH=			1
 KEYWORDS=		graphics devel
-VARIANTS=		standard
-SDESC[standard]=	High dynamic-range (HDR) image file format
+VARIANTS=		std
+SDESC[std]=		High dynamic-range (HDR) image file format
 HOMEPAGE=		https://www.openexr.com/
 CONTACT=		nobody
 
@@ -16,7 +16,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/AcademySoftwareFoundation:openexr:v${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	complete primary dev tools examples
+SPKGS[std]=		set primary dev tools examples
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -27,14 +27,14 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		graphics/openexr
 
-BUILD_DEPENDS=		Imath:dev:standard
-			libdeflate:dev:standard
-BUILDRUN_DEPENDS=	Imath:primary:standard
-			libdeflate:primary:standard
+BUILD_DEPENDS=		Imath:dev:std
+			libdeflate:dev:std
+BUILDRUN_DEPENDS=	Imath:primary:std
+			libdeflate:primary:std
 
-EXRUN[tools]=		openexr:primary:standard
-EXRUN[dev]=		Imath:dev:standard
-			libdeflate:dev:standard
+EXRUN[tools]=		openexr:primary:std
+EXRUN[dev]=		Imath:dev:std
+			libdeflate:dev:std
 
 USES=			cpe cmake pkgconfig zlib c++:primary
 CMAKE_ARGS=		-DCMAKE_INSTALL_PREFIX={{PREFIX}}

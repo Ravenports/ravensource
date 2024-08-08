@@ -5,8 +5,8 @@ DEF[SOVERSION]=		14.0.0
 NAMEBASE=		libfm-qt
 VERSION=		${PORTVERSION}
 KEYWORDS=		x11
-VARIANTS=		standard
-SDESC[standard]=	Core library of PCManFM-Qt file manager
+VARIANTS=		std
+SDESC[std]=		Core library of PCManFM-Qt file manager
 HOMEPAGE=		https://lxqt.github.io/
 CONTACT=		nobody
 
@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/lxqt/libfm-qt/releases/download/${PORTVERSION}/
 DISTFILE[1]=		libfm-qt-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary dev lang
+SPKGS[std]=		set primary dev lang
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -28,14 +28,14 @@ LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/libfmqt.h
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		lxqt-build-tools:single:standard
-			qt6-qtbase:dev:standard
-			qt6-qttools:complete:standard
-			libexif:dev:standard
-BUILDRUN_DEPENDS=	libexif:primary:standard
-			lxqt-menu-data:single:standard
-			menu-cache:single:standard
-			qt6-qtbase:primary:standard
+BUILD_DEPENDS=		lxqt-build-tools:single:std
+			qt6-qtbase:dev:std
+			qt6-qttools:complete:std
+			libexif:dev:std
+BUILDRUN_DEPENDS=	libexif:primary:std
+			lxqt-menu-data:single:std
+			menu-cache:single:std
+			qt6-qtbase:primary:std
 
 USES=			cmake pkgconfig mime-info:primary perl:build
 XORG_COMPONENTS=	x11 xcb

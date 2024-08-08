@@ -5,8 +5,8 @@ DEF[BDBVER]=		${PORTVERSION:R}
 NAMEBASE=		db4
 VERSION=		${PORTVERSION}
 KEYWORDS=		databases
-VARIANTS=		standard
-SDESC[standard]=	Berkeley DB version 4 from Oracle
+VARIANTS=		std
+SDESC[std]=		Berkeley DB version 4 from Oracle
 HOMEPAGE=		https://www.oracle.com/database/technologies/related/berkeleydb.html
 CONTACT=		nobody
 
@@ -15,7 +15,7 @@ SITES[main]=		https://download.oracle.com/berkeley-db/
 			https://download-uk.oracle.com/berkeley-db/
 DISTFILE[1]=		db-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary cxx tools dev docs
+SPKGS[std]=		set primary cxx tools dev docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -25,7 +25,7 @@ LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/LICENSE
 LICENSE_NAME=		CUSTOM1:"Sleepycat License"
 LICENSE_SCHEME=		solo
 
-EXRUN[tools]=		db4:primary:standard
+EXRUN[tools]=		db4:primary:std
 
 USES=			cpe libtool:build c++:cxx
 CPE_VENDOR=		oracle

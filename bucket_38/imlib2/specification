@@ -4,8 +4,8 @@ DEF[PORTVERSION]=	1.12.3
 NAMEBASE=		imlib2
 VERSION=		${PORTVERSION}
 KEYWORDS=		graphics
-VARIANTS=		standard
-SDESC[standard]=	Powerful image loading and rendering library
+VARIANTS=		std
+SDESC[std]=		Powerful image loading and rendering library
 HOMEPAGE=		https://docs.enlightenment.org/api/imlib2/html/
 CONTACT=		nobody
 
@@ -13,7 +13,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		SF/enlightenment/imlib2-src/${PORTVERSION}
 DISTFILE[1]=		imlib2-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary tools dev
+SPKGS[std]=		set primary tools dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -25,9 +25,9 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		graphics/imlib2
 
-BUILD_DEPENDS=		libid3tag:dev:standard
-BUILDRUN_DEPENDS=	libid3tag:primary:standard
-B_DEPS[sunos]=		libbsd4sol:single:standard
+BUILD_DEPENDS=		libid3tag:dev:std
+BUILDRUN_DEPENDS=	libid3tag:primary:std
+B_DEPS[sunos]=		libbsd4sol:single:std
 
 USES=			cpe libtool pkgconfig jpeg png gif tiff xz
 			freetype zstd:build zlib:build bz2:build

@@ -6,8 +6,8 @@ DEF[SOVERSION]=		${PORTVERSION}
 NAMEBASE=		kf6-${KF6_COMPONENT}
 VERSION=		${PORTVERSION}
 KEYWORDS=		x11_themes
-VARIANTS=		standard
-SDESC[standard]=	Breeze icon theme for KDE
+VARIANTS=		std
+SDESC[std]=		Breeze icon theme for KDE
 HOMEPAGE=		https://api.kde.org/frameworks/${KF6_COMPONENT}/html/index.html
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
@@ -16,7 +16,7 @@ SITES[main]=		https://download.kde.org/stable/frameworks/${PORTVERSION:R}/
 DISTFILE[1]=		${KF6_COMPONENT}-${PORTVERSION}.tar.xz:main
 DIST_SUBDIR=		kde6
 
-SPKGS[standard]=	complete primary dev
+SPKGS[std]=		set primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -30,10 +30,10 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		x11-themes/kf6-${KF6_COMPONENT}
 
-BUILD_DEPENDS=		kf6-extra-cmake-modules:primary:standard
+BUILD_DEPENDS=		kf6-extra-cmake-modules:primary:std
 			python-lxml:single:python_default
-			qt6-qtbase:dev:standard
-BUILDRUN_DEPENDS=	qt6-qtbase:primary:standard
+			qt6-qtbase:dev:std
+BUILDRUN_DEPENDS=	qt6-qtbase:primary:std
 
 USES=			cmake pkgconfig python:build
 

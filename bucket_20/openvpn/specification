@@ -4,8 +4,8 @@ DEF[PORTVERSION]=	2.6.12
 NAMEBASE=		openvpn
 VERSION=		${PORTVERSION}
 KEYWORDS=		security
-VARIANTS=		standard
-SDESC[standard]=	Secure and highly configurable VPN solution
+VARIANTS=		std
+SDESC[std]=		Secure and highly configurable VPN solution
 HOMEPAGE=		https://openvpn.net
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
@@ -13,7 +13,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://swupdate.openvpn.org/community/releases/
 DISTFILE[1]=		openvpn-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary dev man docs
+SPKGS[std]=		set primary dev man docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -32,8 +32,8 @@ FPC_EQUIVALENT=		security/openvpn
 # Linux support means adding more packages
 NOT_FOR_OPSYS=		linux
 
-BUILD_DEPENDS=		openpam:dev:standard
-BUILDRUN_DEPENDS=	openpam:primary:standard
+BUILD_DEPENDS=		openpam:dev:std
+BUILDRUN_DEPENDS=	openpam:primary:std
 
 # openvpn doesn't support libressl without patches
 USES=			autoreconf cpe libtool pkgconfig lz4 lzo ssl:openssl11

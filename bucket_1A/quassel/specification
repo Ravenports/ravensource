@@ -5,8 +5,8 @@ NAMEBASE=		quassel
 VERSION=		${PORTVERSION}
 REVISION=		2
 KEYWORDS=		irc
-VARIANTS=		standard
-SDESC[standard]=	Cross-platform distributed IRC client
+VARIANTS=		std
+SDESC[std]=		Cross-platform distributed IRC client
 HOMEPAGE=		https://www.quassel-irc.org
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://quassel-irc.org/pub/
 DISTFILE[1]=		quassel-${PORTVERSION}.tar.bz2:main
 
-SPKGS[standard]=	complete client common server icons monolithic nls
+SPKGS[std]=		set client common server icons monolithic nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -33,14 +33,14 @@ FPC_EQUIVALENT=		irc/quassel
 # This is a somewhat light-weight configuration; some features
 # are deactivated due to missing dependencies.
 
-BUILD_DEPENDS=		libdbusmenu-qt:primary:standard
+BUILD_DEPENDS=		libdbusmenu-qt:primary:std
 			qca:dev:qt5
 			qca:primary:qt5
-			qt5-qtmultimedia:dev:standard
-			qt5-qtscript:dev:standard
-			qt5-qttools:complete:standard
-			boost-libraries:dev:standard
-BUILDRUN_DEPENDS=	qt5-qtmultimedia:primary:standard
+			qt5-qtmultimedia:dev:std
+			qt5-qtscript:dev:std
+			qt5-qttools:complete:std
+			boost-libraries:dev:std
+BUILDRUN_DEPENDS=	qt5-qtmultimedia:primary:std
 
 USES=			cpe cmake pkgconfig qt5 zlib
 CPE_VENDOR=		quassel-irc
@@ -59,19 +59,19 @@ CMAKE_ARGS=		-DCMAKE_PREFIX_PATH={{PREFIX}}/lib/qt5/cmake
 			-DWITH_WEBKIT=OFF
 SOVERSION=		${PORTVERSION}
 
-EXRUN[client]=		libdbusmenu-qt:primary:standard
+EXRUN[client]=		libdbusmenu-qt:primary:std
 			qca:primary:qt5
-			qt5-qtscript:primary:standard
-			qt5-qtmultimedia:primary:standard
-			quassel:common:standard
-			quassel:icons:standard
+			qt5-qtscript:primary:std
+			qt5-qtmultimedia:primary:std
+			quassel:common:std
+			quassel:icons:std
 
-EXRUN[monolithic]=	libdbusmenu-qt:primary:standard
+EXRUN[monolithic]=	libdbusmenu-qt:primary:std
 			qca:primary:qt5
-			qt5-qtscript:primary:standard
-			qt5-qtmultimedia:primary:standard
-			quassel:common:standard
-			quassel:icons:standard
+			qt5-qtscript:primary:std
+			qt5-qtmultimedia:primary:std
+			quassel:common:std
+			quassel:icons:std
 
 post-patch-netbsd:
 	${REINPLACE_CMD} -e '/no-undefined/d' ${WRKSRC}/cmake/QuasselCompileSettings.cmake

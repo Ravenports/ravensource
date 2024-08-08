@@ -4,8 +4,8 @@ DEF[PORTVERSION]=	3.0.2
 NAMEBASE=		taskwarrior
 VERSION=		${PORTVERSION}
 KEYWORDS=		rust deskutils
-VARIANTS=		standard
-SDESC[standard]=	Feature-rich command-line todo list manager
+VARIANTS=		std
+SDESC[std]=		Feature-rich command-line todo list manager
 HOMEPAGE=		https://taskwarrior.org/
 CONTACT=		nobody
 
@@ -555,7 +555,7 @@ DF_INDEX=		1 2 3 4 5 6 7 8 9 10
 			231 232 233 234 235 236 237 238 239 240
 			241 242 243 244 245 246 247
 
-SPKGS[standard]=	complete primary docs man
+SPKGS[std]=		set primary docs man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -566,9 +566,9 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		deskutils/taskwarrior
 
-BUILD_DEPENDS=		libuuid:dev:standard
-			rust:single:standard
-BUILDRUN_DEPENDS=	libuuid:primary:standard
+BUILD_DEPENDS=		libuuid:dev:std
+			rust:single:std
+BUILDRUN_DEPENDS=	libuuid:primary:std
 
 USES=			cargo cmake shebangfix execinfo cclibs:primary c++:primary
 DISTNAME=		task-${PORTVERSION}

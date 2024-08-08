@@ -8,8 +8,8 @@ NAMEBASE=		nlopt
 VERSION=		${PORTVERSION}
 REVISION=		1
 KEYWORDS=		math
-VARIANTS=		standard
-SDESC[standard]=	Nonlinear optimization library
+VARIANTS=		std
+SDESC[std]=		Nonlinear optimization library
 HOMEPAGE=		none
 CONTACT=		nobody
 
@@ -17,7 +17,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/stevengj:nlopt:${RELEASE}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	single
+SPKGS[std]=		single
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -30,11 +30,11 @@ LICENSE_FILE=		MIT:{{WRKSRC}}/COPYRIGHT
 			LGPL21:stock
 LICENSE_SCHEME=		multi
 
-BUILD_DEPENDS=		swig:primary:standard
-			gmp:dev:standard
-			guile:dev:standard
-BUILDRUN_DEPENDS=	gmp:primary:standard
-			guile:primary:standard
+BUILD_DEPENDS=		swig:primary:std
+			gmp:dev:std
+			guile:dev:std
+BUILDRUN_DEPENDS=	gmp:primary:std
+			guile:primary:std
 			python-numpy:single:python_used
 
 USES=			cmake pkgconfig python

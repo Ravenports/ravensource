@@ -10,8 +10,8 @@ DEF[PY3_DEFAULT]=	EXTRACT_VERSION(PYTHON3_DEFAULT)
 NAMEBASE=		rvn
 VERSION=		${PORTVERSION}
 KEYWORDS=		raven
-VARIANTS=		standard
-SDESC[standard]=	Ravenports binary package manager
+VARIANTS=		std
+SDESC[std]=		Ravenports binary package manager
 HOMEPAGE=		https://github.com/ravenports/rvn
 CONTACT=		John_Marino[draco@marino.st]
 
@@ -25,7 +25,7 @@ DISTFILE[2]=		generated:format
 DISTFILE[3]=		sqlite-autoconf-${SQLITE_LONGVER}.tar.gz:sqlite
 DF_INDEX=		1 2 3
 
-SPKGS[standard]=	complete primary man
+SPKGS[std]=		set primary man
 
 OPTIONS_AVAILABLE=	RUNTESTS
 OPTIONS_STANDARD=	RUNTESTS
@@ -34,11 +34,11 @@ LICENSE=		ISCL:primary
 LICENSE_FILE=		ISCL:{{WRKSRC}}/License.txt
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		lua54:dev:standard
+BUILD_DEPENDS=		lua54:dev:std
 			libucl:single:ravensw
-			linenoise:single:standard
-			libblake3:dev:standard
-			mbedtls:dev:standard
+			linenoise:single:std
+			libblake3:dev:std
+			mbedtls:dev:std
 			curl:dev:embed
 			libssh2:dev:embed
 
@@ -55,7 +55,7 @@ INFRASTRUCTURE=		yes
 SET_DEBUGGING_ON=	yes
 
 [RUNTESTS].DESCRIPTION=			Run kyua tests after build
-[RUNTESTS].BUILD_DEPENDS_ON=		kyua:single:standard
+[RUNTESTS].BUILD_DEPENDS_ON=		kyua:single:std
 
 post-build-RUNTESTS-ON:
 	(cd ${WRKSRC} && ${SETENV} KEYWORDS_DIR=/xports/Mk/Keywords \

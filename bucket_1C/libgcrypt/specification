@@ -6,8 +6,8 @@ NAMEBASE=		libgcrypt
 VERSION=		${PORTVERSION}
 REVISION=		1
 KEYWORDS=		security
-VARIANTS=		standard
-SDESC[standard]=	General purpose crypto library based on GnuPG
+VARIANTS=		std
+SDESC[std]=		General purpose crypto library based on GnuPG
 HOMEPAGE=		https://www.gnupg.org/software/libgcrypt/index.html
 CONTACT=		nobody
 
@@ -15,7 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNUPG/libgcrypt
 DISTFILE[1]=		libgcrypt-${PORTVERSION}.tar.bz2:main
 
-SPKGS[standard]=	complete primary tools dev man info
+SPKGS[std]=		set primary tools dev man info
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -30,11 +30,11 @@ LICENSE_SCHEME=		multi
 
 FPC_EQUIVALENT=		security/libgcrypt
 
-BUILD_DEPENDS=		libgpg-error:dev:standard
-BUILDRUN_DEPENDS=	libgpg-error:primary:standard
+BUILD_DEPENDS=		libgpg-error:dev:std
+BUILDRUN_DEPENDS=	libgpg-error:primary:std
 
-EXRUN[dev]=		libgpg-error:dev:standard
-EXRUN[tools]=		libgcrypt:primary:standard
+EXRUN[dev]=		libgpg-error:dev:std
+EXRUN[tools]=		libgcrypt:primary:std
 
 USES=			cpe libtool makeinfo mbsdfix
 MUST_CONFIGURE=		gnu

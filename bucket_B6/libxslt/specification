@@ -8,8 +8,8 @@ DEF[SOVERSION]=		${PORTVERSION}
 NAMEBASE=		libxslt
 VERSION=		${PORTVERSION}
 KEYWORDS=		textproc
-VARIANTS=		standard
-SDESC[standard]=	XSLT C library for GNOME
+VARIANTS=		std
+SDESC[std]=		XSLT C library for GNOME
 HOMEPAGE=		http://xmlsoft.org/XSLT/
 CONTACT=		nobody
 
@@ -18,7 +18,7 @@ SITES[main]=		GNOME/libxslt/${FOLDER}
 DISTFILE[1]=		libxslt-${PORTVERSION}.tar.xz:main
 DIST_SUBDIR=		gnome2
 
-SPKGS[standard]=	complete primary dev man
+SPKGS[std]=		set primary dev man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -29,8 +29,8 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		textproc/libxslt
 
-BUILD_DEPENDS=		libgcrypt:dev:standard
-BUILDRUN_DEPENDS=	libgcrypt:primary:standard
+BUILD_DEPENDS=		libgcrypt:dev:std
+BUILDRUN_DEPENDS=	libgcrypt:primary:std
 
 USES=			cpe gmake libtool pkgconfig iconv:build mbsdfix
 GNOME_COMPONENTS=	libxml2

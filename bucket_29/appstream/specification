@@ -6,8 +6,8 @@ DEF[CAT1]=		http://docbook.sourceforge.net/release/xsl/current/
 NAMEBASE=		appstream
 VERSION=		${PORTVERSION}
 KEYWORDS=		devel
-VARIANTS=		standard
-SDESC[standard]=	Standard for machine-readable software metadata
+VARIANTS=		std
+SDESC[std]=		Standard for machine-readable software metadata
 HOMEPAGE=		https://www.freedesktop.org/wiki/Distributions/AppStream/
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
@@ -15,7 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://www.freedesktop.org/software/appstream/releases/
 DISTFILE[1]=		AppStream-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary dev man nls docs
+SPKGS[std]=		set primary dev man nls docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -29,22 +29,22 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/appstream
 
-BUILD_DEPENDS=		curl:dev:standard
-			docbook-xsl:primary:standard
-			gperf:primary:standard
-			itstool:single:standard
-			libxml2:dev:standard
-			libxmlb:dev:standard
+BUILD_DEPENDS=		curl:dev:std
+			docbook-xsl:primary:std
+			gperf:primary:std
+			itstool:single:std
+			libxml2:dev:std
+			libxmlb:dev:std
 			python-gi-docgen:complete:python_default
-			snowball:dev:standard
-			vala:single:standard
-			xz:dev:standard
-			zstd:dev:standard
-BUILDRUN_DEPENDS=	curl:primary:standard
-			libxml2:primary:standard
-			libxmlb:primary:standard
-			libyaml:single:standard
-			snowball:libstemmer_c:standard
+			snowball:dev:std
+			vala:single:std
+			xz:dev:std
+			zstd:dev:std
+BUILDRUN_DEPENDS=	curl:primary:std
+			libxml2:primary:std
+			libxmlb:primary:std
+			libyaml:single:std
+			snowball:libstemmer_c:std
 
 USES=			meson pkgconfig
 GNOME_COMPONENTS=	glib introspection

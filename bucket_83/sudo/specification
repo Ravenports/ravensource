@@ -4,8 +4,8 @@ DEF[PORTVERSION]=	1.9.15p5
 NAMEBASE=		sudo
 VERSION=		${PORTVERSION}
 KEYWORDS=		security
-VARIANTS=		standard
-SDESC[standard]=	Allows restricted root access for specified users
+VARIANTS=		std
+SDESC[std]=		Allows restricted root access for specified users
 HOMEPAGE=		https://www.sudo.ws/
 CONTACT=		nobody
 
@@ -14,7 +14,7 @@ SITES[main]=		https://www.sudo.ws/dist/
 			ftp://ftp.sudo.ws/pub/sudo/
 DISTFILE[1]=		sudo-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary examples docs nls man
+SPKGS[std]=		set primary examples docs nls man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -28,8 +28,8 @@ FPC_EQUIVALENT=		security/sudo
 
 # With OpenPAM, some kind of EXEC error, needs study
 # Until then, disable pam on all platforms
-# BUILD_DEPENDS=	openpam:dev:standard
-# BUILDRUN_DEPENDS=	openpam:primary:standard
+# BUILD_DEPENDS=	openpam:dev:std
+# BUILDRUN_DEPENDS=	openpam:primary:std
 
 USES=			cpe libtool gettext cclibs:primary zlib
 CPE_VENDOR=		todd_miller

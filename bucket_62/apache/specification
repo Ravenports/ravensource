@@ -4,8 +4,8 @@ DEF[PORTVERSION]=	2.4.62
 NAMEBASE=		apache
 VERSION=		${PORTVERSION}
 KEYWORDS=		www
-VARIANTS=		standard
-SDESC[standard]=	Secure, efficient and extensible HTTP server
+VARIANTS=		std
+SDESC[std]=		Secure, efficient and extensible HTTP server
 HOMEPAGE=		https://httpd.apache.org/
 CONTACT=		nobody
 
@@ -13,7 +13,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		APACHE_HTTPD/
 DISTFILE[1]=		httpd-${PORTVERSION}.tar.bz2:main
 
-SPKGS[standard]=	complete primary dev man docs
+SPKGS[std]=		set primary dev man docs
 
 OPTIONS_AVAILABLE=	MPM_PREFORK MPM_WORKER MPM_EVENT
 OPTIONS_STANDARD=	MPM_PREFORK MPM_WORKER MPM_EVENT
@@ -37,14 +37,14 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		www/apache24
 
-BUILD_DEPENDS=		apr1:dev:standard
-			apr-util:dev:standard
-			libnghttp2:dev:standard
-			gdbm:dev:standard
-BUILDRUN_DEPENDS=	apr1:primary:standard
-			apr-util:primary:standard
-			libnghttp2:primary:standard
-			gdbm:primary:standard
+BUILD_DEPENDS=		apr1:dev:std
+			apr-util:dev:std
+			libnghttp2:dev:std
+			gdbm:dev:std
+BUILDRUN_DEPENDS=	apr1:primary:std
+			apr-util:primary:std
+			libnghttp2:primary:std
+			gdbm:primary:std
 
 USERS=			wwwraven
 GROUPS=			wwwraven

@@ -8,8 +8,8 @@ DEF[PMIDETECT_VER]=	0.0.1
 NAMEBASE=		freeipmi
 VERSION=		${PORTVERSION}
 KEYWORDS=		sysutils
-VARIANTS=		standard
-SDESC[standard]=	IPMI remote console and system management software
+VARIANTS=		std
+SDESC[std]=		IPMI remote console and system management software
 HOMEPAGE=		https://www.gnu.org/software/freeipmi/
 CONTACT=		nobody
 
@@ -17,7 +17,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNU/freeipmi
 DISTFILE[1]=		freeipmi-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary dev tools man docs info
+SPKGS[std]=		set primary dev tools man docs info
 
 OPTIONS_AVAILABLE=	ARGP
 OPTIONS_STANDARD=	ARGP
@@ -36,8 +36,8 @@ LICENSE_AWK=		TERMS:"FREEIPMI_H"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/libfreeipmi/include/freeipmi/freeipmi.h.in
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		libgcrypt:dev:standard
-BUILDRUN_DEPENDS=	libgcrypt:primary:standard
+BUILD_DEPENDS=		libgcrypt:dev:std
+BUILDRUN_DEPENDS=	libgcrypt:primary:std
 
 EXRUN[tools]=		primary
 
@@ -66,8 +66,8 @@ VAR_OPSYS[freebsd]=	CFLAGS=-D_WANT_SEMUN
 VAR_OPSYS[midnightbsd]=	CFLAGS=-D_WANT_SEMUN
 
 [ARGP].DESCRIPTION=			Build with standalone version of argp from glibc
-[ARGP].BUILD_DEPENDS_ON=		argp-standalone:dev:standard
-[ARGP].BUILDRUN_DEPENDS_ON=		argp-standalone:primary:standard
+[ARGP].BUILD_DEPENDS_ON=		argp-standalone:dev:std
+[ARGP].BUILDRUN_DEPENDS_ON=		argp-standalone:primary:std
 
 pre-configure:
 	${FIND} ${WRKSRC} -name '*.man' -o -name '*.pre.in' |\

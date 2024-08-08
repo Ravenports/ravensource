@@ -5,8 +5,8 @@ DEF[SOVERSION]=		17.1.4
 NAMEBASE=		mate-desktop
 VERSION=		${PORTVERSION}
 KEYWORDS=		x11
-VARIANTS=		standard
-SDESC[standard]=	MATE desktop common UI API library
+VARIANTS=		std
+SDESC[std]=		MATE desktop common UI API library
 HOMEPAGE=		https://mate-desktop.org
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
@@ -15,7 +15,7 @@ SITES[main]=		https://pub.mate-desktop.org/releases/${PORTVERSION:R}/
 DISTFILE[1]=		mate-desktop-${PORTVERSION}.tar.xz:main
 DIST_SUBDIR=		mate
 
-SPKGS[standard]=	complete primary dev nls man docs
+SPKGS[std]=		set primary dev nls man docs
 
 OPTIONS_AVAILABLE=	INTROSPECTION
 OPTIONS_STANDARD=	INTROSPECTION
@@ -33,9 +33,9 @@ LICENSE_SCHEME=		multi
 
 FPC_EQUIVALENT=		x11/mate-desktop
 
-BUILD_DEPENDS=		iso-codes:primary:standard
-			harfbuzz:dev:standard
-BUILDRUN_DEPENDS=	startup-notification:single:standard
+BUILD_DEPENDS=		iso-codes:primary:std
+			harfbuzz:dev:std
+BUILDRUN_DEPENDS=	startup-notification:single:std
 
 USES=			gmake gtk-doc libtool pkgconfig schemas:primary
 GNOME_COMPONENTS=	dconf glib gdkpixbuf gtk3 intltool

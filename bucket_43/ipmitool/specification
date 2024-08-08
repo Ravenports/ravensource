@@ -6,8 +6,8 @@ DEF[IANA_VERSION]=	20230829
 NAMEBASE=		ipmitool
 VERSION=		${PORTVERSION}
 KEYWORDS=		sysutils
-VARIANTS=		standard
-SDESC[standard]=	Command-line interface to IPMI-enabled devices
+VARIANTS=		std
+SDESC[std]=		Command-line interface to IPMI-enabled devices
 HOMEPAGE=		https://codeberg.org/IPMITool/ipmitool
 CONTACT=		nobody
 
@@ -18,7 +18,7 @@ DISTFILE[1]=		IPMITOOL_${FILE_VERSION}.tar.gz:main
 DISTFILE[2]=		enterprise-numbers-${IANA_VERSION}.tar.gz:iana
 DF_INDEX=		1 2
 
-SPKGS[standard]=	complete primary man docs
+SPKGS[std]=		set primary man docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -29,8 +29,8 @@ LICENSE=		BSD3CLAUSE:primary
 LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		freeipmi:dev:standard
-BUILDRUN_DEPENDS=	freeipmi:primary:standard
+BUILD_DEPENDS=		freeipmi:dev:std
+BUILDRUN_DEPENDS=	freeipmi:primary:std
 
 USES=			cpe gmake readline ssl autoreconf
 CPE_VENDOR=		sun

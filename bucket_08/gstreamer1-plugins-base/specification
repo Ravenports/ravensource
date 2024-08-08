@@ -7,8 +7,8 @@ DEF[GLHEAD_COMMIT]=	5c8c7c0d3ca1f0b783272dac0b95e09414e49bc8
 NAMEBASE=		gstreamer1-plugins-base
 VERSION=		${PORTVERSION}
 KEYWORDS=		multimedia
-VARIANTS=		standard
-SDESC[standard]=	GStreamer Multimedia Framework Base Plugins
+VARIANTS=		std
+SDESC[std]=		GStreamer Multimedia Framework Base Plugins
 HOMEPAGE=		https://gstreamer.freedesktop.org/
 CONTACT=		nobody
 
@@ -19,7 +19,7 @@ DISTFILE[1]=		gst-plugins-base-${PORTVERSION}.tar.xz:main
 DISTFILE[2]=		gl-headers-${GLHEAD_COMMIT}.tar.gz:glhead
 DF_INDEX=		1 2
 
-SPKGS[standard]=	complete primary plugin_gl nls dev man
+SPKGS[std]=		set primary plugin_gl nls dev man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -33,31 +33,31 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		multimedia/gstreamer1-plugins
 
-BUILD_DEPENDS=		git:primary:standard
-			gstreamer1:dev:standard
-			orc:dev:standard
-			orc:tools:standard
-			libglvnd:dev:standard
-			harfbuzz:dev:standard
-			libdrm:dev:standard
-			evdev-proto:single:standard
-			graphene:complete:standard
-			xorg-x11:complete:standard
-			xorg-xcb:complete:standard
-			xorg-xext:complete:standard
-BUILDRUN_DEPENDS=	gstreamer1:primary:standard
-			libdrm:primary:standard
-			iso-codes:primary:standard
-			orc:primary:standard
+BUILD_DEPENDS=		git:primary:std
+			gstreamer1:dev:std
+			orc:dev:std
+			orc:tools:std
+			libglvnd:dev:std
+			harfbuzz:dev:std
+			libdrm:dev:std
+			evdev-proto:single:std
+			graphene:complete:std
+			xorg-x11:complete:std
+			xorg-xcb:complete:std
+			xorg-xext:complete:std
+BUILDRUN_DEPENDS=	gstreamer1:primary:std
+			libdrm:primary:std
+			iso-codes:primary:std
+			orc:primary:std
 
-EXRUN[dev]=		orc:dev:standard
-			libdrm:dev:standard
+EXRUN[dev]=		orc:dev:std
+			libdrm:dev:std
 EXRUN[plugin_gl]=	primary
-			graphene:primary:standard
-			xorg-x11:primary:standard
-			xorg-xcb:primary:standard
-			xorg-xext:primary:standard
-			libglvnd:primary:standard
+			graphene:primary:std
+			xorg-x11:primary:std
+			xorg-xcb:primary:std
+			xorg-xext:primary:std
+			libglvnd:primary:std
 
 USES=			gmake pkgconfig meson freetype
 GNOME_COMPONENTS=	glib

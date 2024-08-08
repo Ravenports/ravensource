@@ -5,8 +5,8 @@ NAMEBASE=		libsamplerate
 VERSION=		${PORTVERSION}
 REVISION=		1
 KEYWORDS=		audio
-VARIANTS=		standard
-SDESC[standard]=	Audio Sample Rate Converter library
+VARIANTS=		std
+SDESC[std]=		Audio Sample Rate Converter library
 HOMEPAGE=		http://www.mega-nerd.com/SRC/
 CONTACT=		nobody
 
@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/libsndfile/libsamplerate/releases/download/${PORTVERSION}/
 DISTFILE[1]=		libsamplerate-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary dev docs
+SPKGS[std]=		set primary dev docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -25,9 +25,9 @@ LICENSE=		BSD2CLAUSE:primary
 LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		libsndfile:dev:standard
-BUILDRUN_DEPENDS=	fftw:single:standard
-			libsndfile:primary:standard
+BUILD_DEPENDS=		libsndfile:dev:std
+BUILDRUN_DEPENDS=	fftw:single:std
+			libsndfile:primary:std
 
 USES=			cpe libtool pkgconfig mbsdfix
 CPE_VENDOR=		libsamplerate_project

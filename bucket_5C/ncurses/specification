@@ -5,8 +5,8 @@ DEF[TERMINFO_VER]=	20231209
 NAMEBASE=		ncurses
 VERSION=		${PORTVERSION}
 KEYWORDS=		devel
-VARIANTS=		standard
-SDESC[standard]=	Terminal-independent lib for full-screen output
+VARIANTS=		std
+SDESC[std]=		Terminal-independent lib for full-screen output
 HOMEPAGE=		https://invisible-island.net/ncurses/ncurses.html
 CONTACT=		nobody
 
@@ -18,7 +18,7 @@ DISTFILE[1]=		ncurses-${PORTVERSION}.tar.gz:main
 DISTFILE[2]=		terminfo-${TERMINFO_VER}.src.gz:tsite
 DF_INDEX=		1 2
 
-SPKGS[standard]=	complete primary tools dev man terminfo docs
+SPKGS[std]=		set primary tools dev man terminfo docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -32,7 +32,7 @@ FPC_EQUIVALENT=		devel/ncurses
 EXTRACT_HEAD[2]=	{{GZIP_CMD}} -kdc
 EXTRACT_TAIL[2]=	> {{WRKDIR}}/terminfo.src
 
-EXRUN[tools]=		ncurses:primary:standard
+EXRUN[tools]=		ncurses:primary:std
 
 USES=			cpe pkgconfig shebangfix
 SHEBANG_FILES=		test/tracemunch

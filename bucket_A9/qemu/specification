@@ -7,8 +7,8 @@ NAMEBASE=		qemu
 VERSION=		${PORTVERSION}
 REVISION=		1
 KEYWORDS=		emulators
-VARIANTS=		standard
-SDESC[standard]=	Fast CPU emulator and virtualizer for x86 platform
+VARIANTS=		std
+SDESC[std]=		Fast CPU emulator and virtualizer for x86 platform
 HOMEPAGE=		https://www.qemu.org/
 CONTACT=		nobody
 
@@ -16,7 +16,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://download.qemu.org/
 DISTFILE[1]=		qemu-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary dev docs nls man
+SPKGS[std]=		set primary dev docs nls man
 
 OPTIONS_AVAILABLE=	NO_GA
 OPTIONS_STANDARD=	NO_GA
@@ -29,25 +29,25 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		emulators/qemu
 
-BUILD_DEPENDS=		gnutls:dev:standard
-			harfbuzz:dev:standard
-			libepoxy:dev:standard
-			nettle:dev:standard
+BUILD_DEPENDS=		gnutls:dev:std
+			harfbuzz:dev:std
+			libepoxy:dev:std
+			nettle:dev:std
 			python-Sphinx:single:python_used
 			python-sphinx-rtd-theme:single:python_used
-			snappy:dev:standard
-			texi2html:primary:standard
-			meson:single:standard
-			xorg-xkeyboard-config:primary:standard
-			libxkbcommon:dev:standard
-			dtc:dev:standard
-BUILDRUN_DEPENDS=	cyrus-sasl:primary:standard
-			gnutls:primary:standard
-			libepoxy:primary:standard
-			nettle:primary:standard
-			snappy:primary:standard
-			vde2:single:standard
-			dtc:primary:standard
+			snappy:dev:std
+			texi2html:primary:std
+			meson:single:std
+			xorg-xkeyboard-config:primary:std
+			libxkbcommon:dev:std
+			dtc:dev:std
+BUILDRUN_DEPENDS=	cyrus-sasl:primary:std
+			gnutls:primary:std
+			libepoxy:primary:std
+			nettle:primary:std
+			snappy:primary:std
+			vde2:single:std
+			dtc:primary:std
 
 USES=			cpe gmake pkgconfig bison perl:build python:build
 			jpeg png ncurses makeinfo ninja curl
@@ -92,8 +92,8 @@ VAR_OPSYS[linux]=	CONFIGURE_ARGS=--disable-netmap
 # linux-user requires newer linux base, remove when that comes
 			CONFIGURE_ARGS=--disable-linux-user
 
-B_DEPS[freebsd]=	elftoolchain:dev:standard
-B_DEPS[midnightbsd]=	elftoolchain:dev:standard
+B_DEPS[freebsd]=	elftoolchain:dev:std
+B_DEPS[midnightbsd]=	elftoolchain:dev:std
 
 [NO_GA].DESCRIPTION=			This platform does not build ga executable
 

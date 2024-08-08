@@ -4,8 +4,8 @@ DEF[PORTVERSION]=	4.99.4
 NAMEBASE=		tcpdump
 VERSION=		${PORTVERSION}
 KEYWORDS=		net
-VARIANTS=		standard
-SDESC[standard]=	Tool for network monitoring and data acquisition
+VARIANTS=		std
+SDESC[std]=		Tool for network monitoring and data acquisition
 HOMEPAGE=		https://www.tcpdump.org/
 CONTACT=		nobody
 
@@ -13,7 +13,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://www.tcpdump.org/release/
 DISTFILE[1]=		tcpdump-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary man
+SPKGS[std]=		set primary man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -24,9 +24,9 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		net/tcpdump
 
-BUILD_DEPENDS=		libpcap:dev:standard
-BUILDRUN_DEPENDS=	libsmi:library:standard
-			libpcap:primary:standard
+BUILD_DEPENDS=		libpcap:dev:std
+BUILDRUN_DEPENDS=	libsmi:library:std
+			libpcap:primary:std
 
 USES=			cpe gmake ssl
 MUST_CONFIGURE=		gnu

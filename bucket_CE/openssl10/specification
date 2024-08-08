@@ -8,8 +8,8 @@ NAMEBASE=		${NAMEBASE}
 VERSION=		${PORTVERSION}
 REVISION=		1
 KEYWORDS=		security devel
-VARIANTS=		standard
-SDESC[standard]=	SSL and crypto library
+VARIANTS=		std
+SDESC[std]=		SSL and crypto library
 HOMEPAGE=		https://www.openssl.org/
 CONTACT=		nobody
 
@@ -17,7 +17,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://www.openssl.org/source/
 DISTFILE[1]=		openssl-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary dev man
+SPKGS[std]=		set primary dev man
 
 OPTIONS_AVAILABLE=	ASM EC SSE2 SSL2 SSL3 I386 THREADS
 OPTIONS_STANDARD=	ASM EC SSE2 SSL2 SSL3 I386 THREADS
@@ -31,7 +31,7 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		security/openssl-unsafe
 
-RUN_DEPENDS=		autoselect-ssl:single:standard
+RUN_DEPENDS=		autoselect-ssl:single:std
 
 USES=			cpe perl:build
 CPE_VENDOR=		openssl

@@ -5,8 +5,8 @@ DEF[PORTVERSION]=	4.18.0
 NAMEBASE=		xfwm4
 VERSION=		${PORTVERSION}
 KEYWORDS=		x11
-VARIANTS=		standard
-SDESC[standard]=	Standard-complient window manager from Xfce
+VARIANTS=		std
+SDESC[std]=		Standard-complient window manager from Xfce
 HOMEPAGE=		https://docs.xfce.org/xfce/xfwm4/start
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://archive.xfce.org/src/xfce/xfwm4/${PORTVERSION:R}/
 DISTFILE[1]=		xfwm4-${PORTVERSION}.tar.bz2:main
 
-SPKGS[standard]=	complete primary nls themes
+SPKGS[std]=		set primary nls themes
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -28,14 +28,14 @@ LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"ifndef"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/misc.h
 
-BUILD_DEPENDS=		harfbuzz:dev:standard
-			dbus:dev:standard
-			libwnck:dev:standard
-			libxfce4ui:dev:standard
-BUILDRUN_DEPENDS=	dbus:primary:standard
-			dbus-glib:primary:standard
-			libwnck:primary:standard
-			libxfce4ui:primary:standard
+BUILD_DEPENDS=		harfbuzz:dev:std
+			dbus:dev:std
+			libwnck:dev:std
+			libxfce4ui:dev:std
+BUILDRUN_DEPENDS=	dbus:primary:std
+			dbus-glib:primary:std
+			libwnck:primary:std
+			libxfce4ui:primary:std
 
 USES=			gmake pkgconfig fontconfig solaris-funcs
 MUST_CONFIGURE=		gnu
@@ -45,4 +45,4 @@ INSTALL_TARGET=		install-strip
 SOL_FUNCTIONS=		strnlen:src/mypixmap.c
 			strcasestr:src/compositor.c
 
-EXRUN[primary]=		xfwm4:themes:standard
+EXRUN[primary]=		xfwm4:themes:std

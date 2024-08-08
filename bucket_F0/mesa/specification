@@ -6,8 +6,8 @@ DEF[LLVMBASE]=		llvm17
 NAMEBASE=		mesa
 VERSION=		${PORTVERSION}
 KEYWORDS=		graphics
-VARIANTS=		standard
-SDESC[standard]=	Mesa 3D Graphics Library
+VARIANTS=		std
+SDESC[std]=		Mesa 3D Graphics Library
 HOMEPAGE=		https://www.mesa3d.org/
 CONTACT=		nobody
 
@@ -16,7 +16,7 @@ SITES[main]=		https://mesa.freedesktop.org/archive/
 			ftp://ftp.freedesktop.org/pub/mesa/
 DISTFILE[1]=		mesa-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary drivers dev
+SPKGS[std]=		set primary drivers dev
 
 # WAYLAND only for DF and can't be used due to circularly dep
 # from graphviz (mesa)
@@ -48,16 +48,16 @@ LICENSE_SCHEME=		multi
 
 FPC_EQUIVALENT=		graphics/mesa-libs
 
-BUILD_DEPENDS=		libdrm:dev:standard
-			libelf:dev:standard
-			libelf:primary:standard
-			libva:dev:standard
-			libvdpau:dev:standard
+BUILD_DEPENDS=		libdrm:dev:std
+			libelf:dev:std
+			libelf:primary:std
+			libva:dev:std
+			libvdpau:dev:std
 			python-Mako:single:python_used
-BUILDRUN_DEPENDS=	libdrm:primary:standard
+BUILDRUN_DEPENDS=	libdrm:primary:std
 
-EXRUN[drivers]=		mesa:primary:standard
-			libelf:primary:standard
+EXRUN[drivers]=		mesa:primary:std
+			libelf:primary:std
 
 USES=			cpe bison gettext:build gmake meson pkgconfig
 			zstd zlib expat shebangfix solaris-funcs
@@ -129,15 +129,15 @@ VAR_OPSYS[sunos]=	CPPFLAGS=-D__EXTENSIONS__=1
 [LLVMPIPE].DESCRIPTION=			Build LLVM-based drivers and libraries
 [WAYLAND].DESCRIPTION=			Build Vulkan drivers for Wayland platform
 
-[LLVMPIPE].BUILD_DEPENDS_ON=		libclc:single:standard
-					opencl-headers:single:standard
-					ocl-icd:dev:standard
-					${LLVMBASE}:tools:standard
-					${LLVMBASE}:dev:standard
-					${CLANGBASE}:complete:standard
-[LLVMPIPE].BUILDRUN_DEPENDS_ON=		${LLVMBASE}:primary:standard
-					ocl-icd:primary:standard
-[LLVMPIPE].RUN_DEPENDS_ON=		${CLANGBASE}:dynlibs:standard
+[LLVMPIPE].BUILD_DEPENDS_ON=		libclc:single:std
+					opencl-headers:single:std
+					ocl-icd:dev:std
+					${LLVMBASE}:tools:std
+					${LLVMBASE}:dev:std
+					${CLANGBASE}:complete:std
+[LLVMPIPE].BUILDRUN_DEPENDS_ON=		${LLVMBASE}:primary:std
+					ocl-icd:primary:std
+[LLVMPIPE].RUN_DEPENDS_ON=		${CLANGBASE}:dynlibs:std
 [LLVMPIPE].MAKEFILE_ON=			GALLIUM_LLVM_DRIVERS+=R600
 					GALLIUM_LLVM_DRIVERS+=RADEONSI
 					GALLIUM_DRIVERS+={{GALLIUM_LLVM_DRIVERS}}
@@ -153,10 +153,10 @@ VAR_OPSYS[sunos]=	CPPFLAGS=-D__EXTENSIONS__=1
 [ARM_DRIVERS].MAKEFILE_ON=		GALLIUM_DRIVERS+=FREEDRENO
 					GALLIUM_DRIVERS+=VC4
 
-[WAYLAND].BUILD_DEPENDS_ON=		wayland-protocols:single:standard
+[WAYLAND].BUILD_DEPENDS_ON=		wayland-protocols:single:std
 					python-Mako:single:python_default
-					wayland:dev:standard
-[WAYLAND].BUILDRUN_DEPENDS_ON=		wayland:primary:standard
+					wayland:dev:std
+[WAYLAND].BUILDRUN_DEPENDS_ON=		wayland:primary:std
 [WAYLAND].MAKEFILE_ON=			WAYPLAT=,wayland
 					VULKAN_DRIVERS+=INTEL
 					VULKAN_DRIVERS_X86+=RADEON

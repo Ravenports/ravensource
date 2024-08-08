@@ -8,8 +8,8 @@ DEF[SOVERSION]=		1.48.0
 NAMEBASE=		libluv
 VERSION=		${PORTVERSION}
 KEYWORDS=		lang
-VARIANTS=		standard
-SDESC[standard]=	Bare libuv bindings for lua
+VARIANTS=		std
+SDESC[std]=		Bare libuv bindings for lua
 HOMEPAGE=		https://github.com/luvit/luv
 CONTACT=		nobody
 
@@ -20,7 +20,7 @@ DISTFILE[1]=		generated:main
 DISTFILE[2]=		generated:compat
 DF_INDEX=		1 2
 
-SPKGS[standard]=	complete primary dev
+SPKGS[std]=		set primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -32,9 +32,9 @@ LICENSE_AWK=		TERMS:"LUV_H"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/luv.h
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		luajit-openresty:dev:standard
-			libuv:dev:standard
-BUILDRUN_DEPENDS=	libuv:primary:standard
+BUILD_DEPENDS=		luajit-openresty:dev:std
+			libuv:dev:std
+BUILDRUN_DEPENDS=	libuv:primary:std
 
 USES=			cmake
 CMAKE_ARGS=		-DWITH_SHARED_LIBUV:BOOL=ON

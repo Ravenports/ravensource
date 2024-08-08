@@ -6,8 +6,8 @@ DEF[SOVERSION]=		0.0.0
 NAMEBASE=		thunar
 VERSION=		${PORTVERSION}
 KEYWORDS=		x11_fm
-VARIANTS=		standard
-SDESC[standard]=	File manager for Xfce
+VARIANTS=		std
+SDESC[std]=		File manager for Xfce
 HOMEPAGE=		https://docs.xfce.org/xfce/thunar/start
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
@@ -16,7 +16,7 @@ SITES[main]=		https://archive.xfce.org/src/xfce/thunar/${PORTVERSION:R}/
 DISTFILE[1]=		thunar-${PORTVERSION}.tar.bz2:main
 DIST_SUBDIR=		xfce
 
-SPKGS[standard]=	complete primary docs nls
+SPKGS[std]=		set primary docs nls
 
 OPTIONS_AVAILABLE=	GUDEV GUDEV-DEVD NO-GUDEV
 OPTIONS_STANDARD=	GUDEV GUDEV-DEVD NO-GUDEV
@@ -45,26 +45,26 @@ LICENSE_SOURCE=		TERMS:{{WRKSRC}}/thunar/thunar-private.h
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		harfbuzz:dev:standard
-			libnotify:dev:standard
-			libxfce4ui:dev:standard
-			libxfce4util:dev:standard
-			xfce4-panel:dev:standard
-			tumbler:dev:standard
-			gvfs:dev:standard
-			libexif:dev:standard
-			hicolor-icon-theme:dev:standard
-BUILDRUN_DEPENDS=	dbus-glib:primary:standard
-			gvfs:primary:standard
-			hicolor-icon-theme:primary:standard
-			libexif:primary:standard
-			libexo:primary:standard
-			libxfce4ui:primary:standard
-			libxfce4util:primary:standard
-			libnotify:primary:standard
-			tumbler:primary:standard
-			xfce4-panel:primary:standard
-RUN_DEPENDS=		polkit:primary:standard
+BUILD_DEPENDS=		harfbuzz:dev:std
+			libnotify:dev:std
+			libxfce4ui:dev:std
+			libxfce4util:dev:std
+			xfce4-panel:dev:std
+			tumbler:dev:std
+			gvfs:dev:std
+			libexif:dev:std
+			hicolor-icon-theme:dev:std
+BUILDRUN_DEPENDS=	dbus-glib:primary:std
+			gvfs:primary:std
+			hicolor-icon-theme:primary:std
+			libexif:primary:std
+			libexo:primary:std
+			libxfce4ui:primary:std
+			libxfce4util:primary:std
+			libnotify:primary:std
+			tumbler:primary:std
+			xfce4-panel:primary:std
+RUN_DEPENDS=		polkit:primary:std
 
 USES=			cpe gmake libtool fontconfig mbsdfix pkgconfig png
 			desktop-utils:primary
@@ -90,12 +90,12 @@ PLIST_SUB=		INTRO="@comment "
 [NO-GUDEV].DESCRIPTION=			Build without gudev support
 
 [GUDEV].DESCRIPTION=			Build with gudev library
-[GUDEV].BUILD_DEPENDS_ON=		libgudev:dev:standard
-[GUDEV].BUILDRUN_DEPENDS_ON=		libgudev:primary:standard
+[GUDEV].BUILD_DEPENDS_ON=		libgudev:dev:std
+[GUDEV].BUILDRUN_DEPENDS_ON=		libgudev:primary:std
 
 [GUDEV-DEVD].DESCRIPTION=		Build with gudev-devd library (BSD)
-[GUDEV-DEVD].BUILD_DEPENDS_ON=		libgudev-devd:dev:standard
-[GUDEV-DEVD].BUILDRUN_DEPENDS_ON=	libgudev-devd:primary:standard
+[GUDEV-DEVD].BUILD_DEPENDS_ON=		libgudev-devd:dev:std
+[GUDEV-DEVD].BUILDRUN_DEPENDS_ON=	libgudev-devd:primary:std
 
 post-install:
 	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/thunarx \

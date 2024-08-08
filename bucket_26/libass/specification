@@ -6,8 +6,8 @@ DEF[SOMAJOR]=		${SOVERSION:R:R}
 NAMEBASE=		libass
 VERSION=		${PORTVERSION}
 KEYWORDS=		multimedia devel
-VARIANTS=		standard
-SDESC[standard]=	Library for SSA/ASS subtitles rendering
+VARIANTS=		std
+SDESC[std]=		Library for SSA/ASS subtitles rendering
 HOMEPAGE=		https://github.com/libass/libass
 CONTACT=		nobody
 
@@ -15,7 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/libass:libass:${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	complete primary dev
+SPKGS[std]=		set primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -26,15 +26,15 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		multimedia/libass
 
-EXRUN[dev]=		harfbuzz:dev:standard
-			fontconfig:dev:standard
-			fribidi:dev:standard
+EXRUN[dev]=		harfbuzz:dev:std
+			fontconfig:dev:std
+			fribidi:dev:std
 
-BUILD_DEPENDS=		nasm:primary:standard
-			harfbuzz:dev:standard
-			fribidi:dev:standard
-BUILDRUN_DEPENDS=	harfbuzz:primary:standard
-			fribidi:primary:standard
+BUILD_DEPENDS=		nasm:primary:std
+			harfbuzz:dev:std
+			fribidi:dev:std
+BUILDRUN_DEPENDS=	harfbuzz:primary:std
+			fribidi:primary:std
 
 USES=			autoreconf cpe iconv libtool fontconfig pkgconfig
 			zlib:build
