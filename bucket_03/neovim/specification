@@ -7,8 +7,8 @@ NAMEBASE=		neovim
 VERSION=		${PORTVERSION}
 REVISION=		1
 KEYWORDS=		editors
-VARIANTS=		standard
-SDESC[standard]=	Next generation Vim
+VARIANTS=		std
+SDESC[std]=		Next generation Vim
 HOMEPAGE=		https://neovim.io/
 CONTACT=		nobody
 
@@ -16,7 +16,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/neovim:neovim:v${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	complete primary nls man
+SPKGS[std]=		set primary nls man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -30,23 +30,23 @@ LICENSE_SCHEME=		multi
 
 FPC_EQUIVALENT=		editors/neovim
 
-BUILD_DEPENDS=		gperf:primary:standard
-			libluv:dev:standard
-			libuv:dev:standard
-			libvterm:dev:standard
+BUILD_DEPENDS=		gperf:primary:std
+			libluv:dev:std
+			libuv:dev:std
+			libvterm:dev:std
 			lua-bitop:single:${LUA_VARIANT}
 			lua-lpeg:single:${LUA_VARIANT}
 			lua-mpack:single:${LUA_VARIANT}
-			luajit-openresty:dev:standard
-			msgpack:dev:standard
-			tree-sitter:dev:standard
-BUILDRUN_DEPENDS=	libluv:primary:standard
-			libtermkey:single:standard
-			libuv:primary:standard
-			libvterm:primary:standard
-			luajit-openresty:primary:standard
-			msgpack:primary:standard
-			tree-sitter:primary:standard
+			luajit-openresty:dev:std
+			msgpack:dev:std
+			tree-sitter:dev:std
+BUILDRUN_DEPENDS=	libluv:primary:std
+			libtermkey:single:std
+			libuv:primary:std
+			libvterm:primary:std
+			luajit-openresty:primary:std
+			msgpack:primary:std
+			tree-sitter:primary:std
 
 USES=			cmake gmake libtool pkgconfig lua:${SPEC_LUA},tools
 			gettext desktop-utils:primary

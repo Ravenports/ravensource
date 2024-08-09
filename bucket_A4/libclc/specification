@@ -9,8 +9,8 @@ DEF[PORTVERSION]=	${LLVM_VERSION}
 NAMEBASE=		${NAMEBASE}
 VERSION=		${PORTVERSION}
 KEYWORDS=		devel
-VARIANTS=		standard
-SDESC[standard]=	Required library functions for OpenCL C language
+VARIANTS=		std
+SDESC[std]=		Required library functions for OpenCL C language
 HOMEPAGE=		http://libclc.llvm.org/
 CONTACT=		nobody
 
@@ -18,7 +18,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/llvm/llvm-project/releases/download/llvmorg-${PORTVERSION}/
 DISTFILE[1]=		libclc-${PORTVERSION}.src.tar.xz:main
 
-SPKGS[standard]=	single
+SPKGS[std]=		single
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -30,13 +30,13 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/libclc
 
-BUILD_DEPENDS=		libedit:single:standard
-			${LLVMBASE}:dev:standard
-			${LLVMBASE}:tools:standard
-			${CLANGBASE}:complete:standard
-			${SPIRVBASE}:primary:standard
-			${SPIRVBASE}:dev:standard
-# #			rocm-device-libs:single:standard
+BUILD_DEPENDS=		libedit:single:std
+			${LLVMBASE}:dev:std
+			${LLVMBASE}:tools:std
+			${CLANGBASE}:set:std
+			${SPIRVBASE}:primary:std
+			${SPIRVBASE}:dev:std
+# #			rocm-device-libs:single:std
 
 USES=			python:build cmake
 MAKE_ENV=		MAKE=make

@@ -6,8 +6,8 @@ DEF[PORTVERSION]=	1.11.0
 NAMEBASE=		doxygen
 VERSION=		${PORTVERSION}
 KEYWORDS=		devel textproc
-VARIANTS=		standard
-SDESC[standard]=	Source code documentation generator tool
+VARIANTS=		std
+SDESC[std]=		Source code documentation generator tool
 HOMEPAGE=		https://www.doxygen.nl/
 CONTACT=		nobody
 
@@ -15,7 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://doxygen.nl/files/
 DISTFILE[1]=		doxygen-${PORTVERSION}.src.tar.gz:main
 
-SPKGS[standard]=	complete primary man
+SPKGS[std]=		set primary man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -29,11 +29,11 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/doxygen
 
-BUILD_DEPENDS=		git:primary:standard
-			xapian-core:dev:standard
-			graphviz:dev:standard
-BUILDRUN_DEPENDS=	graphviz:primary:standard
-			xapian-core:primary:standard
+BUILD_DEPENDS=		git:primary:std
+			xapian-core:dev:std
+			graphviz:dev:std
+BUILDRUN_DEPENDS=	graphviz:primary:std
+			xapian-core:primary:std
 
 USES=			bison cmake iconv python shebangfix cpe
 			zlib perl:build solaris-funcs

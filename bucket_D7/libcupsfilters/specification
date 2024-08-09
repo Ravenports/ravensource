@@ -5,8 +5,8 @@ DEF[SOVERSION]=		${PORTVERSION}
 NAMEBASE=		libcupsfilters
 VERSION=		${PORTVERSION}
 KEYWORDS=		devel print
-VARIANTS=		standard
-SDESC[standard]=	Library for developing printing filters
+VARIANTS=		std
+SDESC[std]=		Library for developing printing filters
 HOMEPAGE=		https://github.com/OpenPrinting/libcupsfilters
 CONTACT=		nobody
 
@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/OpenPrinting/libcupsfilters/releases/download/${PORTVERSION}/
 DISTFILE[1]=		libcupsfilters-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary data dev docs
+SPKGS[std]=		set primary data dev docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -24,32 +24,32 @@ LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE
 LICENSE_TERMS=		primary:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		brotli:dev:standard
-			libexif:dev:standard
-			qpdf:dev:standard
-			poppler:dev:standard
-			poppler:cppdev:standard
-			lcms2:dev:standard
-			dbus:dev:standard
-			cups:dev:standard
-			gmp:dev:standard
-			ghostscript:primary:standard
-			fonts-dejavu:single:standard
-BUILDRUN_DEPENDS=	brotli:primary:standard
-			libexif:primary:standard
-			qpdf:primary:standard
-			poppler:primary:standard
-			poppler:cpp:standard
-			poppler:utils:standard
-			lcms2:primary:standard
-			dbus:primary:standard
-			cups:primary:standard
-			gmp:primary:standard
+BUILD_DEPENDS=		brotli:dev:std
+			libexif:dev:std
+			qpdf:dev:std
+			poppler:dev:std
+			poppler:cppdev:std
+			lcms2:dev:std
+			dbus:dev:std
+			cups:dev:std
+			gmp:dev:std
+			ghostscript:primary:std
+			fonts-dejavu:single:std
+BUILDRUN_DEPENDS=	brotli:primary:std
+			libexif:primary:std
+			qpdf:primary:std
+			poppler:primary:std
+			poppler:cpp:std
+			poppler:utils:std
+			lcms2:primary:std
+			dbus:primary:std
+			cups:primary:std
+			gmp:primary:std
 
-EXRUN[dev]=		tiff:dev:standard
-			png:dev:standard
-			qpdf:dev:standard
-			cups:dev:standard
+EXRUN[dev]=		tiff:dev:std
+			png:dev:std
+			qpdf:dev:std
+			cups:dev:std
 
 USES=			gmake expat fontconfig zstd zlib ssl jpeg tiff png
 			iconv pkgconfig libtool

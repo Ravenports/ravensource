@@ -5,8 +5,8 @@ DEF[RELEASE_TAG]=	${PORTVERSION}
 NAMEBASE=		zim
 VERSION=		${PORTVERSION}
 KEYWORDS=		deskutils editors
-VARIANTS=		standard
-SDESC[standard]=	Desktop wiki and notekeeper
+VARIANTS=		std
+SDESC[std]=		Desktop wiki and notekeeper
 HOMEPAGE=		https://zim-wiki.org/
 CONTACT=		nobody
 
@@ -16,7 +16,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/zim-desktop-wiki:zim-desktop-wiki:${RELEASE_TAG}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	complete primary nls
+SPKGS[std]=		set primary nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -30,10 +30,10 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		deskutils/zim
 
-BUILD_DEPENDS=		harfbuzz:dev:standard
+BUILD_DEPENDS=		harfbuzz:dev:std
 BUILDRUN_DEPENDS=	python-sqlite3:single:python_used
 			python-pyxdg:single:python_used
-RUN_DEPENDS=		xdg-utils:single:standard
+RUN_DEPENDS=		xdg-utils:single:std
 
 USES=			cpe python:sutools
 			desktop-utils:primary

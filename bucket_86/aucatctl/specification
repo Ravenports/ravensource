@@ -4,8 +4,8 @@ DEF[PORTVERSION]=	0.1
 NAMEBASE=		aucatctl
 VERSION=		${PORTVERSION}
 KEYWORDS=		audio
-VARIANTS=		standard
-SDESC[standard]=	Control sndiod and/or aucat volumes
+VARIANTS=		std
+SDESC[std]=		Control sndiod and/or aucat volumes
 HOMEPAGE=		http://www.sndio.org/
 CONTACT=		nobody
 
@@ -13,7 +13,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://www.sndio.org/
 DISTFILE[1]=		aucatctl-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[std]=		single
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -27,11 +27,11 @@ LICENSE_SCHEME=		solo
 # Removed from FreeBSD ports
 # FPC_EQUIVALENT=	audio/aucatctl
 
-BUILD_DEPENDS=		sndio:dev:standard
-BUILDRUN_DEPENDS=	sndio:primary:standard
+BUILD_DEPENDS=		sndio:dev:std
+BUILDRUN_DEPENDS=	sndio:primary:std
 
-B_DEPS[linux]=		libbsd:dev:standard
-			libbsd:primary:standard
+B_DEPS[linux]=		libbsd:dev:std
+			libbsd:primary:std
 
 post-patch-linux:
 	${REINPLACE_CMD} -e '/LDADD = -lsndio/ s/=/= -lbsd/' \

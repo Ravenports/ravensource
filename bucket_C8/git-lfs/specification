@@ -4,8 +4,8 @@ DEF[PORTVERSION]=	3.5.1
 NAMEBASE=		git-lfs
 VERSION=		${PORTVERSION}
 KEYWORDS=		devel
-VARIANTS=		standard
-SDESC[standard]=	Git extension for versioning large files
+VARIANTS=		std
+SDESC[std]=		Git extension for versioning large files
 HOMEPAGE=		https://git-lfs.github.com/
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
@@ -94,21 +94,21 @@ DF_INDEX=		1 2 3 4 5 6 7 8 9 10
 			21 22 23 24 25 26 27 28 29 30
 			31 32 33 34 35 36 37
 
-SPKGS[standard]=	complete primary man
+SPKGS[std]=		set primary man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		devel/git-lfs
 
-LICENSE=		MIT:complete
+LICENSE=		MIT:primary
 LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE.md
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		golang:single:standard
+BUILD_DEPENDS=		golang:single:std
 			ruby-ronn-ng:single:ruby_default
 			ruby-asciidoctor:single:ruby_default
-BUILDRUN_DEPENDS=	git:primary:standard
+BUILDRUN_DEPENDS=	git:primary:std
 
 USES=			cpe gmake ruby
 CPE_VENDOR=		git_large_file_storage_project

@@ -5,8 +5,8 @@ NAMEBASE=		pinentry
 VERSION=		${PORTVERSION}
 REVISION=		1
 KEYWORDS=		security
-VARIANTS=		standard ncurses qt5 fltk gnome3
-SDESC[standard]=	Assuan passphrase entry dialog (console)
+VARIANTS=		std ncurses qt5 fltk gnome3
+SDESC[std]=		Assuan passphrase entry dialog (console)
 SDESC[ncurses]=		Assuan passphrase entry dialog (ncurses)
 SDESC[qt5]=		Assuan passphrase entry dialog (Qt5)
 SDESC[fltk]=		Assuan passphrase entry dialog (FLTK)
@@ -18,7 +18,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNUPG/pinentry
 DISTFILE[1]=		pinentry-${PORTVERSION}.tar.bz2:main
 
-SPKGS[standard]=	single
+SPKGS[std]=		single
 SPKGS[ncurses]=		single
 SPKGS[qt5]=		single
 SPKGS[fltk]=		single
@@ -41,12 +41,12 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		security/pinentry
 
-BUILD_DEPENDS=		libgpg-error:dev:standard
-			libassuan:dev:standard
-			libsecret:dev:standard
-BUILDRUN_DEPENDS=	libgpg-error:primary:standard
-			libsecret:primary:standard
-			libassuan:primary:standard
+BUILD_DEPENDS=		libgpg-error:dev:std
+			libassuan:dev:std
+			libsecret:dev:std
+BUILDRUN_DEPENDS=	libgpg-error:primary:std
+			libsecret:primary:std
+			libassuan:primary:std
 
 USES=			gmake pkgconfig
 MUST_CONFIGURE=		gnu
@@ -65,27 +65,27 @@ CONFIGURE_ARGS=		--enable-libsecret
 [QT5].CONFIGURE_ENABLE_BOTH=		pinentry-qt5
 [QT5].CONFIGURE_ARGS_ON=		--program-suffix=5
 [QT5].CONFIGURE_ARGS_OFF=		--disable-pinentry-qt
-[QT5].BUILD_DEPENDS_ON=			qt5-qttools:complete:standard
-[QT5].BUILDRUN_DEPENDS_ON=		qt5-qtbase:primary:standard
+[QT5].BUILD_DEPENDS_ON=			qt5-qttools:set:std
+[QT5].BUILDRUN_DEPENDS_ON=		qt5-qtbase:primary:std
 [QT5].CONFIGURE_ENV_ON=			PKG_CONFIG_PATH={{LOCALBASE}}/lib/qt5/pkgconfig
 [QT5].MAKEFILE_ON=			PREPEND_PATH={{LOCALBASE}}/lib/qt5/bin
 
 [GTK2].DESCRIPTION=			Build GTK2 variant
 [GTK2].CONFIGURE_ENABLE_BOTH=		pinentry-gtk2
 [GTK2].GNOME_COMPONENTS_ON=		gtk2
-[GTK2].BUILD_DEPENDS_ON=		harfbuzz:dev:standard
+[GTK2].BUILD_DEPENDS_ON=		harfbuzz:dev:std
 
 [FLTK].DESCRIPTION=			Build FLTK variant
 [FLTK].CONFIGURE_ENABLE_BOTH=		pinentry-fltk
-[FLTK].BUILD_DEPENDS_ON=		fltk:dev:standard
-[FLTK].BUILDRUN_DEPENDS_ON=		fltk:primary:standard
+[FLTK].BUILD_DEPENDS_ON=		fltk:dev:std
+[FLTK].BUILDRUN_DEPENDS_ON=		fltk:primary:std
 [FLTK].XORG_COMPONENTS_ON=		x11 xft xcursor xfixes xext xinerama
 
 [GNOME3].DESCRIPTION=			Build GNOME3 variant
 [GNOME3].CONFIGURE_ENABLE_BOTH=		pinentry-gnome3
-[GNOME3].BUILDRUN_DEPENDS_ON=		gcr3:primary:standard
-[GNOME3].BUILD_DEPENDS_ON=		harfbuzz:dev:standard
-					gcr3:dev:standard
+[GNOME3].BUILDRUN_DEPENDS_ON=		gcr3:primary:std
+[GNOME3].BUILD_DEPENDS_ON=		harfbuzz:dev:std
+					gcr3:dev:std
 [GNOME3].USES_ON=			fontconfig:build
 [GNOME3].GNOME_COMPONENTS_ON=		gtk3
 

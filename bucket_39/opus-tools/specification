@@ -5,8 +5,8 @@ NAMEBASE=		opus-tools
 VERSION=		${PORTVERSION}
 REVISION=		1
 KEYWORDS=		audio
-VARIANTS=		standard
-SDESC[standard]=	Encode, inspect, and decode Opus files
+VARIANTS=		std
+SDESC[std]=		Encode, inspect, and decode Opus files
 HOMEPAGE=		https://www.opus-codec.org/
 CONTACT=		nobody
 
@@ -15,7 +15,7 @@ SITES[main]=		MOZILLA/opus
 			https://downloads.xiph.org/releases/opus/
 DISTFILE[1]=		opus-tools-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary man
+SPKGS[std]=		set primary man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -37,11 +37,11 @@ USES=			pkgconfig cclibs:primary
 
 MUST_CONFIGURE=		gnu
 
-BUILD_DEPENDS=		opusfile:dev:standard
-			flac:dev:standard
-BUILDRUN_DEPENDS=	flac:primary:standard
-			libopusenc:primary:standard
-			opusfile:primary:standard
+BUILD_DEPENDS=		opusfile:dev:std
+			flac:dev:std
+BUILDRUN_DEPENDS=	flac:primary:std
+			libopusenc:primary:std
+			opusfile:primary:std
 
 VAR_OPSYS[netbsd]=	CONFIGURE_ENV=ac_cv_header_soundcard_h=no
 			CONFIGURE_ENV=ac_cv_header_sys_soundcard_h=no

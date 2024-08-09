@@ -4,8 +4,8 @@ DEF[PORTVERSION]=	1.4.5
 NAMEBASE=		clipit
 VERSION=		${PORTVERSION}
 KEYWORDS=		deskutils
-VARIANTS=		standard
-SDESC[standard]=	Lightweight GTK+ clipboard manager
+VARIANTS=		std
+SDESC[std]=		Lightweight GTK+ clipboard manager
 HOMEPAGE=		https://github.com/CristianHenzel/ClipIt/
 CONTACT=		nobody
 
@@ -13,7 +13,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/CristianHenzel:ClipIt:v${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	complete primary nls
+SPKGS[std]=		set primary nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -27,9 +27,9 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		deskutils/clipit
 
-B_DEPS[sunos]=		libbsd4sol:single:standard
+B_DEPS[sunos]=		libbsd4sol:single:std
 
-BUILD_DEPENDS=		harfbuzz:dev:standard
+BUILD_DEPENDS=		harfbuzz:dev:std
 
 USES=			autoreconf pkgconfig gmake gnome-icons:primary
 GNOME_COMPONENTS=	gtk3 intltool

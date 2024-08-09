@@ -7,8 +7,8 @@ DEF[COMPONENT_CASED]=	QtMultimedia
 NAMEBASE=		qt6-${COMPONENT}
 VERSION=		${PORTVERSION}
 KEYWORDS=		multimedia devel
-VARIANTS=		standard
-SDESC[standard]=	Qt6 - ${COMPONENT_CASED} component
+VARIANTS=		std
+SDESC[std]=		Qt6 - ${COMPONENT_CASED} component
 HOMEPAGE=		https://www.qt.io/
 CONTACT=		nobody
 
@@ -17,33 +17,33 @@ SITES[main]=		https://qt.mirror.constant.com/official_releases/qt/${MINOR_VER}/$
 			https://download.qt.io/official_releases/qt/${MINOR_VER}/${PORTVERSION}/submodules/
 DISTFILE[1]=		${COMPONENT}-everywhere-src-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary dev
+SPKGS[std]=		set primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		multimedia/qt6-multimedia
 
-BUILD_DEPENDS=		qt6-qtbase:dev:standard
-			qt6-qttools:complete:standard
-			qt6-qtdeclarative:dev:standard
-			qt6-qtshadertools:dev:standard
-			ffmpeg:dev:standard
-			libglvnd:dev:standard
-			alsa-lib:dev:standard
+BUILD_DEPENDS=		qt6-qtbase:dev:std
+			qt6-qttools:set:std
+			qt6-qtdeclarative:dev:std
+			qt6-qtshadertools:dev:std
+			ffmpeg:dev:std
+			libglvnd:dev:std
+			alsa-lib:dev:std
 # Needs gstreamer1 photography?
-# #			gstreamer1-plugins-base:dev:standard
-# #			gstreamer1:dev:standard
-BUILDRUN_DEPENDS=	qt6-qtdeclarative:primary:standard
-			qt6-qtshadertools:primary:standard
-			ffmpeg:primary:standard
-			libglvnd:primary:standard
-			alsa-lib:primary:standard
-# #			gstreamer1:primary:standard
-# #			gstreamer1-plugins-base:plugin_gl:standard
-# #			gstreamer1-plugins-ugly:primary:standard
-# #			gstreamer1-plugins-good:primary:standard
-# #			gstreamer1-plugins-bad:primary:standard
+# #			gstreamer1-plugins-base:dev:std
+# #			gstreamer1:dev:std
+BUILDRUN_DEPENDS=	qt6-qtdeclarative:primary:std
+			qt6-qtshadertools:primary:std
+			ffmpeg:primary:std
+			libglvnd:primary:std
+			alsa-lib:primary:std
+# #			gstreamer1:primary:std
+# #			gstreamer1-plugins-base:plugin_gl:std
+# #			gstreamer1-plugins-ugly:primary:std
+# #			gstreamer1-plugins-good:primary:std
+# #			gstreamer1-plugins-bad:primary:std
 
 USES=			qt6 cmake pkgconfig perl:build gettext cpe
 XORG_COMPONENTS=	x11 xext xrandr

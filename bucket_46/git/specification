@@ -4,8 +4,8 @@ DEF[PORTVERSION]=	2.46.0
 NAMEBASE=		git
 VERSION=		${PORTVERSION}
 KEYWORDS=		devel net
-VARIANTS=		standard
-SDESC[standard]=	Distributed version control system
+VARIANTS=		std
+SDESC[std]=		Distributed version control system
 HOMEPAGE=		https://git-scm.com/
 CONTACT=		nobody
 
@@ -16,7 +16,7 @@ DISTFILE[2]=		git-manpages-${PORTVERSION}.tar.xz:main
 DISTFILE[3]=		git-htmldocs-${PORTVERSION}.tar.xz:main
 DF_INDEX=		1 2 3
 
-SPKGS[standard]=	complete primary man nls examples docs gui svn contrib
+SPKGS[std]=		set primary man nls examples docs gui svn contrib
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -37,15 +37,15 @@ USERGROUP_SPKG=		primary
 EXTRACT_DIRTY=		3
 
 BUILD_DEPENDS=		perl-Error:single:perl_default
-			xmlto:single:standard
-			asciidoc:single:standard
+			xmlto:single:std
+			asciidoc:single:std
 
 EXRUN[svn]=		perl-TermReadKey:single:perl_default
 			perl-subversion:single:perl_default
 			perl-Error:single:perl_default
 
-EXRUN[gui]=		gettext:primary:standard
-			tk86:tools:standard
+EXRUN[gui]=		gettext:primary:std
+			tk86:tools:std
 
 USES=			cpe autoreconf gmake iconv ssl zlib shebangfix
 			curl pcre expat python:build perl:build

@@ -16,8 +16,8 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/stachenov:quazip:v${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[qt5]=		complete primary dev
-SPKGS[qt6]=		complete primary dev
+SPKGS[qt5]=		set primary dev
+SPKGS[qt6]=		set primary dev
 
 OPTIONS_AVAILABLE=	QT5 QT6
 OPTIONS_STANDARD=	none
@@ -47,18 +47,18 @@ SOVERSION=		${SOVERSION}
 PLIST_SUB=		API=${PORTVERSION}
 
 [QT5].DESCRIPTION=			Built Qt5 variant
-[QT5].BUILD_DEPENDS_ON=			qt5-qtbase:dev:standard
-[QT5].BUILDRUN_DEPENDS_ON=		qt5-qtbase:primary:standard
+[QT5].BUILD_DEPENDS_ON=			qt5-qtbase:dev:std
+[QT5].BUILDRUN_DEPENDS_ON=		qt5-qtbase:primary:std
 [QT5].USES_ON=				qt5
 [QT5].CMAKE_ARGS_ON=			-DQt5Core_DIR={{PREFIX}}/lib/qt5/cmake/Qt5Core
 					-DCMAKE_PREFIX_PATH={{PREFIX}}/lib/qt5/cmake
 [QT5].PLIST_SUB_ON=			QTMAJOR=5
 
 [QT6].DESCRIPTION=			Built Qt6 variant
-[QT6].BUILD_DEPENDS_ON=			qt6-qtbase:dev:standard
-					qt6-qt5compat:dev:standard
-[QT6].BUILDRUN_DEPENDS_ON=		qt6-qtbase:primary:standard
-					qt6-qt5compat:primary:standard
+[QT6].BUILD_DEPENDS_ON=			qt6-qtbase:dev:std
+					qt6-qt5compat:dev:std
+[QT6].BUILDRUN_DEPENDS_ON=		qt6-qtbase:primary:std
+					qt6-qt5compat:primary:std
 [QT6].USES_ON=				qt6
 [QT6].CMAKE_ARGS_ON=			-DCMAKE_PREFIX_PATH={{PREFIX}}/lib/qt6/cmake
 					-DQUAZIP_QT_MAJOR_VERSION=6

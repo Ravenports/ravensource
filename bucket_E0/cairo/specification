@@ -5,8 +5,8 @@ DEF[SOVERSION]=		2.11800.0
 NAMEBASE=		cairo
 VERSION=		${PORTVERSION}
 KEYWORDS=		graphics
-VARIANTS=		standard
-SDESC[standard]=	Vector graphics library with cross-device support
+VARIANTS=		std
+SDESC[std]=		Vector graphics library with cross-device support
 HOMEPAGE=		https://www.cairographics.org
 CONTACT=		nobody
 
@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://cairographics.org/releases/
 DISTFILE[1]=		cairo-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary dev
+SPKGS[std]=		set primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -28,18 +28,18 @@ LICENSE_SCHEME=		dual
 
 FPC_EQUIVALENT=		graphics/cairo
 
-BUILD_DEPENDS=		libatomic_ops:dev:standard
-			libglvnd:dev:standard
-BUILDRUN_DEPENDS=	libglvnd:primary:standard
-			libatomic_ops:primary:standard
+BUILD_DEPENDS=		libatomic_ops:dev:std
+			libglvnd:dev:std
+BUILDRUN_DEPENDS=	libglvnd:primary:std
+			libatomic_ops:primary:std
 
-EXRUN[dev]=		fontconfig:dev:standard
-			png:dev:standard
-			xorg-xcb:dev:standard
-			xorg-pixman:dev:standard
-			xorg-xrender:dev:standard
-			xorg-xext:dev:standard
-			xorg-x11:dev:standard
+EXRUN[dev]=		fontconfig:dev:std
+			png:dev:std
+			xorg-xcb:dev:std
+			xorg-pixman:dev:std
+			xorg-xrender:dev:std
+			xorg-xext:dev:std
+			xorg-x11:dev:std
 
 USES=			cpe fontconfig pkgconfig png meson
 MESON_ARGS=		-Dpng=enabled

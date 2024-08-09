@@ -6,8 +6,8 @@ DEF[SOVERSION]=		0.0.0
 NAMEBASE=		libxfce4ui
 VERSION=		${PORTVERSION}
 KEYWORDS=		x11
-VARIANTS=		standard
-SDESC[standard]=	Xfce UI library containing various GTK+ widgets
+VARIANTS=		std
+SDESC[std]=		Xfce UI library containing various GTK+ widgets
 HOMEPAGE=		https://xfce.org
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
@@ -16,7 +16,7 @@ SITES[main]=		https://archive.xfce.org/src/xfce/libxfce4ui/${PORTVERSION:R}/
 DISTFILE[1]=		libxfce4ui-${PORTVERSION}.tar.bz2:main
 DIST_SUBDIR=		xfce
 
-SPKGS[standard]=	complete primary dev docs nls
+SPKGS[std]=		set primary dev docs nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -24,24 +24,24 @@ OPTIONS_STANDARD=	none
 # Yes, this is correct: The portname in the FPC is actually wrong!
 FPC_EQUIVALENT=		x11/libxfce4menu
 
-LICENSE=		LGPL20+:complete
+LICENSE=		LGPL20+:primary
 LICENSE_FILE=		LGPL20+:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
-LICENSE_TERMS=		complete:{{WRKSRC}}/TERMS
+LICENSE_TERMS=		primary:{{WRKSRC}}/TERMS
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/libxfce4ui/libxfce4ui.h
 
-BUILD_DEPENDS=		harfbuzz:dev:standard
-			libxfce4util:dev:standard
-			xfconf:dev:standard
-BUILDRUN_DEPENDS=	glade:primary:standard
-			startup-notification:single:standard
-			xfconf:primary:standard
-			libxfce4util:primary:standard
-			vala:single:standard
+BUILD_DEPENDS=		harfbuzz:dev:std
+			libxfce4util:dev:std
+			xfconf:dev:std
+BUILDRUN_DEPENDS=	glade:primary:std
+			startup-notification:single:std
+			xfconf:primary:std
+			libxfce4util:primary:std
+			vala:single:std
 
-EXRUN[dev]=		libxfce4util:dev:standard
-			xfconf:dev:standard
+EXRUN[dev]=		libxfce4util:dev:std
+			xfconf:dev:std
 
 USES=			gmake libtool pkgconfig
 GNOME_COMPONENTS=	glib gtk3 intltool introspection
@@ -53,20 +53,20 @@ INSTALL_TARGET=		install-strip
 
 SOVERSION=		${SOVERSION}
 
-B_DEPS[dragonfly]=	libgudev-devd:dev:standard
-BR_DEPS[dragonfly]=	libgudev-devd:primary:standard
+B_DEPS[dragonfly]=	libgudev-devd:dev:std
+BR_DEPS[dragonfly]=	libgudev-devd:primary:std
 
-B_DEPS[netbsd]=		libgudev-devd:dev:standard
-BR_DEPS[netbsd]=	libgudev-devd:primary:standard
+B_DEPS[netbsd]=		libgudev-devd:dev:std
+BR_DEPS[netbsd]=	libgudev-devd:primary:std
 
-B_DEPS[freebsd]=	libgudev-devd:dev:standard
-BR_DEPS[freebsd]=	libgudev-devd:primary:standard
-			libgtop:primary:standard
+B_DEPS[freebsd]=	libgudev-devd:dev:std
+BR_DEPS[freebsd]=	libgudev-devd:primary:std
+			libgtop:primary:std
 
-B_DEPS[midnightbsd]=	libgudev-devd:dev:standard
-BR_DEPS[midnightbsd]=	libgudev-devd:primary:standard
-			libgtop:primary:standard
+B_DEPS[midnightbsd]=	libgudev-devd:dev:std
+BR_DEPS[midnightbsd]=	libgudev-devd:primary:std
+			libgtop:primary:std
 
-B_DEPS[linux]=		libgudev:dev:standard
-BR_DEPS[linux]=		libgudev:primary:standard
-			libgtop:primary:standard
+B_DEPS[linux]=		libgudev:dev:std
+BR_DEPS[linux]=		libgudev:primary:std
+			libgtop:primary:std

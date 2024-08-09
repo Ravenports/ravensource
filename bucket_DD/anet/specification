@@ -4,8 +4,8 @@ DEF[PORTVERSION]=	0.5.0
 NAMEBASE=		anet
 VERSION=		${PORTVERSION}
 KEYWORDS=		net
-VARIANTS=		standard
-SDESC[standard]=	Networking library for Ada
+VARIANTS=		std
+SDESC[std]=		Networking library for Ada
 HOMEPAGE=		https://www.codelabs.ch/anet/
 CONTACT=		John_Marino[draco@marino.st]
 
@@ -13,7 +13,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://www.codelabs.ch/download/
 DISTFILE[1]=		libanet-${PORTVERSION}.tar.bz2:main
 
-SPKGS[standard]=	complete primary docs
+SPKGS[std]=		set primary docs
 
 OPTIONS_AVAILABLE=	TESTED BSD
 OPTIONS_STANDARD=	TESTED BSD
@@ -30,7 +30,7 @@ LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/anet.ads
 LICENSE_SCHEME=		solo
 
 BUILD_DEPENDS=		ruby-asciidoctor:single:ruby_default
-			source-highlight:tools:standard
+			source-highlight:tools:std
 
 USES=			gprbuild gmake ada:primary
 BUILD_TARGET=		all build-doc
@@ -39,7 +39,7 @@ MAKE_ARGS=		NUM_CPUS={{MAKE_JOBS_NUMBER}}
 INSTALL_REQ_TOOLCHAIN=	yes
 
 [TESTED].DESCRIPTION=			Run unit test suite before installation
-[TESTED].BUILD_DEPENDS_ON=		ahven:complete:standard
+[TESTED].BUILD_DEPENDS_ON=		ahven:set:std
 [TESTED].BUILD_TARGET_ON=		tests
 
 [BSD].DESCRIPTION=			Build on BSD platform

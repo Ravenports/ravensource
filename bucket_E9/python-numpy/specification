@@ -31,8 +31,8 @@ LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/LICENSE.txt
 LICENSE_SCHEME=		solo
 
 
-BUILD_DEPENDS=		openblas:dev:standard
-BUILDRUN_DEPENDS=	openblas:primary:standard
+BUILD_DEPENDS=		openblas:dev:std
+BUILDRUN_DEPENDS=	openblas:primary:std
 
 USES=			cpe meson pkgconfig c++:single
 CPE_VENDOR=		numpy
@@ -48,18 +48,18 @@ VAR_OPSYS[linux]=	MAKEFILE_LINE=SOEXTENSION=-x86_64-linux-gnu
 					python-wheel:single:v11
 					python-spin:single:v11
 					python-pip:single:v11
-[PY311].BUILDRUN_DEPENDS_ON=		python311:single:standard
+[PY311].BUILDRUN_DEPENDS_ON=		python311:single:std
 [PY311].PLIST_SUB_ON=			SITEPKGS=lib/python3.11/site-packages/numpy
 					VER=3.11
 					XY=311
 					ONLY311=
-[PY312].BUILD_DEPENDS_ON=		python312:dev:standard
+[PY312].BUILD_DEPENDS_ON=		python312:dev:std
 					python-Cython:single:v12
 					python-meson-python:single:v12
 					python-wheel:single:v12
 					python-spin:single:v12
 					python-pip:single:v12
-[PY312].BUILDRUN_DEPENDS_ON=		python312:primary:standard
+[PY312].BUILDRUN_DEPENDS_ON=		python312:primary:std
 [PY312].PLIST_SUB_ON=			SITEPKGS=lib/python3.12/site-packages/numpy
 					VER=3.12
 					XY=312

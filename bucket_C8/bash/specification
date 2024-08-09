@@ -8,8 +8,8 @@ DEF[STANDARD_PATH]=	/sbin:/bin:/usr/sbin:/usr/bin
 NAMEBASE=		bash
 VERSION=		${VERSION}
 KEYWORDS=		shells
-VARIANTS=		standard static
-SDESC[standard]=	GNU Bourne Again SHell
+VARIANTS=		std static
+SDESC[std]=		GNU Bourne Again SHell
 SDESC[static]=		Static GNU Bourne Again SHell
 HOMEPAGE=		http://www.gnu.org/software/bash/bash.html
 CONTACT=		nobody
@@ -53,7 +53,7 @@ DISTFILE[33]=		bash52-032:patches
 
 DIST_SUBDIR=		bash
 
-SPKGS[standard]=	complete primary nls docs
+SPKGS[std]=		set primary nls docs
 SPKGS[static]=		primary
 
 OPTIONS_AVAILABLE=	STATIC NLS NOTSTD
@@ -75,8 +75,8 @@ LICENSE_SCHEME=		solo
 
 # readline is bundled and linked statically
 
-BUILD_DEPENDS=		ncurses:dev:standard
-RUN_DEPENDS=		ncurses:terminfo:standard
+BUILD_DEPENDS=		ncurses:dev:std
+RUN_DEPENDS=		ncurses:terminfo:std
 
 USES=			bison cpe solaris-funcs
 DISTNAME=		bash-${PORTVERSION}
@@ -112,7 +112,7 @@ VAR_OPSYS[linux]=	VAR1=-Wl,--export-dynamic
 [NLS].CONFIGURE_ENABLE_BOTH=		nls
 [NLS].CONFIGURE_ARGS_ON=		--with-libiconv-prefix={{ICONV_PREFIX}}
 
-[STATIC].BUILDRUN_DEPENDS_OFF=		ncurses:primary:standard
+[STATIC].BUILDRUN_DEPENDS_OFF=		ncurses:primary:std
 [STATIC].CFLAGS_ON=			-fcommon
 
 [NOTSTD].DESCRIPTION=			Non-standard designation

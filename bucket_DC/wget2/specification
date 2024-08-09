@@ -5,8 +5,8 @@ DEF[SOVERSION]=		2.0.0
 NAMEBASE=		wget2
 VERSION=		${PORTVERSION}
 KEYWORDS=		net ftp www
-VARIANTS=		standard
-SDESC[standard]=	File retrieval tool using HTTP, HTTPS, and FTP
+VARIANTS=		std
+SDESC[std]=		File retrieval tool using HTTP, HTTPS, and FTP
 HOMEPAGE=		https://gitlab.com/gnuwget/wget2
 CONTACT=		nobody
 
@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNU/wget
 DISTFILE[1]=		wget2-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary tools dev nls man
+SPKGS[std]=		set primary tools dev nls man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -23,23 +23,23 @@ FPC_EQUIVALENT=		www/wget2
 
 EXRUN[tools]=		primary
 
-BUILD_DEPENDS=		doxygen:primary:standard
-			gnutls:dev:standard
-			libnghttp2:dev:standard
-			gpgme:dev:standard
-			lzlib:dev:standard
-			brotli:dev:standard
-			libidn2:dev:standard
-			libpsl:dev:standard
-BUILDRUN_DEPENDS=	brotli:primary:standard
-			gnutls:primary:standard
-			gpgme:primary:standard
-			libidn2:primary:standard
-			libnghttp2:primary:standard
-			libpsl:primary:standard
-			lzip:primary:standard
-			lzlib:primary:standard
-RUN_DEPENDS=		nss:caroot:standard
+BUILD_DEPENDS=		doxygen:primary:std
+			gnutls:dev:std
+			libnghttp2:dev:std
+			gpgme:dev:std
+			lzlib:dev:std
+			brotli:dev:std
+			libidn2:dev:std
+			libpsl:dev:std
+BUILDRUN_DEPENDS=	brotli:primary:std
+			gnutls:primary:std
+			gpgme:primary:std
+			libidn2:primary:std
+			libnghttp2:primary:std
+			libpsl:primary:std
+			lzip:primary:std
+			lzlib:primary:std
+RUN_DEPENDS=		nss:caroot:std
 
 USES=			cpe gmake pkgconfig iconv libtool makeinfo
 			python:build gettext zstd bz2 zlib xz pcre2

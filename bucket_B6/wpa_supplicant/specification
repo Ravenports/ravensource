@@ -4,8 +4,8 @@ DEF[PORTVERSION]=	2.11
 NAMEBASE=		wpa_supplicant
 VERSION=		${PORTVERSION}
 KEYWORDS=		security net
-VARIANTS=		standard
-SDESC[standard]=	Supplicant (client) for WPA/802.1x protocols
+VARIANTS=		std
+SDESC[std]=		Supplicant (client) for WPA/802.1x protocols
 HOMEPAGE=		https://w1.fi/wpa_supplicant/
 CONTACT=		nobody
 
@@ -16,7 +16,7 @@ DISTFILE[1]=		wpa_supplicant-${PORTVERSION}.tar.gz:main
 # DISTFILE[2]=		rebased-v2.6-0001-hostapd-Avoid-key.patch:patchsite
 # DISTFILE[3]=		rebased-v2.6-0002-Prevent-reinstallati.patch:patchsite
 
-SPKGS[standard]=	single
+SPKGS[std]=		single
 
 OPTIONS_AVAILABLE=	BSD WIRED NDIS TEST
 			TLS PEAP TTLS MSCHAPV2 GTC LEAP OTP PSK FAST
@@ -59,8 +59,8 @@ FPC_EQUIVALENT=		security/wpa_supplicant
 # PATCHFILES=		2 3 4 5 6 7 8 9
 PATCHFILES_STRIP=	-p1
 
-BUILD_DEPENDS=		libpcap:dev:standard
-BUILDRUN_DEPENDS=	libpcap:primary:standard
+BUILD_DEPENDS=		libpcap:dev:std
+BUILDRUN_DEPENDS=	libpcap:primary:std
 
 USES=			cpe gmake readline ssl
 BUILD_WRKSRC=		{{WRKSRC}}/wpa_supplicant
@@ -121,14 +121,14 @@ VAR_OPSYS[netbsd]=	LDFLAGS=-lutil
 [HT_OVERRIDES].DESCRIPTION=		Disable HT/HT40, mask MCS rates, etc
 [VHT_OVERRIDES].DESCRIPTION=		Disable VHT, mask MCS rates, etc
 
-[SIM].BUILD_DEPENDS_ON=			pcsc-lite:dev:standard
-[SIM].BUILDRUN_DEPENDS_ON=		pcsc-lite:primary:standard
+[SIM].BUILD_DEPENDS_ON=			pcsc-lite:dev:std
+[SIM].BUILDRUN_DEPENDS_ON=		pcsc-lite:primary:std
 
-[AKA].BUILD_DEPENDS_ON=			pcsc-lite:dev:standard
-[AKA].BUILDRUN_DEPENDS_ON=		pcsc-lite:primary:standard
+[AKA].BUILD_DEPENDS_ON=			pcsc-lite:dev:std
+[AKA].BUILDRUN_DEPENDS_ON=		pcsc-lite:primary:std
 
-[AKA_PRIME].BUILD_DEPENDS_ON=		pcsc-lite:dev:standard
-[AKA_PRIME].BUILDRUN_DEPENDS_ON=	pcsc-lite:primary:standard
+[AKA_PRIME].BUILD_DEPENDS_ON=		pcsc-lite:dev:std
+[AKA_PRIME].BUILDRUN_DEPENDS_ON=	pcsc-lite:primary:std
 
 [SIM].CFLAGS_ON=			-I{{LOCALBASE}}/include/PCSC
 [AKA].CFLAGS_ON=			-I{{LOCALBASE}}/include/PCSC

@@ -5,8 +5,8 @@ DEF[KF6_COMPONENT]=	kquickcharts
 NAMEBASE=		kf6-${KF6_COMPONENT}
 VERSION=		${PORTVERSION}
 KEYWORDS=		graphics
-VARIANTS=		standard
-SDESC[standard]=	KF6 module providing high-performance charts
+VARIANTS=		std
+SDESC[std]=		KF6 module providing high-performance charts
 HOMEPAGE=		https://api.kde.org/frameworks/${KF6_COMPONENT}/html/index.html
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
@@ -15,7 +15,7 @@ SITES[main]=		https://download.kde.org/stable/frameworks/${PORTVERSION:R}/
 DISTFILE[1]=		${KF6_COMPONENT}-${PORTVERSION}.tar.xz:main
 DIST_SUBDIR=		kde6
 
-SPKGS[standard]=	complete primary dev
+SPKGS[std]=		set primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -31,13 +31,13 @@ LICENSE_SCHEME=		multi
 
 FPC_EQUIVALENT=		graphics/kf6-${KF6_COMPONENT}
 
-BUILD_DEPENDS=		kf6-extra-cmake-modules:primary:standard
-			qt6-qtbase:dev:standard
-			qt6-qtdeclarative:dev:standard
-			qt6-qtshadertools:dev:standard
-BUILDRUN_DEPENDS=	qt6-qtbase:primary:standard
-			qt6-qtdeclarative:primary:standard
-			qt6-qtshadertools:primary:standard
+BUILD_DEPENDS=		kf6-extra-cmake-modules:primary:std
+			qt6-qtbase:dev:std
+			qt6-qtdeclarative:dev:std
+			qt6-qtshadertools:dev:std
+BUILDRUN_DEPENDS=	qt6-qtbase:primary:std
+			qt6-qtdeclarative:primary:std
+			qt6-qtshadertools:primary:std
 
 USES=			cmake gold
 

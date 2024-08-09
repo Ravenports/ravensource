@@ -6,8 +6,8 @@ DEF[CAT1]=		http://docbook.sourceforge.net/release/xsl/current
 NAMEBASE=		libsecret
 VERSION=		${PORTVERSION}
 KEYWORDS=		security
-VARIANTS=		standard
-SDESC[standard]=	Library to access the secret service API
+VARIANTS=		std
+SDESC[std]=		Library to access the secret service API
 HOMEPAGE=		https://wiki.gnome.org/Projects/Libsecret
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
@@ -15,7 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://ftp.gnome.org/pub/GNOME/sources/libsecret/${PORTVERSION:R}/
 DISTFILE[1]=		libsecret-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary tools dev nls man
+SPKGS[std]=		set primary tools dev nls man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -29,13 +29,13 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		security/libsecret
 
-BUILD_DEPENDS=		libgcrypt:dev:standard
-			docbook-xsl:primary:standard
-			vala:single:standard
-BUILDRUN_DEPENDS=	libgcrypt:primary:standard
+BUILD_DEPENDS=		libgcrypt:dev:std
+			docbook-xsl:primary:std
+			vala:single:std
+BUILDRUN_DEPENDS=	libgcrypt:primary:std
 
-EXRUN[dev]=		libgcrypt:dev:standard
-EXRUN[tools]=		libsecret:primary:standard
+EXRUN[dev]=		libgcrypt:dev:std
+EXRUN[tools]=		libsecret:primary:std
 
 USES=			gmake libtool meson pkgconfig
 GNOME_COMPONENTS=	glib libxslt intltool introspection

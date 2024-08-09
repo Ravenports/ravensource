@@ -13,8 +13,8 @@ DEF[CERTDATA_PATH]=	{{WRKSRC}}/lib/ckfw/builtins/certdata.txt
 NAMEBASE=		nss
 VERSION=		${PORTVERSION}
 KEYWORDS=		security
-VARIANTS=		standard
-SDESC[standard]=	Application security development libraries
+VARIANTS=		std
+SDESC[std]=		Application security development libraries
 HOMEPAGE=		https://developer.mozilla.org/en-US/docs/Mozilla/Projects/NSS
 CONTACT=		nobody
 
@@ -22,7 +22,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		MOZILLA/security/nss/releases/NSS_${PORTVERSION:S/./_/g}_RTM/src
 DISTFILE[1]=		nss-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary caroot dev
+SPKGS[std]=		set primary caroot dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -33,11 +33,11 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		security/nss
 
-BUILD_DEPENDS=		libressl:primary:standard
-			nspr:dev:standard
-BUILDRUN_DEPENDS=	nspr:primary:standard
+BUILD_DEPENDS=		libressl:primary:std
+			nspr:dev:std
+BUILDRUN_DEPENDS=	nspr:primary:std
 
-EXRUN[dev]=		nspr:dev:standard
+EXRUN[dev]=		nspr:dev:std
 
 USES=			cpe gmake perl:build sqlite zlib ssl:build
 DISTNAME=		nss-${PORTVERSION}/nss

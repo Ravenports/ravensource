@@ -5,8 +5,8 @@ DEF[SOVERSION]=		2.3.0
 NAMEBASE=		libevdev
 VERSION=		${PORTVERSION}
 KEYWORDS=		devel
-VARIANTS=		standard
-SDESC[standard]=	Wrapper library for evdev devices
+VARIANTS=		std
+SDESC[std]=		Wrapper library for evdev devices
 HOMEPAGE=		https://www.freedesktop.org/wiki/Software/libevdev/
 CONTACT=		nobody
 
@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://www.freedesktop.org/software/libevdev/
 DISTFILE[1]=		libevdev-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary tools dev man
+SPKGS[std]=		set primary tools dev man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -25,7 +25,7 @@ LICENSE=		MIT:primary
 LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		evdev-proto:single:standard
+BUILD_DEPENDS=		evdev-proto:single:std
 
 USES=			meson pkgconfig python:build
 MESON_ARGS=		-Ddocumentation=disabled

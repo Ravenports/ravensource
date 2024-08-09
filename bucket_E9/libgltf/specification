@@ -6,8 +6,8 @@ DEF[GLTF_VER]=		0.1
 NAMEBASE=		libgltf
 VERSION=		${PORTVERSION}
 KEYWORDS=		graphics devel
-VARIANTS=		standard
-SDESC[standard]=	Rendering library for glTF
+VARIANTS=		std
+SDESC[std]=		Rendering library for glTF
 HOMEPAGE=		https://git.libreoffice.org/libgltf/
 CONTACT=		nobody
 
@@ -15,17 +15,17 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://dev-www.libreoffice.org/src/libgltf/
 DISTFILE[1]=		libgltf-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[std]=		single
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		graphics/libgltf
 
-BUILD_DEPENDS=		boost-libraries:dev:standard
-			glm:single:standard
-			libepoxy:dev:standard
-BUILDRUN_DEPENDS=	libepoxy:primary:standard
+BUILD_DEPENDS=		boost-libraries:dev:std
+			glm:single:std
+			libepoxy:dev:std
+BUILDRUN_DEPENDS=	libepoxy:primary:std
 
 USES=			libtool pkgconfig mbsdfix c++:single
 MUST_CONFIGURE=		gnu

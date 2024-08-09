@@ -5,8 +5,8 @@ DEF[SOVERSION]=		${PORTVERSION}
 NAMEBASE=		ftgl
 VERSION=		${PORTVERSION}
 KEYWORDS=		graphics
-VARIANTS=		standard
-SDESC[standard]=	OpenGL FreeType fonts rendering library
+VARIANTS=		std
+SDESC[std]=		OpenGL FreeType fonts rendering library
 HOMEPAGE=		https://github.com/frankheckenbach/ftgl
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/frankheckenbach:ftgl:v${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	complete primary dev
+SPKGS[std]=		set primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -28,12 +28,12 @@ FPC_EQUIVALENT=		graphics/ftgl
 USES=			autoreconf libtool pkgconfig freetype
 XORG_COMPONENTS=	ice x11
 
-BUILD_DEPENDS=		freeglut:dev:standard
-			libGLU:dev:standard
-			libglvnd:dev:standard
-BUILDRUN_DEPENDS=	freeglut:primary:standard
-			libGLU:primary:standard
-			libglvnd:primary:standard
+BUILD_DEPENDS=		freeglut:dev:std
+			libGLU:dev:std
+			libglvnd:dev:std
+BUILDRUN_DEPENDS=	freeglut:primary:std
+			libGLU:primary:std
+			libglvnd:primary:std
 
 MUST_CONFIGURE=		gnu
 INSTALL_TARGET=		install-strip

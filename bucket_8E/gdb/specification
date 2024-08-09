@@ -7,8 +7,8 @@ DEF[PATCH_TAG]=		gdb_13.2-rev1
 NAMEBASE=		gdb
 VERSION=		${PORTVERSION}
 KEYWORDS=		devel
-VARIANTS=		standard
-SDESC[standard]=	GNU debugger
+VARIANTS=		std
+SDESC[std]=		GNU debugger
 HOMEPAGE=		http://www.gnu.org/software/gdb/
 CONTACT=		nobody
 
@@ -21,7 +21,7 @@ DISTFILE[3]=		patch-diff-rest:patchsite
 DIST_SUBDIR=		${PATCH_TAG}
 DF_INDEX=		1
 
-SPKGS[standard]=	complete primary man
+SPKGS[std]=		set primary man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -37,9 +37,9 @@ FPC_EQUIVALENT=		devel/gdb
 
 NOT_FOR_ARCH=		aarch64
 
-BUILD_DEPENDS=		gmp:dev:standard
-BUILDRUN_DEPENDS=	gmp:primary:standard
-			source-highlight:primary:standard
+BUILD_DEPENDS=		gmp:dev:std
+BUILDRUN_DEPENDS=	gmp:primary:std
+			source-highlight:primary:std
 
 PATCHFILES=		2 3
 

@@ -15,8 +15,8 @@ NAMEBASE=		${NAMEBASE}
 VERSION=		${LLVM_VERSION}
 REVISION=		${PORTREVISION}
 KEYWORDS=		lang
-VARIANTS=		standard
-SDESC[standard]=	C language family frontend for LLVM ${MAJORMIN}
+VARIANTS=		std
+SDESC[std]=		C language family frontend for LLVM ${MAJORMIN}
 HOMEPAGE=		http://llvm.org/
 CONTACT=		nobody
 
@@ -28,7 +28,7 @@ DISTFILE[2]=		clang-tools-extra-${LLVM_VERSION}.src.tar.xz:main
 DISTFILE[3]=		cmake-${LLVM_VERSION}.src.tar.xz:main
 DF_INDEX=		1 2 3
 
-SPKGS[standard]=	complete compiler extra dynlibs
+SPKGS[std]=		set compiler extra dynlibs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -38,13 +38,13 @@ LICENSE_NAME=		CUSTOM1:"University of Illinois/NCSA Open Source License"
 LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/LICENSE.TXT
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		${LLVMBASE}:dev:standard
-			${LLVMBASE}:tools:standard
-BUILDRUN_DEPENDS=	${LLVMBASE}:primary:standard
+BUILD_DEPENDS=		${LLVMBASE}:dev:std
+			${LLVMBASE}:tools:std
+BUILDRUN_DEPENDS=	${LLVMBASE}:primary:std
 
 EXRUN[compiler]=	dynlibs
-EXRUN[dynlibs]=		${LLVMBASE}:primary:standard
-EXRUN[extra]=		${LLVMBASE}:primary:standard
+EXRUN[dynlibs]=		${LLVMBASE}:primary:std
+EXRUN[extra]=		${LLVMBASE}:primary:std
 
 USES=			cmake ninja ncurses zlib execinfo
 			cpe shebangfix python:build

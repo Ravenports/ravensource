@@ -5,8 +5,8 @@ DEF[SOVERSION]=		2.0.1
 NAMEBASE=		taglib
 VERSION=		${PORTVERSION}
 KEYWORDS=		audio
-VARIANTS=		standard
-SDESC[standard]=	Library for reading and editing audio meta data
+VARIANTS=		std
+SDESC[std]=		Library for reading and editing audio meta data
 HOMEPAGE=		https://taglib.org/
 CONTACT=		nobody
 
@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://taglib.org/releases/
 DISTFILE[1]=		taglib-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary dev
+SPKGS[std]=		set primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -30,7 +30,7 @@ LICENSE_SCHEME=		dual
 
 FPC_EQUIVALENT=		audio/taglib
 
-BUILD_DEPENDS=		utf8cpp:single:standard
+BUILD_DEPENDS=		utf8cpp:single:std
 
 USES=			cmake cpe c++:primary zlib
 CMAKE_ARGS=		-DWITH_ASF:BOOL=ON

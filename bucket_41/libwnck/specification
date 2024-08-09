@@ -6,8 +6,8 @@ NAMEBASE=		libwnck
 VERSION=		${PORTVERSION}
 REVISION=		2
 KEYWORDS=		x11
-VARIANTS=		standard
-SDESC[standard]=	GNOME window navigator construction kit library
+VARIANTS=		std
+SDESC[std]=		GNOME window navigator construction kit library
 HOMEPAGE=		https://gitlab.gnome.org/GNOME/libwnck
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
@@ -15,24 +15,24 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://ftp.gnome.org/pub/GNOME/sources/libwnck/${PORTVERSION:R}/
 DISTFILE[1]=		libwnck-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary dev nls
+SPKGS[std]=		set primary dev nls
 
 OPTIONS_AVAILABLE=	INTROSPECTION
 OPTIONS_STANDARD=	INTROSPECTION
 
 FPC_EQUIVALENT=		x11-toolkits/libwnck3
 
-LICENSE=		LGPL20+:complete
+LICENSE=		LGPL20+:primary
 LICENSE_FILE=		LGPL20+:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
-LICENSE_TERMS=		complete:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"ifndef"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/libwnck/libwnck.h
 
-BUILD_DEPENDS=		harfbuzz:dev:standard
-BUILDRUN_DEPENDS=	startup-notification:single:standard
+BUILD_DEPENDS=		harfbuzz:dev:std
+BUILDRUN_DEPENDS=	startup-notification:single:std
 
-EXRUN[dev]=		xorg-xres:dev:standard
+EXRUN[dev]=		xorg-xres:dev:std
 
 USES=			bison gmake libtool pkgconfig meson
 XORG_COMPONENTS=	xres x11

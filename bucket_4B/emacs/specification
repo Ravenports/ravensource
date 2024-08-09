@@ -4,8 +4,8 @@ DEF[PORTVERSION]=	29.4
 NAMEBASE=		emacs
 VERSION=		${PORTVERSION}
 KEYWORDS=		editors
-VARIANTS=		standard desktop
-SDESC[standard]=	GNU Emacs text editor
+VARIANTS=		std desktop
+SDESC[std]=		GNU Emacs text editor
 SDESC[desktop]=		GNU Emacs text editor with X11 support
 HOMEPAGE=		https://www.gnu.org/software/emacs/
 CONTACT=		nobody
@@ -14,8 +14,8 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNU/emacs
 DISTFILE[1]=		emacs-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary man info
-SPKGS[desktop]=		complete primary man info
+SPKGS[std]=		set primary man info
+SPKGS[desktop]=		set primary man info
 
 OPTIONS_AVAILABLE=	X11GTK
 OPTIONS_STANDARD=	none
@@ -34,11 +34,11 @@ USERS=			games
 GROUPS=			games
 USERGROUP_SPKG=		primary
 
-BUILD_DEPENDS=		gnutls:dev:standard
-BUILDRUN_DEPENDS=	gnutls:primary:standard
-			libsoup-2.4:dev:standard
-RUN_DEPENDS=		coreutils:primary:standard
-			ctags:single:standard
+BUILD_DEPENDS=		gnutls:dev:std
+BUILDRUN_DEPENDS=	gnutls:primary:std
+			libsoup-2.4:dev:std
+RUN_DEPENDS=		coreutils:primary:std
+			ctags:single:std
 
 USES=			cpe gmake makeinfo ncurses pkgconfig zlib
 			desktop-utils:primary
@@ -153,10 +153,10 @@ INSTALL_REQ_TOOLCHAIN=	yes
 					m17n-flt
 					toolkit-scroll-bars
 					xwidgets
-[X11GTK].BUILD_DEPENDS_ON=		harfbuzz:dev:standard
-					m17n-lib:dev:standard
-[X11GTK].BUILDRUN_DEPENDS_ON=		m17n-lib:primary:standard
-					webkit2:complete:api40
+[X11GTK].BUILD_DEPENDS_ON=		harfbuzz:dev:std
+					m17n-lib:dev:std
+[X11GTK].BUILDRUN_DEPENDS_ON=		m17n-lib:primary:std
+					webkit2:set:api40
 
 # gconf, imagemagick
 

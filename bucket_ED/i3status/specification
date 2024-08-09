@@ -5,8 +5,8 @@ NAMEBASE=		i3status
 VERSION=		${PORTVERSION}
 REVISION=		1
 KEYWORDS=		x11
-VARIANTS=		standard
-SDESC[standard]=	Status bar for i3bar, dzen2, xmobar or similar
+VARIANTS=		std
+SDESC[std]=		Status bar for i3bar, dzen2, xmobar or similar
 HOMEPAGE=		https://i3wm.org/i3status/
 CONTACT=		nobody
 
@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://i3wm.org/i3status/
 DISTFILE[1]=		i3status-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	single
+SPKGS[std]=		single
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -25,13 +25,13 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		x11/i3status
 
-BUILD_DEPENDS=		asciidoc:single:standard
-			xmlto:single:standard
-			bash:primary:standard
-			libconfuse:dev:standard
-			yajl:dev:standard
-BUILDRUN_DEPENDS=	libconfuse:primary:standard
-			yajl:primary:standard
+BUILD_DEPENDS=		asciidoc:single:std
+			xmlto:single:std
+			bash:primary:std
+			libconfuse:dev:std
+			yajl:dev:std
+BUILDRUN_DEPENDS=	libconfuse:primary:std
+			yajl:primary:std
 
 USES=			meson pkgconfig perl:build
 MESON_ARGS=		-Ddocs=true
@@ -39,8 +39,8 @@ MESON_ARGS=		-Ddocs=true
 			-Dpulseaudio=false
 			-Ddocdir=share/docs/i3status
 
-B_DEPS[linux]=		alsa-lib:dev:standard
-BR_DEPS[linux]=		alsa-lib:primary:standard
+B_DEPS[linux]=		alsa-lib:dev:std
+BR_DEPS[linux]=		alsa-lib:primary:std
 
 pre-configure:
 	${REINPLACE_CMD} -e 's|/etc|${PREFIX}/etc|g' ${WRKSRC}/i3status.c

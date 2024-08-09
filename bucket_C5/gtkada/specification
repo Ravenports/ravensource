@@ -7,8 +7,8 @@ DEF[SOVERSION]=		18.0w
 NAMEBASE=		gtkada
 VERSION=		${PORTVERSION}
 KEYWORDS=		x11_toolkits ada
-VARIANTS=		standard
-SDESC[standard]=	Ada graphical toolkit based on Gtk3 components
+VARIANTS=		std
+SDESC[std]=		Ada graphical toolkit based on Gtk3 components
 HOMEPAGE=		https://github.com/adacore/gtkada
 CONTACT=		John_Marino[draco@marino.st]
 
@@ -16,7 +16,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/AdaCore:gtkada:${RELEASE}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	complete primary dev
+SPKGS[std]=		set primary dev
 
 OPTIONS_AVAILABLE=	DEBUG
 OPTIONS_STANDARD=	DEBUG
@@ -29,7 +29,7 @@ LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/gtkada.ads
 LICENSE_SCHEME=		solo
 
 BUILD_DEPENDS=		python-Sphinx:single:python_default
-			harfbuzz:dev:standard
+			harfbuzz:dev:std
 
 USES=			gmake perl:build pkgconfig gprbuild ada:primary
 GNOME_COMPONENTS=	gtk3 cairo gdkpixbuf

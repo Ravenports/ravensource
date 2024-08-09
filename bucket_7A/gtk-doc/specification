@@ -6,8 +6,8 @@ NAMEBASE=		gtk-doc
 VERSION=		${PORTVERSION}
 REVISION=		1
 KEYWORDS=		textproc
-VARIANTS=		standard
-SDESC[standard]=	GTK+ DocBook Documentation Generator
+VARIANTS=		std
+SDESC[std]=		GTK+ DocBook Documentation Generator
 HOMEPAGE=		https://www.gtk.org
 CONTACT=		nobody
 
@@ -15,7 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNOME/gtk-doc/${DL_FOLDER}
 DISTFILE[1]=		gtk-doc-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	single
+SPKGS[std]=		single
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -29,9 +29,9 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		textproc/gtk-doc
 
-BUILD_DEPENDS=		itstool:single:standard
-BUILDRUN_DEPENDS=	docbook-xml:single:standard
-			docbook-xsl:primary:standard
+BUILD_DEPENDS=		itstool:single:std
+BUILDRUN_DEPENDS=	docbook-xml:single:std
+			docbook-xsl:primary:std
 			python-Pygments:single:python_default
 
 USES=			meson gettext:build pkgconfig

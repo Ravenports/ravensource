@@ -6,8 +6,8 @@ DEF[PLUGINS]=		ani eps exr hdr jxl kra ora pcx pic psd qoi ras raw rgb tga xcf
 NAMEBASE=		kf6-${KF6_COMPONENT}
 VERSION=		${PORTVERSION}
 KEYWORDS=		graphics
-VARIANTS=		standard
-SDESC[standard]=	KF6 plugins for QImage extra file formats support
+VARIANTS=		std
+SDESC[std]=		KF6 plugins for QImage extra file formats support
 HOMEPAGE=		https://api.kde.org/frameworks/${KF6_COMPONENT}/html/index.html
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
@@ -16,7 +16,7 @@ SITES[main]=		https://download.kde.org/stable/frameworks/${PORTVERSION:R}/
 DISTFILE[1]=		${KF6_COMPONENT}-${PORTVERSION}.tar.xz:main
 DIST_SUBDIR=		kde6
 
-SPKGS[standard]=	single
+SPKGS[std]=		single
 
 OPTIONS_AVAILABLE=	LINUX
 OPTIONS_STANDARD=	LINUX
@@ -35,22 +35,22 @@ LICENSE_SCHEME=		multi
 
 FPC_EQUIVALENT=		graphics/kf6-${KF6_COMPONENT}
 
-BUILD_DEPENDS=		brotli:dev:standard
-			highway:dev:standard
-			kf6-extra-cmake-modules:primary:standard
-			kf6-karchive:dev:standard
-			libheif:dev:standard
-			libjxl:dev:standard
-			libraw:dev:standard
-			openexr:dev:standard
-			qt6-qtbase:dev:standard
-BUILDRUN_DEPENDS=	kf6-kconfig:primary:standard
-			kf6-karchive:primary:standard
-			libheif:primary:standard
-			libjxl:primary:standard
-			libraw:primary:standard
-			openexr:primary:standard
-			qt6-qtbase:primary:standard
+BUILD_DEPENDS=		brotli:dev:std
+			highway:dev:std
+			kf6-extra-cmake-modules:primary:std
+			kf6-karchive:dev:std
+			libheif:dev:std
+			libjxl:dev:std
+			libraw:dev:std
+			openexr:dev:std
+			qt6-qtbase:dev:std
+BUILDRUN_DEPENDS=	kf6-kconfig:primary:std
+			kf6-karchive:primary:std
+			libheif:primary:std
+			libjxl:primary:std
+			libraw:primary:std
+			openexr:primary:std
+			qt6-qtbase:primary:std
 
 USES=			cpe clang cmake pkgconfig
 CPE_VENDOR=		kde
@@ -62,8 +62,8 @@ SOVERSION=		${PORTVERSION}
 
 # The libavif module can't link the libraries even though -rpath is set and libraries are present
 [LINUX].DESCRIPTION=			Special instructions for Linux
-[LINUX].BUILD_DEPENDS_OFF=		libavif:dev:standard
-[LINUX].BUILDRUN_DEPENDS_OFF=		libavif:primary:standard
+[LINUX].BUILD_DEPENDS_OFF=		libavif:dev:std
+[LINUX].BUILDRUN_DEPENDS_OFF=		libavif:primary:std
 
 post-extract:
 	${ECHO} "Terms extracted from 'src/imageformats/jxl.cpp':" > ${WRKDIR}/TERMS

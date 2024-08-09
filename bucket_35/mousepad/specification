@@ -5,8 +5,8 @@ DEF[SOVERSION]=		0.0.0
 NAMEBASE=		mousepad
 VERSION=		${PORTVERSION}
 KEYWORDS=		editors
-VARIANTS=		standard
-SDESC[standard]=	Simple text editor for the Xfce DE
+VARIANTS=		std
+SDESC[std]=		Simple text editor for the Xfce DE
 HOMEPAGE=		https://docs.xfce.org/apps/mousepad/start
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://archive.xfce.org/src/apps/mousepad/${PORTVERSION:R}/
 DISTFILE[1]=		mousepad-${PORTVERSION}.tar.bz2:main
 
-SPKGS[standard]=	complete primary nls
+SPKGS[std]=		set primary nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -28,10 +28,10 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		editors/mousepad
 
-BUILD_DEPENDS=		harfbuzz:dev:standard
-			xfconf:dev:standard
-			appstream-glib:dev:standard
-BUILDRUN_DEPENDS=	xfconf:primary:standard
+BUILD_DEPENDS=		harfbuzz:dev:std
+			xfconf:dev:std
+			appstream-glib:dev:std
+BUILDRUN_DEPENDS=	xfconf:primary:std
 
 USES=			desktop-utils:primary schemas:primary
 			gmake libtool fontconfig:build pkgconfig

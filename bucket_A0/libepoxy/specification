@@ -5,8 +5,8 @@ NAMEBASE=		libepoxy
 VERSION=		${PORTVERSION}
 REVISION=		3
 KEYWORDS=		graphics
-VARIANTS=		standard
-SDESC[standard]=	OpenGL function pointer management library
+VARIANTS=		std
+SDESC[std]=		OpenGL function pointer management library
 HOMEPAGE=		https://github.com/anholt/libepoxy
 CONTACT=		nobody
 
@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/anholt:libepoxy:${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	complete primary dev
+SPKGS[std]=		set primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -25,13 +25,13 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		graphics/libepoxy
 
-B_DEPS[sunos]=		libbsd4sol:single:standard
+B_DEPS[sunos]=		libbsd4sol:single:std
 
-BUILD_DEPENDS=		libglvnd:dev:standard
-BUILDRUN_DEPENDS=	libglvnd:primary:standard
+BUILD_DEPENDS=		libglvnd:dev:std
+BUILDRUN_DEPENDS=	libglvnd:primary:std
 
-EXRUN[dev]=		xorg-x11:dev:standard
-			libglvnd:dev:standard
+EXRUN[dev]=		xorg-x11:dev:std
+			libglvnd:dev:std
 
 USES=			meson pkgconfig python:build
 XORG_COMPONENTS=	x11

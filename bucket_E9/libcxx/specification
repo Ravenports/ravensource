@@ -8,8 +8,8 @@ DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM18_VERSION)
 NAMEBASE=		${NAMEBASE}
 VERSION=		${LLVM_VERSION}
 KEYWORDS=		lang
-VARIANTS=		standard
-SDESC[standard]=	LLVM C++ standard library
+VARIANTS=		std
+SDESC[std]=		LLVM C++ standard library
 HOMEPAGE=		https://libcxx.llvm.org/
 CONTACT=		nobody
 
@@ -21,7 +21,7 @@ DISTFILE[3]=		cmake-${LLVM_VERSION}.src.tar.xz:main
 DISTFILE[4]=		runtimes-${LLVM_VERSION}.src.tar.xz:main
 DF_INDEX=		1 2 3 4
 
-SPKGS[standard]=	complete primary dev abi experimental
+SPKGS[std]=		set primary dev abi experimental
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -34,11 +34,11 @@ LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/projects/libcxx/LICENSE.TXT
 LICENSE_SCHEME=		multi
 
 BUILD_DEPENDS=		python-Sphinx:single:python_default
-			${CLANGBASE}:complete:standard
-			${LLVMBASE}:dev:standard
-			${LLVMBASE}:tools:standard
-			${LLVMUNWIND}:dev:standard
-BUILDRUN_DEPENDS=	${LLVMUNWIND}:primary:standard
+			${CLANGBASE}:set:std
+			${LLVMBASE}:dev:std
+			${LLVMBASE}:tools:std
+			${LLVMUNWIND}:dev:std
+BUILDRUN_DEPENDS=	${LLVMUNWIND}:primary:std
 
 USES=			cpe cmake cclibs:primary python:build
 CPE_VENDOR=		llvm

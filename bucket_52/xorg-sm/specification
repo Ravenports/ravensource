@@ -7,8 +7,8 @@ NAMEBASE=		xorg-${XNAME}
 VERSION=		${PORTVERSION}
 REVISION=		1
 KEYWORDS=		x11
-VARIANTS=		standard
-SDESC[standard]=	Session Management library for X11
+VARIANTS=		std
+SDESC[std]=		Session Management library for X11
 HOMEPAGE=		https://www.x.org/
 CONTACT=		nobody
 
@@ -17,7 +17,7 @@ SITES[main]=		XORG/individual/lib
 DISTFILE[1]=		${ALTNAME}-${PORTVERSION}.tar.xz:main
 DIST_SUBDIR=		xorg
 
-SPKGS[standard]=	complete primary dev
+SPKGS[std]=		set primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -26,11 +26,11 @@ LICENSE=		MIT:primary
 LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		libuuid:dev:standard
-BUILDRUN_DEPENDS=	libuuid:primary:standard
+BUILD_DEPENDS=		libuuid:dev:std
+BUILDRUN_DEPENDS=	libuuid:primary:std
 
-EXRUN[dev]=		xorg-ice:dev:standard
-			libuuid:dev:standard
+EXRUN[dev]=		xorg-ice:dev:std
+			libuuid:dev:std
 
 USES=			libtool
 XORG_COMPONENTS=	xtransproto xorgproto ice

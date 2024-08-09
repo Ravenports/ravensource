@@ -4,8 +4,8 @@ DEF[PORTVERSION]=	3.10
 NAMEBASE=		diffutils
 VERSION=		${PORTVERSION}
 KEYWORDS=		textproc
-VARIANTS=		standard noprefix ravensys
-SDESC[standard]=	GNU diff utilities (prefixed with g)
+VARIANTS=		std noprefix ravensys
+SDESC[std]=		GNU diff utilities (prefixed with g)
 SDESC[noprefix]=	GNU diff utilities (standard names)
 SDESC[ravensys]=	GNU diff utilities for raven sysroot (no nls)
 HOMEPAGE=		http://www.gnu.org/software/diffutils/diffutils.html
@@ -15,9 +15,9 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNU/diffutils
 DISTFILE[1]=		diffutils-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary nls man info
-SPKGS[noprefix]=	complete primary nls man info
-SPKGS[ravensys]=	complete primary man
+SPKGS[std]=		set primary nls man info
+SPKGS[noprefix]=	set primary nls man info
+SPKGS[ravensys]=	set primary man
 
 OPTIONS_AVAILABLE=	NOTSTD RAVENSYS
 OPTIONS_STANDARD=	none
@@ -33,7 +33,7 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		textproc/diffutils
 
-BUILD_DEPENDS=		libsigsegv:dev:standard
+BUILD_DEPENDS=		libsigsegv:dev:std
 
 USES=			charsetfix gmake iconv:build
 MUST_CONFIGURE=		gnu

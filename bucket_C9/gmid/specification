@@ -4,8 +4,8 @@ DEF[PORTVERSION]=	2.1
 NAMEBASE=		gmid
 VERSION=		${PORTVERSION}
 KEYWORDS=		net
-VARIANTS=		standard
-SDESC[standard]=	Simple and secure Gemini server
+VARIANTS=		std
+SDESC[std]=		Simple and secure Gemini server
 HOMEPAGE=		https://gmid.omarpolo.com/
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
@@ -13,7 +13,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/omar-polo:gmid:${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	complete primary man
+SPKGS[std]=		set primary man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -28,8 +28,8 @@ USERS=			_gmid
 GROUPS=			_gmid
 USERGROUP_SPKG=		primary
 
-BUILD_DEPENDS=		libevent:dev:standard
-BUILDRUN_DEPENDS=	libevent:primary:standard
+BUILD_DEPENDS=		libevent:dev:std
+BUILDRUN_DEPENDS=	libevent:primary:std
 
 USES=			pkgconfig ssl
 RC_SUBR=		gmid:primary

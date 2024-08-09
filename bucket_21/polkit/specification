@@ -4,8 +4,8 @@ DEF[PORTVERSION]=	124
 NAMEBASE=		polkit
 VERSION=		${PORTVERSION}
 KEYWORDS=		sysutils
-VARIANTS=		standard
-SDESC[standard]=	Framework for access control to system components
+VARIANTS=		std
+SDESC[std]=		Framework for access control to system components
 HOMEPAGE=		https://www.freedesktop.org/wiki/Software/polkit/
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
@@ -13,7 +13,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://gitlab.freedesktop.org/polkit/polkit/-/archive/${PORTVERSION}/
 DISTFILE[1]=		polkit-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary dev man nls
+SPKGS[std]=		set primary dev man nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -33,13 +33,13 @@ USERS=			polkitd
 GROUPS=			polkitd
 USERGROUP_SPKG=		primary
 
-BUILD_DEPENDS=		docbook-xsl:primary:standard
-			dbus:dev:standard
-			duktape:dev:standard
-			openpam:dev:standard
-BUILDRUN_DEPENDS=	dbus:primary:standard
-			openpam:primary:standard
-			duktape:primary:standard
+BUILD_DEPENDS=		docbook-xsl:primary:std
+			dbus:dev:std
+			duktape:dev:std
+			openpam:dev:std
+BUILDRUN_DEPENDS=	dbus:primary:std
+			openpam:primary:std
+			duktape:primary:std
 
 USES=			meson pkgconfig shebangfix expat
 			solaris-funcs cpe

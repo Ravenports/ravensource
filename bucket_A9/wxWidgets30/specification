@@ -5,8 +5,8 @@ DEF[SOVERSION]=		0.5.0
 NAMEBASE=		wxWidgets30
 VERSION=		${PORTVERSION}
 KEYWORDS=		x11_toolkits
-VARIANTS=		standard gtk2
-SDESC[standard]=	GUI toolkit with GTK+ bindings (gtk3)
+VARIANTS=		std gtk2
+SDESC[std]=		GUI toolkit with GTK+ bindings (gtk3)
 SDESC[gtk2]=		GUI toolkit with GTK+ bindings (gtk2)
 HOMEPAGE=		https://www.wxwidgets.org/
 CONTACT=		nobody
@@ -15,8 +15,8 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/wxWidgets/wxWidgets/releases/download/v${PORTVERSION}/
 DISTFILE[1]=		wxWidgets-${PORTVERSION}.tar.bz2:main
 
-SPKGS[standard]=	complete primary nls
-SPKGS[gtk2]=		complete primary nls
+SPKGS[std]=		set primary nls
+SPKGS[gtk2]=		set primary nls
 
 OPTIONS_AVAILABLE=	GTK2
 OPTIONS_STANDARD=	none
@@ -24,11 +24,11 @@ VOPTS[gtk2]=		GTK2=ON
 
 FPC_EQUIVALENT=		x11-toolkits/wxgtk30
 
-BUILD_DEPENDS=		harfbuzz:dev:standard
-			libmspack:dev:standard
-			libGLU:dev:standard
-BUILDRUN_DEPENDS=	libmspack:primary:standard
-			libGLU:primary:standard
+BUILD_DEPENDS=		harfbuzz:dev:std
+			libmspack:dev:std
+			libGLU:dev:std
+BUILDRUN_DEPENDS=	libmspack:primary:std
+			libGLU:primary:std
 
 USES=			cpe gmake png jpeg tiff zlib execinfo
 			expat iconv pkgconfig gettext

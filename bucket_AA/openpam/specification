@@ -6,8 +6,8 @@ DEF[SOVERSION]=		2.0.0
 NAMEBASE=		openpam
 VERSION=		${PORTVERSION}
 KEYWORDS=		security
-VARIANTS=		standard
-SDESC[standard]=	Open-source Pluggable Authentication Module
+VARIANTS=		std
+SDESC[std]=		Open-source Pluggable Authentication Module
 HOMEPAGE=		https://www.openpam.org/
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
@@ -15,7 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://www.openpam.org/downloads/
 DISTFILE[1]=		openpam-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary dev man
+SPKGS[std]=		set primary dev man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -37,7 +37,7 @@ VAR_OPSYS[dragonfly]=	VAR1="/usr/lib/security",
 VAR_OPSYS[freebsd]=	VAR1="/usr/lib/security",
 VAR_OPSYS[linux]=	VAR1="/lib/{{ARCH_STANDARD}}-linux-gnu/security",
 
-B_DEPS[sunos]=		libbsd4sol:single:standard
+B_DEPS[sunos]=		libbsd4sol:single:std
 VAR_OPSYS[sunos]=	VAR1="/usr/lib/security",
 			CFLAGS=-I{{PREFIX}}/include/bsd
 VAR_OPSYS[netbsd]=	CONFIGURE_ENV=ac_cv_lib_dl_dlopen=false

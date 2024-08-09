@@ -6,8 +6,8 @@ DEF[SOVERSION]=		${PORTVERSION}
 NAMEBASE=		aom
 VERSION=		${PORTVERSION}
 KEYWORDS=		multimedia
-VARIANTS=		standard
-SDESC[standard]=	Alliance for Open Media video codec
+VARIANTS=		std
+SDESC[std]=		Alliance for Open Media video codec
 HOMEPAGE=		https://aomedia.org/
 CONTACT=		nobody
 
@@ -15,7 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/jbeich:aom:${TAG}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	complete primary tools dev
+SPKGS[std]=		set primary tools dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -27,9 +27,9 @@ LICENSE_SCHEME=		solo
 # FPC uses different versioning scheme
 # FPC_EQUIVALENT=		multimedia/aom
 
-BUILD_DEPENDS=		nasm:primary:standard
+BUILD_DEPENDS=		nasm:primary:std
 
-EXRUN[tools]=		aom:primary:standard
+EXRUN[tools]=		aom:primary:std
 
 USES=			cpe cmake c++:primary perl:build
 CPE_VENDOR=		aomedia

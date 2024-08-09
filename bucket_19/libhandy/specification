@@ -4,8 +4,8 @@ DEF[PORTVERSION]=	1.8.3
 NAMEBASE=		libhandy
 VERSION=		${PORTVERSION}
 KEYWORDS=		x11_toolkits
-VARIANTS=		standard
-SDESC[standard]=	Library with GTK+ widgets for mobile phones
+VARIANTS=		std
+SDESC[std]=		Library with GTK+ widgets for mobile phones
 HOMEPAGE=		https://gitlab.gnome.org/GNOME/libhandy/
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
@@ -14,7 +14,7 @@ SITES[main]=		https://download.gnome.org/sources/libhandy/${PORTVERSION:R}/
 DISTFILE[1]=		libhandy-${PORTVERSION}.tar.xz:main
 DIST_SUBDIR=		gnome3
 
-SPKGS[standard]=	complete primary dev nls docs
+SPKGS[std]=		set primary dev nls docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -28,10 +28,10 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		x11-toolkits/libhandy
 
-BUILD_DEPENDS=		python-gi-docgen:complete:python_default
-			vala:single:standard
-			harfbuzz:dev:standard
-BUILDRUN_DEPENDS=	glade:primary:standard
+BUILD_DEPENDS=		python-gi-docgen:set:python_default
+			vala:single:std
+			harfbuzz:dev:std
+BUILDRUN_DEPENDS=	glade:primary:std
 
 USES=			meson pkgconfig
 GNOME_COMPONENTS=	glib gtk3 introspection

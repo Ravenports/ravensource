@@ -6,8 +6,8 @@ DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM18_VERSION)
 NAMEBASE=		${NAMEBASE}
 VERSION=		${LLVM_VERSION}
 KEYWORDS=		lang devel
-VARIANTS=		standard
-SDESC[standard]=	Compiler runtime libraries for clang
+VARIANTS=		std
+SDESC[std]=		Compiler runtime libraries for clang
 HOMEPAGE=		https://compiler-rt.llvm.org/
 CONTACT=		nobody
 
@@ -17,7 +17,7 @@ DISTFILE[1]=		compiler-rt-${LLVM_VERSION}.src.tar.xz:main
 DISTFILE[2]=		cmake-${LLVM_VERSION}.src.tar.xz:main
 DF_INDEX=		1 2
 
-SPKGS[standard]=	single
+SPKGS[std]=		single
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -30,15 +30,15 @@ LICENSE_SCHEME=		solo
 BROKEN[freebsd]=	Needs sha224.h header
 BROKEN[netbsd]=		missing headers from system root
 
-BUILD_DEPENDS=		${LLVMBASE}:dev:standard
-			${LLVMBASE}:tools:standard
-			libxml2:dev:standard
-BUILDRUN_DEPENDS=	${LLVMBASE}:primary:standard
+BUILD_DEPENDS=		${LLVMBASE}:dev:std
+			${LLVMBASE}:tools:std
+			libxml2:dev:std
+BUILDRUN_DEPENDS=	${LLVMBASE}:primary:std
 
-B_DEPS[netbsd]=		libmd:dev:standard
-BR_DEPS[netbsd]=	libmd:primary:standard
-B_DEPS[freebsd]=	libmd:dev:standard
-BR_DEPS[freebsd]=	libmd:primary:standard
+B_DEPS[netbsd]=		libmd:dev:std
+BR_DEPS[netbsd]=	libmd:primary:std
+B_DEPS[freebsd]=	libmd:dev:std
+BR_DEPS[freebsd]=	libmd:primary:std
 
 USES=			cpe cmake ninja zlib:build ncurses:build
 			python:build c++:single

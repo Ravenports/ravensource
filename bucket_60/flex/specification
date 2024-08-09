@@ -6,8 +6,8 @@ NAMEBASE=		flex
 VERSION=		${PORTVERSION}
 REVISION=		2
 KEYWORDS=		textproc
-VARIANTS=		standard ravensys
-SDESC[standard]=	Fast lexical analyzer generator
+VARIANTS=		std ravensys
+SDESC[std]=		Fast lexical analyzer generator
 SDESC[ravensys]=	Fast lexical analyzer generator for raven sysroot
 HOMEPAGE=		https://github.com/westes/flex
 CONTACT=		nobody
@@ -16,7 +16,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/westes/flex/releases/download/v${PORTVERSION}/
 DISTFILE[1]=		flex-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary examples nls info
+SPKGS[std]=		set primary examples nls info
 SPKGS[ravensys]=	primary
 
 OPTIONS_AVAILABLE=	RAVENSYS
@@ -29,8 +29,8 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		textproc/flex
 
-BUILD_DEPENDS=		help2man:primary:standard
-BUILDRUN_DEPENDS=	m4:primary:standard
+BUILD_DEPENDS=		help2man:primary:std
+BUILDRUN_DEPENDS=	m4:primary:std
 
 USES=			bison gmake libtool mbsdfix
 MUST_CONFIGURE=		gnu

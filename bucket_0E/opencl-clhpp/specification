@@ -8,8 +8,8 @@ DEF[UNITY_TAG]=		7d2bf62
 NAMEBASE=		opencl-clhpp
 VERSION=		${PORTVERSION}
 KEYWORDS=		devel
-VARIANTS=		standard
-SDESC[standard]=	OpenCL Host API C++ bindings
+VARIANTS=		std
+SDESC[std]=		OpenCL Host API C++ bindings
 HOMEPAGE=		https://github.com/KhronosGroup/OpenCL-CLHPP
 CONTACT=		nobody
 
@@ -22,7 +22,7 @@ DISTFILE[2]=		generated:cmock
 # DISTFILE[3]=		generated:unity
 DF_INDEX=		1 2
 
-SPKGS[standard]=	single
+SPKGS[std]=		single
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -34,7 +34,7 @@ LICENSE_AWK=		TERMS:"^$$"
 LICENSE_TERMS=		single:{{WRKSRC}}/TERMS
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		opencl-headers:single:standard
+BUILD_DEPENDS=		opencl-headers:single:std
 
 USES=			cmake
 CMAKE_ARGS=		-DBUILD_TESTING=OFF

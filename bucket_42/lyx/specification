@@ -10,8 +10,8 @@ DEF[DISTVER]=		${PORTVERSION:R}-${PORTVERSION:S|.|/|g:T}
 NAMEBASE=		lyx
 VERSION=		${PORTVERSION}
 KEYWORDS=		print editors
-VARIANTS=		standard
-SDESC[standard]=	Document Processor WYSIWYM Editor & Latex frontend
+VARIANTS=		std
+SDESC[std]=		Document Processor WYSIWYM Editor & Latex frontend
 HOMEPAGE=		https://www.lyx.org/
 CONTACT=		nobody
 
@@ -21,7 +21,7 @@ SITES[main]=		http://www-ftp.lip6.fr/ftp/pub/lyx/stable/${MAJORVER}.x/
 			ftp://ftp.lyx.org/pub/lyx/stable/${MAJORVER}.x/
 DISTFILE[1]=		lyx-${FILEVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary man docs examples
+SPKGS[std]=		set primary man docs examples
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -36,21 +36,21 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		print/lyx
 
 # deps for xvkbd are tests, but nothing is built
-BUILD_DEPENDS=		qt5-qttools:complete:standard
+BUILD_DEPENDS=		qt5-qttools:set:std
 # #NLS			python-polib:single:python_used
-# #xvkbd		wmctrl:single:standard
-			boost-libraries:dev:standard
-			qt5-qtx11extras:dev:standard
-			qt5-qtsvg:dev:standard
-BUILDRUN_DEPENDS=	mythes:single:standard
-			enchant1:single:standard
-			hunspell:single:standard
-			boost-libraries:primary:standard
-			qt5-qtbase:primary:standard
-			qt5-qtsvg:primary:standard
-			qt5-qtx11extras:primary:standard
-# #xvkbd		xvkbd:primary:standard
-RUN_DEPENDS=		texlive-bin:primary:standard
+# #xvkbd		wmctrl:single:std
+			boost-libraries:dev:std
+			qt5-qtx11extras:dev:std
+			qt5-qtsvg:dev:std
+BUILDRUN_DEPENDS=	mythes:single:std
+			enchant1:single:std
+			hunspell:single:std
+			boost-libraries:primary:std
+			qt5-qtbase:primary:std
+			qt5-qtsvg:primary:std
+			qt5-qtx11extras:primary:std
+# #xvkbd		xvkbd:primary:std
+RUN_DEPENDS=		texlive-bin:primary:std
 
 EXTRACT_HEAD[1]=	{{TAR}} -xf
 EXTRACT_TAIL[1]=	--no-same-owner --no-same-permissions --exclude cygwin --exclude MacOSX --exclude Win32

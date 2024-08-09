@@ -5,8 +5,8 @@ DEF[RELEASE]=		v${PORTVERSION}
 NAMEBASE=		libgpr2
 VERSION=		${PORTVERSION}
 KEYWORDS=		devel ada
-VARIANTS=		standard
-SDESC[standard]=	Parser for GPR Project files
+VARIANTS=		std
+SDESC[std]=		Parser for GPR Project files
 HOMEPAGE=		https://github.com/AdaCore/gpr
 CONTACT=		John_Marino[draco@marino.st]
 
@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/AdaCore:gpr:${RELEASE}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	complete primary dev
+SPKGS[std]=		set primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -28,14 +28,14 @@ LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/lib/gpr2.ads
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		langkit:single:standard
-			langkit_support:dev:standard
-			gnatcoll-core:dev:standard
-			gnatcoll-bindings:dev:standard
-BUILDRUN_DEPENDS=	langkit_support:primary:standard
+BUILD_DEPENDS=		langkit:single:std
+			langkit_support:dev:std
+			gnatcoll-core:dev:std
+			gnatcoll-bindings:dev:std
+BUILDRUN_DEPENDS=	langkit_support:primary:std
 
-EXRUN[dev]=		gnatcoll-bindings:dev:standard
-			gnatcoll-core:dev:standard
+EXRUN[dev]=		gnatcoll-bindings:dev:std
+			gnatcoll-core:dev:std
 
 USES=			gmake gprbuild python:build iconv:build
 MAKE_ARGS=		prefix="{{STAGEDIR}}{{PREFIX}}"

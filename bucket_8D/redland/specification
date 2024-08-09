@@ -5,8 +5,8 @@ NAMEBASE=		redland
 VERSION=		${PORTVERSION}
 REVISION=		1
 KEYWORDS=		textproc
-VARIANTS=		standard bdb mysql pgsql virtuoso
-SDESC[standard]=	RDF Application Framework (SQLite backend)
+VARIANTS=		std bdb mysql pgsql virtuoso
+SDESC[std]=		RDF Application Framework (SQLite backend)
 SDESC[bdb]=		RDF Application Framework (BDB backend)
 SDESC[mysql]=		RDF Application Framework (MySQL backend)
 SDESC[pgsql]=		RDF Application Framework (PostgreSQL backend)
@@ -18,7 +18,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://download.librdf.org/source/
 DISTFILE[1]=		redland-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary docs
+SPKGS[std]=		set primary docs
 SPKGS[bdb]=		single
 SPKGS[mysql]=		single
 SPKGS[pgsql]=		single
@@ -33,10 +33,10 @@ VOPTS[virtuoso]=	BDB=OFF MYSQL=OFF PGSQL=OFF VIRTUOSO=ON NOTSTD=ON
 
 FPC_EQUIVALENT=		textproc/redland
 
-BUILD_DEPENDS=		raptor:dev:standard
-BUILDRUN_DEPENDS=	libltdl:single:standard
-			rasqal:primary:standard
-			raptor:primary:standard
+BUILD_DEPENDS=		raptor:dev:std
+BUILDRUN_DEPENDS=	libltdl:single:std
+			rasqal:primary:std
+			raptor:primary:std
 
 USES=			gmake libtool perl:build pkgconfig shebangfix mbsdfix
 SHEBANG_FILES=		scripts/touch-mtime.pl
@@ -68,8 +68,8 @@ INSTALL_REQ_TOOLCHAIN=	yes
 [VIRTUOSO].DESCRIPTION=			Build with virtuoso/ODBC backend
 [VIRTUOSO].CONFIGURE_ARGS_ON=		--with-virtuoso=yes
 [VIRTUOSO].CONFIGURE_ARGS_OFF=		--with-virtuoso=no
-[VIRTUOSO].BUILDRUN_DEPENDS_ON=		unixODBC:primary:standard
-[VIRTUOSO].BUILD_DEPENDS_ON=		unixODBC:dev:standard
+[VIRTUOSO].BUILDRUN_DEPENDS_ON=		unixODBC:primary:std
+[VIRTUOSO].BUILD_DEPENDS_ON=		unixODBC:dev:std
 
 post-install-NOTSTD-ON:
 	${RM} -r ${STAGEDIR}${PREFIX}/share/gtk-doc

@@ -5,8 +5,8 @@ DEF[SOVERSION]=		3.3.1
 NAMEBASE=		mpc
 VERSION=		${PORTVERSION}
 KEYWORDS=		math devel
-VARIANTS=		standard
-SDESC[standard]=	High-precision complex number library
+VARIANTS=		std
+SDESC[std]=		High-precision complex number library
 HOMEPAGE=		http://www.multiprecision.org/
 CONTACT=		nobody
 
@@ -14,17 +14,17 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNU/mpc
 DISTFILE[1]=		mpc-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary dev info
+SPKGS[std]=		set primary dev info
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		math/mpc
 
-BUILD_DEPENDS=		gmp:dev:standard
-			mpfr:dev:standard
-BUILDRUN_DEPENDS=	gmp:primary:standard
-			mpfr:primary:standard
+BUILD_DEPENDS=		gmp:dev:std
+			mpfr:dev:std
+BUILDRUN_DEPENDS=	gmp:primary:std
+			mpfr:primary:std
 
 USES=			libtool
 MUST_CONFIGURE=		gnu

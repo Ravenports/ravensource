@@ -4,8 +4,8 @@ DEF[PORTVERSION]=	1.7.4
 NAMEBASE=		password-store
 VERSION=		${PORTVERSION}
 KEYWORDS=		sysutils
-VARIANTS=		standard
-SDESC[standard]=	Standard unix password manager (pass)
+VARIANTS=		std
+SDESC[std]=		Standard unix password manager (pass)
 HOMEPAGE=		https://www.passwordstore.org/
 CONTACT=		nobody
 
@@ -13,7 +13,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://git.zx2c4.com/password-store/snapshot/
 DISTFILE[1]=		password-store-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	single
+SPKGS[std]=		single
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -27,14 +27,14 @@ LICENSE_AWK=		TERMS:"GNU GENERAL PUBLIC LICENSE"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
-RUN_DEPENDS=		bash:complete:standard
-			gnupg:complete:standard
-			tree:single:standard
-			getopt:single:standard
-			qrencode:single:standard
-			base64:single:standard
-			xclip:single:standard
-			pwgen:single:standard
+RUN_DEPENDS=		bash:set:std
+			gnupg:set:std
+			tree:single:std
+			getopt:single:std
+			qrencode:single:std
+			base64:single:std
+			xclip:single:std
+			pwgen:single:std
 
 USES=			cpe
 CPE_VENDOR=		zx2c4

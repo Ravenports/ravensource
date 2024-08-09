@@ -4,8 +4,8 @@ DEF[PORTVERSION]=	3.22.2
 NAMEBASE=		meld
 VERSION=		${PORTVERSION}
 KEYWORDS=		devel textproc editors
-VARIANTS=		standard
-SDESC[standard]=	Visual diff and merge tool
+VARIANTS=		std
+SDESC[std]=		Visual diff and merge tool
 HOMEPAGE=		http://meldmerge.org/
 CONTACT=		nobody
 
@@ -13,7 +13,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNOME/meld/${PORTVERSION:R}
 DISTFILE[1]=		meld-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary nls
+SPKGS[std]=		set primary nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -27,12 +27,12 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		textproc/meld
 
-BUILD_DEPENDS=		itstool:single:standard
-			harfbuzz:dev:standard
-			appstream-glib:dev:standard
+BUILD_DEPENDS=		itstool:single:std
+			harfbuzz:dev:std
+			appstream-glib:dev:std
 			python-pycairo:dev:python_used
 BUILDRUN_DEPENDS=	python-pycairo:primary:python_used
-			appstream-glib:primary:standard
+			appstream-glib:primary:std
 
 USES=			meson gettext:build shebangfix pkgconfig python
 			desktop-utils:primary

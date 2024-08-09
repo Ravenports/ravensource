@@ -4,8 +4,8 @@ DEF[PORTVERSION]=	0.12.2
 NAMEBASE=		libbsd
 VERSION=		${PORTVERSION}
 KEYWORDS=		devel raven
-VARIANTS=		standard
-SDESC[standard]=	Utility functions from BSD systems
+VARIANTS=		std
+SDESC[std]=		Utility functions from BSD systems
 HOMEPAGE=		https://cgit.freedesktop.org/libbsd
 CONTACT=		nobody
 
@@ -13,7 +13,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://libbsd.freedesktop.org/releases/
 DISTFILE[1]=		libbsd-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary dev man
+SPKGS[std]=		set primary dev man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -24,10 +24,10 @@ LICENSE_SCHEME=		solo
 
 ONLY_FOR_OPSYS=		linux
 
-BUILD_DEPENDS=		libmd:dev:standard
-BUILDRUN_DEPENDS=	libmd:primary:standard
+BUILD_DEPENDS=		libmd:dev:std
+BUILDRUN_DEPENDS=	libmd:primary:std
 
-EXRUN[dev]=		libmd:dev:standard
+EXRUN[dev]=		libmd:dev:std
 
 USES=			cpe gmake libtool
 CPE_VENDOR=		freedesktop

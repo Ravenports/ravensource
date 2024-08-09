@@ -4,8 +4,8 @@ DEF[PORTVERSION]=	1.24.1
 NAMEBASE=		video4linux
 VERSION=		${PORTVERSION}
 KEYWORDS=		multimedia
-VARIANTS=		standard
-SDESC[standard]=	Video device drivers
+VARIANTS=		std
+SDESC[std]=		Video device drivers
 HOMEPAGE=		http://freshmeat.net/projects/libv4l
 CONTACT=		nobody
 
@@ -13,7 +13,7 @@ DOWNLOAD_GROUPS=	main dvb
 SITES[main]=		https://linuxtv.org/downloads/v4l-utils/
 DISTFILE[1]=		v4l-utils-${PORTVERSION}.tar.bz2:main
 
-SPKGS[standard]=	complete primary nls
+SPKGS[std]=		set primary nls
 
 OPTIONS_AVAILABLE=	ARGP
 OPTIONS_STANDARD=	ARGP
@@ -32,8 +32,8 @@ LICENSE_AWK=		TERMS:"__LIBV4L2_H"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/lib/include/libv4l2.h
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		evdev-proto:single:standard
-			gettext:solinks:standard
+BUILD_DEPENDS=		evdev-proto:single:std
+			gettext:solinks:std
 
 C_USES[linux]=		autoreconf iconv c++:primary
 
@@ -47,8 +47,8 @@ INSTALL_TARGET=		install-strip
 SHEBANG_GLOB=		*.pl
 
 [ARGP].DESCRIPTION=			Build with standalone version of argp from glibc
-[ARGP].BUILD_DEPENDS_ON=		argp-standalone:dev:standard
-[ARGP].BUILDRUN_DEPENDS_ON=		argp-standalone:primary:standard
+[ARGP].BUILD_DEPENDS_ON=		argp-standalone:dev:std
+[ARGP].BUILDRUN_DEPENDS_ON=		argp-standalone:primary:std
 
 post-extract:
 	${REINPLACE_CMD} -e '/CPPFLAGS=.*freebsd/d' ${WRKSRC}/configure

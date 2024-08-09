@@ -5,8 +5,8 @@ DEF[SOVERSION]=		0.800.0
 NAMEBASE=		sdl2_mixer
 VERSION=		${PORTVERSION}
 KEYWORDS=		audio
-VARIANTS=		standard
-SDESC[standard]=	SDL multi-channel audio mixer library
+VARIANTS=		std
+SDESC[std]=		SDL multi-channel audio mixer library
 HOMEPAGE=		https://github.com/libsdl-org/SDL_mixer
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/libsdl-org/SDL_mixer/releases/download/release-${PORTVERSION}/
 DISTFILE[1]=		SDL2_mixer-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary dev
+SPKGS[std]=		set primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -25,16 +25,16 @@ LICENSE=		ZLIB:primary
 LICENSE_FILE=		ZLIB:{{WRKSRC}}/LICENSE.txt
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		libmodplug:dev:standard
-			mpg123:dev:standard
-			fluidsynth:dev:standard
-			libvorbis:dev:standard
-			flac:dev:standard
-BUILDRUN_DEPENDS=	flac:primary:standard
-			fluidsynth:primary:standard
-			libmodplug:primary:standard
-			libvorbis:primary:standard
-			mpg123:primary:standard
+BUILD_DEPENDS=		libmodplug:dev:std
+			mpg123:dev:std
+			fluidsynth:dev:std
+			libvorbis:dev:std
+			flac:dev:std
+BUILDRUN_DEPENDS=	flac:primary:std
+			fluidsynth:primary:std
+			libmodplug:primary:std
+			libvorbis:primary:std
+			mpg123:primary:std
 
 USES=			gmake pkgconfig libtool mbsdfix
 SDL_COMPONENTS=		sdl2

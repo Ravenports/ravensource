@@ -7,8 +7,8 @@ NAMEBASE=		glade
 VERSION=		${PORTVERSION}
 REVISION=		2
 KEYWORDS=		devel
-VARIANTS=		standard
-SDESC[standard]=	User interface builder for GTK+3
+VARIANTS=		std
+SDESC[std]=		User interface builder for GTK+3
 HOMEPAGE=		https://gitlab.gnome.org/GNOME/glade/
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
@@ -17,7 +17,7 @@ SITES[main]=		https://download.gnome.org/sources/glade/${PORTVERSION:R}/
 DISTFILE[1]=		glade-${PORTVERSION}.tar.xz:main
 DIST_SUBDIR=		gnome3
 
-SPKGS[standard]=	complete primary nls
+SPKGS[std]=		set primary nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -33,15 +33,15 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/glade
 
-BUILD_DEPENDS=		appstream-glib:dev:standard
-			docbook-xsl:primary:standard
-			itstool:single:standard
-			libxslt:primary:standard
-			harfbuzz:dev:standard
-			libsoup-2.4:dev:standard
+BUILD_DEPENDS=		appstream-glib:dev:std
+			docbook-xsl:primary:std
+			itstool:single:std
+			libxslt:primary:std
+			harfbuzz:dev:std
+			libsoup-2.4:dev:std
 			webkit2:dev:api40
-			gjs:dev:standard
-BUILDRUN_DEPENDS=	gjs:primary:standard
+			gjs:dev:std
+BUILDRUN_DEPENDS=	gjs:primary:std
 			webkit2:primary:api40
 
 USES=			desktop-utils:primary meson pkgconfig

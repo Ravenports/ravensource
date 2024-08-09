@@ -5,8 +5,8 @@ NAMEBASE=		bsdisks
 VERSION=		${PORTVERSION}
 REVISION=		1
 KEYWORDS=		sysutils
-VARIANTS=		standard
-SDESC[standard]=	UDisks2 service implementation for FreeBSD
+VARIANTS=		std
+SDESC[std]=		UDisks2 service implementation for FreeBSD
 HOMEPAGE=		https://foss.heptapod.net/bsdutils/bsdisks
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://foss.heptapod.net/bsdutils/bsdisks/-/archive/${PORTVERSION}/
 DISTFILE[1]=		bsdisks-${PORTVERSION}.tar.bz2:main
 
-SPKGS[standard]=	complete primary man
+SPKGS[std]=		set primary man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -30,9 +30,9 @@ FPC_EQUIVALENT=		sysutils/bsdisks
 ONLY_FOR_OPSYS=		freebsd midnightbsd
 
 BUILD_DEPENDS=		polkit-qt-1:dev:qt5
-			qt5-qtbase:dev:standard
+			qt5-qtbase:dev:std
 BUILDRUN_DEPENDS=	polkit-qt-1:primary:qt5
-			qt5-qtbase:primary:standard
+			qt5-qtbase:primary:std
 
 USES=			cmake
 

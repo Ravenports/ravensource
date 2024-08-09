@@ -5,8 +5,8 @@ DEF[FBSD_TAG]=		1ad45945
 NAMEBASE=		accountsservice
 VERSION=		${PORTVERSION}
 KEYWORDS=		sysutils
-VARIANTS=		standard
-SDESC[standard]=	D-Bus service for user account query/manipulation
+VARIANTS=		std
+SDESC[std]=		D-Bus service for user account query/manipulation
 HOMEPAGE=		https://www.freedesktop.org/wiki/Software/AccountsService/
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
@@ -17,7 +17,7 @@ DISTFILE[1]=		accountsservice-${FBSD_TAG}.tar.gz:freebsd
 DISTFILE[2]=		accountsservice-${PORTVERSION}.tar.gz:main
 DF_INDEX=		1 2
 
-SPKGS[standard]=	complete primary nls docs
+SPKGS[std]=		set primary nls docs
 
 OPTIONS_AVAILABLE=	LINUX
 OPTIONS_STANDARD=	LINUX
@@ -32,12 +32,12 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		sysutils/accountsservice
 
-BUILD_DEPENDS=		xmlto:single:standard
-			dbus:dev:standard
-			consolekit:dev:standard
-			polkit:dev:standard
-BUILDRUN_DEPENDS=	polkit:primary:standard
-			consolekit:primary:standard
+BUILD_DEPENDS=		xmlto:single:std
+			dbus:dev:std
+			consolekit:dev:std
+			polkit:dev:std
+BUILDRUN_DEPENDS=	polkit:primary:std
+			consolekit:primary:std
 
 USES=			cpe meson pkgconfig
 GNOME_COMPONENTS=	glib introspection

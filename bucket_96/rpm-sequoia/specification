@@ -4,8 +4,8 @@ DEF[PORTVERSION]=	1.7.0
 NAMEBASE=		rpm-sequoia
 VERSION=		${PORTVERSION}
 KEYWORDS=		security rust
-VARIANTS=		standard
-SDESC[standard]=	OpenPGP backend for rpm using Sequoia PGP
+VARIANTS=		std
+SDESC[std]=		OpenPGP backend for rpm using Sequoia PGP
 HOMEPAGE=		https://sequoia-pgp.org/
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
@@ -542,7 +542,7 @@ DF_INDEX=		1 2 3 4 5 6 7 8 9 10
 			231 232 233 234 235 236 237 238 239 240
 			241
 
-SPKGS[standard]=	complete primary dev
+SPKGS[std]=		set primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -556,10 +556,10 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		security/rpm-sequoia
 
-BUILD_DEPENDS=		gmp:dev:standard
-			nettle:dev:standard
-BUILDRUN_DEPENDS=	gmp:primary:standard
-			nettle:primary:standard
+BUILD_DEPENDS=		gmp:dev:std
+			nettle:dev:std
+BUILDRUN_DEPENDS=	gmp:primary:std
+			nettle:primary:std
 
 USES=			cargo clang pkgconfig
 

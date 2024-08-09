@@ -6,8 +6,8 @@ DEF[ALTNAME]=		libXtst
 NAMEBASE=		xorg-${XNAME}
 VERSION=		${PORTVERSION}
 KEYWORDS=		x11
-VARIANTS=		standard
-SDESC[standard]=	X Test extension
+VARIANTS=		std
+SDESC[std]=		X Test extension
 HOMEPAGE=		https://www.x.org/
 CONTACT=		nobody
 
@@ -16,17 +16,17 @@ SITES[main]=		XORG/individual/lib
 DISTFILE[1]=		${ALTNAME}-${PORTVERSION}.tar.xz:main
 DIST_SUBDIR=		xorg
 
-SPKGS[standard]=	complete primary dev man
+SPKGS[std]=		set primary dev man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		MIT:complete
+LICENSE=		MIT:primary
 LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
-EXRUN[dev]=		xorg-xext:dev:standard
-			xorg-xi:dev:standard
+EXRUN[dev]=		xorg-xext:dev:std
+			xorg-xi:dev:std
 
 USES=			cpe libtool
 XORG_COMPONENTS=	x11 xi xext

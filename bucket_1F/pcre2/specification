@@ -7,8 +7,8 @@ DEF[POSIXMAJOR]=	${POSIXVERSION:R:R}
 NAMEBASE=		pcre2
 VERSION=		${PORTVERSION}
 KEYWORDS=		devel
-VARIANTS=		standard
-SDESC[standard]=	Perl Compatible Regular Expressions, version 2
+VARIANTS=		std
+SDESC[std]=		Perl Compatible Regular Expressions, version 2
 HOMEPAGE=		http://www.pcre.org/
 CONTACT=		nobody
 
@@ -16,7 +16,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/PhilipHazel/pcre2/releases/download/pcre2-${PORTVERSION}/
 DISTFILE[1]=		pcre2-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary tools dev man docs
+SPKGS[std]=		set primary tools dev man docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -27,10 +27,10 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/pcre2
 
-BUILD_DEPENDS=		readline:primary:standard
+BUILD_DEPENDS=		readline:primary:std
 
-EXRUN[tools]=		pcre2:primary:standard
-			readline:primary:standard
+EXRUN[tools]=		pcre2:primary:std
+			readline:primary:std
 
 USES=			autoreconf cpe libtool pkgconfig readline:build
 CPE_VENDOR=		pcre

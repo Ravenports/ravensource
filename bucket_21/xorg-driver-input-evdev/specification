@@ -6,8 +6,8 @@ DEF[ALTNAME]=		xf86-input-evdev
 NAMEBASE=		xorg-driver-input-evdev
 VERSION=		${PORTVERSION}
 KEYWORDS=		x11_drivers
-VARIANTS=		standard
-SDESC[standard]=	X.org event device input driver
+VARIANTS=		std
+SDESC[std]=		X.org event device input driver
 HOMEPAGE=		https://www.x.org/
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
@@ -15,7 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		XORG/individual/driver
 DISTFILE[1]=		${ALTNAME}-${PORTVERSION}.tar.bz2:main
 
-SPKGS[standard]=	single
+SPKGS[std]=		single
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -32,12 +32,12 @@ ONLY_FOR_OPSYS=		linux
 
 USES=			libtool pkgconfig
 
-BUILD_DEPENDS=		xorg-server:dev:standard
-			libevdev:dev:standard
-			xorg-xorgproto:single:standard
-BUILDRUN_DEPENDS=	libevdev:primary:standard
-			mtdev:single:standard
-			xorg-server:primary:standard
+BUILD_DEPENDS=		xorg-server:dev:std
+			libevdev:dev:std
+			xorg-xorgproto:single:std
+BUILDRUN_DEPENDS=	libevdev:primary:std
+			mtdev:single:std
+			xorg-server:primary:std
 
 DISTNAME=		${ALTNAME}-${PORTVERSION}
 MUST_CONFIGURE=		gnu

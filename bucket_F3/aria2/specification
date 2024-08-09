@@ -4,8 +4,8 @@ DEF[PORTVERSION]=	1.37.0
 NAMEBASE=		aria2
 VERSION=		${PORTVERSION}
 KEYWORDS=		ftp net www
-VARIANTS=		standard
-SDESC[standard]=	CLI download for HTTP/S, FTP, BitTorrent, Metalink
+VARIANTS=		std
+SDESC[std]=		CLI download for HTTP/S, FTP, BitTorrent, Metalink
 HOMEPAGE=		https://aria2.github.io/
 CONTACT=		nobody
 
@@ -13,7 +13,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/aria2/aria2/releases/download/release-${PORTVERSION}/
 DISTFILE[1]=		aria2-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary tools dev man docs
+SPKGS[std]=		set primary tools dev man docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -28,7 +28,7 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		www/aria2
 
 EXRUN[tools]=		primary
-			nss:caroot:standard
+			nss:caroot:std
 
 RC_SUBR=		aria2:tools
 

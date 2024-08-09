@@ -5,8 +5,8 @@ DEF[SOVERSION]=		7.10.0
 NAMEBASE=		wolfssh
 VERSION=		${PORTVERSION}
 KEYWORDS=		security
-VARIANTS=		standard
-SDESC[standard]=	Lightweight SSH Library
+VARIANTS=		std
+SDESC[std]=		Lightweight SSH Library
 HOMEPAGE=		https://www.wolfssl.com/products/wolfssh/
 CONTACT=		nobody
 
@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://www.wolfssl.com/
 DISTFILE[1]=		wolfssh-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary dev
+SPKGS[std]=		set primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -26,8 +26,8 @@ LICENSE_FILE=		GPLv3+:stock
 LICENSE_TERMS=		primary:{{WRKSRC}}/LICENSING
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		wolfssl:dev:standard
-BUILDRUN_DEPENDS=	wolfssl:primary:standard
+BUILD_DEPENDS=		wolfssl:dev:std
+BUILDRUN_DEPENDS=	wolfssl:primary:std
 
 USES=			autoreconf cpe libtool
 MUST_CONFIGURE=		gnu

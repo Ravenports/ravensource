@@ -5,8 +5,8 @@ DEF[TAG]=		v${PORTVERSION}
 NAMEBASE=		copyq
 VERSION=		${PORTVERSION}
 KEYWORDS=		deskutils
-VARIANTS=		standard
-SDESC[standard]=	Qt6-based clipboard manager
+VARIANTS=		std
+SDESC[std]=		Qt6-based clipboard manager
 HOMEPAGE=		https://github.com/hluk/CopyQ
 CONTACT=		nobody
 
@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/hluk/CopyQ/releases/download/${TAG}/
 DISTFILE[1]=		CopyQ-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary man nls
+SPKGS[std]=		set primary man nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -28,27 +28,27 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		deskutils/copyq
 
-BUILD_DEPENDS=		wayland:dev:standard
-			wayland:tools:standard
-			libxkbcommon:dev:standard
-			qt6-qtbase:dev:standard
-			qt6-qtwayland:dev:standard
-			qt6-qtdeclarative:dev:standard
-			qt6-qtsvg:dev:standard
-			qt6-qttranslations:single:standard
-			qt6-qttools:dev:standard
-			kf6-extra-cmake-modules:primary:standard
-			kf6-knotifications:dev:standard
-			kf6-kstatusnotifieritem:dev:standard
-BUILDRUN_DEPENDS=	wayland:primary:standard
-			libxkbcommon:primary:standard
-			qt6-qtbase:primary:standard
-			qt6-qtwayland:primary:standard
-			qt6-qtdeclarative:primary:standard
-			qt6-qtsvg:primary:standard
-			qt6-qttools:primary:standard
-			kf6-knotifications:primary:standard
-			kf6-kstatusnotifieritem:primary:standard
+BUILD_DEPENDS=		wayland:dev:std
+			wayland:tools:std
+			libxkbcommon:dev:std
+			qt6-qtbase:dev:std
+			qt6-qtwayland:dev:std
+			qt6-qtdeclarative:dev:std
+			qt6-qtsvg:dev:std
+			qt6-qttranslations:single:std
+			qt6-qttools:dev:std
+			kf6-extra-cmake-modules:primary:std
+			kf6-knotifications:dev:std
+			kf6-kstatusnotifieritem:dev:std
+BUILDRUN_DEPENDS=	wayland:primary:std
+			libxkbcommon:primary:std
+			qt6-qtbase:primary:std
+			qt6-qtwayland:primary:std
+			qt6-qtdeclarative:primary:std
+			qt6-qtsvg:primary:std
+			qt6-qttools:primary:std
+			kf6-knotifications:primary:std
+			kf6-kstatusnotifieritem:primary:std
 
 USES=			cmake pkgconfig
 XORG_COMPONENTS=	ice sm x11 xext xfixes xtst

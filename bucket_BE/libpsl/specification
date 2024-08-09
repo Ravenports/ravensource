@@ -5,8 +5,8 @@ DEF[SOVERSION]=		5.3.5
 NAMEBASE=		libpsl
 VERSION=		${PORTVERSION}
 KEYWORDS=		dns
-VARIANTS=		standard
-SDESC[standard]=	Library to handle the Public Suffix List
+VARIANTS=		std
+SDESC[std]=		Library to handle the Public Suffix List
 HOMEPAGE=		https://github.com/rockdaboot/libpsl
 CONTACT=		nobody
 
@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/rockdaboot:libpsl:${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	complete primary tools dev man
+SPKGS[std]=		set primary tools dev man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -25,13 +25,13 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		dns/libpsl
 
-BUILD_DEPENDS=		publicsuffix-list:single:standard
-			libunistring:dev:standard
-			libidn2:dev:standard
-BUILDRUN_DEPENDS=	libidn2:primary:standard
-			libunistring:primary:standard
+BUILD_DEPENDS=		publicsuffix-list:single:std
+			libunistring:dev:std
+			libidn2:dev:std
+BUILDRUN_DEPENDS=	libidn2:primary:std
+			libunistring:primary:std
 
-EXRUN[dev]=		libidn2:dev:standard
+EXRUN[dev]=		libidn2:dev:std
 EXRUN[tools]=		primary
 
 USES=			pkgconfig shebangfix iconv meson gettext

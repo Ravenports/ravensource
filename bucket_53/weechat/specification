@@ -4,8 +4,8 @@ DEF[PORTVERSION]=	4.3.5
 NAMEBASE=		weechat
 VERSION=		${PORTVERSION}
 KEYWORDS=		net net_im irc
-VARIANTS=		standard
-SDESC[standard]=	Fast, light and extensible chat client
+VARIANTS=		std
+SDESC[std]=		Fast, light and extensible chat client
 HOMEPAGE=		https://www.weechat.org
 CONTACT=		nobody
 
@@ -13,7 +13,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://www.weechat.org/files/src/
 DISTFILE[1]=		weechat-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary nls
+SPKGS[std]=		set primary nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -27,13 +27,13 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		irc/weechat
 
-BUILD_DEPENDS=		gnutls:dev:standard
-			libgcrypt:dev:standard
-			cjson:dev:standard
-BUILDRUN_DEPENDS=	aspell:primary:standard
-			gnutls:primary:standard
-			libgcrypt:primary:standard
-			cjson:primary:standard
+BUILD_DEPENDS=		gnutls:dev:std
+			libgcrypt:dev:std
+			cjson:dev:std
+BUILDRUN_DEPENDS=	aspell:primary:std
+			gnutls:primary:std
+			libgcrypt:primary:std
+			cjson:primary:std
 
 USES=			cmake gettext iconv libtool lua ncurses perl
 			pkgconfig python tcl cpe ruby zlib zstd curl

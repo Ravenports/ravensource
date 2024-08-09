@@ -4,8 +4,8 @@ DEF[PORTVERSION]=	7.0.5
 NAMEBASE=		forgejo
 VERSION=		${PORTVERSION}
 KEYWORDS=		www
-VARIANTS=		standard
-SDESC[standard]=	Painless, self-hosted Git service (GitHub-like)
+VARIANTS=		std
+SDESC[std]=		Painless, self-hosted Git service (GitHub-like)
 HOMEPAGE=		https://forgejo.org/
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
@@ -13,7 +13,7 @@ DOWNLOAD_GROUPS=	main bundles
 SITES[main]=		https://codeberg.org/forgejo/forgejo/releases/download/v${PORTVERSION}/
 DISTFILE[1]=		forgejo-src-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[std]=		single
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -26,8 +26,8 @@ USERS=			forgejo
 GROUPS=			forgejo
 USERGROUP_SPKG=		single
 
-BUILD_DEPENDS=		golang:single:standard
-RUN_DEPENDS=		git-lfs:primary:standard
+BUILD_DEPENDS=		golang:single:std
+RUN_DEPENDS=		git-lfs:primary:std
 
 USES=			gmake
 RC_SUBR=		forgejo:single

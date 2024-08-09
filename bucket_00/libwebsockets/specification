@@ -5,8 +5,8 @@ NAMEBASE=		libwebsockets
 VERSION=		${PORTVERSION}
 REVISION=		1
 KEYWORDS=		net devel
-VARIANTS=		standard
-SDESC[standard]=	Lightweight C library for Websockets
+VARIANTS=		std
+SDESC[std]=		Lightweight C library for Websockets
 HOMEPAGE=		https://libwebsockets.org/
 CONTACT=		nobody
 
@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/warmcat:libwebsockets:v${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	complete primary dev
+SPKGS[std]=		set primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -25,8 +25,8 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		net/libwebsockets
 
-BUILD_DEPENDS=		libuv:dev:standard
-BUILDRUN_DEPENDS=	libuv:primary:standard
+BUILD_DEPENDS=		libuv:dev:std
+BUILDRUN_DEPENDS=	libuv:primary:std
 
 USES=			cmake pkgconfig zlib ssl
 CMAKE_ARGS=		-DLWS_BUILD_HASH:STRING="{{CONFIGURE_TARGET}}"

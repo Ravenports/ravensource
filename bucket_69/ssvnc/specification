@@ -5,8 +5,8 @@ DEF[PORTVERSION]=	1.0.29
 NAMEBASE=		ssvnc
 VERSION=		${PORTVERSION}
 KEYWORDS=		net
-VARIANTS=		standard
-SDESC[standard]=	Enhanced TightVNC Viewer
+VARIANTS=		std
+SDESC[std]=		Enhanced TightVNC Viewer
 HOMEPAGE=		https://sourceforge.net/projects/ssvnc/
 CONTACT=		nobody
 
@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		SF/ssvnc/ssvnc/${PORTVERSION}
 DISTFILE[1]=		ssvnc-${PORTVERSION}.src.tar.gz:main
 
-SPKGS[standard]=	complete primary docs
+SPKGS[std]=		set primary docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -29,10 +29,10 @@ LICENSE_AWK=		TERMS:"^\# You must have stunnel"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/scripts/util/ss_vncviewer
 LICENSE_SCHEME=		solo
 
-RUN_DEPENDS=		stunnel:complete:standard
-			xterm:complete:standard
+RUN_DEPENDS=		stunnel:set:std
+			xterm:set:std
 
-BUILD_DEPENDS=		imake:primary:standard
+BUILD_DEPENDS=		imake:primary:std
 
 USES=			gmake jpeg perl:run ssl zlib tcl:tk,run
 XORG_COMPONENTS=	ice sm x11 xaw xext xi xmu xpm xt

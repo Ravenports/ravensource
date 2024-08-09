@@ -6,8 +6,8 @@ NAMEBASE=		libssh2
 VERSION=		${PORTVERSION}
 REVISION=		2
 KEYWORDS=		security devel
-VARIANTS=		standard embed
-SDESC[standard]=	SSH2 protocol library with OpenSSL backend
+VARIANTS=		std embed
+SDESC[std]=		SSH2 protocol library with OpenSSL backend
 SDESC[embed]=		SSH2 protocol library with MBedTLS backend
 HOMEPAGE=		https://www.libssh2.org/
 CONTACT=		nobody
@@ -16,8 +16,8 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://www.libssh2.org/download/
 DISTFILE[1]=		libssh2-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary dev man docs
-SPKGS[embed]=		complete primary dev man docs
+SPKGS[std]=		set primary dev man docs
+SPKGS[embed]=		set primary dev man docs
 
 OPTIONS_AVAILABLE=	EMBED
 OPTIONS_STANDARD=	EMBED
@@ -36,7 +36,7 @@ CMAKE_ARGS=		-DZLIB_USE_STATIC_LIBS:BOOL=ON
 [EMBED].DESCRIPTION=			Select MBedTLS for cryptography backend
 [EMBED].USES_OFF=			ssl
 [EMBED].CMAKE_ARGS_OFF=			-DOPENSSL_ROOT_DIR="{{OPENSSLBASE}}"
-[EMBED].BUILD_DEPENDS_ON=		mbedtls:dev:standard
+[EMBED].BUILD_DEPENDS_ON=		mbedtls:dev:std
 
 pre-configure-EMBED-ON:
 	${REINPLACE_CMD} -e 's/lssh2/lssh2_pic/' ${WRKSRC}/libssh2.pc.in

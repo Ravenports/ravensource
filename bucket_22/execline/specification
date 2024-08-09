@@ -7,8 +7,8 @@ DEF[MANVERSION]=	2.9.6.0.1
 NAMEBASE=		execline
 VERSION=		${PORTVERSION}
 KEYWORDS=		lang
-VARIANTS=		standard
-SDESC[standard]=	Light and secure sh(1)-like scripting language
+VARIANTS=		std
+SDESC[std]=		Light and secure sh(1)-like scripting language
 HOMEPAGE=		https://www.skarnet.org/software/execline/
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
@@ -20,7 +20,7 @@ DISTFILE[2]=		v${MANVERSION}.tar.gz:man
 DIST_SUBDIR=		skarnet
 DF_INDEX=		1 2
 
-SPKGS[standard]=	complete primary dev man
+SPKGS[std]=		set primary dev man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -31,8 +31,8 @@ LICENSE=		ISCL:primary
 LICENSE_FILE=		ISCL:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		skalibs:dev:standard
-BUILDRUN_DEPENDS=	skalibs:primary:standard
+BUILD_DEPENDS=		skalibs:dev:std
+BUILDRUN_DEPENDS=	skalibs:primary:std
 USES=			gmake
 
 MUST_CONFIGURE=		gnu

@@ -8,8 +8,8 @@ NAMEBASE=		qt6-${COMPONENT}
 VERSION=		${PORTVERSION}
 REVISION=		1
 KEYWORDS=		graphics devel
-VARIANTS=		standard
-SDESC[standard]=	Qt6 - ${COMPONENT_CASED} component
+VARIANTS=		std
+SDESC[std]=		Qt6 - ${COMPONENT_CASED} component
 HOMEPAGE=		https://www.qt.io/
 CONTACT=		nobody
 
@@ -18,7 +18,7 @@ SITES[main]=		https://qt.mirror.constant.com/official_releases/qt/${MINOR_VER}/$
 			https://download.qt.io/official_releases/qt/${MINOR_VER}/${PORTVERSION}/submodules/
 DISTFILE[1]=		${COMPONENT}-everywhere-src-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary dev
+SPKGS[std]=		set primary dev
 
 OPTIONS_AVAILABLE=	EPOLLSHIM EGL
 OPTIONS_STANDARD=	EPOLLSHIM EGL
@@ -27,15 +27,15 @@ OPT_ON[dragonfly]=	EPOLLSHIM
 OPT_ON[midnightbsd]=	EPOLLSHIM
 OPT_ON[netbsd]=		EPOLLSHIM
 
-BUILD_DEPENDS=		xorg-x11:dev:standard
-			wayland:dev:standard
-			qt6-qtbase:dev:standard
-			qt6-qtdeclarative:dev:standard
-			libffi:dev:standard
-			wayland:tools:standard
-BUILDRUN_DEPENDS=	qt6-qtbase:primary:standard
-			qt6-qtdeclarative:primary:standard
-			libffi:primary:standard
+BUILD_DEPENDS=		xorg-x11:dev:std
+			wayland:dev:std
+			qt6-qtbase:dev:std
+			qt6-qtdeclarative:dev:std
+			libffi:dev:std
+			wayland:tools:std
+BUILDRUN_DEPENDS=	qt6-qtbase:primary:std
+			qt6-qtdeclarative:primary:std
+			libffi:primary:std
 
 USES=			qt6 cmake pkgconfig perl:build cpe gold
 CPE_VENDOR=		qt
@@ -47,7 +47,7 @@ SOVERSION=		${PORTVERSION}
 INSTALL_REQ_TOOLCHAIN=	yes
 
 [EPOLLSHIM].DESCRIPTION=		Platform depends on libepoll-shim
-[EPOLLSHIM].BUILD_DEPENDS_ON=		libepoll-shim:dev:standard
+[EPOLLSHIM].BUILD_DEPENDS_ON=		libepoll-shim:dev:std
 
 [EGL].DESCRIPTION=			Platform detects EGL server support
 

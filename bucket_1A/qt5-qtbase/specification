@@ -6,8 +6,8 @@ NAMEBASE=		qt5-qtbase
 VERSION=		${PORTVERSION}
 REVISION=		5
 KEYWORDS=		x11_toolkits devel
-VARIANTS=		standard
-SDESC[standard]=	Qt5 - QtBase component
+VARIANTS=		std
+SDESC[std]=		Qt5 - QtBase component
 HOMEPAGE=		https://www.qt.io/
 CONTACT=		nobody
 
@@ -15,21 +15,21 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://qt.mirror.constant.com/official_releases/qt/${MINOR_VER}/${PORTVERSION}/submodules/
 DISTFILE[1]=		qtbase-everywhere-opensource-src-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary dev docs
+SPKGS[std]=		set primary dev docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-BUILD_DEPENDS=		evdev-proto:single:standard
-			harfbuzz:dev:standard
-			libdrm:dev:standard
-			fontconfig:dev:standard
-			libglvnd:dev:standard
-			libxkbcommon:dev:standard
-BUILDRUN_DEPENDS=	harfbuzz:primary:standard
-			libdrm:primary:standard
-			libxkbcommon:primary:standard
-EXRUN[dev]=		libglvnd:dev:standard
+BUILD_DEPENDS=		evdev-proto:single:std
+			harfbuzz:dev:std
+			libdrm:dev:std
+			fontconfig:dev:std
+			libglvnd:dev:std
+			libxkbcommon:dev:std
+BUILDRUN_DEPENDS=	harfbuzz:primary:std
+			libdrm:primary:std
+			libxkbcommon:primary:std
+EXRUN[dev]=		libglvnd:dev:std
 
 USES=			qt5 gmake zlib png sqlite jpeg pkgconfig execinfo
 			freetype pcre2 iconv perl:build shebangfix ssl:openssl11 cpe

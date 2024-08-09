@@ -4,8 +4,8 @@ DEF[PORTVERSION]=	3.7.1
 NAMEBASE=		fish
 VERSION=		${PORTVERSION}
 KEYWORDS=		shells
-VARIANTS=		standard
-SDESC[standard]=	Friendly Interactive SHell
+VARIANTS=		std
+SDESC[std]=		Friendly Interactive SHell
 HOMEPAGE=		https://fishshell.com/
 CONTACT=		nobody
 
@@ -13,7 +13,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/fish-shell/fish-shell/releases/download/${PORTVERSION}/
 DISTFILE[1]=		fish-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary dev docs nls man
+SPKGS[std]=		set primary dev docs nls man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -25,7 +25,7 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		shells/fish
 
-BUILD_DEPENDS=		doxygen:primary:standard
+BUILD_DEPENDS=		doxygen:primary:std
 
 USES=			cmake cpe ncurses shebangfix python:build
 			pcre2 gettext c++:primary

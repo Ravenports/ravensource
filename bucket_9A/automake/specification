@@ -4,9 +4,10 @@ DEF[BUILD_VER]=		1.17
 
 NAMEBASE=		automake
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
-VARIANTS=		standard
-SDESC[standard]=	GNU Standards-compliant Makefile generator
+VARIANTS=		std
+SDESC[std]=		GNU Standards-compliant Makefile generator
 HOMEPAGE=		https://www.gnu.org/software/automake/
 CONTACT=		nobody
 
@@ -14,30 +15,24 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNU/automake
 DISTFILE[1]=		automake-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	single
+SPKGS[std]=		set primary man info
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		devel/automake
 
-BUILDRUN_DEPENDS=	autoconf:single:standard
+BUILDRUN_DEPENDS=	autoconf:primary:std
 
-USES=			cpe perl
-# makeinfo
+USES=			cpe perl makeinfo
 MUST_CONFIGURE=		gnu
 CPE_VENDOR=		gnu
 PLIST_SUB=		AMVER=${BUILD_VER}
 
-# try to diable info pages.  To include them means spliting package
-# to primary/man subpackages, which requires change to ravenadm.
-# right now it's easier to keep single and drop the info pages.
-# MAKE_ENV=		MAKEINFOFLAGS=--no-split
-# INFO=			info:automake
-# #			info:automake-history
+MAKE_ENV=		MAKEINFOFLAGS=--no-split
+INFO=			info:automake
+			info:automake-history
 
 post-install:
 	# delete share/doc/automake/amhello-1.0.tar.gz
 	${RM} -r ${STAGEDIR}${STD_DOCDIR}
-	# delete info pages
-	${RM} -r ${STAGEDIR}${PREFIX}/share/info

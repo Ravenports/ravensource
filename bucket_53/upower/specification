@@ -8,8 +8,8 @@ NAMEBASE=		upower
 VERSION=		${PORTVERSION}
 REVISION=		1
 KEYWORDS=		sysutils
-VARIANTS=		standard
-SDESC[standard]=	D-Bus daemon for power management tasks
+VARIANTS=		std
+SDESC[std]=		D-Bus daemon for power management tasks
 HOMEPAGE=		https://upower.freedesktop.org
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
@@ -17,7 +17,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://gitlab.freedesktop.org/upower/upower/-/archive/${SITEVERSION}/
 DISTFILE[1]=		upower-${SITEVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary nls
+SPKGS[std]=		set primary nls
 # docs
 
 OPTIONS_AVAILABLE=	none
@@ -32,18 +32,17 @@ LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/up-native.h
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		automake:single:standard
-			autoconf:single:standard
-			docbook-xsl:primary:standard
-			libtool:single:standard
-			polkit:dev:standard
-BUILDRUN_DEPENDS=	dbus-glib:primary:standard
-			polkit:primary:standard
+BUILD_DEPENDS=		automake:primary:std
+			docbook-xsl:primary:std
+			libtool:single:std
+			polkit:dev:std
+BUILDRUN_DEPENDS=	dbus-glib:primary:std
+			polkit:primary:std
 
-B_DEPS[linux]=		libgudev:dev:standard
-			libusb:dev:standard
-BR_DEPS[linux]=		libgudev:primary:standard
-			libusb:primary:standard
+B_DEPS[linux]=		libgudev:dev:std
+			libusb:dev:std
+BR_DEPS[linux]=		libgudev:primary:std
+			libusb:primary:std
 
 # gtk-doc + meson recently fails build build documents
 # Culprit unclear.  Does not appear to be meson.  Disable

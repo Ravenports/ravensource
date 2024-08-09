@@ -6,8 +6,8 @@ NAMEBASE=		libgudev-devd
 VERSION=		${PORTVERSION}
 REVISION=		1
 KEYWORDS=		devel
-VARIANTS=		standard
-SDESC[standard]=	GObject bindings for libudev
+VARIANTS=		std
+SDESC[std]=		GObject bindings for libudev
 HOMEPAGE=		https://wiki.gnome.org/Projects/libgudev
 CONTACT=		nobody
 
@@ -15,7 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNOME/libgudev/${PORTVERSION}
 DISTFILE[1]=		libgudev-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary dev
+SPKGS[std]=		set primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -29,10 +29,10 @@ LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/gudev/gudev.h
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		libudev-devd:dev:standard
-BUILDRUN_DEPENDS=	libudev-devd:primary:standard
+BUILD_DEPENDS=		libudev-devd:dev:std
+BUILDRUN_DEPENDS=	libudev-devd:primary:std
 
-EXRUN[dev]=		libudev-devd:dev:standard
+EXRUN[dev]=		libudev-devd:dev:std
 
 USES=			pkgconfig gmake meson
 GNOME_COMPONENTS=	glib introspection

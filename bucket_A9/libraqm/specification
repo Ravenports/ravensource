@@ -6,8 +6,8 @@ DEF[CAT1]=		http://www.oasis-open.org/docbook/xml/
 NAMEBASE=		libraqm
 VERSION=		${PORTVERSION}
 KEYWORDS=		print
-VARIANTS=		standard
-SDESC[standard]=	Complex Textlayout Library
+VARIANTS=		std
+SDESC[std]=		Complex Textlayout Library
 HOMEPAGE=		https://github.com/HOST-Oman/libraqm/
 CONTACT=		nobody
 
@@ -15,7 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/HOST-Oman/libraqm/releases/download/v${PORTVERSION}/
 DISTFILE[1]=		raqm-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary dev docs
+SPKGS[std]=		set primary dev docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -26,10 +26,10 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		print/libraqm
 
-BUILD_DEPENDS=		harfbuzz:dev:standard
-			fribidi:dev:standard
-BUILDRUN_DEPENDS=	harfbuzz:primary:standard
-			fribidi:primary:standard
+BUILD_DEPENDS=		harfbuzz:dev:std
+			fribidi:dev:std
+BUILDRUN_DEPENDS=	harfbuzz:primary:std
+			fribidi:primary:std
 
 USES=			meson pkgconfig freetype gtk-doc
 MESON_ARGS=		-Ddocs=true

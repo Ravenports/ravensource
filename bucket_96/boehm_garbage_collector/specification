@@ -8,8 +8,8 @@ DEF[TBAVERSION]=	1.5.0
 NAMEBASE=		boehm_garbage_collector
 VERSION=		${PORTVERSION}
 KEYWORDS=		devel
-VARIANTS=		standard threaded redirect
-SDESC[standard]=	Garbage collection and memory leak detection
+VARIANTS=		std threaded redirect
+SDESC[std]=		Garbage collection and memory leak detection
 SDESC[redirect]=	Garbage collection with redirected malloc
 SDESC[threaded]=	Garbage collection with posix thread support
 HOMEPAGE=		https://github.com/ivmai/bdwgc/
@@ -20,9 +20,9 @@ SITES[old]=		http://www.hboehm.info/gc/gc_source/
 SITES[main]=		https://github.com/ivmai/bdwgc/releases/download/v${PORTVERSION}/
 DISTFILE[1]=		gc-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary dev man
-SPKGS[redirect]=	complete primary dev man
-SPKGS[threaded]=	complete primary dev man
+SPKGS[std]=		set primary dev man
+SPKGS[redirect]=	set primary dev man
+SPKGS[threaded]=	set primary dev man
 
 OPTIONS_AVAILABLE=	THREADED REDIRECT
 OPTIONS_STANDARD=	none
@@ -35,8 +35,8 @@ LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
 
 FPC_EQUIVALENT=		devel/boehm-gc
 
-BUILD_DEPENDS=		libatomic_ops:dev:standard
-BUILDRUN_DEPENDS=	libatomic_ops:primary:standard
+BUILD_DEPENDS=		libatomic_ops:dev:std
+BUILDRUN_DEPENDS=	libatomic_ops:primary:std
 
 USES=			cpe cmake pkgconfig c++:primary
 CPE_VENDOR=		boehm-demers-weiser

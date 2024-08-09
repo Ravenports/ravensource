@@ -4,8 +4,8 @@ DEF[PORTVERSION]=	22.5.1
 NAMEBASE=		nodejs
 VERSION=		${PORTVERSION}
 KEYWORDS=		www lang
-VARIANTS=		standard
-SDESC[standard]=	Evented I/O for V8 JavaScript
+VARIANTS=		std
+SDESC[std]=		Evented I/O for V8 JavaScript
 HOMEPAGE=		https://nodejs.org/
 CONTACT=		nobody
 
@@ -13,7 +13,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://nodejs.org/dist/v${PORTVERSION}/
 DISTFILE[1]=		node-v${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary dev man docs
+SPKGS[std]=		set primary dev man docs
 
 OPTIONS_AVAILABLE=	SYSTEM SMALL_EMBED NO_SUPPORT
 OPTIONS_STANDARD=	SYSTEM SMALL_EMBED NO_SUPPORT
@@ -37,12 +37,12 @@ BROKEN[sunos]=		The ld.sun linker does not support required options
 
 # system-icu causes segfault on all systems, don't use it until further notice
 
-BUILD_DEPENDS=		libnghttp2:dev:standard
-			nghttp3:dev:standard
-			libuv:dev:standard
-BUILDRUN_DEPENDS=	libuv:primary:standard
-			libnghttp2:primary:standard
-			nghttp3:primary:standard
+BUILD_DEPENDS=		libnghttp2:dev:std
+			nghttp3:dev:std
+			libuv:dev:std
+BUILDRUN_DEPENDS=	libuv:primary:std
+			libnghttp2:primary:std
+			nghttp3:primary:std
 
 USES=			execinfo gmake pkgconfig shebangfix cpe zlib
 			python:v11,build c++:primary
@@ -77,8 +77,8 @@ VAR_OPSYS[midnightbsd]=	CONFIGURE_ARGS=--dest-os=freebsd
 [SMALL_EMBED].CONFIGURE_ARGS_ON=	--with-intl=small-icu
 [NO_SUPPORT].CONFIGURE_ARGS_ON=		--with-intl=none
 
-[SYSTEM].BUILD_DEPENDS_ON=		icu:dev:standard
-[SYSTEM].BUILDRUN_DEPENDS_ON=		icu:primary:standard
+[SYSTEM].BUILD_DEPENDS_ON=		icu:dev:std
+[SYSTEM].BUILDRUN_DEPENDS_ON=		icu:primary:std
 
 pre-configure:
 	${GREP} -rl "/usr/local" ${WRKSRC} | \

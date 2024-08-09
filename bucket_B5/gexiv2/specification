@@ -7,8 +7,8 @@ DEF[CAT1]=		http://www.oasis-open.org/docbook/xml/
 NAMEBASE=		gexiv2
 VERSION=		${PORTVERSION}
 KEYWORDS=		graphics
-VARIANTS=		standard
-SDESC[standard]=	GObject-based wrapper around the Exiv2 library
+VARIANTS=		std
+SDESC[std]=		GObject-based wrapper around the Exiv2 library
 HOMEPAGE=		https://wiki.gnome.org/Projects/gexiv2
 CONTACT=		nobody
 
@@ -16,7 +16,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNOME/gexiv2/${FOLDER}
 DISTFILE[1]=		gexiv2-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary dev docs
+SPKGS[std]=		set primary dev docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -32,12 +32,12 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		graphics/gexiv2
 
-BUILD_DEPENDS=		vala:single:standard
-			exiv2:dev:standard
-BUILDRUN_DEPENDS=	exiv2:primary:standard
+BUILD_DEPENDS=		vala:single:std
+			exiv2:dev:std
+BUILDRUN_DEPENDS=	exiv2:primary:std
 
-EXRUN[dev]=		glib:dev:standard
-			exiv2:dev:standard
+EXRUN[dev]=		glib:dev:std
+			exiv2:dev:std
 
 USES=			pkgconfig libtool:build meson gtk-doc
 GNOME_COMPONENTS=	glib introspection pygobject

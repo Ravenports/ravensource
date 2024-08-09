@@ -7,8 +7,8 @@ DEF[KEYWORD]=		databases
 NAMEBASE=		php${SUFFIX}-${MODULE}
 VERSION=		${PORTVERSION}
 KEYWORDS=		lang www php ${KEYWORD}
-VARIANTS=		standard
-SDESC[standard]=	PHP ${PORTVERSION:R} extension: ${MODULE} Berkeley DB driver
+VARIANTS=		std
+SDESC[std]=		PHP ${PORTVERSION:R} extension: ${MODULE} Berkeley DB driver
 HOMEPAGE=		https://php.net/
 CONTACT=		nobody
 
@@ -16,7 +16,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		PHP/distributions
 DISTFILE[1]=		php-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	single
+SPKGS[std]=		single
 
 OPTIONS_AVAILABLE=	CDB DB4 GDBM INIFILE FLATFILE
 OPTIONS_STANDARD=	CDB DB4 GDBM INIFILE FLATFILE
@@ -43,11 +43,11 @@ EXTRACT_TAIL[1]=	php-${PORTVERSION}/ext/{{PHP_MODNAME}}
 
 [CDB].CONFIGURE_ARGS_OFF=		--without-cdb
 [DB4].CONFIGURE_ARGS_ON=		--with-db4={{LOCALBASE}}/db4
-[DB4].BUILDRUN_DEPENDS_ON=		db4:primary:standard
-[DB4].BUILD_DEPENDS_ON=			db4:dev:standard
+[DB4].BUILDRUN_DEPENDS_ON=		db4:primary:std
+[DB4].BUILD_DEPENDS_ON=			db4:dev:std
 [GDBM].CONFIGURE_ARGS_ON=		--with-gdbm={{LOCALBASE}}
-[GDBM].BUILD_DEPENDS_ON=		gdbm:dev:standard
-[GDBM].BUILDRUN_DEPENDS_ON=		gdbm:primary:standard
+[GDBM].BUILD_DEPENDS_ON=		gdbm:dev:std
+[GDBM].BUILDRUN_DEPENDS_ON=		gdbm:primary:std
 [INIFILE].CONFIGURE_ARGS_OFF=		--disable-inifile
 [FLATFILE].CONFIGURE_ARGS_OFF=		--disable-flatfile
 

@@ -5,8 +5,8 @@ DEF[SOVERSION]=		10.14.0
 NAMEBASE=		libnice
 VERSION=		${PORTVERSION}
 KEYWORDS=		net_im devel
-VARIANTS=		standard
-SDESC[standard]=	Implementation of ICE standard (RFC 5245)
+VARIANTS=		std
+SDESC[std]=		Implementation of ICE standard (RFC 5245)
 HOMEPAGE=		https://wiki.freedesktop.org/nice/
 CONTACT=		nobody
 
@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://nice.freedesktop.org/releases/
 DISTFILE[1]=		libnice-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary gstreamer docs
+SPKGS[std]=		set primary gstreamer docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -27,15 +27,15 @@ LICENSE_SCHEME=		dual
 
 FPC_EQUIVALENT=		net-im/libnice
 
-BUILD_DEPENDS=		gnutls:dev:standard
-			graphviz:dev:standard
-			gstreamer1:dev:standard
-			gstreamer1-plugins-base:dev:standard
-			gstreamer1-plugins-base:primary:standard
-BUILDRUN_DEPENDS=	gnutls:primary:standard
+BUILD_DEPENDS=		gnutls:dev:std
+			graphviz:dev:std
+			gstreamer1:dev:std
+			gstreamer1-plugins-base:dev:std
+			gstreamer1-plugins-base:primary:std
+BUILDRUN_DEPENDS=	gnutls:primary:std
 
-EXRUN[gstreamer]=	gstreamer1-plugins-base:primary:standard
-			libnice:primary:standard
+EXRUN[gstreamer]=	gstreamer1-plugins-base:primary:std
+			libnice:primary:std
 
 USES=			gmake pkgconfig ssl meson gtk-doc
 GNOME_COMPONENTS=	glib introspection

@@ -5,8 +5,8 @@ DEF[SOVERSION]=		27.6.0
 NAMEBASE=		neon
 VERSION=		${PORTVERSION}
 KEYWORDS=		www
-VARIANTS=		standard
-SDESC[standard]=	HTTP and WebDAV client library
+VARIANTS=		std
+SDESC[std]=		HTTP and WebDAV client library
 HOMEPAGE=		https://notroj.github.io/neon/
 CONTACT=		nobody
 
@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://notroj.github.io/neon/
 DISTFILE[1]=		neon-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary dev nls docs man
+SPKGS[std]=		set primary dev nls docs man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -28,12 +28,12 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		www/neon
 
-BUILD_DEPENDS=		xmlto:single:standard
-			libproxy:dev:standard
-			krb5:dev:standard
-BUILDRUN_DEPENDS=	nss:caroot:standard
-			libproxy:primary:standard
-			krb5:primary:standard
+BUILD_DEPENDS=		xmlto:single:std
+			libproxy:dev:std
+			krb5:dev:std
+BUILDRUN_DEPENDS=	nss:caroot:std
+			libproxy:primary:std
+			krb5:primary:std
 
 USES=			cpe libtool gettext ssl pkgconfig zlib expat
 CPE_VENDOR=		webdav

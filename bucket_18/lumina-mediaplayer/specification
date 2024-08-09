@@ -6,8 +6,8 @@ NAMEBASE=		lumina-mediaplayer
 VERSION=		${PORTVERSION}
 EPOCH=			2
 KEYWORDS=		deskutils
-VARIANTS=		standard
-SDESC[standard]=	Streaming media player from the Lumina Desktop
+VARIANTS=		std
+SDESC[std]=		Streaming media player from the Lumina Desktop
 HOMEPAGE=		https://lumina-desktop.org
 CONTACT=		nobody
 
@@ -15,7 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/lumina-desktop:lumina:v${TAG}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	complete primary nls man
+SPKGS[std]=		set primary nls man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -26,13 +26,13 @@ LICENSE=		BSD3CLAUSE:primary
 LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC:H:H:H}}/LICENSE
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		qt5-qttools:complete:standard
-			qt5-qtx11extras:dev:standard
-			qt5-qtsvg:dev:standard
-			qt5-qtmultimedia:dev:standard
-BUILDRUN_DEPENDS=	qt5-qtmultimedia:primary:standard
-			qt5-qtsvg:primary:standard
-			qt5-qtx11extras:primary:standard
+BUILD_DEPENDS=		qt5-qttools:set:std
+			qt5-qtx11extras:dev:std
+			qt5-qtsvg:dev:std
+			qt5-qtmultimedia:dev:std
+BUILDRUN_DEPENDS=	qt5-qtmultimedia:primary:std
+			qt5-qtsvg:primary:std
+			qt5-qtx11extras:primary:std
 
 USES=			qt5 desktop-utils:primary
 XORG_COMPONENTS=	xcb

@@ -5,8 +5,8 @@ DEF[SOMAJOR]=		410
 NAMEBASE=		opencv
 VERSION=		${PORTVERSION}
 KEYWORDS=		graphics
-VARIANTS=		standard
-SDESC[standard]=	Open Source Computer Vision library
+VARIANTS=		std
+SDESC[std]=		Open Source Computer Vision library
 HOMEPAGE=		https://opencv.org/
 CONTACT=		nobody
 
@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/opencv:opencv:${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	complete primary tools dev corelib coredev
+SPKGS[std]=		set primary tools dev corelib coredev
 
 OPTIONS_AVAILABLE=	VIDEOIO
 OPTIONS_STANDARD=	VIDEOIO
@@ -26,12 +26,12 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		graphics/opencv
 
-BUILD_DEPENDS=		eigen:single:standard
-			ffmpeg:dev:standard
-			jasper:dev:standard
-BUILDRUN_DEPENDS=	jasper:primary:standard
-			WebP:primary:standard
-			ffmpeg:primary:standard
+BUILD_DEPENDS=		eigen:single:std
+			ffmpeg:dev:std
+			jasper:dev:std
+BUILDRUN_DEPENDS=	jasper:primary:std
+			WebP:primary:std
+			ffmpeg:primary:std
 
 EXRUN[primary]=		corelib
 EXRUN[tools]=		primary

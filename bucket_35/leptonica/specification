@@ -5,8 +5,8 @@ DEF[SOVERSION]=		6.0.0
 NAMEBASE=		leptonica
 VERSION=		${PORTVERSION}
 KEYWORDS=		graphics
-VARIANTS=		standard
-SDESC[standard]=	Image processing and analysis library
+VARIANTS=		std
+SDESC[std]=		Image processing and analysis library
 HOMEPAGE=		http://www.leptonica.org/
 CONTACT=		nobody
 
@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/DanBloomberg/leptonica/releases/download/${PORTVERSION}/
 DISTFILE[1]=		leptonica-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary tools dev
+SPKGS[std]=		set primary tools dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -25,12 +25,12 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		graphics/leptonica
 
-BUILD_DEPENDS=		WebP:dev:standard
-			openjpeg:dev:standard
-BUILDRUN_DEPENDS=	WebP:primary:standard
-			openjpeg:primary:standard
+BUILD_DEPENDS=		WebP:dev:std
+			openjpeg:dev:std
+BUILDRUN_DEPENDS=	WebP:primary:std
+			openjpeg:primary:std
 
-EXRUN[tools]=		leptonica:primary:standard
+EXRUN[tools]=		leptonica:primary:std
 
 USES=			cpe png jpeg tiff gif libtool solaris-funcs mbsdfix
 SOL_FUNCTIONS=		dirfd:src/sarray1.c

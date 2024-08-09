@@ -5,8 +5,8 @@ NAMEBASE=		transmission
 VERSION=		${PORTVERSION}
 REVISION=		1
 KEYWORDS=		net_p2p
-VARIANTS=		standard daemon gtk qt web
-SDESC[standard]=	Lightweight BitTorrent client (CLI client)
+VARIANTS=		std daemon gtk qt web
+SDESC[std]=		Lightweight BitTorrent client (CLI client)
 SDESC[daemon]=		Lightweight BitTorrent client (daemon)
 SDESC[gtk]=		Lightweight BitTorrent client (GTK+ GUI)
 SDESC[qt]=		Lightweight BitTorrent client (Qt GUI)
@@ -18,10 +18,10 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/transmission/transmission/releases/download/${PORTVERSION}/
 DISTFILE[1]=		transmission-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary man
-SPKGS[daemon]=		complete primary man
-SPKGS[gtk]=		complete primary man nls
-SPKGS[qt]=		complete primary man nls
+SPKGS[std]=		set primary man
+SPKGS[daemon]=		set primary man
+SPKGS[gtk]=		set primary man nls
+SPKGS[qt]=		set primary man nls
 SPKGS[web]=		single
 
 OPTIONS_AVAILABLE=	NOTSTD DAEMON GTK QT WEB
@@ -64,12 +64,12 @@ CMAKE_ARGS=		-DENABLE_NLS:BOOL=ON
 [GTK].CMAKE_ARGS_OFF=			-DENABLE_GTK:BOOL=OFF
 [GTK].USES_ON=				desktop-utils:single
 [GTK].GNOME_COMPONENTS_ON=		cairo gdkpixbuf gtk3 pango intltool gtkmm30 glibmm
-[GTK].BUILD_DEPENDS_ON=			appstream-glib:dev:standard
-					libnotify:dev:standard
-					harfbuzz:dev:standard
-[GTK].BUILDRUN_DEPENDS_ON=		dbus-glib:primary:standard
-					libnotify:primary:standard
-[GTK].RUN_DEPENDS_ON=			xdg-utils:single:standard
+[GTK].BUILD_DEPENDS_ON=			appstream-glib:dev:std
+					libnotify:dev:std
+					harfbuzz:dev:std
+[GTK].BUILDRUN_DEPENDS_ON=		dbus-glib:primary:std
+					libnotify:primary:std
+[GTK].RUN_DEPENDS_ON=			xdg-utils:single:std
 
 [QT].DESCRIPTION=			Build Qt6 version of transmission
 [QT].CMAKE_ARGS_ON=			-DENABLE_QT:BOOL=ON
@@ -77,28 +77,28 @@ CMAKE_ARGS=		-DENABLE_NLS:BOOL=ON
 					-DCMAKE_PREFIX_PATH:PATH="{{PREFIX}}/lib/qt6/cmake/"
 [QT].CMAKE_ARGS_OFF=			-DENABLE_QT:BOOL=OFF
 [QT].USES_ON=				qt6
-[QT].BUILD_DEPENDS_ON=			qt6-qtbase:dev:standard
-					qt6-qtsvg:dev:standard
-					qt6-qttools:dev:standard
-					qt6-qttools:primary:standard
-					libdeflate:dev:standard
-[QT].BUILDRUN_DEPENDS_ON=		qt6-qtsvg:primary:standard
-					libdeflate:primary:standard
+[QT].BUILD_DEPENDS_ON=			qt6-qtbase:dev:std
+					qt6-qtsvg:dev:std
+					qt6-qttools:dev:std
+					qt6-qttools:primary:std
+					libdeflate:dev:std
+[QT].BUILDRUN_DEPENDS_ON=		qt6-qtsvg:primary:std
+					libdeflate:primary:std
 [QT].MAKE_ARGS_ON=			DESTDIR="{{STAGEDIR}}"
 
 [WEB].DESCRIPTION=			Build transmission web interface
-[WEB].BUILD_DEPENDS_OFF=		libutp:dev:standard
-					libevent:dev:standard
-					miniupnpc:dev:standard
-					libnatpmp:dev:standard
-					libb64:dev:standard
-					libpsl:dev:standard
-[WEB].BUILDRUN_DEPENDS_OFF=		libevent:primary:standard
-					dht:single:standard
-					libb64:primary:standard
-					libnatpmp:primary:standard
-					miniupnpc:primary:standard
-					libpsl:primary:standard
+[WEB].BUILD_DEPENDS_OFF=		libutp:dev:std
+					libevent:dev:std
+					miniupnpc:dev:std
+					libnatpmp:dev:std
+					libb64:dev:std
+					libpsl:dev:std
+[WEB].BUILDRUN_DEPENDS_OFF=		libevent:primary:std
+					dht:single:std
+					libb64:primary:std
+					libnatpmp:primary:std
+					miniupnpc:primary:std
+					libpsl:primary:std
 [WEB].USES_OFF=				cpe cmake iconv pkgconfig ssl zlib
 					gettext curl python:build c++:primary
 

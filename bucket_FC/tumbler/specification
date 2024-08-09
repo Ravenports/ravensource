@@ -6,8 +6,8 @@ DEF[SOVERSION]=		0.0.0
 NAMEBASE=		tumbler
 VERSION=		${PORTVERSION}
 KEYWORDS=		deskutils
-VARIANTS=		standard
-SDESC[standard]=	D-Bus thumbnailing service for Xfce
+VARIANTS=		std
+SDESC[std]=		D-Bus thumbnailing service for Xfce
 HOMEPAGE=		https://gitlab.xfce.org/xfce/tumbler/
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
@@ -16,7 +16,7 @@ SITES[main]=		https://archive.xfce.org/src/xfce/tumbler/${PORTVERSION:R}/
 DISTFILE[1]=		tumbler-${PORTVERSION}.tar.bz2:main
 DIST_SUBDIR=		xfce
 
-SPKGS[standard]=	complete primary dev docs nls
+SPKGS[std]=		set primary dev docs nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -32,11 +32,11 @@ LICENSE_SCHEME=		solo
 
 # Some more features can potentially be added if anybody wants them.
 
-BUILD_DEPENDS=		libxfce4util:dev:standard
-			libexif:dev:standard
-BUILDRUN_DEPENDS=	libexif:primary:standard
-			libxfce4util:primary:standard
-			gstreamer1:primary:standard
+BUILD_DEPENDS=		libxfce4util:dev:std
+			libexif:dev:std
+BUILDRUN_DEPENDS=	libexif:primary:std
+			libxfce4util:primary:std
+			gstreamer1:primary:std
 
 USES=			gmake jpeg png libtool pkgconfig freetype
 			python:build,sutools

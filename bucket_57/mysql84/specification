@@ -9,8 +9,8 @@ DEF[MY_TMPDIR]=		/var/db/mysql_tmpdir
 NAMEBASE=		mysql${SUFFIX}
 VERSION=		${PORTVERSION}
 KEYWORDS=		databases
-VARIANTS=		standard
-SDESC[standard]=	Multithreaded SQL database (server)
+VARIANTS=		std
+SDESC[std]=		Multithreaded SQL database (server)
 HOMEPAGE=		https://www.mysql.com/
 CONTACT=		nobody
 
@@ -18,7 +18,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		MYSQL/MySQL-${MYSQL_RELEASE}
 DISTFILE[1]=		mysql-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete server client dev man info
+SPKGS[std]=		set server client dev man info
 
 OPTIONS_AVAILABLE=	ARCHIVE BLACKHOLE EXAMPLE FEDERATED INNOBASE PERFSCHEMA PERFORMANCE
 OPTIONS_STANDARD=	ARCHIVE BLACKHOLE EXAMPLE FEDERATED INNOBASE PERFSCHEMA PERFORMANCE
@@ -38,20 +38,20 @@ LICENSE_SCHEME=		multi
 
 FPC_EQUIVALENT=		databases/mysql84-server
 
-BUILD_DEPENDS=		libedit:single:standard
-			protobuf321:dev:standard
-			icu:dev:standard
-			libevent:dev:standard
-BUILDRUN_DEPENDS=	libevent:primary:standard
-			protobuf321:primary:standard
-			icu:primary:standard
-EXRUN[client]=		libedit:single:standard
-			zlib:primary:standard
-			zstd:primary:standard
+BUILD_DEPENDS=		libedit:single:std
+			protobuf321:dev:std
+			icu:dev:std
+			libevent:dev:std
+BUILDRUN_DEPENDS=	libevent:primary:std
+			protobuf321:primary:std
+			icu:primary:std
+EXRUN[client]=		libedit:single:std
+			zlib:primary:std
+			zstd:primary:std
 # #			can't use "ssl" here, currently it assumes libressl
-			openssl11:primary:standard
+			openssl11:primary:std
 
-B_DEPS[linux]=		patchelf:primary:standard
+B_DEPS[linux]=		patchelf:primary:std
 
 USES=			cpe bison cmake perl:run shebangfix zstd
 			lz4 execinfo ssl:openssl11 pkgconfig

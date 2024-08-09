@@ -7,8 +7,8 @@ DEF[SOVERSION]=		16.1.1
 NAMEBASE=		libavif
 VERSION=		${PORTVERSION}
 KEYWORDS=		graphics
-VARIANTS=		standard
-SDESC[standard]=	Library for encoding and decoding .avif files
+VARIANTS=		std
+SDESC[std]=		Library for encoding and decoding .avif files
 HOMEPAGE=		none
 CONTACT=		nobody
 
@@ -16,7 +16,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/AOMediaCodec:libavif:${RELEASE}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	complete primary tools dev
+SPKGS[std]=		set primary tools dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -27,18 +27,18 @@ LICENSE=		BSD2CLAUSE:primary
 LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
 
-EXRUN[tools]=		libavif:primary:standard
+EXRUN[tools]=		libavif:primary:std
 
-BUILD_DEPENDS=		aom:dev:standard
-			dav1d:dev:standard
-			libyuv:dev:standard
-BUILDRUN_DEPENDS=	aom:primary:standard
-			dav1d:primary:standard
-			libyuv:primary:standard
+BUILD_DEPENDS=		aom:dev:std
+			dav1d:dev:std
+			libyuv:dev:std
+BUILDRUN_DEPENDS=	aom:primary:std
+			dav1d:primary:std
+			libyuv:primary:std
 
-EXRUN[dev]=		aom:dev:standard
-			dav1d:dev:standard
-			libyuv:dev:standard
+EXRUN[dev]=		aom:dev:std
+			dav1d:dev:std
+			libyuv:dev:std
 
 USES=			cpe cmake jpeg png pkgconfig
 GNOME_COMPONENTS=	gdkpixbuf

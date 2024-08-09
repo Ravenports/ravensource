@@ -5,8 +5,8 @@ DEF[RELEASE]=		v${PORTVERSION}
 NAMEBASE=		gpr2tools
 VERSION=		${PORTVERSION}
 KEYWORDS=		devel ada
-VARIANTS=		standard
-SDESC[standard]=	Tools based on GPR2 library
+VARIANTS=		std
+SDESC[std]=		Tools based on GPR2 library
 HOMEPAGE=		https://github.com/AdaCore/gpr
 CONTACT=		John_Marino[draco@marino.st]
 
@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/AdaCore:gpr:${RELEASE}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	single
+SPKGS[std]=		single
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -26,9 +26,9 @@ LICENSE_SOURCE=		TERMS:{{WRKSRC}}/tools/src/gprtools.ads
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		libadalang:dev:standard
-			libgpr2:dev:standard
-BUILDRUN_DEPENDS=	libgpr2:primary:standard
+BUILD_DEPENDS=		libadalang:dev:std
+			libgpr2:dev:std
+BUILDRUN_DEPENDS=	libgpr2:primary:std
 
 USES=			gmake gprbuild iconv
 MAKE_ARGS=		prefix="{{STAGEDIR}}{{PREFIX}}"

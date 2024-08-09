@@ -6,8 +6,8 @@ DEF[SOVERSION]=		${PORTVERSION}
 NAMEBASE=		ada_spawn
 VERSION=		${PORTVERSION}
 KEYWORDS=		devel ada
-VARIANTS=		standard
-SDESC[standard]=	Simple API to spawn communicating processes
+VARIANTS=		std
+SDESC[std]=		Simple API to spawn communicating processes
 HOMEPAGE=		none
 CONTACT=		John_Marino[draco@marino.st]
 
@@ -15,7 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/AdaCore:spawn:${RELEASE}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	complete primary dev
+SPKGS[std]=		set primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -27,12 +27,12 @@ LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/source/spawn/spawn.ads
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		gtkada:dev:standard
-BUILDRUN_DEPENDS=	gtkada:primary:standard
-			gettext:solinks:standard
+BUILD_DEPENDS=		gtkada:dev:std
+BUILDRUN_DEPENDS=	gtkada:primary:std
+			gettext:solinks:std
 
-EXRUN[dev]=		harfbuzz:dev:standard
-			glib:dev:standard
+EXRUN[dev]=		harfbuzz:dev:std
+			glib:dev:std
 
 USES=			gmake gprbuild fontconfig zlib:build gettext:build
 GNOME_COMPONENTS=	gtk3

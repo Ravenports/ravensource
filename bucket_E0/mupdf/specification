@@ -6,8 +6,8 @@ NAMEBASE=		mupdf
 VERSION=		${PORTVERSION}
 REVISION=		1
 KEYWORDS=		graphics
-VARIANTS=		standard
-SDESC[standard]=	Lightweight PDF and XPS viewer
+VARIANTS=		std
+SDESC[std]=		Lightweight PDF and XPS viewer
 HOMEPAGE=		https://mupdf.com/
 CONTACT=		nobody
 
@@ -16,7 +16,7 @@ SITES[main]=		https://mupdf.com/downloads/archive/
 			https://mupdf.com/downloads/
 DISTFILE[1]=		mupdf-${PORTVERSION}-source.tar.gz:main
 
-SPKGS[standard]=	complete primary tools dev man docs examples
+SPKGS[std]=		set primary tools dev man docs examples
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -28,17 +28,17 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		graphics/mupdf
 
-BUILD_DEPENDS=		harfbuzz:dev:standard
-			gumbo:dev:standard
-			freeglut:dev:standard
-			openjpeg:dev:standard
-BUILDRUN_DEPENDS=	harfbuzz:primary:standard
-			openjpeg:primary:standard
-			jbig2dec:single:standard
-			freeglut:primary:standard
-			gumbo:primary:standard
+BUILD_DEPENDS=		harfbuzz:dev:std
+			gumbo:dev:std
+			freeglut:dev:std
+			openjpeg:dev:std
+BUILDRUN_DEPENDS=	harfbuzz:primary:std
+			openjpeg:primary:std
+			jbig2dec:single:std
+			freeglut:primary:std
+			gumbo:primary:std
 
-EXRUN[tools]=		mupdf:primary:standard
+EXRUN[tools]=		mupdf:primary:std
 
 # requires libjpeg, jpeg-turbo (USES=jpeg) will not work
 USES=			cpe gmake pkgconfig zlib:build curl freetype

@@ -7,8 +7,8 @@ DEF[KEYWORD]=		archivers
 NAMEBASE=		php${SUFFIX}-${MODULE}
 VERSION=		${PORTVERSION}
 KEYWORDS=		lang www php ${KEYWORD}
-VARIANTS=		standard
-SDESC[standard]=	PHP ${PORTVERSION:R} extension: ${MODULE} zip compression
+VARIANTS=		std
+SDESC[std]=		PHP ${PORTVERSION:R} extension: ${MODULE} zip compression
 HOMEPAGE=		https://php.net/
 CONTACT=		nobody
 
@@ -16,15 +16,15 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		PHP/distributions
 DISTFILE[1]=		php-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	single
+SPKGS[std]=		single
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		${KEYWORD}/php${SUFFIX}-${MODULE}
 
-BUILD_DEPENDS=		libzip:dev:standard
-BUILDRUN_DEPENDS=	libzip:primary:standard
+BUILD_DEPENDS=		libzip:dev:std
+BUILDRUN_DEPENDS=	libzip:primary:std
 
 USES=			php:ext,${SUFFIX} zlib pkgconfig cpe pcre:build
 CPE_VENDOR=		php

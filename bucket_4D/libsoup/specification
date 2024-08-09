@@ -7,8 +7,8 @@ DEF[SOVERSION]=		0.7.1
 NAMEBASE=		libsoup
 VERSION=		${PORTVERSION}
 KEYWORDS=		devel
-VARIANTS=		standard
-SDESC[standard]=	Simple Object Access Protocol implementation in C
+VARIANTS=		std
+SDESC[std]=		Simple Object Access Protocol implementation in C
 HOMEPAGE=		https://wiki.gnome.org/Projects/libsoup
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
@@ -16,7 +16,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://ftp.gnome.org/pub/GNOME/sources/libsoup/${PORTVERSION:R}/
 DISTFILE[1]=		libsoup-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary dev nls docs
+SPKGS[std]=		set primary dev nls docs
 
 OPTIONS_AVAILABLE=	INTROSPECTION
 OPTIONS_STANDARD=	INTROSPECTION
@@ -31,22 +31,22 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/libsoup
 
-BUILD_DEPENDS=		libnghttp2:dev:standard
-			glib-networking:dev:standard
-			brotli:dev:standard
-			krb5:dev:standard
-			libpsl:dev:standard
-BUILDRUN_DEPENDS=	brotli:primary:standard
-			glib-networking:primary:standard
-			libpsl:primary:standard
-			libnghttp2:primary:standard
-			krb5:primary:standard
-RUN_DEPENDS=		libgcrypt:tools:standard
+BUILD_DEPENDS=		libnghttp2:dev:std
+			glib-networking:dev:std
+			brotli:dev:std
+			krb5:dev:std
+			libpsl:dev:std
+BUILDRUN_DEPENDS=	brotli:primary:std
+			glib-networking:primary:std
+			libpsl:primary:std
+			libnghttp2:primary:std
+			krb5:primary:std
+RUN_DEPENDS=		libgcrypt:tools:std
 
-EXRUN[dev]=		libnghttp2:dev:standard
-			sqlite:dev:standard
-			brotli:dev:standard
-			libpsl:dev:standard
+EXRUN[dev]=		libnghttp2:dev:std
+			sqlite:dev:std
+			brotli:dev:std
+			libpsl:dev:std
 
 USES=			gmake libtool pkgconfig sqlite meson cpe
 CPE_VENDOR=		gnome
@@ -63,8 +63,8 @@ VAR_OPSYS[linux]=	CFLAGS=-D_GNU_SOURCE
 VAR_OPSYS[sunos]=	LDFLAGS=-lintl
 
 [INTROSPECTION].DESCRIPTION=		Build documentation and vala bindings
-[INTROSPECTION].BUILD_DEPENDS_ON=	python-gi-docgen:complete:python_default
-					vala:single:standard
+[INTROSPECTION].BUILD_DEPENDS_ON=	python-gi-docgen:set:python_default
+					vala:single:std
 [INTROSPECTION].CONFIGURE_ARGS_ON=	-Dintrospection=enabled
 					-Ddocs=enabled
 					-Dvapi=enabled

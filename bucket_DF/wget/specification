@@ -4,8 +4,8 @@ DEF[PORTVERSION]=	1.24.5
 NAMEBASE=		wget
 VERSION=		${PORTVERSION}
 KEYWORDS=		ftp www
-VARIANTS=		standard
-SDESC[standard]=	Program to retrieve files via http/s and ftp
+VARIANTS=		std
+SDESC[std]=		Program to retrieve files via http/s and ftp
 HOMEPAGE=		https://www.gnu.org/software/wget/
 CONTACT=		nobody
 
@@ -13,7 +13,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNU/wget
 DISTFILE[1]=		wget-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary docs nls info
+SPKGS[std]=		set primary docs nls info
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -27,11 +27,11 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		ftp/wget
 
-BUILD_DEPENDS=		libunistring:dev:standard
-			libidn2:dev:standard
-BUILDRUN_DEPENDS=	libmetalink:primary:standard
-			libidn2:primary:standard
-			libunistring:primary:standard
+BUILD_DEPENDS=		libunistring:dev:std
+			libidn2:dev:std
+BUILDRUN_DEPENDS=	libmetalink:primary:std
+			libidn2:primary:std
+			libunistring:primary:std
 
 USES=			charsetfix cpe pkgconfig zlib ssl iconv
 			pcre gettext perl:build makeinfo

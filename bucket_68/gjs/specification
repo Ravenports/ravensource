@@ -5,8 +5,8 @@ DEF[SOVERSION]=		0.0.0
 NAMEBASE=		gjs
 VERSION=		${PORTVERSION}
 KEYWORDS=		lang
-VARIANTS=		standard
-SDESC[standard]=	Javascript bindings for GNOME
+VARIANTS=		std
+SDESC[std]=		Javascript bindings for GNOME
 HOMEPAGE=		https://gitlab.gnome.org/GNOME/gjs/
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://download.gnome.org/sources/gjs/${PORTVERSION:R}/
 DISTFILE[1]=		gjs-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary dev
+SPKGS[std]=		set primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -30,16 +30,16 @@ LICENSE_SCHEME=		multi
 
 FPC_EQUIVALENT=		lang/gjs
 
-BUILD_DEPENDS=		dbus:dev:standard
-			spidermonkey:dev:standard
-			icu:dev:standard
-BUILDRUN_DEPENDS=	dbus:primary:standard
-			spidermonkey:primary:standard
-RUN_DEPENDS=		gobject-introspection:primary:standard
+BUILD_DEPENDS=		dbus:dev:std
+			spidermonkey:dev:std
+			icu:dev:std
+BUILDRUN_DEPENDS=	dbus:primary:std
+			spidermonkey:primary:std
+RUN_DEPENDS=		gobject-introspection:primary:std
 
-EXRUN[dev]=		spidermonkey:dev:standard
-			cairo:dev:standard
-			gobject-introspection:dev:standard
+EXRUN[dev]=		spidermonkey:dev:std
+			cairo:dev:std
+			gobject-introspection:dev:std
 
 USES=			meson pkgconfig readline
 GNOME_COMPONENTS=	cairo glib introspection

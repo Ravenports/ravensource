@@ -4,8 +4,8 @@ DEF[PORTVERSION]=	3.3.0
 NAMEBASE=		rsync
 VERSION=		${PORTVERSION}
 KEYWORDS=		net
-VARIANTS=		standard
-SDESC[standard]=	Network file distribution/synchronization utility
+VARIANTS=		std
+SDESC[std]=		Network file distribution/synchronization utility
 HOMEPAGE=		https://rsync.samba.org/
 CONTACT=		nobody
 
@@ -15,15 +15,15 @@ SITES[main]=		https://rsync.samba.org/ftp/rsync/
 			http://www.mirrorservice.org/sites/rsync.samba.org/
 DISTFILE[1]=		rsync-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	single
+SPKGS[std]=		single
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		net/rsync
 
-BUILD_DEPENDS=		xxhash:dev:standard
-BUILDRUN_DEPENDS=	xxhash:primary:standard
+BUILD_DEPENDS=		xxhash:dev:std
+BUILDRUN_DEPENDS=	xxhash:primary:std
 
 USES=			cpe iconv zstd zlib lz4 shebangfix ssl
 SHEBANG_FILES=		support/rrsync

@@ -5,8 +5,8 @@ DEF[VIM_VER]=		vim${PORTVERSION:R:S|.||g}
 NAMEBASE=		vim
 VERSION=		${PORTVERSION}
 KEYWORDS=		editors
-VARIANTS=		standard loaded
-SDESC[standard]=	VIsual editor iMproved (basic options)
+VARIANTS=		std loaded
+SDESC[std]=		VIsual editor iMproved (basic options)
 SDESC[loaded]=		VIsual editor iMproved (all options + X)
 HOMEPAGE=		https://www.vim.org/
 CONTACT=		nobody
@@ -15,8 +15,8 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/vim:vim:v${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	complete primary nls
-SPKGS[loaded]=		complete primary nls
+SPKGS[std]=		set primary nls
+SPKGS[loaded]=		set primary nls
 
 OPTIONS_AVAILABLE=	LOADED
 OPTIONS_STANDARD=	none
@@ -34,8 +34,8 @@ LICENSE_SCHEME=		multi
 
 FPC_EQUIVALENT=		editors/vim
 
-RUN_DEPENDS=		cscope:single:standard
-			ctags:single:standard
+RUN_DEPENDS=		cscope:single:std
+			ctags:single:std
 
 USES=			cpe gettext iconv ncurses pkgconfig
 			shebangfix gmake desktop-utils:primary
@@ -76,7 +76,7 @@ CPE_VERSION=		${PORTVERSION:R}
 					CONF_OPT_PYTHON="--enable-python3interp --disable-pythoninterp"
 [LOADED].XORG_COMPONENTS_ON=		ice sm x11 xpm xt
 [LOADED].GNOME_COMPONENTS_ON=		cairo gdkpixbuf gtk3
-[LOADED].BUILD_DEPENDS_ON=		harfbuzz:dev:standard
+[LOADED].BUILD_DEPENDS_ON=		harfbuzz:dev:std
 
 post-extract:
 	${AWK} '/\*manual-copyright\*/,/\|iccf\|/' \

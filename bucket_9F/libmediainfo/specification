@@ -5,8 +5,8 @@ DEF[SOVERSION]=		0.0.0
 NAMEBASE=		libmediainfo
 VERSION=		${PORTVERSION}
 KEYWORDS=		multimedia
-VARIANTS=		standard
-SDESC[standard]=	Multimedia file information library
+VARIANTS=		std
+SDESC[std]=		Multimedia file information library
 HOMEPAGE=		https://mediaarea.net/en/MediaInfo
 CONTACT=		nobody
 
@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/MediaArea:MediaInfoLib:v${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	complete primary dev
+SPKGS[std]=		set primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -25,11 +25,11 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		multimedia/libmediainfo
 
-BUILD_DEPENDS=		libtool:single:standard
-			libzen:dev:standard
-			tinyxml2:dev:standard
-BUILDRUN_DEPENDS=	tinyxml2:primary:standard
-			libzen:primary:standard
+BUILD_DEPENDS=		libtool:single:std
+			libzen:dev:std
+			tinyxml2:dev:std
+BUILDRUN_DEPENDS=	tinyxml2:primary:std
+			libzen:primary:std
 
 USES=			autoreconf:build dos2unix libtool pkgconfig zlib curl
 MUST_CONFIGURE=		gnu

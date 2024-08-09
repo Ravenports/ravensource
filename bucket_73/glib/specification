@@ -7,8 +7,8 @@ DEF[CAT1]=		http://docbook.sourceforge.net/release/xsl/current/
 NAMEBASE=		glib
 VERSION=		${PORTVERSION}
 KEYWORDS=		devel
-VARIANTS=		standard
-SDESC[standard]=	Some useful routines of C programming
+VARIANTS=		std
+SDESC[std]=		Some useful routines of C programming
 HOMEPAGE=		https://www.gtk.org/
 CONTACT=		nobody
 
@@ -17,7 +17,7 @@ SITES[main]=		GNOME/glib/${PORTVERSION:R}
 DISTFILE[1]=		glib-${PORTVERSION}.tar.xz:main
 DIST_SUBDIR=		gnome2
 
-SPKGS[standard]=	complete primary dev man nls
+SPKGS[std]=		set primary dev man nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -31,15 +31,15 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/glib20
 
-BUILD_DEPENDS=		xmlto:single:standard
-			libffi:dev:standard
+BUILD_DEPENDS=		xmlto:single:std
+			libffi:dev:std
 			python-packaging:single:python_used
 			python-docutils:single:python_used
-BUILDRUN_DEPENDS=	libffi:primary:standard
+BUILDRUN_DEPENDS=	libffi:primary:std
 
-EXRUN[dev]=		zlib:dev:standard
-			pcre2:dev:standard
-			libffi:dev:standard
+EXRUN[dev]=		zlib:dev:std
+			pcre2:dev:std
+			libffi:dev:std
 			python-packaging:single:python_used
 
 USES=			pcre2 gettext gmake libtool perl:build

@@ -10,8 +10,8 @@ DEF[MAJORMIN]=		${PORTVERSION:R}
 NAMEBASE=		${NAMEBASE}
 VERSION=		${PORTVERSION}
 KEYWORDS=		lang
-VARIANTS=		standard
-SDESC[standard]=	LLVM to SPIRV Translator
+VARIANTS=		std
+SDESC[std]=		LLVM to SPIRV Translator
 HOMEPAGE=		https://github.com/KhronosGroup/SPIRV-LLVM-Translator
 CONTACT=		nobody
 
@@ -22,16 +22,16 @@ DISTFILE[1]=		generated:main
 DISTFILE[2]=		generated:headers
 DF_INDEX=		1 2
 
-SPKGS[standard]=	complete primary dev
+SPKGS[std]=		set primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		devel/spirv-llvm-translator
 
-BUILD_DEPENDS=		${LLVMBASE}:dev:standard
-			${LLVMBASE}:tools:standard
-BUILDRUN_DEPENDS=	${LLVMBASE}:primary:standard
+BUILD_DEPENDS=		${LLVMBASE}:dev:std
+			${LLVMBASE}:tools:std
+BUILDRUN_DEPENDS=	${LLVMBASE}:primary:std
 
 USES=			cmake
 CMAKE_ARGS=		-DBUILD_SHARED_LIBS:BOOL=ON

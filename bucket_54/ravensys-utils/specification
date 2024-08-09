@@ -16,8 +16,8 @@ NAMEBASE=		ravensys-utils
 VERSION=		${PORTVERSION}
 REVISION=		1
 KEYWORDS=		raven sysutils
-VARIANTS=		standard prevdbsd prevfbsd prevlinux
-SDESC[standard]=	Consistent tools for Ravenports system root
+VARIANTS=		std prevdbsd prevfbsd prevlinux
+SDESC[std]=		Consistent tools for Ravenports system root
 SDESC[prevdbsd]=	System root tools for previous DragonFly
 SDESC[prevfbsd]=	System root tools for previous FreeBSD
 SDESC[prevlinux]=	System root tools for previous Linux
@@ -28,10 +28,10 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/ravenports:ravensys-utils:${TAG}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	complete primary man
-SPKGS[prevdbsd]=	complete primary man
-SPKGS[prevfbsd]=	complete primary man
-SPKGS[prevlinux]=	complete primary man
+SPKGS[std]=		set primary man
+SPKGS[prevdbsd]=	set primary man
+SPKGS[prevfbsd]=	set primary man
+SPKGS[prevlinux]=	set primary man
 
 OPTIONS_AVAILABLE=	PREV_DBSD PREV_FBSD PREV_LINUX
 OPTIONS_STANDARD=	none
@@ -44,10 +44,10 @@ LICENSE_NAME=		CUSTOM1:"ravensys-utils: all tools feature BSD-like license"
 LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/LICENSES.aggregated
 LICENSE_SCHEME=		solo
 
-B_DEPS[linux]=		libbsd:dev:standard
-			libbsd:primary:standard
-B_DEPS[sunos]=		libbsd4sol:single:standard
-			musl-fts:single:standard
+B_DEPS[linux]=		libbsd:dev:std
+			libbsd:primary:std
+B_DEPS[sunos]=		libbsd4sol:single:std
+			musl-fts:single:std
 
 USES=			cmake ssl:build
 INFRASTRUCTURE=		yes

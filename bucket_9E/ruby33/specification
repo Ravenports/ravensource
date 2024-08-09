@@ -7,8 +7,8 @@ NAMEBASE=		ruby33
 VERSION=		${PORTVERSION}
 REVISION=		${PORTREVISION}
 KEYWORDS=		lang ruby
-VARIANTS=		standard
-SDESC[standard]=	Object-oriented interpreted scripting language
+VARIANTS=		std
+SDESC[std]=		Object-oriented interpreted scripting language
 HOMEPAGE=		https://www.ruby-lang.org/en/
 CONTACT=		nobody
 
@@ -17,7 +17,7 @@ SITES[main]=		RUBY/${PORTVERSION:R}
 DISTFILE[1]=		ruby-${PORTVERSION}.tar.xz:main
 DIST_SUBDIR=		ruby
 
-SPKGS[standard]=	complete primary rdoc docs examples man
+SPKGS[std]=		set primary rdoc docs examples man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -29,14 +29,14 @@ LICENSE_SCHEME=		dual
 
 FPC_EQUIVALENT=		lang/ruby33
 
-BUILD_DEPENDS=		gdbm:dev:standard
-			libffi:dev:standard
-			gmp:dev:standard
-BUILDRUN_DEPENDS=	libyaml:single:standard
-			libffi:primary:standard
-			gmp:primary:standard
-			gdbm:primary:standard
-RUN_DEPENDS=		autoselect-ruby:single:standard
+BUILD_DEPENDS=		gdbm:dev:std
+			libffi:dev:std
+			gmp:dev:std
+BUILDRUN_DEPENDS=	libyaml:single:std
+			libffi:primary:std
+			gmp:primary:std
+			gdbm:primary:std
+RUN_DEPENDS=		autoselect-ruby:single:std
 
 USES=			autoreconf cpe execinfo ssl ruby:v33,interp zlib
 DISTNAME=		ruby-${PORTVERSION}

@@ -5,8 +5,8 @@ DEF[SOVERSION]=		5.2.5
 NAMEBASE=		zeromq
 VERSION=		${PORTVERSION}
 KEYWORDS=		net
-VARIANTS=		standard
-SDESC[standard]=	High-performance, asynchronous messaging library
+VARIANTS=		std
+SDESC[std]=		High-performance, asynchronous messaging library
 HOMEPAGE=		https://zeromq.org/
 CONTACT=		nobody
 
@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/zeromq/libzmq/releases/download/v${PORTVERSION}/
 DISTFILE[1]=		zeromq-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary dev man
+SPKGS[std]=		set primary dev man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -25,11 +25,11 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		net/libzmq4
 
-BUILD_DEPENDS=		asciidoc:single:standard
-			libsodium:dev:standard
-			xmlto:single:standard
-BUILDRUN_DEPENDS=	libsodium:primary:standard
-			norm:single:standard
+BUILD_DEPENDS=		asciidoc:single:std
+			libsodium:dev:std
+			xmlto:single:std
+BUILDRUN_DEPENDS=	libsodium:primary:std
+			norm:single:std
 
 USES=			cpe gmake libtool pkgconfig mbsdfix
 INSTALL_TARGET=		install-strip

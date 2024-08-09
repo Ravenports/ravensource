@@ -7,8 +7,8 @@ DEF[SOVERSION]=		349
 NAMEBASE=		libplacebo
 VERSION=		${PORTVERSION}
 KEYWORDS=		graphics
-VARIANTS=		standard
-SDESC[standard]=	GPU-accelerated video/image rendering library
+VARIANTS=		std
+SDESC[std]=		GPU-accelerated video/image rendering library
 HOMEPAGE=		https://code.videolan.org/videolan/libplacebo
 CONTACT=		nobody
 
@@ -19,7 +19,7 @@ DISTFILE[1]=		libplacebo-${VER}.tar.bz2:main
 DISTFILE[2]=		generated:glad
 DF_INDEX=		1 2
 
-SPKGS[standard]=	complete primary dev
+SPKGS[std]=		set primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -33,15 +33,15 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		graphics/libplacebo
 
-EXRUN[dev]=		xxhash:dev:standard
-			lcms2:dev:standard
+EXRUN[dev]=		xxhash:dev:std
+			lcms2:dev:std
 
-BUILD_DEPENDS=		lcms2:dev:standard
-			xxhash:dev:standard
+BUILD_DEPENDS=		lcms2:dev:std
+			xxhash:dev:std
 			python-Jinja2:single:python_default
-			vulkan-headers:single:standard
-BUILDRUN_DEPENDS=	lcms2:primary:standard
-			xxhash:primary:standard
+			vulkan-headers:single:std
+BUILDRUN_DEPENDS=	lcms2:primary:std
+			xxhash:primary:std
 
 USES=			meson pkgconfig
 MESON_ARGS=		-Dd3d11=disabled

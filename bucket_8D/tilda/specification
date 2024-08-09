@@ -5,8 +5,8 @@ DEF[TAG]=		tilda-${PORTVERSION}
 NAMEBASE=		tilda
 VERSION=		${PORTVERSION}
 KEYWORDS=		x11
-VARIANTS=		standard
-SDESC[standard]=	Quake-style popup terminal
+VARIANTS=		std
+SDESC[std]=		Quake-style popup terminal
 HOMEPAGE=		https://github.com/lanoxx/tilda
 CONTACT=		nobody
 
@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/lanoxx:tilda:${TAG}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	complete primary nls man
+SPKGS[std]=		set primary nls man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -28,9 +28,9 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		x11/tilda
 
-BUILD_DEPENDS=		harfbuzz:dev:standard
-			libconfuse:dev:standard
-BUILDRUN_DEPENDS=	libconfuse:primary:standard
+BUILD_DEPENDS=		harfbuzz:dev:std
+			libconfuse:dev:std
+BUILDRUN_DEPENDS=	libconfuse:primary:std
 
 USES=			autoreconf gmake libtool pkgconfig python
 GNOME_COMPONENTS=	vte

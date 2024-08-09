@@ -5,8 +5,8 @@ DEF[SOVERSION]=		${PORTVERSION}
 NAMEBASE=		mosquitto
 VERSION=		${PORTVERSION}
 KEYWORDS=		net
-VARIANTS=		standard
-SDESC[standard]=	Message broker implementing the MQTT protocol
+VARIANTS=		std
+SDESC[std]=		Message broker implementing the MQTT protocol
 HOMEPAGE=		https://mosquitto.org/
 CONTACT=		nobody
 
@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://mosquitto.org/files/source/
 DISTFILE[1]=		mosquitto-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary tools cxx dev man
+SPKGS[std]=		set primary tools cxx dev man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -29,21 +29,21 @@ LICENSE_NAME=		CUSTOM1:"Eclipse Distribution License v1.0"
 			CUSTOM2:"Eclipse Public License v2.0"
 LICENSE_SCHEME=		dual
 
-BUILD_DEPENDS=		cjson:dev:standard
-			libuuid:dev:standard
-			c-ares:dev:standard
-			libwebsockets:dev:standard
-			docbook-xsl:primary:standard
-			libxslt:dev:standard
-			libxslt:primary:standard
-BUILDRUN_DEPENDS=	cjson:primary:standard
-			libuuid:primary:standard
-			c-ares:primary:standard
-			libwebsockets:primary:standard
-RUN_DEPENDS=		nss:caroot:standard
+BUILD_DEPENDS=		cjson:dev:std
+			libuuid:dev:std
+			c-ares:dev:std
+			libwebsockets:dev:std
+			docbook-xsl:primary:std
+			libxslt:dev:std
+			libxslt:primary:std
+BUILDRUN_DEPENDS=	cjson:primary:std
+			libuuid:primary:std
+			c-ares:primary:std
+			libwebsockets:primary:std
+RUN_DEPENDS=		nss:caroot:std
 
-EXRUN[tools]=		mosquitto:primary:standard
-EXRUN[cxx]=		mosquitto:primary:standard
+EXRUN[tools]=		mosquitto:primary:std
+EXRUN[cxx]=		mosquitto:primary:std
 
 RC_SUBR=		mosquitto:tools
 USERGROUP_SPKG=		primary

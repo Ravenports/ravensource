@@ -7,8 +7,8 @@ DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
 NAMEBASE=		rust
 VERSION=		${PORTVERSION}
 KEYWORDS=		lang
-VARIANTS=		standard
-SDESC[standard]=	Systems programming language from Mozilla
+VARIANTS=		std
+SDESC[std]=		Systems programming language from Mozilla
 HOMEPAGE=		https://www.rust-lang.org/
 CONTACT=		nobody
 
@@ -36,7 +36,7 @@ DISTFILE[13]=		cargo-${RUSTX_BOOT}-x86_64-unknown-netbsd.tar.gz:main
 DISTFILE[14]=		curl-${CURL_VERSION}.tar.xz:curl
 DF_INDEX=		1 14
 
-SPKGS[standard]=	single
+SPKGS[std]=		single
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -58,19 +58,19 @@ EXTRACT_ONLY=		1 14
 # Don't add caroot to RUN depends to avoid an update to NSS causing
 # rust to rebuild
 
-BUILD_DEPENDS=		bash:primary:standard
-			cmake:primary:standard
-			ncurses:primary:standard
-			nss:caroot:standard
+BUILD_DEPENDS=		bash:primary:std
+			cmake:primary:std
+			ncurses:primary:std
+			nss:caroot:std
 
 # Rust calls -lexecinfo during linking although it doesn't appear in final binary
 # The dev package has the solink to make this happen, so it's a run dependency
-RUN_DEPENDS=		libexecinfo:dev:standard
+RUN_DEPENDS=		libexecinfo:dev:std
 
 # required for rust linking (also pulls in c++ and gcc-libs so
 # USES=c++:single is redundant
-EXRUN[single]=		ravensys-gcc:compilers:standard
-			ravensys-binutils:single:standard
+EXRUN[single]=		ravensys-gcc:compilers:std
+			ravensys-binutils:single:std
 
 USES=			cpe gmake zlib:build python:build shebangfix
 			execinfo c++:single dos2unix ssl:build

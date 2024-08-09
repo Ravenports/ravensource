@@ -4,8 +4,8 @@ DEF[PORTVERSION]=	6.0.1
 NAMEBASE=		gnuplot
 VERSION=		${PORTVERSION}
 KEYWORDS=		math
-VARIANTS=		standard lite
-SDESC[standard]=	Command-line driven graphing utility
+VARIANTS=		std lite
+SDESC[std]=		Command-line driven graphing utility
 SDESC[lite]=		Command-line driven graphing utility (headless)
 HOMEPAGE=		http://www.gnuplot.info/
 CONTACT=		nobody
@@ -15,8 +15,8 @@ SITES[main]=		SF/gnuplot/gnuplot/${PORTVERSION}
 DISTFILE[1]=		gnuplot-${PORTVERSION}.tar.gz:main
 
 # add "docs" subpackage to standard later when groff available
-SPKGS[standard]=	complete primary man examples
-SPKGS[lite]=		complete primary man examples
+SPKGS[std]=		set primary man examples
+SPKGS[lite]=		set primary man examples
 
 OPTIONS_AVAILABLE=	LITE
 OPTIONS_STANDARD=	none
@@ -66,8 +66,8 @@ CONFIGURE_ARGS=		--with-readline=gnu
 [LITE].USES_OFF=			jpeg lua png tiff
 [LITE].GNOME_COMPONENTS_OFF=		atk cairo gtk3
 [LITE].XORG_COMPONENTS_OFF=		x11
-[LITE].BUILDRUN_DEPENDS_OFF=		libGD:single:standard
-					wxWidgets30:primary:standard
+[LITE].BUILDRUN_DEPENDS_OFF=		libGD:single:std
+					wxWidgets30:primary:std
 
 post-patch:
 	${REINPLACE_CMD} -e \

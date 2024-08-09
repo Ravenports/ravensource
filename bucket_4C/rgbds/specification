@@ -4,8 +4,8 @@ DEF[PORTVERSION]=	0.8.0
 NAMEBASE=		rgbds
 VERSION=		${PORTVERSION}
 KEYWORDS=		devel
-VARIANTS=		standard
-SDESC[standard]=	Gameboy development system with assembler/linker
+VARIANTS=		std
+SDESC[std]=		Gameboy development system with assembler/linker
 HOMEPAGE=		https://rgbds.gbdev.io
 CONTACT=		Todd_Martin[warfox@sdf.org]
 
@@ -13,7 +13,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/gbdev:rgbds:v${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	complete primary man
+SPKGS[std]=		set primary man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -22,7 +22,7 @@ LICENSE=		MIT:primary
 LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		bash:primary:standard
+BUILD_DEPENDS=		bash:primary:std
 
 USES=			bison c++:primary gmake png pkgconfig zlib:build
 INSTALL_REQ_TOOLCHAIN=	yes

@@ -7,8 +7,8 @@ DEF[KEYWORD]=		graphics
 NAMEBASE=		php${SUFFIX}-${MODULE}
 VERSION=		${PORTVERSION}
 KEYWORDS=		lang www php ${KEYWORD}
-VARIANTS=		standard
-SDESC[standard]=	PHP ${PORTVERSION:R} extension: ${MODULE} (image processing)
+VARIANTS=		std
+SDESC[std]=		PHP ${PORTVERSION:R} extension: ${MODULE} (image processing)
 HOMEPAGE=		https://php.net/
 CONTACT=		nobody
 
@@ -16,7 +16,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		PHP/distributions
 DISTFILE[1]=		php-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	single
+SPKGS[std]=		single
 
 OPTIONS_AVAILABLE=	TRUETYPE JIS WEBP X11
 OPTIONS_STANDARD=	TRUETYPE JIS WEBP X11
@@ -44,8 +44,8 @@ EXTRACT_TAIL[1]=	php-${PORTVERSION}/ext/{{PHP_MODNAME}}
 
 [TRUETYPE].CONFIGURE_ENABLE_BOTH=	gd-native-ttf
 [WEBP].CONFIGURE_ARGS_ON=		--with-webp-dir={{LOCALBASE}}
-[WEBP].BUILD_DEPENDS_ON=		WebP:dev:standard
-[WEBP].BUILDRUN_DEPENDS_ON=		WebP:primary:standard
+[WEBP].BUILD_DEPENDS_ON=		WebP:dev:std
+[WEBP].BUILDRUN_DEPENDS_ON=		WebP:primary:std
 [JIS].CONFIGURE_ENABLE_BOTH=		gd-jis-conv
 [X11].XORG_COMPONENTS_ON=		xpm
 [X11].CONFIGURE_ARGS_ON=		--with-xpm-dir={{LOCALBASE}}

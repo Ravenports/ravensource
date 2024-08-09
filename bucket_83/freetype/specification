@@ -6,8 +6,8 @@ DEF[PORTDOCS]=		reference CHANGES formats.txt LICENSE.TXT raster.txt
 NAMEBASE=		freetype
 VERSION=		${PORTVERSION}
 KEYWORDS=		print
-VARIANTS=		standard
-SDESC[standard]=	Free and portable TrueType font rendering engine
+VARIANTS=		std
+SDESC[std]=		Free and portable TrueType font rendering engine
 HOMEPAGE=		https://www.freetype.org/
 CONTACT=		nobody
 
@@ -15,7 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://savannah.nongnu.org/download/freetype/
 DISTFILE[1]=		freetype-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary dev docs
+SPKGS[std]=		set primary dev docs
 
 OPTIONS_AVAILABLE=	LCD_FILTERING PNG TAB_VALIDATION TT_SZ_METRICS V38 V40 DEBUG
 OPTIONS_STANDARD=	LCD_FILTERING PNG TAB_VALIDATION TT_SZ_METRICS V38 V40 DEBUG
@@ -33,8 +33,8 @@ LICENSE_SCHEME=		dual
 
 FPC_EQUIVALENT=		print/freetype2
 
-EXRUN[dev]=		zlib:dev:standard
-			bzip2:dev:standard
+EXRUN[dev]=		zlib:dev:std
+			bzip2:dev:std
 
 USES=			cpe gmake libtool zlib pkgconfig bz2
 MAKE_ENV=		TOP=""

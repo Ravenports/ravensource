@@ -7,8 +7,8 @@ DEF[CYRUS_GROUP]=	cyrus
 NAMEBASE=		cyrus-imapd
 VERSION=		${PORTVERSION}
 KEYWORDS=		mail
-VARIANTS=		standard
-SDESC[standard]=	High-performance mail store with IMAP support
+VARIANTS=		std
+SDESC[std]=		High-performance mail store with IMAP support
 HOMEPAGE=		https://www.cyrusimap.org/
 CONTACT=		nobody
 
@@ -16,7 +16,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/cyrusimap/cyrus-imapd/releases/download/cyrus-imapd-${PORTVERSION}/
 DISTFILE[1]=		cyrus-imapd-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary tools dev man docs examples
+SPKGS[std]=		set primary tools dev man docs examples
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -29,23 +29,23 @@ LICENSE_SCHEME=		solo
 
 SOVERSION=		${SOVERSION}
 
-BUILD_DEPENDS=		brotli:dev:standard
-			icu:dev:standard
-			krb5:dev:standard
-			libical:dev:standard
-			libnghttp2:dev:standard
-			xapian-core:dev:standard
-BUILDRUN_DEPENDS=	brotli:primary:standard
-			cyrus-sasl:primary:standard
-			icu:primary:standard
-			jansson:single:standard
-			krb5:primary:standard
-			libical:primary:standard
-			libnghttp2:primary:standard
-			rsync:single:standard
-			xapian-core:primary:standard
+BUILD_DEPENDS=		brotli:dev:std
+			icu:dev:std
+			krb5:dev:std
+			libical:dev:std
+			libnghttp2:dev:std
+			xapian-core:dev:std
+BUILDRUN_DEPENDS=	brotli:primary:std
+			cyrus-sasl:primary:std
+			icu:primary:std
+			jansson:single:std
+			krb5:primary:std
+			libical:primary:std
+			libnghttp2:primary:std
+			rsync:single:std
+			xapian-core:primary:std
 
-EXRUN[tools]=		cyrus-imapd:primary:standard
+EXRUN[tools]=		cyrus-imapd:primary:std
 
 # we can't use libuuid:standard due to conflict in DragonFly
 #    with <sys/statvfs> pulling in sys/uuid.h

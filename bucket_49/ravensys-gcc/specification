@@ -14,8 +14,8 @@ DEF[DRACO_DIR]=		patches-13.2.0
 NAMEBASE=		ravensys-gcc
 VERSION=		${PORTVERSION}
 KEYWORDS=		lang raven
-VARIANTS=		standard
-SDESC[standard]=	GNU Compiler collection (GCC), Series ${BRANCH}
+VARIANTS=		std
+SDESC[std]=		GNU Compiler collection (GCC), Series ${BRANCH}
 HOMEPAGE=		https://gcc.gnu.org/
 CONTACT=		John_Marino[draco@marino.st]
 
@@ -30,7 +30,7 @@ DISTFILE[5]=		patch-diff-ada-testsuite:draco
 DISTFILE[6]=		patch-diff-gcc-testsuite:draco
 DIST_SUBDIR=		ravensys-gcc_${DRACO_TAG}
 
-SPKGS[standard]=	complete compilers ada_run cxx_run fortran_run libs infopages
+SPKGS[std]=		set compilers ada_run cxx_run fortran_run libs infopages
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -52,14 +52,14 @@ C_USES[midnightbsd]=	iconv:build
 C_USES[netbsd]=		iconv:build
 C_USES[solaris]=	iconv:build
 
-BUILD_DEPENDS=		gmp:dev:standard
-			mpfr:dev:standard
-			mpc:dev:standard
-BUILDRUN_DEPENDS=	ravensys-binutils:single:standard
-EXRUN[ada_run]=		ravensys-gcc:libs:standard
-EXRUN[cxx_run]=		ravensys-gcc:libs:standard
-EXRUN[fortran_run]=	ravensys-gcc:libs:standard
-EXRUN[compilers]=	ravensys-gcc:cxx_run:standard
+BUILD_DEPENDS=		gmp:dev:std
+			mpfr:dev:std
+			mpc:dev:std
+BUILDRUN_DEPENDS=	ravensys-binutils:single:std
+EXRUN[ada_run]=		ravensys-gcc:libs:std
+EXRUN[cxx_run]=		ravensys-gcc:libs:std
+EXRUN[fortran_run]=	ravensys-gcc:libs:std
+EXRUN[compilers]=	ravensys-gcc:cxx_run:std
 
 PATCHFILES=		2 3 4 5 6
 

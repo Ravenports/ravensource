@@ -6,8 +6,8 @@ DEF[SOVERSION]=		4.0.0
 NAMEBASE=		xfce4-panel
 VERSION=		${PORTVERSION}
 KEYWORDS=		x11
-VARIANTS=		standard
-SDESC[standard]=	Panel for the Xfce4 desktop environment
+VARIANTS=		std
+SDESC[std]=		Panel for the Xfce4 desktop environment
 HOMEPAGE=		https://docs.xfce.org/xfce/xfce4-panel/start
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
@@ -16,34 +16,34 @@ SITES[main]=		https://archive.xfce.org/src/xfce/xfce4-panel/${PORTVERSION:R}/
 DISTFILE[1]=		xfce4-panel-${PORTVERSION}.tar.bz2:main
 DIST_SUBDIR=		xfce
 
-SPKGS[standard]=	complete primary dev docs nls
+SPKGS[std]=		set primary dev docs nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		x11-wm/xfce4-panel
 
-LICENSE=		GPLv2+:complete
+LICENSE=		GPLv2+:primary
 LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
-LICENSE_TERMS=		complete:{{WRKSRC}}/TERMS
+LICENSE_TERMS=		primary:{{WRKSRC}}/TERMS
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/panel/panel-application.h
 
-BUILD_DEPENDS=		harfbuzz:dev:standard
-			dbus:dev:standard
-			libwnck:dev:standard
-			garcon:dev:standard
-			libxfce4util:dev:standard
-BUILDRUN_DEPENDS=	dbus:primary:standard
-			dbus-glib:primary:standard
-			garcon:primary:standard
-			libexo:primary:standard
-			libwnck:primary:standard
-			libdbusmenu:primary:standard
-			libxfce4util:primary:standard
+BUILD_DEPENDS=		harfbuzz:dev:std
+			dbus:dev:std
+			libwnck:dev:std
+			garcon:dev:std
+			libxfce4util:dev:std
+BUILDRUN_DEPENDS=	dbus:primary:std
+			dbus-glib:primary:std
+			garcon:primary:std
+			libexo:primary:std
+			libwnck:primary:std
+			libdbusmenu:primary:std
+			libxfce4util:primary:std
 
-EXRUN[dev]=		libxfce4util:dev:standard
+EXRUN[dev]=		libxfce4util:dev:std
 
 USES=			gmake libtool fontconfig perl pkgconfig
 			desktop-utils:primary

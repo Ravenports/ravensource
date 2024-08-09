@@ -5,8 +5,8 @@ DEF[RELEASE_VERSION]=	${PORTVERSION}.20230212
 NAMEBASE=		megatools
 VERSION=		${PORTVERSION}
 KEYWORDS=		net
-VARIANTS=		standard
-SDESC[standard]=	Command line tools for MEGA.NZ cloud drive
+VARIANTS=		std
+SDESC[std]=		Command line tools for MEGA.NZ cloud drive
 HOMEPAGE=		https://megatools.megous.com/
 CONTACT=		nobody
 
@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://megatools.megous.com/builds/
 DISTFILE[1]=		megatools-${RELEASE_VERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary man
+SPKGS[std]=		set primary man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -28,8 +28,8 @@ LICENSE_AWK=		TERMS:"__TOOLS_H"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/lib/tools.h
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		asciidoc:single:standard
-			docbook2X:primary:standard
+BUILD_DEPENDS=		asciidoc:single:std
+			docbook2X:primary:std
 
 USES=			gmake meson pkgconfig ssl:openssl30 curl
 GNOME_COMPONENTS=	glib

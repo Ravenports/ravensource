@@ -8,8 +8,8 @@ DEF[MAINT_MAIL]=	draco@marino.st
 NAMEBASE=		perl-${PERL_VER}
 VERSION=		${PORTVERSION}
 KEYWORDS=		lang perl devel
-VARIANTS=		standard
-SDESC[standard]=	Practical Extraction and Report Language
+VARIANTS=		std
+SDESC[std]=		Practical Extraction and Report Language
 HOMEPAGE=		https://www.perl.org/
 CONTACT=		${MAINTAINER:S/ /_/}[${MAINT_MAIL}]
 
@@ -18,7 +18,7 @@ SITES[main]=		CPAN/../../src/5.0
 DISTFILE[1]=		perl-${PORTVERSION}.tar.xz:main
 DIST_SUBDIR=		perl5
 
-SPKGS[standard]=	complete primary man
+SPKGS[std]=		set primary man
 
 OPTIONS_AVAILABLE=	MULTIPLICITY THREADS BIT64INT DEBUG
 OPTIONS_STANDARD=	MULTIPLICITY THREADS BIT64INT DEBUG
@@ -39,9 +39,9 @@ LICENSE_SCHEME=		dual
 
 FPC_EQUIVALENT=		lang/perl${PERL_VER}
 
-BUILD_DEPENDS=		gdbm:dev:standard
-BUILDRUN_DEPENDS=	gdbm:primary:standard
-RUN_DEPENDS=		autoselect-perl:single:standard
+BUILD_DEPENDS=		gdbm:dev:std
+BUILDRUN_DEPENDS=	gdbm:primary:std
+RUN_DEPENDS=		autoselect-perl:single:std
 
 USES=			bdb cpe perl-interp cclibs:primary
 CPE_VENDOR=		perl

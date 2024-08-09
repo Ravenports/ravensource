@@ -9,8 +9,8 @@ DEF[BASE]=		{{PREFIX}}/${NAMEBASE}
 NAMEBASE=		${NAMEBASE}
 VERSION=		${PORTVERSION}
 KEYWORDS=		security devel
-VARIANTS=		standard
-SDESC[standard]=	OpenBSD fork of the OpenSSL SSL/TLS protocol
+VARIANTS=		std
+SDESC[std]=		OpenBSD fork of the OpenSSL SSL/TLS protocol
 HOMEPAGE=		http://www.libressl.org/
 CONTACT=		nobody
 
@@ -18,7 +18,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		OPENBSD/LibreSSL
 DISTFILE[1]=		libressl-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary dev man
+SPKGS[std]=		set primary dev man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -30,7 +30,7 @@ LICENSE_SCHEME=		multi
 
 FPC_EQUIVALENT=		security/${NAMEBASE}
 
-RUN_DEPENDS=		autoselect-ssl:single:standard
+RUN_DEPENDS=		autoselect-ssl:single:std
 
 USES=			autoreconf cpe libtool pkgconfig
 DISTNAME=		libressl-${PORTVERSION}

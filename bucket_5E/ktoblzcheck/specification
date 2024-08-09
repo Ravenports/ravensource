@@ -8,8 +8,8 @@ DEF[SOVERSION]=		1.5.26
 NAMEBASE=		ktoblzcheck
 VERSION=		${PORTVERSION}
 KEYWORDS=		finance german
-VARIANTS=		standard
-SDESC[standard]=	Check bank codes of German banks
+VARIANTS=		std
+SDESC[std]=		Check bank codes of German banks
 HOMEPAGE=		https://sourceforge.net/projects/ktoblzcheck/
 CONTACT=		nobody
 
@@ -20,7 +20,7 @@ DISTFILE[1]=		ktoblzcheck-${PORTVERSION}.tar.gz:main
 DISTFILE[2]=		ktoblzcheck-bankdata-${BANKDATE}.tar.gz:bankdata
 DF_INDEX=		1 2
 
-SPKGS[standard]=	complete primary dev tools man
+SPKGS[std]=		set primary dev tools man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -36,11 +36,11 @@ FPC_EQUIVALENT=		finance/ktoblzcheck
 
 EXRUN[tools]=		primary
 
-BUILD_DEPENDS=		sqlite:dev:standard
-			curl:dev:standard
+BUILD_DEPENDS=		sqlite:dev:std
+			curl:dev:std
 BUILDRUN_DEPENDS=	python-openpyxl:single:python_used
 			python-sqlite3:single:python_used
-			curl:primary:standard
+			curl:primary:std
 
 SUB_FILES=		messages-primary.ucl
 			scripts-primary.ucl

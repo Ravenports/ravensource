@@ -10,8 +10,8 @@ REVISION=		1
 # Amateur hour: https://gitlab.gnome.org/GNOME/librest/-/issues/17
 EPOCH=			1
 KEYWORDS=		devel www
-VARIANTS=		standard
-SDESC[standard]=	Easy access to RESTful web services
+VARIANTS=		std
+SDESC[std]=		Easy access to RESTful web services
 HOMEPAGE=		https://wiki.gnome.org/Projects/Librest
 CONTACT=		nobody
 
@@ -19,7 +19,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://gitlab.gnome.org/GNOME/librest/-/archive/${PORTVERSION}/
 DISTFILE[1]=		librest-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary dev examples docs
+SPKGS[std]=		set primary dev examples docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -33,12 +33,12 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/librest
 
-BUILD_DEPENDS=		python-gi-docgen:complete:python_default
-			libsoup-2.4:dev:standard
-			json-glib:dev:standard
-BUILDRUN_DEPENDS=	nss:caroot:standard
-			libsoup-2.4:primary:standard
-			json-glib:primary:standard
+BUILD_DEPENDS=		python-gi-docgen:set:python_default
+			libsoup-2.4:dev:std
+			json-glib:dev:std
+BUILDRUN_DEPENDS=	nss:caroot:std
+			libsoup-2.4:primary:std
+			json-glib:primary:std
 
 USES=			meson pkgconfig gtk-doc
 GNOME_COMPONENTS=	glib libxml2 introspection

@@ -6,8 +6,8 @@ DEF[SOVERSION]=		EXTRACT_INFO(GSTREAMER1_SOVERSION)
 NAMEBASE=		gstreamer1-plugins-good
 VERSION=		${PORTVERSION}
 KEYWORDS=		multimedia
-VARIANTS=		standard
-SDESC[standard]=	GStreamer Multimedia Framework "Good" Plugins
+VARIANTS=		std
+SDESC[std]=		GStreamer Multimedia Framework "Good" Plugins
 HOMEPAGE=		https://gstreamer.freedesktop.org/
 CONTACT=		nobody
 
@@ -15,7 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://gstreamer.freedesktop.org/src/gst-plugins-good/
 DISTFILE[1]=		gst-plugins-good-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary nls
+SPKGS[std]=		set primary nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -30,12 +30,12 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		multimedia/gstreamer1-plugins-good
 
 # Nasm brokes build on FreeBSD
-# #			nasm:primary:standard
-BUILD_DEPENDS=		libgpg-error:dev:standard
-			gstreamer1:dev:standard
-			gstreamer1-plugins-base:dev:standard
-BUILDRUN_DEPENDS=	gstreamer1:primary:standard
-			gstreamer1-plugins-base:primary:standard
+# #			nasm:primary:std
+BUILD_DEPENDS=		libgpg-error:dev:std
+			gstreamer1:dev:std
+			gstreamer1-plugins-base:dev:std
+BUILDRUN_DEPENDS=	gstreamer1:primary:std
+			gstreamer1-plugins-base:primary:std
 
 USES=			gmake pkgconfig zlib bz2 meson
 GNOME_COMPONENTS=	glib libxml2

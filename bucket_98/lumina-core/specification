@@ -7,8 +7,8 @@ VERSION=		${PORTVERSION}
 REVISION=		2
 EPOCH=			1
 KEYWORDS=		x11
-VARIANTS=		standard
-SDESC[standard]=	Core components of the Lumina Desktop
+VARIANTS=		std
+SDESC[std]=		Core components of the Lumina Desktop
 HOMEPAGE=		https://lumina-desktop.org
 CONTACT=		nobody
 
@@ -16,7 +16,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/lumina-desktop:lumina:v${TAG}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	complete primary nls man
+SPKGS[std]=		set primary nls man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -27,23 +27,23 @@ LICENSE=		BSD3CLAUSE:primary
 LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC:H:H}}/LICENSE
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		openpam:dev:standard
-			qt5-qttools:complete:standard
-			qt5-qtx11extras:dev:standard
-			qt5-qtsvg:dev:standard
-			qt5-qtdeclarative:dev:standard
-			qt5-qtmultimedia:dev:standard
-BUILDRUN_DEPENDS=	openpam:primary:standard
-			qt5-qtmultimedia:primary:standard
-			qt5-qtsvg:primary:standard
-			qt5-qtx11extras:primary:standard
-			qt5-qtdeclarative:primary:standard
-RUN_DEPENDS=		xorg-xscrnsaver:primary:standard
-			numlockx:single:standard
-			xrandr:single:standard
-			xbrightness:single:standard
-			fluxbox:single:standard
-			gstreamer1-plugins-core:single:standard
+BUILD_DEPENDS=		openpam:dev:std
+			qt5-qttools:set:std
+			qt5-qtx11extras:dev:std
+			qt5-qtsvg:dev:std
+			qt5-qtdeclarative:dev:std
+			qt5-qtmultimedia:dev:std
+BUILDRUN_DEPENDS=	openpam:primary:std
+			qt5-qtmultimedia:primary:std
+			qt5-qtsvg:primary:std
+			qt5-qtx11extras:primary:std
+			qt5-qtdeclarative:primary:std
+RUN_DEPENDS=		xorg-xscrnsaver:primary:std
+			numlockx:single:std
+			xrandr:single:std
+			xbrightness:single:std
+			fluxbox:single:std
+			gstreamer1-plugins-core:single:std
 
 USES=			qt5
 XORG_COMPONENTS=	xcb xcb-util xcb-util-wm xcb-util-image xdamage xcursor

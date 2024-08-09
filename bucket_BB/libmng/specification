@@ -6,8 +6,8 @@ NAMEBASE=		libmng
 VERSION=		${PORTVERSION}
 REVISION=		1
 KEYWORDS=		graphics
-VARIANTS=		standard
-SDESC[standard]=	Multiple-image Network Graphics support library
+VARIANTS=		std
+SDESC[std]=		Multiple-image Network Graphics support library
 HOMEPAGE=		https://libmng.sourceforge.net/
 CONTACT=		nobody
 
@@ -15,15 +15,15 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		SF/libmng/libmng-devel/${PORTVERSION}
 DISTFILE[1]=		libmng-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary dev man
+SPKGS[std]=		set primary dev man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		graphics/libmng
 
-BUILD_DEPENDS=		lcms2:dev:standard
-BUILDRUN_DEPENDS=	lcms2:primary:standard
+BUILD_DEPENDS=		lcms2:dev:std
+BUILDRUN_DEPENDS=	lcms2:primary:std
 
 USES=			libtool zlib jpeg fbsd10fix mbsdfix
 MUST_CONFIGURE=		gnu

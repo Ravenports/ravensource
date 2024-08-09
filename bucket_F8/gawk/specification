@@ -4,8 +4,8 @@ DEF[PORTVERSION]=	5.3.0
 NAMEBASE=		gawk
 VERSION=		${PORTVERSION}
 KEYWORDS=		lang
-VARIANTS=		standard
-SDESC[standard]=	GNU version of Awk
+VARIANTS=		std
+SDESC[std]=		GNU version of Awk
 HOMEPAGE=		http://www.gnu.org/software/gawk/gawk.html
 CONTACT=		nobody
 
@@ -13,7 +13,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNU/gawk
 DISTFILE[1]=		gawk-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary nls man info
+SPKGS[std]=		set primary nls man info
 
 OPTIONS_AVAILABLE=	MPFR
 OPTIONS_STANDARD=	MPFR
@@ -28,7 +28,7 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		lang/gawk
 
-BUILD_DEPENDS=		libsigsegv:dev:standard
+BUILD_DEPENDS=		libsigsegv:dev:std
 
 USES=			makeinfo libtool readline gettext
 MUST_CONFIGURE=		gnu
@@ -44,8 +44,8 @@ INFO=			info:gawk
 
 [MPFR].DESCRIPTION=			Support multi-precision floating-point computation
 
-[MPFR].BUILD_DEPENDS_ON=		mpfr:dev:standard
-[MPFR].BUILDRUN_DEPENDS_ON=		mpfr:primary:standard
+[MPFR].BUILD_DEPENDS_ON=		mpfr:dev:std
+[MPFR].BUILDRUN_DEPENDS_ON=		mpfr:primary:std
 [MPFR].CONFIGURE_ARGS_OFF=		--without-gmp
 					--without-mpfr
 

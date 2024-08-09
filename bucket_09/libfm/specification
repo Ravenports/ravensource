@@ -5,8 +5,8 @@ DEF[SOVERSION]=		4.1.3
 NAMEBASE=		libfm
 VERSION=		${PORTVERSION}
 KEYWORDS=		x11
-VARIANTS=		standard
-SDESC[standard]=	Core library of PCManFM file manager
+VARIANTS=		std
+SDESC[std]=		Core library of PCManFM file manager
 HOMEPAGE=		https://github.com/lxde/libfm
 CONTACT=		nobody
 
@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		SF/pcmanfm/PCManFM%20%2B%20Libfm%20%28tarball%20release%29/LibFM/
 DISTFILE[1]=		libfm-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary nls
+SPKGS[std]=		set primary nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -32,12 +32,12 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		x11/libfm
 
-BUILD_DEPENDS=		vala:single:standard
+BUILD_DEPENDS=		vala:single:std
 			perl-XML-Parser:single:perl_default
-			harfbuzz:dev:standard
-			libexif:dev:standard
-BUILDRUN_DEPENDS=	menu-cache:single:standard
-			libexif:primary:standard
+			harfbuzz:dev:std
+			libexif:dev:std
+BUILDRUN_DEPENDS=	menu-cache:single:std
+			libexif:primary:std
 
 USES=			gmake libtool fontconfig pkgconfig mbsdfix
 			desktop-utils:primary mime-info:primary

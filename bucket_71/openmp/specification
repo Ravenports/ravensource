@@ -10,8 +10,8 @@ DEF[MAJOR]=		${LLVM_VERSION:R:R}
 NAMEBASE=		${NAMEBASE}
 VERSION=		${LLVM_VERSION}
 KEYWORDS=		devel lang
-VARIANTS=		standard
-SDESC[standard]=	LLVM Open Multi-Processing Runtime Library
+VARIANTS=		std
+SDESC[std]=		LLVM Open Multi-Processing Runtime Library
 HOMEPAGE=		http://llvm.org/
 CONTACT=		nobody
 
@@ -21,7 +21,7 @@ DISTFILE[1]=		openmp-${LLVM_VERSION}.src.tar.xz:main
 DISTFILE[2]=		cmake-${LLVM_VERSION}.src.tar.xz:main
 DF_INDEX=		1 2
 
-SPKGS[standard]=	complete primary dev
+SPKGS[std]=		set primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -31,11 +31,11 @@ LICENSE_NAME=		CUSTOM1:"Apache 2.0 License with LLVM Exceptions"
 LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/LICENSE.TXT
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		${CLANGBASE}:complete:standard
-			${LLVMBASE}:dev:standard
-			${LLVMBASE}:tools:standard
-			libxml2:dev:standard
-BUILDRUN_DEPENDS=	${LLVMBASE}:primary:standard
+BUILD_DEPENDS=		${CLANGBASE}:set:std
+			${LLVMBASE}:dev:std
+			${LLVMBASE}:tools:std
+			libxml2:dev:std
+BUILDRUN_DEPENDS=	${LLVMBASE}:primary:std
 
 USES=			cpe cmake perl:build pkgconfig zlib ncurses:dev
 			c++:primary

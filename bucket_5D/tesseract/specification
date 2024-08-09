@@ -5,8 +5,8 @@ DEF[SOVERSION]=		5.0.4
 NAMEBASE=		tesseract
 VERSION=		${PORTVERSION}
 KEYWORDS=		graphics
-VARIANTS=		standard
-SDESC[standard]=	OCR (Optical Character Recognition) engine
+VARIANTS=		std
+SDESC[std]=		OCR (Optical Character Recognition) engine
 HOMEPAGE=		https://github.com/tesseract-ocr/tesseract
 CONTACT=		nobody
 
@@ -14,25 +14,25 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/tesseract-ocr:tesseract:${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	complete primary dev tools
+SPKGS[std]=		set primary dev tools
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		graphics/tesseract
 
-BUILD_DEPENDS=		harfbuzz:dev:standard
-			leptonica:dev:standard
-			icu:dev:standard
-			llvm:dev:standard
-			llvm:tools:standard
-BUILDRUN_DEPENDS=	icu:primary:standard
-			leptonica:primary:standard
-			llvm:primary:standard
-			pango:primary:standard
-RUN_DEPENDS=		tesseract-data:latin:standard
+BUILD_DEPENDS=		harfbuzz:dev:std
+			leptonica:dev:std
+			icu:dev:std
+			llvm:dev:std
+			llvm:tools:std
+BUILDRUN_DEPENDS=	icu:primary:std
+			leptonica:primary:std
+			llvm:primary:std
+			pango:primary:std
+RUN_DEPENDS=		tesseract-data:latin:std
 
-EXRUN[tools]=		tesseract:primary:standard
+EXRUN[tools]=		tesseract:primary:std
 
 # See patch freebsd/patch-configure.ac
 C_USES[freebsd]=	fortran:library

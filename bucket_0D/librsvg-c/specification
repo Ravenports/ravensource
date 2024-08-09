@@ -6,8 +6,8 @@ NAMEBASE=		librsvg-c
 VERSION=		${PORTVERSION}
 REVISION=		1
 KEYWORDS=		graphics
-VARIANTS=		standard
-SDESC[standard]=	SVG vector-graphic files rendering library
+VARIANTS=		std
+SDESC[std]=		SVG vector-graphic files rendering library
 HOMEPAGE=		http://live.gnome.org/LibRsvg
 CONTACT=		nobody
 
@@ -15,7 +15,7 @@ DOWNLOAD_GROUPS=	main norust
 SITES[main]=		GNOME/librsvg/${PORTVERSION:R}
 DISTFILE[1]=		librsvg-${PORTVERSION}.tar.xz:main
 
-SPKGS[standard]=	complete primary dev man docs
+SPKGS[std]=		set primary dev man docs
 
 OPTIONS_AVAILABLE=	INTROSPECTION
 OPTIONS_STANDARD=	INTROSPECTION
@@ -29,7 +29,7 @@ LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_SCHEME=		solo
 
 BUILD_DEPENDS=		python-docutils:single:python_default
-			harfbuzz:dev:standard
+			harfbuzz:dev:std
 
 USES=			cpe gmake gtk-doc png freetype libtool pkgconfig
 			perl:build python:build mbsdfix
@@ -55,7 +55,7 @@ VAR_OPSYS[freebsd]=	LDFLAGS=-lintl
 VAR_OPSYS[netbsd]=	LDFLAGS=-lintl
 
 [INTROSPECTION].DESCRIPTION=		Build with introspection
-[INTROSPECTION].BUILD_DEPENDS_ON=	python-gi-docgen:complete:python_default
+[INTROSPECTION].BUILD_DEPENDS_ON=	python-gi-docgen:set:python_default
 [INTROSPECTION].GNOME_COMPONENTS_ON=	introspection
 [INTROSPECTION].CONFIGURE_ARGS_ON=	--enable-gtk-doc
 [INTROSPECTION].CONFIGURE_ARGS_OFF=	--enable-introspection=no

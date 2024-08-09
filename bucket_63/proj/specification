@@ -7,8 +7,8 @@ DEF[DATUMGRID_VER]=	1.8
 NAMEBASE=		proj
 VERSION=		${PORTVERSION}
 KEYWORDS=		graphics geography
-VARIANTS=		standard
-SDESC[standard]=	Cartographic Projections Library
+VARIANTS=		std
+SDESC[std]=		Cartographic Projections Library
 HOMEPAGE=		https://github.com/OSGeo/proj.4
 CONTACT=		nobody
 
@@ -18,7 +18,7 @@ DISTFILE[1]=		proj-${PORTVERSION}.tar.gz:main
 DISTFILE[2]=		proj-datumgrid-${DATUMGRID_VER}.zip:main
 DF_INDEX=		1 2
 
-SPKGS[standard]=	complete primary tools dev man
+SPKGS[std]=		set primary tools dev man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -29,9 +29,9 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		graphics/proj
 
-BUILD_DEPENDS=		gtest:complete:standard
+BUILD_DEPENDS=		gtest:set:std
 
-EXRUN[tools]=		proj:primary:standard
+EXRUN[tools]=		proj:primary:std
 
 USES=			cmake pkgconfig sqlite tiff curl c++:primary
 EXTRACT_DIRTY=		2

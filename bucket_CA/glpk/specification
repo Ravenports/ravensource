@@ -6,8 +6,8 @@ NAMEBASE=		glpk
 VERSION=		${PORTVERSION}
 REVISION=		1
 KEYWORDS=		math
-VARIANTS=		standard
-SDESC[standard]=	GNU Linear Programming Kit
+VARIANTS=		std
+SDESC[std]=		GNU Linear Programming Kit
 HOMEPAGE=		https://www.gnu.org/software/glpk/
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
@@ -15,7 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNU/glpk
 DISTFILE[1]=		glpk-${PORTVERSION}.tar.gz:main
 
-SPKGS[standard]=	complete primary dev
+SPKGS[std]=		set primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -29,9 +29,9 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		math/glpk
 
-BUILDRUN_DEPENDS=	gmp:primary:standard
-BUILD_DEPENDS=		gmp:dev:standard
-			libtool:single:standard
+BUILDRUN_DEPENDS=	gmp:primary:std
+BUILD_DEPENDS=		gmp:dev:std
+			libtool:single:std
 USES=			fbsd10fix gmake libtool mbsdfix
 
 MUST_CONFIGURE=		gnu

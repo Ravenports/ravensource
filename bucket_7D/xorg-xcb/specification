@@ -7,8 +7,8 @@ DEF[DRI3_SOVERSION]=	0.1.0
 NAMEBASE=		xorg-${XNAME}
 VERSION=		${PORTVERSION}
 KEYWORDS=		x11
-VARIANTS=		standard
-SDESC[standard]=	X protocol C-language Binding (XCB) library
+VARIANTS=		std
+SDESC[std]=		X protocol C-language Binding (XCB) library
 HOMEPAGE=		https://xcb.freedesktop.org/
 CONTACT=		nobody
 
@@ -18,7 +18,7 @@ SITES[main]=		https://xcb.freedesktop.org/dist/
 DISTFILE[1]=		${ALTNAME}-${PORTVERSION}.tar.xz:main
 DIST_SUBDIR=		xorg
 
-SPKGS[standard]=	complete primary dev man
+SPKGS[std]=		set primary dev man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -29,11 +29,11 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		x11/libxcb
 
-BUILD_DEPENDS=		check:primary:standard
-			xcb-proto:single:standard
+BUILD_DEPENDS=		check:primary:std
+			xcb-proto:single:std
 
-EXRUN[dev]=		xorg-xdmcp:dev:standard
-			xorg-xau:dev:standard
+EXRUN[dev]=		xorg-xdmcp:dev:std
+			xorg-xau:dev:std
 
 USES=			cpe gmake python:build libtool
 XORG_COMPONENTS=	xau xdmcp xorgproto

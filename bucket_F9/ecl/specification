@@ -5,8 +5,8 @@ DEF[SOVERSION]=		${PORTVERSION}
 NAMEBASE=		ecl
 VERSION=		${PORTVERSION}
 KEYWORDS=		lang
-VARIANTS=		standard
-SDESC[standard]=	ANSI Common Lisp implementation
+VARIANTS=		std
+SDESC[std]=		ANSI Common Lisp implementation
 HOMEPAGE=		https://common-lisp.net/project/ecl/main.html
 CONTACT=		nobody
 
@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://common-lisp.net/project/ecl/static/files/release/
 DISTFILE[1]=		ecl-${PORTVERSION}.tgz:main
 
-SPKGS[standard]=	complete primary dev man info
+SPKGS[std]=		set primary dev man info
 
 OPTIONS_AVAILABLE=	THREADS
 OPTIONS_STANDARD=	THREADS
@@ -30,13 +30,13 @@ LICENSE_TERMS=		primary:{{WRKSRC}}/LICENSE
 LICENSE_FILE=		LGPL20+:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		libatomic_ops:dev:standard
-			libffi:dev:standard
-			gmp:dev:standard
+BUILD_DEPENDS=		libatomic_ops:dev:std
+			libffi:dev:std
+			gmp:dev:std
 			boehm_garbage_collector:dev:threaded
-BUILDRUN_DEPENDS=	libatomic_ops:primary:standard
-			libffi:primary:standard
-			gmp:primary:standard
+BUILDRUN_DEPENDS=	libatomic_ops:primary:std
+			libffi:primary:std
+			gmp:primary:std
 			boehm_garbage_collector:primary:threaded
 
 USES=			autoreconf gmake makeinfo perl:build

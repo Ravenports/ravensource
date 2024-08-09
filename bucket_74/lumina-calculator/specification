@@ -10,8 +10,8 @@ VERSION=		${PORTVERSION}
 REVISION=		3
 EPOCH=			2
 KEYWORDS=		deskutils
-VARIANTS=		standard
-SDESC[standard]=	Scientific calculator from the Lumina Desktop
+VARIANTS=		std
+SDESC[std]=		Scientific calculator from the Lumina Desktop
 HOMEPAGE=		https://lumina-desktop.org
 CONTACT=		nobody
 
@@ -19,7 +19,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/lumina-desktop:lumina-calculator:${TAG}
 DISTFILE[1]=		generated:main
 
-SPKGS[standard]=	complete primary nls man
+SPKGS[std]=		set primary nls man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -31,11 +31,11 @@ LICENSE=		BSD3CLAUSE:primary
 LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC:H}}/LICENSE
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		qt5-qttools:complete:standard
-			qt5-qtsvg:dev:standard
-			qt5-qtmultimedia:dev:standard
-BUILDRUN_DEPENDS=	qt5-qtmultimedia:primary:standard
-			qt5-qtsvg:primary:standard
+BUILD_DEPENDS=		qt5-qttools:set:std
+			qt5-qtsvg:dev:std
+			qt5-qtmultimedia:dev:std
+BUILDRUN_DEPENDS=	qt5-qtmultimedia:primary:std
+			qt5-qtsvg:primary:std
 
 USES=			qt5
 XORG_COMPONENTS=	xcb-util xcb-util-wm xcb-util-image

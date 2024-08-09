@@ -6,8 +6,8 @@ DEF[SOVERSION]=		2.3.0
 NAMEBASE=		mpv
 VERSION=		${PORTVERSION}
 KEYWORDS=		multimedia
-VARIANTS=		standard
-SDESC[standard]=	Advanced general-purpose multimedia player
+VARIANTS=		std
+SDESC[std]=		Advanced general-purpose multimedia player
 HOMEPAGE=		https://mpv.io/
 CONTACT=		nobody
 
@@ -18,7 +18,7 @@ DISTFILE[1]=		generated:main
 DISTFILE[2]=		waf-waf-${WAF_TAG}.tar.bz2:waf
 DF_INDEX=		1 2
 
-SPKGS[standard]=	complete primary dev tools docs man
+SPKGS[std]=		set primary dev tools docs man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -34,21 +34,21 @@ FPC_EQUIVALENT=		multimedia/mpv
 EXRUN[tools]=		primary
 
 BUILD_DEPENDS=		python-docutils:single:python_used
-			libarchive:dev:standard
-			ffmpeg:dev:standard
-			libdvdnav:dev:standard
-			libplacebo:dev:standard
-			xorg-xpresent:dev:standard
-BUILDRUN_DEPENDS=	ffmpeg:primary:standard
-			libarchive:primary:standard
-			libass:primary:standard
-			libdvdnav:primary:standard
-			libvdpau:primary:standard
-			libva:primary:standard
-			libplacebo:primary:standard
-			uchardet:single:standard
-			xorg-xpresent:primary:standard
-RUN_DEPENDS=		youtube-dl:single:standard
+			libarchive:dev:std
+			ffmpeg:dev:std
+			libdvdnav:dev:std
+			libplacebo:dev:std
+			xorg-xpresent:dev:std
+BUILDRUN_DEPENDS=	ffmpeg:primary:std
+			libarchive:primary:std
+			libass:primary:std
+			libdvdnav:primary:std
+			libvdpau:primary:std
+			libva:primary:std
+			libplacebo:primary:std
+			uchardet:single:std
+			xorg-xpresent:primary:std
+RUN_DEPENDS=		youtube-dl:single:std
 
 USES=			cpe iconv jpeg lua:5.2 pkgconfig meson
 			perl:build python:build,sutools ssl:build
