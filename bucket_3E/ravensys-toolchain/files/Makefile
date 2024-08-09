@@ -6,16 +6,16 @@ toolchain:
 	@echo "building not required"
 
 ALPHA=	ravensys-gcc
-ATAIL=	standard-${COMPVER}
-BRAVO=	ravensys-binutils-single-standard-${BUVER}
+ATAIL=	std~${COMPVER}
+BRAVO=	ravensys-binutils~single~std~${BUVER}
 
 install:
 	mkdir -p ${DESTDIR}${PREFIX}/share
-	cp /repo/files/${ALPHA}-*-${COMPVER}.rvn ${DESTDIR}${PREFIX}/share/
+	cp /repo/files/${ALPHA}~*~${COMPVER}.rvn ${DESTDIR}${PREFIX}/share/
 	cp /repo/files/${BRAVO}.rvn ${DESTDIR}${PREFIX}/share/
 
 .for spkg in compilers ada_run cxx_run fortran_run libs
-	xrvn -x -o /tmp /repo/files/${ALPHA}-${spkg}-${ATAIL}.rvn
+	xrvn -x -o /tmp /repo/files/${ALPHA}~${spkg}~${ATAIL}.rvn
 .endfor
 	xrvn -x -o /tmp /repo/files/${BRAVO}.rvn
 
