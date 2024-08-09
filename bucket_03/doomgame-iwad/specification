@@ -4,6 +4,7 @@ DEF[FREEDOOM_VERS]=	0.12.1
 
 NAMEBASE=		doomgame-iwad
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		games
 VARIANTS=		std
 SDESC[std]=		Shareware/free IWAD files for DooM engine games
@@ -39,7 +40,7 @@ EXTRACT_DIRTY=		1 2 3 4
 
 SKIP_BUILD=		yes
 
-do-install:
+post-extract:
 	( cd ${WRKDIR}/doomgame-iwad_1 ; \
 		${CAT} DOOMS_19.1 DOOMS_19.2 > DOOMS_19.EXE ; \
 		/usr/bin/unzip DOOMS_19.EXE )
@@ -47,6 +48,7 @@ do-install:
 		${CAT} HTIC_V12.1 HTIC_V12.2 > HTIC_V12.EXE ; \
 		/usr/bin/unzip HTIC_V12.EXE)
 
+do-install:
 	${MKDIR} -p ${STAGEDIR}${PREFIX}/share/games/doomengine
 	${CP} ${WRKDIR}/doomgame-iwad_1/DOOM1.WAD \
 		${STAGEDIR}${PREFIX}/share/games/doomengine
