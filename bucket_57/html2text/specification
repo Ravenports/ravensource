@@ -4,6 +4,7 @@ DEF[PORTVERSION]=	2.2.3
 
 NAMEBASE=		html2text
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		textproc
 VARIANTS=		std
 SDESC[std]=		Converts HTML documents into plain text
@@ -14,21 +15,21 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/grobian/html2text/releases/download/v${PORTVERSION}/
 DISTFILE[1]=		html2text-${PORTVERSION}.tar.gz:main
 
-SPKGS[std]=		single
+SPKGS[std]=		set primary man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv2+:single
+LICENSE=		GPLv2+:primary
 LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^\#include"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/html2text.cpp
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		textproc/html2text
 
-USES=			c++:single iconv gmake
+USES=			c++:primary iconv gmake
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		MANDIR={{MANPREFIX}}/man
 CXXFLAGS=		-Wno-write-strings
