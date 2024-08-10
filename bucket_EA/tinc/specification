@@ -3,24 +3,25 @@ DEF[PORTVERSION]=	1.0.36
 
 NAMEBASE=		tinc
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		net security
 VARIANTS=		std
 SDESC[std]=		Virtual Private Network (VPN) daemon
 HOMEPAGE=		https://tinc-vpn.org/
-CONTACT=		Leonid_Bobrov[goleo@disroot.org]
+CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		https://tinc-vpn.org/packages/
 DISTFILE[1]=		tinc-${PORTVERSION}.tar.gz:main
 
-SPKGS[std]=		single
+SPKGS[std]=		set primary man info
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv3+:single
+LICENSE=		GPLv3+:primary
 LICENSE_FILE=		GPLv3+:stock
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^\#include"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/bsd/tunemu.c
 LICENSE_SCHEME=		solo
@@ -29,12 +30,13 @@ FPC_EQUIVALENT=		security/tinc
 
 USERS=			tinc
 GROUPS=			tinc
-USERGROUP_SPKG=		single
-RC_SUBR=		tincd:single
+USERGROUP_SPKG=		primary
+RC_SUBR=		tincd:primary
 
 USES=			cpe makeinfo ssl zlib lzo
 CPE_VENDOR=		tinc-vpn
 MUST_CONFIGURE=		gnu
+INFO=			info:tinc
 
 post-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/etc/tinc
