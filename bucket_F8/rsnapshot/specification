@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	1.4.5
 
 NAMEBASE=		rsnapshot
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		sysutils
 VARIANTS=		std
 SDESC[std]=		Local and remote filesystem snapshot utility
@@ -15,14 +16,14 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/rsnapshot:rsnapshot:${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[std]=		single
+SPKGS[std]=		set primary man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv2+:single
+LICENSE=		GPLv2+:primary
 LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^\# tabstop"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/rsnapshot-program.pl
 LICENSE_SCHEME=		solo
