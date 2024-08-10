@@ -4,6 +4,7 @@ DEF[SOVERSION]=		1.0
 
 NAMEBASE=		fetch
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		ftp
 VARIANTS=		std library
 SDESC[std]=		Tool to retrieve file by Uniform Resource Locator
@@ -15,14 +16,14 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/jrmarino:fetch-freebsd:v${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[std]=		single
-SPKGS[library]=		single
+SPKGS[std]=		set primary man
+SPKGS[library]=		set primary dev man
 
 OPTIONS_AVAILABLE=	LIBRARY
 OPTIONS_STANDARD=	none
 VOPTS[library]=		LIBRARY=ON
 
-LICENSE=		BSD3CLAUSE:single
+LICENSE=		BSD3CLAUSE:primary
 LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
 
