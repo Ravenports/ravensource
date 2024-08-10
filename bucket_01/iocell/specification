@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	2.2.0
 
 NAMEBASE=		iocell
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		sysutils
 VARIANTS=		std
 SDESC[std]=		Feature rich Jail containers manager
@@ -13,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/bartekrutkowski:iocell:v${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[std]=		single
+SPKGS[std]=		set primary man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -34,7 +35,7 @@ post-patch:
 		${WRKSRC}/iocell
 
 do-install:
-	@${MKDIR} ${STAGEDIR}${PREFIX}/lib/iocell \
+	${MKDIR} ${STAGEDIR}${PREFIX}/lib/iocell \
 		${STAGEDIR}${PREFIX}/etc/rc.d
 	${INSTALL_SCRIPT} ${WRKSRC}/rc.d/iocell ${STAGEDIR}${PREFIX}/etc/rc.d
 	${INSTALL_SCRIPT} ${WRKSRC}/iocell ${STAGEDIR}${PREFIX}/sbin
