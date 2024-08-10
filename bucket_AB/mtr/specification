@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	0.95
 
 NAMEBASE=		mtr
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		net
 VARIANTS=		std x11
 SDESC[std]=		Ping/Traceroute network diagnostic tool
@@ -14,16 +15,16 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/traviscross:mtr:v${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[std]=		single
-SPKGS[x11]=		single
+SPKGS[std]=		set primary man
+SPKGS[x11]=		set primary man
 
 OPTIONS_AVAILABLE=	X11
 OPTIONS_STANDARD=	none
 VOPTS[x11]=		X11=ON
 
-LICENSE=		GPLv2+:single
+LICENSE=		GPLv2+:primary
 LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/packet/probe.h
 LICENSE_AWK=		TERMS:"PROBE_H"
 LICENSE_SCHEME=		solo
