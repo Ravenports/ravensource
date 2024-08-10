@@ -149,7 +149,7 @@ function generate_port($namebase) {
                                       $port_data[$namebase]["homepage"]);
 
     # prepare buildrun dependencies
-    $SS = ":single:standard\n";
+    $SS = ":single:std\n";
     $buildrun_list = array();
     $build_list = array();
     foreach ($port_data[$namebase]["buildrun"] as $DEP) {
@@ -231,8 +231,8 @@ DEF[PORTVERSION]=	$portversion
 NAMEBASE=		$portname
 VERSION=		$pvbraces
 KEYWORDS=		cran
-VARIANTS=		standard
-SDESC[standard]=	$comment
+VARIANTS=		std
+SDESC[std]=		$comment
 HOMEPAGE=		$homepage
 CONTACT=		CRAN_Automaton[cran@ironwolf.systems]
 
@@ -243,7 +243,7 @@ DISTFILE[1]=		$tarball:main
 DIST_SUBDIR=		CRAN
 DF_INDEX=		1
 
-SPKGS[standard]=	single
+SPKGS[std]=		single
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
