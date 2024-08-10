@@ -4,6 +4,7 @@ DEF[BINARIES]=		bg ctrl dialog panel screenshot wm
 
 NAMEBASE=		pekwm
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		x11_wm
 VARIANTS=		std
 SDESC[std]=		Light, unobtrusive and configurable WM
@@ -14,22 +15,22 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/pekdon:pekwm:release-${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[std]=		single
+SPKGS[std]=		set primary man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		x11-wm/pekwm
 
-LICENSE=		GPLv2:single
+LICENSE=		GPLv2:primary
 LICENSE_FILE=		GPLv2:{{WRKSRC}}/LICENSE
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/pekwm.hh
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SCHEME=		solo
 
 USES=			cmake jpeg pkgconfig zlib png
-			c++:single cclibs:single
+			c++:primary cclibs:primary
 XORG_COMPONENTS=	xft xpm x11 sm ice xext xrandr
 
 post-install:
