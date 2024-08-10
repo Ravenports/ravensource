@@ -3,7 +3,7 @@ DEF[PORTVERSION]=	1
 
 NAMEBASE=		lockf
 VERSION=		${PORTVERSION}
-REVISION=		3
+REVISION=		4
 KEYWORDS=		sysutils
 VARIANTS=		std
 SDESC[std]=		FreeBSD's lockf command
@@ -12,12 +12,12 @@ CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	none
 
-SPKGS[std]=		single
+SPKGS[std]=		set primary man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		BSD2CLAUSE:single
+LICENSE=		BSD2CLAUSE:primary
 LICENSE_FILE=		BSD2CLAUSE:{{WRKDIR}}/LICENSE_BSD
 LICENSE_AWK=		BSD2CLAUSE:"^$$"
 LICENSE_SOURCE=		BSD2CLAUSE:{{FILESDIR}}/lockf.c
@@ -28,7 +28,7 @@ VAR_OPSYS[sunos]=	CFLAGS=-I{{LOCALBASE}}/include/bsd
 			LDFLAGS=-lbsd
 
 do-extract:
-	@${MKDIR} ${WRKSRC}
+	${MKDIR} ${WRKSRC}
 	${CP} ${FILESDIR}/* ${WRKSRC}
 
 do-build:
