@@ -1,8 +1,10 @@
 DEF[PORTVERSION]=	0.1.3
+DEF[SOVERSION]=		3.1.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libmetalink
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		misc
 VARIANTS=		std
 SDESC[std]=		Library to read Metalink XML description format
@@ -13,7 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://launchpad.net/libmetalink/trunk/libmetalink-${PORTVERSION}/+download/
 DISTFILE[1]=		libmetalink-${PORTVERSION}.tar.xz:main
 
-SPKGS[std]=		set primary examples
+SPKGS[std]=		set primary dev examples man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -28,6 +30,7 @@ USES=			libtool expat solfix mbsdfix
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-libexpat
 INSTALL_TARGET=		install-strip
+SOVERSION=		${SOVERSION}
 
 post-install:
 	${MKDIR} ${STAGEDIR}${STD_EXAMPLESDIR}/
