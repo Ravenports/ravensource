@@ -4,6 +4,7 @@ DEF[SOVERSION]=		7.2.0
 
 NAMEBASE=		libucl
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		textproc
 VARIANTS=		std ravensw
 SDESC[std]=		Universal configuration library parser
@@ -15,15 +16,15 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/vstakhov:libucl:${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[std]=		single
-SPKGS[ravensw]=		single
+SPKGS[std]=		set primary dev man tools
+SPKGS[ravensw]=		set primary dev man
 
 OPTIONS_AVAILABLE=	LUA RAVENSW
 OPTIONS_STANDARD=	LUA
 # OPT_ON[all]=		LUA
 VOPTS[ravensw]=		LUA=OFF RAVENSW=ON
 
-LICENSE=		BSD2CLAUSE:single
+LICENSE=		BSD2CLAUSE:primary
 LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
