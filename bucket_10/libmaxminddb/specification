@@ -1,8 +1,10 @@
 DEF[PORTVERSION]=	1.10.0
+DEF[SOVERSION]=		0.0.7
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libmaxminddb
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		net
 VARIANTS=		std
 SDESC[std]=		MaxMindDB GeoIP2 database library
@@ -13,19 +15,22 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/maxmind/libmaxminddb/releases/download/${PORTVERSION}/
 DISTFILE[1]=		libmaxminddb-${PORTVERSION}.tar.gz:main
 
-SPKGS[std]=		single
+SPKGS[std]=		set primary dev man tools
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		APACHE20:single
+LICENSE=		APACHE20:primary
 LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE
-LICENSE_TERMS=		single:{{WRKSRC}}/NOTICE
+LICENSE_TERMS=		primary:{{WRKSRC}}/NOTICE
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		net/libmaxminddb
+
+EXRUN[tools]=		primary
 
 USES=			cpe gmake libtool
 CPE_VENDOR=		maxmind
 MUST_CONFIGURE=		gnu
 INSTALL_TARGET=		install-strip
+SOVERSION=		${SOVERSION}
