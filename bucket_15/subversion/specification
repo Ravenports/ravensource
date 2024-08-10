@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	EXTRACT_INFO(SUBVERSION_VERSION)
 
 NAMEBASE=		subversion
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		std
 SDESC[std]=		Version control system
@@ -13,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		APACHE/subversion
 DISTFILE[1]=		subversion-${PORTVERSION}.tar.bz2:main
 
-SPKGS[std]=		set primary nls
+SPKGS[std]=		set primary dev nls man examples contrib
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -82,11 +83,13 @@ post-build:
 		${MAKE_CMD} -C ${WRKSRC} tools ${MAKE_ARGS})
 
 post-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/examples
 	(cd ${WRKSRC}/tools.examples && \
 		${COPYTREE_SHARE} . ${STAGEDIR}${PREFIX}/share/subversion)
 	(cd ${STAGEDIR}${PREFIX}/share/subversion && \
 		${RM} backup/hot-backup.py.in \
 		hook-scripts/commit-access-control.pl.in)
+	${MV} ${STAGEDIR}${PREFIX}/share/subversion/examples ${STAGEDIR}${STD_EXAMPLESDIR}
 	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
 		${MAKE_CMD} -C ${WRKSRC} install-tools ${MAKE_ARGS})
 	${RMDIR} ${STAGEDIR}${PREFIX}/share/subversion/buildbot/slaves/svn-arm64-gentoo
