@@ -4,6 +4,7 @@ DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
 
 NAMEBASE=		htop
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		sysutils
 VARIANTS=		std
 SDESC[std]=		Interactive process viewer for Unix
@@ -14,16 +15,16 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/htop-dev:htop:${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[std]=		single
+SPKGS[std]=		set primary man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		sysutils/htop
 
-LICENSE=		GPLv2:single
+LICENSE=		GPLv2:primary
 LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_SCHEME=		solo
 
 USES=			autoreconf libtool ncurses pkgconfig
