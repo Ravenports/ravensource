@@ -19,4 +19,4 @@ while read xf; do
      */plist.man.*) ;;
      *) check_for_man $xf ;;     
   esac
-done < <(find $RSDIR -type f -name "plist.*" -print0 | xargs -0 ls -tr)
+done < <(find -s $RSDIR -type f -name "plist.*" -print0 | xargs -0 ls -tr)
