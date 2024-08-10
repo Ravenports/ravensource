@@ -20,12 +20,12 @@ DISTFILE[1]=		generated:main
 DISTFILE[2]=		generated:guide
 DF_INDEX=		1 2
 
-SPKGS[std]=		single
+SPKGS[std]=		set primary dev man tools
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		CUSTOM1:single
+LICENSE=		CUSTOM1:primary
 LICENSE_NAME=		CUSTOM1:"Netpbm multi-license (at least 8)"
 LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/doc/copyright_summary
 LICENSE_SCHEME=		solo
@@ -34,6 +34,8 @@ FPC_EQUIVALENT=		graphics/netpbm
 
 BUILD_DEPENDS=		jasper:dev:std
 BUILDRUN_DEPENDS=	jasper:primary:std
+
+EXRUN[tools]=		primary
 
 USES=			cpe gmake png tiff perl shebangfix iconv
 			python:build
