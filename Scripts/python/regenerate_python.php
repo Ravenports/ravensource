@@ -401,7 +401,7 @@ function generate_port($namebase) {
         $VX = substr($SVT, 0, 1) . "." . substr($SVT, 1);
         $comments_block    .= $prereturn . "SDESC[$V]=\t\t$comment ($VX)";
         if (in_array($portname, $data_primary)) {
-            $subpackages_block .= "SPKGS[$V]=\t\tcomplete primary dev\n";
+            $subpackages_block .= "SPKGS[$V]=\t\tset primary dev\n";
         } else {
             $subpackages_block .= "SPKGS[$V]=\t\tsingle\n";
         }
