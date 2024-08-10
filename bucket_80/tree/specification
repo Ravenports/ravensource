@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	2.1.3
 
 NAMEBASE=		tree
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		sysutils
 VARIANTS=		std
 SDESC[std]=		Display tree-view of directories
@@ -13,16 +14,16 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://gitlab.com/OldManProgrammer/unix-tree/-/archive/${PORTVERSION}/
 DISTFILE[1]=		unix-tree-${PORTVERSION}.tar.gz:main
 
-SPKGS[std]=		single
+SPKGS[std]=		set primary man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		sysutils/tree
 
-LICENSE=		GPLv2+:single
+LICENSE=		GPLv2+:primary
 LICENSE_FILE=		GPLv2+:{{WRKSRC}}/LICENSE
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/tree.h
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SCHEME=		solo
