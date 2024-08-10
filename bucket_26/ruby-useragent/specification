@@ -1,19 +1,19 @@
-DEF[PORTVERSION]=	7.2.0
+DEF[PORTVERSION]=	0.16.10
 # ------------------------------------------------------------------------
 
-NAMEBASE=		ruby-activejob
+NAMEBASE=		ruby-useragent
 VERSION=		${PORTVERSION}
 KEYWORDS=		ruby
 VARIANTS=		v31 v32 v33
-SDESC[v31]=		Job framework with pluggable queues (v31)
-SDESC[v32]=		Job framework with pluggable queues (v32)
-SDESC[v33]=		Job framework with pluggable queues (v33)
-HOMEPAGE=		https://rubyonrails.org
+SDESC[v31]=		HTTP User Agent parser (v31)
+SDESC[v32]=		HTTP User Agent parser (v32)
+SDESC[v33]=		HTTP User Agent parser (v33)
+HOMEPAGE=		https://github.com/gshutler/useragent
 CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		RUBYGEMS/
-DISTFILE[1]=		activejob-7.2.0.gem:main
+DISTFILE[1]=		useragent-0.16.10.gem:main
 DIST_SUBDIR=		ruby
 
 SPKGS[v31]=		single
@@ -30,19 +30,13 @@ VOPTS[v33]=		RUBY31=OFF RUBY32=OFF RUBY33=ON
 # => "MIT"
 
 # Requirements according to gem specification:
-#   activesupport (= 7.2.0)
-#   globalid (>= 0.3.6)
+#   rake (~> 10.0, development)
+#   rspec (~> 3.0, development)
 
-DISTNAME=		activejob-${PORTVERSION}
+DISTNAME=		useragent-${PORTVERSION}
 GENERATED=		yes
 
 [RUBY31].USES_ON=			gem:v31
-[RUBY31].BUILDRUN_DEPENDS_ON=		ruby-activesupport:single:v31
-					ruby-globalid:single:v31
 [RUBY32].USES_ON=			gem:v32
-[RUBY32].BUILDRUN_DEPENDS_ON=		ruby-activesupport:single:v32
-					ruby-globalid:single:v32
 [RUBY33].USES_ON=			gem:v33
-[RUBY33].BUILDRUN_DEPENDS_ON=		ruby-activesupport:single:v33
-					ruby-globalid:single:v33
 
