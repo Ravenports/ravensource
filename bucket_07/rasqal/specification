@@ -4,6 +4,7 @@ DEF[SOVERSION]=		3.0.0
 
 NAMEBASE=		rasqal
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		textproc
 VARIANTS=		std
 SDESC[std]=		RDF Query Library for Redland
@@ -14,7 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://download.librdf.org/source/
 DISTFILE[1]=		rasqal-${PORTVERSION}.tar.gz:main
 
-SPKGS[std]=		set primary docs
+SPKGS[std]=		set primary dev docs man tools
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -25,6 +26,8 @@ BUILD_DEPENDS=		gmp:dev:std
 			raptor:dev:std
 BUILDRUN_DEPENDS=	raptor:primary:std
 			gmp:primary:std
+
+EXRUN[tools]=		primary
 
 USES=			gmake libtool perl:build pkgconfig ssl pcre mbsdfix
 MUST_CONFIGURE=		gnu
