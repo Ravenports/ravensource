@@ -4,7 +4,7 @@ DEF[SOVERSION]=		7.0.4
 
 NAMEBASE=		libofx
 VERSION=		${PORTVERSION}
-REVISION=		4
+REVISION=		5
 KEYWORDS=		finance
 VARIANTS=		std
 SDESC[std]=		Open Financial eXchange (OFX) Library
@@ -15,7 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/libofx:libofx:${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[std]=		set primary docs
+SPKGS[std]=		set primary dev docs man tools
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -34,6 +34,8 @@ BUILD_DEPENDS=		libtool:single:std
 			help2man:primary:std
 			doxygen:primary:std
 BUILDRUN_DEPENDS=	OpenSP:single:std
+
+EXRUN[tools]=		primary
 
 USES=			cpe gmake iconv libtool pkgconfig gettext ssl
 			curl autoreconf:build
