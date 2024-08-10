@@ -4,6 +4,7 @@ DEF[SOVERSION]=		3.3.0
 
 NAMEBASE=		libmikmod
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		audio
 VARIANTS=		std
 SDESC[std]=		Portable MikMod sound module library
@@ -14,16 +15,16 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		SF/mikmod/libmikmod/${PORTVERSION}/
 DISTFILE[1]=		libmikmod-${PORTVERSION}.tar.gz:main
 
-SPKGS[std]=		single
+SPKGS[std]=		set primary dev man info
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 # COPYING.LESSER is provided for people who want to make use of "or later" to
 # use LGPL21 instead.
-LICENSE=		LGPL20+:single
+LICENSE=		LGPL20+:primary
 LICENSE_FILE=		LGPL20+:{{WRKSRC}}/COPYING.LIB
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/include/mikmod.h
 LICENSE_AWK=		TERMS:"ifndef _MIKMOD_H_"
 LICENSE_SCHEME=		solo
@@ -34,8 +35,8 @@ USES=			cpe gmake libtool pkgconfig mbsdfix
 CPE_VENDOR=		raphael_assenat
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--disable-esd
-
 SOVERSION=		${SOVERSION}
+INFO=			info:mikmod
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libmikmod.so.${SOVERSION}
