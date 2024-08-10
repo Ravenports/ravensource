@@ -4,6 +4,7 @@ DEF[SOVERSION]=		2.0.27
 
 NAMEBASE=		libsmi
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		net_mgmt
 VARIANTS=		std
 SDESC[std]=		Library to access SMI management information
@@ -14,20 +15,18 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://www.ibr.cs.tu-bs.de/projects/libsmi/download/
 DISTFILE[1]=		libsmi-${PORTVERSION}.tar.gz:main
 
-SPKGS[std]=		set library tools
+SPKGS[std]=		set primary dev tools man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		MIT:library
+LICENSE=		MIT:primary
 LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		net-mgmt/libsmi
 
-BUILD_DEPENDS=		wget:primary:std
-EXRUN[tools]=		wget:primary:std
-			libsmi:library:std
+EXRUN[tools]=		primary
 
 USES=			cpe gmake libtool pkgconfig mbsdfix
 CPE_VENDOR=		tu-braunschweig
