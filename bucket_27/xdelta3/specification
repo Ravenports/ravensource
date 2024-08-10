@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	3.1.0
 
 NAMEBASE=		xdelta3
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		misc devel
 VARIANTS=		std
 SDESC[std]=		Binary delta generator and RCS replacement library
@@ -13,16 +14,16 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/jmacd:xdelta:v${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[std]=		single
+SPKGS[std]=		set primary man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 # Program was re-licensed APACHE20 by the author after 3.1.0 but no new release
 # happened since then. So the source in this tarball is still effectively GPLv20+.
-LICENSE=		GPLv2+:single
+LICENSE=		GPLv2+:primary
 LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/xdelta3.h
 LICENSE_AWK=		TERMS:"_XDELTA3_H_"
 LICENSE_SCHEME=		solo
