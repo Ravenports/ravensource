@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	0.18.1
 
 NAMEBASE=		utox
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		net net_im net_p2p
 VARIANTS=		std
 SDESC[std]=		Lightweight Tox client
@@ -14,12 +15,12 @@ SITES[main]=		https://github.com/uTox/uTox/releases/download/v${PORTVERSION}/
 DISTFILE[1]=		uTox-${PORTVERSION}-full.tar.gz:main
 DIST_SUBDIR=		tox
 
-SPKGS[std]=		single
+SPKGS[std]=		set primary man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		MIT:single
+LICENSE=		MIT:primary
 LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
 
@@ -44,7 +45,7 @@ B_DEPS[dragonfly]=	evdev-proto:single:std
 B_DEPS[netbsd]=		evdev-proto:single:std
 B_DEPS[midnightbsd]=	evdev-proto:single:std
 
-USES=			cmake desktop-utils:single dos2unix
+USES=			cmake desktop-utils:primary dos2unix
 			fontconfig pkgconfig
 XORG_COMPONENTS=	ice sm x11 xext xrender
 DISTNAME=		uTox
