@@ -37,14 +37,17 @@ LICENSE_SCHEME=		multi
 
 FPC_EQUIVALENT=		databases/mysql90-server
 
-BUILD_DEPENDS=		libedit:single:std
+BUILD_DEPENDS=		libedit:dev:std
+			libedit:primary:std
 			protobuf321:dev:std
 			icu:dev:std
 			libevent:dev:std
+
 BUILDRUN_DEPENDS=	libevent:primary:std
 			protobuf321:primary:std
 			icu:primary:std
-EXRUN[client]=		libedit:single:std
+
+EXRUN[client]=		libedit:primary:std
 			zlib:primary:std
 			zstd:primary:std
 # #			can't use "ssl" here, currently it assumes libressl
