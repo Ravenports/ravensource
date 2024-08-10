@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	2.2.13
 
 NAMEBASE=		mutt
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		mail
 VARIANTS=		std
 SDESC[std]=		Powerful terminal mail client
@@ -13,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://ftp.mutt.org/pub/mutt/
 DISTFILE[1]=		mutt-${PORTVERSION}.tar.gz:main
 
-SPKGS[std]=		set primary docs nls
+SPKGS[std]=		set primary docs nls man info
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -71,6 +72,7 @@ CONFIGURE_ARGS=		--disable-debug
 			--without-tokyocabinet
 			--without-included-gettext
 			--without-qdbm
+INFO=			info:mutt
 
 post-install:
 	${RM} ${STAGEDIR}${PREFIX}/etc/mime.types
