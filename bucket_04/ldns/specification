@@ -4,6 +4,7 @@ DEF[SOVERSION]=		3.6.0
 
 NAMEBASE=		ldns
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		dns
 VARIANTS=		std
 SDESC[std]=		Library for programs conforming to DNS RFCs
@@ -14,7 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://www.nlnetlabs.nl/downloads/ldns/
 DISTFILE[1]=		ldns-${PORTVERSION}.tar.gz:main
 
-SPKGS[std]=		set primary examples
+SPKGS[std]=		set primary dev examples man tools
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -26,6 +27,7 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		dns/ldns
 
 EXRUN[examples]=	ldns:primary:std
+EXRUN[tools]=		ldns:primary:std
 
 USES=			cpe gmake libtool ssl:openssl30 perl:build
 CPE_VENDOR=		nlnetlabs
