@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	2.5.10
 
 NAMEBASE=		tig
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		std
 SDESC[std]=		Text-mode interface for git
@@ -13,14 +14,14 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/jonas/tig/releases/download/tig-${PORTVERSION}/
 DISTFILE[1]=		tig-${PORTVERSION}.tar.gz:main
 
-SPKGS[std]=		single
+SPKGS[std]=		set primary man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv2+:single
+LICENSE=		GPLv2+:primary
 LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/tig.c
 LICENSE_SCHEME=		solo
