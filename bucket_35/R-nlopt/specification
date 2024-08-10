@@ -1,0 +1,34 @@
+DEF[PORTVERSION]=	0.1.1
+# ------------------------------------------------------------------------
+
+NAMEBASE=		R-nlopt
+VERSION=		${PORTVERSION}
+KEYWORDS=		cran
+VARIANTS=		std
+SDESC[std]=		Call Optimization Solvers with .nl Files
+HOMEPAGE=		none
+CONTACT=		CRAN_Automaton[cran@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CRAN/src/contrib
+			https://loki.dragonflybsd.org/cranfiles/
+DISTFILE[1]=		nlopt_0.1.1.tar.gz:main
+DIST_SUBDIR=		CRAN
+DF_INDEX=		1
+
+SPKGS[std]=		single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# License listed on https://cran.r-project.org/
+# => GPL-3
+
+USES=			cran gmake
+DISTNAME=		nlopt
+GENERATED=		yes
+INSTALL_REQ_TOOLCHAIN=	yes
+
+BUILDRUN_DEPENDS=	R-stringr:single:std
+
+
