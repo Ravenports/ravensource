@@ -3,7 +3,7 @@ DEF[PORTVERSION]=	1.1.2
 
 NAMEBASE=		mcabber
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		net net_im
 VARIANTS=		std
 SDESC[std]=		Small Jabber console client
@@ -14,14 +14,14 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://mcabber.com/files/
 DISTFILE[1]=		mcabber-${PORTVERSION}.tar.bz2:main
 
-SPKGS[std]=		single
+SPKGS[std]=		set primary dev man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv2+:single
+LICENSE=		GPLv2+:primary
 LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^\#include"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/mcabber/main.c
 LICENSE_SCHEME=		solo
@@ -34,7 +34,7 @@ BUILDRUN_DEPENDS=	loudmouth:single:std
 			libidn:primary:std
 			libotr:single:std
 
-USES=			desktop-utils:single iconv libtool
+USES=			desktop-utils:primary iconv libtool
 			cpe ncurses pkgconfig mbsdfix
 GNOME_COMPONENTS=	glib
 MUST_CONFIGURE=		gnu
