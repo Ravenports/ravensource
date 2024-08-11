@@ -34,7 +34,6 @@ LICENSE_SCHEME=		solo
 
 BUILD_DEPENDS=		automake:primary:std
 			docbook-xsl:primary:std
-			libtool:single:std
 			polkit:dev:std
 BUILDRUN_DEPENDS=	dbus-glib:primary:std
 			polkit:primary:std
@@ -48,7 +47,7 @@ BR_DEPS[linux]=		libgudev:primary:std
 # Culprit unclear.  Does not appear to be meson.  Disable
 # docs until reason understood and fix arrives (or it self fixes)
 
-USES=			meson pkgconfig shebangfix
+USES=			meson pkgconfig shebangfix libtool:build
 # gtk-doc
 GNOME_COMPONENTS=	glib intltool introspection
 SHEBANG_FILES=		src/linux/integration-test.py
