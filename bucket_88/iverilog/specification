@@ -4,6 +4,7 @@ DEF[GIT_TAG]=		v12_0
 
 NAMEBASE=		iverilog
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		cad
 VARIANTS=		std
 SDESC[std]=		Verilog simulation and synthesis tool
@@ -14,23 +15,23 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/steveicarus:iverilog:${GIT_TAG}
 DISTFILE[1]=		generated:main
 
-SPKGS[std]=		single
+SPKGS[std]=		set primary dev man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		cad/iverilog
 
-LICENSE=		GPLv2+:single
+LICENSE=		GPLv2+:primary
 LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/named.h
 LICENSE_AWK=		TERMS:"StringHeap.h"
 LICENSE_SCHEME=		solo
 
 BUILD_DEPENDS=		gperf:primary:std
 
-USES=			autoreconf:build bison gmake readline c++:single
+USES=			autoreconf:build bison gmake readline c++:primary
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--disable-suffix
 CONFIGURE_ENV=		CXXCPP=cpp
