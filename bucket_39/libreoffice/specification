@@ -10,6 +10,7 @@ DEF[DRAGONBOX]=		1.1.3
 
 NAMEBASE=		libreoffice
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		editors
 VARIANTS=		std
 SDESC[std]=		Free Software Productivity Suite
@@ -30,14 +31,14 @@ DISTFILE[6]=		dragonbox-${DRAGONBOX}.tar.gz:devwww
 DISTFILE[7]=		libcmis-0.6.1.tar.xz:devwww
 DF_INDEX=		1 2 3 4 5 6 7
 
-SPKGS[std]=		single
+SPKGS[std]=		set primary man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		MPL:single
+LICENSE=		MPL:primary
 LICENSE_FILE=		MPL:{{WRKSRC}}/COPYING.MPL
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/Library_merged.mk
 LICENSE_SCHEME=		solo
@@ -149,9 +150,9 @@ B_DEPS[linux]=		gpgme:dev:std
 BR_DEPS[linux]=		gpgme:cpp:std
 
 USES=			autoreconf:build perl:build gmake curl jpeg pkgconfig
-			python zlib gnome-icons:single shebangfix
-			mime-info:single ssl mysql:client pgsql:client
-			tiff zstd expat execinfo cpe desktop-utils:single
+			python zlib gnome-icons:primary shebangfix
+			mime-info:primary ssl mysql:client pgsql:client
+			tiff zstd expat execinfo cpe desktop-utils:primary
 XORG_COMPONENTS=	xaw xrandr
 GNOME_COMPONENTS=	gtk3 libxslt
 SHEBANG_GLOB=		*.py
