@@ -4,6 +4,7 @@ DEF[SOVERSION]=		13.0.5
 
 NAMEBASE=		ucpp
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		std
 SDESC[std]=		C preprocessor and lexer
@@ -14,16 +15,18 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITLAB/scarabeusiv:ucpp:${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[std]=		single
+SPKGS[std]=		set primary dev tools man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		BSD3CLAUSE:single
+LICENSE=		BSD3CLAUSE:primary
 LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/ucpp
+
+EXRUN[tools]=		primary
 
 USES=			autoreconf gmake libtool
 MUST_CONFIGURE=		gnu
