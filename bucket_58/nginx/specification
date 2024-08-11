@@ -176,14 +176,14 @@ DF_INDEX=		1
 
 # TODO MODULES: KRB, LDAP FASTDFS(?) IP2LOCATION IP2PROXY
 
-SPKGS[std]=		single
-SPKGS[loaded]=		single
+SPKGS[std]=		set primary man
+SPKGS[loaded]=		set primary man
 
 OPTIONS_AVAILABLE=	LOADED
 OPTIONS_STANDARD=	none
 VOPTS[loaded]=		LOADED=ON
 
-LICENSE=		BSD2CLAUSE:single
+LICENSE=		BSD2CLAUSE:primary
 LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
 
@@ -191,8 +191,8 @@ FPC_EQUIVALENT=		www/nginx
 
 USERS=			{{WWWOWN}}
 GROUPS=			{{WWWGRP}}
-USERGROUP_SPKG=		single
-RC_SUBR=		nginx:single
+USERGROUP_SPKG=		primary
+RC_SUBR=		nginx:primary
 
 USES=			cpe ssl zlib pcre iconv:build
 CPE_VENDOR=		nginx
@@ -241,7 +241,7 @@ PLIST_SUB=		WWWOWN={{WWWOWN}}
 			WWWGRP={{WWWGRP}}
 			NGINX_TMPDIR=${NGINX_TMPDIR}
 			NGINX_LOGDIR=${NGINX_LOGDIR}
-SUB_FILES=		messages-single.ucl
+SUB_FILES=		messages-primary.ucl
 SUB_LIST=		WWWOWN={{WWWOWN}}
 			WWWGRP={{WWWGRP}}
 			NGINX_TMPDIR=${NGINX_TMPDIR}
