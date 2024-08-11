@@ -4,6 +4,7 @@ DEF[SOVERSION]=		0.0.0
 
 NAMEBASE=		jbig2dec
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		graphics devel
 VARIANTS=		std
 SDESC[std]=		JBIG2 decoder and library (monochrome documents)
@@ -14,17 +15,19 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/ArtifexSoftware/jbig2dec/releases/download/${PORTVERSION}/
 DISTFILE[1]=		jbig2dec-${PORTVERSION}.tar.gz:main
 
-SPKGS[std]=		single
+SPKGS[std]=		set primary dev tools man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		AGPLv3+:single
+LICENSE=		AGPLv3+:primary
 LICENSE_FILE=		AGPLv3+:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKSRC}}/LICENSE
+LICENSE_TERMS=		primary:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		graphics/jbig2dec
+
+EXRUN[tools]=		primary
 
 USES=			autoreconf cpe libtool png ssl zlib
 CPE_VENDOR=		artifex
