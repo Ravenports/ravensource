@@ -4,6 +4,7 @@ DEF[SOVERSION]=		${PORTVERSION}
 
 NAMEBASE=		qrencode
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		graphics
 VARIANTS=		std
 SDESC[std]=		C library for encoding data in a QR Code symbol
@@ -14,19 +15,21 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/fukuchi:libqrencode:v${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[std]=		single
+SPKGS[std]=		set primary dev tools man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		LGPL21:single
+LICENSE=		LGPL21:primary
 LICENSE_FILE=		LGPL21:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^\#if"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/qrencode.c
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		graphics/libqrencode
+
+EXRUN[tools]=		primary
 
 USES=			cmake iconv png pkgconfig zlib:build
 MUST_CONFIGURE=		gnu
