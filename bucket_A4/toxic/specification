@@ -3,7 +3,7 @@ DEF[PORTVERSION]=	0.15.1
 
 NAMEBASE=		toxic
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		net net_im net_p2p
 VARIANTS=		std
 SDESC[std]=		Ncurses-based Tox client
@@ -15,14 +15,14 @@ SITES[main]=		GITHUB/JFreegman:toxic:v${PORTVERSION}
 DISTFILE[1]=		generated:main
 DIST_SUBDIR=		tox
 
-SPKGS[std]=		single
+SPKGS[std]=		set primary man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv3+:single
+LICENSE=		GPLv3+:primary
 LICENSE_FILE=		GPLv3+:{{WRKSRC}}/LICENSE
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^\#include"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/toxic.c
 LICENSE_SCHEME=		solo
@@ -42,7 +42,7 @@ BUILDRUN_DEPENDS=	freealut:single:std
 			openal:primary:std
 			libconfig:primary:std
 
-USES=			desktop-utils:single gmake ncurses pkgconfig
+USES=			desktop-utils:primary gmake ncurses pkgconfig
 			curl png zlib:build gettext shebangfix ssl:build
 XORG_COMPONENTS=	x11
 GNOME_COMPONENTS=	glib
