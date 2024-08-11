@@ -4,7 +4,7 @@ DEF[FOLDER]=		rel_1_2_5
 
 NAMEBASE=		cdrdao
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		sysutils
 VARIANTS=		std
 SDESC[std]=		Tool to write CD-Rs in Disk-At-Once Mode
@@ -15,7 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		SF/cdrdao/${FOLDER}
 DISTFILE[1]=		cdrdao-${PORTVERSION}.tar.bz2:main
 
-SPKGS[std]=		single
+SPKGS[std]=		set primary man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -31,7 +31,7 @@ BUILDRUN_DEPENDS=	lame:primary:std
 			libmad:primary:std
 			libvorbis:primary:std
 
-USES=			cpe gmake pkgconfig c++:single
+USES=			cpe gmake pkgconfig c++:primary
 CPE_VENDOR=		andreas_mueller
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-gcdmaster=no
