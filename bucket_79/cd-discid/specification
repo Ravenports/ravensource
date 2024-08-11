@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	1.4
 
 NAMEBASE=		cd-discid
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		audio
 VARIANTS=		std
 SDESC[std]=		Backend utility to retrieve CDDB discid info
@@ -13,16 +14,16 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://linukz.org/download/
 DISTFILE[1]=		cd-discid-${PORTVERSION}.tar.gz:main
 
-SPKGS[std]=		single
+SPKGS[std]=		set primary man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv2+:single
-			ART10:single
+LICENSE=		GPLv2+:primary
+			ART10:primary
 LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
 			ART10:stock
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/cd-discid.c
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SCHEME=		dual
