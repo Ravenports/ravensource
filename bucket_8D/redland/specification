@@ -3,7 +3,7 @@ DEF[PORTVERSION]=	1.0.17
 
 NAMEBASE=		redland
 VERSION=		${PORTVERSION}
-REVISION=		2
+REVISION=		3
 KEYWORDS=		textproc
 VARIANTS=		std bdb mysql pgsql virtuoso
 SDESC[std]=		RDF Application Framework (SQLite backend)
@@ -38,6 +38,9 @@ BUILD_DEPENDS=		raptor:dev:std
 BUILDRUN_DEPENDS=	libltdl:single:std
 			rasqal:primary:std
 			raptor:primary:std
+
+EXRUN[dev]=		rasqal:dev:std
+			raptor:dev:std
 
 USES=			gmake libtool perl:build pkgconfig shebangfix mbsdfix
 SHEBANG_FILES=		scripts/touch-mtime.pl
