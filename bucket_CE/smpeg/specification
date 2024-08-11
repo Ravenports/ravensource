@@ -4,6 +4,7 @@ DEF[SOVERSION]=		0.1.4
 
 NAMEBASE=		smpeg
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		multimedia
 VARIANTS=		std
 SDESC[std]=		SDL MPEG video/audio player and library
@@ -15,19 +16,21 @@ SITES[main]=		http://ravenports.elderlinux.org/distcache/
 			https://leaf.dragonflybsd.org/~marino/orphaned-distfiles/
 DISTFILE[1]=		smpeg-${PORTVERSION}.tar.xz:main
 
-SPKGS[std]=		single
+SPKGS[std]=		set primary dev tools man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		LGPL20+:single
+LICENSE=		LGPL20+:primary
 LICENSE_FILE=		LGPL20+:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/smpeg.h
 LICENSE_AWK=		TERMS:"This is the C interface"
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		multimedia/smpeg
+
+EXRUN[tools]=		primary
 
 USES=			autoreconf gmake libtool pkgconfig
 SDL_COMPONENTS=		sdl1
