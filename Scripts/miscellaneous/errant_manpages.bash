@@ -8,7 +8,7 @@ RSDIR=$(cd "${DPATH}/../.." && pwd -P)
 
 check_for_man() {
    local filename="$1"
-   if grep -q "man/man[12345678]" "$filename"; then
+   if grep -q "share/man/man[12345678]" "$filename"; then
       echo "$filename"
    fi
 }
