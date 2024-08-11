@@ -4,6 +4,7 @@ DEF[SOVERSION]=		2.0.3
 
 NAMEBASE=		idnkit
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		dns
 VARIANTS=		std
 SDESC[std]=		Library to handle internationalized domain names
@@ -14,12 +15,14 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://jprs.co.jp/idn/
 DISTFILE[1]=		idnkit-${PORTVERSION}.tar.bz2:main
 
-SPKGS[std]=		single
+SPKGS[std]=		set primary dev tools man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		dns/idnkit
+
+EXRUN[tools]=		primary
 
 USES=			iconv libtool mbsdfix
 MUST_CONFIGURE=		gnu
