@@ -4,7 +4,7 @@ DEF[SOVERSION]=		5.1.1
 
 NAMEBASE=		libotr
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		net net_im security
 VARIANTS=		std
 SDESC[std]=		OTR library and toolkit
@@ -16,16 +16,16 @@ SITES[main]=		https://otr.cypherpunks.ca/
 			http://www.c-s.li/ports/
 DISTFILE[1]=		libotr-${PORTVERSION}.tar.gz:main
 
-SPKGS[std]=		single
+SPKGS[std]=		set primary dev tools man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv2:single
-			LGPL21:single
+LICENSE=		GPLv2:primary
+			LGPL21:primary
 LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING
 			LGPL21:{{WRKSRC}}/COPYING.LIB
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^\#"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/toolkit/parse.h
 LICENSE_SCHEME=		multi
@@ -35,7 +35,9 @@ FPC_EQUIVALENT=		security/libotr
 BUILD_DEPENDS=		libgcrypt:dev:std
 BUILDRUN_DEPENDS=	libgcrypt:primary:std
 
-USES=			cpe libtool mbsdfix cclibs:single
+EXRUN[tools]=		primary
+
+USES=			cpe libtool mbsdfix cclibs:primary
 MUST_CONFIGURE=		gnu
 INSTALL_TARGET=		install-strip
 CPE_VENDOR=		cypherpunks
