@@ -5,6 +5,7 @@ DEF[JQUERY]=		3.7.1
 
 NAMEBASE=		rspamd
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		mail
 VARIANTS=		std
 SDESC[std]=		Fast, free and open-source spam filtering system
@@ -15,7 +16,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/vstakhov:rspamd:${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[std]=		single
+SPKGS[std]=		set primary man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -34,9 +35,9 @@ BUILDRUN_DEPENDS=	icu:primary:std
 
 USERS=			rspamd
 GROUPS=			rspamd
-USERGROUP_SPKG=		single
+USERGROUP_SPKG=		primary
 
-RC_SUBR=		rspamd:single
+RC_SUBR=		rspamd:primary
 
 USES=			cmake perl:build pkgconfig sqlite ssl zlib pcre2
 GNOME_COMPONENTS=	glib
@@ -50,7 +51,7 @@ CMAKE_ARGS=		-DCONFDIR={{PREFIX}}/etc/rspamd
 			-DLIBDIR={{PREFIX}}/lib/rspamd
 PLIST_SUB=		RSPAMDVERSION=${PORTVERSION}
 			JQUERY=${JQUERY}
-SUB_FILES=		messages-single.ucl
+SUB_FILES=		messages-primary.ucl
 			rspamd.newsyslog.conf.sample
 
 post-install:
