@@ -13,14 +13,14 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/cbsd:cbsd:v${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[std]=		single
+SPKGS[std]=		set primary man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		sysutils/cbsd
 
-LICENSE=		BSD2CLAUSE:single
+LICENSE=		BSD2CLAUSE:primary
 LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
 
@@ -39,17 +39,17 @@ BUILDRUN_DEPENDS=	libssh2:primary:std
 			file:primary:std
 			curl:primary:std
 
-RC_SUBR=		cbsdd:single
-			cbsdrsyncd:single
-			cbsd-statsd-bhyve:single
-			cbsd-statsd-hoster:single
-			cbsd-statsd-jail:single
+RC_SUBR=		cbsdd:primary
+			cbsdrsyncd:primary
+			cbsd-statsd-bhyve:primary
+			cbsd-statsd-hoster:primary
+			cbsd-statsd-jail:primary
 
-SUB_FILES=		messages-single.ucl
+SUB_FILES=		messages-primary.ucl
 
 USERS=			cbsd
 GROUPS=			cbsd
-USERGROUP_SPKG=		single
+USERGROUP_SPKG=		primary
 
 USES=			pkgconfig:buildrun ssl cmake sqlite
 MANDIRS=		{{PREFIX}}/cbsd/man
