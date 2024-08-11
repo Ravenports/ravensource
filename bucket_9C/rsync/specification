@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	3.3.0
 
 NAMEBASE=		rsync
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		net
 VARIANTS=		std
 SDESC[std]=		Network file distribution/synchronization utility
@@ -15,7 +16,7 @@ SITES[main]=		https://rsync.samba.org/ftp/rsync/
 			http://www.mirrorservice.org/sites/rsync.samba.org/
 DISTFILE[1]=		rsync-${PORTVERSION}.tar.gz:main
 
-SPKGS[std]=		single
+SPKGS[std]=		set primary man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -43,7 +44,7 @@ CONFIGURE_ARGS=		--disable-debug
 INSTALL_TARGET=		install-strip
 TEST_TARGET=		check
 
-RC_SUBR=		rsyncd:single
+RC_SUBR=		rsyncd:primary
 SUB_LIST=		NAME=rsyncd
 
 post-patch:
