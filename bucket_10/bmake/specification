@@ -14,6 +14,7 @@ DEF[OLDSR_LINUX_1]=	EXTRACT_VERSION(PREVIOUS_Linux_K44)
 
 NAMEBASE=		bmake
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		std prevdbsd prevfbsd prevlinux
 SDESC[std]=		Portable version of NetBSD 'make' utility
@@ -28,10 +29,10 @@ SITES[main]=		https://cdn.netbsd.org/pub/NetBSD/misc/sjg/
 			ftp://ftp.netbsd.org/pub/NetBSD/misc/sjg/
 DISTFILE[1]=		bmake-${PORTVERSION}.tar.gz:main
 
-SPKGS[std]=		single
-SPKGS[prevdbsd]=	single
-SPKGS[prevfbsd]=	single
-SPKGS[prevlinux]=	single
+SPKGS[std]=		set primary man
+SPKGS[prevdbsd]=	set primary man
+SPKGS[prevfbsd]=	set primary man
+SPKGS[prevlinux]=	set primary man
 
 OPTIONS_AVAILABLE=	PREV_DBSD PREV_FBSD PREV_LINUX
 OPTIONS_STANDARD=	none
@@ -39,7 +40,7 @@ VOPTS[prevdbsd]=	PREV_DBSD=ON PREV_FBSD=OFF PREV_LINUX=OFF
 VOPTS[prevfbsd]=	PREV_DBSD=OFF PREV_FBSD=ON PREV_LINUX=OFF
 VOPTS[prevlinux]=	PREV_DBSD=OFF PREV_FBSD=OFF PREV_LINUX=ON
 
-LICENSE=		BSD3CLAUSE:single
+LICENSE=		BSD3CLAUSE:primary
 LICENSE_FILE=		BSD3CLAUSE:{{WRKDIR}}/LICENSE
 LICENSE_AWK=		BSD3CLAUSE:"make.h --"
 LICENSE_SOURCE=		BSD3CLAUSE:{{WRKSRC}}/make.h
