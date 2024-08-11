@@ -4,6 +4,7 @@ DEF[LIBVERSION]=	1.7.4
 
 NAMEBASE=		nfdump
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		net_mgmt
 VARIANTS=		std
 SDESC[std]=		Tools to collect and process netflow data
@@ -14,7 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/phaag:nfdump:v${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[std]=		single
+SPKGS[std]=		set primary dev man
 
 OPTIONS_AVAILABLE=	PCAP
 OPTIONS_STANDARD=	PCAP
@@ -23,13 +24,13 @@ OPT_ON[dragonfly]=	PCAP
 OPT_ON[netbsd]=		PCAP
 OPT_ON[midnightbsd]=	PCAP
 
-LICENSE=		BSD3CLAUSE:single
+LICENSE=		BSD3CLAUSE:primary
 LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/BSD-license.txt
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		net-mgmt/nfdump
 
-BUILD_DEPENDS=		rrdtool:dev:standard
+BUILD_DEPENDS=		rrdtool:dev:std
 BUILDRUN_DEPENDS=	flex:primary:std
 			rrdtool:primary:std
 
