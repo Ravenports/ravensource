@@ -15,15 +15,15 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNOME/audiofile/${FOLDER}
 DISTFILE[1]=		audiofile-${PORTVERSION}.tar.xz:main
 
-SPKGS[std]=		single
+SPKGS[std]=		set primary dev tools man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 
-LICENSE=		LGPL21+:single
+LICENSE=		LGPL21+:primary
 LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		audio/libaudiofile
@@ -31,7 +31,7 @@ FPC_EQUIVALENT=		audio/libaudiofile
 BUILD_DEPENDS=		flac:dev:std
 BUILDRUN_DEPENDS=	flac:primary:std
 
-USES=			cpe pkgconfig libtool c++:single
+USES=			cpe pkgconfig libtool c++:primary
 MUST_CONFIGURE=		gnu
 INSTALL_TARGET=		install-strip
 SOVERSION=		${SOVERSION}
