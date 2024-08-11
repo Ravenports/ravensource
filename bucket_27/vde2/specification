@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	2.3.3
 
 NAMEBASE=		vde2
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		net
 VARIANTS=		std
 SDESC[std]=		User-mode virtual ethernet infrastructure
@@ -13,16 +14,16 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/virtualsquare:vde-2:v${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[std]=		single
+SPKGS[std]=		set primary dev man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv2+:single
-			LGPL21+:single
+LICENSE=		GPLv2+:primary
+			LGPL21+:primary
 LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
 			LGPL21+:{{WRKSRC}}/COPYING.libvdeplug
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/include/libvdemgmt.h
 LICENSE_SCHEME=		multi
