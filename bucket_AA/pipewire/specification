@@ -1,0 +1,89 @@
+DEF[PORTVERSION]=	1.0.3
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		pipewire
+VERSION=		${PORTVERSION}
+KEYWORDS=		multimedia
+VARIANTS=		std
+SDESC[std]=		Low-latency audio/video router and processor
+HOMEPAGE=		https://pipewire.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://gitlab.freedesktop.org/pipewire/pipewire/-/archive/${PORTVERSION}/
+DISTFILE[1]=		pipewire-${PORTVERSION}.tar.gz:main
+
+SPKGS[std]=		set primary dev tools nls
+
+OPTIONS_AVAILABLE=	BSD JACK
+OPTIONS_STANDARD=	BSD JACK
+OPT_ON[dragonfly]=	BSD
+OPT_ON[freebsd]=	BSD
+OPT_ON[netbsd]=		BSD
+OPT_ON[openbsd]=	BSD
+
+FPC_EQUIVALENT=		multimedia/pipewire
+
+LICENSE=		MIT:primary
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+BUILD_DEPENDS=		video4linux:dev:std
+			dbus:dev:std
+			opus:dev:std
+			libsndfile:dev:std
+			webrtc-audio-processing0:dev:std
+			gstreamer1:dev:std
+			gstreamer1-plugins-base:dev:std
+			evdev-proto:single:std
+BUILDRUN_DEPENDS=	dbus:primary:std
+			opus:primary:std
+			libsndfile:primary:std
+			webrtc-audio-processing0:primary:std
+			gstreamer1:primary:std
+			gstreamer1-plugins-base:primary:std
+
+EXRUN[tools]=		primary
+
+USES=			meson ncurses pkgconfig ssl shebangfix
+			python:build gettext:build
+GNOME_COMPONENTS=	glib
+SHEBANG_FILES=		doc/*.py
+MESON_ARGS=		-Dgstreamer=enabled
+			-Dgstreamer-device-provider=enabled
+			-Dpw-cat=enabled
+			-Dv4l2=enabled
+			-Draop=enabled
+			-Dsession-managers='[]'
+			-Dalsa=disabled
+			-Dpipewire-alsa=disabled
+			-Davb=disabled
+			-Dbluez5=disabled
+			-Dman=disabled
+			-Dlibcamera=disabled
+			-Droc=disabled
+			-Dsdl2=disabled
+			-Dselinux=disabled
+			-Dsystemd=disabled
+			-Dpipewire-v4l2=disabled
+			-Dlibmysofa=disabled
+			-Dlibffado=disabled
+			-Djack=disabled
+			-Dpipewire-jack=disabled
+			-Dudevrulesdir="{{LOCALBASE}}/lib/udev/rules.d"
+
+[BSD].DESCRIPTION=			BSD-specific build instructions
+[BSD].BUILD_DEPENDS_ON=			libinotify:dev:std
+					libepoll-shim:dev:std
+					libgudev-devd:dev:std
+[BSD].BUILDRUN_DEPENDS_ON=		libinotify:primary:std
+					libepoll-shim:primary:std
+					libgudev-devd:primary:std
+
+[JACK].DESCRIPTION=			Add Jack audio server support
+[JACK].BROKEN_ON=			Not yet supported
+
+pre-configure-dragonfly:
+	${REINPLACE_CMD} -e 's@freebsd@dragonfly@g' \
+		${WRKSRC}/src/pipewire/meson.build \
+		${WRKSRC}/meson.build
