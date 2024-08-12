@@ -1,0 +1,42 @@
+DEF[PORTVERSION]=	1.4.1
+DEF[TAG]=		v${PORTVERSION}
+DEF[SOVERSION]=		0.0.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		dotconf
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		std
+SDESC[std]=		Configuration file parser library
+HOMEPAGE=		https://github.com/williamh/dotconf
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/williamh:dotconf:${TAG}
+DISTFILE[1]=		generated:main
+
+SPKGS[std]=		set primary dev examples docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		devel/dotconf
+
+LICENSE=		LGPL21:primary
+LICENSE_FILE=		LGPL21:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/dotconf.c
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+USES=			pkgconfig autoreconf libtool:build
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
+SOVERSION=		${SOVERSION}
+
+post-install:
+	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
+	${INSTALL_DATA} ${WRKSRC}/doc/*.txt ${STAGEDIR}${STD_DOCDIR}
+	${MKDIR} ${STAGEDIR}${STD_EXAMPLESDIR}
+	${MV} ${STAGEDIR}${STD_DOCDIR}/examples/* ${STAGEDIR}${STD_EXAMPLESDIR}/
+	${RMDIR} ${STAGEDIR}${STD_DOCDIR}/examples
