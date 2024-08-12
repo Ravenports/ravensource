@@ -4,6 +4,7 @@ DEF[SOVERSION]=		7.3
 
 NAMEBASE=		sndio
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		audio
 VARIANTS=		std
 SDESC[std]=		Small audio and MIDI framework from OpenBSD
@@ -52,10 +53,6 @@ pre-configure:
 	${REINPLACE_CMD} 's|err(1, "setpriority")|warn("setpriority")|' \
 		${WRKSRC}/sndiod/sndiod.c
 
-pre-configure-dragonfly:
-	${REINPLACE_CMD} -e 's@\(FreeBSD\))@\1|DragonFly)@g' \
-		${WRKSRC}/configure
-
 post-install:
 	${STRIP_CMD} \
 		${STAGEDIR}${PREFIX}/lib/libsndio.${LIBEXT} \
@@ -63,4 +60,3 @@ post-install:
 		${STAGEDIR}${PREFIX}/bin/sndiod \
 		${STAGEDIR}${PREFIX}/bin/aucat \
 		${STAGEDIR}${PREFIX}/bin/midicat
-	${RM} ${STAGEDIR}${PREFIX}/lib/libsndio.so.7.0
