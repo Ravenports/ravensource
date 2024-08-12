@@ -1,0 +1,27 @@
+DEF[NAMEROOT]=		webrtc-audio-processing
+DEF[PORTVERSION]=	0.3.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		${NAMEROOT}0
+VERSION=		${PORTVERSION}
+KEYWORDS=		audio
+VARIANTS=		std
+SDESC[std]=		Legacy AudioProcessing module from WebRTC project
+HOMEPAGE=		https://www.freedesktop.org/software/pulseaudio/webrtc-audio-processing/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://freedesktop.org/software/pulseaudio/webrtc-audio-processing/
+DISTFILE[1]=		webrtc-audio-processing-${PORTVERSION}.tar.xz:main
+
+SPKGS[std]=		set primary dev
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		audio/webrtc-audio-processing0
+DISTNAME=		${NAMEROOT}-${PORTVERSION}
+
+USES=			autoreconf pkgconfig libtool:build c++:primary
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
