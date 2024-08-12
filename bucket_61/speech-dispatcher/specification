@@ -1,0 +1,77 @@
+DEF[PORTVERSION]=	0.11.5
+DEF[SOVERSION]=		2.6.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		speech-dispatcher
+VERSION=		${PORTVERSION}
+KEYWORDS=		accessibility audio
+VARIANTS=		std
+SDESC[std]=		Common interface to speech synthesis
+HOMEPAGE=		https://devel.freebsoft.org/speechd/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://github.com/brailcom/speechd/releases/download/${PORTVERSION}/
+DISTFILE[1]=		speech-dispatcher-${PORTVERSION}.tar.gz:main
+
+SPKGS[std]=		set primary dev tools nls man info bindings
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2:primary LGPL21+:bindings
+LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING.GPL-2
+			LGPL21+:{{WRKSRC}}/COPYING.LGPL
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SCHEME=		multi
+
+FPC_EQUIVALENT=		accessibility/speech-dispatcher
+
+BUILD_DEPENDS=		help2man:primary:std
+			dotconf:dev:std
+			libsndfile:dev:std
+			espeak-ng:dev:std
+			libao:dev:std
+			python-xdg:single:python_default
+BUILDRUN_DEPENDS=	dotconf:primary:std
+			libsndfile:primary:std
+			espeak-ng:primary:std
+			libao:primary:std
+
+EXRUN[bindings]=	python-xdg:single:python_default
+			primary
+
+USES=			autoreconf gettext gmake libtool:build pkgconfig
+			makeinfo shebangfix
+GNOME_COMPONENTS=	glib
+SHEBANG_FILES=		src/api/python/speechd_config/spd-conf
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-baratinoo=no
+			--with-kali=no
+			--with-ibmtts=no
+			--with-voxin=no
+			--with-nas=no
+			--with-alsa=no
+			--with-flite=no
+			--with-pulse=no
+			--with-espeak-ng
+			--with-espeak
+			--with-libao
+SOVERSION=		${SOVERSION}
+INSTALL_TARGET=		install-strip
+INFO=			info:spd-say
+			info:speech-dispatcher
+			info:speech-dispatcher-cs
+			info:ssip
+
+post-extract:
+	${AWK} '/^Licens/,EOF' ${WRKSRC}/README.md > ${WRKDIR}/TERMS
+
+pre-configure:
+	${REINPLACE_CMD} -e 's,/usr/share,${PREFIX}/share,g' \
+		${WRKSRC}/src/modules/*.c \
+		${WRKSRC}/config/modules/*.conf
+
+post-install:
+	(cd ${STAGEDIR}${PREFIX}/etc/speech-dispatcher &&\
+		${FIND} * -name "*.conf" | ${XARGS} -I{} mv {} {}.sample)
