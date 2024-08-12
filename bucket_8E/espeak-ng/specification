@@ -1,0 +1,52 @@
+DEF[PORTVERSION]=	1.51.1
+DEF[TAG]=		${PORTVERSION}
+DEF[SOVERSION]=		1.1.51
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		espeak-ng
+VERSION=		${PORTVERSION}
+KEYWORDS=		audio
+VARIANTS=		std
+SDESC[std]=		Open source speech synthesizer
+HOMEPAGE=		https://github.com/espeak-ng/espeak-ng/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/espeak-ng:espeak-ng:${TAG}
+DISTFILE[1]=		generated:main
+
+SPKGS[std]=		set primary dev tools docs man
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv3+:primary
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/speak-ng.c
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		audio/espeak-ng
+
+BUILD_DEPENDS=		ruby-ronn-ng:single:ruby_default
+			pcaudiolib:dev:std
+BUILDRUN_DEPENDS=	pcaudiolib:primary:std
+
+EXRUN[tools]=		primary
+
+USES=			autoreconf gmake libtool:build c++:primary
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-pcaudiolib
+SOVERSION=		${SOVERSION}
+
+pre-configure:
+	${REINPLACE_CMD} -e 's|%%DATADIR%%|${PREFIX}/share/${NAMEBASE}|' \
+		${WRKSRC}/Makefile.am ${WRKSRC}/src/libespeak-ng/speech.h
+
+post-install:
+	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
+	cd ${WRKSRC}/docs && ${COPYTREE_SHARE} . ${STAGEDIR}${STD_DOCDIR}
+	${LN} -sf libespeak-ng.so ${STAGEDIR}${PREFIX}/lib/libespeak.so
+	${LN} -sf espeak-ng.1 ${STAGEDIR}${PREFIX}/share/man/man1/espeak.1
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libespeak-ng.so*
