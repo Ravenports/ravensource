@@ -1,0 +1,34 @@
+DEF[PORTVERSION]=	114.2
+DEF[TAG]=		Firefox${PORTVERSION:S/./_/}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gmp-api
+VERSION=		${PORTVERSION}
+KEYWORDS=		multimedia
+VARIANTS=		std
+SDESC[std]=		Gecko Media Plugins API extracted from Firefox
+HOMEPAGE=		none
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/mozilla:gmp-api:${TAG}
+DISTFILE[1]=		generated:main
+
+SPKGS[std]=		single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		multimedia/gmp-api
+
+LICENSE=		BSD3CLAUSE:single
+LICENSE_FILE=		BSD3CLAUSE:{{WRKDIR}}/BSD3LIC
+LICENSE_SOURCE=		BSD3CLAUSE:{{WRKSRC}}/gmp-entrypoints.h
+LICENSE_AWK=		BSD3CLAUSE:"^$$"
+LICENSE_SCHEME=		solo
+
+SKIP_BUILD=		yes
+
+do-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/include/gmp-api
+	${INSTALL_DATA} ${WRKSRC}/*.h ${STAGEDIR}${PREFIX}/include/gmp-api/
