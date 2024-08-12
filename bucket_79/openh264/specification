@@ -1,0 +1,57 @@
+DEF[PORTVERSION]=	2.4.1
+DEF[SOVERSION]=		${PORTVERSION}
+DEF[LIBMAJOR]=		7
+DEF[TAG]=		v${PORTVERSION}
+DEF[WEBPLUGIN_DIR]=	lib/browser_plugins/gmp-gmpopenh264
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		openh264
+VERSION=		${PORTVERSION}
+KEYWORDS=		multimedia
+VARIANTS=		std
+SDESC[std]=		Cisco implementation of H.264 codec
+HOMEPAGE=		https://www.openh264.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/cisco:openh264:${TAG}
+DISTFILE[1]=		generated:main
+
+SPKGS[std]=		set primary dev plugin info
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		multimedia/openh264
+
+BUILD_DEPENDS=		nasm:primary:std
+			gmp-api:single:std
+
+SUB_FILES=		gmpopenh264.js
+SUB_LIST=		PORTVERSION=${PORTVERSION}
+
+USES=			cpe gmake c++:primary
+CPE_VENDOR=		cisco
+MAKE_ARGS=		PREFIX="{{PREFIX}}"
+			CCASFLAGS='$$(CFLAGS) {{ASFLAGS}}'
+			CFLAGS_OPT=""
+			CFLAGS_DEBUG=""
+			HAVE_GMP_API=Yes
+CFLAGS=			-I{{LOCALBASE}}/include/gmp-api
+BUILD_TARGET=		all plugin
+SOVERSION=		${SOVERSION}
+PLIST_SUB=		LIBMAJOR=${LIBMAJOR}
+			WEBPLUGIN_DIR=${WEBPLUGIN_DIR}
+
+VAR_OPSYS[freebsd]=	MAKE_ARGS=OS=bsd
+VAR_OPSYS[netbsd]=	MAKE_ARGS=OS=bsd
+VAR_OPSYS[midnightbsd]=	MAKE_ARGS=OS=bsd
+VAR_OPSYS[dragonfly]=	MAKE_ARGS=OS=bsd
+VAR_OPSYS[linux]=	MAKE_ARGS=OS=linux
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libopenh264.so
+	${MKDIR} ${STAGEDIR}${PREFIX}/${WEBPLUGIN_DIR}
+	${INSTALL_DATA} ${WRKSRC}/gmpopenh264.info ${STAGEDIR}${PREFIX}/${WEBPLUGIN_DIR}
+	${INSTALL_LIB} ${WRKSRC}/libgmpopenh264.so ${STAGEDIR}${PREFIX}/${WEBPLUGIN_DIR}
+	${INSTALL_DATA} ${WRKDIR}/gmpopenh264.js ${STAGEDIR}${PREFIX}/${WEBPLUGIN_DIR}
