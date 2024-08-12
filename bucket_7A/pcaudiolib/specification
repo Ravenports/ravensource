@@ -1,0 +1,40 @@
+DEF[PORTVERSION]=	1.2
+DEF[SOVERSION]=		0.0.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		pcaudiolib
+VERSION=		${PORTVERSION}
+KEYWORDS=		audio
+VARIANTS=		std
+SDESC[std]=		Portable C Audio Library
+HOMEPAGE=		https://github.com/espeak-ng/pcaudiolib
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://github.com/espeak-ng/pcaudiolib/releases/download/${PORTVERSION}/
+DISTFILE[1]=		pcaudiolib-${PORTVERSION}.tar.gz:main
+
+SPKGS[std]=		set primary dev
+
+OPTIONS_AVAILABLE=	ALSA
+OPTIONS_STANDARD=	ALSA
+
+FPC_EQUIVALENT=		audio/pcaudiolib
+
+LICENSE=		GPLv3+:primary
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/coreaudio.c
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+USES=			pkgconfig libtool:build
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-oss
+INSTALL_TARGET=		install-strip
+SOVERSION=		${SOVERSION}
+
+[ALSA].DESCRIPTION=			Include ALSA support
+[ALSA].BUILD_DEPENDS_ON=		alsa-lib:dev:std
+[ALSA].BUILDRUN_DEPENDS_ON=		alsa-lib:primary:std
+[ALSA].CONFIGURE_ARGS_ON=		--with-alsa
