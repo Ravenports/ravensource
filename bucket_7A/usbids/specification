@@ -1,0 +1,28 @@
+DEF[PORTVERSION]=	20240704
+DEF[TAG]=		e3a144a
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		usbids
+VERSION=		${PORTVERSION}
+KEYWORDS=		misc
+VARIANTS=		std
+SDESC[std]=		Database of all known IDs used in USB devices
+HOMEPAGE=		http://www.linux-usb.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/usbids:usbids:${TAG}
+DISTFILE[1]=		generated:main
+
+SPKGS[std]=		single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		misc/usbids
+
+SKIP_BUILD=		yes
+
+do-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/usbids
+	${INSTALL_DATA} ${WRKSRC}/usb.ids ${STAGEDIR}${PREFIX}/share/usbids/
