@@ -19,6 +19,28 @@ as command-line arguments and logs events generated:
 Changelog
 ---------
 
+4.0.2
+~~~~~
+
+2024-08-11 • [full history]
+
+- Add support for Python 3.13 (`#1052
+<https://github.com/gorakhargosh/watchdog/pull/1052>`__)
+- [core] Run ruff, apply several fixes (`#1033
+<https://github.com/gorakhargosh/watchdog/pull/1033>`__)
+- [core] Remove execution rights from ``events.py``
+- [documentation] Update PatternMatchingEventHandler docstrings (`#1048
+<https://github.com/gorakhargosh/watchdog/pull/1048>`__)
+- [documentation] Simplify the quickstart example (`#1047
+<https://github.com/gorakhargosh/watchdog/pull/1047>`__)
+- [fsevents] Add missing event_filter keyword-argument to
+``FSEventsObserver.schedule()`` (`#1049
+<https://github.com/gorakhargosh/watchdog/pull/1049>`__)
+- [utils] Fix a possible race condition in AutoRestartTrick (`#1002
+<https://github.com/gorakhargosh/watchdog/pull/1002>`__)
+- [watchmedo] Remove execution rights from ``watchmedo.py``
+- Thanks to our beloved contributors: @BoboTiG, @nbelakovski, @ivg
+
 4.0.1
 ~~~~~
 
@@ -26,7 +48,7 @@ Changelog
 
 - [inotify] Fix missing event_filter for the full emitter (`#1032
 <https://github.com/gorakhargosh/watchdog/pull/1032>`__)
-- Thanks to our beloved contributors: @mraspaud
+- Thanks to our beloved contributors: @mraspaud, @BoboTiG
 
 4.0.0
 ~~~~~
@@ -76,25 +98,3 @@ when thread is inactive (`#963
 2.3.1
 ~~~~~
 
-2023-02-28 • [full history]
-
-- Run black on the entire source code
-- Bundle the ``requirements-tests.txt`` file in the source distribution
-(`#939 <https://github.com/gorakhargosh/watchdog/pull/939>`__)
-- [watchmedo] Exclude FileOpenedEvent events from AutoRestartTrick, and
-ShellCommandTrick, to restore watchdog < 2.3.0 behavior. A better solution
-should be found in the future. (`#949
-<https://github.com/gorakhargosh/watchdog/pull/949>`__)
-- [watchmedo] Log FileOpenedEvent, and FileClosedEvent, events in
-LoggerTrick
-- Thanks to our beloved contributors: @BoboTiG
-
-2.3.0
-~~~~~
-
-2023-02-23 • [full history]
-
-- [inotify] Add support for IN_OPEN events: a FileOpenedEvent event will be
-fired (`#941 <https://github.com/gorakhargosh/watchdog/pull/941>`__)
-- [watchmedo] Add optional event debouncing for ``auto-restart``, only
-restarting once if many events happen in quick succession
