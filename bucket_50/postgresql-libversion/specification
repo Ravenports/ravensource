@@ -1,0 +1,30 @@
+DEF[PORTVERSION]=	2.0.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		postgresql-libversion
+VERSION=		${PORTVERSION}
+KEYWORDS=		databases
+VARIANTS=		std
+SDESC[std]=		Pg extension supporting version string comparison
+HOMEPAGE=		https://github.com/repology/postgresql-libversion/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/repology:postgresql-libversion:${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[std]=		single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+BUILDRUN_DEPENDS=	libversion:single:std
+
+USES=			gettext gmake pgsql pkgconfig
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/postgresql/libversion.so
