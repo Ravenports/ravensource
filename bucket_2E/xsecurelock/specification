@@ -1,0 +1,43 @@
+DEF[PORTVERSION]=	1.9.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		xsecurelock
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11 security
+VARIANTS=		std
+SDESC[std]=		X11 screen lock utility with security in mind
+HOMEPAGE=		https://github.com/google/xsecurelock
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/google:xsecurelock:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[std]=		set primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		APACHE20:primary
+LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/util.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+BUILD_DEPENDS=		doxygen:primary:std
+			openpam:dev:std
+BUILDRUN_DEPENDS=	fontconfig:primary:std
+			openpam:primary:std
+
+USES=			autoreconf pkgconfig
+XORG_COMPONENTS=	x11 xcomposite xext xfixes xft xmu xrandr xscrnsaver
+
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-pam-service-name=system
+
+post-configure:
+	(cd ${WRKSRC} && echo "const char *const git_version = \"${PORTVERSION}\";" > version.c)
+
+post-stage:
+	${CHMOD} +s ${STAGEDIR}${PREFIX}/libexec/xsecurelock/authproto_pam
