@@ -1,0 +1,71 @@
+DEF[PORTVERSION]=	0.99.b20
+DEF[UPSTREAM_VERS]=	0.99.beta20
+DEF[SOVERSION]=		0.99.20
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libcaca
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		std
+SDESC[std]=		Graphics library to output text instead of pixels
+HOMEPAGE=		http://caca.zoy.org/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/cacalabs:libcaca:v${UPSTREAM_VERS}
+DISTFILE[1]=		libcaca-${UPSTREAM_VERS}.tar.gz:main
+
+SPKGS[std]=		set primary dev man docs python ruby
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# Project is WTFPL20 with a few files licensed differently
+LICENSE=		CUSTOM1:primary
+			GPLv2+:primary
+			LGPL20+:primary
+LICENSE_NAME=		CUSTOM1:"DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE v2"
+LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/COPYING
+			GPLv2+:{{WRKSRC}}/COPYING.GPL
+			LGPL20+:{{WRKSRC}}/COPYING.LGPL
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SCHEME=		multi
+
+FPC_EQUIVALENT=		graphics/libcaca
+
+USES=			autoreconf gettext libtool ncurses python ruby zlib
+XORG_COMPONENTS=	x11
+GNOME_COMPONENTS=	pango
+
+BUILD_DEPENDS=		doxygen:primary:std
+			freeglut:dev:std
+			ftgl:dev:std
+			libglvnd:dev:std
+			imlib2:dev:std
+BUILDRUN_DEPENDS=	imlib2:primary:std
+			freeglut:primary:std
+			ftgl:primary:std
+			libglvnd:primary:std
+			slang:primary:std
+
+DISTNAME=		libcaca-${UPSTREAM_VERS}
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-ncurses
+			--enable-slang
+			--enable-x11
+			--enable-gl
+
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
+SOVERSION=		${SOVERSION}
+
+EXRUN[python]=		primary
+EXRUN[ruby]=		primary
+
+post-extract:
+			${ECHO} "Terms extracted from 'caca/caca.h':" > ${WRKDIR}/TERMS
+			${SED} -n '/more details/!p;//q' ${WRKSRC}/caca/caca.h >> ${WRKDIR}/TERMS
+			${ECHO} "Terms extracted from 'kernel/multiboot.h':" >> ${WRKDIR}/TERMS
+			${SED} -n '/Mass Ave/!p;//q' ${WRKSRC}/kernel/multiboot.h >> ${WRKDIR}/TERMS
+			${ECHO} "Terms extracted from 'src/aafire.c':" >> ${WRKDIR}/TERMS
+			${SED} -n '/02111/!p;//q' ${WRKSRC}/src/aafire.c >> ${WRKDIR}/TERMS
