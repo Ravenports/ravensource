@@ -1,0 +1,35 @@
+DEF[PORTVERSION]=	3.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		fluid-soundfont
+VERSION=		${PORTVERSION}
+KEYWORDS=		audio
+VARIANTS=		std
+SDESC[std]=		Fluid R3 sound fonts (GM/GS)
+HOMEPAGE=		none
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://ravenports.elderlinux.org/distcache/
+DISTFILE[1]=		fluid-soundfont_3.1.tar.gz:main
+
+SPKGS[std]=		single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		audio/fluid-soundfont
+
+SKIP_BUILD=		yes
+
+do-install:
+		${MKDIR} -p ${STAGEDIR}${PREFIX}/share/sounds/sf2
+		${INSTALL_DATA} ${WRKSRC}/FluidR3_G?.sf2 \
+			${STAGEDIR}${PREFIX}/share/sounds/sf2
+		${MKDIR} -p ${STAGEDIR}${PREFIX}/lib/timidity
+		${INSTALL_DATA} ${FILESDIR}/fluidr3_g?.cfg \
+		${STAGEDIR}${PREFIX}/lib/timidity
