@@ -1,0 +1,83 @@
+DEF[PORTVERSION]=	11.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		zesarux
+VERSION=		${PORTVERSION}
+KEYWORDS=		emulators
+VARIANTS=		std
+SDESC[std]=		Emulator of ZX Spectrum & more Z80-based computers
+HOMEPAGE=		https://github.com/chernandezba/zesarux/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://github.com/chernandezba/zesarux/archive/refs/tags/
+DISTFILE[1]=		ZEsarUX-${PORTVERSION}.tar.gz:main
+
+SPKGS[std]=		single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# There's also code in there from the PlayTZX project which is open-source but
+# seems to lack licensing information
+LICENSE=		GPLv3+:single
+			GPLv2+:single
+			CC_SA_30:single
+			CUSTOM1:single
+			BSD3CLAUSE:single
+			CUSTOM2:single
+			MIT:single
+			CUSTOM3:single
+			CUSTOM4:single
+LICENSE_NAME=		CUSTOM1:"FatFs license (BSD1CLAUSE)"
+			CUSTOM2:"Licencia DataDrive Hilow"
+			CUSTOM3:"UnrealSpeccy Freeware License"
+			CUSTOM4:"The Unlicense License"
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/LICENSE
+			GPLv2+:{{WRKSRC}}/licenses/LICENSE_simcoupe
+			CC_SA_30:{{WRKSRC}}/licenses/LICENSE_DOS_font
+			CUSTOM1:{{WRKSRC}}/licenses/LICENSE_FatFs
+			BSD3CLAUSE:{{WRKSRC}}/licenses/LICENSE_grackle
+			CUSTOM2:{{WRKSRC}}/licenses/LICENSE_hilow
+			MIT:{{WRKSRC}}/licenses/LICENSE_MOTOROLA_CORE
+			CUSTOM3:{{WRKSRC}}/licenses/LICENSE_unrealspeccy
+			CUSTOM4:{{WRKSRC}}/licenses/LICENSE_zip
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_SCHEME=		multi
+
+BUILD_DEPENDS=		aalib:dev:std
+			alsa-lib:dev:std
+			bash:primary:std
+			libcaca:dev:std
+			libsndfile:dev:std
+BUILDRUN_DEPENDS=	aalib:primary:std
+			alsa-lib:primary:std
+			libcaca:primary:std
+			libsndfile:primary:std
+
+USES=			ncurses ssl
+XORG_COMPONENTS=	x11 xext xxf86vm
+SDL_COMPONENTS=		sdl1
+
+DISTNAME=		zesarux-ZEsarUX-${PORTVERSION}/src
+LDFLAGS=		-ltinfo
+MUST_CONFIGURE=		yes
+CONFIGURE_ARGS=		--prefix={{PREFIX}}
+			--enable-ssl
+			--enable-memptr
+			--enable-undoc-scfccf
+			--enable-visualmem
+			--enable-cpustats
+
+post-extract:
+			${ECHO} "Terms extracted from 'src/start.h':" > ${WRKDIR}/TERMS1
+			${SED} -n '/ifndef/!p;//q' ${WRKSRC}/start.h >> ${WRKDIR}/TERMS1
+			${CAT} ${WRKDIR}/TERMS1 ${WRKSRC}/LICENSES_info > ${WRKDIR}/TERMS
+
+post-patch:
+			${REINPLACE_CMD} -i'' -e \
+				"s|__PREFIX__|${STAGEDIR}${PREFIX}|g" \
+				${WRKSRC}/generate_install_sh.sh
+
+post-install:
+			${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/zesarux
