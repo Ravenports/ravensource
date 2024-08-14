@@ -4,7 +4,7 @@
  #include <unistd.h>
  #include <errno.h>
  #include <time.h>
-+#if !defined(__DragonFly__)
++#if !defined(__DragonFly__) && !defined(__FreeBSD__)
  #include <malloc.h>
 +#endif
  #include <limits.h>

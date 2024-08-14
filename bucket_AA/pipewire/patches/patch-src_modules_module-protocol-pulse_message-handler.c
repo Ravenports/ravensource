@@ -4,7 +4,7 @@
  #include <stdio.h>
  
  #include <regex.h>
-+#if !defined(__DragonFly__)
++#if !defined(__DragonFly__) && !defined(__FreeBSD__)
  #include <malloc.h>
 +#endif
  
