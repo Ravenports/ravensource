@@ -1,0 +1,48 @@
+DEF[PORTVERSION]=	1.28.0
+DEF[SOVERSION]=		6.0.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libmatekbd
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11
+VARIANTS=		std
+SDESC[std]=		MATE keyboard management library
+HOMEPAGE=		https://mate-desktop.org
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://pub.mate-desktop.org/releases/${PORTVERSION:R}/
+DISTFILE[1]=		libmatekbd-${PORTVERSION}.tar.xz:main
+DIST_SUBDIR=		mate
+
+SPKGS[std]=		set primary dev nls
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# stock license used because while terms say it's LGPL20+ the bundled
+# license file is LGPL21
+LICENSE=		LGPL20+:primary
+LICENSE_FILE=		LGPL20+:stock
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/libmatekbd/matekbd-util.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		x11/libmatekbd
+
+BUILD_DEPENDS=		libxklavier:dev:std
+BUILDRUN_DEPENDS=	libxklavier:primary:std
+
+USES=			gmake libtool pkgconfig
+GNOME_COMPONENTS=	glib gtk3 libxml2
+
+MUST_CONFIGURE=		gnu
+INSTALL_REQ_TOOLCHAIN=	yes
+
+SOVERSION=		${SOVERSION}
+GLIB_SCHEMAS=		org.mate.peripherals-keyboard-xkb.gschema.xml
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libmatekbd.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libmatekbdui.so
