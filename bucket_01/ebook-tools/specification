@@ -1,0 +1,37 @@
+DEF[PORTVERSION]=	0.2.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		ebook-tools
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc
+VARIANTS=		std
+SDESC[std]=		Accesses and converts various ebook file formats
+HOMEPAGE=		https://sourceforge.net/projects/ebook-tools/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SF/ebook-tools/ebook-tools/${PORTVERSION}
+DISTFILE[1]=		ebook-tools-${PORTVERSION}.tar.gz:main
+
+SPKGS[std]=		set primary dev
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:primary
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		textproc/ebook-tools
+
+BUILD_DEPENDS=		libzip:dev:std
+BUILDRUN_DEPENDS=	libzip:primary:std
+
+USES=			cmake zlib
+GNOME_COMPONENTS=	libxml2
+
+SOVERSION=		${PORTVERSION}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/einfo
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libepub.so
