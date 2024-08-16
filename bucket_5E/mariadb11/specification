@@ -1,6 +1,6 @@
 DEF[PORTVERSION]=	EXTRACT_VERSION(MYSQL_mariadb-11_VERSION)
 DEF[PORTNAME]=		mariadb11
-DEF[FMT_TAG]=		8.0.1
+DEF[FMT_TAG]=		11.0.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		${PORTNAME}
@@ -13,9 +13,9 @@ CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main fmtsrc
 SITES[main]=		https://downloads.mariadb.com/MariaDB/mariadb-${PORTVERSION}/source/
-SITES[fmtsrc]=		GITHUB/fmtlib:fmt:${FMT_TAG}
+SITES[fmtsrc]=		https://github.com/fmtlib/fmt/releases/download/${FMT_TAG}/
 DISTFILE[1]=		mariadb-${PORTVERSION}.tar.gz:main
-DISTFILE[2]=		generated:fmtsrc
+DISTFILE[2]=		fmt-${FMT_TAG}.zip:fmtsrc
 DF_INDEX=		1 2
 
 SPKGS[std]=		set server client dev man docs
