@@ -1,0 +1,70 @@
+DEF[PORTVERSION]=	6.1.4
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		plasma-activities
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11
+VARIANTS=		std
+SDESC[std]=		Core components for the KDE's Activities System
+HOMEPAGE=		https://invent.kde.org/plasma/plasma-activities
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://download.kde.org/stable/plasma/${PORTVERSION}/
+DISTFILE[1]=		plasma-activities-${PORTVERSION}.tar.xz:main
+DIST_SUBDIR=		kde6
+
+SPKGS[std]=		set primary dev
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:primary
+			LGPL20+:primary
+			LGPL21:primary
+			LGPL3:primary
+			MIT:primary
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/LICENSES/GPL-2.0-or-later.txt
+			LGPL20+:{{WRKSRC}}/LICENSES/LGPL-2.0-or-later.txt
+			LGPL21:{{WRKSRC}}/LICENSES/LGPL-2.1-only.txt
+			LGPL3:{{WRKSRC}}/LICENSES/LGPL-3.0-only.txt
+			MIT:{{WRKSRC}}/LICENSES/MIT.txt
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SCHEME=		multi
+
+FPC_EQUIVALENT=		x11/plasma6-plasma-activities
+
+BUILD_DEPENDS=		boost-libraries:dev:std
+			kf6-extra-cmake-modules:primary:std
+			kf6-kconfig:dev:std
+			kf6-kcoreaddons:dev:std
+			kf6-kwindowsystem:dev:std
+			qt6-qtbase:dev:std
+			qt6-qtdeclarative:dev:std
+BUILDRUN_DEPENDS=	boost-libraries:primary:std
+			kf6-kconfig:primary:std
+			kf6-kcoreaddons:primary:std
+			kf6-kwindowsystem:primary:std
+			qt6-qtbase:primary:std
+			qt6-qtdeclarative:primary:std
+
+USES=			cmake
+XORG_COMPONENTS=	x11
+
+CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt6/cmake
+SOVERSION=		${PORTVERSION}
+
+post-extract:
+	${ECHO} "Terms extracted from 'src/cli/main.cpp':" > ${WRKDIR}/TERMS
+	${SED} -n '/include/!p;//q' ${WRKSRC}/src/cli/main.cpp >> ${WRKDIR}/TERMS
+	${ECHO} "Terms extracted from 'src/utils/range.h':" >> ${WRKDIR}/TERMS
+	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/src/utils/range.h >> ${WRKDIR}/TERMS
+	${ECHO} "Terms extracted from 'src/lib/info.h':" >> ${WRKDIR}/TERMS
+	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/src/lib/info.h >> ${WRKDIR}/TERMS
+	${ECHO} "Terms extracted from 'contrib/bash/prev-activity.sh':" >> ${WRKDIR}/TERMS
+	${SED} -n '/current_activity=/!p;//q' ${WRKSRC}/contrib/bash/prev-activity.sh >> ${WRKDIR}/TERMS
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/plasma-activities-cli6
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/qt6/qml/org/kde/activities/libplasmaactivitiesextensionplugin.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libPlasmaActivities.so
