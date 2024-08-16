@@ -1,4 +1,4 @@
---- src/master/main.c.orig	2023-09-14 13:17:47 UTC
+--- src/master/main.c.orig	2024-08-13 10:37:50 UTC
 +++ src/master/main.c
 @@ -888,6 +888,8 @@ int main(int argc, char *argv[])
  		i_fatal("dup2(dev_null_fd) failed: %m");
