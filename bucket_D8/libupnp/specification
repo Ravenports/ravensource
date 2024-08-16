@@ -1,0 +1,51 @@
+DEF[PORTVERSION]=	1.14.19
+DEF[IXML]=		11.1.2
+DEF[UPNP]=		17.1.10
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libupnp
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		std
+SDESC[std]=		Portable SDK for UPnP Devices
+HOMEPAGE=		https://github.com/pupnp/pupnp/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://github.com/pupnp/pupnp/releases/download/release-${PORTVERSION}/
+DISTFILE[1]=		libupnp-${PORTVERSION}.tar.bz2:main
+
+SPKGS[std]=		set primary dev
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD3CLAUSE:primary
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/upnp
+
+USES=			libtool ssl
+
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-blocking_tcp_connections
+			--enable-client
+			--enable-device
+			--enable-gena
+			--enable-largefile
+			--enable-optssdp
+			--enable-reuseaddr
+			--enable-scriptsupport
+			--enable-soap
+			--enable-ssdp
+			--enable-ssl
+			--enable-tools
+			--enable-webserver
+INSTALL_REQ_TOOLCHAIN=	yes
+INSTALL_TARGET=		install-strip
+
+PLIST_SUB=		IXML=${IXML}
+			IXMLMAJ=${IXML:R:R}
+			UPNP=${UPNP}
+			UPNPMAJ=${UPNP:R:R}
