@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	6.4.0
+DEF[PORTVERSION]=	6.4.2
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-importlib-resources
@@ -7,11 +7,11 @@ KEYWORDS=		python
 VARIANTS=		v11 v12
 SDESC[v11]=		Read resources from Python packages (3.11)
 SDESC[v12]=		Read resources from Python packages (3.12)
-HOMEPAGE=		https://github.com/python/importlib_resources
+HOMEPAGE=		none
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/75/06/4df55e1b7b112d183f65db9503bff189e97179b256e1ea450a3c365241e0
+SITES[main]=		PYPIWHL/13/da/ec59848cc9d785fc0f55823efd84d213418e14e2c97ae87c15b5ac46a6ab
 DISTFILE[1]=		importlib_resources-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[v11]=		single
@@ -30,21 +30,20 @@ DISTNAME=		importlib_resources-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
 # zipp >=3.1.0 ; python_version < "3.10"
-# sphinx >=3.5 ; extra == 'docs'
-# sphinx <7.2.5 ; extra == 'docs'
-# jaraco.packaging >=9.3 ; extra == 'docs'
-# rst.linker >=1.9 ; extra == 'docs'
-# furo ; extra == 'docs'
-# sphinx-lint ; extra == 'docs'
-# jaraco.tidelift >=1.4 ; extra == 'docs'
-# pytest >=6 ; extra == 'testing'
-# pytest-checkdocs >=2.4 ; extra == 'testing'
-# pytest-cov ; extra == 'testing'
-# pytest-enabler >=2.2 ; extra == 'testing'
-# pytest-ruff >=0.2.1 ; extra == 'testing'
-# zipp >=3.17 ; extra == 'testing'
-# jaraco.test >=5.4 ; extra == 'testing'
-# pytest-mypy ; (platform_python_implementation != "PyPy") and extra == 'testing'
+# sphinx >=3.5 ; extra == 'doc'
+# jaraco.packaging >=9.3 ; extra == 'doc'
+# rst.linker >=1.9 ; extra == 'doc'
+# furo ; extra == 'doc'
+# sphinx-lint ; extra == 'doc'
+# jaraco.tidelift >=1.4 ; extra == 'doc'
+# pytest !=8.1.*,>=6 ; extra == 'test'
+# pytest-checkdocs >=2.4 ; extra == 'test'
+# pytest-cov ; extra == 'test'
+# pytest-mypy ; extra == 'test'
+# pytest-enabler >=2.2 ; extra == 'test'
+# zipp >=3.17 ; extra == 'test'
+# jaraco.test >=5.4 ; extra == 'test'
+# pytest-ruff >=0.2.1 ; (sys_platform != "cygwin") and extra == 'test'
 
 [PY311].USES_ON=			python:v11,wheel
 [PY312].USES_ON=			python:v12,wheel
