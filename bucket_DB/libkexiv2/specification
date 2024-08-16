@@ -1,0 +1,46 @@
+DEF[PORTVERSION]=	24.05.2
+DEF[SOVERSION]=		5.1.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libkexiv2
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		std
+SDESC[std]=		Exiv2 library interface for KDE
+HOMEPAGE=		https://api.kde.org/libkexiv2/html/index.html
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://download.kde.org/stable/release-service/${PORTVERSION}/src/
+DISTFILE[1]=		libkexiv2-${PORTVERSION}.tar.xz:main
+DIST_SUBDIR=		kde6
+
+SPKGS[std]=		set primary dev
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:primary
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/LICENSES/GPL-2.0-or-later.txt
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/kexiv2.h
+LICENSE_AWK=		TERMS:"ifndef"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		graphics/libkexiv2
+
+BUILD_DEPENDS=		exiv2:dev:std
+			kf6-extra-cmake-modules:primary:std
+			qt6-qtbase:dev:std
+BUILDRUN_DEPENDS=	exiv2:primary:std
+			qt6-qtbase:primary:std
+
+USES=			cmake pkgconfig zlib
+
+CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt6/cmake
+			-DQT_MAJOR_VERSION=6
+
+SOVERSION=		${SOVERSION}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libKExiv2Qt6.so
