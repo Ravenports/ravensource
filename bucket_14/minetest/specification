@@ -1,10 +1,10 @@
-DEF[PORTVERSION]=	5.8.0
+DEF[PORTVERSION]=	5.9.0
+DEF[GAMEVERSION]=	5.8.0
 DEF[IRRLICHT_VER]=	1.9.0mt13
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		minetest
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		games
 VARIANTS=		std
 SDESC[std]=		Infinite-world block sandbox game
@@ -13,7 +13,7 @@ CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main game light
 SITES[main]=		GITHUB/minetest:minetest:${PORTVERSION}
-SITES[game]=		GITHUB/minetest:minetest_game:${PORTVERSION}
+SITES[game]=		GITHUB/minetest:minetest_game:${GAMEVERSION}
 SITES[light]=		GITHUB/minetest:irrlicht:${IRRLICHT_VER}:lib/irrlichtmt
 DISTFILE[1]=		generated:main
 DISTFILE[2]=		generated:game
@@ -75,6 +75,6 @@ CMAKE_ARGS=		-DBUILD_SERVER=TRUE
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/minetest*
 	${MKDIR} ${STAGEDIR}${PREFIX}/share/minetest/games/minetest
-	(cd ${WRKDIR}/minetest_game-${PORTVERSION} && \
+	(cd ${WRKDIR}/minetest_game-${GAMEVERSION} && \
 		${COPYTREE_SHARE} "game.conf menu mods" \
 		${STAGEDIR}${PREFIX}/share/minetest/games/minetest)
