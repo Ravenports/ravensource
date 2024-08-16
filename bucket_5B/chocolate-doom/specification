@@ -1,10 +1,10 @@
-DEF[PORTVERSION]=	3.0.1
+DEF[PORTVERSION]=	3.1.0
+DEF[TAG]=		chocolate-doom-${PORTVERSION}
 DEF[STRIP_BINARIES]=	chocolate-doom-setup chocolate-heretic-setup chocolate-hexen-setup chocolate-strife-setup
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		chocolate-doom
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		games
 VARIANTS=		std
 SDESC[std]=		Source port accurately recreating the DooM engine
@@ -12,8 +12,8 @@ HOMEPAGE=		https://www.chocolate-doom.org/wiki/index.php/Chocolate_Doom
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		https://www.chocolate-doom.org/downloads/${PORTVERSION}/
-DISTFILE[1]=		chocolate-doom-${PORTVERSION}.tar.gz:main
+SITES[main]=		GITHUB/chocolate-doom:chocolate-doom:${TAG}
+DISTFILE[1]=		generated:main
 
 SPKGS[std]=		set primary docs man
 
@@ -21,13 +21,13 @@ OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 LICENSE=		GPLv2+:primary
-LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING.md
 LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		games/chocolate-doom
 
-USES=			cpe gmake pkgconfig python:build png
+USES=			cpe autoreconf gmake pkgconfig python:build png
 SDL_COMPONENTS=		sdl2 mixer2 net2
 CPE_VENDOR=		chocolate-doom
 CPE_PRODUCT=		chocolate_doom
@@ -44,3 +44,7 @@ post-install:
 .for f in ${STRIP_BINARIES}
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/${f}
 .endfor
+	${RM} ${STAGEDIR}${PREFIX}/share/doc/*/COPYING.md
+	${MV} ${STAGEDIR}${PREFIX}/share/doc/chocolate-heretic ${STAGEDIR}${STD_DOCDIR}/
+	${MV} ${STAGEDIR}${PREFIX}/share/doc/chocolate-hexen ${STAGEDIR}${STD_DOCDIR}/
+	${MV} ${STAGEDIR}${PREFIX}/share/doc/chocolate-strife ${STAGEDIR}${STD_DOCDIR}/
