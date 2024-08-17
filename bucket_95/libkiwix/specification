@@ -1,0 +1,54 @@
+DEF[PORTVERSION]=	13.1.0
+DEF[MUSTACHEVERSION]=	4.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libkiwix
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		std
+SDESC[std]=		Common code base for all Kiwix ports
+HOMEPAGE=		https://github.com/kiwix/libkiwix
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main mustache
+SITES[main]=		GITHUB/kiwix:libkiwix:${PORTVERSION}
+SITES[mustache]=	GITHUB/kainjow:Mustache:v${MUSTACHEVERSION}
+DISTFILE[1]=		generated:main
+DISTFILE[2]=		generated:mustache
+DF_INDEX=		1 2
+
+SPKGS[std]=		set primary dev man
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv3+:primary
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/include/kiwix.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/libkiwix
+
+BUILD_DEPENDS=		gtest:set:std
+			icu:dev:std
+			libmicrohttpd:dev:std
+			libzim:dev:std
+			pugixml:dev:std
+			xapian-core:dev:std
+RUN_DEPENDS=		aria2:primary:std
+BUILDRUN_DEPENDS=	icu:primary:std
+			libmicrohttpd:primary:std
+			libzim:primary:std
+			pugixml:primary:std
+			xapian-core:primary:std
+
+USES=			curl meson pkgconfig ssl xz zlib zstd
+
+CXXFLAGS=		-I{{WRKSRC}}
+SOVERSION=		${PORTVERSION}
+
+post-extract:
+	${CP} ${WRKDIR}/Mustache-${MUSTACHEVERSION}/mustache.hpp \
+		${WRKSRC}
