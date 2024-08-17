@@ -1,0 +1,16 @@
+Musikcube is a cross-platform, terminal-based audio engine, library, 
+player and server written in C++.
+
+It ships with a streaming audio server enabled by default which runs a 
+websocket server on port 7905, used for metadata retrieval. An HTTP server 
+runs on port 7906, and is used to serve (optionally transcoded) audio data 
+to clients.
+
+It's important to understand that, out of the box, the server (and remote 
+api) should NOT be considered safe for use outside of a local network. The 
+websockets service only supports a simple password challenge, and the 
+audio http server just handles basic authorization; it does not provide 
+TLS. The server also stores the password in plain text in a settings file 
+on the local machine. You can fix some of this using a reverse proxy to 
+provide TLS termination (see documentation). While this improves things, 
+you should exercise caution exposing these services over the Internet.

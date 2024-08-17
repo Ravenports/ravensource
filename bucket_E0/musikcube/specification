@@ -1,0 +1,75 @@
+DEF[PORTVERSION]=	3.0.4
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		musikcube
+VERSION=		${PORTVERSION}
+KEYWORDS=		multimedia audio
+VARIANTS=		std
+SDESC[std]=		Terminal-based music player, server & more
+HOMEPAGE=		https://musikcube.com/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/clangen:musikcube:${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[std]=		set primary dev server in_openmpt out_alsa out_sndio out_pipewire out_portaudio
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD3CLAUSE:primary
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/LICENSE.txt
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		multimedia/musikcube
+
+# missing plugins: libgme, pulseaudio
+BUILD_DEPENDS=		alsa-lib:dev:std
+			asio:dev:std
+			curl:dev:std
+			ffmpeg6:dev:std
+			flac:dev:std
+			lame:dev:std
+			libev:dev:std
+			libmicrohttpd:dev:std
+			libogg:dev:std
+			libopenmpt:dev:std
+			libvorbis:dev:std
+			mpg123:dev:std
+			mpg123:primary:std
+			portaudio:primary:std
+			sndio:dev:std
+			taglib:dev:std
+			pipewire:dev:std
+BUILDRUN_DEPENDS=	curl:primary:std
+			ffmpeg6:primary:std
+			flac:primary:std
+			lame:primary:std
+			libev:primary:std
+			libogg:primary:std
+			libvorbis:primary:std
+			taglib:primary:std
+
+EXRUN[server]=		primary
+			libmicrohttpd:primary:std
+EXRUN[in_openmpt]=	libopenmpt:primary:std
+			mpg123:primary:std
+			zlib:primary:std
+EXRUN[out_alsa]=	alsa-lib:primary:std
+EXRUN[out_pipewire]=	pipewire:primary:std
+EXRUN[out_portaudio]=	portaudio:primary:std
+EXRUN[out_sndio]=	sndio:primary:std
+
+USES=			cmake ncurses pkgconfig ssl zlib
+
+CXXFLAGS=		-I{{OPENSSLINC}} -I{{PREFIX}}/include/ncurses
+CMAKE_ARGS=		-DCMAKE_INSTALL_PREFIX:PATH={{PREFIX}}
+			-DDISABLE_WIDE_NCURSES_LIB_SUFFIXES=true
+			-DLIBSSL={{PREFIX}}/libressl/lib/libssl.so
+			-DLIBCRYPTO={{PREFIX}}/libressl/lib/libcrypto.so
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/share/musikcube/libmusikcore.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/share/musikcube/plugins/*.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/share/musikcube/musikcube*
