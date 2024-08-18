@@ -4,6 +4,7 @@ DEF[SOVERSION]=		1.1.12
 
 NAMEBASE=		libspectre
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		print
 VARIANTS=		std
 SDESC[std]=		Small library for rendering PostScript documents
@@ -14,14 +15,14 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://libspectre.freedesktop.org/releases/
 DISTFILE[1]=		libspectre-${PORTVERSION}.tar.gz:main
 
-SPKGS[std]=		single
+SPKGS[std]=		set primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv2+:single
+LICENSE=		GPLv2+:primary
 LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/libspectre/spectre.h
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SCHEME=		solo
