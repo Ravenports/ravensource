@@ -1,0 +1,85 @@
+DEF[PORTVERSION]=	EXTRACT_INFO(KDE6_FRAMEWORKS_VERSION)
+DEF[KF6_COMPONENT]=	kparts
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		kf6-${KF6_COMPONENT}
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		std
+SDESC[std]=		KF6 plugin framework for user interface components
+HOMEPAGE=		https://api.kde.org/frameworks/${KF6_COMPONENT}/html/index.html
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://download.kde.org/stable/frameworks/${PORTVERSION:R}/
+DISTFILE[1]=		${KF6_COMPONENT}-${PORTVERSION}.tar.xz:main
+DIST_SUBDIR=		kde6
+
+SPKGS[std]=		set primary dev nls
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# Various other licenses used only for tests and the like
+LICENSE=		LGPL20+:primary
+			LGPL21+:primary
+LICENSE_FILE=		LGPL20+:{{WRKSRC}}/LICENSES/LGPL-2.0-or-later.txt
+			LGPL21+:{{WRKSRC}}/LICENSES/LGPL-2.1-or-later.txt
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SCHEME=		multi
+
+FPC_EQUIVALENT=		foo/kf6-${KF6_COMPONENT}
+
+BUILD_DEPENDS=		kf6-extra-cmake-modules:primary:std
+			kf6-kbookmarks:dev:std
+			kf6-kcodecs:dev:std
+			kf6-kcolorscheme:dev:std
+			kf6-kcompletion:dev:std
+			kf6-kconfig:dev:std
+			kf6-kconfigwidgets:dev:std
+			kf6-kcoreaddons:dev:std
+			kf6-ki18n:dev:std
+			kf6-kio:dev:std
+			kf6-kitemviews:dev:std
+			kf6-kjobwidgets:dev:std
+			kf6-kservice:dev:std
+			kf6-kwidgetsaddons:dev:std
+			kf6-kwindowsystem:dev:std
+			kf6-kxmlgui:dev:std
+			kf6-solid:dev:std
+			qt6-qtbase:dev:std
+			qt6-qtdeclarative:dev:std
+BUILDRUN_DEPENDS=	kf6-kbookmarks:primary:std
+			kf6-kcodecs:primary:std
+			kf6-kcolorscheme:primary:std
+			kf6-kcompletion:primary:std
+			kf6-kconfig:primary:std
+			kf6-kconfigwidgets:primary:std
+			kf6-kcoreaddons:primary:std
+			kf6-ki18n:primary:std
+			kf6-kio:primary:std
+			kf6-kitemviews:primary:std
+			kf6-kjobwidgets:primary:std
+			kf6-kservice:primary:std
+			kf6-kwidgetsaddons:primary:std
+			kf6-kwindowsystem:primary:std
+			kf6-kxmlgui:primary:std
+			kf6-solid:primary:std
+			qt6-qtbase:primary:std
+			qt6-qtdeclarative:primary:std
+
+USES=			cmake gettext gmake
+XORG_COMPONENTS=	x11
+
+DISTNAME=		${KF6_COMPONENT}-${PORTVERSION}
+CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt6/cmake
+SOVERSION=		${PORTVERSION}
+
+post-extract:
+	${ECHO} "Terms extracted from 'src/part_p.h':" > ${WRKDIR}/TERMS
+	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/src/part_p.h >> ${WRKDIR}/TERMS
+	${ECHO} "Terms extracted from 'src/kde_terminal_interface.h':" >> ${WRKDIR}/TERMS
+	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/src/kde_terminal_interface.h >> ${WRKDIR}/TERMS
+
+post-stage:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libKF6Parts.so
