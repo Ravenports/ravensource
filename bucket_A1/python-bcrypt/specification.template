@@ -51,3 +51,6 @@ post-patch:
 	echo "directory = '${CARGO_VENDOR_DIR}'" >> ${WRKSRC}/.cargo/config.toml
 	echo "[source.crates-io]" >> ${WRKSRC}/.cargo/config.toml
 	echo "replace-with = 'cargo'" >> ${WRKSRC}/.cargo/config.toml
+
+post-extract:
+	${CP} ${FILESDIR}/setup.py ${WRKSRC}/setup.py
