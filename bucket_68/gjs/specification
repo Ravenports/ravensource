@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.80.2
+DEF[PORTVERSION]=	1.81.2
 DEF[SOVERSION]=		0.0.0
 # ----------------------------------------------------------------------------
 
@@ -31,13 +31,13 @@ LICENSE_SCHEME=		multi
 FPC_EQUIVALENT=		lang/gjs
 
 BUILD_DEPENDS=		dbus:dev:std
-			spidermonkey:dev:std
+			mozjs128:dev:std
 			icu:dev:std
 BUILDRUN_DEPENDS=	dbus:primary:std
-			spidermonkey:primary:std
+			mozjs128:primary:std
 RUN_DEPENDS=		gobject-introspection:primary:std
 
-EXRUN[dev]=		spidermonkey:dev:std
+EXRUN[dev]=		mozjs128:dev:std
 			cairo:dev:std
 			gobject-introspection:dev:std
 
@@ -45,8 +45,7 @@ USES=			meson pkgconfig readline
 GNOME_COMPONENTS=	cairo glib introspection
 XORG_COMPONENTS=	pixman x11 xext xcb xrender
 
-MESON_ARGS=		-Dcairo=enabled
-			-Dreadline=enabled
+MESON_ARGS=		-Dreadline=enabled
 			-Dprofiler=disabled
 			-Dinstalled_tests=false
 
