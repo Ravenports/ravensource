@@ -1,6 +1,6 @@
---- src/PreferencesDialog.cpp.orig	2021-05-02 14:08:53 UTC
+--- src/PreferencesDialog.cpp.orig	2024-06-29 06:33:40 UTC
 +++ src/PreferencesDialog.cpp
-@@ -411,8 +411,7 @@ void PreferencesDialog::removeExtension(
+@@ -505,8 +505,7 @@ void PreferencesDialog::createBuiltinExt
  
  void PreferencesDialog::fillLanguageBox()
  {

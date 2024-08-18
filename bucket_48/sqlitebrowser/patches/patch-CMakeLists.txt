@@ -1,0 +1,20 @@
+--- CMakeLists.txt.orig	2024-06-29 06:33:40 UTC
++++ CMakeLists.txt
+@@ -136,7 +136,7 @@ endif()
+ find_package(Qt5 REQUIRED COMPONENTS Concurrent Gui LinguistTools Network PrintSupport Test Widgets Xml)
+ 
+ if(NOT FORCE_INTERNAL_QSCINTILLA)
+-    find_package(QScintilla 2.8.10)
++    find_package(QScintilla)
+ endif()
+ if(NOT FORCE_INTERNAL_QCUSTOMPLOT)
+     find_package(QCustomPlot)
+@@ -517,7 +517,7 @@ if((NOT WIN32 AND NOT APPLE) OR MINGW)
+     )
+ endif()
+ 
+-if(UNIX)
++if(LINUX)
+     target_link_libraries(${PROJECT_NAME} dl)
+ endif()
+ 
