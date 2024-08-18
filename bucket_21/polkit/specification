@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	124
+DEF[PORTVERSION]=	125
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		polkit
@@ -10,8 +10,8 @@ HOMEPAGE=		https://www.freedesktop.org/wiki/Software/polkit/
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		https://gitlab.freedesktop.org/polkit/polkit/-/archive/${PORTVERSION}/
-DISTFILE[1]=		polkit-${PORTVERSION}.tar.gz:main
+SITES[main]=		GITHUB/polkit-org:polkit:${PORTVERSION}
+DISTFILE[1]=		generated:main
 
 SPKGS[std]=		set primary dev man nls
 
@@ -80,5 +80,8 @@ post-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/share/polkit-1/localauthority/${i}
 	${MKDIR} ${STAGEDIR}/var/lib/polkit-1/localauthority/${i}
 .endfor
+	${MV} ${STAGEDIR}/usr/lib/sysusers.d ${STAGEDIR}${PREFIX}/lib/
+	${MV} ${STAGEDIR}/usr/lib/tmpfiles.d ${STAGEDIR}${PREFIX}/lib/
+	${RM} -r ${STAGEDIR}/usr
 	# Disable system-d for now
 	${RM} -r  ${STAGEDIR}${PREFIX}/share/dbus-1/system.d
