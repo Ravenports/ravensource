@@ -1,9 +1,8 @@
-DEF[PORTVERSION]=	7.2.5
+DEF[PORTVERSION]=	7.4.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		redis
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		databases
 VARIANTS=		std
 SDESC[std]=		Persistent key-value database with net interface
@@ -19,9 +18,14 @@ SPKGS[std]=		single
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		BSD3CLAUSE:single
-LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/COPYING
-LICENSE_SCHEME=		solo
+LICENSE=		CUSTOM1:single
+			CUSTOM2:single
+LICENSE_NAME=		CUSTOM1:"Redis Source Available License 2.0"
+			CUSTOM2:"Server Side Public License"
+LICENSE_FILE=		CUSTOM1:{{WRKDIR}}/RSALv2
+			CUSTOM2:{{WRKDIR}}/SSPL
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_SCHEME=		dual
 
 FPC_EQUIVALENT=		databases/redis
 
@@ -42,6 +46,14 @@ MAKE_ENV=		V=yo
 VAR_OPSYS[linux]=	LDFLAGS=-ldl
 # certain release of freebsd and dragonfly will need
 # -DNO_MALLOC_USABLE_SIZE
+
+post-extract:
+	${SED} -n '/Redis Source Available License 2.0 (RSALv2)/!p;//q' \
+		${WRKSRC}/LICENSE.txt > ${WRKDIR}/TERMS
+	${AWK} '/1. Redis/,/exclusive jurisdiction for all purposes/' \
+		${WRKSRC}/LICENSE.txt > ${WRKDIR}/RSALv2
+	${AWK} '/2. Server Side Public License/,/return for a fee./' \
+		${WRKSRC}/LICENSE.txt > ${WRKDIR}/SSPL
 
 do-install:
 	(cd ${WRKSRC}/src && \
