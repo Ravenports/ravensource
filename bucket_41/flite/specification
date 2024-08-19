@@ -1,0 +1,50 @@
+DEF[PORTVERSION]=	2.2
+DEF[TAG]=		v${PORTVERSION}
+DEF[SOVERSION]=		2.2
+DEF[SOMAJOR]=		1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		flite
+VERSION=		${PORTVERSION}
+KEYWORDS=		audio
+VARIANTS=		std
+SDESC[std]=		Small run-time speech synthesis engine
+HOMEPAGE=		https://github.com/festvox/flite/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/festvox:flite:${TAG}
+DISTFILE[1]=		generated:main
+
+SPKGS[std]=		set primary dev tools man docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		audio/flite
+
+LICENSE=		BSD4CLAUSE:primary
+LICENSE_FILE=		BSD4CLAUSE:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+BUILD_DEPENDS=		alsa-lib:dev:std
+BUILDRUN_DEPENDS=	alsa-lib:primary:std
+
+EXRUN[tools]=		primary
+
+USES=			cpe gmake
+
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-shared=yes
+PLIST_SUB=		SOVERSION=${SOVERSION}
+			SOMAJOR=${SOMAJOR}
+
+post-patch:
+	${REINPLACE_CMD} -e 's|-pd|-pR|g' ${WRKSRC}/main/Makefile
+	${REINPLACE_CMD} -e "/-shared -Wl/s/)$$/ -lm)/g" \
+		${WRKSRC}/config/common_make_rules
+
+post-install:
+	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
+	${INSTALL_DATA} ${WRKSRC}/README.md ${STAGEDIR}${STD_DOCDIR}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib*.so
