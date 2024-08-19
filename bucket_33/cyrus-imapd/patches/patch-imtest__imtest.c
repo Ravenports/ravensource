@@ -1,6 +1,6 @@
---- imtest/imtest.c.orig	2024-03-13 02:47:44 UTC
+--- imtest/imtest.c.orig	2024-08-16 00:27:41 UTC
 +++ imtest/imtest.c
-@@ -511,7 +511,9 @@ static int tls_init_clientengine(int ver
+@@ -512,7 +512,9 @@ static int tls_init_clientengine(int ver
      off |= SSL_OP_ALL;            /* Work around all known bugs */
      off |= SSL_OP_NO_SSLv2;       /* Disable insecure SSLv2 */
      off |= SSL_OP_NO_SSLv3;       /* Disable insecure SSLv3 */

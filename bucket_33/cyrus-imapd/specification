@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.8.4
+DEF[PORTVERSION]=	3.10.0
 DEF[SOVERSION]=		0.0.0
 DEF[CYRUS_USER]=	cyrus
 DEF[CYRUS_GROUP]=	cyrus
@@ -36,6 +36,7 @@ BUILD_DEPENDS=		brotli:dev:std
 			libnghttp2:dev:std
 			xapian-core:dev:std
 			cyrus-sasl:dev:std
+			vim:xxd:std
 BUILDRUN_DEPENDS=	brotli:primary:std
 			cyrus-sasl:primary:std
 			icu:primary:std
@@ -95,13 +96,12 @@ CONFIGURE_ARGS=		--libexecdir={{PREFIX}}/cyrus/libexec
 			--enable-xapian
 			--enable-gssapi={{LOCALBASE}}
 			--enable-http
+			--enable-jmap
 			--disable-backup
 			--disable-replication
 			--with-mysql=no
 			--with-pgsql=no
-			--with-snmp=no
 			--with-clamav=no
-			--with-jmap=no
 
 post-patch:
 	${REINPLACE_CMD} -e "s|/etc/|${PREFIX}/etc/|" \
