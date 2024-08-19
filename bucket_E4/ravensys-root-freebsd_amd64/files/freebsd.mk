@@ -277,6 +277,10 @@ headers_FreeBSD=\
 	jail.h \
 	# end
 
+.if "${OSMAJOR}" == "13"
+headers_FreeBSD+= threads.h
+.endif
+
 pcfiles_FreeBSD=\
 	libusb-0.1.pc \
 	libusb-2.0.pc \
