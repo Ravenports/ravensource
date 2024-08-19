@@ -1,4 +1,4 @@
---- src/pipewire/pipewire.c.intermediate	2024-08-12 22:57:52 UTC
+--- src/pipewire/pipewire.c.orig	2024-07-31 10:02:24 UTC
 +++ src/pipewire/pipewire.c
 @@ -7,7 +7,7 @@
  #include <unistd.h>
@@ -9,7 +9,7 @@
  #include <sys/prctl.h>
  #endif
  #include <pwd.h>
-@@ -743,7 +743,7 @@ static void init_prgname(void)
+@@ -659,7 +659,7 @@ static void init_prgname(void)
  		}
  	}
  #endif
@@ -18,7 +18,7 @@
  	{
  		ssize_t len;
  
-@@ -753,7 +753,7 @@ static void init_prgname(void)
+@@ -669,7 +669,7 @@ static void init_prgname(void)
  		}
  	}
  #endif

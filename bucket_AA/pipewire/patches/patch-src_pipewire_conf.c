@@ -1,4 +1,4 @@
---- src/pipewire/conf.c.orig	2024-02-02 13:09:07 UTC
+--- src/pipewire/conf.c.orig	2024-07-31 10:02:24 UTC
 +++ src/pipewire/conf.c
 @@ -18,7 +18,7 @@
  #ifdef HAVE_PWD_H

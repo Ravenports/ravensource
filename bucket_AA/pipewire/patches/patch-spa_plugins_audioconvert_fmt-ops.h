@@ -1,4 +1,4 @@
---- spa/plugins/audioconvert/fmt-ops.h.orig	2024-02-02 13:09:07 UTC
+--- spa/plugins/audioconvert/fmt-ops.h.orig	2024-07-31 10:02:24 UTC
 +++ spa/plugins/audioconvert/fmt-ops.h
 @@ -3,7 +3,7 @@
  /* SPDX-License-Identifier: MIT */

@@ -1,7 +1,7 @@
---- spa/plugins/v4l2/v4l2-utils.c.orig	2024-02-02 13:09:07 UTC
+--- spa/plugins/v4l2/v4l2-utils.c.orig	2024-07-31 10:02:24 UTC
 +++ spa/plugins/v4l2/v4l2-utils.c
-@@ -13,6 +13,10 @@
- 
+@@ -15,6 +15,10 @@
+ #include <spa/utils/cleanup.h>
  #include <spa/utils/result.h>
  
 +typedef uint32_t __u32;

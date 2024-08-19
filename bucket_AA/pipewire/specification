@@ -1,4 +1,6 @@
-DEF[PORTVERSION]=	1.0.3
+DEF[PORTVERSION]=	1.2.2
+DEF[THREADS]=		c11threads-1.0
+DEF[SOVERSION]=		0.1202.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		pipewire
@@ -9,16 +11,19 @@ SDESC[std]=		Low-latency audio/video router and processor
 HOMEPAGE=		https://pipewire.org/
 CONTACT=		nobody
 
-DOWNLOAD_GROUPS=	main
+DOWNLOAD_GROUPS=	main jtsiomb
 SITES[main]=		https://gitlab.freedesktop.org/pipewire/pipewire/-/archive/${PORTVERSION}/
+SITES[jtsiomb]=		https://github.com/jtsiomb/c11threads/releases/download/v1.0/
 DISTFILE[1]=		pipewire-${PORTVERSION}.tar.gz:main
+DISTFILE[2]=		${THREADS}.tar.gz:jtsiomb
+DF_INDEX=		1 2
 
 SPKGS[std]=		set primary dev tools nls
 
-OPTIONS_AVAILABLE=	BSD JACK
-OPTIONS_STANDARD=	BSD JACK
+OPTIONS_AVAILABLE=	BSD JACK C11THREADS
+OPTIONS_STANDARD=	BSD JACK C11THREADS
 OPT_ON[dragonfly]=	BSD
-OPT_ON[freebsd]=	BSD
+OPT_ON[freebsd]=	BSD C11THREADS
 OPT_ON[netbsd]=		BSD
 OPT_ON[openbsd]=	BSD
 
@@ -70,7 +75,10 @@ MESON_ARGS=		-Dgstreamer=enabled
 			-Dlibffado=disabled
 			-Djack=disabled
 			-Dpipewire-jack=disabled
+			-Dtests=disabled
 			-Dudevrulesdir="{{LOCALBASE}}/lib/udev/rules.d"
+INSTALL_REQ_TOOLCHAIN=	yes
+SOVERSION=		${SOVERSION}
 
 [BSD].DESCRIPTION=			BSD-specific build instructions
 [BSD].BUILD_DEPENDS_ON=			libinotify:dev:std
@@ -83,7 +91,16 @@ MESON_ARGS=		-Dgstreamer=enabled
 [JACK].DESCRIPTION=			Add Jack audio server support
 [JACK].BROKEN_ON=			Not yet supported
 
+[C11THREADS].DESCRIPTION=		Install <threads.h> on platforms missing it
+
 pre-configure-dragonfly:
 	${REINPLACE_CMD} -e 's@freebsd@dragonfly@g' \
 		${WRKSRC}/src/pipewire/meson.build \
 		${WRKSRC}/meson.build
+	${INSTALL_DATA} ${WRKDIR}/${THREADS}/c11threads.h ${LOCALBASE}/include/threads.h
+
+pre-configure:
+	${GREP} -rl "pw_init(" | ${XARGS} ${REINPLACE_CMD} -e 's|pw_init(|pipewire_init|g'
+
+post-install:
+	${RM} ${LOCALBASE}/include/threads.h

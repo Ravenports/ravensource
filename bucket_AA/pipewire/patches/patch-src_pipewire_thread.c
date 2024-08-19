@@ -1,4 +1,4 @@
---- src/pipewire/thread.c.orig	2024-02-02 13:09:07 UTC
+--- src/pipewire/thread.c.orig	2024-07-31 10:02:24 UTC
 +++ src/pipewire/thread.c
 @@ -6,6 +6,9 @@
  #include <unistd.h>

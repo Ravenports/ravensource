@@ -1,4 +1,4 @@
---- src/pipewire/mem.c.orig	2024-02-02 13:09:07 UTC
+--- src/pipewire/mem.c.orig	2024-07-31 10:02:24 UTC
 +++ src/pipewire/mem.c
 @@ -26,6 +26,7 @@ PW_LOG_TOPIC_EXTERN(log_mem);
  #define PW_LOG_TOPIC_DEFAULT log_mem
@@ -17,7 +17,7 @@
  #define MAP_LOCKED 0
  #endif
  
-@@ -495,7 +496,7 @@ struct pw_memblock * pw_mempool_alloc(st
+@@ -556,7 +557,7 @@ struct pw_memblock * pw_mempool_alloc(st
  		pw_log_error("%p: Failed to create memfd: %m", pool);
  		goto error_free;
  	}

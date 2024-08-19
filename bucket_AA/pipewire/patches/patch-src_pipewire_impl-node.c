@@ -1,4 +1,4 @@
---- src/pipewire/impl-node.c.orig	2024-02-02 13:09:07 UTC
+--- src/pipewire/impl-node.c.orig	2024-07-31 10:02:24 UTC
 +++ src/pipewire/impl-node.c
 @@ -8,7 +8,9 @@
  #include <unistd.h>
@@ -9,4 +9,4 @@
 +#endif
  #include <limits.h>
  
- #include <spa/support/system.h>
+ #include "config.h"
