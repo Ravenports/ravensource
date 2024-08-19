@@ -1,0 +1,34 @@
+DEF[PORTVERSION]=	%%VERSION%%
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		bindgen-cli
+VERSION=		${PORTVERSION}
+KEYWORDS=		rust devel
+VARIANTS=		std
+SDESC[std]=		Generate Rust bindings from C (and some C++) code
+HOMEPAGE=		https://crates.io/crates/bindgen/
+CONTACT=		nobody
+
+%%DOWNLOAD_GROUPS%%
+SITES[main]=		https://crates.io/api/v1/crates/bindgen-cli/${PORTVERSION}/download?dummy=/
+%%CR_SITES%%
+
+DISTFILE[1]=		bindgen-cli-${PORTVERSION}.tar.gz:main
+%%CR_DISTFILES%%
+%%DF_INDEX%%
+
+SPKGS[std]=		single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD3CLAUSE:single
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+RUN_DEPENDS=		llvm:tools:std
+
+USES=			cargo cclibs:single
+
+post-install:
+	${RM} ${STAGEDIR}${PREFIX}/.crates2.json
