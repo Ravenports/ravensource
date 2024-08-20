@@ -1,0 +1,157 @@
+DEF[PORTVERSION]=	24.05.2
+DEF[SOVERSION]=		1.0.0
+DEF[GENERATORS]=	comicbook djvu dvi epub fax fb ghostview kimgio md poppler tiff txt xps
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		okular
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		std
+SDESC[std]=		KDE universal document viewer
+HOMEPAGE=		https://okular.kde.org/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://download.kde.org/stable/release-service/${PORTVERSION}/src/
+DISTFILE[1]=		okular-${PORTVERSION}.tar.xz:main
+DIST_SUBDIR=		kde6
+
+SPKGS[std]=		set primary dev man nls docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD2CLAUSE:primary
+			GPLv2:primary
+			GPLv2+:primary
+			GPLv3:primary
+			GPLv3+:primary
+			LGPL20:primary
+			LGPL20+:primary
+			MIT:primary
+LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/LICENSES/BSD-2-Clause.txt
+			GPLv2:{{WRKSRC}}/LICENSES/GPL-2.0-only.txt
+			GPLv2+:{{WRKSRC}}/LICENSES/GPL-2.0-or-later.txt
+			GPLv3:{{WRKSRC}}/LICENSES/GPL-3.0-only.txt
+			GPLv3+:{{WRKSRC}}/LICENSES/GPL-3.0-or-later.txt
+			LGPL20:{{WRKSRC}}/LICENSES/LGPL-2.0-only.txt
+			LGPL20+:{{WRKSRC}}/LICENSES/LGPL-2.0-or-later.txt
+			MIT:{{WRKSRC}}/LICENSES/MIT.txt
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SCHEME=		multi
+
+FPC_EQUIVALENT=		graphics/okular
+
+BUILD_DEPENDS=		djvulibre:dev:std
+			discount:dev:std
+			ebook-tools:dev:std
+			kf6-extra-cmake-modules:primary:std
+			kf6-karchive:dev:std
+			kf6-kbookmarks:dev:std
+			kf6-kcodecs:dev:std
+			kf6-kcolorscheme:dev:std
+			kf6-kcompletion:dev:std
+			kf6-kconfig:dev:std
+			kf6-kconfigwidgets:dev:std
+			kf6-kcoreaddons:dev:std
+			kf6-kcrash:dev:std
+			kf6-kdoctools:dev:std
+			kf6-ki18n:dev:std
+			kf6-kiconthemes:dev:std
+			kf6-kio:dev:std
+			kf6-kitemviews:dev:std
+			kf6-kjobwidgets:dev:std
+			kf6-kparts:dev:std
+			kf6-kpty:dev:std
+			kf6-kservice:dev:std
+			kf6-ktextwidgets:dev:std
+			kf6-kwallet:dev:std
+			kf6-kwidgetsaddons:dev:std
+			kf6-kwindowsystem:dev:std
+			kf6-kxmlgui:dev:std
+			kf6-purpose:dev:std
+			kf6-solid:dev:std
+			kf6-sonnet:dev:std
+			kf6-threadweaver:dev:std
+			libkexiv2:dev:std
+			libspectre:dev:std
+			libzip:dev:std
+			plasma-activities:dev:std
+			poppler:dev:std
+			poppler:qt6dev:std
+			qt6-qtbase:dev:std
+			qt6-qtdeclarative:dev:std
+			qt6-qtmultimedia:dev:std
+			qt6-qtspeech:dev:std
+			qt6-qtsvg:dev:std
+BUILDRUN_DEPENDS=	djvulibre:primary:std
+			discount:primary:std
+			ebook-tools:primary:std
+			kf6-karchive:primary:std
+			kf6-kbookmarks:primary:std
+			kf6-kcodecs:primary:std
+			kf6-kcolorscheme:primary:std
+			kf6-kcompletion:primary:std
+			kf6-kconfig:primary:std
+			kf6-kconfigwidgets:primary:std
+			kf6-kcoreaddons:primary:std
+			kf6-kcrash:primary:std
+			kf6-kdoctools:primary:std
+			kf6-ki18n:primary:std
+			kf6-kiconthemes:primary:std
+			kf6-kio:primary:std
+			kf6-kitemviews:primary:std
+			kf6-kjobwidgets:primary:std
+			kf6-kparts:primary:std
+			kf6-kpty:primary:std
+			kf6-kservice:primary:std
+			kf6-ktextwidgets:primary:std
+			kf6-kwallet:primary:std
+			kf6-kwidgetsaddons:primary:std
+			kf6-kwindowsystem:primary:std
+			kf6-kxmlgui:primary:std
+			kf6-purpose:primary:std
+			kf6-solid:primary:std
+			kf6-sonnet:primary:std
+			kf6-threadweaver:primary:std
+			libkexiv2:primary:std
+			libspectre:primary:std
+			libzip:primary:std
+			plasma-activities:primary:std
+			poppler:primary:std
+			poppler:qt6:std
+			qt6-qtbase:primary:std
+			qt6-qtdeclarative:primary:std
+			qt6-qtmultimedia:primary:std
+			qt6-qtspeech:primary:std
+			qt6-qtsvg:primary:std
+
+USES=			cmake desktop-utils:primary freetype gettext tiff zlib
+XORG_COMPONENTS=	x11
+
+CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt6/cmake
+			-DFORCE_NOT_REQUIRED_DEPENDENCIES=Phonon4Qt6
+
+SOVERSION=		${SOVERSION}
+
+post-extract:
+	${ECHO} "Terms extracted from 'generators/dvi/util.cpp':" > ${WRKDIR}/TERMS
+	${SED} -n '/include/!p;//q' ${WRKSRC}/generators/dvi/util.cpp >> ${WRKDIR}/TERMS
+	${ECHO} "Terms extracted from 'part/magnifierview.h':" >> ${WRKDIR}/TERMS
+	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/part/magnifierview.h >> ${WRKDIR}/TERMS
+	${ECHO} "Terms extracted from 'shell/main.cpp':" >> ${WRKDIR}/TERMS
+	${SED} -n '/include/!p;//q' ${WRKSRC}/shell/main.cpp >> ${WRKDIR}/TERMS
+	${ECHO} "Terms extracted from 'part/okmenutitle.h':" >> ${WRKDIR}/TERMS
+	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/part/okmenutitle.h >> ${WRKDIR}/TERMS
+	${ECHO} "Terms extracted from 'generators/fax/fax_debug.h':" >> ${WRKDIR}/TERMS
+	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/generators/fax/fax_debug.h >> ${WRKDIR}/TERMS
+	${ECHO} "Terms extracted from 'core/synctex/synctex_parser.h':" >> ${WRKDIR}/TERMS
+	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/core/synctex/synctex_parser.h >> ${WRKDIR}/TERMS
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/okular
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libOkular6Core.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/qt6/plugins/kf6/parts/okularpart.so
+.for g in ${GENERATORS}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/qt6/plugins/okular_generators/okularGenerator_${g}.so
+.endfor
