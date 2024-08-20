@@ -6,6 +6,7 @@ DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
 
 NAMEBASE=		rust
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		lang
 VARIANTS=		std
 SDESC[std]=		Systems programming language from Mozilla
@@ -61,7 +62,7 @@ EXTRACT_ONLY=		1 14
 BUILD_DEPENDS=		bash:primary:std
 			cmake:primary:std
 			ncurses:primary:std
-			nss:caroot:std
+BUILDRUN_DEPENDS=	nss:caroot:std
 
 # Rust calls -lexecinfo during linking although it doesn't appear in final binary
 # The dev package has the solink to make this happen, so it's a run dependency
