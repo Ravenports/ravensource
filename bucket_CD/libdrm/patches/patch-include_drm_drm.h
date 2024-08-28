@@ -1,4 +1,4 @@
---- include/drm/drm.h.orig	2024-01-13 09:37:07 UTC
+--- include/drm/drm.h.orig	2024-06-26 08:13:31 UTC
 +++ include/drm/drm.h
 @@ -876,7 +876,11 @@ struct drm_set_client_cap {
  };

@@ -1,4 +1,4 @@
---- xf86drmMode.c.orig	2024-01-13 09:37:07 UTC
+--- xf86drmMode.c.orig	2024-06-26 08:13:31 UTC
 +++ xf86drmMode.c
 @@ -39,9 +39,7 @@
  #include <stdlib.h>

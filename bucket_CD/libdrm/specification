@@ -1,4 +1,9 @@
-DEF[PORTVERSION]=	2.4.122
+DEF[PORTVERSION]=	2.4.123
+DEF[SO_DRM]=		2.123.0
+DEF[SO_AMD]=		1.123.0
+DEF[SO_ARM]=		1.123.0
+DEF[SO_INTEL]=		1.123.0
+DEF[SO_NOUVEAU]=	2.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libdrm
@@ -50,6 +55,17 @@ INSTALL_REQ_TOOLCHAIN=	yes
 
 VAR_OPSYS[sunos]=	LDFLAGS=-lrt
 VAR_OPSYS[netbsd]=	LDFLAGS=-lpci
+
+PLIST_SUB=		SO_DRM=${SO_DRM}
+			SO_DRM_MAJ=${SO_DRM:R:R}
+			SO_AMD=${SO_AMD}
+			SO_AMD_MAJ=${SO_AMD:R:R}
+			SO_ARM=${SO_ARM}
+			SO_ARM_MAJ=${SO_ARM:R:R}
+			SO_INTEL=${SO_INTEL}
+			SO_INTEL_MAJ=${SO_INTEL:R:R}
+			SO_NOUVEAU=${SO_NOUVEAU}
+			SO_NOUVEAU_MAJ=${SO_NOUVEAU:R:R}
 
 [ARM].DESCRIPTION=			DRM Drivers for AARCH64 architecture
 [ARM].CONFIGURE_ARGS_ON=		-Detnaviv=enabled
