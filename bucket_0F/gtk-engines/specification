@@ -1,0 +1,40 @@
+DEF[PORTVERSION]=	2.20.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gtk-engines
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11_themes
+VARIANTS=		std
+SDESC[std]=		Theme engine for the GTK-2.0 toolkit
+HOMEPAGE=		https://www.gtk.org/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNOME/gtk-engines/${PORTVERSION:R}/
+DISTFILE[1]=		gtk-engines-${PORTVERSION}.tar.bz2:main
+DIST_SUBDIR=		gnome2
+
+SPKGS[std]=		set primary nls
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL21+:primary
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/engines/clearlooks/src/clearlooks_types.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		x11-themes/gtk-engines2
+
+USES=			fbsd10fix gettext gmake libtool pkgconfig
+GNOME_COMPONENTS=	gtk2 intltool
+
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-animation
+INSTALL_TARGET=		install-strip
+
+post-patch:
+	${REINPLACE_CMD} -e 's|glib.*\.h>|glib.h>|g' \
+		${WRKSRC}/engines/clearlooks/src/animation.c
