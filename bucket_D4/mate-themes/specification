@@ -1,0 +1,35 @@
+DEF[PORTVERSION]=	3.22.26
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		mate-themes
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11_themes
+VARIANTS=		std
+SDESC[std]=		Collection of themes and icons for MATE
+HOMEPAGE=		https://mate-desktop.org
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://pub.mate-desktop.org/releases/themes/${PORTVERSION:R}/
+DISTFILE[1]=		mate-themes-${PORTVERSION}.tar.xz:main
+DIST_SUBDIR=		mate
+
+SPKGS[std]=		single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# Licensing is probably invalid; there's multiple COPYING files for various Copyleft
+# licenses but no terms.
+
+FPC_EQUIVALENT=		x11-themes/mate-themes
+
+RUN_DEPENDS=		gtk-engines:primary:std
+			gtk-murrine-engine:single:std
+USES=			gettext gmake iconv pkgconfig
+GNOME_COMPONENTS=	gtk2
+
+MUST_CONFIGURE=		gnu
+
+post-install:
+	${RM} -r ${STAGEDIR}${PREFIX}/share/locale
