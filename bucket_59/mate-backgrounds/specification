@@ -1,0 +1,34 @@
+DEF[PORTVERSION]=	1.28.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		mate-backgrounds
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11_themes
+VARIANTS=		std
+SDESC[std]=		Collection of backgrounds for MATE
+HOMEPAGE=		https://mate-desktop.org
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://pub.mate-desktop.org/releases/${PORTVERSION:R}/
+DISTFILE[1]=		mate-backgrounds-${PORTVERSION}.tar.xz:main
+DIST_SUBDIR=		mate
+
+SPKGS[std]=		single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:single
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKSRC}}/README
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		x11-themes/mate-backgrounds
+
+USES=			gettext gmake iconv
+
+MUST_CONFIGURE=		gnu
+
+post-install:
+	${RM} -r ${STAGEDIR}${PREFIX}/share/locale
