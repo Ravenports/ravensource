@@ -1,0 +1,59 @@
+DEF[PORTVERSION]=	1.28.0
+DEF[SOVERSION]=		0.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libmatemixer
+VERSION=		${PORTVERSION}
+KEYWORDS=		audio
+VARIANTS=		std
+SDESC[std]=		Mixer library for MATE
+HOMEPAGE=		https://mate-desktop.org/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://pub.mate-desktop.org/releases/${PORTVERSION:R}/
+DISTFILE[1]=		libmatemixer-${PORTVERSION}.tar.xz:main
+DIST_SUBDIR=		mate
+
+SPKGS[std]=		set primary dev nls docs
+
+OPTIONS_AVAILABLE=	OSS
+OPTIONS_STANDARD=	OSS
+OPT_ON[dragonfly]=	OSS
+OPT_ON[freebsd]=	OSS
+OPT_ON[midnightbsd]=	OSS
+OPT_ON[netbsd]=		OSS
+
+# Use stock license as terms state LGPL20+ but COPYING file is LGPL21
+LICENSE=		LGPL20+:primary
+LICENSE_FILE=		LGPL20+:stock
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/libmatemixer/matemixer.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		audio/libmatemixer
+
+# In theory also supports PA, but we don't have that.
+BUILD_DEPENDS=		alsa-lib:dev:std
+BUILDRUN_DEPENDS=	alsa-lib:primary:std
+USES=			iconv gettext gmake libtool pkgconfig
+GNOME_COMPONENTS=	glib
+
+MUST_CONFIGURE=		gnu
+INSTALL_REQ_TOOLCHAIN=	yes
+SOVERSION=		${SOVERSION}
+
+[OSS].DESCRIPTION=			Enable OSS backend
+[OSS].CONFIGURE_ARGS_ON=		--enable-oss
+					--disable-null
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libmatemixer.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libmatemixer/libmatemixer-alsa.so
+
+post-install-OSS-ON:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libmatemixer/libmatemixer-oss.so
+
+post-install-OSS-OFF:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libmatemixer/libmatemixer-null.so
