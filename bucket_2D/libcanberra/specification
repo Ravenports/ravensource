@@ -5,7 +5,7 @@ DEF[SOVER_GTK]=		0.1.9
 
 NAMEBASE=		libcanberra
 VERSION=		${PORTVERSION}
-REVISION=		2
+REVISION=		3
 KEYWORDS=		audio
 VARIANTS=		std
 SDESC[std]=		Implementation of the XDG sound theme specs
@@ -16,7 +16,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://0pointer.de/lennart/projects/libcanberra/
 DISTFILE[1]=		libcanberra-${PORTVERSION}.tar.xz:main
 
-SPKGS[std]=		set primary dev docs
+SPKGS[std]=		set primary dev docs gtk2 gtk3
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -30,7 +30,10 @@ LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/canberra.h
 LICENSE_AWK=		TERMS:"types.h"
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		gstreamer1:dev:std
+BUILD_DEPENDS=		at-spi2-core:dev:std
+			gstreamer1:dev:std
+			gtk2:set:std
+			gtk3:set:std
 			harfbuzz:dev:std
 			libvorbis:dev:std
 			tdb:dev:std
@@ -41,7 +44,7 @@ BUILDRUN_DEPENDS=	gstreamer1:primary:std
 RUN_DEPENDS=		sound-theme-freedesktop:single:std
 
 USES=			gmake libtool pkgconfig mbsdfix
-GNOME_COMPONENTS=	gtk2 gtk3
+GNOME_COMPONENTS=	glib intltool
 
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--disable-lynx
@@ -53,6 +56,11 @@ CFLAGS=			-D_PUBLIC_=
 SOVERSION=		${SOVERSION}
 PLIST_SUB=		SOVER_GTK=${SOVER_GTK}
 			SOMAJ_GTK=${SOVER_GTK:R:R}
+
+EXRUN[gtk2]=		primary
+			gtk2:primary:std
+EXRUN[gtk3]=		primary
+			gtk3:primary:std
 
 post-patch-sunos:
 	${REINPLACE_CMD} -e '/as-needed/d' ${WRKSRC}/configure
