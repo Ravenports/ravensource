@@ -1,0 +1,32 @@
+DEF[PORTVERSION]=	1.28.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		mate-user-guide
+VERSION=		${PORTVERSION}
+KEYWORDS=		misc
+VARIANTS=		std
+SDESC[std]=		MATE user guide
+HOMEPAGE=		https://mate-desktop.org/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://pub.mate-desktop.org/releases/${PORTVERSION:R}/
+DISTFILE[1]=		mate-user-guide-${PORTVERSION}.tar.xz:main
+DIST_SUBDIR=		mate
+
+SPKGS[std]=		set primary nls
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GFDL:primary
+LICENSE_FILE=		GFDL:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		misc/mate-user-guide
+
+BUILD_DEPENDS=		itstool:single:std
+RUN_DEPENDS=		yelp:primary:std
+USES=			gettext gmake iconv
+
+MUST_CONFIGURE=		gnu
