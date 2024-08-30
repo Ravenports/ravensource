@@ -4,6 +4,7 @@ DEF[PORTVERSION]=	4.18.6
 
 NAMEBASE=		xfce4-settings
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		sysutils
 VARIANTS=		std
 SDESC[std]=		Settings manager for Xfce
@@ -42,8 +43,9 @@ BUILDRUN_DEPENDS=	garcon:primary:std
 			libnotify:primary:std
 			libxklavier:primary:std
 			upower:primary:std
+RUN_DEPENDS=		libcanberra:gtk3:std
 
-USES=			gmake cpe pkgconfig fontconfig:build
+USES=			desktop-utils:primary gmake cpe pkgconfig fontconfig:build
 GNOME_COMPONENTS=	glib intltool gtk3
 CPE_VENDOR=		xfce
 CPE_PRODUCT=		xfce4-settings
