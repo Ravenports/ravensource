@@ -1,0 +1,43 @@
+DEF[PORTVERSION]=	3.0.2
+DEF[SOVERSION]=		0.0.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libunique
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11_toolkits
+VARIANTS=		std
+SDESC[std]=		Library for single instance applications
+HOMEPAGE=		https://gitlab.gnome.org/Archive/unique
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNOME/libunique/${PORTVERSION:R}
+DISTFILE[1]=		libunique-${PORTVERSION}.tar.xz:main
+DIST_SUBDIR=		gnome3
+
+SPKGS[std]=		set primary dev docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL21+:primary
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/unique/unique.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		x11-toolkits/libunique3
+
+BUILD_DEPENDS=		dbus:dev:std
+BUILDRUN_DEPENDS=	dbus:primary:std
+
+USES=			fbsd10fix gettext gmake iconv libtool pkgconfig
+XORG_COMPONENTS=	ice
+GNOME_COMPONENTS=	glib gtk3 introspection
+
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-maintainer-flags
+INSTALL_TARGET=		install-strip
+
+SOVERSION=		${SOVERSION}
