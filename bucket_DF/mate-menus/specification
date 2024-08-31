@@ -1,0 +1,43 @@
+DEF[PORTVERSION]=	1.28.0
+DEF[SOVERSION]=		2.4.9
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		mate-menus
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11
+VARIANTS=		std
+SDESC[std]=		MATE implementation of the FreeDesktop Menu Spec
+HOMEPAGE=		https://mate-desktop.org/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://pub.mate-desktop.org/releases/${PORTVERSION:R}/
+DISTFILE[1]=		mate-menus-${PORTVERSION}.tar.xz:main
+DIST_SUBDIR=		mate
+
+SPKGS[std]=		set primary dev nls
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:primary
+			LGPL20+:primary
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+			LGPL20+:{{WRKSRC}}/COPYING.LIB
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SCHEME=		multi
+
+FPC_EQUIVALENT=		x11/mate-menus
+
+USES=			gettext gmake iconv libtool pkgconfig python
+GNOME_COMPONENTS=	glib introspection
+
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
+SOVERSION=		${SOVERSION}
+
+post-install:
+	${ECHO} "Terms extracted from 'util/mate-menus-ls.py':" > ${WRKDIR}/TERMS
+	${SED} -n '/import/!p;//q' ${WRKSRC}/util/mate-menus-ls.py >> ${WRKDIR}/TERMS
+	${ECHO} "Terms extracted from 'libmenu/menu-util.h':" >> ${WRKDIR}/TERMS
+	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/libmenu/menu-util.h >> ${WRKDIR}/TERMS
