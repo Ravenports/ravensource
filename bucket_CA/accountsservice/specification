@@ -1,9 +1,11 @@
 DEF[PORTVERSION]=	23.13.9
 DEF[FBSD_TAG]=		1ad45945
+DEF[SOVERSION]=		0.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		accountsservice
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		sysutils
 VARIANTS=		std
 SDESC[std]=		D-Bus service for user account query/manipulation
@@ -17,7 +19,7 @@ DISTFILE[1]=		accountsservice-${FBSD_TAG}.tar.gz:freebsd
 DISTFILE[2]=		accountsservice-${PORTVERSION}.tar.gz:main
 DF_INDEX=		1 2
 
-SPKGS[std]=		set primary nls docs
+SPKGS[std]=		set primary dev nls docs
 
 OPTIONS_AVAILABLE=	LINUX
 OPTIONS_STANDARD=	LINUX
@@ -49,6 +51,7 @@ MESON_ARGS=		-Dsystemdsystemunitdir=no
 			-Dvapi=false
 DISTNAME=		accountsservice
 PATCH_WRKSRC=		{{WRKDIR}}/accountsservice-${FBSD_TAG}
+SOVERSION=		${SOVERSION}
 
 [LINUX].DESCRIPTION=			Support for Linux system
 [LINUX].CONFIGURE_ARGS_OFF=		-Dconsolekit=true
