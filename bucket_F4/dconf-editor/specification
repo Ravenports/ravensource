@@ -1,0 +1,42 @@
+DEF[PORTVERSION]=	45.0.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		dconf-editor
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		std
+SDESC[std]=		Configuration database editor for GNOME
+HOMEPAGE=		https://gitlab.gnome.org/GNOME/dconf-editor/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNOME/dconf-editor/${PORTVERSION:R:R}/
+DISTFILE[1]=		dconf-editor-${PORTVERSION}.tar.xz:main
+DIST_SUBDIR=		gnome3
+
+SPKGS[std]=		set primary man nls
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv3+:primary
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/editor/dconf-editor.vala
+LICENSE_AWK=		TERMS:"class ConfigurationEditor"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/dconf-editor
+
+BUILD_DEPENDS=		dconf:dev:std
+			libhandy:dev:std
+			vala:primary:std
+			appstream-glib:dev:std
+			appstream-glib:primary:std
+BUILDRUN_DEPENDS=	dconf:primary:std
+			libhandy:primary:std
+
+USES=			gettext gmake iconv meson pkgconfig
+GNOME_COMPONENTS=	glib gtk3
+
+GLIB_SCHEMAS=		ca.desrt.dconf-editor.gschema.xml
