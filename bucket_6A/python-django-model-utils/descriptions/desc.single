@@ -22,14 +22,6 @@ Getting Help
 Documentation for django-model-utils is available
 https://django-model-utils.readthedocs.io/
 
-Run tests
----------
-
-.. code-block
-
-    pip install -e .
-    py.test
-
 Contributing
 ============
 
@@ -45,12 +37,35 @@ https://github.com/jazzband/django-model-utils/blob/master/CONTRIBUTING.rst
 Changelog
 =========
 
+5.0.0 (2024-09-01)
+------------------
+- Add formal support for `Django 5.1`
+- Remove MonitorField deprecation warning. `None` - instead of
+  `django.utils.timezone.now` will be used when nullable and no default
+provided (GH-#599)
+- Add deprecation warning for MonitorField. The default value will be
+`None`
+  instead of `django.utils.timezone.now` - when nullable and without a
+default.
+- Add Brazilian Portuguese translation (GH-#578)
+- Don't use `post_init` signal for initialize tracker
+- Make `contribute_to_class()` in `StatusField`, `MonitorField` and
+`SplitField`
+  forward additional arguments to Django
+- `SplitField` no longer accepts `no_excerpt_field` as a keyword argument
+- Make `soft` argument to `SoftDeletableModel.delete()` keyword-only
+- `JoinManager` and `JoinManagerMixin` have been deprecated;
+  please use ``JoinQueryset.as_manager()`` instead
+- Change `SoftDeletableQuerySetMixin.delete` to replicate Django's API.
+
 4.5.1 (2024-05-02)
 ------------------
+
 - Remove `JoinQueryset.get_quoted_query()` by @mthuurne (GH-#618)
 
 4.5.0 (2024-04-01)
 ------------------
+
 - Don't use `post_init` signal for initialize tracker by @meanmail in - 
 (GH-#556)
 - clarify docs for managers of SoftDeletableModel by @tadamcz in - 
@@ -83,18 +98,3 @@ Changelog
 - Translation files by @foarsitter in -  (GH-#608)
 
 4.4.0 (2024-02-10)
-------------------
-
-- Add support for `Python 3.11` (GH-#545)
-- Add support for `Python 3.12` (GH-#545)
-- Drop support for `Python 3.7` (GH-#545)
-- Add support for `Django 4.2`
-- Add support for `Django 5.0`
-- Remove SaveSignalHandlingModel. This model used a modified copy of the
-internal Django method `Model.save_base()`
-  and had not been updated for upstream bug fixes changes since its
-addition.
-- Add Swedish translation
-- Use proper column name instead of attname (GH-#573)
-- Fix ValueError when calling prefetch_related for tracked ForeignKey
-fields

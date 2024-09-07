@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	72.2.0
+DEF[PORTVERSION]=	74.1.2
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-setuptools
@@ -11,7 +11,7 @@ HOMEPAGE=		none
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/6e/ec/06715d912351edc453e37f93f3fc80dcffd5ca0e70386c87529aca296f05
+SITES[main]=		PYPIWHL/cb/9c/9ad11ac06b97e55ada655f8a6bea9d1d3f06e120b178cd578d80e558191d
 DISTFILE[1]=		setuptools-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[v11]=		single
@@ -29,8 +29,10 @@ GENERATED=		yes
 DISTNAME=		setuptools-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
+# pytest-checkdocs >=2.4 ; extra == 'check'
+# pytest-ruff >=0.2.1 ; (sys_platform != "cygwin") and extra == 'check'
+# ruff >=0.5.2 ; (sys_platform != "cygwin") and extra == 'check'
 # packaging >=24 ; extra == 'core'
-# ordered-set >=3.1.1 ; extra == 'core'
 # more-itertools >=8.8 ; extra == 'core'
 # jaraco.text >=3.7 ; extra == 'core'
 # wheel >=0.43.0 ; extra == 'core'
@@ -38,6 +40,7 @@ DISTNAME=		setuptools-${PORTVERSION}.dist-info
 # importlib-metadata >=6 ; (python_version < "3.10") and extra == 'core'
 # tomli >=2.0.1 ; (python_version < "3.11") and extra == 'core'
 # importlib-resources >=5.10.2 ; (python_version < "3.9") and extra == 'core'
+# pytest-cov ; extra == 'cover'
 # sphinx >=3.5 ; extra == 'doc'
 # jaraco.packaging >=9.3 ; extra == 'doc'
 # rst.linker >=1.9 ; extra == 'doc'
@@ -52,13 +55,10 @@ DISTNAME=		setuptools-${PORTVERSION}.dist-info
 # sphinx-notfound-page <2,>=1 ; extra == 'doc'
 # pyproject-hooks !=1.1 ; extra == 'doc'
 # towncrier <24.7 ; extra == 'doc'
+# pytest-enabler >=2.2 ; extra == 'enabler'
 # pytest !=8.1.*,>=6 ; extra == 'test'
-# pytest-checkdocs >=2.4 ; extra == 'test'
-# pytest-cov ; extra == 'test'
-# pytest-mypy ; extra == 'test'
-# pytest-enabler >=2.2 ; extra == 'test'
 # virtualenv >=13.0.0 ; extra == 'test'
-# wheel ; extra == 'test'
+# wheel >=0.44.0 ; extra == 'test'
 # pip >=19.1 ; extra == 'test'
 # packaging >=23.2 ; extra == 'test'
 # jaraco.envs >=2.2 ; extra == 'test'
@@ -70,17 +70,15 @@ DISTNAME=		setuptools-${PORTVERSION}.dist-info
 # tomli-w >=1.0.0 ; extra == 'test'
 # pytest-timeout ; extra == 'test'
 # pytest-home >=0.5 ; extra == 'test'
-# mypy ==1.11.* ; extra == 'test'
-# tomli ; extra == 'test'
-# importlib-metadata ; extra == 'test'
 # pytest-subprocess ; extra == 'test'
 # pyproject-hooks !=1.1 ; extra == 'test'
 # jaraco.test ; extra == 'test'
-# pytest-ruff <0.4 ; (platform_system == "Windows") and extra == 'test'
 # jaraco.develop >=7.21 ; (python_version >= "3.9" and sys_platform != "cygwin") and extra == 'test'
-# pytest-ruff >=0.2.1 ; (sys_platform != "cygwin") and extra == 'test'
 # pytest-perf ; (sys_platform != "cygwin") and extra == 'test'
-# pytest-ruff >=0.3.2 ; (sys_platform != "cygwin") and extra == 'test'
+# pytest-mypy ; extra == 'type'
+# mypy ==1.11.* ; extra == 'type'
+# importlib-metadata >=7.0.2 ; (python_version < "3.10") and extra == 'type'
+# jaraco.develop >=7.21 ; (sys_platform != "cygwin") and extra == 'type'
 
 [PY311].USES_ON=			python:v11,wheel
 [PY312].USES_ON=			python:v12,wheel

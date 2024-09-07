@@ -81,7 +81,9 @@ This library provides one such mapping that was developed by the
 Unicode Consortium. Known as [Unicode IDNA Compatibility Processing
 ], it provides for both a regular
 mapping for typical applications, as well as a transitional mapping to
-help migrate from older IDNA 2003 applications.
+help migrate from older IDNA 2003 applications. Strings are
+preprocessed according to Section 4.4 “Preprocessing for IDNA2008”
+prior to the IDNA operations.
 
 For example, “Königsgäßchen” is not a permissible label as *LATIN
 CAPITAL LETTER K* is not allowed (nor are capital letters in general).
@@ -96,5 +98,3 @@ conversion.
     idna.core.InvalidCodepoint: Codepoint U+004B at position 1 of
 'Königsgäßchen' not allowed
     >>> idna.encode('Königsgäßchen', uts46=True)
-    b'xn--knigsgchen-b4a3dun'
-    >>> print(idna.decode('xn--knigsgchen-b4a3dun'))

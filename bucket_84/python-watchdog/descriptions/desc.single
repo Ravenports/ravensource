@@ -6,7 +6,7 @@ Watchdog
 
 Python API and shell utilities to monitor file system events.
 
-Works on 3.8+.
+Works on 3.9+.
 
 Example API Usage
 -----------------
@@ -18,6 +18,71 @@ as command-line arguments and logs events generated:
 
 Changelog
 ---------
+
+5.0.2
+~~~~~
+
+2024-09-03 • [full history]
+
+- Enable OS specific Mypy checks (`#1064
+<https://github.com/gorakhargosh/watchdog/pull/1064>`__)
+- [watchmedo] Fix tricks argument type of ``schedule_tricks()`` (`#1063
+<https://github.com/gorakhargosh/watchdog/pull/1063>`__)
+- Thanks to our beloved contributors: @gnought, @BoboTiG
+
+5.0.1
+~~~~~
+
+2024-09-02 • [full history]
+
+- [kqueue] Fix ``TypeError: kqueue.control() only accepts positional
+parameters``  (`#1062
+<https://github.com/gorakhargosh/watchdog/pull/1062>`__)
+- Thanks to our beloved contributors: @apoirier, @BoboTiG
+
+5.0.0
+~~~~~
+
+2024-08-26 • [full history]
+
+**Breaking Changes**
+
+- Drop support for Python 3.8 (`#1055
+<https://github.com/gorakhargosh/watchdog/pull/1055>`__)
+- [core] Enforced usage of proper keyword-arguments (`#1057
+<https://github.com/gorakhargosh/watchdog/pull/1057>`__)
+- [core] Renamed the BaseObserverSubclassCallable class to ObserverType
+(`#1055 <https://github.com/gorakhargosh/watchdog/pull/1055>`__)
+- [inotify] Renamed the inotify_event_struct class to InotifyEventStruct
+(`#1055 <https://github.com/gorakhargosh/watchdog/pull/1055>`__)
+- [inotify] Renamed the UnsupportedLibc exception to UnsupportedLibcError
+(`#1057 <https://github.com/gorakhargosh/watchdog/pull/1057>`__)
+- [inotify] Removed the ``InotifyConstants.IN_CLOSE`` constant (`#1046
+<https://github.com/gorakhargosh/watchdog/pull/1046>`__)
+- [watchmedo] Renamed the LogLevelException exception to LogLevelError
+(`#1057 <https://github.com/gorakhargosh/watchdog/pull/1057>`__)
+- [watchmedo] Renamed the WatchdogShutdown exception to
+WatchdogShutdownError (`#1057
+<https://github.com/gorakhargosh/watchdog/pull/1057>`__)
+- [windows] Renamed the FILE_NOTIFY_INFORMATION class to
+FileNotifyInformation (`#1055
+<https://github.com/gorakhargosh/watchdog/pull/1055>`__)
+- [windows] Removed the unused WATCHDOG_TRAVERSE_MOVED_DIR_DELAY constant
+(`#1057 <https://github.com/gorakhargosh/watchdog/pull/1057>`__)
+
+**Other Changes**
+
+- [core] Enable disallow_untyped_calls Mypy rule (`#1055
+<https://github.com/gorakhargosh/watchdog/pull/1055>`__)
+- [core] Enable disallow_untyped_defs Mypy rule (`#1060
+<https://github.com/gorakhargosh/watchdog/pull/1060>`__)
+- [core] Improve typing references for events (`#1040
+<https://github.com/gorakhargosh/watchdog/issues/1040>`__)
+- [inotify] Add support for IN_CLOSE_NOWRITE events. A
+FileClosedNoWriteEvent event will be fired, and its
+``on_closed_no_write()`` dispatcher has been introduced (`#1046
+<https://github.com/gorakhargosh/watchdog/pull/1046>`__)
+- Thanks to our beloved contributors: @BoboTiG
 
 4.0.2
 ~~~~~
@@ -33,68 +98,3 @@ Changelog
 <https://github.com/gorakhargosh/watchdog/pull/1048>`__)
 - [documentation] Simplify the quickstart example (`#1047
 <https://github.com/gorakhargosh/watchdog/pull/1047>`__)
-- [fsevents] Add missing event_filter keyword-argument to
-``FSEventsObserver.schedule()`` (`#1049
-<https://github.com/gorakhargosh/watchdog/pull/1049>`__)
-- [utils] Fix a possible race condition in AutoRestartTrick (`#1002
-<https://github.com/gorakhargosh/watchdog/pull/1002>`__)
-- [watchmedo] Remove execution rights from ``watchmedo.py``
-- Thanks to our beloved contributors: @BoboTiG, @nbelakovski, @ivg
-
-4.0.1
-~~~~~
-
-2024-05-23 • [full history]
-
-- [inotify] Fix missing event_filter for the full emitter (`#1032
-<https://github.com/gorakhargosh/watchdog/pull/1032>`__)
-- Thanks to our beloved contributors: @mraspaud, @BoboTiG
-
-4.0.0
-~~~~~
-
-2024-02-06 • [full history]
-
-- Drop support for Python 3.7.
-- Add support for Python 3.12.
-- [snapshot] Add typing to dirsnapshot (`#1012
-<https://github.com/gorakhargosh/watchdog/pull/1012>`__)
-- [snapshot] Added ``DirectorySnapshotDiff.ContextManager`` (`#1011
-<https://github.com/gorakhargosh/watchdog/pull/1011>`__)
-- [events] FileSystemEvent, and subclasses, are now dataclasses, and their
-``repr()`` has changed
-- [windows] WinAPINativeEvent is now a dataclass, and its ``repr()`` has
-changed
-- [events] Log FileOpenedEvent, and FileClosedEvent, events in
-LoggingEventHandler
-- [tests] Improve FileSystemEvent coverage
-- [watchmedo] Log all events in LoggerTrick
-- [windows] The
-``observers.read_directory_changes.WATCHDOG_TRAVERSE_MOVED_DIR_DELAY`` hack
-was removed. The constant will be kept to prevent breaking other softwares.
-- Thanks to our beloved contributors: @BoboTiG, @msabramo
-
-3.0.0
-~~~~~
-
-2023-03-20 • [full history]
-
-- Drop support for Python 3.6.
-- watchdog is now PEP 561 compatible, and tested with mypy
-- Fix missing ``> in FileSystemEvent.__repr__()``  (`#980
-<https://github.com/gorakhargosh/watchdog/pull/980>`__)
-- [ci] Lots of improvements
-- [inotify] Return from ``InotifyEmitter.queue_events()`` if not launched
-when thread is inactive (`#963
-<https://github.com/gorakhargosh/watchdog/pull/963>`__)
-- [tests] Stability improvements
-- [utils] Remove handling of ``threading.Event.isSet`` spelling (`#962
-<https://github.com/gorakhargosh/watchdog/pull/962>`__)
-- [watchmedo] Fixed tricks YAML generation (`#965
-<https://github.com/gorakhargosh/watchdog/pull/965>`__)
-- Thanks to our beloved contributors: @kurtmckee, @altendky, @agroszer,
-@BoboTiG
-
-2.3.1
-~~~~~
-

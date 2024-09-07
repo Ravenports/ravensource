@@ -53,48 +53,48 @@ This works the same as [a normal link to that heading].
 
 Linking to a heading without needing to know the destination page can be
 useful if specifying that path is cumbersome, e.g. when the pages have
-deeply nested paths, are far apart, or are moved around frequently. And the
-issue is somewhat exacerbated by the fact that [MkDocs supports only
-*relative* links between pages].
+deeply nested paths, are far apart, or are moved around frequently.
 
-Note that this plugin's behavior is undefined when trying to link to a
-heading title that appears several times throughout the site. Currently it
-arbitrarily chooses one of the pages. In such cases, use [Markdown anchors]
-to add unique aliases to your headings.
+### Non-unique headings
 
-### Markdown anchors
+When linking to a heading that appears several times throughout the site,
+this plugin will log a warning message stating that multiple URLs were
+found and that headings should be made unique, and will resolve the link
+using the first found URL.
 
-The autorefs plugin offers a feature called "Markdown anchors". Such
-anchors can be added anywhere in a document, and linked to from any other
-place.
+To prevent getting warnings, use [Markdown anchors] to add unique aliases
+to your headings, and use these aliases when referencing the headings.
 
-The syntax is:
-
-```md
-[](){#id-of-the-anchor}
-```
-
-If you look closely, it starts with the usual syntax for a link, `[]
-extension. It sets an HTML id to the anchor element. The autorefs plugin
-simply gives a meaning to such anchors with ids. Note that raw HTML anchors
-like `<a id="foo"></a>` are not supported.
-
-The `attr_list` extension must be enabled for the Markdown anchors feature
-to work:
+If you cannot use Markdown anchors, for example because you inject the same
+generated contents in multiple locations (for example mkdocstrings' API
+documentation), then you can try to alleviate the warnings by enabling the
+`resolve_closest` option:
 
 ```yaml
-# mkdocs.yml
 plugins:
-  - search
-  - autorefs
-
-markdown_extensions:
-  - attr_list
+- autorefs:
+    resolve_closest: true
 ```
 
-Now, you can add anchors to documents:
+When `resolve_closest` is enabled, and multiple URLs are found for the same
+identifier, the plugin will try to resolve to the one that is "closest" to
+the current page (the page containing the link). By closest, we mean:
 
-```md
-Somewhere in a document.
+- URLs that are relative to the current page's URL, climbing up parents
+- if multiple URLs are relative to it, use the one at the shortest distance
+if possible.
 
-[](){#foobar-paragraph}
+If multiple relative URLs are at the same distance, the first of these URLs
+will be used. If no URL is relative to the current page's URL, the first
+URL of all found URLs will be used.
+
+Examples:
+
+Current page | Candidate URLs | Relative URLs | Winner
+------------ | -------------- | ------------- | ------
+` ` | `x/#b`, `#b` | `#b` | `#b` (only one relative)
+`a/` | `b/c/#d`, `c/#d` | none | `b/c/#d` (no relative, use first one, even
+if longer distance)
+`a/b/` | `x/#e`, `a/c/#e`, `a/d/#e` | `a/c/#e`, `a/d/#e` (relative to
+parent `a/`) | `a/c/#e` (same distance, use first one)
+`a/b/` | `x/#e`, `a/c/d/#e`, `a/c/#e` | `a/c/d/#e`, `a/c/#e` (relative to
