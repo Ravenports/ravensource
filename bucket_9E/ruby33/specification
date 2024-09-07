@@ -128,3 +128,6 @@ post-install:
 	(cd ${WRKSRC}/sample/ && ${COPYTREE_SHARE} . ${STAGEDIR}${RUBY_EXAMPLESDIR}/)
 	${INSTALL_DATA} ${WRKSRC}/ext/bigdecimal/sample/*.rb \
 		${STAGEDIR}${RUBY_EXAMPLESDIR}/bigdecimal/
+
+	# what the hell?  why did these lock files get installed with v3.3.5
+	${RM} ${STAGEDIR}${PREFIX}/bin/*.lock
