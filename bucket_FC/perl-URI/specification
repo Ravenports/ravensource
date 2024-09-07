@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	5.28
+DEF[PORTVERSION]=	5.29
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-URI
@@ -37,6 +37,7 @@ DISTNAME=		URI-${PORTVERSION}
 # |      runtime : Data::Dumper (perl 5.38 core) (perl 5.40 core)
 # |      runtime : Encode (perl 5.38 core) (perl 5.40 core)
 # |      runtime : Exporter (perl 5.38 core) (perl 5.40 core)
+# |      runtime : MIME::Base32
 # |      runtime : MIME::Base64 (perl 5.38 core) (perl 5.40 core)
 # |      runtime : Net::Domain (perl 5.38 core) (perl 5.40 core)
 # |      runtime : Scalar::Util (perl 5.38 core) (perl 5.40 core)
@@ -60,5 +61,7 @@ DISTNAME=		URI-${PORTVERSION}
 # |         test : CPAN::Meta (perl 5.38 core) (perl 5.40 core)
 
 [PERL_538].USES_ON=			perl:538,configure
+[PERL_538].BUILDRUN_DEPENDS_ON=		perl-MIME-Base32:single:538
 [PERL_540].USES_ON=			perl:540,configure
+[PERL_540].BUILDRUN_DEPENDS_ON=		perl-MIME-Base32:single:540
 

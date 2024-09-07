@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.11
+DEF[PORTVERSION]=	0.14
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-Commandable
@@ -33,14 +33,17 @@ DISTNAME=		Commandable-${PORTVERSION}
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
 # |      runtime : Module::Pluggable::Object
+# |      runtime : experimental (perl 5.38 core) (perl 5.40 core)
+# |      runtime : meta
 # |    configure : Module::Build
 # |         test : Test2::V0 (perl 5.40 core)
-# |         test : Test::NoWarnings
 
 [PERL_538].USES_ON=			perl:538,buildmod,run
 [PERL_538].BUILDRUN_DEPENDS_ON=		perl-Module-Pluggable:single:538
+					perl-meta:single:538
 [PERL_538].BUILD_DEPENDS_ON=		perl-Module-Build:single:538
 [PERL_540].USES_ON=			perl:540,buildmod,run
 [PERL_540].BUILDRUN_DEPENDS_ON=		perl-Module-Pluggable:single:540
+					perl-meta:single:540
 [PERL_540].BUILD_DEPENDS_ON=		perl-Module-Build:single:540
 
