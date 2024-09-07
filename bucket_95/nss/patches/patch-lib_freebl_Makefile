@@ -1,6 +1,6 @@
---- lib/freebl/Makefile.orig	2024-08-01 13:24:30 UTC
+--- lib/freebl/Makefile.orig	2024-08-30 12:18:39 UTC
 +++ lib/freebl/Makefile
-@@ -272,7 +272,7 @@ else ifeq ($(CPU_ARCH),x86)
+@@ -264,7 +264,7 @@ else ifeq ($(CPU_ARCH),x86)
  endif
  endif # Darwin
  
@@ -9,12 +9,12 @@
  ifeq ($(CPU_ARCH),x86_64)
      # Lower case s on mpi_amd64_common due to make implicit rules.
      ASFILES  = arcfour-amd64-gas.s mpi_amd64_common.s
-@@ -366,7 +366,7 @@ endif
+@@ -358,7 +358,7 @@ endif
  # to bind the blapi function references in FREEBLVector vector
  # (ldvector.c) to the blapi functions defined in the freebl
  # shared libraries.
--ifeq (,$(filter-out BSD_OS FreeBSD Linux NetBSD OpenBSD, $(OS_TARGET)))
-+ifeq (,$(filter-out BSD_OS DragonFly FreeBSD Linux NetBSD OpenBSD MidnightBSD, $(OS_TARGET)))
+-ifeq (,$(filter-out FreeBSD Linux NetBSD OpenBSD, $(OS_TARGET)))
++ifeq (,$(filter-out FreeBSD Linux NetBSD OpenBSD DragonFly MidnightBSD, $(OS_TARGET)))
      MKSHLIB += -Wl,-Bsymbolic
  endif
  
