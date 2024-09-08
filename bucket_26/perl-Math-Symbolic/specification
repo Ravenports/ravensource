@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.612
+DEF[PORTVERSION]=	0.613
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-Math-Symbolic
@@ -23,7 +23,7 @@ VOPTS[538]=		PERL_538=ON PERL_540=OFF
 VOPTS[540]=		PERL_538=OFF PERL_540=ON
 
 # License listed in CPAN directory:
-# perl_5
+# unknown
 
 GENERATED=		yes
 SINGLE_JOB=		yes
@@ -35,13 +35,12 @@ DISTNAME=		Math-Symbolic-${PORTVERSION}
 # |      runtime : Data::Dumper (perl 5.38 core) (perl 5.40 core)
 # |      runtime : Memoize (perl 5.38 core) (perl 5.40 core)
 # |      runtime : Parse::RecDescent
-# |        build : Test::More (perl 5.38 core) (perl 5.40 core)
-# |    configure : Module::Build
+# |      runtime : Test::More (perl 5.38 core) (perl 5.40 core)
+# |        build : ExtUtils::MakeMaker (perl 5.38 core) (perl 5.40 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.38 core) (perl 5.40 core)
 
 [PERL_538].USES_ON=			perl:538,buildmod,run
 [PERL_538].BUILDRUN_DEPENDS_ON=		perl-Parse-RecDescent:single:538
-[PERL_538].BUILD_DEPENDS_ON=		perl-Module-Build:single:538
 [PERL_540].USES_ON=			perl:540,buildmod,run
 [PERL_540].BUILDRUN_DEPENDS_ON=		perl-Parse-RecDescent:single:540
-[PERL_540].BUILD_DEPENDS_ON=		perl-Module-Build:single:540
 
