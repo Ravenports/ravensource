@@ -1,4 +1,4 @@
---- src/core/core-crypto.c.orig	2024-08-17 06:33:14 UTC
+--- src/core/core-crypto.c.orig	2024-09-08 09:49:21 UTC
 +++ src/core/core-crypto.c
 @@ -31,6 +31,10 @@
  #include <math.h>
