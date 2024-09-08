@@ -1,7 +1,8 @@
-DEF[PORTVERSION]=	4.4.1
-DEF[FILEVERSION]=	4.4.1
-DEF[SOVERSION]=		10.4.4
-DEF[EXTSOVERSION]=	${SOVERSION}.1
+DEF[PORTVERSION]=	4.5.0
+DEF[FILEVERSION]=	4.5.0
+DEF[SOVERSION]=		10.4.5
+DEF[SOOVERSION]=	10.0.0
+DEF[EXTSOVERSION]=	${SOVERSION}.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		cfitsio
@@ -19,7 +20,7 @@ SITES[main]=		https://heasarc.gsfc.nasa.gov/FTP/software/fitsio/c/
 			ftp://heasarc.gsfc.nasa.gov/software/fitsio/c/oldvers/
 DISTFILE[1]=		cfitsio-${FILEVERSION}.tar.gz:main
 
-SPKGS[std]=		set primary docs
+SPKGS[std]=		set primary dev tools docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -31,14 +32,16 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		astro/cfitsio
 
-USES=			cpe pkgconfig zlib
+EXRUN[tools]=		primary
+
+USES=			cpe pkgconfig zlib libtool
 CPE_VENDOR=		nasa
-BUILD_TARGET=		libcfitsio.a shared
 MUST_CONFIGURE=		gnu
 DISTNAME=		cfitsio-${FILEVERSION}
 SOVERSION=		${SOVERSION}
 PLIST_SUB=		EXTENDED_SOVERSION=${EXTSOVERSION}
+			ANOTHER_SOVERSION=${SOOVERSION}
 
-post-patch:
+post-patch-darwin:
 	${GREP} -l "<malloc.h>" ${WRKSRC}/*.[chl] |\
 		${XARGS} ${REINPLACE_CMD} -e 's|<malloc.h>|<stdlib.h>|'

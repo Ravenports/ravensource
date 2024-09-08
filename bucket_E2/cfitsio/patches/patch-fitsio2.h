@@ -1,4 +1,4 @@
---- fitsio2.h.orig	2024-02-22 21:29:25 UTC
+--- fitsio2.h.orig	2024-08-08 20:18:19 UTC
 +++ fitsio2.h
 @@ -1,5 +1,7 @@
  #ifndef _FITSIO2_H
