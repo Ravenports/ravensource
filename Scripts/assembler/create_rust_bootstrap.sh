@@ -16,8 +16,8 @@
 #         <DISTDIR>/cargo-<calc>-x86_64-unknown-dragonfly.tar.zst
 #
 # requires installation:
-#   libexecinfo-single-standard
-#   ravensys-gcc-complete-standard
+#   libexecinfo-single-std
+#   ravensys-gcc-set-std
 
 if [ $# -lt 1 ]; then
    echo "Usage: $0 rust_version <revision,epoch>"
@@ -35,7 +35,7 @@ BBASE=$(/raven/bin/ravenadm dev info J)
 PKGDIR=$(/raven/bin/ravenadm dev info H)/files
 RASSY=${BBASE}/rust-assy
 RINST=${BBASE}/rust-installer
-RPKG=${PKGDIR}/rust-single-standard-${1}${REVEPOCH}.rvn
+RPKG=${PKGDIR}/rust~single~std~${1}${REVEPOCH}.rvn
 MYTAR=/raven/share/raven/sysroot/DragonFly/usr/bin/tar
 DFLY=x86_64-unknown-dragonfly
 NAME_STD=rust-std-${1}-${DFLY}
