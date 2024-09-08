@@ -1,12 +1,11 @@
-DEF[PORTVERSION]=	2.7.1
+DEF[PORTVERSION]=	2.8.0
 DEF[RELEASE]=		v${PORTVERSION}
-DEF[SOVERSION]=		0.11.1
+DEF[SOVERSION]=		0.12.0
 DEF[GUILE_SITE]=	3.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		nlopt
 VERSION=		${PORTVERSION}
-REVISION=		2
 KEYWORDS=		math
 VARIANTS=		std
 SDESC[std]=		Nonlinear optimization library
@@ -42,7 +41,10 @@ CMAKE_ARGS=		-DNLOPT_OCTAVE:BOOL=OFF
 			-DNLOPT_MATLAB:BOOL=OFF
 SOVERSION=		${SOVERSION}
 PLIST_SUB=		GVER=${GUILE_SITE}
+			SOEXTENSION={{SOEXTENSION}}
+
+VAR_OPSYS[linux]=	MAKEFILE_LINE=SOEXTENSION=-x86_64-linux-gnu
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libnlopt.so
-	${STRIP_CMD} ${STAGEDIR}${PYTHON_SITELIBDIR}/_nlopt.so
+	${STRIP_CMD} ${STAGEDIR}${PYTHON_SITELIBDIR}/_nlopt*.so
