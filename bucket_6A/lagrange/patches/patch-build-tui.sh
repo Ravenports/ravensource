@@ -7,8 +7,8 @@
 -INSTALL_PREFIX="/usr/local"
 +INSTALL_PREFIX="__PREFIX__"
  CMAKE_BUILD_TYPE="Release"
-+export PKG_CONFIG_PATH=/__PREFIX__/openssl11/lib/pkgconfig
-+export LDFLAGS="-L/__PREFIX__/openssl11/lib -Wl,-rpath,/__PREFIX__/openssl11/lib"
++export PKG_CONFIG_PATH=/__PREFIX__/openssl30/lib/pkgconfig
++export LDFLAGS="-L/__PREFIX__/openssl30/lib -Wl,-rpath,/__PREFIX__/openssl30/lib"
  
  echo "\nThis script will build and optionally install clagrange with"
  echo "statically linked the_Foundation and SEALCurses. First, let's configure"
