@@ -8,6 +8,7 @@ DEF[MY_TMPDIR]=		/var/db/mysql_tmpdir
 
 NAMEBASE=		mysql${SUFFIX}
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		databases
 VARIANTS=		std
 SDESC[std]=		Multithreaded SQL database (server)
@@ -55,7 +56,7 @@ EXRUN[client]=		libedit:primary:std
 B_DEPS[linux]=		patchelf:primary:std
 
 USES=			cpe bison cmake perl:run shebangfix zstd
-			lz4 execinfo ssl:openssl11 pkgconfig
+			lz4 execinfo ssl:openssl30 pkgconfig
 			c++:server,client cclibs:server,client
 CPE_VENDOR=		oracle
 CPE_PRODUCT=		mysql
