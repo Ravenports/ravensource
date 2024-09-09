@@ -1,1 +1,0 @@
-MANPREFIX=		${PREFIX}/${NAMEBASE}/share
