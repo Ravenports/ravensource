@@ -1,6 +1,6 @@
---- src/bootstrap/src/core/builder.rs.orig	2006-07-24 01:21:28 UTC
+--- src/bootstrap/src/core/builder.rs.orig	2024-09-04 15:07:06 UTC
 +++ src/bootstrap/src/core/builder.rs
-@@ -2515,12 +2515,13 @@ impl Cargo {
+@@ -2547,12 +2547,13 @@ impl Cargo {
                  Some(format!("-Wl,-rpath,@loader_path/../{libdir}"))
              } else if !target.is_windows() && !target.contains("aix") && !target.contains("xous") {
                  self.rustflags.arg("-Clink-args=-Wl,-z,origin");

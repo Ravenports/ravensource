@@ -1,4 +1,4 @@
---- src/llvm-project/llvm/cmake/modules/AddLLVM.cmake.orig	2006-07-24 01:21:28 UTC
+--- src/llvm-project/llvm/cmake/modules/AddLLVM.cmake.orig	2024-09-04 15:07:06 UTC
 +++ src/llvm-project/llvm/cmake/modules/AddLLVM.cmake
 @@ -2385,7 +2385,7 @@ function(llvm_setup_rpath name)
    elseif(UNIX)

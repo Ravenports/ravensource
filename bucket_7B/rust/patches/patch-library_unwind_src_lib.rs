@@ -1,4 +1,4 @@
---- library/unwind/src/lib.rs.orig	2006-07-24 01:21:28 UTC
+--- library/unwind/src/lib.rs.orig	2024-09-04 15:07:06 UTC
 +++ library/unwind/src/lib.rs
 @@ -154,7 +154,7 @@ extern "C" {}
  extern "C" {}

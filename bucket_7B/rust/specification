@@ -1,12 +1,11 @@
-DEF[PORTVERSION]=	1.80.1
-DEF[RUSTX_BOOT]=	1.79.0
+DEF[PORTVERSION]=	1.81.0
+DEF[RUSTX_BOOT]=	1.80.1
 DEF[CURL_VERSION]=	7.87.0
 DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		rust
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		lang
 VARIANTS=		std
 SDESC[std]=		Systems programming language from Mozilla
@@ -170,6 +169,19 @@ pre-build:
 pre-build-dragonfly:
 	${LN} -s ${LOCALBASE}/toolchain/ravensys-gcc/lib/libgcc_s.so \
 	${WRKDIR}/bootstrap/lib/rustlib/${SFX}/lib/libgcc_pic.so
+	# modify numerous versions of libc.  I hate this aspect of rust
+	#@@ -1,7 +1,6 @@
+	# // DragonFlyBSD's __error function is declared with "static inline", so it must
+	# // be implemented in the libc crate, as a pointer to a static thread_local.
+	# f! {
+	#-    #[deprecated(since = "0.2.77", note = "Use `__errno_location()` instead")]
+	#     pub fn __error() -> *mut ::c_int {
+	#         &mut errno
+	#     }
+.for libcver in 94 97 107 112 119 121 124 150 155
+	${REINPLACE_CMD} -e '/__errno_location/d' \
+	${WRKSRC}/vendor/libc-0.2.${libcver}/src/unix/bsd/freebsdlike/dragonfly/errno.rs
+.endfor
 
 pre-build-freebsd:
 	${LN} -s ${LOCALBASE}/toolchain/ravensys-gcc/lib/libstdc++.so \
@@ -260,7 +272,6 @@ post-install:
 		${STAGEDIR}${PREFIX}/bin/cargo-fmt \
 		${STAGEDIR}${PREFIX}/bin/clippy-driver \
 		${STAGEDIR}${PREFIX}/bin/rust-analyzer \
-		${STAGEDIR}${PREFIX}/bin/rust-demangler \
 		${STAGEDIR}${PREFIX}/bin/rustc \
 		${STAGEDIR}${PREFIX}/bin/rustdoc \
 		${STAGEDIR}${PREFIX}/bin/rustfmt \
