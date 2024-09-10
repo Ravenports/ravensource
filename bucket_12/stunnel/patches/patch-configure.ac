@@ -1,14 +1,16 @@
---- configure.ac.orig	2023-09-19 20:09:36 UTC
+--- configure.ac.orig	2024-07-18 13:20:00 UTC
 +++ configure.ac
-@@ -97,13 +97,6 @@ if test "${GCC}" = yes; then
-     AX_APPEND_COMPILE_FLAGS([-Wconversion])
+@@ -98,15 +98,6 @@ if test "${GCC}" = yes; then
      AX_APPEND_COMPILE_FLAGS([-Wno-deprecated-declarations])
+     AX_APPEND_COMPILE_FLAGS([-Wno-unused-command-line-argument])
      AX_APPEND_COMPILE_FLAGS([-fPIE])
 -    case "${host}" in
 -        avr-*.* | powerpc-*-aix* | rl78-*.* | visium-*.*)
 -            ;;
 -        *)
--            AX_APPEND_COMPILE_FLAGS([-fstack-protector])
+-            AX_APPEND_COMPILE_FLAGS([-fstack-protector-strong])
+-            AX_APPEND_COMPILE_FLAGS([-fcf-protection=full])
+-            AX_APPEND_COMPILE_FLAGS([-fstack-clash-protection])
 -            ;;
 -    esac
      AX_APPEND_LINK_FLAGS([-fPIE -pie])
