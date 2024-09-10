@@ -2,9 +2,9 @@ $NetBSD: patch-libs_filesystem_src_directory.cpp,v 1.1 2024/04/17 16:14:02 adam 
 
 Fix "error: expected id-expression before '(' token" (dirfd() is defined as a macro on NetBSD).
 
---- libs/filesystem/src/directory.cpp.orig	2024-04-11 18:48:01 UTC
+--- libs/filesystem/src/directory.cpp.orig	2024-08-07 22:07:35 UTC
 +++ libs/filesystem/src/directory.cpp
-@@ -279,7 +279,7 @@ inline system::error_code dir_itr_close(
+@@ -270,7 +270,7 @@ inline system::error_code dir_itr_close(
  // Obtains a file descriptor from the directory iterator
  inline int dir_itr_fd(dir_itr_imp const& imp, system::error_code& ec)
  {

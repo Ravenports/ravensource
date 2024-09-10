@@ -1,4 +1,4 @@
---- boost/predef/os/bsd.h.orig	2024-04-11 18:48:04 UTC
+--- boost/predef/os/bsd.h.orig	2024-08-07 22:07:40 UTC
 +++ boost/predef/os/bsd.h
 @@ -29,6 +29,7 @@ version number macro to match:
  

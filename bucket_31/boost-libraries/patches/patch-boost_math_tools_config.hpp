@@ -1,4 +1,4 @@
---- boost/math/tools/config.hpp.orig	2024-04-11 18:48:03 UTC
+--- boost/math/tools/config.hpp.orig	2024-08-07 22:07:38 UTC
 +++ boost/math/tools/config.hpp
 @@ -218,7 +218,7 @@
  
@@ -18,7 +18,7 @@
  #  define BOOST_MATH_USE_C99
  #endif
  
-@@ -441,6 +441,7 @@ struct non_type {};
+@@ -461,6 +461,7 @@ struct non_type {};
  // And then the actual configuration:
  //
  #if defined(BOOST_MATH_STANDALONE) && defined(_GLIBCXX_USE_FLOAT128) && defined(__GNUC__) && defined(__GNUC_MINOR__) && defined(__GNUC_PATCHLEVEL__) && !defined(__STRICT_ANSI__) \
