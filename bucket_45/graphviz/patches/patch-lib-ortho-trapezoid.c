@@ -1,8 +1,8 @@
---- lib/ortho/trapezoid.c.orig	2024-08-11 22:33:48 UTC
+--- lib/ortho/trapezoid.c.orig	2024-09-10 00:53:33 UTC
 +++ lib/ortho/trapezoid.c
 @@ -28,6 +28,11 @@
- #include <common/types.h>
  #include <ortho/trap.h>
+ #include <util/alloc.h>
  
 +#include <sys/param.h>
 +#if __FreeBSD_version <= 704101 || (__FreeBSD_version >= 800000 && __FreeBSD_version < 802502) || (__FreeBSD_version >= 900000 && __FreeBSD_version < 900027)
