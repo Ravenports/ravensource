@@ -56,6 +56,9 @@ SHEBANG_FILES=		examples/stripes.py
 			examples/rrdcached/rrdcached-size.pl
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
+PLIST_SUB=		SOEXTENSION={{SOEXTENSION}}
+
+VAR_OPSYS[linux]=	MAKEFILE_LINE=SOEXTENSION=-x86_64-linux-gnu
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/${SITE_ARCH_REL}/auto/RRDs/RRDs.so
