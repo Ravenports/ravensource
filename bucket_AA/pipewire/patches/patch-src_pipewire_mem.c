@@ -4,7 +4,7 @@
  #define PW_LOG_TOPIC_DEFAULT log_mem
  
  #if !defined(__FreeBSD__) && !defined(__MidnightBSD__) && !defined(__GNU__) \
-+       && !defined(__DragonFly__)
++       && !defined(__DragonFly__) \
         && !defined(HAVE_MEMFD_CREATE)
  /*
   * No glibc wrappers exist for memfd_create(2), so provide our own.
