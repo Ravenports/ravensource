@@ -6,6 +6,7 @@ DEF[CAT1]=		http://docbook.sourceforge.net/release/xsl/current/
 
 NAMEBASE=		upower
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		sysutils
 VARIANTS=		std
 SDESC[std]=		D-Bus daemon for power management tasks
@@ -41,6 +42,8 @@ B_DEPS[linux]=		libgudev:dev:std
 			libusb:dev:std
 BR_DEPS[linux]=		libgudev:primary:std
 			libusb:primary:std
+
+EXRUN[dev]=		polkit:dev:std
 
 # gtk-doc + meson recently fails build build documents
 # Culprit unclear.  Does not appear to be meson.  Disable
