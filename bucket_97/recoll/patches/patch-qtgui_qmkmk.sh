@@ -8,3 +8,17 @@
  set -e
  pro_file=$1
  shift
+@@ -13,13 +14,6 @@ QMAKE=${QMAKE:-qmake}
+ MAKE=${MAKE:-make}
+ 
+ ncpus=2
+-if test -x /usr/bin/nproc ; then
+-    ncpus=`nproc`
+-elif which sysctl > /dev/null ; then
+-    ncpus=`sysctl hw.ncpu | awk '{print $3}'`
+-elif test -f /proc/cpuinfo ; then
+-    ncpus=`grep -E '^processor[        ]*:' /proc/cpuinfo | wc -l`
+-fi
+ 
+ cd $dir
+ ${QMAKE} $fn $*
