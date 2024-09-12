@@ -1,15 +1,4 @@
-From a677d33bdffa110fe611e49e346c0bd99dafb5ca Mon Sep 17 00:00:00 2001
-From: Dmitry Marakasov <amdmi3@amdmi3.ru>
-Date: Mon, 12 Aug 2024 15:25:57 +0300
-Subject: [PATCH] Include unistd.h for getpid() when _IRR_COMPILE_WITH_X11_
-
----
- irr/src/CIrrDeviceLinux.cpp | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/irr/src/CIrrDeviceLinux.cpp b/irr/src/CIrrDeviceLinux.cpp
-index 71eb0f2604cd..5491d2037502 100644
---- irr/src/CIrrDeviceLinux.cpp.orig
+--- irr/src/CIrrDeviceLinux.cpp.orig	2024-08-11 15:54:55 UTC
 +++ irr/src/CIrrDeviceLinux.cpp
 @@ -45,9 +45,12 @@
  #include <X11/Xcursor/Xcursor.h>
@@ -25,3 +14,12 @@ index 71eb0f2604cd..5491d2037502 100644
  
  #ifdef __FreeBSD__
  #include <sys/joystick.h>
+@@ -709,7 +712,7 @@ EKEY_CODE CIrrDeviceLinux::getKeyCode(XE
+ 		keyCode = (EKEY_CODE)KeyMap[idx].Win32Key;
+ 	}
+ 	if (keyCode == 0) {
+-		keyCode = KEY_UNKNOWN;
++		keyCode = (EKEY_CODE)KEY_UNKNOWN;
+ 		if (!mp.X11Key) {
+ 			os::Printer::log("No such X11Key, event keycode", core::stringc(event.xkey.keycode).c_str(), ELL_INFORMATION);
+ 		} else if (idx == -1) {
