@@ -1,4 +1,4 @@
---- glib/giounix.c.orig	2024-07-08 14:03:15 UTC
+--- glib/giounix.c.orig	2024-08-26 09:17:20 UTC
 +++ glib/giounix.c
 @@ -33,7 +33,9 @@
  
