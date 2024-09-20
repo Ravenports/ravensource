@@ -1,6 +1,6 @@
 DEF[PORTVERSION]=	EXTRACT_INFO(GTK4_PORT_VERSION)
 DEF[GTK_VERSION]=	EXTRACT_INFO(GTK4_VERSION)
-DEF[SOVERSION]=		1.1400.5
+DEF[SOVERSION]=		1.1600.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gtk4
@@ -61,12 +61,9 @@ MESON_ARGS=		-Dx11-backend=true
 			-Dbuild-examples=false
 			-Dbuild-tests=false
 			-Dbuild-testsuite=false
-			-Ddemos=false
 			-Dmedia-gstreamer=disabled
 			-Dvulkan=disabled
 			-Dman-pages=true
-# #			if gtk_doc is true, we need mandoc
-			-Dgtk_doc=false
 PLIST_SUB=		GTK_VERSION=${GTK_VERSION}
 INSTALL_TARGET=		install-strip
 DISTNAME=		gtk-${PORTVERSION}
