@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.17
+DEF[PORTVERSION]=	0.18
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-Convert-Color
@@ -34,16 +34,18 @@ DISTNAME=		Convert-Color-${PORTVERSION}
 # ----------------------------------------------
 # |      runtime : List::UtilsBy
 # |      runtime : Module::Pluggable
-# |      runtime : Sub::Util (perl 5.38 core) (perl 5.40 core)
+# |      runtime : meta
 # |    configure : Module::Build
 # |         test : Test2::V0 (perl 5.40 core)
 
 [PERL_538].USES_ON=			perl:538,buildmod,run
 [PERL_538].BUILDRUN_DEPENDS_ON=		perl-List-UtilsBy:single:538
 					perl-Module-Pluggable:single:538
+					perl-meta:single:538
 [PERL_538].BUILD_DEPENDS_ON=		perl-Module-Build:single:538
 [PERL_540].USES_ON=			perl:540,buildmod,run
 [PERL_540].BUILDRUN_DEPENDS_ON=		perl-List-UtilsBy:single:540
 					perl-Module-Pluggable:single:540
+					perl-meta:single:540
 [PERL_540].BUILD_DEPENDS_ON=		perl-Module-Build:single:540
 
