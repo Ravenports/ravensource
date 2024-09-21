@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	5.4.0
+DEF[PORTVERSION]=	5.4.2
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-kombu
@@ -11,7 +11,7 @@ HOMEPAGE=		https://kombu.readthedocs.io
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/df/17/34f8ec5b9d46a1ddb598b7bf8f779c567421d05cd73742d09e549254c782
+SITES[main]=		PYPIWHL/87/ec/7811a3cf9fdfee3ee88e54d08fcbc3fabe7c1b6e4059826c59d7b795651c
 DISTFILE[1]=		kombu-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[v11]=		single
@@ -33,6 +33,7 @@ DISTNAME=		kombu-${PORTVERSION}.dist-info
 # vine ==5.1.0
 # typing-extensions ==4.12.2 ; python_version < "3.10"
 # backports.zoneinfo[tzdata] >=0.2.1 ; python_version < "3.9"
+# tzdata ; python_version >= "3.9"
 # azure-servicebus >=7.10.0 ; extra == 'azureservicebus'
 # azure-storage-queue >=12.6.0 ; extra == 'azurestoragequeues'
 # azure-identity >=1.12.0 ; extra == 'azurestoragequeues'
@@ -40,7 +41,7 @@ DISTNAME=		kombu-${PORTVERSION}.dist-info
 # python-consul2 ==0.1.5 ; extra == 'consul'
 # librabbitmq >=2.0.0 ; (python_version < "3.11") and extra == 'librabbitmq'
 # pymongo >=4.1.1 ; extra == 'mongodb'
-# msgpack ==1.0.8 ; extra == 'msgpack'
+# msgpack ==1.1.0 ; extra == 'msgpack'
 # pyro4 ==4.82 ; extra == 'pyro'
 # qpid-python >=0.26 ; extra == 'qpid'
 # qpid-tools >=0.26 ; extra == 'qpid'
@@ -56,7 +57,9 @@ DISTNAME=		kombu-${PORTVERSION}.dist-info
 [PY311].USES_ON=			python:v11,wheel
 [PY311].RUN_DEPENDS_ON=			python-amqp:single:v11
 					python-vine:single:v11
+					python-tzdata:single:v11
 [PY312].USES_ON=			python:v12,wheel
 [PY312].RUN_DEPENDS_ON=			python-amqp:single:v12
 					python-vine:single:v12
+					python-tzdata:single:v12
 
