@@ -9,11 +9,11 @@
 # These value correspond to the packaged version of Go that will be
 # repackaged as a bootstrap compiler.
 #
-# e.g. <DISTDIR>/golang-single-standard-1.22.2.tzst
-# would require invocation of: create_golang_bootstrap.sh 1.22.2
+# e.g. <DISTDIR>/golang~single~std-1.23.1.rvn
+# would require invocation of: create_golang_bootstrap.sh 1.23.1
 #
-# Output: <DISTDIR}/bootstrap-golang-1.22.2-dragonfly-x86_64.tzst (dragonfly)
-#         <DISTDIR}/bootstrap-golang-1.22.2-freebsd-amd64.tzst    (freebsd)
+# Output: <DISTDIR}/bootstrap-golang-1.23.1-dragonfly-x86_64.tzst (dragonfly)
+#         <DISTDIR}/bootstrap-golang-1.23.1-freebsd-amd64.tzst    (freebsd)
 
 if [ $# -lt 1 ]; then
    echo "Usage: $0 golang_version <revision,epoch>"
@@ -28,11 +28,11 @@ THISDIR=$(dirname $0)
 SCRIPTSDIR=$(cd ${THISDIR} && pwd -P)
 DISTDIR=$(/raven/bin/ravenadm dev info F)
 BBASE=$(/raven/bin/ravenadm dev info J)
-PKGDIR=$(/raven/bin/ravenadm dev info H)/All
+PKGDIR=$(/raven/bin/ravenadm dev info H)/files
 ASSY="${BBASE}/golang-assy"
 OPSYS=$(uname -s)
 MYTAR="/raven/share/raven/sysroot/${OPSYS}/usr/bin/tar"
-RPKG="${PKGDIR}/golang-single-standard-${1}${REVEPOCH}.tzst"
+RPKG="${PKGDIR}/golang~single~std~${1}${REVEPOCH}.rvn"
 
 rm -rf ${ASSY}
 
@@ -41,12 +41,12 @@ if [ ! -f ${RPKG} ]; then
    exit 1
 fi
 
-TARGET=$(/raven/sbin/ravensw info -F "${RPKG}" | awk '/^Architecture/ {n=split($3,t,":"); arch = length(t) == 4 ? t[3] "_" t[4] : t[3]; print t[1] "-" arch}')
+TARGET=$(/raven/sbin/rvn info -F "${RPKG}" | awk '/^abi/ {n=split($3,t,":"); print t[1] "-" t[2]}')
 TPKG="bootstrap-golang-${1}-${TARGET}.tzst"
 
 mkdir -p ${ASSY}
 echo "Extracting ${RPKG} ..."
-(cd ${ASSY} && ${MYTAR} -xf ${RPKG})
+xrvn -o ${ASSY} -x ${RPKG}
 echo "Bootstrap Go at ${ASSY}/raven"
 # remove documentation
 rm -rf ${ASSY}/raven/go/api
