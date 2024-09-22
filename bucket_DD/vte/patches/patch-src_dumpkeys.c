@@ -1,4 +1,4 @@
---- src/dumpkeys.c.orig	2024-06-10 19:42:45 UTC
+--- src/dumpkeys.c.orig	2024-09-14 19:27:03 UTC
 +++ src/dumpkeys.c
 @@ -162,7 +162,15 @@ main(int argc, char **argv)
  	}
