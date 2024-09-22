@@ -1,6 +1,6 @@
---- deps/cares/cares.gyp.orig	2024-07-19 02:40:59 UTC
+--- deps/cares/cares.gyp.orig	2024-09-17 19:34:57 UTC
 +++ deps/cares/cares.gyp
-@@ -224,6 +224,10 @@
+@@ -227,6 +227,10 @@
            'include_dirs': [ 'config/freebsd' ],
            'sources': [ 'config/freebsd/ares_config.h' ]
          }],
