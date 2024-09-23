@@ -1,6 +1,14 @@
 --- build.zig.orig	2024-06-06 19:05:11 UTC
 +++ build.zig
-@@ -714,25 +714,14 @@ fn addCmakeCfgOptionsToExe(
+@@ -707,6 +707,7 @@ fn addCmakeCfgOptionsToExe(
+                     else => |e| return e,
+                 };
+                 exe.linkSystemLibrary("unwind");
++                exe.addRPath(.{ .cwd_relative = "@GCC_LIBDIR@" });
+             },
+             .ios, .macos, .watchos, .tvos, .visionos => {
+                 exe.linkLibCpp();
+@@ -714,25 +715,14 @@ fn addCmakeCfgOptionsToExe(
              .windows => {
                  if (exe.rootModuleTarget().abi != .msvc) exe.linkLibCpp();
              },
