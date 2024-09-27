@@ -21,12 +21,14 @@ pcfiles_Linux=\
 	libudev.pc \
 	libacl.pc \
 	libattr.pc \
+	libcap.pc \
 	libcrypt.pc \
 	libnsl.pc \
 	libtirpc.pc \
 	libxcrypt.pc \
 	libnl-genl-3.0.pc \
 	libnl-3.0.pc \
+	libpsx.pc \
 	libsystemd.pc \
 	nss.pc \
 	# end
