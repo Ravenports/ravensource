@@ -1,8 +1,8 @@
---- Makefile.orig	2024-05-05 20:47:18 UTC
+--- Makefile.orig	2024-08-26 13:07:00 UTC
 +++ Makefile
-@@ -41,9 +41,6 @@ else
- 	SOEXTVER = so.$(SONAME_MAJOR).$(SONAME_MINOR)
- 	LINKSHARED += -shared -Wl,-soname,libtree-sitter.so.$(SONAME_MAJOR)
+@@ -43,9 +43,6 @@ else
+ 	SOEXTVER = $(SOEXT).$(SONAME_MAJOR).$(SONAME_MINOR)
+ 	LINKSHARED += -shared -Wl,-soname,libtree-sitter.$(SOEXTVER)
  endif
 -ifneq ($(filter $(shell uname),FreeBSD NetBSD DragonFly),)
 -	PCLIBDIR := $(PREFIX)/libdata/pkgconfig
