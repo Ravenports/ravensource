@@ -1,11 +1,10 @@
-DEF[PORTVERSION]=	3.9.1
+DEF[PORTVERSION]=	3.10.0
 DEF[JQUERY]=		3.7.1
 # EXTRACT_INFO(LATEST_JQUERY)
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		rspamd
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		mail
 VARIANTS=		std
 SDESC[std]=		Fast, free and open-source spam filtering system
@@ -40,7 +39,7 @@ USERGROUP_SPKG=		primary
 
 RC_SUBR=		rspamd:primary
 
-USES=			cmake perl:build pkgconfig sqlite ssl zlib pcre2
+USES=			cmake perl:build pkgconfig sqlite ssl:openssl30 zlib pcre2
 GNOME_COMPONENTS=	glib
 CMAKE_ARGS=		-DCONFDIR={{PREFIX}}/etc/rspamd
 			-DLOGDIR=/var/log/rspamd
