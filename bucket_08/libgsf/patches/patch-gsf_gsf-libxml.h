@@ -1,8 +1,8 @@
---- gsf/gsf-libxml.h.orig	2023-03-02 01:51:15 UTC
+--- gsf/gsf-libxml.h.orig	2024-01-19 19:56:21 UTC
 +++ gsf/gsf-libxml.h
-@@ -24,6 +24,7 @@
- 
+@@ -25,6 +25,7 @@
  #include <gsf/gsf-fwd.h>
+ #include <libxml/parser.h>
  #include <libxml/tree.h>
 +#include <libxml/parser.h>
  
