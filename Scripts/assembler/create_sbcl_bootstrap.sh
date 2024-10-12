@@ -9,11 +9,11 @@
 # These value correspond to the packaged version of SBCL that will be
 # repackaged as a bootstrap compiler.
 #
-# e.g. <DISTDIR>/sbcl-primary-standard-2.4.4.tzst
-# would require invocation of: create_sbcl_bootstrap.sh 2.4.4
+# e.g. <DISTDIR>/sbcl~primary~std~2.4.8.rvn
+# would require invocation of: create_sbcl_bootstrap.sh 2.4.8
 #
-# Output: <DISTDIR}/bootstrap-sbcl-2.4.4-dragonfly-x86_64.tzst (dragonfly)
-#         <DISTDIR}/bootstrap-sbcl-2.4.4-freebsd-amd64.tzst    (freebsd)
+# Output: <DISTDIR}/bootstrap-sbcl-2.4.8-dragonfly-x86_64.tzst (dragonfly)
+#         <DISTDIR}/bootstrap-sbcl-2.4.8-freebsd-amd64.tzst    (freebsd)
 
 if [ $# -lt 1 ]; then
    echo "Usage: $0 sbcl_version <revision,epoch>"
@@ -32,7 +32,7 @@ PKGDIR=$(/raven/bin/ravenadm dev info H)/All
 ASSY="${BBASE}/sbcl-assy"
 OPSYS=$(uname -s)
 MYTAR="/raven/share/raven/sysroot/${OPSYS}/usr/bin/tar"
-RPKG="${PKGDIR}/sbcl-primary-standard-${1}${REVEPOCH}.tzst"
+RPKG="${PKGDIR}/sbcl~primary~std~${1}${REVEPOCH}.rvn"
 
 rm -rf ${ASSY}
 
@@ -41,12 +41,12 @@ if [ ! -f ${RPKG} ]; then
    exit 1
 fi
 
-TARGET=$(/raven/sbin/ravensw info -F "${RPKG}" | awk '/^Architecture/ {n=split($3,t,":"); arch = length(t) == 4 ? t[3] "_" t[4] : t[3]; print t[1] "-" arch}')
+TARGET=$(/raven/sbin/rvn info -F "${RPKG}" | awk '/^abi/ {n=split($3,t,":"); print t[1] "-" t[2]}')
 TPKG="bootstrap-sbcl-${1}-${TARGET}.tzst"
 
 mkdir -p ${ASSY}
 echo "Extracting ${RPKG} ..."
-(cd ${ASSY} && ${MYTAR} -xf ${RPKG})
+xrvn -o ${ASSY} -x ${RPKG}
 echo "Bootstrap SBCL at ${ASSY}/raven"
 # remove man page
 rm -rf ${ASSY}/raven/share/man
