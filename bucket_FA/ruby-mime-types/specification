@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.5.2
+DEF[PORTVERSION]=	3.6.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		ruby-mime-types
@@ -13,7 +13,7 @@ CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		RUBYGEMS/
-DISTFILE[1]=		mime-types-3.5.2.gem:main
+DISTFILE[1]=		mime-types-3.6.0.gem:main
 DIST_SUBDIR=		ruby
 
 SPKGS[v31]=		single
@@ -31,7 +31,8 @@ VOPTS[v33]=		RUBY31=OFF RUBY32=OFF RUBY33=ON
 
 # Requirements according to gem specification:
 #   mime-types-data (~> 3.2015)
-#   minitest (~> 5.20, development)
+#   logger (>= 0)
+#   minitest (~> 5.25, development)
 #   hoe (>= 3.0, < 5, development)
 #   hoe-doofus (~> 1.0, development)
 #   hoe-gemspec2 (~> 1.1, development)
@@ -50,8 +51,11 @@ GENERATED=		yes
 
 [RUBY31].USES_ON=			gem:v31
 [RUBY31].BUILDRUN_DEPENDS_ON=		ruby-mime-types-data:single:v31
+					ruby-logger:single:v31
 [RUBY32].USES_ON=			gem:v32
 [RUBY32].BUILDRUN_DEPENDS_ON=		ruby-mime-types-data:single:v32
+					ruby-logger:single:v32
 [RUBY33].USES_ON=			gem:v33
 [RUBY33].BUILDRUN_DEPENDS_ON=		ruby-mime-types-data:single:v33
+					ruby-logger:single:v33
 
