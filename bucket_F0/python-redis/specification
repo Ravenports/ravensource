@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	5.0.8
+DEF[PORTVERSION]=	5.1.1
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-redis
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/redis/redis-py
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/c5/d1/19a9c76811757684a0f74adc25765c8a901d67f9f6472ac9d57c844a23c8
+SITES[main]=		PYPIWHL/15/f1/feeeaaaac0f589bcbc12c02da357cf635ee383c9128b77230a1e99118885
 DISTFILE[1]=		redis-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[v11]=		single
@@ -29,13 +29,11 @@ GENERATED=		yes
 DISTNAME=		redis-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# async-timeout >=4.0.3 ; python_full_version < "3.11.3"
-# importlib-metadata >=1.0 ; python_version < "3.8"
-# typing-extensions ; python_version < "3.8"
-# hiredis >1.0.0 ; extra == 'hiredis'
-# cryptography >=36.0.1 ; extra == 'ocsp'
-# pyopenssl ==20.0.1 ; extra == 'ocsp'
-# requests >=2.26.0 ; extra == 'ocsp'
+# async-timeout>=4.0.3; python_full_version < "3.11.3"
+# hiredis>=3.0.0; extra == "hiredis"
+# cryptography>=36.0.1; extra == "ocsp"
+# pyopenssl==23.2.1; extra == "ocsp"
+# requests>=2.31.0; extra == "ocsp"
 
 [PY311].USES_ON=			python:v11,wheel
 [PY311].RUN_DEPENDS_ON=			python-async-timeout:single:v11

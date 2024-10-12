@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	7.4.2
+DEF[PORTVERSION]=	8.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-qrcode
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/lincolnloop/python-qrcode
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/24/79/aaf0c1c7214f2632badb2771d770b1500d3d7cbdf2590ae62e721ec50584
+SITES[main]=		PYPIWHL/74/ab/df8d889fd01139db68ae9e5cb5c8f0ea016823559a6ecb427582d52b07dc
 DISTFILE[1]=		qrcode-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[v11]=		single
@@ -29,26 +29,10 @@ GENERATED=		yes
 DISTNAME=		qrcode-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# typing-extensions
-# pypng
-# colorama ; platform_system == "Windows"
-# zest.releaser[recommended] ; extra == 'all'
-# tox ; extra == 'all'
-# pytest ; extra == 'all'
-# pytest-cov ; extra == 'all'
-# pillow (>=9.1.0) ; extra == 'all'
-# tox ; extra == 'dev'
-# pytest ; extra == 'dev'
-# pytest-cov ; extra == 'dev'
-# zest.releaser[recommended] ; extra == 'maintainer'
-# pillow (>=9.1.0) ; extra == 'pil'
-# coverage ; extra == 'test'
-# pytest ; extra == 'test'
+# colorama ; sys_platform == "win32"
+# pillow (>=9.1.0) ; extra == "pil" or extra == "all"
+# pypng ; extra == "png" or extra == "all"
 
 [PY311].USES_ON=			python:v11,wheel
-[PY311].RUN_DEPENDS_ON=			python-typing-extensions:single:v11
-					python-pypng:single:v11
 [PY312].USES_ON=			python:v12,wheel
-[PY312].RUN_DEPENDS_ON=			python-typing-extensions:single:v12
-					python-pypng:single:v12
 

@@ -17,6 +17,7 @@
   - [Parse a TOML file]
   - [Handle invalid TOML]
   - [Construct `decimal.Decimal`s from TOML floats]
+  - [Building a `tomli`/`tomllib` compatibility layer]
 - [FAQ]
   - [Why this parser?]
   - [Is comment preserving round-trip parsing supported?]
@@ -29,7 +30,14 @@
 ## Intro</a>
 
 Tomli is a Python library for parsing [TOML].
-Tomli is fully compatible with [TOML v1.0.0].
+It is fully compatible with [TOML v1.0.0].
+
+A version of Tomli, the `tomllib` module,
+was added to the standard library in Python 3.11
+via [PEP 680].
+Tomli continues to provide a backport on PyPI for Python versions
+where the standard library module is not available
+and that have not yet reached their end-of-life.
 
 ## Installation<a name="installation">
 
@@ -45,14 +53,20 @@ pip install tomli
 import tomli
 
 toml_str = """
-           gretzky = 99
+[[players]]
+name = "Lehtinen"
+number = 26
 
-           [kurri]
-           jari = 17
-           """
+[[players]]
+name = "Numminen"
+number = 27
+"""
 
 toml_dict = tomli.loads(toml_str)
-assert toml_dict == {"gretzky": 99, "kurri": {"jari": 17}}
+assert toml_dict == {
+    "players": [{"name": "Lehtinen", "number": 26}, {"name": "Numminen",
+"number": 27}]
+}
 ```
 
 ### Parse a TOML file</a>
@@ -84,17 +98,3 @@ Note that error messages are considered informational only.
 They should not be assumed to stay constant across Tomli versions.
 
 ### Construct `decimal.Decimal`s from TOML floats</a>
-
-```python
-from decimal import Decimal
-import tomli
-
-toml_dict = tomli.loads("precision-matters = 0.982492",
-parse_float=Decimal)
-assert toml_dict["precision-matters"] == Decimal("0.982492")
-```
-
-Note that `decimal.Decimal` can be replaced with another callable that
-converts a TOML float from string to a Python type.
-The `decimal.Decimal` is, however, a practical choice for use cases where
-float inaccuracies can not be tolerated.
