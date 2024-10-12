@@ -1,4 +1,4 @@
---- cups/getifaddrs-internal.h.orig	2024-04-26 11:38:21 UTC
+--- cups/getifaddrs-internal.h.orig	2024-09-30 11:38:35 UTC
 +++ cups/getifaddrs-internal.h
 @@ -31,6 +31,14 @@
  #    define CUPS_SOCAST
