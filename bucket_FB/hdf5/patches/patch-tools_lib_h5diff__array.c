@@ -1,6 +1,6 @@
---- tools/lib/h5diff_array.c.orig	2024-04-15 19:47:31 UTC
+--- tools/lib/h5diff_array.c.orig	2024-09-30 16:07:53 UTC
 +++ tools/lib/h5diff_array.c
-@@ -1718,8 +1718,8 @@ diff_float_element(unsigned char *mem1,
+@@ -1719,8 +1719,8 @@ diff_float_element(unsigned char *mem1,
           *-------------------------------------------------------------------------
           */
          if (opts->do_nans) {
@@ -11,7 +11,7 @@
          }
  
          /* both not NaN, do the comparison */
-@@ -1755,8 +1755,8 @@ diff_float_element(unsigned char *mem1,
+@@ -1756,8 +1756,8 @@ diff_float_element(unsigned char *mem1,
           *-------------------------------------------------------------------------
           */
          if (opts->do_nans) {
@@ -22,7 +22,7 @@
          }
          /* both not NaN, do the comparison */
          if ((!isnan1 && !isnan2)) {
-@@ -1803,8 +1803,8 @@ diff_float_element(unsigned char *mem1,
+@@ -1804,8 +1804,8 @@ diff_float_element(unsigned char *mem1,
           *-------------------------------------------------------------------------
           */
          if (opts->do_nans) {
@@ -33,7 +33,7 @@
          }
  
          /* both not NaN, do the comparison */
-@@ -1896,8 +1896,8 @@ diff_double_element(unsigned char *mem1,
+@@ -1897,8 +1897,8 @@ diff_double_element(unsigned char *mem1,
           *-------------------------------------------------------------------------
           */
          if (opts->do_nans) {
@@ -44,7 +44,7 @@
          }
  
          /* both not NaN, do the comparison */
-@@ -1932,8 +1932,8 @@ diff_double_element(unsigned char *mem1,
+@@ -1933,8 +1933,8 @@ diff_double_element(unsigned char *mem1,
           *-------------------------------------------------------------------------
           */
          if (opts->do_nans) {
@@ -55,7 +55,7 @@
          }
          /* both not NaN, do the comparison */
          if (!isnan1 && !isnan2) {
-@@ -1978,8 +1978,8 @@ diff_double_element(unsigned char *mem1,
+@@ -1979,8 +1979,8 @@ diff_double_element(unsigned char *mem1,
           *-------------------------------------------------------------------------
           */
          if (opts->do_nans) {
@@ -66,7 +66,7 @@
          }
  
          /* both not NaN, do the comparison */
-@@ -2071,8 +2071,8 @@ diff_ldouble_element(unsigned char *mem1
+@@ -2072,8 +2072,8 @@ diff_ldouble_element(unsigned char *mem1
           *-------------------------------------------------------------------------
           */
          if (opts->do_nans) {
@@ -77,7 +77,7 @@
          }
  
          /* both not NaN, do the comparison */
-@@ -2106,8 +2106,8 @@ diff_ldouble_element(unsigned char *mem1
+@@ -2107,8 +2107,8 @@ diff_ldouble_element(unsigned char *mem1
           *-------------------------------------------------------------------------
           */
          if (opts->do_nans) {
@@ -88,7 +88,7 @@
          }
  
          /* both not NaN, do the comparison */
-@@ -2153,8 +2153,8 @@ diff_ldouble_element(unsigned char *mem1
+@@ -2154,8 +2154,8 @@ diff_ldouble_element(unsigned char *mem1
           *-------------------------------------------------------------------------
           */
          if (opts->do_nans) {
@@ -99,7 +99,7 @@
          }
  
          /* both not NaN, do the comparison */
-@@ -2246,8 +2246,8 @@ diff_float16_element(unsigned char *mem1
+@@ -2247,8 +2247,8 @@ diff_float16_element(unsigned char *mem1
           *-------------------------------------------------------------------------
           */
          if (opts->do_nans) {
@@ -110,7 +110,7 @@
          }
  
          /* both not NaN, do the comparison */
-@@ -2283,8 +2283,8 @@ diff_float16_element(unsigned char *mem1
+@@ -2284,8 +2284,8 @@ diff_float16_element(unsigned char *mem1
           *-------------------------------------------------------------------------
           */
          if (opts->do_nans) {
@@ -121,7 +121,7 @@
          }
          /* both not NaN, do the comparison */
          if ((!isnan1 && !isnan2)) {
-@@ -2331,8 +2331,8 @@ diff_float16_element(unsigned char *mem1
+@@ -2332,8 +2332,8 @@ diff_float16_element(unsigned char *mem1
           *-------------------------------------------------------------------------
           */
          if (opts->do_nans) {
@@ -132,7 +132,7 @@
          }
  
          /* both not NaN, do the comparison */
-@@ -3353,8 +3353,8 @@ equal_double(double value, double expect
+@@ -3354,8 +3354,8 @@ equal_double(double value, double expect
           * detect NaNs
           *-------------------------------------------------------------------------
           */
@@ -143,7 +143,7 @@
  
          /*-------------------------------------------------------------------------
           * we consider NaN == NaN to be true
-@@ -3400,8 +3400,8 @@ equal_ldouble(long double value, long do
+@@ -3401,8 +3401,8 @@ equal_ldouble(long double value, long do
           * detect NaNs
           *-------------------------------------------------------------------------
           */
@@ -154,7 +154,7 @@
  
          /*-------------------------------------------------------------------------
           * we consider NaN == NaN to be true
-@@ -3446,8 +3446,8 @@ equal_float(float value, float expected,
+@@ -3447,8 +3447,8 @@ equal_float(float value, float expected,
           * detect NaNs
           *-------------------------------------------------------------------------
           */
