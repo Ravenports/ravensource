@@ -1,7 +1,7 @@
---- libavutil/common.h.orig	2024-08-02 22:55:22 UTC
+--- libavutil/common.h.orig	2024-09-29 23:31:48 UTC
 +++ libavutil/common.h
-@@ -50,6 +50,10 @@
- #   include "internal.h"
+@@ -52,6 +52,10 @@
+ #   include "mem.h"
  #endif /* HAVE_AV_CONFIG_H */
  
 +#ifndef	UINT64_C
