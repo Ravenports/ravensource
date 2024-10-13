@@ -40,6 +40,9 @@ BUILDRUN_DEPENDS=	gmp:primary:std
 			libunistring:primary:std
 			boehm_garbage_collector:primary:threaded
 
+SUB_FILES=		scripts-primary.ucl
+SUB_LIST=		GUILE_VER=${PORTVERSION:R}
+
 USES=			gmake libtool makeinfo ncurses pkgconfig readline
 			iconv charsetfix gettext cpe
 CPE_VENDOR=		gnu
@@ -58,9 +61,3 @@ MAKE_ENV=		PAXCTL="{{PAXCTL}}"
 
 VAR_OPSYS[netbsd]=	CONFIGURE_ARGS=--enable-jit=no
 			CONFIGURE_ARGS=--enable-lto=no
-
-post-install:
-	# ensure compiled files newer than the source
-	sleep 3
-	${FIND} ${STAGEDIR}${PREFIX}/lib/guile/${PORTVERSION:R}/ccache ! -type d |\
-		${XARGS} ${TOUCH}

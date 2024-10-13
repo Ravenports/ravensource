@@ -1,0 +1,9 @@
+post-install: [{
+     args: ""
+     code: <<EOS
+# ensure compiled files are newer than installed source
+CFILES=${PKG_ROOTDIR}%%PREFIX%%/lib/guile/%%GUILE_VER%%/ccache
+sleep 1
+/usr/bin/find ${CFILES} ! -type d | /usr/bin/xargs touch
+EOS
+}]
