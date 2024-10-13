@@ -1,4 +1,4 @@
---- bin/cbsdsh/myhistedit.h.orig	2024-04-27 11:32:46 UTC
+--- bin/cbsdsh/myhistedit.h.orig	2024-10-03 13:31:01 UTC
 +++ bin/cbsdsh/myhistedit.h
 @@ -32,15 +32,7 @@
   * $FreeBSD: head/bin/sh/myhistedit.h 326025 2017-11-20 19:49:47Z pfg $

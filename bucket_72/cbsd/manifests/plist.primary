@@ -198,7 +198,7 @@ cbsd/etc/defaults/vm-freebsd-FreeBSD-from-jail.conf
 cbsd/etc/defaults/vm-freebsd-FreeBSD-img-aarch64-13.3.conf
 cbsd/etc/defaults/vm-freebsd-FreeBSD-img-arm64-13.3.conf
 cbsd/etc/defaults/vm-freebsd-FreeBSD-riscv64-14.1.conf
-cbsd/etc/defaults/vm-freebsd-FreeBSD-x64-13.3.conf
+cbsd/etc/defaults/vm-freebsd-FreeBSD-x64-13.4.conf
 cbsd/etc/defaults/vm-freebsd-FreeBSD-x64-14.1.conf
 cbsd/etc/defaults/vm-freebsd-FreeBSD-x64-15.0-LATEST.conf
 cbsd/etc/defaults/vm-freebsd-GhostBSD-x64-24.conf
@@ -207,19 +207,17 @@ cbsd/etc/defaults/vm-freebsd-MidnightBSD-x64-3.conf
 cbsd/etc/defaults/vm-freebsd-OPNsense-24-RELEASE-amd64.conf
 cbsd/etc/defaults/vm-freebsd-TrueNAS-CORE-x64-13.conf
 cbsd/etc/defaults/vm-freebsd-XigmaNAS-13.conf
-cbsd/etc/defaults/vm-freebsd-cloud-FreeBSD-ufs-x64-12.4.conf
 cbsd/etc/defaults/vm-freebsd-cloud-FreeBSD-ufs-x64-13.2.conf
 cbsd/etc/defaults/vm-freebsd-cloud-FreeBSD-ufs-x64-13.3.conf
-cbsd/etc/defaults/vm-freebsd-cloud-FreeBSD-ufs-x64-14.0.conf
+cbsd/etc/defaults/vm-freebsd-cloud-FreeBSD-ufs-x64-13.4.conf
 cbsd/etc/defaults/vm-freebsd-cloud-FreeBSD-ufs-x64-14.1.conf
 cbsd/etc/defaults/vm-freebsd-cloud-FreeBSD-ufs-x64-15.conf
-cbsd/etc/defaults/vm-freebsd-cloud-FreeBSD-zfs-x64-12.4.conf
 cbsd/etc/defaults/vm-freebsd-cloud-FreeBSD-zfs-x64-13.2.conf
 cbsd/etc/defaults/vm-freebsd-cloud-FreeBSD-zfs-x64-13.3.conf
-cbsd/etc/defaults/vm-freebsd-cloud-FreeBSD-zfs-x64-14.0.conf
+cbsd/etc/defaults/vm-freebsd-cloud-FreeBSD-zfs-x64-13.4.conf
 cbsd/etc/defaults/vm-freebsd-cloud-FreeBSD-zfs-x64-14.1.conf
 cbsd/etc/defaults/vm-freebsd-cloud-FreeBSD-zfs-x64-15.conf
-cbsd/etc/defaults/vm-freebsd-cloud-GhostBSD-ufs-x64-22.conf
+cbsd/etc/defaults/vm-freebsd-cloud-GhostBSD-zfs-x64-24.conf
 cbsd/etc/defaults/vm-freebsd-cloud-OPNSense-22-RELEASE-amd64-22.conf
 cbsd/etc/defaults/vm-freebsd-cloud-XigmaNAS-13-amd64.conf
 cbsd/etc/defaults/vm-freebsd-cloud-firestarter-ufs-x64-14.conf
@@ -246,6 +244,7 @@ cbsd/etc/defaults/vm-linux-Debian-x86-12.conf
 cbsd/etc/defaults/vm-linux-Devuan-x86-5.conf
 cbsd/etc/defaults/vm-linux-EuroLinux-9-x86_64.conf
 cbsd/etc/defaults/vm-linux-FreePBX-64bit-16.conf
+cbsd/etc/defaults/vm-linux-Gentoo-x86-2024.conf
 cbsd/etc/defaults/vm-linux-Kali-2024-amd64.conf
 cbsd/etc/defaults/vm-linux-Manjaro-x86-2024.conf
 cbsd/etc/defaults/vm-linux-Mint-22.conf
@@ -292,6 +291,7 @@ cbsd/etc/defaults/vm-linux-cloud-Rocky-9-x86_64.conf
 cbsd/etc/defaults/vm-linux-cloud-firestarter-debian-11.conf
 cbsd/etc/defaults/vm-linux-cloud-kubernetes-27.conf
 cbsd/etc/defaults/vm-linux-cloud-ubuntudesktop-amd64-22.04.conf
+cbsd/etc/defaults/vm-linux-cloud-ubuntudesktop-amd64-24.04.conf
 cbsd/etc/defaults/vm-linux-cloud-ubuntuserver-amd64-20.conf
 cbsd/etc/defaults/vm-linux-cloud-ubuntuserver-amd64-22.04.conf
 cbsd/etc/defaults/vm-linux-cloud-ubuntuserver-amd64-23.04.conf
@@ -391,6 +391,7 @@ cbsd/misc/cbsd_dot
 cbsd/misc/cbsd_fwatch
 cbsd/misc/cbsd_md5
 cbsd/misc/cbsdlogtail
+cbsd/misc/cbsdsysrc
 cbsd/misc/cbsdtee
 cbsd/misc/chk_arp_byip
 cbsd/misc/cmdboot
@@ -413,7 +414,6 @@ cbsd/misc/resolv
 cbsd/misc/sipcalc
 cbsd/misc/sqlcli
 cbsd/misc/symlink_changer
-cbsd/misc/sysrc
 cbsd/misc/tmpfsdir
 cbsd/misc/updatesql
 cbsd/modules/bsdconf.d/adduser
@@ -772,6 +772,13 @@ cbsd/share/bhyve/bhyve-nvme.subr
 cbsd/share/bhyve-HomeAssistantOS-system-skel/etc/blogin.conf
 cbsd/share/bhyve-HomeAssistantOS-system-skel/etc/qlogin.conf
 cbsd/share/bhyve-HomeAssistantOS-system-skel/etc/xlogin.conf
+cbsd/share/bsdconfig/common.subr
+cbsd/share/bsdconfig/dialog.subr
+cbsd/share/bsdconfig/mustberoot.subr
+cbsd/share/bsdconfig/strings.subr
+cbsd/share/bsdconfig/struct.subr
+cbsd/share/bsdconfig/sysrc.subr
+cbsd/share/bsdconfig/variable.subr
 cbsd/share/bsdconfig/cbsd/INDEX
 cbsd/share/bsdconfig/cbsd/Makefile
 cbsd/share/bsdconfig/cbsd/USAGE
@@ -866,8 +873,8 @@ cbsd/share/helpers/not_empty.txt
 cbsd/share/helpers/dhcpd/cbsd-dhcpd.conf
 cbsd/share/helpers/dhcpd/dhcpd_fixed.tpl
 cbsd/share/helpers/dhcpd/make_cbsd_dhcpd.sh
+cbsd/share/libexec/bsdconfig/include/messages.subr
 cbsd/share/qemu/qemu-dsk.subr
-cbsd/share/sysrc/sysrc.subr
 cbsd/share/xen/xen-dsk.subr
 cbsd/subr/DragonFly.subr
 cbsd/subr/FreeBSD.subr
@@ -1007,6 +1014,7 @@ cbsd/tools/bhyve-p9shares
 cbsd/tools/bhyve-ppt
 cbsd/tools/bootmgmt
 cbsd/tools/bootmgmt-pxe
+cbsd/tools/capabilities
 cbsd/tools/carpcfg
 cbsd/tools/carpcontrol
 cbsd/tools/cbsdchown
