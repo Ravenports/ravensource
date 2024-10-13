@@ -1,4 +1,4 @@
---- src/process/sysdep_DRAGONFLY.c.orig	2024-05-29 05:41:47 UTC
+--- src/process/sysdep_DRAGONFLY.c.orig	2024-10-11 11:02:44 UTC
 +++ src/process/sysdep_DRAGONFLY.c
 @@ -141,7 +141,8 @@ bool init_systeminfo_sysdep(void) {
   * @return treesize > 0 if succeeded otherwise 0.
