@@ -1,6 +1,6 @@
 Patch-Source: https://github.com/archlinux/svntogit-community/blob/packages/libdispatch/trunk/avoid-libkqueue.patch
 
---- tests/dispatch_test.c.orig	2023-06-15 00:55:45 UTC
+--- tests/dispatch_test.c.orig	2024-06-13 00:13:26 UTC
 +++ tests/dispatch_test.c
 @@ -30,7 +30,7 @@
  #include <stdio.h>
@@ -10,4 +10,4 @@ Patch-Source: https://github.com/archlinux/svntogit-community/blob/packages/libd
 +#if __has_include(<sys/event.h>) && !defined(__linux__)
  #define HAS_SYS_EVENT_H 1
  #include <sys/event.h>
- #else
+ #elif __has_include(<poll.h>)
