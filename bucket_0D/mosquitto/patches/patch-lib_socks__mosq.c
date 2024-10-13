@@ -1,4 +1,4 @@
---- lib/socks_mosq.c.orig	2023-09-18 21:29:34 UTC
+--- lib/socks_mosq.c.orig	2024-10-02 10:09:25 UTC
 +++ lib/socks_mosq.c
 @@ -30,7 +30,7 @@ Contributors:
  #else

@@ -1,4 +1,4 @@
---- src/CMakeLists.txt.orig	2023-09-18 21:29:34 UTC
+--- src/CMakeLists.txt.orig	2024-10-02 10:09:25 UTC
 +++ src/CMakeLists.txt
 @@ -171,7 +171,7 @@ endif (HAVE_GETADDRINFO_A AND WITH_ADNS)
  if (UNIX)
@@ -20,7 +20,7 @@
  			link_directories(${mosquitto_SOURCE_DIR})
  		endif (WIN32)
  	else (STATIC_WEBSOCKETS)
--		set (MOSQ_LIBS ${MOSQ_LIBS} websockets)
+-		set (MOSQ_LIBS ${MOSQ_LIBS} websockets_shared)
 +		set (MOSQ_LIBS ${MOSQ_LIBS} websockets pthread)
  	endif (STATIC_WEBSOCKETS)
  endif (WITH_WEBSOCKETS)
