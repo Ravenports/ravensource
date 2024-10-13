@@ -1,4 +1,4 @@
---- src/modules/module-rt.c.orig	2024-07-31 10:02:24 UTC
+--- src/modules/module-rt.c.orig	2024-09-27 10:02:20 UTC
 +++ src/modules/module-rt.c
 @@ -239,6 +239,8 @@ static pid_t _gettid(void)
  	return (pid_t) gettid();

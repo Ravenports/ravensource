@@ -1,8 +1,8 @@
---- src/modules/module-netjack2-manager.c.orig	2024-07-31 10:02:24 UTC
+--- src/modules/module-netjack2-manager.c.orig	2024-09-27 10:02:20 UTC
 +++ src/modules/module-netjack2-manager.c
-@@ -42,6 +42,10 @@
- #define ifr_ifindex ifr_index
- #endif
+@@ -38,6 +38,10 @@
+ #include "module-netjack2/peer.c"
+ #include "network-utils.h"
  
 +#if defined(__FreeBSD__) || defined(__DragonFly__)
 +#define ifr_ifindex ifr_index

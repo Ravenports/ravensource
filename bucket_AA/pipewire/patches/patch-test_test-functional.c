@@ -1,6 +1,6 @@
---- test/test-functional.c.orig	2024-07-31 10:02:24 UTC
+--- test/test-functional.c.orig	2024-09-27 10:02:20 UTC
 +++ test/test-functional.c
-@@ -4,6 +4,8 @@
+@@ -6,6 +6,8 @@
  
  #include "config.h"
  
