@@ -4,7 +4,7 @@ Ensure we use the system libtool on OSX.
 
 --- node_modules/node-gyp/gyp/pylib/gyp/generator/make.py.orig	1985-10-26 08:15:00 UTC
 +++ node_modules/node-gyp/gyp/pylib/gyp/generator/make.py
-@@ -207,7 +207,7 @@ cmd_solink_module = $(LINK.$(TOOLSET)) -
+@@ -208,7 +208,7 @@ cmd_solink_module = $(LINK.$(TOOLSET)) -
  
  LINK_COMMANDS_MAC = """\
  quiet_cmd_alink = LIBTOOL-STATIC $@
