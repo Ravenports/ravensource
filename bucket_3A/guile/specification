@@ -5,6 +5,7 @@ DEF[RLSOVERSION]=	0.0.0
 
 NAMEBASE=		guile
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		lang
 VARIANTS=		std
 SDESC[std]=		GNU Ubiquitous Intelligent Language for Extensions
@@ -57,3 +58,9 @@ MAKE_ENV=		PAXCTL="{{PAXCTL}}"
 
 VAR_OPSYS[netbsd]=	CONFIGURE_ARGS=--enable-jit=no
 			CONFIGURE_ARGS=--enable-lto=no
+
+post-install:
+	# ensure compiled files newer than the source
+	sleep 3
+	${FIND} ${STAGEDIR}${PREFIX}/lib/guile/${PORTVERSION:R}/ccache ! -type d |\
+		${XARGS} ${TOUCH}
