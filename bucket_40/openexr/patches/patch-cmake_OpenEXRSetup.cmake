@@ -1,6 +1,6 @@
---- cmake/OpenEXRSetup.cmake.orig	2024-03-25 18:27:30 UTC
+--- cmake/OpenEXRSetup.cmake.orig	2024-10-06 17:32:12 UTC
 +++ cmake/OpenEXRSetup.cmake
-@@ -77,9 +77,6 @@ set(OPENEXR_OUTPUT_SUBDIR OpenEXR CACHE
+@@ -78,9 +78,6 @@ set(OPENEXR_OUTPUT_SUBDIR OpenEXR CACHE
  # but is pretty harmless to set globally
  set(CMAKE_INCLUDE_CURRENT_DIR ON)
  
