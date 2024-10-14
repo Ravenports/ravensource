@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	115.12.1
+DEF[PORTVERSION]=	128.3.1
+DEF[TVER]=		${PORTVERSION}esr
 DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
 DEF[CLANGBASE]=		clang17
 # ----------------------------------------------------------------------------
@@ -12,8 +13,8 @@ HOMEPAGE=		https://www.thunderbird.net/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		MOZILLA/thunderbird/releases/${PORTVERSION}/source
-DISTFILE[1]=		thunderbird-${PORTVERSION}.source.tar.xz:main
+SITES[main]=		MOZILLA/thunderbird/releases/${TVER}/source
+DISTFILE[1]=		thunderbird-${TVER}.source.tar.xz:main
 
 SPKGS[std]=		single
 
@@ -152,13 +153,16 @@ post-patch:
 	${REINPLACE_CMD} -e 's@_POSIX_SOURCE@&___@g' \
 		${WRKSRC}/media/libcubeb/src/cubeb_jack.cpp
 
+	# Fix midnight
+	${REINPLACE_CMD} -e "s|%%MBSD64_TGT%%|${MBSD64_TARGET}|" \
+		${WRKSRC}/build/autoconf/config.guess
 	# Set mozilla options
 	@${ECHO_CMD} "--=> Setting configuration <=--"
 	@for arg in ${QMAKE_ARGS}; do \
 		${ECHO_CMD} ".mozconfig <<  $$arg" ;\
 		${ECHO_CMD} ac_add_options $$arg >> ${WRKSRC}/.mozconfig ;\
 	done
-	@${ECHO_CMD} LDFLAGS=\"-Wl,-rpath,${PREFIX}/lib/thunderbird\" \
+	@${ECHO_CMD} LDFLAGS=\"-lm -Wl,-rpath,${PREFIX}/lib/thunderbird\" \
 		>> ${WRKSRC}/.mozconfig
 
 	# disable rust checksums
