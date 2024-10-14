@@ -1,0 +1,47 @@
+DEF[PORTVERSION]=	%%VERSION%%
+DEF[DISTSUFFIX]=	+cargo-0.82.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		cargo-c
+VERSION=		${PORTVERSION}
+KEYWORDS=		rust devel
+VARIANTS=		std
+SDESC[std]=		Helper applet to build C-like libraries
+HOMEPAGE=		https://github.com/lu-zero/cargo-c/
+CONTACT=		nobody
+
+%%DOWNLOAD_GROUPS%%
+SITES[main]=		https://crates.io/api/v1/crates/cargo-c/${PORTVERSION}${DISTSUFFIX}/download?dummy=/
+%%CR_SITES%%
+
+DISTFILE[1]=		cargo-c-${PORTVERSION}.tar.gz:main
+%%CR_DISTFILES%%
+%%DF_INDEX%%
+
+SPKGS[std]=		single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		devel/cargo-c
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+BUILD_DEPENDS=		curl:dev:std
+			libgit2:dev:std
+			libssh2:dev:std
+BUILDRUN_DEPENDS=	curl:primary:std
+			libgit2:primary:std
+			libssh2:primary:std
+
+USES=			cargo pkgconfig ssl cclibs:single
+DISTNAME=		cargo-c-${PORTVERSION}${DISTSUFFIX}
+
+post-patch:
+	${REINPLACE_CMD} -e 's,libdir.join("pkgconfig,prefix.join("lib/pkgconfig,' \
+		${WRKSRC}/src/install.rs
+
+post-install:
+	${RM} ${STAGEDIR}${PREFIX}/.crates2.json
