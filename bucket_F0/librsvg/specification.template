@@ -40,18 +40,21 @@ FPC_EQUIVALENT=		graphics/librsvg2-rust
 
 BUILD_DEPENDS=		python-docutils:single:python_default
 			harfbuzz:dev:std
+			cargo-c:single:std
 
 EXRUN[dev]=		cairo:dev:std
 
-USES=			cpe gmake gtk-doc png libtool pkgconfig freetype
-			perl:build python:build cargo execinfo
+USES=			cpe gmake gtk-doc png pkgconfig freetype
+			perl:build python:build cargo execinfo meson
 GNOME_COMPONENTS=	cairo pango gdkpixbuf libxml2 libcroco
 CPE_VENDOR=		gnome
-MUST_CONFIGURE=		gnu
 # vala caused circular dep (vala requires graphviz which requires librsvg)
-CONFIGURE_ARGS=		--disable-vala
-			--disable-Bsymbolic
-			--docdir={{STD_DOCDIR}}
+MESON_ARGS=		-Dpixbuf=enabled
+			-Dpixbuf-loader=enabled
+			-Dvala=disabled
+			-Ddocs=enabled
+			-Dtests=false
+			-Davif=disabled
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
 PLIST_SUB=		PORTVERSION=${PORTVERSION}
@@ -64,8 +67,8 @@ CARGO_SKIP_INSTALL=	yes
 [INTROSPECTION].DESCRIPTION=		Build with introspection
 [INTROSPECTION].BUILD_DEPENDS_ON=	python-gi-docgen:set:python_default
 [INTROSPECTION].GNOME_COMPONENTS_ON=	introspection
-[INTROSPECTION].CONFIGURE_ARGS_ON=	--enable-gtk-doc
-[INTROSPECTION].CONFIGURE_ARGS_OFF=	--enable-introspection=no
+[INTROSPECTION].CONFIGURE_ARGS_ON=	-Dintrospection=enabled
+[INTROSPECTION].CONFIGURE_ARGS_OFF=	-Dintrospection=disabled
 
 post-patch:
 	# extract license terms
