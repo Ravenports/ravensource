@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	24.1.6
+DEF[PORTVERSION]=	24.2.4
 DEF[CLANGBASE]=		clang17
 DEF[LLVMBASE]=		llvm17
 # ----------------------------------------------------------------------------
@@ -54,6 +54,7 @@ BUILD_DEPENDS=		libdrm:dev:std
 			libva:dev:std
 			libvdpau:dev:std
 			python-Mako:single:python_used
+			python-PyYAML:single:python_used
 BUILDRUN_DEPENDS=	libdrm:primary:std
 
 EXRUN[drivers]=		mesa:primary:std
@@ -140,12 +141,14 @@ VAR_OPSYS[sunos]=	CPPFLAGS=-D__EXTENSIONS__=1
 [LLVMPIPE].RUN_DEPENDS_ON=		${CLANGBASE}:dynlibs:std
 [LLVMPIPE].MAKEFILE_ON=			GALLIUM_LLVM_DRIVERS+=R600
 					GALLIUM_LLVM_DRIVERS+=RADEONSI
+					GALLIUM_LLVM_DRIVERS+=LLVMPIPE
 					GALLIUM_DRIVERS+={{GALLIUM_LLVM_DRIVERS}}
 					MESON_ARGS+=-Dllvm=true
 					MESON_ARGS+=-Dgallium-va=enabled
 					MESON_ARGS+=-Dgallium-opencl=icd
 					MESON_ARGS+=-Dgallium-vdpau=enabled
 [LLVMPIPE].MAKEFILE_OFF=		MESON_ARGS+=-Dgallium-opencl=disabled
+					MESON_ARGS+=-Dllvm=false
 
 [X86_DRIVERS].MAKEFILE_ON=		GALLIUM_DRIVERS+=R300
 					GALLIUM_DRIVERS+=SVGA

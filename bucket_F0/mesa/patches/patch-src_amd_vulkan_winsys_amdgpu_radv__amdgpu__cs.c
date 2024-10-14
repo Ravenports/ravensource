@@ -1,6 +1,6 @@
 - Define ETIME if missing
 
---- src/amd/vulkan/winsys/amdgpu/radv_amdgpu_cs.c.orig	2024-07-03 14:51:12 UTC
+--- src/amd/vulkan/winsys/amdgpu/radv_amdgpu_cs.c.orig	2024-10-03 15:38:59 UTC
 +++ src/amd/vulkan/winsys/amdgpu/radv_amdgpu_cs.c
 @@ -41,6 +41,10 @@
  
@@ -11,5 +11,5 @@
 +#endif
 +
  struct radv_amdgpu_ib {
-    struct radeon_winsys_bo *bo;
-    unsigned cdw;
+    struct radeon_winsys_bo *bo; /* NULL when not owned by the current CS object */
+    uint64_t va;

@@ -1,6 +1,6 @@
---- meson.build.orig	2024-07-03 14:51:12 UTC
+--- meson.build.orig	2024-10-03 15:38:59 UTC
 +++ meson.build
-@@ -135,7 +135,7 @@ with_any_opengl = with_opengl or with_gl
+@@ -118,7 +118,7 @@ with_any_opengl = with_opengl or with_gl
  # Only build shared_glapi if at least one OpenGL API is enabled
  with_shared_glapi = with_shared_glapi and with_any_opengl
  
@@ -9,7 +9,7 @@
  
  gallium_drivers = get_option('gallium-drivers')
  if gallium_drivers.contains('auto')
-@@ -1138,7 +1138,7 @@ else
+@@ -1158,7 +1158,7 @@ else
    endif
  
    # FreeBSD annotated <pthread.h> but Mesa isn't ready
@@ -18,7 +18,7 @@
      _trial_c += ['-Werror=thread-safety']
    endif
  
-@@ -1410,34 +1410,34 @@ foreach f, prefix: functions_to_detect
+@@ -1430,34 +1430,34 @@ foreach f, prefix: functions_to_detect
  endforeach
  
  if cpp.links('''
