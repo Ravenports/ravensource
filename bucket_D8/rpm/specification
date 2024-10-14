@@ -1,5 +1,6 @@
-DEF[PORTVERSION]=	4.19.1.1
-DEF[SOVERSION]=		10.0.2
+DEF[PORTVERSION]=	4.20.0
+DEF[SOVERSION]=		10.2.0
+DEF[MAJOR]=		${PORTVERSION:R}
 DEF[BINARIES]=		rpm rpm2archive rpm2cpio rpmbuild rpmdb rpmgraph rpmkeys rpmlua rpmsign rpmsort rpmspec
 DEF[LIBRARIES]=		librpm librpmbuild librpmio librpmsign
 DEF[PLUGINS]=		dbus_announce fapolicyd prioreset syslog systemd_inhibit
@@ -7,7 +8,6 @@ DEF[PLUGINS]=		dbus_announce fapolicyd prioreset syslog systemd_inhibit
 
 NAMEBASE=		rpm
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		archivers
 VARIANTS=		std
 SDESC[std]=		RPM Package Manager
@@ -15,7 +15,7 @@ HOMEPAGE=		https://rpm.org/
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		http://ftp.rpm.org/releases/rpm-${PORTVERSION:R:R}.x/
+SITES[main]=		http://ftp.rpm.org/releases/rpm-${MAJOR}.x/
 DISTFILE[1]=		rpm-${PORTVERSION}.tar.bz2:main
 
 SPKGS[std]=		set primary tools python dev man nls docs
@@ -45,6 +45,7 @@ BUILD_DEPENDS=		libarchive:dev:std
 			zstd:dev:std
 			file:dev:std
 			popt:dev:std
+			nettle:dev:std
 BUILDRUN_DEPENDS=	bzip2:primary:std
 			dbus:primary:std
 			file:primary:std
@@ -55,7 +56,6 @@ BUILDRUN_DEPENDS=	bzip2:primary:std
 # #			rpm-sequoia:primary:std
 			xz:primary:std
 			zstd:primary:std
-
 EXRUN[tools]=		primary
 EXRUN[python]=		primary
 
@@ -67,8 +67,6 @@ SHEBANG_FILES=		scripts/brp-compress
 			scripts/find-lang.sh
 			scripts/fontconfig.prov
 			scripts/ocamldeps.sh
-			scripts/perl.prov
-			scripts/perl.req
 			scripts/pkgconfigdeps.sh
 			scripts/rpm_macros_provides.sh
 			scripts/sysusers.sh
@@ -78,6 +76,9 @@ CMAKE_ARGS=		-DWITH_CAP=OFF
 			-DWITH_ACL=OFF
 			-DWITH_AUDIT=OFF
 			-DWITH_SELINUX=OFF
+			-DWITH_LIBELF=OFF
+			-DWITH_LIBDW=OFF
+			-DWITH_SEQUOIA=OFF
 			-DWITH_INTERNAL_OPENPGP=ON
 			-DENABLE_NDB=OFF
 			-DENABLE_TESTSUITE=OFF

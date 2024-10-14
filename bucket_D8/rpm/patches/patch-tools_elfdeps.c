@@ -1,6 +1,6 @@
---- tools/elfdeps.c.orig	2024-04-08 12:58:17.867700000 +0200
-+++ tools/elfdeps.c	2024-04-08 12:58:48.770872000 +0200
-@@ -84,7 +84,7 @@
+--- tools/elfdeps.c.orig	2024-10-07 09:35:46 UTC
++++ tools/elfdeps.c
+@@ -85,7 +85,7 @@ static const char *mkmarker(GElf_Ehdr *e
      if (ehdr->e_ident[EI_CLASS] == ELFCLASS64) {
  	switch (ehdr->e_machine) {
  	case EM_ALPHA:
