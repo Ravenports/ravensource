@@ -19,6 +19,14 @@ FNR==NR {
      next
   }
 
+  # handle awful curl-sys tag
+  if (item[1] == "curl" && item[2] == "sys") {
+     ll++
+     name[ll""] = "curl-sys"
+     version[ll""] = substr($0, 10)
+     next
+  }
+
   # handle standard crates
   ll++
   version[ll""] = item[n]
