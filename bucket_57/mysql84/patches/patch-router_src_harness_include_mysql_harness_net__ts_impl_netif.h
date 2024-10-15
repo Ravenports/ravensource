@@ -1,6 +1,6 @@
---- router/src/harness/include/mysql/harness/net_ts/impl/netif.h.orig	2024-06-03 11:39:00 UTC
+--- router/src/harness/include/mysql/harness/net_ts/impl/netif.h.orig	2024-09-17 10:40:37 UTC
 +++ router/src/harness/include/mysql/harness/net_ts/impl/netif.h
-@@ -33,6 +33,8 @@
+@@ -34,6 +34,8 @@
  #include <string_view>
  
  #if defined(__linux__) || defined(__FreeBSD__) || defined(__APPLE__) || \

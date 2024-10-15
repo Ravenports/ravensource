@@ -1,4 +1,4 @@
---- mysys/my_default.cc.orig	2024-06-03 11:39:00 UTC
+--- mysys/my_default.cc.orig	2024-09-17 10:40:37 UTC
 +++ mysys/my_default.cc
 @@ -209,7 +209,7 @@ bool no_defaults = false;
  
