@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	128.0
+DEF[PORTVERSION]=	131.0.3
 DEF[FOXVERSION]=	${PORTVERSION}
 DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
 # ----------------------------------------------------------------------------
@@ -136,12 +136,14 @@ VAR_OPSYS[midnightbsd]=	MAKEFILE_LINE=CONFIGURE_TARGET=${MBSD64_TARGET}
 [MOLD].BUILD_DEPENDS_ON=		mold:primary:std
 [MOLD].QMAKE_ARGS_ON=			--enable-linker=mold
 
+post-extract:
+	${SED} -e 's|@FIREFOX_ICON@|firefox|;s|@MOZILLA@|firefox|' \
+		< ${FILESDIR}/firefox.desktop.in \
+		> ${WRKDIR}/firefox.desktop
+
 post-patch:
 	${REINPLACE_CMD} -e 's|%%LOCALBASE%%|${LOCALBASE}|g' \
 		${WRKSRC}/browser/app/nsBrowserApp.cpp
-	${REINPLACE_CMD} -e 's/%u/%U/' -e '/X-MultipleArgs/d' \
-		-e '/^Icon/s/=.*/=firefox/' \
-		${WRKSRC}/taskcluster/docker/firefox-snap/firefox.desktop
 	(cd ${WRKSRC}/gfx/angle/checkout/src/compiler/translator && \
 		${REINPLACE_CMD} -e 's|<math.h>|<cmath>|' \
 		InfoSink.h IntermNode.cpp)
@@ -150,7 +152,8 @@ post-patch:
 		${WRKSRC}/netwerk/moz.build
 	# disable rust checksums
 	${REINPLACE_CMD} -e 's/"files":{[^}]*}/"files":{}/' \
-		 ${WRKSRC}/third_party/rust/libc/.cargo-checksum.json
+		${WRKSRC}/third_party/rust/libc/.cargo-checksum.json \
+		${WRKSRC}/third_party/rust/quinn-udp/.cargo-checksum.json
 	# Fix midnight
 	${REINPLACE_CMD} -e "s|%%MBSD64_TGT%%|${MBSD64_TARGET}|" \
 		${WRKSRC}/build/autoconf/config.guess
@@ -166,7 +169,7 @@ post-patch:
 post-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/share/pixmaps \
 		${STAGEDIR}${PREFIX}/share/applications
-	${INSTALL_DATA} ${WRKSRC}/taskcluster/docker/firefox-snap/firefox.desktop \
+	${INSTALL_DATA} ${WRKDIR}/firefox.desktop \
 		${STAGEDIR}${PREFIX}/share/applications/
 	(cd ${STAGEDIR}${PREFIX}/share/pixmaps &&\
 	${LN} -s ../../lib/firefox/browser/chrome/icons/default/default48.png firefox.png)
