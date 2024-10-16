@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.011
+DEF[PORTVERSION]=	0.012
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-MooX-StrictConstructor
@@ -7,11 +7,11 @@ KEYWORDS=		perl
 VARIANTS=		538 540
 SDESC[538]=		Moo-based object constructor exceptions (5.38)
 SDESC[540]=		Moo-based object constructor exceptions (5.40)
-HOMEPAGE=		https://github.com/hartzell/moox-strictconstructor
+HOMEPAGE=		https://github.com/haarg/MooX-StrictConstructor
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		CPAN/ID:H/HA/HARTZELL
+SITES[main]=		CPAN/ID:H/HA/HAARG
 DISTFILE[1]=		MooX-StrictConstructor-${PORTVERSION}.tar.gz:main
 
 SPKGS[538]=		single
@@ -32,28 +32,22 @@ DISTNAME=		MooX-StrictConstructor-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |      runtime : B (perl 5.38 core) (perl 5.40 core)
 # |      runtime : Class::Method::Modifiers
 # |      runtime : Moo
 # |      runtime : Moo::Role
-# |      runtime : constant (perl 5.38 core) (perl 5.40 core)
-# |      runtime : strict (perl 5.38 core) (perl 5.40 core)
-# |      runtime : strictures
 # |    configure : ExtUtils::MakeMaker (perl 5.38 core) (perl 5.40 core)
+# |         test : ExtUtils::MakeMaker (perl 5.38 core) (perl 5.40 core)
 # |         test : File::Spec (perl 5.38 core) (perl 5.40 core)
-# |         test : File::Temp (perl 5.38 core) (perl 5.40 core)
 # |         test : IO::Handle (perl 5.38 core) (perl 5.40 core)
 # |         test : IPC::Open3 (perl 5.38 core) (perl 5.40 core)
 # |         test : Test::Fatal
 # |         test : Test::More (perl 5.38 core) (perl 5.40 core)
-# |         test : warnings (perl 5.38 core) (perl 5.40 core)
+# |         test : CPAN::Meta (perl 5.38 core) (perl 5.40 core)
 
 [PERL_538].USES_ON=			perl:538,configure
 [PERL_538].BUILDRUN_DEPENDS_ON=		perl-Class-Method-Modifiers:single:538
 					perl-Moo:single:538
-					perl-strictures:single:538
 [PERL_540].USES_ON=			perl:540,configure
 [PERL_540].BUILDRUN_DEPENDS_ON=		perl-Class-Method-Modifiers:single:540
 					perl-Moo:single:540
-					perl-strictures:single:540
 
