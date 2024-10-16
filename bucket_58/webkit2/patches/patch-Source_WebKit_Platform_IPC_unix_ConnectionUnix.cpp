@@ -5,7 +5,7 @@ WebKit already uses shared memory to communicate the message body when
 the message is too large, so force it to always use this method to avoid
 encountering EMSGSIZE.
 
---- Source/WebKit/Platform/IPC/unix/ConnectionUnix.cpp.orig	2024-03-16 06:45:50 UTC
+--- Source/WebKit/Platform/IPC/unix/ConnectionUnix.cpp.orig	2024-09-30 08:15:01 UTC
 +++ Source/WebKit/Platform/IPC/unix/ConnectionUnix.cpp
 @@ -62,6 +62,10 @@
  #endif
@@ -28,6 +28,6 @@ encountering EMSGSIZE.
 +#else
 +    {
 +#endif
-         RefPtr<WebCore::SharedMemory> oolMessageBody = WebCore::SharedMemory::allocate(outputMessage.bodySize());
+         RefPtr oolMessageBody = WebCore::SharedMemory::allocate(outputMessage.bodySize());
          if (!oolMessageBody)
              return false;

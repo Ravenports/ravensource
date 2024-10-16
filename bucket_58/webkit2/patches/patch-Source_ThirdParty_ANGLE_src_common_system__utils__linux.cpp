@@ -1,4 +1,4 @@
---- Source/ThirdParty/ANGLE/src/common/system_utils_linux.cpp.orig	2024-03-16 06:45:47 UTC
+--- Source/ThirdParty/ANGLE/src/common/system_utils_linux.cpp.orig	2024-08-19 06:28:35 UTC
 +++ Source/ThirdParty/ANGLE/src/common/system_utils_linux.cpp
 @@ -56,6 +56,10 @@ void SetCurrentThreadName(const char *na
  {

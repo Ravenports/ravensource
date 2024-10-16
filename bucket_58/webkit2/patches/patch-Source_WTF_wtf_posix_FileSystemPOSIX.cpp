@@ -1,6 +1,6 @@
---- Source/WTF/wtf/posix/FileSystemPOSIX.cpp.orig	2024-03-16 06:45:49 UTC
+--- Source/WTF/wtf/posix/FileSystemPOSIX.cpp.orig	2024-08-19 06:28:38 UTC
 +++ Source/WTF/wtf/posix/FileSystemPOSIX.cpp
-@@ -194,6 +194,9 @@ std::optional<WallTime> fileCreationTime
+@@ -195,6 +195,9 @@ std::optional<WallTime> fileCreationTime
          return std::nullopt;
  
      return WallTime::fromRawSeconds(fileInfo.stx_btime.tv_sec);

@@ -1,6 +1,6 @@
---- Source/ThirdParty/ANGLE/src/common/aligned_memory.cpp.orig	2024-03-16 06:45:47 UTC
+--- Source/ThirdParty/ANGLE/src/common/aligned_memory.cpp.orig	2024-08-19 06:28:35 UTC
 +++ Source/ThirdParty/ANGLE/src/common/aligned_memory.cpp
-@@ -33,7 +33,7 @@ void *AlignedAlloc(size_t size, size_t a
+@@ -35,7 +35,7 @@ void *AlignedAlloc(size_t size, size_t a
  // memalign() on Android returns pointers which can safely be used with
  // free(), so we can use it instead.  Issue filed to document this:
  // http://code.google.com/p/android/issues/detail?id=35391

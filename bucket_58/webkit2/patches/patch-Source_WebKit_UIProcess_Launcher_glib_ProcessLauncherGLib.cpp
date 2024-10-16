@@ -1,4 +1,4 @@
---- Source/WebKit/UIProcess/Launcher/glib/ProcessLauncherGLib.cpp.orig	2024-08-13 05:20:01 UTC
+--- Source/WebKit/UIProcess/Launcher/glib/ProcessLauncherGLib.cpp.orig	2024-09-30 08:15:01 UTC
 +++ Source/WebKit/UIProcess/Launcher/glib/ProcessLauncherGLib.cpp
 @@ -43,6 +43,13 @@
  #include <wtf/text/CString.h>
@@ -14,35 +14,44 @@
  #if USE(LIBWPE)
  #include "ProcessProviderLibWPE.h"
  #endif
-@@ -53,7 +60,7 @@
+@@ -57,7 +64,7 @@ namespace WebKit {
  
- namespace WebKit {
+ void ProcessLauncher::platformDestroy()
+ {
+-#if OS(LINUX)
++#if TREAT_AS_LINUX
+     if (m_pidServerSocket != -1) {
+         close(m_pidServerSocket);
+         m_pidServerSocket = -1;
+@@ -65,7 +72,7 @@ void ProcessLauncher::platformDestroy()
+ #endif
+ }
  
 -#if OS(LINUX)
 +#if TREAT_AS_LINUX
  static bool isFlatpakSpawnUsable()
  {
-     static std::optional<bool> ret;
-@@ -150,7 +157,7 @@ void ProcessLauncher::launchProcess()
+     ASSERT(isInsideFlatpak());
+@@ -135,7 +142,7 @@ void ProcessLauncher::launchProcess()
      }
  #endif
  
 -#if OS(LINUX)
 +#if TREAT_AS_LINUX
      IPC::SocketPair pidSocketPair = IPC::createPlatformConnection(IPC::PlatformConnectionOptions::SetCloexecOnClient | IPC::PlatformConnectionOptions::SetCloexecOnServer | IPC::PlatformConnectionOptions::SetPasscredOnServer);
-     GUniquePtr<gchar> pidSocket(g_strdup_printf("%d", pidSocketPair.client));
+     GUniquePtr<gchar> pidSocketString(g_strdup_printf("%d", pidSocketPair.client));
  #endif
-@@ -202,7 +209,9 @@ void ProcessLauncher::launchProcess()
+@@ -187,7 +194,9 @@ void ProcessLauncher::launchProcess()
      argv[i++] = const_cast<char*>(realExecutablePath.data());
      argv[i++] = processIdentifier.get();
      argv[i++] = webkitSocket.get();
 +#if TREAT_AS_LINUX
-     argv[i++] = pidSocket.get();
+     argv[i++] = pidSocketString.get();
 +#endif
  #if ENABLE(DEVELOPER_MODE)
      if (configureJSCForTesting)
          argv[i++] = const_cast<char*>("--configure-jsc-for-testing");
-@@ -220,14 +229,14 @@ void ProcessLauncher::launchProcess()
+@@ -205,7 +214,7 @@ void ProcessLauncher::launchProcess()
      // Please keep this comment in sync with the duplicate comment in XDGDBusProxy::launch.
      GRefPtr<GSubprocessLauncher> launcher = adoptGRef(g_subprocess_launcher_new(G_SUBPROCESS_FLAGS_INHERIT_FDS));
      g_subprocess_launcher_take_fd(launcher.get(), webkitSocketPair.client, webkitSocketPair.client);
@@ -51,27 +60,21 @@
      g_subprocess_launcher_take_fd(launcher.get(), pidSocketPair.client, pidSocketPair.client);
  #endif
  
+@@ -226,7 +235,7 @@ void ProcessLauncher::launchProcess()
      GUniqueOutPtr<GError> error;
      GRefPtr<GSubprocess> process;
  
 -#if OS(LINUX)
 +#if TREAT_AS_LINUX
-     bool sandboxEnabled = isSandboxEnabled(m_launchOptions);
+     bool sandboxEnabled = m_launchOptions.extraInitializationData.get<HashTranslatorASCIILiteral>("enable-sandbox"_s) == "true"_s;
  
-     if (sandboxEnabled && isFlatpakSpawnUsable())
-@@ -239,13 +248,13 @@ void ProcessLauncher::launchProcess()
-         process = bubblewrapSpawn(launcher.get(), m_launchOptions, argv, &error.outPtr());
- #endif // ENABLE(BUBBLEWRAP_SANDBOX)
-     else
--#endif // OS(LINUX)
-+#endif // TREAT_AS_LINUX 
-         process = adoptGRef(g_subprocess_launcher_spawnv(launcher.get(), argv, &error.outPtr()));
- 
+     if (sandboxEnabled && isInsideFlatpak() && isFlatpakSpawnUsable())
+@@ -244,7 +253,7 @@ void ProcessLauncher::launchProcess()
      if (!process.get())
          g_error("Unable to spawn a new child process: %s", error->message);
  
 -#if OS(LINUX)
 +#if TREAT_AS_LINUX
-     m_processID = IPC::readPIDFromPeer(pidSocketPair.server);
-     RELEASE_ASSERT(!close(pidSocketPair.server));
- #else
+     GRefPtr<GSocket> pidSocket = adoptGRef(g_socket_new_from_fd(pidSocketPair.server, &error.outPtr()));
+     if (!pidSocket)
+         g_error("Failed to create pid socket wrapper: %s", error->message);

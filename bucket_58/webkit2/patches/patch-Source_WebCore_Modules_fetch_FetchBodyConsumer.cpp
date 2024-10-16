@@ -1,8 +1,8 @@
---- Source/WebCore/Modules/fetch/FetchBodyConsumer.cpp.orig	2024-03-16 06:45:49 UTC
+--- Source/WebCore/Modules/fetch/FetchBodyConsumer.cpp.orig	2024-08-19 06:28:38 UTC
 +++ Source/WebCore/Modules/fetch/FetchBodyConsumer.cpp
-@@ -43,6 +43,32 @@
- #include <wtf/StringExtras.h>
+@@ -44,6 +44,32 @@
  #include <wtf/URLParser.h>
+ #include <wtf/text/MakeString.h>
  
 +#ifdef __sun
 +static void *memmem(
