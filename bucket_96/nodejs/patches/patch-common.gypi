@@ -1,6 +1,6 @@
---- common.gypi.orig	2024-09-17 19:34:56 UTC
+--- common.gypi.orig	2024-10-16 03:44:56 UTC
 +++ common.gypi
-@@ -483,17 +483,17 @@
+@@ -483,11 +483,11 @@
            'NOMINMAX',
          ],
        }],
@@ -14,10 +14,3 @@
          'cflags': [ '-Wall', '-Wextra', '-Wno-unused-parameter', ],
          'cflags_cc': [
            '-fno-rtti',
-           '-fno-exceptions',
-           '-fno-strict-aliasing',
--          '-std=gnu++17',
-+          '-std=gnu++20',
-         ],
-         'defines': [ '__STDC_FORMAT_MACROS' ],
-         'ldflags': [ '-rdynamic' ],

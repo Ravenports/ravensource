@@ -1,4 +1,4 @@
---- deps/v8/third_party/abseil-cpp/absl/base/internal/sysinfo.cc.orig	2024-09-17 19:35:00 UTC
+--- deps/v8/third_party/abseil-cpp/absl/base/internal/sysinfo.cc.orig	2024-10-16 03:45:04 UTC
 +++ deps/v8/third_party/abseil-cpp/absl/base/internal/sysinfo.cc
 @@ -26,11 +26,19 @@
  #include <unistd.h>
@@ -22,7 +22,7 @@
  #include <sys/sysctl.h>
  #endif
  
-@@ -452,6 +460,24 @@ pid_t GetTID() { return getthrid(); }
+@@ -456,6 +464,24 @@ pid_t GetTID() { return getthrid(); }
  
  pid_t GetTID() { return static_cast<pid_t>(_lwp_self()); }
  

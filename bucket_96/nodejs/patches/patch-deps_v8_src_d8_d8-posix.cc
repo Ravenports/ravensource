@@ -1,6 +1,6 @@
---- deps/v8/src/d8/d8-posix.cc.orig	2024-09-17 19:34:59 UTC
+--- deps/v8/src/d8/d8-posix.cc.orig	2024-10-16 03:45:00 UTC
 +++ deps/v8/src/d8/d8-posix.cc
-@@ -339,7 +339,7 @@ static Local<Value> GetStdout(Isolate* i
+@@ -343,7 +343,7 @@ static Local<Value> GetStdout(Isolate* i
  // See http://code.google.com/p/v8/issues/detail?id=401.
  #if defined(WNOWAIT) && !defined(ANDROID) && !defined(__APPLE__) && \
      !defined(__NetBSD__) && !defined(__Fuchsia__)

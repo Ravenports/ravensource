@@ -1,16 +1,15 @@
---- deps/v8/src/base/platform/platform-posix.cc.orig	2024-09-17 19:34:59 UTC
+--- deps/v8/src/base/platform/platform-posix.cc.orig	2024-10-16 03:44:59 UTC
 +++ deps/v8/src/base/platform/platform-posix.cc
-@@ -55,7 +55,9 @@
+@@ -55,7 +55,7 @@
+ #if V8_OS_DARWIN
  #include <mach/mach.h>
  #include <malloc/malloc.h>
- #else
-+# if !V8_OS_FREEBSD && !V8_OS_DRAGONFLYBSD
+-#elif !V8_OS_ZOS
++#elif !V8_OS_ZOS && !V8_OS_FREEBSD && !V8_OS_DRAGONFLYBSD
  #include <malloc.h>
-+# endif
  #endif
  
- #if V8_OS_LINUX
-@@ -72,17 +74,10 @@
+@@ -73,17 +73,10 @@
  #include <sys/syscall.h>
  #endif
  
@@ -29,16 +28,16 @@
  
  #ifndef MADV_FREE
  #define MADV_FREE MADV_DONTNEED
-@@ -132,7 +127,7 @@ int GetFlagsForMemoryPermission(OS::Memo
-   int flags = MAP_ANONYMOUS;
+@@ -138,7 +131,7 @@ int GetFlagsForMemoryPermission(OS::Memo
    flags |= (page_type == PageType::kShared) ? MAP_SHARED : MAP_PRIVATE;
-   if (access == OS::MemoryPermission::kNoAccess) {
+   if (access == OS::MemoryPermission::kNoAccess ||
+       access == OS::MemoryPermission::kNoAccessWillJitLater) {
 -#if !V8_OS_AIX && !V8_OS_FREEBSD && !V8_OS_QNX
 +#if !V8_OS_AIX && !V8_OS_FREEBSD && !V8_OS_QNX && !V8_OS_DRAGONFLYBSD
      flags |= MAP_NORESERVE;
  #endif  // !V8_OS_AIX && !V8_OS_FREEBSD && !V8_OS_QNX
  #if V8_OS_QNX
-@@ -397,6 +392,13 @@ void* OS::GetRandomMmapAddr() {
+@@ -406,6 +399,13 @@ void* OS::GetRandomMmapAddr() {
  #endif
  #endif
  #endif
@@ -52,7 +51,7 @@
    return reinterpret_cast<void*>(raw_addr);
  }
  
-@@ -563,14 +565,11 @@ bool OS::DiscardSystemPages(void* addres
+@@ -571,14 +571,11 @@ bool OS::DiscardSystemPages(void* addres
      // MADV_FREE_REUSABLE sometimes fails, so fall back to MADV_DONTNEED.
      ret = madvise(address, size, MADV_DONTNEED);
    }
@@ -69,7 +68,7 @@
  #else
    int ret = madvise(address, size, MADV_DONTNEED);
  #endif
-@@ -1114,7 +1113,11 @@ Thread::Thread(const Options& options)
+@@ -1138,7 +1135,11 @@ Thread::Thread(const Options& options)
        stack_size_(options.stack_size()),
        priority_(options.priority()),
        start_semaphore_(nullptr) {
@@ -81,7 +80,7 @@
    if (stack_size_ > 0) stack_size_ = std::max(stack_size_, min_stack_size);
    set_name(options.name());
  }
-@@ -1129,7 +1132,7 @@ static void SetThreadName(const char* na
+@@ -1153,7 +1154,7 @@ static void SetThreadName(const char* na
    pthread_set_name_np(pthread_self(), name);
  #elif V8_OS_NETBSD
    static_assert(Thread::kMaxThreadNameLength <= PTHREAD_MAX_NAMELEN_NP);
@@ -90,7 +89,7 @@
  #elif V8_OS_DARWIN
    // pthread_setname_np is only available in 10.6 or later, so test
    // for it at runtime.
-@@ -1305,6 +1308,7 @@ void Thread::SetThreadLocal(LocalStorage
+@@ -1329,6 +1330,7 @@ void Thread::SetThreadLocal(LocalStorage
  // support it. MacOS and FreeBSD are different here.
  #if !defined(V8_OS_FREEBSD) && !defined(V8_OS_DARWIN) && !defined(_AIX) && \
      !defined(V8_OS_SOLARIS)
@@ -98,8 +97,8 @@
  
  namespace {
  #if DEBUG
-@@ -1354,6 +1358,7 @@ Stack::StackSlot Stack::ObtainCurrentThr
-   return stack_start;
+@@ -1382,6 +1384,7 @@ Stack::StackSlot Stack::ObtainCurrentThr
+ #endif  // V8_OS_ZOS
  }
  
 +#endif  // !defined(V8_OS_DRAGONFLYBSD)
