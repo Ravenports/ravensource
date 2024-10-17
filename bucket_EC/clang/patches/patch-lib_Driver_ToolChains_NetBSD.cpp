@@ -1,6 +1,6 @@
---- lib/Driver/ToolChains/NetBSD.cpp.orig	2024-06-15 17:21:32 UTC
+--- lib/Driver/ToolChains/NetBSD.cpp.orig	2024-10-15 08:17:37 UTC
 +++ lib/Driver/ToolChains/NetBSD.cpp
-@@ -275,10 +275,15 @@ void netbsd::Linker::ConstructJob(Compil
+@@ -278,10 +278,15 @@ void netbsd::Linker::ConstructJob(Compil
    bool NeedsXRayDeps = addXRayRuntime(ToolChain, Args, CmdArgs);
    AddLinkerInputs(ToolChain, Inputs, Args, CmdArgs, JA);
  
@@ -19,7 +19,7 @@
    }
  
    bool useLibgcc = true;
-@@ -298,7 +303,6 @@ void netbsd::Linker::ConstructJob(Compil
+@@ -301,7 +306,6 @@ void netbsd::Linker::ConstructJob(Compil
    case llvm::Triple::sparcv9:
    case llvm::Triple::x86:
    case llvm::Triple::x86_64:
@@ -27,7 +27,7 @@
      break;
    default:
      break;
-@@ -335,21 +339,19 @@ void netbsd::Linker::ConstructJob(Compil
+@@ -338,21 +342,19 @@ void netbsd::Linker::ConstructJob(Compil
        linkXRayRuntimeDeps(ToolChain, Args, CmdArgs);
      if (Args.hasArg(options::OPT_pthread))
        CmdArgs.push_back("-lpthread");
@@ -54,7 +54,7 @@
        }
      }
    }
-@@ -434,26 +436,6 @@ Tool *NetBSD::buildAssembler() const {
+@@ -437,26 +439,6 @@ Tool *NetBSD::buildAssembler() const {
  Tool *NetBSD::buildLinker() const { return new tools::netbsd::Linker(*this); }
  
  ToolChain::CXXStdlibType NetBSD::GetDefaultCXXStdlibType() const {
@@ -81,7 +81,7 @@
    return ToolChain::CST_Libstdcxx;
  }
  
-@@ -514,8 +496,9 @@ void NetBSD::addLibCxxIncludePaths(const
+@@ -517,8 +499,9 @@ void NetBSD::addLibCxxIncludePaths(const
  
  void NetBSD::addLibStdCxxIncludePaths(const llvm::opt::ArgList &DriverArgs,
                                        llvm::opt::ArgStringList &CC1Args) const {

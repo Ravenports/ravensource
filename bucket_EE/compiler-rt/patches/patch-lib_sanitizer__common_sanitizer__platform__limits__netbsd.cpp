@@ -1,4 +1,4 @@
---- lib/sanitizer_common/sanitizer_platform_limits_netbsd.cpp.orig	2024-06-15 17:21:32 UTC
+--- lib/sanitizer_common/sanitizer_platform_limits_netbsd.cpp.orig	2024-10-15 08:17:37 UTC
 +++ lib/sanitizer_common/sanitizer_platform_limits_netbsd.cpp
 @@ -47,7 +47,6 @@
  #include <sys/ioctl_compat.h>

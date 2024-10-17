@@ -1,8 +1,8 @@
---- projects/libcxx/include/__config.orig	2024-06-15 17:21:32 UTC
+--- projects/libcxx/include/__config.orig	2024-10-15 08:17:37 UTC
 +++ projects/libcxx/include/__config
-@@ -12,6 +12,10 @@
- 
- #include <__config_site>
+@@ -16,6 +16,10 @@
+ #include <__configuration/compiler.h>
+ #include <__configuration/platform.h>
  
 +#if defined(__FreeBSD__) || defined(__DragonFly__)
 +#define __FreeDragon__
@@ -11,16 +11,7 @@
  #ifndef _LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER
  #  pragma GCC system_header
  #endif
-@@ -188,7 +192,7 @@
- #    endif
- // Feature macros for disabling pre ABI v1 features. All of these options
- // are deprecated.
--#    if defined(__FreeBSD__) && __FreeBSD__ < 14
-+#    if (defined(__FreeBSD__) && __FreeBSD__ < 14) || defined(__DragonFly__)
- #      define _LIBCPP_DEPRECATED_ABI_DISABLE_PAIR_TRIVIAL_COPY_CTOR
- #    endif
- // For XCOFF linkers, we have problems if we see a weak hidden version of a symbol
-@@ -953,11 +957,11 @@ typedef __char32_t char32_t;
+@@ -667,11 +671,11 @@ typedef __char32_t char32_t;
  #    define _LIBCPP_HAS_NO_C11_ALIGNED_ALLOC
  #  endif
  
@@ -34,7 +25,7 @@
  #    define _LIBCPP_WCTYPE_IS_MASK
  #  endif
  
-@@ -1093,7 +1097,7 @@ __sanitizer_verify_double_ended_contiguo
+@@ -807,7 +811,7 @@ typedef __char32_t char32_t;
        !defined(_LIBCPP_HAS_THREAD_API_WIN32) &&                                                                        \
        !defined(_LIBCPP_HAS_THREAD_API_EXTERNAL)
  

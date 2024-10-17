@@ -1,8 +1,8 @@
 Fix SunOS CS,DS conflict not handled by include/llvm-c/DataTypes.h
 
---- include/llvm/ADT/SmallVector.h.orig	2024-06-15 17:21:32 UTC
+--- include/llvm/ADT/SmallVector.h.orig	2024-10-15 08:17:37 UTC
 +++ include/llvm/ADT/SmallVector.h
-@@ -30,6 +30,11 @@
+@@ -31,6 +31,11 @@
  #include <type_traits>
  #include <utility>
  

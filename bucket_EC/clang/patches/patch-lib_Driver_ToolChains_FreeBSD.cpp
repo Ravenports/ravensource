@@ -1,6 +1,6 @@
---- lib/Driver/ToolChains/FreeBSD.cpp.orig	2024-06-15 17:21:32 UTC
+--- lib/Driver/ToolChains/FreeBSD.cpp.orig	2024-10-15 08:17:37 UTC
 +++ lib/Driver/ToolChains/FreeBSD.cpp
-@@ -283,6 +283,16 @@ void freebsd::Linker::ConstructJob(Compi
+@@ -288,6 +288,16 @@ void freebsd::Linker::ConstructJob(Compi
    addLinkerCompressDebugSectionsOption(ToolChain, Args, CmdArgs);
    AddLinkerInputs(ToolChain, Inputs, Args, CmdArgs, JA);
  
@@ -17,7 +17,7 @@
    unsigned Major = ToolChain.getTriple().getOSMajorVersion();
    bool Profiling = Args.hasArg(options::OPT_pg) && Major != 0 && Major < 14;
    if (!Args.hasArg(options::OPT_nostdlib, options::OPT_nodefaultlibs,
-@@ -398,6 +408,8 @@ FreeBSD::FreeBSD(const Driver &D, const
+@@ -403,6 +413,8 @@ FreeBSD::FreeBSD(const Driver &D, const
      getFilePaths().push_back(concat(getDriver().SysRoot, "/usr/lib32"));
    else
      getFilePaths().push_back(concat(getDriver().SysRoot, "/usr/lib"));
@@ -26,7 +26,7 @@
  }
  
  void FreeBSD::AddClangSystemIncludeArgs(
-@@ -434,22 +446,19 @@ void FreeBSD::AddClangSystemIncludeArgs(
+@@ -439,22 +451,19 @@ void FreeBSD::AddClangSystemIncludeArgs(
                            concat(D.SysRoot, "/usr/include"));
  }
  

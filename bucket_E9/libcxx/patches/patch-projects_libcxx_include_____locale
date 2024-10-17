@@ -1,24 +1,15 @@
---- projects/libcxx/include/__locale.orig	2024-06-15 17:21:32 UTC
+--- projects/libcxx/include/__locale.orig	2024-10-15 08:17:37 UTC
 +++ projects/libcxx/include/__locale
-@@ -42,7 +42,7 @@
- #  include <__support/newlib/xlocale.h>
- #elif defined(__OpenBSD__)
- #  include <__support/openbsd/xlocale.h>
--#elif (defined(__APPLE__) || defined(__FreeBSD__))
-+#elif (defined(__APPLE__) || defined(__FreeDragon__))
- #  include <xlocale.h>
- #elif defined(__Fuchsia__)
- #  include <__support/fuchsia/xlocale.h>
-@@ -364,10 +364,10 @@ public:
+@@ -346,10 +346,10 @@ public:
    static const mask __regex_word = 0x4000; // 0x8000 and 0x0100 and 0x00ff are used
  #  define _LIBCPP_CTYPE_MASK_IS_COMPOSITE_PRINT
  #  define _LIBCPP_CTYPE_MASK_IS_COMPOSITE_ALPHA
--#elif defined(__APPLE__) || defined(__FreeBSD__) || defined(__EMSCRIPTEN__) || defined(__NetBSD__)
-+#elif defined(__APPLE__) || defined(__FreeDragon__) || defined(__EMSCRIPTEN__) || defined(__NetBSD__)
+-#elif defined(__APPLE__) || defined(__FreeBSD__) || defined(__NetBSD__)
++#elif defined(__APPLE__) || defined(__FreeDragon__) || defined(__NetBSD__)
  #  ifdef __APPLE__
    typedef __uint32_t mask;
 -#  elif defined(__FreeBSD__)
 +#  elif defined(__FreeDragon__)
    typedef unsigned long mask;
- #  elif defined(__EMSCRIPTEN__) || defined(__NetBSD__)
+ #  elif defined(__NetBSD__)
    typedef unsigned short mask;

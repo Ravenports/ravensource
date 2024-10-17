@@ -1,6 +1,6 @@
---- lib/Driver/ToolChains/Gnu.cpp.orig	2024-06-15 17:21:32 UTC
+--- lib/Driver/ToolChains/Gnu.cpp.orig	2024-10-15 08:17:37 UTC
 +++ lib/Driver/ToolChains/Gnu.cpp
-@@ -439,6 +439,11 @@ void tools::gnutools::Linker::ConstructJ
+@@ -443,6 +443,11 @@ void tools::gnutools::Linker::ConstructJ
    } else if (IsStatic) {
      CmdArgs.push_back("-static");
    } else if (!Args.hasArg(options::OPT_r)) {
@@ -12,7 +12,7 @@
      if (Args.hasArg(options::OPT_rdynamic))
        CmdArgs.push_back("-export-dynamic");
      if (!IsShared) {
-@@ -576,6 +581,8 @@ void tools::gnutools::Linker::ConstructJ
+@@ -580,6 +585,8 @@ void tools::gnutools::Linker::ConstructJ
  
    if (!Args.hasArg(options::OPT_nostdlib, options::OPT_r)) {
      if (!Args.hasArg(options::OPT_nodefaultlibs)) {

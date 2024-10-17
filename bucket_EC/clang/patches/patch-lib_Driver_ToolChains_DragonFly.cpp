@@ -1,4 +1,4 @@
---- lib/Driver/ToolChains/DragonFly.cpp.orig	2024-06-15 17:21:32 UTC
+--- lib/Driver/ToolChains/DragonFly.cpp.orig	2024-10-15 08:17:37 UTC
 +++ lib/Driver/ToolChains/DragonFly.cpp
 @@ -76,7 +76,7 @@ void dragonfly::Linker::ConstructJob(Com
        CmdArgs.push_back("-shared");
@@ -9,18 +9,26 @@
      }
      CmdArgs.push_back("--hash-style=gnu");
      CmdArgs.push_back("--enable-new-dtags");
-@@ -121,18 +121,30 @@ void dragonfly::Linker::ConstructJob(Com
+@@ -121,18 +121,38 @@ void dragonfly::Linker::ConstructJob(Com
      CmdArgs.push_back(Args.MakeArgString(ToolChain.GetFilePath(crtbegin)));
    }
  
 +  if (D.isUsingLTO()) {
 +    assert(!Inputs.empty() && "Must have at least one input.");
-+    addLTOOptions(getToolChain(), Args, CmdArgs, Output, Inputs[0],
++    // Find the first filename InputInfo object.
++    auto Input = llvm::find_if(
++        Inputs, [](const InputInfo &II) -> bool { return II.isFilename(); });
++    if (Input == Inputs.end())
++      // For a very rare case, all of the inputs to the linker are
++      // InputArg. If that happens, just use the first InputInfo.
++      Input = Inputs.begin();
++
++    addLTOOptions(ToolChain, Args, CmdArgs, Output, *Input,
 +                  D.getLTOMode() == LTOK_Thin);
 +  }
 +
    Args.addAllArgs(CmdArgs, {options::OPT_L, options::OPT_T_Group,
-                             options::OPT_s, options::OPT_t, options::OPT_r});
+                             options::OPT_s, options::OPT_t});
    ToolChain.AddFilePathLibArgs(Args, CmdArgs);
  
    AddLinkerInputs(ToolChain, Inputs, Args, CmdArgs, JA);
@@ -44,7 +52,7 @@
  
      // Use the static OpenMP runtime with -static-openmp
      bool StaticOpenMP = Args.hasArg(options::OPT_static_openmp) && !Static;
-@@ -167,16 +179,7 @@ void dragonfly::Linker::ConstructJob(Com
+@@ -167,16 +187,7 @@ void dragonfly::Linker::ConstructJob(Com
          CmdArgs.push_back("-lgcc");
          CmdArgs.push_back("-lgcc_eh");
      } else {
@@ -62,7 +70,7 @@
      }
    }
  
-@@ -213,7 +216,8 @@ DragonFly::DragonFly(const Driver &D, co
+@@ -210,7 +221,8 @@ DragonFly::DragonFly(const Driver &D, co
  
    getFilePaths().push_back(getDriver().Dir + "/../lib");
    getFilePaths().push_back(concat(getDriver().SysRoot, "/usr/lib"));
@@ -72,7 +80,7 @@
  }
  
  void DragonFly::AddClangSystemIncludeArgs(
-@@ -239,8 +243,9 @@ void DragonFly::AddClangSystemIncludeArg
+@@ -236,8 +248,9 @@ void DragonFly::AddClangSystemIncludeArg
  
  void DragonFly::addLibStdCxxIncludePaths(const llvm::opt::ArgList &DriverArgs,
                                           llvm::opt::ArgStringList &CC1Args) const {
@@ -84,7 +92,7 @@
  }
  
  Tool *DragonFly::buildAssembler() const {
-@@ -250,3 +255,5 @@ Tool *DragonFly::buildAssembler() const
+@@ -247,3 +260,5 @@ Tool *DragonFly::buildAssembler() const
  Tool *DragonFly::buildLinker() const {
    return new tools::dragonfly::Linker(*this);
  }
