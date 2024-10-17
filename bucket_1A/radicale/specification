@@ -1,7 +1,7 @@
 # manually maintained due to server support
 # The users won't be able to install version from both pythons due to
 # common files and directories
-DEF[PORTVERSION]=	3.2.3
+DEF[PORTVERSION]=	3.3.0
 DEF[TAG]=		v${PORTVERSION}
 # ------------------------------------------------------------------------
 
@@ -61,7 +61,10 @@ SUB_LIST=		USERS="radicale"
 USES=			cpe shebangfix python:sutools
 SHEBANG_FILES=		radicale.wsgi
 
-post-patch:
+post-extract:
+	${MV} ${WRKSRC}/setup.py.legacy ${WRKSRC}/setup.py
+
+pre-configure:
 	${REINPLACE_CMD} \
 		-e 's,/etc/radicale,${PREFIX}/etc/radicale,g' \
 		-e 's,/etc/ssl,${PREFIX}/etc/radicale,g' \
