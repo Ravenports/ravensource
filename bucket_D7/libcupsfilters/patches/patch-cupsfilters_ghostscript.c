@@ -1,6 +1,6 @@
---- cupsfilters/ghostscript.c.orig	2023-09-21 22:21:04 UTC
+--- cupsfilters/ghostscript.c.orig	2024-10-17 20:58:08 UTC
 +++ cupsfilters/ghostscript.c
-@@ -613,7 +613,13 @@ gs_spawn (const char *filename,
+@@ -610,7 +610,13 @@ gs_spawn (const char *filename,
      }
  
      // Execute Ghostscript command line ...
