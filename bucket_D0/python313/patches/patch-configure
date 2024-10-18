@@ -1,0 +1,65 @@
+--- configure.orig	2024-10-07 05:02:14 UTC
++++ configure
+@@ -7006,7 +7006,7 @@ case $ac_sys_system in #(
+     MULTIARCH="" ;; #(
+   iOS) :
+     MULTIARCH="" ;; #(
+-  FreeBSD*) :
++  FreeBSD*|MidnightBSD*) :
+     MULTIARCH="" ;; #(
+   *) :
+     MULTIARCH=$($CC --print-multiarch 2>/dev/null)
+@@ -7580,7 +7580,7 @@ printf "%s\n" "#define Py_ENABLE_SHARED
+         PY3LIBRARY=libpython3.so
+       fi
+       ;;
+-    Linux*|GNU*|NetBSD*|FreeBSD*|DragonFly*|OpenBSD*|VxWorks*)
++    Linux*|GNU*|NetBSD*|FreeBSD*|DragonFly*|OpenBSD*|VxWorks*|MidnightBSD*)
+       LDLIBRARY='libpython$(LDVERSION).so'
+       BLDLIBRARY='-L. -lpython$(LDVERSION)'
+       RUNSHARED=LD_LIBRARY_PATH=`pwd`${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+@@ -12987,7 +12987,7 @@ then
+ 				   ;;
+ 				esac
+ 		fi;;
+-	NetBSD*|DragonFly*)
++	NetBSD*|DragonFly*|MidnightBSD*)
+ 		LDSHARED='$(CC) -shared'
+ 		LDCXXSHARED='$(CXX) -shared';;
+ 	OpenUNIX*|UnixWare*)
+@@ -13053,7 +13053,7 @@ then :
+ 			CCSHARED="-fPIC"
+ 
+ fi;;
+-	FreeBSD*|NetBSD*|OpenBSD*|DragonFly*) CCSHARED="-fPIC";;
++	FreeBSD*|NetBSD*|OpenBSD*|DragonFly*|MidnightBSD*) CCSHARED="-fPIC";;
+ 	Haiku*) CCSHARED="-fPIC";;
+ 	OpenUNIX*|UnixWare*)
+ 		if test "$GCC" = "yes"
+@@ -13116,7 +13116,7 @@ printf "%s\n" "#define THREAD_STACK_SIZE
+ 	OpenUNIX*|UnixWare*) LINKFORSHARED="-Wl,-Bexport";;
+ 	SCO_SV*) LINKFORSHARED="-Wl,-Bexport";;
+ 	ReliantUNIX*) LINKFORSHARED="-W1 -Blargedynsym";;
+-	FreeBSD*|NetBSD*|OpenBSD*|DragonFly*)
++	FreeBSD*|NetBSD*|OpenBSD*|DragonFly*|MidnightBSD*)
+ 		if [ "`$CC -dM -E - </dev/null | grep __ELF__`" != "" ]
+ 		then
+ 			LINKFORSHARED="-Wl,--export-dynamic"
+@@ -15808,7 +15808,7 @@ then :
+ fi
+ 
+ case $ac_sys_system in #(
+-  FreeBSD*) :
++  FreeBSD*|MidnightBSD*) :
+ 
+     if test -n "$PKG_CONFIG" && \
+     { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"x11\""; } >&5
+@@ -28735,7 +28735,7 @@ case $ac_sys_system in #(
+ 
+     py_cv_module__scproxy=n/a
+  ;; #(
+-  FreeBSD*) :
++  FreeBSD*|MidnightBSD*) :
+ 
+ 
+     py_cv_module__scproxy=n/a
