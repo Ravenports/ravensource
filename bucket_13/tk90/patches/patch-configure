@@ -1,0 +1,54 @@
+--- configure.orig	2024-08-28 17:00:12 UTC
++++ configure
+@@ -5206,9 +5206,13 @@ fi
+ 
+ fi
+ 	    ;;
+-	Linux*|GNU*|NetBSD-Debian|DragonFly-*|FreeBSD-*)
++	Linux*|GNU*|NetBSD-*|DragonFly-*|FreeBSD-*|SunOS-*|MidnightBSD-*)
+ 	    SHLIB_CFLAGS="-fPIC -fno-common"
+ 	    SHLIB_SUFFIX=".so"
++	    TCL_TRIM_DOTS=`echo ${VERSION} | tr -d .`
++	    UNSHARED_LIB_SUFFIX='${TCL_TRIM_DOTS}.a'
++	    SHARED_LIB_SUFFIX='${TCL_TRIM_DOTS}.so.1'
++	    TCL_LIB_VERSIONS_OK=nodots
+ 
+ 	    CFLAGS_OPTIMIZE="-O2"
+ 	    # egcs-2.91.66 on Redhat Linux 6.0 generates lots of warnings
+@@ -5217,12 +5221,15 @@ fi
+ 	    #CFLAGS_OPTIMIZE="${CFLAGS_OPTIMIZE} -D__NO_STRING_INLINES -D__NO_MATH_INLINES"
+ 
+ 	    SHLIB_LD='${CC} ${CFLAGS} ${LDFLAGS} -shared'
++	    TK_SHLIB_LD_EXTRAS="-Wl,-soname,libtk${TCL_TRIM_DOTS}.so.1"
+ 	    DL_OBJS="tclLoadDl.o"
+-	    DL_LIBS="-ldl"
+ 	    LDFLAGS="$LDFLAGS -Wl,--export-dynamic"
+ 
+ 	    case $system in
+-	    DragonFly-*|FreeBSD-*)
++	    Linux-*|GNU*)
++		DL_LIBS="-ldl"
++		;;
++	    DragonFly-*|FreeBSD-*|NetBSD-*|MidnightBSD-*)
+ 		# The -pthread needs to go in the LDFLAGS, not LIBS
+ 		LIBS=`echo $LIBS | sed s/-pthread//`
+ 		CFLAGS="$CFLAGS $PTHREAD_CFLAGS"
+@@ -5344,7 +5351,7 @@ fi
+ 	    UNSHARED_LIB_SUFFIX='${TCL_TRIM_DOTS}.a'
+ 	    TCL_LIB_VERSIONS_OK=nodots
+ 	    ;;
+-	NetBSD-*)
++	xxNetBSD-*)
+ 	    # NetBSD has ELF and can use 'cc -shared' to build shared libs
+ 	    SHLIB_CFLAGS="-fPIC"
+ 	    SHLIB_LD='${CC} ${SHLIB_CFLAGS} -shared'
+@@ -9063,9 +9070,6 @@ else
+     # libdir must be a fully qualified path and not ${exec_prefix}/lib
+     eval libdir="$libdir"
+     TK_LIB_FLAG="-l"
+-    if test "${TCL_MAJOR_VERSION}" -gt 8 ; then
+-	TK_LIB_FLAG="${TK_LIB_FLAG}tcl9"
+-    fi
+     if test "${ac_cv_cygwin}" = "yes" -a "$SHARED_BUILD" = "1"; then
+ 	TK_LIB_FLAG="${TK_LIB_FLAG}tk`echo ${TK_VERSION} | tr -d .`"
+ 	TK_BUILD_LIB_SPEC="-L\$(TOP_DIR)/win ${TK_LIB_FLAG}"

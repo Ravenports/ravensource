@@ -56,7 +56,7 @@ MAKE_ENV=		TCL_VER=${TCL_VER}
 PLIST_SUB=		TCL_VER=${TCL_VER}
 			SUFFIX=${SUFFIX}
 
-post-patch:
+pre-configure:
 	${REINPLACE_CMD} -e \
 	    's|@TCL_BUILD_LIB_SPEC@|@TCL_LIB_SPEC@|; \
 	     s|@TCL_BUILD_STUB_LIB_SPEC@|@TCL_STUB_LIB_SPEC@|; \
@@ -71,7 +71,3 @@ post-configure:
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib${NAMEBASE}.so
-
-post-install-darwin:
-	${MV} ${STAGEDIR}${PREFIX}/lib/lib${NAMEBASE}.so \
-		${STAGEDIR}${PREFIX}/lib/lib${NAMEBASE}.dylib
