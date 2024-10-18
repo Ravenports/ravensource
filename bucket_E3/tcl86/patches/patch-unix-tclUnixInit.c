@@ -1,6 +1,6 @@
---- unix/tclUnixInit.c.orig	2024-01-24 19:26:26 UTC
+--- unix/tclUnixInit.c.orig	2024-08-26 17:56:52 UTC
 +++ unix/tclUnixInit.c
-@@ -395,14 +395,6 @@ TclpInitPlatform(void)
+@@ -394,14 +394,6 @@ TclpInitPlatform(void)
  #endif /* SIGPIPE */
  
  #if defined(__FreeBSD__) && defined(__GNUC__)
