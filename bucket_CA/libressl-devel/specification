@@ -1,7 +1,7 @@
-DEF[PORTVERSION]=	3.9.2
-DEF[SOVERSION]=		56.0.0
-DEF[TLS_SOVERSION]=	29.0.0
-DEF[CRY_SOVERSION]=	53.0.0
+DEF[PORTVERSION]=	4.0.0
+DEF[SOVERSION]=		58.0.0
+DEF[TLS_SOVERSION]=	31.0.0
+DEF[CRY_SOVERSION]=	55.0.0
 DEF[NAMEBASE]=		libressl-devel
 DEF[BASE]=		{{PREFIX}}/${NAMEBASE}
 # ----------------------------------------------------------------------------
@@ -38,8 +38,10 @@ CPE_VENDOR=		openbsd
 CPE_PRODUCT=		libressl
 MUST_CONFIGURE=		gnu
 GNU_CONFIGURE_PREFIX=	${BASE}
+# disable-asm is because libcrypto_pic had hidden references to bn_* functions
 CONFIGURE_ARGS=		--enable-nc
 			--disable-hardening
+			--disable-asm
 			--with-openssldir={{PREFIX}}/etc/${NAMEBASE}
 			--build={{CONFIGURE_TARGET}}
 INSTALL_TARGET=		install-strip
