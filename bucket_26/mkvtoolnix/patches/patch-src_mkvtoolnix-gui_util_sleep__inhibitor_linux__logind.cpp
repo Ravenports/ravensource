@@ -1,4 +1,4 @@
---- src/mkvtoolnix-gui/util/sleep_inhibitor/linux_logind.cpp.orig	2024-09-07 11:10:02 UTC
+--- src/mkvtoolnix-gui/util/sleep_inhibitor/linux_logind.cpp.orig	2024-10-19 13:14:27 UTC
 +++ src/mkvtoolnix-gui/util/sleep_inhibitor/linux_logind.cpp
 @@ -1,6 +1,6 @@
  #include "common/common_pch.h"
