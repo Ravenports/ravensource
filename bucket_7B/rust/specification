@@ -1,12 +1,11 @@
-DEF[PORTVERSION]=	1.81.0
-DEF[RUSTX_BOOT]=	1.80.1
+DEF[PORTVERSION]=	1.82.0
+DEF[RUSTX_BOOT]=	1.81.0
 DEF[CURL_VERSION]=	7.87.0
 DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		rust
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		lang
 VARIANTS=		std
 SDESC[std]=		Systems programming language from Mozilla
@@ -179,7 +178,7 @@ pre-build-dragonfly:
 	#     pub fn __error() -> *mut ::c_int {
 	#         &mut errno
 	#     }
-.for libcver in 94 97 107 112 119 121 124 150 155
+.for libcver in 94 97 107 112 119 121 124 150 155 157 158
 	${REINPLACE_CMD} -e '/__errno_location/d' \
 	${WRKSRC}/vendor/libc-0.2.${libcver}/src/unix/bsd/freebsdlike/dragonfly/errno.rs
 .endfor
