@@ -881,7 +881,8 @@ LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/main.rs
 LICENSE_SCHEME=		solo
 
-USES=			cargo cclibs:primary pkgconfig ssl zstd
+# v0.8.2 ssl requirements OpenSSL (version 1.0.1 through 1.1.1, or 3), or LibreSSL 2.5 through 3.8.1
+USES=			cargo cclibs:primary pkgconfig ssl:openssl30 zstd
 INSTALL_REQ_TOOLCHAIN=	yes
 
 post-install:
