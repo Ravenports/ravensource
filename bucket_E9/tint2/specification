@@ -3,7 +3,7 @@ DEF[PORTVERSION]=	17.1.3
 
 NAMEBASE=		tint2
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		x11 deskutils
 VARIANTS=		std
 SDESC[std]=		Lightweight panel/taskbar/systray/clock
@@ -40,6 +40,7 @@ GNOME_COMPONENTS=	gtk3 librsvg
 XORG_COMPONENTS=	x11 xcomposite xdamage xfixes xinerama xrandr xrender
 INSTALL_REQ_TOOLCHAIN=	yes
 DISTNAME=		tint2-v${PORTVERSION}
+LDFLAGS=		-lm
 
 VAR_OPSYS[netbsd]=	CMAKE_ARGS=-DENABLE_BATTERY:BOOL=OFF
 
