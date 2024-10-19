@@ -41,7 +41,6 @@ PERCENT_BSD_LIST= \
 	vcl/Executable_visualbackendtest.mk \
 	vcl/Executable_mtfdemo.mk \
 	vcl/Module_vcl.mk \
-	vcl/Library_desktop_detector.mk \
 	vcl/Library_vcl.mk \
 	vcl/Executable_icontest.mk
 

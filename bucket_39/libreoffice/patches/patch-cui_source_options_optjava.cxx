@@ -1,6 +1,6 @@
---- cui/source/options/optjava.cxx.orig	2024-07-10 15:12:43 UTC
+--- cui/source/options/optjava.cxx.orig	2024-09-23 13:53:35 UTC
 +++ cui/source/options/optjava.cxx
-@@ -979,6 +979,7 @@ void SvxJavaClassPathDlg::SetClassPath(
+@@ -977,6 +977,7 @@ void SvxJavaClassPathDlg::SetClassPath(
      if ( m_sOldPath.isEmpty() )
          m_sOldPath = _rPath;
      m_xPathList->clear();
@@ -8,7 +8,7 @@
      if (!_rPath.isEmpty())
      {
          std::vector paths = jfw_convertUserPathList(_rPath);
-@@ -1000,6 +1001,7 @@ void SvxJavaClassPathDlg::SetClassPath(
+@@ -998,6 +999,7 @@ void SvxJavaClassPathDlg::SetClassPath(
          // select first entry
          m_xPathList->select(0);
      }

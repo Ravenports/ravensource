@@ -1,4 +1,4 @@
---- external/skia/UnpackedTarball_skia.mk.orig	2024-07-10 15:12:43 UTC
+--- external/skia/UnpackedTarball_skia.mk.orig	2024-09-23 13:53:35 UTC
 +++ external/skia/UnpackedTarball_skia.mk
 @@ -34,6 +34,8 @@ skia_patches := \
      allow-no-es2restrictions.patch.1 \

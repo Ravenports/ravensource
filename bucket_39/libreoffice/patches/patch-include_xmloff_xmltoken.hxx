@@ -1,4 +1,4 @@
---- include/xmloff/xmltoken.hxx.orig	2024-07-10 15:12:43 UTC
+--- include/xmloff/xmltoken.hxx.orig	2024-09-23 13:53:35 UTC
 +++ include/xmloff/xmltoken.hxx
 @@ -24,6 +24,7 @@
  #include <xmloff/dllapi.h>

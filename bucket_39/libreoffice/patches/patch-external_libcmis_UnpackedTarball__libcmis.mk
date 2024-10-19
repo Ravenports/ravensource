@@ -1,10 +1,9 @@
---- external/libcmis/UnpackedTarball_libcmis.mk.orig	2024-07-10 15:12:43 UTC
+--- external/libcmis/UnpackedTarball_libcmis.mk.orig	2024-09-23 13:53:35 UTC
 +++ external/libcmis/UnpackedTarball_libcmis.mk
-@@ -15,6 +15,8 @@ $(eval $(call gb_UnpackedTarball_set_pat
- 
- $(eval $(call gb_UnpackedTarball_add_patches,libcmis,\
- 	external/libcmis/http-session-cleanup.patch.1 \
-+	external/libcmis/libcmis_xml-utils.patch \
+@@ -25,6 +25,7 @@ $(eval $(call gb_UnpackedTarball_add_pat
+ 	external/libcmis/0001-cppcheck-operatorEqVarError-in-src-libcmis-http-sess.patch \
+ 	external/libcmis/0001-Take-into-account-m_CurlInitProtocolsFunction-in-cop.patch \
+ 	external/libcmis/initprotocols.patch.1 \
 +	external/libcmis/libcmis_xml-utils-2.patch \
  ))
  

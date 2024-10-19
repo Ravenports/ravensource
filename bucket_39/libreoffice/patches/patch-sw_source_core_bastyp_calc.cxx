@@ -2,9 +2,9 @@ $NetBSD: patch-sw_source_core_bastyp_calc.cxx,v 1.2 2021/08/22 02:41:50 ryoon Ex
 
 For NetBSD at least.
 
---- sw/source/core/bastyp/calc.cxx.orig	2024-07-10 15:12:43 UTC
+--- sw/source/core/bastyp/calc.cxx.orig	2024-09-23 13:53:35 UTC
 +++ sw/source/core/bastyp/calc.cxx
-@@ -1042,7 +1042,7 @@ SwSbxValue SwCalc::PrimFunc(bool &rChkPo
+@@ -1000,7 +1000,7 @@ SwSbxValue SwCalc::PrimFunc(bool &rChkPo
              return StdFunc(&acos, true);
          case CALC_ABS:
              SAL_INFO("sw.calc", "abs");

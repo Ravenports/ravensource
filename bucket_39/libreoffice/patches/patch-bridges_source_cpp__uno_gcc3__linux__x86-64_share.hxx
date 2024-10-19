@@ -2,9 +2,9 @@ $NetBSD: patch-bridges_source_cpp__uno_gcc3__linux__x86-64_share.hxx,v 1.5 2019/
 
 * NetBSD has no _Unwind_Exception, fix runtime crash
 
---- bridges/source/cpp_uno/gcc3_linux_x86-64/share.hxx.orig	2024-07-10 15:12:43 UTC
+--- bridges/source/cpp_uno/gcc3_linux_x86-64/share.hxx.orig	2024-09-23 13:53:35 UTC
 +++ bridges/source/cpp_uno/gcc3_linux_x86-64/share.hxx
-@@ -105,6 +105,16 @@ public:
+@@ -101,6 +101,16 @@ public:
  // <https://mentorembedded.github.io/cxx-abi/abi-eh.html>,
  // libcxxabi/src/cxa_exception.hpp:
  namespace __cxxabiv1 {
