@@ -1,9 +1,8 @@
-DEF[PORTVERSION]=	4.9.1
+DEF[PORTVERSION]=	5.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		screen
 VERSION=		${PORTVERSION}
-REVISION=		2
 KEYWORDS=		sysutils
 VARIANTS=		std
 SDESC[std]=		Multi-screen window manager
@@ -19,17 +18,28 @@ SPKGS[std]=		set primary man
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-FPC_EQUIVALENT=		sysutils/screen
+BUILD_DEPENDS=		openpam:dev:std
+BUILDRUN_DEPENDS=	openpam:primary:std
 
-BROKEN[netbsd]=		pkgsrc patches only available for NetBSD 10
+FPC_EQUIVALENT=		sysutils/screen50
 
-USES=			autoreconf gmake cpe ncurses
+ONLY_FOR_OPSYS=		freebsd linux midnightbsd
+
+LICENSE=		GPLv3+:primary
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/screen.h
+LICENSE_SCHEME=		solo
+
+USES=			autoreconf gmake cpe ncurses makeinfo
+CPE_VENDOR=		gnu
 MUST_CONFIGURE=		gnu
 MAKE_ARGS=		WITH_MAN=1
 CFLAGS=			-I{{NCURSESINC}}
 			-DCOLORS256
 LDFLAGS=		-L{{NCURSESLIB}}
-CPE_VENDOR=		gnu
+PLIST_SUB=		VER=${PORTVERSION}
 
 post-patch:
 	${RM} ${WRKSRC}/doc/screen.info*
