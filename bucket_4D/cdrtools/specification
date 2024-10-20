@@ -1,10 +1,11 @@
 DEF[PORTVERSION]=	2024-03-21
-DEF[BASELIBS]=		libscg librscg libparanoia libmdigest libdeflt libscgcmd libschily libcdrdeflt libedc libfile libsiconv libfind libhfs_iso
+DEF[BASELIBS]=		libschily libscg librscg libparanoia libmdigest libdeflt libscgcmd libcdrdeflt libedc libfile libsiconv libfind libhfs_iso
 DEF[COMPONENTS]=	cdda2wav cdrecord mkisofs mkisofs/diag readcd scgcheck scgskeleton
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		cdrtools
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		sysutils audio
 VARIANTS=		std
 SDESC[std]=		CD/DVD/BluRay command line recording software
@@ -15,7 +16,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://codeberg.org/schilytools/schilytools/releases/download/${PORTVERSION}/
 DISTFILE[1]=		schily-${PORTVERSION}.tar.bz2:main
 
-SPKGS[std]=		set primary mp3 ogg docs man
+SPKGS[std]=		set primary mp3 ogg docs man dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -36,6 +37,7 @@ MAKE_ARGS=		DESTDIR={{STAGEDIR}}
 			INS_BASE={{PREFIX}}
 			INS_RBASE={{PREFIX}}
 			STRIPFLAGS={{STRIP}}
+			CCOM=cc
 
 post-patch:
 	(cd ${WRKSRC}/RULES && \
@@ -50,6 +52,7 @@ do-configure:
 
 pre-build:
 .for component in ${BASELIBS}
+	@${ECHO_MSG} "<=============== Prebuild ${component} ===============>"
 	cd ${WRKSRC}/${component} && ${SETENV} ${MAKE_ENV} ${MAKE_CMD} ${MAKE_ARGS} all
 .endfor
 
@@ -59,9 +62,10 @@ do-build:
 .endfor
 
 do-install:
-.for component in ${COMPONENTS}
+.for component in ${BASELIBS} ${COMPONENTS}
 	cd ${WRKSRC}/${component} && ${SETENV} ${MAKE_ENV} ${MAKE_CMD} ${MAKE_ARGS} install
 .endfor
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so
 	# relocate doc pages
 	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
 	${RM} ${STAGEDIR}${PREFIX}/share/doc/cdrecord/README.rscsi
