@@ -37,8 +37,10 @@ BUILD_DEPENDS=		${CLANGBASE}:set:std
 			libxml2:dev:std
 BUILDRUN_DEPENDS=	${LLVMBASE}:primary:std
 
+# python required for OMPD GDB support (currently only builds on Linux?)
+
 USES=			cpe cmake perl:build pkgconfig zlib ncurses:dev
-			python:build c++:primary
+			python c++:primary
 CPE_VENDOR=		llvm
 CPE_PRODUCT=		llvm
 CMAKE_BUILD_TYPE=	Release
@@ -53,4 +55,5 @@ post-extract:
 		${WRKSRC}/cmake/
 
 post-install:
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib*.so
+	${FIND} ${STAGEDIR}${PREFIX} -name "*.so" |\
+		${XARGS} ${STRIP_CMD}
