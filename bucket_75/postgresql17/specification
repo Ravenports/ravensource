@@ -50,8 +50,8 @@ BUILDRUN_DEPENDS=	libxslt:primary:std
 			icu:primary:std
 			zstd:primary:std
 
-B_DEPS[linux]=		ossp-uuid:dev:std
-BR_DEPS[linux]=		ossp-uuid:primary:std
+B_DEPS[linux]=		libuuid:dev:std
+BR_DEPS[linux]=		libuuid:primary:std
 
 B_DEPS[sunos]=		ossp-uuid:dev:std
 BR_DEPS[sunos]=		ossp-uuid:primary:std
@@ -125,10 +125,8 @@ VAR_OPSYS[openbsd]=	CONFIGURE_ARGS=-Duuid=bsd
 # #			CONFIGURE_ARGS=--with-template=openbsd
 VAR_OPSYS[darwin]=	CONFIGURE_ARGS=-Duuid=e2fs
 # #			CONFIGURE_ARGS=--with-template=darwin
-VAR_OPSYS[linux]=	CONFIGURE_ARGS=-Duuid=ossp
+VAR_OPSYS[linux]=	CONFIGURE_ARGS=-Duuid=e2fs
 # #			CONFIGURE_ARGS=--with-template=linux
-# #			LDFLAGS=-L{{PREFIX}}/lib/ossp
-# #			LDFLAGS=-Wl,-rpath,{{PREFIX}}/lib/ossp
 
 pre-configure:
 	${REINPLACE_CMD} -e "s|${CAT1}|file://${LOCALBASE}/share/xml/docbook/|" \
