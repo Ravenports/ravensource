@@ -50,3 +50,6 @@ PLIST_SUB=		OPSYSLC={{OPSYS:tl}}
 post-extract:
 	${MKDIR} ${WRKDIR}/cmake/Modules
 	${CP} ${WRKDIR}/cmake-${LLVM_VERSION}.src/Modules/* ${WRKDIR}/cmake/Modules/
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*/libclang_*.so
