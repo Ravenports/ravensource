@@ -21,3 +21,12 @@
        if (IsStatic || IsStaticPIE)
          CmdArgs.push_back("--start-group");
  
+@@ -3054,6 +3061,8 @@ Generic_GCC::Generic_GCC(const Driver &D
+     : ToolChain(D, Triple, Args), GCCInstallation(D),
+       CudaInstallation(D, Triple, Args), RocmInstallation(D, Triple, Args) {
+   getProgramPaths().push_back(getDriver().Dir);
++  getFilePaths().push_back(concat(getDriver().SysRoot, "@RAVEN_GCC@"));
++  getFilePaths().push_back(concat(getDriver().SysRoot, "@RAVEN_GCC_TARGET@"));
+ }
+ 
+ Generic_GCC::~Generic_GCC() {}
