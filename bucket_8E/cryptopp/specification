@@ -1,4 +1,5 @@
 DEF[PORTVERSION]=	8.9.0
+DEF[FOLDER]=		CRYPTOPP_${PORTVERSION:S/./_/g}
 DEF[FILENAME]=		cryptopp${PORTVERSION:S/.//g}.zip
 DEF[SOVERSION]=		${PORTVERSION}
 # ----------------------------------------------------------------------------
@@ -8,11 +9,13 @@ VERSION=		${PORTVERSION}
 KEYWORDS=		security
 VARIANTS=		std
 SDESC[std]=		C++ class library of cryptographic schemes
-HOMEPAGE=		https://www.cryptopp.com/
+# HOMEPAGE=		https://www.cryptopp.com/   (gone)
+HOMEPAGE=		https://github.com/weidai11/cryptopp
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		https://www.cryptopp.com/
+# SITES[main]=		https://www.cryptopp.com/\
+SITES[main]=		https://github.com/weidai11/cryptopp/releases/download/${FOLDER}/
 DISTFILE[1]=		${FILENAME}:main
 
 SPKGS[std]=		single
