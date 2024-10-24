@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.6.2
+DEF[PORTVERSION]=	0.6.3
 DEF[SOVERSION]=		0.0.0
 # ----------------------------------------------------------------------------
 
@@ -31,7 +31,9 @@ FPC_EQUIVALENT=		editors/mousepad
 BUILD_DEPENDS=		harfbuzz:dev:std
 			xfconf:dev:std
 			appstream-glib:dev:std
+			libxfce4ui:dev:std
 BUILDRUN_DEPENDS=	xfconf:primary:std
+			libxfce4ui:primary:std
 
 USES=			desktop-utils:primary schemas:primary
 			gmake libtool fontconfig:build pkgconfig
@@ -43,7 +45,9 @@ CONFIGURE_ARGS=		--enable-gtk3
 			--enable-schemas-compile
 			--disable-debug
 			--libexecdir={{PREFIX}}/lib/xfce4
+			--disable-plugin-gspell
 GLIB_SCHEMAS=		org.xfce.mousepad.gschema.xml
 SOVERSION=		${SOVERSION}
+INSTALL_REQ_TOOLCHAIN=	yes
 
 VAR_OPSYS[sunos]=	LDFLAGS=-lintl
