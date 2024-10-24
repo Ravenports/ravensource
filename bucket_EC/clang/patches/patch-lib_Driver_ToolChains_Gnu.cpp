@@ -30,3 +30,17 @@
  }
  
  Generic_GCC::~Generic_GCC() {}
+@@ -3420,10 +3429,9 @@ bool Generic_GCC::addGCCLibStdCxxInclude
+ void
+ Generic_GCC::addLibStdCxxIncludePaths(const llvm::opt::ArgList &DriverArgs,
+                                       llvm::opt::ArgStringList &CC1Args) const {
+-  if (GCCInstallation.isValid()) {
+-    addGCCLibStdCxxIncludePaths(DriverArgs, CC1Args,
+-                                GCCInstallation.getTriple().str());
+-  }
++  addSystemInclude(DriverArgs, CC1Args, "@RAVEN_GXX_HEADERS_DIR@");
++  addSystemInclude(DriverArgs, CC1Args, "@RAVEN_GXX_HEADERS_DIR@/backward");
++  addSystemInclude(DriverArgs, CC1Args, "@RAVEN_GXX_HEADERS_DIR@/@RAVEN_TRIPLE@");
+ }
+ 
+ llvm::opt::DerivedArgList *
