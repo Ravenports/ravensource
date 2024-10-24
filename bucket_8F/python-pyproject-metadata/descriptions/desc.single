@@ -1,17 +1,18 @@
 # pyproject-metadata
 
-[![pre-commit.ci
-status]](https://results.pre-commit.ci/latest/github/pypa/pyproject-metadata/main)
-[checks]
-[tests]
-[codecov]
-[Documentation Status]
+[![pre-commit.ci status][pre-commit-badge]][pre-commit-link]
+[![checks][gha-checks-badge]][gha-checks-link]
+[![tests][gha-tests-badge]][gha-tests-link]
+[![codecov][codecov-badge]][codecov-link]
+[![Documentation Status][rtd-badge]][rtd-link]
+[![PyPI version][pypi-version]][pypi-link]
 
 > Dataclass for PEP 621 metadata with support for [core metadata]
 generation
 
-This project does not implement the parsing of `pyproject.toml`
-containing PEP 621 metadata.
+This project does not implement the parsing of `pyproject.toml` containing
+PEP
+621 metadata.
 
 Instead, given a Python data structure representing PEP 621 metadata
 (already
@@ -21,19 +22,79 @@ file (e.g. `PKG-INFO`).
 
 ## Usage
 
-After [installing `pyproject-metadata`],
+After
+[installing `pyproject-metadata`],
 you can use it as a library in your scripts and programs:
 
 ```python
 from pyproject_metadata import StandardMetadata
 
-parsed_pyproject = { ... }  # you can use parsers like `tomli` to obtain
-this dict
-metadata = StandardMetadata.from_pyproject(parsed_pyproject)
+parsed_pyproject = {...}  # you can use parsers like `tomli` to obtain this
+dict
+metadata = StandardMetadata.from_pyproject(parsed_pyproject,
+allow_extra_keys=False)
 print(metadata.entrypoints)  # same fields as defined in PEP 621
 
 pkg_info = metadata.as_rfc822()
 print(str(pkg_info))  # core metadata
 ```
 
-[core metadata]: https://packaging.python.org/specifications/core-metadata/
+## SPDX licenses (METADATA 2.4+)
+
+If `project.license` is a string or `project.license-files` is present,
+then
+METADATA 2.4+ will be used. A user is expected to validate and normalize
+`metadata.license` with an SPDX validation tool, such as the one being
+added to
+`packaging`. Add something like this:
+
+```python
+if isinstance(metadata.license, str):
+    metadata.license =
+packaging.licenses.normalize_license_expression(metadata.license)
+```
+
+A backend is also expected to copy entries from `project.licence_files`,
+which
+are paths relative to the project directory, into the `dist-info/licenses`
+folder, preserving the original source structure.
+
+## Dynamic Metadata (METADATA 2.2+)
+
+Pyproject-metadata supports dynamic metadata. To use it, specify your
+METADATA
+fields in `dynamic_metadata`. If you want to convert `pyproject.toml` field
+names to METADATA field(s), use
+`pyproject_metadata.pyproject_to_metadata("field-name")`, which will return
+a
+frozenset of metadata names that are touched by that field.
+
+## Adding extra fields
+
+You can add extra fields to the Message returned by `to_rfc822()`, as long
+as
+they are valid metadata entries.
+
+## Collecting multiple errors
+
+You can use the `all_errors` argument to `from_pyproject` to show all
+errors in
+the metadata parse at once, instead of raising an exception on the first
+one.
+The exception type will be `pyproject_metadata.errors.ExceptionGroup`
+(which is
+just `ExceptionGroup` on Python 3.11+).
+
+## Validating extra fields
+
+By default, a warning (`pyproject_metadata.errors.ExtraKeyWarning`) will be
+issued for extra fields at the project table. You can pass
+`allow_extra_keys=`
+to either avoid the check (`True`) or hard error (`False`). If you want to
+detect extra keys, you can get them with
+`pyproject_metadata.extra_top_level`
+and `pyproject_metadata.extra_build_system`. It is recommended that build
+systems only warn on failures with these extra keys.
+
+## Validating classifiers
+

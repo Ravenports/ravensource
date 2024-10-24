@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.8.1
+DEF[PORTVERSION]=	0.9.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-pyproject-metadata
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/pypa/pyproject-metadata
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/22/81/42aaafbff27ca340eef777a4e3e8a509941e75fc0eeb9da2be5ee4159041
+SITES[main]=		PYPIWHL/e8/61/9dd3e68d2b6aa40a5fc678662919be3c3a7bf22cba5a6b4437619b77e156
 DISTFILE[1]=		pyproject_metadata-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[v11]=		single
@@ -30,12 +30,16 @@ DISTNAME=		pyproject_metadata-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
 # packaging>=19.0
+# typing_extensions; python_version<'3.8'
 # furo>=2023.9.10 ; extra == "docs"
 # sphinx-autodoc-typehints>=1.10.0 ; extra == "docs"
-# sphinx~=7.0 ; extra == "docs"
+# sphinx>=7.0 ; extra == "docs"
+# sphinx-autodoc-typehints ; extra == "docs"
+# myst-parser ; extra == "docs"
 # pytest-cov[toml]>=2 ; extra == "test"
 # pytest>=6.2.4 ; extra == "test"
 # tomli>=1.0.0 ; extra == "test" and (python_version<"3.11")
+# exceptiongroup ; extra == "test" and (python_version<"3.11")
 
 [PY311].USES_ON=			python:v11,wheel
 [PY311].RUN_DEPENDS_ON=			python-packaging:single:v11
