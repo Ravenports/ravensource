@@ -1,13 +1,13 @@
 #!/bin/sh
-# The purpose of this script is to install a fully functional
-# and fully configured ravensw binary on the machine in order
-# to be able to use Ravenports immediately.
-# It will select the package set that matches the ABI of the
-# install machine.  If that package set does not exist, it
-# will set the ABI to the latest package set available.
+# The purpose of this script is to install a fully functional and fully
+# configured rvn binary on the machine in order to be able to use
+# Ravenports immediately.
+# It will select the package set that matches the ABI of the install
+# machine.  If that package set does not exist, it will set the ABI to
+# the latest package set available.
 #
 # shellcheck disable=SC3043
-# Last-Modified: 17 APR 2023
+# Last-Modified: 14 AUGUST 2024
 
 OPSYS=$(uname -s)
 if [ "$OPSYS" = "SunOS" ]; then
@@ -18,7 +18,10 @@ fi
 REPOSITE="http://www.ravenports.com/repository"
 ABI_AWK="/tmp/abi.awk"
 LOCAL_INV="/tmp/repo-inventory.txt"
-LOCAL_ARCHIVE="/tmp/ravensw.gz"
+LOCAL_ARCHIVE="/tmp/rvn.gz"
+LOCAL_FPRINTDIR="/raven/etc/rvn/fingerprints/ravenports"
+LOCAL_REPODIR="/raven/etc/rvn/repos"
+LOCAL_CONF="/raven/etc/rvn.conf"
 
 if [ "$THIS_USER" != "root" ]; then
 	echo "This script must be executed by the root user."
@@ -43,9 +46,9 @@ fetch_command() {
 			echo "curl ${url} --output ${local_file}"
 			;;
 		Linux)
-			if which curl
+			if which curl >/dev/null
 			then
-				echo "curl ${url} --output ${local_file}"
+				echo "curl ${url} --output ${local_file} --silent"
 			else
 				echo "wget ${url} -O ${local_file}"
 			fi
@@ -72,8 +75,8 @@ get_release() {
 	local relstr
 	case "$OPSYS" in
 		FreeBSD)
-			kernelver=$(uname -K)   #1202000, get first 2 digits
-			release=$(echo "$kernelver" | awk '{print substr($0,1,2)}')
+			releaselevel=$(uname -r)   #1202000, get first 2 digits
+			release=$(echo "$releaselevel" | awk '{print substr($0,1,2)}')
 			echo "$release"
 			;;
 		DragonFly)
@@ -99,11 +102,14 @@ get_release() {
 			;;
 		Linux)
 			# partial readelf -n output: "    OS: Linux, ABI: 2.6.32"
-			# if readelf not present, assume 2.6.32
+			# if readelf not present, assume latest ABI (3.2.0)
 			if which readelf >/dev/null; then
-				linux_abi=$(readelf -n /bin/bash  | awk '/ABI:/ {print $NF}')
+				linux_abi=$(readelf -n /bin/hostname  | awk '/ABI:/ {print $NF}')
 			else
-				linux_abi="2.6.32"
+				linux_abi="3.2.0"
+				echo "readelf missing, unable to determine ABI"
+				echo "defaulting to ${linux_abi}"
+				echo "edit /raven/etc/rvn/repos/raven.conf if necessary"
 			fi
 			echo "$linux_abi"
 			;;
@@ -132,11 +138,13 @@ get_abi() {
 	cat << EOF > "$ABI_AWK"
 {
   if (\$1 == "$OPSYS") {
-    if (\$2 == "$current_release") {
-       print \$4
-       printed=1
+    if (\$5 == "rvn") {
+      if (\$2 == "$current_release") {
+         print \$4
+         printed=1
+      }
+      last_seen = \$4
     }
-    last_seen = \$4
   }
 }
 END {if (!printed) {print last_seen}}
@@ -145,22 +153,35 @@ EOF
 }
 
 create_tree() {
-	mkdir -p "/raven/etc/ravensw/keys"
-	mkdir -p "/raven/etc/ravensw/repos"
+	mkdir -p "${LOCAL_FPRINTDIR}/trusted"
+	mkdir -p "${LOCAL_REPODIR}"
 	mkdir -p "/raven/sbin"
 
 	echo "Created /raven directory hierarchy"
 }
 
-create_ravensw_conf() {
+# currently not used
+create_rvn_conf() {
 	local myabi
 	local conf_file
 	myabi="$1"
-	conf_file="/raven/etc/ravensw.conf"
-	echo "ABI = \"${myabi}\"" > "$conf_file"
-	echo "Set ravensw ABI to '$myabi' via ravensw.conf"
+	conf_file="/raven/etc/rvn.conf"
+	echo "ABI: \"${myabi}\"" > "$conf_file"
+	echo "Set rvn ABI to '$myabi' via rvn.conf"
 }
 
+create_ravenports_fingerprint() {
+	local official_version="Alpha"
+	local raven_fingerprint="${LOCAL_FPRINTDIR}/trusted/${official_version}-fingerprint"
+
+	cat << EOF > "$raven_fingerprint"
+function: "blake3"
+fingerprint: "adcb0aeb115a8ca66e4cce5ad1d500ad235cc2eab0a14fdb8bb74f786b896c97"
+EOF
+	echo "Installed ${official_version} fingerprint file"
+}
+
+# currently not used.  equivalent to fingerprint
 create_ravenports_key() {
 	local key_file
 	key_file="/raven/etc/ravensw/keys/ravenports.key"
@@ -180,43 +201,44 @@ EOF
 
 create_ravenports_repo_conf() {
 	local conf_file
-	conf_file="/raven/etc/ravensw/repos/01_raven.conf"
-	cat << EOF > "$conf_file"
+	conf_file="${LOCAL_REPODIR}/raven.conf"
+cat << EOF > "$conf_file"
 Raven: {
     url            : http://www.ravenports.com/repository/\${ABI},
-    pubkey         : /raven/etc/ravensw/keys/ravenports.key,
-    signature_type : PUBKEY,
-    priority       : 0,
-    enabled        : yes
+    enabled        : true
+    master         : true
+    signature_type : fingerprints
+    fingerprints   : ${LOCAL_FPRINTDIR}
+    priority       : 10
 }
 EOF
 	echo "Installed Remote Ravenports Repository configuration"
 }
 
-install_ravensw() {
+install_rvn() {
 	local myabi
-	local zipped_ravensw
+	local zipped_rvn
 	myabi="$1"
-	zipped_ravensw="${REPOSITE}/${myabi}/Latest/ravensw.gz"
-	cmd=$(fetch_command "$zipped_ravensw" "$LOCAL_ARCHIVE")
+	zipped_rvn="${REPOSITE}/${myabi}/rvn.gz"
+	cmd=$(fetch_command "$zipped_rvn" "$LOCAL_ARCHIVE")
 	if ! $cmd; then
-		echo "install_ravensw failed to fetch ravensw archive."
+		echo "install_rvn failed to fetch rvn archive."
 		exit 1
 	fi
 	if ! gunzip "$LOCAL_ARCHIVE"; then
-		echo "install_ravensw failed to unzip ravensw archive."
+		echo "install_rvn failed to unzip rvn archive."
 		exit 1
 	fi
-	mv "/tmp/ravensw" "/raven/sbin/ravensw"
-	chmod 755 "/raven/sbin/ravensw"
-	echo "Installed ravensw binary at /raven/sbin/"
+	mv "/tmp/rvn" "/raven/sbin/rvn"
+	chmod 755 "/raven/sbin/rvn"
+	echo "Installed rvn binary at /raven/sbin/"
 }
 
 check_for_prereqs() {
 	case "$OPSYS" in
 		Linux)
-			if ! which curl; then
-			    if ! which wget; then
+			if ! which curl >/dev/null; then
+			    if ! which wget >/dev/null; then
 				echo "The download requires curl or wget on Linux"
 				echo "Neither program was found."
 				exit 1
@@ -227,14 +249,65 @@ check_for_prereqs() {
 	esac
 }
 
+fetch_catalog() {
+	local myabi
+	myabi="$1"
+	if ! /raven/sbin/rvn -o "abi=${myabi}" catalog --force
+	then
+		echo "Failed to fetch the remote catalog"
+		exit 1
+	fi
+}
+
+remove_existing_conf() {
+	rm -f "$LOCAL_CONF"
+}
+
+install_full_rvn_package() {
+	local myabi
+	myabi="$1"
+	if ! /raven/sbin/rvn -o "abi=${myabi}" install -y rvn~set
+	then
+		echo "Failed to install the full rvn pacakage"
+		exit 1
+	fi
+}
+
+get_calculated_abi() {
+	calc=$(/raven/sbin/rvn config abi)
+	echo "$calc"
+}
+
+override_abi_setting() {
+	local downloaded_abi
+	local calculated_abi
+	downloaded_abi="$1"
+	calculated_abi="$2"
+	if [ "$downloaded_abi" != "$calculated_abi" ]; then
+		sed -e "s|^#ABI:.*|ABI: ${downloaded_abi}|" "${LOCAL_CONF}.sample" > "$LOCAL_CONF"
+	fi
+}
+
+provide_information() {
+	echo
+	echo "You can begin installing binary packages directly now."
+	echo "To build your own packages, run '/raven/sbin/rvn install ravenports'"
+}
+
+
 check_for_prereqs
-get_release
 abi=$(get_abi)
 create_tree
-create_ravensw_conf "$abi"
-create_ravenports_key
+create_ravenports_fingerprint
 create_ravenports_repo_conf
-install_ravensw "$abi"
+install_rvn "$abi"
 clean_up
+fetch_catalog "$abi"
+remove_existing_conf
+install_full_rvn_package "$abi"
+default_abi=$(get_calculated_abi)
+override_abi_setting "$abi" "$default_abi"
 
 echo "Ravenports bootstrap is complete."
+
+provide_information
