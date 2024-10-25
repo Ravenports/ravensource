@@ -1,12 +1,13 @@
 --- libguile/gen-scmconfig.c.orig	2023-02-10 13:16:15 UTC
 +++ libguile/gen-scmconfig.c
-@@ -143,6 +143,9 @@
- 
- #include "gen-scmconfig.h"
- 
-+#if defined __FreeBSD__ || defined __DragonFly__
-+#define _ANSI_SOURCE
-+#endif
- #define pf printf
- 
- int
+@@ -329,6 +329,10 @@ main (int argc, char *argv[])
+   pf ("typedef int scm_t_off;\n");
+   pf ("#define SCM_T_OFF_MAX INT_MAX\n");
+   pf ("#define SCM_T_OFF_MIN INT_MIN\n");
++#elif SIZEOF_OFF_T == SIZEOF_LONG_LONG && SIZEOF_OFF_T != SIZEOF_LONG
++  pf ("typedef long long int scm_t_off;\n");
++  pf ("#define SCM_T_OFF_MAX LLONG_MAX\n");
++  pf ("#define SCM_T_OFF_MIN LLONG_MIN\n");
+ #else
+   pf ("typedef long int scm_t_off;\n");
+   pf ("#define SCM_T_OFF_MAX LONG_MAX\n");

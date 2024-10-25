@@ -1,3 +1,4 @@
+# Do not strip objects - it causes segfaults on the guile-config on FreeBSD
 DEF[PORTVERSION]=	3.0.10
 DEF[SOVERSION]=		1.7.0
 DEF[RLSOVERSION]=	0.0.0
@@ -5,7 +6,7 @@ DEF[RLSOVERSION]=	0.0.0
 
 NAMEBASE=		guile
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		lang
 VARIANTS=		std
 SDESC[std]=		GNU Ubiquitous Intelligent Language for Extensions
@@ -28,7 +29,7 @@ LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/libguile/guile.c
 LICENSE_SCHEME=		solo
 
-# FPC_EQUIVALENT=		lang/guile3
+FPC_EQUIVALENT=		lang/guile3
 
 BUILD_DEPENDS=		gmp:dev:std
 			boehm_garbage_collector:dev:threaded
@@ -36,20 +37,20 @@ BUILD_DEPENDS=		gmp:dev:std
 			libffi:dev:std
 BUILDRUN_DEPENDS=	gmp:primary:std
 			libffi:primary:std
-			libltdl:single:std
 			libunistring:primary:std
 			boehm_garbage_collector:primary:threaded
 
 SUB_FILES=		scripts-primary.ucl
 SUB_LIST=		GUILE_VER=${PORTVERSION:R}
 
-USES=			gmake libtool makeinfo ncurses pkgconfig readline
-			iconv charsetfix gettext cpe
+USES=			gmake libtool ncurses pkgconfig readline
+			iconv charsetfix cpe
 CPE_VENDOR=		gnu
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
 MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--enable-nls
+CONFIGURE_ARGS=		--enable-nls=no
+			--enable-lto=no
 			--with-threads
 INFO=			info:guile
 			info:r5rs
@@ -58,6 +59,7 @@ PLIST_SUB=		GUILE_VER=${PORTVERSION:R}
 			RLSOMAJOR=${RLSOVERSION:R:R}
 SOVERSION=		${SOVERSION}
 MAKE_ENV=		PAXCTL="{{PAXCTL}}"
+SET_DEBUGGING_ON=	yes
 
 VAR_OPSYS[netbsd]=	CONFIGURE_ARGS=--enable-jit=no
-			CONFIGURE_ARGS=--enable-lto=no
+VAR_OPSYS[freebsd]=	CONFIGURE_ENV=ac_cv_func_posix_spawn_file_actions_addclosefrom_np=no
