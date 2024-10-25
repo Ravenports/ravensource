@@ -105,6 +105,31 @@ GCC13_PHASE=			release
 .endif
 
 # ------------------------------------------------------------------------
+# gcc14
+# ------------------------------------------------------------------------
+
+GCC14_BRANCH=			14
+GCC14_POINT=			2.0
+GCC14_VERSION=			${GCC14_BRANCH}.${GCC14_POINT}
+GCC14_SNAPSHOT=			20240801
+GCC14_BUILD_RELEASE=		yes
+GCC14_REVISION=			0
+GCC14_GNATCROSS_REVISION=	0
+GCC14_BOOTSTRAP_REVISION=	0
+
+.if ${GCC13_BUILD_RELEASE:Mno}
+GCC14_PORTVERSION=		${GCC14_BRANCH}.${GCC14_SNAPSHOT}
+GCC14_IDENTIFICATION=		gcc-${GCC14_BRANCH}-${GCC14_SNAPSHOT}
+GCC14_MS_SUBDIR=		snapshots/${GCC14_BRANCH}-${GCC14_SNAPSHOT}
+GCC14_PHASE=			snapshot
+.else
+GCC14_PORTVERSION=		${GCC14_VERSION}
+GCC14_IDENTIFICATION=		gcc-${GCC14_VERSION}
+GCC14_MS_SUBDIR=		releases/gcc-${GCC14_VERSION}
+GCC14_PHASE=			release
+.endif
+
+# ------------------------------------------------------------------------
 # Ravenports base compiler
 # ------------------------------------------------------------------------
 
