@@ -30,31 +30,6 @@ BOOST_LIBRARIES_REVISION=	0
 # Only keep the open branches of GCC
 # ------------------------------------------------------------------------
 # ------------------------------------------------------------------------
-# gcc11
-# ------------------------------------------------------------------------
-
-GCC11_BRANCH=			11
-GCC11_POINT=			5.0
-GCC11_VERSION=			${GCC11_BRANCH}.${GCC11_POINT}
-GCC11_SNAPSHOT=			20240719
-GCC11_BUILD_RELEASE=		yes
-GCC11_REVISION=			0
-GCC11_GNATCROSS_REVISION=	0
-GCC11_BOOTSTRAP_REVISION=	0
-
-.if ${GCC11_BUILD_RELEASE:Mno}
-GCC11_PORTVERSION=		${GCC11_BRANCH}.${GCC11_SNAPSHOT}
-GCC11_IDENTIFICATION=		gcc-${GCC11_BRANCH}-${GCC11_SNAPSHOT}
-GCC11_MS_SUBDIR=		snapshots/${GCC11_BRANCH}-${GCC11_SNAPSHOT}
-GCC11_PHASE=			snapshot
-.else
-GCC11_PORTVERSION=		${GCC11_VERSION}
-GCC11_IDENTIFICATION=		gcc-${GCC11_VERSION}
-GCC11_MS_SUBDIR=		releases/gcc-${GCC11_VERSION}
-GCC11_PHASE=			release
-.endif
-
-# ------------------------------------------------------------------------
 # gcc12
 # ------------------------------------------------------------------------
 
