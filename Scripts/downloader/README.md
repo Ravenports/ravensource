@@ -1,9 +1,5 @@
-# Ravenports Downloader
+How to bootstrap Ravenports on supported platforms:
 
-This script is used to install a functional ravensw on supported
-platforms quickly.
-
-```
 ============
 FreeBSD
 DragonFly
@@ -27,8 +23,7 @@ root> /usr/sfw/bin/wget http://www.ravenports.com/repository/ravenports-download
 ============
 Linux
 ============
-user> curl http://www.ravenports.com/repository/ravenports-downloader.sh | sudo /bin/bash
+user> curl http://www.ravenports.com/repository/ravenports-downloader.sh --silent | sudo /bin/bash
       - or -
-user> wget http://www.ravenports.com/repository/ravenports-downloader.sh -O - | sudo /bin/bash
+user> wget http://www.ravenports.com/repository/ravenports-downloader.sh --quiet -O - | sudo /bin/bash
 
-```
