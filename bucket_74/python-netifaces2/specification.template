@@ -1,0 +1,85 @@
+# Manually maintained
+DEF[PORTVERSION]=	%%VERSION%%
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-netifaces2
+VERSION=		${PORTVERSION}
+KEYWORDS=		python rust
+VARIANTS=		v12 v11
+SDESC[v11]=		Portable network interface information (3.11)
+SDESC[v12]=		Portable network interface information (3.12)
+HOMEPAGE=		https://github.com/SamuelYvon/netifaces-2
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+%%DOWNLOAD_GROUPS%%
+SITES[main]=		PYPI/n/netifaces2
+%%CR_SITES%%
+
+DISTFILE[1]=		netifaces2-${PORTVERSION}.tar.gz:main
+%%CR_DISTFILES%%
+%%DF_INDEX%%
+
+SPKGS[v12]=		single
+SPKGS[v11]=		single
+
+OPTIONS_AVAILABLE=	PY312 PY311
+OPTIONS_STANDARD=	none
+VOPTS[v12]=		PY312=ON PY311=OFF
+VOPTS[v11]=		PY312=OFF PY311=ON
+
+# License listed at PyPI
+# Apache-2.0 OR MIT
+
+GENERATED=		yes
+DISTNAME=		netifaces2-${PORTVERSION}
+
+USES=			cargo cclibs:single
+CARGO_CARGOTOML=	{{WRKSRC}}/Cargo.toml
+CARGO_CARGOLOCK=	{{WRKSRC}}/Cargo.lock
+CARGO_SKIP_CONFIGURE=	yes
+CARGO_SKIP_BUILD=	yes
+CARGO_SKIP_INSTALL=	yes
+PLIST_SUB=		VER=${PORTVERSION}
+			CPYTHON={{CPYTHON:U{{PYTHON_SUFFIX}}}}
+
+VAR_OPSYS[linux]=	MAKEFILE_LINE=CPYTHON={{PYTHON_SUFFIX}}-x86_64-linux-gnu
+
+[PY312].USES_ON=			python:v12
+[PY312].BUILD_DEPENDS_ON=		python-setuptools-rust:single:v12
+					python-maturin:single:v12
+					python-pip:single:v12
+[PY311].USES_ON=			python:v11
+[PY311].BUILD_DEPENDS_ON=		python-setuptools-rust:single:v11
+					python-maturin:single:v11
+					python-pip:single:v11
+
+post-patch:
+	${MKDIR} ${WRKSRC}/.cargo
+	${RM} ${WRKSRC}/.cargo/config.toml
+	echo "[source.cargo]" >> ${WRKSRC}/.cargo/config.toml
+	echo "directory = '${CARGO_VENDOR_DIR}'" >> ${WRKSRC}/.cargo/config.toml
+	echo "[source.crates-io]" >> ${WRKSRC}/.cargo/config.toml
+	echo "replace-with = 'cargo'" >> ${WRKSRC}/.cargo/config.toml
+
+do-build:
+	(cd ${BUILD_WRKSRC} && ${SETENV} ${MAKE_ENV} maturin build \
+		--release \
+		--interpreter ${PYTHON_CMD})
+
+do-install:
+	# Due to upstream not supplying a setup.py file or other way to install
+	# using pip command for now...
+	${SETENV} ${MAKE_ENV} pip install \
+		--verbose \
+		--no-index \
+		--no-compile \
+		--progress-bar off \
+		--root=${STAGEDIR} \
+		--root-user-action=ignore \
+		--disable-pip-version-check \
+		--no-deps ${INSTALL_WRKSRC}/target/wheels/*.whl
+	(cd ${STAGEDIR} && ${PYTHON_CMD} -m compileall -d / . ||:)
+	${INSTALL_LIB} ${WRKSRC}/target/release/libnetifaces.so \
+		${STAGEDIR}${PYTHON_SITELIBDIR}/netifaces
+	${CHMOD} +x ${STAGEDIR}${PYTHON_SITELIBDIR}/netifaces/libnetifaces.so
+	# ${STRIP_CMD} ${STAGEDIR}${PYTHON_SITELIBDIR}/netifaces/orjson.*.so
