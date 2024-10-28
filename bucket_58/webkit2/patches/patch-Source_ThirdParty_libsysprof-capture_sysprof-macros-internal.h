@@ -4,9 +4,9 @@
  #ifdef __APPLE__
  # include <libkern/OSByteOrder.h>
  # include <architecture/byte_order.h>
-+#elif defined(__DragonFly__) || defined(__NetBSD__)
++#elif defined(__DragonFly__)
 +# include <sys/endian.h>
-+#elif defined(__FreeBSD__)
++#elif defined(__FreeBSD__) || defined(__NetBSD__)
 +# include <sys/endian.h>
 +# define __BIG_ENDIAN            _BIG_ENDIAN
 +# define __BYTE_ORDER            _BYTE_ORDER

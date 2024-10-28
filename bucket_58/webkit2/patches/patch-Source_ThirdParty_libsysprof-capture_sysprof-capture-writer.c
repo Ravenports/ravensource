@@ -4,7 +4,7 @@
  #include <assert.h>
  #ifdef __APPLE__
  # include <machine/endian.h>
-+#elif defined(__DragonFly__) || defined(__FreeBSD__)
++#elif defined(__DragonFly__) || defined(__FreeBSD__) || defined(__NetBSD__)
  #else
  # include <endian.h>
  #endif
