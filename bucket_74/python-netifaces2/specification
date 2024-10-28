@@ -181,3 +181,10 @@ do-install:
 		${STAGEDIR}${PYTHON_SITELIBDIR}/netifaces
 	${CHMOD} +x ${STAGEDIR}${PYTHON_SITELIBDIR}/netifaces/libnetifaces.so
 	# ${STRIP_CMD} ${STAGEDIR}${PYTHON_SITELIBDIR}/orjson/orjson.*.so
+
+pre-install-midnightbsd:
+	# Due to rust limitations, maturin must set target OS as freebsd, but
+	# pip doesn't recognize that as a legal combination.  Rename to complete build.
+	(cd ${INSTALL_WRKSRC}/target/wheels/ && ${MV}\
+	netifaces2-${PORTVERSION}-cp37-abi3-freebsd_*.whl\
+	netifaces2-${PORTVERSION}-cp37-abi3-midnightbsd_3_0_0_amd64.whl)

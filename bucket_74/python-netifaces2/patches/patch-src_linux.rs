@@ -5,13 +5,13 @@
                  }
  
 -                #[cfg(not(any(target_os = "ios", target_os = "macos")))]
-+                #[cfg(not(any(target_os = "ios", target_os = "macos", target_os = "dragonfly")))]
++                #[cfg(target_os = "linux")]
                  if let Some(net_link) = address.as_netlink_addr() {
                      add_to_types_mat(AF_NETLINK, net_link, name, &mut types_mat, &mut any);
                  }
  
 -                #[cfg(not(any(target_os = "ios", target_os = "macos")))]
-+                #[cfg(not(any(target_os = "ios", target_os = "macos", target_os = "dragonfly")))]
++                #[cfg(target_os = "linux")]
                  if let Some(vsock_addr) = address.as_vsock_addr() {
                      add_to_types_mat(AF_VSOCK, vsock_addr, name, &mut types_mat, &mut any);
                  }
@@ -20,7 +20,7 @@
                  }
  
 -                #[cfg(not(any(target_os = "ios", target_os = "macos")))]
-+                #[cfg(not(any(target_os = "ios", target_os = "macos", target_os = "dragonfly")))]
++                #[cfg(target_os = "linux")]
                  if let Some(alg_addr) = address.as_alg_addr() {
                      add_to_types_mat(AF_ALG, alg_addr, name, &mut types_mat, &mut any);
                  }
