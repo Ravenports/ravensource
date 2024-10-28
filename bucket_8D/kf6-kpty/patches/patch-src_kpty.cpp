@@ -4,7 +4,7 @@
      int cmdFd;
  };
  #else
-+# if defined __MidnightBSD__ || defined __NetBSD__ || defined __linux__ 
++# if defined __NetBSD__ || defined __linux__
  #include <utmp.h>
 +# endif
  #if HAVE_UTMPX

@@ -5,7 +5,7 @@
      # On FreeBSD for example we have to use ulog-helper
      if (NOT UTEMPTER_EXECUTABLE)
 -        find_program (UTEMPTER_EXECUTABLE ulog-helper PATHS /usr/libexec)
-+        if(${CMAKE_SYSTEM_NAME} MATCHES "FreeBSD")
++        if(${CMAKE_SYSTEM_NAME} MATCHES "FreeBSD|Midnight")
 +           set(UTEMPTER_EXECUTABLE "/usr/libexec/ulog-helper")
 +        endif()
      endif ()
