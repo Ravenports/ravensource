@@ -4,7 +4,7 @@
  #include <math.h>
  #include <gcrypt.h>
  
-+#if defined __DragonFly__
++#if defined __DragonFly__ || defined __MidnightBSD__
 +#include <sys/endian.h>
 +#endif
 +
