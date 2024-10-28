@@ -26,6 +26,7 @@ OPT_ON[dragonfly]=	BSD
 OPT_ON[freebsd]=	BSD C11THREADS
 OPT_ON[netbsd]=		BSD
 OPT_ON[openbsd]=	BSD
+OPT_ON[midnightbsd]=	BSD
 
 FPC_EQUIVALENT=		multimedia/pipewire
 
@@ -95,6 +96,12 @@ SOVERSION=		${SOVERSION}
 
 pre-configure-dragonfly:
 	${REINPLACE_CMD} -e 's@freebsd@dragonfly@g' \
+		${WRKSRC}/src/pipewire/meson.build \
+		${WRKSRC}/meson.build
+	${INSTALL_DATA} ${WRKDIR}/${THREADS}/c11threads.h ${LOCALBASE}/include/threads.h
+
+pre-configure-midnightbsd:
+	${REINPLACE_CMD} -e 's@freebsd@midnightbsd@g' \
 		${WRKSRC}/src/pipewire/meson.build \
 		${WRKSRC}/meson.build
 	${INSTALL_DATA} ${WRKDIR}/${THREADS}/c11threads.h ${LOCALBASE}/include/threads.h
