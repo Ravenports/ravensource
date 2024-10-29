@@ -5,7 +5,7 @@
  zsize_t FD::readAt(char* dest, zsize_t size, offset_t offset) const
  {
 -#if defined(__APPLE__) || defined(__OpenBSD__) || defined(__FreeBSD__) || defined(__HAIKU__)
-+#if defined(__APPLE__) || defined(__OpenBSD__) || defined(__FreeBSD__) || defined(__HAIKU__) || defined(__DragonFly__)
++#if defined(__APPLE__) || defined(__OpenBSD__) || defined(__FreeBSD__) || defined(__HAIKU__) || defined(__DragonFly__) || defined(__NetBSD__)
  # define PREAD pread
  #else
  # define PREAD pread64
