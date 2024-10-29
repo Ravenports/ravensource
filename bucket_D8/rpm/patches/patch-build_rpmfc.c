@@ -4,7 +4,7 @@
  	return -1;
      }
      
-+#if defined(__FreeBSD__) || defined(__DragonFly__)
++#if defined(__FreeBSD__) || defined(__DragonFly__) || defined(__NetBSD__)
 +    sig_t oldhandler;
 +    oldhandler = signal(SIGPIPE, SIG_IGN);
 +#else
