@@ -68,13 +68,8 @@ BUILDRUN_DEPENDS=	nss:caroot:std
 # The dev package has the solink to make this happen, so it's a run dependency
 RUN_DEPENDS=		libexecinfo:dev:std
 
-# required for rust linking (also pulls in c++ and gcc-libs so
-# USES=c++:single is redundant
-EXRUN[single]=		ravensys-gcc:compilers:std
-			ravensys-binutils:single:std
-
 USES=			cpe gmake zlib:build python:build shebangfix
-			execinfo c++:single dos2unix ssl:build
+			execinfo c++:single dos2unix ssl:build compiler
 CPE_VENDOR=		rust-lang
 MUST_CONFIGURE=		yes
 CONFIGURE_ARGS=		--release-channel=stable
