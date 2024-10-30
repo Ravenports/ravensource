@@ -57,3 +57,6 @@ PLIST_SUB=		OATH=${LIBOATH}
 post-extract:
 	${SED} -n '/SECTION:/!p;//q' ${WRKSRC}/liboath/oath.h >> ${WRKDIR}/TERMS_LIB
 	${SED} -n '/config.h/!p;//q' ${WRKSRC}/oathtool/oathtool.c >> ${WRKDIR}/TERMS_TOOLS
+
+pre-configure:
+	${TOUCH} ${WRKSRC}/*/man/Makef*
