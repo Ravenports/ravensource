@@ -60,7 +60,7 @@ post-patch:
 	# ${REINPLACE_CMD} -e 's|%%CA_BUNDLE%%|${CA_BUNDLE}|' \
 		${WRKSRC}/src/common/server.c
 
-	# can't use MESON_INSERT_RPATH, needs path to perl too
+	# set path to perl too
 	${REINPLACE_CMD} \
 	-e 's|%%PREFIX%%|${PREFIX}|g'\
 	-e 's|%%PERL_VER%%|${PERL_VER}|g'\
