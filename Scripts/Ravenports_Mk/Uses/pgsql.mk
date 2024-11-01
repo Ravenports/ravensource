@@ -3,7 +3,7 @@
 # Feature:	pgsql
 # Usage:	USES=pgsql
 # Valid ARGS:	none (implies client+buildrun)
-#               server (implies client)
+#               server
 #               client
 #               plperl
 #               plpython
