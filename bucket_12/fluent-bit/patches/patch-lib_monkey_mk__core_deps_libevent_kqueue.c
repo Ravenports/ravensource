@@ -5,7 +5,7 @@
   * intptr_t, whereas others define it as void*.  There doesn't seem to be an
   * easy way to tell them apart via autoconf, so we need to use OS macros. */
 -#if defined(EVENT__HAVE_INTTYPES_H) && !defined(__OpenBSD__) && !defined(__FreeBSD__) && !defined(__darwin__) && !defined(__APPLE__) && !defined(__CloudABI__)
-+#if defined(EVENT__HAVE_INTTYPES_H) && !defined(__OpenBSD__) && !defined(__FreeBSD__) && !defined(__darwin__) && !defined(__APPLE__) && !defined(__CloudABI__) && !defined(__DragonFly__)
++#if defined(EVENT__HAVE_INTTYPES_H) && !defined(__OpenBSD__) && !defined(__FreeBSD__) && !defined(__darwin__) && !defined(__APPLE__) && !defined(__CloudABI__) && !defined(__DragonFly__) && !defined(__NetBSD__)
  #define PTR_TO_UDATA(x)	((intptr_t)(x))
  #define INT_TO_UDATA(x) ((intptr_t)(x))
  #else

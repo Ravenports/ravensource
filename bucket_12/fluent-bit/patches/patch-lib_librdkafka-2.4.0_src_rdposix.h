@@ -1,6 +1,6 @@
 --- lib/librdkafka-2.4.0/src/rdposix.h.orig	2024-09-27 20:09:29 UTC
 +++ lib/librdkafka-2.4.0/src/rdposix.h
-@@ -65,7 +65,7 @@
+@@ -65,12 +65,12 @@
  /**
   * Allocation
   */
@@ -9,3 +9,9 @@
  /* alloca(3) is in stdlib on FreeBSD */
  #include <alloca.h>
  #endif
+ 
+-#define rd_alloca(N) alloca(N)
++#define rd_alloca(N) __builtin_alloca(N)
+ 
+ 
+ /**
