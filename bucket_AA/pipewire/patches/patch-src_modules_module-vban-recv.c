@@ -1,17 +1,6 @@
---- src/modules/module-netjack2-manager.c.orig	2024-10-23 07:44:10 UTC
-+++ src/modules/module-netjack2-manager.c
-@@ -38,6 +38,10 @@
- #include "module-netjack2/peer.c"
- #include "network-utils.h"
- 
-+#if defined(__FreeBSD__) || defined(__DragonFly__)
-+#define ifr_ifindex ifr_index
-+#endif
-+
- #ifndef IPTOS_DSCP
- #define IPTOS_DSCP_MASK 0xfc
- #define IPTOS_DSCP(x) ((x) & IPTOS_DSCP_MASK)
-@@ -823,10 +827,16 @@ static int make_announce_socket(struct s
+--- src/modules/module-vban-recv.c.orig	2024-10-23 07:44:10 UTC
++++ src/modules/module-vban-recv.c
+@@ -225,10 +225,16 @@ static int make_socket(const struct sock
  		static const uint32_t ipv4_mcast_mask = 0xe0000000;
  		struct sockaddr_in *sa4 = (struct sockaddr_in*)sa;
  		if ((ntohl(sa4->sin_addr.s_addr) & ipv4_mcast_mask) == ipv4_mcast_mask) {

@@ -11,7 +11,7 @@ Upstream issue: https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/1819
  #include <limits.h>
  #include <stdio.h>
 -#if !defined(__FreeBSD__) && !defined(__MidnightBSD__) && !defined(__GNU__)
-+#if !defined(__FreeBSD__) && !defined(__MidnightBSD__) && !defined(__GNU__) && !defined(__DragonFly__)
++#if !defined(__FreeBSD__) && !defined(__MidnightBSD__) && !defined(__GNU__) && !defined(__DragonFly__) && !defined(__NetBSD__)
  #include <sys/prctl.h>
  #endif
  #include <pwd.h>
@@ -60,7 +60,7 @@ Upstream issue: https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/1819
  	}
  #endif
 -#if defined __FreeBSD__ || defined(__MidnightBSD__)
-+#if defined __FreeBSD__ || defined(__MidnightBSD__) || defined(__DragonFly__)
++#if defined __FreeBSD__ || defined(__MidnightBSD__) || defined(__DragonFly__) || defined(__NetBSD__)
  	{
  		ssize_t len;
  
@@ -69,7 +69,7 @@ Upstream issue: https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/1819
  	}
  #endif
 -#if !defined(__FreeBSD__) && !defined(__MidnightBSD__) && !defined(__GNU__)
-+#if !defined(__FreeBSD__) && !defined(__MidnightBSD__) && !defined(__GNU__) && !defined(__DragonFly__)
++#if !defined(__FreeBSD__) && !defined(__MidnightBSD__) && !defined(__GNU__) && !defined(__DragonFly__) && !defined(__NetBSD__)
  	{
  		if (prctl(PR_GET_NAME, (unsigned long) name, 0, 0, 0) == 0) {
  			prgname = name;

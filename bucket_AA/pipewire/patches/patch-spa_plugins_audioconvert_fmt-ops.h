@@ -5,7 +5,7 @@
  
  #include <math.h>
 -#if defined(__FreeBSD__) || defined(__MidnightBSD__)
-+#if defined(__FreeBSD__) || defined(__MidnightBSD__) || defined(__DragonFly__)
++#if defined(__FreeBSD__) || defined(__MidnightBSD__) || defined(__DragonFly__) || defined(__NetBSD__)
  #include <sys/endian.h>
  #define bswap_16 bswap16
  #define bswap_32 bswap32

@@ -2,7 +2,7 @@
 +++ src/modules/module-netjack2/peer.c
 @@ -1,5 +1,12 @@
  
-+#if defined(__FreeBSD__) || defined(__MidnightBSD__) || defined(__DragonFly__)
++#if defined(__FreeBSD__) || defined(__MidnightBSD__) || defined(__DragonFly__) || defined(__NetBSD__)
 +#include <sys/endian.h>
 +#define bswap_16 bswap16
 +#define bswap_32 bswap32

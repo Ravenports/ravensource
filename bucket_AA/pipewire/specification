@@ -5,6 +5,7 @@ DEF[SOVERSION]=		0.1206.0
 
 NAMEBASE=		pipewire
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		multimedia
 VARIANTS=		std
 SDESC[std]=		Low-latency audio/video router and processor
@@ -26,7 +27,7 @@ OPT_ON[dragonfly]=	BSD
 OPT_ON[freebsd]=	BSD C11THREADS
 OPT_ON[netbsd]=		BSD
 OPT_ON[openbsd]=	BSD
-OPT_ON[midnightbsd]=	BSD
+OPT_ON[midnightbsd]=	BSD C11THREADS
 
 FPC_EQUIVALENT=		multimedia/pipewire
 
@@ -81,6 +82,12 @@ MESON_ARGS=		-Dgstreamer=enabled
 INSTALL_REQ_TOOLCHAIN=	yes
 SOVERSION=		${SOVERSION}
 
+# avoid use of uselocale which is not supported on NetBSD
+VAR_OPSYS[netbsd]=	CFLAGS=-D__LOCALE_C_ONLY=1
+			CFLAGS=-D_NETBSD_SOURCE
+			CFLAGS=-I{{LOCALBASE}}/include/libepoll-shim
+			CXXFLAGS=-D__LOCALE_C_ONLY=1
+
 [BSD].DESCRIPTION=			BSD-specific build instructions
 [BSD].BUILD_DEPENDS_ON=			libinotify:dev:std
 					libepoll-shim:dev:std
@@ -108,6 +115,7 @@ pre-configure-midnightbsd:
 
 pre-configure:
 	${GREP} -rl "pw_init(" | ${XARGS} ${REINPLACE_CMD} -e 's|pw_init(|pipewire_init|g'
+	${FIND} ${WRKSRC} -name "*.orig" -delete
 
 post-install:
 	${RM} ${LOCALBASE}/include/threads.h

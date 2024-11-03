@@ -5,7 +5,7 @@
  #include <string.h>
  #include <ctype.h>
 -#if !defined(__FreeBSD__) && !defined(__MidnightBSD__)
-+#if !defined(__FreeBSD__) && !defined(__MidnightBSD__) && !defined(__DragonFly__)
++#if !defined(__FreeBSD__) && !defined(__MidnightBSD__) && !defined(__DragonFly__) && !defined(__NetBSD__)
  #include <alloca.h>
  #endif
  #include <getopt.h>
