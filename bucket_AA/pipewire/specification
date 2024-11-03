@@ -83,10 +83,8 @@ INSTALL_REQ_TOOLCHAIN=	yes
 SOVERSION=		${SOVERSION}
 
 # avoid use of uselocale which is not supported on NetBSD
-VAR_OPSYS[netbsd]=	CFLAGS=-D__LOCALE_C_ONLY=1
-			CFLAGS=-D_NETBSD_SOURCE
+VAR_OPSYS[netbsd]=	CFLAGS=-D_NETBSD_SOURCE
 			CFLAGS=-I{{LOCALBASE}}/include/libepoll-shim
-			CXXFLAGS=-D__LOCALE_C_ONLY=1
 
 [BSD].DESCRIPTION=			BSD-specific build instructions
 [BSD].BUILD_DEPENDS_ON=			libinotify:dev:std
