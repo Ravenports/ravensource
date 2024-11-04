@@ -3,11 +3,13 @@ DEF[SOVERSION]=		3.0.0
 DEF[DOCS]=		AUTHORS ChangeLog INSTALL.TXT README
 DEF[JQUERY]=		3.5.1
 DEF[UNDERSCORE]=	EXTRACT_INFO(SPHINX_UNDERSCORE)
+DEF[DBPATH]=		{{PREFIX}}/etc/sasldb2
+DEF[PKGUSER]=		cyrus
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		cyrus-sasl
 VERSION=		${PORTVERSION}
-REVISION=		2
+REVISION=		3
 KEYWORDS=		security
 VARIANTS=		std
 SDESC[std]=		Cyrus Simple Authentication Service Layer (SASL)
@@ -29,8 +31,8 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		security/cyrus-sasl2
 
-USERS=			cyrus
-GROUPS=			cyrus
+USERS=			${PKGUSER}
+GROUPS=			${PKGUSER}
 USERGROUP_SPKG=		primary
 
 USES=			cpe gmake libtool:keepla perl:build bdb ssl mbsdfix
@@ -57,7 +59,7 @@ CONFIGURE_ARGS=		--disable-alwaystrue
 			--with-authdaemond=/var/run/authdaemond/socket
 			--with-configdir={{PREFIX}}/lib/sasl2:{{PREFIX}}/etc/sasl2
 			--with-plugindir={{PREFIX}}/lib/sasl2
-			--with-dbpath={{PREFIX}}/etc/sasldb2
+			--with-dbpath=${DBPATH}
 			--with-lib-subdir=lib
 			--includedir={{PREFIX}}/include
 			--enable-static
@@ -73,9 +75,6 @@ PLIST_SUB=		UNDERSCORE=${UNDERSCORE}
 # FreeBSD only
 INSTALL_REQ_TOOLCHAIN=	yes
 
-SUB_FILES=		scripts-primary.ucl
-SUB_LIST=		SASLDB_NAME=sasldb2
-			CYRUS_USER=cyrus
 VAR_ARCH[x86_64]=	CPPFLAGS=-fPIC
 VAR_OPSYS[netbsd]=	CONFIGURE_ENV=ac_cv_lib_dl_dlopen=no
 
@@ -100,5 +99,11 @@ post-install:
 	(cd ${WRKSRC} && \
 		${INSTALL_DATA} ${DOCS} ${STAGEDIR}${STD_DOCDIR})
 	${INSTALL_DATA} ${FILESDIR}/Sendmail.README ${STAGEDIR}${STD_DOCDIR}
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/sasl2/*.${LIBEXT}
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.${LIBEXT}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/sasl2/*.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so
+	# Install sample database
+	${LN} -s ${STAGEDIR}${PREFIX}/lib/libsasl2.so.${SOVERSION} ${LOCALBASE}/lib/libsasl2.so.${SOVERSION:R:R}
+	${LN} -s ${STAGEDIR}${PREFIX}/lib/sasl2 ${LOCALBASE}/lib/sasl2
+	${ECHO_CMD} test | ${STAGEDIR}${PREFIX}/sbin/saslpasswd2 -p -c -f ${STAGEDIR}${DBPATH}.sample ${PKGUSER}
+	${RM} ${LOCALBASE}/lib/sasl2
+	${RM} ${LOCALBASE}/lib/libsasl2.so.${SOVERSION:R:R}
