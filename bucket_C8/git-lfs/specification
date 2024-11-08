@@ -96,8 +96,13 @@ DF_INDEX=		1 2 3 4 5 6 7 8 9 10
 
 SPKGS[std]=		set primary man
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+# asciidoc core dumps on NetBSD (some kind of ruby segfault)
+OPTIONS_AVAILABLE=	MAN
+OPTIONS_STANDARD=	MAN
+OPT_ON[freebsd]=	MAN
+OPT_ON[dragonfly]=	MAN
+OPT_ON[midnightbsd]=	MAN
+OPT_ON[linux]=		MAN
 
 FPC_EQUIVALENT=		devel/git-lfs
 
@@ -116,17 +121,25 @@ CPE_PRODUCT=		git_large_file_storage
 MAKE_ENV=		GOFLAGS="-trimpath -mod=vendor -modcacherw -ldflags=-linkmode=external"
 MOUNT_PROCFS=		yes
 
+[MAN].DESCRIPTION=			Build and package man pages
+[MAN].BUILD_DEPENDS_ON=			ruby-ronn-ng:single:ruby_default
+					ruby-asciidoctor:single:ruby_default
+
 post-patch:
 	${CP} ${FILESDIR}/modules.txt ${WRKSRC}/vendor/
 
 do-build:
 	cd ${WRKSRC} && \
 	${SETENV} ${MAKE_ENV} go generate ./commands ${SWITCHES} && \
-	${SETENV} ${MAKE_ENV} go build . && \
-	${SETENV} ${MAKE_ENV} gmake man
+	${SETENV} ${MAKE_ENV} go build .
+
+do-build-MAN-ON:
+	cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} gmake man
 
 do-install:
 	${CP} ${WRKSRC}/git-lfs ${STAGEDIR}${PREFIX}/bin
+
+do-install-MAN-ON:
 	${CP} ${WRKSRC}/man/man1/*.1 ${STAGEDIR}${PREFIX}/share/man/man1
 	${CP} ${WRKSRC}/man/man5/*.5 ${STAGEDIR}${PREFIX}/share/man/man5
 
