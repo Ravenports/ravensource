@@ -1,4 +1,4 @@
---- doc/doc.mk.orig	2024-01-09 20:06:42 UTC
+--- doc/doc.mk.orig	2024-10-25 07:26:33 UTC
 +++ doc/doc.mk
 @@ -5,5 +5,5 @@ DOCDIR = obj/html
  $(DOCDIR):
