@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.31.0
+DEF[PORTVERSION]=	1.32.0
 DEF[TAG]=		asio-${PORTVERSION:S|.|-|g}
 # ----------------------------------------------------------------------------
 
@@ -27,8 +27,9 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		net/asio
 
-USES=			autoreconf
+USES=			autoreconf pkgconfig
 DISTNAME=		asio-${TAG}/asio
 MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-noarch-pkgconfigdir={{PREFIX}}/lib/pkgconfig
 SKIP_BUILD=		yes
 INSTALL_TARGET=		install-data
