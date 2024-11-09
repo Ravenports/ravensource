@@ -1,5 +1,6 @@
 DEF[PORTVERSION]=	EXTRACT_INFO(KDE6_FRAMEWORKS_VERSION)
 DEF[KF6_COMPONENT]=	solid
+DEF[LIC_FILE]=		src/tools/solid-hardware/solid-hardware.h
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		kf6-${KF6_COMPONENT}
@@ -48,11 +49,11 @@ SOVERSION=		${PORTVERSION}
 R_DEPS[freebsd]=	bsdisks:primary:std
 
 post-extract:
-	${ECHO} "Terms extracted from 'src/tools/solid-power/main.cpp':" > ${WRKDIR}/TERMS
-	${SED} -n '/include/!p;//q' ${WRKSRC}/src/tools/solid-power/main.cpp >> \
-		${WRKDIR}/TERMS
+	${ECHO} "Terms extracted from '${LIC_FILE}':" > ${WRKDIR}/TERMS
+	${SED} -n '/include/!p;//q' ${WRKSRC}/${LIC_FILE} >> ${WRKDIR}/TERMS
+
 	${ECHO} "Terms extracted from 'src/imports/devices.h':" >> ${WRKDIR}/TERMS
-	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/src/tools/solid-hardware/solid-hardware.h >> ${WRKDIR}/TERMS
+	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/${LIC_FILE} >> ${WRKDIR}/TERMS
 
 post-stage:
 	(cd ${STAGEDIR}${PREFIX} && ${STRIP_CMD} bin/solid-hardware6 \
