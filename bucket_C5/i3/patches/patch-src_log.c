@@ -1,6 +1,6 @@
---- src/log.c.orig	2023-10-29 08:57:51 UTC
+--- src/log.c.orig	2024-11-06 17:26:52 UTC
 +++ src/log.c
-@@ -142,7 +142,7 @@ void open_logbuffer(void) {
+@@ -143,7 +143,7 @@ void open_logbuffer(void) {
          logbuffer_size = physical_mem_bytes * 0.01;
      }
  
@@ -9,7 +9,7 @@
      sasprintf(&shmlogname, "/tmp/i3-log-%d", getpid());
  #else
      sasprintf(&shmlogname, "/i3-log-%d", getpid());
-@@ -153,7 +153,7 @@ void open_logbuffer(void) {
+@@ -154,7 +154,7 @@ void open_logbuffer(void) {
          return;
      }
  
