@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	7.2.1.2
+DEF[PORTVERSION]=	8.0.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		ruby-activesupport
@@ -13,7 +13,7 @@ CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		RUBYGEMS/
-DISTFILE[1]=		activesupport-7.2.1.2.gem:main
+DISTFILE[1]=		activesupport-8.0.0.gem:main
 DIST_SUBDIR=		ruby
 
 SPKGS[v31]=		single
@@ -40,6 +40,8 @@ VOPTS[v33]=		RUBY31=OFF RUBY32=OFF RUBY33=ON
 #   bigdecimal (>= 0)
 #   logger (>= 1.4.2)
 #   securerandom (>= 0.3)
+#   uri (>= 0.13.1)
+#   benchmark (>= 0.3)
 
 DISTNAME=		activesupport-${PORTVERSION}
 GENERATED=		yes
@@ -55,6 +57,9 @@ GENERATED=		yes
 					ruby-bigdecimal:single:v31
 					ruby-logger:single:v31
 					ruby-securerandom:single:v31
+					ruby-uri:single:v31
+					ruby-benchmark:single:v31
+[RUBY31].BROKEN_ON=			Does not meet minimum Ruby version requirements
 [RUBY32].USES_ON=			gem:v32
 [RUBY32].BUILDRUN_DEPENDS_ON=		ruby-i18n:single:v32
 					ruby-tzinfo:single:v32
@@ -66,6 +71,8 @@ GENERATED=		yes
 					ruby-bigdecimal:single:v32
 					ruby-logger:single:v32
 					ruby-securerandom:single:v32
+					ruby-uri:single:v32
+					ruby-benchmark:single:v32
 [RUBY33].USES_ON=			gem:v33
 [RUBY33].BUILDRUN_DEPENDS_ON=		ruby-i18n:single:v33
 					ruby-tzinfo:single:v33
@@ -77,6 +84,8 @@ GENERATED=		yes
 					ruby-bigdecimal:single:v33
 					ruby-logger:single:v33
 					ruby-securerandom:single:v33
+					ruby-uri:single:v33
+					ruby-benchmark:single:v33
 
 USES=			cpe
 CPE_VENDOR=		activesupport_project

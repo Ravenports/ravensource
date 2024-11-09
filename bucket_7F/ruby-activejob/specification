@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	7.2.1.2
+DEF[PORTVERSION]=	8.0.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		ruby-activejob
@@ -13,7 +13,7 @@ CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		RUBYGEMS/
-DISTFILE[1]=		activejob-7.2.1.2.gem:main
+DISTFILE[1]=		activejob-8.0.0.gem:main
 DIST_SUBDIR=		ruby
 
 SPKGS[v31]=		single
@@ -30,7 +30,7 @@ VOPTS[v33]=		RUBY31=OFF RUBY32=OFF RUBY33=ON
 # => "MIT"
 
 # Requirements according to gem specification:
-#   activesupport (= 7.2.1.2)
+#   activesupport (= 8.0.0)
 #   globalid (>= 0.3.6)
 
 DISTNAME=		activejob-${PORTVERSION}
@@ -39,6 +39,7 @@ GENERATED=		yes
 [RUBY31].USES_ON=			gem:v31
 [RUBY31].BUILDRUN_DEPENDS_ON=		ruby-activesupport:single:v31
 					ruby-globalid:single:v31
+[RUBY31].BROKEN_ON=			Does not meet minimum Ruby version requirements
 [RUBY32].USES_ON=			gem:v32
 [RUBY32].BUILDRUN_DEPENDS_ON=		ruby-activesupport:single:v32
 					ruby-globalid:single:v32
