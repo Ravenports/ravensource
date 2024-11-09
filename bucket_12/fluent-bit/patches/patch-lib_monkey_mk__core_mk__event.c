@@ -1,4 +1,4 @@
---- lib/monkey/mk_core/mk_event.c.orig	2024-09-27 20:09:29 UTC
+--- lib/monkey/mk_core/mk_event.c.orig	2024-11-04 22:36:47 UTC
 +++ lib/monkey/mk_core/mk_event.c
 @@ -42,7 +42,7 @@
      /* do our best based on the operating system */
