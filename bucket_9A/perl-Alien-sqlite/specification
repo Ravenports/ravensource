@@ -1,0 +1,86 @@
+DEF[PORTVERSION]=	1.07
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-Alien-sqlite
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		538 540
+SDESC[538]=		Alien package for the Sqlite library (5.38)
+SDESC[540]=		Alien package for the Sqlite library (5.40)
+HOMEPAGE=		https://github.com/shawnlaffan/perl-alien-sqlite
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:S/SL/SLAFFAN
+DISTFILE[1]=		Alien-sqlite-${PORTVERSION}.tar.gz:main
+
+SPKGS[538]=		single
+SPKGS[540]=		single
+
+OPTIONS_AVAILABLE=	PERL_538 PERL_540
+OPTIONS_STANDARD=	none
+VOPTS[538]=		PERL_538=ON PERL_540=OFF
+VOPTS[540]=		PERL_538=OFF PERL_540=ON
+
+# License listed in CPAN directory:
+# perl_5
+
+GENERATED=		yes
+SINGLE_JOB=		yes
+DISTNAME=		Alien-sqlite-${PORTVERSION}
+
+# ----------------------------------------------
+# |   Prerequisites extracted from META.json
+# ----------------------------------------------
+# |      runtime : Alien::Base
+# |      runtime : Alien::Build
+# |      runtime : FFI::CheckLib
+# |        build : Alien::Build
+# |        build : Alien::Build::MM
+# |        build : Alien::Build::Plugin::Cleanse::BuildDir
+# |        build : Archive::Tar (perl 5.38 core) (perl 5.40 core)
+# |        build : Config (perl 5.38 core) (perl 5.40 core)
+# |        build : ExtUtils::MakeMaker (perl 5.38 core) (perl 5.40 core)
+# |        build : File::Find::Rule
+# |        build : HTTP::Tiny (perl 5.38 core) (perl 5.40 core)
+# |        build : IO::Socket::SSL
+# |        build : IO::Zlib (perl 5.38 core) (perl 5.40 core)
+# |        build : Mojo::DOM58
+# |        build : Net::SSLeay
+# |        build : PkgConfig
+# |        build : Sort::Versions
+# |        build : URI
+# |        build : URI::Escape
+# |    configure : Alien::Build
+# |    configure : Alien::Build::MM
+# |    configure : Alien::Build::Plugin::Cleanse::BuildDir
+# |    configure : ExtUtils::MakeMaker (perl 5.38 core) (perl 5.40 core)
+# |    configure : File::Find::Rule
+# |    configure : PkgConfig
+# |    configure : Sort::Versions
+# |         test : FFI::CheckLib
+# |         test : Test::Alien
+
+[PERL_538].USES_ON=			perl:538,configure
+[PERL_538].BUILDRUN_DEPENDS_ON=		perl-Alien-Build:single:538
+					perl-FFI-CheckLib:single:538
+[PERL_538].BUILD_DEPENDS_ON=		perl-Alien-Build-Plugin-Cleanse-BuildDir:single:538
+					perl-File-Find-Rule:single:538
+					perl-IO-Socket-SSL:single:538
+					perl-Mojo-DOM58:single:538
+					perl-Net-SSLeay:single:538
+					perl-PkgConfig:single:538
+					perl-Sort-Versions:single:538
+					perl-URI:single:538
+[PERL_540].USES_ON=			perl:540,configure
+[PERL_540].BUILDRUN_DEPENDS_ON=		perl-Alien-Build:single:540
+					perl-FFI-CheckLib:single:540
+[PERL_540].BUILD_DEPENDS_ON=		perl-Alien-Build-Plugin-Cleanse-BuildDir:single:540
+					perl-File-Find-Rule:single:540
+					perl-IO-Socket-SSL:single:540
+					perl-Mojo-DOM58:single:540
+					perl-Net-SSLeay:single:540
+					perl-PkgConfig:single:540
+					perl-Sort-Versions:single:540
+					perl-URI:single:540
+
