@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.16.1
+DEF[PORTVERSION]=	0.17.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-pythran
@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/serge-sans-paille/pythran
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/p/pythran
-DISTFILE[1]=		pythran-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/65/0a/557cef9d89cd21d7a4850c31701b7cfa78f6cc8b09249df678d174b6e6ca
+DISTFILE[1]=		pythran-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[v11]=		single
 SPKGS[v12]=		single
@@ -47,23 +47,34 @@ VOPTS[v12]=		PY311=OFF PY312=ON
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 GENERATED=		yes
-DISTNAME=		pythran-${PORTVERSION}
+DISTNAME=		pythran-${PORTVERSION}.dist-info
 
-# install_requires extracted from setup.py
-# ply>=3.4
+# Requires-Dist extracted from wheel metadata
+# ply >=3.4
 # setuptools
-# gast~=0.5.0
+# gast ~=0.6.0
 # numpy
-# beniget~=0.4.0
+# beniget ~=0.4.0
+# numpy ; extra == 'doc'
+# nbsphinx ; extra == 'doc'
+# scipy ; extra == 'doc'
+# guzzle-sphinx-theme ; extra == 'doc'
+# ipython ; extra == 'test'
+# nbval ; extra == 'test'
+# cython ; extra == 'test'
+# wheel ; extra == 'test'
+# packaging ; extra == 'test'
+# ninja ; extra == 'test'
+# meson ; extra == 'test'
 
-[PY311].USES_ON=			python:v11,sutools
-[PY311].BUILDRUN_DEPENDS_ON=		python-ply:single:v11
+[PY311].USES_ON=			python:v11,wheel
+[PY311].RUN_DEPENDS_ON=			python-ply:single:v11
 					python-setuptools:single:v11
 					python-gast:single:v11
 					python-numpy:single:v11
 					python-beniget:single:v11
-[PY312].USES_ON=			python:v12,sutools
-[PY312].BUILDRUN_DEPENDS_ON=		python-ply:single:v12
+[PY312].USES_ON=			python:v12,wheel
+[PY312].RUN_DEPENDS_ON=			python-ply:single:v12
 					python-setuptools:single:v12
 					python-gast:single:v12
 					python-numpy:single:v12

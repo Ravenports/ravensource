@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.17.10
+DEF[PORTVERSION]=	1.17.13
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-lizard
@@ -11,7 +11,7 @@ HOMEPAGE=		http://www.lizard.ws
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/ef/4b/557cbe718f0550de5656f7480600989ddfc0279db15e90d9cdc38cb8e61d
+SITES[main]=		PYPIWHL/b8/37/8eff5380bd28768529a64391c9ca1f475e7f7308a0b4226f94dda3971fbc
 DISTFILE[1]=		lizard-${PORTVERSION}-py2.py3-none-any.whl:main
 
 SPKGS[v11]=		single
@@ -29,8 +29,10 @@ GENERATED=		yes
 DISTNAME=		lizard-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-
+# pygments
 
 [PY311].USES_ON=			python:v11,wheel
+[PY311].RUN_DEPENDS_ON=			python-Pygments:single:v11
 [PY312].USES_ON=			python:v12,wheel
+[PY312].RUN_DEPENDS_ON=			python-Pygments:single:v12
 

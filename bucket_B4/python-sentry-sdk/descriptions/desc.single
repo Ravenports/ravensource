@@ -12,23 +12,29 @@ positions**</kbd>]_.
 [![PyPi page link -- version]](https://pypi.python.org/pypi/sentry-sdk)
 [Discord]
 
-This is the official Python SDK for [Sentry]
+Welcome to the official Python SDK for **[Sentry]**!
 
 ## Getting Started
 
-### Install
+### Installation
+
+Getting Sentry into your project is straightforward. Just run this command
+in your terminal:
 
 ```bash
 pip install --upgrade sentry-sdk
 ```
 
-### Configuration
+### Basic Configuration
+
+Here’s a quick configuration example to get Sentry up and running:
 
 ```python
 import sentry_sdk
 
 sentry_sdk.init(
-    "https://12927b5f211046b575ee51fd8b1ac34f@o1.ingest.sentry.io/1",
+    "https://12927b5f211046b575ee51fd8b1ac34f@o1.ingest.sentry.io/1",  #
+Your DSN here
 
     # Set traces_sample_rate to 1.0 to capture 100%
     # of transactions for performance monitoring.
@@ -36,65 +42,59 @@ sentry_sdk.init(
 )
 ```
 
-### Usage
+With this configuration, Sentry will monitor for exceptions and performance
+issues.
+
+### Quick Usage Example
+
+To generate some events that will show up in Sentry, you can log messages
+or capture errors:
 
 ```python
 from sentry_sdk import capture_message
-capture_message("Hello World")  # Will create an event in Sentry.
+capture_message("Hello Sentry!")  # You'll see this in your Sentry
+dashboard.
 
-raise ValueError()  # Will also create an event in Sentry.
+raise ValueError("Oops, something went wrong!")  # This will create an
+error event in Sentry.
 ```
 
-- To learn more about how to use the SDK [refer to our docs].
-- Are you coming from `raven-python`? [Use this migration guide].
-- To learn about internals use the [API Reference].
+#### Explore the Docs
+
+For more details on advanced usage, integrations, and customization, check
+out the full documentation:
+
+- [Official SDK Docs]
+- [API Reference]
 
 ## Integrations
 
-(If you want to create a new integration, have a look at the [Adding a new
-integration checklist].)
-
-See [the documentation] for an up-to-date list of libraries and frameworks
-we support. Here are some examples:
+Sentry integrates with many popular Python libraries and frameworks,
+including:
 
 - [Django]
 - [Flask]
 - [FastAPI]
-- [AIOHTTP]
-- [SQLAlchemy]
-- [asyncpg]
-- [Redis]
 - [Celery]
-- [Apache Airflow]
-- [Apache Spark]
-- [asyncio]
-- [Graphene]
-- [Logging]
-- [Loguru]
-- [HTTPX]
 - [AWS Lambda]
-- [Google Cloud Functions]
 
-## Migrating
+Want more? [Check out the full list of integrations].
 
-### Migrating From `1.x` to `2.x`
+### Rolling Your Own Integration?
 
-If you're on SDK version 1.x, we highly recommend updating to the 2.x
-major. To make the process easier we've prepared a [migration guide] with
-the most common changes as well as a [detailed changelog].
+If you want to create a new integration or improve an existing one, we’d
+welcome your contributions! Please read our [contributing guide] before
+starting.
 
-### Migrating From `raven-python`
+## Migrating Between Versions?
 
-The old `raven-python` client has entered maintenance mode and was moved
-[here].
+### From `1.x` to `2.x`
 
-If you're using `raven-python`, we recommend you to migrate to this new
-SDK. You can find the benefits of migrating and how to do it in our
-[migration guide].
+If you're using the older `1.x` version of the SDK, now's the time to
+upgrade to `2.x`. It includes significant upgrades and new features. Check
+our [migration guide] for assistance.
 
-## Contributing to the SDK
+### From `raven-python`
 
-Please refer to [CONTRIBUTING.md].
-
-## Getting Help/Support
-
+Using the legacy `raven-python` client? It's now in maintenance mode, and
+we recommend migrating to the new SDK for an improved experience. Get all
