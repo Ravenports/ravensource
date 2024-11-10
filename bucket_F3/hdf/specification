@@ -1,0 +1,40 @@
+DEF[PORTVERSION]=	4.3.0
+DEF[SOVERSION]=		2.0.0
+DEF[MF_SOVERSION]=	3.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		hdf
+VERSION=		${PORTVERSION}
+KEYWORDS=		science archivers graphics
+VARIANTS=		std
+SDESC[std]=		HDF4 Hierarchical Data Format
+HOMEPAGE=		https://www.hdfgroup.org/solutions/hdf4/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://github.com/HDFGroup/hdf4/releases/download/hdf${PORTVERSION}/
+DISTFILE[1]=		hdf${PORTVERSION}.tar.gz:main
+
+SPKGS[std]=		set primary dev man tools
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		science/hdf
+
+LICENSE=		BSD3CLAUSE:primary
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+EXRUN[tools]=		primary
+
+USES=			jpeg libtool zlib
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-shared
+			--with-jpeg={{LOCALBASE}}
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
+DISTNAME=		hdfsrc
+SOVERSION=		${SOVERSION}
+PLIST_SUB=		MF_SOVERSION=${MF_SOVERSION}
+			MF_SOMAJOR=${MF_SOVERSION:R:R}
