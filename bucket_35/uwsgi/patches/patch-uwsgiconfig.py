@@ -1,4 +1,4 @@
---- uwsgiconfig.py.orig	2024-06-01 18:40:38 UTC
+--- uwsgiconfig.py.orig	2024-10-26 09:59:26 UTC
 +++ uwsgiconfig.py
 @@ -834,7 +834,7 @@ class uConf(object):
  
