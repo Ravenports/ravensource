@@ -45,3 +45,7 @@ DISTNAME=		Alien-HDF4-${PORTVERSION}
 [PERL_540].BUILD_DEPENDS_ON=		perl-ExtUtils-Depends:single:540
 					perl-IO-All:single:540
 
+BUILD_DEPENDS=		hdf:dev:std
+
+pre-configure:
+	${REINPLACE_CMD} -e 's|/usr/local|${LOCALBASE}|g' ${WRKSRC}/common.pl
