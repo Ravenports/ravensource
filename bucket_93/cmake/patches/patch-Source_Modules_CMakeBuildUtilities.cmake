@@ -1,4 +1,4 @@
---- Source/Modules/CMakeBuildUtilities.cmake.orig	2024-10-08 12:56:04 UTC
+--- Source/Modules/CMakeBuildUtilities.cmake.orig	2024-11-06 13:41:37 UTC
 +++ Source/Modules/CMakeBuildUtilities.cmake
 @@ -148,11 +148,7 @@ else()
    if(CMAKE_TESTS_CDASH_SERVER)
@@ -6,7 +6,7 @@
    endif()
 -  set(_CMAKE_USE_OPENSSL_DEFAULT OFF)
 -  if(NOT DEFINED CMAKE_USE_OPENSSL AND NOT WIN32 AND NOT APPLE
--      AND CMAKE_SYSTEM_NAME MATCHES "(Linux|FreeBSD)")
+-      AND CMAKE_SYSTEM_NAME MATCHES "(Linux|FreeBSD|CYGWIN|MSYS)")
      set(_CMAKE_USE_OPENSSL_DEFAULT ON)
 -  endif()
    option(CMAKE_USE_OPENSSL "Use OpenSSL." ${_CMAKE_USE_OPENSSL_DEFAULT})
