@@ -54,6 +54,9 @@ PLIST_SUB=		RSPAMDVERSION=${PORTVERSION}
 SUB_FILES=		messages-primary.ucl
 			rspamd.newsyslog.conf.sample
 
+# makefile bug?  it rebuilds snowball during staging
+INSTALL_REQ_TOOLCHAIN=	yes
+
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/rspamadm
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/rspamc
