@@ -1,4 +1,4 @@
---- lib/Interpreter/IncrementalParser.cpp.orig	2024-10-15 08:17:37 UTC
+--- lib/Interpreter/IncrementalParser.cpp.orig	2024-10-29 10:09:39 UTC
 +++ lib/Interpreter/IncrementalParser.cpp
 @@ -126,7 +126,11 @@ public:
            switch (CI.getFrontendOpts().ProgramAction) {

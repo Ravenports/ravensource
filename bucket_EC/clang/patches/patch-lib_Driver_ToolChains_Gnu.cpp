@@ -1,4 +1,4 @@
---- lib/Driver/ToolChains/Gnu.cpp.orig	2024-10-15 08:17:37 UTC
+--- lib/Driver/ToolChains/Gnu.cpp.orig	2024-10-29 10:09:39 UTC
 +++ lib/Driver/ToolChains/Gnu.cpp
 @@ -443,6 +443,11 @@ void tools::gnutools::Linker::ConstructJ
    } else if (IsStatic) {
@@ -21,7 +21,7 @@
        if (IsStatic || IsStaticPIE)
          CmdArgs.push_back("--start-group");
  
-@@ -3054,6 +3061,8 @@ Generic_GCC::Generic_GCC(const Driver &D
+@@ -3056,6 +3063,8 @@ Generic_GCC::Generic_GCC(const Driver &D
      : ToolChain(D, Triple, Args), GCCInstallation(D),
        CudaInstallation(D, Triple, Args), RocmInstallation(D, Triple, Args) {
    getProgramPaths().push_back(getDriver().Dir);
@@ -30,7 +30,7 @@
  }
  
  Generic_GCC::~Generic_GCC() {}
-@@ -3420,10 +3429,9 @@ bool Generic_GCC::addGCCLibStdCxxInclude
+@@ -3422,10 +3431,9 @@ bool Generic_GCC::addGCCLibStdCxxInclude
  void
  Generic_GCC::addLibStdCxxIncludePaths(const llvm::opt::ArgList &DriverArgs,
                                        llvm::opt::ArgStringList &CC1Args) const {
