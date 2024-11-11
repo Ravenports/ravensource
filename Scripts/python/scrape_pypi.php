@@ -286,7 +286,6 @@ function inline_fix_setup ($namebase, $src) {
        "breathe"      => '/from breathe/d',
        "asn1"         => '/version_info.*3\.4/d; s/.enum-compat.//',
        "pycryptodomex"=> '/set_compiler_options/d',
-       "pyclipper"    => '/print(/d',
        "multidict"    => '/print(/d',
        "frozenlist"   => '/print(/d',
        "yarl"         => '/print(/d',

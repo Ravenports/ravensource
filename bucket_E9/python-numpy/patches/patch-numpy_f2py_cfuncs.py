@@ -1,6 +1,6 @@
---- numpy/f2py/cfuncs.py.orig	1970-01-01 00:00:00 UTC
+--- numpy/f2py/cfuncs.py.orig	2024-02-05 21:17:48 UTC
 +++ numpy/f2py/cfuncs.py
-@@ -547,6 +547,9 @@ cppmacros["F2PY_THREAD_LOCAL_DECL"] = ""
+@@ -548,6 +548,9 @@ cppmacros["F2PY_THREAD_LOCAL_DECL"] = ""
  #define F2PY_THREAD_LOCAL_DECL __thread
  #elif defined(__STDC_VERSION__) \\
        && (__STDC_VERSION__ >= 201112L) \\
