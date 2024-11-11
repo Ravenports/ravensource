@@ -5,8 +5,8 @@ DEF[PORTVERSION]=	43.0.3
 NAMEBASE=		python-cryptography
 VERSION=		${PORTVERSION}
 KEYWORDS=		python rust
-VARIANTS=		v12 v11
-SDESC[v11]=		Cryptographic recipes and primitives (3.11)
+VARIANTS=		v12 v13
+SDESC[v13]=		Cryptographic recipes and primitives (3.13)
 SDESC[v12]=		Cryptographic recipes and primitives (3.12)
 HOMEPAGE=		https://github.com/pyca/cryptography
 CONTACT=		Python_Automaton[python@ironwolf.systems]
@@ -89,13 +89,13 @@ DF_INDEX=		1 2 3 4 5 6 7 8 9 10
 			21 22 23 24 25 26 27 28 29 30
 			31 32 33 34
 
-SPKGS[v11]=		single
+SPKGS[v13]=		single
 SPKGS[v12]=		single
 
-OPTIONS_AVAILABLE=	PY311 PY312
+OPTIONS_AVAILABLE=	PY313 PY312
 OPTIONS_STANDARD=	none
-VOPTS[v12]=		PY312=ON PY311=OFF
-VOPTS[v11]=		PY312=OFF PY311=ON
+VOPTS[v12]=		PY312=ON PY313=OFF
+VOPTS[v13]=		PY312=OFF PY313=ON
 
 # License listed at PyPI
 # BSD or Apache License, Version 2.0
@@ -117,12 +117,12 @@ VAR_OPSYS[linux]=	MAKEFILE_LINE=CPYTHON={{PYTHON_SUFFIX}}-x86_64-linux-gnu
 					python-maturin:single:v12
 [PY312].BUILDRUN_DEPENDS_ON=		python-cffi:single:v12
 
-[PY311].USES_ON=			python:v11
-[PY311].BUILD_DEPENDS_ON=		python-pip:single:v11
-					python-wheel:single:v11
-					python-setuptools-rust:single:v11
-					python-maturin:single:v11
-[PY311].BUILDRUN_DEPENDS_ON=		python-cffi:single:v11
+[PY313].USES_ON=			python:v13
+[PY313].BUILD_DEPENDS_ON=		python-pip:single:v13
+					python-wheel:single:v13
+					python-setuptools-rust:single:v13
+					python-maturin:single:v13
+[PY313].BUILDRUN_DEPENDS_ON=		python-cffi:single:v13
 
 USES=			cpe cargo ssl pkgconfig cclibs:single
 CPE_VENDOR=		cryptography

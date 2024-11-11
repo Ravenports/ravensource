@@ -5,8 +5,8 @@ DEF[PORTVERSION]=	%%VERSION%%
 NAMEBASE=		python-netifaces2
 VERSION=		${PORTVERSION}
 KEYWORDS=		python rust
-VARIANTS=		v12 v11
-SDESC[v11]=		Portable network interface information (3.11)
+VARIANTS=		v12 v13
+SDESC[v13]=		Portable network interface information (3.13)
 SDESC[v12]=		Portable network interface information (3.12)
 HOMEPAGE=		https://github.com/SamuelYvon/netifaces-2
 CONTACT=		Python_Automaton[python@ironwolf.systems]
@@ -20,12 +20,12 @@ DISTFILE[1]=		netifaces2-${PORTVERSION}.tar.gz:main
 %%DF_INDEX%%
 
 SPKGS[v12]=		single
-SPKGS[v11]=		single
+SPKGS[v13]=		single
 
-OPTIONS_AVAILABLE=	PY312 PY311
+OPTIONS_AVAILABLE=	PY312 PY313
 OPTIONS_STANDARD=	none
-VOPTS[v12]=		PY312=ON PY311=OFF
-VOPTS[v11]=		PY312=OFF PY311=ON
+VOPTS[v12]=		PY312=ON PY313=OFF
+VOPTS[v13]=		PY312=OFF PY313=ON
 
 # License listed at PyPI
 # Apache-2.0 OR MIT
@@ -48,10 +48,10 @@ VAR_OPSYS[linux]=	MAKEFILE_LINE=CPYTHON={{PYTHON_SUFFIX}}-x86_64-linux-gnu
 [PY312].BUILD_DEPENDS_ON=		python-setuptools-rust:single:v12
 					python-maturin:single:v12
 					python-pip:single:v12
-[PY311].USES_ON=			python:v11
-[PY311].BUILD_DEPENDS_ON=		python-setuptools-rust:single:v11
-					python-maturin:single:v11
-					python-pip:single:v11
+[PY313].USES_ON=			python:v13
+[PY313].BUILD_DEPENDS_ON=		python-setuptools-rust:single:v13
+					python-maturin:single:v13
+					python-pip:single:v13
 
 post-patch:
 	${MKDIR} ${WRKSRC}/.cargo

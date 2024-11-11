@@ -6,8 +6,8 @@ DEF[PORTVERSION]=	2.2.3
 NAMEBASE=		python-pandas
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v11 v12
-SDESC[v11]=		Data structures for time series, statistics (3.11)
+VARIANTS=		v13 v12
+SDESC[v13]=		Data structures for time series, statistics (3.13)
 SDESC[v12]=		Data structures for time series, statistics (3.12)
 HOMEPAGE=		https://pandas.pydata.org
 CONTACT=		Python_Automaton[python@ironwolf.systems]
@@ -16,13 +16,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		PYPI/p/pandas
 DISTFILE[1]=		pandas-${PORTVERSION}.tar.gz:main
 
-SPKGS[v11]=		single
+SPKGS[v13]=		single
 SPKGS[v12]=		single
 
-OPTIONS_AVAILABLE=	PY312 PY311
+OPTIONS_AVAILABLE=	PY312 PY313
 OPTIONS_STANDARD=	none
-VOPTS[v11]=		PY312=OFF PY311=ON
-VOPTS[v12]=		PY312=ON PY311=OFF
+VOPTS[v13]=		PY312=OFF PY313=ON
+VOPTS[v12]=		PY312=ON PY313=OFF
 
 # License listed at PyPI
 # BSD
@@ -42,11 +42,11 @@ GENERATED=		yes
 					python-pytz:single:v12
 					python-numpy:single:v12
 
-[PY311].USES_ON=			python:v11,sutools
-[PY311].BUILD_DEPENDS_ON=		python-versioneer:single:v11
-[PY311].BUILDRUN_DEPENDS_ON=		python-python-dateutil:single:v11
-					python-pytz:single:v11
-					python-numpy:single:v11
+[PY313].USES_ON=			python:v13,sutools
+[PY313].BUILD_DEPENDS_ON=		python-versioneer:single:v13
+[PY313].BUILDRUN_DEPENDS_ON=		python-python-dateutil:single:v13
+					python-pytz:single:v13
+					python-numpy:single:v13
 
 USES=			cpe meson c++:single
 CPE_VENDOR=		numfocus

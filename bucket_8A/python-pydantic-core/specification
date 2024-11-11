@@ -6,9 +6,9 @@ DEF[SKIP_CRATE]=	pydantic-core
 NAMEBASE=		python-pydantic-core
 VERSION=		${PORTVERSION}
 KEYWORDS=		python rust
-VARIANTS=		v12 v11
+VARIANTS=		v12 v13
 SDESC[v12]=		Core module for pydantic (3.12)
-SDESC[v11]=		Core module for pydantic (3.11)
+SDESC[v13]=		Core module for pydantic (3.13)
 HOMEPAGE=		https://github.com/pydantic/pydantic-core
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -229,12 +229,12 @@ DF_INDEX=		1 2 3 4 5 6 7 8 9 10
 			91 92 93 94 95 96 97
 
 SPKGS[v12]=		single
-SPKGS[v11]=		single
+SPKGS[v13]=		single
 
-OPTIONS_AVAILABLE=	PY312 PY311
+OPTIONS_AVAILABLE=	PY312 PY313
 OPTIONS_STANDARD=	none
-VOPTS[v12]=		PY312=ON PY311=OFF
-VOPTS[v11]=		PY312=OFF PY311=ON
+VOPTS[v12]=		PY312=ON PY313=OFF
+VOPTS[v13]=		PY312=OFF PY313=ON
 
 # License listed at PyPI
 # MIT
@@ -256,10 +256,10 @@ VAR_OPSYS[linux]=	MAKEFILE_LINE=CPYTHON={{PYTHON_SUFFIX}}-x86_64-linux-gnu
 [PY312].BUILD_DEPENDS_ON=		python-maturin:single:v12
 					python-pip:single:v12
 					python-typing-extensions:single:v12
-[PY311].USES_ON=			python:v11
-[PY311].BUILD_DEPENDS_ON=		python-maturin:single:v11
-					python-pip:single:v11
-					python-typing-extensions:single:v11
+[PY313].USES_ON=			python:v13
+[PY313].BUILD_DEPENDS_ON=		python-maturin:single:v13
+					python-pip:single:v13
+					python-typing-extensions:single:v13
 
 post-patch:
 	${MKDIR} ${WRKSRC}/.cargo

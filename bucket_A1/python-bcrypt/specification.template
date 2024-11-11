@@ -5,8 +5,8 @@ DEF[PORTVERSION]=	%%VERSION%%
 NAMEBASE=		python-bcrypt
 VERSION=		${PORTVERSION}
 KEYWORDS=		python rust
-VARIANTS=		v11 v12
-SDESC[v11]=		Modern password hashing based on blowfish (3.11)
+VARIANTS=		v13 v12
+SDESC[v13]=		Modern password hashing based on blowfish (3.13)
 SDESC[v12]=		Modern password hashing based on blowfish (3.12)
 HOMEPAGE=		https://github.com/pyca/bcrypt/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
@@ -19,13 +19,13 @@ DISTFILE[1]=		bcrypt-${PORTVERSION}.tar.gz:main
 %%CR_DISTFILES%%
 %%DF_INDEX%%
 
-SPKGS[v11]=		single
+SPKGS[v13]=		single
 SPKGS[v12]=		single
 
-OPTIONS_AVAILABLE=	PY311 PY312
+OPTIONS_AVAILABLE=	PY313 PY312
 OPTIONS_STANDARD=	none
-VOPTS[v11]=		PY311=ON PY312=OFF
-VOPTS[v12]=		PY311=OFF PY312=ON
+VOPTS[v13]=		PY313=ON PY312=OFF
+VOPTS[v12]=		PY313=OFF PY312=ON
 
 # License listed at PyPI
 # Apache License, Version 2.0
@@ -40,8 +40,8 @@ CARGO_SKIP_CONFIGURE=	yes
 CARGO_SKIP_BUILD=	yes
 CARGO_SKIP_INSTALL=	yes
 
-[PY311].USES_ON=			python:v11,sutools
-[PY311].BUILD_DEPENDS_ON=		python-setuptools-rust:single:v11
+[PY313].USES_ON=			python:v13,sutools
+[PY313].BUILD_DEPENDS_ON=		python-setuptools-rust:single:v13
 [PY312].USES_ON=			python:v12,sutools
 [PY312].BUILD_DEPENDS_ON=		python-setuptools-rust:single:v12
 
