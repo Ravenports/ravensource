@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	24.2.0
 NAMEBASE=		python-attrs
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v11 v12
-SDESC[v11]=		Classes Without Boilerplate (3.11)
+VARIANTS=		v12 v13
 SDESC[v12]=		Classes Without Boilerplate (3.12)
+SDESC[v13]=		Classes Without Boilerplate (3.13)
 HOMEPAGE=		none
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		PYPIWHL/6a/21/5b6702a7f963e95456c0de2d495f67bf5fd62840ac655dc451586d23d39a
 DISTFILE[1]=		attrs-${PORTVERSION}-py3-none-any.whl:main
 
-SPKGS[v11]=		single
 SPKGS[v12]=		single
+SPKGS[v13]=		single
 
-OPTIONS_AVAILABLE=	PY311 PY312
+OPTIONS_AVAILABLE=	PY312 PY313
 OPTIONS_STANDARD=	none
-VOPTS[v11]=		PY311=ON PY312=OFF
-VOPTS[v12]=		PY311=OFF PY312=ON
+VOPTS[v12]=		PY312=ON PY313=OFF
+VOPTS[v13]=		PY312=OFF PY313=ON
 
 # License listed at PyPI
 # Not provided.
@@ -71,6 +71,6 @@ DISTNAME=		attrs-${PORTVERSION}.dist-info
 # mypy>=1.11.1; (platform_python_implementation == 'CPython' and python_version >= '3.9') and extra == 'tests-mypy'
 # pytest-mypy-plugins; (platform_python_implementation == 'CPython' and python_version >= '3.9' and python_version < '3.13') and extra == 'tests-mypy'
 
-[PY311].USES_ON=			python:v11,wheel
 [PY312].USES_ON=			python:v12,wheel
+[PY313].USES_ON=			python:v13,wheel
 

@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	3.0.0
 NAMEBASE=		python-readtime
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v11 v12
-SDESC[v11]=		Texing reading time calculator (3.11)
+VARIANTS=		v12 v13
 SDESC[v12]=		Texing reading time calculator (3.12)
+SDESC[v13]=		Texing reading time calculator (3.13)
 HOMEPAGE=		https://github.com/alanhamlett/readtime
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		PYPI/r/readtime
 DISTFILE[1]=		readtime-${PORTVERSION}.tar.gz:main
 
-SPKGS[v11]=		single
 SPKGS[v12]=		single
+SPKGS[v13]=		single
 
-OPTIONS_AVAILABLE=	PY311 PY312
+OPTIONS_AVAILABLE=	PY312 PY313
 OPTIONS_STANDARD=	none
-VOPTS[v11]=		PY311=ON PY312=OFF
-VOPTS[v12]=		PY311=OFF PY312=ON
+VOPTS[v12]=		PY312=ON PY313=OFF
+VOPTS[v13]=		PY312=OFF PY313=ON
 
 # License listed at PyPI
 # BSD
@@ -33,12 +33,12 @@ DISTNAME=		readtime-${PORTVERSION}
 # markdown2>=2.4.3
 # pyquery>=1.2
 
-[PY311].USES_ON=			python:v11,sutools
-[PY311].BUILDRUN_DEPENDS_ON=		python-beautifulsoup4:single:v11
-					python-markdown2:single:v11
-					python-pyquery:single:v11
 [PY312].USES_ON=			python:v12,sutools
 [PY312].BUILDRUN_DEPENDS_ON=		python-beautifulsoup4:single:v12
 					python-markdown2:single:v12
 					python-pyquery:single:v12
+[PY313].USES_ON=			python:v13,sutools
+[PY313].BUILDRUN_DEPENDS_ON=		python-beautifulsoup4:single:v13
+					python-markdown2:single:v13
+					python-pyquery:single:v13
 

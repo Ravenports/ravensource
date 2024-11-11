@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	4.5.4
 NAMEBASE=		python-social-auth-core
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v11 v12
-SDESC[v11]=		Python social authentication made simple (3.11)
+VARIANTS=		v12 v13
 SDESC[v12]=		Python social authentication made simple (3.12)
+SDESC[v13]=		Python social authentication made simple (3.13)
 HOMEPAGE=		https://github.com/python-social-auth/social-core
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		PYPIWHL/85/9e/c4b21c66ff73bcbd605ba06b7c48260559ec50b5a4216ce2736053fe1bc1
 DISTFILE[1]=		social_auth_core-${PORTVERSION}-py3-none-any.whl:main
 
-SPKGS[v11]=		single
 SPKGS[v12]=		single
+SPKGS[v13]=		single
 
-OPTIONS_AVAILABLE=	PY311 PY312
+OPTIONS_AVAILABLE=	PY312 PY313
 OPTIONS_STANDARD=	none
-VOPTS[v11]=		PY311=ON PY312=OFF
-VOPTS[v12]=		PY311=OFF PY312=ON
+VOPTS[v12]=		PY312=ON PY313=OFF
+VOPTS[v13]=		PY312=OFF PY313=ON
 
 # License listed at PyPI
 # BSD
@@ -43,14 +43,6 @@ DISTNAME=		social_auth_core-${PORTVERSION}.dist-info
 # cryptography >=2.1.1 ; extra == 'azuread'
 # python3-saml >=1.5.0 ; extra == 'saml'
 
-[PY311].USES_ON=			python:v11,wheel
-[PY311].RUN_DEPENDS_ON=			python-requests:single:v11
-					python-oauthlib:single:v11
-					python-requests-oauthlib:single:v11
-					python-PyJWT:single:v11
-					python-cryptography:single:v11
-					python-defusedxml:single:v11
-					python-python3-openid:single:v11
 [PY312].USES_ON=			python:v12,wheel
 [PY312].RUN_DEPENDS_ON=			python-requests:single:v12
 					python-oauthlib:single:v12
@@ -59,4 +51,12 @@ DISTNAME=		social_auth_core-${PORTVERSION}.dist-info
 					python-cryptography:single:v12
 					python-defusedxml:single:v12
 					python-python3-openid:single:v12
+[PY313].USES_ON=			python:v13,wheel
+[PY313].RUN_DEPENDS_ON=			python-requests:single:v13
+					python-oauthlib:single:v13
+					python-requests-oauthlib:single:v13
+					python-PyJWT:single:v13
+					python-cryptography:single:v13
+					python-defusedxml:single:v13
+					python-python3-openid:single:v13
 

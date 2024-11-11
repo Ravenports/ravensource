@@ -1,26 +1,26 @@
-DEF[PORTVERSION]=	0.19.1
+DEF[PORTVERSION]=	0.19.2
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-jedi
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v11 v12
-SDESC[v11]=		Static analysis and autocompletion library (3.11)
+VARIANTS=		v12 v13
 SDESC[v12]=		Static analysis and autocompletion library (3.12)
+SDESC[v13]=		Static analysis and autocompletion library (3.13)
 HOMEPAGE=		https://github.com/davidhalter/jedi
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/20/9f/bc63f0f0737ad7a60800bfd472a4836661adae21f9c2535f3957b1e54ceb
+SITES[main]=		PYPIWHL/c0/5a/9cac0c82afec3d09ccd97c8b6502d48f165f9124db81b4bcb90b4af974ee
 DISTFILE[1]=		jedi-${PORTVERSION}-py2.py3-none-any.whl:main
 
-SPKGS[v11]=		single
 SPKGS[v12]=		single
+SPKGS[v13]=		single
 
-OPTIONS_AVAILABLE=	PY311 PY312
+OPTIONS_AVAILABLE=	PY312 PY313
 OPTIONS_STANDARD=	none
-VOPTS[v11]=		PY311=ON PY312=OFF
-VOPTS[v12]=		PY311=OFF PY312=ON
+VOPTS[v12]=		PY312=ON PY313=OFF
+VOPTS[v13]=		PY312=OFF PY313=ON
 
 # License listed at PyPI
 # MIT
@@ -29,7 +29,7 @@ GENERATED=		yes
 DISTNAME=		jedi-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# parso (<0.9.0,>=0.8.3)
+# parso (<0.9.0,>=0.8.4)
 # Jinja2 (==2.11.3) ; extra == 'docs'
 # MarkupSafe (==1.1.1) ; extra == 'docs'
 # Pygments (==2.8.1) ; extra == 'docs'
@@ -62,10 +62,10 @@ DISTNAME=		jedi-${PORTVERSION}.dist-info
 # attrs ; extra == 'testing'
 # colorama ; extra == 'testing'
 # docopt ; extra == 'testing'
-# pytest (<7.0.0) ; extra == 'testing'
+# pytest (<9.0.0) ; extra == 'testing'
 
-[PY311].USES_ON=			python:v11,wheel
-[PY311].RUN_DEPENDS_ON=			python-parso:single:v11
 [PY312].USES_ON=			python:v12,wheel
 [PY312].RUN_DEPENDS_ON=			python-parso:single:v12
+[PY313].USES_ON=			python:v13,wheel
+[PY313].RUN_DEPENDS_ON=			python-parso:single:v13
 

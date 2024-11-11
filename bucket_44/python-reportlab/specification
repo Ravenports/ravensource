@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	4.2.5
 NAMEBASE=		python-reportlab
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v11 v12
-SDESC[v11]=		Library for generating PDFs and graphics (3.11)
+VARIANTS=		v12 v13
 SDESC[v12]=		Library for generating PDFs and graphics (3.12)
+SDESC[v13]=		Library for generating PDFs and graphics (3.13)
 HOMEPAGE=		https://www.reportlab.com/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		PYPIWHL/73/12/6444906db1bc65d3a8118afb089d53c7eeca0726164f51eb3599de1d0665
 DISTFILE[1]=		reportlab-${PORTVERSION}-py3-none-any.whl:main
 
-SPKGS[v11]=		single
 SPKGS[v12]=		single
+SPKGS[v13]=		single
 
-OPTIONS_AVAILABLE=	PY311 PY312
+OPTIONS_AVAILABLE=	PY312 PY313
 OPTIONS_STANDARD=	none
-VOPTS[v11]=		PY311=ON PY312=OFF
-VOPTS[v12]=		PY311=OFF PY312=ON
+VOPTS[v12]=		PY312=ON PY313=OFF
+VOPTS[v13]=		PY312=OFF PY313=ON
 
 # License listed at PyPI
 # BSD license (see license.txt for details), Copyright (c) 2000-2022,
@@ -37,11 +37,11 @@ DISTNAME=		reportlab-${PORTVERSION}.dist-info
 # freetype-py<2.4,>=2.3.0; extra == "pycairo"
 # rl-renderPM<4.1,>=4.0.3; extra == "renderpm"
 
-[PY311].USES_ON=			python:v11,wheel
-[PY311].RUN_DEPENDS_ON=			python-Pillow:single:v11
-					python-chardet:single:v11
 [PY312].USES_ON=			python:v12,wheel
 [PY312].RUN_DEPENDS_ON=			python-Pillow:single:v12
 					python-chardet:single:v12
+[PY313].USES_ON=			python:v13,wheel
+[PY313].RUN_DEPENDS_ON=			python-Pillow:single:v13
+					python-chardet:single:v13
 
 USES=			freetype

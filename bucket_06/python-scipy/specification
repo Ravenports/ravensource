@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	1.14.1
 NAMEBASE=		python-scipy
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v11 v12
-SDESC[v11]=		Scientific library for Python (3.11)
+VARIANTS=		v12 v13
 SDESC[v12]=		Scientific library for Python (3.12)
+SDESC[v13]=		Scientific library for Python (3.13)
 HOMEPAGE=		https://scipy.org/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		PYPI/s/scipy
 DISTFILE[1]=		scipy-${PORTVERSION}.tar.gz:main
 
-SPKGS[v11]=		single
 SPKGS[v12]=		single
+SPKGS[v13]=		single
 
-OPTIONS_AVAILABLE=	PY311 PY312
+OPTIONS_AVAILABLE=	PY312 PY313
 OPTIONS_STANDARD=	none
-VOPTS[v11]=		PY311=ON PY312=OFF
-VOPTS[v12]=		PY311=OFF PY312=ON
+VOPTS[v12]=		PY312=ON PY313=OFF
+VOPTS[v13]=		PY312=OFF PY313=ON
 
 # License listed at PyPI
 # Copyright (c) 2001-2002 Enthought, Inc. 2003-2024, SciPy Developers.
@@ -709,8 +709,8 @@ DISTNAME=		scipy-${PORTVERSION}
 # install_requires extracted from setup.py
 
 
-[PY311].USES_ON=			python:v11,sutools
 [PY312].USES_ON=			python:v12,sutools
+[PY313].USES_ON=			python:v13,sutools
 
 BUILD_DEPENDS=		python-Cython:single:python_used
 BUILDRUN_DEPENDS=	lapack:lapack:std

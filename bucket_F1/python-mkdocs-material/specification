@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	9.5.44
 NAMEBASE=		python-mkdocs-material
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v11 v12
-SDESC[v11]=		Documentation that simply works (3.11)
+VARIANTS=		v12 v13
 SDESC[v12]=		Documentation that simply works (3.12)
+SDESC[v13]=		Documentation that simply works (3.13)
 HOMEPAGE=		none
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		PYPIWHL/ed/eb/a801d00e0e210d82184aacce596906ec065422c78a7319244ba0771c4ded
 DISTFILE[1]=		mkdocs_material-${PORTVERSION}-py3-none-any.whl:main
 
-SPKGS[v11]=		single
 SPKGS[v12]=		single
+SPKGS[v13]=		single
 
-OPTIONS_AVAILABLE=	PY311 PY312
+OPTIONS_AVAILABLE=	PY312 PY313
 OPTIONS_STANDARD=	none
-VOPTS[v11]=		PY311=ON PY312=OFF
-VOPTS[v12]=		PY311=OFF PY312=ON
+VOPTS[v12]=		PY312=ON PY313=OFF
+VOPTS[v13]=		PY312=OFF PY313=ON
 
 # License listed at PyPI
 # Not provided.
@@ -48,18 +48,6 @@ DISTNAME=		mkdocs_material-${PORTVERSION}.dist-info
 # mkdocs-redirects~=1.2; extra == 'recommended'
 # mkdocs-rss-plugin~=1.6; extra == 'recommended'
 
-[PY311].USES_ON=			python:v11,wheel
-[PY311].RUN_DEPENDS_ON=			python-Babel:single:v11
-					python-colorama:single:v11
-					python-Jinja2:single:v11
-					python-Markdown:single:v11
-					python-mkdocs-material-extensions:single:v11
-					python-mkdocs:single:v11
-					python-paginate:single:v11
-					python-Pygments:single:v11
-					python-pymdown-extensions:single:v11
-					python-regex:single:v11
-					python-requests:single:v11
 [PY312].USES_ON=			python:v12,wheel
 [PY312].RUN_DEPENDS_ON=			python-Babel:single:v12
 					python-colorama:single:v12
@@ -72,4 +60,16 @@ DISTNAME=		mkdocs_material-${PORTVERSION}.dist-info
 					python-pymdown-extensions:single:v12
 					python-regex:single:v12
 					python-requests:single:v12
+[PY313].USES_ON=			python:v13,wheel
+[PY313].RUN_DEPENDS_ON=			python-Babel:single:v13
+					python-colorama:single:v13
+					python-Jinja2:single:v13
+					python-Markdown:single:v13
+					python-mkdocs-material-extensions:single:v13
+					python-mkdocs:single:v13
+					python-paginate:single:v13
+					python-Pygments:single:v13
+					python-pymdown-extensions:single:v13
+					python-regex:single:v13
+					python-requests:single:v13
 

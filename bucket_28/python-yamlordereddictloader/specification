@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.4.2
 NAMEBASE=		python-yamlordereddictloader
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v11 v12
-SDESC[v11]=		Ordered YAML loader and dump for PyYAML (3.11)
+VARIANTS=		v12 v13
 SDESC[v12]=		Ordered YAML loader and dump for PyYAML (3.12)
+SDESC[v13]=		Ordered YAML loader and dump for PyYAML (3.13)
 HOMEPAGE=		https://github.com/fmenabe/python-yamlordereddictloader
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		PYPIWHL/d3/b6/64e84e26c52343dc48e9ffefd7d5e82b986f3bc2bd6da753420f41645718
 DISTFILE[1]=		yamlordereddictloader-${PORTVERSION}-py3-none-any.whl:main
 
-SPKGS[v11]=		single
 SPKGS[v12]=		single
+SPKGS[v13]=		single
 
-OPTIONS_AVAILABLE=	PY311 PY312
+OPTIONS_AVAILABLE=	PY312 PY313
 OPTIONS_STANDARD=	none
-VOPTS[v11]=		PY311=ON PY312=OFF
-VOPTS[v12]=		PY311=OFF PY312=ON
+VOPTS[v12]=		PY312=ON PY313=OFF
+VOPTS[v13]=		PY312=OFF PY313=ON
 
 # License listed at PyPI
 # MIT License
@@ -31,8 +31,8 @@ DISTNAME=		yamlordereddictloader-${PORTVERSION}.dist-info
 # Requires-Dist extracted from wheel metadata
 # pyyaml
 
-[PY311].USES_ON=			python:v11,wheel
-[PY311].RUN_DEPENDS_ON=			python-PyYAML:single:v11
 [PY312].USES_ON=			python:v12,wheel
 [PY312].RUN_DEPENDS_ON=			python-PyYAML:single:v12
+[PY313].USES_ON=			python:v13,wheel
+[PY313].RUN_DEPENDS_ON=			python-PyYAML:single:v13
 

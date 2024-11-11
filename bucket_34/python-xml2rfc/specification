@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	3.24.0
 NAMEBASE=		python-xml2rfc
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v11 v12
-SDESC[v11]=		Request For Comment authoring with XML (3.11)
+VARIANTS=		v12 v13
 SDESC[v12]=		Request For Comment authoring with XML (3.12)
+SDESC[v13]=		Request For Comment authoring with XML (3.13)
 HOMEPAGE=		https://github.com/ietf-tools/xml2rfc
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		PYPI/x/xml2rfc
 DISTFILE[1]=		xml2rfc-${PORTVERSION}.tar.gz:main
 
-SPKGS[v11]=		single
 SPKGS[v12]=		single
+SPKGS[v13]=		single
 
-OPTIONS_AVAILABLE=	PY311 PY312
+OPTIONS_AVAILABLE=	PY312 PY313
 OPTIONS_STANDARD=	none
-VOPTS[v11]=		PY311=ON PY312=OFF
-VOPTS[v12]=		PY311=OFF PY312=ON
+VOPTS[v12]=		PY312=ON PY313=OFF
+VOPTS[v13]=		PY312=OFF PY313=ON
 
 # License listed at PyPI
 # Revised BSD License
@@ -41,18 +41,6 @@ DISTNAME=		xml2rfc-${PORTVERSION}
 # setuptools>=24.2.0
 # wcwidth>=0.2.5
 
-[PY311].USES_ON=			python:v11,sutools
-[PY311].BUILDRUN_DEPENDS_ON=		python-platformdirs:single:v11
-					python-ConfigArgParse:single:v11
-					python-google-i18n-address:single:v11
-					python-intervaltree:single:v11
-					python-Jinja2:single:v11
-					python-lxml:single:v11
-					python-pycountry:single:v11
-					python-PyYAML:single:v11
-					python-requests:single:v11
-					python-setuptools:single:v11
-					python-wcwidth:single:v11
 [PY312].USES_ON=			python:v12,sutools
 [PY312].BUILDRUN_DEPENDS_ON=		python-platformdirs:single:v12
 					python-ConfigArgParse:single:v12
@@ -65,4 +53,16 @@ DISTNAME=		xml2rfc-${PORTVERSION}
 					python-requests:single:v12
 					python-setuptools:single:v12
 					python-wcwidth:single:v12
+[PY313].USES_ON=			python:v13,sutools
+[PY313].BUILDRUN_DEPENDS_ON=		python-platformdirs:single:v13
+					python-ConfigArgParse:single:v13
+					python-google-i18n-address:single:v13
+					python-intervaltree:single:v13
+					python-Jinja2:single:v13
+					python-lxml:single:v13
+					python-pycountry:single:v13
+					python-PyYAML:single:v13
+					python-requests:single:v13
+					python-setuptools:single:v13
+					python-wcwidth:single:v13
 

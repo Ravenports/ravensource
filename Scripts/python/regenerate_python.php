@@ -3,7 +3,7 @@
 # Requires php82 with openssl and posix extensions
 # if arguments are given, they are used as the toplevel ports,
 # overriding the master top-level ports list
-# Also requires: python 3.11
+# Also requires: python 3.12
 #                python-setuptools-scm
 #                python-setuptools-git
 #                python-setuptools-rust
@@ -41,8 +41,8 @@ $truncated_summaries = array();
 $no_descriptions = array();
 $ravensource_directory = "";
 $DUO = array();
-$DUO["VA"] = array ("version" => 311, "variant" => "v11");   # single point of change when python
-$DUO["VB"] = array ("version" => 312, "variant" => "v12");   # series are changed in ravenports
+$DUO["VA"] = array ("version" => 312, "variant" => "v12");   # single point of change when python
+$DUO["VB"] = array ("version" => 313, "variant" => "v13");   # series are changed in ravenports
 $PYTHON_VERSION_A = -1;
 $PYTHON_VERSION_B = -1;
 
