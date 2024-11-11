@@ -4,7 +4,7 @@ DEF[RELEASE_TAG]=	${PORTVERSION}
 
 NAMEBASE=		zim
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		deskutils editors
 VARIANTS=		std
 SDESC[std]=		Desktop wiki and notekeeper
@@ -32,11 +32,10 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		deskutils/zim
 
 BUILD_DEPENDS=		harfbuzz:dev:std
-BUILDRUN_DEPENDS=	python-sqlite3:single:python_used
-			python-pyxdg:single:python_used
+BUILDRUN_DEPENDS=	python-pyxdg:single:python_used
 RUN_DEPENDS=		xdg-utils:set:std
 
-USES=			cpe python:sutools
+USES=			cpe python:sqlite,sutools
 			desktop-utils:primary
 			gnome-icons:primary
 			mime-info:primary
