@@ -3,7 +3,7 @@
 #
 # Feature:	python
 # Usage:	USES=python
-# Valid ARGS:	(v11 or v12), build, wheel, sutools
+# Valid ARGS:	(v12 or v13), build, wheel, sutools
 #
 # --------------------------------------
 # Variables which can be set by the port
@@ -85,8 +85,8 @@ _INCLUDE_USES_PYTHON_MK=	yes
 #    BUILD_DEPENDS+=    python-setuptools:single:vXX
 # ------------------------------------------------------
 
-.  if !empty(python_ARGS:Mv11)
-_PYTHON_VERSION=	3.11
+.  if !empty(python_ARGS:Mv13)
+_PYTHON_VERSION=	3.13
 .  elif !empty(python_ARGS:Mv12)
 _PYTHON_VERSION=	3.12
 .  else

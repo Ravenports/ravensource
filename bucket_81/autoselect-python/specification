@@ -1,7 +1,7 @@
 # manually update when python versions are cycled
-DEF[PORTVERSION]=	5
-DEF[ALPHA]=		3.11
-DEF[BRAVO]=		3.12
+DEF[PORTVERSION]=	6
+DEF[ALPHA]=		3.12
+DEF[BRAVO]=		3.13
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		autoselect-python
@@ -35,6 +35,6 @@ do-build:
 	(cd ${WRKSRC} && ${CC} ${CFLAGS} ${LDFLAGS} -o autoselect autoselect.c)
 
 do-install:
-.for prog in python python3 python-config python3-config 2to3 idle pydoc pip
+.for prog in python python3 python-config python3-config idle pydoc pip
 	${INSTALL_PROGRAM} ${WRKSRC}/autoselect ${STAGEDIR}${PREFIX}/bin/${prog}
 .endfor
