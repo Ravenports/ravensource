@@ -3,12 +3,16 @@
 #
 # Feature:	python
 # Usage:	USES=python
-# Valid ARGS:	(v12 or v13), build, wheel, sutools
+# Valid ARGS:	(v12 or v13), build, wheel, sutools, pep517
 #
 # --------------------------------------
 # Variables which can be set by the port
 # --------------------------------------
 #
+# PEP517_CONFIG         Options for the build backend. Must include -C or --config-setting per option.
+#                       default: <empty>
+#
+# DEPRECATED AS SUTOOLS PHASES OUT:
 # PYSETUP		Name of the setup script used by the distutils package
 #			default: setup.py
 # PYD_CONFIGURE_TARGET	Pass this command to distutils on configure stage.
@@ -78,10 +82,17 @@ _INCLUDE_USES_PYTHON_MK=	yes
 # else:
 #    BUILDRUN_DEPENDS+= python3XX:primary:std
 #
-# if arguments contain "wheel":
+# if arguments contain "pep517":
+#    BUILD_DEPENDS+=    python-pip:single:vXX
+#    BUILD_DEPENDS+=    python-setuptools:single:vXX
+#    BUILD_DEPENDS+=    python-wheel:single:vXX
+#    BUILD_DEPENDS+=    python-build:single:vXX
+#    BUILD_DEPENDS+=    python-installer:single:vXX
+#
+# else if arguments contain "wheel":
 #    BUILD_DEPENDS+=    python-pip:single:vXX
 #
-# if arguments contain "sutools":
+# else if arguments contain "sutools":
 #    BUILD_DEPENDS+=    python-setuptools:single:vXX
 # ------------------------------------------------------
 
@@ -95,6 +106,8 @@ _PYTHON_VERSION=	${PYTHON3_DEFAULT}
 
 .  if !empty(python_ARGS:Mwheel)
 USE_PIP_FOR_WHEEL=	yes
+.  elif !empty(python_ARGS:Mpep517)
+BUILD_WHEEL=		yes
 .  endif
 
 PYTHON_VER=		${_PYTHON_VERSION}
@@ -213,7 +226,52 @@ do-install:
 	done
 .    endif
 
+.  elif defined(BUILD_WHEEL)
+
+
+# [HEAD: BUILD_WHEEL] ==============================================================
+
+POST_PLIST_TARGET+=	setuptools-autolist
+
+.    if !target(pre-build-script)
+pre-build-script:
+	@${ECHO_MSG} "==============================================================="
+	@${ECHO_MSG} "===  Create wheel package following PEP517 recommendations  ==="
+	@${ECHO_MSG} "==============================================================="
+.    endif
+
+.    if !target(do-build)
+do-build:
+	@(cd ${BUILD_WRKSRC} && ${SETENV} ${MAKE_ENV} \
+		${PYTHON_CMD} -m build --no-isolation --wheel ${PEP517_CONFIG})
+.    endif
+
+.    if !target(do-install)
+do-install:
+	@${MKDIR} ${STAGEDIR}${PYTHONPREFIX_SITELIBDIR}
+	@(cd ${BUILD_WRKSRC} && ${SETENV} AUTOPYTHON=${_PYTHON_VERSION} \
+		${PYTHON_CMD} -m installer \
+		--destdir ${STAGEDIR} \
+		--prefix ${PREFIX} \
+		${BUILD_WRKSRC}/dist/*.whl)
+.      if "${STRIP_CMD}" != "${TRUE}"
+	@${ECHO_MSG} "... Handle any unstripped dynamically linked objects"
+	@${FIND} ${STAGEDIR}${PREFIX} -type f | while read f; \
+	do \
+		check=$$(file "$$f" | grep "dynamically linked,.*not stripped"); \
+		if [ -n "$$check" ]; then \
+			${STRIP_CMD} "$$f"; \
+		fi; \
+	done
+.      endif
+
+.    endif
+
+# [TAIL: BUILD_WHEEL] ==============================================================
+
+
 .  elif exists(${WRKSRC}/${PYSETUP})
+
 
 POST_PLIST_TARGET+=	setuptools-autolist
 

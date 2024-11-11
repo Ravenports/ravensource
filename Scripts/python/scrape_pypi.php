@@ -303,7 +303,6 @@ function inline_fix_setup ($namebase, $src) {
        "pycairo"      => false,
        "msgpack"      => false,
        "dulwich"      => false,
-       "pygit2"       => false,
        "dbus-python"  => false,
        "python-netbox" => '/install_requires=/ s|.ipaddress., ||',
        "netdoc"        => '/install_requires=/ s|.ipaddress., ||',
@@ -362,7 +361,6 @@ function inline_fix_setup ($namebase, $src) {
                shell_exec ("sed -i.bak -e \"s|print(.*|pass|\" $xf");
                break;
            case "cffi":
-           case "pygit2":
            case "xml2rfc":
            case "pycairo":
            case "msgpack":
