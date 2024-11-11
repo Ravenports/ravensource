@@ -3,7 +3,7 @@
 #
 # Feature:	python
 # Usage:	USES=python
-# Valid ARGS:	(v12 or v13), build, wheel, sutools, pep517
+# Valid ARGS:	(v12 or v13), build, (wheel or sutools or pep517), sqlite
 #
 # --------------------------------------
 # Variables which can be set by the port
@@ -81,6 +81,9 @@ _INCLUDE_USES_PYTHON_MK=	yes
 #    BUILD_DEPENDS+=    python3XX:primary:std
 # else:
 #    BUILDRUN_DEPENDS+= python3XX:primary:std
+#
+# if arguments contain "sqlite":
+#    BUILDRUN_DEPENDS+= python3XX:sqlite:std
 #
 # if arguments contain "pep517":
 #    BUILD_DEPENDS+=    python-pip:single:vXX

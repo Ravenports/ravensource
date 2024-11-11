@@ -1,1 +1,1 @@
-DISABLED_EXTENSIONS+=	_sqlite3 _tkinter _gdbm
+DISABLED_EXTENSIONS+=	_tkinter _gdbm
