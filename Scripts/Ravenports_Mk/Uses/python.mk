@@ -194,6 +194,7 @@ NO_BUILD=		yes
 .    if !target(do-install)
 do-install:
 	# install files directory from distfiles (WRKSRC is not populated)
+	${SETENV} AUTOPYTHON=${_PYTHON_VERSION} \
 	pip install --verbose \
 		--no-deps \
 		--no-index \
