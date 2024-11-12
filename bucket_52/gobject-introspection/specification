@@ -48,6 +48,11 @@ pre-configure:
 	${REINPLACE_CMD} -e 's|%%PYTHON_CMD%%|${PYTHON_CMD}|' \
 		${WRKSRC}/tools/meson.build
 
+post-patch-linux:
+	# hack, dlopen not working on $ORIGIN but no issue seen
+	ln -s ${WRKSRC}/_build/girepository/libgirepository-1.0.so.1.0.0 \
+		${LOCALBASE}/lib/libgirepository-1.0.so.1
+
 post-install:
 	# remove artifacts from doctemplates fix
 	${FIND} ${STAGEDIR}${PREFIX}/lib/gobject-introspection/giscanner/doctemplates \
@@ -60,3 +65,7 @@ post-install:
 .endfor
 	# generate python cache to avoid leftover files
 	(cd ${STAGEDIR}${PREFIX}/lib/gobject-introspection/giscanner && python -m compileall -d / . ||:)
+
+post-install-linux:
+	# remove hack
+	${RM} ${LOCALBASE}/lib/libgirepository-1.0.so.1
