@@ -1,11 +1,10 @@
-DEF[PORTVERSION]=	0.9.5
-DEF[SPEC_LUA]=		5.2
+DEF[PORTVERSION]=	0.10.2
+DEF[SPEC_LUA]=		5.1
 DEF[LUA_VARIANT]=	lua${SPEC_LUA:S/.//}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		neovim
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		editors
 VARIANTS=		std
 SDESC[std]=		Next generation Vim
@@ -34,14 +33,14 @@ BUILD_DEPENDS=		gperf:primary:std
 			libluv:dev:std
 			libuv:dev:std
 			libvterm:dev:std
-			lua-bitop:single:${LUA_VARIANT}
-			lua-lpeg:single:${LUA_VARIANT}
-			lua-mpack:single:${LUA_VARIANT}
 			luajit-openresty:dev:std
 			msgpack:dev:std
 			tree-sitter:dev:std
 			libtermkey:dev:std
 			unibilium:dev:std
+			lua51:dev:std
+			lua51:primary:std
+			lua51:tools:std
 BUILDRUN_DEPENDS=	libluv:primary:std
 			libtermkey:primary:std
 			libuv:primary:std
@@ -49,14 +48,20 @@ BUILDRUN_DEPENDS=	libluv:primary:std
 			luajit-openresty:primary:std
 			msgpack:primary:std
 			tree-sitter:primary:std
+			lua-lpeg:single:${LUA_VARIANT}
+			lua-bitop:single:${LUA_VARIANT}
 
-USES=			cmake gmake libtool pkgconfig lua:${SPEC_LUA},tools
+USES=			cmake libtool pkgconfig
 			gettext desktop-utils:primary
 CMAKE_ARGS=		-DCMAKE_SKIP_BUILD_RPATH:BOOL=YES
 			-DDEPS_PREFIX:PATH="{{LOCALBASE}}"
-			-DLUA_PRG:FILEPATH="{{LOCALBASE}}/bin/{{LUA_CMD}}"
-			-DENABLE_JEMALLOC:BOOL=NO
+			-DLUA_PRG:FILEPATH="{{LOCALBASE}}/bin/${LUA_VARIANT}"
 INSTALL_REQ_TOOLCHAIN=	yes
+
+# test fails on lpeg.so (no soname) but it's valid (required ravenadm fix)
+# https://github.com/Ravenports/ravenadm/issues/86
+
+INVALID_RPATH=		yes
 
 post-extract:
 	${AWK} '/Apache License/,/^====$$/' \
@@ -70,13 +75,6 @@ post-extract:
 	${AWK} '/^The above license/,/^The Vim license follows/' \
 		${WRKSRC}/LICENSE.txt >> ${WRKDIR}/TERMS
 	echo "[See CUSTOM1.standard file]" >> ${WRKDIR}/TERMS
-
-post-patch-sunos:
-	${REINPLACE_CMD} -e 's|STR(|STR_(|g' \
-		${WRKSRC}/src/nvim/eval/typval_encode.c.h \
-		${WRKSRC}/src/nvim/version.c
-	${REINPLACE_CMD} -e 's|util||' \
-		${WRKSRC}/src/nvim/CMakeLists.txt
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/nvim
