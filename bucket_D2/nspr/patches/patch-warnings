@@ -1,6 +1,6 @@
---- pr/include/prcountr.h.orig	2022-05-25 21:34:56 UTC
-+++ pr/include/prcountr.h
-@@ -394,7 +394,7 @@ PR_SubtractFromCounter(
+--- pr/include/prcountr.h.orig	2024-10-27 01:59:53.601575000 +0200
++++ pr/include/prcountr.h	2024-10-27 02:00:39.833268000 +0200
+@@ -394,7 +394,7 @@
  #define PR_GET_COUNTER(counter,handle)\
      (counter) = PR_GetCounter((handle))
  #else
@@ -9,7 +9,7 @@
  #endif
  
  NSPR_API(PRUint32)
-@@ -468,7 +468,7 @@ PR_SetCounter(
+@@ -468,7 +468,7 @@
  #define PR_FIND_NEXT_COUNTER_QNAME(next,handle)\
      (next) = PR_FindNextCounterQname((handle))
  #else
@@ -18,29 +18,27 @@
  #endif
  
  NSPR_API(PRCounterHandle)
---- pr/src/misc/pralarm.c.orig	2022-05-25 21:34:56 UTC
-+++ pr/src/misc/pralarm.c
-@@ -101,7 +101,7 @@ static void PR_CALLBACK pr_alarmNotifier
+--- pr/src/misc/pralarm.c.orig	2024-10-27 02:01:01.288692000 +0200
++++ pr/src/misc/pralarm.c	2024-10-27 02:01:33.448421000 +0200
+@@ -94,7 +94,7 @@
+   enum { notify, abort, scan } why = scan;
  
-     while (why != abort)
-     {
--        PRIntervalTime pause;
-+        PRIntervalTime pause = 0;
+   while (why != abort) {
+-    PRIntervalTime pause;
++    PRIntervalTime pause = 0;
  
-         PR_Lock(alarm->lock);
-         while (why == scan)
---- pr/src/misc/prdtoa.c.orig	2022-05-25 21:34:56 UTC
-+++ pr/src/misc/prdtoa.c
-@@ -2885,9 +2885,9 @@ double dd; int mode, ndigits, *decpt, *s
-        to hold the suppressed trailing zeros.
-     */
+     PR_Lock(alarm->lock);
+     while (why == scan) {
+--- pr/src/misc/prdtoa.c.orig	2024-10-27 02:01:55.919817000 +0200
++++ pr/src/misc/prdtoa.c	2024-10-27 02:03:06.231244000 +0200
+@@ -2835,8 +2835,8 @@
+      to hold the suppressed trailing zeros.
+   */
  
--    int bbits, b2, b5, be, dig, i, ieps, ilim, ilim0, ilim1,
--        j, j1, k, k0, k_check, leftright, m2, m5, s2, s5,
--        spec_case, try_quick;
-+    int bbits, b2, b5, be, dig, i, ieps, ilim = -1, ilim0, ilim1 = -1,
-+                                         j, j1, k, k0, k_check, leftright, m2, m5, s2, s5,
-+                                         spec_case, try_quick;
-     Long L;
+-  int bbits, b2, b5, be, dig, i, ieps, ilim, ilim0, ilim1, j, j1, k, k0,
+-      k_check, leftright, m2, m5, s2, s5, spec_case, try_quick;
++  int bbits, b2, b5, be, dig, i, ieps, ilim = -1, ilim0, ilim1 = -1,
++      j, j1, k, k0, k_check, leftright, m2, m5, s2, s5, spec_case, try_quick;
+   Long L;
  #ifndef Sudden_Underflow
-     int denorm;
+   int denorm;

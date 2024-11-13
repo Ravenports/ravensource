@@ -1,6 +1,6 @@
---- configure.orig	2022-09-12 11:40:15 UTC
+--- configure.orig	2024-10-21 11:31:57 UTC
 +++ configure
-@@ -6563,7 +6563,22 @@ tools are selected during the Xcode/Deve
+@@ -7298,7 +7298,22 @@ tools are selected during the Xcode/Deve
      fi
      ;;
  
@@ -24,7 +24,7 @@
      if test -z "$USE_NSPR_THREADS"; then
          USE_PTHREADS=1
      fi
-@@ -7232,7 +7247,6 @@ $as_echo "$as_me: WARNING: Unknown versi
+@@ -7936,7 +7951,6 @@ printf "%s\n" "$as_me: WARNING: Unknown
      CPU_ARCH=`uname -p`
      MDCPUCFG_H=_solaris.cfg
      PR_MD_CSRCS=solaris.c
@@ -32,7 +32,7 @@
      MKSHLIB='$(CC) $(DSO_LDOPTS) -o $@'
      RESOLVE_LINK_SYMBOLS=1
      case "${OS_RELEASE}" in
-@@ -7240,7 +7254,6 @@ $as_echo "$as_me: WARNING: Unknown versi
+@@ -7944,7 +7958,6 @@ printf "%s\n" "$as_me: WARNING: Unknown
          ;;
      *)
          # It is safe to use the -Bdirect linker flag on Solaris 10 or later.
@@ -40,7 +40,7 @@
          ;;
      esac
      if test -n "$GNU_CC"; then
-@@ -7936,7 +7949,7 @@ $as_echo_n "checking whether ${CC-cc} ac
+@@ -8760,7 +8773,7 @@ printf %s "checking whether ${CC-cc} acc
  	if test -z "`egrep -i '(unrecognize|unknown)' conftest.out | grep pthread`" && test -z "`egrep -i '(error|incorrect)' conftest.out`" ; then
  	    ac_cv_have_dash_pthread=yes
  		case "$target_os" in
@@ -49,21 +49,21 @@
  # Freebsd doesn't use -pthread for compiles, it uses them for linking
              ;;
  	    *)
-@@ -7974,7 +7987,7 @@ $as_echo "$ac_cv_have_dash_pthreads" >&6
+@@ -8798,7 +8811,7 @@ printf "%s\n" "$ac_cv_have_dash_pthreads
              _PTHREAD_LDFLAGS=
          fi
  	    ;;
 -    *-freebsd*)
 +    *-freebsd*|*-dragonfly*|*-midnight*)
- 	    $as_echo "#define _REENTRANT 1" >>confdefs.h
+ 	    printf "%s\n" "#define _REENTRANT 1" >>confdefs.h
  
- 	    $as_echo "#define _THREAD_SAFE 1" >>confdefs.h
-@@ -8064,7 +8077,7 @@ case "$target" in
- 
-     fi
+ 	    printf "%s\n" "#define _THREAD_SAFE 1" >>confdefs.h
+@@ -8875,7 +8888,7 @@ case "$target" in
+         ;;
+     esac
      ;;
 -*-freebsd*)
 +*-freebsd*|*-dragonfly*|*-midnight*)
      if test -n "$USE_NSPR_THREADS"; then
-         $as_echo "#define _PR_LOCAL_THREADS_ONLY 1" >>confdefs.h
+         printf "%s\n" "#define _PR_LOCAL_THREADS_ONLY 1" >>confdefs.h
  
