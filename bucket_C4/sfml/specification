@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.6.1
+DEF[PORTVERSION]=	2.6.2
 DEF[SOVERSION]=		${PORTVERSION}
 DEF[SOMINOR]=		${PORTVERSION:R:E}
 # ----------------------------------------------------------------------------
@@ -46,10 +46,6 @@ CMAKE_ARGS=		-DSFML_INSTALL_PKGCONFIG_FILES=ON
 XORG_COMPONENTS=	x11 xrandr xcursor
 SOVERSION=		${SOVERSION}
 PLIST_SUB=		SOMINOR=${SOMINOR}
-
-post-patch:
-	${REINPLACE_CMD} 's|libdata/pkgconfig|lib/pkgconfig|' \
-		${WRKSRC}/cmake/Config.cmake
 
 post-patch-dragonfly:
 	${REINPLACE_CMD} 's|FreeBSD|DragonFly|' \

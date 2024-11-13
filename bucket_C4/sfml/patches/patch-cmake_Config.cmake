@@ -2,10 +2,10 @@ $NetBSD: patch-cmake_Config.cmake,v 1.1 2020/05/21 08:42:00 plunky Exp $
 
 add NetBSD support
 
---- cmake/Config.cmake.orig	2023-10-30 00:03:26 UTC
+--- cmake/Config.cmake.orig	2024-11-09 21:00:47 UTC
 +++ cmake/Config.cmake
-@@ -31,6 +31,10 @@ elseif(CMAKE_SYSTEM_NAME MATCHES "^k?Fre
-     set(SFML_OS_FREEBSD 1)
+@@ -40,6 +40,10 @@ elseif(CMAKE_SYSTEM_NAME MATCHES "^k?Fre
+ 
      # don't use the OpenGL ES implementation on FreeBSD
      set(OPENGL_ES 0)
 +elseif(CMAKE_SYSTEM_NAME MATCHES "NetBSD")
@@ -14,9 +14,9 @@ add NetBSD support
 +    set(OPENGL_ES 0)
  elseif(CMAKE_SYSTEM_NAME MATCHES "^OpenBSD$")
      set(SFML_OS_OPENBSD 1)
-     # don't use the OpenGL ES implementation on OpenBSD
-@@ -81,6 +85,10 @@ if(SFML_OS_FREEBSD OR SFML_OS_OPENBSD OR
-     set(SFML_PKGCONFIG_DIR "/libdata/pkgconfig")
+ 
+@@ -78,6 +82,10 @@ else()
+     return()
  endif()
  
 +if(SFML_OS_NETBSD)
