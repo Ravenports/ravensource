@@ -1,25 +1,22 @@
-DEF[PORTVERSION]=	5.9.1
+DEF[PORTVERSION]=	5.10.0
 DEF[GAMEVERSION]=	5.8.0
 DEF[IRRLICHT_VER]=	1.9.0mt13
 # ----------------------------------------------------------------------------
 
-NAMEBASE=		minetest
+NAMEBASE=		luanti
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		games
 VARIANTS=		std
 SDESC[std]=		Infinite-world block sandbox game
-HOMEPAGE=		https://www.minetest.net/
+HOMEPAGE=		https://www.luanti.org/
 CONTACT=		nobody
 
-DOWNLOAD_GROUPS=	main game light
+DOWNLOAD_GROUPS=	main game
 SITES[main]=		GITHUB/minetest:minetest:${PORTVERSION}
 SITES[game]=		GITHUB/minetest:minetest_game:${GAMEVERSION}
-SITES[light]=		GITHUB/minetest:irrlicht:${IRRLICHT_VER}:lib/irrlichtmt
 DISTFILE[1]=		generated:main
 DISTFILE[2]=		generated:game
-DISTFILE[3]=		generated:light
-DF_INDEX=		1 2 3
+DF_INDEX=		1 2
 
 SPKGS[std]=		set client server data man docs nls
 
@@ -58,17 +55,14 @@ BUILDRUN_DEPENDS=	gmp:primary:std
 			luajit-openresty:primary:std
 			openal:primary:std
 			spatialindex:primary:std
-EXRUN[client]=		minetest:data:std
-EXRUN[server]=		minetest:data:std
+EXRUN[client]=		data
+EXRUN[server]=		data
 
-USES=			cmake gettext:build curl iconv jpeg dos2unix
+USES=			cmake gettext:build curl iconv jpeg freetype
 			ncurses png pgsql:client sqlite bz2 zstd cpe zlib
-			freetype
 XORG_COMPONENTS=	x11 xext xxf86vm sm ice xi
 CPE_VENDOR=		minetest
 CPE_PRODUCT=		minetest
-DOS2UNIX_FILES=		lib/irrlichtmt/source/Irrlicht/CIrrDeviceLinux.cpp
-			lib/irrlichtmt/source/Irrlicht/os.cpp
 CMAKE_ARGS=		-DBUILD_SERVER=TRUE
 			-DENABLE_SYSTEM_JSONCPP=TRUE
 			-DCUSTOM_MANDIR:STRING="share/man"
