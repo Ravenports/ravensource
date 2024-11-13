@@ -1,4 +1,4 @@
---- Makefile.orig	2023-11-17 07:29:25 UTC
+--- Makefile.orig	2024-11-13 08:27:18 UTC
 +++ Makefile
 @@ -30,7 +30,6 @@ VERSION= $(MMVERSION).$(RELVER)
  # Change the installation path as needed. This automatically adjusts
@@ -18,7 +18,7 @@
  UNINSTALL_DIRS= $(INSTALL_JITLIB) $(INSTALL_LJLIBD) $(INSTALL_INC) \
    $(INSTALL_LMOD) $(INSTALL_LMODD) $(INSTALL_CMOD) $(INSTALL_CMODD)
  
-@@ -133,10 +131,8 @@ install: $(INSTALL_DEP)
+@@ -134,10 +132,8 @@ install: $(INSTALL_DEP)
  	$(RM) $(INSTALL_DYN) $(INSTALL_SHORT1) $(INSTALL_SHORT2)
  	cd src && test -f $(FILE_SO) && \
  	  $(INSTALL_X) $(FILE_SO) $(INSTALL_DYN) && \
@@ -29,7 +29,7 @@
  	cd etc && $(SED_PC) $(FILE_PC) > $(FILE_PC).tmp && \
  	  $(INSTALL_F) $(FILE_PC).tmp $(INSTALL_PC) && \
  	  $(RM) $(FILE_PC).tmp
-@@ -154,7 +150,6 @@ uninstall:
+@@ -155,7 +151,6 @@ uninstall:
  	for file in $(FILES_INC); do \
  	  $(UNINSTALL) $(INSTALL_INC)/$$file; \
  	  done
