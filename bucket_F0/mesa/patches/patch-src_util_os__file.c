@@ -1,4 +1,4 @@
---- src/util/os_file.c.orig	2024-10-03 15:38:59 UTC
+--- src/util/os_file.c.orig	2024-10-30 18:12:27 UTC
 +++ src/util/os_file.c
 @@ -28,6 +28,9 @@
  #endif
