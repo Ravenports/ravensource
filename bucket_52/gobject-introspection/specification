@@ -39,6 +39,7 @@ MESON_ARGS=		-Dpython={{PYTHON_CMD}}
 			-Ddoctool=disabled
 			-Dbuild_introspection_data=true
 INSTALL_TARGET=		install-strip
+MOUNT_PROCFS=		yes
 
 [CAIRO].DESCRIPTION=			Include cairo for tests
 [CAIRO].GNOME_COMPONENTS_ON=		cairo
@@ -47,11 +48,6 @@ INSTALL_TARGET=		install-strip
 pre-configure:
 	${REINPLACE_CMD} -e 's|%%PYTHON_CMD%%|${PYTHON_CMD}|' \
 		${WRKSRC}/tools/meson.build
-
-post-patch-linux:
-	# hack, dlopen not working on $ORIGIN but no issue seen
-	ln -s ${WRKSRC}/_build/girepository/libgirepository-1.0.so.1.0.0 \
-		${LOCALBASE}/lib/libgirepository-1.0.so.1
 
 post-install:
 	# remove artifacts from doctemplates fix
@@ -65,7 +61,3 @@ post-install:
 .endfor
 	# generate python cache to avoid leftover files
 	(cd ${STAGEDIR}${PREFIX}/lib/gobject-introspection/giscanner && python -m compileall -d / . ||:)
-
-post-install-linux:
-	# remove hack
-	${RM} ${LOCALBASE}/lib/libgirepository-1.0.so.1
