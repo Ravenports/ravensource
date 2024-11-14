@@ -41,7 +41,7 @@ BUILDRUN_DEPENDS=	libxml2:primary:std
 
 EXRUN[tools]=		primary
 
-USES=			autoreconf:build gtk-doc libtool mbsdfix pkgconfig perl:build
+USES=			autoreconf gtk-doc libtool mbsdfix pkgconfig perl:build
 GNOME_COMPONENTS=	libxslt
 
 MUST_CONFIGURE=		gnu
@@ -57,6 +57,3 @@ PLIST_SUB=		OATH=${LIBOATH}
 post-extract:
 	${SED} -n '/SECTION:/!p;//q' ${WRKSRC}/liboath/oath.h >> ${WRKDIR}/TERMS_LIB
 	${SED} -n '/config.h/!p;//q' ${WRKSRC}/oathtool/oathtool.c >> ${WRKDIR}/TERMS_TOOLS
-
-pre-configure:
-	${TOUCH} ${WRKSRC}/*/man/Makef*
