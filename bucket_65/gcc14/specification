@@ -30,7 +30,7 @@ DISTFILE[5]=		patch-diff-ada-testsuite:draco
 DISTFILE[6]=		patch-diff-gcc-testsuite:draco
 DIST_SUBDIR=		gcc13_${DRACO_TAG}
 
-SPKGS[std]=		set compilers ada_run cxx_run fortran_run libs info man nls
+SPKGS[std]=		set compilers ada_run cxx_run fortran_run libs info man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -63,7 +63,9 @@ EXRUN[compilers]=	gcc${BRANCH}:cxx_run:std
 
 PATCHFILES=		2 3 4 5 6
 
-USES=			cpe gmake libtool perl:build makeinfo
+USES=			cpe gmake libtool perl:build
+# for info pages
+			makeinfo
 DISTNAME=		${IDENTIFICATION}
 MUST_CONFIGURE=		gnu
 CPE_VENDOR=		gnu
@@ -85,8 +87,8 @@ CONFIGURE_ARGS=		--enable-languages="c,c++,ada,fortran"
 			--enable-threads=posix
 			--enable-checking=release
 			--enable-libquadmath
-			--enable-nls
 			--enable-gnu-indirect-function
+			--disable-nls
 			--disable-multilib
 			--disable-libsanitizer
 			--disable-libvtv
