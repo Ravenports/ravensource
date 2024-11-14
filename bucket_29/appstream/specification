@@ -56,6 +56,7 @@ MESON_ARGS=		-Dsystemd=false
 CFLAGS=			-D__BSD_VISIBLE=1
 SOVERSION=		${PORTVERSION}
 PLIST_SUB=		SO_MAJOR=${SO_MAJOR}
+MOUNT_PROCFS=		yes
 
 pre-configure:
 	${REINPLACE_CMD} -e "s|${CAT1}|file://${LOCALBASE}/share/xsl/docbook/|" \
