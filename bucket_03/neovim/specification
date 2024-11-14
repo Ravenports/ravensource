@@ -5,6 +5,7 @@ DEF[LUA_VARIANT]=	lua${SPEC_LUA:S/.//}
 
 NAMEBASE=		neovim
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		editors
 VARIANTS=		std
 SDESC[std]=		Next generation Vim
@@ -42,26 +43,20 @@ BUILD_DEPENDS=		gperf:primary:std
 			lua51:primary:std
 			lua51:tools:std
 BUILDRUN_DEPENDS=	libluv:primary:std
-			libtermkey:primary:std
-			libuv:primary:std
-			libvterm:primary:std
-			luajit-openresty:primary:std
-			msgpack:primary:std
-			tree-sitter:primary:std
 			lua-lpeg:single:${LUA_VARIANT}
 			lua-bitop:single:${LUA_VARIANT}
+# #			libtermkey:primary:std
+# #			libuv:primary:std
+# #			libvterm:primary:std
+# #			luajit-openresty:primary:std
+# #			msgpack:primary:std
 
-USES=			cmake libtool pkgconfig
+USES=			cmake libtool pkgconfig cclibs:primary
 			gettext desktop-utils:primary
 CMAKE_ARGS=		-DCMAKE_SKIP_BUILD_RPATH:BOOL=YES
 			-DDEPS_PREFIX:PATH="{{LOCALBASE}}"
 			-DLUA_PRG:FILEPATH="{{LOCALBASE}}/bin/${LUA_VARIANT}"
 INSTALL_REQ_TOOLCHAIN=	yes
-
-# test fails on lpeg.so (no soname) but it's valid (required ravenadm fix)
-# https://github.com/Ravenports/ravenadm/issues/86
-
-INVALID_RPATH=		yes
 
 post-extract:
 	${AWK} '/Apache License/,/^====$$/' \
