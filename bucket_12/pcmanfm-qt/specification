@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.4.1
+DEF[PORTVERSION]=	2.1.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		pcmanfm-qt
@@ -27,16 +27,14 @@ LICENSE_AWK=		TERMS:"^\#include"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/pcmanfm/application.cpp
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		qt5-qttools:set:std
+BUILD_DEPENDS=		qt6-qttools:set:std
 			lxqt-build-tools:single:std
 			libfm-qt:dev:std
-			qt5-qtx11extras:dev:std
 			libexif:dev:std
 BUILDRUN_DEPENDS=	libfm-qt:primary:std
 			menu-cache:single:std
 			libexif:primary:std
-			qt5-qtbase:primary:std
-			qt5-qtx11extras:primary:std
+			qt6-qtbase:primary:std
 
 EXRUN[lang]=		libfm-qt:lang:std
 
@@ -44,9 +42,9 @@ USES=			cmake desktop-utils:primary pkgconfig
 			c++:primary perl:build
 XORG_COMPONENTS=	x11 xcb
 GNOME_COMPONENTS=	glib
-CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH="{{PREFIX}}/lib/qt5/cmake/"
+CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH="{{PREFIX}}/lib/qt6/cmake/"
 
-BROKEN[all]=		Requires update to v2.0.0, but that requires layer-shell-qt (wayland)
+BROKEN[all]=		Requires layer-shell-qt (wayland), not yet available
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/pcmanfm-qt
