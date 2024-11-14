@@ -462,6 +462,7 @@ CONTACT=		Python_Automaton[python@ironwolf.systems]
 DOWNLOAD_GROUPS=	main
 SITES[main]=		$main_site
 DISTFILE[1]=		$tarball:main
+DIST_SUBDIR=		python-src
 
 $subpackages_block
 OPTIONS_AVAILABLE=	$available_options
