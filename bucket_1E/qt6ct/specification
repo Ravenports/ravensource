@@ -1,0 +1,42 @@
+DEF[PORTVERSION]=	0.9
+DEF[TAG]=		${PORTVERSION}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		qt6ct
+VERSION=		${PORTVERSION}
+KEYWORDS=		misc
+VARIANTS=		std
+SDESC[std]=		Qt6 Configuration Tool
+HOMEPAGE=		https://github.com/trialuser02/qt6ct
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/trialuser02:qt6ct:${TAG}
+DISTFILE[1]=		generated:main
+
+SPKGS[std]=		single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		misc/qt6ct
+
+LICENSE=		BSD2CLAUSE:single
+LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+BUILD_DEPENDS=		libxkbcommon:dev:std
+			qt6-qtbase:dev:std
+			qt6-qttools:dev:std
+			qt6-qttools:primary:std
+BUILDRUN_DEPENDS=	libxkbcommon:primary:std
+			qt6-qtbase:primary:std
+RUN_DEPENDS=		vulkan-headers:single:std
+
+USES=			cmake
+CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt6/cmake
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/qt6ct
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/qt6/plugins/*/*.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libqt6ct-common.so
