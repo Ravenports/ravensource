@@ -1,4 +1,4 @@
---- gcc/config/freebsd-spec.h.orig	2021-07-28 06:55:07 UTC
+--- gcc/config/freebsd-spec.h.orig	2024-08-01 08:17:14 UTC
 +++ gcc/config/freebsd-spec.h
 @@ -37,6 +37,7 @@ see the files COPYING3 and COPYING.RUNTI
    do									\

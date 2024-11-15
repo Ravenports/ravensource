@@ -1,5 +1,6 @@
 %%ASLIB%%/libatomic.a
 %%ASLIB%%/libatomic.so
+%%ASLIB%%/libcc1.so
 %%ASLIB%%/libgcc_s.so
 %%ASLIB%%/libgfortran.a
 %%ASLIB%%/libgfortran.so
@@ -17,16 +18,6 @@
 %%ASLIB%%/libstdc++exp.a
 %%ASLIB%%/libstdc++fs.a
 %%ASLIB%%/libsupc++.a
-%%CC1_SHARED%%%%ASLIB%%/libcc1.so
-%%CC1_SHARED%%lib/gcc/%%TARGET%%/%%GCCVER%%/plugin/libcc1plugin.so
-%%CC1_SHARED%%lib/gcc/%%TARGET%%/%%GCCVER%%/plugin/libcc1plugin.so.0
-%%CC1_SHARED%%lib/gcc/%%TARGET%%/%%GCCVER%%/plugin/libcc1plugin.so.0.0.0
-%%CC1_SHARED%%lib/gcc/%%TARGET%%/%%GCCVER%%/plugin/libcp1plugin.so
-%%CC1_SHARED%%lib/gcc/%%TARGET%%/%%GCCVER%%/plugin/libcp1plugin.so.0
-%%CC1_SHARED%%lib/gcc/%%TARGET%%/%%GCCVER%%/plugin/libcp1plugin.so.0.0.0
-%%CC1_STATIC%%%%ASLIB%%/libcc1.a
-%%CC1_STATIC%%lib/gcc/%%TARGET%%/%%GCCVER%%/plugin/libcc1plugin.a
-%%CC1_STATIC%%lib/gcc/%%TARGET%%/%%GCCVER%%/plugin/libcp1plugin.a
 %%ONLY-DRAGONFLY%%lib/gcc/%%TARGET%%/%%GCCVER%%/crtbeginS.o
 %%ONLY-DRAGONFLY%%lib/gcc/%%TARGET%%/%%GCCVER%%/crtendS.o
 %%ONLY-DRAGONFLY%%lib/gcc/%%TARGET%%/%%GCCVER%%/include/tgmath.h
@@ -180,6 +171,7 @@ include/c++/%%GCCVER%%/forward_list
 include/c++/%%GCCVER%%/fstream
 include/c++/%%GCCVER%%/functional
 include/c++/%%GCCVER%%/future
+include/c++/%%GCCVER%%/generator
 include/c++/%%GCCVER%%/initializer_list
 include/c++/%%GCCVER%%/iomanip
 include/c++/%%GCCVER%%/ios
@@ -201,6 +193,7 @@ include/c++/%%GCCVER%%/numbers
 include/c++/%%GCCVER%%/numeric
 include/c++/%%GCCVER%%/optional
 include/c++/%%GCCVER%%/ostream
+include/c++/%%GCCVER%%/print
 include/c++/%%GCCVER%%/queue
 include/c++/%%GCCVER%%/random
 include/c++/%%GCCVER%%/ranges
@@ -226,6 +219,7 @@ include/c++/%%GCCVER%%/string
 include/c++/%%GCCVER%%/string_view
 include/c++/%%GCCVER%%/syncstream
 include/c++/%%GCCVER%%/system_error
+include/c++/%%GCCVER%%/text_encoding
 include/c++/%%GCCVER%%/tgmath.h
 include/c++/%%GCCVER%%/thread
 include/c++/%%GCCVER%%/tuple
@@ -297,6 +291,7 @@ include/c++/%%GCCVER%%/bits/cpp_type_traits.h
 include/c++/%%GCCVER%%/bits/cxxabi_forced.h
 include/c++/%%GCCVER%%/bits/cxxabi_init_exception.h
 include/c++/%%GCCVER%%/bits/deque.tcc
+include/c++/%%GCCVER%%/bits/elements_of.h
 include/c++/%%GCCVER%%/bits/enable_special_members.h
 include/c++/%%GCCVER%%/bits/erase_if.h
 include/c++/%%GCCVER%%/bits/exception.h
@@ -342,6 +337,7 @@ include/c++/%%GCCVER%%/bits/new_allocator.h
 include/c++/%%GCCVER%%/bits/node_handle.h
 include/c++/%%GCCVER%%/bits/ostream.tcc
 include/c++/%%GCCVER%%/bits/ostream_insert.h
+include/c++/%%GCCVER%%/bits/out_ptr.h
 include/c++/%%GCCVER%%/bits/parse_numbers.h
 include/c++/%%GCCVER%%/bits/postypes.h
 include/c++/%%GCCVER%%/bits/predefined_ops.h
@@ -370,6 +366,7 @@ include/c++/%%GCCVER%%/bits/regex_executor.tcc
 include/c++/%%GCCVER%%/bits/regex_scanner.h
 include/c++/%%GCCVER%%/bits/regex_scanner.tcc
 include/c++/%%GCCVER%%/bits/requires_hosted.h
+include/c++/%%GCCVER%%/bits/sat_arith.h
 include/c++/%%GCCVER%%/bits/semaphore_base.h
 include/c++/%%GCCVER%%/bits/shared_ptr.h
 include/c++/%%GCCVER%%/bits/shared_ptr_atomic.h
@@ -411,7 +408,10 @@ include/c++/%%GCCVER%%/bits/streambuf.tcc
 include/c++/%%GCCVER%%/bits/streambuf_iterator.h
 include/c++/%%GCCVER%%/bits/string_view.tcc
 include/c++/%%GCCVER%%/bits/stringfwd.h
+include/c++/%%GCCVER%%/bits/text_encoding-data.h
 include/c++/%%GCCVER%%/bits/this_thread_sleep.h
+include/c++/%%GCCVER%%/bits/unicode-data.h
+include/c++/%%GCCVER%%/bits/unicode.h
 include/c++/%%GCCVER%%/bits/uniform_int_dist.h
 include/c++/%%GCCVER%%/bits/unique_lock.h
 include/c++/%%GCCVER%%/bits/unique_ptr.h
@@ -425,6 +425,7 @@ include/c++/%%GCCVER%%/bits/valarray_array.h
 include/c++/%%GCCVER%%/bits/valarray_array.tcc
 include/c++/%%GCCVER%%/bits/valarray_before.h
 include/c++/%%GCCVER%%/bits/vector.tcc
+include/c++/%%GCCVER%%/bits/version.h
 include/c++/%%GCCVER%%/debug/assertions.h
 include/c++/%%GCCVER%%/debug/bitset
 include/c++/%%GCCVER%%/debug/debug.h
@@ -518,6 +519,7 @@ include/c++/%%GCCVER%%/experimental/bits/simd_math.h
 include/c++/%%GCCVER%%/experimental/bits/simd_neon.h
 include/c++/%%GCCVER%%/experimental/bits/simd_ppc.h
 include/c++/%%GCCVER%%/experimental/bits/simd_scalar.h
+include/c++/%%GCCVER%%/experimental/bits/simd_sve.h
 include/c++/%%GCCVER%%/experimental/bits/simd_x86.h
 include/c++/%%GCCVER%%/experimental/bits/simd_x86_conversions.h
 include/c++/%%GCCVER%%/experimental/bits/string_view.tcc
@@ -1091,6 +1093,12 @@ lib/gcc/%%TARGET%%/%%GCCVER%%/install-tools/mkheaders.conf
 lib/gcc/%%TARGET%%/%%GCCVER%%/install-tools/include/README
 lib/gcc/%%TARGET%%/%%GCCVER%%/install-tools/include/limits.h
 lib/gcc/%%TARGET%%/%%GCCVER%%/plugin/gtype.state
+lib/gcc/%%TARGET%%/%%GCCVER%%/plugin/libcc1plugin.so
+lib/gcc/%%TARGET%%/%%GCCVER%%/plugin/libcc1plugin.so.0
+lib/gcc/%%TARGET%%/%%GCCVER%%/plugin/libcc1plugin.so.0.0.0
+lib/gcc/%%TARGET%%/%%GCCVER%%/plugin/libcp1plugin.so
+lib/gcc/%%TARGET%%/%%GCCVER%%/plugin/libcp1plugin.so.0
+lib/gcc/%%TARGET%%/%%GCCVER%%/plugin/libcp1plugin.so.0.0.0
 lib/gcc/%%TARGET%%/%%GCCVER%%/plugin/include/addresses.h
 lib/gcc/%%TARGET%%/%%GCCVER%%/plugin/include/alias.h
 lib/gcc/%%TARGET%%/%%GCCVER%%/plugin/include/align.h

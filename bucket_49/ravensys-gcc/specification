@@ -5,10 +5,10 @@ DEF[MS_SUBDIR]=		EXTRACT_INFO(GCCBASE_MS_SUBDIR)
 DEF[IDENTIFICATION]=	EXTRACT_INFO(GCCBASE_IDENTIFICATION)
 DEF[GCC_VERSION]=	EXTRACT_INFO(GCCBASE_VERSION)
 DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
-DEF[STDCXX_VERSION]=	6.0.32
+DEF[STDCXX_VERSION]=	6.0.33
 DEF[TOOLCHAIN]=		{{LOCALBASE}}/toolchain
-DEF[DRACO_TAG]=		13.2.0-rev1
-DEF[DRACO_DIR]=		patches-13.2.0
+DEF[DRACO_TAG]=		14.2.0-base
+DEF[DRACO_DIR]=		patches-14.2.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ravensys-gcc
@@ -50,7 +50,6 @@ C_USES[freebsd]=	iconv:build
 C_USES[dragonfly]=	iconv:build
 C_USES[midnightbsd]=	iconv:build
 C_USES[netbsd]=		iconv:build
-C_USES[solaris]=	iconv:build
 
 BUILD_DEPENDS=		gmp:dev:std
 			mpfr:dev:std
@@ -76,8 +75,6 @@ PLIST_SUB=		GCCVER=${GCC_VERSION}
 			BRANCH=${BRANCH}
 			VSTDCXX=${STDCXX_VERSION}
 			SSP={{SSP}}
-			CC1_SHARED={{CC1_SHARED}}
-			CC1_STATIC={{CC1_STATIC:U"@comment "}}
 PREFIX=			{{LOCALBASE}}/toolchain/{{NAMEBASE}}
 INSTALL_TARGET=		install-strip
 CONFIGURE_OUTSOURCE=	yes
@@ -99,7 +96,7 @@ CONFIGURE_ARGS=		--enable-languages="c,c++,ada,fortran"
 			--disable-libcilkrts
 			--with-pkgversion="Ravenports"
 
-# gcc10+ is not supported on solaris 10
+# gcc10+ is not supported on Solaris 10
 NOT_FOR_OPSYS=		sunos
 
 VAR_OPSYS[dragonfly]=	CONFIGURE_ARGS=--with-gnu-as
@@ -118,8 +115,6 @@ VAR_OPSYS[netbsd]=	CONFIGURE_ARGS=--disable-libstdcxx-pch
 			CONFIGURE_ARGS=--with-libiconv-prefix={{WRKDIR}}/fake
 			CONFIGURE_ARGS=--disable-libssp
 			MAKEFILE_LINE=SSP="@comment "
-			MAKEFILE_LINE=CC1_SHARED="@comment "
-			MAKEFILE_LINE=CC1_STATIC=
 VAR_OPSYS[sunos]=	CONFIGURE_ARGS=--enable-symvers=no
 			CONFIGURE_ARGS=--with-gnu-as
 			CONFIGURE_ARGS=--with-as=${TOOLCHAIN}/bin/as
@@ -181,8 +176,6 @@ post-patch:
 		${WRKSRC}/gcc/ada/traceback_symbolic.c
 	${REINPLACE_CMD} -e 's|static:crtbeginT.o%s;||' \
 		${WRKSRC}/gcc/config/freebsd-spec.h
-	# fix gcc-13 build of gcc-13 (don't specify c++11)
-	${REINPLACE_CMD} -e 's/ -std=c++11"/"/' ${WRKSRC}/configure
 
 post-patch-linux:
 	# undo BSD thin socket modification
@@ -207,5 +200,5 @@ post-install:
 	${RM} ${STAGEDIR}${PREFIX}/share/info/libgomp.info
 	${RM} ${STAGEDIR}${PREFIX}/share/info/libquadmath.info
 
-	# do this for all platforms
+	# do this for all platforms now
 	${RM} -r ${STAGEDIR}${PREFIX}/lib/gcc/${CONFIGURE_TARGET}/${GCC_VERSION}/include-fixed
