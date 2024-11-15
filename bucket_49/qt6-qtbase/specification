@@ -5,7 +5,6 @@ DEF[CLANGBASE]=		clang18
 
 NAMEBASE=		qt6-qtbase
 VERSION=		${PORTVERSION}
-REVISION=		7
 KEYWORDS=		x11_toolkits devel
 VARIANTS=		std
 SDESC[std]=		Qt6 - QtBase component
@@ -126,6 +125,7 @@ VAR_OPSYS[linux]=	VAR1=linux
 
 [EPOLLSHIM].DESCRIPTION=		Platform depends on libepoll-shim
 [EPOLLSHIM].BUILD_DEPENDS_ON=		libepoll-shim:dev:std
+[EPOLLSHIM].EXTRA_PATCHES_ON=		extra-patch-src_corelib_configure.cmake
 
 post-patch:
 	${MKDIR} ${WRKSRC}/mkspecs/dragonfly-g++

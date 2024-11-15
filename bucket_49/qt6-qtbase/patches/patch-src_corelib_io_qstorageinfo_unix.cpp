@@ -2,9 +2,9 @@ $NetBSD: patch-src_corelib_io_qstorageinfo_unix.cpp,v 1.2 2024/04/27 11:49:40 ad
 
 Fix build on SunOS.
 
---- src/corelib/io/qstorageinfo_unix.cpp.orig	2024-03-19 15:46:43 UTC
+--- src/corelib/io/qstorageinfo_unix.cpp.orig	2024-10-01 10:46:30 UTC
 +++ src/corelib/io/qstorageinfo_unix.cpp
-@@ -51,7 +51,7 @@
+@@ -50,7 +50,7 @@
  #  if !defined(_STATFS_F_FLAGS) && !defined(Q_OS_NETBSD)
  #    define _STATFS_F_FLAGS 1
  #  endif

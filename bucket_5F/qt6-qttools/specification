@@ -23,7 +23,11 @@ OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 BUILD_DEPENDS=		qt6-qtbase:dev:std
+			qt6-qtdeclarative:dev:std
+			cups:dev:std
+			cups:primary:std
 BUILDRUN_DEPENDS=	qt6-qtbase:primary:std
+			qt6-qtdeclarative:primary:std
 
 EXRUN[dev]=		qt6-qtbase:dev:std
 
@@ -37,6 +41,8 @@ DISTNAME=		${COMPONENT}-everywhere-src-${PORTVERSION}
 PLIST_SUB=		QTVER=${PORTVERSION}
 			SOMAJORMIN=${PORTVERSION:R}
 SOVERSION=		${PORTVERSION}
+CMAKE_ARGS=		-Wno-dev
+			-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt6/cmake
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/qt6/bin/*

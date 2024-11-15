@@ -1,6 +1,6 @@
---- tests/auto/corelib/serialization/qcborstreamreader/tst_qcborstreamreader.cpp.orig	2024-03-19 15:46:43 UTC
+--- tests/auto/corelib/serialization/qcborstreamreader/tst_qcborstreamreader.cpp.orig	2024-10-01 10:46:30 UTC
 +++ tests/auto/corelib/serialization/qcborstreamreader/tst_qcborstreamreader.cpp
-@@ -333,7 +333,8 @@ template <typename T> static inline bool
+@@ -335,7 +335,8 @@ template <typename T> static inline bool
      // converting FP to integral is UB if it can't be represented.;
      static_assert(std::numeric_limits<T>::is_integer);
  

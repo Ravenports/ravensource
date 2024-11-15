@@ -1,6 +1,6 @@
---- cmake/QtFlagHandlingHelpers.cmake.orig	2024-03-19 15:46:43 UTC
+--- cmake/QtFlagHandlingHelpers.cmake.orig	2024-10-01 10:46:30 UTC
 +++ cmake/QtFlagHandlingHelpers.cmake
-@@ -172,7 +172,6 @@ function(qt_internal_add_link_flags_no_u
+@@ -182,7 +182,6 @@ function(qt_internal_add_link_flags_no_u
          if (NOT HAVE_DASH_UNDEFINED_SYMBOLS AND NOT HAVE_DASH_DASH_NO_UNDEFINED)
              message(FATAL_ERROR "Platform linker doesn't support erroring upon encountering undefined symbols. Target:\"${target}\".")
          endif()

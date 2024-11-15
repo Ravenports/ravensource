@@ -1,4 +1,4 @@
---- cmake/QtPlatformSupport.cmake.orig	2024-03-19 15:46:43 UTC
+--- cmake/QtPlatformSupport.cmake.orig	2024-10-01 10:46:30 UTC
 +++ cmake/QtPlatformSupport.cmake
 @@ -18,6 +18,8 @@ qt_set01(QNX CMAKE_SYSTEM_NAME STREQUAL
  qt_set01(OPENBSD CMAKE_SYSTEM_NAME STREQUAL "OpenBSD") # FIXME: How to identify this?
