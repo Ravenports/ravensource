@@ -1,29 +1,22 @@
 --- misc.c.orig	2024-08-28 19:55:03 UTC
 +++ misc.c
-@@ -32,8 +32,10 @@
- 
- #include <poll.h>
+@@ -34,6 +34,10 @@
  #include <sys/types.h>
-+#include <sys/user.h>
  #include <sys/stat.h>		/* mkdir() declaration */
  #include <signal.h>
++#if defined(__FreeBSD__)
++#include <sys/user.h>
 +#include <libutil.h>
++#endif
  #include <stdint.h>
  #include <string.h>
  #include <stdbool.h>
-@@ -225,6 +227,7 @@ int AddXChars(char *buf, int len, char *
- 	char *p;
- 
- 	if (str == NULL) {
-+
- 		*buf = 0;
- 		return 0;
- 	}
-@@ -238,3 +241,17 @@ int AddXChars(char *buf, int len, char *
+@@ -238,3 +242,19 @@ int AddXChars(char *buf, int len, char *
  	*p = 0;
  	return p - buf;
  }
 +
++#if defined(__FreeBSD__)
 +time_t
 +SessionCreationTime(fifo)
 +const char *fifo;
@@ -37,3 +30,4 @@
 +  free (kip);
 +  return start;
 +}
++#endif

@@ -15,21 +15,25 @@
  
  	if (match) {
  		matchlen = strlen(match);
-@@ -207,8 +209,12 @@ int FindSocket(int *fdp, int *nfoundp, i
+@@ -207,8 +209,17 @@ int FindSocket(int *fdp, int *nfoundp, i
  		sent->next = NULL;
  		sent->name = SaveStr(name);
  		sent->mode = mode;
++#if defined(__FreeBSD__)
 +		sent->time_created = SessionCreationTime(name);
 +		for (slisttail = &slist; *slisttail; slisttail = &((*slisttail)->next)) {
 +			if ((*slisttail)->time_created < sent->time_created) break;
 +		}
 +		sent->next = *slisttail;
++		*slisttail = sent;
++#else
  		*slisttail = sent;
--		slisttail = &sent->next;
+ 		slisttail = &sent->next;
++#endif
  		nfound++;
  		sockfd = MakeClientSocket(0);
  		/* MakeClientSocket sets ids back to eff */
-@@ -287,31 +293,36 @@ int FindSocket(int *fdp, int *nfoundp, i
+@@ -287,31 +298,36 @@ int FindSocket(int *fdp, int *nfoundp, i
  			break;
  		}
  		for (sent = slist; sent; sent = sent->next) {
