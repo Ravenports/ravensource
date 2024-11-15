@@ -48,6 +48,10 @@ SOVERSION=		${PORTVERSION}
 
 R_DEPS[freebsd]=	bsdisks:primary:std
 
+B_DEPS[linux]=		libmount:dev:std
+BR_DEPS[linux]=		libmount:primary:std
+VAR_OPSYS[linux]=	CXXFLAGS=-I{{LOCALBASE}}/include/libmount
+
 post-extract:
 	${ECHO} "Terms extracted from '${LIC_FILE}':" > ${WRKDIR}/TERMS
 	${SED} -n '/include/!p;//q' ${WRKSRC}/${LIC_FILE} >> ${WRKDIR}/TERMS
