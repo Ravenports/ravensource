@@ -1,6 +1,6 @@
 DEF[PORTVERSION]=	EXTRACT_INFO(RPBASE_BINUTILS)
-DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
 DEF[BUREMOVE]=		coffdump dlltool dllwrap nlmconv srconv sysdump windmc windres
+DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
 
 # Version is frozen without revision because ravenadm has to pre-copy
 # binutils with the other compiler packages.  Don't upgrade the
@@ -51,14 +51,14 @@ CONFIGURE_ARGS=		--disable-werror
 			--with-lib-path=/usr/lib
 			--enable-targets=all
 			--enable-x86-relax-relocations=no
+			--enable-gprofng=no
 			--enable-nls=no
 PLIST_SUB=		PLUGINAPI={{PLUGINAPI}}
 			LINKER={{LINKER}}
 			ASSEMBLER={{ASSEMBLER}}
 			GPROF={{GPROF}}
 			TARGET={{CONFIGURE_TARGET}}
-			CTF={{SKIP_CTF:U}}
-			SFRAME={{SFRAME}}
+
 INFRASTRUCTURE=		yes
 DISTNAME=		binutils-${PORTVERSION}
 PREFIX=			{{LOCALBASE}}/toolchain
@@ -100,7 +100,6 @@ VAR_OPSYS[linux]=	VAR1=/lib/ld64.so.1
 			VAR2=/lib/ldx32.so.1
 			MAKEFILE_LINE=BUILD_GOLD=yes
 			MAKEFILE_LINE=GOLD_CONFIG=--enable-gold
-			MAKEFILE_LINE=SFRAME="@comment "
 VAR_OPSYS[openbsd]=	MAKEFILE_LINE=PLUGINAPI="@comment "
 VAR_OPSYS[midnightbsd]=	VAR1=/libexec/ld-elf.so.1
 			VAR2=/libexec/ld-elf.so.1
@@ -140,8 +139,9 @@ post-install:
 		${STAGEDIR}${MANPREFIX}/man/man1/${BUTARGET}-${tool}.1 \
 		${STAGEDIR}${PREFIX}/${BUTARGET}/bin/${tool}
 .endfor
-
 	# autoplist target files and ldscripts
 	${FIND} ${STAGEDIR}${PREFIX}/${CONFIGURE_TARGET} ! -type d | \
 		${SED} -e 's,^${STAGEDIR}${PREFIX}/,,' \
 		>> ${WRKDIR}/.manifest.single.mktmp
+	# remove unnecessary man pages
+	${RM} ${STAGEDIR}${PREFIX}/share/man/man1/*

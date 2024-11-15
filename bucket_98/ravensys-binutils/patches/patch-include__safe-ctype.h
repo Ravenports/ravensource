@@ -1,4 +1,4 @@
---- include/safe-ctype.h.orig	2023-07-02 23:00:00 UTC
+--- include/safe-ctype.h.orig	2024-08-16 23:00:00 UTC
 +++ include/safe-ctype.h
 @@ -119,6 +119,7 @@ extern const unsigned char  _sch_tolower
     including another system header (for instance gnulib's stdint.h).
