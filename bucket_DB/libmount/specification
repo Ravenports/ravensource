@@ -1,0 +1,113 @@
+DEF[PORTVERSION]=	EXTRACT_INFO(LINUX_UTILS_VERSION)
+DEF[DLFOLDER]=		2.40
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libmount
+VERSION=		${PORTVERSION}
+KEYWORDS=		sysutils
+VARIANTS=		std
+SDESC[std]=		Library to parse mount configurations
+HOMEPAGE=		https://github.com/karelzak/util-linux
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v${DLFOLDER}/
+DISTFILE[1]=		util-linux-${PORTVERSION}.tar.xz:main
+
+SPKGS[std]=		set primary dev tools docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+ONLY_FOR_OPSYS=		linux
+
+LICENSE=		LGPL21+:primary
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/Documentation/licenses/COPYING.LGPL-2.1-or-later
+LICENSE_TERMS=		primary:{{WRKSRC}}/libmount/COPYING
+LICENSE_SCHEME=		solo
+
+BUILD_DEPENDS=		bison:primary:std
+			openpam:dev:std
+
+USES=			cpe meson pkgconfig python:build
+# need by disabled apps ncurses:build zlib
+CPE_VENDOR=		kernel
+CPE_PRODUCT=		util-linux
+DISTNAME=		util-linux-${PORTVERSION}
+MESON_ARGS=		-Dprogram-tests=false
+			-Dbuild-libmount=enabled
+			-Dbuild-libblkid=enabled
+			-Dbuild-mount=enabled
+			-Dbuild-mountpoint=enabled
+			-Dbuild-libuuid=disabled
+			-Dbuild-liblastlog2=disabled
+			-Dbuild-pam-lastlog2=disabled
+			-Dbuild-libsmartcols=disabled
+			-Dbuild-libfdisk=disabled
+			-Dbuild-uuidd=disabled
+			-Dbuild-plymouth-support=disabled
+			-Dbuild-login=disabled
+			-Dbuild-chfn-chsh=disabled
+			-Dbuild-su=disabled
+			-Dbuild-runuser=disabled
+			-Dbuild-vipw=disabled
+			-Dbuild-setarch=disabled
+			-Dbuild-last=disabled
+			-Dbuild-utmpdump=disabled
+			-Dbuild-newgrp=disabled
+			-Dbuild-line=disabled
+			-Dbuild-pg=disabled
+			-Dbuild-ul=disabled
+			-Dbuild-more=disabled
+			-Dbuild-chmem=disabled
+			-Dbuild-ipcmk=disabled
+			-Dbuild-ipcrm=disabled
+			-Dbuild-ipcs=disabled
+			-Dbuild-dmesg=disabled
+			-Dbuild-eject=disabled
+			-Dbuild-fallocate=disabled
+			-Dbuild-unshare=disabled
+			-Dbuild-nsenter=disabled
+			-Dbuild-script=disabled
+			-Dbuild-scriptlive=disabled
+			-Dbuild-setterm=disabled
+			-Dbuild-mesg=disabled
+			-Dbuild-wall=disabled
+			-Dbuild-write=disabled
+			-Dbuild-logger=disabled
+			-Dbuild-rename=disabled
+			-Dbuild-pipesz=disabled
+			-Dbuild-fadvise=disabled
+			-Dbuild-enosys=disabled
+			-Dbuild-schedutils=disabled
+			-Dbuild-nologin=disabled
+			-Dbuild-tunelp=disabled
+			-Dbuild-fstrim=disabled
+			-Dbuild-fsfreeze=disabled
+			-Dbuild-blkdiscard=disabled
+			-Dbuild-blkzone=disabled
+			-Dbuild-blkpr=disabled
+			-Dbuild-ldattach=disabled
+			-Dbuild-rtcwake=disabled
+			-Dbuild-swapoff=disabled
+			-Dbuild-chcpu=disabled
+			-Dbuild-pivot_root=disabled
+			-Dbuild-switch_root=disabled
+			-Dbuild-hwclock=disabled
+			-Dbuild-bfs=disabled
+			-Dbuild-fsck=disabled
+			-Dbuild-minix=disabled
+			-Dbuild-cramfs=disabled
+			-Dbuild-blockdev=disabled
+			-Dbuild-partx=disabled
+			-Dbuild-agetty=disabled
+			-Dbuild-sulogin=disabled
+			-Dcryptsetup=disabled
+
+# Below needed for some of the disabled apps
+CFLAGS=			-DHAVE_NCURSES_TERM_H
+			-DHAVE_NCURSES_NCURSES_H
+
+post-install:
+	${MV} ${STAGEDIR}${PREFIX}/share/doc/util-linux \
+	${STAGEDIR}${STD_DOCDIR}
