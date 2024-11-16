@@ -3,7 +3,7 @@ DEF[PORTVERSION]=	1.81.6
 
 NAMEBASE=		nvi
 VERSION=		${PORTVERSION}
-REVISION=		3
+REVISION=		4
 KEYWORDS=		editors
 VARIANTS=		std
 SDESC[std]=		Berkeley nvi with additional features
@@ -36,7 +36,9 @@ CONFIGURE_ARGS=		--program-prefix=n
 			--with-db=system
 			--with-db-prefix={{LOCALBASE}}/db4
 			--with-curses={{NCURSESBASE}}
-CPPFLAGS=		-I{{NCURSESINC}}
+CONFIGURE_ENV=		vi_cv_have_curses_setupterm=yes
+			vi_cv_path_preserve="/tmp"
+CPPFLAGS=		-I{{NCURSESINC}} -Wno-incompatible-pointer-types -Wno-implicit-function-declaration
 LDFLAGS=		-L{{NCURSESLIB}}
 
 VAR_OPSYS[sunos]=	CONFIGURE_ENV=LIBS="-lrt -lsocket"

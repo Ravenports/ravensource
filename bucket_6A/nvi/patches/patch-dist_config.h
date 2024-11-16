@@ -1,6 +1,6 @@
---- dist/config.h.in-	Fri May  9 12:50:29 2003
-+++ dist/config.h.in	Fri May  9 12:50:56 2003
-@@ -103,9 +103,6 @@
+--- dist/config.h.in.orig	2007-11-18 16:43:48 UTC
++++ dist/config.h.in
+@@ -85,9 +85,6 @@
  /* Define if you have <sys/select.h> */
  #undef HAVE_SYS_SELECT_H
  
