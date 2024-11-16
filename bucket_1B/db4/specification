@@ -40,6 +40,9 @@ INSTALL_WRKSRC=		{{WRKSRC}}/build_unix
 CONFIGURE_SCRIPT=	../dist/configure
 DISTNAME=		db-${PORTVERSION}
 
+VAR_ARCH[x86_64]=	CONFIGURE_ARGS=--with-mutex=x86_64/gcc-assembly
+			CONFIGURE_ENV=db_cv_atomic=x86/gcc-assembly
+
 post-extract:
 	# This port actually has a gnu autotools
 	${CP} ${MK_TEMPLATES}/config.guess ${WRKSRC}/dist/config.guess
