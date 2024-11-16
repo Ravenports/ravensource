@@ -68,6 +68,10 @@ MAKE_ARGS=		pkgdir={{STAGEDIR}}{{PREFIX}}
 			MANMODE={{MANMODE}}
 			DATADIR={{DATADIR}}
 SOVERSION=		${SOVERSION}
+# gcc14 workarounds
+CFLAGS=			-Wno-implicit-function-declaration
+			-Wno-incompatible-pointer-types
+
 VAR_OPSYS[sunos]=	MAKE_ARGS=NETWORKLD="-lsocket -lnsl"
 			MAKE_ARGS=LDSHLIB=-shared
 
