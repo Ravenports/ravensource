@@ -94,6 +94,19 @@
  MAKEFILE_CXXLINK="\$(LIBTOOL) --mode=link ${MAKEFILE_CXXLINK}"
  
  
+@@ -19187,10 +19187,10 @@ ac_compiler_gnu=$ac_cv_c_compiler_gnu
+              pthread_key_create(&key, NULL);
+          }
+          static void *get_tls() {
+-             return (void *)pthread_getspecific(&key);
++             return (void *)pthread_getspecific(key);
+          }
+          static void set_tls(void *p) {
+-              pthread_setspecific(&key, p);
++              pthread_setspecific(key, p);
+          }
+ int
+ main ()
 @@ -27322,7 +27322,7 @@ esac
  # !!! END COPIED from autoconf distribution
  
