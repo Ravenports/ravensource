@@ -1,6 +1,5 @@
 DEF[PORTVERSION]=	EXTRACT_INFO(QT6_VERSION)
 DEF[MINOR_VER]=		${PORTVERSION:R}
-DEF[CLANGBASE]=		clang18
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		qt6-qtbase
@@ -35,7 +34,6 @@ BUILD_DEPENDS=		evdev-proto:single:std
 			libglvnd:dev:std
 			cups:dev:std
 			libxkbcommon:dev:std
-			${CLANGBASE}:compiler:std
 # #			libproxy:dev:std
 BUILDRUN_DEPENDS=	harfbuzz:icu:std
 			icu:primary:std
@@ -46,12 +44,6 @@ BUILDRUN_DEPENDS=	harfbuzz:icu:std
 
 EXRUN[dev]=		libglvnd:dev:std
 			libxkbcommon:dev:std
-
-# with gcc with no PCH: hidden symbol `__extendhfsf2' in
-# /raven/toolchain/ravensys-gcc/lib/gcc/x86_64-raven-freebsd13/13.2.0/libgcc.a(extendhfsf2.o)
-# is referenced by DSO
-# linker bug?  use clang17 to avoid that issue.
-# The gold linker could be used, but many qt6/kf6 ports would need it as well.
 
 USES=			qt6 zlib png sqlite jpeg pkgconfig execinfo
 			iconv perl:build shebangfix ssl:openssl30

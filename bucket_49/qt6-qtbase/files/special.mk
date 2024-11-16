@@ -11,6 +11,3 @@ PLIST_SUB+=DSSTYPE=udev
 PLIST_SUB+=FSWTYPE=kqueue
 PLIST_SUB+=DSSTYPE=static
 .endif
-
-CC=	clang
-CXX=	clang++
