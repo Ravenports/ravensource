@@ -5,6 +5,7 @@ DEF[SOVERSION]=		16.44.0
 
 NAMEBASE=		png
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		graphics
 VARIANTS=		std
 SDESC[std]=		Library for manipulating PNG images
@@ -29,12 +30,10 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		graphics/png
 
-USES=			cpe libtool zlib
-DISTNAME=		libpng-${PORTVERSION}
-MUST_CONFIGURE=		gnu
+USES=			cpe cmake zlib
 CPE_PRODUCT=		libpng
-INSTALL_TARGET=		install-strip
-TEST_TARGET=		check-TESTS
+CMAKE_ARGS=		PNG_TESTS:BOOL=OFF
+DISTNAME=		libpng-${PORTVERSION}
 SOVERSION=		${SOVERSION}
 
 PATCHFILES=		2
