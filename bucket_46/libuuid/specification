@@ -65,6 +65,10 @@ VAR_OPSYS[sunos]=	CFLAGS=-I{{LOCALBASE}}/include/bsd
 			CFLAGS=-DHAVE_STRNLEN
 			CFLAGS=-DHAVE_STRNDUP
 
+# stdtod_l not seen since gcc14 (unclear why, <stdlib.h> is imported)
+CFLAGS=			-Wno-implicit-function-declaration
+
+
 [NOSETPROC].DESCRIPTION=		Omit built-in setproctitle support
 
 pre-configure:
