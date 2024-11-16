@@ -5,6 +5,7 @@ DEF[RELEASE_TAG]=	${PORTVERSION}
 
 NAMEBASE=		highway
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		std
 SDESC[std]=		Efficient and performance-portable SIMD
@@ -32,7 +33,8 @@ LICENSE_SCHEME=		dual
 FPC_EQUIVALENT=		devel/highway
 
 # USES=gold fixes link to missing __extendhfsf2 symbol
-USES=			cmake gold c++:primary
+# no longer necessary due to included patch
+USES=			cmake c++:primary
 CMAKE_ARGS=		-DBUILD_SHARED_LIBS:BOOL=ON
 			-DHWY_SYSTEM_GTEST:BOOL=ON
 			-DBUILD_TESTING:BOOL=OFF
