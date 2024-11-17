@@ -60,6 +60,9 @@ CONFIGURE_ENV=		ac_cv_decimal_fp_supported="no"
 			lt_cv_path_SED="sed"
 PLIST_SUB=		SUFFIX=${SUFFIX} SOMAJOR=${SOMAJOR}
 
+# for gcc14
+CFLAGS=			-Wno-incompatible-pointer-types
+
 C_USES[darwin]=		iconv:build
 
 [CLI].DESCRIPTION=			Enable Command Line Interface SAPI
