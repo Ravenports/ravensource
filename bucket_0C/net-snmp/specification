@@ -58,6 +58,9 @@ CONFIGURE_ENV=		PERLPROG="{{PERL}}"
 INSTALL_REQ_TOOLCHAIN=	yes
 SOVERSION=		${SOVERSION}
 
+# for gcc14
+CFLAGS=			-Wno-declaration-missing-parameter-type
+
 VAR_OPSYS[dragonfly]=	MAKE_ENV=MIB_SYSTEM_LIBS=-lkinfo
 			MAKE_ENV=OPSYS=DragonFly
 # configure has inverted check w/ -D_KERNEL first and -D_KERNEL_STRUCTURES next
