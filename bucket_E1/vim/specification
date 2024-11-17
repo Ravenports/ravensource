@@ -54,6 +54,8 @@ PLIST_SUB=		VIM_VER=${VIM_VER}
 SHEBANG_FILES=		runtime/tools/demoserver.py
 			runtime/tools/efm_perl.pl
 CPE_VERSION=		${PORTVERSION:R}
+# for gcc14 (configure)
+CFLAGS=			-Wno-implicit-function-declaration
 
 [LOADED].DESCRIPTION=			Turn on all options including X support
 [LOADED].MAKE_ARGS_OFF=			CONF_OPT_GUI="--enable-gui=no --without-x"
