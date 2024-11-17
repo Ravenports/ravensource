@@ -2,6 +2,9 @@ USES=			jpeg tcl:tk shebangfix zlib png
 XORG_COMPONENTS=	x11 xft
 SHEBANG_FILES=		pTk/Tcl-pTk
 			pTk/mkVFunc
+CFLAGS=			-Wno-int-to-pointer-cast
+			-Wno-pointer-to-int-cast
+			-Wno-deprecated-declarations
 
 post-patch:
 	${REINPLACE_CMD} -e 's|%%LOCALBASE%%|${LOCALBASE}|g' \
