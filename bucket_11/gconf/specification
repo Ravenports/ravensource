@@ -4,7 +4,7 @@ DEF[SOVERSION]=		4.1.5
 
 NAMEBASE=		gconf
 VERSION=		${PORTVERSION}
-REVISION=		4
+REVISION=		5
 KEYWORDS=		devel
 VARIANTS=		std
 SDESC[std]=		Configuration database system for GNOME
@@ -38,11 +38,12 @@ BUILDRUN_DEPENDS=	dbus-glib:primary:std
 
 USES=			gmake libtool pkgconfig shebangfix intltoolfix
 			cpe python:build mbsdfix
-GNOME_COMPONENTS=	intltool introspection orbit2 dconf libxml2
+GNOME_COMPONENTS=	intltool introspection dconf libxml2
 CPE_VENDOR=		gnome
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-gtk=3.0
 			--disable-gtk-doc
+			--disable-orbit
 			--with-html-dir={{PREFIX}}/share/doc
 SHEBANG_FILES=		gsettings/gsettings-schema-convert
 DISTNAME=		GConf-${PORTVERSION}
