@@ -1,4 +1,4 @@
---- gcc/ada/libgnat/s-dorepr.adb.orig	2023-07-27 08:13:04 UTC
+--- gcc/ada/libgnat/s-dorepr.adb.orig	2024-08-01 08:17:13 UTC
 +++ gcc/ada/libgnat/s-dorepr.adb
 @@ -77,18 +77,28 @@ package body Product is
              end;
