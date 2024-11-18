@@ -65,6 +65,9 @@ PLIST_SUB=		PMICONSOLE_SOVERSION=${PMICONSOLE_VER}
 VAR_OPSYS[freebsd]=	CFLAGS=-D_WANT_SEMUN
 VAR_OPSYS[midnightbsd]=	CFLAGS=-D_WANT_SEMUN
 
+# gcc14 (one function has no spec but used in multiple locations)
+CFLAGS=			-Wno-implicit-function-declaration
+
 [ARGP].DESCRIPTION=			Build with standalone version of argp from glibc
 [ARGP].BUILD_DEPENDS_ON=		argp-standalone:dev:std
 [ARGP].BUILDRUN_DEPENDS_ON=		argp-standalone:primary:std
