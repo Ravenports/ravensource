@@ -40,6 +40,9 @@ CMAKE_ARGS=		-DFLB_DEBUG=Off
 			-DFLB_HTTP_SERVER=On
 RC_SUBR=		fluent-bit:primary
 
+# required for gcc14 detection of HAVE_C_TLS
+CFLAGS=			-Wno-implicit-function-declaration
+
 post-extract:
 	${CP} ${MK_TEMPLATES}/config.sub ${WRKSRC}/lib/onigmo/config.sub
 	${CP} ${MK_TEMPLATES}/config.guess ${WRKSRC}/lib/onigmo/config.guess
