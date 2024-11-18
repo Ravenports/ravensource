@@ -57,6 +57,11 @@ CONFIGURE_ARGS=		--enable-ncurses
 			--enable-gl
 CFLAGS=			-Wno-bidi-chars
 
+# gcc14 hack
+			-Wno-incompatible-pointer-types
+			-Wno-implicit-function-declaration
+			-Wno-int-conversion
+
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
 SOVERSION=		${SOVERSION}
