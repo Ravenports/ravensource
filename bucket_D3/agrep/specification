@@ -40,6 +40,9 @@ FPC_EQUIVALENT=		textproc/agrep
 USES=			gmake
 BUILD_TARGET=		agrep
 
+# gcc14 fix
+MAKE_ARGS=		PORTFLAGS=-Wno-implicit-function-declaration
+
 do-install:
 	${MKDIR} -p ${STAGEDIR}${PREFIX}/bin
 	${INSTALL_PROGRAM} ${WRKSRC}/agrep ${STAGEDIR}${PREFIX}/bin/agrep
