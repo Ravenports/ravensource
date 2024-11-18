@@ -1,6 +1,14 @@
---- c-posix.c.orig	2015-04-30 10:20:43 UTC
+--- c-posix.c.orig	2017-05-16 10:40:59 UTC
 +++ c-posix.c
-@@ -721,6 +721,25 @@ typedef struct siginfo {
+@@ -58,6 +58,7 @@
+ #include <stdarg.h>
+ #include <string.h>
+ #include <stdlib.h>
++#include <ctype.h>
+ #include "confsrc/config.h"
+ 
+ #ifdef __hpux__
+@@ -721,6 +722,25 @@ typedef struct siginfo {
  
  /* sigevent must precede aiocb
   */
@@ -26,7 +34,7 @@
  #ifdef HAVE_struct_sigevent
    GT1(sigevent, 1)
  #else
-@@ -743,6 +762,7 @@ struct sigevent {
+@@ -743,6 +763,7 @@ struct sigevent {
    GT2(sigev_notify_attributes,pthread_attr_t *)
  #endif
    GT3
@@ -34,7 +42,7 @@
  
  #ifdef HAVE_struct_aiocb
    GT1(aiocb, 1)
-@@ -5166,9 +5186,9 @@ void create_c() {
+@@ -5166,9 +5187,9 @@ void create_c() {
   */
  
  #if defined(__APPLE__)
@@ -46,7 +54,7 @@
  #endif
  {sigset_t set;
    int sig;
-@@ -5179,7 +5199,7 @@ void create_c() {
+@@ -5179,7 +5200,7 @@ void create_c() {
    for (sig = 0; sig < 1024; sig++) {
      result = sigismember (&set, sig);
      if (result == 1) last_good = sig;
