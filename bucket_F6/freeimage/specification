@@ -38,13 +38,6 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		graphics/freeimage
 
-DOS2UNIX_FILES=		Source/LibOpenJPEG/opj_malloc.h
-			Source/LibRawLite/dcraw/dcraw.c
-			Source/LibRawLite/internal/dcraw_common.cpp
-			Source/FreeImage/PluginBMP.cpp
-			Source/FreeImage/PluginDDS.cpp
-			Source/LibPNG/pngpriv.h
-
 USES=			c++:primary dos2unix gmake cpe
 CPE_VENDOR=		freeimage_project
 CPE_PRODUCT=		freeimage
@@ -52,8 +45,8 @@ DISTNAME=		FreeImage
 SUB_FILES=		freeimage.pc
 SUB_LIST=		VERSION="${PORTVERSION}"
 
-CFLAGS=			-std=c++14 -DPNG_ARM_NEON_OPT=0 -fexceptions -fvisibility=hidden -fPIC
-CXXFLAGS=		-std=c++14 -DPNG_ARM_NEON_OPT=0 -fexceptions -fvisibility=hidden -fPIC
+CFLAGS=			-DPNG_ARM_NEON_OPT=0 -fexceptions -fvisibility=hidden -fPIC
+CXXFLAGS=		-DPNG_ARM_NEON_OPT=0 -fexceptions -fvisibility=hidden -fPIC -std=c++14
 MAKE_ARGS=		CC="{{CC}}" CPP="{{CPP}}" CXX="{{CXX}}"
 SOVERSION=		${SOVERSION}
 
