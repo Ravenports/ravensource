@@ -60,6 +60,9 @@ SHEBANG_FILES=		src/cmd/map/mapdemo.rc
 			acid/transcript
 SHEBANG_LANG=		rc
 
+# gcc catches fatal error
+CFLAGS=			-Wno-incompatible-pointer-types
+
 post-extract:
 	${TAR} -C ${WRKSRC}/dict -xf ${DISTDIR}/pgw.tar.bz2
 	${TAR} -C ${WRKSRC}/dict -xf ${DISTDIR}/roget.tar.bz2
