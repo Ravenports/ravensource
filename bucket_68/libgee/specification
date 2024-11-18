@@ -38,3 +38,6 @@ CONFIGURE_ARGS=		--enable-introspection=yes
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
 SOVERSION=		${SOVERSION}
+
+# gcc uncovered a big mess with pointer casts
+CFLAGS=			-Wno-incompatible-pointer-types
