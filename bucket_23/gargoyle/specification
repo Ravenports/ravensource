@@ -31,9 +31,17 @@ BUILD_DEPENDS=		freetype:dev:std
 BUILDRUN_DEPENDS=	freetype:primary:std
 			qt5-qtbase:primary:std
 
-USES=			cmake jpeg png zlib pkgconfig fontconfig
+USES=			cmake jpeg png zlib pkgconfig fontconfig ninja
 CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH="{{PREFIX}}/lib/qt5/cmake/"
 SDL_COMPONENTS=		mixer2 sdl2
+
+# phony edge, glulxe, bocfel are dirty
+INSTALL_REQ_TOOLCHAIN=	yes
+
+do-install:
+	(cd ${INSTALL_WRKSRC} && ${SETENV} ${MAKE_ENV} \
+		${MAKE_CMD} ${MAKE_FLAGS} ${MAKEFILE} ${MAKE_ARGS} -dexplain \
+		${INSTALL_TARGET})
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/gargoyle
