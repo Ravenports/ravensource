@@ -1,0 +1,164 @@
+--- configure.ac.orig	2024-11-18 19:53:22 UTC
++++ configure.ac
+@@ -585,7 +585,7 @@ fi
+ dnl  Checking if compiler correctly cast signed to unsigned.
+ AC_CACHE_CHECK(if signed to unsigned casting is broken,
+ zsh_cv_c_broken_signed_to_unsigned_casting,
+-[AC_RUN_IFELSE([AC_LANG_SOURCE([[main(){return((int)(unsigned char)((char) -1) == 255);}]])],[zsh_cv_c_broken_signed_to_unsigned_casting=yes],[zsh_cv_c_broken_signed_to_unsigned_casting=no],[zsh_cv_c_broken_signed_to_unsigned_casting=no])])
++[AC_RUN_IFELSE([AC_LANG_SOURCE([[int main(){return((int)(unsigned char)((char) -1) == 255);}]])],[zsh_cv_c_broken_signed_to_unsigned_casting=yes],[zsh_cv_c_broken_signed_to_unsigned_casting=no],[zsh_cv_c_broken_signed_to_unsigned_casting=no])])
+ AH_TEMPLATE([BROKEN_SIGNED_TO_UNSIGNED_CASTING],
+ [Define to 1 if compiler incorrectly cast signed to unsigned.])
+ if test x$zsh_cv_c_broken_signed_to_unsigned_casting = xyes; then
+@@ -1046,7 +1046,7 @@ else
+   [AC_RUN_IFELSE([AC_LANG_SOURCE([[
+ #include <sys/types.h>
+ 
+-main() { return sizeof(off_t) < 8; }
++int main() { return sizeof(off_t) < 8; }
+ ]])],[zsh_cv_off_t_is_64_bit=yes],[zsh_cv_off_t_is_64_bit=no],[zsh_cv_off_t_is_64_bit=no])])
+   if test x$zsh_cv_off_t_is_64_bit = xyes; then
+     AC_DEFINE(OFF_T_IS_64_BIT)
+@@ -1056,7 +1056,7 @@ main() { return sizeof(off_t) < 8; }
+   [AC_RUN_IFELSE([AC_LANG_SOURCE([[
+ #include <sys/types.h>
+ 
+-main() { return sizeof(ino_t) < 8; }
++int main() { return sizeof(ino_t) < 8; }
+ ]])],[zsh_cv_ino_t_is_64_bit=yes],[zsh_cv_ino_t_is_64_bit=no],[zsh_cv_ino_t_is_64_bit=no])])
+   if test x$zsh_cv_ino_t_is_64_bit = xyes; then
+     AC_DEFINE(INO_T_IS_64_BIT)
+@@ -1396,7 +1396,7 @@ zsh_cv_func_tgetent_accepts_null,
+ #include <stdlib.h>
+ int tgetent(char *, char *);
+ char *tgetstr(char *, char **);
+-main()
++int main()
+ {
+     char buf[4096];
+     int r1 = tgetent(buf, "vt100");
+@@ -1424,7 +1424,7 @@ zsh_cv_func_tgetent_zero_success,
+ #include <stdlib.h>
+ int tgetent(char *, char*);
+ char *tgetstr(char *, char **);
+-main()
++int main()
+ {
+     char buf[4096];
+     int r1 = tgetent(buf, "!@#$%^&*");
+@@ -1862,7 +1862,7 @@ zsh_cv_rlim_t_is_longer,
+ #endif
+ #include <sys/resource.h>
+ #include <stdlib.h>
+-main(){struct rlimit r;exit(sizeof(r.rlim_cur) <= sizeof(long));}]])],[zsh_cv_rlim_t_is_longer=yes],[zsh_cv_rlim_t_is_longer=no],[zsh_cv_rlim_t_is_longer=yes])])
++int main(){struct rlimit r;exit(sizeof(r.rlim_cur) <= sizeof(long));}]])],[zsh_cv_rlim_t_is_longer=yes],[zsh_cv_rlim_t_is_longer=no],[zsh_cv_rlim_t_is_longer=yes])])
+ if test x$zsh_cv_rlim_t_is_longer = xyes; then
+   AC_CACHE_CHECK(if rlim_t is a quad,
+   zsh_cv_rlim_t_is_quad_t,
+@@ -1873,7 +1873,7 @@ if test x$zsh_cv_rlim_t_is_longer = xyes
+ #include <stdio.h>
+ #include <sys/resource.h>
+ #include <stdlib.h>
+-main() { 
++int main() { 
+   struct rlimit r;
+   char buf[20];
+   r.rlim_cur = 0;
+@@ -1896,7 +1896,7 @@ else
+ #endif
+ #include <sys/resource.h>
+ #include <stdlib.h>
+-  main(){struct rlimit r;r.rlim_cur=-1;exit(r.rlim_cur<0);}]])],[zsh_cv_type_rlim_t_is_unsigned=yes],[zsh_cv_type_rlim_t_is_unsigned=no],[zsh_cv_type_rlim_t_is_unsigned=no])])
++  int main(){struct rlimit r;r.rlim_cur=-1;exit(r.rlim_cur<0);}]])],[zsh_cv_type_rlim_t_is_unsigned=yes],[zsh_cv_type_rlim_t_is_unsigned=no],[zsh_cv_type_rlim_t_is_unsigned=no])])
+   if test x$zsh_cv_type_rlim_t_is_unsigned = xyes; then
+     AC_DEFINE(RLIM_T_IS_UNSIGNED)
+     DEFAULT_RLIM_T="unsigned $DEFAULT_RLIM_T"
+@@ -2177,7 +2177,7 @@ zsh_cv_sys_fifo,
+ #include <unistd.h>
+ #include <stdlib.h>
+ #include <sys/stat.h>
+-main()
++int main()
+ {
+     char c;
+     int fd;
+@@ -2278,7 +2278,7 @@ zsh_cv_sys_link,
+ #include <unistd.h>
+ #include <fcntl.h>
+ #include <stdlib.h>
+-main()
++int main()
+ {
+     int ret;
+     char *tmpfile, *newfile;
+@@ -2311,7 +2311,7 @@ zsh_cv_sys_killesrch,
+ #include <signal.h>
+ #include <errno.h>
+ #include <stdlib.h>
+-main()
++int main()
+ {
+     int pid = (getpid() + 10000) & 0xffffff;
+     while (pid && (kill(pid, 0) == 0 || errno != ESRCH)) pid >>= 1;
+@@ -2341,7 +2341,7 @@ int child=0;
+ void handler(sig)
+     int sig;
+ {if(sig==SIGCHLD) child=1;}
+-main() {
++int main() {
+     struct sigaction act;
+     sigset_t set;
+     int pid, ret;
+@@ -2389,7 +2389,7 @@ case "x$zsh_working_tcsetpgrp" in
+ #include <unistd.h>
+ #include <fcntl.h>
+ #include <stdlib.h>
+-main() {
++int main() {
+     int fd;
+     int ret;
+     fd=open("/dev/tty", O_RDWR);
+@@ -2436,7 +2436,7 @@ if test x$ac_cv_func_getpwnam = xyes; th
+ #include <string.h>
+ #include <stdlib.h>
+ #include <unistd.h>
+-main() {
++int main() {
+     struct passwd *pw1, *pw2;
+     char buf[1024], name[1024];
+     sprintf(buf, "%d:%d", getpid(), rand());
+@@ -2765,7 +2765,7 @@ elif test "x$dynamic" = xyes; then
+ #include <fcntl.h>
+ #include <stdlib.h>
+ #include <unistd.h>
+-main(argc, argv)
++int main(argc, argv)
+ int argc;
+ char *argv[];
+ {
+@@ -2841,7 +2841,7 @@ char *argv[];
+   fi
+   case "$host_os" in
+     osf*) DLLDFLAGS="${DLLDFLAGS=-shared -expect_unresolved '*'}" ;;
+-    *freebsd*|*netbsd*|linux*|irix*|gnu*|interix*|dragonfly*) DLLDFLAGS="${DLLDFLAGS=-shared}" ;;
++    *freebsd*|*netbsd*|linux*|irix*|gnu*|interix*|*dragonfly*|*midnight*) DLLDFLAGS="${DLLDFLAGS=-shared}" ;;
+     sunos*)       DLLDFLAGS="${DLLDFLAGS=-assert nodefinitions}" ;;
+     sysv4*|esix*) DLLDFLAGS="${DLLDFLAGS=-G $ldflags}" ;;
+     aix*)         DLLDFLAGS="${DLLDFLAGS=-G -bexpall -lc}" ;;
+@@ -2912,7 +2912,7 @@ LDFLAGS="$old_LDFLAGS")
+   AC_CACHE_CHECK(if your dlsym() needs a leading underscore,
+    zsh_cv_func_dlsym_needs_underscore,
+    [echo failed >conftestval && cat >conftest.c <<EOM
+-fred () { }
++int fred () { }
+ EOM
+     AC_TRY_COMMAND($CC -c $CFLAGS $CPPFLAGS $DLCFLAGS conftest.c 1>&AS_MESSAGE_LOG_FD) &&
+     AC_TRY_COMMAND($DLLD $LDFLAGS $DLLDFLAGS -o conftest.$DL_EXT conftest.o 1>&AS_MESSAGE_LOG_FD) &&
+@@ -2945,7 +2945,7 @@ char *zsh_gl_sym_addr ;
+ 
+ extern int fred() ;
+ 
+-main()
++int main()
+ {
+     void * handle ;
+     void * symbol ;
