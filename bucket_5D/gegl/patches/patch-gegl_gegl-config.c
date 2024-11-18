@@ -1,5 +1,14 @@
 --- gegl/gegl-config.c.orig	2024-11-03 16:39:32 UTC
 +++ gegl/gegl-config.c
+@@ -44,7 +44,7 @@
+ #include <mach/mach.h>
+ #endif
+ 
+-#if defined(__APPLE__) || defined(__FreeBSD__)
++#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__DragonFly__) || defined(__NetBSD__)
+ #include <sys/types.h>
+ #include <sys/sysctl.h>
+ #endif
 @@ -285,6 +285,21 @@ gegl_config_class_init (GeglConfigClass
                               ) * page_size;
        mach_port_deallocate (mach_task_self (), host);
