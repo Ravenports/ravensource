@@ -1,6 +1,6 @@
---- plug-ins/wmf/wmf.cpp.orig	2014-08-24 17:46:01.000000000 +0200
-+++ plug-ins/wmf/wmf.cpp	2022-12-31 14:35:14.378917000 +0100
-@@ -54,15 +54,17 @@
+--- plug-ins/wmf/wmf.cpp.orig	2014-08-24 15:46:01 UTC
++++ plug-ins/wmf/wmf.cpp
+@@ -54,15 +54,17 @@ typedef W32::LOGFONTW LOGFONTW;
  
  #elif HAVE_LIBEMF
    namespace W32 {

@@ -1,6 +1,6 @@
---- objects/GRAFCET/boolequation.c.orig	Sun Oct  6 14:55:22 2002
-+++ objects/GRAFCET/boolequation.c	Mon Mar 17 13:56:09 2003
-@@ -58,7 +58,7 @@
+--- objects/GRAFCET/boolequation.c.orig	2014-08-24 15:46:01 UTC
++++ objects/GRAFCET/boolequation.c
+@@ -58,7 +58,7 @@ struct _Block {
  
  
  /* utility */
@@ -9,7 +9,7 @@
  {
    switch (c) {
    case '!':
-@@ -136,7 +136,7 @@
+@@ -136,7 +136,7 @@ static Block *textblock_create(const gch
      gchar *p1;
      c = g_utf8_get_char(*str);
      p1 = g_utf8_next_char(*str);

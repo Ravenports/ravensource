@@ -55,6 +55,6 @@ INSTALL_TARGET=		install-strip
 CPPFLAGS=		-Wno-deprecated-declarations
 INSTALL_REQ_TOOLCHAIN=	yes
 
-post-patch:
+pre-configure:
 	${REINPLACE_CMD} -e "s|${CAT1}|file://${LOCALBASE}/share/xsl/docbook/|" \
 		${WRKSRC}/configure
