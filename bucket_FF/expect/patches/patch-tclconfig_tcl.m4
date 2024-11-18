@@ -499,7 +499,7 @@
 -	    esac
  	    ;;
 -	FreeBSD-*)
-+	DragonFly-*|FreeBSD-*|MidnightBSD-*)
++	FreeBSD-*|DragonFly-*|MidnightBSD-*)
  	    # This configuration from FreeBSD Ports.
  	    SHLIB_CFLAGS="-fPIC"
  	    SHLIB_LD="${CC} -shared"
@@ -578,15 +578,18 @@
      esac
  
      AS_IF([test "$do64bit" = yes -a "$do64bit_ok" = no], [
-@@ -1966,7 +2034,7 @@ dnl # preprocessing tests use only CPPFL
+@@ -1966,9 +2034,9 @@ dnl # preprocessing tests use only CPPFL
  	case $system in
  	    AIX-*) ;;
  	    BSD/OS*) ;;
 -	    CYGWIN_*) ;;
 +	    CYGWIN_*|MINGW32_*) ;;
  	    IRIX*) ;;
- 	    NetBSD-*|FreeBSD-*|OpenBSD-*) ;;
+-	    NetBSD-*|FreeBSD-*|OpenBSD-*) ;;
++	    NetBSD-*|FreeBSD-*|OpenBSD-*|DragonFly-*|MidnightBSD-*) ;;
  	    Darwin-*) ;;
+ 	    SCO_SV-3.2*) ;;
+ 	    windows) ;;
 @@ -1978,15 +2046,111 @@ dnl # preprocessing tests use only CPPFL
      AS_IF([test "$tcl_cv_cc_visibility_hidden" != yes], [
  	AC_DEFINE(MODULE_SCOPE, [extern],
@@ -712,7 +715,7 @@
  
      AC_SUBST(SHLIB_LD_LIBS)
      AC_SUBST(SHLIB_CFLAGS)
-@@ -2025,7 +2190,6 @@ dnl # preprocessing tests use only CPPFL
+@@ -2025,13 +2190,13 @@ dnl # preprocessing tests use only CPPFL
  #		USE_TERMIOS
  #		USE_TERMIO
  #		USE_SGTTY
@@ -720,7 +723,22 @@
  #--------------------------------------------------------------------
  
  AC_DEFUN([TEA_SERIAL_PORT], [
-@@ -2237,7 +2401,6 @@ closedir(d);
+     AC_CHECK_HEADERS(sys/modem.h)
+     AC_CACHE_CHECK([termios vs. termio vs. sgtty], tcl_cv_api_serial, [
+     AC_TRY_RUN([
++#include <stdlib.h>
+ #include <termios.h>
+ 
+ int main() {
+@@ -2072,6 +2237,7 @@ int main() {
+     fi
+     if test $tcl_cv_api_serial = no ; then
+ 	AC_TRY_RUN([
++#include <stdlib.h>
+ #include <termios.h>
+ #include <errno.h>
+ 
+@@ -2237,7 +2403,6 @@ closedir(d);
  #		XINCLUDES
  #		XLIBSW
  #		PKG_LIBS (appends to)
@@ -728,7 +746,7 @@
  #--------------------------------------------------------------------
  
  AC_DEFUN([TEA_PATH_X], [
-@@ -2251,9 +2414,9 @@ AC_DEFUN([TEA_PATH_UNIX_X], [
+@@ -2251,9 +2416,9 @@ AC_DEFUN([TEA_PATH_UNIX_X], [
      not_really_there=""
      if test "$no_x" = ""; then
  	if test "$x_includes" = ""; then
@@ -740,7 +758,7 @@
  		not_really_there="yes"
  	    fi
  	fi
-@@ -2261,11 +2424,11 @@ AC_DEFUN([TEA_PATH_UNIX_X], [
+@@ -2261,11 +2426,11 @@ AC_DEFUN([TEA_PATH_UNIX_X], [
      if test "$no_x" = "yes" -o "$not_really_there" = "yes"; then
  	AC_MSG_CHECKING([for X11 header files])
  	found_xincludes="no"
@@ -754,7 +772,7 @@
  		    AC_MSG_RESULT([$i])
  		    XINCLUDES=" -I$i"
  		    found_xincludes="yes"
-@@ -2333,7 +2496,6 @@ AC_DEFUN([TEA_PATH_UNIX_X], [
+@@ -2333,7 +2498,6 @@ AC_DEFUN([TEA_PATH_UNIX_X], [
  #		HAVE_SYS_FILIO_H
  #		USE_FIONBIO
  #		O_NONBLOCK
@@ -762,7 +780,7 @@
  #--------------------------------------------------------------------
  
  AC_DEFUN([TEA_BLOCKING_STYLE], [
-@@ -2368,7 +2530,6 @@ AC_DEFUN([TEA_BLOCKING_STYLE], [
+@@ -2368,7 +2532,6 @@ AC_DEFUN([TEA_BLOCKING_STYLE], [
  #		HAVE_TM_GMTOFF
  #		HAVE_TM_TZADJ
  #		HAVE_TIMEZONE_VAR
@@ -770,7 +788,27 @@
  #--------------------------------------------------------------------
  
  AC_DEFUN([TEA_TIME_HANDLER], [
-@@ -2437,7 +2598,6 @@ AC_DEFUN([TEA_TIME_HANDLER], [
+@@ -2398,7 +2561,8 @@ AC_DEFUN([TEA_TIME_HANDLER], [
+     #
+     AC_CACHE_CHECK([long timezone variable], tcl_cv_timezone_long, [
+ 	AC_TRY_COMPILE([#include <time.h>],
+-	    [extern long timezone;
++	    [#include <stdlib.h>
++	    extern long timezone;
+ 	    timezone += 1;
+ 	    exit (0);],
+ 	    tcl_cv_timezone_long=yes, tcl_cv_timezone_long=no)])
+@@ -2410,7 +2574,8 @@ AC_DEFUN([TEA_TIME_HANDLER], [
+ 	#
+ 	AC_CACHE_CHECK([time_t timezone variable], tcl_cv_timezone_time, [
+ 	    AC_TRY_COMPILE([#include <time.h>],
+-		[extern time_t timezone;
++		[#include <stdlib.h>
++	        extern time_t timezone;
+ 		timezone += 1;
+ 		exit (0);],
+ 		tcl_cv_timezone_time=yes, tcl_cv_timezone_time=no)])
+@@ -2437,7 +2602,6 @@ AC_DEFUN([TEA_TIME_HANDLER], [
  #
  #	Might defines some of the following vars:
  #		strtod (=fixstrtod)
@@ -778,7 +816,15 @@
  #--------------------------------------------------------------------
  
  AC_DEFUN([TEA_BUGGY_STRTOD], [
-@@ -2488,7 +2648,7 @@ AC_DEFUN([TEA_BUGGY_STRTOD], [
+@@ -2445,6 +2609,7 @@ AC_DEFUN([TEA_BUGGY_STRTOD], [
+     if test "$tcl_strtod" = 1; then
+ 	AC_CACHE_CHECK([for Solaris2.4/Tru64 strtod bugs], tcl_cv_strtod_buggy,[
+ 	    AC_TRY_RUN([
++	        #include <stdlib.h>
+ 		extern double strtod();
+ 		int main() {
+ 		    char *infString="Inf", *nanString="NaN", *spaceString=" ";
+@@ -2488,7 +2653,7 @@ AC_DEFUN([TEA_BUGGY_STRTOD], [
  #
  # Results:
  #
@@ -787,7 +833,7 @@
  #		TCL_LIBS
  #		MATH_LIBS
  #
-@@ -2497,7 +2657,6 @@ AC_DEFUN([TEA_BUGGY_STRTOD], [
+@@ -2497,7 +2662,6 @@ AC_DEFUN([TEA_BUGGY_STRTOD], [
  #
  #	Might define the following vars:
  #		HAVE_NET_ERRNO_H
@@ -795,7 +841,7 @@
  #--------------------------------------------------------------------
  
  AC_DEFUN([TEA_TCL_LINK_LIBS], [
-@@ -2575,7 +2734,6 @@ AC_DEFUN([TEA_TCL_LINK_LIBS], [
+@@ -2575,7 +2739,6 @@ AC_DEFUN([TEA_TCL_LINK_LIBS], [
  #		_ISOC99_SOURCE
  #		_LARGEFILE64_SOURCE
  #		_LARGEFILE_SOURCE64
@@ -803,7 +849,7 @@
  #--------------------------------------------------------------------
  
  AC_DEFUN([TEA_TCL_EARLY_FLAG],[
-@@ -2623,7 +2781,6 @@ AC_DEFUN([TEA_TCL_EARLY_FLAGS],[
+@@ -2623,7 +2786,6 @@ AC_DEFUN([TEA_TCL_EARLY_FLAGS],[
  #		HAVE_STRUCT_DIRENT64
  #		HAVE_STRUCT_STAT64
  #		HAVE_TYPE_OFF64_T
@@ -811,7 +857,7 @@
  #--------------------------------------------------------------------
  
  AC_DEFUN([TEA_TCL_64BIT_FLAGS], [
-@@ -2655,7 +2812,7 @@ AC_DEFUN([TEA_TCL_64BIT_FLAGS], [
+@@ -2655,7 +2817,7 @@ AC_DEFUN([TEA_TCL_64BIT_FLAGS], [
  	# Now check for auxiliary declarations
  	AC_CACHE_CHECK([for struct dirent64], tcl_cv_struct_dirent64,[
  	    AC_TRY_COMPILE([#include <sys/types.h>
@@ -820,7 +866,7 @@
  		tcl_cv_struct_dirent64=yes,tcl_cv_struct_dirent64=no)])
  	if test "x${tcl_cv_struct_dirent64}" = "xyes" ; then
  	    AC_DEFINE(HAVE_STRUCT_DIRENT64, 1, [Is 'struct dirent64' in <sys/types.h>?])
-@@ -2725,12 +2882,12 @@ AC_DEFUN([TEA_TCL_64BIT_FLAGS], [
+@@ -2725,12 +2887,12 @@ AC_DEFUN([TEA_TCL_64BIT_FLAGS], [
  AC_DEFUN([TEA_INIT], [
      # TEA extensions pass this us the version of TEA they think they
      # are compatible with.
@@ -835,7 +881,7 @@
      fi
      if test x"$1" = x ; then
  	AC_MSG_ERROR([
-@@ -2740,21 +2897,36 @@ TEA version not specified.])
+@@ -2740,21 +2902,36 @@ TEA version not specified.])
      else
  	AC_MSG_RESULT([ok (TEA ${TEA_VERSION})])
      fi
@@ -877,7 +923,7 @@
  	    ;;
      esac
  
-@@ -3061,7 +3233,7 @@ AC_DEFUN([TEA_PREFIX], [
+@@ -3061,7 +3238,7 @@ AC_DEFUN([TEA_PREFIX], [
  # TEA_SETUP_COMPILER_CC --
  #
  #	Do compiler checks the way we want.  This is just a replacement
@@ -886,7 +932,7 @@
  #
  # Arguments:
  #	none
-@@ -3074,16 +3246,22 @@ AC_DEFUN([TEA_SETUP_COMPILER_CC], [
+@@ -3074,16 +3251,22 @@ AC_DEFUN([TEA_SETUP_COMPILER_CC], [
      # Don't put any macros that use the compiler (e.g. AC_TRY_COMPILE)
      # in this macro, they need to go into TEA_SETUP_COMPILER instead.
  
@@ -903,8 +949,8 @@
 +    INSTALL='$(SHELL) $(srcdir)/tclconfig/install-sh -c'
 +    INSTALL_DATA_DIR='${INSTALL} -d -m 755'
 +    INSTALL_DATA='${INSTALL} -m 644'
-+    INSTALL_PROGRAM='${INSTALL}'
-+    INSTALL_SCRIPT='${INSTALL}'
++    INSTALL_PROGRAM='${INSTALL} -m 755 -s'
++    INSTALL_SCRIPT='${INSTALL} -m 755'
 +    INSTALL_LIBRARY='${INSTALL_DATA}'
 +
 +    AC_SUBST(INSTALL)
@@ -916,7 +962,7 @@
  
      #--------------------------------------------------------------------
      # Checks to see if the make program sets the $MAKE variable.
-@@ -3095,7 +3273,7 @@ AC_DEFUN([TEA_SETUP_COMPILER_CC], [
+@@ -3095,7 +3278,7 @@ AC_DEFUN([TEA_SETUP_COMPILER_CC], [
      # Find ranlib
      #--------------------------------------------------------------------
  
@@ -925,7 +971,7 @@
  
      #--------------------------------------------------------------------
      # Determines the correct binary file extension (.o, .obj, .exe etc.)
-@@ -3176,92 +3354,128 @@ AC_DEFUN([TEA_SETUP_COMPILER], [
+@@ -3176,92 +3359,128 @@ AC_DEFUN([TEA_SETUP_COMPILER], [
  #	MAKE_STUB_LIB	Makefile rule for building a stub library
  #	VC_MANIFEST_EMBED_DLL Makefile rule for embedded VC manifest in DLL
  #	VC_MANIFEST_EMBED_EXE Makefile rule for embedded VC manifest in EXE
@@ -1128,7 +1174,7 @@
  ])
  
  #------------------------------------------------------------------------
-@@ -3350,7 +3564,7 @@ AC_DEFUN([TEA_LIB_SPEC], [
+@@ -3350,7 +3569,7 @@ AC_DEFUN([TEA_LIB_SPEC], [
  #
  # Results:
  #
@@ -1137,7 +1183,7 @@
  #		TCL_TOP_DIR_NATIVE
  #		TCL_INCLUDES
  #------------------------------------------------------------------------
-@@ -3389,12 +3603,9 @@ AC_DEFUN([TEA_PRIVATE_TCL_HEADERS], [
+@@ -3389,12 +3608,9 @@ AC_DEFUN([TEA_PRIVATE_TCL_HEADERS], [
              # the framework's Headers and PrivateHeaders directories
              case ${TCL_DEFS} in
  	    	*TCL_FRAMEWORK*)
@@ -1153,7 +1199,7 @@
  		    else
  			TCL_INCLUDES="${TCL_INCLUDES} ${TCL_INCLUDE_SPEC} `echo "${TCL_INCLUDE_SPEC}" | sed -e 's/Headers/PrivateHeaders/'`"
  		    fi
-@@ -3431,7 +3642,7 @@ AC_DEFUN([TEA_PRIVATE_TCL_HEADERS], [
+@@ -3431,7 +3647,7 @@ AC_DEFUN([TEA_PRIVATE_TCL_HEADERS], [
  #	Adds a --with-tclinclude switch to configure.
  #	Result is cached.
  #
@@ -1162,7 +1208,7 @@
  #		TCL_INCLUDES
  #------------------------------------------------------------------------
  
-@@ -3521,7 +3732,7 @@ AC_DEFUN([TEA_PUBLIC_TCL_HEADERS], [
+@@ -3521,7 +3737,7 @@ AC_DEFUN([TEA_PUBLIC_TCL_HEADERS], [
  #
  # Results:
  #
@@ -1171,7 +1217,7 @@
  #		TK_INCLUDES
  #------------------------------------------------------------------------
  
-@@ -3610,7 +3821,7 @@ AC_DEFUN([TEA_PRIVATE_TK_HEADERS], [
+@@ -3610,7 +3826,7 @@ AC_DEFUN([TEA_PRIVATE_TK_HEADERS], [
  #	Adds a --with-tkinclude switch to configure.
  #	Result is cached.
  #
@@ -1180,7 +1226,7 @@
  #		TK_INCLUDES
  #------------------------------------------------------------------------
  
-@@ -3828,11 +4039,10 @@ AC_DEFUN([TEA_PATH_CONFIG], [
+@@ -3828,11 +4044,10 @@ AC_DEFUN([TEA_PATH_CONFIG], [
  #
  # Results:
  #
@@ -1193,7 +1239,7 @@
  #------------------------------------------------------------------------
  
  AC_DEFUN([TEA_LOAD_CONFIG], [
-@@ -3893,7 +4103,6 @@ AC_DEFUN([TEA_LOAD_CONFIG], [
+@@ -3893,7 +4108,6 @@ AC_DEFUN([TEA_LOAD_CONFIG], [
  #
  # Results:
  #	Adds to LIBS the appropriate extension library
@@ -1201,7 +1247,7 @@
  #------------------------------------------------------------------------
  AC_DEFUN([TEA_LOAD_CONFIG_LIB], [
      AC_MSG_CHECKING([For $1 library for LIBS])
-@@ -3925,8 +4134,7 @@ AC_DEFUN([TEA_LOAD_CONFIG_LIB], [
+@@ -3925,8 +4139,7 @@ AC_DEFUN([TEA_LOAD_CONFIG_LIB], [
  #		$1
  #
  # Results:
@@ -1211,7 +1257,7 @@
  #------------------------------------------------------------------------
  
  AC_DEFUN([TEA_EXPORT_CONFIG], [
-@@ -3943,12 +4151,12 @@ AC_DEFUN([TEA_EXPORT_CONFIG], [
+@@ -3943,12 +4156,12 @@ AC_DEFUN([TEA_EXPORT_CONFIG], [
  	eval $1_LIB_FLAG="-l$1`echo ${PACKAGE_VERSION} | tr -d .`${DBGX}"
  	eval $1_STUB_LIB_FLAG="-l$1stub`echo ${PACKAGE_VERSION} | tr -d .`${DBGX}"
      fi
@@ -1230,7 +1276,7 @@
  
      AC_SUBST($1_BUILD_LIB_SPEC)
      AC_SUBST($1_LIB_SPEC)
-@@ -4029,8 +4237,6 @@ AC_DEFUN([TEA_PATH_CELIB], [
+@@ -4029,8 +4242,6 @@ AC_DEFUN([TEA_PATH_CELIB], [
  	fi
      fi
  ])
