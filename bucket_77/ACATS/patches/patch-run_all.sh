@@ -1,4 +1,4 @@
---- run_all.sh.orig	2023-09-15 08:28:55 UTC
+--- run_all.sh.orig	2024-08-01 17:06:01 UTC
 +++ run_all.sh
 @@ -72,6 +72,14 @@ log () {
    echo "$@" >> $dir/acats.log
