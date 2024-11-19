@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	10
+DEF[PORTVERSION]=	13
 DEF[FILEVERSION]=	0${PORTVERSION}
 # ----------------------------------------------------------------------------
 
@@ -12,7 +12,8 @@ CONTACT=		John_Marino[draco@marino.st]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		SF/gen-img-dec
-DISTFILE[1]=		gid_${FILEVERSION}.zip:main
+# DISTFILE[1]=		gid_${FILEVERSION}.zip:main
+DISTFILE[1]=		gid_013_01_without_test_images.zip:main
 
 SPKGS[std]=		set primary dev docs
 
@@ -53,5 +54,5 @@ do-install:
 
 post-install:
 	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
-	${INSTALL_DATA} ${WRKSRC}/gid.txt ${STAGEDIR}${STD_DOCDIR}
+	${INSTALL_DATA} ${WRKSRC}/doc/gid.txt ${STAGEDIR}${STD_DOCDIR}
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
