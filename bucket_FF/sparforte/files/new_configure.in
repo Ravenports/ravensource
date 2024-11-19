@@ -8,6 +8,7 @@ SETSOUND=@SETSOUND@
 SETPCRE=@SETPCRE@
 SETGL=@SETGL@
 SETL10N=@SETL10N@
+SETSDL=@SETSDL@
 
 CCTYPE=ada
 CPUTYPE="@ARCH@"
@@ -24,10 +25,6 @@ RLINCLSUB="-I./areadline/"
 RLLIBSSUB="-L@PREFIX@/lib -lreadline -lhistory c_rl.o"
 RLFLAG="-DREADLINE"
 JOBSSUB="@JOBSSUB@"
-FASTCGISUB=
-SDLINCLSSUB=
-SDLLIBSTYPE=$(@PREFIX@/bin/pkgconf --libs SDL_image)
-SDLINCLTYPE=$(@PREFIX@/bin/pkgconf --cflags SDL_image)
 
 # Blank defaults
 GSTREAMERLIBSSUB=
@@ -41,6 +38,8 @@ APQLIBSSUB=
 APQINCLSSUB=
 PCRELIBSSUB=
 PCREOBJSUB=
+SDLINCLSSUB=
+FASTCGISUB=
 PCREFLAG=
 L10NLIBS=
 L10NFLAG=
@@ -81,6 +80,11 @@ fi
 if [ "${SETGL}" = "ON" ]; then
    MESAINCLSUB=$(@PREFIX@/bin/pkgconf --cflags gl glu)
    MESALIBSSUB=$(@PREFIX@/bin/pkgconf --libs gl glu)
+fi
+
+if [ "${SETSDL}" = "ON" ]; then
+   SDLLIBSTYPE=$(@PREFIX@/bin/pkgconf --libs SDL_image)
+   SDLINCLTYPE=$(@PREFIX@/bin/pkgconf --cflags SDL_image)
 fi
 
 if [ "${SETPCRE}" = "ON" ]; then

@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.6.2
+DEF[PORTVERSION]=	2.6.3
 DEF[TAG]=		v${PORTVERSION}
 DEF[SF_SRC]=		{{WRKSRC}}/src
 DEF[SCAL]=		scanner-calendar
@@ -6,7 +6,6 @@ DEF[SCAL]=		scanner-calendar
 
 NAMEBASE=		sparforte
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		shells lang
 VARIANTS=		std
 SDESC[std]=		Shell and scripting for mission-critical projects
@@ -19,12 +18,12 @@ DISTFILE[1]=		generated:main
 
 SPKGS[std]=		set primary man examples docs
 
-OPTIONS_AVAILABLE=	CGI OPENGL SOUND MYSQL PGSQL PCRE L10N
-OPTIONS_STANDARD=	CGI OPENGL SOUND MYSQL PGSQL PCRE L10N
+OPTIONS_AVAILABLE=	CGI OPENGL SOUND MYSQL PGSQL PCRE L10N SDL
+OPTIONS_STANDARD=	CGI OPENGL SOUND MYSQL PGSQL PCRE L10N SDL
 OPTGROUP_RESTRICTED=	DBASE
 OPTDESCR[DBASE]=	Databases supported
 OPTGROUP[DBASE]=	MYSQL PGSQL
-OPT_ON[all]=		MYSQL PGSQL OPENGL SOUND PCRE L10N
+OPT_ON[all]=		MYSQL PGSQL SOUND PCRE L10N
 
 LICENSE=		GPLv2+:primary
 LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
@@ -38,13 +37,7 @@ LICENSE_SCHEME=		solo
 
 BROKEN[aarch64]=	fails to compile: gnat1: error: unknown value aarch64 for -march
 
-# still seen on gcc 14.2.0
-BROKEN[all]=		GNAT BUG DETECTED gnat_to_gnu_entity, parser_pen.adb
-
-BUILD_DEPENDS=		libGLU:dev:std
-
 USES=			bdb gettext gmake pkgconfig readline execinfo ssl zstd
-SDL_COMPONENTS=		image1
 SINGLE_JOB=		yes
 MUST_CONFIGURE=		yes
 MAKE_ARGS=		RPM_BUILD_ROOT=1
@@ -80,10 +73,23 @@ VAR_ARCH[i386]=		MAKEFILE_LINE=CPU_SDL=spar_os-sdl-32bit
 [PGSQL].MAKEFILE_OFF=			SFARG+=-DPOSTGRES=false
 
 [OPENGL].BUILD_DEPENDS_ON=		libglvnd:dev:std
+					libGLU:dev:std
 [OPENGL].BUILDRUN_DEPENDS_ON=		libglvnd:primary:std
 [OPENGL].MAKEFILE_ON=			SETGL=ON
 					SFARG+=-DOPENGL=true
 [OPENGL].MAKEFILE_OFF=			SFARG+=-DOPENGL=false
+
+[SDL].DESCRIPTION=			Add support for Simple DirectMedia Layer
+[SDL].IMPLIES_ON=			OPENGL
+[SDL].MAKEFILE_ON=			SETSDL=ON
+					SFARG+=-DSDL=true
+[SDL].MAKEFILE_OFF=			SFARG+=-DSDL=false
+[SDL].BUILD_DEPENDS_ON=			sdl1:dev:std
+					sdl1_image:dev:std
+[SDL].BUILDRUN_DEPENDS_ON=		sdl1:primary:std
+					sdl1_image:primary:std
+# still seen on gcc 14.2.0
+[SDL].BROKEN_ON=			GNAT BUG DETECTED gnat_to_gnu_entity, parser_pen.adb
 
 [SOUND].GNOME_COMPONENTS_ON=		glib libxml2
 [SOUND].BUILD_DEPENDS_ON=		gstreamer1:dev:std
@@ -117,19 +123,22 @@ post-extract:
 		-e "s|@SETGL@|${SETGL}|" \
 		-e "s|@SETPCRE@|${SETPCRE}|" \
 		-e "s|@SETL10N@|${SETL10N}|" \
+		-e "s|@SETSDL@|${SETSDL}|" \
 		-e "s|@SED@|${SED}|" \
 		-e "s|@OPENSSLLIB@|${OPENSSLLIB}|g" \
 		-e "s|@JOBSSUB@|${MAKE_JOBS_NUMBER}|g" \
 		${FILESDIR}/new_configure.in > ${WRKSRC}/new_configure
 	${CHMOD} 755 ${WRKSRC}/new_configure
 
+pre-configure-SDL-ON:
+	${CP} ${SF_SRC}/${CPU_SDL}.ads ${SF_SRC}/spar_os-sdl.ads
+	${MV} ${SF_SRC}/spar_os_sdl.adb ${SF_SRC}/spar_os-sdl.adb
+
 pre-configure:
 	# move new 4 lines from post-extract to allow patching
 	${CP} ${SF_SRC}/${SCAL}-latest.ads ${SF_SRC}/${SCAL}.ads
 	${CP} ${SF_SRC}/${SCAL}-latest.adb ${SF_SRC}/${SCAL}.adb
 	${CP} ${SF_SRC}/${OSBIND}.ads ${SF_SRC}/spar_os.ads
-	${CP} ${SF_SRC}/${CPU_SDL}.ads ${SF_SRC}/spar_os-sdl.ads
-	${MV} ${SF_SRC}/spar_os_sdl.adb ${SF_SRC}/spar_os-sdl.adb
 	# Use the gcc compiler associated with the ada frontend.
 	# Without this substitution, the base compiler is used instead.
 	${REINPLACE_CMD} \
