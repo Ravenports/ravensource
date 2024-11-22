@@ -1,5 +1,5 @@
 # known to retag release
-DEF[PORTVERSION]=	3.1.10
+DEF[PORTVERSION]=	3.2.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		fluent-bit
@@ -28,9 +28,12 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		sysutils/fluent-bit
 
+RC_SUBR=		fluent-bit:primary
+
 USES=			cpe cmake bison zlib gmake pkgconfig shebangfix
 			ssl:openssl30 python:build cclibs:primary
 # Don't use execinfo, keep dependencies down
+
 SHEBANG_ADD_SH=		lib/luajit-04dca791/configure
 CPE_VENDOR=		treasuredata
 CPE_PRODUCT=		fluent_bit
@@ -42,7 +45,7 @@ CMAKE_ARGS=		-DFLB_DEBUG=Off
 			-DFLB_OUT_PGSQL=Off
 			-DFLB_CONFIG_YAML=Off
 			-DFLB_HTTP_SERVER=On
-RC_SUBR=		fluent-bit:primary
+CFLAGS=			-Wno-deprecated-declarations
 
 # For some reason, CMake is clearing this variable, ignoring CMakeList
 # It's only set for *BSD* so dragonfly needs

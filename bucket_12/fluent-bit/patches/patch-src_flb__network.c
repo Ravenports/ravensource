@@ -1,6 +1,6 @@
---- src/flb_network.c.orig	2024-11-04 22:36:47 UTC
+--- src/flb_network.c.orig	2024-11-17 03:19:24 UTC
 +++ src/flb_network.c
-@@ -551,9 +551,6 @@ static int net_connect_async(int fd,
+@@ -603,9 +603,6 @@ static int net_connect_async(int fd,
              }
  
              /* Connection is broken, not much to do here */
@@ -10,7 +10,7 @@
              ret = strerror_r(error, so_error_buf, sizeof(so_error_buf));
              if (ret == 0) {
                  str = so_error_buf;
-@@ -562,9 +559,6 @@ static int net_connect_async(int fd,
+@@ -614,9 +611,6 @@ static int net_connect_async(int fd,
                  flb_errno();
                  return -1;
              }
@@ -20,7 +20,7 @@
              flb_error("[net] TCP connection failed: %s:%i (%s)",
                        u->tcp_host, u->tcp_port, str);
              return -1;
-@@ -1871,7 +1865,7 @@ static int net_address_unix_socket_peer_
+@@ -1920,7 +1914,7 @@ static int net_address_unix_socket_peer_
                                                  int output_buffer_size,
                                                  size_t *output_data_size)
  {
@@ -29,7 +29,7 @@
      unsigned int peer_credentials_size;
      struct ucred peer_credentials;
  #endif
-@@ -1889,7 +1883,7 @@ static int net_address_unix_socket_peer_
+@@ -1938,7 +1932,7 @@ static int net_address_unix_socket_peer_
          return -1;
      }
  
