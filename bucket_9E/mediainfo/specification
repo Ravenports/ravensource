@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	24.11
+DEF[PORTVERSION]=	24.11.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		mediainfo
@@ -10,8 +10,10 @@ HOMEPAGE=		https://mediaarea.net/en/MediaInfo
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GITHUB/MediaArea:MediaInfo:v${PORTVERSION}
-DISTFILE[1]=		generated:main
+# SITES[main]=		GITHUB/MediaArea:MediaInfo:v${PORTVERSION}
+# DISTFILE[1]=		generated:main
+SITES[main]=		https://mediaarea.net/download/source/mediainfo/${PORTVERSION}/
+DISTFILE[1]=		mediainfo_${PORTVERSION}.tar.xz:main
 
 SPKGS[std]=		single
 
@@ -35,6 +37,7 @@ CONFIGURE_WRKSRC=	{{WRKSRC}}/Project/GNU/CLI
 BUILD_WRKSRC=		{{WRKSRC}}/Project/GNU/CLI
 INSTALL_WRKSRC=		{{WRKSRC}}/Project/GNU/CLI
 INSTALL_TARGET=		install-strip
+DISTNAME=		MediaInfo
 
 pre-configure:
 	cd ${CONFIGURE_WRKSRC} && ${SH} ./autogen.sh
