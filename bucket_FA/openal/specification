@@ -1,6 +1,7 @@
-DEF[PORTVERSION]=	1.23.1
+DEF[PORTVERSION]=	1.24.0
 DEF[SOVERSION]=		${PORTVERSION}
 DEF[TAG]=		${PORTVERSION}
+DEF[THREADS]=		c11threads-2.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		openal
@@ -11,14 +12,19 @@ SDESC[std]=		Cross-platform 3D audio API
 HOMEPAGE=		https://www.openal-soft.org
 CONTACT=		nobody
 
-DOWNLOAD_GROUPS=	main
+DOWNLOAD_GROUPS=	main jtsiomb
 SITES[main]=		GITHUB/kcat:openal-soft:${TAG}
+SITES[jtsiomb]=		https://github.com/jtsiomb/c11threads/releases/download/v2.0/
 DISTFILE[1]=		generated:main
+DISTFILE[2]=		${THREADS}.tar.gz:jtsiomb
+DF_INDEX=		1
 
 SPKGS[std]=		set primary dev
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	C11THREADS
+OPTIONS_STANDARD=	C11THREADS
+OPT_ON[dragonfly]=	C11THREADS
+OPT_ON[midnightbsd]=	C11THREADS
 
 LICENSE=		LGPL20+:primary
 LICENSE_FILE=		LGPL20+:{{WRKSRC}}/COPYING
@@ -58,6 +64,14 @@ INSTALL_REQ_TOOLCHAIN=	yes
 VAR_OPSYS[sunos]=	CFLAGS=-D__EXTENSIONS__
 			LDFLAGS=-lrt
 
+[C11THREADS].DESCRIPTION=		Install <threads.h> on platforms missing it
+[C11THREADS].DF_INDEX_ON=		2
+
+pre-configure-C11THREADS-ON:
+	${REINPLACE_CMD} -e '/#define C11THREADS_NO_TIMESPEC_GET/d' \
+		${WRKDIR}/${THREADS}/c11threads.h
+	${INSTALL_DATA} ${WRKDIR}/${THREADS}/c11threads.h ${LOCALBASE}/include/threads.h
+
 post-patch:
 	${REINPLACE_CMD} 's|/etc/openal|${PREFIX}/etc/openal|' \
 		${WRKSRC}/alc/alconfig.cpp
@@ -65,3 +79,7 @@ post-patch:
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libopenal.so
+
+
+post-install-C11THREADS-ON:
+	${RM} ${LOCALBASE}/include/threads.h
