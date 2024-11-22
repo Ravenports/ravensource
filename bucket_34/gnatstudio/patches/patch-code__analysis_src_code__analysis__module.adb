@@ -1,4 +1,4 @@
---- code_analysis/src/code_analysis_module.adb.orig	2023-05-10 09:41:12 UTC
+--- code_analysis/src/code_analysis_module.adb.orig	2024-11-01 10:55:18 UTC
 +++ code_analysis/src/code_analysis_module.adb
 @@ -2463,6 +2463,7 @@ package body Code_Analysis_Module is
     is

@@ -1,4 +1,4 @@
---- python/core/gps-python_core.adb.orig	2023-05-10 09:41:12 UTC
+--- python/core/gps-python_core.adb.orig	2024-11-01 10:55:18 UTC
 +++ python/core/gps-python_core.adb
 @@ -43,8 +43,7 @@ package body GPS.Python_Core is
           if Python_Home.Is_Empty then

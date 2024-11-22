@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	24.0.0
+DEF[SOVERSION]=		25.0.0
+DEF[PORTVERSION]=	${SOVERSION}
 DEF[RELEASE_TAG]=	v${PORTVERSION}
 # ----------------------------------------------------------------------------
 
@@ -32,10 +33,10 @@ MAKE_ARGS=		BUILD_MODE=dev
 			INSTALL_DIR={{STAGEDIR}}{{PREFIX}}
 BUILD_TARGET=		all-libs
 INSTALL_REQ_TOOLCHAIN=	yes
-SOVERSION=		${PORTVERSION}
+SOVERSION=		${SOVERSION}
 
 pre-configure:
-	${REINPLACE_CMD} -e 's|%%SOVERSION%%|${PORTVERSION}|' ${WRKSRC}/adasat.gpr
+	${REINPLACE_CMD} -e 's|%%SOVERSION%%|${SOVERSION}|' ${WRKSRC}/adasat.gpr
 
 post-install:
 	# remove manifests

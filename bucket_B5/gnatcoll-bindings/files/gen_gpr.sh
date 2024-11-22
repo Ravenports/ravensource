@@ -9,37 +9,56 @@ python_includes="$3"
 soversion="$4"
 python3_linking="\"$5\""
 
+component_lower="$name"
+component_target="$name"
+
 case "$name" in
 	"gmp")	
 		component=GMP
 		component_upper=GMP
-		component_lower="gmp"
 		linker_opts='"-lgmp"'
 		;;
 	"iconv")	
 		component=Iconv
 		component_upper=ICONV
-		component_lower="iconv"
 		linker_opts='"-liconv"'
 		;;
 	"readline")
 		component=Readline
 		component_upper=READLINE
-		component_lower="readline"
 		linker_opts='"-lreadline"'
 		;;
 	"syslog")
 		component=Syslog
 		component_upper=SYSLOG
-		component_lower="syslog"
 		linker_opts=
 		;;
-	"python")
+	"python3")
 		name=python3
 		component=Python
 		component_upper=PYTHON
-		component_lower="python"
+		component_target="python"
 		linker_opts="${python3_linking}"
+		;;
+	"zlib")
+		component=Zlib
+		component_upper=ZLIB
+		linker_opts="-lz"
+		;;
+	"zstd")
+		component=ZStd
+		component_upper=ZSTD
+		linker_opts="-lzstd"
+		;;
+	"lzma")
+		component=LZMA
+		component_upper=LZMA
+		linker_opts="-llzma"
+		;;
+	"cpp")
+		component=C++
+		component_upper=CPP
+		linker_opts=
 		;;
 	*)
 		echo "Illegal component $component"
@@ -49,7 +68,7 @@ esac
 
 dname=$(dirname "$0")
 filesdir=$(cd "$dname" && pwd -P)
-target="gnatcoll_${component_lower}.gpr"
+target="gnatcoll_${component_target}.gpr"
 major="${soversion%.[0-9]}"
 
 case "$name" in

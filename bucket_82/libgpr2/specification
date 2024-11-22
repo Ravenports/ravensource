@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	24.0.0
+DEF[SOVERSION]=		25.0.0
+DEF[PORTVERSION]=	${SOVERSION}
 DEF[RELEASE]=		v${PORTVERSION}
 # ----------------------------------------------------------------------------
 
@@ -22,7 +23,7 @@ OPTIONS_STANDARD=	none
 FPC_EQUIVALENT=		devel/libgpr
 
 LICENSE=		APACHE20:primary
-LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE
+LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE-lib
 LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/lib/gpr2.ads
 LICENSE_AWK=		TERMS:"^$$"
@@ -37,21 +38,34 @@ BUILDRUN_DEPENDS=	langkit_support:primary:std
 EXRUN[dev]=		gnatcoll-bindings:dev:std
 			gnatcoll-core:dev:std
 
+# if GPR2_BUILD is "release", this happens:
+# during RTL pass: expand
+# +===========================GNAT BUG DETECTED==============================+
+# | 14.2.0 (x86_64-raven-dragonfly6.4) in set_parm_rtl, at cfgexpand.cc:1436 |
+# | No source file position information available                            |
+# | Compiling /construction/libgpr2/gpr-25.0.0/src/build/gpr2-build-actions-post_bind.adb|
+# | Please submit a bug report; see https://gcc.gnu.org/bugs/ .              |
+# | Use a subject line meaningful to you and us to track the bug.            |
+# | Include the entire contents of this bug box in the report.               |
+# | Include the exact command that you entered.                              |
+# | Also include sources listed below.                                       |
+# +==========================================================================+
+
 USES=			gmake gprbuild python:build iconv:build
 MAKE_ARGS=		prefix="{{STAGEDIR}}{{PREFIX}}"
 			GPR2KBDIR="{{LOCALBASE}}/share/gprconfig"
+			GPR2_BUILD="debug"
+			PROCESSORS={{MAKE_JOBS_NUMBER}}
 BUILD_TARGET=		build-lib-static
 			build-lib-relocatable
 			build-lib-static-pic
 INSTALL_TARGET=		install-libs
 INSTALL_REQ_TOOLCHAIN=	yes
-SOVERSION=		${PORTVERSION}
+SOVERSION=		${SOVERSION}
 
 pre-configure:
-	${REINPLACE_CMD} -e 's|%%SOVERSION%%|${PORTVERSION}|' ${WRKSRC}/gpr2.gpr
+	${REINPLACE_CMD} -e 's|%%SOVERSION%%|${SOVERSION}|' ${WRKSRC}/gpr2.gpr
 
 post-install:
-	# remove manifests
-	${RM} -r ${STAGEDIR}${PREFIX}/share/gpr/manifests
 	# strip binaries
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libgpr2.so

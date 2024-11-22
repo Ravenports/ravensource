@@ -1,0 +1,43 @@
+DEF[SOVERSION]=		25.0.0
+DEF[PORTVERSION]=	${SOVERSION}
+DEF[RELEASE]=		v${PORTVERSION}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		prettier-ada
+VERSION=		${PORTVERSION}
+KEYWORDS=		ada textproc
+VARIANTS=		std
+SDESC[std]=		Ada port of prettier formatter
+HOMEPAGE=		https://github.com/AdaCore/prettier-ada
+CONTACT=		John_Marino[draco@marino.st]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/AdaCore:prettier-ada:${RELEASE}
+DISTFILE[1]=		generated:main
+
+SPKGS[std]=		set primary dev
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+BUILD_DEPENDS=		libvss:dev:std
+			gnatcoll-core:dev:std
+BUILDRUN_DEPENDS=	libvss:primary:std
+			gnatcoll-core:primary:std
+
+EXRUN[dev]=		libvss:dev:std
+
+USES=			gmake gprbuild
+INSTALL_REQ_TOOLCHAIN=	yes
+INSTALL_TARGET=		install-all
+MAKE_ARGS=		PROCESSORS={{MAKE_JOBS_NUMBER}}
+			BUILD_MODE=prod
+SOVERSION=		${SOVERSION}
+
+pre-configure:
+	# support soname libraries
+	${REINPLACE_CMD} -e 's|@SOVERSION@|${SOVERSION}|' \
+		${WRKSRC}/prettier_ada.gpr
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib*.so

@@ -1,6 +1,6 @@
---- share/support/ui/pygps/__init__.py.orig	2023-05-10 09:41:12 UTC
+--- share/support/ui/pygps/__init__.py.orig	2024-11-01 10:55:18 UTC
 +++ share/support/ui/pygps/__init__.py
-@@ -396,7 +396,7 @@ try:
+@@ -430,7 +430,7 @@ try:
      # it is better to directly call the appropriate GPS action or menu
      # rather than rely on these functions
  

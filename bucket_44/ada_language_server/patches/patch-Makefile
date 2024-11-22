@@ -1,6 +1,6 @@
---- Makefile.orig	2023-10-20 00:56:01 UTC
+--- Makefile.orig	2024-10-14 16:47:27 UTC
 +++ Makefile
-@@ -12,12 +12,7 @@ ifeq ($(OS),Windows_NT)
+@@ -15,12 +15,7 @@ ifeq ($(OS),Windows_NT)
     PYTHON=python.exe
     EXE=.exe
  else
@@ -13,16 +13,16 @@
     PYTHON=python3
     EXE=
  endif
-@@ -98,6 +93,8 @@ all: coverage-instrument
- 	$(GPRBUILD) -P gnat/lsp_server.gpr -p $(COVERAGE_BUILD_FLAGS) \
- 		-XVERSION=$(VERSION) -XBUILD_DATE=$(BUILD_DATE)
+@@ -112,6 +107,8 @@ endif
+ 	$(GPRBUILD) -P gnat/lsp_3_17.gpr -p $(COVERAGE_BUILD_FLAGS)
+ 	$(GPRBUILD) -P gnat/tester.gpr -p $(BUILD_FLAGS)
  	$(GPRBUILD) -P gnat/lsp_client.gpr -p $(COVERAGE_BUILD_FLAGS)
 +	$(GPRBUILD) -P gnat/lsp_client_glib.gpr -p $(COVERAGE_BUILD_FLAGS) \
 +		-XVERSION=$(VERSION) -XBUILD_DATE=$(BUILD_DATE)
  ifdef NODE
- 	mkdir -p integration/vscode/ada/$(NODE_ARCH)/$(NODE_PLATFORM)
- 	cp -f $(ALS) integration/vscode/ada/$(NODE_ARCH)/$(NODE_PLATFORM)
-@@ -120,15 +117,17 @@ endif
+ 	mkdir -p integration/vscode/ada/$(NODE_ARCH_PLATFORM)
+ 	cp -v -f $(ALS) integration/vscode/ada/$(NODE_ARCH_PLATFORM)
+@@ -135,15 +132,17 @@ endif
  
  install:
  	gprinstall -f -P gnat/lsp_server.gpr -p -r --mode=usage \

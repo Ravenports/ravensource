@@ -1,0 +1,32 @@
+--- Makefile.orig	2024-09-24 15:34:53 UTC
++++ Makefile
+@@ -57,7 +57,8 @@ install-lib:
+ 			-XLIBRARY_TYPE=$$library_type \
+ 			-XGNATFORMAT_BUILD_MODE=$(BUILD_MODE) \
+ 			--install-name=gnatformat \
+-			--prefix="$(PREFIX)" \
++			--prefix="$(DESTDIR)$(PREFIX)" \
++			--no-manifests \
+ 			--sources-subdir=include/lal-refactor \
+ 			--build-name=$$library_type \
+ 			--build-var=LIBRARY_TYPE \
+@@ -71,7 +72,8 @@ install-bin:
+ 		-XLIBRARY_TYPE=$(LIBRARY_TYPE) \
+ 		-XBUILD_MODE=$(BUILD_MODE) \
+ 		--install-name=gnatformat_driver \
+-		--prefix="$(PREFIX)" \
++		--prefix="$(DESTDIR)$(PREFIX)" \
++		--no-manifests \
+ 		-P $(BIN_PROJECT) \
+ 		-p \
+ 		-f ;
+@@ -97,7 +99,8 @@ install-test-programs:
+ 			-XGNATFORMAT_LIBRARY_TYPE=$(LIBRARY_TYPE) \
+ 			-XLIBRARY_TYPE=$(LIBRARY_TYPE) \
+ 			-XGNATFORMAT_BUILD_MODE=$(BUILD_MODE) \
+-			--prefix="$(PREFIX)" \
++			--prefix="$(DESTDIR)$(PREFIX)" \
++			--no-manifests \
+ 			--install-name=test_programs \
+ 			--mode=usage \
+ 			-P $$proj -p -f ; \

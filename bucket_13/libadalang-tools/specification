@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	24.0.0
+DEF[SOVERSION]=		25.0.0
+DEF[PORTVERSION]=	${SOVERSION}
 DEF[RELEASE]=		v${PORTVERSION}
 # ----------------------------------------------------------------------------
 
@@ -45,17 +46,17 @@ EXRUN[dev]=		templates-parser:dev:std
 			libvss:dev:std
 EXRUN[tools]=		primary
 
-USES=			gprbuild iconv
+USES=			gmake gprbuild iconv
 INSTALL_REQ_TOOLCHAIN=	yes
 BUILD_TARGET=		lib bin
 INSTALL_TARGET=		install-bin-strip install-lib
 MAKE_ARGS=		BUILD_MODE=prod
 			PROCESSORS={{MAKE_JOBS_NUMBER}}
-SOVERSION=		${PORTVERSION}
+SOVERSION=		${SOVERSION}
 
 pre-configure:
 	# support soname libraries
-	${REINPLACE_CMD} -e 's|@SOVERSION@|${PORTVERSION}|' \
+	${REINPLACE_CMD} -e 's|@SOVERSION@|${SOVERSION}|' \
 		${WRKSRC}/src/lal_tools.gpr
 
 post-install:

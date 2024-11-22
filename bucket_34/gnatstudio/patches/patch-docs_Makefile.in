@@ -1,4 +1,4 @@
---- docs/Makefile.in.orig	2023-05-10 09:41:12 UTC
+--- docs/Makefile.in.orig	2024-11-01 10:55:18 UTC
 +++ docs/Makefile.in
 @@ -1,10 +1,9 @@
  prefix = @prefix@
@@ -14,7 +14,7 @@
  CONVERT = convert
  CP = cp -p
  
-@@ -12,17 +11,17 @@ all: ug tutorial pg gnatdoc
+@@ -12,14 +11,14 @@ all: ug tutorial pg
  static:
  
  pg:
@@ -24,10 +24,6 @@
  ug:
 -	make -C users_guide html latexpdf
 +	$(MAKE) -C users_guide html
- 
- gnatdoc:
--	make -C ../gnatdoc/docs/users_guide html latexpdf
-+	$(MAKE) -C ../gnatdoc/docs/users_guide html
  
  .PHONY: tutorial
  tutorial:

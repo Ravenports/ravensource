@@ -4,7 +4,7 @@ DEF[HASH]=		289a20c
 
 NAMEBASE=		ada_libfswatch
 VERSION=		${PORTVERSION}
-REVISION=		2
+REVISION=		3
 KEYWORDS=		devel sysutils
 VARIANTS=		std
 SDESC[std]=		Ada binding to the libfswatch library
@@ -45,6 +45,8 @@ post-extract:
 	${CP} -pRP ${LOCALBASE}/include/libfswatch/* ${WRKSRC}/libfswatch/include/libfswatch/
 
 post-install:
+	${RM} ${STAGEDIR}${PREFIX}/share/gpr/gnatcoll.gpr
+	${RM} -r ${STAGEDIR}${PREFIX}/share/gpr/manifests
 	# auto-plist include/ada_libfswatch and lib/ada_libfswatch
 	# The number for file pairs vary based on the specific headers of the
 	# system building it, so every platform would need its own manifest section

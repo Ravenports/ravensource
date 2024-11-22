@@ -1,4 +1,4 @@
---- config/ssl/openssl/wrappers.c.orig	2023-09-11 14:03:24 UTC
+--- config/ssl/openssl/wrappers.c.orig	2024-09-18 15:17:37 UTC
 +++ config/ssl/openssl/wrappers.c
 @@ -115,7 +115,7 @@ unsigned long __aws_OpenSSL_version_num(
  

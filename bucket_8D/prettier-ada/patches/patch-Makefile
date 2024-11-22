@@ -1,0 +1,41 @@
+--- Makefile.orig	2024-10-07 15:46:25 UTC
++++ Makefile
+@@ -47,11 +47,12 @@ install:
+ 		-XPRETTIER_ADA_LIBRARY_TYPE=$(LIBRARY_TYPE) \
+ 		-XLIBRARY_TYPE=$(LIBRARY_TYPE) \
+ 		-XPRETTIER_ADA_BUILD_MODE=$(BUILD_MODE) \
+-		--prefix="$(PREFIX)" \
++		--prefix="(DESTDIR)$(PREFIX)" \
+ 		--install-name=prettier_ada \
+ 		--sources-subdir=include/prettier_ada \
+ 		--build-name=$(LIBRARY_TYPE) \
+ 		--build-var=LIBRARY_TYPE \
++		--no-manifests \
+ 		-P $(LIB_PROJECT) -p -f ; \
+ 
+ .PHONY: install-all
+@@ -61,11 +62,12 @@ install-all:
+ 			-XPRETTIER_ADA_LIBRARY_TYPE=$$library_type \
+ 			-XLIBRARY_TYPE=$$library_type \
+ 			-XPRETTIER_ADA_BUILD_MODE=$(BUILD_MODE) \
+-			--prefix="$(PREFIX)" \
++			--prefix="$(DESTDIR)$(PREFIX)" \
+ 			--install-name=prettier_ada \
+ 			--sources-subdir=include/prettier_ada \
+ 			--build-name=$$library_type \
+ 			--build-var=LIBRARY_TYPE \
++			--no-manifests \
+ 			-P $(LIB_PROJECT) -p -f ; \
+ 	done ;
+ 
+@@ -87,8 +89,9 @@ install-test-programs:
+ 		-XLIBRARY_TYPE=static \
+ 		-XPRETTIER_ADA_LIBRARY_TYPE=static \
+ 		-XPRETTIER_ADA_BUILD_MODE=$(BUILD_MODE) \
+-		--prefix="$(PREFIX)" \
++		--prefix="$(DESTDIR)$(PREFIX)" \
+ 		--install-name=test_programs \
++		--no-manifests \
+ 		--mode=usage \
+ 		-P$(TEST_PROGRAMS) \
+ 		-p \

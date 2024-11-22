@@ -1,8 +1,7 @@
-DEF[PORTVERSION]=	24.0.0
+DEF[PORTVERSION]=	25.0.0
 DEF[RELEASE]=		v${PORTVERSION}
-DEF[BASE_COMPONENTS]=	gmp iconv readline syslog
-DEF[COMPONENTS]=	${BASE_COMPONENTS} python
-DEF[SOVERSION]=		0.0
+DEF[COMPONENTS]=	gmp iconv readline syslog zlib lzma cpp python3
+DEF[SOVERSION]=		25.0
 DEF[LIBTYPES]=		static static-pic relocatable
 DEF[PY3DEFAULT]=	EXTRACT_VERSION(PYTHON3_DEFAULT)
 DEF[THIRD_SNAKE]=	${PY3DEFAULT:S|.||}
@@ -22,7 +21,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/AdaCore:gnatcoll-bindings:${RELEASE}
 DISTFILE[1]=		generated:main
 
-SPKGS[std]=		set gmp iconv python3 readline syslog examples dev
+SPKGS[std]=		set gmp iconv python3 readline syslog zlib lzma cpp dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -43,7 +42,17 @@ BUILD_DEPENDS=		gmp:dev:std
 			python${THIRD_SNAKE}:dev:std
 			gnatcoll-core:dev:std
 			gnatcoll-core:primary:std
+			zlib:dev:std
+			zlib:primary:std
+			xz:dev:std
+			xz:primary:std
 
+# zstd added after the 25.0.0 release
+# #			zstd:dev:std
+# #			zstd:primary:std
+
+EXRUN[syslog]=		gnatcoll-core:primary:std
+EXRUN[cpp]=		gnatcoll-core:primary:std
 EXRUN[gmp]=		gmp:primary:std
 			gnatcoll-core:primary:std
 EXRUN[iconv]=		libiconv:primary:std
@@ -52,30 +61,32 @@ EXRUN[readline]=	readline:primary:std
 			gnatcoll-core:primary:std
 EXRUN[python3]=		python${THIRD_SNAKE}:primary:std
 			gnatcoll-core:primary:std
+EXRUN[zlib]=		zlib:primary:std
+			gnatcoll-core:primary:std
+EXRUN[lzma]=		xz:primary:std
+			gnatcoll-core:primary:std
+
+# EXRUN[zstd]=		zstd:primary:std
+# #			gnatcoll-core:primary:std
 
 USES=			gprbuild gmake iconv:build
 MAKE_ENV=		BUILD=PROD
 INSTALL_REQ_TOOLCHAIN=	yes
 SOVERSION=		${SOVERSION}
 
-post-extract:
-	${MV} ${WRKSRC}/python ${WRKSRC}/python2
-	${MV} ${WRKSRC}/python3 ${WRKSRC}/python
+pre-configure:
+	${MV} ${WRKSRC}/python3/gnatcoll_python.gpr \
+		${WRKSRC}/python3/gnatcoll_python3.gpr
 
 do-build:
-.for component in ${BASE_COMPONENTS}
+.for component in ${COMPONENTS}
 .  for libtype in ${LIBTYPES}
 	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
 		gprbuild -p -XLIBRARY_TYPE=${libtype} \
+		-XGNATCOLL_VERSION="${SOVERSION}" \
 		-XGNATCOLL_ICONV_OPT="-liconv_pic" \
+		-XGNATCOLL_PYTHON_CFLAGS="-I${PY3_INCLUDEDIR}" \
 		-P ${component}/gnatcoll_${component}.gpr)
-.  endfor
-	# handle python components separately
-.  for libtype in ${LIBTYPES}
-	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} AUTOPYTHON=${PY3DEFAULT} \
-		GNATCOLL_PYTHON_CFLAGS="-I${PY3_INCLUDEDIR}" \
-		gprbuild -p -XLIBRARY_TYPE=${libtype} \
-		-P python/gnatcoll_python.gpr)
 .  endfor
 .endfor
 
@@ -87,6 +98,8 @@ do-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/lib/gnatcoll_${component}.${libtype}
 	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV}\
 		gprinstall -p --prefix=${WRKDIR}/${component}/${libtype}\
+		--no-manifest \
+		-XGNATCOLL_VERSION="${SOVERSION}" \
 		-XLIBRARY_TYPE=${libtype} \
 		-XGNATCOLL_ICONV_OPT="-liconv_pic" \
 		-P ${component}/gnatcoll_${component}.gpr)

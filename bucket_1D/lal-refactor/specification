@@ -1,12 +1,10 @@
-# This repo is so new it's not versioned yet, assume year based version
-# 28 SEP 2023
-DEF[PORTVERSION]=	23.0.1
-DEF[RELEASE]=		0dbcc3d
+DEF[SOVERSION]=		25.0.0
+DEF[PORTVERSION]=	${SOVERSION}
+DEF[RELEASE]=		v${PORTVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		lal-refactor
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		devel ada
 VARIANTS=		std
 SDESC[std]=		Collection of Ada source code refactoring tools
@@ -43,11 +41,11 @@ MAKE_ARGS=		PROCESSORS={{MAKE_JOBS_NUMBER}}
 			BUILD_MODE=prod
 BUILD_TARGET=		lib bin
 INSTALL_REQ_TOOLCHAIN=	yes
-SOVERSION=		${PORTVERSION}
+SOVERSION=		${SOVERSION}
 
 pre-configure:
 	# support soname libraries
-	${REINPLACE_CMD} -e 's|@SOVERSION@|${PORTVERSION}|' \
+	${REINPLACE_CMD} -e 's|@SOVERSION@|${SOVERSION}|' \
 		${WRKSRC}/gnat/lal_refactor.gpr
 
 post-install:

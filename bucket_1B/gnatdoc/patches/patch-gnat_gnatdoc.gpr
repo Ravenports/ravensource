@@ -1,6 +1,6 @@
---- gnat/gnatdoc.gpr.orig	2023-09-14 13:34:58 UTC
+--- gnat/gnatdoc.gpr.orig	2024-10-04 13:57:51 UTC
 +++ gnat/gnatdoc.gpr
-@@ -40,4 +40,8 @@ project GNATdoc is
+@@ -40,8 +40,12 @@ project GNATdoc is
        for Executable ("gnatdoc-driver.adb") use "gnatdoc";
     end Builder;
  
@@ -8,4 +8,9 @@
 +      for Switches ("ada") use (@LIBS@);
 +   end Linker;
 +
+    package Install is
+-      for Artifacts ("share") use ("../share");
++      for Artifacts (".") use ("../share");
+    end Install;
+ 
  end GNATdoc;

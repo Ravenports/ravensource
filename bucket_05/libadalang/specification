@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	24.0.0
+DEF[SOVERSION]=		25.0.0
+DEF[PORTVERSION]=	${SOVERSION}
 DEF[RELEASE]=		v${PORTVERSION}
 DEF[GNARL]=		"-lgnarl","-Wl,-rpath,{{PREFIX}}/lib"
 # ------------------------------------------------------------------------
@@ -31,20 +32,24 @@ LICENSE_SCHEME=		solo
 
 BUILD_DEPENDS=		langkit_support:dev:std
 			libgpr2:dev:std
-BUILDRUN_DEPENDS=	langkit:single:std
+			prettier-ada:dev:std
+BUILDRUN_DEPENDS=	langkit_support:primary:std
+			langkit_support:modules:std
 			libgpr2:primary:std
 			gnatcoll-bindings:gmp:std
+			prettier-ada:primary:std
 
 EXRUN[tools]=		primary
 EXRUN[dev]=		libgpr2:dev:std
 			langkit_support:dev:std
+			prettier-ada:dev:std
 
 USES=			gprbuild iconv:build python:build,sutools ada:primary
 MUST_CONFIGURE=		yes
 INSTALL_REQ_TOOLCHAIN=	yes
 MAKE_ARGS=		--build-mode dev
 			--library-types=static,static-pic,relocatable
-SOVERSION=		${PORTVERSION}
+SOVERSION=		${SOVERSION}
 
 VAR_OPSYS[midnightbsd]=	MAKEFILE_LINE=XTRALIB=,"-lutil"
 VAR_OPSYS[dragonfly]=	MAKEFILE_LINE=XTRALIB=,"-lutil"
@@ -61,7 +66,7 @@ do-configure:
 	# support soname libraries
 	${PATCH} -d ${PATCH_WRKSRC} --backup --forward -E -p0 --batch \
 		< ${FILESDIR}/pc-patch-build_libadalang.gpr
-	${REINPLACE_CMD} -e 's|@SOVERSION@|${PORTVERSION}|' \
+	${REINPLACE_CMD} -e 's|@SOVERSION@|${SOVERSION}|' \
 		${WRKSRC}/build/libadalang.gpr
 
 do-build:
@@ -74,9 +79,11 @@ do-install:
 		${PYTHON_CMD} manage.py install\
 		${MAKE_ARGS:NDESTDIR=*} ${STAGEDIR}${PREFIX})
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/[n]*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/gnat_compare
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/lal_dda
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/lal_prep
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/lal_parse
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/lal_unparse
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libadalang.relocatable/libadalang.so
 	${SED} -i'' -e 's|/usr/bin/env python|${PYTHON_CMD}|' \
 		${STAGEDIR}${PREFIX}/bin/lal_playground

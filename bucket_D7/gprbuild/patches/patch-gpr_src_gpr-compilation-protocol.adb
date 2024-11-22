@@ -1,6 +1,6 @@
 Revert to older code compatible with gcc
 
---- gpr/src/gpr-compilation-protocol.adb.orig	2023-10-09 18:31:11 UTC
+--- gpr/src/gpr-compilation-protocol.adb.orig	2024-10-07 12:45:16 UTC
 +++ gpr/src/gpr-compilation-protocol.adb
 @@ -22,7 +22,7 @@
  --                                                                          --

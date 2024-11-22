@@ -1,14 +1,12 @@
-DEF[PORTVERSION]=	20230501
+DEF[PORTVERSION]=	20241101
 # DEF[RELEASE]=		gnatstudio-cr-${PORTVERSION}
-# Need a later snapshot to work with later VSS (27 JUN 2023)
-DEF[RELEASE]=		105b842
+DEF[RELEASE]=		21c081c
 DEF[VERSION_TXT]=	Continuous Release ${PORTVERSION}
-DEF[DATE_TXT]=		27 June 2023
+DEF[DATE_TXT]=		1 November 2024
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gnatstudio
 VERSION=		${PORTVERSION}
-REVISION=		3
 KEYWORDS=		devel
 VARIANTS=		std
 SDESC[std]=		Multilanguage IDE for Ada, SPARK, C/C++, and more
@@ -48,6 +46,7 @@ BUILDRUN_DEPENDS=	gnatcoll-db:sql:std
 			gnatcoll-db:primary:std
 			gnatcoll-bindings:python3:std
 			ada_language_server:primary:std
+			prettier-ada:primary:std
 			gtkada:primary:std
 			python-PyGObject:primary:python_used
 			gmp:primary:std
@@ -63,6 +62,7 @@ EXRUN[primary]=		ravensys-gcc:compilers:std
 
 USES=			gprbuild:buildrun gmake pkgconfig zlib
 			python perl:build shebangfix iconv fontconfig
+			gettext:build
 XORG_COMPONENTS=	x11
 GNOME_COMPONENTS=	gtk3 cairo gdkpixbuf
 
@@ -73,6 +73,7 @@ BUILD_TARGET=		default
 MAKE_ARGS=		PROCESSORS={{MAKE_JOBS_NUMBER}}
 			PYTHON_CMD={{PYTHON_CMD}}
 			LIBRARY_TYPE=relocatable
+MAKE_ENV=		GPR_PROJECT_PATH={{LOCALBASE}}/share/gpr
 SUB_FILES=		gps
 SUB_LIST=		ADA_PATH={{PREFIX}}/toolchain/ravensys-gcc/bin
 SHEBANG_FILES=		share/support/core/gs_utils/internal/dialogs.py

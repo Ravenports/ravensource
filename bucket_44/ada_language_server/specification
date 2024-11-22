@@ -1,5 +1,6 @@
-DEF[PORTVERSION]=	24.0.1
-DEF[RELEASE]=		${PORTVERSION}
+DEF[SOVERSION]=		25.0.0
+DEF[PORTVERSION]=	${SOVERSION}
+DEF[RELEASE]=		v${PORTVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ada_language_server
@@ -27,9 +28,11 @@ BUILD_DEPENDS=		ada_libfswatch:single:std
 			lal-refactor:dev:std
 			libadalang:dev:std
 			libadalang-tools:dev:std
+			gnatformat:dev:std
 BUILDRUN_DEPENDS=	libadalang-tools:primary:std
 			lal-refactor:primary:std
 			ada_spawn:primary:std
+			gnatformat:primary:std
 
 EXRUN[dev]=		libvss:dev:std
 			gtkada:dev:std
@@ -45,9 +48,13 @@ LICENSE_SCHEME=		solo
 
 USES=			gmake gprbuild iconv:build
 MAKE_ARGS=		BUILD_MODE=prod
+			PROCESSORS={{MAKE_JOBS_NUMBER}}
 			OS=unix
 INSTALL_REQ_TOOLCHAIN=	yes
 
 post-install:
 	${RM} -r ${STAGEDIR}${PREFIX}/share/gpr/manifests
+	# not sure why this happened
+	${RM} ${STAGEDIR}${PREFIX}/share/gpr/gnatcoll.gpr
+	# strip
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*

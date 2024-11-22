@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	24.0.0
+DEF[PORTVERSION]=	25.0.0
 DEF[RELEASE]=		v${PORTVERSION}
 DEF[SOVERSION]=		${PORTVERSION}
 # ----------------------------------------------------------------------------
@@ -8,7 +8,7 @@ VERSION=		${PORTVERSION}
 KEYWORDS=		devel ada
 VARIANTS=		std
 SDESC[std]=		Simple API to spawn communicating processes
-HOMEPAGE=		none
+HOMEPAGE=		https://github.com/AdaCore/spawn
 CONTACT=		John_Marino[draco@marino.st]
 
 DOWNLOAD_GROUPS=	main
@@ -43,7 +43,7 @@ SOVERSION=		${SOVERSION}
 post-extract:
 	${CP} ${FILESDIR}/ptsname_r.c ${WRKSRC}/source/spawn
 
-post-patch:
+pre-configure:
 	${REINPLACE_CMD} -e 's/@SOVERSION@/${SOVERSION}/' ${WRKSRC}/gnat/spawn*.gpr
 
 do-build:

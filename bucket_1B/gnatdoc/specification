@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	24.0.0
+DEF[PORTVERSION]=	25.0.0
 DEF[RELEASE]=		v${PORTVERSION}
 # ----------------------------------------------------------------------------
 
@@ -28,11 +28,14 @@ LICENSE_SCHEME=		solo
 
 BUILD_DEPENDS=		libvss:dev:std
 			ada-markdown:single:std
-			gpr-unit-provider:dev:std
-			gpr-unit-provider:primary:std
+			libgpr2:dev:std
+			libadalang:dev:std
 BUILDRUN_DEPENDS=	gmp:primary:std
+			libgpr2:primary:std
+			libadalang:primary:std
 
 USES=			gmake gprbuild iconv
+BUILD_TARGET=		build-gnatdoc build-libgnatdoc
 INSTALL_REQ_TOOLCHAIN=	yes
 
 VAR_OPSYS[midnightbsd]=	MAKEFILE_LINE=XTRALIB="-lutil"
@@ -44,5 +47,4 @@ pre-configure:
 	${REINPLACE_CMD} -e 's|@LIBS@|${XTRALIB}|' ${WRKSRC}/gnat/gnatdoc.gpr
 
 post-install:
-	${RM} -r ${STAGEDIR}${PREFIX}/share/gpr/manifests
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/gnatdoc

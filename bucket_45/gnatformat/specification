@@ -1,0 +1,48 @@
+DEF[PORTVERSION]=	25.0.0
+DEF[RELEASE]=		v${PORTVERSION}
+DEF[SOVERSION]=		${PORTVERSION}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gnatformat
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc ada
+VARIANTS=		std
+SDESC[std]=		Ada code formatter based on Prettier-Ada library
+HOMEPAGE=		https://github.com/AdaCore/gnatformat
+CONTACT=		John_Marino[draco@marino.st]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/AdaCore:gnatformat:${RELEASE}
+DISTFILE[1]=		generated:main
+
+SPKGS[std]=		set primary tools dev
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		APACHE20:primary
+LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE.txt
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/gnatformat.ads
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+BUILD_DEPENDS=		libadalang:dev:std
+BUILDRUN_DEPENDS=	libadalang:primary:std
+
+EXRUN[tools]=		gmp:primary:std
+			libiconv:primary:std
+
+USES=			gprbuild iconv
+MAKE_ARGS=		PROCESSORS={{MAKE_JOBS_NUMBER}}
+MAKE_ENV=		GPR_PROJECT_PATH={{WRKSRC}}
+BUILD_TARGET=		lib bin
+SOVERSION=		${SOVERSION}
+INSTALL_REQ_TOOLCHAIN=	yes
+
+pre-configure:
+	${REINPLACE_CMD} -e 's/@SOVERSION@/${SOVERSION}/' ${WRKSRC}/gnat/gnatformat.gpr
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/gnatformat
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libgnatformat.so

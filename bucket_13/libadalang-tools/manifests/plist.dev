@@ -11,6 +11,7 @@ include/lal_tools/component_size.tmplt
 include/lal_tools/component_size_max.tmplt
 include/lal_tools/component_write.tmplt
 include/lal_tools/composite_base_spec.tmplt
+include/lal_tools/composite_size_max.tmplt
 include/lal_tools/constraint_decl.tmplt
 include/lal_tools/constraint_init.tmplt
 include/lal_tools/custom_strat_body.tmplt
@@ -19,7 +20,9 @@ include/lal_tools/default_header_spec.tmplt
 include/lal_tools/default_strat_spec.tmplt
 include/lal_tools/function_tc_dump.tmplt
 include/lal_tools/function_typ_init.tmplt
+include/lal_tools/generation_routine.tmplt
 include/lal_tools/header_body.tmplt
+include/lal_tools/header_private.tmplt
 include/lal_tools/header_spec.tmplt
 include/lal_tools/header_wrappers_body.tmplt
 include/lal_tools/header_wrappers_spec.tmplt
@@ -66,6 +69,7 @@ include/lal_tools/record_size.tmplt
 include/lal_tools/record_size_max.tmplt
 include/lal_tools/record_typ_decl.tmplt
 include/lal_tools/record_typ_init.tmplt
+include/lal_tools/scalar_base_private.tmplt
 include/lal_tools/scalar_base_spec.tmplt
 include/lal_tools/scalar_read_write.tmplt
 include/lal_tools/scalar_typ_decl.tmplt
@@ -97,6 +101,10 @@ include/lal_tools/test-skeleton.adb
 include/lal_tools/test-skeleton.ads
 include/lal_tools/test-stub.adb
 include/lal_tools/test-stub.ads
+include/lal_tools/test-subprocess.adb
+include/lal_tools/test-subprocess.ads
+include/lal_tools/test-suite_min.adb
+include/lal_tools/test-suite_min.ads
 include/lal_tools/test.ads
 include/lal_tools/tgen-big_int.ads
 include/lal_tools/tgen-big_reals.ads
@@ -107,10 +115,7 @@ include/lal_tools/tgen-dependency_graph.adb
 include/lal_tools/tgen-dependency_graph.ads
 include/lal_tools/tgen-files.adb
 include/lal_tools/tgen-files.ads
-include/lal_tools/tgen-gen_strategies.adb
-include/lal_tools/tgen-gen_strategies.ads
-include/lal_tools/tgen-gen_strategies_utils.adb
-include/lal_tools/tgen-gen_strategies_utils.ads
+include/lal_tools/tgen-instr_support.adb
 include/lal_tools/tgen-instr_support.ads
 include/lal_tools/tgen-json-unparse.adb
 include/lal_tools/tgen-json-unparse.ads
@@ -120,6 +125,8 @@ include/lal_tools/tgen-lal_utils.adb
 include/lal_tools/tgen-lal_utils.ads
 include/lal_tools/tgen-libgen.adb
 include/lal_tools/tgen-libgen.ads
+include/lal_tools/tgen-logging.adb
+include/lal_tools/tgen-logging.ads
 include/lal_tools/tgen-marshalling-binary_marshallers.adb
 include/lal_tools/tgen-marshalling-binary_marshallers.ads
 include/lal_tools/tgen-marshalling-json_marshallers.adb
@@ -160,6 +167,8 @@ include/lal_tools/tgen-types-translation.adb
 include/lal_tools/tgen-types-translation.ads
 include/lal_tools/tgen-types.adb
 include/lal_tools/tgen-types.ads
+include/lal_tools/tgen-wrappers.adb
+include/lal_tools/tgen-wrappers.ads
 include/lal_tools/tgen.ads
 include/lal_tools/util.tmplt
 include/lal_tools/utils-char_vectors.ads
@@ -250,6 +259,8 @@ lib/lal_tools.relocatable/test-mapping.ali
 lib/lal_tools.relocatable/test-skeleton-source_table.ali
 lib/lal_tools.relocatable/test-skeleton.ali
 lib/lal_tools.relocatable/test-stub.ali
+lib/lal_tools.relocatable/test-subprocess.ali
+lib/lal_tools.relocatable/test-suite_min.ali
 lib/lal_tools.relocatable/test.ali
 lib/lal_tools.relocatable/tgen-big_int.ali
 lib/lal_tools.relocatable/tgen-big_reals.ali
@@ -257,13 +268,12 @@ lib/lal_tools.relocatable/tgen-big_reals_aux.ali
 lib/lal_tools.relocatable/tgen-context.ali
 lib/lal_tools.relocatable/tgen-dependency_graph.ali
 lib/lal_tools.relocatable/tgen-files.ali
-lib/lal_tools.relocatable/tgen-gen_strategies.ali
-lib/lal_tools.relocatable/tgen-gen_strategies_utils.ali
 lib/lal_tools.relocatable/tgen-instr_support.ali
 lib/lal_tools.relocatable/tgen-json-unparse.ali
 lib/lal_tools.relocatable/tgen-json.ali
 lib/lal_tools.relocatable/tgen-lal_utils.ali
 lib/lal_tools.relocatable/tgen-libgen.ali
+lib/lal_tools.relocatable/tgen-logging.ali
 lib/lal_tools.relocatable/tgen-marshalling-binary_marshallers.ali
 lib/lal_tools.relocatable/tgen-marshalling-json_marshallers.ali
 lib/lal_tools.relocatable/tgen-marshalling.ali
@@ -285,6 +295,7 @@ lib/lal_tools.relocatable/tgen-types-real_types.ali
 lib/lal_tools.relocatable/tgen-types-record_types.ali
 lib/lal_tools.relocatable/tgen-types-translation.ali
 lib/lal_tools.relocatable/tgen-types.ali
+lib/lal_tools.relocatable/tgen-wrappers.ali
 lib/lal_tools.relocatable/tgen.ali
 lib/lal_tools.relocatable/utils-char_vectors.ali
 lib/lal_tools.relocatable/utils-command_lines-common.ali
@@ -348,6 +359,8 @@ lib/lal_tools.static/test-mapping.ali
 lib/lal_tools.static/test-skeleton-source_table.ali
 lib/lal_tools.static/test-skeleton.ali
 lib/lal_tools.static/test-stub.ali
+lib/lal_tools.static/test-subprocess.ali
+lib/lal_tools.static/test-suite_min.ali
 lib/lal_tools.static/test.ali
 lib/lal_tools.static/tgen-big_int.ali
 lib/lal_tools.static/tgen-big_reals.ali
@@ -355,13 +368,12 @@ lib/lal_tools.static/tgen-big_reals_aux.ali
 lib/lal_tools.static/tgen-context.ali
 lib/lal_tools.static/tgen-dependency_graph.ali
 lib/lal_tools.static/tgen-files.ali
-lib/lal_tools.static/tgen-gen_strategies.ali
-lib/lal_tools.static/tgen-gen_strategies_utils.ali
 lib/lal_tools.static/tgen-instr_support.ali
 lib/lal_tools.static/tgen-json-unparse.ali
 lib/lal_tools.static/tgen-json.ali
 lib/lal_tools.static/tgen-lal_utils.ali
 lib/lal_tools.static/tgen-libgen.ali
+lib/lal_tools.static/tgen-logging.ali
 lib/lal_tools.static/tgen-marshalling-binary_marshallers.ali
 lib/lal_tools.static/tgen-marshalling-json_marshallers.ali
 lib/lal_tools.static/tgen-marshalling.ali
@@ -383,6 +395,7 @@ lib/lal_tools.static/tgen-types-real_types.ali
 lib/lal_tools.static/tgen-types-record_types.ali
 lib/lal_tools.static/tgen-types-translation.ali
 lib/lal_tools.static/tgen-types.ali
+lib/lal_tools.static/tgen-wrappers.ali
 lib/lal_tools.static/tgen.ali
 lib/lal_tools.static/utils-char_vectors.ali
 lib/lal_tools.static/utils-command_lines-common.ali
@@ -446,6 +459,8 @@ lib/lal_tools.static-pic/test-mapping.ali
 lib/lal_tools.static-pic/test-skeleton-source_table.ali
 lib/lal_tools.static-pic/test-skeleton.ali
 lib/lal_tools.static-pic/test-stub.ali
+lib/lal_tools.static-pic/test-subprocess.ali
+lib/lal_tools.static-pic/test-suite_min.ali
 lib/lal_tools.static-pic/test.ali
 lib/lal_tools.static-pic/tgen-big_int.ali
 lib/lal_tools.static-pic/tgen-big_reals.ali
@@ -453,13 +468,12 @@ lib/lal_tools.static-pic/tgen-big_reals_aux.ali
 lib/lal_tools.static-pic/tgen-context.ali
 lib/lal_tools.static-pic/tgen-dependency_graph.ali
 lib/lal_tools.static-pic/tgen-files.ali
-lib/lal_tools.static-pic/tgen-gen_strategies.ali
-lib/lal_tools.static-pic/tgen-gen_strategies_utils.ali
 lib/lal_tools.static-pic/tgen-instr_support.ali
 lib/lal_tools.static-pic/tgen-json-unparse.ali
 lib/lal_tools.static-pic/tgen-json.ali
 lib/lal_tools.static-pic/tgen-lal_utils.ali
 lib/lal_tools.static-pic/tgen-libgen.ali
+lib/lal_tools.static-pic/tgen-logging.ali
 lib/lal_tools.static-pic/tgen-marshalling-binary_marshallers.ali
 lib/lal_tools.static-pic/tgen-marshalling-json_marshallers.ali
 lib/lal_tools.static-pic/tgen-marshalling.ali
@@ -481,6 +495,7 @@ lib/lal_tools.static-pic/tgen-types-real_types.ali
 lib/lal_tools.static-pic/tgen-types-record_types.ali
 lib/lal_tools.static-pic/tgen-types-translation.ali
 lib/lal_tools.static-pic/tgen-types.ali
+lib/lal_tools.static-pic/tgen-wrappers.ali
 lib/lal_tools.static-pic/tgen.ali
 lib/lal_tools.static-pic/utils-char_vectors.ali
 lib/lal_tools.static-pic/utils-command_lines-common.ali

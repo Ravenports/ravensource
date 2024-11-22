@@ -1,14 +1,14 @@
---- Makefile.orig	2023-09-13 12:51:38 UTC
+--- Makefile.orig	2024-08-30 15:26:54 UTC
 +++ Makefile
-@@ -23,6 +23,7 @@ INSTALL_ALI_DIR        ?= $(INSTALL_LIBR
+@@ -24,6 +24,7 @@ INSTALL_ALI_DIR        ?= $(INSTALL_LIBR
  
- GPRINSTALL_FLAGS = \
+ GPRINSTALL_FLAGS = $(GPRFLAGS) \
      -XVSS_LIBRARY_TYPE=$* \
 +    -XLIBRARY_TYPE=$* \
      --build-name=$* --build-var=LIBRARY_TYPE --build-var=VSS_LIBRARY_TYPE \
      --prefix=$(PREFIX) --exec-subdir=$(INSTALL_EXEC_DIR) \
      --lib-subdir=$(INSTALL_ALI_DIR) --project-subdir=$(INSTALL_PROJECT_DIR) \
-@@ -51,7 +52,7 @@ build-libs-%:
+@@ -52,7 +53,7 @@ build-libs-%:
  	gprbuild -XVSS_LIBRARY_TYPE=$* $(GPRBUILD_FLAGS) gnat/vss_regexp.gpr
  	gprbuild -XVSS_LIBRARY_TYPE=$* $(GPRBUILD_FLAGS) gnat/vss_xml.gpr
  	gprbuild -XVSS_LIBRARY_TYPE=$* $(GPRBUILD_FLAGS) gnat/vss_xml_templates.gpr
@@ -17,7 +17,7 @@
  
  generate:
  	gprbuild $(GPRBUILD_FLAGS) gnat/tools/gen_ucd.gpr
-@@ -65,7 +66,7 @@ build_tests:
+@@ -66,7 +67,7 @@ build_tests:
  	gprbuild -XVSS_LIBRARY_TYPE=static $(GPRBUILD_FLAGS) gnat/tests/vss_json_tests.gpr
  	gprbuild -XVSS_LIBRARY_TYPE=static $(GPRBUILD_FLAGS) gnat/tests/vss_stream_tests.gpr
  	gprbuild -XVSS_LIBRARY_TYPE=static $(GPRBUILD_FLAGS) gnat/tests/vss_regexp_tests.gpr

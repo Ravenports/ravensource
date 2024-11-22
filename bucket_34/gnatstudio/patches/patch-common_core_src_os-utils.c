@@ -1,4 +1,4 @@
---- common/core/src/os-utils.c.orig	2023-05-10 09:41:12 UTC
+--- common/core/src/os-utils.c.orig	2024-11-01 10:55:18 UTC
 +++ common/core/src/os-utils.c
 @@ -22,6 +22,7 @@
  #include <stdio.h>

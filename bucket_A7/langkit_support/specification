@@ -1,7 +1,9 @@
-DEF[PORTVERSION]=	24.0.0
+DEF[PORTVERSION]=	25.0.0
 DEF[RELEASE]=		v${PORTVERSION}
 DEF[BUILD_MODE]=	prod
 DEF[MYDISTNAME]=	langkit-${PORTVERSION}
+DEF[PY3DEFAULT]=	EXTRACT_VERSION(PYTHON3_DEFAULT)
+DEF[THIRD_SNAKE]=	${PY3DEFAULT:S|.||}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		langkit_support
@@ -13,30 +15,40 @@ SDESC[std]=		Support files for Ada Langkit
 HOMEPAGE=		https://github.com/AdaCore/langkit
 CONTACT=		John_Marino[draco@marino.st]
 
-DOWNLOAD_GROUPS=	main
+DOWNLOAD_GROUPS=	main adasat
 SITES[main]=		GITHUB/AdaCore:langkit:${RELEASE}
+SITES[adasat]=		GITHUB/AdaCore:AdaSAT:${RELEASE}:adasat
 DISTFILE[1]=		generated:main
+DISTFILE[2]=		generated:adasat
+DF_INDEX=		1 2
 
-SPKGS[std]=		set primary dev
+SPKGS[std]=		set primary bindings modules dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-BUILD_DEPENDS=		python312:primary:std
-			python-e3-core:single:v12
-			AdaSAT:dev:std
+BUILD_DEPENDS=		python${THIRD_SNAKE}:primary:std
 			gmp:dev:std
 			gnatcoll-bindings:dev:std
 			gnatcoll-core:dev:std
+			prettier-ada:dev:std
+			libiconv:dev:std
 BUILDRUN_DEPENDS=	gnatcoll-core:primary:std
 			gnatcoll-bindings:iconv:std
 			gnatcoll-bindings:gmp:std
-			AdaSAT:primary:std
+			prettier-ada:primary:std
+			langkit:single:std
+			python-funcy:single:python_default
+			python-docutils:single:python_default
+			python-Mako:single:python_default
+			python-e3-core:single:python_default
+RUN_DEPENDS=		AdaSAT:primary:std
 
-EXRUN[dev]=		AdaSAT:dev:std
-			gnatcoll-bindings:dev:std
+EXRUN[dev]=		gnatcoll-bindings:dev:std
 			gnatcoll-core:dev:std
 			gmp:dev:std
+			prettier-ada:dev:std
+			AdaSAT:dev:std
 
 LICENSE=		APACHE20:primary
 LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
@@ -45,10 +57,16 @@ LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/langkit/support/langkit_support.ads
 LICENSE_SCHEME=		solo
 
-USES=			gprbuild iconv:build
+USES=			gprbuild python:pep517
 INSTALL_REQ_TOOLCHAIN=	yes
 DISTNAME=		${MYDISTNAME}
 SOVERSION=		${PORTVERSION}
+MAKE_ENV=		GPR_PROJECT_PATH={{LOCALBASE}}/share/gpr
+
+post-extract:
+	# relocate adasat source
+	${MV} ${WRKSRC}/adasat/adasat.gpr ${WRKSRC}/langkit/support/
+	${MV} ${WRKSRC}/adasat/src ${WRKSRC}/langkit/support/
 
 pre-configure:
 	${REINPLACE_CMD} -e 's|%%SOVERSION%%|${PORTVERSION}|' \
@@ -56,9 +74,16 @@ pre-configure:
 
 do-build:
 	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
-		python manage.py build-langkit-support \
-		--library-types=static,static-pic,relocatable \
-		--build-mode=prod)
+		python manage.py make --no-mypy \
+		--jobs=${MAKE_JOBS_NUMBER} \
+		--build-mode=prod \
+		--library-types=static,static-pic,relocatable)
+
+	# Construct python wheels
+	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} python -m build \
+		--no-isolation --wheel contrib/python/build/python)
+	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} python -m build \
+		--no-isolation --wheel contrib/lkt/build/python)
 
 do-install:
 	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
@@ -66,8 +91,42 @@ do-install:
 		--library-types=static,static-pic,relocatable \
 		--build-mode=prod \
 		${STAGEDIR}${PREFIX})
+
+	(cd ${WRKSRC}/contrib/lkt && ${SETENV} ${MAKE_ENV} \
+		python manage.py install \
+		--library-types=static,static-pic,relocatable \
+		--build-mode=prod \
+		--disable-all-mains \
+		${STAGEDIR}${PREFIX})
+
+	(cd ${WRKSRC}/contrib/python && ${SETENV} ${MAKE_ENV} \
+		python manage.py install \
+		--library-types=static,static-pic,relocatable \
+		--build-mode=prod \
+		--disable-all-mains \
+		${STAGEDIR}${PREFIX})
+
+	# install wheels in stage directory
+	${MKDIR} ${STAGEDIR}${PYTHONPREFIX_SITELIBDIR}
+	(cd ${BUILD_WRKSRC} && ${SETENV} AUTOPYTHON=${_PYTHON_VERSION} \
+		python -m installer \
+		--destdir ${STAGEDIR} \
+		--prefix ${PREFIX} \
+		${BUILD_WRKSRC}/contrib/python/build/python/dist/*.whl)
+
+	(cd ${BUILD_WRKSRC} && ${SETENV} AUTOPYTHON=${_PYTHON_VERSION} \
+		python -m installer \
+		--destdir ${STAGEDIR} \
+		--prefix ${PREFIX} \
+		${BUILD_WRKSRC}/contrib/lkt/build/python/dist/*.whl)
+
 	# strip
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/langkit_support.relocatable/liblangkit_support.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/liblktlang.relocatable/liblktlang.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libpythonlang.relocatable/libpythonlang.so
 
 	# Remove redundant manifest file
 	${RM} -r ${STAGEDIR}${PREFIX}/share/gpr/manifests
+
+	# Remove empty directory
+	${RMDIR} ${STAGEDIR}${PREFIX}/lib/windows

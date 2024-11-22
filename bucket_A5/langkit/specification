@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	24.0.0
+DEF[PORTVERSION]=	25.0.0
 DEF[RELEASE]=		v${PORTVERSION}
 # ------------------------------------------------------------------------
 
@@ -27,16 +27,5 @@ LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/langkit/support/langkit_support.ads
 LICENSE_SCHEME=		solo
 
-BUILDRUN_DEPENDS=	python-Mako:single:python_used
-			python-PyYAML:single:python_used
-			python-funcy:single:python_used
-			python-docutils:single:python_used
-			python-e3-core:single:python_used
-
-USES=			python:sutools
-MAKE_ENV=		PYTHONPATH={{WRKSRC}}
-SKIP_BUILD=		yes
-
-do-install:
-	(cd ${BUILD_WRKSRC} && ${SETENV} ${MAKE_ENV} \
-		${PYTHON_CMD} setup.py install --root ${STAGEDIR})
+USES=			python:pep517 shebangfix
+SHEBANG_FILES=		langkit/templates/python_api/playground_py.mako

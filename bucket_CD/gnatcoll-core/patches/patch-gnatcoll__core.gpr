@@ -1,6 +1,6 @@
---- gnatcoll.gpr.orig	2023-09-21 15:57:14 UTC
-+++ gnatcoll.gpr
-@@ -105,7 +105,7 @@ project GnatColl is
+--- core/gnatcoll_core.gpr.orig	2024-09-24 09:28:32 UTC
++++ core/gnatcoll_core.gpr
+@@ -154,7 +154,7 @@ library project GNATCOLL_Core is
     end case;
     case OS is
        when "unix" =>
@@ -9,16 +9,16 @@
        when others =>
           null;
     end case;
-@@ -124,7 +124,7 @@ project GnatColl is
+@@ -173,7 +173,7 @@ library project GNATCOLL_Core is
  
     case Library_Type is
        when "relocatable" =>
 -         for Library_Options use Extra_Libs;
-+         for Library_Options use Extra_Libs & gpr.Linker'Linker_options & ("-Wl,-R,@PREFIX@/lib");
++         for Library_Options use Extra_Libs & ("-Wl,-R,@PREFIX@/lib");
  
           --  Put user options in front, for options like --as-needed.
           for Leading_Library_Options use External_As_List ("LDFLAGS", " ");
-@@ -307,7 +307,7 @@ project GnatColl is
+@@ -394,7 +394,7 @@ library project GNATCOLL_Core is
  
     package Install is
        for Artifacts ("share/examples/gnatcoll") use ("examples/*");
