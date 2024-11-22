@@ -10,10 +10,11 @@ This plugin depends on [qrcode] and [Pillow] python library
 
 ## Compatibility
 
-| Plugin Version | NetBox Version | Tested on                      |
-| ------------- |:-------------| :-----:|
-| 0.0.11          | >= 3.7.0        | 3.7.x |
-| 0.0.13          | >= 4.0.2        | v4.0.2                   |
+| Plugin Version | NetBox Version | Tested on |
+| ------------- |:-------------| :-----------:|
+| 0.0.11        | 3.7.x        | 3.7.x        |
+| 0.0.14        | 4.0.x        | v4.0.11      |
+| 0.0.15        | 4.1.x        | v4.1.6       |
 
 ## Installation
 
@@ -42,8 +43,14 @@ The following options are available:
 
 * `with_text`: Boolean (default True). Text label will be added to QR code
 image if enabled.
-* `text_template`: Jinja2 template with {{ obj }}  as context, using it
-ignores `text_fields` and `custom_text`
+* `text_template`: [Jinja2] template with {{ obj }} as context for device,
+rack, etc., using it ignores `text_fields` and `custom_text`.
+
+  Example to output name and site in two lines with caption (See also
+screenshots below):
+  ```
+  'text_template': 'Name: {{ obj.name }}\nSite: {{ obj.site }}',
+  ```
 * `text_fields`: List of String (default ['name']). Text fields of an
 object that will be added as text label to QR image. It's possible to use
 custom field values.
@@ -91,10 +98,3 @@ PLUGINS_CONFIG = {
     'netbox_qrcode': {
         'with_text': True,
         'text_fields': ['name', 'serial'],
-        'font': 'ArialMT',
-        'font_size': 12, # If the value is 0 or the line does not exist,
-then the text is automatically adjusted
-        'custom_text': 'Property of SomeCompany\ntel.8.800333554-CALL',
-        'text_location': 'up',
-        'qr_version': 1,
-        'qr_error_correction': 0,

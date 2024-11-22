@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.9.2
+DEF[PORTVERSION]=	2.10.1
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-pydantic
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/pydantic/pydantic
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/df/e4/ba44652d562cbf0bf320e0f3810206149c8a4e99cdbf66da82e97ab53a15
+SITES[main]=		PYPIWHL/e0/fc/fda48d347bd50a788dd2a0f318a52160f911b86fc2d8b4c86f4d7c9bceea
 DISTFILE[1]=		pydantic-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -24,18 +24,17 @@ VOPTS[v12]=		PY312=ON PY313=OFF
 VOPTS[v13]=		PY312=OFF PY313=ON
 
 # License listed at PyPI
-# Not provided.
+# MIT
 
 GENERATED=		yes
 DISTNAME=		pydantic-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
 # annotated-types>=0.6.0
-# pydantic-core==2.23.4
-# typing-extensions>=4.12.2; python_version >= '3.13'
-# typing-extensions>=4.6.1; python_version < '3.13'
+# pydantic-core==2.27.1
+# typing-extensions>=4.12.2
 # email-validator>=2.0.0; extra == 'email'
-# tzdata; (python_version >= '3.9' and sys_platform == 'win32') and extra == 'timezone'
+# tzdata; (python_version >= '3.9' and platform_system == 'Windows') and extra == 'timezone'
 
 [PY312].USES_ON=			python:v12,wheel
 [PY312].RUN_DEPENDS_ON=			python-annotated-types:single:v12
