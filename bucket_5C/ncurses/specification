@@ -72,6 +72,7 @@ PLIST_SUB=		ABI_VER=${PORTVERSION:R}
 			REL_VER=${PORTVERSION}
 
 VAR_OPSYS[sunos]=	CONFIGURE_ENV=LIBS="-lrt -lresolv -lsocket"
+VAR_OPSYS[linux]=	CFLAGS=-Wno-implicit-function-declaration
 
 post-patch:
 	${REINPLACE_CMD} -e 's,$$(INSTALL_PROG) ncurses-config,@INSTALL_SCRIPT@ ncurses-config,' \
