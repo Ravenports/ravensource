@@ -23,17 +23,7 @@
   *
   * This library is free software; you can redistribute it and/or
   * modify it under the terms of the GNU Lesser General Public
-@@ -53,6 +53,9 @@
- #include <fcntl.h>
- #include <unistd.h>
- #include <sys/param.h>
-+#ifndef USE_GAMIN_POLLER
-+#include <sys/mount.h>
-+#endif
- #include <sys/types.h>
- #include <sys/sysctl.h>
- #include <sys/stat.h>
-@@ -62,6 +65,7 @@
+@@ -62,6 +62,7 @@
  #include "gam_error.h"
  #include "gam_kqueue.h"
  #include "gam_event.h"
@@ -41,7 +31,7 @@
  #include "gam_server.h"
  #include "gam_poll_basic.h"
  
-@@ -130,7 +134,7 @@ typedef struct
+@@ -130,7 +131,7 @@ typedef struct
    HashTableRemoveFunc		remove;
    HashTablePostRemoveFunc	post_remove;
  } HashTableMethods;
@@ -50,7 +40,7 @@
  /*
   * A hash table which can be modified while iterating over it.
   */
-@@ -281,8 +285,8 @@ static void
+@@ -281,8 +282,8 @@ static void
  gam_kqueue_mini_lstat (const char *pathname, MiniStat *mini_sb)
  {
    struct stat sb;
@@ -61,7 +51,7 @@
      memset(mini_sb, 0, sizeof(*mini_sb));
    else
      {
-@@ -319,14 +323,14 @@ gam_kqueue_isdir (const char *pathname,
+@@ -319,14 +320,14 @@ gam_kqueue_isdir (const char *pathname,
    else
      {
        struct stat sb;
@@ -78,7 +68,7 @@
  
    if (sysctlbyname(name, value, &value_len, (void *)NULL, 0) < 0)
      {
-@@ -406,7 +410,7 @@ gam_kqueue_hash_table_foreach (HashTable
+@@ -406,7 +407,7 @@ gam_kqueue_hash_table_foreach (HashTable
    table->iterating = TRUE;
    g_hash_table_foreach(table->main, func, user_data);
    table->iterating = FALSE;
@@ -87,16 +77,7 @@
    if (table->pending_additions)
      {
        GSList *l;
-@@ -509,33 +513,52 @@ static gboolean
- gam_kqueue_monitor_enable_kqueue (Monitor *mon)
- {
-   struct kevent ev[1];
-+#ifndef USE_GAMIN_POLLER
-+  struct statfs sb;
-+#endif
- 
-   if (open_files == max_open_files)
-     {
+@@ -515,8 +516,14 @@ gam_kqueue_monitor_enable_kqueue (Monito
        GAM_DEBUG(DEBUG_INFO, "cannot open %s (max_open_files limit reached), falling back to poll\n", mon->pathname);
        return FALSE;
      }
@@ -113,18 +94,7 @@
    if (mon->fd < 0)
      {
        GAM_DEBUG(DEBUG_INFO, "cannot open %s (%s), falling back to poll\n", mon->pathname, g_strerror(errno));
-       return FALSE;
-     }
- 
-+#ifndef USE_GAMIN_POLLER
-+  if (fstatfs(mon->fd, &sb) == 0 && (sb.f_flags & MNT_LOCAL) == 0)
-+    {
-+      GAM_DEBUG(DEBUG_INFO, "%s resides on a remote file system, falling back to poll\n", mon->pathname);
-+      goto poll;
-+    }
-+#endif
-+
-   EV_SET(ev, mon->fd, EVFILT_VNODE, EV_ADD | EV_ENABLE | EV_CLEAR, VN_NOTE_ALL, 0, mon);
+@@ -527,15 +534,17 @@ gam_kqueue_monitor_enable_kqueue (Monito
    if (kevent(kq, ev, G_N_ELEMENTS(ev), NULL, 0, NULL) < 0)
      {
        GAM_DEBUG(DEBUG_INFO, "cannot enable kqueue notification for %s (%s), falling back to poll\n", mon->pathname, g_strerror(errno));
@@ -147,7 +117,7 @@
  }
  
  static void
-@@ -612,7 +635,7 @@ gam_kqueue_sub_monitor_free (SubMonitor
+@@ -612,7 +621,7 @@ gam_kqueue_sub_monitor_free (SubMonitor
    gam_kqueue_poller_remove_sub_monitor(&missing_smon_poller, smon);
    gam_kqueue_poller_remove_sub_monitor(&unsupported_smon_poller, smon);
    /* unsupported_dirs_poller is handled by _clear_fmons() below */
@@ -156,7 +126,7 @@
    gam_kqueue_sub_monitor_clear_fmons(smon);
    gam_kqueue_monitor_free(MONITOR(smon));
  }
-@@ -700,7 +723,7 @@ gam_kqueue_sub_monitor_enable_notificati
+@@ -700,7 +709,7 @@ gam_kqueue_sub_monitor_enable_notificati
      {
        struct stat sb;
  
@@ -165,7 +135,7 @@
        flags |= (exists && (sb.st_mode & S_IFDIR) != 0) ? MONITOR_ISDIR : MONITOR_ISNOTDIR;
      }
  
-@@ -715,21 +738,21 @@ gam_kqueue_sub_monitor_enable_notificati
+@@ -715,21 +724,21 @@ gam_kqueue_sub_monitor_enable_notificati
  	{
  	  GDir *dir;
  	  GError *err = NULL;
@@ -191,7 +161,7 @@
  	      g_dir_close(dir);
  	    }
  	  else
-@@ -749,7 +772,7 @@ gam_kqueue_sub_monitor_enable_notificati
+@@ -749,7 +758,7 @@ gam_kqueue_sub_monitor_enable_notificati
  
        return;
      }
@@ -200,7 +170,7 @@
    /* then we enable kqueue notification, falling back to poll if necessary */
  
    if (! gam_kqueue_monitor_enable_kqueue(mon))
-@@ -774,7 +797,7 @@ gam_kqueue_sub_monitor_handle_directory_
+@@ -774,7 +783,7 @@ gam_kqueue_sub_monitor_handle_directory_
  
    filenames = g_hash_table_new_full(g_str_hash, g_str_equal, g_free, NULL);
  
@@ -209,7 +179,7 @@
      {
        GDir *dir;
        GError *err = NULL;
-@@ -783,7 +806,7 @@ gam_kqueue_sub_monitor_handle_directory_
+@@ -783,7 +792,7 @@ gam_kqueue_sub_monitor_handle_directory_
        if (dir)
  	{
  	  const char *filename;
@@ -218,7 +188,7 @@
  	  while ((filename = g_dir_read_name(dir)))
  	    {
  	      g_hash_table_insert(filenames, g_strdup(filename), GINT_TO_POINTER(TRUE));
-@@ -793,12 +816,12 @@ gam_kqueue_sub_monitor_handle_directory_
+@@ -793,12 +802,12 @@ gam_kqueue_sub_monitor_handle_directory_
  		{
  		  FileMonitor *fmon;
  		  FileMonitorFlags fmon_flags;
@@ -233,7 +203,7 @@
  	  g_dir_close(dir);
  	}
        else
-@@ -840,6 +863,8 @@ gam_kqueue_sub_monitor_emit_event (SubMo
+@@ -840,6 +849,8 @@ gam_kqueue_sub_monitor_emit_event (SubMo
      case GAMIN_EVENT_MOVED:
        gam_kqueue_sub_monitor_set_missing(smon);
        break;
@@ -242,7 +212,7 @@
      }
  
    gam_server_emit_event(mon->pathname, isdir, event, smon->subs, 1);
-@@ -931,11 +956,11 @@ gam_kqueue_file_monitor_emit_event (File
+@@ -931,11 +942,11 @@ gam_kqueue_file_monitor_emit_event (File
    gboolean isdir;
    gboolean stat_done;
    gboolean stat_succeeded;
@@ -256,7 +226,7 @@
        isdir = stat_succeeded && (sb.st_mode & S_IFDIR) != 0;
      }
    else
-@@ -943,7 +968,7 @@ gam_kqueue_file_monitor_emit_event (File
+@@ -943,7 +954,7 @@ gam_kqueue_file_monitor_emit_event (File
        stat_done = FALSE;
        isdir = (flags & MONITOR_ISDIR) != 0;
      }
@@ -265,7 +235,7 @@
    gam_server_emit_event(mon->pathname, isdir, event, fmon->smon->subs, 1);
  
    switch (event)
-@@ -962,7 +987,7 @@ gam_kqueue_file_monitor_emit_event (File
+@@ -962,7 +973,7 @@ gam_kqueue_file_monitor_emit_event (File
  	    {
  	      FileMonitor *new_fmon;
  	      FileMonitorFlags new_fmon_flags;
@@ -274,7 +244,7 @@
  	      /*
  	       * The file exists again. It means that kqueue has
  	       * aggregated a removal+creation into a single event. We
-@@ -978,9 +1003,11 @@ gam_kqueue_file_monitor_emit_event (File
+@@ -978,9 +989,11 @@ gam_kqueue_file_monitor_emit_event (File
  	      break;		/* do not remove the fmon we've just created */
  	    }
  	}
@@ -287,7 +257,7 @@
      }
  }
  
-@@ -1033,7 +1060,7 @@ gam_kqueue_kevent_cb (GIOChannel *source
+@@ -1033,7 +1046,7 @@ gam_kqueue_kevent_cb (GIOChannel *source
  
    for (i = 0; i < nevents; i++)
      MONITOR(ev[i].udata)->handle_kevent(MONITOR(ev[i].udata), &ev[i]);
@@ -296,7 +266,7 @@
    return TRUE;			/* keep source */
  }
  
-@@ -1042,7 +1069,7 @@ gam_kqueue_missing_smon_poll (SubMonitor
+@@ -1042,7 +1055,7 @@ gam_kqueue_missing_smon_poll (SubMonitor
  {
    struct stat sb;
  
@@ -305,7 +275,7 @@
      {
        gam_kqueue_poller_remove_sub_monitor(&missing_smon_poller, smon);
        gam_kqueue_sub_monitor_enable_notification(smon, SUB_MONITOR_WAS_MISSING | ((sb.st_mode & S_IFDIR) != 0 ? MONITOR_ISDIR : MONITOR_ISNOTDIR));
-@@ -1062,16 +1089,16 @@ gam_kqueue_unsupported_smon_poll (SubMon
+@@ -1062,16 +1075,16 @@ gam_kqueue_unsupported_smon_poll (SubMon
        if (gam_kqueue_monitor_enable_kqueue(mon))
  	gam_kqueue_poller_remove_sub_monitor(&missing_smon_poller, smon);
      }
@@ -325,19 +295,15 @@
    memcpy(&mon->sb, &sb, sizeof(sb));
    gam_kqueue_sub_monitor_emit_event(smon, event, (sb.mode & S_IFDIR) != 0 ? MONITOR_ISDIR : MONITOR_ISNOTDIR);
  }
-@@ -1167,7 +1194,10 @@ gam_kqueue_init (void)
+@@ -1167,7 +1180,6 @@ gam_kqueue_init (void)
    channel = g_io_channel_unix_new(kq);
    g_io_add_watch(channel, G_IO_IN, gam_kqueue_kevent_cb, NULL);
  
 -  
-+#ifdef USE_GAMIN_POLLER
-+  gam_poll_basic_init ();
-+#endif
-+
    gam_server_install_kernel_hooks(GAMIN_K_KQUEUE,
    				  gam_kqueue_add_subscription,
  				  gam_kqueue_remove_subscription,
-@@ -1200,7 +1230,7 @@ gam_kqueue_add_subscription (GamSubscrip
+@@ -1200,7 +1212,7 @@ gam_kqueue_add_subscription (GamSubscrip
        smon->subs = g_list_append(smon->subs, sub);
        return TRUE;
      }
@@ -346,7 +312,7 @@
    smon = gam_kqueue_sub_monitor_new(sub);
    smon->subs = g_list_append(smon->subs, sub);
  
-@@ -1260,6 +1290,6 @@ gam_kqueue_remove_all_for (GamListener *
+@@ -1260,6 +1272,6 @@ gam_kqueue_remove_all_for (GamListener *
        success = FALSE;
  
    g_list_free(subs);

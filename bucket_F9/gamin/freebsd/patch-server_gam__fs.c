@@ -147,15 +147,3 @@
  }
  
  gam_fs_mon_type
-@@ -210,7 +301,11 @@ gam_fs_get_mon_type (const char *path)
- 	props = gam_fs_find_fs_props (path);
- 
- 	if (!props)
-+#ifdef USE_GAMIN_POLLER
-+		return GFS_MT_POLL;
-+#else
- 		return GFS_MT_DEFAULT;
-+#endif
- 
- 	return props->mon_type;
- }
