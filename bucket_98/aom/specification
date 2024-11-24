@@ -1,10 +1,10 @@
 DEF[PORTVERSION]=	3.11.0
-DEF[TAG]=		v${PORTVERSION}
 DEF[SOVERSION]=		${PORTVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		aom
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		multimedia
 VARIANTS=		std
 SDESC[std]=		Alliance for Open Media video codec
@@ -12,8 +12,8 @@ HOMEPAGE=		https://aomedia.org/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GITHUB/jbeich:aom:${TAG}
-DISTFILE[1]=		generated:main
+SITES[main]=		https://storage.googleapis.com/aom-releases/
+DISTFILE[1]=		libaom-${PORTVERSION}.tar.gz:main
 
 SPKGS[std]=		set primary tools dev
 
@@ -40,6 +40,7 @@ CMAKE_ARGS=		-DBUILD_SHARED_LIBS:BOOL=ON
 SOVERSION=		${SOVERSION}
 SINGLE_JOB=		yes
 INSTALL_REQ_TOOLCHAIN=	yes
+DISTNAME=		libaom-${PORTVERSION}
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/aomdec
