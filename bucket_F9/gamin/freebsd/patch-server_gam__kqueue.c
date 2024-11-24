@@ -1,5 +1,5 @@
---- server/gam_kqueue.c.orig	2007-07-04 09:50:41.000000000 -0400
-+++ server/gam_kqueue.c	2009-06-03 13:43:38.000000000 -0400
+--- server/gam_kqueue.c.orig	2007-07-04 13:50:41 UTC
++++ server/gam_kqueue.c
 @@ -5,7 +5,8 @@
   *
   *     * http://techpubs.sgi.com/library/tpl/cgi-bin/getdoc.cgi?coll=0650&db=bks&fname=/SGI_Developer/books/IIDsktp_IG/sgi_html/ch08.html
@@ -61,7 +61,7 @@
      memset(mini_sb, 0, sizeof(*mini_sb));
    else
      {
-@@ -319,14 +323,14 @@ gam_kqueue_isdir (const char *pathname, 
+@@ -319,14 +323,14 @@ gam_kqueue_isdir (const char *pathname,
    else
      {
        struct stat sb;
@@ -147,7 +147,7 @@
  }
  
  static void
-@@ -612,7 +635,7 @@ gam_kqueue_sub_monitor_free (SubMonitor 
+@@ -612,7 +635,7 @@ gam_kqueue_sub_monitor_free (SubMonitor
    gam_kqueue_poller_remove_sub_monitor(&missing_smon_poller, smon);
    gam_kqueue_poller_remove_sub_monitor(&unsupported_smon_poller, smon);
    /* unsupported_dirs_poller is handled by _clear_fmons() below */

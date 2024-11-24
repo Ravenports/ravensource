@@ -1,5 +1,5 @@
---- server/gam_fs.c.orig	2007-07-04 09:36:49.000000000 -0400
-+++ server/gam_fs.c	2007-08-10 15:05:41.000000000 -0400
+--- server/gam_fs.c.orig	2008-11-12 20:45:28 UTC
++++ server/gam_fs.c
 @@ -7,6 +7,11 @@
  #include <string.h>
  #include <errno.h>

@@ -1,14 +1,6 @@
---- libgamin/gam_api.c.orig	2007-08-27 03:21:03.000000000 -0700
-+++ libgamin/gam_api.c	2013-02-16 15:51:11.927100135 -0800
-@@ -14,6 +14,7 @@
- #include <sys/socket.h>
- #include <sys/un.h>
- #include <sys/uio.h>
-+#include <string.h>
- #include "fam.h"
- #include "gam_protocol.h"
- #include "gam_data.h"
-@@ -117,7 +118,11 @@
+--- libgamin/gam_api.c.orig	2007-08-27 10:21:03 UTC
++++ libgamin/gam_api.c
+@@ -117,7 +117,11 @@ gamin_get_user_name(void)
      if (user_name[0] != 0)
          return (user_name);
  
@@ -20,7 +12,7 @@
  
      if (pw != NULL) {
  	strncpy(user_name, pw->pw_name, 99);
-@@ -224,7 +229,11 @@
+@@ -224,7 +228,11 @@ gamin_check_secure_dir(void)
  	free(dir);
  	return(0);
      }
@@ -32,7 +24,7 @@
  	gam_error(DEBUG_INFO,
  		  "Socket directory %s has different owner\n",
  		  dir);
-@@ -301,7 +310,11 @@
+@@ -301,7 +309,11 @@ gamin_check_secure_path(const char *path
      if (ret < 0)
  	return(0);
      
@@ -44,7 +36,7 @@
  	gam_error(DEBUG_INFO,
  		  "Socket %s has different owner\n",
  		  path);
-@@ -428,10 +441,10 @@
+@@ -428,10 +440,10 @@ gamin_write_credential_byte(int fd)
  {
      char data[2] = { 0, 0 };
      int written;
@@ -58,7 +50,7 @@
      } cmsg;
      struct iovec iov;
      struct msghdr msg;
-@@ -443,16 +456,16 @@
+@@ -443,16 +455,16 @@ gamin_write_credential_byte(int fd)
      msg.msg_iov = &iov;
      msg.msg_iovlen = 1;
  
@@ -79,7 +71,7 @@
      written = sendmsg(fd, &msg, 0);
  #else
      written = write(fd, &data[0], 1);
-@@ -654,15 +667,20 @@
+@@ -654,15 +666,20 @@ gamin_check_cred(GAMDataPtr conn, int fd
      gid_t c_gid;
  
  #ifdef HAVE_CMSGCRED
@@ -103,7 +95,7 @@
      /* Set the socket to receive credentials on the next message */
      {
          int on = 1;
-@@ -683,8 +701,8 @@
+@@ -683,8 +700,8 @@ gamin_check_cred(GAMDataPtr conn, int fd
  
  #ifdef HAVE_CMSGCRED
      memset(&cmsg, 0, sizeof(cmsg));
@@ -114,7 +106,7 @@
  #endif
  
  retry:
-@@ -701,7 +719,7 @@
+@@ -701,7 +718,7 @@ retry:
          goto failed;
      }
  #ifdef HAVE_CMSGCRED
@@ -123,7 +115,7 @@
          GAM_DEBUG(DEBUG_INFO,
                    "Message from recvmsg() was not SCM_CREDS\n");
          goto failed;
-@@ -727,9 +745,10 @@
+@@ -727,9 +744,10 @@ retry:
              goto failed;
          }
  #elif defined(HAVE_CMSGCRED)
@@ -137,7 +129,7 @@
  #else /* !SO_PEERCRED && !HAVE_CMSGCRED */
          GAM_DEBUG(DEBUG_INFO,
                    "Socket credentials not supported on this OS\n");
-@@ -1288,14 +1307,17 @@
+@@ -1288,14 +1306,17 @@ FAMNextEvent(FAMConnection * fc, FAMEven
  
      // FIXME: drop and reacquire lock while blocked?
      gamin_data_lock(conn);

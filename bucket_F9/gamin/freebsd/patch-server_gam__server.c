@@ -1,5 +1,5 @@
---- server/gam_server.c.orig	2007-07-04 09:36:49.000000000 -0400
-+++ server/gam_server.c	2009-05-01 20:25:41.000000000 -0400
+--- server/gam_server.c.orig	2007-07-04 13:36:49 UTC
++++ server/gam_server.c
 @@ -32,7 +32,7 @@
  #include "gam_server.h"
  #include "gam_channel.h"
@@ -19,7 +19,7 @@
  	} else {
  		gam_fs_mon_type type;
  		type = gam_fs_get_mon_type (path);
-@@ -243,7 +244,8 @@ gam_remove_subscription(GamSubscription 
+@@ -243,7 +244,8 @@ gam_remove_subscription(GamSubscription
  			return gam_poll_remove_subscription (sub);
  		else
  #endif

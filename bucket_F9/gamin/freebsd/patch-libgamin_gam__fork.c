@@ -1,6 +1,6 @@
---- libgamin/gam_fork.c.orig	2007-07-04 06:36:48.000000000 -0700
-+++ libgamin/gam_fork.c	2013-02-16 20:37:31.298176973 -0800
-@@ -42,6 +42,78 @@
+--- libgamin/gam_fork.c.orig	2007-07-04 13:36:48 UTC
++++ libgamin/gam_fork.c
+@@ -42,6 +42,78 @@ gamin_find_server_path(void)
      return NULL;
  }
  
@@ -79,7 +79,7 @@
  /**
   * gamin_fork_server:
   * @fam_client_id: the client ID string to use
-@@ -71,6 +143,13 @@
+@@ -71,6 +143,13 @@ gamin_fork_server(const char *fam_client
          long open_max;
  	long i;
  

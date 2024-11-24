@@ -1,5 +1,5 @@
---- tests/testing.c.orig	Thu Oct 27 10:51:03 2005
-+++ tests/testing.c	Tue Feb 14 17:46:01 2006
+--- tests/testing.c.orig	2007-07-04 13:36:49 UTC
++++ tests/testing.c
 @@ -376,11 +376,11 @@ processCommand(char *line, int no)
          }
          printf("chmod %s to %s\n", arg, arg2);
