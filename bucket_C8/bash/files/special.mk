@@ -6,7 +6,6 @@
 .if ${OPSYS} == Linux
 .  if "${PLIST_SUB:MSTATIC-ON=*}" == "STATIC-ON="
 CONFIGURE_ARGS:=	${CONFIGURE_ARGS:N--enable-static-link}
-CONFIGURE_ENV+=		ac_cv_func_dlopen=no
 
 TINFOLIBS=		${LOCALBASE}/lib/libtinfo.a \
 			-lpthread
