@@ -1,4 +1,6 @@
-Fix for gcc14
+Fix for gcc14.  
+However, on linux the removed line is needed to build the tests
+so they have been excluded.
 
 --- meson.build.orig	2024-09-14 18:26:17 UTC
 +++ meson.build
@@ -10,3 +12,11 @@ Fix for gcc14
  
  fs = import('fs')
  
+@@ -207,7 +206,6 @@ if not get_option('atk_only')
+   subdir('registryd')
+   subdir('droute')
+   subdir('atk-adaptor')
+-  subdir('tests')
+ endif
+ 
+ if get_option('docs')
