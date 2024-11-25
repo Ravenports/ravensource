@@ -43,6 +43,8 @@ MAKE_ARGS=		MK_AUTO_OBJ=no
 			MK_STAGING=no
 CFLAGS=			-fcommon
 
+VAR_OPSYS[linux]=	CFLAGS=-D_GNU_SOURCE
+
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/cvs ${STAGEDIR}${PREFIX}/bin
 	${INSTALL_MAN} ${WRKSRC}/cvs.1 ${STAGEDIR}${MAN1PREFIX}/man/man1
