@@ -54,6 +54,8 @@ VAR_OPSYS[dragonfly]=	CMAKE_ARGS=-DFLB_WASM=Off
 VAR_OPSYS[freebsd]=	CMAKE_ARGS=-DFLB_WASM=Off
 VAR_OPSYS[netbsd]=	CMAKE_ARGS=-DFLB_WASM=Off
 
+VAR_OPSYS[linux]=	CFLAGS=-Wno-implicit-function-declaration
+
 pre-configure:
 	# seems several platforms have issue with entropy
 	${REINPLACE_CMD} -e '/#define LJ_TARGET_HAS_GETENTROPY/s@1@0@g' \
