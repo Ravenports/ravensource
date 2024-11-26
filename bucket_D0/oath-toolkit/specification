@@ -43,7 +43,6 @@ EXRUN[tools]=		primary
 
 USES=			autoreconf gtk-doc libtool mbsdfix pkgconfig perl:build
 GNOME_COMPONENTS=	libxslt
-
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-gtk-doc
 INSTALL_TARGET=		install-strip
@@ -57,3 +56,9 @@ PLIST_SUB=		OATH=${LIBOATH}
 post-extract:
 	${SED} -n '/SECTION:/!p;//q' ${WRKSRC}/liboath/oath.h >> ${WRKDIR}/TERMS_LIB
 	${SED} -n '/config.h/!p;//q' ${WRKSRC}/oathtool/oathtool.c >> ${WRKDIR}/TERMS_TOOLS
+
+pre-configure:
+	# fix shebang
+.for f in liboath/man/gdoc libpskc/man/gdoc
+	${SED} -i'' '1s|^|#!/${LOCALBASE}/bin/perl\n\n|' ${WRKSRC}/${f}
+.endfor
