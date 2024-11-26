@@ -6,6 +6,11 @@ CPE_VENDOR=		borgbackup
 CPE_PRODUCT=		borg
 MAKE_ENV=		BORG_OPENSSL_PREFIX={{OPENSSLBASE}}
 
+VAR_OPSYS[freebsd]=	CFLAGS=-Wno-implicit-function-declaration
+
 post-patch:
 	${SED} -i'' -e 's|msgpack-python|msgpack|' \
 	${WRKSRC}/setup.py ${WRKSRC}/src/borgbackup.egg-info/requires.txt
+
+post-extract-freebsd:
+	${CP} ${FILESDIR}/acl_extended_file_np.c ${WRKSRC}/src/borg/platform/
