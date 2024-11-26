@@ -4,7 +4,7 @@
  #include <fcntl.h>
  #include <sys/ioctl.h>
  
-+#if defined(__DragonFly__)
++#if defined(__DragonFly__) || defined(__FreeBSD__)
 +#include <arpa/inet.h>
 +#endif
 +
