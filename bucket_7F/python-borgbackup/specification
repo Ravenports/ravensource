@@ -65,5 +65,7 @@ post-patch:
 	${SED} -i'' -e 's|msgpack-python|msgpack|' \
 	${WRKSRC}/setup.py ${WRKSRC}/src/borgbackup.egg-info/requires.txt
 
+# probably breaks on freebsd 14, needs fixing
+
 post-extract-freebsd:
 	${CP} ${FILESDIR}/acl_extended_file_np.c ${WRKSRC}/src/borg/platform/
