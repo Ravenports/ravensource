@@ -8,7 +8,7 @@
 +# ifdef __linux__
 +# include <pty.h>
 +# else
-+# include <util.h>
++# include <libutil.h>
 +# endif
 +#endif
 +
