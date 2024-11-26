@@ -327,6 +327,13 @@ install-platform: install-common
 .if "${OSMAJOR}" == "13"
 	${BSD_INSTALL_LIB} ../${OPSYS:tl}/lib/casper/libcap_fileargs.so.1 \
 		${DESTDIR}${BASE}/usr/lib/
+	${BSD_INSTALL_LIB} ../${OPSYS:tl}/usr/lib/libstdthreads.so.0 \
+		${DESTDIR}${BASE}/usr/lib/
+	${BSD_INSTALL_DATA} ../${OPSYS:tl}/usr/lib/libstdthreads.a \
+		${DESTDIR}${BASE}/usr/lib/
+	(cd ${DESTDIR}${BASE}/usr/lib && \
+		ln -s libstdthreads.so.0 libstdthreads.so \
+	)
 .endif
 	sed -e 's|/lib/libc\.so|/usr/lib/libc.so|'  ../${OPSYS:tl}/usr/lib/libc.so \
 		> ${DESTDIR}${BASE}/usr/lib/libc.so
