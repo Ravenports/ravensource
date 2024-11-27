@@ -1,4 +1,4 @@
---- src/nfpcapd/pcaproc.h.orig	2023-09-02 11:27:28 UTC
+--- src/nfpcapd/pcaproc.h.orig	2024-10-23 17:57:56 UTC
 +++ src/nfpcapd/pcaproc.h
 @@ -40,6 +40,7 @@
  #endif
