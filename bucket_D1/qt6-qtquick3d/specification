@@ -19,16 +19,17 @@ DISTFILE[1]=		${COMPONENT}-everywhere-src-${PORTVERSION}.tar.xz:main
 
 SPKGS[std]=		set primary dev
 
-OPTIONS_AVAILABLE=	EMBREE
-OPTIONS_STANDARD=	EMBREE
+OPTIONS_AVAILABLE=	EMBREE XR
+OPTIONS_STANDARD=	EMBREE XR
 # OPT_ON[freebsd]=	EMBREE
 # OPT_ON[dragonfly]=	EMBREE
 # OPT_ON[midnightbsd]=	EMBREE
-OPT_ON[linux]=		EMBREE
+OPT_ON[linux]=		EMBREE XR
 
 BUILD_DEPENDS=		qt6-qtbase:dev:std
 			qt6-qtshadertools:dev:std
 			qt6-qtdeclarative:dev:std
+			xorg-xcb:dev:std
 BUILDRUN_DEPENDS=	qt6-qtdeclarative:primary:std
 
 USES=			qt6 cmake pkgconfig perl:build cpe ssl zlib:build
@@ -41,6 +42,7 @@ SOVERSION=		${PORTVERSION}
 INSTALL_REQ_TOOLCHAIN=	yes
 
 [EMBREE].DESCRIPTION=			Embree support is installed
+[XR].DESCRIPTION=			OpenXr support is installed
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/qt6/bin/*
