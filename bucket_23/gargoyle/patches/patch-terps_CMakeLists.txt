@@ -1,0 +1,10 @@
+--- terps/CMakeLists.txt.orig	2023-02-20 06:08:58 UTC
++++ terps/CMakeLists.txt
+@@ -41,7 +41,6 @@ function(terp target)
+         target_compile_definitions(${target} PRIVATE $<$<COMPILE_LANGUAGE:C>:_XOPEN_SOURCE=600>)
+     endif()
+     if(TERP_LTO)
+-        lto(${target})
+     endif()
+     if(TERP_MATH)
+         target_link_libraries(${target} PRIVATE m)
