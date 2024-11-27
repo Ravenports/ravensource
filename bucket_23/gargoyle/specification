@@ -33,12 +33,8 @@ BUILDRUN_DEPENDS=	freetype:primary:std
 
 USES=			cmake jpeg png zlib pkgconfig fontconfig ninja
 CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH="{{PREFIX}}/lib/qt5/cmake/"
+MAKE_ARGS=		-dexplain
 SDL_COMPONENTS=		mixer2 sdl2
-
-do-install:
-	(cd ${INSTALL_WRKSRC} && ${SETENV} ${MAKE_ENV} \
-		${MAKE_CMD} ${MAKE_FLAGS} ${MAKEFILE} ${MAKE_ARGS} -dexplain \
-		${INSTALL_TARGET})
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/gargoyle
