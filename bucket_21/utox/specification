@@ -45,11 +45,13 @@ B_DEPS[dragonfly]=	evdev-proto:single:std
 B_DEPS[netbsd]=		evdev-proto:single:std
 B_DEPS[midnightbsd]=	evdev-proto:single:std
 
-USES=			cmake desktop-utils:primary dos2unix
+USES=			cmake desktop-utils:primary dos2unix ninja
 			fontconfig pkgconfig
 XORG_COMPONENTS=	ice sm x11 xext xrender
 DISTNAME=		uTox
-CMAKE_ARGS=		-DENABLE_FILTERAUDIO=Off
+CMAKE_ARGS=		-DENABLE_FILTERAUDIO:BOOL=OFF
+			-DENABLE_LTO:BOOL=OFF
+MAKE_ARGS=		-dexplain
 DOS2UNIX_GLOB=		*
 
 post-install:
