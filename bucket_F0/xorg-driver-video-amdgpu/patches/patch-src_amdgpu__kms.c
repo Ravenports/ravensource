@@ -1,4 +1,4 @@
---- src/amdgpu_kms.c.orig	2022-02-23 12:27:54 UTC
+--- src/amdgpu_kms.c.orig	2023-02-22 17:14:50 UTC
 +++ src/amdgpu_kms.c
 @@ -932,7 +932,7 @@ static void
  amdgpu_dirty_update(ScrnInfoPtr scrn)
