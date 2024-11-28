@@ -5,7 +5,7 @@ DEF[SOVERSION]=		4.0.12
 
 NAMEBASE=		libdbusmenu
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		devel
 VARIANTS=		std
 SDESC[std]=		Library for passing menus over DBus
@@ -16,7 +16,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://launchpad.net/libdbusmenu/${DLFOLDER}/${PORTVERSION}/+download/
 DISTFILE[1]=		libdbusmenu-${PORTVERSION}.tar.gz:main
 
-SPKGS[std]=		set primary docs
+SPKGS[std]=		set primary dev docs tools
 
 OPTIONS_AVAILABLE=	INTROSPECTION
 OPTIONS_STANDARD=	INTROSPECTION
@@ -35,8 +35,10 @@ BUILD_DEPENDS=		harfbuzz:dev:std
 			json-glib:dev:std
 BUILDRUN_DEPENDS=	json-glib:primary:std
 
+EXRUN[tools]=		python-dbus-python:primary:python_used
+
 USES=			gmake libtool gtk-doc pkgconfig
-			python:run shebangfix mbsdfix
+			python:build shebangfix mbsdfix
 GNOME_COMPONENTS=	glib intltool libxslt gtk3
 MUST_CONFIGURE=		gnu
 INSTALL_TARGET=		install-strip

@@ -1,0 +1,84 @@
+Convert tool to work on python3 
+--- tools/dbusmenu-bench.orig	2016-02-27 18:58:43 UTC
++++ tools/dbusmenu-bench
+@@ -60,8 +60,8 @@ class Chrono(object):
+ 
+ 
+ def dump_properties(properties, prepend=""):
+-    for key, value in properties.items():
+-        print "%s- %s: %s" % (prepend, key, value)
++    for key, value in list(properties.items()):
++        print("%s- %s: %s" % (prepend, key, value))
+ 
+ 
+ def run_test_sequence(menu, dump=False):
+@@ -74,9 +74,9 @@ def run_test_sequence(menu, dump=False):
+     revision, layout = menu.GetLayout(dbus.Int32(0))
+     times["GetLayout"] = chrono.elapsed()
+     if dump:
+-        print "revision:", revision
+-        print "layout:"
+-        print layout
++        print("revision:", revision)
++        print("layout:")
++        print(layout)
+ 
+     # Get ids
+     tree = ET.fromstring(layout)
+@@ -89,27 +89,27 @@ def run_test_sequence(menu, dump=False):
+     children = menu.GetChildren(dbus.Int32(root_id), property_names)
+     times["GetChildren"] = chrono.elapsed()
+     if dump:
+-        print "children:"
++        print("children:")
+         for child in children:
+             id, properties = child
+-            print "- %d:" % id
++            print("- %d:" % id)
+             dump_properties(properties, prepend=" ")
+ 
+     chrono.restart()
+     properties = menu.GetProperties(dbus.Int32(child_id), property_names)
+     times["GetProperties"] = chrono.elapsed()
+     if dump:
+-        print "properties:"
++        print("properties:")
+         dump_properties(properties)
+ 
+     return times
+ 
+ def create_timing_dict():
+-    return dict(zip(PROBES, itertools.repeat(0)))
++    return dict(list(zip(PROBES, itertools.repeat(0))))
+ 
+ def print_probe(prefix, name, value, timestamp):
+     value = int(value * 1000000)
+-    print "%(prefix)s.%(name)s:%(value)d@%(timestamp)d" % locals()
++    print("%(prefix)s.%(name)s:%(value)d@%(timestamp)d" % locals())
+ 
+ def main():
+     parser = OptionParser(usage = "%prog [options]")
+@@ -134,7 +134,7 @@ def main():
+     max_timings = create_timing_dict()
+     for x in range(options.count):
+         timings = run_test_sequence(menu)
+-        for name, timing in timings.items():
++        for name, timing in list(timings.items()):
+             cumulated_timings[name] += timing
+             if min_timings[name] == 0 or min_timings[name] > timing:
+                 min_timings[name] = timing
+@@ -142,11 +142,11 @@ def main():
+                 max_timings[name] = timing
+ 
+     timestamp = int(time.time())
+-    for name, timing in cumulated_timings.items():
++    for name, timing in list(cumulated_timings.items()):
+         print_probe("average", name, timing / options.count, timestamp)
+-    for name, timing in min_timings.items():
++    for name, timing in list(min_timings.items()):
+         print_probe("min", name, timing, timestamp)
+-    for name, timing in max_timings.items():
++    for name, timing in list(max_timings.items()):
+         print_probe("max", name, timing, timestamp)
+ 
+     return 0
