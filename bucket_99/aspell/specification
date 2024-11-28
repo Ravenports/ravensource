@@ -5,7 +5,7 @@ DEF[SOVERSION]=		15.3.1
 
 NAMEBASE=		aspell
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		textproc
 VARIANTS=		std
 SDESC[std]=		GNU spell checker
@@ -16,12 +16,14 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNU/aspell
 DISTFILE[1]=		aspell-${PORTVERSION}.tar.gz:main
 
-SPKGS[std]=		set primary nls man info
+SPKGS[std]=		set primary dev tools nls man info
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		textproc/aspell
+
+EXRUN[tools]=		primary
 
 USES=			cpe gmake iconv libtool ncurses perl shebangfix
 			gettext mbsdfix c++:primary
