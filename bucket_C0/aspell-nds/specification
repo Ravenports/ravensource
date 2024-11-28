@@ -27,13 +27,13 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		textproc/${SUFFIX}-aspell
 
-BUILDRUN_DEPENDS=	aspell:primary:std
+BUILD_DEPENDS=		aspell:tools:std
 
 USES=			gmake
 MUST_CONFIGURE=		yes
 PLIST_SUB=		VER=${VERINST}
 DISTNAME=		${DISTPREFIX}-${SUFFIX}-${PORTVERSION}-${DIST_ITERATION}
 
-# Conflict with aspell:primary:std
+# Conflict with aspell primary package
 post-install:
 	${RM} ${STAGEDIR}${PREFIX}/lib/aspell-0.60/iso-8859-15.*
