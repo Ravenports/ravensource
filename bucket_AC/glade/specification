@@ -5,7 +5,7 @@ DEF[CAT2]=		http://docbook.sourceforge.net/release/xsl/current/
 
 NAMEBASE=		glade
 VERSION=		${PORTVERSION}
-REVISION=		3
+REVISION=		4
 KEYWORDS=		devel
 VARIANTS=		std
 SDESC[std]=		User interface builder for GTK+3
@@ -17,7 +17,7 @@ SITES[main]=		https://download.gnome.org/sources/glade/${PORTVERSION:R}/
 DISTFILE[1]=		glade-${PORTVERSION}.tar.xz:main
 DIST_SUBDIR=		gnome3
 
-SPKGS[std]=		set primary nls man
+SPKGS[std]=		set primary dev nls man tools
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -43,6 +43,8 @@ BUILD_DEPENDS=		appstream-glib:dev:std
 			gjs:dev:std
 BUILDRUN_DEPENDS=	gjs:primary:std
 			webkit2:primary:api40
+
+EXRUN[tools]=		primary
 
 USES=			desktop-utils:primary meson pkgconfig
 GNOME_COMPONENTS=	glib gtk3 pygobject
