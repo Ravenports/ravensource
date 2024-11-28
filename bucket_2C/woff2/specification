@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	1.0.2
 
 NAMEBASE=		woff2
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		std
 SDESC[std]=		Web Open Font Format 2 reference implementation
@@ -13,12 +14,12 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/google:woff2:v${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[std]=		single
+SPKGS[std]=		set primary dev tools
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		MIT:single
+LICENSE=		MIT:primary
 LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
 
@@ -27,7 +28,9 @@ FPC_EQUIVALENT=		devel/woff2
 BUILD_DEPENDS=		brotli:dev:std
 BUILDRUN_DEPENDS=	brotli:primary:std
 
-USES=			cmake pkgconfig c++:single
+EXRUN[tools]=		primary
+
+USES=			cmake pkgconfig c++:primary
 SOVERSION=		${PORTVERSION}
 
 post-install:
