@@ -1,5 +1,6 @@
 DEF[PORTVERSION]=	20190220
 DEF[DESTINO]=		/boot/modules.local
+DEF[MODPREFIX]=		AMD_
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		fw-amdgpu
@@ -32,7 +33,7 @@ BUILD_WRKSRC=		{{WRKDIR}}/_build
 do-build:
 	${MKDIR} ${BUILD_WRKSRC}
 	for file in ${WRKSRC}/amdgpu/*; do \
-	  ${SETENV} MODULEDIR=${BUILD_WRKSRC} ${SH} ${FILESDIR}/wrap-fw_module.sh $$file ;\
+	  ${SETENV} MODULEDIR=${BUILD_WRKSRC} ${SH} ${FILESDIR}/wrap-fw_module.sh $$file "${MODPREFIX}" ;\
 	done
 
 do-install:
