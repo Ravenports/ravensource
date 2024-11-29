@@ -1,0 +1,40 @@
+DEF[PORTVERSION]=	20190220
+DEF[DESTINO]=		/boot/modules.local
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		fw-amdgpu
+VERSION=		${PORTVERSION}
+KEYWORDS=		sysutils graphics
+VARIANTS=		std
+SDESC[std]=		AMD Radeon Volcanic Islands GPU firmware
+HOMEPAGE=		none
+CONTACT=		Rimvydas_Jasinskas[zrj@ef.irc]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://leaf.dragonflybsd.org/~zrj/dports/fw/
+DISTFILE[1]=		amdgpu-firmware-${PORTVERSION}.tar.gz:main
+
+SPKGS[std]=		single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		CUSTOM1:single
+LICENSE_NAME=		CUSTOM1:"Advanced Micro Devices Fireware License"
+LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/LICENSE.amdgpu
+LICENSE_SCHEME=		solo
+
+ONLY_FOR_OPSYS=		dragonfly
+DISTNAME=		amdgpu
+EXTRACT_DIRTY=		1
+BUILD_WRKSRC=		{{WRKDIR}}/_build
+
+do-build:
+	${MKDIR} ${BUILD_WRKSRC}
+	for file in ${WRKSRC}/amdgpu/*; do \
+	  ${SETENV} MODULEDIR=${BUILD_WRKSRC} ${SH} ${FILESDIR}/wrap-fw_module.sh $$file ;\
+	done
+
+do-install:
+	${MKDIR} ${STAGEDIR}${DESTINO}
+	${INSTALL_DATA} ${BUILD_WRKSRC}/*.ko ${STAGEDIR}${DESTINO}/
