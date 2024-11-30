@@ -17,12 +17,3 @@
  #define MAP_LOCKED 0
  #endif
  
-@@ -556,7 +557,7 @@ struct pw_memblock * pw_mempool_alloc(st
- 		pw_log_error("%p: Failed to create memfd: %m", pool);
- 		goto error_free;
- 	}
--#elif defined(__FreeBSD__) || defined(__MidnightBSD__)
-+#elif defined(__FreeBSD__) || defined(__MidnightBSD__)
- 	b->this.fd = shm_open(SHM_ANON, O_CREAT | O_RDWR | O_CLOEXEC, 0);
- 	if (b->this.fd == -1) {
- 		res = -errno;

@@ -1,4 +1,4 @@
---- src/tools/pw-cli.c.orig	2024-09-27 10:02:20 UTC
+--- src/tools/pw-cli.c.orig	2024-10-23 07:44:10 UTC
 +++ src/tools/pw-cli.c
 @@ -10,7 +10,7 @@
  #include <signal.h>
