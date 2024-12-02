@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	5.2.0
+DEF[PORTVERSION]=	5.2.1
 # ------------------------------------------------------------------------
 
 NAMEBASE=		ruby-psych
@@ -13,7 +13,7 @@ CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		RUBYGEMS/
-DISTFILE[1]=		psych-5.2.0.gem:main
+DISTFILE[1]=		psych-5.2.1.gem:main
 DIST_SUBDIR=		ruby
 
 SPKGS[v31]=		single
@@ -31,14 +31,18 @@ VOPTS[v33]=		RUBY31=OFF RUBY32=OFF RUBY33=ON
 
 # Requirements according to gem specification:
 #   stringio (>= 0)
+#   date (>= 0)
 
 DISTNAME=		psych-${PORTVERSION}
 GENERATED=		yes
 
 [RUBY31].USES_ON=			gem:v31
 [RUBY31].BUILDRUN_DEPENDS_ON=		ruby-stringio:single:v31
+					ruby-date:single:v31
 [RUBY32].USES_ON=			gem:v32
 [RUBY32].BUILDRUN_DEPENDS_ON=		ruby-stringio:single:v32
+					ruby-date:single:v32
 [RUBY33].USES_ON=			gem:v33
 [RUBY33].BUILDRUN_DEPENDS_ON=		ruby-stringio:single:v33
+					ruby-date:single:v33
 
