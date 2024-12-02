@@ -6,7 +6,7 @@
 
 > A lil' TOML parser
 
-**Table of Contents**  *generated with [mdformat-toc]*
+**Table of Contents** *generated with [mdformat-toc]*
 
 <!-- mdformat-toc start --slug=github --maxlevel=6 --minlevel=2 -->
 
@@ -24,6 +24,8 @@
   - [Is there a `dumps`, `write` or `encode` function?]
   - [How do TOML types map into Python types?]
 - [Performance]
+  - [Pure Python]
+  - [Mypyc generated wheel]
 
 <!-- mdformat-toc end -->
 
@@ -38,6 +40,13 @@ via [PEP 680].
 Tomli continues to provide a backport on PyPI for Python versions
 where the standard library module is not available
 and that have not yet reached their end-of-life.
+
+Tomli uses [mypyc]
+to generate binary wheels for most of the widely used platforms,
+so Python 3.11+ users may prefer it over `tomllib` for improved
+performance.
+Pure Python wheels are available on any platform and should perform the
+same as `tomllib`.
 
 ## Installation<a name="installation">
 
@@ -89,12 +98,3 @@ both of which are required to correctly parse TOML.
 import tomli
 
 try:
-    toml_dict = tomli.loads("]] this is invalid TOML [[")
-except tomli.TOMLDecodeError:
-    print("Yep, definitely not valid.")
-```
-
-Note that error messages are considered informational only.
-They should not be assumed to stay constant across Tomli versions.
-
-### Construct `decimal.Decimal`s from TOML floats</a>

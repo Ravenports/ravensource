@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.3.1
+DEF[PORTVERSION]=	3.3.2
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-pylint
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/pylint-dev/pylint
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/4d/11/4a3f814eee14593f3cfcf7046bc765bf1646d5c88132c08c45310fc7d85f
+SITES[main]=		PYPIWHL/61/55/5eaf6c415f6ddb09b9b039278823a8e27fb81ea7a34ec80c6d9223b17f2e
 DISTFILE[1]=		pylint-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -30,33 +30,33 @@ GENERATED=		yes
 DISTNAME=		pylint-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# platformdirs >=2.2.0
-# astroid <=3.4.0-dev0,>=3.3.4
-# isort !=5.13.0,<6,>=4.2.5
-# mccabe <0.8,>=0.6
-# tomlkit >=0.10.1
-# typing-extensions >=3.10.0 ; python_version < "3.10"
-# dill >=0.2 ; python_version < "3.11"
-# tomli >=1.1.0 ; python_version < "3.11"
-# dill >=0.3.6 ; python_version >= "3.11"
-# dill >=0.3.7 ; python_version >= "3.12"
-# colorama >=0.4.5 ; sys_platform == "win32"
-# pyenchant ~=3.2 ; extra == 'spelling'
-# gitpython >3 ; extra == 'testutils'
+# dill>=0.2; python_version < "3.11"
+# dill>=0.3.6; python_version >= "3.11"
+# dill>=0.3.7; python_version >= "3.12"
+# platformdirs>=2.2.0
+# astroid<=3.4.0-dev0,>=3.3.5
+# isort!=5.13.0,<6,>=4.2.5
+# mccabe<0.8,>=0.6
+# tomli>=1.1.0; python_version < "3.11"
+# tomlkit>=0.10.1
+# colorama>=0.4.5; sys_platform == "win32"
+# typing-extensions>=3.10.0; python_version < "3.10"
+# gitpython>3; extra == "testutils"
+# pyenchant~=3.2; extra == "spelling"
 
 [PY312].USES_ON=			python:v12,wheel
-[PY312].RUN_DEPENDS_ON=			python-platformdirs:single:v12
+[PY312].RUN_DEPENDS_ON=			python-dill:single:v12
+					python-platformdirs:single:v12
 					python-astroid:single:v12
 					python-isort:single:v12
 					python-mccabe:single:v12
 					python-tomlkit:single:v12
-					python-dill:single:v12
 [PY313].USES_ON=			python:v13,wheel
-[PY313].RUN_DEPENDS_ON=			python-platformdirs:single:v13
+[PY313].RUN_DEPENDS_ON=			python-dill:single:v13
+					python-platformdirs:single:v13
 					python-astroid:single:v13
 					python-isort:single:v13
 					python-mccabe:single:v13
 					python-tomlkit:single:v13
-					python-dill:single:v13
 
 BUILDRUN_DEPENDS=	python-pytest-runner:single:python_used

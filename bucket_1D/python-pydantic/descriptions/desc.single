@@ -78,23 +78,23 @@ See our [security policy].
 
 ## Changelog
 
-## v2.10.1 (2024-11-21)
+## v2.10.2 (2024-11-25)
 
 [GitHub release]
 
 ### What's Changed
 
-#### Packaging
-
-* Bump `pydantic-core` version to `v2.27.1` by [@sydney-runkle] in [#10938]
-
 #### Fixes
 
-* Use the correct frame when instantiating a parametrized `TypeAdapter` by
-[@Viicos] in [#10893]
-* Relax check for validated data in `default_factory` utils by
-[@sydney-runkle] in [#10909]
-* Fix type checking issue with `model_fields` and `model_computed_fields`
-by [@sydney-runkle] in [#10911]
-* Use the parent configuration during schema generation for stdlib
-`dataclass`es by [@sydney-runkle] in [#10928]
+* Only evaluate FieldInfo annotations if required during schema building by
+[@Viicos] in [#10769]
+* Do not evaluate annotations for private fields by [@Viicos] in [#10962]
+* Support serialization as any for `Secret` types and `Url` types by
+[@sydney-runkle] in [#10947]
+* Fix type hint of `Field.default` to be compatible with Python 3.8 and 3.9
+by [@Viicos] in [#10972]
+* Add hashing support for URL types by [@sydney-runkle] in [#10975]
+* Hide `BaseModel.__replace__` definition from type checkers by [@Viicos]
+in [10979]
+
+## v2.10.1 (2024-11-21)
