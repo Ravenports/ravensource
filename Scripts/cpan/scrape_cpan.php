@@ -597,7 +597,7 @@ function finish_port_yaml (&$port) {
             ksort($props);
             foreach ($props as $key => $version) {
                 $key = trim($key);
-                $version = trim($version);
+                $version = is_null($version) ? "0" : trim($version);
                 if ($key == "perl") { continue; }
                 $suff = "";
                 foreach ($perlverkeys as $perlkey) {
