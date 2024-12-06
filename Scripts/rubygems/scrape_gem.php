@@ -104,7 +104,14 @@ function set_dependencies_comment ($data, &$comment) {
         return;
     }
     foreach (explode ("\n", $data) as $line) {
-        $comment .= "#   " . $line . "\n";
+        if (strlen ($line) > 95) {
+           $arr1 = str_split($line, 95);
+           foreach ($arr1 as $subline) {
+              $comment .= "#   " . $subline . "\n";
+           }
+        } else {
+            $comment .= "#   " . $line . "\n";
+        }
     }
 }
 
