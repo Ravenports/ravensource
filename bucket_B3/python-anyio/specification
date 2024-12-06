@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	4.6.2.post1
+DEF[PORTVERSION]=	4.7.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-anyio
@@ -11,7 +11,7 @@ HOMEPAGE=		none
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/e4/f5/f2b75d2fc6f1a260f340f0e7c6a060f4dd2961cc16884ed851b0d18da06a
+SITES[main]=		PYPIWHL/a0/7a/4daaf3b6c08ad7ceffea4634ec206faeff697526421c20f07628c7372156
 DISTFILE[1]=		anyio-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -30,29 +30,30 @@ GENERATED=		yes
 DISTNAME=		anyio-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# idna >=2.8
-# sniffio >=1.1
-# exceptiongroup >=1.0.2 ; python_version < "3.11"
-# typing-extensions >=4.1 ; python_version < "3.11"
-# packaging ; extra == 'doc'
-# Sphinx ~=7.4 ; extra == 'doc'
-# sphinx-rtd-theme ; extra == 'doc'
-# sphinx-autodoc-typehints >=1.2.0 ; extra == 'doc'
-# anyio[trio] ; extra == 'test'
-# coverage[toml] >=7 ; extra == 'test'
-# exceptiongroup >=1.2.0 ; extra == 'test'
-# hypothesis >=4.0 ; extra == 'test'
-# psutil >=5.9 ; extra == 'test'
-# pytest >=7.0 ; extra == 'test'
-# pytest-mock >=3.6.1 ; extra == 'test'
-# trustme ; extra == 'test'
-# uvloop >=0.21.0b1 ; (platform_python_implementation == "CPython" and platform_system != "Windows") and extra == 'test'
-# truststore >=0.9.1 ; (python_version >= "3.10") and extra == 'test'
-# trio >=0.26.1 ; extra == 'trio'
+# exceptiongroup>=1.0.2; python_version < "3.11"
+# idna>=2.8
+# sniffio>=1.1
+# typing_extensions>=4.5; python_version < "3.13"
+# trio>=0.26.1; extra == "trio"
+# anyio[trio]; extra == "test"
+# coverage[toml]>=7; extra == "test"
+# exceptiongroup>=1.2.0; extra == "test"
+# hypothesis>=4.0; extra == "test"
+# psutil>=5.9; extra == "test"
+# pytest>=7.0; extra == "test"
+# pytest-mock>=3.6.1; extra == "test"
+# trustme; extra == "test"
+# truststore>=0.9.1; python_version >= "3.10" and extra == "test"
+# uvloop>=0.21; (platform_python_implementation == "CPython" and platform_system != "Windows") and extra == "test"
+# packaging; extra == "doc"
+# Sphinx~=7.4; extra == "doc"
+# sphinx_rtd_theme; extra == "doc"
+# sphinx-autodoc-typehints>=1.2.0; extra == "doc"
 
 [PY312].USES_ON=			python:v12,wheel
 [PY312].RUN_DEPENDS_ON=			python-idna:single:v12
 					python-sniffio:single:v12
+					python-typing-extensions:single:v12
 [PY313].USES_ON=			python:v13,wheel
 [PY313].RUN_DEPENDS_ON=			python-idna:single:v13
 					python-sniffio:single:v13

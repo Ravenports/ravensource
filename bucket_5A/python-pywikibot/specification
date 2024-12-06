@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	9.5.0
+DEF[PORTVERSION]=	9.6.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-pywikibot
@@ -11,7 +11,7 @@ HOMEPAGE=		https://www.mediawiki.org/wiki/Manual:Pywikibot
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/29/43/2b8c910683a7e08591d16ac15f3470a7c6316272234223d99f0a2a109605
+SITES[main]=		PYPIWHL/66/d1/18de028868cf58d7226d5597448ef9ff7e88dfd4cad6dfc3eeee3aa46d0a
 DISTFILE[1]=		pywikibot-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -30,28 +30,29 @@ GENERATED=		yes
 DISTNAME=		pywikibot-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
+# importlib_metadata; python_version < "3.8"
 # mwparserfromhell>=0.5.2
 # packaging
 # requests>=2.21.0
-# importlib-metadata; python_version < "3.8"
-# google>=1.7; extra == "google"
+# sseclient<0.0.23,>=0.0.18; extra == "eventstreams"
+# python-stdnum>=1.19; extra == "isbn"
 # pydot>=1.4.1; extra == "graphviz"
+# google>=1.7; extra == "google"
+# memento_client==0.6.1; extra == "memento"
+# wikitextparser>=0.47.0; extra == "wikitextparser"
+# PyMySQL>=1.0.0; extra == "mysql"
 # Pillow!=10.0,!=10.1,>=8.1.2; python_version < "3.13" and extra == "tkinter"
 # Pillow>=10.4; python_version >= "3.13" and extra == "tkinter"
-# isbnlib; extra == "create-isbn-edition-py"
-# unidecode; extra == "create-isbn-edition-py"
-# sseclient<0.0.23,>=0.0.18; extra == "eventstreams"
+# PyJWT!=2.10.0,!=2.10.1; python_version > "3.8" and extra == "mwoauth"
+# mwoauth!=0.3.1,>=0.2.4; extra == "mwoauth"
 # beautifulsoup4>=4.7.1; extra == "html"
 # fake-useragent>=1.4.0; extra == "http"
-# python-stdnum>=1.19; extra == "isbn"
-# memento-client==0.6.1; extra == "memento"
-# mwoauth!=0.3.1,>=0.2.4; extra == "mwoauth"
-# PyMySQL>=1.0.0; extra == "mysql"
+# isbnlib; extra == "create-isbn-edition-py"
+# unidecode; extra == "create-isbn-edition-py"
+# memento_client==0.6.1; extra == "weblinkchecker-py"
 # isbnlib; extra == "scripts"
 # unidecode; extra == "scripts"
-# memento-client==0.6.1; extra == "scripts"
-# memento-client==0.6.1; extra == "weblinkchecker-py"
-# wikitextparser>=0.47.0; extra == "wikitextparser"
+# memento_client==0.6.1; extra == "scripts"
 
 [PY312].USES_ON=			python:v12,wheel
 [PY312].RUN_DEPENDS_ON=			python-mwparserfromhell:single:v12

@@ -1,100 +1,100 @@
-   :align: center
-   :alt: Loguru logo
+<p align="center">
+    
+        [image]
+        <!-- Logo credits: Sambeet from Pixaday -->
+        <!-- Logo fonts: Comfortaa + Raleway -->
+    
+</p>
+<p align="center">
+    [image]
+    [image]
+    [image]
+    [image]
+    [image]
+    [image]
+    [image]
+</p>
+<p align="center">
+    
+        [image]
+    
+</p>
 
-   :align: center
-   :alt: Loguru demo
-
-=========
-
-    :alt: Pypi version
-
-    :alt: Python versions
-
-    :alt: Docs
-
-    :alt: Build status
-
-    :alt: Coverage
-
-    :alt: Code quality
-
-    :alt: License
+______________________________________________________________________
 
 **Loguru** is a library which aims to bring enjoyable logging in Python.
 
-Did you ever feel lazy about configuring a logger and used ``print()``
+Did you ever feel lazy about configuring a logger and used `print()`
 instead?... I did, yet logging is fundamental to every application and
 eases the process of debugging. Using **Loguru** you have no excuse not to
-use logging from the start, this is as simple as from loguru import logger.
+use logging from the start, this is as simple as `from loguru import
+logger`.
 
 Also, this library is intended to make Python logging less painful by
 adding a bunch of useful functionalities that solve caveats of the standard
 loggers. Using logs in your application should be an automatism, **Loguru**
 tries to make it both pleasant and powerful.
 
-.. end-of-readme-intro
+<!-- end-of-readme-intro -->
 
-Installation
-------------
+## Installation
 
-::
+`
+pip install loguru
+`
 
-    pip install loguru
+## Features
 
-Features
---------
+- [Ready to use out of the box without boilerplate]
+- [No Handler, no Formatter, no Filter: one function to rule them all]
+- [Easier file logging with rotation / retention / compression]
+- [Modern string formatting using braces style]
+- [Exceptions catching within threads or main]
+- [Pretty logging with colors]
+- [Asynchronous, Thread-safe, Multiprocess-safe]
+- [Fully descriptive exceptions]
+- [Structured logging as needed]
+- [Lazy evaluation of expensive functions]
+- [Customizable levels]
+- [Better datetime handling]
+- [Suitable for scripts and libraries]
+- [Entirely compatible with standard logging]
+- [Personalizable defaults through environment variables]
+- [Convenient parser]
+- [Exhaustive notifier]
+- <s>[10x faster than built-in logging]</s>
 
-* `Ready to use out of the box without boilerplate`_
-* `No Handler, no Formatter, no Filter: one function to rule them all`_
-* `Easier file logging with rotation / retention / compression`_
-* `Modern string formatting using braces style`_
-* `Exceptions catching within threads or main`_
-* `Pretty logging with colors`_
-* `Asynchronous, Thread-safe, Multiprocess-safe`_
-* `Fully descriptive exceptions`_
-* `Structured logging as needed`_
-* `Lazy evaluation of expensive functions`_
-* `Customizable levels`_
-* `Better datetime handling`_
-* `Suitable for scripts and libraries`_
-* `Entirely compatible with standard logging`_
-* `Personalizable defaults through environment variables`_
-* `Convenient parser`_
-* `Exhaustive notifier`_
-* `10x faster than built-in logging`_
+## Take the tour
 
-Take the tour
--------------
+### Ready to use out of the box without boilerplate
 
-.. |logger| replace:: logger
-.. _logger:
-https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger
+The main concept of Loguru is that **there is one and only one**
+[`logger`].
 
-.. |add| replace:: ``add()``
-.. _add:
-https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.add
+For convenience, it is pre-configured and outputs to `stderr` to begin with
+(but that's entirely configurable).
 
-.. |remove| replace:: ``remove()``
-.. _remove:
-https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.remove
+```python
+from loguru import logger
 
-.. |complete| replace:: ``complete()``
-.. _complete:
-https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.complete
+logger.debug("That's it, beautiful and simple logging!")
+```
 
-.. |catch| replace:: ``catch()``
-.. _catch:
-https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.catch
+The [`logger`] is just an interface which dispatches log messages to
+configured handlers. Simple, right?
 
-.. |bind| replace:: ``bind()``
-.. _bind:
-https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.bind
+### No Handler, no Formatter, no Filter: one function to rule them all
 
-.. |contextualize| replace:: ``contextualize()``
-.. _contextualize:
-https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.contextualize
+How to add a handler? How to set up logs formatting? How to filter
+messages? How to set level?
 
-.. |patch| replace:: ``patch()``
-.. _patch:
-https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.patch
+One answer: the [`add()`] function.
 
+```python
+logger.add(sys.stderr, format="{time} {level} {message}",
+filter="my_module", level="INFO")
+```
+
+This function should be used to register [sinks] which are responsible for
+managing [log messages] contextualized with a [record dict]. A sink can
+take many forms: a simple function, a string path, a file-like object, a
