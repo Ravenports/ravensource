@@ -92,6 +92,7 @@ include/google/protobuf/wire_format_lite.h
 include/google/protobuf/wrappers.pb.h
 include/google/protobuf/wrappers.proto
 include/google/protobuf/compiler/code_generator.h
+include/google/protobuf/compiler/code_generator_lite.h
 include/google/protobuf/compiler/command_line_interface.h
 include/google/protobuf/compiler/importer.h
 include/google/protobuf/compiler/parser.h
@@ -148,7 +149,6 @@ include/google/protobuf/compiler/java/generator_factory.h
 include/google/protobuf/compiler/java/helpers.h
 include/google/protobuf/compiler/java/internal_helpers.h
 include/google/protobuf/compiler/java/java_features.pb.h
-include/google/protobuf/compiler/java/kotlin_generator.h
 include/google/protobuf/compiler/java/message_serialization.h
 include/google/protobuf/compiler/java/name_resolver.h
 include/google/protobuf/compiler/java/names.h
@@ -179,6 +179,9 @@ include/google/protobuf/compiler/java/lite/message_builder.h
 include/google/protobuf/compiler/java/lite/message_field.h
 include/google/protobuf/compiler/java/lite/primitive_field.h
 include/google/protobuf/compiler/java/lite/string_field.h
+include/google/protobuf/compiler/kotlin/file.h
+include/google/protobuf/compiler/kotlin/generator.h
+include/google/protobuf/compiler/kotlin/message.h
 include/google/protobuf/compiler/objectivec/enum.h
 include/google/protobuf/compiler/objectivec/enum_field.h
 include/google/protobuf/compiler/objectivec/extension.h
@@ -213,10 +216,12 @@ include/google/protobuf/compiler/rust/oneof.h
 include/google/protobuf/compiler/rust/relative_path.h
 include/google/protobuf/compiler/rust/rust_field_type.h
 include/google/protobuf/compiler/rust/rust_keywords.h
+include/google/protobuf/compiler/rust/upb_helpers.h
 include/google/protobuf/compiler/rust/accessors/accessor_case.h
 include/google/protobuf/compiler/rust/accessors/accessors.h
 include/google/protobuf/compiler/rust/accessors/default_value.h
 include/google/protobuf/compiler/rust/accessors/generator.h
+include/google/protobuf/compiler/rust/accessors/with_presence.h
 include/google/protobuf/io/coded_stream.h
 include/google/protobuf/io/gzip_stream.h
 include/google/protobuf/io/io_win32.h
@@ -328,6 +333,7 @@ include/upb/reflection/def.h
 include/upb/reflection/def.hpp
 include/upb/reflection/def_pool.h
 include/upb/reflection/def_type.h
+include/upb/reflection/descriptor_bootstrap.h
 include/upb/reflection/enum_def.h
 include/upb/reflection/enum_reserved_range.h
 include/upb/reflection/enum_value_def.h
@@ -360,13 +366,16 @@ include/upb/text/options.h
 include/upb/text/internal/encode.h
 include/upb/util/def_to_proto.h
 include/upb/util/required_fields.h
+include/upb/wire/byte_size.h
 include/upb/wire/decode.h
 include/upb/wire/encode.h
 include/upb/wire/eps_copy_input_stream.h
 include/upb/wire/reader.h
 include/upb/wire/types.h
 include/upb/wire/internal/decode_fast.h
-include/upb_generator/mangle.h
+include/upb_generator/common/names.h
+include/upb_generator/minitable/names.h
+include/upb_generator/minitable/names_internal.h
 lib/libprotobuf-lite.so
 lib/libprotobuf.so
 lib/libprotoc.so
@@ -383,4 +392,5 @@ lib/cmake/utf8_range/utf8_range-targets-release.cmake
 lib/cmake/utf8_range/utf8_range-targets.cmake
 lib/pkgconfig/protobuf-lite.pc
 lib/pkgconfig/protobuf.pc
+lib/pkgconfig/upb.pc
 lib/pkgconfig/utf8_range.pc
