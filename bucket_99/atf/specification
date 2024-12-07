@@ -1,9 +1,9 @@
-DEF[PORTVERSION]=	0.21
+DEF[PORTVERSION]=	0.22
+DEF[TAG]=		atf-${PORTVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		atf
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		std
 SDESC[std]=		Automated Testing Framework
@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/jmmv/atf
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		https://github.com/jmmv/atf/releases/download/atf-${PORTVERSION}/
-DISTFILE[1]=		atf-${PORTVERSION}.tar.gz:main
+SITES[main]=		GITHUB/freebsd:atf:${TAG}
+DISTFILE[1]=		generated:main
 
 SPKGS[std]=		set primary dev man atftests
 
@@ -25,9 +25,11 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/atf
 
-USES=			libtool mbsdfix c++:primary
+USES=			autoreconf libtool c++:primary
 MUST_CONFIGURE=		gnu
 INSTALL_TARGET=		install-strip
+
+# relinking 'libatf-c++.la' in stage
 INSTALL_REQ_TOOLCHAIN=	yes
 
 post-install:
