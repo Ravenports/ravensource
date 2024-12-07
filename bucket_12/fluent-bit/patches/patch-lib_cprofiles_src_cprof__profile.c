@@ -1,4 +1,4 @@
---- lib/cprofiles/src/cprof_profile.c.orig	2024-11-17 03:19:24 UTC
+--- lib/cprofiles/src/cprof_profile.c.orig	2024-11-27 17:22:52 UTC
 +++ lib/cprofiles/src/cprof_profile.c
 @@ -98,7 +98,7 @@ void cprof_profile_destroy(struct cprof_
      struct cfl_list             *iterator_backup;

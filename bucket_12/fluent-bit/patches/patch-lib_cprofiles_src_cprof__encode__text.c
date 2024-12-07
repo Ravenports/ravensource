@@ -1,4 +1,4 @@
---- lib/cprofiles/src/cprof_encode_text.c.orig	2024-11-17 03:19:24 UTC
+--- lib/cprofiles/src/cprof_encode_text.c.orig	2024-11-27 17:22:52 UTC
 +++ lib/cprofiles/src/cprof_encode_text.c
 @@ -1909,7 +1909,7 @@ static int encode_cprof_resource_profile
                  struct cprof_resource_profiles *instance) {

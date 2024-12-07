@@ -1,4 +1,4 @@
---- src/flb_network.c.orig	2024-11-17 03:19:24 UTC
+--- src/flb_network.c.orig	2024-11-27 17:22:52 UTC
 +++ src/flb_network.c
 @@ -603,9 +603,7 @@ static int net_connect_async(int fd,
              }
@@ -11,7 +11,7 @@
              ret = strerror_r(error, so_error_buf, sizeof(so_error_buf));
              if (ret == 0) {
                  str = so_error_buf;
-@@ -1920,7 +1918,7 @@ static int net_address_unix_socket_peer_
+@@ -1926,7 +1924,7 @@ static int net_address_unix_socket_peer_
                                                  int output_buffer_size,
                                                  size_t *output_data_size)
  {
@@ -20,7 +20,7 @@
      unsigned int peer_credentials_size;
      struct ucred peer_credentials;
  #endif
-@@ -1938,7 +1936,7 @@ static int net_address_unix_socket_peer_
+@@ -1944,7 +1942,7 @@ static int net_address_unix_socket_peer_
          return -1;
      }
  
