@@ -1,5 +1,6 @@
-DEF[PORTVERSION]=	0.4
+DEF[PORTVERSION]=	0.5
 DEF[SOVERSION]=		3.0.0
+DEF[TAG]=		lutok-${PORTVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		lutok
@@ -11,8 +12,8 @@ HOMEPAGE=		https://github.com/jmmv/lutok
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		https://github.com/jmmv/lutok/releases/download/lutok-${PORTVERSION}/
-DISTFILE[1]=		lutok-${PORTVERSION}.tar.gz:main
+SITES[main]=		GITHUB/freebsd:lutok:${TAG}
+DISTFILE[1]=		generated:main
 
 SPKGS[std]=		set primary examples docs
 
@@ -26,14 +27,15 @@ LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
 BUILD_DEPENDS=		atf:dev:std
+			doxygen:primary:std
 BUILDRUN_DEPENDS=	atf:primary:std
 
-USES=			libtool lua:5.3 pkgconfig mbsdfix
+USES=			autoreconf libtool lua:5.3 pkgconfig
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-atf
 			--docdir={{STD_DOCDIR}}
 			--htmldir={{STD_DOCDIR}}/html
-			--without-doxygen
+			--with-doxygen
 			LUA_CFLAGS="-I{{LUA_INCDIR}}"
 			LUA_LIBS="-L{{LUA_LIBDIR}} -llua-{{LUA_VER}} -lm"
 MAKE_ARGS=		examplesdir={{STD_EXAMPLESDIR}}
