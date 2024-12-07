@@ -7,7 +7,7 @@
 -#if ((defined(_POSIX_C_SOURCE) && _POSIX_C_SOURCE >= 200112L) ||    \
 -     (defined(_XOPEN_SOURCE) || _XOPEN_SOURCE - 0L >= 600L)) &&     \
 -  (!defined(_GNU_SOURCE))
-+#if !defined(_GNU_SOURCE)
++#if !defined(__linux__)
              ret = strerror_r(error, so_error_buf, sizeof(so_error_buf));
              if (ret == 0) {
                  str = so_error_buf;
