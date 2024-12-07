@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	3.0.18
+DEF[PORTVERSION]=	4.0.0
+DEF[TAG]=		${PORTVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gnu-efi
@@ -10,13 +11,14 @@ HOMEPAGE=		https://sourceforge.net/projects/gnu-efi/
 CONTACT=		Todd_Martin[warfox@sdf.org]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		https://sourceforge.net/projects/gnu-efi/files/
-DISTFILE[1]=		gnu-efi-${PORTVERSION}.tar.bz2:main
+SITES[main]=		GITHUB/ncroxon:gnu-efi:${TAG}
+DISTFILE[1]=		generated:main
 
 SPKGS[std]=		single
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	X8664
+OPTIONS_STANDARD=	X8664
+OPT_ON[x86_64]=		X8664
 
 FPC_EQUIVALENT=		devel/gnu-efi
 
@@ -34,3 +36,5 @@ CFLAGS=			-fPIC
 CPPFLAGS=		-fPIC
 
 INSTALL_REQ_TOOLCHAIN=	yes
+
+[X8664].DESCRIPTION=			Support x86-64 architecture
