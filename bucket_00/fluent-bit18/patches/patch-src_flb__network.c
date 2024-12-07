@@ -4,7 +4,7 @@
              }
  
              /* Connection is broken, not much to do here */
-+#if defined(_GNU_SOURCE)
++#if defined(__linux__)
              str = strerror_r(error, so_error_buf, sizeof(so_error_buf));
              flb_error("[net] TCP connection failed: %s:%i (%s)",
                        u->tcp_host, u->tcp_port, str);
