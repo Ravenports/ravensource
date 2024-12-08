@@ -30,7 +30,6 @@ BUILD_DEPENDS=		groff:primary:std
 			libasr:dev:std
 BUILDRUN_DEPENDS=	libevent:primary:std
 			libasr:primary:std
-RUN_DEPENDS=		nss:caroot:std
 
 RC_SUBR=		smtpd:primary
 SUB_FILES=		messages-primary.ucl
@@ -39,7 +38,7 @@ USERS=			_smtpd _smtpq
 GROUPS=			_smtpd _smtpq
 USERGROUP_SPKG=		primary
 
-USES=			cpe libtool ssl:libressl-devel zlib
+USES=			cpe libtool ssl:libressl-devel zlib rootca:primary
 CPE_VENDOR=		openbsd
 MUST_CONFIGURE=		gnu
 MAKE_ARGS=		mansubdir=man
