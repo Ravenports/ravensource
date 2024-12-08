@@ -4,6 +4,7 @@ DEF[FOLDER]=		${PORTVERSION:R}
 
 NAMEBASE=		gnome-keyring
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		security
 VARIANTS=		std
 SDESC[std]=		Program that keeps passwords and other secrets
@@ -40,14 +41,13 @@ BUILDRUN_DEPENDS=	dbus:primary:std
 			gcr3:primary:std
 			libgcrypt:primary:std
 			libtasn1:primary:std
-			nss:caroot:std
 			openpam:primary:std
 			openssh:primary:std
 			p11-kit:primary:std
 RUN_DEPENDS=		pinentry:single:gnome3
 
 USES=			autoreconf cpe gmake libtool
-			pkgconfig python schemas:primary
+			pkgconfig python schemas:primary rootca:primary
 GNOME_COMPONENTS=	gtk3 libxslt intltool
 CPE_VENDOR=		gnome
 MUST_CONFIGURE=		gnu
