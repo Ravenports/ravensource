@@ -6,6 +6,7 @@ DEF[DOCS]=		FAQ INSTALL KNOWN_BUGS THANKS TODO options-in-versions
 
 NAMEBASE=		curl
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		ftp net www
 VARIANTS=		std embed
 SDESC[std]=		Tool and library for transferring data with URLs
@@ -17,8 +18,8 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://curl.haxx.se/download/
 DISTFILE[1]=		curl-${PORTVERSION}.tar.xz:main
 
-SPKGS[std]=		set primary dev man examples docs
-SPKGS[embed]=		set primary dev
+SPKGS[std]=		set primary dev tools man examples docs
+SPKGS[embed]=		set primary dev tools
 
 OPTIONS_AVAILABLE=	EMBED
 OPTIONS_STANDARD=	EMBED
@@ -28,15 +29,15 @@ LICENSE=		MIT:primary
 LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
-BUILDRUN_DEPENDS=	nss:caroot:std
-
 EXRUN[dev]=		libnghttp2:dev:std
 			libressl:dev:std
 			zlib:dev:std
+EXRUN[tools]=		primary
 
 FPC_EQUIVALENT=		ftp/curl
 
 USES=			cpe gmake libtool perl:build pkgconfig shebangfix zlib:build
+			rootca:tools
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--disable-werror
 			--with-ca-bundle={{LOCALBASE}}/share/certs/ca-root-nss.crt
