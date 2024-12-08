@@ -23,7 +23,6 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		mail/rspamd
 
-RUN_DEPENDS=		nss:caroot:std
 BUILD_DEPENDS=		libsodium:dev:std
 			ragel:primary:std
 			icu:dev:std
@@ -41,6 +40,7 @@ USERGROUP_SPKG=		primary
 RC_SUBR=		rspamd:primary
 
 USES=			cmake perl:build pkgconfig sqlite ssl:openssl30 zlib pcre2
+			rootca:primary
 GNOME_COMPONENTS=	glib
 CMAKE_ARGS=		-DCONFDIR={{PREFIX}}/etc/rspamd
 			-DLOGDIR=/var/log/rspamd
