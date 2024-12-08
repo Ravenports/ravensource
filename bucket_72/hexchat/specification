@@ -4,7 +4,7 @@ DEF[CA_BUNDLE]=		{{LOCALBASE}}/share/certs/ca-root-nss.crt
 
 NAMEBASE=		hexchat
 VERSION=		${PORTVERSION}
-REVISION=		2
+REVISION=		3
 KEYWORDS=		irc
 VARIANTS=		std
 SDESC[std]=		Graphical IRC client based on XChat
@@ -15,7 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/hexchat/hexchat/releases/download/v${PORTVERSION}/
 DISTFILE[1]=		hexchat-${PORTVERSION}.tar.xz:main
 
-SPKGS[std]=		set primary nls man
+SPKGS[std]=		set primary dev nls man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -41,10 +41,10 @@ BUILDRUN_DEPENDS=	dbus-glib:primary:std
 			libcanberra:primary:std
 			libnotify:primary:std
 			libproxy:primary:std
-RUN_DEPENDS=		nss:caroot:std
 
 USES=			ssl cpe meson perl pkgconfig python shebangfix
 			bdb:build desktop-utils:primary gnome-icons:primary
+			rootca:primary
 GNOME_COMPONENTS=	glib intltool pango gtk2
 CPE_VENDOR=		hexchat_project
 SHEBANG_FILES=		meson_post_install.py
