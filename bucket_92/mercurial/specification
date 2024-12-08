@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	6.9
 
 NAMEBASE=		mercurial
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel python
 VARIANTS=		std
 SDESC[std]=		Scalable distributed version control system
@@ -13,23 +14,21 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://www.mercurial-scm.org/release/
 DISTFILE[1]=		mercurial-${PORTVERSION}.tar.gz:main
 
-SPKGS[std]=		single
+SPKGS[std]=		set primary man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv2+:single
+LICENSE=		GPLv2+:primary
 LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"__future__"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/hg
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/mercurial
 
-RUN_DEPENDS=		nss:caroot:std
-
-USES=			cpe python:sutools gettext
+USES=			cpe python:sutools gettext rootca:primary
 INSTALL_REQ_TOOLCHAIN=	yes
 
 post-install:
