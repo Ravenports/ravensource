@@ -440,6 +440,9 @@ function skip_extras($var) {
    if (strpos($var, '"win32"') !== false) {
       return false;
    }
+   if (strpos($var, "'win32'") !== false) {
+      return false;
+   }
    if (strpos($var, 'sys_platform ==') !== false) {
       return false;
    }
