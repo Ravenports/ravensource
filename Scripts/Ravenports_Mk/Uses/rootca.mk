@@ -23,7 +23,7 @@ _USES_extract+=		655:rootca-check
 .  if !target(rootca-check)
 rootca-check:
 	@allscripts="${_SCRIPT_FILE}.${rootca_ARGS}" ;\
-	${CAT} ${MK_SCRIPTS}/rootca-check.lua >> $${allscripts}; ;\
+	${CAT} ${MK_SCRIPTS}/rootca-check.lua >> $${allscripts}
 .  endif
 
 .endif
