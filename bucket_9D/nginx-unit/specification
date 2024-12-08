@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	1.33.0
 
 NAMEBASE=		nginx-unit
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		www
 VARIANTS=		std
 SDESC[std]=		Dynamic web application server
@@ -14,7 +15,7 @@ SITES[main]=		https://unit.nginx.org/download/
 DISTFILE[1]=		unit-${PORTVERSION}.tar.gz:main
 
 SPKGS[std]=		set unitd unitpython unitperl man
-			php81 php82 php83
+			php82 php83 php84
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -29,15 +30,15 @@ FPC_EQUIVALENT=		www/unit
 RC_SUBR=		unitd:unitd
 
 BUILD_DEPENDS=		php82:primary:std
-			php81:primary:std
+			php84:primary:std
 			php83:primary:std
 			php82:dev:std
-			php81:dev:std
+			php84:dev:std
 			php83:dev:std
 EXRUN[unitperl]=	perl
 EXRUN[php83]=		php83:primary:std
 EXRUN[php82]=		php82:primary:std
-EXRUN[php81]=		php81:primary:std
+EXRUN[php84]=		php84:primary:std
 EXRUN[unitpython]=	python
 
 USES=			cpe pcre2 gettext perl:build python:build
@@ -72,9 +73,9 @@ post-configure:
 	  && ./configure php --module=php83\
 			--config=php-config83\
 			--lib-path=${PREFIX}/lib/php83 \
-	  && ./configure php --module=php81\
-			--config=php-config81\
-			--lib-path=${PREFIX}/lib/php81 \
+	  && ./configure php --module=php84\
+			--config=php-config84\
+			--lib-path=${PREFIX}/lib/php84 \
 	)
 
 post-install:
