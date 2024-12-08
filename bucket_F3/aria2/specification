@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	1.37.0
 
 NAMEBASE=		aria2
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		ftp net www
 VARIANTS=		std
 SDESC[std]=		CLI download for HTTP/S, FTP, BitTorrent, Metalink
@@ -28,11 +29,11 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		www/aria2
 
 EXRUN[tools]=		primary
-			nss:caroot:std
 
 RC_SUBR=		aria2:tools
 
 USES=			cpe libtool pkgconfig ssl sqlite zlib mbsdfix c++:primary
+			rootca:tools
 GNOME_COMPONENTS=	libxml2
 CPE_VENDOR=		aria2_project
 INSTALL_TARGET=		install-strip
