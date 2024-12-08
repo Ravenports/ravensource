@@ -1,4 +1,4 @@
---- config.m4.orig	2023-01-31 15:13:17 UTC
+--- config.m4.orig	2024-11-20 09:48:35 UTC
 +++ config.m4
 @@ -3,16 +3,10 @@ PHP_ARG_WITH([libedit],
    [AS_HELP_STRING([--with-libedit],
@@ -17,9 +17,9 @@
  
  if test "$PHP_READLINE" && test "$PHP_READLINE" != "no"; then
    for i in $PHP_READLINE /usr/local /usr; do
-@@ -78,6 +72,13 @@ if test "$PHP_READLINE" && test "$PHP_RE
-   AC_DEFINE(HAVE_HISTORY_LIST, 1, [ ])
-   AC_DEFINE(HAVE_LIBREADLINE, 1, [ ])
+@@ -86,6 +80,13 @@ if test "$PHP_READLINE" && test "$PHP_RE
+   AC_DEFINE([HAVE_LIBREADLINE], [1],
+     [Define to 1 if readline extension uses the 'readline' library.])
  
 +  PHP_CHECK_LIBRARY(readline, rl_completion_matches,
 +  [
@@ -29,5 +29,5 @@
 +  ])
 +
  elif test "$PHP_LIBEDIT" != "no"; then
-   if test "$PHP_LIBEDIT" != "yes"; then
-     AC_MSG_WARN([libedit directory ignored, rely on pkg-config])
+   AS_VAR_IF([PHP_LIBEDIT], [yes],,
+     [AC_MSG_WARN(m4_text_wrap([

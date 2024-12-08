@@ -1,6 +1,6 @@
---- libmagic/softmagic.c.orig	2023-01-31 15:13:17 UTC
+--- libmagic/softmagic.c.orig	2024-11-20 09:48:35 UTC
 +++ libmagic/softmagic.c
-@@ -500,7 +500,7 @@ check_fmt(struct magic_set *ms, const ch
+@@ -511,7 +511,7 @@ check_fmt(struct magic_set *ms, const ch
  	return rv;
  }
  
