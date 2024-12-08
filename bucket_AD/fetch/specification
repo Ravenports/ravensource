@@ -4,7 +4,7 @@ DEF[SOVERSION]=		1.0
 
 NAMEBASE=		fetch
 VERSION=		${PORTVERSION}
-REVISION=		2
+REVISION=		3
 KEYWORDS=		ftp
 VARIANTS=		std library
 SDESC[std]=		Tool to retrieve file by Uniform Resource Locator
@@ -34,7 +34,7 @@ SOVERSION=		${SOVERSION}
 [LIBRARY].CMAKE_ARGS_ON=		-DFETCH_LIBRARY:BOOL=ON
 					-DFETCH_PROGRAM:BOOL=OFF
 
-[LIBRARY].RUN_DEPENDS_OFF=		nss:caroot:std
+[LIBRARY].USES_OFF=			rootca:primary
 
 pre-configure:
 	# adjust cert.pem path
