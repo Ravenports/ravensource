@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	1.23.4
 
 NAMEBASE=		golang
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		lang
 VARIANTS=		std
 SDESC[std]=		Go programming language compiler
@@ -45,9 +46,8 @@ FPC_EQUIVALENT=		lang/go
 NOT_FOR_ARCH=		aarch64
 
 BUILD_DEPENDS=		bash:primary:std
-BUILDRUN_DEPENDS=	nss:caroot:std
 
-USES=			cpe shebangfix
+USES=			cpe shebangfix rootca:single
 CPE_VENDOR=		golang
 CPE_PRODUCT=		go
 SHEBANG_LANG=		bash
