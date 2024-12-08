@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	EXTRACT_VERSION(PHP_8.4_VERSION)
+DEF[SUFFIX]=		${PORTVERSION:R:S/.//}
+DEF[MODULE]=		odbc
+DEF[KEYWORD]=		databases
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		php${SUFFIX}-${MODULE}
+VERSION=		${PORTVERSION}
+KEYWORDS=		lang www php ${KEYWORD}
+VARIANTS=		std
+SDESC[std]=		PHP ${PORTVERSION:R} extension: ${MODULE} database driver
+HOMEPAGE=		https://php.net/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PHP/distributions
+DISTFILE[1]=		php-${PORTVERSION}.tar.xz:main
+
+SPKGS[std]=		single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		${KEYWORD}/php${SUFFIX}-${MODULE}
+
+BUILD_DEPENDS=		unixODBC:dev:std
+BUILDRUN_DEPENDS=	unixODBC:primary:std
+
+USES=			php:ext,${SUFFIX} cpe
+CPE_VENDOR=		php
+CPE_PRODUCT=		php
+DISTNAME=		php-${PORTVERSION}/ext/{{PHP_MODNAME}}
+CONFIGURE_ARGS=		--enable-${MODULE}
+			--with-unixODBC={{LOCALBASE}}
+EXTRACT_HEAD[1]=	{{TAR}} -xf
+EXTRACT_TAIL[1]=	php-${PORTVERSION}/ext/{{PHP_MODNAME}}

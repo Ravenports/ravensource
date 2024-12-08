@@ -1,0 +1,39 @@
+DEF[PORTVERSION]=	EXTRACT_VERSION(PHP_8.4_VERSION)
+DEF[SUFFIX]=		${PORTVERSION:R:S/.//}
+DEF[MODULE]=		pdo_mysql
+DEF[KEYWORD]=		databases
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		php${SUFFIX}-${MODULE}
+VERSION=		${PORTVERSION}
+KEYWORDS=		lang www php ${KEYWORD}
+VARIANTS=		std
+SDESC[std]=		PHP ${PORTVERSION:R} extension: ${MODULE} database driver
+HOMEPAGE=		https://php.net/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PHP/distributions
+DISTFILE[1]=		php-${PORTVERSION}.tar.xz:main
+
+SPKGS[std]=		single
+
+OPTIONS_AVAILABLE=	MYSQLND
+OPTIONS_STANDARD=	MYSQLND
+OPT_ON[all]=		MYSQLND
+
+FPC_EQUIVALENT=		${KEYWORD}/php${SUFFIX}-${MODULE}
+
+USES=			php:ext,${SUFFIX} cpe
+CPE_VENDOR=		php
+CPE_PRODUCT=		php
+PHP_EXTENSIONS=		pdo
+DISTNAME=		php-${PORTVERSION}/ext/{{PHP_MODNAME}}
+EXTRACT_HEAD[1]=	{{TAR}} -xf
+EXTRACT_TAIL[1]=	php-${PORTVERSION}/ext/{{PHP_MODNAME}}
+
+[MYSQLND].DESCRIPTION=			Use MySQL Native Driver
+[MYSQLND].USES_OFF=			mysql:client zlib
+[MYSQLND].CONFIGURE_ARGS_ON=		--with-pdo-mysql=mysqlnd
+[MYSQLND].CONFIGURE_ARGS_OFF=		--with-pdo-mysql={{LOCALBASE}}/bin/mysql_config
+					--with-zlib-dir={{LOCALBASE}}

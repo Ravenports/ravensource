@@ -1,0 +1,51 @@
+DEF[PORTVERSION]=	EXTRACT_VERSION(PHP_8.4_VERSION)
+DEF[SUFFIX]=		${PORTVERSION:R:S/.//}
+DEF[MODULE]=		gd
+DEF[KEYWORD]=		graphics
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		php${SUFFIX}-${MODULE}
+VERSION=		${PORTVERSION}
+KEYWORDS=		lang www php ${KEYWORD}
+VARIANTS=		std
+SDESC[std]=		PHP ${PORTVERSION:R} extension: ${MODULE} (image processing)
+HOMEPAGE=		https://php.net/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PHP/distributions
+DISTFILE[1]=		php-${PORTVERSION}.tar.xz:main
+
+SPKGS[std]=		single
+
+OPTIONS_AVAILABLE=	TRUETYPE JIS WEBP X11
+OPTIONS_STANDARD=	TRUETYPE JIS WEBP X11
+OPT_ON[all]=		TRUETYPE JIS WEBP X11
+
+FPC_EQUIVALENT=		${KEYWORD}/php${SUFFIX}-${MODULE}
+
+USES=			php:ext,${SUFFIX} zlib jpeg png freetype cpe
+CPE_VENDOR=		php
+CPE_PRODUCT=		php
+DISTNAME=		php-${PORTVERSION}/ext/{{PHP_MODNAME}}
+CONFIGURE_ARGS=		--with-${MODULE}
+			--with-freetype-dir={{LOCALBASE}}
+			--with-jpeg-dir={{LOCALBASE}}
+			--with-png-dir={{LOCALBASE}}
+			--with-zlib-dir={{LOCALBASE}}
+PHP_HEADER_DIRS=	libgd
+EXTRACT_HEAD[1]=	{{TAR}} -xf
+EXTRACT_TAIL[1]=	php-${PORTVERSION}/ext/{{PHP_MODNAME}}
+
+[TRUETYPE].DESCRIPTION=			Enable TrueType string function
+[WEBP].DESCRIPTION=			Enable WebP image format support
+[JIS].DESCRIPTION=			Enable JIS-mapped Japanese font support
+[X11].DESCRIPTION=			Enable XPM support
+
+[TRUETYPE].CONFIGURE_ENABLE_BOTH=	gd-native-ttf
+[WEBP].CONFIGURE_ARGS_ON=		--with-webp-dir={{LOCALBASE}}
+[WEBP].BUILD_DEPENDS_ON=		WebP:dev:std
+[WEBP].BUILDRUN_DEPENDS_ON=		WebP:primary:std
+[JIS].CONFIGURE_ENABLE_BOTH=		gd-jis-conv
+[X11].XORG_COMPONENTS_ON=		xpm
+[X11].CONFIGURE_ARGS_ON=		--with-xpm-dir={{LOCALBASE}}
