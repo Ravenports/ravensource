@@ -4,6 +4,7 @@ DEF[SOVERSION]=		0.0.3
 
 NAMEBASE=		libasr
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		dns
 VARIANTS=		std
 SDESC[std]=		Asynchronous DNS resolver library
@@ -14,17 +15,17 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/OpenSMTPD/libasr/releases/download/${PORTVERSION}/
 DISTFILE[1]=		libasr-${PORTVERSION}.tar.gz:main
 
-SPKGS[std]=		single
+SPKGS[std]=		set primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		ISCL:single
-			BSD2CLAUSE:single
-			BSD3CLAUSE:single
-			CUSTOM1:single
+LICENSE=		ISCL:primary
+			BSD2CLAUSE:primary
+			BSD3CLAUSE:primary
+			CUSTOM1:primary
 LICENSE_NAME=		CUSTOM1:"ISC License - OpenBSD Compat"
-LICENSE_TERMS=		single:{{WRKSRC}}/LICENCE
+LICENSE_TERMS=		primary:{{WRKSRC}}/LICENCE
 LICENSE_FILE=		ISCL:{{WRKDIR}}/ISCL_MAIN
 			BSD2CLAUSE:{{WRKDIR}}/BSD2
 			BSD3CLAUSE:{{WRKDIR}}/BSD3
@@ -36,7 +37,6 @@ LICENSE_SCHEME=		multi
 FPC_EQUIVALENT=		dns/libasr
 
 BUILD_DEPENDS=		groff:primary:std
-BUILDRUN_DEPENDS=	nss:caroot:std
 
 USES=			autoreconf libtool
 MUST_CONFIGURE=		gnu
