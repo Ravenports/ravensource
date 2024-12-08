@@ -4,6 +4,7 @@ DEF[SOVERSION]=		${PORTVERSION}
 
 NAMEBASE=		mosquitto
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		net
 VARIANTS=		std
 SDESC[std]=		Message broker implementing the MQTT protocol
@@ -40,7 +41,6 @@ BUILDRUN_DEPENDS=	cjson:primary:std
 			libuuid:primary:std
 			c-ares:primary:std
 			libwebsockets:primary:std
-RUN_DEPENDS=		nss:caroot:std
 
 EXRUN[tools]=		mosquitto:primary:std
 EXRUN[cxx]=		mosquitto:primary:std
@@ -49,7 +49,7 @@ RC_SUBR=		mosquitto:tools
 USERGROUP_SPKG=		primary
 USERS=			nobody
 
-USES=			cpe cmake ssl zlib c++:cxx
+USES=			cpe cmake ssl zlib c++:cxx rootca:tools
 CPE_VENDOR=		eclipse
 CMAKE_ARGS=		-DWITH_SRV:BOOL=ON
 			-DWITH_WEBSOCKETS:BOOL=ON
