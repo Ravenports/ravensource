@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	7.6.0p1
 
 NAMEBASE=		opensmtpd
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		mail
 VARIANTS=		std
 SDESC[std]=		Free implementation of server-side SMTP protocol
@@ -26,8 +27,9 @@ FPC_EQUIVALENT=		mail/opensmtpd
 
 BUILD_DEPENDS=		groff:primary:std
 			libevent:dev:std
+			libasr:dev:std
 BUILDRUN_DEPENDS=	libevent:primary:std
-			libasr:single:std
+			libasr:primary:std
 RUN_DEPENDS=		nss:caroot:std
 
 RC_SUBR=		smtpd:primary
