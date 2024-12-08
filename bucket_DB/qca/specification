@@ -5,6 +5,7 @@ DEF[PLUGINS]=		botan cyrus-sasl gcrypt gnupg logger nss softstore
 
 NAMEBASE=		qca
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		qt5 qt6
 SDESC[qt5]=		Cross-platform crypto API for Qt 5
@@ -16,8 +17,8 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://download.kde.org/stable/qca/${PORTVERSION}/
 DISTFILE[1]=		qca-${PORTVERSION}.tar.xz:main
 
-SPKGS[qt5]=		set primary dev man
-SPKGS[qt6]=		set primary dev man
+SPKGS[qt5]=		set primary dev man tools
+SPKGS[qt6]=		set primary dev man tools
 
 OPTIONS_AVAILABLE=	QT5 QT6
 OPTIONS_STANDARD=	none
@@ -35,7 +36,8 @@ BUILDRUN_DEPENDS=	botan:primary:std
 			cyrus-sasl:primary:std
 			gnupg:primary:std
 			nss:primary:std
-			nss:caroot:std
+
+EXRUN[tools]=		primary
 
 # Some plugins disabled because we're missing required dependencies.
 
@@ -43,7 +45,7 @@ BUILDRUN_DEPENDS=	botan:primary:std
 # Disabling it for now but leaving the lines in, commented out.
 # USES=			cmake pkgconfig ssl:openssl30 qt5
 
-USES=			cmake pkgconfig qt5
+USES=			cmake pkgconfig qt5 rootca:tools
 
 CMAKE_ARGS=		-DBUILD_PLUGINS=none
 			-DBUILD_TESTS=no

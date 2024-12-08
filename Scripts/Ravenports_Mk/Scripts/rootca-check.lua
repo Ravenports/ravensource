@@ -10,7 +10,7 @@ if st == nil then
      "supported if alternate certificates cannot be located.\n" ..
      "\n" ..
      "To install this recommended certificate:\n" ..
-     "   > rvn install -y nss~caroot~std\n")
+     "   > rvn install -y nss~caroot~std\n\n")
 end
 EOS
 }]
