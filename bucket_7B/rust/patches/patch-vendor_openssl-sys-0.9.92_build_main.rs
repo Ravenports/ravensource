@@ -1,6 +1,6 @@
---- vendor/openssl-sys-0.9.92/build/main.rs.orig	2024-10-15 19:22:50.000000000 +0200
-+++ vendor/openssl-sys-0.9.92/build/main.rs	2024-10-20 12:23:43.193142000 +0200
-@@ -273,6 +273,9 @@
+--- vendor/openssl-sys-0.9.92/build/main.rs.orig	2024-11-26 10:12:09 UTC
++++ vendor/openssl-sys-0.9.92/build/main.rs
+@@ -273,6 +273,9 @@ See rust-openssl documentation for more
              (3, 7, 1) => ('3', '7', '1'),
              (3, 7, _) => ('3', '7', 'x'),
              (3, 8, 0) => ('3', '8', '0'),
@@ -10,7 +10,7 @@
              _ => version_error(),
          };
  
-@@ -315,7 +318,7 @@
+@@ -315,7 +318,7 @@ fn version_error() -> ! {
          "
  
  This crate is only compatible with OpenSSL (version 1.0.1 through 1.1.1, or 3.0.0), or LibreSSL 2.5

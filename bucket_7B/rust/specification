@@ -1,12 +1,11 @@
-DEF[PORTVERSION]=	1.82.0
-DEF[RUSTX_BOOT]=	1.81.0
+DEF[PORTVERSION]=	1.83.0
+DEF[RUSTX_BOOT]=	1.82.0
 DEF[CURL_VERSION]=	7.87.0
 DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		rust
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		lang
 VARIANTS=		std
 SDESC[std]=		Systems programming language from Mozilla
@@ -55,14 +54,10 @@ EXTRACT_ONLY=		1 14
 
 # Use bundled libgit2 to avoid API mismatch which results in failure
 # to fetch from crates IO
-#
-# Don't add caroot to RUN depends to avoid an update to NSS causing
-# rust to rebuild
 
 BUILD_DEPENDS=		bash:primary:std
 			cmake:primary:std
 			ncurses:primary:std
-BUILDRUN_DEPENDS=	nss:caroot:std
 
 # Rust calls -lexecinfo during linking although it doesn't appear in final binary
 # The dev package has the solink to make this happen, so it's a run dependency
@@ -70,6 +65,7 @@ RUN_DEPENDS=		libexecinfo:dev:std
 
 USES=			cpe gmake zlib:build python:build shebangfix
 			execinfo c++:single dos2unix ssl:build compiler:single
+			rootca:single
 CPE_VENDOR=		rust-lang
 MUST_CONFIGURE=		yes
 CONFIGURE_ARGS=		--release-channel=stable
@@ -175,7 +171,7 @@ pre-build-dragonfly:
 	#     pub fn __error() -> *mut ::c_int {
 	#         &mut errno
 	#     }
-.for libcver in 94 97 107 112 119 121 124 150 155 157 158
+.for libcver in 94 97 107 112 119 121 124 150 155 158 159 161
 	${REINPLACE_CMD} -e '/__errno_location/d' \
 	${WRKSRC}/vendor/libc-0.2.${libcver}/src/unix/bsd/freebsdlike/dragonfly/errno.rs
 .endfor
