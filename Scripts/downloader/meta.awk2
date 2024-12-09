@@ -1,0 +1,39 @@
+function platform_to_opsys(platform) {
+  lowplat = tolower(platform)
+       if (lowplat == "dragonfly")   {return "DragonFly"}
+  else if (lowplat == "freebsd")     {return "FreeBSD"}
+  else if (lowplat == "netbsd")      {return "NetBSD"}
+  else if (lowplat == "midnightbsd") {return "MidnightBSD"}
+  else if (lowplat == "solaris")     {return "SunOS"}
+  else if (lowplat == "linux")       {return "Linux"}
+  else if (lowplat == "darwin")      {return "Darwin"}
+  else if (lowplat == "openbsd")     {return "OpenBSD"}
+  return "Unrecognized:" platform 
+}
+
+function data_to_arch(one, two) {
+  lowone = tolower(one)
+  lowtwo = tolower(two)
+       if (lowone == "amd64")    {return "x86_64"}
+  else if (lowone == "x86_64")   {return "x86_64"}
+  else if (lowone == "x86-64")   {return "x86_64"}
+  else if (lowone == "i386")     {return "i386"}
+  else if (lowone == "x86") {
+         if (lowtwo == "32") {return "i386"}
+    else if (lowtwo == "64") {return "x86_64"}
+    return "Unrecognized x86: " lowtwo 
+  }
+  else if (lowone == "arm64")    {return "aarch64"}
+  else if (lowone == "aarch64")  {return "aarch64"}
+  return "Unrecognized:" one ":" two
+}
+{
+  split($1,x,":")
+  zzz=substr($2,1,3)
+  if (zzz == "rvn") {
+     print platform_to_opsys(x[1]) "\t" x[3] "\t" data_to_arch(x[2],"X") "\t" $1 "\trvn" "\t" $2
+  } else {
+     print platform_to_opsys(x[1]) "\t" x[2] "\t" data_to_arch(x[3],x[4]) "\t" $1 "\t" $2
+  }
+  next
+}
