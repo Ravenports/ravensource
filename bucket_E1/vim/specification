@@ -39,17 +39,15 @@ RUN_DEPENDS=		cscope:set:std
 
 USES=			cpe gettext iconv ncurses pkgconfig
 			shebangfix gmake desktop-utils:primary
-SINGLE_JOB=		yes
-INSTALL_REQ_TOOLCHAIN=	yes
-BUILD_TARGET=		#empty
-MAKE_ARGS=		CC="{{CC}}"
-			CONF_ARGS="--prefix={{PREFIX}}"
-			STRIP="{{STRIP_CMD}}"
-			VIMRUNTIMEDIR={{PREFIX}}/share/vim/${VIM_VER}
-			VIMRCLOC={{PREFIX}}/etc/vim
-			CONF_OPT_MULTIBYTE=--enable-multibyte
-			CONF_OPT_CSCOPE=--enable-cscope
-			CONF_OPT_NLS=--enable-nls
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-canberra
+			--disable-libsodium
+			--disable-pythoninterp
+			--enable-multibyte
+			--enable-cscope
+			--enable-nls
+			--without-local-dir
+			--with-local-dir={{LOCALBASE}}/lib
 PLIST_SUB=		VIM_VER=${VIM_VER}
 SHEBANG_FILES=		runtime/tools/demoserver.py
 			runtime/tools/efm_perl.pl
@@ -58,27 +56,29 @@ CPE_VERSION=		${PORTVERSION:R}
 CFLAGS=			-Wno-implicit-function-declaration
 
 [LOADED].DESCRIPTION=			Turn on all options including X support
-[LOADED].MAKE_ARGS_OFF=			CONF_OPT_GUI="--enable-gui=no --without-x"
-					CONF_OPT_LUA=--disable-luainterp
-					CONF_OPT_PERL=--disable-perlinterp
-					CONF_OPT_PYTHON="--disable-pythoninterp --disable-python3interp"
-					CONF_OPT_RUBY=--disable-rubyinterp
-					CONF_OPT_TCL=--disable-tclinterp
 [LOADED].USES_ON=			gnome-icons
 					lua perl python ruby tcl zlib:build
-[LOADED].MAKE_ARGS_ON=			CONF_OPT_FEAT=--with-features=huge
-					CONF_OPT_INPUT=--enable-xim
-					CONF_OPT_OUTPUT=--enable-fontset
-					CONF_OPT_GUI=--enable-gui=gtk3
-					CONF_OPT_LUA=--enable-luainterp=dynamic
-					CONF_OPT_LUA_PREFIX=--with-lua-prefix={{LOCALBASE}}
-					CONF_OPT_PERL=--enable-perlinterp
-					CONF_OPT_RUBY=--enable-rubyinterp
-					CONF_OPT_TCL="--enable-tclinterp --with-tclsh=tclsh{{TCL_VER}}"
-					CONF_OPT_PYTHON="--enable-python3interp --disable-pythoninterp"
 [LOADED].XORG_COMPONENTS_ON=		ice sm x11 xpm xt
 [LOADED].GNOME_COMPONENTS_ON=		cairo gdkpixbuf gtk3
 [LOADED].BUILD_DEPENDS_ON=		harfbuzz:dev:std
+[LOADED].CONFIGURE_ARGS_OFF=		--disable-luainterp
+					--disable-perlinterp
+					--disable-python3interp
+					--disable-rubyinterp
+					--disable-tclinterp
+					--enable-gui=no
+					--without-ix
+[LOADED].CONFIGURE_ARGS_ON=		--with-features=huge
+					--enable-xim
+					--enable-fontset
+					--enable-gui=gtk3
+					--enable-python3interp
+					--enable-luainterp=dynamic
+					--enable-perlinterp
+					--enable-rubyinterp
+					--enable-tclinterp
+					--with-lua-prefix={{LOCALBASE}}
+					--with-tclsh=tclsh{{TCL_VER}}
 
 post-extract:
 	${AWK} '/\*manual-copyright\*/,/\|iccf\|/' \
