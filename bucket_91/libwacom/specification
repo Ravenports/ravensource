@@ -4,6 +4,7 @@ DEF[SOVERSION]=		9.0.0
 
 NAMEBASE=		libwacom
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		x11
 VARIANTS=		std
 SDESC[std]=		Library to supply metadata about tablet devices
@@ -32,7 +33,6 @@ EXRUN[tools]=		primary
 
 BUILD_DEPENDS=		doxygen:primary:std
 			evdev-proto:single:std
-			gtk2:dev:std
 			harfbuzz:dev:std
 			libevdev:dev:std
 			libxml2:dev:std
@@ -40,7 +40,7 @@ BUILDRUN_DEPENDS=	libevdev:primary:std
 			libxml2:primary:std
 
 USES=			meson pkgconfig
-GNOME_COMPONENTS=	glib gtk2 librsvg
+GNOME_COMPONENTS=	glib librsvg
 MESON_ARGS=		-Dtests=disabled
 
 SOVERSION=		${SOVERSION}
