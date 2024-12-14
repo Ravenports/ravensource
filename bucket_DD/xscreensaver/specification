@@ -3,7 +3,7 @@ DEF[PORTVERSION]=	6.09
 
 NAMEBASE=		xscreensaver
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		x11
 VARIANTS=		std
 SDESC[std]=		Screen saver and locker for X11
@@ -24,8 +24,6 @@ FPC_EQUIVALENT=		x11/xscreensaver
 BUILD_DEPENDS=		freeglut:dev:std
 			freeglut:primary:std
 			gle:dev:std
-			libglade:dev:std
-			libglade:primary:std
 			openpam:dev:std
 			tar:primary:std
 			harfbuzz:dev:std
@@ -34,8 +32,7 @@ BUILDRUN_DEPENDS=	bc:primary:std
 EXRUN[gl]=		freeglut:primary:std
 			gle:primary:std
 			xscreensaver:primary:std
-EXRUN[gtk]=		libglade:primary:std
-			xscreensaver:primary:std
+EXRUN[gtk]=		xscreensaver:primary:std
 
 USES=			cpe gmake jpeg perl:run png shebangfix
 XORG_COMPONENTS=	x11 xext xft xi xinerama xmu xrandr xt xxf86vm
