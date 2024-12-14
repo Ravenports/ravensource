@@ -1,0 +1,41 @@
+DEF[PORTVERSION]=	0.8.18.1.11
+# Take post-release to get the man page
+DEF[TAG]=		16f2222
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		l3afpad
+VERSION=		${PORTVERSION}
+KEYWORDS=		editors
+VARIANTS=		std
+SDESC[std]=		Light-weight and simple GTK+3 text editor
+HOMEPAGE=		https://github.com/stevenhoneyman/l3afpad
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/stevenhoneyman:l3afpad:${TAG}
+DISTFILE[1]=		generated:main
+
+SPKGS[std]=		set primary nls man
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		editors/leafpad
+
+LICENSE=		GPLv2+:primary
+LICENSE_SCHEME=		solo
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKSRC}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/l3afpad.h
+
+BUILD_DEPENDS=		harfbuzz:dev:std
+
+USES=			autoreconf gmake pkgconfig
+			desktop-utils:primary
+GNOME_COMPONENTS=	gtk3 intltool
+
+MUST_CONFIGURE=		gnu
+
+post-install:
+	${INSTALL_MAN} ${WRKSRC}/l3afpad.1 ${STAGEDIR}${PREFIX}/share/man/man1/
