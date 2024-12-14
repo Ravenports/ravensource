@@ -5,6 +5,7 @@ DEF[SOVERSION]=		79.10.2
 
 NAMEBASE=		gwenhywfar
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel net security
 VARIANTS=		std
 SDESC[std]=		Networking and security application library
@@ -15,7 +16,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://www.aquamaniac.de/rdm/attachments/download/${FOLDER}/
 DISTFILE[1]=		gwenhywfar-${PORTVERSION}.tar.gz:main
 
-SPKGS[std]=		set primary gtk2 gtk3 qt5 nls
+SPKGS[std]=		set primary gtk3 qt5 nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -36,8 +37,6 @@ BUILD_DEPENDS=		at-spi2-core:dev:std
 			gdk-pixbuf:primary:std
 			glib:dev:std
 			gnutls:dev:std
-			gtk2:dev:std
-			gtk2:primary:std
 			gtk3:dev:std
 			gtk3:primary:std
 			harfbuzz:dev:std
@@ -47,13 +46,6 @@ BUILD_DEPENDS=		at-spi2-core:dev:std
 			qt5-qtbase:primary:std
 BUILDRUN_DEPENDS=	gnutls:primary:std
 			libgcrypt:primary:std
-
-EXRUN[gtk2]=		gwenhywfar:primary:std
-			at-spi2-core:primary:std
-			pango:primary:std
-			cairo:primary:std
-			gdk-pixbuf:primary:std
-			gtk2:primary:std
 
 EXRUN[gtk3]=		gwenhywfar:primary:std
 			at-spi2-core:primary:std
@@ -69,7 +61,7 @@ USES=			gmake iconv libtool pkgconfig ssl zlib:build
 			fontconfig gettext mbsdfix
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-release="yes"
-			--with-guis="gtk2 gtk3 qt5"
+			--with-guis="gtk3 qt5"
 			--with-qt5-qmake={{LOCALBASE}}/lib/qt5/bin/qmake
 			--with-qt5-moc={{LOCALBASE}}/lib/qt5/bin/moc
 			--with-qt5-uic={{LOCALBASE}}/lib/qt5/bin/uic
