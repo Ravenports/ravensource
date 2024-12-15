@@ -5,6 +5,7 @@ DEF[GTK_VERSION]=	EXTRACT_INFO(GTK3_VERSION)
 
 NAMEBASE=		gtk3
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		x11_toolkits
 VARIANTS=		std
 SDESC[std]=		Gimp Toolkit for X11 GUI
@@ -16,7 +17,7 @@ SITES[main]=		GNOME/gtk+/${PORTVERSION:R}
 DISTFILE[1]=		gtk+-${PORTVERSION}.tar.xz:main
 DIST_SUBDIR=		gnome3
 
-SPKGS[std]=		set primary dev nls icon_cache
+SPKGS[std]=		set primary dev nls icon_cache tools
 
 OPTIONS_AVAILABLE=	DBUS CUPS CLOUDPRINT COLORD BROADWAY INTROSPECTION
 OPTIONS_STANDARD=	DBUS BROADWAY INTROSPECTION
@@ -30,8 +31,9 @@ BUILDRUN_DEPENDS=	libepoxy:primary:std
 
 # Technically EXRUN[dev] is conditional based on option
 # However Ravenadm doesn't currently have an option-based EXRUN
-EXRUN[primary]=		gtk3:icon_cache:std
+EXRUN[primary]=		icon_cache
 EXRUN[icon_cache]=	gdk-pixbuf:primary:std
+EXRUN[tools]=		primary
 EXRUN[dev]=		cairo:dev:std
 			pango:dev:std
 			xorg-xrandr:dev:std
