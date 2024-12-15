@@ -123,7 +123,7 @@ post-install:
 	${RM} ${STAGEDIR}${STD_DOCDIR}/.document
 
 	# remove empty directories
-	${FIND} ${STAGEDIR}${PREFIX}/lib/ruby/gems -type d -empty -delete
+	${FIND} ${STAGEDIR}${PREFIX}/lib/ruby/gems/${RUBY_VER}/gems -type d -empty -delete
 
 	# install examples
 	(cd ${WRKSRC}/sample/ && ${COPYTREE_SHARE} . ${STAGEDIR}${RUBY_EXAMPLESDIR}/)
