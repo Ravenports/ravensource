@@ -1,0 +1,46 @@
+DEF[PORTVERSION]=	2024.3
+DEF[TAG]=		v${PORTVERSION}
+# same as FIRST vulkan-sdk-1.3.296.0 (leading v breaks automove)
+DEF[HEADERS_TAG]=	2acb319
+# DEF[HEADERS_TAG]=	vulkan-sdk-1.3.296.0
+# DEF[HEADERS_TAG]=	1.5.4.raytracing.fixed
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		spirv-tools
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		std
+SDESC[std]=		API and commands for processing SPIR-V modules
+HOMEPAGE=		https://github.com/KhronosGroup/SPIRV-Tools
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main headers
+SITES[main]=		GITHUB/KhronosGroup:SPIRV-Tools:${TAG}
+SITES[headers]=		GITHUB/KhronosGroup:SPIRV-Headers:${HEADERS_TAG}:external/spirv-headers
+DISTFILE[1]=		generated:main
+DISTFILE[2]=		generated:headers
+DF_INDEX=		1 2
+
+SPKGS[std]=		set primary dev
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		graphics/spirv-tools
+
+LICENSE=		APACHE20:primary
+LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"SOURCE_SPIRV_CONSTANT_H_"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/source/spirv_constant.h
+LICENSE_SCHEME=		solo
+
+USES=			cmake shebangfix python:build c++:primary
+SHEBANG_FILES=		tools/lesspipe/spirv-lesspipe.sh
+CMAKE_ARGS=		-DSPIRV_SKIP_TESTS:BOOL=ON
+
+post-install:
+.for tool in as cfg dis link lint objdump opt reduce val
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/spirv-${tool}
+.endfor
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libSPIRV-Tools-shared.so
