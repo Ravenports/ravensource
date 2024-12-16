@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	47.1
 
 NAMEBASE=		gsettings-desktop-schemas
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		sysutils devel
 VARIANTS=		std
 SDESC[std]=		Shared GSettings schemas for the desktop
@@ -65,6 +66,8 @@ GLIB_SCHEMAS=		org.gnome.desktop.a11y.applications.gschema.xml
 			org.gnome.system.locale.gschema.xml
 			org.gnome.system.location.gschema.xml
 			org.gnome.system.proxy.gschema.xml
+			org.gnome.desktop.a11y.interface.gschema.xml
+			org.gnome.desktop.break-reminders.gschema.xml
 
 post-patch:
 	${REINPLACE_CMD} -e "/pkgconfig/ s|datadir|'${PREFIX}/lib'|" ${WRKSRC}/meson.build
