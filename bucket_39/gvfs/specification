@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	1.56.1
 
 NAMEBASE=		gvfs
 VERSION=		${PORTVERSION}
+REVISION=		2
 KEYWORDS=		devel
 VARIANTS=		std
 SDESC[std]=		GNOME virtual file system
@@ -51,10 +52,13 @@ BUILDRUN_DEPENDS=	dbus:primary:std
 			libsecret:primary:std
 			libsoup:primary:std
 			p11-kit:primary:std
-USES=			cpe meson
-			pkgconfig ssl:build
+
+USES=			cpe meson pkgconfig ssl:build
+			schemas:primary
 GNOME_COMPONENTS=	glib libxml2
 CPE_VENDOR=		gnome
+GLIB_SCHEMAS=		org.gnome.system.gvfs.enums.xml
+			org.gnome.system.wsdd.gschema.xml
 
 # LibUSB deactivated for now; FreeBSD has it built-in but for 11.1
 # the base system ships with a version too old for GVFS...
