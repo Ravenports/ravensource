@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	1.28.0
 
 NAMEBASE=		mate-settings-daemon
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		sysutils
 VARIANTS=		std
 SDESC[std]=		Settings daemon for MATE
@@ -14,7 +15,7 @@ SITES[main]=		https://pub.mate-desktop.org/releases/${PORTVERSION:R}/
 DISTFILE[1]=		mate-settings-daemon-${PORTVERSION}.tar.xz:main
 DIST_SUBDIR=		mate
 
-SPKGS[std]=		set primary nls
+SPKGS[std]=		set primary dev nls man
 
 OPTIONS_AVAILABLE=	RFKILL
 OPTIONS_STANDARD=	none
@@ -52,7 +53,7 @@ BUILDRUN_DEPENDS=	dbus:primary:std
 			polkit:primary:std
 RUN_DEPENDS=		xorg-xrdb:primary:std
 
-USES=			gettext gmake iconv libtool pkgconfig
+USES=			gettext gmake iconv libtool pkgconfig schemas:primary
 XORG_COMPONENTS=	ice sm
 GNOME_COMPONENTS=	gtk3 libxml2
 
