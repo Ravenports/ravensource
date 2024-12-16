@@ -1,9 +1,10 @@
 DEF[PORTVERSION]=	3.5a
-DEF[TAG_BASH]=		f5d5323
+DEF[TAG_BASH]=		8da7f79
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		tmux
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		sysutils
 VARIANTS=		std
 SDESC[std]=		Terminal multiplexer
@@ -36,19 +37,17 @@ CPE_VENDOR=		nicholas_marriott
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--sysconfdir={{PREFIX}}/etc
 CPPFLAGS=		-I{{NCURSESINC}}
-# for gcc14, event_info()
-CFLAGS=			-Wno-implicit-function-declaration -Wno-int-conversion
 
 # requires addition of utempter.h to sysroot on freebsd
 # VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=--enable-utempter
 
-post-patch:
+pre-configure:
 	${REINPLACE_CMD} -e 's|/etc/tmux.conf|${PREFIX}/etc/tmux.conf|g' \
 		${WRKSRC}/CHANGES ${WRKSRC}/tmux.h
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/tmux ${STAGEDIR}${PREFIX}/bin
 	${INSTALL_MAN} ${WRKSRC}/tmux.1 ${STAGEDIR}${MANPREFIX}/man/man1
-	@${MKDIR} ${STAGEDIR}${PREFIX}/etc/bash_completion.d
+	${MKDIR} ${STAGEDIR}${PREFIX}/etc/bash_completion.d
 	${INSTALL_DATA} ${WRKDIR}/tmux-bash-completion-${TAG_BASH}/completions/tmux \
 		${STAGEDIR}${PREFIX}/etc/bash_completion.d/tmux
