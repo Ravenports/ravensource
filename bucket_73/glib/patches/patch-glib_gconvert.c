@@ -1,5 +1,14 @@
 --- glib/gconvert.c.orig	2024-10-17 11:08:41 UTC
 +++ glib/gconvert.c
+@@ -74,7 +74,7 @@ try_conversion (const char *to_codeset,
+   if (*cd == (iconv_t)-1 && errno == EINVAL)
+     return FALSE;
+ 
+-#if defined(__FreeBSD__) && defined(ICONV_SET_ILSEQ_INVALID)
++#if (defined(__FreeBSD__) || defined(__DragonFly__)) && defined(ICONV_SET_ILSEQ_INVALID)
+   /* On FreeBSD request GNU iconv compatible handling of characters that cannot
+    * be represented in the destination character set.
+    * See https://cgit.freebsd.org/src/commit/?id=7c5b23111c5fd1992047922d4247c4a1ce1bb6c3
 @@ -126,6 +126,18 @@ g_iconv_open (const gchar  *to_codeset,
  	      const gchar  *from_codeset)
  {
