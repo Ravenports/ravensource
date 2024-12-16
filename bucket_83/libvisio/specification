@@ -5,6 +5,7 @@ DEF[VISIO_VER]=		0.1
 
 NAMEBASE=		libvisio
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		textproc devel
 VARIANTS=		std
 SDESC[std]=		Import filter and tools for MS Visio Diagrams
@@ -15,12 +16,12 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://dev-www.libreoffice.org/src/libvisio/
 DISTFILE[1]=		libvisio-${PORTVERSION}.tar.xz:main
 
-SPKGS[std]=		single
+SPKGS[std]=		set primary dev tools
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		MPL:single
+LICENSE=		MPL:primary
 LICENSE_FILE=		MPL:{{WRKSRC}}/COPYING.MPL
 LICENSE_SCHEME=		solo
 
@@ -33,6 +34,8 @@ BUILD_DEPENDS=		gperf:primary:std
 			librevenge:dev:std
 BUILDRUN_DEPENDS=	librevenge:primary:std
 			icu:primary:std
+
+EXRUN[tools]=		primary
 
 USES=			perl:build pkgconfig gmake libtool
 GNOME_COMPONENTS=	libxml2
