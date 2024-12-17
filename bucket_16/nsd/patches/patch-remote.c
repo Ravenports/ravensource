@@ -1,4 +1,4 @@
---- remote.c.orig	2024-06-13 10:24:07 UTC
+--- remote.c.orig	2024-08-02 12:05:00 UTC
 +++ remote.c
 @@ -98,6 +98,10 @@
  #define AF_LOCAL AF_UNIX
