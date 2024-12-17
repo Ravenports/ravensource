@@ -9,7 +9,7 @@ DEF[PKGUSER]=		cyrus
 
 NAMEBASE=		cyrus-sasl
 VERSION=		${PORTVERSION}
-REVISION=		3
+REVISION=		4
 KEYWORDS=		security
 VARIANTS=		std
 SDESC[std]=		Cyrus Simple Authentication Service Layer (SASL)
@@ -20,7 +20,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/cyrusimap/cyrus-sasl/releases/download/cyrus-sasl-${PORTVERSION}/
 DISTFILE[1]=		cyrus-sasl-${PORTVERSION}.tar.gz:main
 
-SPKGS[std]=		set primary dev man docs
+SPKGS[std]=		set primary dev man docs tools
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -30,6 +30,8 @@ LICENSE_FILE=		BSD4CLAUSE:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		security/cyrus-sasl2
+
+EXRUN[tools]=		primary
 
 USERS=			${PKGUSER}
 GROUPS=			${PKGUSER}
