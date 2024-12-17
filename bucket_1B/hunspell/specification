@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	1.7.2
 
 NAMEBASE=		hunspell
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		textproc
 VARIANTS=		std
 SDESC[std]=		Most popular spellchecking library
@@ -13,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/hunspell:hunspell:v${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[std]=		set primary dev man
+SPKGS[std]=		set primary dev man tools
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -28,6 +29,8 @@ LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/hunspell/hunspell.h
 LICENSE_SCHEME=		dual
 
 FPC_EQUIVALENT=		textproc/hunspell
+
+EXRUN[tools]=		primary
 
 USES=			autoreconf cpe libtool:keepla iconv ncurses
 			readline shebangfix perl gettext:build c++:primary
