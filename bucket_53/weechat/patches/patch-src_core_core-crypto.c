@@ -1,4 +1,4 @@
---- src/core/core-crypto.c.orig	2024-10-30 11:13:22 UTC
+--- src/core/core-crypto.c.orig	2024-11-30 08:03:02 UTC
 +++ src/core/core-crypto.c
 @@ -37,6 +37,10 @@
  #include <endian.h>
