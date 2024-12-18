@@ -1,4 +1,4 @@
---- config/config.c.orig	2024-04-03 20:50:12 UTC
+--- config/config.c.orig	2024-10-29 16:09:01 UTC
 +++ config/config.c
 @@ -55,6 +55,9 @@ config_init(void)
  #elif defined(CONFIG_WSCONS)
