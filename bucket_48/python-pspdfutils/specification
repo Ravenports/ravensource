@@ -1,17 +1,17 @@
-DEF[PORTVERSION]=	3.3.6
+DEF[PORTVERSION]=	3.3.7
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-pspdfutils
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
 VARIANTS=		v12 v13
-SDESC[v12]=		Manipulate PDF and PostScript documents (3.12)
-SDESC[v13]=		Manipulate PDF and PostScript documents (3.13)
-HOMEPAGE=		https://github.com/rrthomas/psutils
+SDESC[v12]=		Pspdfutils is now psutils (3.12)
+SDESC[v13]=		Pspdfutils is now psutils (3.13)
+HOMEPAGE=		none
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/d9/8f/de2b74eccf75e29c6ddd8950259edf8a017a00f571db9037474cbaa487cd
+SITES[main]=		PYPIWHL/89/71/e1a3ee38914761f29ef1f72719f2592e4eb53d3e64ff3294257363394a99
 DISTFILE[1]=		pspdfutils-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -24,21 +24,16 @@ VOPTS[v12]=		PY312=ON PY313=OFF
 VOPTS[v13]=		PY312=OFF PY313=ON
 
 # License listed at PyPI
-# GPL v3 or later
+# Not provided.
 
 GENERATED=		yes
 DISTNAME=		pspdfutils-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# puremagic >=1.26
-# pypdf >=4.3.0
-# pytest-datafiles ; extra == 'test'
-# Wand ; extra == 'test'
+# psutils
 
 [PY312].USES_ON=			python:v12,wheel
-[PY312].RUN_DEPENDS_ON=			python-puremagic:single:v12
-					python-pypdf:single:v12
+[PY312].RUN_DEPENDS_ON=			python-psutils:single:v12
 [PY313].USES_ON=			python:v13,wheel
-[PY313].RUN_DEPENDS_ON=			python-puremagic:single:v13
-					python-pypdf:single:v13
+[PY313].RUN_DEPENDS_ON=			python-psutils:single:v13
 

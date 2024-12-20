@@ -42,27 +42,44 @@ Django versions (older do not take the presence of
 ``js_asset.static`` function is provided which does the right thing
 automatically.
 
-When adding external script assets, you should pass ``static=False to the
-JS object to avoid passing the script URL through static()``. In this
-case, you probably want to add defer or async, and maybe also
-integrity and crossorigin attributes. Please note that boolean
-attributes are not properly supported when using Django before 4.1 so
-specify
-them as follows:
+CSS and JSON support
+====================
+
+Since 3.0 django-js-asset also ships a CSS and JSON media object which
+can be used to ship stylesheets, inline styles and JSON blobs to the
+frontend.
+It's recommended to pass those through ``forms.Media(js=[]) as well since
+js is a simple list while css`` uses a dictionary keyed with the media to
+use for the stylesheet.
+
+So, you can add everything at once:
 
 .. code-block:: python
 
-    JS(
-        "https://cdn.example.com/script.js",
-        {"defer": "defer"},
-        static=False,
-    )
+    from js_asset import CSS, JS, JSON
+
+    forms.Media(js=[
+        JSON({"configuration": 42}, id="widget-configuration"),
+        CSS("widget/style.css"),
+        CSS("p{color:red;}", inline=True),
+        JS("widget/script.js", {"type": "module"}),
+   ])
+
+This produces:
+
+.. code-block:: html
+
+    <script id="widget-configuration"
+type="application/json">{"configuration": 42}</script>
+    <link rel="stylesheet" href="/static/widget/style.css">
+    <style>p{color:red;}</style>
+    <script src="/static/widget/script.js" type="module"></script>
 
 Compatibility
 =============
 
-At the time of writing this app is compatible with Django 1.8 and better
-(up to and including the Django master branch), but have a look at the
+At the time of writing this app is compatible with Django 4.2 and better
+(up to and including the Django main branch), but have a look at the
 [tox configuration
 ] for
 definitive answers.

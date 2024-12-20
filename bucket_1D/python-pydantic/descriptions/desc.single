@@ -78,23 +78,23 @@ See our [security policy].
 
 ## Changelog
 
-## v2.10.3 (2024-12-03)
+## v2.10.4 (2024-12-18)
 
 [GitHub release]
 
 ### What's Changed
 
+#### Packaging
+
+* Bump `pydantic-core` to v2.27.2 by [@davidhewitt] in [#11138]
+
 #### Fixes
 
-* Set fields when `defer_build` is set on Pydantic dataclasses by [@Viicos]
-in [#10984]
-* Do not resolve the JSON Schema reference for `dict` core schema keys by
-[@Viicos] in [#10989]
-* Use the globals of the function when evaluating the return type for
-`PlainSerializer` and `WrapSerializer` functions by [@Viicos] in [#11008]
-* Fix host required enforcement for urls to be compatible with v2.9
-behavior by [@sydney-runkle] in [#11027]
-* Add a `default_factory_takes_validated_data` property to `FieldInfo` by
-[@Viicos] in [#11034]
-* Fix url json schema in `serialization` mode by [@sydney-runkle] in
-[#11035]
+* Fix for comparison of `AnyUrl` objects by [@alexprabhat99] in [#11082]
+* Properly fetch PEP 695 type params for functions, do not fetch
+annotations from signature by [@Viicos] in [#11093]
+* Include JSON Schema input core schema in function schemas by [@Viicos] in
+[#11085]
+* Add `len` to `_BaseUrl` to avoid TypeError by [@Kharianne] in [#11111]
+* Make sure the type reference is removed from the seen references by
+[@Viicos] in [#11143]

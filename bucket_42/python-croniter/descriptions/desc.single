@@ -1,6 +1,27 @@
 Introduction
 ============
 
+DISCLAIMER
+============
+
+**UNMAINTAINED/ABANDONED CODE / DO NOT USE**
+
+Due to the new EU Cyber Resilience Act (as European Union), even if it was
+implied because there was no more activity, this repository is now
+explicitly declared unmaintained.
+
+The content does not meet the new regulatory requirements and therefore
+cannot be deployed or distributed, especially in a European context.
+
+This repository now remains online ONLY for public archiving, documentation
+and education purposes and we ask everyone to respect this.
+
+As stated, the maintainers stopped development and therefore all support
+some time ago, and make this declaration on December 15, 2024.
+
+We may also unpublish soon (as in the following monthes) any published
+ressources tied to this project (pypi, the repositories, 
+
 Usage
 ============
 
@@ -77,24 +98,3 @@ Supported added for get_prev method. (>= 0.2.0)::
 You can validate your crons using is_valid class method. (>= 0.3.18)::
 
     >>> croniter.is_valid('0 0 1 * *')  # True
-    >>> croniter.is_valid('0 wrong_value 1 * *')  # False
-
-About DST
-=========
-Be sure to init your croniter instance with a TZ aware datetime for this to
-work!
-
-Example using pytz::
-
-    >>> import pytz
-    >>> tz = pytz.timezone("Europe/Paris")
-    >>> local_date = tz.localize(datetime(2017, 3, 26))
-    >>> val = croniter('0 0 * * *', local_date).get_next(datetime)
-
-Example using python_dateutil::
-
-    >>> import dateutil.tz
-    >>> tz = dateutil.tz.gettz('Asia/Tokyo')
-    >>> local_date = datetime(2017, 3, 26, tzinfo=tz)
-    >>> val = croniter('0 0 * * *', local_date).get_next(datetime)
-
