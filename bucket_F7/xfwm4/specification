@@ -1,5 +1,5 @@
 # Stable: 4.16.x, 4.18.x
-DEF[PORTVERSION]=	4.18.0
+DEF[PORTVERSION]=	4.20.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		xfwm4
@@ -32,14 +32,16 @@ BUILD_DEPENDS=		harfbuzz:dev:std
 			dbus:dev:std
 			libwnck:dev:std
 			libxfce4ui:dev:std
+			xorg-xpresent:dev:std
 BUILDRUN_DEPENDS=	dbus:primary:std
 			dbus-glib:primary:std
 			libwnck:primary:std
 			libxfce4ui:primary:std
+			xorg-xpresent:primary:std
 
-USES=			gmake pkgconfig fontconfig solaris-funcs
+USES=			gmake iconv pkgconfig fontconfig solaris-funcs
 MUST_CONFIGURE=		gnu
-XORG_COMPONENTS=	ice sm x11 xcomposite xdamage xext xfixes xrandr xrender
+XORG_COMPONENTS=	ice sm x11 xcomposite xdamage xext xfixes xi xrandr xrender
 GNOME_COMPONENTS=	cairo gtk3 intltool
 INSTALL_TARGET=		install-strip
 SOL_FUNCTIONS=		strnlen:src/mypixmap.c
