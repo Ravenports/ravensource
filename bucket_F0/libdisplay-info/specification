@@ -28,3 +28,6 @@ BUILD_DEPENDS=		hwdata:single:std
 USES=			meson pkgconfig
 
 SOVERSION=		${PORTVERSION}
+
+pre-configure-dragonfly:
+	${REINPLACE_CMD} -e '/_POSIX_C_SOURCE/d' ${WRKSRC}/meson.build
