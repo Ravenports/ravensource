@@ -1,0 +1,40 @@
+DEF[PORTVERSION]=	1.18.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		elixir
+VERSION=		${PORTVERSION}
+KEYWORDS=		lang
+VARIANTS=		std
+SDESC[std]=		Functional language built on top of Erlang VM
+HOMEPAGE=		https://elixir-lang.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/elixir-lang:elixir:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[std]=		set primary dev man
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+USES=			gmake
+BUILDRUN_DEPENDS=	erlang:primary:std
+
+FPC_EQUIVALENT=		lang/elixir
+
+LICENSE=		APACHE20:primary
+LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+LICENSE_TERMS=		primary:{{WRKSRC}}/LICENSE
+
+BUILD_TARGET=		default
+MAKE_ENV=		LC_ALL=en_US.UTF-8
+
+post-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/lib/elixir/lib
+	cd ${WRKSRC}/lib/ && for lib in *; do \
+		${MKDIR} ${STAGEDIR}${PREFIX}/lib/elixir/lib/$${lib}/lib; \
+		cd ${WRKSRC}/lib/$${lib}/lib && \
+			${COPYTREE_SHARE} \* ${STAGEDIR}${PREFIX}/lib/elixir/lib/$${lib}/lib; \
+	done
