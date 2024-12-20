@@ -1,0 +1,51 @@
+# Stable: 4.16.x, 4.18.x
+DEF[PORTVERSION]=	4.20.0
+DEF[SOVERSION]=		0.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libxfce4windowing
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11
+VARIANTS=		std
+SDESC[std]=		Windowing concept abstraction lib X11 / Wayland
+HOMEPAGE=		https://docs.xfce.org/xfce/libxfce4windowing/start
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://archive.xfce.org/src/xfce/libxfce4windowing/${PORTVERSION:R}/
+DISTFILE[1]=		libxfce4windowing-${PORTVERSION}.tar.bz2:main
+DIST_SUBDIR=		xfce
+
+SPKGS[std]=		set primary nls dev docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# Not in FPC, yet
+# FPC_EQUIVALENT=		x11/libxfce4windowing
+
+LICENSE=		LGPL21+:primary
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/libxfce4windowingui/libxfce4windowingui.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+BUILD_DEPENDS=		libdisplay-info:dev:std
+			libwnck:dev:std
+			xfce4-dev-tools:primary:std
+BUILDRUN_DEPENDS=	libdisplay-info:primary:std
+			libwnck:primary:std
+
+USES=			gmake gettext gtk-doc iconv libtool pkgconfig
+GNOME_COMPONENTS=	glib gtk3 introspection
+
+MUST_CONFIGURE=		gnu
+# Disable wayland for now - our GTK+3 is not ready for it, yet
+CONFIGURE_ARGS=		--disable-wayland
+			--enable-x11
+			--enable-gtk-doc
+
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
+SOVERSION=		${SOVERSION}
