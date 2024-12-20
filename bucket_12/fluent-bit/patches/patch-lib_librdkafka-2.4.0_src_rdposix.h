@@ -1,4 +1,4 @@
---- lib/librdkafka-2.4.0/src/rdposix.h.orig	2024-11-27 17:22:52 UTC
+--- lib/librdkafka-2.4.0/src/rdposix.h.orig	2024-12-19 17:21:21 UTC
 +++ lib/librdkafka-2.4.0/src/rdposix.h
 @@ -65,12 +65,12 @@
  /**
