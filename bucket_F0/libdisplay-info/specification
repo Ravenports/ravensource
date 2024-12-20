@@ -1,0 +1,30 @@
+DEF[PORTVERSION]=	0.2.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libdisplay-info
+VERSION=		${PORTVERSION}
+KEYWORDS=		sysutils
+VARIANTS=		std
+SDESC[std]=		EDID and DisplayID library
+HOMEPAGE=		https://gitlab.freedesktop.org/emersion/libdisplay-info
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://gitlab.freedesktop.org/emersion/libdisplay-info/-/archive/${PORTVERSION}/
+DISTFILE[1]=		libdisplay-info-${PORTVERSION}.tar.bz2:main
+
+SPKGS[std]=		set primary dev
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:primary
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		sysutils/libdisplay-info
+
+BUILD_DEPENDS=		hwdata:single:std
+USES=			meson pkgconfig
+
+SOVERSION=		${PORTVERSION}

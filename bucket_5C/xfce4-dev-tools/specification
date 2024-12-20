@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	4.18.1
+DEF[PORTVERSION]=	4.20.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		xfce4-dev-tools
@@ -29,10 +29,12 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		devel/xfce4-dev-tools
 
 RUN_DEPENDS=		bash:primary:std
+			meson:single:std
+			sed:primary:std
 
-USES=			pkgconfig shebangfix
+USES=			autoreconf gmake pkgconfig shebangfix
 GNOME_COMPONENTS=	glib libxslt
 
 SHEBANG_FILES=		helpers/xfce-build
-
+			scripts/xdt-check-abi
 MUST_CONFIGURE=		gnu
