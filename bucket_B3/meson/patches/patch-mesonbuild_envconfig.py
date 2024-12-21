@@ -1,4 +1,4 @@
---- mesonbuild/envconfig.py.orig	2024-10-20 18:20:39 UTC
+--- mesonbuild/envconfig.py.orig	2024-12-16 20:34:40 UTC
 +++ mesonbuild/envconfig.py
 @@ -344,7 +344,7 @@ class MachineInfo(HoldableObject):
  
