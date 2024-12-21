@@ -1,0 +1,43 @@
+DEF[PORTVERSION]=	5.11.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		sope
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel www
+VARIANTS=		std
+SDESC[std]=		Set of GNUstep web application frameworks
+HOMEPAGE=		https://www.sogo.nu/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://packages.sogo.nu/sources/
+DISTFILE[1]=		SOPE-${PORTVERSION}.tar.gz:main
+DIST_SUBDIR=		gnustep
+
+SPKGS[std]=		set primary dev tools
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		devel/sope
+
+BUILD_DEPENDS=		gnustep-base:dev:std
+			gnustep-base:tools:std
+			gnustep-make:primary:std
+			gnutls:dev:std
+			libobjc2:dev:std
+BUILDRUN_DEPENDS=	gnustep-base:primary:std
+			gnutls:primary:std
+
+EXRUN[tools]=		primary
+
+USES=			clang gmake iconv ssl:openssl11 zlib
+GNOME_COMPONENTS=	libxml2
+
+DISTNAME=		SOPE
+MUST_CONFIGURE=		yes
+CONFIGURE_ARGS=		--with-gnustep
+MAKEFILE=		GNUmakefile
+
+do-configure:
+	cd ${WRKSRC} ; . ${GNUSTEP_MAKEFILES}/GNUstep.sh ; ./configure ${CONFIGURE_ARGS}
