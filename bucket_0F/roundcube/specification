@@ -3,7 +3,7 @@ DEF[PORTVERSION]=	1.6.9
 
 NAMEBASE=		roundcube
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		mail www
 VARIANTS=		php82 php83 php84
 SDESC[php82]=		Open source webmail software (php82)
@@ -58,7 +58,7 @@ SKIP_BUILD=		yes
 					php83-exif:single:std
 					php83-ctype:single:std
 					php83-gd:single:std
-					php83-pspell:single:std
+					php83-enchant:single:std
 					php83-pdo_sqlite:single:std
 					php83-pdo_pgsql:single:std
 					php83-pdo_mysql:single:std
@@ -81,6 +81,7 @@ SKIP_BUILD=		yes
 					php84-exif:single:std
 					php84-ctype:single:std
 					php84-gd:single:std
+					php84-enchant:single:std
 					php84-pdo_sqlite:single:std
 					php84-pdo_pgsql:single:std
 					php84-pdo_mysql:single:std
@@ -99,16 +100,18 @@ SKIP_BUILD=		yes
 					php82-exif:single:std
 					php82-ctype:single:std
 					php82-gd:single:std
-					php82-pspell:single:std
+					php82-enchant:single:std
 					php82-pdo_sqlite:single:std
 					php82-pdo_pgsql:single:std
 					php82-pdo_mysql:single:std
 
 post-patch:
-	${FIND} ${WRKSRC} -type f -name "*.orig" -delete
 	# remove unsupported databases
 	${MV} ${WRKSRC}/SQL/mssql ${WRKDIR}/
 	${MV} ${WRKSRC}/SQL/oracle ${WRKDIR}/
+
+pre-configure:
+	${FIND} ${WRKSRC} -type f -name "*.orig" -delete
 
 do-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/www/roundcube
