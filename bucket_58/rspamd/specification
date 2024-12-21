@@ -1,11 +1,10 @@
-DEF[PORTVERSION]=	3.10.2
+DEF[PORTVERSION]=	3.11.0
 DEF[JQUERY]=		3.7.1
 # EXTRACT_INFO(LATEST_JQUERY)
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		rspamd
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		mail
 VARIANTS=		std
 SDESC[std]=		Fast, free and open-source spam filtering system
@@ -72,3 +71,7 @@ post-install:
 		${STAGEDIR}${PREFIX}/etc/rspamd/
 	${LN} -s etc/rspamd/rspamd.newsyslog.conf \
 		${STAGEDIR}${PREFIX}/etc/newsyslog.conf.d
+.for x in etc/rspamd/local.d/module.conf etc/rspamd/lua.local.d/module.lua \
+	etc/rspamd/modules.local.d/module.conf etc/rspamd/override.d/module.conf
+	${MV} ${STAGEDIR}${PREFIX}/${x}.example ${STAGEDIR}${PREFIX}/${x}.sample
+.endfor
