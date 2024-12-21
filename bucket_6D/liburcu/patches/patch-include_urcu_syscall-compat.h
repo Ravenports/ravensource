@@ -1,6 +1,6 @@
---- include/urcu/syscall-compat.h.orig	2024-08-28 19:09:31 UTC
+--- include/urcu/syscall-compat.h.orig	2024-11-20 15:54:04 UTC
 +++ include/urcu/syscall-compat.h
-@@ -34,6 +34,7 @@
+@@ -16,6 +16,7 @@
  
  #elif defined(__CYGWIN__) || defined(__APPLE__) || \
  	defined(__FreeBSD__) || defined(__DragonFly__) || \
