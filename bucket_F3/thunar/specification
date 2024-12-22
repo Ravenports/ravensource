@@ -1,11 +1,10 @@
 # Stable: 4.16.x, 4.18.x
-DEF[PORTVERSION]=	4.18.11
+DEF[PORTVERSION]=	4.20.0
 DEF[SOVERSION]=		0.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		thunar
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		x11_fm
 VARIANTS=		std
 SDESC[std]=		File manager for Xfce
@@ -46,16 +45,18 @@ LICENSE_SOURCE=		TERMS:{{WRKSRC}}/thunar/thunar-private.h
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		harfbuzz:dev:std
+BUILD_DEPENDS=		appstream:dev:std
+			harfbuzz:dev:std
+			hicolor-icon-theme:dev:std
+			libexif:dev:std
+			libexo:dev:std
 			libnotify:dev:std
 			libxfce4ui:dev:std
 			libxfce4util:dev:std
-			libexo:dev:std
-			xfce4-panel:dev:std
 			tumbler:dev:std
-			libexif:dev:std
-			hicolor-icon-theme:dev:std
-BUILDRUN_DEPENDS=	dbus-glib:primary:std
+			xfce4-panel:dev:std
+BUILDRUN_DEPENDS=	appstream:primary:std
+			dbus-glib:primary:std
 			gvfs:primary:std
 			hicolor-icon-theme:primary:std
 			libexif:primary:std
@@ -67,18 +68,17 @@ BUILDRUN_DEPENDS=	dbus-glib:primary:std
 			xfce4-panel:primary:std
 RUN_DEPENDS=		polkit:primary:std
 
-USES=			cpe gmake libtool fontconfig mbsdfix pkgconfig png
-			desktop-utils:primary
+USES=			cpe desktop-utils:primary fontconfig gmake gtk-doc
+			iconv libtool mbsdfix pkgconfig png
+XORG_COMPONENTS=	ice sm x11
 GNOME_COMPONENTS=	cairo gdkpixbuf glib gtk3 intltool introspection
 CPE_VENDOR=		xfce
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-apr-plugin
-			--enable-dbus
 			--enable-exif
 			--enable-gio-unix
-			--enable-introspection=no
+			--enable-introspection
 			--enable-notifications
-			--enable-pcre
 			--enable-sbr-plugin
 			--enable-tpa-plugin
 			--enable-uca-plugin
