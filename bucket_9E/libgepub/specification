@@ -1,0 +1,44 @@
+DEF[PORTVERSION]=	0.7.1
+DEF[SOVERSION]=		0.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libgepub
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc
+VARIANTS=		std
+SDESC[std]=		GObject based epub documents handling library
+HOMEPAGE=		https://gitlab.gnome.org/GNOME/libgepub/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNOME/libgepub/${PORTVERSION:R}/
+DISTFILE[1]=		libgepub-${PORTVERSION}.tar.xz:main
+DIST_SUBDIR=		gnome3
+
+SPKGS[std]=		set primary dev
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL21+:primary
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/libgepub/gepub-archive.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		textproc/libgepub
+
+BUILD_DEPENDS=		libarchive:dev:std
+			libsoup:dev:std
+			webkit2:dev:api41
+BUILDRUN_DEPENDS=	libarchive:primary:std
+			libsoup:primary:std
+			webkit2:primary:api41
+
+USES=			gettext gmake meson pkgconfig ssl
+GNOME_COMPONENTS=	glib gtk3 libxml2
+
+# Fails to compile with introspection enabled for some reason (as of 0.7.1)
+CONFIGURE_ARGS=		-Dintrospection=false
+SOVERSION=		${SOVERSION}
