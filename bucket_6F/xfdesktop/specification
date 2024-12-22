@@ -1,10 +1,9 @@
 # Stable: 4.16.x, 4.18.x
-DEF[PORTVERSION]=	4.18.1
+DEF[PORTVERSION]=	4.20.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		xfdesktop
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		x11
 VARIANTS=		std
 SDESC[std]=		Desktop manager for the Xfce DE
@@ -14,6 +13,7 @@ CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 DOWNLOAD_GROUPS=	main
 SITES[main]=		https://archive.xfce.org/src/xfce/xfdesktop/${PORTVERSION:R}/
 DISTFILE[1]=		xfdesktop-${PORTVERSION}.tar.bz2:main
+DIST_SUBDIR=		xfce
 
 SPKGS[std]=		set primary nls man
 
@@ -30,19 +30,28 @@ LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SCHEME=		solo
 
 BUILD_DEPENDS=		harfbuzz:dev:std
+			garcon:dev:std
+			libexo:dev:std
+			libnotify:dev:std
 			libwnck:dev:std
 			libxfce4ui:dev:std
-			libexo:dev:std
-BUILDRUN_DEPENDS=	libexo:primary:std
+			libxfce4windowing:dev:std
+			libyaml:dev:std
+			thunar:dev:std
+BUILDRUN_DEPENDS=	garcon:primary:std
+			libexo:primary:std
+			libnotify:primary:std
 			libwnck:primary:std
 			libxfce4ui:primary:std
+			libxfce4windowing:primary:std
+			libyaml:primary:std
+			thunar:primary:std
 
-USES=			gmake pkgconfig
+USES=			iconv gmake pkgconfig
 GNOME_COMPONENTS=	glib gtk3 intltool
 
 MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--enable-gio-unix
-			--enable-nls
+CONFIGURE_ARGS=		--enable-nls
 			--enable-notifications
 			--enable-thunarx
 			--with-file-manager-fallback=Thunar
