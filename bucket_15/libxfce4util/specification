@@ -1,5 +1,5 @@
 # Stable: 4.16.x, 4.18.x
-DEF[PORTVERSION]=	4.18.2
+DEF[PORTVERSION]=	4.20.0
 DEF[SOVERSION]=		7.0.0
 # ----------------------------------------------------------------------------
 
@@ -14,6 +14,7 @@ CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 DOWNLOAD_GROUPS=	main
 SITES[main]=		https://archive.xfce.org/src/xfce/libxfce4util/${PORTVERSION:R}/
 DISTFILE[1]=		libxfce4util-${PORTVERSION}.tar.bz2:main
+DIST_SUBDIR=		xfce
 
 SPKGS[std]=		set primary dev docs nls
 
@@ -32,7 +33,7 @@ LICENSE_SOURCE=		TERMS:{{WRKSRC}}/libxfce4util/libxfce4util.h
 BUILD_DEPENDS=		vala:dev:std
 			vala:primary:std
 
-USES=			gmake libtool perl pkgconfig
+USES=			iconv gmake gtk-doc libtool perl pkgconfig
 GNOME_COMPONENTS=	glib intltool introspection
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-nls
