@@ -133,7 +133,7 @@ RUBY_3.1_PATCHLEVEL=		0
 RUBY_3.2_REVISION=		2
 RUBY_3.2_PATCHLEVEL=		0
 
-RUBY_3.3_REVISION=		1
+RUBY_3.3_REVISION=		2
 RUBY_3.3_PATCHLEVEL=		0
 
 # ------------------------------------------------------------------------
