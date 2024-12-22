@@ -1,0 +1,42 @@
+DEF[PORTVERSION]=	0.4.9
+DEF[SOVERSION]=		2.0.10
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libgusb
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		std
+SDESC[std]=		GObject wrapper for libusb1
+HOMEPAGE=		https://github.com/hughsie/libgusb/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/hughsie:libgusb:${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[std]=		set primary dev docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL21+:primary
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/gusb/gusb.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/libgusb
+
+BUILD_DEPENDS=		json-glib:dev:std
+			python-gi-docgen:set:python_default
+			vala:dev:std
+			vala:primary:std
+BUILDRUN_DEPENDS=	json-glib:primary:std
+
+USES=			meson pkgconfig
+GNOME_COMPONENTS=	glib introspection
+
+CONFIGURE_ARGS=		-Dumockdev=disabled
+
+SOVERSION=		${SOVERSION}
