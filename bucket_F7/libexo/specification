@@ -1,11 +1,10 @@
 # Stable: 4.16.x, 4.18.x
-DEF[PORTVERSION]=	4.18.0
+DEF[PORTVERSION]=	4.20.0
 DEF[SOVERSION]=		0.1.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libexo
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		x11
 VARIANTS=		std
 SDESC[std]=		Xfce application development library
@@ -15,6 +14,7 @@ CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 DOWNLOAD_GROUPS=	main
 SITES[main]=		https://archive.xfce.org/src/xfce/exo/${PORTVERSION:R}/
 DISTFILE[1]=		exo-${PORTVERSION}.tar.bz2:main
+DIST_SUBDIR=		xfce
 
 SPKGS[std]=		set primary dev man docs nls
 
@@ -37,8 +37,8 @@ BUILDRUN_DEPENDS=	libxfce4ui:primary:std
 			libxfce4util:primary:std
 			perl-URI:single:perl_default
 
-USES=			gmake libtool perl pkgconfig fontconfig
-			cpe desktop-utils:primary mbsdfix
+USES=			cpe fontconfig iconv gmake gtk-doc libtool
+			mbsdfix perl pkgconfig
 XORG_COMPONENTS=	ice sm x11
 GNOME_COMPONENTS=	cairo glib gtk3 intltool
 CPE_VENDOR=		xfce
