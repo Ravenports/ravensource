@@ -1,5 +1,5 @@
 # Stable: 4.16.x, 4.18.x
-DEF[PORTVERSION]=	4.18.2
+DEF[PORTVERSION]=	4.20.0
 DEF[SOVERSION]=		0.0.0
 # ----------------------------------------------------------------------------
 
@@ -16,7 +16,8 @@ SITES[main]=		https://archive.xfce.org/src/xfce/tumbler/${PORTVERSION:R}/
 DISTFILE[1]=		tumbler-${PORTVERSION}.tar.bz2:main
 DIST_SUBDIR=		xfce
 
-SPKGS[std]=		set primary dev docs nls
+SPKGS[std]=		set primary dev docs nls plugcover plugepub plugfont
+			plugimage plugodf plugpdf plugvideo
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -30,20 +31,36 @@ LICENSE_SOURCE=		TERMS:{{WRKSRC}}/tumbler/tumbler.h
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SCHEME=		solo
 
-# Some more features can potentially be added if anybody wants them.
+# Missing plugins (due to unsatisfied dependencies):
+# ffmpegthumbnailer, libopenraw
 
-BUILD_DEPENDS=		libxfce4util:dev:std
+BUILD_DEPENDS=		cairo:dev:std
+			curl:dev:std
+			libnghttp2:dev:std
+			gstreamer1:dev:std
+			gstreamer1-plugins-base:dev:std
+			libarchive:dev:std
 			libexif:dev:std
-BUILDRUN_DEPENDS=	libexif:primary:std
-			libxfce4util:primary:std
-			gstreamer1:primary:std
+			libgepub:dev:std
+			libsoup:dev:std
+			libxfce4util:dev:std
+			poppler:dev:std
+			poppler:glibdev:std
+			poppler-data:dev:std
+			webkit2:dev:api41
+BUILDRUN_DEPENDS=	libxfce4util:primary:std
 
-USES=			gmake jpeg png libtool pkgconfig freetype
+# Room for improvement: Some USES and GNOME_COMPONENTS are only needed
+# for certain plugins and could thus be done more fine-grained.
+
+USES=			freetype gmake gtk-doc iconv jpeg libtool
+			png pkgconfig ssl zlib
 			python:build,sutools
-GNOME_COMPONENTS=	gdkpixbuf glib intltool libgsf
+GNOME_COMPONENTS=	gdkpixbuf glib gtk3 intltool libgsf libxml2
 
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-nls
+			--enable-cover-thumbnailer
 			--enable-font-thumbnailer
 			--enable-gstreamer-thumbnailer
 			--enable-jpeg-thumbnailer
@@ -57,6 +74,20 @@ SUB_FILES=		messages-primary.ucl
 SOVERSION=		${SOVERSION}
 
 VAR_OPSYS[sunos]=	LDFLAGS=-lintl
+
+EXRUN[plugcover]=	primary
+			curl:primary:std
+EXRUN[plugepub]=	primary
+			libgepub:primary:std
+			webkit2:primary:api41
+EXRUN[plugimage]=	primary
+			libexif:primary:std
+EXRUN[plugpdf]=		primary
+			poppler:primary:std
+			poppler:glib:std
+EXRUN[plugvideo]=	primary
+			gstreamer1:primary:std
+			gstreamer1-plugins:single:std
 
 post-install:
 	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/tumbler \
