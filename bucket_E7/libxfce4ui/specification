@@ -1,5 +1,5 @@
 # Stable: 4.16.x, 4.18.x
-DEF[PORTVERSION]=	4.18.6
+DEF[PORTVERSION]=	4.20.0
 DEF[SOVERSION]=		0.0.0
 # ----------------------------------------------------------------------------
 
@@ -29,7 +29,7 @@ LICENSE_FILE=		LGPL20+:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 LICENSE_TERMS=		primary:{{WRKSRC}}/TERMS
 LICENSE_AWK=		TERMS:"^$$"
-LICENSE_SOURCE=		TERMS:{{WRKSRC}}/libxfce4ui/libxfce4ui.h
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/libxfce4ui/libxfce4ui.h.in
 
 BUILD_DEPENDS=		harfbuzz:dev:std
 			libxfce4util:dev:std
@@ -46,7 +46,8 @@ BUILDRUN_DEPENDS=	glade:primary:std
 EXRUN[dev]=		libxfce4util:dev:std
 			xfconf:dev:std
 
-USES=			gmake libtool pkgconfig
+USES=			iconv gmake gtk-doc libtool pkgconfig
+XORG_COMPONENTS=	sm
 GNOME_COMPONENTS=	glib gtk3 intltool introspection
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-nls
@@ -56,20 +57,25 @@ INSTALL_TARGET=		install-strip
 
 SOVERSION=		${SOVERSION}
 
-B_DEPS[dragonfly]=	libgudev-devd:dev:std
-BR_DEPS[dragonfly]=	libgudev-devd:primary:std
+B_DEPS[dragonfly]=	libgtop:dev:std
+			libgudev-devd:dev:std
+BR_DEPS[dragonfly]=	libgtop:primary:std
+			libgudev-devd:primary:std
 
 B_DEPS[netbsd]=		libgudev-devd:dev:std
 BR_DEPS[netbsd]=	libgudev-devd:primary:std
 
-B_DEPS[freebsd]=	libgudev-devd:dev:std
-BR_DEPS[freebsd]=	libgudev-devd:primary:std
-			libgtop:primary:std
+B_DEPS[freebsd]=	libgtop:dev:std
+			libgudev-devd:dev:std
+BR_DEPS[freebsd]=	libgtop:primary:std
+			libgudev-devd:primary:std
 
-B_DEPS[midnightbsd]=	libgudev-devd:dev:std
-BR_DEPS[midnightbsd]=	libgudev-devd:primary:std
-			libgtop:primary:std
+B_DEPS[midnightbsd]=	libgtop:dev:std
+			libgudev-devd:dev:std
+BR_DEPS[midnightbsd]=	libgtop:primary:std
+			libgudev-devd:primary:std
 
-B_DEPS[linux]=		libgudev:dev:std
-BR_DEPS[linux]=		libgudev:primary:std
-			libgtop:primary:std
+B_DEPS[linux]=		libgtop:dev:std
+			libgudev:dev:std
+BR_DEPS[linux]=		libgtop:primary:std
+			libgudev:primary:std
