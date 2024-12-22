@@ -8,6 +8,7 @@ DEF[CAT2]=		http://www.oasis-open.org/docbook/xml/
 
 NAMEBASE=		appstream-glib
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		std
 SDESC[std]=		Library for reading and writing AppStream metadata
@@ -33,17 +34,18 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/appstream-glib
 
-BUILD_DEPENDS=		gperf:primary:std
+BUILD_DEPENDS=		gcab:dev:std
+			gperf:primary:std
 			harfbuzz:dev:std
+			json-glib:dev:std
 			libarchive:dev:std
 			libuuid:dev:std
-			json-glib:dev:std
-			gcab:dev:std
-BUILDRUN_DEPENDS=	libyaml:single:std
-			libuuid:primary:std
-			libarchive:primary:std
+			libyaml:dev:std
+BUILDRUN_DEPENDS=	gcab:primary:std
 			json-glib:primary:std
-			gcab:primary:std
+			libarchive:primary:std
+			libuuid:primary:std
+			libyaml:primary:std
 
 EXRUN[tools]=		appstream-glib:primary:std
 
