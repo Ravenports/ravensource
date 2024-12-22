@@ -1,11 +1,10 @@
 # Stable: 4.16.x, 4.18.x
-DEF[PORTVERSION]=	4.18.3
+DEF[PORTVERSION]=	4.20.0
 DEF[SOVERSION]=		3.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		xfconf
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		x11
 VARIANTS=		std
 SDESC[std]=		Simple client-server configuration system for Xfce
@@ -31,15 +30,18 @@ LICENSE_TERMS=		primary:{{WRKSRC}}/TERMS
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/xfconf/xfconf.h
 
-BUILD_DEPENDS=		perl-XML-Parser:single:perl_default
-			dbus:dev:std
+BUILD_DEPENDS=		dbus:dev:std
 			libxfce4util:dev:std
+			perl-XML-Parser:single:perl_default
+			vala:dev:std
+			vala:primary:std
 BUILDRUN_DEPENDS=	dbus:primary:std
 			libxfce4util:primary:std
 
-USES=			gmake libtool perl:build pkgconfig python:build,sutools
+USES=			iconv gmake gtk-doc libtool perl:build pkgconfig
+			python:build,sutools
 XORG_COMPONENTS=	x11
-GNOME_COMPONENTS=	glib intltool
+GNOME_COMPONENTS=	glib intltool introspection
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-nls
 			--with-html-dir={{PREFIX}}/share/doc
