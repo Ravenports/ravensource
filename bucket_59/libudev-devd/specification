@@ -4,7 +4,7 @@ DEF[SOVERSION]=		0.0.0
 
 NAMEBASE=		libudev-devd
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		devel
 VARIANTS=		std
 SDESC[std]=		Libudev-compatible interface for devd
@@ -37,3 +37,7 @@ USES=			meson
 MESON_ARGS=		-Denable-gpl=true
 CFLAGS=			-Wno-error
 SOVERSION=		${SOVERSION}
+
+# compatibility symlink for projects like colord
+post-install:
+	${LN} -s ${PREFIX}/lib/pkgconfig/libudev.pc ${STAGEDIR}${PREFIX}/lib/pkgconfig/udev.pc
