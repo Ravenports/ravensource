@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	5.11.2
 
 NAMEBASE=		sope
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel www
 VARIANTS=		std
 SDESC[std]=		Set of GNUstep web application frameworks
@@ -14,10 +15,17 @@ SITES[main]=		https://packages.sogo.nu/sources/
 DISTFILE[1]=		SOPE-${PORTVERSION}.tar.gz:main
 DIST_SUBDIR=		gnustep
 
-SPKGS[std]=		set primary dev tools
+SPKGS[std]=		set primary dev tools pgsql
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL21+:primary
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/sope-core/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/sope-core/EOCoreData/EOCoreData.h
+LICENSE_AWK=		TERMS:"ifndef __EOCoreData_H__"
+LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/sope
 
@@ -26,10 +34,14 @@ BUILD_DEPENDS=		gnustep-base:dev:std
 			gnustep-make:primary:std
 			gnutls:dev:std
 			libobjc2:dev:std
+			postgresql17:dev:std
+			postgresql17:client:std
 BUILDRUN_DEPENDS=	gnustep-base:primary:std
 			gnutls:primary:std
 
 EXRUN[tools]=		primary
+EXRUN[pgsql]=		primary
+			postgresql17:client:std
 
 USES=			clang gmake iconv ssl:openssl11 zlib
 GNOME_COMPONENTS=	libxml2
