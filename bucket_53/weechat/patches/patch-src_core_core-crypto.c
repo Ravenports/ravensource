@@ -1,7 +1,7 @@
---- src/core/core-crypto.c.orig	2024-11-30 08:03:02 UTC
+--- src/core/core-crypto.c.orig	2024-12-15 08:02:38 UTC
 +++ src/core/core-crypto.c
-@@ -37,6 +37,10 @@
- #include <endian.h>
+@@ -40,6 +40,10 @@
+ #define htobe64 OSSwapHostToBigInt64
  #endif
  
 +#if defined __DragonFly__ || defined __MidnightBSD__
