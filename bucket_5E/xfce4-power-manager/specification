@@ -1,10 +1,9 @@
 # Stable: 4.16.x, 4.18.x
-DEF[PORTVERSION]=	4.18.4
+DEF[PORTVERSION]=	4.20.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		xfce4-power-manager
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		sysutils
 VARIANTS=		std
 SDESC[std]=		Power manager for Xfce
@@ -30,19 +29,21 @@ LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/xfpm-manager.h
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		harfbuzz:dev:std
+BUILD_DEPENDS=		appstream:dev:std
+			harfbuzz:dev:std
 			libnotify:dev:std
 			libxfce4ui:dev:std
 			xfce4-panel:dev:std
 			xfconf:dev:std
 			upower:dev:std
-BUILDRUN_DEPENDS=	libnotify:primary:std
+BUILDRUN_DEPENDS=	appstream:primary:std
+			libnotify:primary:std
 			libxfce4ui:primary:std
 			upower:primary:std
 			xfce4-panel:primary:std
 			xfconf:primary:std
 
-USES=			gmake libtool pkgconfig
+USES=			gmake iconv libtool pkgconfig
 XORG_COMPONENTS=	x11
 GNOME_COMPONENTS=	gtk3 intltool
 
