@@ -1,0 +1,50 @@
+DEF[PORTVERSION]=	0.9.1
+DEF[SOVERSION]=		0.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		librest
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		std
+SDESC[std]=		Easy access to RESTful web services
+HOMEPAGE=		https://gitlab.gnome.org/GNOME/librest
+CONTACT=		Michael_Reim[kraileth@elderlindx.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNOME/rest/${PORTVERSION:R}/
+DISTFILE[1]=		rest-${PORTVERSION}.tar.xz:main
+DIST_SUBDIR=		gnome3
+
+SPKGS[std]=		set primary dev docs demo
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# Bundled COPYING license is LGPL21 while terms indicate LGPL3+
+LICENSE=		LGPL3+:primary
+LICENSE_FILE=		LGPL3+:stock
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/rest/rest.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/librest
+
+DISTNAME=		rest-${PORTVERSION}
+
+BUILD_DEPENDS=		appstream:dev:std
+			gtksourceview5:dev:std
+			json-glib:dev:std
+			libadwaita:dev:std
+			libsoup:dev:std
+			python-gi-docgen:set:python_used
+BUILDRUN_DEPENDS=	appstream:primary:std
+			gtksourceview5:primary:std
+			json-glib:primary:std
+			libadwaita:primary:std
+			libsoup:primary:std
+
+USES=			meson pkgconfig
+GNOME_COMPONENTS=	gdkpixbuf glib gtk4 introspection libxml2
+
+SOVERSION=		${SOVERSION}
