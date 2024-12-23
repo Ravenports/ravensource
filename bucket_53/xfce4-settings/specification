@@ -1,10 +1,9 @@
 # Stable: 4.16.x, 4.18.x
-DEF[PORTVERSION]=	4.18.6
+DEF[PORTVERSION]=	4.20.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		xfce4-settings
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		sysutils
 VARIANTS=		std
 SDESC[std]=		Settings manager for Xfce
@@ -18,8 +17,14 @@ DIST_SUBDIR=		xfce
 
 SPKGS[std]=		set primary nls
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	BSDUDEV LIBINPUT
+OPTIONS_STANDARD=	BSDUDEV LIBINPUT
+
+OPT_ON[dragonfly]=	BSDUDEV LIBINPUT
+OPT_ON[freebsd]=	BSDUDEV LIBINPUT
+OPT_ON[linux]=		LIBINPUT
+OPT_ON[midnightbsd]=	BSDUDEV LIBINPUT
+OPT_ON[netbsd]=		BSDUDEV
 
 FPC_EQUIVALENT=		sysutils/xfce4-settings
 
@@ -30,14 +35,16 @@ LICENSE_SOURCE=		TERMS:{{WRKSRC}}/xfce4-settings-manager/xfce-settings-manager-d
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		harfbuzz:dev:std
+BUILD_DEPENDS=		colord:dev:std
+			harfbuzz:dev:std
 			garcon:dev:std
 			libcanberra:dev:std
 			libnotify:dev:std
 			libxklavier:dev:std
 			libexo:dev:std
 			upower:dev:std
-BUILDRUN_DEPENDS=	garcon:primary:std
+BUILDRUN_DEPENDS=	colord:primary:std
+			garcon:primary:std
 			libcanberra:primary:std
 			libexo:primary:std
 			libnotify:primary:std
@@ -45,11 +52,29 @@ BUILDRUN_DEPENDS=	garcon:primary:std
 			upower:primary:std
 RUN_DEPENDS=		libcanberra:gtk3:std
 
-USES=			desktop-utils:primary gmake cpe pkgconfig fontconfig:build
-GNOME_COMPONENTS=	glib intltool gtk3
+USES=			cpe desktop-utils:primary fontconfig:build gmake iconv
+			libtool pkgconfig
+GNOME_COMPONENTS=	glib gtk3 intltool libxml2
 CPE_VENDOR=		xfce
 CPE_PRODUCT=		xfce4-settings
 MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--enable-pluggable-dialogs
-			--enable-sound-settings
-			--disable-xorg-libinput
+CONFIGURE_ARGS=		--enable-sound-settings
+			--enable-upower-glib
+
+[BSDUDEV].DESCRIPTION=			Enable UDEV emulation on BSD
+[LIBINPUT].DESCRIPTION=			Enable libinput settings
+
+[BSDUDEV].BUILD_DEPENDS_ON=		libepoll-shim:dev:std
+					libgudev-devd:dev:std
+					libudev-devd:dev:std
+[BSDUDEV].BUILDRUN_DEPENDS_ON=		libepoll-shim:primary:std
+					libudev-devd:primary:std
+
+[LIBINPUT].BUILD_DEPENDS_ON=		libinput:dev:std
+					xorg-driver-input-libinput:dev:std
+					xorg-driver-input-libinput:primary:std
+[LIBINPUT].BUILDRUN_DEPENDS_ON=		libinput:primary:std
+[LIBINPUT].CONFIGURE_ARGS_OFF=		--disable-xorg-libinput
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/gtk-3.0/modules/libxfsettingsd-gtk-settings-sync.so
