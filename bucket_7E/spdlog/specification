@@ -1,4 +1,5 @@
 DEF[PORTVERSION]=	1.15.0
+DEF[SOVERSION]=		${PORTVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		spdlog
@@ -13,17 +14,28 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/gabime:spdlog:v${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-# single because only static library available
-SPKGS[std]=		single
+SPKGS[std]=		set primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		MIT:single
+LICENSE=		MIT:primary
 LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/spdlog
 
+BUILD_DEPENDS=		fmt:dev:std
+BUILDRUN_DEPENDS=	fmt:primary:std
+
 USES=			cmake pkgconfig
 CMAKE_ARGS=		-DSPDLOG_BUILD_EXAMPLE:BOOL=NO
+			-DSPDLOG_BUILD_BENCH:BOOL=NO
+			-DSPDLOG_BUILD_SHARED:BOOL=YES
+			-DSPDLOG_FMT_EXTERNAL:BOOL=YES
+
+SOVERSION=		${SOVERSION}
+PLIST_SUB=		SOMAJMIN=${SOVERSION:R}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libspdlog.so
