@@ -5,7 +5,7 @@ DEF[SOVERSION]=		1.1600.7
 
 NAMEBASE=		gtk4
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		x11_toolkits
 VARIANTS=		std
 SDESC[std]=		Gimp Toolkit for X11 GUI
@@ -21,26 +21,27 @@ SPKGS[std]=		set primary dev man nls icon_cache tools
 
 # When introspection option is set, the build segfaults on DragonFly
 # Until this is understood and fixed, leave it off by default
-OPTIONS_AVAILABLE=	CUPS BROADWAY INTROSPECTION
-OPTIONS_STANDARD=	CUPS BROADWAY INTROSPECTION
-OPT_ON[all]=		CUPS BROADWAY
+OPTIONS_AVAILABLE=	CUPS BROADWAY INTROSPECTION COLORD
+OPTIONS_STANDARD=	CUPS BROADWAY INTROSPECTION COLORD
+OPT_ON[all]=		CUPS BROADWAY COLORD
 
 FPC_EQUIVALENT=		x11-toolkits/gtk40
 
-BUILD_DEPENDS=		sassc:single:std
-			git:primary:std
-			python-docutils:single:python_used
-			harfbuzz:dev:std
-			libepoxy:dev:std
+BUILD_DEPENDS=		git:primary:std
 			graphene:dev:std
-			libxkbcommon:dev:std
-			libidn2:dev:std
+			harfbuzz:dev:std
 			libdrm:dev:std
-BUILDRUN_DEPENDS=	libepoxy:primary:std
-			libxkbcommon:primary:std
-			graphene:primary:std
-			libidn2:primary:std
+			libepoxy:dev:std
+			libidn2:dev:std
+			libxkbcommon:dev:std
+			python-docutils:single:python_used
+			sassc:single:std
+BUILDRUN_DEPENDS=	graphene:primary:std
+			iso-codes:primary:std
 			libdrm:primary:std
+			libepoxy:primary:std
+			libidn2:primary:std
+			libxkbcommon:primary:std
 
 EXRUN[icon_cache]=	gdk-pixbuf:primary:std
 EXRUN[tools]=		primary
@@ -83,6 +84,9 @@ VAR_OPSYS[sunos]=	LDFLAGS=-lsocket
 
 [BROADWAY].DESCRIPTION=			Backend for HTML5 and websocket support
 [INTROSPECTION].DESCRIPTION=		Build with introspection files
+[COLORD].DESCRIPTION=			Build with colord support
+
+# [COLORD].BROKEN_ON=			COLORD option causes circular dependency
 
 [CUPS].CONFIGURE_ARGS_ON=		-Dprint-cups=enabled
 [CUPS].CONFIGURE_ARGS_OFF=		-Dprint-cups=disabled
@@ -95,6 +99,10 @@ VAR_OPSYS[sunos]=	LDFLAGS=-lsocket
 [INTROSPECTION].CONFIGURE_ARGS_ON=	-Dintrospection=enabled
 [INTROSPECTION].CONFIGURE_ARGS_OFF=	-Dintrospection=disabled
 [INTROSPECTION].GNOME_COMPONENTS_ON=	introspection
+
+[COLORD].CONFIGURE_ARGS_ON=		-Dcolord=enabled
+[COLORD].BUILD_DEPENDS_ON=		colord:dev:std
+[COLORD].BUILDRUN_DEPENDS_ON=		colord:primary:std
 
 post-patch:
 	${REINPLACE_CMD} \
