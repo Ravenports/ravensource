@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2022.05.18
+DEF[PORTVERSION]=	2024.10.24
 DEF[LATEST_API]=	3.0
 DEF[HASH]=		v${PORTVERSION}
 # ----------------------------------------------------------------------------
@@ -20,6 +20,19 @@ SPKGS[std]=		single
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
+LICENSE=		APACHE20:single
+LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/CL/cl.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
 FPC_EQUIVALENT=		devel/opencl
 
 USES=			cmake
+
+post-install:
+	${MKDIR} -p ${STAGEDIR}${PREFIX}/lib/pkgconfig
+	${MV} ${STAGEDIR}${PREFIX}/share/pkgconfig/OpenCL-Headers.pc \
+		${STAGEDIR}${PREFIX}/lib/pkgconfig
+	${RMDIR} ${STAGEDIR}${PREFIX}/share/pkgconfig
