@@ -5,7 +5,7 @@ DEF[GTK_VERSION]=	EXTRACT_INFO(GTK3_VERSION)
 
 NAMEBASE=		gtk3
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		x11_toolkits
 VARIANTS=		std
 SDESC[std]=		Gimp Toolkit for X11 GUI
@@ -20,8 +20,8 @@ DIST_SUBDIR=		gnome3
 SPKGS[std]=		set primary dev nls icon_cache tools
 
 OPTIONS_AVAILABLE=	DBUS CUPS CLOUDPRINT COLORD BROADWAY INTROSPECTION
-OPTIONS_STANDARD=	DBUS BROADWAY INTROSPECTION
-OPT_ON[all]=		DBUS BROADWAY INTROSPECTION
+OPTIONS_STANDARD=	DBUS BROADWAY INTROSPECTION CUPS
+OPT_ON[all]=		DBUS BROADWAY INTROSPECTION CUPS
 
 FPC_EQUIVALENT=		x11-toolkits/gtk30
 
@@ -73,16 +73,16 @@ VAR_OPSYS[sunos]=	LDFLAGS=-lsocket
 			LDFLAGS=-lintl
 			CPPFLAGS=-DO_CLOEXEC=0
 
+[CLOUDPRINT].DESCRIPTION=		Support for printing to cloud
+[COLORD].DESCRIPTION=			Build with colord support
 [DBUS].DESCRIPTION=			AT-SPI ATK bridge support (requires dbus)
 [BROADWAY].DESCRIPTION=			Backend for HTML5 and websocket support
-[CLOUDPRINT].DESCRIPTION=		Support for printing to cloud
 [INTROSPECTION].DESCRIPTION=		Build with introspection files
 
 [DBUS].GNOME_COMPONENTS_ON=		atk
 
-[CUPS].BROKEN_ON=			CUPS option not supported yet
-[CLOUDPRINT].BROKEN_ON=			CLOUDPRINT option not supported yet
-[COLORD].BROKEN_ON=			COLORD option not supported yet
+[CLOUDPRINT].BROKEN_ON=			CLOUDPRINT option causes circular dependency
+[COLORD].BROKEN_ON=			COLORD option causes circular dependency
 
 [CLOUDPRINT].CONFIGURE_ARGS_ON=		-Dcloudproviders=true
 [CLOUDPRINT].BUILD_DEPENDS_ON=		json-glib:dev:std
@@ -91,12 +91,17 @@ VAR_OPSYS[sunos]=	LDFLAGS=-lsocket
 
 [CUPS].CONFIGURE_ARGS_ON=		-Dprint_backends=cups,file,lpr
 [CUPS].CONFIGURE_ARGS_OFF=		-Dprint_backends=file,lpr
-[CUPS].BUILDRUN_DEPENDS_ON=		cups:single:std
+[CUPS].BUILD_DEPENDS_ON=		cups:dev:std
+[CUPS].BUILDRUN_DEPENDS_ON=		cups:primary:std
 
 [BROADWAY].CONFIGURE_ARGS_ON=		-Dbroadway_backend=true
 
 [INTROSPECTION].CONFIGURE_ARGS_OFF=	-Dintrospection=false
 [INTROSPECTION].GNOME_COMPONENTS_ON=	introspection
+
+[COLORD].CONFIGURE_ARGS_ON=		-Dcolord=true
+[COLORD].BUILD_DEPENDS_ON=		colord:dev:std
+[COLORD].BUILDRUN_DEPENDS_ON=		colord:primary:std
 
 post-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/lib/gtk-3.0/modules
