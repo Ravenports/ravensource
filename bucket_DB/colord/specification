@@ -1,0 +1,82 @@
+DEF[PORTVERSION]=	1.4.7
+DEF[SOVERSION]=		2.0.5
+DEF[CAT1]=		http://docbook.sourceforge.net/release/xsl-ns/current/
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		colord
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		std
+SDESC[std]=		Manage profiles to accurately color I/O devices
+HOMEPAGE=		https://www.freedesktop.org/software/colord/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://www.freedesktop.org/software/colord/releases/
+DISTFILE[1]=		colord-${PORTVERSION}.tar.xz:main
+
+SPKGS[std]=		set primary dev nls man docs
+
+OPTIONS_AVAILABLE=	BSD
+OPTIONS_STANDARD=	BSD
+
+OPT_ON[dragonfly]=	BSD
+OPT_ON[freebsd]=	BSD
+OPT_ON[midnightbsd]=	BSD
+OPT_ON[netbsd]=		BSD
+
+LICENSE=		GPLv2+:primary
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/cd-common.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		graphics/colord
+
+# Bringing in vala would cause a circular dependency with GTK+3
+BUILD_DEPENDS=		bash-completion:single:std
+			docbook-xsl:primary:std
+			json-glib:dev:std
+			lcms2:dev:std
+			libgusb:dev:std
+			polkit:dev:std
+BUILDRUN_DEPENDS=	json-glib:primary:std
+			lcms2:primary:std
+			libgusb:primary:std
+			polkit:primary:std
+
+USERS=			colord
+GROUPS=			colord
+USERGROUP_SPKG=		primary
+
+USES=			gtk-doc meson pkgconfig sqlite
+GNOME_COMPONENTS=	glib introspection
+
+CONFIGURE_ARGS=		-Dsystemd=false
+			-Dudev_rules=false
+			-Ddaemon_user=colord
+			-Dlibcolordcompat=true
+			-Dvapi=false
+			--localstatedir={{PREFIX}}/var
+SOVERSION=		${SOVERSION}
+
+[BSD].DESCRIPTION=			Support BSD platform
+[BSD].BUILD_DEPENDS_ON=			libepoll-shim:dev:std
+					libgudev-devd:dev:std
+					libudev-devd:dev:std
+[BSD].BUILDRUN_DEPENDS_ON=		libepoll-shim:primary:std
+					libgudev-devd:primary:std
+					libudev-devd:primary:std
+# linux
+[BSD].BUILD_DEPENDS_OFF=		libgudev:dev:std
+
+post-patch:
+	${REINPLACE_CMD} \
+		-e "s|${CAT1}|file://${LOCALBASE}/share/xsl/docbook/|" \
+		-e "/-Werror=/d" \
+		${WRKSRC}/man/meson.build
+
+post-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/var/db/colord/icc
+	${FIND} ${STAGEDIR}${PREFIX}/var/lib -type d | ${TAIL} -r | ${XARGS} ${RMDIR}
