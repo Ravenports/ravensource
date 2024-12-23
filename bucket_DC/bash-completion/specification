@@ -1,0 +1,46 @@
+DEF[PORTVERSION]=	2.15.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		bash-completion
+VERSION=		${PORTVERSION}
+KEYWORDS=		shells
+VARIANTS=		std
+SDESC[std]=		Programmable completion library for Bash
+HOMEPAGE=		https://github.com/scop/bash-completion/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/scop:bash-completion:${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[std]=		single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:single
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/bash_completion
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		shells/bash-completion
+
+USES=			autoreconf gmake
+
+MUST_CONFIGURE=		gnu
+
+SUB_FILES=		pkg-message
+SUB_LIST=		RUNFILE={{PREFIX}}/etc/profile.d//bash_completion.sh
+
+post-configure:
+	${REINPLACE_CMD} \
+		-e 's|/etc/ssl/openssl.cnf|${PREFIX}& &|g' \
+		-e 's|/usr/lib\(/aspell\)|${PREFIX}/share\1|g' \
+		-e 's|/usr/local|${PREFIX}|g' \
+		-e 's|/usr/ports|${PORTSDIR}|g' \
+		-e 's|/usr\(/sbin/postconf\)|${PREFIX}\1|g' \
+		-e 's|/usr/share/info|&:${PREFIX}/info|g' \
+		-e 's|/var\(/lib/rpm/macros\)|${PREFIX}\1|g' \
+			${WRKSRC}/completions/*
