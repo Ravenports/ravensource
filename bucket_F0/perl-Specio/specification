@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.48
+DEF[PORTVERSION]=	0.49
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-Specio
@@ -34,6 +34,7 @@ DISTNAME=		Specio-${PORTVERSION}
 # ----------------------------------------------
 # |      runtime : B (perl 5.38 core) (perl 5.40 core)
 # |      runtime : Carp (perl 5.38 core) (perl 5.40 core)
+# |      runtime : Clone
 # |      runtime : Devel::StackTrace
 # |      runtime : Eval::Closure
 # |      runtime : Exporter (perl 5.38 core) (perl 5.40 core)
@@ -44,7 +45,6 @@ DISTNAME=		Specio-${PORTVERSION}
 # |      runtime : Role::Tiny
 # |      runtime : Role::Tiny::With
 # |      runtime : Scalar::Util (perl 5.38 core) (perl 5.40 core)
-# |      runtime : Storable (perl 5.38 core) (perl 5.40 core)
 # |      runtime : Sub::Quote
 # |      runtime : Test::Fatal
 # |      runtime : Test::More (perl 5.38 core) (perl 5.40 core)
@@ -69,7 +69,8 @@ DISTNAME=		Specio-${PORTVERSION}
 # |         test : CPAN::Meta (perl 5.38 core) (perl 5.40 core)
 
 [PERL_538].USES_ON=			perl:538,configure
-[PERL_538].BUILDRUN_DEPENDS_ON=		perl-Devel-StackTrace:single:538
+[PERL_538].BUILDRUN_DEPENDS_ON=		perl-Clone:single:538
+					perl-Devel-StackTrace:single:538
 					perl-Eval-Closure:single:538
 					perl-MRO-Compat:single:538
 					perl-Module-Runtime:single:538
@@ -79,7 +80,8 @@ DISTNAME=		Specio-${PORTVERSION}
 					perl-Try-Tiny:single:538
 					perl-Ref-Util:single:538
 [PERL_540].USES_ON=			perl:540,configure
-[PERL_540].BUILDRUN_DEPENDS_ON=		perl-Devel-StackTrace:single:540
+[PERL_540].BUILDRUN_DEPENDS_ON=		perl-Clone:single:540
+					perl-Devel-StackTrace:single:540
 					perl-Eval-Closure:single:540
 					perl-MRO-Compat:single:540
 					perl-Module-Runtime:single:540
