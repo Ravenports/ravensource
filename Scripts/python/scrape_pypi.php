@@ -753,7 +753,8 @@ function scrape_python_info ($namebase, $force, $PDUO) {
          if ($obj->info->license !== null && (strlen($obj->info->license) > 77)) {
             $temp = wordwrap ($obj->info->license, 70);
             $lines = explode("\n", $temp);
-            $lines = array_map('trim', $lines);
+            $lines = array_map('trim', $lines);    # remove extreme whitespace
+            $lines = array_filter($lines);         # remove blank lines
             $result["license"] = join("\n# ", $lines);
          }
 
