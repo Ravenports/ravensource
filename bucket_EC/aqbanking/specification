@@ -1,6 +1,6 @@
-DEF[PORTVERSION]=	6.5.4
-DEF[SOVERSION]=		44.5.4
-DEF[DIRNUMBER]=		499
+DEF[PORTVERSION]=	6.6.0
+DEF[SOVERSION]=		44.6.0
+DEF[DIRNUMBER]=		531
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		aqbanking
@@ -15,7 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://www.aquamaniac.de/rdm/attachments/download/${DIRNUMBER}/
 DISTFILE[1]=		aqbanking-${PORTVERSION}.tar.gz:main
 
-SPKGS[std]=		set primary dev nls
+SPKGS[std]=		set primary dev nls tools
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -35,10 +35,14 @@ BUILD_DEPENDS=		gmp:dev:std
 			xmlsec:dev:std
 			gnutls:dev:std
 			ktoblzcheck:dev:std
+			gwenhywfar:dev:std
+			gwenhywfar:tools:std
 BUILDRUN_DEPENDS=	gmp:primary:std
 			xmlsec:primary:std
 			ktoblzcheck:primary:std
 			gwenhywfar:primary:std
+
+EXRUN[tools]=		primary
 
 USES=			gmake libtool pkgconfig gettext zlib mbsdfix
 GNOME_COMPONENTS=	libxslt
