@@ -1,11 +1,10 @@
-DEF[PORTVERSION]=	5.10.2
-DEF[FOLDER]=		501
-DEF[SOVERSION]=		79.10.2
+DEF[PORTVERSION]=	5.12.0
+DEF[FOLDER]=		529
+DEF[SOVERSION]=		79.12.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gwenhywfar
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		devel net security
 VARIANTS=		std
 SDESC[std]=		Networking and security application library
@@ -16,7 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://www.aquamaniac.de/rdm/attachments/download/${FOLDER}/
 DISTFILE[1]=		gwenhywfar-${PORTVERSION}.tar.gz:main
 
-SPKGS[std]=		set primary gtk3 qt5 nls
+SPKGS[std]=		set primary dev gtk3 qt5 nls tools
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -47,17 +46,20 @@ BUILD_DEPENDS=		at-spi2-core:dev:std
 BUILDRUN_DEPENDS=	gnutls:primary:std
 			libgcrypt:primary:std
 
-EXRUN[gtk3]=		gwenhywfar:primary:std
+EXRUN[gtk3]=		primary
 			at-spi2-core:primary:std
 			pango:primary:std
 			cairo:primary:std
 			gdk-pixbuf:primary:std
 			gtk3:primary:std
 
-EXRUN[qt5]=		gwenhywfar:primary:std
+EXRUN[qt5]=		primary
 			qt5-qtbase:primary:std
 
-USES=			gmake iconv libtool pkgconfig ssl zlib:build
+EXRUN[tools]=		primary
+			ssl
+
+USES=			gmake iconv libtool pkgconfig ssl:build zlib:build
 			fontconfig gettext mbsdfix
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-release="yes"
