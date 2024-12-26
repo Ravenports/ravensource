@@ -1,4 +1,4 @@
---- Makefile.am.orig	2022-06-21 14:53:53 UTC
+--- Makefile.am.orig	2024-12-12 13:28:01 UTC
 +++ Makefile.am
 @@ -5,7 +5,7 @@ PREFIX=@prefix@
  BINDIR=@bindir@
@@ -12,9 +12,9 @@
 @@ -17,7 +17,7 @@ MKDIR=mkdir -p
  
  AM_CFLAGS = \
- 	-Isrc/include -Isrc/include/compat -I$(srcdir)/src/speechPlayer/include -I$(srcdir)/src/ucd-tools/src/include \
+ 	-I$(srcdir)/src/include -Isrc/include/compat -I$(srcdir)/src/speechPlayer/include -I$(srcdir)/src/ucd-tools/src/include \
 -	-D_BSD_SOURCE -D_DEFAULT_SOURCE -D_POSIX_C_SOURCE=200112L
 +	-D_DEFAULT_SOURCE
+ AM_CXXFLAGS =
  
- EXTRA_DIST=
- CLEANFILES = dictsource/ru_listx dictsource/cmn_listx dictsource/yue_listx
+ if USE_COVERAGE

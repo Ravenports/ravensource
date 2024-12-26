@@ -1,4 +1,4 @@
---- src/include/compat/math.h.orig	2022-06-21 14:53:53 UTC
+--- src/include/compat/math.h.orig	2024-12-12 13:28:01 UTC
 +++ src/include/compat/math.h
 @@ -19,6 +19,8 @@
  #ifndef MATH_H_COMPAT_SHIM

@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.51.1
+DEF[PORTVERSION]=	1.52.0
 DEF[TAG]=		${PORTVERSION}
 DEF[SOVERSION]=		1.1.51
 # ----------------------------------------------------------------------------
@@ -42,7 +42,7 @@ SOVERSION=		${SOVERSION}
 
 pre-configure:
 	${REINPLACE_CMD} -e 's|%%DATADIR%%|${PREFIX}/share/${NAMEBASE}|' \
-		${WRKSRC}/Makefile.am ${WRKSRC}/src/libespeak-ng/speech.h
+		${WRKSRC}/Makefile.am
 
 post-install:
 	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
