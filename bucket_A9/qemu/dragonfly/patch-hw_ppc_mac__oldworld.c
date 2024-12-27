@@ -1,4 +1,4 @@
---- hw/ppc/mac_oldworld.c.orig	2024-11-20 22:48:04 UTC
+--- hw/ppc/mac_oldworld.c.orig	2024-12-10 23:46:36 UTC
 +++ hw/ppc/mac_oldworld.c
 @@ -66,6 +66,11 @@
  
