@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.3.0
+DEF[PORTVERSION]=	2.3.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		pcsc-lite
@@ -15,8 +15,11 @@ DISTFILE[1]=		pcsc-lite-${PORTVERSION}.tar.xz:main
 
 SPKGS[std]=		set primary tools dev man docs
 
-OPTIONS_AVAILABLE=	FILTER
-OPTIONS_STANDARD=	FILTER
+OPTIONS_AVAILABLE=	FILTER POLKIT
+OPTIONS_STANDARD=	FILTER POLKIT
+OPT_ON[freebsd]=	POLKIT
+OPT_ON[linux]=		POLKIT
+OPT_ON[all]=		FILTER
 
 LICENSE=		BSD3CLAUSE:primary
 LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/COPYING
@@ -31,9 +34,6 @@ B_DEPS[sunos]=		libusb:dev:std
 
 BR_DEPS[linux]=		libusb:primary:std
 BR_DEPS[sunos]=		libusb:primary:std
-
-BUILD_DEPENDS=		polkit:dev:std
-BUILDRUN_DEPENDS=	polkit:primary:std
 
 RC_SUBR=		pcscd:primary
 SUB_FILES=		messages-primary.ucl
@@ -51,6 +51,12 @@ VAR_OPSYS[netbsd]=	CONFIGURE_ARGS=-Dusb=false
 [FILTER].DESCRIPTION=			Control reader names reported by PCSC
 [FILTER].CONFIGURE_ARGS_ON=		-Dfilter_names=true
 [FILTER].CONFIGURE_ARGS_OFF=		-Dfilter_names=false
+
+[POLKIT].DESCRIPTION=			Include Polkit support
+[POLKIT].BUILD_DEPENDS_ON=		polkit:dev:std
+[POLKIT].BUILDRUN_DEPENDS_ON=		polkit:primary:std
+[POLKIT].CONFIGURE_ARGS_ON=		-Dpolkit=true
+[POLKIT].CONFIGURE_ARGS_OFF=		-Dpolkit=false
 
 post-patch:
 	${REINPLACE_CMD} -e "s,libusb-1.0/libusb.h,libusb.h,; \
