@@ -1,9 +1,13 @@
-DEF[PORTVERSION]=	0.4.9
+# Latest version is 0.4.9, but it supports BOS descriptors that only linux fully
+# supports (although it builds on FreeBSD).  Until the platforms support USB 1.0.16,
+# this port can't be updated
+DEF[PORTVERSION]=	0.3.10
 DEF[SOVERSION]=		2.0.10
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libgusb
 VERSION=		${PORTVERSION}
+EPOCH=			1
 KEYWORDS=		devel
 VARIANTS=		std
 SDESC[std]=		GObject wrapper for libusb1
@@ -29,14 +33,13 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		devel/libgusb
 
 BUILD_DEPENDS=		json-glib:dev:std
-			python-gi-docgen:set:python_default
+# #			python-gi-docgen:set:python_default
 			vala:dev:std
 			vala:primary:std
 BUILDRUN_DEPENDS=	json-glib:primary:std
 
-USES=			meson pkgconfig
+USES=			meson pkgconfig gtk-doc
 GNOME_COMPONENTS=	glib introspection
 
-CONFIGURE_ARGS=		-Dumockdev=disabled
-
 SOVERSION=		${SOVERSION}
+GTKDOC_OUTPUT_BASEDIR=	gusb
