@@ -1,10 +1,9 @@
-DEF[PORTVERSION]=	1.14.10
-DEF[SOVERSION]=		3.32.4
+DEF[PORTVERSION]=	1.16.0
+DEF[SOVERSION]=		3.38.3
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		dbus
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		std
 SDESC[std]=		Message bus system for IPC communication
@@ -15,37 +14,32 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://dbus.freedesktop.org/releases/dbus/
 DISTFILE[1]=		dbus-${PORTVERSION}.tar.xz:main
 
-SPKGS[std]=		set primary dev man
+SPKGS[std]=		set primary dev man docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 LICENSE=		CUSTOM1:primary GPLv2+:primary
 LICENSE_NAME=		CUSTOM1:"Academic Free License version 2.1"
-LICENSE_FILE=		GPLv2+:stock
-			CUSTOM1:{{WRKDIR}}/LICENSE_AFL
-LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
-LICENSE_AWK=		TERMS:"^The Academic"
-LICENSE_SOURCE=		TERMS:{{WRKSRC}}/COPYING
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/LICENSES/GPL-2.0-or-later.txt
+			CUSTOM1:{{WRKSRC}}/LICENSES/AFL-2.1.txt
+LICENSE_TERMS=		primary:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		dual
 
 FPC_EQUIVALENT=		devel/dbus
 
 BUILD_DEPENDS=		minixmlto:single:std
+			docbook-xsl:primary:std
 RUN_DEPENDS=		xmlcatmgr:primary:std
 
-USES=			cpe gmake libtool expat python:build shebangfix
+USES=			cpe meson expat python:build shebangfix
+GNOME_COMPONENTS=	glib
 XORG_COMPONENTS=	ice sm x11
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--with-x
-			--with-test-socket-dir={{WRKDIR}}
-			--disable-doxygen-docs
-			--disable-selinux
-			--disable-apparmor
-			--disable-systemd
-CONFIGURE_ENV=		XMLTO={{LOCALBASE}}/bin/minixmlto
-
-INSTALL_TARGET=		install-strip
+MESON_ARGS=		-Dselinux=disabled
+			-Dapparmor=disabled
+			-Ddoxygen_docs=disabled
+			-Dsystemd=disabled
+			-Dtest_socket_dir="{{WRKDIR}}"
 SHEBANG_FILES=		tools/GetAllMatchRules.py
 CPE_VENDOR=		freedesktop
 
@@ -65,19 +59,18 @@ post-extract:
 	${AWK} '/^The Academic Free License/,/^but the BSD, MIT/' \
 		${WRKSRC}/COPYING > ${WRKDIR}/LICENSE_AFL
 
-post-patch:
+pre-configure:
 	${REINPLACE_CMD} -e 's|/usr/local|${LOCALBASE}|g' \
 		${WRKSRC}/dbus/dbus-sysdeps-unix.c
-	${REINPLACE_CMD} '/^SUBDIRS =/s|test||' ${WRKSRC}/Makefile.in
+	${REINPLACE_CMD} -e 's|/docbook.sourceforge.net/|/cdn.docbook.org/|' \
+		${WRKSRC}/doc/meson.build ${WRKSRC}/meson.build
 
 post-install:
-	# delete examples
-	${RM} -r ${STAGEDIR}${STD_DOCDIR}
 	# install xmlcat catalogs
 	(cd ${WRKDIR} && ${INSTALL_DATA} catalog* \
 		${STAGEDIR}${PREFIX}/share/xml/dbus-1/)
 	# Workaround for software looking for machine-id in wrong place (lumina)
-	${MKDIR} ${STAGEDIR}${PREFIX}/var/lib
-	${MKDIR} ${STAGEDIR}${PREFIX}/var/run
-	${LN} -s /var/lib/dbus ${STAGEDIR}${PREFIX}/var/lib/dbus
-	${LN} -s /var/run/dbus ${STAGEDIR}${PREFIX}/var/run/dbus
+	${MKDIR} ${STAGEDIR}/var/lib
+	${MKDIR} ${STAGEDIR}/var/run
+	${LN} -s ../..${PREFIX}/var/lib/dbus ${STAGEDIR}/var/lib/dbus
+	${LN} -s ../..${PREFIX}/var/run/dbus ${STAGEDIR}/var/run/dbus
