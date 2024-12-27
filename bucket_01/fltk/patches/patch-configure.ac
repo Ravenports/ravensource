@@ -1,0 +1,46 @@
+--- configure.ac.orig	2024-12-12 17:45:50 UTC
++++ configure.ac
+@@ -362,7 +362,7 @@ AS_IF([test "x$enable_shared" = xyes], [
+         AS_IF([test "x$libdir" != "x/usr/lib" -a "x$libdir" != "x/usr/lib32"], [
+             DSOLINK="-Wl,-rpath,$libdir"
+         ])
+-    ], [linux*|*bsd*], [
++    ], [linux*|*bsd*|dragonfly*], [
+         DSONAME="libfltk.so.$FL_DSO_VERSION"
+         FLDSONAME="libfltk_forms.so.$FL_DSO_VERSION"
+         GLDSONAME="libfltk_gl.so.$FL_DSO_VERSION"
+@@ -1513,7 +1513,7 @@ AC_SUBST([UNINSTALL_DESKTOP])
+ AC_SUBST([BUILD])
+ 
+ dnl Figure out the appropriate formatted man page extension...
+-AS_CASE(["$host_os"], [*bsd* | darwin*], [
++AS_CASE(["$host_os"], [*bsd* | darwin* | dragonfly*], [
+     # *BSD
+     CAT1EXT=0
+     CAT3EXT=0
+@@ -1536,7 +1536,7 @@ AC_SUBST([CAT6EXT])
+ 
+ dnl Fix "mandir" variable...
+ AS_IF([test "$mandir" = "\${prefix}/man" -a "$prefix" = "/usr"], [
+-    AS_CASE(["$host_os"], [*bsd* | darwin* | linux*], [
++    AS_CASE(["$host_os"], [*bsd* | darwin* | linux* | dragonfly*], [
+         # *BSD, Darwin, and Linux
+         mandir="\${prefix}/share/man"
+     ], [irix*], [
+@@ -1594,16 +1594,9 @@ AS_IF([test -n "$GCC"], [
+         #       They all seem to make either no difference or enlarge
+         #       the code by a few hundred bytes.
+         #
+-        #       "-Os" seems to be the best compromise between speed and
+-        #       code size.  "-O3" and higher seem to make no effective
+-        #       difference in the speed of the code, but does bloat the
+-        #       library 10+%.
+-        #
+ 
+         AS_IF([test "x$with_optim" != x], [
+             OPTIM="$with_optim $OPTIM"
+-        ], [
+-            OPTIM="-Os $OPTIM"
+         ])
+     ])
+ 

@@ -1,33 +1,34 @@
---- documentation/Makefile.orig	2023-12-09 13:58:40 UTC
+--- documentation/Makefile.orig	2024-12-12 17:45:50 UTC
 +++ documentation/Makefile
-@@ -75,7 +75,6 @@ depend:
+@@ -95,7 +95,6 @@ depend:
  
  install: $(MANPAGES)
  	echo "Installing documentation files in $(DESTDIR)$(docdir) ..."
--	-$(INSTALL_DIR) $(DESTDIR)$(docdir)
+-	-$(INSTALL_DIR) "$(DESTDIR)$(docdir)"
  	if test -f html/index.html ; then \
  	  for file in html/* ; do \
- 		$(INSTALL_DATA) $$file $(DESTDIR)$(docdir); \
-@@ -86,11 +85,6 @@ install: $(MANPAGES)
- 	  $(INSTALL_DATA) fltk.pdf $(DESTDIR)$(docdir); \
+ 		$(INSTALL_DATA) $$file "$(DESTDIR)$(docdir)"; \
+@@ -106,12 +105,6 @@ install: $(MANPAGES)
+ 	  $(INSTALL_DATA) fltk.pdf "$(DESTDIR)$(docdir)"; \
  	fi
  	echo "Installing man pages in $(DESTDIR)$(mandir) ..."
--	-$(INSTALL_DIR) $(DESTDIR)$(mandir)/cat1
--	$(INSTALL_MAN) $(SRC_DOCDIR)/fluid.$(CAT1EXT) $(DESTDIR)$(mandir)/cat1
--	$(INSTALL_MAN) $(SRC_DOCDIR)/fltk-config.$(CAT1EXT) $(DESTDIR)$(mandir)/cat1
--	-$(INSTALL_DIR) $(DESTDIR)$(mandir)/cat3
--	$(INSTALL_MAN) $(SRC_DOCDIR)/fltk.$(CAT3EXT) $(DESTDIR)$(mandir)/cat3
- 	-$(INSTALL_DIR) $(DESTDIR)$(mandir)/man1
- 	$(INSTALL_MAN) $(SRC_DOCDIR)/fluid.man $(DESTDIR)$(mandir)/man1/fluid.1
- 	$(INSTALL_MAN) $(SRC_DOCDIR)/fltk-config.man $(DESTDIR)$(mandir)/man1/fltk-config.1
-@@ -98,10 +92,6 @@ install: $(MANPAGES)
- 	$(INSTALL_MAN) $(SRC_DOCDIR)/fltk.man $(DESTDIR)$(mandir)/man3/fltk.3
+-	-$(INSTALL_DIR) "$(DESTDIR)$(mandir)/cat1"
+-	$(INSTALL_MAN) $(SRC_DOCDIR)/fluid.$(CAT1EXT) "$(DESTDIR)$(mandir)/cat1"
+-	$(INSTALL_MAN) $(SRC_DOCDIR)/fltk-config.$(CAT1EXT) "$(DESTDIR)$(mandir)/cat1"
+-	$(INSTALL_MAN) $(SRC_DOCDIR)/fltk-options.$(CAT1EXT) "$(DESTDIR)$(mandir)/cat1"
+-	-$(INSTALL_DIR) "$(DESTDIR)$(mandir)/cat3"
+-	$(INSTALL_MAN) $(SRC_DOCDIR)/fltk.$(CAT3EXT) "$(DESTDIR)$(mandir)/cat3"
+ 	-$(INSTALL_DIR) "$(DESTDIR)$(mandir)/man1"
+ 	$(INSTALL_MAN) $(SRC_DOCDIR)/fluid.man "$(DESTDIR)$(mandir)/man1/fluid.1"
+ 	$(INSTALL_MAN) $(SRC_DOCDIR)/fltk-config.man "$(DESTDIR)$(mandir)/man1/fltk-config.1"
+@@ -120,10 +113,6 @@ install: $(MANPAGES)
+ 	$(INSTALL_MAN) $(SRC_DOCDIR)/fltk.man "$(DESTDIR)$(mandir)/man3/fltk.3"
  
  install-linux install-osx:
--	-$(INSTALL_DIR) $(DESTDIR)$(mandir)/cat6
--	$(INSTALL_MAN) $(SRC_DOCDIR)/blocks.$(CAT6EXT) $(DESTDIR)$(mandir)/cat6
--	$(INSTALL_MAN) $(SRC_DOCDIR)/checkers.$(CAT6EXT) $(DESTDIR)$(mandir)/cat6
--	$(INSTALL_MAN) $(SRC_DOCDIR)/sudoku.$(CAT6EXT) $(DESTDIR)$(mandir)/cat6
- 	-$(INSTALL_DIR) $(DESTDIR)$(mandir)/man6
- 	$(INSTALL_MAN) $(SRC_DOCDIR)/blocks.man $(DESTDIR)$(mandir)/man6/blocks.6
- 	$(INSTALL_MAN) $(SRC_DOCDIR)/checkers.man $(DESTDIR)$(mandir)/man6/checkers.6
+-	-$(INSTALL_DIR) "$(DESTDIR)$(mandir)/cat6"
+-	$(INSTALL_MAN) $(SRC_DOCDIR)/blocks.$(CAT6EXT) "$(DESTDIR)$(mandir)/cat6"
+-	$(INSTALL_MAN) $(SRC_DOCDIR)/checkers.$(CAT6EXT) "$(DESTDIR)$(mandir)/cat6"
+-	$(INSTALL_MAN) $(SRC_DOCDIR)/sudoku.$(CAT6EXT) "$(DESTDIR)$(mandir)/cat6"
+ 	-$(INSTALL_DIR) "$(DESTDIR)$(mandir)/man6"
+ 	$(INSTALL_MAN) $(SRC_DOCDIR)/blocks.man "$(DESTDIR)$(mandir)/man6/blocks.6"
+ 	$(INSTALL_MAN) $(SRC_DOCDIR)/checkers.man "$(DESTDIR)$(mandir)/man6/checkers.6"
