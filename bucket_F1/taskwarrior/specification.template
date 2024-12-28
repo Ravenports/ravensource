@@ -33,30 +33,19 @@ FPC_EQUIVALENT=		deskutils/taskwarrior
 
 BUILD_DEPENDS=		libuuid:dev:std
 			rust:single:std
+			cxxbridge-cmd:single:std
 BUILDRUN_DEPENDS=	libuuid:primary:std
 
 USES=			cargo cmake shebangfix execinfo cclibs:primary c++:primary
 DISTNAME=		task-${PORTVERSION}
 CMAKE_ARGS=		-DTASK_DOCDIR:STRING=share/doc/taskwarrior
+			-DINSTALLED_CXXBRIDGE:STRING={{LOCALBASE}}/bin/cxxbridge
 SHEBANG_FILES=		scripts/*/*.pl
 			doc/rc/refresh
 
 CARGO_SKIP_CONFIGURE=	yes
 CARGO_SKIP_BUILD=	yes
 CARGO_SKIP_INSTALL=	yes
-
-pre-configure:
-	@${MKDIR} ${WRKDIR}/.cargo
-	@${ECHO_CMD} "[source.cargo]" > ${WRKDIR}/.cargo/config
-	@${ECHO_CMD} "directory = '${CARGO_VENDOR_DIR}'" >> ${WRKDIR}/.cargo/config
-	@${ECHO_CMD} "[source.crates-io]" >> ${WRKDIR}/.cargo/config
-	@${ECHO_CMD} "replace-with = 'cargo'" >> ${WRKDIR}/.cargo/config
-	@if ! ${GREP} -qF '[profile.release]' ${WRKSRC}/Cargo.toml; then \
-		${ECHO_CMD} "" >> ${WRKSRC}/Cargo.toml; \
-		${ECHO_CMD} "[profile.release]" >> ${WRKSRC}/Cargo.toml; \
-		${ECHO_CMD} "opt-level = 2" >> ${WRKSRC}/Cargo.toml; \
-		${ECHO_CMD} "debug = false" >> ${WRKSRC}/Cargo.toml; \
-	fi
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/task
