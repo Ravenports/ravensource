@@ -35,7 +35,7 @@ PERL_5.40_VERSION=	5.40.0
 # Possible values: 3.1, 3.2, 3.3, 3.4
 #-------------------------------------------------------------------------
 
-RUBY_DEFAULT?=		3.2
+RUBY_DEFAULT?=		3.3
 
 RUBY_3.1_VERSION=	3.1.4
 RUBY_3.2_VERSION=	3.2.2
