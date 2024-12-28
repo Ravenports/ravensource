@@ -4,10 +4,10 @@ DEF[PORTVERSION]=	8.0.1
 NAMEBASE=		ruby-activestorage
 VERSION=		${PORTVERSION}
 KEYWORDS=		ruby
-VARIANTS=		v31 v32 v33
-SDESC[v31]=		Local and cloud file storage framework (v31)
+VARIANTS=		v32 v33 v34
 SDESC[v32]=		Local and cloud file storage framework (v32)
 SDESC[v33]=		Local and cloud file storage framework (v33)
+SDESC[v34]=		Local and cloud file storage framework (v34)
 HOMEPAGE=		https://rubyonrails.org
 CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
@@ -16,15 +16,15 @@ SITES[main]=		RUBYGEMS/
 DISTFILE[1]=		activestorage-8.0.1.gem:main
 DIST_SUBDIR=		ruby
 
-SPKGS[v31]=		single
 SPKGS[v32]=		single
 SPKGS[v33]=		single
+SPKGS[v34]=		single
 
-OPTIONS_AVAILABLE=	RUBY31 RUBY32 RUBY33
+OPTIONS_AVAILABLE=	RUBY32 RUBY33 RUBY34
 OPTIONS_STANDARD=	none
-VOPTS[v31]=		RUBY31=ON RUBY32=OFF RUBY33=OFF
-VOPTS[v32]=		RUBY31=OFF RUBY32=ON RUBY33=OFF
-VOPTS[v33]=		RUBY31=OFF RUBY32=OFF RUBY33=ON
+VOPTS[v32]=		RUBY32=ON RUBY33=OFF RUBY34=OFF
+VOPTS[v33]=		RUBY32=OFF RUBY33=ON RUBY34=OFF
+VOPTS[v34]=		RUBY32=OFF RUBY33=OFF RUBY34=ON
 
 # License listed inside gem specification
 # => "MIT"
@@ -39,13 +39,6 @@ VOPTS[v33]=		RUBY31=OFF RUBY32=OFF RUBY33=ON
 DISTNAME=		activestorage-${PORTVERSION}
 GENERATED=		yes
 
-[RUBY31].USES_ON=			gem:v31
-[RUBY31].BUILDRUN_DEPENDS_ON=		ruby-activesupport:single:v31
-					ruby-actionpack:single:v31
-					ruby-activejob:single:v31
-					ruby-activerecord:single:v31
-					ruby-marcel:single:v31
-[RUBY31].BROKEN_ON=			Does not meet minimum Ruby version requirements
 [RUBY32].USES_ON=			gem:v32
 [RUBY32].BUILDRUN_DEPENDS_ON=		ruby-activesupport:single:v32
 					ruby-actionpack:single:v32
@@ -58,6 +51,12 @@ GENERATED=		yes
 					ruby-activejob:single:v33
 					ruby-activerecord:single:v33
 					ruby-marcel:single:v33
+[RUBY34].USES_ON=			gem:v34
+[RUBY34].BUILDRUN_DEPENDS_ON=		ruby-activesupport:single:v34
+					ruby-actionpack:single:v34
+					ruby-activejob:single:v34
+					ruby-activerecord:single:v34
+					ruby-marcel:single:v34
 
 USES=			cpe
 CPE_VENDOR=		rubyonrails
