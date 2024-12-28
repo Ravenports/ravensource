@@ -4,8 +4,9 @@ DEF[PORTVERSION]=	1.8.1
 NAMEBASE=		ruby-racc
 VERSION=		${PORTVERSION}
 KEYWORDS=		ruby
-VARIANTS=		v33
+VARIANTS=		v33 v34
 SDESC[v33]=		Racc is an LALR(1) parser generator (v33)
+SDESC[v34]=		Racc is an LALR(1) parser generator (v34)
 HOMEPAGE=		https://github.com/ruby/racc
 CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
@@ -15,10 +16,12 @@ DISTFILE[1]=		racc-1.8.1.gem:main
 DIST_SUBDIR=		ruby
 
 SPKGS[v33]=		single
+SPKGS[v34]=		single
 
-OPTIONS_AVAILABLE=	RUBY33
+OPTIONS_AVAILABLE=	RUBY33 RUBY34
 OPTIONS_STANDARD=	none
-VOPTS[v33]=		RUBY33=ON
+VOPTS[v33]=		RUBY33=ON RUBY34=OFF
+VOPTS[v34]=		RUBY33=OFF RUBY34=ON
 
 # License listed inside gem specification
 # => "Ruby", "BSD-2-Clause"
@@ -29,4 +32,5 @@ DISTNAME=		racc-${PORTVERSION}
 GENERATED=		yes
 
 [RUBY33].USES_ON=			gem:v33
+[RUBY34].USES_ON=			gem:v34
 

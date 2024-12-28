@@ -217,7 +217,7 @@ function determine_variants($namebase, $minversion) {
 #        }
 # The lone exception is racc, which is needed for ruby33+
          if ($namebase == "racc") {
-             if ($V == "33") {
+             if ($V == "33" || $V == "34") {
                  array_push($variants, "v" . $V);
              }
          } else {

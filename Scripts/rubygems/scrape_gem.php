@@ -124,7 +124,7 @@ function set_dependencies ($data, &$storage) {
     }
     foreach (explode ("\n", $data) as $line) {
         $parts = explode (" ", trim($line));
-        if (in_array ($parts[0], array ("bundler", "racc", "rdoc", "irb"))) {
+        if (in_array ($parts[0], array ("bundler", "rdoc", "irb", "erb"))) {
             continue;
         }
 
