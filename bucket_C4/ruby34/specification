@@ -1,0 +1,131 @@
+DEF[PORTVERSION]=	EXTRACT_VERSION(RUBY_3.4_VERSION)
+DEF[PORTREVISION]=	EXTRACT_INFO(RUBY_3.4_REVISION)
+DEF[PATCHLEVEL]=	EXTRACT_INFO(RUBY_3.4_PATCHLEVEL)
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		ruby34
+VERSION=		${PORTVERSION}
+REVISION=		${PORTREVISION}
+KEYWORDS=		lang ruby
+VARIANTS=		std
+SDESC[std]=		Object-oriented interpreted scripting language
+HOMEPAGE=		https://www.ruby-lang.org/en/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		RUBY/${PORTVERSION:R}
+DISTFILE[1]=		ruby-${PORTVERSION}.tar.xz:main
+DIST_SUBDIR=		ruby
+
+SPKGS[std]=		set primary rdoc docs examples man
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD2CLAUSE:primary RUBY:primary
+LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/BSDL
+			RUBY:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		dual
+
+FPC_EQUIVALENT=		lang/ruby34
+
+BUILD_DEPENDS=		gdbm:dev:std
+			gmp:dev:std
+			libffi:dev:std
+			libyaml:dev:std
+BUILDRUN_DEPENDS=	gdbm:primary:std
+			gmp:primary:std
+			libffi:primary:std
+			libyaml:primary:std
+RUN_DEPENDS=		autoselect-ruby:single:std
+
+USES=			autoreconf cpe execinfo ssl ruby:v34,interp zlib
+DISTNAME=		ruby-${PORTVERSION}
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-pthread
+			--enable-shared
+			--enable-install-static-library
+			--with-ruby-version=minor
+			--with-sitedir="{{PREFIX}}/lib/ruby/site_ruby"
+			--with-vendordir="{{PREFIX}}/lib/ruby/vendor_ruby"
+			--disable-libedit
+			--disable-dtrace
+			--with-gmp
+			{{RUBY_CONFIGURE_ARGS}}
+# 100% CPU freeze:  10% [92/858]  ext/bigdecimal/lib/bigdecimal/jacobian.rb
+			--disable-install-rdoc
+CONFIGURE_ENV=		debugflags=
+			ac_cv_build={{CONFIGURE_TARGET}}
+			stack_protector=no
+CFLAGS=			-Wno-attributes
+PLIST_SUB=		XY={{RUBY_SUFFIX}}
+			XDOTY={{RUBY_VER}}
+			MODULE={{MODULE:Uso}}
+CPE_VENDOR=		ruby-lang
+CPE_PRODUCT=		ruby
+CPE_VERSION=		${PORTVERSION}
+CPE_UPDATE=		p${PATCHLEVEL}
+INSTALL_REQ_TOOLCHAIN=	yes
+
+VAR_OPSYS[darwin]=	CONFIGURE_ENV=ac_cv_func_backtrace=no
+			MAKEFILE_LINE=MODULE=bundle
+VAR_OPSYS[sunos]=	CONFIGURE_ARGS=--disable-jit-support
+
+pre-configure:
+	${FIND} ${WRKSRC}/ -name "*.orig" -delete
+
+	# Disable all bundled gems
+	# We install these from other ports
+	cd ${BUILD_WRKSRC} && \
+		${MV} gems gems.orig && \
+		${MKDIR} gems && \
+		${TOUCH} gems/bundled_gems
+.for d in bin/bundle bin/bundler bin/gem lib/bundler ext/dbm ext/gdbm
+	${RM} -r ${BUILD_WRKSRC}/${d}
+.endfor
+	${RM} ${BUILD_WRKSRC}/man/bundle*
+	${RM} ${BUILD_WRKSRC}/man/gemfile*
+
+pre-configure-linux:
+	# <sys/vnode.h> does not exist on linux
+	${REINPLACE_CMD} -e '/vnode\.h/d' ${WRKSRC}/dir.c
+
+post-build:
+	# Hack to allow modules to be installed into separate PREFIX and/or under
+	# user privilegies
+	${RB_SET_CONF_VAR} "prefix" "ENV['PREFIX'] || \3"
+	${RB_SET_CONF_VAR} "INSTALL" "'/usr/bin/install -c'"
+	${RB_SET_CONF_VAR} "INSTALL_PROGRAM" "ENV['RB_USER_INSTALL'] ? '${INSTALL} ${COPY} ${STRIP} -m ${BINMODE}' : '${INSTALL_PROGRAM}'"
+	${RB_SET_CONF_VAR} "INSTALL_SCRIPT" "ENV['RB_USER_INSTALL'] ? '${INSTALL} ${COPY} -m ${BINMODE}' : '${INSTALL_SCRIPT}'"
+	${RB_SET_CONF_VAR} "INSTALL_DATA" "ENV['RB_USER_INSTALL'] ? '${INSTALL} ${COPY} -m ${SHAREMODE}' : '${INSTALL_DATA}'"
+
+pre-install:
+	${MKDIR} ${STAGEDIR}${RUBY_DOCDIR}/ripper \
+		${STAGEDIR}${RUBY_DOCDIR}/stringio \
+		${STAGEDIR}${RUBY_DOCDIR}/syslog \
+		${STAGEDIR}${RUBY_EXAMPLESDIR}/bigdecimal \
+		# RDoc generated disabled ${STAGEDIR}${RUBY_RIDIR}
+
+post-install:
+	# strip ruby binaries
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/${RUBY_NAME}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libruby${RUBY_SHLIBVER}.${LIBEXT}
+	${FIND} ${STAGEDIR}${RUBY_ARCHLIBDIR} -type f -name '*\.${LIBEXT}' -exec ${STRIP_CMD} {} \;
+
+	# install docs
+	(cd ${WRKSRC}/doc/ && ${COPYTREE_SHARE} . ${STAGEDIR}${RUBY_DOCDIR}/)
+	${INSTALL_DATA} ${WRKSRC}/ext/ripper/README ${STAGEDIR}${RUBY_DOCDIR}/ripper/
+	${INSTALL_DATA} ${WRKSRC}/ext/stringio/README.md ${STAGEDIR}${RUBY_DOCDIR}/stringio/
+
+	# remove docs
+	${RM} -r ${STAGEDIR}${STD_DOCDIR}/NEWS
+	${RM} -r ${STAGEDIR}${STD_DOCDIR}/ChangeLog
+	${RM} ${STAGEDIR}${STD_DOCDIR}/.document
+	${RMDIR} ${STAGEDIR}${STD_DOCDIR}/syslog
+
+	# remove empty directories
+	${FIND} ${STAGEDIR}${PREFIX}/lib/ruby/gems/${RUBY_VER}/gems -type d -empty -delete
+
+	# install examples
+	(cd ${WRKSRC}/sample/ && ${COPYTREE_SHARE} . ${STAGEDIR}${RUBY_EXAMPLESDIR}/)
+	${RMDIR} ${STAGEDIR}${RUBY_EXAMPLESDIR}/bigdecimal
