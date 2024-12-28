@@ -1,6 +1,6 @@
---- third_party/libwebrtc/build/build_config.h.orig	2023-06-08 22:09:49 UTC
-+++ third_party/libwebrtc/build/build_config.h
-@@ -76,7 +76,7 @@
+--- security/sandbox/chromium/build/build_config.h.orig	2024-12-09 19:17:31 UTC
++++ security/sandbox/chromium/build/build_config.h
+@@ -51,7 +51,7 @@
  #define OS_WIN 1
  #elif defined(__Fuchsia__)
  #define OS_FUCHSIA 1
