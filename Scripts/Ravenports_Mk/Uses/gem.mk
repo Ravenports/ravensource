@@ -122,7 +122,11 @@ post-install-gem:
 	if [ -s /tmp/rprograms ]; then\
 	  ${SED} -i'' ${RUBY_SB_ARGS} `cat /tmp/rprograms`;\
 	fi
-.    if "${USING_RUBY}" != "${RUBY_DEFAULT}"
+.    if "${NAMEBASE:Mruby-racc}"
+	while read thisfile; do \
+	  mv $${thisfile} $${thisfile}${USING_RUBY:S/.//};\
+	done < /tmp/rconflicts
+.    elif "${USING_RUBY}" != "${RUBY_DEFAULT}"
 	while read thisfile; do \
 	  mv $${thisfile} $${thisfile}${USING_RUBY:S/.//};\
 	done < /tmp/rconflicts
