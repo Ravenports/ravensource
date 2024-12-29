@@ -78,11 +78,10 @@ _SHEBANG_REINPLACE_ARGS+= -e "1s|^\#![[:space:]]*${old_cmd:C/\"//g}$$|\#!${SHEBA
 .    endfor
 .  endfor
 
-.if "${DL_SITES_main:H:H:H}" == "PYPIWHL"
 _USES_stage+=	710:fix-shebang
+.if "${DL_SITES_main:H:H:H}" == "PYPIWHL"
 BASESRC=${WRKDIR}
 .else
-_USES_patch+=	210:fix-shebang
 BASESRC=${WRKSRC}
 .endif
 
