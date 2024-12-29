@@ -1,0 +1,28 @@
+DEF[PORTVERSION]=	2.24
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		edlin
+VERSION=		${PORTVERSION}
+KEYWORDS=		editors
+VARIANTS=		std
+SDESC[std]=		FreeDOS line editor
+HOMEPAGE=		https://sourceforge.net/projects/freedos-edlin/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://www.ibiblio.org/pub/micro/pc-stuff/freedos/files/dos/edlin/${PORTVERSION}/
+DISTFILE[1]=		edlin-${PORTVERSION}.zip:main
+
+SPKGS[std]=		single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:single
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/edlin.c
+LICENSE_AWK=		TERMS:"includes"
+LICENSE_SCHEME=		solo
+
+MUST_CONFIGURE=		gnu
