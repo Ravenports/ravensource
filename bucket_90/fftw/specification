@@ -4,7 +4,7 @@ DEF[SOVERSION]=		3.6.9
 
 NAMEBASE=		fftw
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		math
 VARIANTS=		std float long quad
 SDESC[std]=		Fast Fourier Transform library (double)
@@ -18,10 +18,10 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://www.fftw.org/
 DISTFILE[1]=		fftw-${PORTVERSION}.tar.gz:main
 
-SPKGS[std]=		single
-SPKGS[float]=		single
-SPKGS[long]=		single
-SPKGS[quad]=		single
+SPKGS[std]=		set primary dev info
+SPKGS[float]=		set primary dev info
+SPKGS[long]=		set primary dev info
+SPKGS[quad]=		set primary dev info
 
 OPTIONS_AVAILABLE=	FLOAT LONG QUAD FLAV
 OPTIONS_STANDARD=	none
@@ -31,12 +31,12 @@ VOPTS[quad]=		FLOAT=OFF LONG=OFF QUAD=ON FLAV=ON
 
 FPC_EQUIVALENT=		math/fftw3
 
-LICENSE=		GPLv2+:single
-LICENSE_TERMS=		single:{{WRKSRC}}/COPYRIGHT
+LICENSE=		GPLv2+:primary
+LICENSE_TERMS=		primary:{{WRKSRC}}/COPYRIGHT
 LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
 LICENSE_SCHEME=		solo
 
-USES=			cmake makeinfo perl:build pkgconfig fortran:single
+USES=			cmake makeinfo perl:build pkgconfig fortran:primary
 CMAKE_ARGS=		-DBUILD_SHARED_LIBS:BOOL=ON
 			-DBUILD_TESTS:BOOL=ON
 			-DENABLE_OPENMP:BOOL=ON
@@ -44,6 +44,7 @@ CMAKE_ARGS=		-DBUILD_SHARED_LIBS:BOOL=ON
 PLIST_SUB=		OPENMPI="@comment "
 			OMP={{VAR1}}
 SOVERSION=		${SOVERSION}
+INFO=			info:fftw3
 
 [FLOAT].DESCRIPTION=			Build float version of fftw
 [LONG].DESCRIPTION=			Build long double version of fftw
@@ -53,10 +54,6 @@ SOVERSION=		${SOVERSION}
 [FLOAT].CMAKE_ARGS_ON=			-DENABLE_FLOAT:BOOL=ON
 [LONG].CMAKE_ARGS_ON=			-DENABLE_LONG_DOUBLE:BOOL=ON
 [QUAD].CMAKE_ARGS_ON=			-DENABLE_QUAD_PRECISION:BOOL=ON
-[FLAV].INFO_OFF=			single:fftw3
-
-# omp builds on dragonfly now
-# VAR_OPSYS[dragonfly]=	VAR1="@comment "
 
 post-patch:
 	${REINPLACE_CMD} -e 's|/etc/fftw|${PREFIX}/etc/fftw|' \
@@ -70,7 +67,3 @@ post-patch-QUAD-ON:
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib*.${LIBEXT}
-
-post-install-FLAV-ON:
-	${RM} ${STAGEDIR}${PREFIX}/include/*
-	${RM} -r ${STAGEDIR}${PREFIX}/share/info
