@@ -7,7 +7,7 @@
 # the latest package set available.
 #
 # shellcheck disable=SC3043
-# Last-Modified: 14 AUGUST 2024
+# Last-Modified: 30 DEC 2024
 
 OPSYS=$(uname -s)
 if [ "$OPSYS" = "SunOS" ]; then
@@ -18,7 +18,7 @@ fi
 REPOSITE="http://www.ravenports.com/repository"
 ABI_AWK="/tmp/abi.awk"
 LOCAL_INV="/tmp/repo-inventory.txt"
-LOCAL_ARCHIVE="/tmp/rvn.gz"
+LOCAL_ARCHIVE="/tmp/rvn.tgz"
 LOCAL_FPRINTDIR="/raven/etc/rvn/fingerprints/ravenports"
 LOCAL_REPODIR="/raven/etc/rvn/repos"
 LOCAL_CONF="/raven/etc/rvn.conf"
@@ -156,6 +156,7 @@ create_tree() {
 	mkdir -p "${LOCAL_FPRINTDIR}/trusted"
 	mkdir -p "${LOCAL_REPODIR}"
 	mkdir -p "/raven/sbin"
+	mkdir -p "/raven/share/certs"
 
 	echo "Created /raven directory hierarchy"
 }
@@ -219,19 +220,22 @@ install_rvn() {
 	local myabi
 	local zipped_rvn
 	myabi="$1"
-	zipped_rvn="${REPOSITE}/${myabi}/rvn.gz"
+	zipped_rvn="${REPOSITE}/${myabi}/rvn.tgz"
 	cmd=$(fetch_command "$zipped_rvn" "$LOCAL_ARCHIVE")
 	if ! $cmd; then
 		echo "install_rvn failed to fetch rvn archive."
 		exit 1
 	fi
-	if ! gunzip "$LOCAL_ARCHIVE"; then
+	if ! tar -C /tmp -xf "$LOCAL_ARCHIVE"; then
 		echo "install_rvn failed to unzip rvn archive."
 		exit 1
 	fi
+	rm "$LOCAL_ARCHIVE"
 	mv "/tmp/rvn" "/raven/sbin/rvn"
+	mv "/tmp/ca-root-nss.crt" "/raven/share/certs/ca-root-nss.crt"
 	chmod 755 "/raven/sbin/rvn"
-	echo "Installed rvn binary at /raven/sbin/"
+	echo "Installed rvn binary at /raven/sbin"
+	echo "Installed NSS CA root certificate at /raven/share/certs"
 }
 
 check_for_prereqs() {
@@ -266,9 +270,9 @@ remove_existing_conf() {
 install_full_rvn_package() {
 	local myabi
 	myabi="$1"
-	if ! /raven/sbin/rvn -o "abi=${myabi}" install -y rvn~set
+	if ! /raven/sbin/rvn -o "abi=${myabi}" install -y rvn~set nss~caroot~std
 	then
-		echo "Failed to install the full rvn pacakage"
+		echo "Failed to install the full rvn package"
 		exit 1
 	fi
 }

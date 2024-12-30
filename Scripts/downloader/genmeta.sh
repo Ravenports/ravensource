@@ -1,7 +1,8 @@
 #!/bin/sh
 # This script generates the metafile used to bootstrap a Ravenports
 # system on a new machine.
-# shellcheck_disable=SC3043,SC3013
+# Last-modified: 30 DEC 2024
+# shellcheck disable=SC3043,SC3013,SC2035
 
 REPODIR="/build4/marino-huge/repository"
 PROGRAM="/home/marino/repo_cron/meta.awk2"
@@ -28,17 +29,20 @@ repack_ravensw() {
 repack_rvn() {
   local opsys_abi="$1"
   local rvn_primary="$2"
+  local nss_caroot="$3"
   local rtmp="/tmp/${opsys_abi}"
   mkdir -p "$rtmp"
   # unpack rvn package in tmp temporary directory
   /raven/bin/xrvn -x "$rvn_primary" -o "$rtmp" 2>/dev/null
+  /raven/bin/xrvn -x "$nss_caroot" -o "$rtmp" 2>/dev/null
   rm "${rtmp}/raven/sbin/signserver.py"
-  # gzip the binary
-  (cd "${rtmp}/raven/sbin" && gzip -7 --keep rvn)
+  mv "${rtmp}/raven/share/certs/ca-root-nss.crt" "${rtmp}/raven/sbin"
+  # archive binary and cert
+  (cd "${rtmp}/raven/sbin" && tar -czf rvn.tgz rvn ca-root-nss.crt)
   # relocate gzipped file
-  mv "${rtmp}/raven/sbin/rvn.gz" "${REPODIR}/${opsys_abi}/"
+  mv "${rtmp}/raven/sbin/rvn.tgz" "${REPODIR}/${opsys_abi}/"
   # Update modification time to match rvn file
-  touch -r "${rvn_primary}" "${REPODIR}/${opsys_abi}/rvn.gz"
+  touch -r "${rvn_primary}" "${REPODIR}/${opsys_abi}/rvn.tgz"
   # delete temporary directory
   rm -rf "$rtmp"
 }
@@ -61,7 +65,7 @@ repack_needed() {
   fi
   t1=$(stat -f %m "$rgz")
   t2=$(stat -f %m "$ravensw_file")
-  if [ $t1 -ne $t2 ]; then
+  if [ "$t1" -ne "$t2" ]; then
      echo "yes"
      return
   fi
@@ -70,12 +74,12 @@ repack_needed() {
 
 
 rvn_repack_needed() {
-  # We need to replace rvn.gz under the following conditions:
-  # 1.  $REPODIR/rvn.gz does not exists
-  # 2.  $REPODIR/rvn.gz has different mtime than $rvn_primary
+  # We need to replace rvn.tgz under the following conditions:
+  # 1.  $REPODIR/rvn.tgz does not exists
+  # 2.  $REPODIR/rvn.tgz has different mtime than $rvn_primary
   local opsys_abi="$1"
   local rvn_primary="$2"
-  local rgz="${REPODIR}/${opsys_abi}/rvn.gz"
+  local rgz="${REPODIR}/${opsys_abi}/rvn.tgz"
   local t1
   local t2
 
@@ -85,7 +89,7 @@ rvn_repack_needed() {
   fi
   t1=$(stat -f %m "$rgz")
   t2=$(stat -f %m "$rvn_primary")
-  if [ $t1 -ne $t2 ]; then
+  if [ "$t1" -ne "$t2" ]; then
      echo "yes"
      return
   fi
@@ -99,12 +103,17 @@ while read -r ABI
 do
   if [ -d "${REPODIR}/${ABI}/files" ]; then
     rvn=$(find "${REPODIR}/${ABI}/files" -type f -name "rvn[~-]primary[~-]s*d[~-]*")
+    crt=$(find "${REPODIR}/${ABI}/files" -type f -name "nss[~-]caroot[~-]s*d[~-]*")
     if [ -n "$rvn" ]; then
-       base_rvn=$(basename "$rvn")
-       echo "${ABI} ${base_rvn}" >> "$TMPFILE"
-       do_repack=$(rvn_repack_needed "$ABI" "$rvn")
-       if [ "$do_repack" = "yes" ]; then
-          repack_rvn "$ABI" "$rvn"
+       if [ -n "$crt" ]; then
+          base_rvn=$(basename "$rvn")
+          echo "${ABI} ${base_rvn}" >> "$TMPFILE"
+          do_repack=$(rvn_repack_needed "$ABI" "$rvn")
+          if [ "$do_repack" = "yes" ]; then
+             repack_rvn "$ABI" "$rvn" "$crt"
+          fi
+       else
+          echo "${ABI} nss-cert-not-found" >> "$TMPFILE"
        fi
     else
        echo "${ABI} rvn-not-found" >> "$TMPFILE"
@@ -125,4 +134,4 @@ do
 done
 
 /usr/bin/awk -f "$PROGRAM" "$TMPFILE" > "$METADATA"
-rm -f "$TMPFILE" 
+rm -f "$TMPFILE"
