@@ -1,0 +1,11 @@
+--- rtgui/CMakeLists.txt.orig	2024-12-30 18:42:22 UTC
++++ rtgui/CMakeLists.txt
+@@ -255,7 +255,7 @@ else()
+ endif()
+ 
+ # Excluding libatomic needed by Clang/FreeBSD, #3636
+-if(OPENMP_FOUND AND NOT APPLE AND NOT "${CMAKE_SYSTEM_NAME}" STREQUAL "FreeBSD")
++if(OPENMP_FOUND AND NOT APPLE AND NOT "${CMAKE_SYSTEM_NAME}" STREQUAL "FreeBSD" AND NOT "${CMAKE_SYSTEM_NAME}" STREQUAL "DragonFly")
+     set(EXTRA_LIB_RTGUI ${EXTRA_LIB_RTGUI} "atomic")
+ endif()
+ 
