@@ -33,20 +33,22 @@ FPC_EQUIVALENT=		deskutils/taskwarrior
 
 BUILD_DEPENDS=		libuuid:dev:std
 			rust:single:std
-			cxxbridge-cmd:single:std
 BUILDRUN_DEPENDS=	libuuid:primary:std
 
 USES=			cargo cmake shebangfix execinfo cclibs:primary c++:primary
 DISTNAME=		task-${PORTVERSION}
 CMAKE_ARGS=		-DTASK_DOCDIR:STRING=share/doc/taskwarrior
-			-DINSTALLED_CXXBRIDGE:STRING={{LOCALBASE}}/bin/cxxbridge
 SHEBANG_FILES=		scripts/*/*.pl
 			doc/rc/refresh
+MAKE_ENV=		CARGO_HOME={{WRKDIR}}/.cargo
 
-CARGO_SKIP_CONFIGURE=	yes
 CARGO_SKIP_BUILD=	yes
 CARGO_SKIP_INSTALL=	yes
 
+post-configure:
+	${MKDIR} ${CONFIGURE_WRKSRC}
+	(cd ${CONFIGURE_WRKSRC} && ${SETENV} ${CONFIGURE_ENV} \
+		${CMAKE_BIN} ${CMAKE_ARGS} ${CMAKE_SOURCE_PATH})
+
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/task
-	# ${RM} ${STAGEDIR}${PREFIX}/.crates2.json
