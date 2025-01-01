@@ -1,4 +1,4 @@
---- lib/fmt/src/fmt.cc.orig	2024-10-19 13:14:30 UTC
+--- lib/fmt/src/fmt.cc.orig	2024-12-27 18:43:40 UTC
 +++ lib/fmt/src/fmt.cc
 @@ -52,7 +52,7 @@ module;
  #if defined(_MSC_VER) || defined(__MINGW32__)
