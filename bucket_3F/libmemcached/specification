@@ -1,0 +1,55 @@
+DEF[PORTVERSION]=	1.1.4
+DEF[SO_LIBMC]=		11.0.0
+DEF[SO_LIBMC_PROT]=	0.0.0
+DEF[SO_LIBMC_UTIL]=	2.0.0
+DEF[SO_LIBHKIT]=	2.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libmemcached
+VERSION=		${PORTVERSION}
+KEYWORDS=		databases
+VARIANTS=		std
+SDESC[std]=		Client library and tools for the memcached server
+HOMEPAGE=		https://github.com/awesomized/libmemcached/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/awesomized:libmemcached:${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[std]=		set primary tools dev docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD3CLAUSE:primary
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		databases/libmemcached
+
+BUILD_DEPENDS=		cyrus-sasl:dev:std
+			libevent:dev:std
+BUILDRUN_DEPENDS=	cyrus-sasl:primary:std
+			libevent:primary:std
+
+USES=			bison cmake c++:primary ssl
+
+CMAKE_ARGS=		-DBUILD_SHARED_LIBS=ON
+			-DENABLE_SASL=ON
+			-DENABLE_HASH_FNV64=ON
+			-DENABLE_HASH_HSIEH=ON
+			-DENABLE_HASH_MURMUR=ON
+
+PLIST_SUB=		SO_LIBMC=${SO_LIBMC}
+			SO_LIBMC_MAJ=${SO_LIBMC:R:R}
+			SO_LIBMC_PROT=${SO_LIBMC_PROT}
+			SO_LIBMC_PROT_MAJ=${SO_LIBMC_PROT:R:R}
+			SO_LIBMC_UTIL=${SO_LIBMC_UTIL}
+			SO_LIBMC_UTIL_MAJ=${SO_LIBMC_UTIL:R:R}
+			SO_LIBHKIT=${SO_LIBHKIT}
+			SO_LIBHKIT_MAJ=${SO_LIBHKIT:R:R}
+
+post-stage:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so

@@ -1,9 +1,10 @@
 DEF[PORTVERSION]=	5.11.2
+DEF[SO_LDAP]=		4.9.35
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		sope
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		devel www
 VARIANTS=		std
 SDESC[std]=		Set of GNUstep web application frameworks
@@ -15,7 +16,7 @@ SITES[main]=		https://packages.sogo.nu/sources/
 DISTFILE[1]=		SOPE-${PORTVERSION}.tar.gz:main
 DIST_SUBDIR=		gnustep
 
-SPKGS[std]=		set primary dev tools pgsql
+SPKGS[std]=		set primary dev tools pgsql ldap
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -34,22 +35,28 @@ BUILD_DEPENDS=		gnustep-base:dev:std
 			gnustep-make:primary:std
 			gnutls:dev:std
 			libobjc2:dev:std
+			openldap:dev:std
 			postgresql17:dev:std
 			postgresql17:client:std
 BUILDRUN_DEPENDS=	gnustep-base:primary:std
 			gnutls:primary:std
+			openldap:client:std
+RUN_DEPENDS=		memcached:primary:std
 
 EXRUN[tools]=		primary
 EXRUN[pgsql]=		primary
 			postgresql17:client:std
 
-USES=			clang gmake iconv ssl:openssl11 zlib
+USES=			clang gmake iconv zlib
 GNOME_COMPONENTS=	libxml2
 
 DISTNAME=		SOPE
 MUST_CONFIGURE=		yes
 CONFIGURE_ARGS=		--with-gnustep
 MAKEFILE=		GNUmakefile
+
+PLIST_SUB=		SO_LDAP=${SO_LDAP}
+			SO_LDAP_MAJMIN=${SO_LDAP:R}
 
 do-configure:
 	cd ${WRKSRC} ; . ${GNUSTEP_MAKEFILES}/GNUstep.sh ; ./configure ${CONFIGURE_ARGS}
