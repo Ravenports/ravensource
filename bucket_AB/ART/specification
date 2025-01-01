@@ -18,26 +18,29 @@ SPKGS[std]=		primary
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-USES=			cmake c++:primary jpeg tiff pkgconfig
-
-# TODO: OpenColorIO
-CMAKE_ARGS=		-DENABLE_OCIO:BOOL=OFF
-
-BUILD_DEPENDS=		libcanberra:dev:std
-			fftw:single:float
-			libraw:dev:std
-			exiv2:dev:std
-
-BUILDRUN_DEPENDS=	exiv2:primary:std
-			lcms2:dev:std
-			libcanberra:primary:std
-			lensfun:primary:std
-
-RUN_DEPENDS=		libcanberra:gtk3:std
-
-GNOME_COMPONENTS=	gtk3 gtkmm30 librsvg glibmm24
-
 LICENSE=		GPLv3+:primary
 LICENSE_FILE=		GPLv3+:{{WRKSRC}}/LICENSE.txt
 LICENSE_SCHEME=		solo
 LICENSE_TERMS=		primary:{{WRKSRC}}/LICENSE.txt
+
+BUILD_DEPENDS=		libcanberra:dev:std
+			fftw:dev:float
+			libraw:dev:std
+			exiv2:dev:std
+			lcms2:dev:std
+			lensfun:dev:std
+
+BUILDRUN_DEPENDS=	libcanberra:primary:std
+			fftw:primary:float
+			libraw:primary:std
+			exiv2:primary:std
+			lcms2:primary:std
+			lensfun:primary:std
+
+RUN_DEPENDS=		libcanberra:gtk3:std
+
+USES=			cmake c++:primary jpeg tiff pkgconfig
+GNOME_COMPONENTS=	gtk3 gtkmm30 librsvg glibmm24
+
+# TODO: OpenColorIO
+CMAKE_ARGS=		-DENABLE_OCIO:BOOL=OFF

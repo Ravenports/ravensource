@@ -18,15 +18,12 @@ SPKGS[std]=		set primary man docs nls
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-USES=			cmake c++:primary perl jpeg tiff pkgconfig sqlite shebangfix desktop-utils:primary
+LICENSE=		GPLv3+:primary
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+LICENSE_TERMS=		primary:{{WRKSRC}}/LICENSE
 
-SHEBANG_FILES=		tools/common.sh
-			tools/extract_wb_from_images.sh
-			tools/purge_from_cache.sh
-			tools/purge_non_existing_images.sh
-			tools/purge_unused_tags.sh
-
-GNOME_COMPONENTS=	cairo gtk3 intltool librsvg libxml2
+FPC_EQUIVALENT=		graphics/darktable
 
 BUILD_DEPENDS=		lensfun:dev:std
 			lcms2:dev:std
@@ -56,6 +53,9 @@ BUILDRUN_DEPENDS=	lensfun:primary:std
 			iso-codes:primary:std
 			bash:primary:std
 
+USES=			cmake c++:primary perl jpeg tiff pkgconfig sqlite shebangfix desktop-utils:primary
+GNOME_COMPONENTS=	cairo gtk3 intltool librsvg libxml2
+
 CMAKE_ARGS=		-DUSE_PORTMIDI:BOOL=OFF
 			-DUSE_LUA:BOOL=OFF
 			-DUSE_CAMERA_SUPPORT:BOOL=OFF
@@ -69,13 +69,11 @@ CMAKE_ARGS=		-DUSE_PORTMIDI:BOOL=OFF
 			-DBUILD_PRINT:BOOL=OFF
 			-DUSE_OPENMP:BOOL=OFF
 
-FPC_EQUIVALENT=		graphics/darktable
-
-LICENSE=		GPLv3+:primary
-LICENSE_FILE=		GPLv3+:{{WRKSRC}}/LICENSE
-LICENSE_SCHEME=		solo
-LICENSE_TERMS=		primary:{{WRKSRC}}/LICENSE
-
+SHEBANG_FILES=		tools/common.sh
+			tools/extract_wb_from_images.sh
+			tools/purge_from_cache.sh
+			tools/purge_non_existing_images.sh
+			tools/purge_unused_tags.sh
 
 # darktable defines the __XOPEN_SOURCE preprocessor macro, which
 # restricts symbol visibility on FreeBSD and causes compilation failures
