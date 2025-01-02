@@ -1,9 +1,8 @@
-DEF[PORTVERSION]=	1.07.1
+DEF[PORTVERSION]=	1.08.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		bc
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		math
 VARIANTS=		std
 SDESC[std]=		GNU Command Line Calculator
@@ -12,7 +11,7 @@ CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		GNU/bc
-DISTFILE[1]=		bc-${PORTVERSION}.tar.gz:main
+DISTFILE[1]=		bc-${PORTVERSION}.tar.xz:main
 
 SPKGS[std]=		set primary man info
 
@@ -28,8 +27,7 @@ LICENSE_SCHEME=		solo
 
 BUILD_DEPENDS=		ed:primary:std
 
-USES=			makeinfo readline shebangfix
-SHEBANG_ADD_SH=		bc/fix-libmath_h
+USES=			makeinfo readline gmake
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-readline
 INFO=			info:bc
