@@ -27,13 +27,15 @@ LICENSE_AWK=		TERMS:"^\#include"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/pcmanfm/application.cpp
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		qt6-qttools:set:std
-			lxqt-build-tools:single:std
-			libfm-qt:dev:std
+BUILD_DEPENDS=		layer-shell-qt:dev:std
 			libexif:dev:std
-BUILDRUN_DEPENDS=	libfm-qt:primary:std
-			menu-cache:single:std
+			libfm-qt:dev:std
+			lxqt-build-tools:single:std
+			qt6-qttools:set:std
+BUILDRUN_DEPENDS=	layer-shell-qt:primary:std
 			libexif:primary:std
+			libfm-qt:primary:std
+			menu-cache:single:std
 			qt6-qtbase:primary:std
 
 EXRUN[lang]=		libfm-qt:lang:std
@@ -44,7 +46,7 @@ XORG_COMPONENTS=	x11 xcb
 GNOME_COMPONENTS=	glib
 CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH="{{PREFIX}}/lib/qt6/cmake/"
 
-BROKEN[all]=		Requires layer-shell-qt (wayland), not yet available
-
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/pcmanfm-qt
+	${MV} ${STAGEDIR}/etc/xdg ${STAGEDIR}${PREFIX}/etc/
+	${RM} -r ${STAGEDIR}/etc
