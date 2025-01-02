@@ -551,8 +551,11 @@ function set_buildrun (&$portdata, $PDUO) {
        if (substr($distname, 0, 6) == "eyeD3-") {
           $distname = "eyed3-" . substr($distname, 6);
        }
-       if (substr($distname, 0, 23) == "sphinxcontrib.applehelp") {
+       else if (substr($distname, 0, 23) == "sphinxcontrib.applehelp") {
           $distname = str_replace("b.a", "b_a", $distname);
+       }
+       else if (substr($distname, 0, 4) == "N2G-") {
+          $distname = "n2g-" . substr($distname, 4);
        }
        $src = $WORKZONE . "/" . $distname . ".dist-info";
        $metadata = $src . "/METADATA";
