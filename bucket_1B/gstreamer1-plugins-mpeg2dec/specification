@@ -1,0 +1,64 @@
+DEF[PORTVERSION]=	EXTRACT_INFO(GSTREAMER1_VERSION)
+DEF[GST_VERSION]=	EXTRACT_INFO(GSTREAMER1_GST)
+DEF[PLUGIN]=		mpeg2dec
+DEF[PLUGIN_DESC]=	MPEG stream decode
+DEF[FPC]=		multimedia/gstreamer1-plugins-mpeg2dec
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gstreamer1-plugins-${PLUGIN}
+VERSION=		${PORTVERSION}
+KEYWORDS=		multimedia
+VARIANTS=		std
+SDESC[std]=		GStreamer1 ${PLUGIN_DESC} plugin
+HOMEPAGE=		https://gstreamer.freedesktop.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://gstreamer.freedesktop.org/src/gst-plugins-ugly/
+DISTFILE[1]=		gst-plugins-ugly-${PORTVERSION}.tar.xz:main
+
+SPKGS[std]=		single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL20+:single
+LICENSE_FILE=		LGPL20+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/ext/a52dec/gsta52dec.h
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		${FPC}
+
+BUILD_DEPENDS=		gstreamer1:dev:std
+			gstreamer1-plugins-base:dev:std
+			gstreamer1-plugins-ugly:primary:std
+			libmpeg2:dev:std
+BUILDRUN_DEPENDS=	gstreamer1-plugins-base:primary:std
+			gstreamer1:primary:std
+			libmpeg2:primary:std
+
+USES=			gmake pkgconfig meson
+GNOME_COMPONENTS=	glib
+# GNOME_COMPONENTS=introspection disabled on gstreamer1
+
+MESON_ARGS=		-Dasfdemux=disabled
+			-Ddvdlpcmdec=disabled
+			-Ddvdsub=disabled
+			-Drealmedia=disabled
+# external dependencies required
+			-Da52dec=disabled
+			-Dcdio=disabled
+			-Ddvdread=disabled
+			-Dmpeg2dec=enabled
+			-Dsidplay=disabled
+			-Dx264=disabled
+			-Ddoc=disabled
+			-Dnls=disabled
+			-Dtests=disabled
+			-Dorc=disabled
+			-Dgpl=enabled
+DISTNAME=		gst-plugins-ugly-${PORTVERSION}
+PLIST_SUB=		GSTVER=${GST_VERSION}
+			PLUGIN=${PLUGIN}
