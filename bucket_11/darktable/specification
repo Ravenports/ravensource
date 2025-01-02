@@ -82,3 +82,5 @@ SHEBANG_FILES=		tools/common.sh
 post-patch:
 	${REINPLACE_CMD} '/add_definitions."-D_XOPEN_SOURCE=.*"/d' ${WRKSRC}/CMakeLists.txt
 
+post-install:
+	${RM} ${STAGEDIR}${PREFIX}/share/doc/darktable/LICENSE
