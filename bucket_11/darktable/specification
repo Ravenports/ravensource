@@ -36,7 +36,7 @@ BUILD_DEPENDS=		lensfun:dev:std
 			pugixml:dev:std
 			libavif:dev:std
 			libjxl:dev:std
-			icu:primary:std
+			icu:dev:std
 			llvm:set:std
 
 BUILDRUN_DEPENDS=	lensfun:primary:std
@@ -52,6 +52,7 @@ BUILDRUN_DEPENDS=	lensfun:primary:std
 			libavif:primary:std
 			iso-codes:primary:std
 			bash:primary:std
+			icu:primary:std
 
 USES=			cmake c++:primary perl jpeg tiff pkgconfig sqlite shebangfix desktop-utils:primary
 GNOME_COMPONENTS=	cairo gtk3 intltool librsvg libxml2
@@ -84,3 +85,5 @@ post-patch:
 
 post-install:
 	${RM} ${STAGEDIR}${PREFIX}/share/doc/darktable/LICENSE
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/darktable*
+	${FIND} ${STAGEDIR}${PREFIX}/lib/darktable -type f -name "*.so" | ${XARGS} ${STRIP_CMD}
