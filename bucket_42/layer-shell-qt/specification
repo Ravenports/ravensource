@@ -1,0 +1,68 @@
+DEF[PORTVERSION]=	6.2.5
+DEF[SOVERSION]=		${PORTVERSION}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		layer-shell-qt
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11
+VARIANTS=		std
+SDESC[std]=		Qt lib exposing Wayland wl-layer-shell protocol
+HOMEPAGE=		https://invent.kde.org/plasma/layer-shell-qt/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://download.kde.org/stable/plasma/${PORTVERSION}/
+DISTFILE[1]=		layer-shell-qt-${PORTVERSION}.tar.xz:main
+DIST_SUBDIR=		kde6
+
+SPKGS[std]=		set primary dev
+
+OPTIONS_AVAILABLE=	BSD
+OPTIONS_STANDARD=	BSD
+
+OPT_ON[midnightbsd]=	BSD
+OPT_ON[dragonfly]=	BSD
+OPT_ON[freebsd]=	BSD
+OPT_ON[netbsd]=		BSD
+
+LICENSE=		LGPL21:primary
+			LGPL3:primary
+LICENSE_FILE=		LGPL21:{{WRKSRC}}/LICENSES/LGPL-2.1-only.txt
+			LGPL3:{{WRKSRC}}/LICENSES/LGPL-3.0-only.txt
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/interfaces/shell.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		dual
+
+FPC_EQUIVALENT=		x11/plasma6-layer-shell-qt
+
+BUILD_DEPENDS=		kf6-extra-cmake-modules:primary:std
+			qt6-qtbase:dev:std
+			qt6-qtdeclarative:dev:std
+			qt6-qtwayland:dev:std
+			wayland:dev:std
+			wayland:tools:std
+			wayland-protocols:single:std
+BUILDRUN_DEPENDS=	qt6-qtbase:primary:std
+			qt6-qtdeclarative:primary:std
+			qt6-qtwayland:primary:std
+			wayland:primary:std
+
+USES=			cmake pkgconfig
+
+CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt6/cmake
+SOVERSION=		${SOVERSION}
+
+[BSD].DESCRIPTION=			Support BSD platform
+[BSD].BUILD_DEPENDS_ON=			libepoll-shim:dev:std
+					libgudev-devd:dev:std
+					libudev-devd:dev:std
+[BSD].BUILDRUN_DEPENDS_ON=		libepoll-shim:primary:std
+					libudev-devd:primary:std
+# linux
+[BSD].BUILD_DEPENDS_OFF=		libgudev:dev:std
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/qt6/plugins/wayland-shell-integration/liblayer-shell.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/qt6/qml/org/kde/layershell/libLayerShellQtQml.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libLayerShellQtInterface.so
