@@ -4,6 +4,7 @@ DEF[SOVERSION]=		10.0.0
 
 NAMEBASE=		libdvbpsi
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		multimedia
 VARIANTS=		std
 SDESC[std]=		Lib decoding / generating MPEG TS / DVB PSI tables
@@ -14,16 +15,16 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://download.videolan.org/pub/libdvbpsi/${PORTVERSION}/
 DISTFILE[1]=		libdvbpsi-${PORTVERSION}.tar.bz2:main
 
-SPKGS[std]=		single
+SPKGS[std]=		set primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		multimedia/libdvbpsi
 
-LICENSE=		LGPL21+:single
+LICENSE=		LGPL21+:primary
 LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/dvbpsi.h
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SCHEME=		solo
