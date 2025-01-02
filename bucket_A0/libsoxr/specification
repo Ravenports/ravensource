@@ -1,9 +1,11 @@
 DEF[PORTVERSION]=	0.1.3
-DEF[SOVERSION]=		0.1.2
+DEF[SO_LIBSOXR]=	0.1.2
+DEF[SO_LIBSOXRLSR]=	0.1.9
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libsoxr
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		audio
 VARIANTS=		std
 SDESC[std]=		SoX Resampler library
@@ -14,7 +16,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		SF/soxr
 DISTFILE[1]=		soxr-${PORTVERSION}-Source.tar.xz:main
 
-SPKGS[std]=		set primary examples docs
+SPKGS[std]=		set primary dev examples docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -26,8 +28,6 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		audio/libsoxr
 
-SOVERSION=		${SOVERSION}
-
 USES=			cmake pkgconfig
 CMAKE_ARGS=		-DBUILD_SHARED_LIBS:BOOL=ON
 			-DWITH_LSR_BINDINGS:BOOL=ON
@@ -37,6 +37,11 @@ CMAKE_ARGS=		-DBUILD_SHARED_LIBS:BOOL=ON
 			-DWITH_AVFFT:BOOL=OFF
 			-DWITH_PFFFT:BOOL=OFF
 DISTNAME=		soxr-${PORTVERSION}-Source
+
+PLIST_SUB=		SO_LIBSOXR=${SO_LIBSOXR}
+			SO_LIBSOXR_MAJ=${SO_LIBSOXR:R:R}
+			SO_LIBSOXRLSR=${SO_LIBSOXRLSR}
+			SO_LIBSOXRLSR_MAJ=${SO_LIBSOXRLSR:R:R}
 
 post-install:
 	# relocate examples
