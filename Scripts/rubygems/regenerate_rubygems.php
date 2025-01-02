@@ -231,6 +231,10 @@ function determine_variants($namebase, $minversion) {
     return $variants;
 }
 
+function filter32($var) {
+   return ($var != "racc");
+}
+
 
 # Generate single port
 # creates: specification
@@ -332,9 +336,13 @@ function generate_port($namebase) {
         $SV = substr($V, 1);
         $available_options .= $prespace . "RUBY" . $SV;
         $buildrun_block .= "[RUBY" . $SV . "].USES_ON=\t\t\tgem:$V\n";
-        if (count($port_data[$namebase]["buildrun"])) {
+        $brcopy = $port_data[$namebase]["buildrun"];
+        if ($V == "v32") {
+           $brcopy = array_filter($brcopy, "filter32");
+        }
+        if (count($brcopy)) {
             $buildrun_block .= "[RUBY" . $SV . "].BUILDRUN_DEPENDS_ON=\t\t";
-            foreach ($port_data[$namebase]["buildrun"] as $DEP) {
+            foreach ($brcopy as $DEP) {
                 $indent = ($DEP == $port_data[$namebase]["buildrun"][0]) ? "" : "\t\t\t\t\t";
                 $buildrun_block .= $indent . "ruby-" . $DEP . ":single:" . $V . "\n";
             }

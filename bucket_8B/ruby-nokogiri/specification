@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.18.0
+DEF[PORTVERSION]=	1.18.1
 # ------------------------------------------------------------------------
 
 NAMEBASE=		ruby-nokogiri
@@ -13,7 +13,7 @@ CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		RUBYGEMS/
-DISTFILE[1]=		nokogiri-1.18.0.gem:main
+DISTFILE[1]=		nokogiri-1.18.1.gem:main
 DIST_SUBDIR=		ruby
 
 SPKGS[v32]=		single
@@ -40,8 +40,10 @@ GENERATED=		yes
 [RUBY32].BUILDRUN_DEPENDS_ON=		ruby-mini_portile2:single:v32
 [RUBY33].USES_ON=			gem:v33
 [RUBY33].BUILDRUN_DEPENDS_ON=		ruby-mini_portile2:single:v33
+					ruby-racc:single:v33
 [RUBY34].USES_ON=			gem:v34
 [RUBY34].BUILDRUN_DEPENDS_ON=		ruby-mini_portile2:single:v34
+					ruby-racc:single:v34
 
 BUILD_DEPENDS=		libgcrypt:dev:std
 BUILDRUN_DEPENDS=	libgcrypt:primary:std
