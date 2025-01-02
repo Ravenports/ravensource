@@ -1,0 +1,65 @@
+DEF[PORTVERSION]=	2024.11.28
+DEF[SO_LIBBUE]=		0.0.1
+DEF[SO_LIBUE]=		1.0.0
+DEF[SO_LIBGSOCK]=	1.0.1
+DEF[SO_LIBLM]=		16.0.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		liveMedia
+VERSION=		${PORTVERSION}
+KEYWORDS=		net
+VARIANTS=		std
+SDESC[std]=		Live555 streaming media library
+HOMEPAGE=		http://www.live555.com/liveMedia/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://www.live555.com/liveMedia/public/
+DISTFILE[1]=		live.${PORTVERSION}.tar.gz:main
+
+SPKGS[std]=		set primary dev tools
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# There's also a GPLv3 license file in the distribution tarball, but that
+# license seems to be unused. Even the example programs are LGPL3+.
+LICENSE=		LGPL3+:primary
+LICENSE_FILE=		LGPL3+:{{WRKSRC}}/COPYING.LESSER
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/liveMedia/Media.cpp
+LICENSE_AWK=		TERMS:"Media.hh"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		net/liveMedia
+
+USES=			c++:primary gmake ssl
+
+MUST_CONFIGURE=		yes
+CONFIGURE_SCRIPT=	genMakefiles
+CONFIGURE_ARGS=		fixed-freebsd
+CXXFLAGS=		-std=c++20
+DISTNAME=		live
+
+PLIST_SUB=		SO_LIBBUE=${SO_LIBBUE}
+			SO_LIBBUE_MAJ=${SO_LIBBUE:R:R}
+			SO_LIBUE=${SO_LIBUE}
+			SO_LIBUE_MAJ=${SO_LIBUE:R:R}
+			SO_LIBGSOCK=${SO_LIBGSOCK}
+			SO_LIBGSOCK_MAJ=${SO_LIBGSOCK:R:R}
+			SO_LIBLM=${SO_LIBLM}
+			SO_LIBLM_MAJ=${SO_LIBLM:R:R}
+
+EXRUN[tools]=		primary
+
+# May need to be adjusted for other operating systems; but let's start with this!
+post-patch:
+	${CP} ${FILESDIR}/config.fixed-freebsd ${WRKSRC}
+	${REINPLACE_CMD} \
+		-e '/^PREFIX/s|=|?=|' \
+		${WRKSRC}/*/Makefile.head
+	${REINPLACE_CMD} \
+		-e 's|install -m 644 include|$${BSD_INSTALL_DATA} include|' \
+		-e 's|install -m 644|$${BSD_INSTALL_LIB}|' \
+		-e 's|install -m 755|$${BSD_INSTALL_PROGRAM}|' \
+		${WRKSRC}/*/Makefile.tail
