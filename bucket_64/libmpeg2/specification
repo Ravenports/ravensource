@@ -1,0 +1,56 @@
+DEF[PORTVERSION]=	0.5.1
+DEF[SO_LIBMPEG2]=	0.1.0
+DEF[SO_LIBMPEG2CONV]=	0.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libmpeg2
+VERSION=		${PORTVERSION}
+KEYWORDS=		multimedia
+VARIANTS=		std loaded
+SDESC[std]=		MPEG1+2 video stream decoding library
+SDESC[loaded]=		MPEG1+2 video stream decoding library (X11 + SDL)
+HOMEPAGE=		https://libmpeg2.sourceforge.io/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://libmpeg2.sourceforge.io/files/
+DISTFILE[1]=		libmpeg2-${PORTVERSION}.tar.gz:main
+
+SPKGS[std]=		set primary dev tools man
+SPKGS[loaded]=		set primary dev tools man
+
+OPTIONS_AVAILABLE=	LOADED
+OPTIONS_STANDARD=	none
+VOPTS[loaded]=		LOADED=ON
+
+LICENSE=		GPLv2+:primary
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/mpeg2dec.c
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		multimedia/libmpeg2
+
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-shared
+
+USES=			fbsd10fix libtool
+
+PLIST_SUB=		SO_LIBMPEG2=${SO_LIBMPEG2}
+			SO_LIBMPEG2_MAJ=${SO_LIBMPEG2:R:R}
+			SO_LIBMPEG2CONV=${SO_LIBMPEG2CONV}
+			SO_LIBMPEG2CONV_MAJ=${SO_LIBMPEG2CONV:R:R}
+
+[LOADED].DESCRIPTION=			Turn on X11 and SDL support
+[LOADED].XORG_COMPONENTS_ON=		x11 ice xext sm xv
+[LOADED].BUILD_DEPENDS_ON=		sdl1:dev:std
+[LOADED].BUILDRUN_DEPENDS_ON=		sdl1:primary:std
+[LOADED].CONFIGURE_ARGS_ON=		--enable-sdl
+					--with-x
+[LOADED].CONFIGURE_ARGS_OFF=		--disable-sdl
+					--without-x
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libmpeg2.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libmpeg2convert.so
