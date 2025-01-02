@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.095
+DEF[PORTVERSION]=	2.097
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-PDL
@@ -32,7 +32,6 @@ DISTNAME=		PDL-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |      runtime : Alien::proj
 # |      runtime : Data::Dumper (perl 5.38 core) (perl 5.40 core)
 # |      runtime : File::Map
 # |      runtime : File::Which
@@ -48,32 +47,25 @@ DISTNAME=		PDL-${PORTVERSION}
 # |        build : ExtUtils::ParseXS (perl 5.38 core) (perl 5.40 core)
 # |        build : File::Path (perl 5.38 core) (perl 5.40 core)
 # |        build : Pod::Select
-# |    configure : Carp (perl 5.38 core) (perl 5.40 core)
 # |    configure : Devel::CheckLib
-# |    configure : ExtUtils::Depends
 # |    configure : ExtUtils::MakeMaker (perl 5.38 core) (perl 5.40 core)
 # |    configure : File::Path (perl 5.38 core) (perl 5.40 core)
 # |    configure : File::Which
 # |         test : CPAN::Meta (perl 5.38 core) (perl 5.40 core)
-# |         test : IPC::Cmd (perl 5.38 core) (perl 5.40 core)
 # |         test : Test::Deep
 # |         test : Test::Exception
 # |         test : Test::Warn
 
 [PERL_538].USES_ON=			perl:538,configure
-[PERL_538].BUILDRUN_DEPENDS_ON=		perl-Alien-proj:single:538
-					perl-File-Map:single:538
+[PERL_538].BUILDRUN_DEPENDS_ON=		perl-File-Map:single:538
 					perl-File-Which:single:538
 					perl-Pod-Parser:single:538
 [PERL_538].BUILD_DEPENDS_ON=		perl-Devel-CheckLib:single:538
-					perl-ExtUtils-Depends:single:538
 [PERL_540].USES_ON=			perl:540,configure
-[PERL_540].BUILDRUN_DEPENDS_ON=		perl-Alien-proj:single:540
-					perl-File-Map:single:540
+[PERL_540].BUILDRUN_DEPENDS_ON=		perl-File-Map:single:540
 					perl-File-Which:single:540
 					perl-Pod-Parser:single:540
 [PERL_540].BUILD_DEPENDS_ON=		perl-Devel-CheckLib:single:540
-					perl-ExtUtils-Depends:single:540
 
 BUILD_DEPENDS=		freeglut:dev:std
 			libGD:dev:std
