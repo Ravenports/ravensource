@@ -1,8 +1,10 @@
 DEF[PORTVERSION]=	1.0.11
+DEF[SOVERSION]=		0.11.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		schroedinger
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		multimedia
 VARIANTS=		std
 SDESC[std]=		High-speed implementation of the Dirac codec
@@ -13,7 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://download.videolan.org/contrib/
 DISTFILE[1]=		schroedinger-${PORTVERSION}.tar.gz:main
 
-SPKGS[std]=		set primary examples docs
+SPKGS[std]=		set primary dev examples
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -25,8 +27,10 @@ BUILD_DEPENDS=		orc:tools:std
 BUILDRUN_DEPENDS=	orc:primary:std
 
 USES=			libtool pkgconfig fbsd10fix mbsdfix c++:primary
+
 INSTALL_TARGET=		install-strip
 MUST_CONFIGURE=		gnu
+SOVERSION=		${SOVERSION}
 
 post-patch:
 	# Derived from upstream git commit ee011f33f80c9691a6cfd5116101fdcf8c3cd6f7
