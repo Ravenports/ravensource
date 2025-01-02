@@ -1,0 +1,70 @@
+DEF[PORTVERSION]=	4.12.0
+DEF[SOVERSION]=		4.12.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		phonon
+VERSION=		${PORTVERSION}
+KEYWORDS=		multimedia
+VARIANTS=		std
+SDESC[std]=		KDE multimedia framework
+HOMEPAGE=		https://userbase.kde.org/Phonon
+CONTACT=		Michael_Neumann[mneumann@ntecs.de]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://download.kde.org/stable/phonon/${PORTVERSION}/
+DISTFILE[1]=		phonon-${PORTVERSION}.tar.xz:main
+
+SPKGS[std]=		set primary nls dev
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL21+:primary
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING.LIB
+LICENSE_SCHEME=		solo
+LICENSE_TERMS=		primary:{{WRKSRC}}/COPYING.LIB
+
+FPC_EQUIVALENT=		multimedia/phonon
+
+BUILD_DEPENDS=		qt6-qtbase:dev:std
+			qt6-qt5compat:dev:std
+			qt5-qtbase:dev:std
+			qt6-qttools:dev:std
+			qt5-qttools:dev:std
+			kf5-extra-cmake-modules:set:std
+			glib:dev:std
+
+BUILDRUN_DEPENDS=	qt6-qtbase:primary:std
+			qt6-qt5compat:primary:std
+			qt5-qtbase:primary:std
+			qt6-qttools:primary:std
+			qt5-qttools:primary:std
+			glib:primary:std
+
+USES=			cmake qt6 qt5 pkgconfig c++:primary
+
+CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH="{{PREFIX}}/lib/qt6/cmake/\;{{PREFIX}}/lib/qt5/cmake/"
+
+SOVERSION=		${SOVERSION}
+
+post-stage:
+	${MKDIR} ${STAGEDIR}${PREFIX}/include
+	${MKDIR} ${STAGEDIR}${PREFIX}/bin
+	${MKDIR} ${STAGEDIR}${PREFIX}/lib/cmake
+	${MKDIR} ${STAGEDIR}${PREFIX}/lib/pkgconfig
+	${MKDIR} ${STAGEDIR}${PREFIX}/lib/qt5/mkspecs/modules
+	${MKDIR} ${STAGEDIR}${PREFIX}/lib/qt5/plugins/designer
+	${MV} ${PREFIX}/include/phonon4qt5 ${STAGEDIR}${PREFIX}/include/phonon4qt5
+	${MV} ${PREFIX}/include/phonon4qt6 ${STAGEDIR}${PREFIX}/include/phonon4qt6
+	${MV} ${PREFIX}/lib/libphonon* ${STAGEDIR}${PREFIX}/lib/
+	${MV} ${PREFIX}/lib/cmake/phonon4qt5 ${STAGEDIR}${PREFIX}/lib/cmake/phonon4qt5
+	${MV} ${PREFIX}/lib/cmake/phonon4qt6 ${STAGEDIR}${PREFIX}/lib/cmake/phonon4qt6
+	${MV} ${PREFIX}/lib/pkgconfig/phonon* ${STAGEDIR}${PREFIX}/lib/pkgconfig/
+	${MV} ${PREFIX}/lib/qt5/mkspecs/modules/qt_phonon* ${STAGEDIR}${PREFIX}/lib/qt5/mkspecs/modules/
+	${MV} ${PREFIX}/lib/qt5/plugins/designer/phonon* ${STAGEDIR}${PREFIX}/lib/qt5/plugins/designer/
+	${MV} ${PREFIX}/bin/phononsettings ${STAGEDIR}${PREFIX}/bin/
+	cd ${PREFIX}/share/locale && (${FIND} . -name "libphonon_qt.qm" -or -name "phononsettings_qt.qm" | \
+		${XARGS} -I {} ${SH} -c '(${MKDIR} ${STAGEDIR}${PREFIX}/share/locale/$$(${DIRNAME} {}) && ${MV} -v ${PREFIX}/share/locale/{} ${STAGEDIR}${PREFIX}/share/locale/{})')
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libphonon4*.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/qt5/plugins/designer/phonon4*.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/phononsettings
