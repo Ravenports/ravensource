@@ -298,7 +298,6 @@ function inline_fix_setup ($namebase, $src) {
        "netbox-network-importer" => '/pyats\[full\]/d',
        "pyzmq"        => '/cythonize(/ s|, |, quiet=True, |; /packaging.version/d; s|if V(.*$|if False:|',
        "cffsubr"      => 's|"Linux"|platform.system()|',
-       "pycairo"      => false,
        "msgpack"      => false,
        "dulwich"      => false,
        "dbus-python"  => false,
@@ -307,6 +306,7 @@ function inline_fix_setup ($namebase, $src) {
        "SQLAlchemy"    => false,
        "pycryptodome"  => false,
        "freetype-py"   => '/system-provided FreeType/d',
+       "json2html"     => '/classifiers/d; /  ),/d',
    );
    $setup = $src . "/setup.py";
    if (array_key_exists($namebase, $known_issues)) {
@@ -359,7 +359,6 @@ function inline_fix_setup ($namebase, $src) {
                break;
            case "cffi":
            case "xml2rfc":
-           case "pycairo":
            case "msgpack":
            case "dulwich":
            case "aiohttp":
