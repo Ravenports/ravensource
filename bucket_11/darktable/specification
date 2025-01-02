@@ -1,0 +1,89 @@
+DEF[PORTVERSION]=	5.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		darktable
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		std
+SDESC[std]=		Photography workflow application and raw developer
+HOMEPAGE=		https://darktable.org/
+CONTACT=		Michael_Neumann[mneumann@ntecs.de]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://github.com/darktable-org/darktable/releases/download/release-${PORTVERSION}/
+DISTFILE[1]=		darktable-${PORTVERSION}.tar.xz:main
+
+SPKGS[std]=		set primary man docs nls
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv3+:primary
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+LICENSE_TERMS=		primary:{{WRKSRC}}/LICENSE
+
+FPC_EQUIVALENT=		graphics/darktable
+
+BUILD_DEPENDS=		lensfun:dev:std
+			lcms2:dev:std
+			openexr:dev:std
+			libheif:dev:std
+			WebP:dev:std
+			json-glib:dev:std
+			curl:dev:std
+			exiv2:dev:std
+			pugixml:dev:std
+			libavif:dev:std
+			libjxl:dev:std
+			icu:dev:std
+			llvm:set:std
+
+BUILDRUN_DEPENDS=	lensfun:primary:std
+			lcms2:primary:std
+			libheif:primary:std
+			WebP:primary:std
+			openexr:primary:std
+			json-glib:primary:std
+			curl:primary:std
+			exiv2:primary:std
+			pugixml:primary:std
+			libjxl:primary:std
+			libavif:primary:std
+			iso-codes:primary:std
+			bash:primary:std
+			icu:primary:std
+
+USES=			cmake c++:primary perl jpeg tiff pkgconfig sqlite shebangfix desktop-utils:primary
+GNOME_COMPONENTS=	cairo gtk3 intltool librsvg libxml2
+
+CMAKE_ARGS=		-DUSE_PORTMIDI:BOOL=OFF
+			-DUSE_LUA:BOOL=OFF
+			-DUSE_CAMERA_SUPPORT:BOOL=OFF
+			-DUSE_OPENJPEG:BOOL=OFF
+			-DUSE_LIBSECRET:BOOL=OFF
+			-DUSE_GRAPHICSMAGICK:BOOL=OFF
+			-DUSE_GMIC:BOOL=OFF
+			-DUSE_COLORD:BOOL=OFF
+			-DUSE_MAP:BOOL=OFF
+			-DUSE_SDL2:BOOL=OFF
+			-DBUILD_PRINT:BOOL=OFF
+			-DUSE_OPENMP:BOOL=OFF
+
+SHEBANG_FILES=		tools/common.sh
+			tools/extract_wb_from_images.sh
+			tools/purge_from_cache.sh
+			tools/purge_non_existing_images.sh
+			tools/purge_unused_tags.sh
+
+# darktable defines the __XOPEN_SOURCE preprocessor macro, which
+# restricts symbol visibility on FreeBSD and causes compilation failures
+# on, for instance, the cups_print module, because u_char remains
+# undefined. Remove _XOPEN_SOURCE maro definitions.
+post-patch:
+	${REINPLACE_CMD} '/add_definitions."-D_XOPEN_SOURCE=.*"/d' ${WRKSRC}/CMakeLists.txt
+
+post-install:
+	${RM} ${STAGEDIR}${PREFIX}/share/doc/darktable/LICENSE
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/darktable*
+	${FIND} ${STAGEDIR}${PREFIX}/lib/darktable -type f -name "*.so" | ${XARGS} ${STRIP_CMD}

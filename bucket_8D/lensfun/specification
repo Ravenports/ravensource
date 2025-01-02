@@ -1,0 +1,46 @@
+DEF[PORTVERSION]=	0.3.4
+DEF[SOVERSION]=		0.3.4
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		lensfun
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		std
+SDESC[std]=		Library for fixing lens geometry distortions
+HOMEPAGE=		https://lensfun.github.io/
+CONTACT=		Michael_Neumann[mneumann@ntecs.de]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://github.com/lensfun/lensfun/archive/refs/tags/
+DISTFILE[1]=		v${PORTVERSION}.tar.gz:main
+
+SPKGS[std]=		set primary dev
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+USES=			cmake c++:primary pkgconfig png
+
+# The INSTALL_PYTHON_MODULE option, while defined, is not considered
+# when it comes to installation; without setuptools the build will fail.
+BUILD_DEPENDS=		python-setuptools:single:python_default
+
+CMAKE_ARGS=		-DINSTALL_PYTHON_MODULE:BOOL=OFF
+			-DINSTALL_HELPER_SCRIPTS:BOOL=OFF
+
+SOVERSION=		${SOVERSION}
+
+GNOME_COMPONENTS=	glib intltool
+
+FPC_EQUIVALENT=		graphics/lensfun
+
+LICENSE=		GPLv3+:primary
+			LGPL3+:primary
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/docs/gpl-3.0.txt
+			LGPL3+:{{WRKSRC}}/docs/lgpl-3.0.txt
+LICENSE_TERMS=		primary:{{WRKSRC}}/docs/gpl-3.0.txt
+LICENSE_SCHEME=		multi
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/liblensfun.so
+	${RM} -rf ${STAGEDIR}${PREFIX}/lib/python*

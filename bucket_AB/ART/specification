@@ -1,0 +1,46 @@
+DEF[PORTVERSION]=	1.24.5
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		ART
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		std
+SDESC[std]=		Raw image processing program
+HOMEPAGE=		https://art.pixls.us/
+CONTACT=		Michael_Neumann[mneumann@ntecs.de]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/artpixls:ART:${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[std]=		primary
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv3+:primary
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/LICENSE.txt
+LICENSE_SCHEME=		solo
+LICENSE_TERMS=		primary:{{WRKSRC}}/LICENSE.txt
+
+BUILD_DEPENDS=		libcanberra:dev:std
+			fftw:dev:float
+			libraw:dev:std
+			exiv2:dev:std
+			lcms2:dev:std
+			lensfun:dev:std
+
+BUILDRUN_DEPENDS=	libcanberra:primary:std
+			fftw:primary:float
+			libraw:primary:std
+			exiv2:primary:std
+			lcms2:primary:std
+			lensfun:primary:std
+
+RUN_DEPENDS=		libcanberra:gtk3:std
+
+USES=			cmake c++:primary jpeg tiff pkgconfig
+GNOME_COMPONENTS=	gtk3 gtkmm30 librsvg glibmm24
+
+# TODO: OpenColorIO
+CMAKE_ARGS=		-DENABLE_OCIO:BOOL=OFF
