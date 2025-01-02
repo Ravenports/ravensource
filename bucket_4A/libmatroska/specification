@@ -4,6 +4,7 @@ DEF[SOVERSION]=		7.0.0
 
 NAMEBASE=		libmatroska
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		multimedia
 VARIANTS=		std
 SDESC[std]=		Extensible Multimedia Container Format
@@ -14,14 +15,14 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://dl.matroska.org/downloads/libmatroska/
 DISTFILE[1]=		libmatroska-${PORTVERSION}.tar.xz:main
 
-SPKGS[std]=		single
+SPKGS[std]=		set primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		LGPL21+:single
+LICENSE=		LGPL21+:primary
 LICENSE_FILE=		LGPL21+:{{WRKSRC}}/LICENSE.LGPL
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/KaxVersion.cpp
 LICENSE_SCHEME=		solo
@@ -31,7 +32,7 @@ FPC_EQUIVALENT=		multimedia/libmatroska
 BUILD_DEPENDS=		libebml:dev:std
 BUILDRUN_DEPENDS=	libebml:primary:std
 
-USES=			cpe cmake c++:single
+USES=			cpe cmake c++:primary
 CPE_VENDOR=		matroska
 CMAKE_ARGS=		-DBUILD_SHARED_LIBS:BOOL=ON
 SOVERSION=		${SOVERSION}
