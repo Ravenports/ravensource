@@ -280,7 +280,6 @@ function inline_fix_setup ($namebase, $src) {
        "ruamel.yaml"  => '/__name__.*__main__/ s|^.*$|if False:|; /print..sys[.]argv/d',
        "ruamel.yaml.clib"  => '/__name__.*__main__/ s|^.*$|if False:|; /print..sys[.]argv/d; /test compiling/d',
        "pandas"       => '/ext_modules=/d',
-       "scipy"        => '/run_build = parse/ s|par.*ds[(][)]|False|',
        "ddt"          => '/enum34/d',
        "tqdm"         => '/== .make/ s|^if .*|if False:|',
        "breathe"      => '/from breathe/d',
@@ -604,13 +603,9 @@ function set_buildrun (&$portdata, $PDUO) {
         case "skia-pathops":
         case "mutagen":
         case "protobuf":
-        case "cryptography":
         case "compreffor":
         case "zipp":		// above -- not distutils script
         case "PyNaCl":		// above -- tries downloading
-        case "ruamel.yaml":     // list index out of range
-        case "ruamel.yaml.clib":// list index out of range
-        case "scipy":           // cython errors
         case "kombu":		// setup.cfg misconfig
         case "bcrypt":		// c errors
             $program = <<<'EOF'
