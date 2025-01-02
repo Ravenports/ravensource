@@ -306,7 +306,6 @@ function inline_fix_setup ($namebase, $src) {
        "python-netbox" => '/install_requires=/ s|.ipaddress., ||',
        "netdoc"        => '/install_requires=/ s|.ipaddress., ||',
        "SQLAlchemy"    => false,
-       "PyGObject"     => false,
        "pycryptodome"  => false,
        "freetype-py"   => '/system-provided FreeType/d',
    );
@@ -366,7 +365,6 @@ function inline_fix_setup ($namebase, $src) {
            case "dulwich":
            case "aiohttp":
            case "cffsubr":
-           case "PyGObject":
            case "SQLAlchemy":
            case "frozenlist":
            case "psautohint":
