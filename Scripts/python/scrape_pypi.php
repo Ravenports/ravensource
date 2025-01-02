@@ -109,7 +109,7 @@ function delete_stored_etag ($namebase) {
 # example: [11] => ETag: "FqVhlhRsztlMsjS4Vwiayg"
 function extract_etag ($response_header) {
     foreach ($response_header as $line) {
-        if (substr($line, 0, 5) == "ETag:") {
+        if (strtolower(substr($line, 0, 5)) == "etag:") {
             $parts = explode(" ", $line);
             $inner = explode('"', $parts[1]);
             return $inner[1];
