@@ -7,6 +7,7 @@ DEF[PLUGIN_VER]=	${PORTVERSION:R}
 
 NAMEBASE=		wireshark
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		net
 VARIANTS=		std
 SDESC[std]=		Network traffic analyzer
@@ -33,40 +34,41 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		net/wireshark
 
 BUILD_DEPENDS=		bison:primary:std
+			brotli:dev:std
 			c-ares:dev:std
 			doxygen:primary:std
 			gnutls:dev:std
+			krb5:dev:std
 			libgcrypt:dev:std
+			libmaxminddb:dev:std
 			libnghttp2:dev:std
+			libpcap:dev:std
+			libsmi:dev:std
+			libssh:dev:std
+			minizip:dev:std
+			opus:dev:std
 			qt6-qtbase:dev:std
 			qt6-qttools:set:std
 			qt6-qt5compat:dev:std
 			ruby-asciidoctor:single:ruby_default
 			snappy:dev:std
-			libpcap:dev:std
-			brotli:dev:std
-			krb5:dev:std
-			opus:dev:std
-			minizip:dev:std
-			libssh:dev:std
-			libmaxminddb:dev:std
-			libsmi:dev:std
-BUILDRUN_DEPENDS=	libgcrypt:primary:std
-			libnghttp2:primary:std
+			speexdsp:dev:std
+BUILDRUN_DEPENDS=	brotli:primary:std
 			c-ares:primary:std
 			gnutls:primary:std
-			libpcap:primary:std
-			libssh:primary:std
-			libsmi:primary:std
 			krb5:primary:std
-			snappy:primary:std
+			libgcrypt:primary:std
 			libmaxminddb:primary:std
-			brotli:primary:std
-			speexdsp:primary:std
+			libnghttp2:primary:std
+			libpcap:primary:std
+			libsmi:primary:std
+			libssh:primary:std
+			minizip:primary:std
 			opus:primary:std
 			qt6-qtbase:primary:std
 			qt6-qt5compat:primary:std
-			minizip:primary:std
+			snappy:primary:std
+			speexdsp:primary:std
 
 # worked with libressl 2.7.x, but seeing floating point exception
 # (core dump) with libressl 2.8.x
