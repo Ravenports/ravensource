@@ -294,7 +294,6 @@ function inline_fix_setup ($namebase, $src) {
        "xml2rfc"      => false,
        "psautohint"   => false,
        "django-colorful" => false,
-       "lazy-object-proxy" => false,
        "netbox-network-importer" => '/pyats\[full\]/d',
        "pyzmq"        => '/cythonize(/ s|, |, quiet=True, |; /packaging.version/d; s|if V(.*$|if False:|',
        "cffsubr"      => 's|"Linux"|platform.system()|',
@@ -368,7 +367,6 @@ function inline_fix_setup ($namebase, $src) {
            case "psautohint":
            case "dbus-python":
            case "freetype-py":
-           case "lazy-object-proxy":
                $xf = $src . "/pyproject.toml";
                $filehandle = fopen($xf, "a");
                fwrite ($filehandle, "[tool.setuptools_scm]\n");
