@@ -1,6 +1,6 @@
---- libs/process/src/pid.cpp.orig	2024-08-07 22:07:40 UTC
+--- libs/process/src/pid.cpp.orig	2024-12-05 00:53:35 UTC
 +++ libs/process/src/pid.cpp
-@@ -38,6 +38,8 @@
+@@ -42,6 +42,8 @@
  #include <sys/sysctl.h>
  #include <sys/user.h>
  #include <kvm.h>
