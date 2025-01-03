@@ -1,8 +1,10 @@
 DEF[PORTVERSION]=	0.15.2
+DEF[SOVERSION]=		${PORTVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		check
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		std
 SDESC[std]=		Unit test framework for C
@@ -13,7 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/libcheck:check:${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[std]=		set primary tools dev man info
+SPKGS[std]=		set primary tools dev man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -27,17 +29,10 @@ LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/check.c
 LICENSE_SCHEME=		solo
 
-USES=			autoreconf libtool makeinfo pkgconfig
-MUST_CONFIGURE=		gnu
-CONFIGURE_ENV=		ac_cv_path_AWK_PATH={{AWK}}
-INSTALL_TARGET=		install-strip
-INFO=			info:check
+USES=			cmake pkgconfig
+CMAKE_ARGS=		-DBUILD_TESTING:BOOL=OFF
+SOVERSION=		${SOVERSION}
 
-post-patch:
-	${REINPLACE_CMD} \
-		-e 's|COPYING.LESSER||' \
-		-e '/^docdir = / s|$$(PACKAGE)|check|' \
-			${WRKSRC}/Makefile.am
 
 post-install:
-	${RM} -r ${STAGEDIR}${PREFIX}/share/doc/check
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libcheck.so
