@@ -1,8 +1,8 @@
-DEF[PORTVERSION]=	7.1.1
-DEF[DLFOLDER]=		7.1
-DEF[DATE_HTMLXREF]=	20230402
-DEF[DATE_TEXI2DVI]=	20231018
-DEF[DATE_TEXINFO_TEX]=	20230921
+DEF[PORTVERSION]=	7.2
+DEF[DLFOLDER]=		7.2
+DEF[DATE_HTMLXREF]=	20241223
+DEF[DATE_TEXI2DVI]=	20241223
+DEF[DATE_TEXINFO_TEX]=	20241220
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		texinfo
@@ -56,6 +56,7 @@ INFO=			info:texinfo
 			info:texi2any_internals
 MAKE_ARGS=		TEXMF={{LOCALBASE}}/share/texmf
 			PERL={{LOCALBASE}}/bin/perl
+INSTALL_REQ_TOOLCHAIN=	yes
 
 VAR_OPSYS[midnightbsd]=	MAKEFILE_LINE=NOXS="@comment "
 
@@ -69,7 +70,6 @@ post-extract:
 pre-configure:
 	${REINPLACE_CMD} -e '/rm -f $$(DESTDIR)/ s|$$| $$(DESTDIR)$$(xsdir)/XSParagraph.*|' \
 		${WRKSRC}/tp/Texinfo/XS/Makefile.in
-	${REINPLACE_CMD} -e 's|free (.*)|Safe&|' ${WRKSRC}/tp/Texinfo/XS/misc.c
 
 post-install:
 	if [ -d "${STAGEDIR}${PREFIX}/lib/texinfo" ]; then \
