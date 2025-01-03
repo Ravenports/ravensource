@@ -1,4 +1,4 @@
---- unix/Makefile.in.orig	2024-09-11 19:34:06 UTC
+--- unix/Makefile.in.orig	2024-12-12 18:07:26 UTC
 +++ unix/Makefile.in
 @@ -54,10 +54,12 @@ DLL_INSTALL_DIR		= @DLL_INSTALL_DIR@
  SCRIPT_INSTALL_DIR	= $(INSTALL_ROOT)$(TCL_LIBRARY)
@@ -39,9 +39,9 @@
  
  libraries:
  
-@@ -812,6 +814,12 @@ ${LIB_FILE}: ${STUB_LIB_FILE} ${OBJS} ${
- 	    ${NATIVE_ZIP} -A ${LIB_FILE} \
- 	    || echo 'ignore zip-error by adjust sfx process (not executable?)'; \
+@@ -810,6 +812,12 @@ ${LIB_FILE}: ${STUB_LIB_FILE} ${OBJS} ${
+ 		 mv /tmp/macher_output ${LIB_FILE}; chmod u+x ${LIB_FILE}; \
+ 	    fi; \
  	fi
 +	@ln -sf ${LIB_FILE} ./libtcl${SHORT_TCL_VER}.so
 +
@@ -52,7 +52,7 @@
  
  ${STUB_LIB_FILE}: ${STUB_LIB_OBJS}
  	@if [ "x${LIB_FILE}" = "xlibtcl${MAJOR_VERSION}.${MINOR_VERSION}.dll" ] ; then \
-@@ -1002,13 +1010,12 @@ trace-test: ${TCLTEST_EXE}
+@@ -996,13 +1004,12 @@ trace-test: ${TCLTEST_EXE}
  # Installation rules
  #--------------------------------------------------------------------------
  
@@ -68,7 +68,7 @@
  
  install: $(INSTALL_TARGETS)
  
-@@ -1028,6 +1035,11 @@ install-binaries: binaries
+@@ -1022,6 +1029,11 @@ install-binaries: binaries
  	@echo "Installing $(LIB_FILE) to $(DLL_INSTALL_DIR)/"
  	@@INSTALL_LIB@
  	@chmod 555 "$(DLL_INSTALL_DIR)/$(LIB_FILE)"
@@ -80,7 +80,7 @@
  	@echo "Installing ${TCL_EXE} as $(BIN_INSTALL_DIR)/tclsh$(VERSION)${EXE_SUFFIX}"
  	@$(INSTALL_PROGRAM) ${TCL_EXE} "$(BIN_INSTALL_DIR)/tclsh$(VERSION)${EXE_SUFFIX}"
  	@echo "Installing tclConfig.sh to $(CONFIG_INSTALL_DIR)/"
-@@ -1043,6 +1055,11 @@ install-binaries: binaries
+@@ -1037,6 +1049,11 @@ install-binaries: binaries
  	@echo "Installing pkg-config file to $(LIB_INSTALL_DIR)/pkgconfig/"
  	@$(INSTALL_DATA_DIR) "$(LIB_INSTALL_DIR)/pkgconfig"
  	@$(INSTALL_DATA) tcl.pc "$(LIB_INSTALL_DIR)/pkgconfig/tcl.pc"
@@ -92,7 +92,7 @@
  
  install-libraries: libraries
  	@for i in "$(SCRIPT_INSTALL_DIR)" "$(MODULE_INSTALL_DIR)"; \
-@@ -1060,13 +1077,6 @@ install-libraries: libraries
+@@ -1054,13 +1071,6 @@ install-libraries: libraries
  		else true; \
  		fi; \
  	    done;
@@ -106,7 +106,7 @@
  	@echo "Installing library files to $(SCRIPT_INSTALL_DIR)/"
  	@for i in $(TOP_DIR)/library/*.tcl $(TOP_DIR)/library/tclIndex \
  		$(UNIX_DIR)/tclAppInit.c @LDAIX_SRC@ @DTRACE_SRC@ ; do \
-@@ -1080,32 +1090,30 @@ install-libraries: libraries
+@@ -1074,32 +1084,30 @@ install-libraries: libraries
  	    done
  	@echo "Installing package http 2.10.0 as a Tcl Module"
  	@$(INSTALL_DATA) $(TOP_DIR)/library/http/http.tcl \
@@ -120,10 +120,10 @@
  	@$(INSTALL_DATA) $(TOP_DIR)/library/msgcat/msgcat.tcl \
 -		"$(MODULE_INSTALL_DIR)/9.0/msgcat-1.7.1.tm"
 +		"$(MODULE_INSTALL_DIR)/msgcat-1.7.1.tm"
- 	@echo "Installing package tcltest 2.5.8 as a Tcl Module"
+ 	@echo "Installing package tcltest 2.5.9 as a Tcl Module"
  	@$(INSTALL_DATA) $(TOP_DIR)/library/tcltest/tcltest.tcl \
--		"$(MODULE_INSTALL_DIR)/9.0/tcltest-2.5.8.tm"
-+		"$(MODULE_INSTALL_DIR)/tcltest-2.5.8.tm"
+-		"$(MODULE_INSTALL_DIR)/9.0/tcltest-2.5.9.tm"
++		"$(MODULE_INSTALL_DIR)/tcltest-2.5.9.tm"
  	@echo "Installing package platform 1.0.19 as a Tcl Module"
  	@$(INSTALL_DATA) $(TOP_DIR)/library/platform/platform.tcl \
 -		"$(MODULE_INSTALL_DIR)/9.0/platform-1.0.19.tm"
