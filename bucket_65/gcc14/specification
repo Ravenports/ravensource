@@ -6,7 +6,7 @@ DEF[IDENTIFICATION]=	EXTRACT_INFO(GCC14_IDENTIFICATION)
 DEF[GCC_VERSION]=	EXTRACT_INFO(GCC14_VERSION)
 DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
 DEF[STDCXX_VERSION]=	6.0.33
-DEF[DRACO_TAG]=		14.2.0-base
+DEF[DRACO_TAG]=		14.2.0-rev1
 DEF[DRACO_DIR]=		patches-14.2.0
 # ----------------------------------------------------------------------------
 
@@ -173,9 +173,6 @@ post-patch:
 		${WRKSRC}/gcc/config/i386/gnu-user64.h \
 		${WRKSRC}/gcc/config/aarch64/aarch64-freebsd.h \
 		${WRKSRC}/gcc/ada/gnatls.adb
-	# Ensure dwarf4-compatible addr2line
-	${REINPLACE_CMD} -e 's|/usr/bin/addr2line|${PREFIX:H}/bin/addr2line|g'\
-		${WRKSRC}/gcc/ada/traceback_symbolic.c
 	${REINPLACE_CMD} -e 's|static:crtbeginT.o%s;||' \
 		${WRKSRC}/gcc/config/freebsd-spec.h
 
