@@ -1,4 +1,4 @@
---- glib/libcharset/localcharset.c.orig	2024-10-17 11:08:41 UTC
+--- glib/libcharset/localcharset.c.orig	2024-12-11 22:21:22 UTC
 +++ glib/libcharset/localcharset.c
 @@ -287,6 +287,12 @@ _g_locale_charset_raw (void)
  

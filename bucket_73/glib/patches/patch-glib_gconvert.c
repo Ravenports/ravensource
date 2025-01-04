@@ -1,4 +1,4 @@
---- glib/gconvert.c.orig	2024-10-17 11:08:41 UTC
+--- glib/gconvert.c.orig	2024-12-11 22:21:22 UTC
 +++ glib/gconvert.c
 @@ -74,7 +74,7 @@ try_conversion (const char *to_codeset,
    if (*cd == (iconv_t)-1 && errno == EINVAL)
