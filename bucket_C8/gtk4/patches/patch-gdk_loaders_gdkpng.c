@@ -1,4 +1,4 @@
---- gdk/loaders/gdkpng.c.orig	2024-11-20 23:06:22 UTC
+--- gdk/loaders/gdkpng.c.orig	2025-01-03 19:10:56 UTC
 +++ gdk/loaders/gdkpng.c
 @@ -312,7 +312,11 @@ gdk_load_png (GBytes      *bytes,
    png_set_read_fn (png, &io, png_read_func);
