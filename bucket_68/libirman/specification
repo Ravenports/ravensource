@@ -1,0 +1,41 @@
+DEF[PORTVERSION]=	0.5.2
+DEF[SOVERSION]=		0.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libirman
+VERSION=		${PORTVERSION}
+KEYWORDS=		comms
+VARIANTS=		std
+SDESC[std]=		Library for Evation's Irman infrared receiver
+HOMEPAGE=		https://sourceforge.net/projects/libirman/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SF/libirman/${PORTVERSION}
+DISTFILE[1]=		libirman-${PORTVERSION}.tar.gz:main
+
+SPKGS[std]=		set primary dev tools docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2:tools
+			LGPL20:primary
+LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING
+			LGPL20:{{WRKSRC}}/COPYING.lib
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/README
+LICENSE_AWK=		TERMS:"Introduction"
+LICENSE_SCHEME=		multi
+
+FPC_EQUIVALENT=		comms/libirman
+
+USES=			libtool pkgconfig
+
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
+SOVERSION=		${SOVERSION}
+
+post-install:
+	${MV} ${STAGEDIR}${PREFIX}/etc/irman.conf \
+		${STAGEDIR}${PREFIX}/etc/irman.conf.sample
