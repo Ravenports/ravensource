@@ -1,0 +1,15 @@
+--- scripts/CMakeLists.txt.orig	2024-10-30 14:38:15 UTC
++++ scripts/CMakeLists.txt
+@@ -136,11 +136,7 @@ IF(CMAKE_GENERATOR MATCHES "Makefiles|Ni
+   ENDFOREACH()
+ ENDIF()
+ 
+-IF(CMAKE_SYSTEM_NAME MATCHES "FreeBSD")
+-  SET (PERL_PATH "/usr/local/bin/perl")
+-ELSE()
+-  SET (PERL_PATH "/usr/bin/perl")
+-ENDIF()
++SET (PERL_PATH "%%LOCALBASE%%/bin/perl")
+ 
+ IF(UNIX)
+   # FIND_PROC and CHECK_PID are used by mysqld_safe
