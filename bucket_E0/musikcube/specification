@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	3.0.4
 
 NAMEBASE=		musikcube
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		multimedia audio
 VARIANTS=		std
 SDESC[std]=		Terminal-based music player, server & more
@@ -13,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/clangen:musikcube:${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[std]=		set primary dev server in_openmpt out_alsa out_sndio out_pipewire out_portaudio
+SPKGS[std]=		set primary dev server in_gme in_openmpt out_alsa out_sndio out_pipewire out_portaudio
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -24,7 +25,7 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		multimedia/musikcube
 
-# missing plugins: libgme, pulseaudio
+# missing plugin: pulseaudio
 BUILD_DEPENDS=		alsa-lib:dev:std
 			asio:dev:std
 			curl:dev:std
@@ -32,6 +33,7 @@ BUILD_DEPENDS=		alsa-lib:dev:std
 			flac:dev:std
 			lame:dev:std
 			libev:dev:std
+			libgme:dev:std
 			libmicrohttpd:dev:std
 			libogg:dev:std
 			libopenmpt:dev:std
@@ -53,13 +55,20 @@ BUILDRUN_DEPENDS=	curl:primary:std
 
 EXRUN[server]=		primary
 			libmicrohttpd:primary:std
-EXRUN[in_openmpt]=	libopenmpt:primary:std
+EXRUN[in_gme]=		primary
+			libgme:primary:std
+EXRUN[in_openmpt]=	primary
+			libopenmpt:primary:std
 			mpg123:primary:std
 			zlib:primary:std
-EXRUN[out_alsa]=	alsa-lib:primary:std
-EXRUN[out_pipewire]=	pipewire:primary:std
-EXRUN[out_portaudio]=	portaudio:primary:std
-EXRUN[out_sndio]=	sndio:primary:std
+EXRUN[out_alsa]=	primary
+			alsa-lib:primary:std
+EXRUN[out_pipewire]=	primary
+			pipewire:primary:std
+EXRUN[out_portaudio]=	primary
+			portaudio:primary:std
+EXRUN[out_sndio]=	primary
+			sndio:primary:std
 
 USES=			cmake ncurses pkgconfig ssl zlib
 
