@@ -1,0 +1,44 @@
+DEF[PORTVERSION]=	1.1.22
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libmtp
+VERSION=		${PORTVERSION}
+KEYWORDS=		multimedia
+VARIANTS=		std
+SDESC[std]=		Media Transfer Protocol (MTP) library
+HOMEPAGE=		https://libmtp.sourceforge.net/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/libmtp:libmtp:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[std]=		set primary dev tools
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL21+:primary
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/mtpz.h
+LICENSE_AWK=		TERMS:"ifndef"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		multimedia/libmtp
+
+BUILD_DEPENDS=		libgcrypt:dev:std
+			libtool:primary:std
+BUILDRUN_DEPENDS=	libgcrypt:primary:std
+
+USES=			cpe autoreconf:build gettext gmake iconv libtool pkgconfig
+
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-mtpz
+INSTALL_TARGET=		install-strip
+CPE_VENDOR=		libmtp_project
+
+EXRUN[tools]=		primary
+
+pre-configure:
+	cd ${WRKSRC} && MAKE=gmake sh autogen.sh
