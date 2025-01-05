@@ -1,0 +1,42 @@
+DEF[PORTVERSION]=	r475
+DEF[SOVERSION]=		6.1.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		musepack
+VERSION=		${PORTVERSION}
+KEYWORDS=		audio
+VARIANTS=		std
+SDESC[std]=		Decoder, encoder & replaygain for musepack (mpc)
+HOMEPAGE=		https://www.musepack.net/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://files.musepack.net/source/
+DISTFILE[1]=		musepack_src_${PORTVERSION}.tar.gz:main
+
+SPKGS[std]=		set primary dev tools
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD3CLAUSE:primary
+LICENSE_FILE=		BSD3CLAUSE:{{WRKDIR}}/LICENSE
+LICENSE_SCHEME=		solo
+
+# FreeBSD's port may go away as the maintainer set a deprecation warning.
+# While there hasn't been a release in over a decade, upstream wrote a project
+# status message in 2024, claiming no intent to "fix something that's not broken"
+# but making clear that the project is alive.
+FPC_EQUIVALENT=		audio/musepack
+
+USES=			autoreconf clang libtool
+
+DISTNAME=		musepack_src_r475
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
+SOVERSION=		${SOVERSION}
+
+EXRUN[tools]=		primary
+
+post-extract:
+	${SED} -n '/mpc_decoder/!p;//q' ${WRKSRC}/libmpcdec/mpc_decoder.c > ${WRKDIR}/LICENSE
