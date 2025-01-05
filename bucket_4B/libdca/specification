@@ -1,0 +1,39 @@
+DEF[PORTVERSION]=	0.0.7
+DEF[SOVERSION]=		0.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libdca
+VERSION=		${PORTVERSION}
+KEYWORDS=		multimedia
+VARIANTS=		std
+SDESC[std]=		Free DTS Coherent Acoustics decoder
+HOMEPAGE=		https://www.videolan.org/developers/libdca.html
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://download.videolan.org/pub/videolan/libdca/${PORTVERSION}/
+DISTFILE[1]=		libdca-${PORTVERSION}.tar.bz2:main
+
+SPKGS[std]=		set primary dev man
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:primary
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/dcadec.c
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		multimedia/libdca
+
+USES=			autoreconf libtool
+
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
+SOVERSION=		${SOVERSION}
+
+post-install:
+	${RM} ${STAGEDIR}${PREFIX}/lib/libdts.a
+	${LN} -s ${STAGEDIR}${PREFIX}/lib/libdts.a ${PREFIX}/lib/libdca.a
