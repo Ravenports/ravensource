@@ -1,0 +1,40 @@
+DEF[PORTVERSION]=	0.6.3
+DEF[SOVERSION]=		${PORTVERSION}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libgme
+VERSION=		${PORTVERSION}
+KEYWORDS=		audio
+VARIANTS=		std
+SDESC[std]=		Collection of video game music chip emulators
+HOMEPAGE=		https://github.com/libgme/game-music-emu
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/libgme:game-music-emu:${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[std]=		set primary dev
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# Supposedly when used with MAME YM2612, the license becomes GPL20+ (?!)
+# License terms are not at the beginning of the file... There's really
+# not one possible stupidity that's not out there somewhere!
+LICENSE=		LGPL21+:primary
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/license.txt
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/gme/gme.cpp
+LICENSE_AWK=		TERMS:"blargg_source"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		audio/libgme
+
+USES=			c++:primary cmake
+
+CMAKE_ARGS=		-DENABLE_UBSAN=OFF
+SOVERSION=		${SOVERSION}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libgme.so
