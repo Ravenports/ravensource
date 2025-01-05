@@ -27,16 +27,16 @@ OPTIONS_AVAILABLE=	PY313
 OPTIONS_STANDARD=	none
 VOPTS[v13]=		PY313=ON
 
-# LICENSE=		APACHE20:single
-# LICENSE_FILE=		APACHE20:{{WRKSRC}}/COPYING
-# LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
-# LICENSE_AWK=		TERMS:"^from "
-# LICENSE_SOURCE=		TERMS:{{PATCH_WRKSRC}}/meson.py
-# LICENSE_SCHEME=		solo
+LICENSE=		APACHE20:single
+LICENSE_FILE=		APACHE20:stock
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/meson
 
 PATCH_WRKSRC=		{{WRKSRC}}/{{PYTHON_SITELIBDIR}}
+
+RUN_DEPENDS=		ninja:single:std
 
 [PY313].USES_ON=			python:v13,wheel
 [PY313].USES_OFF=			python:v12,wheel
@@ -51,6 +51,8 @@ post-extract:
 		--progress-bar off \
 		--root ${WRKSRC} \
 		${DISTDIR}/${DIST_SUBDIR}/${DISTFILE_1:C/:.*//}
+	# extract license terms
+	${AWK} '/^from / {exit}; {print}' ${PATCH_WRKSRC}/mesonbuild/mesonmain.py > ${WRKDIR}/TERMS
 
 pre-configure:
 	${FIND} ${WRKSRC} -name "*.orig" -type f -delete
