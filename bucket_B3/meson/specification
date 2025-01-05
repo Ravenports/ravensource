@@ -9,30 +9,53 @@ DEF[PORTVERSION]=	1.6.1
 NAMEBASE=		meson
 VERSION=		${PORTVERSION}
 KEYWORDS=		devel python
-VARIANTS=		std
+VARIANTS=		std v13
 SDESC[std]=		High performance build system
+SDESC[v13]=		High performance build system (py 3.13)
 HOMEPAGE=		https://mesonbuild.com
 CONTACT=		John_Marino[draco@marino.st]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		https://github.com/mesonbuild/meson/releases/download/${PORTVERSION}/
-DISTFILE[1]=		meson-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/d2/f3/9d53c24a7113e08879b14117f83e7105251e6ecf7e03bb7c04926888db9c
+DISTFILE[1]=		meson-${PORTVERSION}-py3-none-any.whl:main
+DIST_SUBDIR=		python-src
 
 SPKGS[std]=		single
+SPKGS[v13]=		single
 
-OPTIONS_AVAILABLE=	none
+OPTIONS_AVAILABLE=	PY313
 OPTIONS_STANDARD=	none
+VOPTS[v13]=		PY313=ON
 
-LICENSE=		APACHE20:single
-LICENSE_FILE=		APACHE20:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
-LICENSE_AWK=		TERMS:"^from "
-LICENSE_SOURCE=		TERMS:{{WRKSRC}}/meson.py
-LICENSE_SCHEME=		solo
+# LICENSE=		APACHE20:single
+# LICENSE_FILE=		APACHE20:{{WRKSRC}}/COPYING
+# LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+# LICENSE_AWK=		TERMS:"^from "
+# LICENSE_SOURCE=		TERMS:{{PATCH_WRKSRC}}/meson.py
+# LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/meson
 
-RUN_DEPENDS=		ninja:single:std
-			python-setuptools:single:python_used
+PATCH_WRKSRC=		{{WRKSRC}}/{{PYTHON_SITELIBDIR}}
 
-USES=			python:sutools
+[PY313].USES_ON=			python:v13,wheel
+[PY313].USES_OFF=			python:v12,wheel
+
+post-extract:
+	${MKDIR} ${WRKSRC}
+	${SETENV} AUTOPYTHON=${_PYTHON_VERSION} \
+	pip install --verbose \
+		--no-deps \
+		--no-index \
+		--no-compile \
+		--progress-bar off \
+		--root ${WRKSRC} \
+		${DISTDIR}/${DIST_SUBDIR}/${DISTFILE_1:C/:.*//}
+
+pre-configure:
+	${FIND} ${WRKSRC} -name "*.orig" -type f -delete
+
+do-install:
+	${MKDIR} ${STAGEDIR}
+	${MV} ${WRKSRC}${PREFIX} ${STAGEDIR}/
+	(cd ${STAGEDIR} && ${PYTHON_CMD} -m compileall -d / . ||:)

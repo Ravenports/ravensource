@@ -1,0 +1,2 @@
+stage-dir:
+	# do nothing
