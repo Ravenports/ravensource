@@ -1,0 +1,37 @@
+DEF[PORTVERSION]=	2k4.0
+DEF[SOVERSION]=		0.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		goom
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		std
+SDESC[std]=		Visual effects library
+HOMEPAGE=		https://sourceforge.net/projects/goom/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+# SITES[main]=		https://downloads.sourceforge.net/sourceforge/goom/goom2k4/0/
+SITES[main]=		SF/goom/goom2k4/0/
+DISTFILE[1]=		goom-2k4-0-src.tar.gz:main
+
+SPKGS[std]=		set primary dev
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# Licensing is maybe invalid; the terms mention that the code is under "the LGPL" but
+# does not state which version. I'm not a lawyer, so I'm not going to decide how to
+# treat this case.
+
+FPC_EQUIVALENT=		graphics/goom
+
+USES=			fbsd10fix libtool
+
+DISTNAME=		goom2k4-0
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-shared
+			--enable-static
+			--disable-sdltest
+INSTALL_TARGET=		install-strip
+SOVERSION=		${SOVERSION}
