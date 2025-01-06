@@ -29,22 +29,20 @@ FPC_EQUIVALENT=		multimedia/phonon
 
 BUILD_DEPENDS=		qt6-qtbase:dev:std
 			qt6-qt5compat:dev:std
-			qt5-qtbase:dev:std
 			qt6-qttools:dev:std
-			qt5-qttools:dev:std
-			kf5-extra-cmake-modules:set:std
+			kf6-extra-cmake-modules:set:std
 			glib:dev:std
 
 BUILDRUN_DEPENDS=	qt6-qtbase:primary:std
 			qt6-qt5compat:primary:std
-			qt5-qtbase:primary:std
 			qt6-qttools:primary:std
-			qt5-qttools:primary:std
 			glib:primary:std
 
-USES=			cmake qt6 qt5 pkgconfig c++:primary
+USES=			cmake qt6 pkgconfig c++:primary
 
-CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH="{{PREFIX}}/lib/qt6/cmake/\;{{PREFIX}}/lib/qt5/cmake/"
+CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH="{{PREFIX}}/lib/qt6/cmake/"
+			-DPHONON_BUILD_QT5:BOOL=OFF
+			-DPHONON_BUILD_QT6:BOOL=ON
 
 SOVERSION=		${SOVERSION}
 
@@ -53,19 +51,15 @@ post-stage:
 	${MKDIR} ${STAGEDIR}${PREFIX}/bin
 	${MKDIR} ${STAGEDIR}${PREFIX}/lib/cmake
 	${MKDIR} ${STAGEDIR}${PREFIX}/lib/pkgconfig
-	${MKDIR} ${STAGEDIR}${PREFIX}/lib/qt5/mkspecs/modules
-	${MKDIR} ${STAGEDIR}${PREFIX}/lib/qt5/plugins/designer
-	${MV} ${PREFIX}/include/phonon4qt5 ${STAGEDIR}${PREFIX}/include/phonon4qt5
+	${MKDIR} ${STAGEDIR}${PREFIX}/lib/qt6/plugins/designer
 	${MV} ${PREFIX}/include/phonon4qt6 ${STAGEDIR}${PREFIX}/include/phonon4qt6
 	${MV} ${PREFIX}/lib/libphonon* ${STAGEDIR}${PREFIX}/lib/
-	${MV} ${PREFIX}/lib/cmake/phonon4qt5 ${STAGEDIR}${PREFIX}/lib/cmake/phonon4qt5
 	${MV} ${PREFIX}/lib/cmake/phonon4qt6 ${STAGEDIR}${PREFIX}/lib/cmake/phonon4qt6
 	${MV} ${PREFIX}/lib/pkgconfig/phonon* ${STAGEDIR}${PREFIX}/lib/pkgconfig/
-	${MV} ${PREFIX}/lib/qt5/mkspecs/modules/qt_phonon* ${STAGEDIR}${PREFIX}/lib/qt5/mkspecs/modules/
-	${MV} ${PREFIX}/lib/qt5/plugins/designer/phonon* ${STAGEDIR}${PREFIX}/lib/qt5/plugins/designer/
+	${MV} ${PREFIX}/lib/qt6/plugins/designer/phonon* ${STAGEDIR}${PREFIX}/lib/qt6/plugins/designer/
 	${MV} ${PREFIX}/bin/phononsettings ${STAGEDIR}${PREFIX}/bin/
 	cd ${PREFIX}/share/locale && (${FIND} . -name "libphonon_qt.qm" -or -name "phononsettings_qt.qm" | \
 		${XARGS} -I {} ${SH} -c '(${MKDIR} ${STAGEDIR}${PREFIX}/share/locale/$$(${DIRNAME} {}) && ${MV} -v ${PREFIX}/share/locale/{} ${STAGEDIR}${PREFIX}/share/locale/{})')
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libphonon4*.so
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/qt5/plugins/designer/phonon4*.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/qt6/plugins/designer/phonon4*.so
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/phononsettings
