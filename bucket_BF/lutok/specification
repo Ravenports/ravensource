@@ -1,15 +1,14 @@
-DEF[PORTVERSION]=	0.5
+DEF[PORTVERSION]=	0.6
 DEF[SOVERSION]=		3.0.0
 DEF[TAG]=		lutok-${PORTVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		lutok
 VERSION=		${PORTVERSION}
-REVISION=		2
 KEYWORDS=		devel
 VARIANTS=		std
 SDESC[std]=		Lightweight C++ API for Lua
-HOMEPAGE=		https://github.com/jmmv/lutok
+HOMEPAGE=		https://github.com/freebsd/lutok
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
@@ -33,10 +32,9 @@ BUILD_DEPENDS=		atf:dev:std
 			doxygen:primary:std
 BUILDRUN_DEPENDS=	atf:primary:std
 
-USES=			autoreconf libtool lua:5.3 pkgconfig
+USES=			autoreconf libtool lua:5.4 pkgconfig
 MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--with-atf
-			--docdir={{STD_DOCDIR}}
+CONFIGURE_ARGS=		--docdir={{STD_DOCDIR}}
 			--htmldir={{STD_DOCDIR}}/html
 			--with-doxygen
 			LUA_CFLAGS="-I{{LUA_INCDIR}}"
