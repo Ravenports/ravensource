@@ -4,7 +4,7 @@ DEF[TAG]=		95975bd
 
 NAMEBASE=		ctags
 VERSION=		${PORTVERSION}
-REVISION=		2
+REVISION=		3
 KEYWORDS=		devel
 VARIANTS=		std
 SDESC[std]=		Tagfile generator for vi and emacs clones
@@ -23,9 +23,10 @@ OPTIONS_STANDARD=	none
 FPC_EQUIVALENT=		devel/ctags
 
 BUILD_DEPENDS=		automake:primary:std
+			jansson:dev:std
 			libyaml:dev:std
 			python-docutils:single:python_default
-BUILDRUN_DEPENDS=	jansson:single:std
+BUILDRUN_DEPENDS=	jansson:primary:std
 			libyaml:primary:std
 
 USES=			pkgconfig gmake iconv
