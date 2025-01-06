@@ -5,6 +5,7 @@ DEF[RELEASE_TAG]=	${PORTVERSION}
 
 NAMEBASE=		uwsgi
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		python www
 VARIANTS=		std
 SDESC[std]=		Fast, self-healing, application container server
@@ -28,7 +29,8 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		www/uwsgi
 
-BUILDRUN_DEPENDS=	jansson:single:std
+BUILD_DEPENDS=		jansson:dev:std
+BUILDRUN_DEPENDS=	jansson:primary:std
 
 PYSETUP=		uwsgiconfig.py
 PYD_BUILD_TARGET=	--build
