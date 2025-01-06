@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	24.2.8
+DEF[PORTVERSION]=	24.3.3
 DEF[CLANGBASE]=		clang
 DEF[LLVMBASE]=		llvm
 DEF[SOVERSION]=		${PORTVERSION}
@@ -6,7 +6,6 @@ DEF[SOVERSION]=		${PORTVERSION}
 
 NAMEBASE=		mesa
 VERSION=		${PORTVERSION}
-REVISION=		2
 KEYWORDS=		graphics
 VARIANTS=		std
 SDESC[std]=		Mesa 3D Graphics Library
@@ -54,6 +53,7 @@ BUILD_DEPENDS=		libdrm:dev:std
 			libvdpau:dev:std
 			python-Mako:single:python_used
 			python-PyYAML:single:python_used
+			python-packaging:single:python_used
 			xorg-pciaccess:dev:std
 BUILDRUN_DEPENDS=	libdrm:primary:std
 			xorg-pciaccess:primary:std
@@ -81,7 +81,6 @@ SOL_FUNCTIONS=		dirfd:src/util/disk_cache.c
 			strndup:src/gallium/drivers/radeonsi/si_debug.c
 MESON_ARGS=		-Dplatforms=x11{{WAYPLAT}}
 			-Dzstd=enabled
-			-Ddri3=enabled
 			-Dgallium-drivers={{GALLIUM_DRIVERS:tW:tl:C/[[:space:]]/,/g}}
 			-Dosmesa=true
 			-Dlibunwind=disabled
@@ -157,7 +156,6 @@ VAR_OPSYS[sunos]=	CPPFLAGS=-D__EXTENSIONS__=1
 [ARM_DRIVERS].MAKEFILE_ON=		GALLIUM_DRIVERS+={{GALLIUM_ARM64}}
 
 [WAYLAND].BUILD_DEPENDS_ON=		wayland-protocols:single:std
-					python-Mako:single:python_default
 					wayland:dev:std
 [WAYLAND].BUILDRUN_DEPENDS_ON=		wayland:primary:std
 [WAYLAND].MAKEFILE_ON=			WAYPLAT=,wayland

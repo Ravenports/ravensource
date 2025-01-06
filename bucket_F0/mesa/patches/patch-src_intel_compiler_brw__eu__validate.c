@@ -1,8 +1,8 @@
---- src/intel/compiler/brw_eu_validate.c.orig	2024-11-13 15:28:52 UTC
+--- src/intel/compiler/brw_eu_validate.c.orig	2025-01-03 17:37:20 UTC
 +++ src/intel/compiler/brw_eu_validate.c
-@@ -42,6 +42,39 @@
- #include "brw_eu.h"
- #include "brw_disasm_info.h"
+@@ -85,6 +85,39 @@ typedef struct brw_hw_decoded_inst {
+    } src[3];
+ } brw_hw_decoded_inst;
  
 +#ifdef __sun__
 +#include <string.h>
