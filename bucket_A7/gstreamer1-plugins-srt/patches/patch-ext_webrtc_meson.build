@@ -1,0 +1,10 @@
+--- ext/webrtc/meson.build.orig	2024-07-29 15:41:37 UTC
++++ ext/webrtc/meson.build
+@@ -12,6 +12,7 @@ webrtc_sources = [
+   'webrtcdatachannel.c',
+ ]
+ 
++libgstwebrtcnice_dep = cc.find_library ('gstwebrtcnice-1.0', required : false)
+ webrtc_option = get_option('webrtc').require(
+   libgstwebrtcnice_dep.found(), error_message: 'webrtc plugin requires libgstwebrtcnice.')
+ if webrtc_option.disabled()
