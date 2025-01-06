@@ -1,0 +1,50 @@
+DEF[PORTVERSION]=	4.1.2
+DEF[SOVERSION]=		${PORTVERSION}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libprojectm
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		std
+SDESC[std]=		Milkdrop-compatible music visualization library
+HOMEPAGE=		https://github.com/projectM-visualizer/projectm
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/projectM-visualizer:projectm:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[std]=		set primary dev
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL21+:primary
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/LICENSE.txt
+LICENSE_TERMS=		primary:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		graphics/libprojectm
+
+BUILD_DEPENDS=		glm:single:std
+			libglvnd:dev:std
+			projectm-eval:single:std
+BUILDRUN_DEPENDS=	libglvnd:primary:std
+
+USES=			c++:primary cmake
+XORG_COMPONENTS=	x11
+
+DISTNAME=		projectm-${PORTVERSION}
+CMAKE_ARGS=		-DCMAKE_BUILD_TYPE=Release
+			-DBUILD_SHARED_LIBS:BOOL=ON
+			-DENABLE_PLAYLIST:BOOL=ON
+			-DENABLE_CXX_INTERFACE:BOOL=TRUE
+			-DENABLE_GLES:BOOL=ON
+			-DENABLE_SYSTEM_GLM:BOOL=ON
+			-DBUILD_DOCS:BOOL=OFF
+
+SOVERSION=		${SOVERSION}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libprojectM-4.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libprojectM-4-playlist.so
