@@ -1,0 +1,28 @@
+DEF[PORTVERSION]=	1.0
+DEF[GH_TAG]=		ee180a2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		projectm-eval
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel multimedia
+VARIANTS=		std
+SDESC[std]=		Portable expression evaluation library
+HOMEPAGE=		https://github.com/projectM-visualizer/projectm-eval
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/projectM-visualizer:projectm-eval:${GH_TAG}
+DISTFILE[1]=		generated:main
+
+SPKGS[std]=		single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE.md
+LICENSE_SCHEME=		solo
+
+USES=			bison cmake
+
+CMAKE_ARGS=		-DCMAKE_BUILD_TYPE=Release
