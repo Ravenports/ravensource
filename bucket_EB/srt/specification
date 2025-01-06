@@ -1,0 +1,41 @@
+DEF[PORTVERSION]=	1.5.4
+DEF[SOVERSION]=		${PORTVERSION}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		srt
+VERSION=		${PORTVERSION}
+KEYWORDS=		net
+VARIANTS=		std
+SDESC[std]=		Secure Reliable Transport (SRT) Protocol
+HOMEPAGE=		https://github.com/Haivision/srt
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/Haivision:srt:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[std]=		set primary dev tools
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MPL:primary
+LICENSE_FILE=		MPL:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		www/srt
+
+USES=			c++:primary cmake shebangfix ssl
+SHEBANG_FILES=		scripts/srt-ffplay
+
+CMAKE_ARGS=		-DOPENSSL_ROOT_DIR:STRING="{{OPENSSLBASE}}"
+			-DENABLE_ENCRYPTION:BOOL=ON
+
+EXRUN[tools]=		primary
+			bash:primary:std
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libsrt.so
+.for f in file-transmit live-transmit tunnel
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/srt-${f}
+.endfor
