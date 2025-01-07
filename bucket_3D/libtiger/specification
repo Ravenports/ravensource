@@ -1,0 +1,38 @@
+DEF[PORTVERSION]=	0.3.4
+DEF[SOVERSION]=		5.0.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libtiger
+VERSION=		${PORTVERSION}
+KEYWORDS=		multimedia
+VARIANTS=		std
+SDESC[std]=		Text rendering library for Kate streams
+HOMEPAGE=		https://code.google.com/archive/p/libtiger/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/libtiger/
+DISTFILE[1]=		libtiger-${PORTVERSION}.tar.gz:main
+
+SPKGS[std]=		set primary dev docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL21+:primary
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKSRC}}/README
+LICENSE_SCHEME=		solo
+
+BUILD_DEPENDS=		doxygen:primary:std
+			libkate:dev:std
+BUILDRUN_DEPENDS=	libkate:primary:std
+
+USES=			fbsd10fix gettext libtool pkgconfig
+GNOME_COMPONENTS=	pango
+
+MUST_CONFIGURE=		gnu
+SOVERSION=		${SOVERSION}
+
+post-stage:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libtiger.so
