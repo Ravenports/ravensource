@@ -5,6 +5,7 @@ DEF[CAT1]=		http://docbook.sourceforge.net/release/xsl-ns/current/
 
 NAMEBASE=		colord
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		graphics
 VARIANTS=		std
 SDESC[std]=		Manage profiles to accurately color I/O devices
@@ -61,6 +62,8 @@ CONFIGURE_ARGS=		-Dsystemd=false
 			--localstatedir={{PREFIX}}/var
 SOVERSION=		${SOVERSION}
 
+B_DEPS[linux]=		libusb:dev:std
+
 [BSD].DESCRIPTION=			Support BSD platform
 [BSD].BUILD_DEPENDS_ON=			libepoll-shim:dev:std
 					libgudev-devd:dev:std
@@ -70,6 +73,7 @@ SOVERSION=		${SOVERSION}
 					libudev-devd:primary:std
 # linux
 [BSD].BUILD_DEPENDS_OFF=		libgudev:dev:std
+[BSD].BUILDRUN_DEPENDS_OFF=		libgudev:primary:std
 
 post-patch:
 	${REINPLACE_CMD} \
@@ -79,4 +83,4 @@ post-patch:
 
 post-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/var/db/colord/icc
-	${FIND} ${STAGEDIR}${PREFIX}/var/lib -type d | ${TAIL} -r | ${XARGS} ${RMDIR}
+	${FIND} ${STAGEDIR}${PREFIX}/var/lib -type d -empty -delete
