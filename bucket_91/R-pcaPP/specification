@@ -1,18 +1,18 @@
-DEF[PORTVERSION]=	1.5.0
+DEF[PORTVERSION]=	2.0-5
 # ------------------------------------------------------------------------
 
-NAMEBASE=		R-matrixStats
+NAMEBASE=		R-pcaPP
 VERSION=		${PORTVERSION}
 KEYWORDS=		cran
 VARIANTS=		std
-SDESC[std]=		Matrix and Vector row/column functions
-HOMEPAGE=		https://github.com/HenrikBengtsson/matrixStats
+SDESC[std]=		Robust PCA by Projection Pursuit
+HOMEPAGE=		https://github.com/valentint/pcaPP
 CONTACT=		CRAN_Automaton[cran@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		CRAN/src/contrib
 			https://loki.dragonflybsd.org/cranfiles/
-DISTFILE[1]=		matrixStats_1.5.0.tar.gz:main
+DISTFILE[1]=		pcaPP_2.0-5.tar.gz:main
 DIST_SUBDIR=		CRAN
 DF_INDEX=		1
 
@@ -22,12 +22,13 @@ OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 # License listed on https://cran.r-project.org/
-# => Artistic-2.0
+# => GPL (>= 3)
 
 USES=			cran gmake
-DISTNAME=		matrixStats
+DISTNAME=		pcaPP
 GENERATED=		yes
 INSTALL_REQ_TOOLCHAIN=	yes
 
+BUILDRUN_DEPENDS=	R-mvtnorm:single:std
 
 

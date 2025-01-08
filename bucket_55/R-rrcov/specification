@@ -1,18 +1,18 @@
-DEF[PORTVERSION]=	1.5.0
+DEF[PORTVERSION]=	1.7-6
 # ------------------------------------------------------------------------
 
-NAMEBASE=		R-matrixStats
+NAMEBASE=		R-rrcov
 VERSION=		${PORTVERSION}
 KEYWORDS=		cran
 VARIANTS=		std
-SDESC[std]=		Matrix and Vector row/column functions
-HOMEPAGE=		https://github.com/HenrikBengtsson/matrixStats
+SDESC[std]=		Scalable Estimators with High Breakdown Point
+HOMEPAGE=		https://github.com/valentint/rrcov
 CONTACT=		CRAN_Automaton[cran@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		CRAN/src/contrib
 			https://loki.dragonflybsd.org/cranfiles/
-DISTFILE[1]=		matrixStats_1.5.0.tar.gz:main
+DISTFILE[1]=		rrcov_1.7-6.tar.gz:main
 DIST_SUBDIR=		CRAN
 DF_INDEX=		1
 
@@ -22,12 +22,15 @@ OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 # License listed on https://cran.r-project.org/
-# => Artistic-2.0
+# => GPL (>= 3)
 
 USES=			cran gmake
-DISTNAME=		matrixStats
+DISTNAME=		rrcov
 GENERATED=		yes
 INSTALL_REQ_TOOLCHAIN=	yes
 
+BUILDRUN_DEPENDS=	R-robustbase:single:std
+			R-mvtnorm:single:std
+			R-pcaPP:single:std
 
 
