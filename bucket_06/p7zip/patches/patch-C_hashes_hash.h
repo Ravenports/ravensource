@@ -1,4 +1,4 @@
---- C/hashes/hash.h.orig	2023-03-03 12:16:28 UTC
+--- C/hashes/hash.h.orig	2024-10-17 08:03:40 UTC
 +++ C/hashes/hash.h
 @@ -42,6 +42,11 @@
  

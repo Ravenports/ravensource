@@ -1,4 +1,4 @@
---- CPP/7zip/Archive/Zip/ZipItem.cpp.orig	2023-03-03 12:16:28 UTC
+--- CPP/7zip/Archive/Zip/ZipItem.cpp.orig	2024-10-17 08:03:40 UTC
 +++ CPP/7zip/Archive/Zip/ZipItem.cpp
 @@ -425,7 +425,11 @@ void CItem::GetUnicodeString(UString &re
        size_t dlen = slen * 4;
