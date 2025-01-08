@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	2.0.0
+DEF[PORTVERSION]=	2.5.0
+DEF[SOVERSION]=		2.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		termbox2
@@ -26,6 +27,7 @@ FPC_EQUIVALENT=		devel/termbox
 
 USES=			gmake
 INSTALL_REQ_TOOLCHAIN=	yes
+SOVERSION=		${SOVERSION}
 
 post-patch:
 	${REINPLACE_CMD} "s!__PREFIX__!${STAGEDIR}${PREFIX}!" ${WRKSRC}/Makefile
@@ -34,4 +36,4 @@ do-install:
 	(cd ${WRKSRC} && gmake install_h install_so install_a)
 
 post-install:
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libtermbox.so.2
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libtermbox2.so
