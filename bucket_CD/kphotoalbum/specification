@@ -85,60 +85,11 @@ BUILDRUN_DEPENDS=	qt6-qtbase:primary:std
 			phonon:primary:std
 			exiv2:primary:std
 
-# We need the libkdcraw:set:std in BUILDRUN_DEPENDS, due to:
-#
-# CMake Error at /raven/lib/cmake/KDcrawQt6/KDcrawQt6Targets.cmake:84 (message):
-#  The imported target "KDcrawQt6" references the file
-#
-#     "/raven/lib/libKDcrawQt6.so.5.0.0"
-#
-
 USES=			cmake qt6 desktop-utils:primary pkgconfig gettext
 			c++:primary perl:build jpeg tiff sqlite shebangfix
-
+XORG_COMPONENTS=	x11
 SHEBANG_FILES=		{{WRKSRC}}/scripts/open-raw.pl
 			{{WRKSRC}}/scripts/kpa-backup.sh
 
-XORG_COMPONENTS=	x11
-
 CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH="{{PREFIX}}/lib/qt6/cmake/"
-
-post-stage:
-	${MKDIR} ${STAGEDIR}${PREFIX}/bin
-	${MKDIR} ${STAGEDIR}${PREFIX}/etc/xdg
-	${MKDIR} ${STAGEDIR}${PREFIX}/lib
-	${MKDIR} ${STAGEDIR}${PREFIX}/share/applications
-	${MKDIR} ${STAGEDIR}${PREFIX}/share/metainfo
-	${MKDIR} ${STAGEDIR}${PREFIX}/share/doc/HTML/en/kphotoalbum
-
-	${MV} ${PREFIX}/bin/kpa-backup.sh ${STAGEDIR}${PREFIX}/bin/
-	${MV} ${PREFIX}/bin/kpa-thumbnailtool ${STAGEDIR}${PREFIX}/bin/
-	${MV} ${PREFIX}/bin/kphotoalbum ${STAGEDIR}${PREFIX}/bin/
-	${MV} ${PREFIX}/bin/open-raw.pl ${STAGEDIR}${PREFIX}/bin/
-	${MV} ${PREFIX}/etc/xdg/kphotoalbumrc ${STAGEDIR}${PREFIX}/etc/xdg/
-	${MV} ${PREFIX}/lib/libkpa*.so ${STAGEDIR}${PREFIX}/lib/
-
-	${MV} ${PREFIX}/share/applications/org.kde.kphotoalbum* ${STAGEDIR}${PREFIX}/share/applications/
-	${MV} ${PREFIX}/share/kphotoalbum ${STAGEDIR}${PREFIX}/share/kphotoalbum
-	${MV} ${PREFIX}/share/metainfo/org.kde.kphotoalbum* ${STAGEDIR}${PREFIX}/share/metainfo/
-	${MV} ${PREFIX}/share/doc/HTML/en/kphotoalbum ${STAGEDIR}${PREFIX}/share/doc/HTML/en/
-
-	for dim in 16x16 22x22 48x48 64x64; do \
-		${MKDIR} ${STAGEDIR}${PREFIX}/share/icons/hicolor/$${dim}/actions ; \
-		${MV} ${PREFIX}/share/icons/hicolor/$${dim}/actions/open-raw.png    \
-			${STAGEDIR}${PREFIX}/share/icons/hicolor/$${dim}/actions/ ; \
-	done
-	for dim in 16x16 22x22 32x32 48x48 64x64; do \
-		${MKDIR} ${STAGEDIR}${PREFIX}/share/icons/hicolor/$${dim}/apps ; \
-		${MV} ${PREFIX}/share/icons/hicolor/$${dim}/apps/kphotoalbum.png \
-			${STAGEDIR}${PREFIX}/share/icons/hicolor/$${dim}/apps/ ; \
-	done
-	${MKDIR} ${STAGEDIR}${PREFIX}/share/icons/hicolor/scalable/apps
-	${MV} ${PREFIX}/share/icons/hicolor/scalable/apps/kphotoalbum.svg \
-		${STAGEDIR}${PREFIX}/share/icons/hicolor/scalable/apps/
-
-	cd ${PREFIX}/share/locale && (${FIND} . -name "kphotoalbum.mo" | \
-		${XARGS} -I {} ${SH} -c '(${MKDIR} ${STAGEDIR}${PREFIX}/share/locale/$$(${DIRNAME} {}) && ${MV} -v ${PREFIX}/share/locale/{} ${STAGEDIR}${PREFIX}/share/locale/{})')
-
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/kphotoalbum
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libkpa*.so
+MAKE_ARGS=		DESTDIR="{{STAGEDIR}}"
