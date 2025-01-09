@@ -1,0 +1,53 @@
+# TODO: EXTRACT_INFO(KDE6_APPLICATIONS_VERSION)
+DEF[PORTVERSION]=	24.12.0
+DEF[SOVERSION]=		5.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libkdcraw
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		std
+SDESC[std]=		LibRaw interface for KDE
+HOMEPAGE=		https://www.digikam.org/
+CONTACT=		Michael_Neumann[mneumann@ntecs.de]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://download.kde.org/stable/release-service/${PORTVERSION}/src/
+DISTFILE[1]=		libkdcraw-${PORTVERSION}.tar.xz:main
+
+SPKGS[std]=		set primary dev
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:primary
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/LICENSES/GPL-2.0-or-later.txt
+LICENSE_SCHEME=		solo
+LICENSE_TERMS=		primary:{{WRKSRC}}/LICENSES/GPL-2.0-or-later.txt
+
+FPC_EQUIVALENT=		graphics/libkdcraw
+
+BUILD_DEPENDS=		qt6-qtbase:dev:std
+			qt6-qttools:set:std
+			kf6-extra-cmake-modules:set:std
+			libraw:dev:std
+
+BUILDRUN_DEPENDS=	qt6-qtbase:primary:std
+			libraw:primary:std
+
+USES=			cmake qt6 c++:primary jpeg pkgconfig
+
+CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt6/cmake/
+			-DENABLE_RAWSPEED=True
+			-DQT_MAJOR_VERSION=6
+			-DWITH_OpenMP:BOOL=False
+
+SOVERSION=		${SOVERSION}
+
+post-stage:
+	${MKDIR} -p ${STAGEDIR}${PREFIX}/lib/cmake
+	${MV} ${PREFIX}/include/KDcrawQt6 ${STAGEDIR}${PREFIX}/include/KDcrawQt6
+	${MV} ${PREFIX}/lib/cmake/KDcrawQt6 ${STAGEDIR}${PREFIX}/lib/cmake/KDcrawQt6
+	${MV} ${PREFIX}/lib/libKDcrawQt6* ${STAGEDIR}${PREFIX}/lib/
+	${MV} ${PREFIX}/share/qlogging-categories6 ${STAGEDIR}${PREFIX}/share
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libKDcrawQt6.so

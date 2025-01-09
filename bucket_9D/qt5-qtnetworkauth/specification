@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	EXTRACT_INFO(QT5_VERSION)
+DEF[MINOR_VER]=		${PORTVERSION:R}
+DEF[COMPONENT]=		qtnetworkauth
+DEF[COMPONENT_CASED]=	QtNetworkAuth
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		qt5-${COMPONENT}
+VERSION=		${PORTVERSION}
+KEYWORDS=		net devel
+VARIANTS=		std
+SDESC[std]=		Qt5 - ${COMPONENT_CASED} component
+HOMEPAGE=		https://www.qt.io/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://qt.mirror.constant.com/official_releases/qt/${MINOR_VER}/${PORTVERSION}/submodules/
+DISTFILE[1]=		${COMPONENT}-everywhere-opensource-src-${PORTVERSION}.tar.xz:main
+
+SPKGS[std]=		set primary dev
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		net/qt5-networkauth
+
+BUILD_DEPENDS=		qt5-qttools:set:std
+RUN_DEPENDS=		qt5-qtbase:set:std
+
+USES=			qt5 pkgconfig perl:build cpe
+CPE_VENDOR=		qt
+CPE_PRODUCT=		qt
+
+DISTNAME=		${COMPONENT}-everywhere-src-${PORTVERSION}
+PLIST_SUB=		QTVER=${PORTVERSION}
+			SOMAJORMIN=${PORTVERSION:R}
+SOVERSION=		${PORTVERSION}

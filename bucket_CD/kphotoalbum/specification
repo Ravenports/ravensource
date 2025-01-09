@@ -1,0 +1,144 @@
+DEF[PORTVERSION]=	6.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		kphotoalbum
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		std
+SDESC[std]=		Image viewer and organizer for KDE
+HOMEPAGE=		https://www.kphotoalbum.org/
+CONTACT=		Michael_Neumann[mneumann@ntecs.de]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://download.kde.org/stable/kphotoalbum/${PORTVERSION}/
+DISTFILE[1]=		kphotoalbum-${PORTVERSION}.tar.xz:main
+
+SPKGS[std]=		set primary docs nls
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:primary
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/LICENSES/GPL-2.0-or-later.txt
+LICENSE_SCHEME=		solo
+LICENSE_TERMS=		primary:{{WRKSRC}}/LICENSES/GPL-2.0-or-later.txt
+
+FPC_EQUIVALENT=		graphics/kphotoalbum
+
+BUILD_DEPENDS=		qt6-qtbase:dev:std
+			qt6-qttools:set:std
+			qt6-qtsvg:dev:std
+			qt6-qtdeclarative:dev:std
+			kf6-extra-cmake-modules:set:std
+			kf6-karchive:dev:std
+			kf6-kcompletion:dev:std
+			kf6-kconfig:dev:std
+			kf6-kcoreaddons:dev:std
+			kf6-ki18n:dev:std
+			kf6-kiconthemes:dev:std
+			kf6-kjobwidgets:dev:std
+			kf6-kio:dev:std
+			kf6-ktextwidgets:dev:std
+			kf6-kxmlgui:dev:std
+			kf6-kwidgetsaddons:dev:std
+			kf6-kbookmarks:dev:std
+			kf6-kitemviews:dev:std
+			kf6-solid:dev:std
+			kf6-sonnet:dev:std
+			kf6-kwindowsystem:dev:std
+			kf6-kconfigwidgets:dev:std
+			kf6-kcodecs:dev:std
+			kf6-kservice:dev:std
+			kf6-kcolorscheme:dev:std
+			kf6-purpose:dev:std
+			kf6-kdoctools:dev:std
+			libkdcraw:dev:std
+			phonon:dev:std
+			exiv2:dev:std
+
+BUILDRUN_DEPENDS=	qt6-qtbase:primary:std
+			qt6-qtsvg:primary:std
+			qt6-qtdeclarative:primary:std
+			kf6-karchive:primary:std
+			kf6-kcompletion:primary:std
+			kf6-kconfig:primary:std
+			kf6-kcoreaddons:primary:std
+			kf6-ki18n:primary:std
+			kf6-kiconthemes:primary:std
+			kf6-kjobwidgets:primary:std
+			kf6-kio:primary:std
+			kf6-ktextwidgets:primary:std
+			kf6-kxmlgui:primary:std
+			kf6-kwidgetsaddons:primary:std
+			kf6-kbookmarks:primary:std
+			kf6-kitemviews:primary:std
+			kf6-solid:primary:std
+			kf6-sonnet:primary:std
+			kf6-kwindowsystem:primary:std
+			kf6-kconfigwidgets:primary:std
+			kf6-kcodecs:primary:std
+			kf6-kservice:primary:std
+			kf6-kcolorscheme:primary:std
+			kf6-purpose:primary:std
+			kf6-kdoctools:primary:std
+			libkdcraw:primary:std
+			phonon:primary:std
+			exiv2:primary:std
+
+# We need the libkdcraw:set:std in BUILDRUN_DEPENDS, due to:
+#
+# CMake Error at /raven/lib/cmake/KDcrawQt6/KDcrawQt6Targets.cmake:84 (message):
+#  The imported target "KDcrawQt6" references the file
+#
+#     "/raven/lib/libKDcrawQt6.so.5.0.0"
+#
+
+USES=			cmake qt6 desktop-utils:primary pkgconfig gettext
+			c++:primary perl:build jpeg tiff sqlite shebangfix
+
+SHEBANG_FILES=		{{WRKSRC}}/scripts/open-raw.pl
+			{{WRKSRC}}/scripts/kpa-backup.sh
+
+XORG_COMPONENTS=	x11
+
+CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH="{{PREFIX}}/lib/qt6/cmake/"
+
+post-stage:
+	${MKDIR} ${STAGEDIR}${PREFIX}/bin
+	${MKDIR} ${STAGEDIR}${PREFIX}/etc/xdg
+	${MKDIR} ${STAGEDIR}${PREFIX}/lib
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/applications
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/metainfo
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/doc/HTML/en/kphotoalbum
+
+	${MV} ${PREFIX}/bin/kpa-backup.sh ${STAGEDIR}${PREFIX}/bin/
+	${MV} ${PREFIX}/bin/kpa-thumbnailtool ${STAGEDIR}${PREFIX}/bin/
+	${MV} ${PREFIX}/bin/kphotoalbum ${STAGEDIR}${PREFIX}/bin/
+	${MV} ${PREFIX}/bin/open-raw.pl ${STAGEDIR}${PREFIX}/bin/
+	${MV} ${PREFIX}/etc/xdg/kphotoalbumrc ${STAGEDIR}${PREFIX}/etc/xdg/
+	${MV} ${PREFIX}/lib/libkpa*.so ${STAGEDIR}${PREFIX}/lib/
+
+	${MV} ${PREFIX}/share/applications/org.kde.kphotoalbum* ${STAGEDIR}${PREFIX}/share/applications/
+	${MV} ${PREFIX}/share/kphotoalbum ${STAGEDIR}${PREFIX}/share/kphotoalbum
+	${MV} ${PREFIX}/share/metainfo/org.kde.kphotoalbum* ${STAGEDIR}${PREFIX}/share/metainfo/
+	${MV} ${PREFIX}/share/doc/HTML/en/kphotoalbum ${STAGEDIR}${PREFIX}/share/doc/HTML/en/
+
+	for dim in 16x16 22x22 48x48 64x64; do \
+		${MKDIR} ${STAGEDIR}${PREFIX}/share/icons/hicolor/$${dim}/actions ; \
+		${MV} ${PREFIX}/share/icons/hicolor/$${dim}/actions/open-raw.png    \
+			${STAGEDIR}${PREFIX}/share/icons/hicolor/$${dim}/actions/ ; \
+	done
+	for dim in 16x16 22x22 32x32 48x48 64x64; do \
+		${MKDIR} ${STAGEDIR}${PREFIX}/share/icons/hicolor/$${dim}/apps ; \
+		${MV} ${PREFIX}/share/icons/hicolor/$${dim}/apps/kphotoalbum.png \
+			${STAGEDIR}${PREFIX}/share/icons/hicolor/$${dim}/apps/ ; \
+	done
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/icons/hicolor/scalable/apps
+	${MV} ${PREFIX}/share/icons/hicolor/scalable/apps/kphotoalbum.svg \
+		${STAGEDIR}${PREFIX}/share/icons/hicolor/scalable/apps/
+
+	cd ${PREFIX}/share/locale && (${FIND} . -name "kphotoalbum.mo" | \
+		${XARGS} -I {} ${SH} -c '(${MKDIR} ${STAGEDIR}${PREFIX}/share/locale/$$(${DIRNAME} {}) && ${MV} -v ${PREFIX}/share/locale/{} ${STAGEDIR}${PREFIX}/share/locale/{})')
+
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/kphotoalbum
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libkpa*.so
