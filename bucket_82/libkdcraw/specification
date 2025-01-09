@@ -21,8 +21,10 @@ OPTIONS_STANDARD=	none
 
 LICENSE=		GPLv2+:primary
 LICENSE_FILE=		GPLv2+:{{WRKSRC}}/LICENSES/GPL-2.0-or-later.txt
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/kdcraw.h
+LICENSE_AWK=		TERMS:"KDCRAW_H"
 LICENSE_SCHEME=		solo
-LICENSE_TERMS=		primary:{{WRKSRC}}/LICENSES/GPL-2.0-or-later.txt
 
 FPC_EQUIVALENT=		graphics/libkdcraw
 
@@ -43,3 +45,6 @@ CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt6/cmake
 MAKE_ARGS=		DESTDIR="{{STAGEDIR}}"
 
 SOVERSION=		${SOVERSION}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib*.so
