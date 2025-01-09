@@ -842,7 +842,6 @@ include/qt6/QtCore/%%QTVER%%/QtCore/private/qcollator_p.h
 include/qt6/QtCore/%%QTVER%%/QtCore/private/qconfig_p.h
 include/qt6/QtCore/%%QTVER%%/QtCore/private/qcore_unix_p.h
 include/qt6/QtCore/%%QTVER%%/QtCore/private/qcoreapplication_p.h
-include/qt6/QtCore/%%QTVER%%/QtCore/private/qcorecmdlineargs_p.h
 include/qt6/QtCore/%%QTVER%%/QtCore/private/qcoreevent_p.h
 include/qt6/QtCore/%%QTVER%%/QtCore/private/qdatastream_p.h
 include/qt6/QtCore/%%QTVER%%/QtCore/private/qdataurl_p.h
@@ -949,6 +948,7 @@ include/qt6/QtCore/%%QTVER%%/QtCore/private/qsharedmemory_p.h
 include/qt6/QtCore/%%QTVER%%/QtCore/private/qsimd_p.h
 include/qt6/QtCore/%%QTVER%%/QtCore/private/qsimd_x86_p.h
 include/qt6/QtCore/%%QTVER%%/QtCore/private/qsingleshottimer_p.h
+include/qt6/QtCore/%%QTVER%%/QtCore/private/qsmallbytearray_p.h
 include/qt6/QtCore/%%QTVER%%/QtCore/private/qspan_p.h
 include/qt6/QtCore/%%QTVER%%/QtCore/private/qstorageinfo_p.h
 include/qt6/QtCore/%%QTVER%%/QtCore/private/qstringalgorithms_p.h
@@ -975,6 +975,7 @@ include/qt6/QtCore/%%QTVER%%/QtCore/private/qtransposeproxymodel_p.h
 include/qt6/QtCore/%%QTVER%%/QtCore/private/qunicodetables_p.h
 include/qt6/QtCore/%%QTVER%%/QtCore/private/qunicodetools_p.h
 include/qt6/QtCore/%%QTVER%%/QtCore/private/quniquehandle_p.h
+include/qt6/QtCore/%%QTVER%%/QtCore/private/quniquehandle_types_p.h
 include/qt6/QtCore/%%QTVER%%/QtCore/private/qurl_p.h
 include/qt6/QtCore/%%QTVER%%/QtCore/private/qvariant_p.h
 include/qt6/QtCore/%%QTVER%%/QtCore/private/qvariantanimation_p.h
@@ -1317,6 +1318,7 @@ include/qt6/QtGui/QtEvents
 include/qt6/QtGui/QtGui
 include/qt6/QtGui/QtGuiDepends
 include/qt6/QtGui/QtGuiVersion
+include/qt6/QtGui/properties_interface.h
 include/qt6/QtGui/qabstractfileiconprovider.h
 include/qt6/QtGui/qabstracttextdocumentlayout.h
 include/qt6/QtGui/qaccessible.h
@@ -2716,6 +2718,7 @@ lib/qt6/cmake/Qt6/QtBuildOptionsHelpers.cmake
 lib/qt6/cmake/Qt6/QtBuildPathsHelpers.cmake
 lib/qt6/cmake/Qt6/QtBuildRepoExamplesHelpers.cmake
 lib/qt6/cmake/Qt6/QtBuildRepoHelpers.cmake
+lib/qt6/cmake/Qt6/QtBuildStaticDocToolsScript.cmake
 lib/qt6/cmake/Qt6/QtCMakeHelpers.cmake
 lib/qt6/cmake/Qt6/QtCMakePackageVersionFile.cmake.in
 lib/qt6/cmake/Qt6/QtCMakeVersionHelpers.cmake
@@ -2816,6 +2819,7 @@ lib/qt6/cmake/Qt6/modulecppexports.h.in
 lib/qt6/cmake/Qt6/qbatchedtestrunner.in.cpp
 lib/qt6/cmake/Qt6/qt.toolchain.cmake
 lib/qt6/cmake/Qt6/3rdparty/extra-cmake-modules/COPYING-CMAKE-SCRIPTS
+lib/qt6/cmake/Qt6/3rdparty/extra-cmake-modules/REUSE.toml
 lib/qt6/cmake/Qt6/3rdparty/extra-cmake-modules/qt_attribution.json
 lib/qt6/cmake/Qt6/3rdparty/extra-cmake-modules/find-modules/ECMFindModuleHelpersStub.cmake
 lib/qt6/cmake/Qt6/3rdparty/extra-cmake-modules/find-modules/FindEGL.cmake
@@ -2831,6 +2835,7 @@ lib/qt6/cmake/Qt6/3rdparty/kwin/FindLibdrm.cmake
 lib/qt6/cmake/Qt6/3rdparty/kwin/FindLibinput.cmake
 lib/qt6/cmake/Qt6/3rdparty/kwin/FindXKB.cmake
 lib/qt6/cmake/Qt6/3rdparty/kwin/Findgbm.cmake
+lib/qt6/cmake/Qt6/3rdparty/kwin/REUSE.toml
 lib/qt6/cmake/Qt6/3rdparty/kwin/qt_attribution.json
 lib/qt6/cmake/Qt6/config.tests/binary_for_strip/CMakeLists.txt
 lib/qt6/cmake/Qt6/config.tests/binary_for_strip/lib1.cpp
@@ -2844,6 +2849,8 @@ lib/qt6/cmake/Qt6/libexec/qt-internal-ninja.in
 lib/qt6/cmake/Qt6/libexec/qt-internal-strip.bat.in
 lib/qt6/cmake/Qt6/libexec/qt-internal-strip.in
 lib/qt6/cmake/Qt6/platforms/FindIntegrityPlatformGraphics.cmake
+lib/qt6/cmake/Qt6/platforms/FindPlatformGraphics.cmake
+lib/qt6/cmake/Qt6/platforms/FindVxWorksPlatformGraphics.cmake
 lib/qt6/cmake/Qt6/platforms/Platform/Integrity.cmake
 lib/qt6/cmake/Qt6BuildInternals/Qt6BuildInternalsConfig.cmake
 lib/qt6/cmake/Qt6BuildInternals/Qt6BuildInternalsConfigVersion.cmake
@@ -3165,6 +3172,7 @@ lib/qt6/metatypes/qt6sql_release_metatypes.json
 lib/qt6/metatypes/qt6test_release_metatypes.json
 lib/qt6/metatypes/qt6widgets_release_metatypes.json
 lib/qt6/metatypes/qt6xml_release_metatypes.json
+lib/qt6/mkspecs/REUSE.toml
 lib/qt6/mkspecs/qconfig.pri
 lib/qt6/mkspecs/qmodule.pri
 lib/qt6/mkspecs/aix-g++/qmake.conf
@@ -3676,10 +3684,12 @@ lib/qt6/pkgconfig/Qt6Sql.pc
 lib/qt6/pkgconfig/Qt6Test.pc
 lib/qt6/pkgconfig/Qt6Widgets.pc
 lib/qt6/pkgconfig/Qt6Xml.pc
+lib/qt6/sbom/qtbase-%%QTVER%%.spdx
 libexec/qt6/cmake_automoc_parser
 libexec/qt6/ensure_pro_file.cmake
 libexec/qt6/moc
 libexec/qt6/qlalr
+libexec/qt6/qt-android-runner.py
 libexec/qt6/qt-cmake-private
 libexec/qt6/qt-cmake-private-install.cmake
 libexec/qt6/qt-cmake-standalone-test
