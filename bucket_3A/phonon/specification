@@ -50,3 +50,7 @@ CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH="{{PREFIX}}/lib/qt6/cmake/"
 MAKE_ARGS=		DESTDIR="{{STAGEDIR}}"
 
 SOVERSION=		${SOVERSION}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib*.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/qt6/plugins/designer/phonon4qt6widgets.so
