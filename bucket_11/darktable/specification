@@ -81,7 +81,10 @@ SHEBANG_FILES=		tools/common.sh
 # restricts symbol visibility on FreeBSD and causes compilation failures
 # on, for instance, the cups_print module, because u_char remains
 # undefined. Remove _XOPEN_SOURCE maro definitions.
-post-patch:
+pre-configure-dragonfly:
+	${REINPLACE_CMD} '/add_definitions."-D_XOPEN_SOURCE=.*"/d' ${WRKSRC}/CMakeLists.txt
+
+pre-configure-freebsd:
 	${REINPLACE_CMD} '/add_definitions."-D_XOPEN_SOURCE=.*"/d' ${WRKSRC}/CMakeLists.txt
 
 post-install:
