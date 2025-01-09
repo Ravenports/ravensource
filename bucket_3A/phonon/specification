@@ -42,26 +42,11 @@ BUILDRUN_DEPENDS=	qt6-qtbase:primary:std
 
 USES=			cmake qt6 pkgconfig c++:primary
 
-# NOTE: Disable phononsettings as it segfauts
+# NOTE: Disable phononsettings as it segfaults
 CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH="{{PREFIX}}/lib/qt6/cmake/"
 			-DPHONON_BUILD_QT5:BOOL=OFF
 			-DPHONON_BUILD_QT6:BOOL=ON
 			-DPHONON_BUILD_SETTINGS:BOOL=OFF
+MAKE_ARGS=		DESTDIR="{{STAGEDIR}}"
 
 SOVERSION=		${SOVERSION}
-
-post-stage:
-	${MKDIR} ${STAGEDIR}${PREFIX}/include
-	${MKDIR} ${STAGEDIR}${PREFIX}/bin
-	${MKDIR} ${STAGEDIR}${PREFIX}/lib/cmake
-	${MKDIR} ${STAGEDIR}${PREFIX}/lib/pkgconfig
-	${MKDIR} ${STAGEDIR}${PREFIX}/lib/qt6/plugins/designer
-	${MV} ${PREFIX}/include/phonon4qt6 ${STAGEDIR}${PREFIX}/include/phonon4qt6
-	${MV} ${PREFIX}/lib/libphonon* ${STAGEDIR}${PREFIX}/lib/
-	${MV} ${PREFIX}/lib/cmake/phonon4qt6 ${STAGEDIR}${PREFIX}/lib/cmake/phonon4qt6
-	${MV} ${PREFIX}/lib/pkgconfig/phonon* ${STAGEDIR}${PREFIX}/lib/pkgconfig/
-	${MV} ${PREFIX}/lib/qt6/plugins/designer/phonon* ${STAGEDIR}${PREFIX}/lib/qt6/plugins/designer/
-	cd ${PREFIX}/share/locale && (${FIND} . -name "libphonon_qt.qm" -or -name "phononsettings_qt.qm" | \
-		${XARGS} -I {} ${SH} -c '(${MKDIR} ${STAGEDIR}${PREFIX}/share/locale/$$(${DIRNAME} {}) && ${MV} -v ${PREFIX}/share/locale/{} ${STAGEDIR}${PREFIX}/share/locale/{})')
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libphonon4*.so
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/qt6/plugins/designer/phonon4*.so
