@@ -1,5 +1,4 @@
-# TODO: EXTRACT_INFO(KDE6_APPLICATIONS_VERSION)
-DEF[PORTVERSION]=	24.12.0
+DEF[PORTVERSION]=	EXTRACT_INFO(KDE6_APPLICATIONS_VERSION)
 DEF[SOVERSION]=		5.0.0
 # ----------------------------------------------------------------------------
 
@@ -37,17 +36,10 @@ BUILDRUN_DEPENDS=	qt6-qtbase:primary:std
 
 USES=			cmake qt6 c++:primary jpeg pkgconfig
 
-CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt6/cmake/
+CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt6/cmake
 			-DENABLE_RAWSPEED=True
 			-DQT_MAJOR_VERSION=6
 			-DWITH_OpenMP:BOOL=False
+MAKE_ARGS=		DESTDIR="{{STAGEDIR}}"
 
 SOVERSION=		${SOVERSION}
-
-post-stage:
-	${MKDIR} -p ${STAGEDIR}${PREFIX}/lib/cmake
-	${MV} ${PREFIX}/include/KDcrawQt6 ${STAGEDIR}${PREFIX}/include/KDcrawQt6
-	${MV} ${PREFIX}/lib/cmake/KDcrawQt6 ${STAGEDIR}${PREFIX}/lib/cmake/KDcrawQt6
-	${MV} ${PREFIX}/lib/libKDcrawQt6* ${STAGEDIR}${PREFIX}/lib/
-	${MV} ${PREFIX}/share/qlogging-categories6 ${STAGEDIR}${PREFIX}/share
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libKDcrawQt6.so
