@@ -1,4 +1,4 @@
---- src/node_postmortem_metadata.cc.orig	2024-12-10 10:44:44 UTC
+--- src/node_postmortem_metadata.cc.orig	2025-01-07 13:00:24 UTC
 +++ src/node_postmortem_metadata.cc
 @@ -13,6 +13,10 @@
  #define NODEDBG_OFFSET(Class, Member, Type) \
