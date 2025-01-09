@@ -93,3 +93,8 @@ SHEBANG_FILES=		{{WRKSRC}}/scripts/open-raw.pl
 
 CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH="{{PREFIX}}/lib/qt6/cmake/"
 MAKE_ARGS=		DESTDIR="{{STAGEDIR}}"
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/kpa-thumbnailtool
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/kphotoalbum
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib*.so
