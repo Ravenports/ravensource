@@ -8,7 +8,7 @@ DEF[PLUGINS]=		access access_output audio_filter audio_mixer audio_output codec 
 
 NAMEBASE=		vlc
 VERSION=		${PORTVERSION}
-REVISION=		4
+REVISION=		5
 KEYWORDS=		multimedia
 VARIANTS=		std
 SDESC[std]=		Qt based multimedia player and streaming server
@@ -56,11 +56,10 @@ BUILD_DEPENDS=		a52dec:set:std
 			flac:set:std
 			fluidsynth:set:std
 			fribidi:dev:std
-			glib:dev:std
-			gnutls:dev:std
-			goom:dev:std
+			gnutls:set:std
+			goom:set:std
 			gstreamer1:dev:std
-			gstreamer1-plugins-base:dev:std
+			gstreamer1-plugins-base:set:std
 			harfbuzz:dev:std
 			libarchive:dev:std
 			libass:set:std
@@ -74,18 +73,16 @@ BUILD_DEPENDS=		a52dec:set:std
 			libdvdnav:set:std
 			libdvdread:set:std
 			libebml:dev:std
-			libexecinfo:dev:std
-			libgcrypt:dev:std
+			libgcrypt:set:std
 			libglvnd:dev:std
-			libgme:dev:std
+			libgme:set:std
 			libidn:dev:std
-			libkate:dev:std
-			libmad:dev:std
-			libmatroska:dev:std
-			libmodplug:dev:std
+			libkate:set:std
+			libmad:set:std
+			libmatroska:set:std
+			libmodplug:set:std
 			libmpeg2:set:std
 # #			libmtp:dev:std
-			libnotify:dev:std
 			libogg:dev:std
 # #			libprojectm:dev:std
 			libressl:dev:std
@@ -102,7 +99,7 @@ BUILD_DEPENDS=		a52dec:set:std
 			libxkbcommon:dev:std
 # #			liveMedia:dev:std
 			minizip:dev:std
-			mpg123:dev:std
+			mpg123:set:std
 			musepack:dev:std
 			openssl30:dev:std
 			opus:dev:std
@@ -126,13 +123,11 @@ BUILD_DEPENDS=		a52dec:set:std
 			xorg-macros:single:std
 BUILDRUN_DEPENDS=	bzip2:primary:std
 			fribidi:primary:std
-			glib:primary:std
 			harfbuzz:primary:std
 			libarchive:primary:std
 			libcddb:primary:std
 			libdrm:primary:std
 			libdvdcss:primary:std
-			libexecinfo:primary:std
 			libglvnd:primary:std
 			libidn:primary:std
 # #			libmtp:primary:std
@@ -155,11 +150,11 @@ BUILDRUN_DEPENDS=	bzip2:primary:std
 
 USES=			bison desktop-utils:primary expat freetype fontconfig gettext
 			gmake iconv jpeg libtool lua:tools png pkgconfig ssl zlib
-			cpe ncurses
+			cpe ncurses execinfo:build
 XORG_COMPONENTS=	ice sm x11 xcb xcb-render-util xcb-util xcb-util-image
 			xcb-util-keysyms xcb-util-wm xext xinerama xorgproto xpm
 SDL_COMPONENTS=		sdl1 image1
-GNOME_COMPONENTS=	cairo gtk3 librsvg libxml2
+GNOME_COMPONENTS=	cairo gtk3 librsvg libxml2 glib
 
 # For some reason opencv is not picked up by configure; this needs to be
 # investigated at some point.
@@ -350,10 +345,10 @@ EXRUN[gcrypt]=		primary libgcrypt:primary:std
 EXRUN[gme]=		primary libgme:primary:std
 EXRUN[gnutls]=		primary gnutls:primary:std
 EXRUN[goom]=		primary goom:primary:std
-EXRUN[gst]=		primary gstreamer1:primary:std gstreamer1-plugins-base:primary:std
+EXRUN[gst]=		primary gstreamer1-plugins-base:primary:std
 EXRUN[kate]=		primary libkate:primary:std
 EXRUN[mad]=		primary libmad:primary:std
-EXRUN[mkv]=		primary libebml:primary:std libmatroska:primary:std
+EXRUN[mkv]=		primary libmatroska:primary:std
 EXRUN[mod]=		primary libmodplug:primary:std
 EXRUN[mpc]=		primary musepack:primary:std
 EXRUN[mpeg2]=		primary libmpeg2:primary:std
@@ -378,6 +373,7 @@ EXRUN[x265]=		primary x265:primary:std
 [BSD].BUILD_DEPENDS_ON=			libepoll-shim:dev:std
 					libgudev-devd:dev:std
 					libudev-devd:dev:std
+					libnotify:set:std
 [BSD].BUILDRUN_DEPENDS_ON=		libepoll-shim:primary:std
 					libudev-devd:primary:std
 # linux
