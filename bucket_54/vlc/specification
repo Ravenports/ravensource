@@ -3,12 +3,11 @@ DEF[SO_LIBVLC]=		5.6.1
 DEF[SO_LIBVLCCORE]=	9.0.1
 DEF[SO_LIBVLCVDPAU]=	0.0.0
 DEF[SO_LIBXCBE]=	0.0.0
-DEF[PLUGINS]=		access access_output audio_filter audio_mixer audio_output codec control demux gui keystore logger lua meta_engine misc mux notify packetizer services_discovery spu stream_extractor stream_filter stream_out text_renderer vaapi vdpau video_chroma video_filter video_output video_splitter visualization
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		vlc
 VERSION=		${PORTVERSION}
-REVISION=		8
+REVISION=		9
 KEYWORDS=		multimedia
 VARIANTS=		std
 SDESC[std]=		Qt based multimedia player and streaming server
@@ -22,7 +21,7 @@ DISTFILE[1]=		vlc-${PORTVERSION}.tar.xz:main
 SPKGS[std]=		set primary dev man nls docs a52 alsa aom ass avahi bluray caca
 			chromap chromec dav1d dca dbus dirac dvbpsi dvdnav dvdread faad
 			ffmpeg flac fluidsynth gcrypt gme gnutls goom gst kate mad mkv
-			mod mpc mpeg2 mpg123 notify ogg opus oss samplerate secret sndio
+			mod mpc mpeg2 mpg123 mtp notify ogg opus oss samplerate secret sndio
 			soxr speex taglib theora twolame upnp vorbis vpx x264 x265
 
 OPTIONS_AVAILABLE=	BSD
@@ -81,7 +80,7 @@ BUILD_DEPENDS=		a52dec:set:std
 			libmatroska:set:std
 			libmodplug:set:std
 			libmpeg2:set:std
-# #			libmtp:dev:std
+			libmtp:set:std
 			libogg:set:std
 # #			libprojectm:dev:std
 			libressl:dev:std
@@ -127,7 +126,6 @@ BUILDRUN_DEPENDS=	fribidi:primary:std
 			libdvdcss:primary:std
 			libglvnd:primary:std
 			libidn:primary:std
-# #			libmtp:primary:std
 # #			libprojectm:primary:std
 			libvdpau:primary:std
 			libxkbcommon:primary:std
@@ -151,7 +149,7 @@ SDL_COMPONENTS=		sdl1 image1
 GNOME_COMPONENTS=	cairo gtk3 librsvg libxml2 glib
 
 # VLC needs very old opencv (v2) but RP has incompatible v4.
-# video4linux, libmtp, projectm, srt and liveMedia ("live555") disabled for now;
+# video4linux, projectm, srt and liveMedia ("live555") disabled for now;
 # otherwise the build fails.
 # libva support disabled because ffmpeg is built without it - so no acceleration for now.
 
@@ -228,7 +226,7 @@ CONFIGURE_ARGS=		--enable-a52
 			--enable-mod
 			--enable-mpg123
 			--enable-mpc
-			--disable-mtp
+			--enable-mtp
 			--enable-ncurses
 			--disable-nfs
 			--enable-nls
@@ -348,6 +346,7 @@ EXRUN[mod]=		primary libmodplug:primary:std
 EXRUN[mpc]=		primary musepack:primary:std
 EXRUN[mpeg2]=		primary libmpeg2:primary:std
 EXRUN[mpg123]=		primary mpg123:primary:std
+EXRUN[mtp]=		primary libmtp:primary:std
 EXRUN[notify]=		primary libnotify:primary:std
 EXRUN[ogg]=		primary libogg:primary:std
 EXRUN[opus]=		primary opus:primary:std
@@ -387,11 +386,6 @@ pre-configure:
 
 post-install:
 	${RM} -r ${STAGEDIR}${PREFIX}/share/kde4
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libvlc.so
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libvlccore.so
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/vlc/libvlc_vdpau.so
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/vlc/libvlc_xcb_events.so
-.for p in ${PLUGINS}
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/vlc/plugins/${p}/*.so
-.endfor
-	${RM} ${PREFIX}/lib/pkgconfig/Qt5*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib*.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/vlc/lib*.so
+	${FIND} ${STAGEDIR}${PREFIX}/lib/vlc/plugins -type f -name "*.so" | ${XARGS} ${STRIP_CMD}
