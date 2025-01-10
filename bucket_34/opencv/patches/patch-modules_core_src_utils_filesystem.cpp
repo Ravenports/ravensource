@@ -1,11 +1,11 @@
---- modules/core/src/utils/filesystem.cpp.orig	2024-06-02 11:41:07 UTC
+--- modules/core/src/utils/filesystem.cpp.orig	2025-01-08 12:47:46 UTC
 +++ modules/core/src/utils/filesystem.cpp
 @@ -34,7 +34,7 @@
  #include <errno.h>
  #include <io.h>
  #include <stdio.h>
--#elif defined __linux__ || defined __APPLE__ || defined __HAIKU__ || defined __FreeBSD__ || defined __GNU__ || defined __EMSCRIPTEN__
-+#elif defined __linux__ || defined __APPLE__ || defined __HAIKU__ || defined __FreeBSD__ || defined __GNU__ || defined __EMSCRIPTEN__ || defined __DragonFly__ || defined __sun__ || defined __NetBSD__
+-#elif defined __linux__ || defined __APPLE__ || defined __HAIKU__ || defined __FreeBSD__ || defined __GNU__ || defined __EMSCRIPTEN__ || defined __QNX__
++#elif defined __linux__ || defined __APPLE__ || defined __HAIKU__ || defined __FreeBSD__ || defined __GNU__ || defined __EMSCRIPTEN__ || defined __QNX__ || defined __DragonFly__ || defined __sun__ || defined __NetBSD__
  #include <sys/types.h>
  #include <sys/stat.h>
  #include <fcntl.h>
@@ -13,8 +13,8 @@
      sz = GetCurrentDirectoryA((DWORD)buf.size(), buf.data());
      return cv::String(buf.data(), (size_t)sz);
  #endif
--#elif defined __linux__ || defined __APPLE__ || defined __HAIKU__ || defined __FreeBSD__ || defined __EMSCRIPTEN__
-+#elif defined __linux__ || defined __APPLE__ || defined __HAIKU__ || defined __FreeBSD__ || defined __EMSCRIPTEN__ || defined __DragonFly__ || defined __sun__ || defined __NetBSD__
+-#elif defined __linux__ || defined __APPLE__ || defined __HAIKU__ || defined __FreeBSD__ || defined __EMSCRIPTEN__ || defined __QNX__
++#elif defined __linux__ || defined __APPLE__ || defined __HAIKU__ || defined __FreeBSD__ || defined __EMSCRIPTEN__ || defined __QNX__ || defined __DragonFly__ || defined __sun__ || defined __NetBSD__
      for(;;)
      {
          char* p = ::getcwd(buf.data(), buf.size());
@@ -22,8 +22,8 @@
  #else
      int result = _mkdir(path.c_str());
  #endif
--#elif defined __linux__ || defined __APPLE__ || defined __HAIKU__ || defined __FreeBSD__ || defined __EMSCRIPTEN__
-+#elif defined __linux__ || defined __APPLE__ || defined __HAIKU__ || defined __FreeBSD__ || defined __EMSCRIPTEN__ || defined __DragonFly__ || defined __sun__ || defined __NetBSD__
+-#elif defined __linux__ || defined __APPLE__ || defined __HAIKU__ || defined __FreeBSD__ || defined __EMSCRIPTEN__ || defined __QNX__
++#elif defined __linux__ || defined __APPLE__ || defined __HAIKU__ || defined __FreeBSD__ || defined __EMSCRIPTEN__ || defined __QNX__ || defined __DragonFly__ || defined __sun__ || defined __NetBSD__
      int result = mkdir(path.c_str(), 0777);
  #else
      int result = -1;
@@ -31,8 +31,8 @@
      Impl& operator=(const Impl&); // disabled
  };
  
--#elif defined __linux__ || defined __APPLE__ || defined __HAIKU__ || defined __FreeBSD__ || defined __GNU__ || defined __EMSCRIPTEN__
-+#elif defined __linux__ || defined __APPLE__ || defined __HAIKU__ || defined __FreeBSD__ || defined __GNU__ || defined __EMSCRIPTEN__ || defined __DragonFly__ || defined __sun__ || defined __NetBSD__
+-#elif defined __linux__ || defined __APPLE__ || defined __HAIKU__ || defined __FreeBSD__ || defined __GNU__ || defined __EMSCRIPTEN__ || defined __QNX__
++#elif defined __linux__ || defined __APPLE__ || defined __HAIKU__ || defined __FreeBSD__ || defined __GNU__ || defined __EMSCRIPTEN__ || defined __QNX__ || defined __DragonFly__ || defined __sun__ || defined __NetBSD__
  
  struct FileLock::Impl
  {
