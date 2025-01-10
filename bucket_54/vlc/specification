@@ -8,7 +8,7 @@ DEF[PLUGINS]=		access access_output audio_filter audio_mixer audio_output codec 
 
 NAMEBASE=		vlc
 VERSION=		${PORTVERSION}
-REVISION=		3
+REVISION=		4
 KEYWORDS=		multimedia
 VARIANTS=		std
 SDESC[std]=		Qt based multimedia player and streaming server
@@ -21,9 +21,9 @@ DISTFILE[1]=		vlc-${PORTVERSION}.tar.xz:main
 
 SPKGS[std]=		set primary dev man nls docs a52 alsa aom ass avahi bluray caca
 			chromap chromec dav1d dca dbus dirac dvbpsi dvdnav dvdread faad
-			ffmpeg flac gcrypt gme gnutls goom gst kate mad mkv mod mpc mpeg2
-			mpg123 notify ogg opus oss samplerate secret sndio soxr speex
-			theora twolame upnp vorbis vpx x264 x265
+			ffmpeg flac fluidsynth gcrypt gme gnutls goom gst kate mad mkv
+			mod mpc mpeg2 mpg123 notify ogg opus oss samplerate secret sndio
+			soxr speex theora twolame upnp vorbis vpx x264 x265
 
 OPTIONS_AVAILABLE=	BSD
 OPTIONS_STANDARD=	BSD
@@ -54,7 +54,7 @@ BUILD_DEPENDS=		a52dec:set:std
 			faad2:set:std
 			ffmpeg6:set:std
 			flac:set:std
-# #			fluidsynth:dev:std
+			fluidsynth:set:std
 			fribidi:dev:std
 			glib:dev:std
 			gnutls:dev:std
@@ -83,7 +83,7 @@ BUILD_DEPENDS=		a52dec:set:std
 			libmad:dev:std
 			libmatroska:dev:std
 			libmodplug:dev:std
-			libmpeg2:dev:std
+			libmpeg2:set:std
 # #			libmtp:dev:std
 			libnotify:dev:std
 			libogg:dev:std
@@ -125,7 +125,6 @@ BUILD_DEPENDS=		a52dec:set:std
 			x265:dev:std
 			xorg-macros:single:std
 BUILDRUN_DEPENDS=	bzip2:primary:std
-# #			fluidsynth:primary:std
 			fribidi:primary:std
 			glib:primary:std
 			harfbuzz:primary:std
@@ -162,7 +161,7 @@ XORG_COMPONENTS=	ice sm x11 xcb xcb-render-util xcb-util xcb-util-image
 SDL_COMPONENTS=		sdl1 image1
 GNOME_COMPONENTS=	cairo gtk3 librsvg libxml2
 
-# For some reason fluidsynth and opencv are not picked up by configure; this needs to be
+# For some reason opencv is not picked up by configure; this needs to be
 # investigated at some point.
 # video4linux, taglib, libmtp, projectm, srt, libtiger and liveMedia ("live555") disabled for now;
 # otherwise the build fails.
@@ -205,7 +204,7 @@ CONFIGURE_ARGS=		--enable-a52
 			--disable-fdkaac
 			--enable-flac
 			--disable-fluidlite
-			--disable-fluidsynth
+			--enable-fluidsynth
 			--enable-fontconfig
 			--disable-freerdp
 			--enable-freetype
@@ -316,6 +315,7 @@ CONFIGURE_ARGS=		--enable-a52
 			BUILDCC="{{CC}}"
 CONFIGURE_ENV=		LIVE555_CFLAGS="-I{{LOCALBASE}}/include/liveMedia -I{{LOCALBASE}}/include/UsageEnvironment -I{{LOCALBASE}}/include/groupsock -I{{LOCALBASE}}/include/BasicUsageEnvironment" LIVE555_LIBS="-L{{LOCALBASE}}/lib -lliveMedia -lgroupsock -lBasicUsageEnvironment -lUsageEnvironment -L{{OPENSSLLIB}} -lssl -lcrypto"
 CFLAGS=			-Wno-deprecated-declarations
+			-Wno-shadow
 
 INSTALL_REQ_TOOLCHAIN=	yes
 PLIST_SUB=		SO_LIBVLC=${SO_LIBVLC}
@@ -345,7 +345,7 @@ EXRUN[dvdread]=		primary libdvdread:primary:std
 EXRUN[faad]=		primary faad2:primary:std
 EXRUN[ffmpeg]=		primary ffmpeg6:primary:std
 EXRUN[flac]=		primary flac:primary:std flac:cxx:std
-# EXRUN[fluidsynth]=	primary fluidsynth:primary:std libsndfile:primary:std
+EXRUN[fluidsynth]=	primary fluidsynth:primary:std
 EXRUN[gcrypt]=		primary libgcrypt:primary:std
 EXRUN[gme]=		primary libgme:primary:std
 EXRUN[gnutls]=		primary gnutls:primary:std
