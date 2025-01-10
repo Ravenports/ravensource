@@ -656,7 +656,12 @@ EOF;
                                    array ("\$lowversion", "", "", "", "&&"),
                                    $clause);
             $teststr = "\$required = " . $xformed . ";";
-            eval($teststr . "\n");
+            try {
+               eval($teststr . "\n");
+            } catch (Throwable $t) {
+               $required = false;
+               echo("failed eval of $req");
+            }
             if ($required) {
                array_push($clean_reqs2, substr($req, 0, $sc));
             }
