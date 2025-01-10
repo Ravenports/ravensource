@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.6.2
+DEF[PORTVERSION]=	3.0.0
 DEF[SOVERSION]=		${PORTVERSION}
 DEF[SOMINOR]=		${PORTVERSION:R:E}
 # ----------------------------------------------------------------------------
@@ -40,14 +40,15 @@ EXRUN[dev]=		flac:dev:std
 			libvorbis:dev:std
 
 USES=			cmake jpeg freetype
-CMAKE_ARGS=		-DSFML_INSTALL_PKGCONFIG_FILES=ON
-			-DSFML_USE_SYSTEM_DEPS=ON
+CMAKE_ARGS=		-DSFML_INSTALL_PKGCONFIG_FILES:BOOL=ON
+			-DSFML_USE_SYSTEM_DEPS:BOOL=ON
+			-DBUILD_SHARED_LIBS:BOOL=ON
 			-DWARNINGS_AS_ERRORS=FALSE
-XORG_COMPONENTS=	x11 xrandr xcursor
+XORG_COMPONENTS=	x11 xrandr xcursor xi
 SOVERSION=		${SOVERSION}
 PLIST_SUB=		SOMINOR=${SOMINOR}
 
-post-patch-dragonfly:
+pre-configure-dragonfly:
 	${REINPLACE_CMD} 's|FreeBSD|DragonFly|' \
 		${WRKSRC}/cmake/Config.cmake \
 		${WRKSRC}/include/SFML/Window/WindowHandle.hpp \
@@ -55,13 +56,13 @@ post-patch-dragonfly:
 	${REINPLACE_CMD} 's|dev/usb/usbhid.h|bus/u4b/usbhid.h|' \
 		${WRKSRC}/src/SFML/Window/FreeBSD/JoystickImpl.hpp
 
-post-patch-midnightbsd:
+pre-configure-midnightbsd:
 	${REINPLACE_CMD} 's|FreeBSD|MidnightBSD|' \
 		${WRKSRC}/cmake/Config.cmake \
 		${WRKSRC}/include/SFML/Window/WindowHandle.hpp \
 		${WRKSRC}/include/SFML/Config.hpp
 
-post-patch-netbsd:
+pre-configure-netbsd:
 	${REINPLACE_CMD} 's|SFML_SYSTEM_OPENBSD|SFML_SYSTEM_NETBSD|' \
 		${WRKSRC}/src/SFML/Window/CursorImpl.hpp \
 		${WRKSRC}/src/SFML/Window/GlContext.cpp \

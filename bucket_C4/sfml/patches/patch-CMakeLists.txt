@@ -1,12 +1,12 @@
---- CMakeLists.txt.orig	2024-11-09 21:00:47 UTC
+--- CMakeLists.txt.orig	2024-12-20 23:55:10 UTC
 +++ CMakeLists.txt
-@@ -292,9 +292,6 @@ if(SFML_INSTALL_PKGCONFIG_FILES)
+@@ -215,9 +215,6 @@ if(SFML_INSTALL_PKGCONFIG_FILES)
      # this could be e.g. macports on mac or msys2 on windows etc.
-     set(SFML_PKGCONFIG_DIR "/${SFML_RELATIVE_INSTALL_LIBDIR}/pkgconfig")
+     set(SFML_PKGCONFIG_DIR "${SFML_RELATIVE_INSTALL_LIBDIR}/pkgconfig")
  
 -    if(SFML_OS_FREEBSD OR SFML_OS_OPENBSD OR SFML_OS_NETBSD)
--        set(SFML_PKGCONFIG_DIR "/libdata/pkgconfig")
+-        set(SFML_PKGCONFIG_DIR "libdata/pkgconfig")
 -    endif()
  
-     sfml_set_option(SFML_PKGCONFIG_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}/${SFML_PKGCONFIG_DIR}" PATH "Install directory for SFML's pkg-config .pc files")
+     sfml_set_option(SFML_PKGCONFIG_INSTALL_DIR "${SFML_PKGCONFIG_DIR}" PATH "Install directory for SFML's pkg-config .pc files")
  

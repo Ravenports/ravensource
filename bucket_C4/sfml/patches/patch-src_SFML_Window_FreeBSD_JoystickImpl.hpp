@@ -2,9 +2,9 @@ $NetBSD: patch-src_SFML_Window_FreeBSD_JoystickImpl.hpp,v 1.1 2020/05/21 08:42:0
 
 add NetBSD support
 
---- src/SFML/Window/FreeBSD/JoystickImpl.hpp.orig	2024-11-09 21:00:47 UTC
+--- src/SFML/Window/FreeBSD/JoystickImpl.hpp.orig	2024-12-20 23:55:10 UTC
 +++ src/SFML/Window/FreeBSD/JoystickImpl.hpp
-@@ -28,6 +28,9 @@
+@@ -27,6 +27,9 @@
  ////////////////////////////////////////////////////////////
  // Headers
  ////////////////////////////////////////////////////////////
