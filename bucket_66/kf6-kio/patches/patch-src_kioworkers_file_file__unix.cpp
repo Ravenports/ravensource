@@ -1,4 +1,4 @@
---- src/kioworkers/file/file_unix.cpp.orig	2024-12-06 11:52:22 UTC
+--- src/kioworkers/file/file_unix.cpp.orig	2025-01-08 18:54:33 UTC
 +++ src/kioworkers/file/file_unix.cpp
 @@ -413,6 +413,9 @@ WorkerResult FileProtocol::tryChangeFile
  #if HAVE_SYS_XATTR_H || HAVE_SYS_EXTATTR_H

@@ -1,4 +1,4 @@
---- src/lib/util/kprocesslist_unix.cpp.orig	2024-02-21 11:24:15 UTC
+--- src/lib/util/kprocesslist_unix.cpp.orig	2025-01-03 15:25:42 UTC
 +++ src/lib/util/kprocesslist_unix.cpp
 @@ -25,7 +25,12 @@
  #include <QDir>

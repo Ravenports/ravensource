@@ -1,6 +1,6 @@
---- src/xattr_p.h.orig	2024-04-05 10:56:14 UTC
+--- src/xattr_p.h.orig	2025-01-03 15:26:16 UTC
 +++ src/xattr_p.h
-@@ -219,6 +219,8 @@ KFileMetaData::UserMetaData::Attributes
+@@ -240,6 +240,8 @@ KFileMetaData::UserMetaData::Attributes
      const ssize_t size = listxattr(encodedPath, nullptr, 0);
      #elif defined(Q_OS_MAC)
      const ssize_t size = listxattr(encodedPath, nullptr, 0, 0);
