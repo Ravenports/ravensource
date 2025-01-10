@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.05
+DEF[PORTVERSION]=	1.06
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-Algorithm-CurveFit
@@ -11,7 +11,7 @@ HOMEPAGE=		none
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		CPAN/ID:S/SM/SMUELLER
+SITES[main]=		CPAN/ID:P/PT/PTC
 DISTFILE[1]=		Algorithm-CurveFit-${PORTVERSION}.tar.gz:main
 
 SPKGS[538]=		single
@@ -23,22 +23,22 @@ VOPTS[538]=		PERL_538=ON PERL_540=OFF
 VOPTS[540]=		PERL_538=OFF PERL_540=ON
 
 # License listed in CPAN directory:
-# perl
+# perl_5
 
 GENERATED=		yes
 SINGLE_JOB=		yes
 DISTNAME=		Algorithm-CurveFit-${PORTVERSION}
 
-# ---------------------------------------------
-# |   Prerequisites extracted from META.yml
-# ---------------------------------------------
-# | configure_requires : Module::Build
-# |     build_requires : Test::More (perl 5.38.2 core) (perl 5.40.0 core)
-# |           requires : Data::Dumper (perl 5.38.2 core) (perl 5.40.0 core)
-# |           requires : Math::MatrixReal
-# |           requires : Math::Symbolic
-# |         recommends : Test::Pod
-# |         recommends : Test::Pod::Coverage
+# ----------------------------------------------
+# |   Prerequisites extracted from META.json
+# ----------------------------------------------
+# |      runtime : Data::Dumper (perl 5.38 core) (perl 5.40 core)
+# |      runtime : Math::MatrixReal
+# |      runtime : Math::Symbolic
+# |      runtime : Test::Pod
+# |      runtime : Test::Pod::Coverage
+# |        build : Test::More (perl 5.38 core) (perl 5.40 core)
+# |    configure : Module::Build
 
 [PERL_538].USES_ON=			perl:538,buildmod,run
 [PERL_538].BUILDRUN_DEPENDS_ON=		perl-Math-MatrixReal:single:538
