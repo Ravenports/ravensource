@@ -40,5 +40,10 @@ CPE_VENDOR=		libmtp_project
 
 EXRUN[tools]=		primary
 
+post-patch-dragonfly:
+	${REINPLACE_CMD} -e 's@machine/endian.h@sys/endian.h@g' \
+		${WRKSRC}/m4/byteorder.m4
+
 pre-configure:
 	cd ${WRKSRC} && MAKE=gmake sh autogen.sh
+
