@@ -8,6 +8,7 @@ DEF[PLUGINS]=		access access_output audio_filter audio_mixer audio_output codec 
 
 NAMEBASE=		vlc
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		multimedia
 VARIANTS=		std
 SDESC[std]=		Qt based multimedia player and streaming server
@@ -64,11 +65,11 @@ BUILD_DEPENDS=		a52dec:dev:std
 			libarchive:dev:std
 			libass:dev:std
 			libbluray:dev:std
-			libcaca:dev:std
+			libcaca:set:std
 			libcddb:dev:std
 			libdca:dev:std
 			libdrm:dev:std
-			libdvbpsi:dev:std
+			libdvbpsi:set:std
 			libdvdcss:dev:std
 			libdvdnav:dev:std
 			libdvdread:dev:std
@@ -155,7 +156,7 @@ BUILDRUN_DEPENDS=	bzip2:primary:std
 
 USES=			bison desktop-utils:primary expat freetype fontconfig gettext
 			gmake iconv jpeg libtool lua:tools png pkgconfig ssl zlib
-			cpe
+			cpe ncurses
 XORG_COMPONENTS=	ice sm x11 xcb xcb-render-util xcb-util xcb-util-image
 			xcb-util-keysyms xcb-util-wm xext xinerama xorgproto xpm
 SDL_COMPONENTS=		sdl1 image1
@@ -166,7 +167,6 @@ GNOME_COMPONENTS=	cairo gtk3 librsvg libxml2
 # video4linux, taglib, libmtp, projectm, srt, libtiger and liveMedia ("live555") disabled for now;
 # otherwise the build fails.
 # libva support disabled because ffmpeg is built without it - so no acceleration for now.
-# ncurses disabled since we don't have cursesw anymore.
 
 CPE_VENDOR=		videolan
 CPE_PRODUCT=		vlc_media_player
@@ -242,7 +242,7 @@ CONFIGURE_ARGS=		--enable-a52
 			--enable-mpg123
 			--enable-mpc
 			--disable-mtp
-			--disable-ncurses
+			--enable-ncurses
 			--disable-nfs
 			--enable-nls
 			--enable-notify
@@ -315,6 +315,7 @@ CONFIGURE_ARGS=		--enable-a52
 			LUA_LIBS="-L{{LUA_LIBDIR}} -llua-{{LUA_VER}}"
 			BUILDCC="{{CC}}"
 CONFIGURE_ENV=		LIVE555_CFLAGS="-I{{LOCALBASE}}/include/liveMedia -I{{LOCALBASE}}/include/UsageEnvironment -I{{LOCALBASE}}/include/groupsock -I{{LOCALBASE}}/include/BasicUsageEnvironment" LIVE555_LIBS="-L{{LOCALBASE}}/lib -lliveMedia -lgroupsock -lBasicUsageEnvironment -lUsageEnvironment -L{{OPENSSLLIB}} -lssl -lcrypto"
+CFLAGS=			-Wno-deprecated-declarations
 
 INSTALL_REQ_TOOLCHAIN=	yes
 PLIST_SUB=		SO_LIBVLC=${SO_LIBVLC}
@@ -392,6 +393,10 @@ post-extract:
 	${LN} -s /raven/lib/qt5/pkgconfig/Qt5Gui.pc /raven/lib/pkgconfig/Qt5Gui.pc
 	${LN} -s /raven/lib/qt5/pkgconfig/Qt5Svg.pc /raven/lib/pkgconfig/Qt5Svg.pc
 	${LN} -s /raven/lib/qt5/pkgconfig/Qt5X11Extras.pc /raven/lib/pkgconfig/Qt5X11Extras.pc
+
+pre-configure:
+	# wide ncurses embedded into libncurses
+	${REINPLACE_CMD} -e 's/ncursesw/ncurses/g' ${WRKSRC}/configure
 
 post-install:
 	${RM} -r ${STAGEDIR}${PREFIX}/share/kde4
