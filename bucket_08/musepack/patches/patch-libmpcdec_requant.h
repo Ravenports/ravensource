@@ -1,6 +1,6 @@
---- libmpcdec/requant.h.orig	2009-02-23 19:44:04.000000000 +0100
-+++ libmpcdec/requant.h	2025-01-05 20:57:23.780000000 +0100
-@@ -47,9 +47,9 @@
+--- libmpcdec/requant.h.orig	2009-02-23 18:44:04 UTC
++++ libmpcdec/requant.h
+@@ -47,9 +47,9 @@ extern "C" {
  
  
  /* C O N S T A N T S */
