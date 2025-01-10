@@ -1,6 +1,6 @@
---- library/unwind/src/lib.rs.orig	2024-11-26 10:12:09 UTC
+--- library/unwind/src/lib.rs.orig	2025-01-07 01:26:09 UTC
 +++ library/unwind/src/lib.rs
-@@ -154,7 +154,7 @@ extern "C" {}
+@@ -153,7 +153,7 @@ extern "C" {}
  extern "C" {}
  
  #[cfg(target_os = "dragonfly")]
