@@ -1,4 +1,4 @@
---- meson.build.orig	2024-07-04 07:58:55 UTC
+--- meson.build.orig	2025-01-09 11:53:30 UTC
 +++ meson.build
 @@ -1190,7 +1190,7 @@ endif
  
@@ -235,7 +235,7 @@
  
  opt = not get_option('build-lslocks').disabled()
  exe = executable(
-@@ -2932,6 +2964,7 @@ endif
+@@ -2933,6 +2965,7 @@ endif
  
  ############################################################
  
@@ -243,7 +243,7 @@
  exe = executable(
    'findfs',
    findfs_sources,
-@@ -2944,6 +2977,7 @@ if not is_disabler(exe)
+@@ -2945,6 +2978,7 @@ if not is_disabler(exe)
    manadocs += ['misc-utils/findfs.8.adoc']
    bashcompletions += ['findfs']
  endif
@@ -251,7 +251,7 @@
  
  exe = executable(
    'wipefs',
-@@ -2976,6 +3010,7 @@ if opt and not is_disabler(exe)
+@@ -2977,6 +3011,7 @@ if opt and not is_disabler(exe)
    bashcompletions += ['findmnt']
  endif
  
@@ -259,7 +259,7 @@
  exe = executable(
    'kill',
    kill_sources,
-@@ -2986,6 +3021,7 @@ if not is_disabler(exe)
+@@ -2987,6 +3022,7 @@ if not is_disabler(exe)
    exes += exe
    manadocs += ['misc-utils/kill.1.adoc']
  endif
@@ -267,7 +267,7 @@
  
  opt = not get_option('build-rename').disabled()
  exe = executable(
-@@ -3002,6 +3038,7 @@ if opt and not is_disabler(exe)
+@@ -3003,6 +3039,7 @@ if opt and not is_disabler(exe)
    bashcompletions += ['rename']
  endif
  
@@ -275,7 +275,7 @@
  exe = executable(
    'getopt',
    getopt_sources,
-@@ -3012,6 +3049,7 @@ exe = executable(
+@@ -3013,6 +3050,7 @@ exe = executable(
  exes += exe
  manadocs += ['misc-utils/getopt.1.adoc']
  bashcompletions += ['getopt']
@@ -283,7 +283,7 @@
  
  exe = executable(
    'fincore',
-@@ -3027,6 +3065,7 @@ if not is_disabler(exe)
+@@ -3028,6 +3066,7 @@ if not is_disabler(exe)
    bashcompletions += ['fincore']
  endif
  
@@ -291,7 +291,7 @@
  exe = executable(
    'hardlink',
    hardlink_sources,
-@@ -3039,6 +3078,7 @@ if not is_disabler(exe)
+@@ -3040,6 +3079,7 @@ if not is_disabler(exe)
    manadocs += ['misc-utils/hardlink.1.adoc']
    bashcompletions += ['hardlink']
  endif
@@ -299,7 +299,7 @@
  
  opt = get_option('build-pipesz').allowed()
  exe = executable(
-@@ -3085,6 +3125,7 @@ if opt and not is_disabler(exe)
+@@ -3086,6 +3126,7 @@ if opt and not is_disabler(exe)
    bashcompletions += ['fadvise']
  endif
  
@@ -307,7 +307,7 @@
  if LINUX and conf.get('HAVE_PIDFD_OPEN').to_string() == '1'
    exe = executable(
      'waitpid',
-@@ -3099,6 +3140,7 @@ if LINUX and conf.get('HAVE_PIDFD_OPEN')
+@@ -3100,6 +3141,7 @@ if LINUX and conf.get('HAVE_PIDFD_OPEN')
      bashcompletions += ['waitpid']
    endif
  endif
@@ -315,7 +315,7 @@
  
  syscalls_h = custom_target('syscalls.h',
    input : 'tools/all_syscalls',
-@@ -3140,6 +3182,7 @@ if opt and not is_disabler(exe)
+@@ -3141,6 +3183,7 @@ if opt and not is_disabler(exe)
    bashcompletions += ['lsclocks']
  endif
  
@@ -323,7 +323,7 @@
  if conf.get('HAVE_RENAMEAT2').to_string() == '1'
  exe = executable(
    'exch',
-@@ -3154,6 +3197,7 @@ if not is_disabler(exe)
+@@ -3155,6 +3198,7 @@ if not is_disabler(exe)
    bashcompletions += ['exch']
  endif
  endif
