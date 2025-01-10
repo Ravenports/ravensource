@@ -8,7 +8,7 @@ DEF[PLUGINS]=		access access_output audio_filter audio_mixer audio_output codec 
 
 NAMEBASE=		vlc
 VERSION=		${PORTVERSION}
-REVISION=		6
+REVISION=		7
 KEYWORDS=		multimedia
 VARIANTS=		std
 SDESC[std]=		Qt based multimedia player and streaming server
@@ -23,7 +23,7 @@ SPKGS[std]=		set primary dev man nls docs a52 alsa aom ass avahi bluray caca
 			chromap chromec dav1d dca dbus dirac dvbpsi dvdnav dvdread faad
 			ffmpeg flac fluidsynth gcrypt gme gnutls goom gst kate mad mkv
 			mod mpc mpeg2 mpg123 notify ogg opus oss samplerate secret sndio
-			soxr speex theora twolame upnp vorbis vpx x264 x265
+			soxr speex taglib theora twolame upnp vorbis vpx x264 x265
 
 OPTIONS_AVAILABLE=	BSD
 OPTIONS_STANDARD=	BSD
@@ -46,7 +46,6 @@ BUILD_DEPENDS=		a52dec:set:std
 			alsa-lib:set:std
 			aom:set:std
 			avahi:set:std
-			bzip2:dev:std
 			chromaprint:set:std
 			dav1d:set:std
 			dbus:set:std
@@ -114,14 +113,12 @@ BUILD_DEPENDS=		a52dec:set:std
 			speexdsp:dev:std
 			speex:set:std
 # #			srt:dev:std
-			taglib:dev:std
+			taglib:set:std
 			twolame:set:std
 			video4linux:dev:std
 			x264:set:std
 			x265:set:std
-			xorg-macros:single:std
-BUILDRUN_DEPENDS=	bzip2:primary:std
-			fribidi:primary:std
+BUILDRUN_DEPENDS=	fribidi:primary:std
 			harfbuzz:primary:std
 			libarchive:primary:std
 			libcddb:primary:std
@@ -144,11 +141,10 @@ BUILDRUN_DEPENDS=	bzip2:primary:std
 			qt5-qtxmlpatterns:primary:std
 			readline:primary:std
 # #			srt:primary:std
-# #			taglib:primary:std
 # #			video4linux:primary:std
 
 USES=			bison desktop-utils:primary expat freetype fontconfig gettext
-			gmake iconv jpeg libtool lua:tools png pkgconfig ssl zlib
+			gmake iconv jpeg libtool lua:tools png pkgconfig zlib
 			cpe ncurses execinfo:build
 XORG_COMPONENTS=	ice sm x11 xcb xcb-render-util xcb-util xcb-util-image
 			xcb-util-keysyms xcb-util-wm xext xinerama xorgproto xpm
@@ -275,7 +271,7 @@ CONFIGURE_ARGS=		--enable-a52
 			--enable-svg
 			--enable-svgdec
 			--enable-swscale
-			--disable-taglib
+			--enable-taglib
 			--enable-telx
 			--enable-theora
 			--disable-tiger
@@ -308,6 +304,7 @@ CONFIGURE_ARGS=		--enable-a52
 			LUA_LIBS="-L{{LUA_LIBDIR}} -llua-{{LUA_VER}}"
 			BUILDCC="{{CC}}"
 CONFIGURE_ENV=		LIVE555_CFLAGS="-I{{LOCALBASE}}/include/liveMedia -I{{LOCALBASE}}/include/UsageEnvironment -I{{LOCALBASE}}/include/groupsock -I{{LOCALBASE}}/include/BasicUsageEnvironment" LIVE555_LIBS="-L{{LOCALBASE}}/lib -lliveMedia -lgroupsock -lBasicUsageEnvironment -lUsageEnvironment -L{{OPENSSLLIB}} -lssl -lcrypto"
+			PKG_CONFIG_PATH={{LOCALBASE}}/lib/qt5/pkgconfig:{{LOCALBASE}}/libressl/lib/pkgconfig
 CFLAGS=			-Wno-deprecated-declarations
 			-Wno-shadow
 
@@ -360,6 +357,7 @@ EXRUN[secret]=		primary libsecret:primary:std
 EXRUN[sndio]=		primary sndio:primary:std
 EXRUN[soxr]=		primary libsoxr:primary:std
 EXRUN[speex]=		primary speex:primary:std
+EXRUN[taglib]=		primary taglib:primary:std
 EXRUN[theora]=		primary libtheora:primary:std
 EXRUN[twolame]=		primary twolame:primary:std
 EXRUN[upnp]=		primary libupnp:primary:std
@@ -383,11 +381,6 @@ post-extract:
 	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/modules/lua/libs.h >> ${WRKDIR}/TERMS
 	${ECHO} "Terms extracted from 'src/libvlc.h':" >> ${WRKDIR}/TERMS
 	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/src/libvlc.h >> ${WRKDIR}/TERMS
-	${LN} -s /raven/lib/qt5/pkgconfig/Qt5Core.pc /raven/lib/pkgconfig/Qt5Core.pc
-	${LN} -s /raven/lib/qt5/pkgconfig/Qt5Widgets.pc /raven/lib/pkgconfig/Qt5Widgets.pc
-	${LN} -s /raven/lib/qt5/pkgconfig/Qt5Gui.pc /raven/lib/pkgconfig/Qt5Gui.pc
-	${LN} -s /raven/lib/qt5/pkgconfig/Qt5Svg.pc /raven/lib/pkgconfig/Qt5Svg.pc
-	${LN} -s /raven/lib/qt5/pkgconfig/Qt5X11Extras.pc /raven/lib/pkgconfig/Qt5X11Extras.pc
 
 pre-configure:
 	# wide ncurses embedded into libncurses
