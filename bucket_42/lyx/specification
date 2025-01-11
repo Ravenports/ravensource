@@ -9,6 +9,7 @@ DEF[DISTVER]=		${PORTVERSION:R}-${PORTVERSION:S|.|/|g:T}
 
 NAMEBASE=		lyx
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		print editors
 VARIANTS=		std
 SDESC[std]=		Document Processor WYSIWYM Editor & Latex frontend
@@ -36,10 +37,9 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		print/lyx
 
 # deps for xvkbd are tests, but nothing is built
-BUILD_DEPENDS=		qt5-qttools:set:std
+BUILD_DEPENDS=		qt6-qttools:set:std
+			qt6-qtsvg:dev:std
 			boost-libraries:dev:std
-			qt5-qtx11extras:dev:std
-			qt5-qtsvg:dev:std
 			hunspell:dev:std
 			enchant1:dev:std
 			aspell:dev:std
@@ -47,9 +47,8 @@ BUILDRUN_DEPENDS=	mythes:single:std
 			enchant1:primary:std
 			hunspell:primary:std
 			boost-libraries:primary:std
-			qt5-qtbase:primary:std
-			qt5-qtsvg:primary:std
-			qt5-qtx11extras:primary:std
+			qt6-qtbase:primary:std
+			qt6-qtsvg:primary:std
 # #xvkbd		xvkbd:primary:std
 RUN_DEPENDS=		texlive-bin:primary:std
 
@@ -72,9 +71,9 @@ CMAKE_ARGS=		-DLYX_NLS:BOOL=OFF
 			-DLYX_EXTERNAL_HUNSPELL:BOOL=ON
 			-DLYX_EXTERNAL_MYTHES:BOOL=ON
 			-DLYX_EXTERNAL_BOOST:BOOL=ON
-			-DLYX_USE_QT=QT5
+			-DLYX_USE_QT=QT6
 			-DPROGRAM_SUFFIX:STRING=""
-			-DCMAKE_PREFIX_PATH:PATH="{{PREFIX}}/lib/qt5/cmake/"
+			-DCMAKE_PREFIX_PATH:PATH="{{PREFIX}}/lib/qt6/cmake/"
 			-Wno-dev
 SHEBANG_FILES=		lib/configure.py
 			lib/lyx2lyx/lyx2lyx
