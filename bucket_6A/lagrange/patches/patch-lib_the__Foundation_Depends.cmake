@@ -1,6 +1,6 @@
---- lib/the_Foundation/Depends.cmake.orig	2023-12-04 13:15:49 UTC
+--- lib/the_Foundation/Depends.cmake.orig	2024-12-10 15:28:36 UTC
 +++ lib/the_Foundation/Depends.cmake
-@@ -14,24 +14,7 @@ if (NOT IOS AND NOT ANDROID)
+@@ -54,24 +54,7 @@ if (NOT IOS AND NOT ANDROID)
      if (TFDN_ENABLE_TLSREQUEST)
          set (OPENSSL_FOUND NO)
          set (iHaveOpenSSL NO)
@@ -24,5 +24,5 @@
 -        endif ()
 +        pkg_check_modules (OPENSSL openssl)
      endif ()
+ 
      # Unicode text strings
-     set (UNISTRING_DIR "" CACHE PATH "Location of libunistring")

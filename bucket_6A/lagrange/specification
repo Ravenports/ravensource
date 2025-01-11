@@ -1,9 +1,8 @@
-DEF[PORTVERSION]=	1.17.6
+DEF[PORTVERSION]=	1.18.4
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		lagrange
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		www
 VARIANTS=		std
 SDESC[std]=		Web Browser-like beautiful Gemini Client
@@ -25,7 +24,7 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		www/lagrange
 
-USES=			cmake ncurses pcre pkgconfig zlib ssl:openssl30
+USES=			cmake ncurses pcre pkgconfig zlib ssl
 			curl desktop-utils:primary
 XORG_COMPONENTS=	x11
 SDL_COMPONENTS=		sdl2
@@ -49,18 +48,9 @@ CMAKE_ARGS=		-DENABLE_FRIBIDI:BOOL=ON
 			-DENABLE_HARFBUZZ_MINIMAL:BOOL=OFF
 			-DENABLE_MPG123:BOOL=ON
 			-DENABLE_WEBP:BOOL=ON
-
-pre-configure:
-	${REINPLACE_CMD} -i'' -e "s|__PREFIX__|${PREFIX}|g" \
-		-e "s|__STAGEDIR__|${STAGEDIR}|" ${WRKSRC}/build-tui.sh
-	# unclear why SDL_HINT_WINDOWS_DPI_AWARENESS is not defined; it's in SDL_hints.h
-	# it's for windows only anywhy, just cut it out
-	${REINPLACE_CMD} -e '/SDL_HINT_WINDOWS_DPI_AWARENESS/d' ${WRKSRC}/src/main.c
-
-post-build:
-	(cd ${WRKSRC} && ./build-tui.sh)
+			-DENABLE_X11_XLIB:BOOL=ON
+			-DENABLE_TUI:BOOL=ON
+			-DENABLE_GUI:BOOL=ON
 
 post-install:
-	${INSTALL_PROGRAM} ${WRKSRC}/build-tui/clagrange ${STAGEDIR}${PREFIX}/bin/
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/clagrange
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/lagrange
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*grange

@@ -1,6 +1,6 @@
---- lib/the_Foundation/src/tlsrequest.c.orig	2024-01-16 08:51:40 UTC
+--- lib/the_Foundation/src/tlsrequest.c.orig	2024-12-10 15:28:36 UTC
 +++ lib/the_Foundation/src/tlsrequest.c
-@@ -249,7 +249,9 @@ void init_Context(iContext *d) {
+@@ -259,7 +259,9 @@ void init_Context(iContext *d) {
      SSL_load_error_strings();
      ERR_load_crypto_strings();
  #endif

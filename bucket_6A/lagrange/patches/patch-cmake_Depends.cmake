@@ -1,7 +1,7 @@
---- cmake/Depends.cmake.orig	2023-12-04 13:15:21 UTC
+--- cmake/Depends.cmake.orig	2024-12-10 15:28:21 UTC
 +++ cmake/Depends.cmake
-@@ -42,6 +42,7 @@ else ()
-     set (TFDN_ENABLE_WEBREQUEST OFF CACHE BOOL "")
+@@ -43,6 +43,7 @@ else ()
+     set (TFDN_ENABLE_STATIC_LINK ${ENABLE_STATIC} CACHE BOOL "" FORCE)
      add_subdirectory (lib/the_Foundation)
      add_library (the_Foundation::the_Foundation ALIAS the_Foundation)
 +    find_package (OpenSSL)
