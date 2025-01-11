@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	2.54.0
-DEF[SOVERSION]=		0.25409.1
+DEF[PORTVERSION]=	2.54.1
+DEF[SOVERSION]=		0.25410.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		at-spi2-core
@@ -48,9 +48,6 @@ GTKDOC_OUTPUT_BASEDIR=	libatspi
 SOVERSION=		${SOVERSION}
 
 VAR_OPSYS[sunos]=	LDFLAGS=-lintl
-
-post-patch-sunos:
-	${REINPLACE_CMD} -e '/POSIX_C_SOURCE/d' ${WRKSRC}/meson.build
 
 post-install:
 	${RM} -r ${STAGEDIR}${PREFIX}/lib/systemd
