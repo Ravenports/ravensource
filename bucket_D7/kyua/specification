@@ -1,9 +1,9 @@
-DEF[PORTVERSION]=	0.13
+DEF[PORTVERSION]=	0.14
+DEF[TAG]=		kyua-${PORTVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		kyua
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		std
 SDESC[std]=		Testing framework for infrastructure software
@@ -11,10 +11,10 @@ HOMEPAGE=		https://github.com/jmmv
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		https://github.com/jmmv/kyua/releases/download/kyua-${PORTVERSION}/
-DISTFILE[1]=		kyua-${PORTVERSION}.tar.gz:main
+SITES[main]=		GITHUB/freebsd:kyua:${TAG}
+DISTFILE[1]=		generated:main
 
-SPKGS[std]=		set primary tests man
+SPKGS[std]=		set primary man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -33,10 +33,9 @@ USERS=			tests
 GROUPS=			rpnobody
 USERGROUP_SPKG=		primary
 
-USES=			lua:5.3 pkgconfig sqlite
+USES=			lua:5.4 pkgconfig sqlite autoreconf
 MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--with-atf
-			--without-doxygen
+CONFIGURE_ARGS=		--without-doxygen
 			--docdir={{STD_DOCDIR}}
 MAKE_ARGS=		examplesdir={{STD_EXAMPLESDIR}}
 
