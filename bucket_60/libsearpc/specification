@@ -1,0 +1,41 @@
+DEF[PORTVERSION]=	3.3.0
+DEF[GH_TAG]=		36706a9
+DEF[SOVERSION]=		1.0.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libsearpc
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		std
+SDESC[std]=		Simple RPC framework based on GObject System in C
+HOMEPAGE=		https://github.com/haiwen/libsearpc
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/haiwen:libsearpc:${GH_TAG}
+DISTFILE[1]=		generated:main
+DIST_SUBDIR=		seafile
+
+SPKGS[std]=		set primary dev python
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		APACHE20:primary
+LICENSE_FILE=		APACHE20:stock
+LICENSE_TERMS=		primary:{{WRKSRC}}/LICENSE.txt
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/libsearpc
+
+BUILD_DEPENDS=		jansson:dev:std
+BUILDRUN_DEPENDS=	jansson:primary:std
+
+USES=			autoreconf gettext libtool pkgconfig python shebangfix
+GNOME_COMPONENTS=	glib
+SHEBANG_FILES=		lib/searpc-codegen.py
+
+DISTNAME=		libsearpc-${GH_TAG}
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
+SOVERSION=		${SOVERSION}

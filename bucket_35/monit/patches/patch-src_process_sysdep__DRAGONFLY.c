@@ -1,4 +1,4 @@
---- src/process/sysdep_DRAGONFLY.c.orig	2024-10-11 11:02:44 UTC
+--- src/process/sysdep_DRAGONFLY.c.orig	2024-12-10 14:29:56 UTC
 +++ src/process/sysdep_DRAGONFLY.c
 @@ -74,6 +74,7 @@
  #endif
