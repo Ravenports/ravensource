@@ -7,7 +7,7 @@ DEF[SO_LIBXCBE]=	0.0.0
 
 NAMEBASE=		vlc
 VERSION=		${PORTVERSION}
-REVISION=		12
+REVISION=		13
 KEYWORDS=		multimedia
 VARIANTS=		std
 SDESC[std]=		Qt based multimedia player and streaming server
@@ -21,7 +21,7 @@ DISTFILE[1]=		vlc-${PORTVERSION}.tar.xz:main
 SPKGS[std]=		set primary dev man nls docs a52 alsa aom asciiart ass avahi
 			bluray caca chromap chromec dav1d dca dbus dirac dvbpsi dvdnav
 			dvdread faad ffmpeg flac fluidsynth gcrypt gme gnutls goom gst
-			kate mad mkv mod mpc mpeg2 mpg123 mtp notify ogg opus oss
+			kate mad mkv mod mpc mpeg2 mpg123 mtp ogg opus oss
 			samplerate secret sndio soxr speex srt taglib theora twolame
 			upnp vorbis vpx x264 x265
 
@@ -342,7 +342,6 @@ EXRUN[mpc]=		primary musepack:primary:std
 EXRUN[mpeg2]=		primary libmpeg2:primary:std
 EXRUN[mpg123]=		primary mpg123:primary:std
 EXRUN[mtp]=		primary libmtp:primary:std
-EXRUN[notify]=		primary libnotify:primary:std
 EXRUN[ogg]=		primary libogg:primary:std
 EXRUN[opus]=		primary opus:primary:std
 EXRUN[samplerate]=	primary libsamplerate:primary:std
@@ -364,9 +363,11 @@ EXRUN[x265]=		primary x265:primary:std
 [BSD].BUILD_DEPENDS_ON=			libepoll-shim:dev:std
 					libgudev-devd:dev:std
 					libudev-devd:dev:std
-					libnotify:set:std
+					libnotify:dev:std
 [BSD].BUILDRUN_DEPENDS_ON=		libepoll-shim:primary:std
 					libudev-devd:primary:std
+					libnotify:primary:std
+
 # linux
 [BSD].BUILD_DEPENDS_OFF=		libgudev:dev:std
 
