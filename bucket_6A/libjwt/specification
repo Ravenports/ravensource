@@ -1,0 +1,37 @@
+DEF[PORTVERSION]=	2.1.1
+DEF[SOVERSION]=		2.11.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libjwt
+VERSION=		${PORTVERSION}
+KEYWORDS=		www
+VARIANTS=		std
+SDESC[std]=		JSON Web Token implementation in C
+HOMEPAGE=		https://github.com/benmcollins/libjwt
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/benmcollins:libjwt:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[std]=		set primary dev tools
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MPL:primary
+LICENSE_FILE=		MPL:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		www/libjwt
+
+BUILD_DEPENDS=		gnutls:dev:std
+			jansson:dev:std
+BUILDRUN_DEPENDS=	gnutls:primary:std
+			jansson:primary:std
+
+USES=			autoreconf gmake libtool pkgconfig ssl
+
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
+SOVERSION=		${SOVERSION}
