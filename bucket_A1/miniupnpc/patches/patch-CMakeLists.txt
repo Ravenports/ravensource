@@ -1,8 +1,8 @@
---- CMakeLists.txt.orig	2024-03-19 23:24:46 UTC
+--- CMakeLists.txt.orig	2024-06-08 22:12:32 UTC
 +++ CMakeLists.txt
-@@ -32,7 +32,7 @@ if (NOT WIN32)
-   target_compile_definitions(miniupnpc-private INTERFACE
+@@ -33,7 +33,7 @@ if (NOT WIN32)
      MINIUPNPC_SET_SOCKET_TIMEOUT
+     MINIUPNPC_GET_SRC_ADDR
      _BSD_SOURCE _DEFAULT_SOURCE)
 -  if (NOT APPLE AND NOT CMAKE_SYSTEM_NAME MATCHES ".*BSD" AND NOT CMAKE_SYSTEM_NAME STREQUAL "SunOS")
 +  if (NOT CMAKE_SYSTEM_NAME MATCHES "(Darwin|FreeBSD|SunOS|DragonFly|NetBSD|MidnightBSD)")
