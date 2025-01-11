@@ -1,2 +1,6 @@
 [PY312].BUILDRUN_DEPENDS_ON=		meson:single:std
 [PY313].BUILDRUN_DEPENDS_ON=		meson:single:v13
+
+post-install:
+	${SED} -i'' -e "s|sys.platform == 'linux':|True:|" \
+		${STAGEDIR}${PYTHON_SITELIBDIR}/mesonpy/_rpath.py
