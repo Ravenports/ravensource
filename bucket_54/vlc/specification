@@ -7,7 +7,7 @@ DEF[SO_LIBXCBE]=	0.0.0
 
 NAMEBASE=		vlc
 VERSION=		${PORTVERSION}
-REVISION=		10
+REVISION=		11
 KEYWORDS=		multimedia
 VARIANTS=		std
 SDESC[std]=		Qt based multimedia player and streaming server
@@ -18,12 +18,12 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		http://download.videolan.org/pub/videolan/vlc/${PORTVERSION}/
 DISTFILE[1]=		vlc-${PORTVERSION}.tar.xz:main
 
-SPKGS[std]=		set primary dev man nls docs a52 alsa aom ass avahi bluray caca
-			chromap chromec dav1d dca dbus dirac dvbpsi dvdnav dvdread faad
-			ffmpeg flac fluidsynth gcrypt gme gnutls goom gst kate mad mkv
-			mod mpc mpeg2 mpg123 mtp notify ogg opus oss samplerate secret
-			sndio soxr speex srt taglib theora twolame upnp
-			vorbis vpx x264 x265
+SPKGS[std]=		set primary dev man nls docs a52 alsa aom asciiart ass avahi
+			bluray caca chromap chromec dav1d dca dbus dirac dvbpsi dvdnav
+			dvdread faad ffmpeg flac fluidsynth gcrypt gme gnutls goom gst
+			kate mad mkv mod mpc mpeg2 mpg123 mtp notify ogg opus oss
+			samplerate secret sndio soxr speex srt taglib theora twolame
+			upnp vorbis vpx x264 x265
 
 OPTIONS_AVAILABLE=	BSD
 OPTIONS_STANDARD=	BSD
@@ -83,7 +83,6 @@ BUILD_DEPENDS=		a52dec:set:std
 			libmpeg2:set:std
 			libmtp:set:std
 			libogg:set:std
-# #			libprojectm:dev:std
 			libressl:dev:std
 			libsamplerate:set:std
 			libsecret:set:std
@@ -96,8 +95,7 @@ BUILD_DEPENDS=		a52dec:set:std
 			libvorbis:set:std
 			libvpx:set:std
 			libxkbcommon:dev:std
-# #			liveMedia:dev:std
-			minizip:dev:std
+# #			liveMedia:set:std
 			mpg123:set:std
 			musepack:set:std
 			opus:set:std
@@ -115,10 +113,10 @@ BUILD_DEPENDS=		a52dec:set:std
 			srt:set:std
 			taglib:set:std
 			twolame:set:std
-			video4linux:dev:std
 			x264:set:std
 			x265:set:std
 			abseil-cpp:set:std
+			aalib:set:std
 BUILDRUN_DEPENDS=	fribidi:primary:std
 			harfbuzz:primary:std
 			libarchive:primary:std
@@ -127,18 +125,14 @@ BUILDRUN_DEPENDS=	fribidi:primary:std
 			libdvdcss:primary:std
 			libglvnd:primary:std
 			libidn:primary:std
-# #			libprojectm:primary:std
 			libvdpau:primary:std
 			libxkbcommon:primary:std
-# #			liveMedia:primary:std
-			minizip:primary:std
 			orc:primary:std
 			qt5-qtbase:primary:std
 			qt5-qtsvg:primary:std
 			qt5-qtx11extras:primary:std
 			qt5-qtxmlpatterns:primary:std
 			readline:primary:std
-# #			video4linux:primary:std
 
 USES=			bison desktop-utils:primary expat freetype fontconfig gettext
 			gmake iconv jpeg libtool lua:tools png pkgconfig zlib
@@ -149,15 +143,17 @@ SDL_COMPONENTS=		sdl1 image1
 GNOME_COMPONENTS=	cairo gtk3 librsvg libxml2 glib
 
 # VLC needs very old opencv (v2) but RP has incompatible v4.
-# video4linux, projectm, srt and liveMedia ("live555") disabled for now;
-# otherwise the build fails.
+# VLC needs version 3 of libprojectm, but RP have incompatible v4
+# live555 breaks with access/live555.cpp:542:36: error: cannot convert 'char*'
+#                     to 'EventLoopWatchVariable*' {aka 'std::atomic<char>*'}
+# video4linux disabled for now otherwise the build fails.
 # libva support disabled because ffmpeg is built without it - so no acceleration for now.
 
 CPE_VENDOR=		videolan
 CPE_PRODUCT=		vlc_media_player
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-a52
-			--disable-aa
+			--enable-aa
 			--enable-alsa
 			--enable-aom
 			--enable-archive
@@ -211,7 +207,7 @@ CONFIGURE_ARGS=		--enable-a52
 			--enable-libmpeg2
 			--disable-libplacebo
 			--enable-libtar
-# #			--enable-libva
+# #			--disable-libva
 			--enable-libxml2
 			--disable-linsys
 			--disable-lirc
@@ -299,10 +295,9 @@ CONFIGURE_ARGS=		--enable-a52
 			LUAC={{LUAC_CMD}} LUA_CFLAGS="-I{{LUA_INCDIR}}"
 			LUA_LIBS="-L{{LUA_LIBDIR}} -llua-{{LUA_VER}}"
 			BUILDCC="{{CC}}"
-CONFIGURE_ENV=		LIVE555_CFLAGS="-I{{LOCALBASE}}/include/liveMedia -I{{LOCALBASE}}/include/UsageEnvironment -I{{LOCALBASE}}/include/groupsock -I{{LOCALBASE}}/include/BasicUsageEnvironment" LIVE555_LIBS="-L{{LOCALBASE}}/lib -lliveMedia -lgroupsock -lBasicUsageEnvironment -lUsageEnvironment -L{{OPENSSLLIB}} -lssl -lcrypto"
+# CONFIGURE_ENV=	LIVE555_CFLAGS={{LIVE555_CFLAGS}} LIVE555_LIBS={{LIVE555_LIBS}}
 			PKG_CONFIG_PATH={{LOCALBASE}}/lib/qt5/pkgconfig:{{LOCALBASE}}/libressl/lib/pkgconfig
 CFLAGS=			-Wno-deprecated-declarations
-			-Wno-shadow
 
 INSTALL_REQ_TOOLCHAIN=	yes
 PLIST_SUB=		SO_LIBVLC=${SO_LIBVLC}
@@ -317,6 +312,7 @@ PLIST_SUB=		SO_LIBVLC=${SO_LIBVLC}
 EXRUN[a52]=		primary a52dec:primary:std
 EXRUN[alsa]=		primary alsa-lib:primary:std
 EXRUN[aom]=		primary aom:primary:std
+EXRUN[asciiart]=	primary aalib:primary:std
 EXRUN[ass]=		primary libass:primary:std
 EXRUN[avahi]=		primary avahi:primary:std
 EXRUN[bluray]=		primary libbluray:primary:std
@@ -383,7 +379,10 @@ post-extract:
 
 pre-configure:
 	# wide ncurses embedded into libncurses
-	${REINPLACE_CMD} -e 's/ncursesw/ncurses/g' ${WRKSRC}/configure
+	# Look for projectM-4 instead of libprojectM
+	${REINPLACE_CMD} -e 's/ncursesw/ncurses/g' \
+		-e 's/libprojectM/projectM-4/g' \
+		${WRKSRC}/configure
 
 post-install:
 	${RM} -r ${STAGEDIR}${PREFIX}/share/kde4
