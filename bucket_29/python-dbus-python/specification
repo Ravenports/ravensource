@@ -44,11 +44,13 @@ BUILDRUN_DEPENDS=	dbus:primary:std
 USES=			meson pkgconfig
 GNOME_COMPONENTS=	glib
 
+[PY313].MAKE_ENV_ON=			AUTOPYTHON=3.13
 [PY313].BUILD_DEPENDS_ON=		python-wheel:single:v13
-[PY313].BUILDRUN_DEPENDS_ON=		python-meson-python:single:v13
+					python-setuptools:single:v13
 
+[PY312].MAKE_ENV_ON=			AUTOPYTHON=3.12
 [PY312].BUILD_DEPENDS_ON=		python-wheel:single:v12
-[PY312].BUILDRUN_DEPENDS_ON=		python-meson-python:single:v12
+					python-setuptools:single:v12
 
 do-build:
 	(cd ${BUILD_WRKSRC} && meson compile)
