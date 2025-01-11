@@ -5,7 +5,7 @@ DEF[TAG]=		v${PORTVERSION}
 
 NAMEBASE=		oniguruma
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		textproc devel
 VARIANTS=		std
 SDESC[std]=		REGEX library compatible with POSIX/GNU/Perl
@@ -27,19 +27,14 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/oniguruma
 
-USES=			cpe autoreconf libtool
+USES=			cmake cpe
 CPE_VENDOR=		oniguruma_project
-MUST_CONFIGURE=		gnu
-INSTALL_TARGET=		install-strip
+
+CMAKE_ARGS=		-DBUILD_SHARED_LIBS:BOOL=ON
+			-DINSTALL_DOCUMENTATION:BOOL=ON
+			-DINSTALL_EXAMPLES:BOOL=ON
+			-DENABLE_POSIX_API:BOOL=ON
 SOVERSION=		${SOVERSION}
 
-post-patch:
-	${REINPLACE_CMD} -e \
-		'/^INCLUDES/s|$$(includedir)|| ; \
-		 s|$$(<)|$$(@).in|' ${WRKSRC}/Makefile.am
-
 post-install:
-	@${MKDIR} ${STAGEDIR}${STD_DOCDIR} ${STAGEDIR}${STD_EXAMPLESDIR}
-	(cd ${WRKSRC} && ${INSTALL_DATA} HISTORY README ${STAGEDIR}${STD_DOCDIR})
-	(cd ${WRKSRC}/doc && ${INSTALL_DATA} * ${STAGEDIR}${STD_DOCDIR})
-	(cd ${WRKSRC}/sample && ${INSTALL_DATA} *.c ${STAGEDIR}${STD_EXAMPLESDIR})
+	${STRIP_CMD}	${STAGEDIR}${PREFIX}/lib/libonig.so
