@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.47.1
+DEF[PORTVERSION]=	2.48.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		git
@@ -70,7 +70,6 @@ SHEBANG_FILES=		*.perl
 			t/*/*/pre
 			t/*/*/post
 			t/Git-SVN/Utils/*.t
-			t/t7519/fsmonitor-watchman
 			git-p4.py
 			contrib/hooks/update-paranoid
 			contrib/fast-import/import-zips.py
@@ -79,7 +78,7 @@ SHEBANG_FILES=		*.perl
 			contrib/buildsystems/generate
 			contrib/contacts/git-contacts
 			contrib/credential/netrc/git-credential-netrc.perl
-			templates/hooks--fsmonitor-watchman.sample
+			templates/hooks/fsmonitor-watchman.sample
 
 RC_SUBR=		git_daemon:primary
 SUB_FILES=		messages-primary.ucl
@@ -102,7 +101,6 @@ post-install:
 		${STAGEDIR}${PREFIX}/share/emacs/site-lisp/git/
 	${INSTALL_DATA} ${WRKSRC}/contrib/emacs/git-blame.el \
 		${STAGEDIR}${PREFIX}/share/emacs/site-lisp/git/
-	${RMDIR} ${STAGEDIR}${PREFIX}/share/git-core/templates/branches
 
 	# Strip got missed
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/scalar
@@ -122,6 +120,8 @@ post-install:
 		${STAGEDIR}${PREFIX}/etc/bash_completion.d/git.sh
 
 	# subtree support
+	(cd ${WRKSRC}/Documentation  && ${SETENV} ${MAKE_ENV} \
+		${MAKE_CMD} ${MAKE_FLAGS} Makefile asciidoc.conf)
 	(cd ${WRKSRC}/contrib/subtree && ${SETENV} ${MAKE_ENV} \
 		${MAKE_CMD} ${MAKE_FLAGS} Makefile ${MAKE_ARGS} \
 		install install-doc)
