@@ -1,4 +1,4 @@
-# Manually maintained
+# Manually maintained (pep517 + rust)
 DEF[PORTVERSION]=	%%VERSION%%
 # ------------------------------------------------------------------------
 
@@ -37,73 +37,13 @@ LICENSE_SCHEME=		solo
 GENERATED=		yes
 DISTNAME=		rpds_py-${PORTVERSION}
 
-# install_requires extracted from setup.py
-
-
-[PY312].USES_ON=			python:v12
-[PY312].BUILD_DEPENDS_ON=		python-maturin:single:v12
-					python-pip:single:v12
-
-[PY313].USES_ON=			python:v13
-[PY313].BUILD_DEPENDS_ON=		python-maturin:single:v13
-					python-pip:single:v13
-
-BUILD_DEPENDS=		rust:single:std
-
-USES=			cargo cclibs:single
-CARGO_CARGOTOML=	{{WRKSRC}}/Cargo.toml
-CARGO_CARGOLOCK=	{{WRKSRC}}/Cargo.lock
-CARGO_SKIP_CONFIGURE=	yes
 CARGO_SKIP_BUILD=	yes
 CARGO_SKIP_INSTALL=	yes
-PLIST_SUB=		VER=${PORTVERSION}
-			CPYTHON={{CPYTHON:U{{PYTHON_SUFFIX}}}}
 
-VAR_OPSYS[linux]=	MAKEFILE_LINE=CPYTHON={{PYTHON_SUFFIX}}-x86_64-linux-gnu
+USES=			cargo cclibs:single
 
-post-patch:
-	# create directives
-	${MKDIR} ${WRKSRC}/.cargo
-	echo "[source.cargo]" >> ${WRKSRC}/.cargo/config.toml
-	echo "directory = '${CARGO_VENDOR_DIR}'" >> ${WRKSRC}/.cargo/config.toml
-	echo "[source.crates-io]" >> ${WRKSRC}/.cargo/config.toml
-	echo "replace-with = 'cargo'" >> ${WRKSRC}/.cargo/config.toml
+[PY312].USES_ON=			python:v12,pep517
+[PY312].BUILD_DEPENDS_ON=		python-maturin:single:v12
 
-do-build:
-	(cd ${BUILD_WRKSRC} && ${SETENV} ${MAKE_ENV} maturin build \
-		--release \
-		--interpreter ${PYTHON_CMD})
-
-do-install:
-	# Due to upstream not supplying a setup.py file or other way to install
-	# using pip command for now...
-	${SETENV} ${MAKE_ENV} pip install \
-		--verbose \
-		--no-index \
-		--no-compile \
-		--progress-bar off \
-		--root=${STAGEDIR} \
-		--root-user-action=ignore \
-		--disable-pip-version-check \
-		--no-deps ${INSTALL_WRKSRC}/target/wheels/*.whl
-	(cd ${STAGEDIR} && ${PYTHON_CMD} -m compileall -d / . ||:)
-	${INSTALL_LIB} ${WRKSRC}/target/release/librpds.so \
-		${STAGEDIR}${PYTHON_SITELIBDIR}/rpds
-	${CHMOD} +x ${STAGEDIR}${PYTHON_SITELIBDIR}/rpds/librpds.so
-	${STRIP_CMD} ${STAGEDIR}${PYTHON_SITELIBDIR}/rpds/rpds.*.so
-
-pre-install-midnightbsd:
-	# Due to rust limitations, maturin must set target OS as freebsd, but
-	# pip doesn't recognize that as a legal combination.  Rename to complete build.
-	(cd ${INSTALL_WRKSRC}/target/wheels/ && ${MV}\
-	rpds_py-${PORTVERSION}-cp${PYTHON_SUFFIX}-cp${PYTHON_SUFFIX}-freebsd_*.whl\
-	rpds_py-${PORTVERSION}-cp${PYTHON_SUFFIX}-cp${PYTHON_SUFFIX}-midnightbsd_3_0_0_amd64.whl)
-
-pre-install-linux:
-	# for some reason compatibility ends at -manylinux_2_23_x86_64 on
-	# ubuntu 16.04 sysroot
-	if [ -f "${INSTALL_WRKSRC}/target/wheels/rpds_py-${PORTVERSION}-cp${PYTHON_SUFFIX}-cp${PYTHON_SUFFIX}-manylinux_2_24_x86_64.whl" ];\
-	then ${MV}\
-	  ${INSTALL_WRKSRC}/target/wheels/rpds_py-${PORTVERSION}-cp${PYTHON_SUFFIX}-cp${PYTHON_SUFFIX}-manylinux_2_24_x86_64.whl\
-	  ${INSTALL_WRKSRC}/target/wheels/rpds_py-${PORTVERSION}-cp${PYTHON_SUFFIX}-cp${PYTHON_SUFFIX}-manylinux_2_23_x86_64.whl;\
-	fi
+[PY313].USES_ON=			python:v13,pep517
+[PY313].BUILD_DEPENDS_ON=		python-maturin:single:v13
