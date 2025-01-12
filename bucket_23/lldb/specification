@@ -1,0 +1,69 @@
+DEF[NAMEBASE]=		lldb
+DEF[LLVMBASE]=		llvm
+DEF[CLANGBASE]=		clang
+DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM19_VERSION)
+DEF[SOVERSION]=		${LLVM_VERSION}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		${NAMEBASE}
+VERSION=		${LLVM_VERSION}
+KEYWORDS=		lang sysutils
+VARIANTS=		std
+SDESC[std]=		Linker from the LLVM project
+HOMEPAGE=		http://llvm.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://github.com/llvm/llvm-project/releases/download/llvmorg-${LLVM_VERSION}/
+			http://llvm.org/releases/${LLVM_VERSION}/
+DISTFILE[1]=		lldb-${LLVM_VERSION}.src.tar.xz:main
+DISTFILE[2]=		cmake-${LLVM_VERSION}.src.tar.xz:main
+DF_INDEX=		1 2
+
+SPKGS[std]=		set primary dev
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		CUSTOM1:primary
+LICENSE_NAME=		CUSTOM1:"University of Illinois/NCSA Open Source License"
+LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/LICENSE.TXT
+LICENSE_SCHEME=		solo
+
+BUILD_DEPENDS=		${LLVMBASE}:dev:std
+			${LLVMBASE}:tools:std
+			swig:primary:std
+			${CLANGBASE}:compiler:std
+			${CLANGBASE}:extra:std
+BUILDRUN_DEPENDS=	${LLVMBASE}:primary:std
+			${CLANGBASE}:dynlibs:std
+
+USES=			cpe cmake c++:primary zlib:build execinfo python
+			ncurses xz lua:5.3
+GNOME_COMPONENTS=	libxml2
+CPE_VENDOR=		llvm
+CPE_PRODUCT=		llvm
+CMAKE_BUILD_TYPE=	Release
+CMAKE_ARGS=		-DLLVM_COMMON_CMAKE_UTILS={{WRKDIR}}/cmake-${LLVM_VERSION}.src
+			-DLLDB_INCLUDE_TESTS:BOOL=OFF
+			-DLUA_INCLUDE_DIR={{LOCALBASE}}/include/lua{{LUA_VER_STR}}
+			-DLUA_LIBRARY={{LOCALBASE}}/lib/liblua-{{LUA_VER}}.so
+DISTNAME=		lldb-${LLVM_VERSION}.src
+LDFLAGS=		-lpthread
+SOVERSION=		${SOVERSION}
+PLIST_SUB=		SOMAJMIN=${SOVERSION:R}
+
+post-extract:
+	# DragonFly support
+	${MKDIR} ${WRKSRC}/source/Host/dragonfly
+	${INSTALL_DATA} ${FILESDIR}/DragonFlyHost.cpp ${WRKSRC}/source/Host/dragonfly/Host.cpp
+	${INSTALL_DATA} ${FILESDIR}/HostInfoDragonFly.cpp ${WRKSRC}/source/Host/dragonfly/
+	${MKDIR} ${WRKSRC}/include/lldb/Host/dragonfly
+	${INSTALL_DATA} ${FILESDIR}/HostInfoDragonFly.h ${WRKSRC}/include/lldb/Host/dragonfly/
+
+post-install:
+	# set python cache
+	(cd ${STAGEDIR}${PREFIX}/lib && ${PYTHON_CMD} -m compileall -d / . ||:)
+	# strip
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/lldb*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/liblldb.so

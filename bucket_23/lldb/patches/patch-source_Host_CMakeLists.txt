@@ -1,0 +1,15 @@
+--- source/Host/CMakeLists.txt.orig	2024-12-17 11:04:04 UTC
++++ source/Host/CMakeLists.txt
+@@ -122,6 +122,12 @@ else()
+       freebsd/HostInfoFreeBSD.cpp
+       )
+ 
++  elseif (CMAKE_SYSTEM_NAME MATCHES "DragonFly")
++    add_host_subdirectory(dragonfly
++      dragonfly/Host.cpp
++      dragonfly/HostInfoDragonFly.cpp
++      )
++
+   elseif (CMAKE_SYSTEM_NAME MATCHES "NetBSD")
+     add_host_subdirectory(netbsd
+       netbsd/HostNetBSD.cpp
