@@ -1,4 +1,4 @@
-# manually updated rust-based port
+# manually updated (pep517 + rust)
 DEF[PORTVERSION]=	%%VERSION%%
 # ------------------------------------------------------------------------
 
@@ -38,58 +38,20 @@ PLIST_SUB=		VERSION=${PORTVERSION}
 # cffi>=1.12
 # setuptools-rust>=0.11.4
 
-VAR_OPSYS[linux]=	MAKEFILE_LINE=CPYTHON={{PYTHON_SUFFIX}}-x86_64-linux-gnu
-
-[PY312].USES_ON=			python:v12
-[PY312].BUILD_DEPENDS_ON=		python-pip:single:v12
-					python-wheel:single:v12
-					python-setuptools-rust:single:v12
-					python-maturin:single:v12
-[PY312].BUILDRUN_DEPENDS_ON=		python-cffi:single:v12
-
-[PY313].USES_ON=			python:v13
-[PY313].BUILD_DEPENDS_ON=		python-pip:single:v13
-					python-wheel:single:v13
-					python-setuptools-rust:single:v13
-					python-maturin:single:v13
-[PY313].BUILDRUN_DEPENDS_ON=		python-cffi:single:v13
+CARGO_SKIP_BUILD=	yes
+CARGO_SKIP_INSTALL=	yes
 
 USES=			cpe cargo ssl pkgconfig cclibs:single
 CPE_VENDOR=		cryptography
 CPE_PRODUCT=		python-cryptography
 MAKE_ENV=		OPENSSL_STATIC=1
-INSTALL_REQ_TOOLCHAIN=	yes
 
-CARGO_SKIP_CONFIGURE=	yes
+[PY312].USES_ON=			python:v12,pep517
+[PY312].BUILD_DEPENDS_ON=		python-setuptools-rust:single:v12
+					python-maturin:single:v12
+[PY312].BUILDRUN_DEPENDS_ON=		python-cffi:single:v12
 
-post-patch:
-	${MKDIR} ${WRKSRC}/.cargo
-	echo "[source.cargo]" >> ${WRKSRC}/.cargo/config.toml
-	echo "directory = '${CARGO_VENDOR_DIR}'" >> ${WRKSRC}/.cargo/config.toml
-	echo "[source.crates-io]" >> ${WRKSRC}/.cargo/config.toml
-	echo "replace-with = 'cargo'" >> ${WRKSRC}/.cargo/config.toml
-
-do-build:
-	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
-		pip install --no-build-isolation --verbose .)
-
-do-install:
-	whl=$$(find ${INSTALL_WRKSRC}/target/wheels -name "*.whl");\
-	pip install \
-		--verbose \
-		--no-index \
-		--no-compile \
-		--force-reinstall \
-		--progress-bar off \
-		--root=${STAGEDIR} \
-		--root-user-action=ignore \
-		--disable-pip-version-check \
-		--no-deps $$whl
-	${FIND} ${STAGEDIR}${PREFIX}/lib -name "*.so" | xargs ${STRIP_CMD}
-
-pre-install-midnightbsd:
-	# Due to rust limitations, maturin must set target OS as freebsd, but
-	# pip doesn't recognize that as a legal combination.  Rename to complete build.
-	(cd ${INSTALL_WRKSRC}/target/wheels/ && ${MV}\
-	cryptography-${PORTVERSION}-cp37-abi3-freebsd_*.whl\
-	cryptography-${PORTVERSION}-cp37-abi3-midnightbsd_3_0_0_amd64.whl)
+[PY313].USES_ON=			python:v13,pep517
+[PY313].BUILD_DEPENDS_ON=		python-setuptools-rust:single:v13
+					python-maturin:single:v13
+[PY313].BUILDRUN_DEPENDS_ON=		python-cffi:single:v13
