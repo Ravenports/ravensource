@@ -1,0 +1,13 @@
+--- tools/lldb-server/CMakeLists.txt.orig	2024-12-17 11:04:04 UTC
++++ tools/lldb-server/CMakeLists.txt
+@@ -12,6 +12,10 @@ if(CMAKE_SYSTEM_NAME MATCHES "FreeBSD")
+   list(APPEND LLDB_PLUGINS lldbPluginProcessFreeBSD)
+ endif()
+ 
++if(CMAKE_SYSTEM_NAME MATCHES "DragonFly")
++  list(APPEND LLDB_PLUGINS lldbPluginProcessDragonFly)
++endif()
++
+ if(CMAKE_SYSTEM_NAME MATCHES "NetBSD")
+   list(APPEND LLDB_PLUGINS lldbPluginProcessNetBSD)
+ endif()

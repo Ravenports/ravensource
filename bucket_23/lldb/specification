@@ -52,14 +52,19 @@ DISTNAME=		lldb-${LLVM_VERSION}.src
 LDFLAGS=		-lpthread
 SOVERSION=		${SOVERSION}
 PLIST_SUB=		SOMAJMIN=${SOVERSION:R}
+SINGLE_JOB=		yes
 
 post-extract:
 	# DragonFly support
 	${MKDIR} ${WRKSRC}/source/Host/dragonfly
+	${MKDIR} ${WRKSRC}/include/lldb/Host/dragonfly
+	${MKDIR} ${WRKSRC}/source/Plugins/Process/DragonFly
+
 	${INSTALL_DATA} ${FILESDIR}/DragonFlyHost.cpp ${WRKSRC}/source/Host/dragonfly/Host.cpp
 	${INSTALL_DATA} ${FILESDIR}/HostInfoDragonFly.cpp ${WRKSRC}/source/Host/dragonfly/
-	${MKDIR} ${WRKSRC}/include/lldb/Host/dragonfly
 	${INSTALL_DATA} ${FILESDIR}/HostInfoDragonFly.h ${WRKSRC}/include/lldb/Host/dragonfly/
+	${INSTALL_DATA} ${FILESDIR}/DFProc.CMakeLists.txt ${WRKSRC}/source/Plugins/Process/DragonFly/CMakeLists.txt
+	${INSTALL_DATA} ${FILESDIR}/Native* ${WRKSRC}/source/Plugins/Process/DragonFly/
 
 post-install:
 	# set python cache

@@ -1,0 +1,16 @@
+add_lldb_library(lldbPluginProcessDragonFly
+  NativeProcessDragonFly.cpp
+  NativeRegisterContextDragonFly.cpp
+  NativeRegisterContextDragonFly_x86_64.cpp
+  NativeThreadDragonFly.cpp
+
+  LINK_LIBS
+    lldbHost
+    lldbSymbol
+    lldbTarget
+    lldbUtility
+    lldbPluginProcessPOSIX
+    lldbPluginProcessUtility
+  LINK_COMPONENTS
+    Support
+  )
