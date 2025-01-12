@@ -1,0 +1,45 @@
+# Manually maintained rust port
+DEF[PORTVERSION]=	%%VERSION%%
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-nh3
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v12 v13
+SDESC[v12]=		Leverage ammonia HTML sanitization library (3.12)
+SDESC[v13]=		Leverage ammonia HTML sanitization library (3.13)
+HOMEPAGE=		none
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+%%DOWNLOAD_GROUPS%%
+SITES[main]=		PYPI/n/nh3
+%%CR_SITES%%
+
+DISTFILE[1]=		nh3-${PORTVERSION}.tar.gz:main
+%%CR_DISTFILES%%
+%%DF_INDEX%%
+
+SPKGS[v12]=		single
+SPKGS[v13]=		single
+
+OPTIONS_AVAILABLE=	PY312 PY313
+OPTIONS_STANDARD=	none
+VOPTS[v12]=		PY312=ON PY313=OFF
+VOPTS[v13]=		PY312=OFF PY313=ON
+
+# License listed at PyPI
+# MIT
+
+GENERATED=		yes
+DISTNAME=		nh3-${PORTVERSION}
+
+CARGO_SKIP_BUILD=	yes
+CARGO_SKIP_INSTALL=	yes
+
+USES=			cargo cclibs:single
+
+[PY312].USES_ON=			python:v12,pep517
+[PY312].BUILD_DEPENDS_ON=		python-maturin:single:v12
+
+[PY313].USES_ON=			python:v13,pep517
+[PY313].BUILD_DEPENDS_ON=		python-maturin:single:v13

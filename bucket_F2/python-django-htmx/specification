@@ -1,0 +1,42 @@
+DEF[PORTVERSION]=	1.21.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-django-htmx
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v12 v13
+SDESC[v12]=		Extensions for using Django with htmx (3.12)
+SDESC[v13]=		Extensions for using Django with htmx (3.13)
+HOMEPAGE=		none
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/9f/ec/0d68c022dac4a539cdd2cf8b2e23a034da9d6ef864e4bc324a5fe2b50c28
+DISTFILE[1]=		django_htmx-${PORTVERSION}-py3-none-any.whl:main
+DIST_SUBDIR=		python-src
+
+SPKGS[v12]=		single
+SPKGS[v13]=		single
+
+OPTIONS_AVAILABLE=	PY312 PY313
+OPTIONS_STANDARD=	none
+VOPTS[v12]=		PY312=ON PY313=OFF
+VOPTS[v13]=		PY312=OFF PY313=ON
+
+# License listed at PyPI
+# Not provided.
+
+GENERATED=		yes
+DISTNAME=		django_htmx-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# asgiref >=3.6
+# django >=4.2
+
+[PY312].USES_ON=			python:v12,wheel
+[PY312].RUN_DEPENDS_ON=			python-asgiref:single:v12
+					python-Django:single:v12
+[PY313].USES_ON=			python:v13,wheel
+[PY313].RUN_DEPENDS_ON=			python-asgiref:single:v13
+					python-Django:single:v13
+

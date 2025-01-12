@@ -1,0 +1,61 @@
+DEF[PORTVERSION]=	3.2.3
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-psycopg
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v12 v13
+SDESC[v12]=		PostgreSQL database adapter for Python (3.12)
+SDESC[v13]=		PostgreSQL database adapter for Python (3.13)
+HOMEPAGE=		https://psycopg.org/psycopg3/
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/ce/21/534b8f5bd9734b7a2fcd3a16b1ee82ef6cad81a4796e95ebf4e0c6a24119
+DISTFILE[1]=		psycopg-${PORTVERSION}-py3-none-any.whl:main
+DIST_SUBDIR=		python-src
+
+SPKGS[v12]=		single
+SPKGS[v13]=		single
+
+OPTIONS_AVAILABLE=	PY312 PY313
+OPTIONS_STANDARD=	none
+VOPTS[v12]=		PY312=ON PY313=OFF
+VOPTS[v13]=		PY312=OFF PY313=ON
+
+# License listed at PyPI
+# GNU Lesser General Public License v3 (LGPLv3)
+
+GENERATED=		yes
+DISTNAME=		psycopg-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# typing-extensions>=4.6; python_version < "3.13"
+# backports.zoneinfo>=0.2.0; python_version < "3.9"
+# tzdata; sys_platform == "win32"
+# psycopg-binary==3.2.3; implementation_name != "pypy" and extra == "binary"
+# psycopg-c==3.2.3; implementation_name != "pypy" and extra == "c"
+# ast-comments>=1.1.2; extra == "dev"
+# black>=24.1.0; extra == "dev"
+# codespell>=2.2; extra == "dev"
+# dnspython>=2.1; extra == "dev"
+# flake8>=4.0; extra == "dev"
+# mypy>=1.11; extra == "dev"
+# types-setuptools>=57.4; extra == "dev"
+# wheel>=0.37; extra == "dev"
+# Sphinx>=5.0; extra == "docs"
+# furo==2022.6.21; extra == "docs"
+# sphinx-autobuild>=2021.3.14; extra == "docs"
+# sphinx-autodoc-typehints>=1.12; extra == "docs"
+# psycopg-pool; extra == "pool"
+# anyio>=4.0; extra == "test"
+# mypy>=1.11; extra == "test"
+# pproxy>=2.7; extra == "test"
+# pytest>=6.2.5; extra == "test"
+# pytest-cov>=3.0; extra == "test"
+# pytest-randomly>=3.5; extra == "test"
+
+[PY312].USES_ON=			python:v12,wheel
+[PY312].RUN_DEPENDS_ON=			python-typing-extensions:single:v12
+[PY313].USES_ON=			python:v13,wheel
+

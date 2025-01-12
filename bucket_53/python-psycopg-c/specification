@@ -1,0 +1,38 @@
+DEF[PORTVERSION]=	3.2.3
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-psycopg-c
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v12 v13
+SDESC[v12]=		C-optimized PostgreSQL database adapter (3.12)
+SDESC[v13]=		C-optimized PostgreSQL database adapter (3.13)
+HOMEPAGE=		https://psycopg.org/psycopg3/
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPI/p/psycopg-c
+DISTFILE[1]=		psycopg_c-${PORTVERSION}.tar.gz:main
+DIST_SUBDIR=		python-src
+
+SPKGS[v12]=		single
+SPKGS[v13]=		single
+
+OPTIONS_AVAILABLE=	PY312 PY313
+OPTIONS_STANDARD=	none
+VOPTS[v12]=		PY312=ON PY313=OFF
+VOPTS[v13]=		PY312=OFF PY313=ON
+
+# License listed at PyPI
+# GNU Lesser General Public License v3 (LGPLv3)
+
+GENERATED=		yes
+DISTNAME=		psycopg_c-${PORTVERSION}
+
+# install_requires extracted from setup.py
+
+
+[PY312].USES_ON=			python:v12,sutools
+[PY313].USES_ON=			python:v13,sutools
+
+USES=			pgsql:client

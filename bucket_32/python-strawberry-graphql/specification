@@ -1,0 +1,66 @@
+DEF[PORTVERSION]=	0.257.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-strawberry-graphql
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v12 v13
+SDESC[v12]=		Library for creating GraphQL APIs (3.12)
+SDESC[v13]=		Library for creating GraphQL APIs (3.13)
+HOMEPAGE=		https://strawberry.rocks/
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/63/bc/dfc4f78508e51db349b78523009b8215de339248ab3093b130fd1d0fa955
+DISTFILE[1]=		strawberry_graphql-${PORTVERSION}-py3-none-any.whl:main
+DIST_SUBDIR=		python-src
+
+SPKGS[v12]=		single
+SPKGS[v13]=		single
+
+OPTIONS_AVAILABLE=	PY312 PY313
+OPTIONS_STANDARD=	none
+VOPTS[v12]=		PY312=ON PY313=OFF
+VOPTS[v13]=		PY312=OFF PY313=ON
+
+# License listed at PyPI
+# MIT
+
+GENERATED=		yes
+DISTNAME=		strawberry_graphql-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# Django (>=3.2) ; extra == "django"
+# aiohttp (>=3.7.4.post0,<4.0.0) ; extra == "aiohttp"
+# asgiref (>=3.2,<4.0) ; extra == "django" or extra == "channels"
+# chalice (>=1.22,<2.0) ; extra == "chalice"
+# channels (>=3.0.5) ; extra == "channels"
+# fastapi (>=0.65.2) ; extra == "fastapi"
+# flask (>=1.1) ; extra == "flask"
+# graphql-core (>=3.2.0,<3.4.0)
+# libcst (>=0.4.7) ; extra == "debug" or extra == "debug-server" or extra == "cli"
+# litestar (>=2) ; extra == "litestar"
+# opentelemetry-api (<2) ; extra == "opentelemetry"
+# opentelemetry-sdk (<2) ; extra == "opentelemetry"
+# pydantic (>1.6.1) ; extra == "pydantic"
+# pygments (>=2.3,<3.0) ; extra == "debug-server" or extra == "cli"
+# pyinstrument (>=4.0.0) ; extra == "pyinstrument"
+# python-dateutil (>=2.7.0,<3.0.0)
+# python-multipart (>=0.0.7) ; extra == "asgi" or extra == "debug-server" or extra == "fastapi"
+# quart (>=0.19.3) ; extra == "quart"
+# rich (>=12.0.0) ; extra == "debug" or extra == "debug-server" or extra == "cli"
+# sanic (>=20.12.2) ; extra == "sanic"
+# starlette (>=0.18.0) ; extra == "asgi" or extra == "debug-server"
+# typer (>=0.7.0) ; extra == "debug-server" or extra == "cli"
+# typing-extensions (>=4.5.0)
+# uvicorn (>=0.11.6) ; extra == "debug-server"
+
+[PY312].USES_ON=			python:v12,wheel
+[PY312].RUN_DEPENDS_ON=			python-graphql-core:single:v12
+					python-python-dateutil:single:v12
+					python-typing-extensions:single:v12
+[PY313].USES_ON=			python:v13,wheel
+[PY313].RUN_DEPENDS_ON=			python-graphql-core:single:v13
+					python-python-dateutil:single:v13
+					python-typing-extensions:single:v13
+
