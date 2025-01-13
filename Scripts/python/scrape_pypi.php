@@ -265,44 +265,23 @@ function fetch_from_pypi ($namebase) {
 # Many setup.py files are busted.  This script fixes the known issues.
 function inline_fix_setup ($namebase, $src) {
    $known_issues = array (
-       "drf-yasg"     => 's/    _install_setup_requires.*/    pass/',
        "lxml"         => '/Building lxml/d',
        "intervaltree" => '/print("Version/d; s/print("!!!.*/    pass/',
-       "aniso8601"    => '/install_requires=/d',
-       'Markdown'     => '/install_requires=/ s|;.*[[:punct:]]"|"|',
        "borgbackup"   => '/Detected/d',
        "compreffor"   => '/print/d',
-       "netaddr"      => false,
-       "Cython"       => '/Unable to find pgen/ s/sys[.].*$/pass/',
-       "jsonpointer"  => '/pypandoc module not found/d; /Markdown to RST/d',
        "libversion"   => '/[*][*]pkgconfig/d',
        "cffi"         => '/__main__/ s|^.*$|if True:|',
-       "ruamel.yaml"  => '/__name__.*__main__/ s|^.*$|if False:|; /print..sys[.]argv/d',
        "ruamel.yaml.clib"  => '/__name__.*__main__/ s|^.*$|if False:|; /print..sys[.]argv/d; /test compiling/d',
-       "pandas"       => '/ext_modules=/d',
-       "ddt"          => '/enum34/d',
-       "tqdm"         => '/== .make/ s|^if .*|if False:|',
-       "breathe"      => '/from breathe/d',
-       "asn1"         => '/version_info.*3\.4/d; s/.enum-compat.//',
        "pycryptodomex"=> '/set_compiler_options/d',
-       "multidict"    => '/print(/d',
-       "frozenlist"   => '/print(/d',
-       "yarl"         => '/print(/d',
        "aiohttp"      => '/print(/d',
-       "black"        => '/extensions/d',
-       "soupsieve"    => false,
        "xml2rfc"      => false,
        "psautohint"   => false,
-       "django-colorful" => false,
        "netbox-network-importer" => '/pyats\[full\]/d',
        "pyzmq"        => '/cythonize(/ s|, |, quiet=True, |; /packaging.version/d; s|if V(.*$|if False:|',
        "cffsubr"      => 's|"Linux"|platform.system()|',
        "msgpack"      => false,
-       "dulwich"      => false,
-       "dbus-python"  => false,
        "python-netbox" => '/install_requires=/ s|.ipaddress., ||',
        "netdoc"        => '/install_requires=/ s|.ipaddress., ||',
-       "SQLAlchemy"    => false,
        "pycryptodome"  => false,
        "freetype-py"   => '/system-provided FreeType/d',
        "json2html"     => '/classifiers/d; /  ),/d',
@@ -319,39 +298,6 @@ function inline_fix_setup ($namebase, $src) {
                $xf = $src . "/setupinfo.py";
                shell_exec("sed -i.bak -E -e '/Building without/d; /Using build/ s/^.*$$/        pass/; /lib_versions[[]?[1]?[]]?)/d; s/if _library_dirs:/if 0:/; s/not check_build_dependencies..:/0:/' $xf");
                break;
-           case "netaddr":
-               $xf = $src . "/netaddr/strategy/__init__.py";
-               shell_exec ("sed -i.bak -e 's/sep is not/sep !=/' $xf");
-               break;
-           case "django-colorful":
-               $xf = $src . "/colorful/__init__.py";
-               $initpy = file_get_contents ($xf);
-               $pat = '/VERSION = [(]([[:digit:]]*)[, ]*([[:digit:]]*)[, ]*([[:digit:]]*)[,]/';
-               if (preg_match ($pat, $initpy, $matches) == 1) {
-                  $newfile = '__version__ = "' . $matches[1] .
-                                           "." . $matches[2] .
-                                           "." . $matches[3] . '"' . "\n";
-                  file_put_contents ($xf, $newfile);
-               }
-               break;
-           case "soupsieve":
-               $xf = $src . "/requirements/project.txt";
-               shell_exec ("sed -i.bak -e '/^backports/d' $xf");
-               break;
-           case "ddt":
-               $xf = $src . "/ddt.py";
-               shell_exec ("sed -i.bak -e '/nottest/d' $xf");
-               break;
-           case "breathe":
-               $xf = $src . "/breathe/__init__.py";
-               $bv = trim (shell_exec ("awk '/__version__/ { print $3 }' $xf"));
-               $xf = $src . "/setup.py";
-               shell_exec ("sed -i.bak -e \"s|__version__|$bv|\" $xf");
-               break;
-           case "tqdm":
-               $xf = $src . "/setup.cfg";
-               shell_exec ("sed -i.bak -e \"s|setuptools_scm\[toml\]|toml>=0.10; setuptools_scm|\" $xf");
-               break;
            case "pycryptodome":
                $xf = $src . "/compiler_opt.py";
                shell_exec ("sed -i.bak -e \"s|print(.*|pass|\" $xf");
@@ -359,13 +305,8 @@ function inline_fix_setup ($namebase, $src) {
            case "cffi":
            case "xml2rfc":
            case "msgpack":
-           case "dulwich":
            case "aiohttp":
-           case "cffsubr":
-           case "SQLAlchemy":
-           case "frozenlist":
            case "psautohint":
-           case "dbus-python":
            case "freetype-py":
                $xf = $src . "/pyproject.toml";
                $filehandle = fopen($xf, "a");
