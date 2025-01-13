@@ -514,6 +514,64 @@ function get_run_depends ($base_dependencies, $pversion) {
 }
 
 
+# Setup.py handler #1
+function program_unittest() {
+    $code = <<<'EOF'
+import unittest.mock
+import setuptools
+
+with unittest.mock.patch.object(setuptools, 'setup') as mock_setup:
+    import setup
+
+if mock_setup.call_args is not None:
+    args, kwargs = mock_setup.call_args
+    print ('\n'.join(kwargs.get('install_requires', [])))
+    print ('\n'.join(kwargs.get('setup_requires', [])))
+EOF;
+    return $code;
+}
+
+
+# Setup.py handler #2
+function program_distutils() {
+    $code = <<<'EOF'
+import distutils.core
+import distutils.log
+import warnings
+distutils.log.set_threshold(distutils.log.ERROR)
+warnings.filterwarnings('ignore')
+setup = distutils.core.run_setup("setup.py")
+if hasattr (setup, 'install_requires'):
+    print ('\n'.join(setup.install_requires))
+if hasattr (setup, 'setup_requires'):
+    print ('\n'.join(setup.setup_requires))
+EOF;
+    return $code;
+}
+
+
+# pyproject.toml handler
+function program_toml($file) {
+    $code = <<<EOF
+import toml
+from packaging.requirements import InvalidRequirement, Requirement
+proj = toml.load(open("$file"))
+deps = proj["project"]["dependencies"]
+parsed_deps = []
+for item in deps:
+    try:
+        # only accept valid dependencies and those that do not depend on a url (i.e.: from pypi)
+        req = Requirement(item)
+        if req.url is None:
+            parsed_deps.append(item)
+    except:
+        pass
+print("\\n".join(parsed_deps))
+EOF;
+    return $code;
+}
+
+
 # Establish buildruns (only using latest python)
 function set_buildrun (&$portdata, $PDUO) {
     global
@@ -578,60 +636,46 @@ function set_buildrun (&$portdata, $PDUO) {
        return;
     }
 
-    # This is a setuptools "sdist" port
+    # This is a setuptools "sdist" port (expected pyproject.toml or setup.py)
     $src = $WORKZONE . "/" . $distname;
-    $setup = $src . "/setup.py";
-    if (!file_exists($setup)) {
-        echo "ERROR: $setup does not exist (set_buildrun)\n";
-        return;
-    }
-    inline_fix_setup ($portdata["name"], $src);
     $mockfile = $src . "/obtain-req.py";
-    switch ($portdata["name"]) {
-        case "PyYAML":
-        case "Twisted":
-        case "attrs":
-        case "fonttools":
-        case "netaddr":
-        case "pylint":
-        case "pytest-runner":
-        case "reportlab":
-        case "setuptools-scm":
-        case "skia-pathops":
-        case "mutagen":
-        case "protobuf":
-        case "compreffor":
-        case "zipp":		// above -- not distutils script
-        case "PyNaCl":		// above -- tries downloading
-        case "kombu":		// setup.cfg misconfig
-        case "bcrypt":		// c errors
-            $program = <<<'EOF'
-import unittest.mock
-import setuptools
-
-with unittest.mock.patch.object(setuptools, 'setup') as mock_setup:
-    import setup
-
-if mock_setup.call_args is not None:
-    args, kwargs = mock_setup.call_args
-    print ('\n'.join(kwargs.get('install_requires', [])))
-    print ('\n'.join(kwargs.get('setup_requires', [])))
-EOF;
+    $toml = $src . "/pyproject.toml";
+    if (file_exists($toml)) {
+       $program = program_toml($toml);
+       $portdata["toml_dist"] = true;
+       $portdata["req_comment"] = "# Requires-Dist extracted from pyproject.toml file\n";
+    }
+    else {
+       $setup = $src . "/setup.py";
+       if (!file_exists($setup)) {
+          echo "ERROR: $setup does not exist (set_buildrun)\n";
+           return;
+       }
+       inline_fix_setup ($portdata["name"], $src);
+       switch ($portdata["name"]) {
+          case "PyYAML":
+          case "Twisted":
+          case "attrs":
+          case "fonttools":
+          case "netaddr":
+          case "pylint":
+          case "pytest-runner":
+          case "reportlab":
+          case "setuptools-scm":
+          case "skia-pathops":
+          case "mutagen":
+          case "protobuf":
+          case "compreffor":
+          case "zipp":		// above -- not distutils script
+          case "PyNaCl":		// above -- tries downloading
+          case "kombu":		// setup.cfg misconfig
+          case "bcrypt":		// c errors
+             $program = program_unittest();
+             break;
+          default:
+            $program = program_distutils();
             break;
-        default:
-            $program = <<<'EOF'
-import distutils.core
-import distutils.log
-import warnings
-distutils.log.set_threshold(distutils.log.ERROR)
-warnings.filterwarnings('ignore')
-setup = distutils.core.run_setup("setup.py")
-if hasattr (setup, 'install_requires'):
-    print ('\n'.join(setup.install_requires))
-if hasattr (setup, 'setup_requires'):
-    print ('\n'.join(setup.setup_requires))
-EOF;
-            break;
+       }
     }
     file_put_contents($mockfile, $program);
     $requirements = shell_exec ("cd $src && $PYTHONEXE obtain-req.py");
@@ -676,7 +720,13 @@ EOF;
             $req = $data_corrections[$req];
         }
         if (!in_array("python-" . $req, $portdata["buildrun"])) {
-            array_push($portdata["buildrun"], "python-" . $req);
+            if ($portdata["toml_dist"]) {
+               foreach ($PDUO as $V) {
+                  array_push($portdata["justrun_" . $V["variant"]], "python-" . $req);
+               }
+            } else {
+               array_push($portdata["buildrun"], "python-" . $req);
+            }
         }
     }
 }
@@ -710,6 +760,7 @@ function scrape_python_info ($namebase, $force, $PDUO) {
         "min_python"  => "UNSET",
         "pypi_uri"    => "UNSET",
         "wheel_dist"  => false,
+        "toml_dist"   => false,
         "buildrun"    => array(),
         "justrun_" . $PDUO["VA"]["variant"] => array(),
         "justrun_" . $PDUO["VB"]["variant"] => array(),
@@ -722,6 +773,7 @@ function scrape_python_info ($namebase, $force, $PDUO) {
     if (fetch_from_pypi ($namebase) !== False) {
          $module_json = stored_json ($namebase);
          $obj = json_decode($module_json, false, 512, JSON_INVALID_UTF8_IGNORE);
+         var_dump($obj);
          if (is_null ($obj)) {
              return $result;
          }
@@ -736,7 +788,16 @@ function scrape_python_info ($namebase, $force, $PDUO) {
                      $obj->info->home_page = $obj->info->project_urls->Homepage;
                   } else if (property_exists($obj->info->project_urls, "homepage")) {
                      $obj->info->home_page = $obj->info->project_urls->homepage;
+                  } else if (property_exists($obj->info->project_urls, "Source")) {
+                     $obj->info->home_page = $obj->info->project_urls->Source;
                   }
+               }
+            }
+         }
+         if ($obj->info->home_page == "") {
+            if (property_exists($obj->info, "project_url")) {
+               if ($obj->info->project_urls != "") {
+                  $obj->info->home_page = $obj->info->project_url;
                }
             }
          }

@@ -338,6 +338,7 @@ function generate_port($namebase) {
     $uri         = $port_data[$namebase]["pypi_uri"];
     $fetch_url   = $port_data[$namebase]["fetch_url"];
     $whl_file    = $port_data[$namebase]["wheel_dist"];
+    $toml_file   = $port_data[$namebase]["toml_dist"];
     $main_site   = $whl_file ? wheel_site($fetch_url) : "PYPI/" . $uri;
     $homepage    = sanitize_homepage ($namebase,
                                       $port_data[$namebase]["homepage"]);
@@ -385,7 +386,7 @@ function generate_port($namebase) {
     $variants = determine_variants ($namebase, $port_data[$namebase]["min_python"]);
     $variants_block = join(" ", $variants);
     $primo = $variants[0];
-    $arg = $whl_file ? ',wheel' : ',sutools';
+    $arg = $whl_file ? ',wheel' : ($toml_file ? ',pep517' : ',sutools');
 
     $vopts_block = "";
     $buildrun_block = "";
