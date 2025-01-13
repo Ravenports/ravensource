@@ -714,7 +714,6 @@ function scrape_python_info ($namebase, $force, $PDUO) {
     if (fetch_from_pypi ($namebase) !== False) {
          $module_json = stored_json ($namebase);
          $obj = json_decode($module_json, false, 512, JSON_INVALID_UTF8_IGNORE);
-         var_dump($obj);
          if (is_null ($obj)) {
              return $result;
          }
