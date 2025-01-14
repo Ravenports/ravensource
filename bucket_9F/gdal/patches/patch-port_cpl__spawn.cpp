@@ -1,6 +1,6 @@
---- port/cpl_spawn.cpp.orig	2024-10-07 16:02:07 UTC
+--- port/cpl_spawn.cpp.orig	2025-01-08 14:54:06 UTC
 +++ port/cpl_spawn.cpp
-@@ -57,7 +57,7 @@
+@@ -41,7 +41,7 @@
  #include <crt_externs.h>
  #define environ (*_NSGetEnviron())
  #else

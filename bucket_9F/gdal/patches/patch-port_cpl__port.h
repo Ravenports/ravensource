@@ -1,6 +1,6 @@
---- port/cpl_port.h.orig	2024-10-07 16:02:07 UTC
+--- port/cpl_port.h.orig	2025-01-08 14:54:06 UTC
 +++ port/cpl_port.h
-@@ -665,7 +665,7 @@ extern "C++"
+@@ -651,7 +651,7 @@ extern "C++"
  }
  #else
  #define CPLIsNan(x) isnan(x)
