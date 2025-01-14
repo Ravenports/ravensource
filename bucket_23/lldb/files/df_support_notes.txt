@@ -1,0 +1,28 @@
+Ptrace functionality needed for DragonFly's lldb support
+========================================================
+
+PT_LWPINFO        (Kernel thread info)  
+                  - equivalent of ptrace_lwpinfo + Flags 
+                  - (NetBSD's rough equivalent is PT_GET_SIGINFO)
+PT_GETNUMLWPS     (Kthreads of process)
+PT_GETLWPLIST     (current thread list)
+PT_GETXMMREGS     (copy XMM FPU state)
+PT_SETXMMREGS     (load XMM FPU state)
+PT_GETXSTATE      (content of thread XSAVE)
+PT_SETXSTATE      (Load thread XSAVE state)
+PT_GETXSTATE_INFO (XSAVE FPU extensions info)
+
+PT_GET_EVENT_MASK
+PT_SET_EVENT_MASK
+PTRACE_LWP        (event flag)
+PTRACE_FORK       (event flag)
+PTRACE_VFORK      (event flag)
+
+PT_SUSPEND        (suspend the specified thread)
+PT_RESUME         (resume the specified thread)
+PT_SETSTEP        (turn on single stepping of process)
+PT_CLEARSTEP      (turn off single stepping of process)
+
+OPTIONAL:
+=========
+PT_COREDUMP (for savecore extension)
