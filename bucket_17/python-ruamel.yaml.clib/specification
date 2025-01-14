@@ -1,4 +1,3 @@
-# manually maintained
 DEF[PORTVERSION]=	0.2.12
 # ------------------------------------------------------------------------
 
@@ -8,7 +7,7 @@ KEYWORDS=		python
 VARIANTS=		v12 v13
 SDESC[v12]=		C based yaml reader/scanner and emitter (3.12)
 SDESC[v13]=		C based yaml reader/scanner and emitter (3.13)
-HOMEPAGE=		https://sourceforge.net/p/ruamel-yaml-clib/code/ci/default/tree
+HOMEPAGE=		https://sourceforge.net/p/ruamel-yaml-clib/code/ci/default/tree/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
@@ -30,15 +29,9 @@ VOPTS[v13]=		PY312=OFF PY313=ON
 GENERATED=		yes
 DISTNAME=		ruamel.yaml.clib-${PORTVERSION}
 
-# install_requires extracted from setup.py
+# Requires-Dist extracted from pyproject.toml file
 
 
-[PY312].USES_ON=			python:v12,sutools
-[PY313].USES_ON=			python:v13,sutools
+[PY312].USES_ON=			python:v12,pep517
+[PY313].USES_ON=			python:v13,pep517
 
-INSTALL_REQ_TOOLCHAIN=	yes
-
-post-install:
-	${RMDIR} ${STAGEDIR}${PYTHON_SITELIBDIR}/ruamel/yaml/clib
-	${RMDIR} ${STAGEDIR}${PYTHON_SITELIBDIR}/ruamel/yaml
-	${RMDIR} ${STAGEDIR}${PYTHON_SITELIBDIR}/ruamel

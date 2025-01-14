@@ -271,7 +271,6 @@ function inline_fix_setup ($namebase, $src) {
        "compreffor"   => '/print/d',
        "libversion"   => '/[*][*]pkgconfig/d',
        "cffi"         => '/__main__/ s|^.*$|if True:|',
-       "ruamel.yaml.clib"  => '/__name__.*__main__/ s|^.*$|if False:|; /print..sys[.]argv/d; /test compiling/d',
        "pycryptodomex"=> '/set_compiler_options/d',
        "aiohttp"      => '/print(/d',
        "xml2rfc"      => false,
