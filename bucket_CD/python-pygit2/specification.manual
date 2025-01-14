@@ -1,0 +1,9 @@
+BUILD_DEPENDS=		libgit2:dev:std
+BUILDRUN_DEPENDS=	libgit2:primary:std
+			python-cffi:single:python_used
+MAKE_ENV=		LIBGIT2={{LOCALBASE}}
+
+post-patch:
+	# This version check is always too conservative, causing breakage
+	${REINPLACE_CMD} -e '/#error You need a compatible libgit2/d' \
+		${WRKSRC}/src/types.h
