@@ -496,15 +496,41 @@ function program_toml($file) {
     $code = <<<EOF
 import toml
 from packaging.requirements import InvalidRequirement, Requirement
-proj = toml.load(open("$file"))
-deps = proj["project"]["dependencies"]
+
+reqs = {}
+deps = {}
 parsed_deps = []
+def filter_out(bdep):
+   if bdep in ["wheel", "setuptools", "build", "installer", "pip"]:
+      return True
+   if bdep[:11] in ["setuptools;", "setuptools<", "setuptools="]:
+      return True
+   return False
+
+proj = toml.load(open("$file"))
+if "build-system" in proj:
+   if "requires" in proj["build-system"]:
+      reqs = proj["build-system"]["requires"]
+if "project" in proj:
+   if "dependencies" in proj["project"]:
+      deps = proj["project"]["dependencies"]
+
+for item in reqs:
+    try:
+        # only accept valid dependencies and those that do not depend on a url (i.e.: from pypi)
+        # pep517 pulls in sutool, pip, wheel, build and installer so filter those out
+        req = Requirement(item)
+        if req.url is None:
+            if not filter_out(item):
+               parsed_deps.append("build: " + item)
+    except:
+        pass
 for item in deps:
     try:
         # only accept valid dependencies and those that do not depend on a url (i.e.: from pypi)
         req = Requirement(item)
         if req.url is None:
-            parsed_deps.append(item)
+            parsed_deps.append("buildrun: " + item)
     except:
         pass
 print("\\n".join(parsed_deps))
@@ -656,17 +682,32 @@ function set_buildrun (&$portdata, $PDUO) {
     $portdata["req_comment"] .= join("\n", $comment_reqs);
     $stripped_reqs = preg_replace('/(.*)([><!=~;].*)$/U', '\1', $clean_reqs2);
     foreach ($stripped_reqs as $req) {
-        $req = trim($req);
-        if (array_key_exists ($req, $data_corrections)) {
-            $req = $data_corrections[$req];
-        }
-        if (!in_array("python-" . $req, $portdata["buildrun"])) {
-            if ($portdata["toml_dist"]) {
-               foreach ($PDUO as $V) {
-                  array_push($portdata["justrun_" . $V["variant"]], "python-" . $req);
+        if ($portdata["toml_dist"]) {
+            $buildonly = (substr ($req, 0, 6) == "build:");
+            $req = trim(substr($req, $buildonly ? 6 : 9));
+            if (array_key_exists ($req, $data_corrections)) {
+                $req = $data_corrections[$req];
+            }
+            $pyreq = "python-" . $req;
+            if ($buildonly) {
+                if (!in_array($pyreq, $portdata["build"])) {
+                    array_push($portdata["build"], $pyreq);
+                }
+            }
+            else {
+               if (!in_array($pyreq, $portdata["buildrun"])) {
+                   array_push($portdata["buildrun"], $pyreq);
                }
-            } else {
-               array_push($portdata["buildrun"], "python-" . $req);
+            }
+        }
+        else {
+            $req = trim($req);
+            if (array_key_exists ($req, $data_corrections)) {
+                $req = $data_corrections[$req];
+            }
+
+            if (!in_array("python-" . $req, $portdata["buildrun"])) {
+                array_push($portdata["buildrun"], "python-" . $req);
             }
         }
     }
@@ -702,6 +743,7 @@ function scrape_python_info ($namebase, $force, $PDUO) {
         "pypi_uri"    => "UNSET",
         "wheel_dist"  => false,
         "toml_dist"   => false,
+        "build"       => array(),
         "buildrun"    => array(),
         "justrun_" . $PDUO["VA"]["variant"] => array(),
         "justrun_" . $PDUO["VB"]["variant"] => array(),

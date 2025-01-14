@@ -420,6 +420,16 @@ function generate_port($namebase) {
         # SV is 3 characters now.  We need 3 tabs
         $tabs = "\t\t\t";
         $buildrun_block .= "[PY" . $SV . "].USES_ON=" .$tabs . "python:" . $V . $arg . "\n";
+        if (count($port_data[$namebase]["build"])) {
+            foreach ($port_data[$namebase]["build"] as $DEP) {
+                if (!$num_split_pkg) {
+                    $buildrun_block .= "[PY" . $SV . "].BUILD_DEPENDS_ON=\t\t";
+                }
+                $indent = $num_split_pkg ? "\t\t\t\t\t" : "";
+                $buildrun_block .= $indent . $DEP . ":single:" . $V . "\n";
+                $num_split_pkg++;
+            }
+        }
         if (count($port_data[$namebase]["buildrun"])) {
             foreach ($port_data[$namebase]["buildrun"] as $DEP) {
                 if (in_array($DEP, $data_primary)) {
