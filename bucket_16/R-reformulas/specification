@@ -1,18 +1,18 @@
-DEF[PORTVERSION]=	1.1-36
+DEF[PORTVERSION]=	0.4.0
 # ------------------------------------------------------------------------
 
-NAMEBASE=		R-lme4
+NAMEBASE=		R-reformulas
 VERSION=		${PORTVERSION}
 KEYWORDS=		cran
 VARIANTS=		std
-SDESC[std]=		Linear Mixed-Effects Models using 'Eigen' and S4
-HOMEPAGE=		https://github.com/lme4/lme4/
+SDESC[std]=		Machinery for Processing Random Effect Formulas
+HOMEPAGE=		https://github.com/bbolker/reformulas
 CONTACT=		CRAN_Automaton[cran@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		CRAN/src/contrib
 			https://loki.dragonflybsd.org/cranfiles/
-DISTFILE[1]=		lme4_1.1-36.tar.gz:main
+DISTFILE[1]=		reformulas_0.4.0.tar.gz:main
 DIST_SUBDIR=		CRAN
 DF_INDEX=		1
 
@@ -22,17 +22,13 @@ OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 # License listed on https://cran.r-project.org/
-# => GPL-2 | GPL-3 [expanded from: GPL (>= 2)]
+# => GPL-3
 
 USES=			cran gmake
-DISTNAME=		lme4
+DISTNAME=		reformulas
 GENERATED=		yes
 INSTALL_REQ_TOOLCHAIN=	yes
 
-BUILDRUN_DEPENDS=	R-minqa:single:std
-			R-nloptr:single:std
-			R-reformulas:single:std
-			R-Rcpp:single:std
-			R-RcppEigen:single:std
+BUILDRUN_DEPENDS=	R-Rdpack:single:std
 
 
