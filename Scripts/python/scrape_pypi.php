@@ -493,16 +493,21 @@ EOF;
 # pyproject.toml handler
 function program_toml($file) {
     $code = <<<EOF
+import re
 import toml
 from packaging.requirements import InvalidRequirement, Requirement
 
 reqs = {}
 deps = {}
 parsed_deps = []
+pattern = re.compile(r"(^[a-zA-Z-]*)")
+
 def filter_out(bdep):
-   if bdep in ["wheel", "setuptools", "build", "installer", "pip"]:
+   m = pattern.match(bdep)
+   basedep = m.group(1)
+   if basedep in ["wheel", "setuptools", "build", "installer", "pip"]:
       return True
-   if bdep[:11] in ["setuptools;", "setuptools<", "setuptools=", "setuptools>"]:
+   if basedep in ["meson"]:
       return True
    return False
 
