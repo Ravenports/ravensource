@@ -11,10 +11,8 @@ Automatically link across pages in MkDocs.
 
 ## Installation
 
-With `pip`:
-
 ```bash
-python3 -m pip install mkdocs-autorefs
+pip install mkdocs-autorefs
 ```
 
 ## Usage
@@ -22,8 +20,8 @@ python3 -m pip install mkdocs-autorefs
 ```yaml
 # mkdocs.yml
 plugins:
-  - search
-  - autorefs
+- search
+- autorefs
 ```
 
 In one of your Markdown files (e.g. `doc1.md`) create some headings:
@@ -98,3 +96,5 @@ if longer distance)
 `a/b/` | `x/#e`, `a/c/#e`, `a/d/#e` | `a/c/#e`, `a/d/#e` (relative to
 parent `a/`) | `a/c/#e` (same distance, use first one)
 `a/b/` | `x/#e`, `a/c/d/#e`, `a/c/#e` | `a/c/d/#e`, `a/c/#e` (relative to
+parent `a/`) | `a/c/#e` (shortest distance)
+`a/b/c/` | `x/#e`, `a/#e`, `a/b/#e`, `a/b/c/d/#e`, `a/b/c/#e` |

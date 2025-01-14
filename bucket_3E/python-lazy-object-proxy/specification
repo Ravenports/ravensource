@@ -29,13 +29,11 @@ VOPTS[v13]=		PY312=OFF PY313=ON
 GENERATED=		yes
 DISTNAME=		lazy-object-proxy-${PORTVERSION}
 
-# install_requires extracted from setup.py
-# setuptools_scm>=3.3.1
+# Requires-Dist extracted from pyproject.toml file
 
-[PY312].USES_ON=			python:v12,sutools
-[PY312].BUILDRUN_DEPENDS_ON=		python-setuptools-scm:single:v12
-[PY313].USES_ON=			python:v13,sutools
-[PY313].BUILDRUN_DEPENDS_ON=		python-setuptools-scm:single:v13
+
+[PY312].USES_ON=			python:v12,pep517
+[PY313].USES_ON=			python:v13,pep517
 
 BUILD_DEPENDS=		python-pip:single:python_used
 			python-setuptools-scm:single:python_used

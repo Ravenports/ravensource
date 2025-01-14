@@ -500,7 +500,7 @@ from packaging.requirements import InvalidRequirement, Requirement
 reqs = {}
 deps = {}
 parsed_deps = []
-pattern = re.compile(r"(^[a-zA-Z-]*)")
+pattern = re.compile(r"(^[a-zA-Z-_]*)")
 
 def filter_out(bdep):
    m = pattern.match(bdep)

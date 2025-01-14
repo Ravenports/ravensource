@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.0.7
+DEF[PORTVERSION]=	2.1.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-typogrify
@@ -7,12 +7,12 @@ KEYWORDS=		python
 VARIANTS=		v12 v13
 SDESC[v12]=		Filters to enhance web typography (3.12)
 SDESC[v13]=		Filters to enhance web typography (3.13)
-HOMEPAGE=		https://github.com/mintchaos/typogrify
+HOMEPAGE=		https://github.com/justinmayer/typogrify
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/t/typogrify
-DISTFILE[1]=		typogrify-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/ab/7f/3221bc6bd429a78e37b96aac309a66512af35360b69c67d20bb5e4ef4e5b
+DISTFILE[1]=		typogrify-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
 SPKGS[v12]=		single
@@ -27,13 +27,18 @@ VOPTS[v13]=		PY312=OFF PY313=ON
 # BSD
 
 GENERATED=		yes
-DISTNAME=		typogrify-${PORTVERSION}
+DISTNAME=		typogrify-${PORTVERSION}.dist-info
 
-# install_requires extracted from setup.py
+# Requires-Dist extracted from wheel metadata
 # smartypants>=1.8.3
 
-[PY312].USES_ON=			python:v12,sutools
-[PY312].BUILDRUN_DEPENDS_ON=		python-smartypants:single:v12
-[PY313].USES_ON=			python:v13,sutools
-[PY313].BUILDRUN_DEPENDS_ON=		python-smartypants:single:v13
+[PY312].USES_ON=			python:v12,wheel
+[PY312].RUN_DEPENDS_ON=			python-smartypants:single:v12
+[PY313].USES_ON=			python:v13,wheel
+[PY313].RUN_DEPENDS_ON=			python-smartypants:single:v13
 
+post-install:
+	# Fix python shebangs
+	(cd ${STAGEDIR}${PYTHON_SITELIBDIR}/typogrify/packages/titlecase/ &&\
+		${SED} -i'' -e "s|/usr/bin/env python|${LOCALBASE}/bin/python3|" \
+		__init__.py)

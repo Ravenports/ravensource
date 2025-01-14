@@ -29,12 +29,13 @@ VOPTS[v13]=		PY312=OFF PY313=ON
 GENERATED=		yes
 DISTNAME=		zstandard-${PORTVERSION}
 
-# install_requires extracted from setup.py
-# cffi>=1.11; platform_python_implementation == "PyPy"
+# Requires-Dist extracted from pyproject.toml file
+# build: cffi>=1.16.0; python_version <= '3.12'
+# build: cffi==1.17.0rc1; python_version >= '3.13'
 
-[PY312].USES_ON=			python:v12,sutools
-[PY312].BUILDRUN_DEPENDS_ON=		python-cffi:single:v12
-[PY313].USES_ON=			python:v13,sutools
-[PY313].BUILDRUN_DEPENDS_ON=		python-cffi:single:v13
+[PY312].USES_ON=			python:v12,pep517
+[PY312].BUILD_DEPENDS_ON=		python-cffi:single:v12
+[PY313].USES_ON=			python:v13,pep517
+[PY313].BUILD_DEPENDS_ON=		python-cffi:single:v13
 
 INSTALL_REQ_TOOLCHAIN=	yes

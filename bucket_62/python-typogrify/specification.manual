@@ -1,0 +1,5 @@
+post-install:
+	# Fix python shebangs
+	(cd ${STAGEDIR}${PYTHON_SITELIBDIR}/typogrify/packages/titlecase/ &&\
+		${SED} -i'' -e "s|/usr/bin/env python|${LOCALBASE}/bin/python3|" \
+		__init__.py)
