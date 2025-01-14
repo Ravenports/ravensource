@@ -503,7 +503,7 @@ parsed_deps = []
 def filter_out(bdep):
    if bdep in ["wheel", "setuptools", "build", "installer", "pip"]:
       return True
-   if bdep[:11] in ["setuptools;", "setuptools<", "setuptools="]:
+   if bdep[:11] in ["setuptools;", "setuptools<", "setuptools=", "setuptools>"]:
       return True
    return False
 

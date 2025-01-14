@@ -1,14 +1,13 @@
-# Manually updated
 DEF[PORTVERSION]=	1.4.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-borgbackup
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v13 v12
-SDESC[v13]=		Deduplicated, encrypted, compressed backups (3.13)
+VARIANTS=		v12 v13
 SDESC[v12]=		Deduplicated, encrypted, compressed backups (3.12)
-HOMEPAGE=		https://borgbackup.readthedocs.io/
+SDESC[v13]=		Deduplicated, encrypted, compressed backups (3.13)
+HOMEPAGE=		https://borgbackup.org/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
@@ -16,13 +15,13 @@ SITES[main]=		PYPI/b/borgbackup
 DISTFILE[1]=		borgbackup-${PORTVERSION}.tar.gz:main
 DIST_SUBDIR=		python-src
 
-SPKGS[v13]=		single
 SPKGS[v12]=		single
+SPKGS[v13]=		single
 
-OPTIONS_AVAILABLE=	PY313 PY312
+OPTIONS_AVAILABLE=	PY312 PY313
 OPTIONS_STANDARD=	none
-VOPTS[v13]=		PY313=ON PY312=OFF
-VOPTS[v12]=		PY313=OFF PY312=ON
+VOPTS[v12]=		PY312=ON PY313=OFF
+VOPTS[v13]=		PY312=OFF PY313=ON
 
 # License listed at PyPI
 # BSD
@@ -30,26 +29,25 @@ VOPTS[v12]=		PY313=OFF PY312=ON
 GENERATED=		yes
 DISTNAME=		borgbackup-${PORTVERSION}
 
-# install_requires extracted from setup.py
-# Warning: can not import pkgconfig python package.
-# Detected OpenSSL [via BORG_OPENSSL_PREFIX]
-# Using bundled LZ4
-# Using bundled ZSTD
-# Using bundled xxhash
-# msgpack!=1.0.1,<=1.0.3,>=0.5.6
-# packaging
-# setuptools_scm>=1.7
+# Requires-Dist extracted from pyproject.toml file
+# build: setuptools_scm>=8
+# build: pkgconfig
+# build: Cython>=3.0.3
+# buildrun: msgpack >=1.0.3, <=1.1.0
+# buildrun: packaging
 
-[PY313].USES_ON=			python:v13,sutools
-[PY313].BUILD_DEPENDS_ON=		python-pkgconfig:single:v13
-[PY313].BUILDRUN_DEPENDS_ON=		python-msgpack:single:v13
-					python-packaging:single:v13
-					python-setuptools-scm:single:v13
-[PY312].USES_ON=			python:v12,sutools
-[PY312].BUILD_DEPENDS_ON=		python-pkgconfig:single:v12
+[PY312].USES_ON=			python:v12,pep517
+[PY312].BUILD_DEPENDS_ON=		python-setuptools-scm:single:v12
+					python-pkgconfig:single:v12
+					python-Cython:single:v12
 [PY312].BUILDRUN_DEPENDS_ON=		python-msgpack:single:v12
 					python-packaging:single:v12
-					python-setuptools-scm:single:v12
+[PY313].USES_ON=			python:v13,pep517
+[PY313].BUILD_DEPENDS_ON=		python-setuptools-scm:single:v13
+					python-pkgconfig:single:v13
+					python-Cython:single:v13
+[PY313].BUILDRUN_DEPENDS_ON=		python-msgpack:single:v13
+					python-packaging:single:v13
 
 BUILD_DEPENDS=		xxhash:dev:std
 BUILDRUN_DEPENDS=	xxhash:primary:std
@@ -64,8 +62,6 @@ VAR_OPSYS[freebsd]=	CFLAGS=-Wno-implicit-function-declaration
 post-patch:
 	${SED} -i'' -e 's|msgpack-python|msgpack|' \
 	${WRKSRC}/setup.py ${WRKSRC}/src/borgbackup.egg-info/requires.txt
-
-# probably breaks on freebsd 14, needs fixing
 
 post-extract-freebsd:
 	${CP} ${FILESDIR}/acl_extended_file_np.c ${WRKSRC}/src/borg/platform/
