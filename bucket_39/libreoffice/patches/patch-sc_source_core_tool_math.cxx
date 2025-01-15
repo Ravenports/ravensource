@@ -2,7 +2,7 @@ $NetBSD: patch-sc_source_core_tool_math.cxx,v 1.4 2021/08/22 02:41:50 ryoon Exp 
 
 NetBSD has no math_errhandling support yet.
 
---- sc/source/core/tool/math.cxx.orig	2024-09-23 13:53:35 UTC
+--- sc/source/core/tool/math.cxx.orig	2025-01-12 19:04:12 UTC
 +++ sc/source/core/tool/math.cxx
 @@ -21,7 +21,9 @@ static double err_pow(const double& fVal
  {

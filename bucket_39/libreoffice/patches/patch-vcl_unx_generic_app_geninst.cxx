@@ -8,7 +8,7 @@ Help -> About LibreOffice
 
 Tweaked by Yasushi Oshima, PR pkg/56048.
 
---- vcl/unx/generic/app/geninst.cxx.orig	2024-09-23 13:53:35 UTC
+--- vcl/unx/generic/app/geninst.cxx.orig	2025-01-12 19:04:12 UTC
 +++ vcl/unx/generic/app/geninst.cxx
 @@ -22,7 +22,7 @@
  #if defined(LINUX)
@@ -18,8 +18,8 @@ Tweaked by Yasushi Oshima, PR pkg/56048.
 +#if defined(__FreeBSD__) || defined(__DragonFly__) || defined(__NetBSD__)
  #  include <sys/utsname.h>
  #endif
- 
-@@ -72,14 +72,18 @@ OUString SalGenericInstance::getOSVersio
+ #if defined(EMSCRIPTEN)
+@@ -75,14 +75,18 @@ OUString SalGenericInstance::getOSVersio
          }
          fclose( pVersion );
      }
@@ -40,11 +40,11 @@ Tweaked by Yasushi Oshima, PR pkg/56048.
      while ( nIndex++ < aKernelVer.getLength() )
      {
          const char c = stName.release[ nIndex ];
-@@ -87,6 +91,7 @@ OUString SalGenericInstance::getOSVersio
+@@ -90,6 +94,7 @@ OUString SalGenericInstance::getOSVersio
              break;
      }
      aKernelVer = OUString::createFromAscii(stName.sysname) + " " + aKernelVer.copy(0, nIndex);
 +#endif
  #elif defined(EMSCRIPTEN)
- #define str(s) #s
- #define xstr(s) str(s)
+     aKernelVer = u"Emscripten "_ustr + OUString::number(__EMSCRIPTEN_major__) + u"."_ustr
+                  + OUString::number(__EMSCRIPTEN_minor__) + u"."_ustr

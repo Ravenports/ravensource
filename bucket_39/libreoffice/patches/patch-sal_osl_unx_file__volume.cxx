@@ -1,4 +1,4 @@
---- sal/osl/unx/file_volume.cxx.orig	2024-09-23 13:53:35 UTC
+--- sal/osl/unx/file_volume.cxx.orig	2025-01-12 19:04:12 UTC
 +++ sal/osl/unx/file_volume.cxx
 @@ -42,6 +42,10 @@
  #define FREEBSD 1

@@ -1,6 +1,6 @@
---- configure.orig	2024-09-23 13:57:11 UTC
+--- configure.orig	2025-01-12 19:08:28 UTC
 +++ configure
-@@ -6057,9 +6057,6 @@ if test -z "$host" -a -z "$build" -a "`w
+@@ -6128,9 +6128,6 @@ if test -z "$host" -a -z "$build" -a "`w
              if test -n "$opt_d" -o -n "$opt_s"; then
                  input=$($WSL_LO_HELPER --8.3 "$input")
              fi
@@ -10,7 +10,7 @@
              echo "$input"
          else
              # Print Unix path
-@@ -7141,6 +7138,14 @@ dragonfly*)
+@@ -7212,6 +7209,14 @@ dragonfly*)
      _os=DragonFly
      ;;
  
@@ -25,7 +25,7 @@
  linux-android*)
      # API exists, but seems not really usable since Android 7 AFAIK
      usable_dlapi=no
-@@ -15120,7 +15125,7 @@ dragonfly*)
+@@ -15367,7 +15372,7 @@ dragonfly*)
      esac
      ;;
  
@@ -34,7 +34,7 @@
      COM=GCC
      RTL_OS=FreeBSD
      OS=FREEBSD
-@@ -15894,7 +15899,7 @@ printf %s "checking for BUILD platform c
+@@ -16327,7 +16332,7 @@ printf %s "checking for BUILD platform c
          $with_build_platform_configure_options \
          --srcdir=$srcdir \
          2>&1 | sed -e 's/^/    /'
@@ -43,16 +43,7 @@
          as_fn_error $? "Running the configure script for BUILD side failed, see CONF-FOR-BUILD/config.log" "$LINENO" 5
      fi
  
-@@ -18162,7 +18167,7 @@ printf %s "checking for Windows SDK... "
-         WINDOWS_SDK_LIB_SUBDIR=$winsdklibsubdir
-         # The variable also contains the Windows SDK version
-         echo $WINDOWS_SDK_LIB_SUBDIR
--        IFS='.' read -r SDK_v1 SDK_v2 SDK_v3 SDK_v4 <<< "$WINDOWS_SDK_LIB_SUBDIR"
-+        # IFS='.' read -r SDK_v1 SDK_v2 SDK_v3 SDK_v4 <<< "$WINDOWS_SDK_LIB_SUBDIR"
-         # Assuming maximum of 5 digits for each part and ignoring last part
-         SDK_NORMALIZED_VER=$((SDK_v1 * 10000000000 + SDK_v2 * 100000 + SDK_v3))
-         # 10.0.20348.0 is the minimum required version
-@@ -23256,7 +23261,7 @@ if test -n "$ENABLE_JAVA" -a -z "$JAVAIN
+@@ -23857,7 +23862,7 @@ if test -n "$ENABLE_JAVA" -a -z "$JAVAIN
          test -d "$JAVA_HOME/include/native_thread" && JAVAINC="$JAVAINC -I$JAVA_HOME/include/native_thread"
          ;;
  
@@ -61,7 +52,7 @@
          JAVAINC="-I$JAVA_HOME/include"
          JAVAINC="$JAVAINC -I$JAVA_HOME/include/freebsd"
          JAVAINC="$JAVAINC -I$JAVA_HOME/include/bsd"
-@@ -24241,7 +24246,7 @@ printf %s "checking for object file form
+@@ -24842,7 +24847,7 @@ printf %s "checking for object file form
                      ;;
                  esac
                ;;
@@ -70,7 +61,7 @@
                  if echo __ELF__ | $CC -E - | grep __ELF__ > /dev/null; then
                    objfmt='BSD-a.out'
                  else
-@@ -40669,7 +40674,7 @@ elif $GNUCP --version 2>/dev/null | grep
+@@ -41282,7 +41287,7 @@ elif $GNUCP --version 2>/dev/null | grep
  printf "%s\n" "yes" >&6; }
  else
      case "$build_os" in
@@ -79,7 +70,7 @@
          x_GNUCP=\#
          GNUCP=''
          { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no gnucp found - using the system's cp command" >&5
-@@ -44611,9 +44616,6 @@ printf "%s\n" "$qt5_libdir" >&6; }
+@@ -45262,9 +45267,6 @@ printf "%s\n" "$qt5_libdir" >&6; }
      fi
  
      if test "$_os" = "Emscripten"; then
@@ -89,7 +80,7 @@
          if test ! -f "${qt5_platformsdir}"/libqwasm.a -o ! -f "$QT5_PLATFORMS_SRCDIR"/wasm_shell.html; then
              as_fn_error $? "No Qt5 WASM QPA plugin found in ${qt5_platformsdir} or ${QT5_PLATFORMS_SRCDIR}" "$LINENO" 5
          fi
-@@ -48848,7 +48850,7 @@ else
+@@ -49522,7 +49524,7 @@ else
  
      case "$host_os" in
  

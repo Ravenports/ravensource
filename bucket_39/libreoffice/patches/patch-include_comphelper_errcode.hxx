@@ -1,4 +1,4 @@
---- include/comphelper/errcode.hxx.orig	2024-09-23 13:53:35 UTC
+--- include/comphelper/errcode.hxx.orig	2025-01-12 19:04:12 UTC
 +++ include/comphelper/errcode.hxx
 @@ -24,6 +24,7 @@
  #include <ostream>
