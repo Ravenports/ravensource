@@ -1,4 +1,4 @@
---- inst/include/Rcpp/Benchmark/Timer.h.orig	2018-04-25 13:15:17 UTC
+--- inst/include/Rcpp/Benchmark/Timer.h.orig	2025-01-01 17:15:53 UTC
 +++ inst/include/Rcpp/Benchmark/Timer.h
 @@ -34,7 +34,7 @@
      #include <windows.h>
