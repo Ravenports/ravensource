@@ -1,4 +1,4 @@
---- video/scrcurses.c.orig	2024-06-06 15:45:53 UTC
+--- video/scrcurses.c.orig	2025-01-16 17:27:12 UTC
 +++ video/scrcurses.c
 @@ -21,7 +21,7 @@
  
