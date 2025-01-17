@@ -1,4 +1,4 @@
---- src/crypto/x509/root_bsd.go.orig	2024-11-27 20:27:20 UTC
+--- src/crypto/x509/root_bsd.go.orig	2025-01-10 16:44:59 UTC
 +++ src/crypto/x509/root_bsd.go
 @@ -8,15 +8,11 @@ package x509
  
