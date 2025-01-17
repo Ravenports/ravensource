@@ -1,4 +1,4 @@
---- untracked/pango/pangomm/attrlist.cc.orig	2024-07-25 15:05:37 UTC
+--- untracked/pango/pangomm/attrlist.cc.orig	2025-01-15 18:44:11 UTC
 +++ untracked/pango/pangomm/attrlist.cc
 @@ -3,6 +3,7 @@
  
