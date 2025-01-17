@@ -1,4 +1,4 @@
---- common/portability/freeipmi-portability.h.orig	2024-01-27 21:42:42 UTC
+--- common/portability/freeipmi-portability.h.orig	2025-01-15 18:11:59 UTC
 +++ common/portability/freeipmi-portability.h
 @@ -75,6 +75,10 @@
  #define O_SYNC  O_FSYNC
