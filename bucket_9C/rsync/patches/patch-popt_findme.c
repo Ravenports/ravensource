@@ -1,4 +1,4 @@
---- popt/findme.c.orig	2006-11-09 00:57:55 UTC
+--- popt/findme.c.orig	2025-01-15 20:27:46 UTC
 +++ popt/findme.c
 @@ -6,6 +6,9 @@
     file accompanying popt source distributions, available from 
