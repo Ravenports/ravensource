@@ -9,7 +9,9 @@ Bin_Linux=\
 	/bin/sh \
 	# rest comes form coreutils
 
-Usr_Bin_Linux=		# all come from coreutils except two
+Usr_Bin_Linux=\
+	/usr/bin/iconv
+	# all the rest come from coreutils except two
 	# /bin/which and /usr/bin/ldd are scripts, special handling
 
 Usr_Sbin_Linux=		# end
