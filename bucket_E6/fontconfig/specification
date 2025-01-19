@@ -1,10 +1,9 @@
-DEF[PORTVERSION]=	2.15.0
-DEF[SOVERSION]=		1.12.1
+DEF[PORTVERSION]=	2.16.0
+DEF[SOVERSION]=		1.15.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		fontconfig
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		x11_fonts
 VARIANTS=		std
 SDESC[std]=		XML-based font configuration API for X Windows
@@ -18,9 +17,7 @@ DISTFILE[1]=		fontconfig-${PORTVERSION}.tar.xz:main
 SPKGS[std]=		set primary dev man docs
 
 OPTIONS_AVAILABLE=	HINTING_NONE HINTING_SLIGHT HINTING_MEDIUM HINTING_FULL
-			NO_BITMAPS
 OPTIONS_STANDARD=	HINTING_NONE HINTING_SLIGHT HINTING_MEDIUM HINTING_FULL
-			NO_BITMAPS
 OPTGROUP_RADIO=		HINTING
 OPTDESCR[HINTING]=	Preferred pixel hinting configuration
 OPTGROUP[HINTING]=	HINTING_NONE HINTING_SLIGHT HINTING_MEDIUM HINTING_FULL
@@ -67,20 +64,14 @@ SOVERSION=		${SOVERSION}
 [HINTING_SLIGHT].DESCRIPTION=		Slight hinting
 [HINTING_MEDIUM].DESCRIPTION=		Medium hinting
 [HINTING_FULL].DESCRIPTION=		Full hinting
-[NO_BITMAPS].DESCRIPTION=		Reject bitmap fonts by default
 
 [HINTING_NONE].MAKEFILE_ON=		PREFERRED_HINTING=none
 [HINTING_SLIGHT].MAKEFILE_ON=		PREFERRED_HINTING=slight
 [HINTING_MEDIUM].MAKEFILE_ON=		PREFERRED_HINTING=medium
 [HINTING_FULL].MAKEFILE_ON=		PREFERRED_HINTING=full
 
-post-patch-NO_BITMAPS-ON:
-	${SED} -i'.bitmaps.bak' -e \
-		'/^CONF_LINKS =/s|$$|\${.newline}       70-no-bitmaps.conf \\|' \
-		${WRKSRC}/conf.d/Makefile.in
-
 post-install:
-	@${MKDIR} ${STAGEDIR}${STD_DOCDIR}
+	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
 	${INSTALL_MAN} ${WRKSRC}/fc-*/*.1 \
 		${STAGEDIR}${MANPREFIX}/man/man1
 	${INSTALL_MAN} ${WRKSRC}/doc/*.5 \
