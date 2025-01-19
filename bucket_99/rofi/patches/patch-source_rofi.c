@@ -1,4 +1,4 @@
---- source/rofi.c.orig	2024-12-31 22:52:29 UTC
+--- source/rofi.c.orig	2025-01-16 17:25:35 UTC
 +++ source/rofi.c
 @@ -38,6 +38,9 @@
  #include <string.h>
