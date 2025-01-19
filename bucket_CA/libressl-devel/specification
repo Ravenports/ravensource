@@ -8,6 +8,7 @@ DEF[BASE]=		{{PREFIX}}/${NAMEBASE}
 
 NAMEBASE=		${NAMEBASE}
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		security devel
 VARIANTS=		std
 SDESC[std]=		OpenBSD fork of the OpenSSL SSL/TLS protocol
@@ -70,8 +71,6 @@ post-build:
 		&& ranlib libtls_pic.a
 
 post-install:
-	${RM} -r ${STAGEDIR}${PREFIX}/etc/${NAMEBASE}/cert.pem
-
 	# install our PIC libraries
 	${INSTALL_DATA} \
 		${BUILD_WRKSRC}/libcrypto_pic.a \
