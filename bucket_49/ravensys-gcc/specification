@@ -46,11 +46,6 @@ LICENSE_SCHEME=		multi
 
 FPC_EQUIVALENT=		lang/gcc11
 
-C_USES[freebsd]=	iconv:build
-C_USES[dragonfly]=	iconv:build
-C_USES[midnightbsd]=	iconv:build
-C_USES[netbsd]=		iconv:build
-
 BUILD_DEPENDS=		gmp:dev:std
 			mpfr:dev:std
 			mpc:dev:std
@@ -62,7 +57,7 @@ EXRUN[compilers]=	ravensys-gcc:cxx_run:std
 
 PATCHFILES=		2 3 4 5 6
 
-USES=			cpe gmake libtool perl:build
+USES=			cpe gmake libtool perl:build iconv:build
 # makeinfo pulls in libiconv, which gets picked up.
 # #			makeinfo
 INFRASTRUCTURE=		yes
