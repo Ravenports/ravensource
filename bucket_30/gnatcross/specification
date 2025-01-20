@@ -61,10 +61,6 @@ LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING3
 			GPLv3RLE+:{{WRKSRC}}/COPYING.RUNTIME
 LICENSE_SCHEME=		multi
 
-C_USES[freebsd]=	iconv:build
-C_USES[dragonfly]=	iconv:build
-C_USES[darwin]=		iconv:build
-
 BUILD_DEPENDS=		gmp:dev:std
 			mpfr:dev:std
 			mpc:dev:std
@@ -73,7 +69,7 @@ PATCHFILES=		2 3 4 5 6
 
 # Do not set MUST_CONFIGURE to gnu (avoid LATE_CONFIGURE_ARGS)
 
-USES=			cpe gmake libtool perl:build zlib:build
+USES=			cpe gmake libtool perl:build zlib:build iconv:build
 CPE_VENDOR=		gnu
 CPE_PRODUCT=		gcc
 MUST_CONFIGURE=		yes
@@ -110,6 +106,7 @@ INFRASTRUCTURE=		yes
 
 VAR_OPSYS[dragonfly]=	CONFIGURE_ARGS=--with-libiconv-prefix={{WRKDIR}}/fake
 VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=--with-libiconv-prefix={{WRKDIR}}/fake
+VAR_OPSYS[netbsd]=	CONFIGURE_ARGS=--with-libiconv-prefix={{WRKDIR}}/fake
 
 [FARM64R11].DESCRIPTION=		Set target to FreeBSD/ARM64 (Release 11)
 [FARM64R11].BUILDRUN_DEPENDS_ON=	gnatcross-binutils:single:FARM64_R11
