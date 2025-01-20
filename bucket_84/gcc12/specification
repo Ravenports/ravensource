@@ -47,11 +47,6 @@ LICENSE_SCHEME=		multi
 
 FPC_EQUIVALENT=		lang/gcc11
 
-C_USES[freebsd]=	iconv:build
-C_USES[dragonfly]=	iconv:build
-C_USES[midnightbsd]=	iconv:build
-C_USES[darwin]=		iconv:build
-
 BUILD_DEPENDS=		gmp:dev:std
 			mpfr:dev:std
 			mpc:dev:std
@@ -64,7 +59,7 @@ EXRUN[compilers]=	gcc${BRANCH}:cxx_run:std
 
 PATCHFILES=		2 3 4 5 6
 
-USES=			cpe gmake libtool perl:build makeinfo
+USES=			cpe gmake libtool perl:build iconv:build makeinfo
 DISTNAME=		${IDENTIFICATION}
 MUST_CONFIGURE=		gnu
 CPE_VENDOR=		gnu
