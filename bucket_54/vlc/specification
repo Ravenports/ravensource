@@ -132,6 +132,8 @@ BUILDRUN_DEPENDS=	fribidi:primary:std
 			qt5-qtxmlpatterns:primary:std
 			readline:primary:std
 
+B_DEPS[linux]=		libusb:dev:std
+
 USES=			bison desktop-utils:primary expat freetype fontconfig gettext
 			gmake iconv jpeg libtool lua:tools png pkgconfig zlib
 			cpe ncurses execinfo:build
@@ -225,7 +227,6 @@ CONFIGURE_ARGS=		--enable-a52
 			--enable-ncurses
 			--disable-nfs
 			--enable-nls
-			--enable-notify
 			--enable-ogg
 			--enable-oggspots
 			--disable-omxil
@@ -233,7 +234,6 @@ CONFIGURE_ARGS=		--enable-a52
 			--disable-opencv
 			--enable-optimizations
 			--enable-opus
-			--enable-oss
 			--enable-png
 			--enable-postproc
 			--disable-projectm
@@ -367,6 +367,8 @@ EXRUN[x265]=		primary x265:primary:std
 [BSD].BUILDRUN_DEPENDS_ON=		libepoll-shim:primary:std
 					libudev-devd:primary:std
 					libnotify:primary:std
+[BSD].CONFIGURE_ARGS_ON=		--enable-notify
+					--enable-oss
 
 # linux
 [BSD].BUILD_DEPENDS_OFF=		libgudev:dev:std
