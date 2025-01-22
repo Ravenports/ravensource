@@ -52,7 +52,10 @@ DISTNAME=		lldb-${LLVM_VERSION}.src
 LDFLAGS=		-lpthread
 SOVERSION=		${SOVERSION}
 PLIST_SUB=		SOMAJMIN=${SOVERSION:R}
+			SOEXTENSION={{SOEXTENSION}}
 SINGLE_JOB=		yes
+
+VAR_OPSYS[linux]=	MAKEFILE_LINE=SOEXTENSION=-x86_64-linux-gnu
 
 post-extract:
 	# DragonFly support
