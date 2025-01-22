@@ -35,10 +35,14 @@ USES=			cpe autoreconf:build gettext gmake iconv libtool pkgconfig
 
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-mtpz
+			--with-udev=/etc/udev
 INSTALL_TARGET=		install-strip
 CPE_VENDOR=		libmtp_project
 
 EXRUN[tools]=		primary
+
+B_DEPS[linux]=		libusb:dev:std
+BR_DEPS[linux]=		libusb:primary:std
 
 post-patch-dragonfly:
 	${REINPLACE_CMD} -e 's@machine/endian.h@sys/endian.h@g' \
