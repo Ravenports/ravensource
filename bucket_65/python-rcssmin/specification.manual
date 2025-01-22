@@ -2,3 +2,7 @@ post-stage:
 	# python modules aren't set up for documentation (only single
 	# subpackages accommodated) so don't package rcssmin documentation
 	${RM} -r ${STAGEDIR}${STD_DOCDIR:H}
+
+pre-configure:
+	${REINPLACE_CMD} -e 's|setuptools == 75.3.0|setuptools >= 75.3.0|' \
+		${WRKSRC}/pyproject.toml
