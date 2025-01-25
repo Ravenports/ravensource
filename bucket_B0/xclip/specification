@@ -3,7 +3,7 @@ DEF[PORTVERSION]=	0.13
 
 NAMEBASE=		xclip
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		x11
 VARIANTS=		std
 SDESC[std]=		Command line interface to the X11 clipboard
@@ -13,8 +13,6 @@ CONTACT=		nobody
 DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/astrand:xclip:${PORTVERSION}
 DISTFILE[1]=		generated:main
-# SITES[main]=		https://github.com/astrand/xclip/archive/${PORTVERSION}/
-# DISTFILE[1]=		xclip-${PORTVERSION}.tar.gz:main
 
 SPKGS[std]=		set primary man
 
@@ -31,13 +29,13 @@ LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/xclip.c
 LICENSE_SCHEME=		solo
 
-USES=			autoreconf gmake iconv
+USES=			autoreconf gmake
+# iconv (libiconv not required, libc base okay on BSD)
 XORG_COMPONENTS=	x11 xmu
 MUST_CONFIGURE=		gnu
 CONFIGURE_ENV=		ac_cv_header_X11_Xmu_Atoms_h=yes
 			ac_cv_header_X11_Intrinsic_h=yes
 			ac_cv_lib_Xmu_XmuClientWindow=yes
-			ac_cv_search_iconv={{ICONV_LIB}}
 
 post-patch:
 	${REINPLACE_CMD} 's,mktemp,mktemp -t xclip,' ${WRKSRC}/xclip-copyfile
