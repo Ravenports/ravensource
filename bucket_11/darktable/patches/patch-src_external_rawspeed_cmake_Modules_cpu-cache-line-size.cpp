@@ -1,4 +1,4 @@
---- src/external/rawspeed/cmake/Modules/cpu-cache-line-size.cpp.orig	2024-12-31 00:33:15 UTC
+--- src/external/rawspeed/cmake/Modules/cpu-cache-line-size.cpp.orig	2024-12-13 20:15:16 UTC
 +++ src/external/rawspeed/cmake/Modules/cpu-cache-line-size.cpp
 @@ -11,7 +11,7 @@
  #include <elf.h>
@@ -9,3 +9,12 @@
  static std::optional<int64_t> get_cachelinesize_from_sysconf() {
    long val = ::sysconf(_SC_LEVEL1_DCACHE_LINESIZE);
    if (val == -1) // On error, -1 is returned.
+@@ -39,7 +39,7 @@ static std::optional<int64_t> get_cachel
+ }
+ #endif
+ 
+-#if defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) ||     \
++#if (defined(__FreeBSD__) && !defined(__MidnightBSD__)) || defined(__NetBSD__) || defined(__OpenBSD__) ||     \
+     defined(__DragonFly__) || defined(__APPLE__)
+ #include <cstddef>
+ #include <sys/sysctl.h>

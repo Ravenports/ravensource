@@ -1,4 +1,4 @@
---- src/develop/blends/blendif_raw.c.orig	2023-01-26 22:18:41 UTC
+--- src/develop/blends/blendif_raw.c.orig	2024-12-15 21:38:01 UTC
 +++ src/develop/blends/blendif_raw.c
 @@ -16,15 +16,6 @@
      along with darktable.  If not, see <http://www.gnu.org/licenses/>.

@@ -54,7 +54,8 @@ BUILDRUN_DEPENDS=	lensfun:primary:std
 			bash:primary:std
 			icu:primary:std
 
-USES=			cmake c++:primary perl jpeg tiff pkgconfig sqlite shebangfix desktop-utils:primary
+USES=			cmake perl jpeg tiff pkgconfig sqlite shebangfix
+			ssl desktop-utils:primary c++:primary
 GNOME_COMPONENTS=	cairo gtk3 intltool librsvg libxml2
 INSTALL_REQ_TOOLCHAIN=	yes
 
@@ -70,12 +71,16 @@ CMAKE_ARGS=		-DUSE_PORTMIDI:BOOL=OFF
 			-DUSE_SDL2:BOOL=OFF
 			-DBUILD_PRINT:BOOL=OFF
 			-DUSE_OPENMP:BOOL=OFF
+			-Wno-dev
 
 SHEBANG_FILES=		tools/common.sh
 			tools/extract_wb_from_images.sh
 			tools/purge_from_cache.sh
 			tools/purge_non_existing_images.sh
 			tools/purge_unused_tags.sh
+
+VAR_OPSYS[midnightbsd]=	CMAKE_ARGS=-DRAWSPEED_CACHELINESIZE=64
+
 
 # darktable defines the __XOPEN_SOURCE preprocessor macro, which
 # restricts symbol visibility on FreeBSD and causes compilation failures
@@ -85,6 +90,9 @@ pre-configure-dragonfly:
 	${REINPLACE_CMD} '/add_definitions."-D_XOPEN_SOURCE=.*"/d' ${WRKSRC}/CMakeLists.txt
 
 pre-configure-freebsd:
+	${REINPLACE_CMD} '/add_definitions."-D_XOPEN_SOURCE=.*"/d' ${WRKSRC}/CMakeLists.txt
+
+pre-configure-midnightbsd:
 	${REINPLACE_CMD} '/add_definitions."-D_XOPEN_SOURCE=.*"/d' ${WRKSRC}/CMakeLists.txt
 
 post-install:
