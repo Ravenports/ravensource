@@ -44,6 +44,8 @@ CONFIGURE_ARGS=		--enable-shared
 SOVERSION=		${SOVERSION}
 
 pre-configure:
+	${CP} ${MK_TEMPLATES}/config.guess ${WRKSRC}
+	${CP} ${MK_TEMPLATES}/config.sub ${WRKSRC}
 	(cd ${WRKSRC} && ${SH} ./autogen.sh)
 
 post-install:
