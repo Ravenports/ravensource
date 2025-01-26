@@ -61,4 +61,6 @@ ONLY_FOR_OPSYS=		dragonfly freebsd linux midnightbsd
 USES=			clang cclibs:single
 BUILD_DEPENDS=		evdev-proto:single:std
 
-PYD_BUILD_TARGET=	build_ecodes
+pre-configure:
+	${REINPLACE_CMD} -e 's#/usr/include#${LOCALBASE}/include#' \
+		${WRKSRC}/setup.py
