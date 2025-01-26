@@ -50,6 +50,7 @@ B_DEPS[darwin]=		libuuid:dev:std
 BR_DEPS[darwin]=	libuuid:primary:std
 
 EXRUN[server]=		${NAMEBASE}:client:std
+			icu:data:std
 EXRUN[client]=		gettext:primary:std
 			libxslt:primary:std
 			readline:primary:std
@@ -133,7 +134,7 @@ post-install:
 		${STAGEDIR}${PREFIX}/etc/periodic/daily
 	# install-world doesn't strip (and install-strip won't install enough)
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/postgresql/*.so
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.${LIBEXT}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/postgresql/pgxs/src/test/regress/pg_regress
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/postgresql/pgxs/src/test/isolation/isolationtester
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/postgresql/pgxs/src/test/isolation/pg_isolation_regress
