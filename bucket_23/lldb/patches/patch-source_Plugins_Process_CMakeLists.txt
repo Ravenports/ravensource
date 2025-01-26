@@ -1,7 +1,11 @@
---- source/Plugins/Process/CMakeLists.txt.orig	2024-12-17 11:04:04 UTC
+--- source/Plugins/Process/CMakeLists.txt.orig	2025-01-14 09:41:02 UTC
 +++ source/Plugins/Process/CMakeLists.txt
-@@ -4,6 +4,9 @@ if (CMAKE_SYSTEM_NAME MATCHES "Linux|And
- elseif (CMAKE_SYSTEM_NAME MATCHES "FreeBSD")
+@@ -1,9 +1,12 @@
+ if (CMAKE_SYSTEM_NAME MATCHES "Linux|Android")
+   add_subdirectory(Linux)
+   add_subdirectory(POSIX)
+-elseif (CMAKE_SYSTEM_NAME MATCHES "FreeBSD")
++elseif (CMAKE_SYSTEM_NAME MATCHES "FreeBSD|MidnightBSD")
    add_subdirectory(FreeBSD)
    add_subdirectory(POSIX)
 +elseif (CMAKE_SYSTEM_NAME MATCHES "DragonFly")

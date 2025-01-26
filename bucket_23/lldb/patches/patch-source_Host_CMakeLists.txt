@@ -1,6 +1,13 @@
---- source/Host/CMakeLists.txt.orig	2024-12-17 11:04:04 UTC
+--- source/Host/CMakeLists.txt.orig	2025-01-14 09:41:02 UTC
 +++ source/Host/CMakeLists.txt
-@@ -122,6 +122,12 @@ else()
+@@ -116,12 +116,18 @@ else()
+         android/LibcGlue.cpp
+         )
+     endif()
+-  elseif (CMAKE_SYSTEM_NAME MATCHES "FreeBSD")
++  elseif (CMAKE_SYSTEM_NAME MATCHES "FreeBSD|MidnightBSD")
+     add_host_subdirectory(freebsd
+       freebsd/Host.cpp
        freebsd/HostInfoFreeBSD.cpp
        )
  

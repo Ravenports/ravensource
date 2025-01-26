@@ -1,0 +1,11 @@
+--- unittests/Process/Utility/CMakeLists.txt.orig	2025-01-14 09:41:02 UTC
++++ unittests/Process/Utility/CMakeLists.txt
+@@ -4,7 +4,7 @@ set(NETBSD_SOURCES
+   RegisterContextNetBSDTest_i386.cpp
+   RegisterContextNetBSDTest_x86_64.cpp)
+ 
+-if (CMAKE_SYSTEM_NAME MATCHES "FreeBSD")
++if (CMAKE_SYSTEM_NAME MATCHES "FreeBSD|MidnightBSD")
+   list(APPEND PLATFORM_SOURCES ${FREEBSD_SOURCES})
+ elseif (CMAKE_SYSTEM_NAME MATCHES "NetBSD")
+   list(APPEND PLATFORM_SOURCES ${NETBSD_SOURCES})
