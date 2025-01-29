@@ -1,6 +1,6 @@
---- libfswatch/src/libfswatch/c++/kqueue_monitor.cpp.orig	2025-01-03 12:10:57 UTC
+--- libfswatch/src/libfswatch/c++/kqueue_monitor.cpp.orig	2025-01-27 11:14:35 UTC
 +++ libfswatch/src/libfswatch/c++/kqueue_monitor.cpp
-@@ -128,7 +128,7 @@ namespace fsw
+@@ -131,7 +131,7 @@ namespace fsw
      nanoseconds *= 1000000000;
  
      struct timespec ts{};
