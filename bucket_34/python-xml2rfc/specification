@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.25.0
+DEF[PORTVERSION]=	3.26.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-xml2rfc
@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/ietf-tools/xml2rfc
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/x/xml2rfc
-DISTFILE[1]=		xml2rfc-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/ff/52/d8af1775bbdd42d6dbc1713c4cb7b4d8fe52834935d2f98e77707eb92731
+DISTFILE[1]=		xml2rfc-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
 SPKGS[v12]=		single
@@ -24,14 +24,87 @@ VOPTS[v12]=		PY312=ON PY313=OFF
 VOPTS[v13]=		PY312=OFF PY313=ON
 
 # License listed at PyPI
-# Revised BSD License
+# BSD 3-Clause License
+# Copyright (c) 2022, IETF Trust
+# All rights reserved.
+# Redistribution and use in source and binary forms, with or
+# without
+# modification, are permitted provided that the following
+# conditions are met:
+# 1. Redistributions of source code must retain the above
+# copyright notice, this
+# list of conditions and the following disclaimer.
+# 2. Redistributions in binary form must reproduce the above
+# copyright notice,
+# this list of conditions and the following disclaimer in the
+# documentation
+# and/or other materials provided with the distribution.
+# 3. Neither the name of the copyright holder nor the names of
+# its
+# contributors may be used to endorse or promote products
+# derived from
+# this software without specific prior written permission.
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND
+# CONTRIBUTORS "AS IS"
+# AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+# LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A
+# PARTICULAR PURPOSE ARE
+# DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR
+# CONTRIBUTORS BE LIABLE
+# FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+# CONSEQUENTIAL
+# DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+# SUBSTITUTE GOODS OR
+# SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+# INTERRUPTION) HOWEVER
+# CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+# STRICT LIABILITY,
+# OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+# OUT OF THE USE
+# OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
+# DAMAGE.
 
 GENERATED=		yes
-DISTNAME=		xml2rfc-${PORTVERSION}
+DISTNAME=		xml2rfc-${PORTVERSION}.dist-info
 
-# Requires-Dist extracted from pyproject.toml file
+# Requires-Dist extracted from wheel metadata
+# platformdirs>=3.6.0
+# configargparse>=1.2.3
+# google-i18n-address>=3.0.0
+# intervaltree>=3.1.0
+# jinja2>=3.1.2
+# lxml>=5.3.0
+# pycountry>=22.3.5
+# pyyaml>=5.3.1
+# requests>=2.5.0
+# setuptools>=24.2.0
+# wcwidth>=0.2.5
+# weasyprint==61.2; extra == "pdf"
+# pydyf<0.10.0; extra == "pdf"
 
-
-[PY312].USES_ON=			python:v12,pep517
-[PY313].USES_ON=			python:v13,pep517
+[PY312].USES_ON=			python:v12,wheel
+[PY312].RUN_DEPENDS_ON=			python-platformdirs:single:v12
+					python-ConfigArgParse:single:v12
+					python-google-i18n-address:single:v12
+					python-intervaltree:single:v12
+					python-Jinja2:single:v12
+					python-lxml:single:v12
+					python-pycountry:single:v12
+					python-PyYAML:single:v12
+					python-requests:single:v12
+					python-setuptools:single:v12
+					python-wcwidth:single:v12
+[PY313].USES_ON=			python:v13,wheel
+[PY313].RUN_DEPENDS_ON=			python-platformdirs:single:v13
+					python-ConfigArgParse:single:v13
+					python-google-i18n-address:single:v13
+					python-intervaltree:single:v13
+					python-Jinja2:single:v13
+					python-lxml:single:v13
+					python-pycountry:single:v13
+					python-PyYAML:single:v13
+					python-requests:single:v13
+					python-setuptools:single:v13
+					python-wcwidth:single:v13
 

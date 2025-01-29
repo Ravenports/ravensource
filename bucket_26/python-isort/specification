@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	5.13.2
+DEF[PORTVERSION]=	6.0.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-isort
@@ -7,11 +7,11 @@ KEYWORDS=		python
 VARIANTS=		v12 v13
 SDESC[v12]=		Utility library to sort Python imports (3.12)
 SDESC[v13]=		Utility library to sort Python imports (3.13)
-HOMEPAGE=		https://pycqa.github.io/isort/
+HOMEPAGE=		https://pypi.org/project/isort/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/d1/b3/8def84f539e7d2289a02f0524b944b15d7c75dab7628bedf1c4f0992029c
+SITES[main]=		PYPIWHL/76/c7/d6017f09ae5b1206fbe531f7af3b6dac1f67aedcbd2e79f3b386c27955d6
 DISTFILE[1]=		isort-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -24,13 +24,14 @@ VOPTS[v12]=		PY312=ON PY313=OFF
 VOPTS[v13]=		PY312=OFF PY313=ON
 
 # License listed at PyPI
-# MIT
+# Not provided.
 
 GENERATED=		yes
 DISTNAME=		isort-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# colorama (>=0.4.6) ; extra == "colors"
+# colorama; extra == 'colors'
+# setuptools; extra == 'plugins'
 
 [PY312].USES_ON=			python:v12,wheel
 [PY313].USES_ON=			python:v13,wheel
