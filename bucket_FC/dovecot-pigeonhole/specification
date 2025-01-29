@@ -1,6 +1,5 @@
-DEF[PORTVERSION]=	0.5.21.1
-DEF[DOVECOT]=		2.3
-DEF[DISTNAME]=		dovecot-${DOVECOT}-pigeonhole-${PORTVERSION}
+DEF[PORTVERSION]=	2.4.0
+DEF[FOLDER]=		${PORTVERSION:R}
 DEF[SOVERSION]=		0.0.0
 # ----------------------------------------------------------------------------
 
@@ -13,8 +12,8 @@ HOMEPAGE=		https://pigeonhole.dovecot.org/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		https://pigeonhole.dovecot.org/releases/${DOVECOT}/
-DISTFILE[1]=		${DISTNAME}.tar.gz:main
+SITES[main]=		https://pigeonhole.dovecot.org/releases/${FOLDER}/
+DISTFILE[1]=		dovecot-pigeonhole-${PORTVERSION}.tar.gz:main
 
 SPKGS[std]=		set primary dev man docs
 
@@ -30,16 +29,15 @@ LICENSE_SCHEME=		solo
 
 BUILD_DEPENDS=		krb5:dev:std
 			dovecot:dev:std
+			openldap:dev:std
 BUILDRUN_DEPENDS=	dovecot:primary:std
 			krb5:primary:std
 
-USES=			libtool ssl mbsdfix
-DISTNAME=		${DISTNAME}
+USES=			gmake libtool ssl mbsdfix
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--docdir={{STD_DOCDIR}}
 			--with-dovecot="{{LOCALBASE}}/lib/dovecot"
 			--with-managesieve
-			--without-ldap
 LDFLAGS=		-Wl,-rpath,{{LOCALBASE}}/lib/dovecot
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
