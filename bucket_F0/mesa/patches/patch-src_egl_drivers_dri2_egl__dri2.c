@@ -1,4 +1,4 @@
---- src/egl/drivers/dri2/egl_dri2.c.orig	2025-01-03 17:37:20 UTC
+--- src/egl/drivers/dri2/egl_dri2.c.orig	2025-01-22 18:12:23 UTC
 +++ src/egl/drivers/dri2/egl_dri2.c
 @@ -725,6 +725,7 @@ dri2_setup_screen(_EGLDisplay *disp)
     disp->Extensions.MESA_drm_image = (capabilities & __DRI_IMAGE_CAP_GLOBAL_NAMES) != 0;
