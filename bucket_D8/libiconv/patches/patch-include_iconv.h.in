@@ -1,25 +1,17 @@
---- include/iconv.h.in.orig	2022-02-12 13:14:59 UTC
+--- include/iconv.h.in.orig	2024-12-15 12:23:08 UTC
 +++ include/iconv.h.in
-@@ -20,8 +20,10 @@
- #ifndef _LIBICONV_H
- #define _LIBICONV_H
+@@ -24,8 +24,10 @@
+ extern "C" {
+ #endif
  
 +#ifndef LIBICONV_PLUG
- #define _LIBICONV_VERSION 0x0111    /* version number: (major<<8) + minor */
+ #define _LIBICONV_VERSION 0x0112    /* version number: (major<<8) + minor */
  extern @DLL_VARIABLE@ int _libiconv_version; /* Likewise */
 +#endif
  
- /* We would like to #include any system header file which could define
-    iconv_t, 1. in order to eliminate the risk that the user gets compilation
-@@ -93,7 +95,6 @@ extern int iconv_close (iconv_t cd);
- #endif
- 
- 
--#ifndef LIBICONV_PLUG
- 
- /* Nonstandard extensions. */
- 
-@@ -126,12 +127,16 @@ typedef struct {
+ #ifdef __cplusplus
+ }
+@@ -121,12 +123,16 @@ typedef struct {
  /* Allocates descriptor for code conversion from encoding ‘fromcode’ to
     encoding ‘tocode’ into preallocated memory. Returns an error indicator
     (0 or -1 with errno set). */
@@ -36,8 +28,8 @@
  extern int iconvctl (iconv_t cd, int request, void* argument);
  
  /* Hook performed after every successful conversion of a Unicode character. */
-@@ -211,7 +216,9 @@ struct iconv_fallbacks {
- #define ICONV_SET_FALLBACKS       6  /* const struct iconv_fallbacks *argument */
+@@ -215,7 +221,9 @@ struct iconv_fallbacks {
+ #define ICONV_SET_DISCARD_NON_IDENTICAL  14  /* const int *argument */
  
  /* Listing of locale independent encodings. */
 +#ifndef LIBICONV_PLUG
@@ -46,7 +38,7 @@
  extern void iconvlist (int (*do_one) (unsigned int namescount,
                                        const char * const * names,
                                        void* data),
-@@ -223,6 +230,7 @@ extern const char * iconv_canonicalize (
+@@ -227,6 +235,7 @@ extern const char * iconv_canonicalize (
  
  /* Support for relocatable packages.  */
  
@@ -54,17 +46,12 @@
  /* Sets the original and the current installation prefix of the package.
     Relocation simply replaces a pathname starting with the original prefix
     by the corresponding pathname with the current prefix instead.  Both
-@@ -230,12 +238,12 @@ extern const char * iconv_canonicalize (
-    instead of "/").  */
+@@ -235,6 +244,8 @@ extern const char * iconv_canonicalize (
  extern void libiconv_set_relocation_prefix (const char *orig_prefix,
                                              const char *curr_prefix);
-+#endif
  
++#endif
++
  #ifdef __cplusplus
  }
  #endif
- 
--#endif
- 
- 
- #endif /* _LIBICONV_H */
