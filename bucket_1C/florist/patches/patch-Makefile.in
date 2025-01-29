@@ -1,16 +1,17 @@
---- Makefile.in.orig	2017-05-16 10:40:58 UTC
+--- Makefile.in.orig	2023-03-02 16:00:46 UTC
 +++ Makefile.in
-@@ -171,7 +171,11 @@ distclean: clean
- # install floristlib
+@@ -189,9 +189,11 @@ distclean: clean
  # make all files read-only to prevent recompilation
- install:
--	gprinstall -Pflorist $(PROJECT_FLAGS) -a -p -f --prefix=$(PREFIX) --sources-subdir=floristlib --lib-subdir=floristlib --link-lib-subdir=floristlib
--	chmod a-w $(PREFIX)/floristlib/*
-+	gprinstall -p -Pflorist $(PROJECT_FLAGS) -a -f \
+ install-%:
+ 	gprinstall -Pflorist $(PROJECT_FLAGS) -XLIBRARY_TYPE=$* -a -p -f   \
+-		--prefix=$(PREFIX) --sources-subdir=floristlib             \
+-		--lib-subdir=floristlib --link-lib-subdir=floristlib       \
 +		--no-manifests \
 +		--prefix=$(DESTDIR)$(PREFIX) \
 +		--sources-subdir=include/florist \
 +		--lib-subdir=lib/florist \
-+
++		--link-lib-subdir=lib \
+ 		--build-name=$*
+-	chmod a-w $(PREFIX)/floristlib/*
  
  .PHONY: all install clean distclean regen floristlib force

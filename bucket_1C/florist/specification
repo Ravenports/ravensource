@@ -1,9 +1,11 @@
-DEF[PORTVERSION]=	2017
+DEF[PORTVERSION]=	22.0.0
+# DEF[TAG]=		v${PORTVERSION}
+# Take last 2022 commit which fixes a number of compile errors of v22.0.0
+DEF[TAG]=		8ab2d57
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		florist
 VERSION=		${PORTVERSION}
-REVISION=		2
 KEYWORDS=		devel ada
 VARIANTS=		std
 SDESC[std]=		POSIX Ada binding, IEEE Standards 1003.5(b,c)
@@ -11,31 +13,36 @@ HOMEPAGE=		none
 CONTACT=		John_Marino[draco@marino.st]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		http://downloads.dragonlace.net/src/
-DISTFILE[1]=		florist-gpl-${PORTVERSION}-src.tar.gz:main
+SITES[main]=		GITHUB/AdaCore:florist:${TAG}
+DISTFILE[1]=		generated:main
 
-SPKGS[std]=		single
+SPKGS[std]=		set primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		GPLv2+:single
+LICENSE=		GPLv2+:primary
 LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/libsrc/posix.adb
 LICENSE_SCHEME=		solo
 
-BROKEN[linux]=		missing various type definition headers
-
-USES=			gprbuild gmake
-DISTNAME=		florist-gpl-${PORTVERSION}-src
+USES=			gprbuild gmake ada:primary
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-shared
+# #			--with-build-type=Debug
+SINGLE_JOB=		yes
 INSTALL_REQ_TOOLCHAIN=	yes
 
-post-extract:
-	if [ "${OPSYS}" != "FreeBSD" ]; then \
-	   cd ${WRKSRC}/configs && \
-	   ${CP} pconfig.FreeBSD pconfig.${OPSYS}; \
-	fi
+post-extract-dragonfly:
+	${CP} ${WRKSRC}/configs/pconfig.FreeBSD ${WRKSRC}/configs/pconfig.${OPSYS}
+
+post-extract-midnightbsd:
+	${CP} ${WRKSRC}/configs/pconfig.FreeBSD ${WRKSRC}/configs/pconfig.${OPSYS}
+
+post-extract-netbsd:
+	${CP} ${WRKSRC}/configs/pconfig.FreeBSD ${WRKSRC}/configs/pconfig.${OPSYS}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libflorist.so

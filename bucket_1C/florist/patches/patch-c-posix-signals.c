@@ -1,4 +1,4 @@
---- c-posix-signals.c.orig	2015-04-30 10:20:43 UTC
+--- c-posix-signals.c.orig	2023-03-02 16:00:46 UTC
 +++ c-posix-signals.c
 @@ -468,9 +468,9 @@ int guess_nsigs () {
   */

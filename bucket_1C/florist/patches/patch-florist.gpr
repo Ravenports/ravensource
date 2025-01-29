@@ -1,4 +1,4 @@
---- florist.gpr.orig	2017-05-16 10:40:58 UTC
+--- florist.gpr.orig	2023-03-02 16:00:46 UTC
 +++ florist.gpr
 @@ -21,7 +21,7 @@ library project Florist is
     Version := "1";
@@ -9,12 +9,20 @@
     Library_Type : Library_Type_Type := external ("LIBRARY_TYPE", "static");
     for Library_Kind use Library_Type;
  
-@@ -29,7 +29,7 @@ library project Florist is
-    Build : Build_Type := External ("Build", "Production");
- 
+@@ -31,14 +31,14 @@ library project Florist is
     package Compiler is
--      GNAT_Flags := ("-O2", "-gnatpg");
-+      GNAT_Flags := ("-O2");
+ 
+       Ada_Flags  := ("-O2", "-gnatp", "-gnat95");
+-      GNAT_Flags := Ada_Flags & ("-gnatg");
++      GNAT_Flags := Ada_Flags;
+ 
+       case Build is
+          when "Production" =>
+             --  Use above defaults
+          when "Debug" =>
+             Ada_Flags  := ("-g", "-O2", "-gnatwae", "-gnatyg", "-gnatw.Z");
+-            GNAT_Flags := ("-g", "-O2", "-gnatpg");
++            GNAT_Flags := ("-g", "-O2");
+       end case;
  
        for Switches ("posix-signals.adb") use GNAT_Flags;
-       for Switches ("posix-implementation.adb") use GNAT_Flags;

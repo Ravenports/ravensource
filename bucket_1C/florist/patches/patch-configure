@@ -1,34 +1,11 @@
---- configure.orig	2014-12-12 09:05:56 UTC
+--- configure.orig	2023-03-02 16:00:46 UTC
 +++ configure
-@@ -2712,7 +2712,7 @@ if test "${enable_shared+set}" = set; th
- { $as_echo "$as_me:${as_lineno-$LINENO}: result: $enableval" >&5
- $as_echo "$enableval" >&6; }
- if test "$enableval" = "yes"; then
--  LIBRARY_TYPE_OPTION="-XLIBRARY_TYPE=relocatable"
-+  LIBRARY_TYPE_OPTION="-XLIBRARY_TYPE=static-pic"
- fi
+@@ -2797,7 +2797,7 @@ UNAME_VERSION=`(uname -v) 2>/dev/null`
  
- else
-@@ -2849,10 +2849,22 @@ case ${UNAME_SYSTEM} in
-     echo "Using Configuration for" ${UNAME_SYSTEM} ${UNAME_RELEASE};
-     cp ./configs/pconfig.LynxOS ./pconfig.h.in;
-     ;;
-+ DragonFly)
-+    echo "Using Configuration for" ${UNAME_SYSTEM} ${UNAME_RELEASE};
-+    cp ./configs/pconfig.DragonFly ./pconfig.h.in;
-+    ;;
-  FreeBSD)
-     echo "Using Configuration for" ${UNAME_SYSTEM} ${UNAME_RELEASE};
-     cp ./configs/pconfig.FreeBSD ./pconfig.h.in;
-     ;;
-+ MidnightBSD)
-+    echo "Using Configuration for" ${UNAME_SYSTEM} ${UNAME_RELEASE};
-+    cp ./configs/pconfig.MidnightBSD ./pconfig.h.in;
-+    ;;
-+ NetBSD)
-+    echo "Using Configuration for" ${UNAME_SYSTEM} ${UNAME_RELEASE};
-+    cp ./configs/pconfig.NetBSD ./pconfig.h.in;
-+    ;;
-  Darwin)
-     echo "Using Configuration for" ${UNAME_SYSTEM} ${UNAME_RELEASE};
-     cp ./configs/pconfig.Darwin ./pconfig.h.in;
+ echo ${UNAME_SYSTEM} ${UNAME_MACHINE} ${UNAME_RELEASE} ${UNAME_VERSION}
+ echo "Using Configuration for" ${UNAME_SYSTEM} ${UNAME_RELEASE};
+-cp ./configs/pconfig.Linux ./pconfig.h.in;
++cp ./configs/pconfig.${UNAME_SYSTEM} ./pconfig.h.in;
+ 
+ if test "x$safe_errno" = "xTrue" ; then
+   safe_errno_msg="safe"
