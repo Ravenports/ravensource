@@ -61,6 +61,7 @@ cbsd/bin/cfetch
 cbsd/bin/rexe
 cbsd/etc/Makefile
 cbsd/etc/defaults/DragonFly-bases.conf
+cbsd/etc/defaults/DragonFly-kernel-GENERIC-amd64-6.5.0
 cbsd/etc/defaults/DragonFly-kernel-GENERIC-x86_64-4.6
 cbsd/etc/defaults/DragonFly-kernel-GENERIC-x86_64-4.7
 cbsd/etc/defaults/DragonFly-kernel-GENERIC-x86_64-4.8
@@ -94,6 +95,7 @@ cbsd/etc/defaults/FreeBSD-kernel-GENERIC-amd64-13.3
 cbsd/etc/defaults/FreeBSD-kernel-GENERIC-amd64-14
 cbsd/etc/defaults/FreeBSD-kernel-GENERIC-amd64-14.1
 cbsd/etc/defaults/FreeBSD-kernel-GENERIC-amd64-14.2
+cbsd/etc/defaults/FreeBSD-kernel-GENERIC-amd64-14.3
 cbsd/etc/defaults/FreeBSD-kernel-GENERIC-amd64-15
 cbsd/etc/defaults/FreeBSD-kernel-GENERIC-amd64-15.0
 cbsd/etc/defaults/FreeBSD-kernel-GENERIC-arm64-13
@@ -101,12 +103,15 @@ cbsd/etc/defaults/FreeBSD-kernel-GENERIC-arm64-13.1
 cbsd/etc/defaults/FreeBSD-kernel-GENERIC-arm64-14
 cbsd/etc/defaults/FreeBSD-kernel-GENERIC-arm64-14.1
 cbsd/etc/defaults/FreeBSD-kernel-GENERIC-arm64-14.2
+cbsd/etc/defaults/FreeBSD-kernel-GENERIC-arm64-14.3
 cbsd/etc/defaults/FreeBSD-kernel-GENERIC-arm64-15
 cbsd/etc/defaults/FreeBSD-kernel-GENERIC-arm64-15.0
-cbsd/etc/defaults/FreeBSD-kernel-GENERIC-riscv-13.1
 cbsd/etc/defaults/FreeBSD-kernel-GENERIC-riscv-14
 cbsd/etc/defaults/FreeBSD-kernel-GENERIC-riscv-14.1
 cbsd/etc/defaults/FreeBSD-kernel-GENERIC-riscv-14.2
+cbsd/etc/defaults/FreeBSD-kernel-GENERIC-riscv-14.3
+cbsd/etc/defaults/FreeBSD-kernel-GENERIC-riscv-15
+cbsd/etc/defaults/FreeBSD-kernel-GENERIC-riscv-15.0
 cbsd/etc/defaults/FreeBSD-kernels.conf
 cbsd/etc/defaults/FreeBSD-sources.conf
 cbsd/etc/defaults/FreeBSD-srvbrowser.conf
@@ -164,6 +169,7 @@ cbsd/etc/defaults/logger.conf
 cbsd/etc/defaults/make-pxe.conf
 cbsd/etc/defaults/nlogin.conf
 cbsd/etc/defaults/node.conf
+cbsd/etc/defaults/nvmm.conf
 cbsd/etc/defaults/pf.conf.tpl
 cbsd/etc/defaults/pkgbrowser.conf
 cbsd/etc/defaults/portsup.conf
@@ -197,7 +203,6 @@ cbsd/etc/defaults/vm-dflybsd-x86-6.conf
 cbsd/etc/defaults/vm-freebsd-FreeBSD-aarch64-14.2.conf
 cbsd/etc/defaults/vm-freebsd-FreeBSD-bsdinstall-jail.conf
 cbsd/etc/defaults/vm-freebsd-FreeBSD-from-jail.conf
-cbsd/etc/defaults/vm-freebsd-FreeBSD-img-aarch64-14.2.conf
 cbsd/etc/defaults/vm-freebsd-FreeBSD-img-arm64-14.2.conf
 cbsd/etc/defaults/vm-freebsd-FreeBSD-riscv64-14.2.conf
 cbsd/etc/defaults/vm-freebsd-FreeBSD-x64-13.4.conf
@@ -210,6 +215,7 @@ cbsd/etc/defaults/vm-freebsd-MidnightBSD-x64-3.conf
 cbsd/etc/defaults/vm-freebsd-OPNsense-24-RELEASE-amd64.conf
 cbsd/etc/defaults/vm-freebsd-TrueNAS-CORE-x64-13.conf
 cbsd/etc/defaults/vm-freebsd-XigmaNAS-13.conf
+cbsd/etc/defaults/vm-freebsd-cloud-FreeBSD-ufs-aarch64-14.2.conf
 cbsd/etc/defaults/vm-freebsd-cloud-FreeBSD-ufs-x64-13.2.conf
 cbsd/etc/defaults/vm-freebsd-cloud-FreeBSD-ufs-x64-13.3.conf
 cbsd/etc/defaults/vm-freebsd-cloud-FreeBSD-ufs-x64-13.4.conf
@@ -241,6 +247,7 @@ cbsd/etc/defaults/vm-linux-BlackBox-9-x86_64.conf
 cbsd/etc/defaults/vm-linux-BlissOS-x86.conf
 cbsd/etc/defaults/vm-linux-CentOS-stream-9-x86_64.conf
 cbsd/etc/defaults/vm-linux-ClearLinux-Server-x86_64.conf
+cbsd/etc/defaults/vm-linux-Debian-aarch64-12.conf
 cbsd/etc/defaults/vm-linux-Debian-x86-11.conf
 cbsd/etc/defaults/vm-linux-Debian-x86-12.conf
 cbsd/etc/defaults/vm-linux-Devuan-x86-5.conf
@@ -272,6 +279,7 @@ cbsd/etc/defaults/vm-linux-cloud-AltServer-x86-10.conf
 cbsd/etc/defaults/vm-linux-cloud-Arch-x86-2022.conf
 cbsd/etc/defaults/vm-linux-cloud-CentOS-7-x86_64.conf
 cbsd/etc/defaults/vm-linux-cloud-CentOS-stream-9-x86_64.conf
+cbsd/etc/defaults/vm-linux-cloud-Debian-aarch64-12.conf
 cbsd/etc/defaults/vm-linux-cloud-Debian-x86-11.conf
 cbsd/etc/defaults/vm-linux-cloud-Debian-x86-12.conf
 cbsd/etc/defaults/vm-linux-cloud-Debian-x86-9.conf
@@ -317,6 +325,7 @@ cbsd/etc/defaults/vm-netbsd-cloud-netbsd-x86-10.1.conf
 cbsd/etc/defaults/vm-netbsd-cloud-netbsd-x86-9.conf
 cbsd/etc/defaults/vm-netbsd-x86-10.conf
 cbsd/etc/defaults/vm-netbsd-x86-9.conf
+cbsd/etc/defaults/vm-openbsd-aarch64-7.conf
 cbsd/etc/defaults/vm-openbsd-cloud-openbsd-x86-7.conf
 cbsd/etc/defaults/vm-openbsd-cloud-openbsd-x86-75.conf
 cbsd/etc/defaults/vm-openbsd-x86-7.conf
@@ -833,6 +842,7 @@ cbsd/share/bsdconfig/cbsd/include/messages-xennic.subr
 cbsd/share/bsdconfig/cbsd/include/messages.subr
 cbsd/share/bsdconfig/cbsd/include/qemunic.subr
 cbsd/share/bsdconfig/cbsd/include/xennic.subr
+cbsd/share/docs/general/tag_n_facts.md
 cbsd/share/emulators/ostype_bhyve.subr
 cbsd/share/emulators/ostype_qemu.subr
 cbsd/share/emulators/ostype_virtualbox.subr
@@ -1226,6 +1236,8 @@ cbsd/upgrade/pre-patch-14.1.3.0
 cbsd/upgrade/pre-patch-14.1.3.1
 cbsd/upgrade/pre-patch-14.2.0.0
 cbsd/upgrade/pre-patch-14.2.0.1
+cbsd/upgrade/pre-patch-14.2.4.0
+cbsd/upgrade/pre-patch-14.2.4.1
 cbsd/upgrade/backup_db/pre-initenv-backup
 cbsd/upgrade/patch/BHYVE_UEFI_VARS.fd
 cbsd/upgrade/patch/efi.fd
