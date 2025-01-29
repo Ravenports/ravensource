@@ -2,7 +2,7 @@ This allows /raven/etc/vim/vimrc to be loaded as a system
 vimrc. Note that creating that file will prevent loading
 defaults.vim from Vim runtime.
 
---- src/feature.h.orig	2025-01-18 16:29:06 UTC
+--- src/feature.h.orig	2025-01-29 17:58:04 UTC
 +++ src/feature.h
 @@ -696,12 +696,12 @@
  /*
