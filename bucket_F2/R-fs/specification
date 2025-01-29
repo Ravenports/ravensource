@@ -24,7 +24,6 @@ OPTIONS_STANDARD=	none
 # License listed on https://cran.r-project.org/
 # => MIT + file LICENSE
 
-# iconv:build required for R conf tests (satisfies -liconv)
 USES=			cran gmake iconv:build zlib:build xz:build bz2:build pcre2:build
 DISTNAME=		fs
 GENERATED=		yes
@@ -32,6 +31,7 @@ INSTALL_REQ_TOOLCHAIN=	yes
 
 
 
+# iconv:build required for R conf tests (satisfies -liconv)
 
 post-extract:
 	${CP} ${MK_TEMPLATES}/config.guess ${WRKSRC}/src/libuv-*/config.guess
