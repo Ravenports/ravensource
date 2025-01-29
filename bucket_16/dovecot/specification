@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	2.3.21.1
-DEF[DL_FOLDER]=		2.3
+DEF[PORTVERSION]=	2.4.0
+DEF[DL_FOLDER]=		2.4
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		dovecot
@@ -28,8 +28,10 @@ LICENSE_SCHEME=		dual
 FPC_EQUIVALENT=		mail/dovecot
 
 BUILD_DEPENDS=		krb5:dev:std
+			openldap:dev:std
 BUILDRUN_DEPENDS=	krb5:primary:std
 			clucene:single:std
+			openldap:client:std
 
 RC_SUBR=		dovecot:primary
 SUB_FILES=		messages-primary.ucl
@@ -38,23 +40,23 @@ USERS=			dovecot dovenull
 GROUPS=			dovecot dovenull
 USERGROUP_SPKG=		primary
 
-USES=			cpe iconv libtool pkgconfig ssl sqlite lz4 mbsdfix
+USES=			cpe iconv libtool pkgconfig ssl:openssl30
+			gmake sqlite lz4 zlib mbsdfix
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--localstatedir=/var
 			--with-statedir=/var/db/dovecot
 			--with-ssl=openssl
 			--with-gssapi
-			--with-docs
 			--with-lz4
 			--with-sqlite
 			--with-lucene
+			--with-ldap
 			--without-libwrap
 			--without-shadow
 			--without-sodium
 			--without-lua
 			--without-vpopmail
 			--without-cdb
-			--without-ldap
 			--without-mysql
 			--without-pgsql
 			--without-icu
@@ -73,13 +75,5 @@ post-patch:
 		-e 's|/usr/bin|${LOCALBASE}/bin|g' \
 		-e 's|/usr/local|${PREFIX}|g' \
 		${WRKSRC}/src/plugins/fts/decode2text.sh
-	${REINPLACE_CMD} -e 's,/etc/dovecot,${PREFIX}/etc/dovecot,g; \
-		s,sysconfdir=/etc,sysconfdir=${PREFIX}/etc,g' \
-		${WRKSRC}/doc/example-config/*.conf ${WRKSRC}/doc/example-config/conf.d/*
 	${REINPLACE_CMD} -e '/^LIBS =/s/$$/ @LTLIBICONV@/' \
 		${WRKSRC}/src/lib-mail/Makefile.in
-
-	# Install the sample config files into ETCDIR/example-config/
-	${REINPLACE_CMD} -e '/^exampledir =/s|\$$(docdir)|${PREFIX}/etc/dovecot|' \
-		${WRKSRC}/doc/example-config/Makefile.in \
-		${WRKSRC}/doc/example-config/conf.d/Makefile.in
