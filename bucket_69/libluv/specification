@@ -1,8 +1,8 @@
-DEF[BASETAG]=		1.48.0-2
-DEF[TAG]=		${BASETAG}
+DEF[BASETAG]=		1.50.0-0
+DEF[TAG]=		v${BASETAG}
 DEF[COMPAT_TAG]=	11062dd
 DEF[PORTVERSION]=	${BASETAG:S/-/./}
-DEF[SOVERSION]=		1.48.0
+DEF[SOVERSION]=		1.50.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libluv
@@ -44,6 +44,7 @@ CMAKE_ARGS=		-DWITH_SHARED_LIBUV:BOOL=ON
 			-DLUA_BUILD_TYPE=System
 			-DLUA_COMPAT53_DIR=deps/lua-compat-5.3
 SOVERSION=		${SOVERSION}
+LDFLAGS=		-lm
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libluv.so
