@@ -1,4 +1,4 @@
---- sal/osl/unx/socket.cxx.orig	2025-01-12 19:04:12 UTC
+--- sal/osl/unx/socket.cxx.orig	2025-01-23 21:25:49 UTC
 +++ sal/osl/unx/socket.cxx
 @@ -39,6 +39,7 @@
  #include <arpa/inet.h>

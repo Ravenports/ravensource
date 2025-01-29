@@ -1,4 +1,4 @@
---- sal/osl/unx/process.cxx.orig	2025-01-12 19:04:12 UTC
+--- sal/osl/unx/process.cxx.orig	2025-01-23 21:25:49 UTC
 +++ sal/osl/unx/process.cxx
 @@ -43,6 +43,7 @@
  
