@@ -1,4 +1,4 @@
---- router/src/harness/src/stdx/io/file_handle.cc.orig	2024-09-17 10:40:37 UTC
+--- router/src/harness/src/stdx/io/file_handle.cc.orig	2024-12-16 11:00:04 UTC
 +++ router/src/harness/src/stdx/io/file_handle.cc
 @@ -284,7 +284,10 @@ file_handle::current_path() const noexce
  

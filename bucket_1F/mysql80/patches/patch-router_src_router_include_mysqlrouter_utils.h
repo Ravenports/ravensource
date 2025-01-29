@@ -1,4 +1,4 @@
---- router/src/router/include/mysqlrouter/utils.h.orig	2024-09-18 10:08:24 UTC
+--- router/src/router/include/mysqlrouter/utils.h.orig	2024-12-16 09:20:55 UTC
 +++ router/src/router/include/mysqlrouter/utils.h
 @@ -35,6 +35,7 @@
  #include <functional>

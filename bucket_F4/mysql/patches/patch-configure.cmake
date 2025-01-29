@@ -1,6 +1,6 @@
 * check for EVFILT_USER, if missing disable kqueue (necessary on NetBSD 9.x)
 
---- configure.cmake.orig	2024-09-24 11:37:21 UTC
+--- configure.cmake.orig	2024-12-15 20:00:33 UTC
 +++ configure.cmake
 @@ -183,11 +183,6 @@ ENDIF()
  #
