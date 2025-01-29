@@ -1,4 +1,4 @@
---- src/os/unix/SerialPortUNIX.cxx.orig	2024-10-07 19:34:18 UTC
+--- src/os/unix/SerialPortUNIX.cxx.orig	2025-01-02 21:14:35 UTC
 +++ src/os/unix/SerialPortUNIX.cxx
 @@ -17,7 +17,11 @@
  
