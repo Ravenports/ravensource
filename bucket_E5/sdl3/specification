@@ -1,0 +1,94 @@
+DEF[PORTVERSION]=	3.2.0
+DEF[SOVERSION]=		0.2.0
+DEF[RELEASE_TAG]=	release-${PORTVERSION}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		sdl3
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		std
+SDESC[std]=		Cross-platform multimedia development API
+HOMEPAGE=		http://www.libsdl.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/libsdl-org:SDL:${RELEASE_TAG}
+DISTFILE[1]=		generated:main
+
+SPKGS[std]=		set primary dev
+
+# Remove ESOUND, NAS from AVAIL, STANDARD, AUDIO group (ancient)
+OPTIONS_AVAILABLE=	OSS SNDIO ALSA OPENGL X11 MMX SSE SSE2 SSE3 SSE41 SSE42
+OPTIONS_STANDARD=	OSS SNDIO ALSA OPENGL X11 MMX SSE SSE2 SSE3 SSE41 SSE42
+OPTGROUP_UNLIMITED=	AUDIO CPUEXT
+OPTDESCR[AUDIO]=	Audio Support
+OPTDESCR[CPUEXT]=	CPU Extension Support
+OPTGROUP[AUDIO]=	OSS SNDIO ALSA
+OPTGROUP[CPUEXT]=	MMX SSE SSE2 SSE3 SSE41 SSE42
+OPT_ON[all]=		OPENGL X11
+OPT_ON[dragonfly]=	OSS
+OPT_ON[freebsd]=	OSS
+
+LICENSE=		ZLIB:primary
+LICENSE_FILE=		ZLIB:{{WRKSRC}}/LICENSE.txt
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/sdl30
+
+USES=			cpe cmake pkgconfig iconv
+CPE_VENDOR=		libsdl
+CPE_PRODUCT=		simple_directmedia_layer
+DISTNAME=		SDL-${RELEASE_TAG}
+SOVERSION=		${SOVERSION}
+
+[OPENGL].CMAKE_BOOL_T_BOTH=		SDL_OPENGL
+[OPENGL].BUILD_DEPENDS_ON=		libglvnd:dev:std
+					libdrm:dev:std
+[OPENGL].BUILDRUN_DEPENDS_ON=		libglvnd:primary:std
+					libdrm:primary:std
+
+[ALSA].CMAKE_BOOL_T_BOTH=		SDL_ALSA SDL_ALSA_SHARED
+[ALSA].BUILDRUN_DEPENDS_ON=		alsa:single:std
+[ALSA].BROKEN_ON=			not yet implemented
+
+[SNDIO].CMAKE_BOOL_T_BOTH=		SDL_SNDIO SDL_SNDIO_SHARED
+[SNDIO].BUILD_DEPENDS_ON=		sndio:dev:std
+[SNDIO].BUILDRUN_DEPENDS_ON=		sndio:primary:std
+
+[OSS].CMAKE_BOOL_T_BOTH=		SDL_OSS
+
+[X11].CMAKE_BOOL_T_BOTH=		SDL_X11
+					SDL_X11_SHARED
+					SDL_X11_XCURSOR
+					SDL_X11_XDBE
+					SDL_X11_XINPUT
+					SDL_X11_XFIXES
+					SDL_X11_XRANDR
+					SDL_X11_XSCRNSAVER
+					SDL_X11_XSHAPE
+					SDL_X11_XSYNC
+[X11].XORG_COMPONENTS_ON=		x11 xcursor xi xrandr xscrnsaver xxf86vm xext
+[X11].BUILD_DEPENDS_ON=			libxkbcommon:dev:std
+[X11].BUILDRUN_DEPENDS_ON=		libxkbcommon:primary:std
+
+[MMX].DESCRIPTION=			Matrix Math Extensions (MMX from Intel)
+[MMX].CMAKE_BOOL_T_BOTH=		SDL_MMX
+
+[SSE].DESCRIPTION=			Streaming SIMD Extensions
+[SSE].CMAKE_BOOL_T_BOTH=		SSE
+
+[SSE2].DESCRIPTION=			Streaming SIMD Extensions 2
+[SSE2].CMAKE_BOOL_T_BOTH=		SSE2
+
+[SSE3].DESCRIPTION=			Streaming SIMD Extensions 3
+[SSE3].CMAKE_BOOL_T_BOTH=		SSE3
+
+[SSE41].DESCRIPTION=			Streaming SIMD Extensions 4.1
+[SSE41].CMAKE_BOOL_T_BOTH=		SSE4_1
+
+[SSE42].DESCRIPTION=			Streaming SIMD Extensions 4.2
+[SSE42].CMAKE_BOOL_T_BOTH=		SSE4_2
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libSDL3.so
+	${RM} -r ${STAGEDIR}${PREFIX}/share/licenses
