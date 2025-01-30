@@ -1,8 +1,5 @@
-DEF[PORTVERSION]=	1.26.15
-# DEF[PORTVERSION]=	1.26p10
-# Upstream forgot to tag 1.26.10 released Nov 8 per Wikidata + Freshcode
-# DEF[TAG]=		VeraCrypt_${PORTVERSION:S/p/./}
-# DEF[TAG]=		48141ef
+DEF[PORTVERSION]=	1.26.19
+DEF[TAG]=		VeraCrypt_${PORTVERSION:S/p/./}
 DEF[WXCONFIG]=		/bin/wx-config
 # ----------------------------------------------------------------------------
 
@@ -15,10 +12,8 @@ HOMEPAGE=		https://www.veracrypt.fr/en/Home.html
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-# SITES[main]=		GITHUB/veracrypt:VeraCrypt:${TAG}
-# DISTFILE[1]=		generated:main
-SITES[main]=		https://github.com/veracrypt/VeraCrypt/releases/download/VeraCrypt_${PORTVERSION}/
-DISTFILE[1]=		VeraCrypt_${PORTVERSION}_Source.tar.bz2:main
+SITES[main]=		GITHUB/veracrypt:VeraCrypt:${TAG}
+DISTFILE[1]=		generated:main
 
 SPKGS[std]=		set primary docs
 
@@ -47,8 +42,6 @@ BUILD_DEPENDS=		wxWidgets:dev:std
 BUILDRUN_DEPENDS=	fuse2:primary:std
 			wxWidgets:primary:std
 RUN_DEPENDS=		sudo:primary:std
-
-EXTRACT_DIRTY=		1
 
 USES=			cpe desktop-utils:primary gmake iconv pkgconfig
 CPE_VENDOR=		idrix
