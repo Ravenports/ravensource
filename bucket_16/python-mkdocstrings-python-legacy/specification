@@ -1,0 +1,45 @@
+DEF[PORTVERSION]=	0.2.4
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-mkdocstrings-python-legacy
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v12 v13
+SDESC[v12]=		Legacy Python handler for mkdocstrings (3.12)
+SDESC[v13]=		Legacy Python handler for mkdocstrings (3.13)
+HOMEPAGE=		https://mkdocstrings.github.io/python-legacy
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/05/10/5bfba474535450b07423df0a7e2b467148bbe83db15c509caba5472905a5
+DISTFILE[1]=		mkdocstrings_python_legacy-${PORTVERSION}-py3-none-any.whl:main
+DIST_SUBDIR=		python-src
+
+SPKGS[v12]=		single
+SPKGS[v13]=		single
+
+OPTIONS_AVAILABLE=	PY312 PY313
+OPTIONS_STANDARD=	none
+VOPTS[v12]=		PY312=ON PY313=OFF
+VOPTS[v13]=		PY312=OFF PY313=ON
+
+# License listed at PyPI
+# ISC
+
+GENERATED=		yes
+DISTNAME=		mkdocstrings_python_legacy-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# mkdocstrings>=0.19
+# mkdocs-autorefs>=1.1
+# pytkdocs>=0.14
+
+[PY312].USES_ON=			python:v12,wheel
+[PY312].RUN_DEPENDS_ON=			python-mkdocstrings:single:v12
+					python-mkdocs-autorefs:single:v12
+					python-pytkdocs:single:v12
+[PY313].USES_ON=			python:v13,wheel
+[PY313].RUN_DEPENDS_ON=			python-mkdocstrings:single:v13
+					python-mkdocs-autorefs:single:v13
+					python-pytkdocs:single:v13
+

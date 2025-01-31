@@ -1,0 +1,40 @@
+DEF[PORTVERSION]=	0.16.2
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-pytkdocs
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v12 v13
+SDESC[v12]=		Load Python objects documentation (3.12)
+SDESC[v13]=		Load Python objects documentation (3.13)
+HOMEPAGE=		https://mkdocstrings.github.io/pytkdocs
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/b1/55/b9a5412f5ffae09839e0c2d0754893ab4aa4239b65ec038924f5084564d2
+DISTFILE[1]=		pytkdocs-${PORTVERSION}-py3-none-any.whl:main
+DIST_SUBDIR=		python-src
+
+SPKGS[v12]=		single
+SPKGS[v13]=		single
+
+OPTIONS_AVAILABLE=	PY312 PY313
+OPTIONS_STANDARD=	none
+VOPTS[v12]=		PY312=ON PY313=OFF
+VOPTS[v13]=		PY312=OFF PY313=ON
+
+# License listed at PyPI
+# ISC
+
+GENERATED=		yes
+DISTNAME=		pytkdocs-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# astunparse>=1.6; python_version < "3.9"
+# cached-property>=1.5; python_version < "3.8"
+# typing-extensions>=3.7; python_version < "3.8"
+# docstring_parser>=0.7; extra == "numpy-style"
+
+[PY312].USES_ON=			python:v12,wheel
+[PY313].USES_ON=			python:v13,wheel
+

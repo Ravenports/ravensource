@@ -1,0 +1,100 @@
+# pytkdocs
+
+[ci]
+[documentation]
+[pypi version]
+[conda version]
+[gitpod]
+[gitter]
+
+Load Python objects documentation.
+
+## Installation
+
+With `pip`:
+
+`bash
+pip install pytkdocs
+`
+
+With [`pipx`]:
+
+```bash
+python3.8 -m pip install --user pipx
+pipx install pytkdocs
+```
+
+With `conda`:
+```python
+conda install -c conda-forge pytkdocs
+```
+
+## Usage
+
+`pytkdocs` accepts JSON on standard input and writes JSON on standard
+output.
+
+Input format:
+
+```json
+{
+  "objects": [
+    {
+      "path": "pytkdocs",
+      "new_path_syntax": false,
+      "members": true,
+      "inherited_members": false,
+      "filters": [
+        "!^_[^_]"
+     ],
+      "docstring_style": "google",
+      "docstring_options": {
+        "replace_admonitions": true
+      }
+    }
+ ]
+}
+```
+
+Output format:
+
+```json
+{
+  "loading_errors": [
+    "string (message)"
+ ],
+  "parsing_errors": {
+    "string (object)": [
+      "string (message)"
+   ]
+  },
+  "objects": [
+    {
+      "name": "pytkdocs",
+      "path": "pytkdocs",
+      "category": "module",
+      "file_path":
+"/media/data/dev/pawamoy/pytkdocs/src/pytkdocs/__init__.py",
+      "relative_file_path": "pytkdocs/__init__.py",
+      "properties": [
+        "special"
+     ],
+      "parent_path": "pytkdocs",
+      "has_contents": true,
+      "docstring": "pytkdocs package.\n\nLoad Python objects
+documentation.",
+      "docstring_sections": [
+        {
+          "type": "markdown",
+          "value": "pytkdocs package.\n\nLoad Python objects
+documentation."
+        }
+     ],
+      "source": {
+        "code": "\"\"\"\npytkdocs package.\n\nLoad Python objects
+documentation.\n\"\"\"\n\nfrom typing import List\n\n__all__: List[str] =
+[]\n",
+        "line_start": 1
+      },
+      "children": {
+        "pytkdocs.__all__": {
