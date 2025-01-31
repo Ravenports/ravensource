@@ -1,4 +1,4 @@
---- src/bootstrap/src/core/builder/cargo.rs.orig	2025-01-07 01:26:09 UTC
+--- src/bootstrap/src/core/builder/cargo.rs.orig	2025-01-27 23:20:59 UTC
 +++ src/bootstrap/src/core/builder/cargo.rs
 @@ -238,12 +238,13 @@ impl Cargo {
                  Some(format!("-Wl,-rpath,@loader_path/../{libdir}"))
