@@ -225,6 +225,8 @@ pre-configure:
 		${WRKSRC}/ext/meson.build
 	${REINPLACE_CMD} -e "s/not gstva_dep.found()/true/" \
 		${WRKSRC}/sys/va/meson.build
+	${REINPLACE_CMD} -e "s/use_wayland/false/" \
+		${WRKSRC}/ext/gtk/meson.build
 
 post-install:
 	${RM} ${STAGEDIR}${PREFIX}/lib/pkgconfig/gstreamer-plugins-bad-1.0.pc
