@@ -1,4 +1,4 @@
---- src/qml/common/qv4alloca_p.h.orig	2024-10-02 08:59:48 UTC
+--- src/qml/common/qv4alloca_p.h.orig	2025-01-24 06:04:38 UTC
 +++ src/qml/common/qv4alloca_p.h
 @@ -43,8 +43,13 @@
  #define Q_ALLOCA_DECLARE(type, name) \

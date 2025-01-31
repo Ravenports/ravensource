@@ -1,8 +1,8 @@
 Avoid __extendhfsf2 and friends
 
---- src/corelib/global/qtypes.h.orig	2024-10-01 10:46:30 UTC
+--- src/corelib/global/qtypes.h.orig	2024-11-14 11:02:40 UTC
 +++ src/corelib/global/qtypes.h
-@@ -271,23 +271,8 @@ using qsizetype = QIntegerForSizeof<std:
+@@ -274,23 +274,8 @@ using qsizetype = QIntegerForSizeof<std:
  
  // Define a native float16 type
  namespace QtPrivate {
