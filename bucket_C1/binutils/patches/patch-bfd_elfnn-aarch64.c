@@ -1,6 +1,6 @@
---- bfd/elfnn-aarch64.c.orig	2024-08-03 23:00:00 UTC
+--- bfd/elfnn-aarch64.c.orig	2025-02-02 00:00:00 UTC
 +++ bfd/elfnn-aarch64.c
-@@ -5073,7 +5073,9 @@ aarch64_calculate_got_entry_vma (struct
+@@ -5081,7 +5081,9 @@ aarch64_calculate_got_entry_vma (struct
        off = h->got.offset;
        BFD_ASSERT (off != (bfd_vma) - 1);
        if (!WILL_CALL_FINISH_DYNAMIC_SYMBOL (dyn, bfd_link_pic (info), h)
@@ -11,7 +11,7 @@
  	      && SYMBOL_REFERENCES_LOCAL (info, h))
  	  || (ELF_ST_VISIBILITY (h->other)
  	      && h->root.type == bfd_link_hash_undefweak))
-@@ -10170,6 +10172,14 @@ elfNN_aarch64_finish_dynamic_symbol (bfd
+@@ -10066,6 +10068,14 @@ elfNN_aarch64_finish_dynamic_symbol (bfd
  			   + h->root.u.def.section->output_section->vma
  			   + h->root.u.def.section->output_offset);
  	}
