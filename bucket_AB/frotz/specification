@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.54
+DEF[PORTVERSION]=	2.55
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		frotz
@@ -40,13 +40,15 @@ BUILDRUN_DEPENDS=	freetype:primary:std
 			libsamplerate:primary:std
 			libmodplug:primary:std
 
-USES=			gmake ncurses pkgconfig jpeg png zlib
-			fonts execinfo:build
+USES=			gmake ncurses pkgconfig jpeg png zlib fonts
+			execinfo:build
 SDL_COMPONENTS=		sdl2 mixer2
 XORG_COMPONENTS=	xt x11
 MAKE_ENV=		CURSES=ncurses
 INSTALL_TARGET=		install-all
 FONTNAME=		zork
+# makefile is wrong
+INSTALL_REQ_TOOLCHAIN=	yes
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*frotz

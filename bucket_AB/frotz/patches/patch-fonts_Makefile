@@ -1,0 +1,20 @@
+--- fonts/Makefile.orig	2025-02-01 22:36:37 UTC
++++ fonts/Makefile
+@@ -4,7 +4,7 @@ ZFONTSBDF = Zork_r400-10.bdf Zork_r400-1
+ ZFONTSPCF = $(ZFONTSBDF:.bdf=.pcf)
+ 
+ FONTDIR = $(DESTDIR)$(PREFIX)/share/fonts
+-X11_FONTDIR = $(FONTDIR)/X11
++X11_FONTDIR = $(FONTDIR)
+ X11_ZORK_FONTDIR = $(X11_FONTDIR)/zork
+ 
+ MKFONTDIR ?= $(shell which mkfontdir)
+@@ -20,8 +20,6 @@ install_pcf:	pcf
+ 	@echo "Installing X11 fonts to $(X11_ZORK_FONTDIR)"
+ 	mkdir -p $(X11_ZORK_FONTDIR)
+ 	install -m 644 -t $(X11_ZORK_FONTDIR) $(ZFONTSPCF)
+-	$(MKFONTDIR) $(X11_ZORK_FONTDIR)
+-	$(XSET) +fp $(X11_ZORK_FONTDIR)
+ 
+ uninstall_pcf:
+ 	rm -f $(X11_ZORK_FONTDIR)/*pcf
