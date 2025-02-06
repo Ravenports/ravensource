@@ -5,7 +5,7 @@
  #include <unistd.h>
  
 -#ifdef __FreeBSD__
-+#if defined(__FreeBSD__) && !defined(__MidnightBSD__)
++#if 0
  #include <dev/evdev/input.h>
  #include <dev/evdev/uinput.h>
  #else
