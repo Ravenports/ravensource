@@ -5,7 +5,7 @@
  #endif
  
 -#if (defined(_POSIX_C_SOURCE) && _POSIX_C_SOURCE >= 1) || defined(__APPLE__)
-+#if (defined(_POSIX_C_SOURCE) && _POSIX_C_SOURCE >= 1) || defined(__APPLE__) || defined(__DragonFly__) || defined(__MidnightBSD__)
++#if (defined(_POSIX_C_SOURCE) && _POSIX_C_SOURCE >= 1) || defined(__APPLE__) || defined(__DragonFly__) || defined(__FreeBSD__)
  
  int main() {
    long val = ::sysconf(_SC_PAGESIZE);
