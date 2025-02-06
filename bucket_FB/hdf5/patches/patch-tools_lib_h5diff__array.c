@@ -1,4 +1,4 @@
---- tools/lib/h5diff_array.c.orig	2024-09-30 16:07:53 UTC
+--- tools/lib/h5diff_array.c.orig	2025-02-05 14:11:32 UTC
 +++ tools/lib/h5diff_array.c
 @@ -1719,8 +1719,8 @@ diff_float_element(unsigned char *mem1,
           *-------------------------------------------------------------------------
