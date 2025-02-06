@@ -5,7 +5,7 @@
  #if defined(__DragonFly__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__)
  #define __BACKEND_TYPE_BSD__ 1
 -#ifdef HAVE_SYS_SYSCTL_H
-+# if defined(__MidnightBSD__)
++# if defined(__FreeBSD__)
 +# define __BSD_VISIBLE 1
 +#include <stddef.h>
 +#include <sys/types.h>
