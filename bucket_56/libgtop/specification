@@ -4,7 +4,7 @@ DEF[SOVERSION]=		11.0.1
 
 NAMEBASE=		libgtop
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		devel
 VARIANTS=		std
 SDESC[std]=		GNOME library to collect system monitoring data
@@ -16,7 +16,7 @@ SITES[main]=		https://download.gnome.org/sources/libgtop/${PORTVERSION:R}/
 DISTFILE[1]=		libgtop-${PORTVERSION}.tar.xz:main
 DIST_SUBDIR=		gnome2
 
-SPKGS[std]=		set primary dev nls docs
+SPKGS[std]=		set primary dev nls docs info
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -41,6 +41,8 @@ CONFIGURE_ARGS=		--enable-introspection
 			--enable-gtk-doc-html
 INSTALL_TARGET=		install-strip
 SOVERSION=		${SOVERSION}
+INFO=			info:libgtop2
+
 BROKEN[netbsd]=		Needs an absurd number of patches
 
 VAR_OPSYS[netbsd]=	CONFIGURE_ENV=fu_cv_sys_mounted_getmntinfo=yes
