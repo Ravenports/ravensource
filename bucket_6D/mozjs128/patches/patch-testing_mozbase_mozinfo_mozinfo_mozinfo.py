@@ -1,4 +1,4 @@
---- ../../testing/mozbase/mozinfo/mozinfo/mozinfo.py.orig	2024-12-18 15:38:30 UTC
+--- ../../testing/mozbase/mozinfo/mozinfo/mozinfo.py.orig	2025-01-27 19:33:01 UTC
 +++ ../../testing/mozbase/mozinfo/mozinfo/mozinfo.py
 @@ -106,7 +106,7 @@ elif system == "Linux":
  
