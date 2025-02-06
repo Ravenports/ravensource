@@ -1,0 +1,15 @@
+--- Makefile.in.orig	2024-12-09 19:20:45 UTC
++++ Makefile.in
+@@ -106,10 +106,10 @@ check: all
+ 
+ .PHONY: install
+ install: all
+-	mkdir -p $(DESTDIR)$(prefix) $(DESTDIR)$(bindir) $(DESTDIR)$(includedir) $(DESTDIR)$(libdir)/pkgconfig $(DESTDIR)$(mandir)/man3 $(DESTDIR)$(mandir)/man1
++	mkdir -p $(DESTDIR)$(prefix) $(DESTDIR)$(bindir) $(DESTDIR)$(includedir) $(DESTDIR)$(libdir) $(DESTDIR)$(mandir)/man3 $(DESTDIR)$(mandir)/man1
+ 	cp uuid.h        $(DESTDIR)$(includedir)/
+ 	$(LIBTOOL) --mode=install install -c -m 644 lib@libname@.la $(DESTDIR)$(libdir)/
+-	cp uuid.pc       $(DESTDIR)$(libdir)/pkgconfig/@libname@.pc
++	cp uuid.pc       $(DESTDIR)$(prefix)/lib/pkgconfig/ossp-@libname@.pc
+ 	$(LIBTOOL) --mode=install install -c -m 755 uuid@EXEEXT@ $(DESTDIR)$(bindir)/
+ 	cp uuid-config   $(DESTDIR)$(bindir)/
+ 	cp uuid.1        $(DESTDIR)$(mandir)/man1/

@@ -1,9 +1,9 @@
-DEF[PORTVERSION]=	1.6.2
+DEF[PORTVERSION]=	1.6.4
+DEF[TAG]=		${PORTVERSION}-1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ossp-uuid
 VERSION=		${PORTVERSION}
-REVISION=		3
 KEYWORDS=		misc devel
 VARIANTS=		std
 SDESC[std]=		Tool/Lib for generating Universally Unique IDs
@@ -11,9 +11,8 @@ HOMEPAGE=		http://www.ossp.org/pkg/lib/uuid/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		http://www.mirrorservice.org/sites/ftp.ossp.org/pkg/lib/uuid/
-			ftp://ftp.ntua.gr/pub/utils/ossp/lib/uuid/
-DISTFILE[1]=		uuid-${PORTVERSION}.tar.gz:main
+SITES[main]=		https://salsa.debian.org/debian/ossp-uuid/-/archive/debian/${TAG}/
+DISTFILE[1]=		ossp-uuid-debian-${TAG}.tar.bz2:main
 
 SPKGS[std]=		set primary dev man
 
@@ -28,15 +27,24 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		misc/ossp-uuid
 
-USES=			cmake c++:primary mbsdfix
-DISTNAME=		uuid-${PORTVERSION}
+BUILD_DEPENDS=		libmd:dev:std
+BUILDRUN_DEPENDS=	libmd:primary:std
 
-post-extract:
+USES=			autoreconf libtool pkgconfig c++:primary
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-cxx
+			--includedir={{PREFIX}}/include/ossp
+			--libdir={{PREFIX}}/lib/ossp
+DISTNAME=		ossp-uuid-debian-${TAG}
+# libtool crap
+INSTALL_REQ_TOOLCHAIN=	yes
+
+post-extract-linux:
 	${CP} ${FILESDIR}/CMakeLists.txt ${WRKSRC}/
 	${CP} ${MK_TEMPLATES}/config.sub ${WRKSRC}/config.sub
 	${CP} ${MK_TEMPLATES}/config.guess ${WRKSRC}/config.guess
 
-pre-configure:
+pre-configure-linux:
 	# Run gnu configure script to generate config.h
 	(cd ${WRKSRC} && ${SETENV} ${SCRIPTS_ENV} ${SH} configure\
 		--prefix=${PREFIX} \
