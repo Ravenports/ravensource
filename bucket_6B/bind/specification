@@ -8,6 +8,7 @@ DEF[STRIPLIBS]=		bind/filter-a bind/filter-aaaa libdns libisc libisccc libisccfg
 
 NAMEBASE=		bind
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		dns net
 VARIANTS=		std
 SDESC[std]=		Berkeley Internet Name Domain (Domain Name Server)
@@ -27,7 +28,7 @@ LICENSE=		MPL:server
 LICENSE_FILE=		MPL:{{WRKSRC}}/COPYRIGHT
 LICENSE_SCHEME=		solo
 
-FPC_EQUIVALENT=		dns/bind918
+FPC_EQUIVALENT=		dns/bind920
 
 BUILD_DEPENDS=		idnkit:dev:std
 			idnkit:primary:std
@@ -61,6 +62,8 @@ CONFIGURE_ARGS=		--localstatedir=/var
 			STD_CDEFINES="-DDIG_SIGCHASE=1"
 RC_SUBR=		named:server
 SUB_FILES=		named.conf
+SUB_LIST=		NAMED_BEFORE="SERVERS"
+			NAMED_REQUIRE="NETWORKING ldconfig syslogd"
 PLIST_SUB=		ETCDIR={{BIND_ETCDIR}}
 			LIBVER=${PORTVERSION}
 INSTALL_REQ_TOOLCHAIN=	yes
