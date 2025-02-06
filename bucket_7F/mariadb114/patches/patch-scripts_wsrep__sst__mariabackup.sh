@@ -1,6 +1,6 @@
---- scripts/wsrep_sst_mariabackup.sh.orig	2024-10-30 14:38:16 UTC
+--- scripts/wsrep_sst_mariabackup.sh.orig	2025-01-30 17:54:55 UTC
 +++ scripts/wsrep_sst_mariabackup.sh
-@@ -800,8 +800,7 @@ recv_joiner()
+@@ -823,8 +823,7 @@ recv_joiner()
      if [ $tmt -gt 0 ]; then
          if [ -n "$(commandex timeout)" ]; then
              local koption=0
