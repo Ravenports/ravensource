@@ -5,7 +5,7 @@
  #	define __PDP_ENDIAN    PDP_ENDIAN
  
 -#elif defined(__NetBSD__) || defined(__FreeBSD__) || defined(__DragonFly__)
-+#elif defined(__DragonFly__) || defined(__MidnightBSD__)
++#elif defined(__DragonFly__) || defined(__FreeBSD__)
 +
 +#	include <sys/endian.h>
 +
