@@ -21,7 +21,7 @@ idioms for iterating, searching, and modifying the parse tree.
   </p>
  </body>
 </html>
->>> soup.find(text="bad")
+>>> soup.find(string="bad")
 'bad'
 >>> soup.i
 <i>HTML</i>

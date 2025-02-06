@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.16.0
+DEF[PORTVERSION]=	2.17.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-Babel
@@ -11,7 +11,7 @@ HOMEPAGE=		https://babel.pocoo.org/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/ed/20/bc79bc575ba2e2a7f70e8a1155618bb1301eaa5132a8271373a6903f73f8
+SITES[main]=		PYPIWHL/b7/b8/3fe70c75fe32afc4bb507f75563d39bc5642255d1d94f1f23604725780bf
 DISTFILE[1]=		babel-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -30,10 +30,15 @@ GENERATED=		yes
 DISTNAME=		babel-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# pytz >=2015.7 ; python_version < "3.9"
-# pytest >=6.0 ; extra == 'dev'
-# pytest-cov ; extra == 'dev'
-# freezegun ~=1.0 ; extra == 'dev'
+# pytz>=2015.7; python_version < "3.9"
+# tzdata; sys_platform == "win32" and extra == "dev"
+# backports.zoneinfo; python_version < "3.9" and extra == "dev"
+# freezegun~=1.0; extra == "dev"
+# jinja2>=3.0; extra == "dev"
+# pytest-cov; extra == "dev"
+# pytest>=6.0; extra == "dev"
+# pytz; extra == "dev"
+# setuptools; extra == "dev"
 
 [PY312].USES_ON=			python:v12,wheel
 [PY313].USES_ON=			python:v13,wheel

@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	6.1.0
+DEF[PORTVERSION]=	6.1.1
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-pbr
@@ -11,7 +11,7 @@ HOMEPAGE=		https://docs.openstack.org/pbr/latest/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/1d/44/6a65ecd630393d47ad3e7d5354768cb7f9a10b3a0eb2cd8c6f52b28211ee
+SITES[main]=		PYPIWHL/47/ac/684d71315abc7b1214d59304e23a982472967f6bf4bde5a98f1503f648dc
 DISTFILE[1]=		pbr-${PORTVERSION}-py2.py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -30,8 +30,10 @@ GENERATED=		yes
 DISTNAME=		pbr-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-
+# setuptools
 
 [PY312].USES_ON=			python:v12,wheel
+[PY312].RUN_DEPENDS_ON=			python-setuptools:single:v12
 [PY313].USES_ON=			python:v13,wheel
+[PY313].RUN_DEPENDS_ON=			python-setuptools:single:v13
 
