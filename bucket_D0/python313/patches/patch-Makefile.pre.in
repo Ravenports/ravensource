@@ -1,4 +1,4 @@
---- Makefile.pre.in.orig	2024-10-07 05:02:14 UTC
+--- Makefile.pre.in.orig	2025-02-04 14:51:09 UTC
 +++ Makefile.pre.in
 @@ -84,7 +84,6 @@ MAKESETUP=      $(srcdir)/Modules/makese
  OPT=		@OPT@
@@ -30,7 +30,7 @@
  PY_LDFLAGS_NODIST=$(CONFIGURE_LDFLAGS_NODIST) $(LDFLAGS_NODIST)
  PY_LDFLAGS_NOLTO=$(PY_LDFLAGS) $(CONFIGURE_LDFLAGS_NOLTO) $(LDFLAGS_NODIST)
  NO_AS_NEEDED=	@NO_AS_NEEDED@
-@@ -2276,14 +2273,6 @@ bininstall: commoninstall altbininstall
+@@ -2258,14 +2255,6 @@ bininstall: commoninstall altbininstall
  	else true; \
  	fi
  	(cd $(DESTDIR)$(BINDIR); $(LN) -s python$(VERSION)$(EXE) python3$(EXE))
@@ -45,7 +45,7 @@
  	-rm -f $(DESTDIR)$(BINDIR)/python3-config
  	(cd $(DESTDIR)$(BINDIR); $(LN) -s python$(VERSION)-config python3-config)
  	-rm -f $(DESTDIR)$(LIBPC)/python3.pc
-@@ -2720,6 +2709,14 @@ libainstall: all scripts
+@@ -2707,6 +2696,14 @@ libainstall: all scripts
  	$(INSTALL_SCRIPT) $(srcdir)/install-sh $(DESTDIR)$(LIBPL)/install-sh
  	$(INSTALL_SCRIPT) python-config.py $(DESTDIR)$(LIBPL)/python-config.py
  	$(INSTALL_SCRIPT) python-config $(DESTDIR)$(BINDIR)/python$(LDVERSION)-config
