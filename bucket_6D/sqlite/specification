@@ -1,6 +1,7 @@
-DEF[PORTVERSION]=	3.48.0
+DEF[PORTVERSION]=	3.49.0
 DEF[LONGVERSION]=	${PORTVERSION:S/.//:S/./0/}00
 DEF[YEAR]=		2025
+DEF[SOVERSION]=		${PORTVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		sqlite
@@ -37,7 +38,6 @@ FPC_EQUIVALENT=		databases/sqlite3
 USES=			cpe libtool ncurses
 DISTNAME=		sqlite-autoconf-${LONGVERSION}
 MUST_CONFIGURE=		gnu
-INSTALL_TARGET=		install-strip
 SINGLE_JOB=		yes
 
 # SQLITE_ENABLE_FTS4 is an alias for SQLITE_ENABLE_FTS3
@@ -51,8 +51,9 @@ CPPFLAGS=		-DSQLITE_ENABLE_FTS3
 			-DSQLITE_SECURE_DELETE=1
 			-DSQLITE_USE_URI=1
 CONFIGURE_ARGS=		--enable-threadsafe
-			--enable-tempstore=yes
+			--soname=legacy
 LDFLAGS=		-lpthread
+SOVERSION=		${SOVERSION}
 
 [EDITLINE].DESCRIPTION=			Build with editline shell history
 [EDITLINE].CONFIGURE_ARGS_ON=		--enable-editline
@@ -66,3 +67,4 @@ LDFLAGS=		-lpthread
 
 post-install:
 	${RM} ${STAGEDIR}${PREFIX}/include/msvc.h
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libsqlite3.so
