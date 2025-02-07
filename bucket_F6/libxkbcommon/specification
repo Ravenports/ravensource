@@ -1,4 +1,6 @@
-DEF[PORTVERSION]=	1.7.0
+DEF[PORTVERSION]=	1.8.0
+DEF[TAG]=		xkbcommon-${PORTVERSION}
+DEF[SOVERSION]=		0.8.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libxkbcommon
@@ -10,8 +12,8 @@ HOMEPAGE=		https://xkbcommon.org/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		https://xkbcommon.org/download/
-DISTFILE[1]=		libxkbcommon-${PORTVERSION}.tar.xz:main
+SITES[main]=		GITHUB/xkbcommon:libxkbcommon:${TAG}
+DISTFILE[1]=		generated:main
 
 SPKGS[std]=		set primary tools dev man
 
@@ -39,6 +41,7 @@ SOL_FUNCTIONS=		strnlen:src/x11/keymap.c
 			mkdtemp:test/context.c
 			mkdtemp:test/registry.c
 			asprintf:test/registry.c
+SOVERSION=		${SOVERSION}
 VAR_OPSYS[sunos]=	CFLAGS=-D__EXTENSIONS__
 
 post-patch:
