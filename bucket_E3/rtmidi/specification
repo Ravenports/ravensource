@@ -1,0 +1,42 @@
+DEF[PORTVERSION]=	6.0.0
+DEF[SOVERSION]=		7.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		rtmidi
+VERSION=		${PORTVERSION}
+KEYWORDS=		audio
+VARIANTS=		std
+SDESC[std]=		Set of C++ classes for real-time MIDI in & output
+HOMEPAGE=		https://github.com/thestk/rtmidi
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/thestk:rtmidi:${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[std]=		set primary dev
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# The license is basically MIT + non-binding moral obligation to contribute
+# changes back to the project
+LICENSE=		CUSTOM1:primary
+LICENSE_NAME=		CUSTOM1:"RtMidi License"
+LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		audio/rtmidi
+
+BUILD_DEPENDS=		alsa-lib:dev:std
+BUILDRUN_DEPENDS=	alsa-lib:primary:std
+
+USES=			autoreconf c++:primary libtool
+
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-alsa
+
+SOVERSION=		${SOVERSION}
+
+post-install:
+	${STRIP_CMD}	${STAGEDIR}${PREFIX}/lib/librtmidi.so
