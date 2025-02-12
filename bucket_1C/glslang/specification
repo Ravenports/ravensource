@@ -1,0 +1,57 @@
+# Do not attempt to upgrade to 15.1.0 before spirv-tools > 2024.3 are released!
+# 15.1.0 comes with Vulkan 1.4 support which needs up-to-date spirv-tools
+# only available as an RC as of 2025/02. What a mess!
+#
+DEF[PORTVERSION]=	15.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		glslang
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		std
+SDESC[std]=		OpenGL & OpenGL ES shader front end and validator
+HOMEPAGE=		https://github.com/KhronosGroup/glslang
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/KhronosGroup:glslang:${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[std]=		set primary dev
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# Licensing is extremely packager-unfriendly. I won't bother picking
+# the big file with all the licenses apart properly. Just no!
+# LICENSE=		BSD2CLAUSE:primary
+# #			BSD3CLAUSE:primary
+# #			APACHE20:primary
+# #			MIT:primary
+# #			GPLv3+:primary
+# #			CUSTOM1:primary
+# LICENSE_NAME=		CUSTOM1:"NVIDIA license"
+# LICENSE_FILE=		BSD2CLAUSE:
+# #			BSD3CLAUSE:
+# #			APACHE20:stock
+# #			MIT:
+# #			GPLv3+:stock
+# #			CUSTOM1:{{WRKSRC}}/LICENSE.txt
+# LICENSE_TERMS=
+# LICENSE_SCHEME=		multi
+
+FPC_EQUIVALENT=		graphics/glslang
+
+BUILD_DEPENDS=		spirv-tools:dev:std
+BUILDRUN_DEPENDS=	spirv-tools:primary:std
+
+USES=			cmake pkgconfig python:build
+# "sorry, unimplemented: PCH allocation failure" on GCC 14
+C_USES[freebsd]=	clang
+C_USES[midnightbsd]=	clang
+
+CMAKE_ARGS=		-DALLOW_EXTERNAL_SPIRV_TOOLS=ON
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/glslang
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/spirv-remap
