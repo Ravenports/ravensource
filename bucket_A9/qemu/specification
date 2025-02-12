@@ -5,6 +5,7 @@ DEF[UNDERSCORE]=	EXTRACT_INFO(SPHINX_UNDERSCORE)
 
 NAMEBASE=		qemu
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		emulators
 VARIANTS=		std
 SDESC[std]=		Fast CPU emulator and virtualizer for x86 platform
@@ -28,27 +29,29 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		emulators/qemu
 
-BUILD_DEPENDS=		gnutls:dev:std
+BUILD_DEPENDS=		cyrus-sasl:dev:std
+			dtc:dev:std
+			gnutls:dev:std
 			harfbuzz:dev:std
 			libepoxy:dev:std
+			libslirp:dev:std
+			libxkbcommon:dev:std
+			meson:single:std
 			nettle:dev:std
 			python-Sphinx:single:python_used
 			python-sphinx-rtd-theme:single:python_used
 			snappy:dev:std
 			texi2html:primary:std
-			meson:single:std
-			xorg-xkeyboard-config:primary:std
-			libxkbcommon:dev:std
-			dtc:dev:std
-			cyrus-sasl:dev:std
 			vde2:dev:std
+			xorg-xkeyboard-config:primary:std
 BUILDRUN_DEPENDS=	cyrus-sasl:primary:std
+			dtc:primary:std
 			gnutls:primary:std
 			libepoxy:primary:std
+			libslirp:primary:std
 			nettle:primary:std
 			snappy:primary:std
 			vde2:primary:std
-			dtc:primary:std
 
 USES=			cpe gmake pkgconfig bison perl:build python:build
 			jpeg png ncurses makeinfo ninja curl
