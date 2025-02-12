@@ -1,0 +1,35 @@
+DEF[PORTVERSION]=	4.9.0
+DEF[DISTHASH]=		c32a8a1ccaae8490142e67e078336a95c5ffc956
+DEF[SOVERSION]=		0.4.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libslirp
+VERSION=		${PORTVERSION}
+KEYWORDS=		net emulators
+VARIANTS=		std
+SDESC[std]=		General purpose TCP-IP emulator for hypervisors
+HOMEPAGE=		https://gitlab.freedesktop.org/slirp/libslirp
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://gitlab.freedesktop.org/slirp/libslirp/-/archive/v${PORTVERSION}/
+DISTFILE[1]=		libslirp-${PORTVERSION}.tar.bz2:main
+
+SPKGS[std]=		set primary dev
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD3CLAUSE:primary
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/COPYRIGHT
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		net/libslirp
+
+USES=			cpe meson pkgconfig
+GNOME_COMPONENTS=	glib
+
+DISTNAME=		libslirp-v${PORTVERSION}-${DISTHASH}
+CPE_VENDOR=		libslirp_project
+
+SOVERSION=		${SOVERSION}
