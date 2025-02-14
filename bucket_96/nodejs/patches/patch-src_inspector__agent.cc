@@ -1,6 +1,6 @@
---- src/inspector_agent.cc.orig	2025-01-07 13:00:24 UTC
+--- src/inspector_agent.cc.orig	2025-01-30 10:37:59 UTC
 +++ src/inspector_agent.cc
-@@ -97,7 +97,7 @@ static int StartDebugSignalHandler() {
+@@ -104,7 +104,7 @@ static int StartDebugSignalHandler() {
    CHECK_EQ(0, uv_sem_init(&start_io_thread_semaphore, 0));
    pthread_attr_t attr;
    CHECK_EQ(0, pthread_attr_init(&attr));
