@@ -1,6 +1,6 @@
---- Source/NSObject.m.orig	2023-01-08 08:41:32 UTC
+--- Source/NSObject.m.orig	2024-05-27 06:57:03 UTC
 +++ Source/NSObject.m
-@@ -57,6 +57,10 @@
+@@ -58,6 +58,10 @@
  #include	<malloc.h>
  #endif
  
