@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	4.1.0
+DEF[PORTVERSION]=	4.1.1
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-singledispatch
@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/jaraco/singledispatch
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/1d/d6/37db443dbd998b427c7c73fb083208e0e33098c028b37639784ac6eb3de4
-DISTFILE[1]=		singledispatch-${PORTVERSION}-py2.py3-none-any.whl:main
+SITES[main]=		PYPIWHL/d1/bc/b290bbc37675b39f1ec59f451f43ddf10caa631cc253cacd6a2f2d44d248
+DISTFILE[1]=		singledispatch-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
 SPKGS[v12]=		single
@@ -30,19 +30,18 @@ GENERATED=		yes
 DISTNAME=		singledispatch-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# sphinx >=3.5 ; extra == 'docs'
-# jaraco.packaging >=9.3 ; extra == 'docs'
-# rst.linker >=1.9 ; extra == 'docs'
-# furo ; extra == 'docs'
-# sphinx-lint ; extra == 'docs'
-# jaraco.tidelift >=1.4 ; extra == 'docs'
-# pytest >=6 ; extra == 'testing'
-# pytest-checkdocs >=2.4 ; extra == 'testing'
-# pytest-cov ; extra == 'testing'
-# pytest-enabler >=2.2 ; extra == 'testing'
-# pytest-ruff ; extra == 'testing'
-# pytest-black >=0.3.7 ; (platform_python_implementation != "PyPy") and extra == 'testing'
-# pytest-mypy >=0.9.1 ; (platform_python_implementation != "PyPy") and extra == 'testing'
+# pytest!=8.1.*,>=6; extra == "test"
+# sphinx>=3.5; extra == "doc"
+# jaraco.packaging>=9.3; extra == "doc"
+# rst.linker>=1.9; extra == "doc"
+# furo; extra == "doc"
+# sphinx-lint; extra == "doc"
+# jaraco.tidelift>=1.4; extra == "doc"
+# pytest-checkdocs>=2.4; extra == "check"
+# pytest-ruff>=0.2.1; sys_platform != "cygwin" and extra == "check"
+# pytest-cov; extra == "cover"
+# pytest-enabler>=2.2; extra == "enabler"
+# pytest-mypy; extra == "type"
 
 [PY312].USES_ON=			python:v12,wheel
 [PY313].USES_ON=			python:v13,wheel
