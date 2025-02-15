@@ -1,6 +1,6 @@
 DEF[PORTVERSION]=	EXTRACT_INFO(KDE6_FRAMEWORKS_VERSION)
 DEF[KF6_COMPONENT]=	purpose
-DEF[PLUGINS]=		barcodeplugin emailplugin imgurplugin kdeconnectplugin kdeconnectsmsplugin pastebinplugin phabricatorplugin reviewboardplugin saveasplugin telegramplugin twitterplugin
+DEF[PLUGINS]=		barcodeplugin emailplugin imgurplugin kdeconnectplugin kdeconnectsmsplugin pastebinplugin phabricatorplugin reviewboardplugin saveasplugin telegramplugin clipboardplugin
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		kf6-${KF6_COMPONENT}
@@ -89,6 +89,7 @@ post-stage:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/qt6/qml/org/kde/purpose/phabricator/libphabricatorquickplugin.so
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/qt6/qml/org/kde/purpose/reviewboard/librbpurposequickplugin.so
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/qt6/qml/org/kde/purpose/libpurposequickplugin.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/qt6/qml/org/kde/purpose/kdeconnect/libkdeconnectQml.so
 .for p in ${PLUGINS}
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/qt6/plugins/kf6/purpose/${p}.so
 .endfor

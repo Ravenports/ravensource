@@ -16,7 +16,7 @@ SITES[main]=		https://download.kde.org/stable/frameworks/${PORTVERSION:R}/
 DISTFILE[1]=		${KF6_COMPONENT}-${PORTVERSION}.tar.xz:main
 DIST_SUBDIR=		kde6
 
-SPKGS[std]=		set primary dev nls
+SPKGS[std]=		set primary dev nls tools
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -56,6 +56,8 @@ BUILDRUN_DEPENDS=	exiv2:primary:std
 			taglib:primary:std
 RUN_DEPENDS=		catdoc:primary:std
 
+EXRUN[tools]=		primary
+
 USES=			cmake gettext pkgconfig
 
 DISTNAME=		${KF6_COMPONENT}-${PORTVERSION}
@@ -75,3 +77,4 @@ post-stage:
 .for p in ${PLUGINS}
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/qt6/plugins/kf6/kfilemetadata/kfilemetadata_${p}extractor.so
 .endfor
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/kfilemetadata_dump6
