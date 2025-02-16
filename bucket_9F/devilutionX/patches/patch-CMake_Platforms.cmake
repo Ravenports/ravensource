@@ -1,6 +1,6 @@
---- CMake/Platforms.cmake.orig	2023-07-25 11:59:49 UTC
+--- CMake/Platforms.cmake.orig	2025-02-16 00:15:15 UTC
 +++ CMake/Platforms.cmake
-@@ -6,14 +6,14 @@ if(HAIKU)
+@@ -2,14 +2,14 @@ if(HAIKU)
    include(platforms/haiku)
  endif()
  
