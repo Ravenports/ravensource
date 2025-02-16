@@ -1,0 +1,14 @@
+primary: {
+  type: "install"
+  message: <<EOM
+To populate the database, see comments in the 
+%%PREFIX%%/share/ravensys-vuln/structure.sql file.
+Once the mysql/mariadb server is ready, start the daily cron task by
+adding the following lines to /etc/periodic.conf:
+
+local_periodic="%%PREFIX%%/etc/periodic /usr/local/etc/periodic"
+daily_rp_audit_enable="YES"
+
+Then finish the configuration by editing %%PREFIX%%/etc/vuln.conf .
+EOM
+}
