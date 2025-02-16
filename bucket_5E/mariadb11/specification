@@ -2,10 +2,17 @@ DEF[PORTVERSION]=	EXTRACT_VERSION(MYSQL_mariadb-11_VERSION)
 DEF[PORTNAME]=		mariadb11
 DEF[FMT_TAG]=		11.0.2
 DEF[FETCH_ID]=		3971300
+DEF[DBDIR]=		/var/db/mysql
+DEF[RUNDIR]=		/var/run/mysql
+DEF[LOGDIR]=		/var/log/mysql
+DEF[SOCK]=		mysql.sock
+DEF[DBUSER]=		mysql
+DEF[DBGROUP]=		mysql
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		${PORTNAME}
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		databases
 VARIANTS=		std
 SDESC[std]=		Fast SQL database server, derived from MySQL
@@ -40,6 +47,7 @@ BUILD_DEPENDS=		bison:primary:std
 			boost-libraries:dev:std
 			krb5:dev:std
 			judy:dev:std
+			openpam:dev:std
 # zeromq detected but not used (?)
 # #			zeromq:dev:std
 BUILDRUN_DEPENDS=	boost-libraries:primary:std
@@ -47,14 +55,13 @@ BUILDRUN_DEPENDS=	boost-libraries:primary:std
 			msgpack:primary:std
 			judy:primary:std
 			krb5:primary:std
+			openpam:primary:std
 # #			zeromq:primary:std
 
-B_DEPS[netbsd]=		openpam:dev:std
-BR_DEPS[netbsd]=	openpam:primary:std
-
-USERS=			mysql
-GROUPS=			mysql
+USERS=			${DBUSER}
+GROUPS=			${DBGROUP}
 USERGROUP_SPKG=		server
+RC_SUBR=		mysql-server:server
 
 USES=			cmake zlib readline ncurses pcre2 shebangfix cpe
 			python:build perl:build pkgconfig iconv:translit
@@ -75,9 +82,14 @@ CMAKE_ARGS=		-DCOMPILATION_COMMENT="Ravenports"
 			-DINSTALL_SCRIPTDIR=bin
 			-DINSTALL_MYSQLTESTDIR=
 			-DINSTALL_SQLBENCHDIR=
+			-DINSTALL_UNIX_ADDRDIR="${RUNDIR}/${SOCK}"
+			-DINSTALL_SYSCONFDIR="etc/mysql"
+			-DINSTALL_SYSCONF2DIR="etc/mysql/conf.d"
+			-DINSTALL_MYSQLDATADIR="${DBDIR}"
+			-DINSTALL_PAMDATADIR="etc/mysql"
+			-DINSTALL_SBINDIR=libexec
 			-DDEFAULT_CHARSET=utf8mb4
 			-DDEFAULT_COLLATION=utf8mb4_unicode_ci
-			-DDEFAULT_SYSCONFDIR="{{PREFIX}}/etc"
 			-DENABLED_LOCAL_INFILE=ON
 			-DPLUGIN_EXAMPLE=NO
 			-DPLUGIN_FEEDBACK=NO
@@ -99,14 +111,24 @@ SHEBANG_FILES=		scripts/*.sh
 			support-files/*.sh
 PLIST_SUB=		PORTNAME=${PORTNAME}
 			AUTHSOCKET={{AUTHSOCKET}}
-			PAM={{PAM:U"@comment "}}
+			MARIADB_USER="${DBUSER}"
+			MARIADB_GROUP="${DBGROUP}"
+			MARIADB_LOGDIR="${LOGDIR}"
+SUB_FILES=		my.cnf.sample
+			client.cnf.sample
+			server.cnf.sample
+SUB_LIST=		MARIADB_DBDIR="${DBDIR}"
+			MARIADB_RUNDIR="${RUNDIR}"
+			MARIADB_LOGDIR="${LOGDIR}"
+			MARIADB_SOCK="${SOCK}"
+			MARIADB_USER="${DBUSER}"
+			OPSYS="{{OPSYS}}"
 
 # required for Linux (only) for ABI checks
 INSTALL_REQ_TOOLCHAIN=	yes
 
 VAR_OPSYS[freebsd]=	CXXFLAGS=-DHAVE_POSIX_MEMALIGN=1
 VAR_OPSYS[netbsd]=	MAKEFILE_LINE=AUTHSOCKET="@comment "
-			MAKEFILE_LINE=PAM=
 
 [ROCKSDB].DESCRIPTION=			Build RocksDB LSM Engine
 [ROCKSDB].CMAKE_ARGS_ON=		-DPLUGIN_ROCKSDB=DYNAMIC
@@ -134,10 +156,15 @@ post-configure:
 		${BUILD_WRKSRC}/extra/mariabackup/CMakeFiles/mbstream.dir/link.txt
 
 post-install:
-	${RM} ${STAGEDIR}${STD_DOCDIR}/COPYING
 	${MV} ${STAGEDIR}${PREFIX}/lib/mysql/pkgconfig/mariadb.pc \
 		${STAGEDIR}${PREFIX}/lib/pkgconfig/
 	${RMDIR} ${STAGEDIR}${PREFIX}/lib/mysql/pkgconfig
+	${RM} ${STAGEDIR}${STD_DOCDIR}/COPYING
+	${RM} ${STAGEDIR}${PREFIX}/libexec/rcmysql
+	${RM} -r ${STAGEDIR}${PREFIX}/etc/mysql/init.d
+	${RM} -r ${STAGEDIR}${PREFIX}/etc/mysql/logrotate.d
+	${RM} -r ${STAGEDIR}/suite
+	${MKDIR} ${STAGEDIR}${LOGDIR}
 
 	# strip plugins and libraries
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/mysql/libmariadb.so
@@ -150,10 +177,16 @@ post-install:
 		&& ${ECHO_CMD} "Auto-stripping $$f"\
 		&& ${STRIP_CMD} $$f || ${TRUE} ;\
 	done
-	# if pam config file exists, set it as a sample
-	# remove testsuite files too
-	if [ -f "${STAGEDIR}${PREFIX}/etc/mariadb/user_map.conf" ]; then \
-		(cd ${STAGEDIR}${PREFIX}/etc/mariadb && \
-		${MV} user_map.conf user_map.conf.sample) ;\
-		${RM} -r ${STAGEDIR}/suite ;\
-	fi
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/libexec/mariadbd
+
+	# sample installation
+	${RM} ${STAGEDIR}${PREFIX}/etc/mysql/conf.d/server.cnf
+	${RM} ${STAGEDIR}${PREFIX}/etc/mysql/my.cnf
+	${INSTALL_DATA} ${WRKDIR}/server.cnf.sample \
+		${STAGEDIR}${PREFIX}/etc/mysql/conf.d/server.cnf.sample
+	${INSTALL_DATA} ${WRKDIR}/my.cnf.sample \
+		${STAGEDIR}${PREFIX}/etc/mysql/my.cnf.sample
+	${INSTALL_DATA} ${WRKDIR}/client.cnf.sample \
+		${STAGEDIR}${PREFIX}/etc/mysql/conf.d/client.cnf.sample
+	${MV} ${STAGEDIR}${PREFIX}/etc/mysql/user_map.conf \
+		${STAGEDIR}${PREFIX}/etc/mysql/user_map.conf.sample
