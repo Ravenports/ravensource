@@ -1,8 +1,5 @@
-%%PAM%%@sample etc/mariadb/user_map.conf.sample
-%%PAM%%lib/mysql/plugin/auth_pam.so
-%%PAM%%lib/mysql/plugin/auth_pam_v1.so
-%%PAM%%lib/mysql/plugin/auth_pam_tool_dir/auth_pam_tool
-%%PAM%%lib/mysql/security/pam_user_map.so
+@sample etc/mysql/conf.d/server.cnf.sample
+@sample etc/mysql/user_map.conf.sample
 %%ROCKSDB-ON%%bin/mariadb-ldb
 %%ROCKSDB-ON%%bin/myrocks_hotbackup
 %%ROCKSDB-ON%%bin/mysql_ldb
@@ -31,7 +28,6 @@ bin/mariadb-test-embedded
 bin/mariadb-tzinfo-to-sql
 bin/mariadb-upgrade
 bin/mariadb-waitpid
-bin/mariadbd
 bin/mariadbd-multi
 bin/mariadbd-safe
 bin/mariadbd-safe-helper
@@ -51,7 +47,6 @@ bin/mysql_secure_installation
 bin/mysql_tzinfo_to_sql
 bin/mysql_upgrade
 bin/mysql_waitpid
-bin/mysqld
 bin/mysqld_multi
 bin/mysqld_safe
 bin/mysqld_safe_helper
@@ -68,6 +63,17 @@ bin/wsrep_sst_mariabackup
 bin/wsrep_sst_mysqldump
 bin/wsrep_sst_rsync
 bin/wsrep_sst_rsync_wan
+etc/mysql/conf.d/client.cnf
+etc/mysql/conf.d/enable_encryption.preset
+etc/mysql/conf.d/hashicorp_key_management.cnf
+etc/mysql/conf.d/mysql-clients.cnf
+etc/mysql/conf.d/provider_bzip2.cnf
+etc/mysql/conf.d/provider_lz4.cnf
+etc/mysql/conf.d/provider_lzma.cnf
+etc/mysql/conf.d/provider_lzo.cnf
+etc/mysql/conf.d/provider_snappy.cnf
+etc/mysql/conf.d/s3.cnf
+etc/mysql/conf.d/spider.cnf
 lib/mysql/libmariadbd.so.19
 lib/mysql/libmysqld.so
 lib/mysql/plugin/adt_null.so
@@ -75,6 +81,8 @@ lib/mysql/plugin/auth_0x0100.so
 lib/mysql/plugin/auth_ed25519.so
 lib/mysql/plugin/auth_gssapi.so
 lib/mysql/plugin/auth_gssapi_client.so
+lib/mysql/plugin/auth_pam.so
+lib/mysql/plugin/auth_pam_v1.so
 lib/mysql/plugin/auth_test_plugin.so
 lib/mysql/plugin/caching_sha2_password.so
 lib/mysql/plugin/debug_key_management.so
@@ -121,6 +129,10 @@ lib/mysql/plugin/type_mysql_timestamp.so
 lib/mysql/plugin/type_test.so
 lib/mysql/plugin/wsrep_info.so
 lib/mysql/plugin/zstd.so
+lib/mysql/plugin/auth_pam_tool_dir/auth_pam_tool
+lib/mysql/security/pam_user_map.so
+libexec/mariadbd
+libexec/mysqld
 share/groonga/COPYING
 share/groonga/README.md
 share/groonga-normalizer-mysql/README.md
@@ -207,3 +219,4 @@ share/mysql/slovak/errmsg.sys
 share/mysql/spanish/errmsg.sys
 share/mysql/swedish/errmsg.sys
 share/mysql/ukrainian/errmsg.sys
+@dir(%%MARIADB_USER%%,%%MARIADB_GROUP%%,) %%MARIADB_LOGDIR%%
