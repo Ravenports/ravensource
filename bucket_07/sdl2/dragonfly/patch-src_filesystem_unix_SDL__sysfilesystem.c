@@ -1,4 +1,4 @@
---- src/filesystem/unix/SDL_sysfilesystem.c.orig	2025-02-01 23:56:51 UTC
+--- src/filesystem/unix/SDL_sysfilesystem.c.orig	2025-02-08 17:10:22 UTC
 +++ src/filesystem/unix/SDL_sysfilesystem.c
 @@ -132,7 +132,7 @@ char *SDL_GetBasePath(void)
  {

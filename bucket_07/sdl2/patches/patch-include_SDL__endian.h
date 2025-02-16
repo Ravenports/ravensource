@@ -1,9 +1,9 @@
---- include/SDL_endian.h.orig	2025-02-01 23:56:51 UTC
+--- include/SDL_endian.h.orig	2025-02-08 17:10:22 UTC
 +++ include/SDL_endian.h
-@@ -59,10 +59,10 @@ _m_prefetch(void *__P)
- #ifdef __linux__
- #include <endian.h>
- #define SDL_BYTEORDER  __BYTE_ORDER
+@@ -68,10 +68,10 @@ _m_prefetch(void *__P)
+ #else
+ #error Unsupported endianness
+ #endif
 -#elif defined(__OpenBSD__) || defined(__DragonFly__)
 +#elif defined(__OpenBSD__)
  #include <endian.h>
