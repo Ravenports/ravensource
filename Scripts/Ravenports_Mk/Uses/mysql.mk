@@ -5,8 +5,6 @@
 # Valid ARGS:	none
 #		server
 #		build (sets to build depends only; buildrun is default)
-#               innovation|oracle-8.4|mariadb-10.5|mariadb-10.6|mariadb-10.11|
-#			mariadb-11.4|mariadb-11|mysql80 (default)
 #
 # Set BROKEN_MYSQL=<list> if the port specifically
 # does not support one or more of the MySQL derivatives
