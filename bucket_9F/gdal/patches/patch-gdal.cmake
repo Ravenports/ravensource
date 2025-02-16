@@ -1,4 +1,4 @@
---- gdal.cmake.orig	2025-01-08 14:54:06 UTC
+--- gdal.cmake.orig	2025-02-11 11:10:04 UTC
 +++ gdal.cmake
 @@ -84,7 +84,7 @@ endif ()
  if (CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_CXX_COMPILER_ID STREQUAL "GNU")

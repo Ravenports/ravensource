@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.10.1
+DEF[PORTVERSION]=	3.10.2
 DEF[RELEASE]=		${PORTVERSION}
 DEF[SOMAJOR]=		36
 DEF[SOVERSION]=		${SOMAJOR}.${RELEASE}
@@ -54,7 +54,7 @@ EXRUN[tools]=		gdal:primary:std
 # private json_object header that it shouldn't refer to.
 
 USES=			cpe cmake png jpeg gif tiff iconv sqlite pkgconfig
-			zstd expat lz4 zlib xz pcre2 ssl curl
+			zstd expat lz4 zlib xz pcre2 ssl curl bison
 GNOME_COMPONENTS=	libxml2
 CPE_VENDOR=		osgeo
 CMAKE_ARGS=		-DGDAL_USE_INTERNAL_LIBS=OFF
@@ -129,6 +129,7 @@ CMAKE_ARGS=		-DGDAL_USE_INTERNAL_LIBS=OFF
 			-DGDAL_USE_TEIGHA=OFF
 			-DGDAL_USE_TILEDB=OFF
 			-DGDAL_USE_XERCESC=OFF
+			-DACCEPT_MISSING_SQLITE3_RTREE:BOOL=ON
 
 			-DBUILD_PYTHON_BINDINGS=OFF
 DISTNAME=		gdal-${RELEASE}
