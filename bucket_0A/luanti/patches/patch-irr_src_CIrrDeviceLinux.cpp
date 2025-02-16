@@ -1,4 +1,4 @@
---- irr/src/CIrrDeviceLinux.cpp.orig	2024-11-10 18:17:53 UTC
+--- irr/src/CIrrDeviceLinux.cpp.orig	2025-02-14 18:38:27 UTC
 +++ irr/src/CIrrDeviceLinux.cpp
 @@ -8,7 +8,9 @@
  
@@ -10,7 +10,7 @@
  #include <ctime>
  #include <clocale>
  #include "IEventReceiver.h"
-@@ -693,7 +695,7 @@ EKEY_CODE CIrrDeviceLinux::getKeyCode(XE
+@@ -675,7 +677,7 @@ EKEY_CODE CIrrDeviceLinux::getKeyCode(XE
  		keyCode = (EKEY_CODE)KeyMap[idx].Win32Key;
  	}
  	if (keyCode == 0) {
