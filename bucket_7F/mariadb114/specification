@@ -171,6 +171,7 @@ post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/mysql/libmariadb.so
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/mysql/libmariadbd.so
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/mysql/*/*.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/mysql/plugin/auth_pam_tool_dir/auth_pam_tool
 	# strip binaries
 	@flist=$$(${FIND} ${STAGEDIR}${PREFIX}/bin -type f -perm /111 -print) ;\
 	for f in $$flist; do \
