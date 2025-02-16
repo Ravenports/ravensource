@@ -1,14 +1,13 @@
 DEF[DL_FOLDER]=		3.8
-DEF[BASEVERSION]=	${DL_FOLDER}.8
+DEF[BASEVERSION]=	${DL_FOLDER}.9
 DEF[PORTVERSION]=	${BASEVERSION}
-DEF[SOVERSION]=		30.40.2
+DEF[SOVERSION]=		30.40.3
 DEF[SOXXVERSION]=	30.0.0
 DEF[SOXXMAJOR]=		${SOXXVERSION:R:R}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gnutls
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		security net
 VARIANTS=		std
 SDESC[std]=		GNU Transport Layer Security library
@@ -25,8 +24,8 @@ OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 LICENSE=		LGPL21+:primary
-LICENSE_FILE=		LGPL21+:{{WRKSRC}}/doc/COPYING.LESSER
-LICENSE_TERMS=		primary:{{WRKSRC}}/LICENSE
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING.LESSERv2
+LICENSE_TERMS=		primary:{{WRKDIR}}/LICENSE
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		security/gnutls
@@ -77,6 +76,8 @@ INFO=			info:gnutls
 
 post-patch:
 	${RM} ${WRKSRC}/doc/*.info*
+	# extract license
+	${AWK} '/^# Licensing/,EOF' ${WRKSRC}/README.md > ${WRKDIR}/LICENSE
 
 pre-configure:
 	# strdupa not available on BSD, just avoid it everywhere
