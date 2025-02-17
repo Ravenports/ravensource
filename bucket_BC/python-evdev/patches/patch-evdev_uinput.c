@@ -1,5 +1,5 @@
---- evdev/uinput.c.orig	2024-05-07 22:20:05 UTC
-+++ evdev/uinput.c
+--- src/evdev/uinput.c.orig	2025-02-02 20:25:21 UTC
++++ src/evdev/uinput.c
 @@ -8,7 +8,7 @@
  #include <fcntl.h>
  #include <unistd.h>
