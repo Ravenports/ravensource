@@ -1,0 +1,42 @@
+DEF[PORTVERSION]=	9.2.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-mysql-connector-python
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v12 v13
+SDESC[v12]=		MySQL server driver (3.12)
+SDESC[v13]=		MySQL server driver (3.13)
+HOMEPAGE=		https://dev.mysql.com/doc/connector-python/en/
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/55/aa/0ff1b80fcce28abb7ce53c1d3d14ebb28fb4206ca561480cb8b7d54163ad
+DISTFILE[1]=		mysql_connector_python-${PORTVERSION}-py2.py3-none-any.whl:main
+DIST_SUBDIR=		python-src
+
+SPKGS[v12]=		single
+SPKGS[v13]=		single
+
+OPTIONS_AVAILABLE=	PY312 PY313
+OPTIONS_STANDARD=	none
+VOPTS[v12]=		PY312=ON PY313=OFF
+VOPTS[v13]=		PY312=OFF PY313=ON
+
+# License listed at PyPI
+# GNU GPLv2 (with FOSS License Exception)
+
+GENERATED=		yes
+DISTNAME=		mysql_connector_python-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# dnspython==2.6.1; extra == "dns-srv"
+# fido2==1.1.2; extra == "fido2"
+# gssapi==1.8.3; extra == "gssapi"
+# opentelemetry-api==1.18.0; extra == "telemetry"
+# opentelemetry-sdk==1.18.0; extra == "telemetry"
+# opentelemetry-exporter-otlp-proto-http==1.18.0; extra == "telemetry"
+
+[PY312].USES_ON=			python:v12,wheel
+[PY313].USES_ON=			python:v13,wheel
+
