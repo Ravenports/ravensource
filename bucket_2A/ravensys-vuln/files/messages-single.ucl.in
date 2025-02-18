@@ -3,12 +3,20 @@ primary: {
   message: <<EOM
 To populate the database, see comments in the 
 %%PREFIX%%/share/ravensys-vuln/structure.sql file.
-Once the mysql/mariadb server is ready, start the daily cron task by
-adding the following lines to /etc/periodic.conf:
+Once the mysql/mariadb server is ready, finish the configuration
+by editing the %%PREFIX%%/etc/vuln.conf file.
+
+To run the scraper daily, either set a cron task
+    e.g [ 5 21 * * * %%PREFIX%%/bin/rpaudit.sh ]
+    Note: see comments in rpaudit.sh to rotate /var/log/rpaudit logs
+
+-or- by adding the following lines to /etc/periodic.conf:
 
 local_periodic="%%PREFIX%%/etc/periodic /usr/local/etc/periodic"
 daily_rp_audit_enable="YES"
+daily_output="/var/log/daily.log"
 
-Then finish the configuration by editing %%PREFIX%%/etc/vuln.conf .
+The latter is not recommended unless the daily output is sent
+to the daily.log rather than the root's mail.
 EOM
 }
