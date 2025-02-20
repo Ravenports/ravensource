@@ -1,0 +1,67 @@
+DEF[PORTVERSION]=	0.18.1
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-scikit-build
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v12 v13
+SDESC[v12]=		Generator for c/c++/fortran extensions (3.12)
+SDESC[v13]=		Generator for c/c++/fortran extensions (3.13)
+HOMEPAGE=		https://github.com/scikit-build/scikit-build
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/c3/a3/21b519f58de90d684056c52ec4e45f744cfda7483f082dcc4dd18cc74a93
+DISTFILE[1]=		scikit_build-${PORTVERSION}-py3-none-any.whl:main
+DIST_SUBDIR=		python-src
+
+SPKGS[v12]=		single
+SPKGS[v13]=		single
+
+OPTIONS_AVAILABLE=	PY312 PY313
+OPTIONS_STANDARD=	none
+VOPTS[v12]=		PY312=ON PY313=OFF
+VOPTS[v13]=		PY312=OFF PY313=ON
+
+# License listed at PyPI
+# Not provided.
+
+GENERATED=		yes
+DISTNAME=		scikit_build-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# distro
+# packaging
+# setuptools>=42.0.0
+# tomli; python_version < '3.11'
+# typing-extensions>=3.7; python_version < '3.8'
+# wheel>=0.32.0
+# coverage[toml]>=4.2; extra == 'cov'
+# pytest-cov>=2.7.1; extra == 'cov'
+# pygments; extra == 'docs'
+# sphinx-issues; extra == 'docs'
+# sphinx-rtd-theme>=1.0; extra == 'docs'
+# sphinx>=4; extra == 'docs'
+# sphinxcontrib-moderncmakedomain>=3.19; extra == 'docs'
+# ubelt>=0.8.2; extra == 'doctest'
+# xdoctest>=0.10.0; extra == 'doctest'
+# build>=0.7; extra == 'test'
+# cython>=0.25.1; extra == 'test'
+# importlib-metadata; (python_version < '3.8') and extra == 'test'
+# pip; extra == 'test'
+# pytest-mock>=1.10.4; extra == 'test'
+# pytest>=6.0.0; extra == 'test'
+# requests; extra == 'test'
+# virtualenv; extra == 'test'
+
+[PY312].USES_ON=			python:v12,wheel
+[PY312].RUN_DEPENDS_ON=			python-distro:single:v12
+					python-packaging:single:v12
+					python-setuptools:single:v12
+					python-wheel:single:v12
+[PY313].USES_ON=			python:v13,wheel
+[PY313].RUN_DEPENDS_ON=			python-distro:single:v13
+					python-packaging:single:v13
+					python-setuptools:single:v13
+					python-wheel:single:v13
+
