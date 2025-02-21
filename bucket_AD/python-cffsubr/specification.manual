@@ -1,0 +1,5 @@
+BUILD_DEPENDS=		python-cmake:single:python_used
+			python-scikit-build:single:python_used
+
+post-patch:
+	${REINPLACE_CMD} -e '/"ninja",/d' ${WRKSRC}/_custom_build/backend.py
