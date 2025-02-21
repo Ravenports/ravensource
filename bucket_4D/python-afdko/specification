@@ -1,0 +1,48 @@
+# manually maintained
+DEF[PORTVERSION]=	4.0.2
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-afdko
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v12 v13
+SDESC[v12]=		Adobe Font Development Kit for OpenType (3.12)
+SDESC[v13]=		Adobe Font Development Kit for OpenType (3.13)
+HOMEPAGE=		https://github.com/adobe-type-tools/afdko
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPI/a/afdko
+DISTFILE[1]=		afdko-${PORTVERSION}.tar.gz:main
+DIST_SUBDIR=		python-src
+
+SPKGS[v12]=		single
+SPKGS[v13]=		single
+
+OPTIONS_AVAILABLE=	PY312 PY313
+OPTIONS_STANDARD=	none
+VOPTS[v12]=		PY312=ON PY313=OFF
+VOPTS[v13]=		PY312=OFF PY313=ON
+
+# License listed at PyPI
+# Apache License, Version 2.0
+
+GENERATED=		yes
+DISTNAME=		afdko-${PORTVERSION}
+
+# Requires-Dist extracted from pyproject.toml file
+# build: setuptools_scm
+# build: scikit-build
+# build: cmake
+# build: ninja
+
+[PY312].USES_ON=			python:v12,pep517
+[PY312].BUILD_DEPENDS_ON=		python-setuptools-scm:single:v12
+[PY313].USES_ON=			python:v13,pep517
+[PY313].BUILD_DEPENDS_ON=		python-setuptools-scm:single:v13
+
+RUN_DEPENDS=		afdko:single:std
+
+post-patch:
+	${RM} ${WRKSRC}/CMakeLists.txt
+	${RM} -r ${WRKSRC}/c/ ${WRKSRC}/cmake/
