@@ -1,5 +1,8 @@
-BUILD_DEPENDS=		python-cmake:single:python_used
-			python-scikit-build:single:python_used
+RUN_DEPENDS=		python-afdko:single:python_used
+			python-fonttools:single:python_used
 
 post-patch:
-	${REINPLACE_CMD} -e '/"ninja",/d' ${WRKSRC}/_custom_build/backend.py
+	${RM} -r ${WRKSRC}/external
+
+post-install:
+	${LN} -s ${LOCALBASE}/bin/tx ${STAGEDIR}${PYTHON_SITELIBDIR}/cffsubr/tx

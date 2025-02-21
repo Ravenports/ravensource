@@ -277,7 +277,6 @@ function inline_fix_setup ($namebase, $src) {
        "psautohint"   => false,
        "netbox-network-importer" => '/pyats\[full\]/d',
        "pyzmq"        => '/cythonize(/ s|, |, quiet=True, |; /packaging.version/d; s|if V(.*$|if False:|',
-       "cffsubr"      => 's|"Linux"|platform.system()|',
        "msgpack"      => false,
        "python-netbox" => '/install_requires=/ s|.ipaddress., ||',
        "netdoc"        => '/install_requires=/ s|.ipaddress., ||',
