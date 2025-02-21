@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.2.3
+DEF[PORTVERSION]=	1.2.4
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-rjsmin
@@ -7,7 +7,7 @@ KEYWORDS=		python
 VARIANTS=		v12 v13
 SDESC[v12]=		Javascript Minifier (3.12)
 SDESC[v13]=		Javascript Minifier (3.13)
-HOMEPAGE=		http://opensource.perlig.de/rjsmin/
+HOMEPAGE=		https://opensource.perlig.de/rjsmin/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
@@ -29,9 +29,9 @@ VOPTS[v13]=		PY312=OFF PY313=ON
 GENERATED=		yes
 DISTNAME=		rjsmin-${PORTVERSION}
 
-# install_requires extracted from setup.py
+# Requires-Dist extracted from pyproject.toml file
 
 
-[PY312].USES_ON=			python:v12,sutools
-[PY313].USES_ON=			python:v13,sutools
+[PY312].USES_ON=			python:v12,pep517
+[PY313].USES_ON=			python:v13,pep517
 
