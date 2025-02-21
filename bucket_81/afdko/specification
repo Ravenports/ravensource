@@ -1,0 +1,32 @@
+DEF[PORTVERSION]=	4.0.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		afdko
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11_fonts
+VARIANTS=		std
+SDESC[std]=		Adobe Font Development Kit for OpenType
+HOMEPAGE=		https://adobe-type-tools.github.io/afdko/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://github.com/adobe-type-tools/afdko/releases/download/${PORTVERSION}/
+DISTFILE[1]=		afdko-${PORTVERSION}.tar.gz:main
+
+SPKGS[std]=		single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		x11-fonts/afdko
+
+LICENSE=		APACHE20:single
+LICENSE_FILE=		APACHE20:stock
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/LICENSE.md
+LICENSE_AWK=		TERMS:"^------"
+LICENSE_SCHEME=		solo
+
+USES=			cmake
+GNOME_COMPONENTS=	libxml2
+CMAKE_ARGS=		-DSKBUILD:BOOL=OFF
