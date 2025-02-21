@@ -1,0 +1,50 @@
+DEF[PORTVERSION]=	3.4.2
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-ufo2ft
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v12 v13
+SDESC[v12]=		Bridge between UFOs and FontTools (3.12)
+SDESC[v13]=		Bridge between UFOs and FontTools (3.13)
+HOMEPAGE=		https://github.com/googlefonts/ufo2ft
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/2a/49/beb0058ebef94d12d23d1afb9052c97fa67d04ff1bffafcc8bc881c85304
+DISTFILE[1]=		ufo2ft-${PORTVERSION}-py2.py3-none-any.whl:main
+DIST_SUBDIR=		python-src
+
+SPKGS[v12]=		single
+SPKGS[v13]=		single
+
+OPTIONS_AVAILABLE=	PY312 PY313
+OPTIONS_STANDARD=	none
+VOPTS[v12]=		PY312=ON PY313=OFF
+VOPTS[v13]=		PY312=OFF PY313=ON
+
+# License listed at PyPI
+# MIT
+
+GENERATED=		yes
+DISTNAME=		ufo2ft-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# fonttools[ufo]>=4.52.0
+# cffsubr>=0.3.0
+# booleanOperations>=0.9.0
+# fontMath>=0.9.3
+# skia-pathops>=0.8.0; extra == "pathops"
+# compreffor>=0.5.5; extra == "compreffor"
+
+[PY312].USES_ON=			python:v12,wheel
+[PY312].RUN_DEPENDS_ON=			python-fonttools:single:v12
+					python-cffsubr:single:v12
+					python-booleanOperations:single:v12
+					python-fontMath:single:v12
+[PY313].USES_ON=			python:v13,wheel
+[PY313].RUN_DEPENDS_ON=			python-fonttools:single:v13
+					python-cffsubr:single:v13
+					python-booleanOperations:single:v13
+					python-fontMath:single:v13
+
