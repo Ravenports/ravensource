@@ -1,4 +1,4 @@
---- src/core/core-crypto.c.orig	2024-12-15 08:02:38 UTC
+--- src/core/core-crypto.c.orig	2024-12-23 07:47:56 UTC
 +++ src/core/core-crypto.c
 @@ -40,6 +40,10 @@
  #define htobe64 OSSwapHostToBigInt64
