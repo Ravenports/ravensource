@@ -1,0 +1,40 @@
+DEF[PORTVERSION]=	3.0.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-roman-numerals-py
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v12 v13
+SDESC[v12]=		Manipulate well-formed Roman numerals (3.12)
+SDESC[v13]=		Manipulate well-formed Roman numerals (3.13)
+HOMEPAGE=		https://pypi.org/project/roman-numerals-py/
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/27/d0/a3a2fed015e95b9e81619182adc472540f9786183febfaef8b7c5e909418
+DISTFILE[1]=		roman_numerals_py-${PORTVERSION}-py3-none-any.whl:main
+DIST_SUBDIR=		python-src
+
+SPKGS[v12]=		single
+SPKGS[v13]=		single
+
+OPTIONS_AVAILABLE=	PY312 PY313
+OPTIONS_STANDARD=	none
+VOPTS[v12]=		PY312=ON PY313=OFF
+VOPTS[v13]=		PY312=OFF PY313=ON
+
+# License listed at PyPI
+# Not provided.
+
+GENERATED=		yes
+DISTNAME=		roman_numerals_py-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# mypy==1.15.0 ; extra == "lint"
+# ruff==0.9.6 ; extra == "lint"
+# pyright==1.1.394 ; extra == "lint"
+# pytest>=8 ; extra == "test"
+
+[PY312].USES_ON=			python:v12,wheel
+[PY313].USES_ON=			python:v13,wheel
+

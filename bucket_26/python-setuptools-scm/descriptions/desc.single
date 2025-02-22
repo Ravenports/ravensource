@@ -1,19 +1,22 @@
-# setuptools_scm
+# setuptools-scm
 [github ci]
 [Documentation Status]
 [![tidelift]](https://tidelift.com/subscription/pkg/pypi-setuptools-scm?utm_source=pypi-setuptools-scm&utm_medium=readme)
 
 ## about
 
-[setuptools-scm] extracts Python package versions from `git` or
-`hg` metadata instead of declaring them as the version argument
-or in an SCM managed file.
+[setuptools-scm] extracts Python package versions from `git` or `hg`
+metadata
+instead of declaring them as the version argument
+or in a Source Code Managed (SCM) managed file.
 
-Additionally, [setuptools-scm] provides setuptools
-with a list of files that are managed by the SCM <br/>
-(i.e. it automatically adds **all of** the SCM-managed files to the
-sdist).<br/>
-Unwanted files must be excluded via `MANIFEST.in`.
+Additionally [setuptools-scm] provides `setuptools` with a list of
+files that are managed by the SCM
+<br/>
+(i.e. it automatically adds all the SCM-managed files to the sdist).
+<br/>
+Unwanted files must be excluded via `MANIFEST.in`
+or [configuring Git archive][git-archive-docs].
 
 ## `pyproject.toml` usage
 
@@ -26,7 +29,7 @@ build step by specifying it as one of the build requirements.
 
 ```toml title="pyproject.toml"
 [build-system]
-requires = ["setuptools>=64", "setuptools_scm>=8"]
+requires = ["setuptools>=64", "setuptools-scm>=8"]
 build-backend = "setuptools.build_meta"
 ```
 
@@ -70,8 +73,10 @@ $ python -m setuptools_scm --help
 
 For further configuration see the [documentation].
 
-[setuptools-scm]: https://github.com/pypa/setuptools_scm
+[setuptools-scm]: https://github.com/pypa/setuptools-scm
 [documentation]: https://setuptools-scm.readthedocs.io/
+[git-archive-docs]:
+https://setuptools-scm.readthedocs.io/en/stable/usage/#builtin-mechanisms-for-obtaining-version-numbers
 
 ## Interaction with Enterprise Distributions
 
@@ -79,7 +84,7 @@ Some enterprise distributions like RHEL7
 ship rather old setuptools versions.
 
 In those cases its typically possible to build by using an sdist against
-`setuptools_scm<2.0`.
+`setuptools-scm<2.0`.
 As those old setuptools versions lack sensible types for versions,
 modern [setuptools-scm] is unable to support them sensibly.
 
@@ -93,8 +98,3 @@ setuptools versions.
 Everyone interacting in the [setuptools-scm] project's codebases, issue
 trackers, chat rooms, and mailing lists is expected to follow the
 [PSF Code of Conduct].
-
-[PSF Code of Conduct]:
-https://github.com/pypa/.github/blob/main/CODE_OF_CONDUCT.md
-
-## Security Contact
