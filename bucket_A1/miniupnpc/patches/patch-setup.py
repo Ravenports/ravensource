@@ -1,6 +1,6 @@
---- setup.py.orig	2024-01-15 00:34:23 UTC
+--- setup.py.orig	2024-06-22 22:28:04 UTC
 +++ setup.py
-@@ -30,6 +30,6 @@ setup(name="miniupnpc",
+@@ -32,6 +32,6 @@ setup(name="miniupnpc",
        cmdclass={'build_ext': make_then_build_ext},
        ext_modules=[
           Extension(name="miniupnpc", sources=["src/miniupnpcmodule.c"],
