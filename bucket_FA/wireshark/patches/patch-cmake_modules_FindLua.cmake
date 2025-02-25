@@ -1,4 +1,4 @@
---- cmake/modules/FindLua.cmake.orig	2025-01-08 17:50:21 UTC
+--- cmake/modules/FindLua.cmake.orig	2025-02-19 17:57:45 UTC
 +++ cmake/modules/FindLua.cmake
 @@ -179,7 +179,7 @@ if (LUA_VERSION_STRING)
  endif ()
