@@ -1,13 +1,13 @@
 DEF[PORTVERSION]=	3.3.5
-DEF[SOVERSION]=		2.0.0
 DEF[TAG_BLOOM]=		437e1ad
 DEF[TAG_CORK]=		074e074
 DEF[TAG_IPSET]=		3ea7fe3
+DEF[TAG]=		9afa3ca
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		shadowsocks-libev
 VERSION=		${PORTVERSION}
-REVISION=		3
+REVISION=		4
 KEYWORDS=		net
 VARIANTS=		std
 SDESC[std]=		Secure socks5 proxy
@@ -15,7 +15,7 @@ HOMEPAGE=		https://github.com/shadowsocks/shadowsocks-libev/blob/master/README.m
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main bloom cork ipset
-SITES[main]=		GITHUB/shadowsocks:shadowsocks-libev:v${PORTVERSION}
+SITES[main]=		GITHUB/shadowsocks:shadowsocks-libev:${TAG}
 SITES[bloom]=		GITHUB/shadowsocks:libbloom:${TAG_BLOOM}:libbloom
 SITES[cork]=		GITHUB/shadowsocks:libcork:${TAG_CORK}:libcork
 SITES[ipset]=		GITHUB/shadowsocks:ipset:${TAG_IPSET}:libipset
@@ -25,7 +25,7 @@ DISTFILE[3]=		generated:cork
 DISTFILE[4]=		generated:ipset
 DF_INDEX=		1 2 3 4
 
-SPKGS[std]=		set primary man docs
+SPKGS[std]=		set primary dev man docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -42,22 +42,21 @@ BUILD_DEPENDS=		asciidoc:single:std
 			libsodium:dev:std
 			xmlto:primary:std
 			c-ares:dev:std
-			mbedtls13:dev:std
+			mbedtls:dev:std
 BUILDRUN_DEPENDS=	libev:primary:std
-			mbedtls13:primary:std
+			mbedtls:primary:std
 			libsodium:primary:std
 			c-ares:primary:std
 
 RC_SUBR=		shadowsocks_libev:primary
 
-USES=			autoreconf cpe gmake libtool pcre
+USES=			cpe cmake pcre
 CPE_VENDOR=		shadowsocks
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--enable-shared
-INSTALL_TARGET=		install-strip
-SOVERSION=		${SOVERSION}
+LDFLAGS=		-lpthread
 
 post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/ss-*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libshadowsocks-libev.so
 	${MKDIR} ${STAGEDIR}${PREFIX}/etc/shadowsocks-libev
 	${INSTALL_DATA} ${WRKSRC}/debian/config.json \
 		${STAGEDIR}${PREFIX}/etc/shadowsocks-libev/config.json.sample
