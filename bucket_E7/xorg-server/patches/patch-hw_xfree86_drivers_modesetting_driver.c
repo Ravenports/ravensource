@@ -1,4 +1,4 @@
---- hw/xfree86/drivers/modesetting/driver.c.orig	2024-10-29 16:09:01 UTC
+--- hw/xfree86/drivers/modesetting/driver.c.orig	2024-12-17 17:51:31 UTC
 +++ hw/xfree86/drivers/modesetting/driver.c
 @@ -925,8 +925,12 @@ try_enable_glamor(ScrnInfoPtr pScrn)
      modesettingPtr ms = modesettingPTR(pScrn);
