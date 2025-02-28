@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	4.35.0
+DEF[PORTVERSION]=	4.36.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-breathe
@@ -7,11 +7,11 @@ KEYWORDS=		python
 VARIANTS=		v12 v13
 SDESC[v12]=		Sphinx Doxygen renderer (3.12)
 SDESC[v13]=		Sphinx Doxygen renderer (3.13)
-HOMEPAGE=		https://github.com/michaeljones/breathe
+HOMEPAGE=		https://www.breathe-doc.org/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/eb/61/faddc25913de74e60e175bcfd962ec83532653c5895c0a06a83a6b5bbf3d
+SITES[main]=		PYPIWHL/2c/bc/d67ef1e11ed6e6343c135bf605aa9d5734ff0cc77eb42a2a41f182abc9d9
 DISTFILE[1]=		breathe-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -24,19 +24,27 @@ VOPTS[v12]=		PY312=ON PY313=OFF
 VOPTS[v13]=		PY312=OFF PY313=ON
 
 # License listed at PyPI
-# BSD
+# Not provided.
 
 GENERATED=		yes
 DISTNAME=		breathe-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# Sphinx (!=5.0.0,>=4.0)
-# docutils (>=0.12)
+# Sphinx>=7.2
+# furo ; extra == "docs"
+# sphinx-copybutton ; extra == "docs"
+# sphinxcontrib-spelling ; extra == "docs"
+# ruff==0.9.2 ; extra == "lint"
+# mypy>=1 ; extra == "lint"
+# types-docutils ; extra == "lint"
+# types-Pygments ; extra == "lint"
+# pytest>=8.0 ; extra == "lint"
+# sphinxcontrib-phpdomain ; extra == "lint"
+# sphinx-csharp ; extra == "lint"
+# pytest>=8.0 ; extra == "test"
 
 [PY312].USES_ON=			python:v12,wheel
 [PY312].RUN_DEPENDS_ON=			python-Sphinx:single:v12
-					python-docutils:single:v12
 [PY313].USES_ON=			python:v13,wheel
 [PY313].RUN_DEPENDS_ON=			python-Sphinx:single:v13
-					python-docutils:single:v13
 

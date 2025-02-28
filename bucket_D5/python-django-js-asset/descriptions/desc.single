@@ -1,7 +1,12 @@
-===============================================================================
-django-js-asset -- script tag with additional attributes for
-django.forms.Media
-===============================================================================
+==================================================================
+django-js-asset -- JS, CSS and JSON support for django.forms.Media
+==================================================================
+
+**Note!** `Django 5.2 adds its own support for JavaScript objects
+<https://docs.djangoproject.com/en/dev/topics/forms/media/#script-objects>`__.
+This library has a slightly different API and also supports much older
+versions
+of Django, *and* it also supports CSS and JSON tags.
 
 Usage
 =====
@@ -71,8 +76,8 @@ This produces:
 
     <script id="widget-configuration"
 type="application/json">{"configuration": 42}</script>
-    <link rel="stylesheet" href="/static/widget/style.css">
-    <style>p{color:red;}</style>
+    <link href="/static/widget/style.css" media="all" rel="stylesheet">
+    <style media="all">p{color:red;}</style>
     <script src="/static/widget/script.js" type="module"></script>
 
 Compatibility
@@ -83,3 +88,13 @@ At the time of writing this app is compatible with Django 4.2 and better
 [tox configuration
 ] for
 definitive answers.
+
+Extremely experimental importmap support
+========================================
+
+django-js-asset ships an extremely experimental implementation adding
+support
+for using [importmaps
+].
+
+One of the reasons why importmaps are useful when used with Django is that

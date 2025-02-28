@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.6.16
+DEF[PORTVERSION]=	0.6.17
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-ncclient
@@ -30,20 +30,13 @@ GENERATED=		yes
 DISTNAME=		ncclient-${PORTVERSION}
 
 # install_requires extracted from setup.py
-# setuptools>0.6
 # paramiko>=1.15.0
 # lxml>=3.3.0
-# selectors2>=2.0.1; python_version <= "3.4"
-# six
 
 [PY312].USES_ON=			python:v12,sutools
-[PY312].BUILDRUN_DEPENDS_ON=		python-setuptools:single:v12
-					python-paramiko:single:v12
+[PY312].BUILDRUN_DEPENDS_ON=		python-paramiko:single:v12
 					python-lxml:single:v12
-					python-six:single:v12
 [PY313].USES_ON=			python:v13,sutools
-[PY313].BUILDRUN_DEPENDS_ON=		python-setuptools:single:v13
-					python-paramiko:single:v13
+[PY313].BUILDRUN_DEPENDS_ON=		python-paramiko:single:v13
 					python-lxml:single:v13
-					python-six:single:v13
 
