@@ -1,0 +1,37 @@
+DEF[PORTVERSION]=	1.1.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-boolean
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v12 v13
+SDESC[v12]=		Converts strings to boolean values (3.12)
+SDESC[v13]=		Converts strings to boolean values (3.13)
+HOMEPAGE=		https://github.com/scisco/boolean
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPI/b/boolean
+DISTFILE[1]=		boolean-${PORTVERSION}.tar.gz:main
+DIST_SUBDIR=		python-src
+
+SPKGS[v12]=		single
+SPKGS[v13]=		single
+
+OPTIONS_AVAILABLE=	PY312 PY313
+OPTIONS_STANDARD=	none
+VOPTS[v12]=		PY312=ON PY313=OFF
+VOPTS[v13]=		PY312=OFF PY313=ON
+
+# License listed at PyPI
+# CC0
+
+GENERATED=		yes
+DISTNAME=		boolean-${PORTVERSION}
+
+# install_requires extracted from setup.py
+
+
+[PY312].USES_ON=			python:v12,sutools
+[PY313].USES_ON=			python:v13,sutools
+
