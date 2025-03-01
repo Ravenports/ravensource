@@ -1,4 +1,4 @@
---- examples/echoserver/echoserver.c.orig	2024-11-01 21:28:15 UTC
+--- examples/echoserver/echoserver.c.orig	2025-02-20 20:31:48 UTC
 +++ examples/echoserver/echoserver.c
 @@ -69,9 +69,13 @@
      #ifdef HAVE_PTY_H
