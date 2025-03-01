@@ -15,6 +15,7 @@ to the IETF xml2rfc v2 and v3 vocabularies
 
 - [Changelog]
 - [Installation]
+- [Updating xml2rfc]
 - [Usage]
 - [Contributing]
 - [Getting Started]
@@ -45,8 +46,31 @@ can run the [preptool] on its input.
 
 ### Installation
 
-Installation of the python package is done as usual with `pip install
-xml2rfc`, using appropriate switches.
+`xml2rfc` is available as Python package. You can install it with following
+command:
+`sh
+pip install xml2rfc
+`
+
+If you're using [pipx], you can install `xml2rfc` with the following
+command:
+`sh
+pipx install xml2rfc
+`
+
+`xml2rfc` also provides `pdf` extra package to install required packages
+required for PDF file generation.
+See [next section] about additional requirements for PDF generation.
+
+To install `xml2rfc` with PDF generation support run:
+```sh
+pip install "xml2rfc[pdf]"
+```
+
+To install `pdf` extra with `pipx` run:
+```sh
+pipx install "xml2rfc[pdf]"
+```
 
 #### Installation of support libraries for the PDF-formatter
 
@@ -73,28 +97,4 @@ your operating system.
 With these installed and available to **xml2rfc**, the `--pdf` switch will
 be enabled.
 
-### Usage
-
-**xml2rfc** accepts a single XML document as input and outputs to one or
-more conversion formats.
-
-#### Basic Usage
-
-```sh
-xml2rfc SOURCE [options] FORMATS...
-```
-
-Run `xml2rfc --help` for a full listing of command-line options.
-
-### Getting Started
-
-This project is following the standard **Git Feature Workflow** development
-model. Learn about all the various steps of the development workflow, from
-creating a fork to submitting a pull request, in the [Contributing] guide.
-
-> Make sure to read the [Styleguides] section to ensure a cohesive code
-format across the project.
-
-You can submit bug reports, enhancements and new feature requests in the
-[discussions] area. Accepted tickets will be converted to issues.
-
+### Updating xml2rfc
