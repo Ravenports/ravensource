@@ -1,4 +1,4 @@
---- lib/plat/unix/unix-sockets.c.orig	2023-11-20 06:27:02 UTC
+--- lib/plat/unix/unix-sockets.c.orig	2025-02-28 06:41:45 UTC
 +++ lib/plat/unix/unix-sockets.c
 @@ -105,6 +105,7 @@ lws_plat_set_socket_options(struct lws_v
  	socklen_t optlen = sizeof(optval);
@@ -24,7 +24,7 @@
        !defined(__FreeBSD__) && !defined(__FreeBSD_kernel__) &&        \
        !defined(__NetBSD__) && \
        !defined(__OpenBSD__) && \
-@@ -231,6 +234,7 @@ lws_plat_set_socket_options_ip(lws_sockf
+@@ -233,6 +236,7 @@ lws_plat_set_socket_options_ip(lws_sockf
  #endif
  
  #if !defined(__APPLE__) && \

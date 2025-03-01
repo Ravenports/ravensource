@@ -1,4 +1,4 @@
---- lib/core-net/client/connect2.c.orig	2023-11-20 06:27:02 UTC
+--- lib/core-net/client/connect2.c.orig	2025-02-28 06:41:45 UTC
 +++ lib/core-net/client/connect2.c
 @@ -49,7 +49,7 @@ lws_getaddrinfo46(struct lws *wsi, const
  
