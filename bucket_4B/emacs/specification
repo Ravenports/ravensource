@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	29.4
+DEF[PORTVERSION]=	30.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		emacs
@@ -36,7 +36,6 @@ USERGROUP_SPKG=		primary
 
 BUILD_DEPENDS=		gnutls:dev:std
 BUILDRUN_DEPENDS=	gnutls:primary:std
-			libsoup-2.4:dev:std
 RUN_DEPENDS=		coreutils:primary:std
 			ctags:set:std
 
@@ -155,8 +154,10 @@ INSTALL_REQ_TOOLCHAIN=	yes
 					xwidgets
 [X11GTK].BUILD_DEPENDS_ON=		harfbuzz:dev:std
 					m17n-lib:dev:std
+					webkit2:dev:api41
 [X11GTK].BUILDRUN_DEPENDS_ON=		m17n-lib:primary:std
-					webkit2:set:api40
+					webkit2:primary:api41
+[X11GTK].BROKEN_ON=			Webkit v2.42+ dropped xwidget support, crashes
 
 # gconf, imagemagick
 
