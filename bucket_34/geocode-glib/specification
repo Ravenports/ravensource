@@ -1,0 +1,55 @@
+DEF[PORTVERSION]=	3.26.4
+DEF[SOVERSION]=		0.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		geocode-glib
+VERSION=		${PORTVERSION}
+KEYWORDS=		net
+VARIANTS=		api10 api20
+SDESC[api10]=		Convenience lib for (reverse) geocoding (API 1.0)
+SDESC[api20]=		Convenience lib for (reverse) geocoding (API 2.0)
+HOMEPAGE=		https://gitlab.gnome.org/GNOME/geocode-glib
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNOME/geocode-glib/${PORTVERSION:R}
+DISTFILE[1]=		geocode-glib-${PORTVERSION}.tar.xz:main
+DIST_SUBDIR=		gnome3
+
+SPKGS[api10]=		primary dev tests
+SPKGS[api20]=		primary dev tests
+
+OPTIONS_AVAILABLE=	API10 API20
+OPTIONS_STANDARD=	none
+
+VOPTS[api10]=		API10=ON API20=OFF
+VOPTS[api20]=		API10=OFF API20=ON
+
+LICENSE=		LGPL20+:primary
+LICENSE_FILE=		LGPL20+:{{WRKSRC}}/COPYING.LIB
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/geocode-glib/geocode-glib.h
+LICENSE_AWK=		TERMS:"ifndef"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		net/geocode-glib
+
+BUILD_DEPENDS=		json-glib:dev:std
+BUILDRUN_DEPENDS=	json-glib:primary:std
+
+USES=			gettext meson pkgconfig
+GNOME_COMPONENTS=	glib introspection
+
+# Building with gtk-doc enabled errors out
+CONFIGURE_ARGS=		-Denable-gtk-doc=false
+SOVERSION=		${SOVERSION}
+
+[API10].DESCRIPTION=			Build libsoup 2.x based variant (API 1.0)
+[API10].BUILD_DEPENDS_ON=		libsoup-2.4:dev:std
+[API10].BUILDRUN_DEPENDS_ON=		libsoup-2.4:primary:std
+[API10].CONFIGURE_ARGS_ON=		-Dsoup2=true
+
+[API20].DESCRIPTION=			Build libsoup 3.x based variant (API 2.0)
+[API20].BUILD_DEPENDS_ON=		libsoup:dev:std
+[API20].BUILDRUN_DEPENDS_ON=		libsoup:primary:std
+[API20].CONFIGURE_ARGS_ON=		-Dsoup2=false
