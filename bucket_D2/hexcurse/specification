@@ -1,9 +1,9 @@
-DEF[PORTVERSION]=	1.60.0
+DEF[PORTVERSION]=	1.70.0
+DEF[TAG]=		v${PORTVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		hexcurse
 VERSION=		${PORTVERSION}
-REVISION=		2
 KEYWORDS=		editors
 VARIANTS=		std
 SDESC[std]=		Versatile ncurses-based hex editor
@@ -11,7 +11,9 @@ HOMEPAGE=		https://github.com/LonnyGomes/hexcurse/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GITHUB/LonnyGomes:hexcurse:v${PORTVERSION}
+# forked
+SITES[main]=		GITHUB/prso:hexcurse-ng:${TAG}
+# SITES[main]=		GITHUB/LonnyGomes:hexcurse:v${PORTVERSION}
 DISTFILE[1]=		generated:main
 
 SPKGS[std]=		set primary man
@@ -28,11 +30,7 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		editors/hexcurse
 
-USES=			ncurses
+USES=			autoreconf ncurses
 MUST_CONFIGURE=		gnu
 CFLAGS=			-I{{NCURSESINC}}
-
-post-patch:
-	${REINPLACE_CMD} -e 's/ -Werror//' ${WRKSRC}/src/Makefile.in
-	${REINPLACE_CMD} -e '/LIBS=/ s/-lncurses /-lncurses -ltinfo /' \
-		${WRKSRC}/configure
+LDFLAGS=		-ltinfo
