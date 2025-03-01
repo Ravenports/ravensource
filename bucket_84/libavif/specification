@@ -1,7 +1,8 @@
-DEF[PORTVERSION]=	1.1.1
+DEF[PORTVERSION]=	1.2.0
 DEF[GTK_VERSION]=	EXTRACT_INFO(GTK2_VERSION)
 DEF[RELEASE]=		v${PORTVERSION}
-DEF[SOVERSION]=		16.1.1
+DEF[SOVERSION]=		16.2.0
+DEF[ARGP_TAG]=		81998ff
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libavif
@@ -12,9 +13,12 @@ SDESC[std]=		Library for encoding and decoding .avif files
 HOMEPAGE=		none
 CONTACT=		nobody
 
-DOWNLOAD_GROUPS=	main
+DOWNLOAD_GROUPS=	main ext1
 SITES[main]=		GITHUB/AOMediaCodec:libavif:${RELEASE}
+SITES[ext1]=		GITHUB/maryla-uc:libargparse:${ARGP_TAG}:ext/libargparse
 DISTFILE[1]=		generated:main
+DISTFILE[2]=		generated:ext1
+DF_INDEX=		1 2
 
 SPKGS[std]=		set primary tools dev
 
@@ -27,7 +31,7 @@ LICENSE=		BSD2CLAUSE:primary
 LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
 
-EXRUN[tools]=		libavif:primary:std
+EXRUN[tools]=		primary
 
 BUILD_DEPENDS=		aom:dev:std
 			dav1d:dev:std
@@ -41,13 +45,14 @@ EXRUN[dev]=		aom:dev:std
 			libyuv:dev:std
 
 USES=			cpe cmake jpeg png pkgconfig
-GNOME_COMPONENTS=	gdkpixbuf
+GNOME_COMPONENTS=	gdkpixbuf libxml2
 CPE_VENDOR=		aomedia
 CMAKE_ARGS=		-DAVIF_BUILD_APPS:BOOL=ON
 			-DAVIF_CODEC_AOM:STRING="SYSTEM"
 			-DAVIF_CODEC_DAV1D:STRING="SYSTEM"
 			-DAVIF_BUILD_GDK_PIXBUF:BOOL=ON
 			-DAVIF_ENABLE_WERROR:BOOL=OFF
+			-DAVIF_LIBXML2:STRING="SYSTEM"
 SOVERSION=		${SOVERSION}
 PLIST_SUB=		GTK2_VERSION=${GTK_VERSION}
 
