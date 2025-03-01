@@ -1,11 +1,11 @@
---- programs/Makefile.orig	2024-03-28 20:28:52.783348000 +0100
-+++ programs/Makefile	2024-03-28 20:29:15.140300000 +0100
-@@ -345,7 +345,7 @@
+--- programs/Makefile.orig	2025-02-19 00:04:24 UTC
++++ programs/Makefile
+@@ -345,7 +345,7 @@ include $(wildcard $(DEPFILES))
  #-----------------------------------------------------------------------------
  # make install is validated only for Linux, macOS, BSD, Hurd and Solaris targets
  #-----------------------------------------------------------------------------
--ifneq (,$(filter $(UNAME),Linux Darwin GNU/kFreeBSD GNU OpenBSD FreeBSD NetBSD DragonFly SunOS Haiku AIX MSYS_NT CYGWIN_NT))
-+ifneq (,$(filter $(UNAME),Linux Darwin GNU/kFreeBSD GNU OpenBSD FreeBSD NetBSD DragonFly MidnightBSD SunOS Haiku AIX MSYS_NT CYGWIN_NT))
+-ifneq (,$(filter Linux Darwin GNU/kFreeBSD GNU OpenBSD FreeBSD NetBSD DragonFly SunOS Haiku AIX MSYS_NT% CYGWIN_NT%,$(UNAME)))
++ifneq (,$(filter Linux Darwin GNU/kFreeBSD GNU OpenBSD FreeBSD NetBSD DragonFly MidnightBSD SunOS Haiku AIX MSYS_NT% CYGWIN_NT%,$(UNAME)))
  
  HAVE_COLORNEVER = $(shell echo a | egrep --color=never a > /dev/null 2> /dev/null && echo 1 || echo 0)
  EGREP_OPTIONS ?=

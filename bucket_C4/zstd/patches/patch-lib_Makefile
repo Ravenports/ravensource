@@ -1,6 +1,6 @@
---- lib/Makefile.orig	2024-03-28 21:04:19.313174000 +0100
-+++ lib/Makefile	2024-03-28 21:08:06.354501000 +0100
-@@ -51,6 +51,8 @@
+--- lib/Makefile.orig	2025-02-19 00:04:24 UTC
++++ lib/Makefile
+@@ -51,6 +51,8 @@ endif
  ZSTD_LOCAL_SRC := $(notdir $(ZSTD_FILES))
  ZSTD_LOCAL_OBJ0 := $(ZSTD_LOCAL_SRC:.c=.o)
  ZSTD_LOCAL_OBJ := $(ZSTD_LOCAL_OBJ0:.S=.o)
@@ -9,18 +9,18 @@
  
  VERSION := $(ZSTD_VERSION)
  
-@@ -77,8 +79,8 @@
+@@ -81,8 +83,8 @@ ifeq ($(UNAME_TARGET_SYSTEM), Darwin)
    SHARED_EXT_VER = $(LIBVER).$(SHARED_EXT)
    SONAME_FLAGS = -install_name $(LIBDIR)/libzstd.$(SHARED_EXT_MAJOR) -compatibility_version $(LIBVER_MAJOR) -current_version $(LIBVER)
  else
--  ifeq ($(UNAME), AIX)
+-  ifeq ($(UNAME_TARGET_SYSTEM), AIX)
 -    SONAME_FLAGS =
 +  ifeq ($(UNAME), SunOS)
 +    SONAME_FLAGS = -Wl,-h,libzstd.$(SHARED_EXT).$(LIBVER_MAJOR)
    else
      SONAME_FLAGS = -Wl,-soname=libzstd.$(SHARED_EXT).$(LIBVER_MAJOR)
    endif
-@@ -128,6 +130,14 @@
+@@ -132,6 +134,14 @@ libzstd.a: $(ZSTD_STATICLIB)
  
  endif
  
@@ -35,7 +35,7 @@
  ifneq (,$(filter Windows%,$(TARGET_SYSTEM)))
  
  LIBZSTD = dll/libzstd.dll
-@@ -177,7 +187,7 @@
+@@ -181,7 +191,7 @@ endif  # if windows
  libzstd : $(LIBZSTD)
  
  .PHONY: lib
@@ -44,16 +44,16 @@
  
  
  # note : do not define lib-mt or lib-release as .PHONY
-@@ -261,7 +271,7 @@
+@@ -268,7 +278,7 @@ clean:
  #-----------------------------------------------------------------------------
  # make install is validated only for below listed environments
  #-----------------------------------------------------------------------------
--ifneq (,$(filter $(UNAME),Linux Darwin GNU/kFreeBSD GNU OpenBSD FreeBSD NetBSD DragonFly SunOS Haiku AIX MSYS_NT CYGWIN_NT))
-+ifneq (,$(filter $(UNAME),Linux Darwin GNU/kFreeBSD GNU OpenBSD FreeBSD NetBSD DragonFly MidnightBSD SunOS Haiku AIX MSYS_NT CYGWIN_NT))
+-ifneq (,$(filter Linux Darwin GNU/kFreeBSD GNU OpenBSD FreeBSD NetBSD DragonFly SunOS Haiku AIX MSYS_NT% CYGWIN_NT%,$(UNAME)))
++ifneq (,$(filter Linux Darwin GNU/kFreeBSD GNU OpenBSD FreeBSD NetBSD DragonFly MidnightBSD SunOS Haiku AIX MSYS_NT% CYGWIN_NT%,$(UNAME)))
  
  lib: libzstd.pc
  
-@@ -335,6 +345,7 @@
+@@ -355,6 +365,7 @@ install-static:
  	[ -e $(DESTDIR)$(LIBDIR) ] || $(INSTALL) -d -m 755 $(DESTDIR)$(LIBDIR)/
  	@echo Installing static library
  	$(INSTALL_DATA) libzstd.a $(DESTDIR)$(LIBDIR)
