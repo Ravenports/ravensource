@@ -1,0 +1,40 @@
+DEF[PORTVERSION]=	0.303.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		cantarell-fonts
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11_fonts
+VARIANTS=		std
+SDESC[std]=		Contemporary Humanist sans serif typeface family
+HOMEPAGE=		https://cantarell.gnome.org/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNOME/cantarell-fonts/${PORTVERSION:R}
+DISTFILE[1]=		cantarell-fonts-${PORTVERSION}.tar.xz:main
+DIST_SUBDIR=		gnome3
+
+SPKGS[std]=		single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		CUSTOM1:single
+LICENSE_NAME=		CUSTOM1:"SIL OPEN FONT LICENSE Version 1.1"
+LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		x11-fonts/cantarell-fonts
+
+BUILD_DEPENDS=		appstream-glib:dev:std
+			appstream-glib:primary:std
+			python-cffsubr:single:python_default
+			python-fs:single:python_default
+			python-psautohint:single:python_default
+			python-statmake:single:python_default
+			python-ufo2ft:single:python_default
+			python-ufoLib2:single:python_default
+
+USES=			fontconfig fonts gettext meson
+
+FONTNAME=		cantarell
