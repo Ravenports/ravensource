@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	1.84.1
-DEF[RUSTX_BOOT]=	1.83.0
+DEF[PORTVERSION]=	1.85.0
+DEF[RUSTX_BOOT]=	1.84.0
 DEF[CURL_VERSION]=	7.87.0
 DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
 # ----------------------------------------------------------------------------
@@ -171,7 +171,7 @@ pre-build-dragonfly:
 	#     pub fn __error() -> *mut ::c_int {
 	#         &mut errno
 	#     }
-.for libcver in 94 97 107 112 119 121 124 150 155 158 159 161 162 164
+.for libcver in 94 97 107 112 119 121 124 150 155 158 167 169
 	${REINPLACE_CMD} -e '/__errno_location/d' \
 	${WRKSRC}/vendor/libc-0.2.${libcver}/src/unix/bsd/freebsdlike/dragonfly/errno.rs
 .endfor
