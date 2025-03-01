@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	33
-DEF[SOVERSION]=		2.5.0
+DEF[PORTVERSION]=	34
+DEF[SOVERSION]=		2.5.1
 DEF[SOFTLINKS]=		depmod insmod lsmod modinfo modprobe rmmod
 # ----------------------------------------------------------------------------
 
@@ -33,10 +33,9 @@ ONLY_FOR_OPSYS=		linux
 
 BUILD_DEPENDS=		scdoc:primary:std
 
-USES=			gmake libtool
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--with-pkgconfigdir={{PREFIX}}/lib/pkgconfig
-			--with-noarch-pkgconfigdir={{PREFIX}}/lib/pkgconfig
+USES=			meson pkgconfig zstd xz zlib ssl
+# CONFIGURE_ARGS=		--with-pkgconfigdir={{PREFIX}}/lib/pkgconfig
+# #			--with-noarch-pkgconfigdir={{PREFIX}}/lib/pkgconfig
 SOVERSION=		${SOVERSION}
 
 post-install:
