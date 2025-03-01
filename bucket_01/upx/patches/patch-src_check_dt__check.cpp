@@ -1,21 +1,21 @@
---- src/check/dt_check.cpp.orig	2024-05-09 10:03:12 UTC
+--- src/check/dt_check.cpp.orig	2025-02-20 15:02:44 UTC
 +++ src/check/dt_check.cpp
-@@ -108,12 +108,12 @@ ACC_COMPILE_TIME_ASSERT_HEADER(no_bswap1
- ACC_COMPILE_TIME_ASSERT_HEADER(no_bswap32(0x04030201) == 0x04030201)
- ACC_COMPILE_TIME_ASSERT_HEADER(no_bswap64(0x0807060504030201ull) == 0x0807060504030201ull)
- #if !(ACC_CC_MSC) // unfortunately *not* constexpr with current MSVC
--ACC_COMPILE_TIME_ASSERT_HEADER(bswap16(0x04030201) == 0x0102)
--ACC_COMPILE_TIME_ASSERT_HEADER(bswap32(0x04030201) == 0x01020304)
--ACC_COMPILE_TIME_ASSERT_HEADER(bswap64(0x0807060504030201ull) == 0x0102030405060708ull)
--ACC_COMPILE_TIME_ASSERT_HEADER(bswap16(bswap16(0xf4f3f2f1)) == no_bswap16(0xf4f3f2f1))
--ACC_COMPILE_TIME_ASSERT_HEADER(bswap32(bswap32(0xf4f3f2f1)) == no_bswap32(0xf4f3f2f1))
--ACC_COMPILE_TIME_ASSERT_HEADER(bswap64(bswap64(0xf8f7f6f5f4f3f2f1ull)) ==
-+ACC_COMPILE_TIME_ASSERT_HEADER(upx_bswap16(0x04030201) == 0x0102)
-+ACC_COMPILE_TIME_ASSERT_HEADER(upx_bswap32(0x04030201) == 0x01020304)
-+ACC_COMPILE_TIME_ASSERT_HEADER(upx_bswap64(0x0807060504030201ull) == 0x0102030405060708ull)
-+ACC_COMPILE_TIME_ASSERT_HEADER(upx_bswap16(upx_bswap16(0xf4f3f2f1)) == no_bswap16(0xf4f3f2f1))
-+ACC_COMPILE_TIME_ASSERT_HEADER(upx_bswap32(upx_bswap32(0xf4f3f2f1)) == no_bswap32(0xf4f3f2f1))
-+ACC_COMPILE_TIME_ASSERT_HEADER(upx_bswap64(upx_bswap64(0xf8f7f6f5f4f3f2f1ull)) ==
-                                no_bswap64(0xf8f7f6f5f4f3f2f1ull))
+@@ -288,12 +288,12 @@ static_assert(no_bswap16(0x04030201) ==
+ static_assert(no_bswap32(0x04030201) == 0x04030201);
+ static_assert(no_bswap64(0x0807060504030201ull) == 0x0807060504030201ull);
+ #if !(ACC_CC_MSC) || defined(upx_is_constant_evaluated)
+-static_assert(bswap16(0x04030201) == 0x0102);
+-static_assert(bswap32(0x04030201) == 0x01020304);
+-static_assert(bswap64(0x0807060504030201ull) == 0x0102030405060708ull);
+-static_assert(bswap16(bswap16(0xf4f3f2f1)) == no_bswap16(0xf4f3f2f1));
+-static_assert(bswap32(bswap32(0xf4f3f2f1)) == no_bswap32(0xf4f3f2f1));
+-static_assert(bswap64(bswap64(0xf8f7f6f5f4f3f2f1ull)) == no_bswap64(0xf8f7f6f5f4f3f2f1ull));
++static_assert(upx_bswap16(0x04030201) == 0x0102);
++static_assert(upx_bswap32(0x04030201) == 0x01020304);
++static_assert(upx_bswap64(0x0807060504030201ull) == 0x0102030405060708ull);
++static_assert(upx_bswap16(bswap16(0xf4f3f2f1)) == no_bswap16(0xf4f3f2f1));
++static_assert(upx_bswap32(bswap32(0xf4f3f2f1)) == no_bswap32(0xf4f3f2f1));
++static_assert(upx_bswap64(bswap64(0xf8f7f6f5f4f3f2f1ull)) == no_bswap64(0xf8f7f6f5f4f3f2f1ull));
  #endif
  
+ static_assert(sign_extend(0u + 0, 8) == 0);
