@@ -1,4 +1,4 @@
---- src/flb_network.c.orig	2025-01-27 14:24:05 UTC
+--- src/flb_network.c.orig	2025-02-25 13:27:54 UTC
 +++ src/flb_network.c
 @@ -603,9 +603,7 @@ static int net_connect_async(int fd,
              }

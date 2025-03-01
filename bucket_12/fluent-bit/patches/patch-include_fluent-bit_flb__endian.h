@@ -1,6 +1,6 @@
 _XOPEN_SOURCE is messing up sys/socket.h on NetBSD so remove it.
 
---- include/fluent-bit/flb_endian.h.orig	2025-01-27 14:24:05 UTC
+--- include/fluent-bit/flb_endian.h.orig	2025-02-25 13:27:54 UTC
 +++ include/fluent-bit/flb_endian.h
 @@ -39,7 +39,7 @@
   */
