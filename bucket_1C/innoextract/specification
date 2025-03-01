@@ -1,0 +1,40 @@
+DEF[PORTVERSION]=	1.9
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		innoextract
+VERSION=		${PORTVERSION}
+KEYWORDS=		archivers
+VARIANTS=		std
+SDESC[std]=		Program to extract Inno Setup files
+HOMEPAGE=		https://constexpr.org/innoextract/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/dscharrer:innoextract:${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[std]=		set primary man
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		ZLIB:primary
+LICENSE_FILE=		ZLIB:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		archivers/innoextract
+
+BUILD_DEPENDS=		boost-libraries:set:std
+			bzip2:dev:std
+			doxygen:primary:std
+BUILDRUN_DEPENDS=	bzip2:primary:std
+
+USES=			c++:primary cmake python:build xz zlib
+
+CMAKE_ARGS=		-DBoost_USE_STATIC_LIBS=on
+			-DBoost_NO_BOOST_CMAKE=ON
+
+INSTALL_REQ_TOOLCHAIN=	yes
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/innoextract
