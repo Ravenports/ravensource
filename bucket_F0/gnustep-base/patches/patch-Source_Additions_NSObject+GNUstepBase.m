@@ -1,4 +1,4 @@
---- Source/Additions/NSObject+GNUstepBase.m.orig	2024-05-27 06:57:03 UTC
+--- Source/Additions/NSObject+GNUstepBase.m.orig	2025-02-10 17:00:46 UTC
 +++ Source/Additions/NSObject+GNUstepBase.m
 @@ -36,6 +36,10 @@
  #include	<malloc.h>
