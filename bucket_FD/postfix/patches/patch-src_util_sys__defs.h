@@ -1,4 +1,4 @@
---- src/util/sys_defs.h.orig	2024-02-06 17:02:38 UTC
+--- src/util/sys_defs.h.orig	2025-01-03 18:19:26 UTC
 +++ src/util/sys_defs.h
 @@ -35,10 +35,7 @@
      || defined(BSDI2) || defined(BSDI3) || defined(BSDI4) \
@@ -12,3 +12,12 @@
      || defined(EKKOBSD1) || defined(DRAGONFLY)
  #define SUPPORTED
  #include <sys/param.h>
+@@ -174,7 +171,7 @@
+ #endif
+ 
+ #if defined(__DragonFly__)
+-#define HAS_DEV_URANDOM
++#define HAS_CLOSEFROM
+ #define HAS_ISSETUGID
+ #define HAS_FUTIMES
+ #define SOCKADDR_SIZE	socklen_t
