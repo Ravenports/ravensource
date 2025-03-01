@@ -1,10 +1,10 @@
-DEF[PORTVERSION]=	1.30
-DEF[DASH]=		-1
+DEF[PORTVERSION]=	1.31
+DEF[TAG]=		faac-${PORTVERSION}
+DEF[SOVERSION]=		0.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		faac
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		multimedia
 VARIANTS=		std
 SDESC[std]=		Encoder and encoding library for MPEG2/4 AAC
@@ -12,8 +12,8 @@ HOMEPAGE=		https://github.com/knik0/faac
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		https://salsa.debian.org/multimedia-team/faac/-/archive/debian/${PORTVERSION}${DASH}/
-DISTFILE[1]=		faac-debian-${PORTVERSION}${DASH}.tar.bz2:main
+SITES[main]=		GITHUB/knik0:faac:${TAG}
+DISTFILE[1]=		generated:main
 
 SPKGS[std]=		set primary dev man tools
 
@@ -32,4 +32,4 @@ EXRUN[tools]=		primary
 USES=			gmake libtool autoreconf
 INSTALL_TARGET=		install-strip
 MUST_CONFIGURE=		gnu
-DISTNAME=		faac-debian-${PORTVERSION}${DASH}
+SOVERSION=		${SOVERSION}
