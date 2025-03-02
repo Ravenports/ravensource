@@ -1,0 +1,34 @@
+DEF[PORTVERSION]=	1.1.6
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		fheroes2
+VERSION=		${PORTVERSION}
+KEYWORDS=		games
+VARIANTS=		std
+SDESC[std]=		Heroes of Might and Magic II engine recreation
+HOMEPAGE=		https://ihhub.github.io/fheroes2/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/ihhub:fheroes2:${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[std]=		set primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:primary
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/LICENSE
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/engine/core.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		games/fheroes2
+
+USES=			cmake zlib
+SDL_COMPONENTS=		sdl2 mixer2
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/fheroes2
