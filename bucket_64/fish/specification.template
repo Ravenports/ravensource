@@ -1,0 +1,59 @@
+DEF[PORTVERSION]=	%%VERSION%%
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		fish
+VERSION=		${PORTVERSION}
+KEYWORDS=		shells
+VARIANTS=		std
+SDESC[std]=		Friendly Interactive SHell
+HOMEPAGE=		https://fishshell.com/
+CONTACT=		nobody
+
+%%DOWNLOAD_GROUPS%%
+			pcre2
+SITES[main]=		https://github.com/fish-shell/fish-shell/releases/download/${PORTVERSION}/
+SITES[pcre2]=		GITHUB/fish-shell:rust-pcre2:0.2.9-utf32
+%%CR_SITES%%
+
+DISTFILE[1]=		fish-${PORTVERSION}.tar.xz:main
+%%CR_DISTFILES%%
+DISTFILE[77]=		generated:pcre2
+%%DF_INDEX%%
+			77
+
+SPKGS[std]=		set primary dev docs nls man
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2:primary
+LICENSE_TERMS=		primary:{{WRKSRC}}/COPYING
+LICENSE_FILE=		GPLv2:stock
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		shells/fish
+
+BUILD_DEPENDS=		doxygen:primary:std
+			rust:single:std
+
+USES=			cmake cpe ncurses shebangfix python:build
+			pcre2 gettext c++:primary
+CPE_VENDOR=		fishshell
+SHEBANG_FILES=		share/tools/*.py
+			share/tools/web_config/webconfig.py
+CMAKE_ARGS=		-DWITH_GETTEXT:BOOL=ON
+MANDIRS=		{{PREFIX}}/share/fish/man/man1
+
+VAR_OPSYS[sunos]=	LDFLAGS=-lintl
+
+post-install:
+.for i in fish fish_indent fish_key_reader
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/${i}
+.endfor
+
+pre-configure:
+	${MKDIR} ${DOTCARGO}
+	@${ECHO_CMD} "[source.cargo]" > ${CFGTOML}
+	@${ECHO_CMD} "directory = '${WRKSRC}/cargo-crates'" >> ${CFGTOML}
+	@${ECHO_CMD} "[source.crates-io]" >> ${CFGTOML}
+	@${ECHO_CMD} "replace-with = 'cargo'" >> ${CFGTOML}
