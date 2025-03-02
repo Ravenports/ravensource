@@ -1,4 +1,7 @@
 DEF[PORTVERSION]=	%%VERSION%%
+
+# 5u showing at prompt (Dragonfly, probably FreeBSD)
+# https://github.com/fish-shell/fish-shell/issues/10723
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		fish
@@ -57,3 +60,7 @@ pre-configure:
 	@${ECHO_CMD} "directory = '${WRKSRC}/cargo-crates'" >> ${CFGTOML}
 	@${ECHO_CMD} "[source.crates-io]" >> ${CFGTOML}
 	@${ECHO_CMD} "replace-with = 'cargo'" >> ${CFGTOML}
+
+	# dragonfly spawn bindings
+	${CAT} ${FILESDIR}/dfly_spawn_support.rs \
+		>> ${WRKSRC}/cargo-crates/libc-0.2.159/src/unix/bsd/freebsdlike/dragonfly/mod.rs
