@@ -1,0 +1,39 @@
+DEF[PORTVERSION]=	9.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		mesa-demos
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		std
+SDESC[std]=		OpenGL and Mesa demos and test programs
+HOMEPAGE=		https://www.mesa3d.org/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://archive.mesa3d.org/demos/
+DISTFILE[1]=		mesa-demos-${PORTVERSION}.tar.xz:main
+
+SPKGS[std]=		set primary utils
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# Demos are MIT licesned with copyright by various authors. There's no
+# single license file for the whole package.
+
+# No FPC equivalent; packaged differently (i.e. graphics/glx-utils)
+
+# Leaving out wayland and vulkan for now
+BUILD_DEPENDS=		freeglut:dev:std
+			libdrm:dev:std
+			libGLU:dev:std
+			libglvnd:dev:std
+			libepoll-shim:dev:std
+BUILDRUN_DEPENDS=	freeglut:primary:std
+			libdrm:primary:std
+			libGLU:primary:std
+			libglvnd:primary:std
+			libepoll-shim:primary:std
+
+USES=			meson pkgconfig
+XORG_COMPONENTS=	x11 xext
