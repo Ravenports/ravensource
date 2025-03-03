@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	EXTRACT_INFO(SUBVERSION_VERSION)
 
 NAMEBASE=		subversion
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		std
 SDESC[std]=		Version control system
@@ -22,10 +23,11 @@ FPC_EQUIVALENT=		devel/subversion
 
 BUILD_DEPENDS=		apr-util:dev:std
 			apr1:dev:std
-BUILDRUN_DEPENDS=	serf:single:std
-			utf8proc:single:std
-			apr-util:primary:std
+			utf8proc:dev:std
+BUILDRUN_DEPENDS=	apr-util:primary:std
 			apr1:primary:std
+			serf:single:std
+			utf8proc:primary:std
 
 RC_SUBR=		svnserve:primary
 
