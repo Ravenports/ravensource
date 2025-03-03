@@ -1,0 +1,32 @@
+DEF[PORTVERSION]=	3.11.3
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		nlohmann-json
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		std
+SDESC[std]=		JSON library for Modern C++
+HOMEPAGE=		https://github.com/nlohmann/json
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/nlohmann:json:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[std]=		single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# Apache license may also apply for parts that are derived from
+# Google's abseil; however there's no terms for this in the distfile.
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE.MIT
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/nlohmann-json
+
+USES=			cmake
+
+CMAKE_ARGS=		-DJSON_MultipleHeaders=on
+			-DJSON_BuildTests=off
