@@ -1,0 +1,1 @@
+lib/libPocoDataPostgreSQL.so.%%SOVERSION%%

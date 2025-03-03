@@ -1,0 +1,67 @@
+DEF[PORTVERSION]=	1.14.1
+DEF[SOVERSION]=		111
+DEF[LIBS]=		ActiveRecord Crypto Data DataMySQL DataODBC DataPostgreSQL DataSQLite Encodings Foundation JSON JWT MongoDB Net NetSSL Prometheus Redis Util XML Zip
+DEF[UTILS]=		cpspc f2cpsp poco-arc
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		poco
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel net
+VARIANTS=		std
+SDESC[std]=		C++ libraries with a network / internet focus
+HOMEPAGE=		https://pocoproject.org/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://pocoproject.org/releases/poco-${PORTVERSION}/
+DISTFILE[1]=		poco-${PORTVERSION}-all.tar.bz2:main
+
+SPKGS[std]=		set primary dev utils pgsql pgsqldev mysql mysqldev
+			odbc odbcdev redis redisdev mongo mongodev prometheus
+			prometheusdev
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		CUSTOM1:primary
+LICENSE_NAME=		CUSTOM1:"Boost Software License - Version 1.0"
+LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/poco
+
+DISTNAME=		poco-${PORTVERSION}-all
+
+BUILD_DEPENDS=		mysql80:dev:std
+			mysql80:client:std
+			postgresql16:dev:std
+			postgresql16:client:std
+			unixODBC:dev:std
+			unixODBC:primary:std
+			utf8proc:dev:std
+BUILDRUN_DEPENDS=	utf8proc:primary:std
+
+USES=			cmake expat pcre2 pkgconfig sqlite ssl:openssl30 zlib
+
+CMAKE_ARGS=		-DPOCO_UNBUNDLED=on
+			-DENABLE_NETSSL=on
+
+SOVERSION=		${SOVERSION}
+
+# We don't have MongoDB, yet, so don't handle this spkg for now
+EXRUN[mysql]=		primary
+			mysql80:client:std
+EXRUN[odbc]=		primary
+			unixODBC:primary:std
+EXRUN[pgsql]=		primary
+			postgresql16:client:std
+EXRUN[redis]=		primary
+			redis:single:std
+
+post-install:
+.for l in ${LIBS}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libPoco${l}.so
+.endfor
+.for u in ${UTILS}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/${u}
+.endfor
