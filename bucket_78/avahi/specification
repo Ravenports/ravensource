@@ -1,11 +1,20 @@
 DEF[PORTVERSION]=	0.8
 DEF[DBUS_SOCKET]=	/var/run/dbus/system_bus_socket
+DEF[SO_CLIENT]=		3.2.9
+DEF[SO_COMMON]=		3.5.4
+DEF[SO_CORE]=		7.1.0
+DEF[SO_GLIB]=		1.0.2
+DEF[SO_GOBJ]=		0.0.5
+DEF[SO_LEVENT]=		1.0.0
+DEF[SO_LIBHOWL]=	0.0.0
+DEF[SO_LIBDNS]=		1.0.0
 # A bare-bones port should suffice for now, if anybody wants the graphical UIs
 # those can be added later.
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		avahi
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		net
 VARIANTS=		std
 SDESC[std]=		Service Discovery using mDNS/DNS-SD
@@ -16,7 +25,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://avahi.org/download/
 DISTFILE[1]=		avahi-${PORTVERSION}.tar.gz:main
 
-SPKGS[std]=		set primary tools dev nls man
+SPKGS[std]=		set primary tools dev nls man libdns libdnsdev
 
 OPTIONS_AVAILABLE=	BSD LINUX SOLARIS
 OPTIONS_STANDARD=	BSD LINUX SOLARIS
@@ -68,7 +77,7 @@ CONFIGURE_ARGS=		--disable-mono
 			--disable-autoipd
 			--disable-gtk
 			--disable-gtk3
-			--disable-compat-libdns_sd
+			--enable-compat-libdns_sd
 			--disable-stack-protector
 			--disable-monodoc
 			--disable-doxygen-doc
@@ -91,6 +100,23 @@ VAR_OPSYS[linux]=	CONFIGURE_ARGS=--with-distro=debian
 
 [BSD].CPPFLAGS_ON=			-DHAVE_KQUEUE
 [BSD].LDFLAGS_ON=			-lintl
+
+PLIST_SUB=		SO_CLIENT=${SO_CLIENT}
+			SO_CLIENT_MAJ=${SO_CLIENT:R:R}
+			SO_COMMON=${SO_COMMON}
+			SO_COMMON_MAJ=${SO_COMMON:R:R}
+			SO_CORE=${SO_CORE}
+			SO_CORE_MAJ=${SO_CORE:R:R}
+			SO_GLIB=${SO_GLIB}
+			SO_GLIB_MAJ=${SO_GLIB:R:R}
+			SO_GOBJ=${SO_GOBJ}
+			SO_GOBJ_MAJ=${SO_GOBJ:R:R}
+			SO_LEVENT=${SO_LEVENT}
+			SO_LEVENT_MAJ=${SO_LEVENT:R:R}
+			SO_LIBHOWL=${SO_LIBHOWL}
+			SO_LIBHOWL_MAJ=${SO_LIBHOWL:R:R}
+			SO_LIBDNS=${SO_LIBDNS}
+			SO_LIBDNS_MAJ=${SO_LIBDNS:R:R}
 
 pre-configure:
 	# This gnome.subr is not currently supported
