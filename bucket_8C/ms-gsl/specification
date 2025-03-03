@@ -1,0 +1,29 @@
+DEF[PORTVERSION]=	4.2.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		ms-gsl
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		std
+SDESC[std]=		Microsoft's Guidelines Support Library
+HOMEPAGE=		https://github.com/microsoft/GSL
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/microsoft:GSL:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[std]=		single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/microsoft-gsl
+
+USES=			cmake
+
+CMAKE_ARGS=		-DGSL_TEST=off
