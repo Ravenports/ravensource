@@ -1,0 +1,86 @@
+DEF[PORTVERSION]=	1.5.735
+DEF[SOVERSION]=		1.5.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		mumble
+VERSION=		${PORTVERSION}
+KEYWORDS=		audio
+VARIANTS=		std
+SDESC[std]=		Low latency, high quality voice chat software
+HOMEPAGE=		https://www.mumble.info/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://github.com/mumble-voip/mumble/releases/download/v${PORTVERSION}/
+DISTFILE[1]=		mumble-${PORTVERSION}.tar.gz:main
+
+SPKGS[std]=		set client server man
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD3CLAUSE:set
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		audio/mumble
+
+BUILD_DEPENDS=		avahi:dev:std
+			avahi:libdnsdev:std
+			boost-libraries:dev:std
+			libglvnd:dev:std
+			libsndfile:dev:std
+			ms-gsl:single:std
+			nlohmann-json:single:std
+			poco:dev:std
+			protobuf:dev:std
+			qt5-qtbase:dev:std
+			qt5-qtsvg:dev:std
+			qt5-qttools:dev:std
+			speexdsp:dev:std
+			utf8proc:dev:std
+BUILDRUN_DEPENDS=	avahi:primary:std
+			avahi:libdns:std
+			boost-libraries:primary:std
+			libglvnd:primary:std
+			libsndfile:primary:std
+			poco:primary:std
+			protobuf:primary:std
+			qt5-qtbase:primary:std
+			qt5-qtsvg:primary:std
+			qt5-qttools:primary:std
+			speexdsp:primary:std
+			utf8proc:primary:std
+
+USES=			cmake desktop-utils:client execinfo expat gmake pcre2 pkgconfig python:build
+			shebangfix ssl zlib
+XORG_COMPONENTS=	x11 xext xi
+
+CMAKE_ARGS=		-DCMAKE_PREFIX_PATH={{PREFIX}}/lib/qt5/cmake
+			-Doverlay-xcompile=off
+			-Dice=off
+			-Dbundled-gsl=off
+			-Dbundled-json=off
+			-Dbundled-speex=off
+			-Dbundle-qt-translations=off
+			-Dcrash-report=off
+			-Dg15=off
+			-Dserver=on
+			-Dtracy=off
+			-Dupdate=off
+			-Dclient=on
+			-Doverlay=on
+			-Dplugins=on
+			-Dtranslations=on
+			-Dxinput2=on
+			-Doss=on
+
+SHEBANG_FILES=		auxiliary_files/run_scripts/mumble-overlay.in
+CONFIGURE_ENV=		MUMBLE_PYTHON={{PYTHON_CMD}}
+INSTALL_REQ_TOOLCHAIN=	yes
+SOVERSION=		${SOVERSION}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/mumble
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/mumble/plugins/liblink.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/mumble/libmumbleoverlay.so.${SOVERSION}
