@@ -17,11 +17,8 @@ DISTFILE[1]=		libwacom-${PORTVERSION}.tar.xz:main
 
 SPKGS[std]=		set primary dev man tools
 
-OPTIONS_AVAILABLE=	NODEVD
-OPTIONS_STANDARD=	NODEVD
-
-OPT_ON[linux]=		NODEVD
-OPT_ON[sunos]=		NODEVD
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
 
 LICENSE=		MIT:primary
 LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
@@ -39,14 +36,8 @@ BUILD_DEPENDS=		doxygen:primary:std
 BUILDRUN_DEPENDS=	libevdev:primary:std
 			libxml2:primary:std
 
-USES=			meson pkgconfig
+USES=			meson pkgconfig bsd:gudev
 GNOME_COMPONENTS=	glib librsvg
 MESON_ARGS=		-Dtests=disabled
 
 SOVERSION=		${SOVERSION}
-
-[NODEVD].DESCRIPTION=			Build with devd-enabled libgudev fork
-[NODEVD].BUILD_DEPENDS_OFF=		libgudev-devd:dev:std
-[NODEVD].BUILDRUN_DEPENDS_OFF=		libgudev-devd:primary:std
-[NODEVD].BUILD_DEPENDS_ON=		libgudev:dev:std
-[NODEVD].BUILDRUN_DEPENDS_ON=		libgudev:primary:std
