@@ -18,8 +18,12 @@ DIST_SUBDIR=		xfce
 
 SPKGS[std]=		set primary dev docs nls
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	GTOP
+OPTIONS_STANDARD=	GTOP
+OPT_ON[freebsd]=	GTOP
+OPT_ON[dragonfly]=	GTOP
+OPT_ON[midnightbsd]=	GTOP
+OPT_ON[linux]=		GTOP
 
 # Yes, this is correct: The portname in the FPC is actually wrong!
 FPC_EQUIVALENT=		x11/libxfce4menu
@@ -46,7 +50,7 @@ BUILDRUN_DEPENDS=	glade:primary:std
 EXRUN[dev]=		libxfce4util:dev:std
 			xfconf:dev:std
 
-USES=			iconv gmake gtk-doc libtool pkgconfig
+USES=			iconv gmake gtk-doc libtool pkgconfig bsd:gudev
 XORG_COMPONENTS=	sm
 GNOME_COMPONENTS=	glib gtk3 intltool introspection
 MUST_CONFIGURE=		gnu
@@ -57,25 +61,6 @@ INSTALL_TARGET=		install-strip
 
 SOVERSION=		${SOVERSION}
 
-B_DEPS[dragonfly]=	libgtop:dev:std
-			libgudev-devd:dev:std
-BR_DEPS[dragonfly]=	libgtop:primary:std
-			libgudev-devd:primary:std
-
-B_DEPS[netbsd]=		libgudev-devd:dev:std
-BR_DEPS[netbsd]=	libgudev-devd:primary:std
-
-B_DEPS[freebsd]=	libgtop:dev:std
-			libgudev-devd:dev:std
-BR_DEPS[freebsd]=	libgtop:primary:std
-			libgudev-devd:primary:std
-
-B_DEPS[midnightbsd]=	libgtop:dev:std
-			libgudev-devd:dev:std
-BR_DEPS[midnightbsd]=	libgtop:primary:std
-			libgudev-devd:primary:std
-
-B_DEPS[linux]=		libgtop:dev:std
-			libgudev:dev:std
-BR_DEPS[linux]=		libgtop:primary:std
-			libgudev:primary:std
+[GTOP].DESCRIPTION=			Build libxfce4cui with GNU Top
+[GTOP].BUILD_DEPENDS_ON=		libgtop:dev:std
+[GTOP].BUILDRUN_DEPENDS_ON=		libgtop:primary:std
