@@ -17,14 +17,8 @@ DIST_SUBDIR=		kde6
 
 SPKGS[std]=		set primary dev nls
 
-OPTIONS_AVAILABLE=	NOTIFY
-OPTIONS_STANDARD=	NOTIFY
-OPT_ON[freebsd]=	NOTIFY
-OPT_ON[netbsd]=		NOTIFY
-OPT_ON[openbsd]=	NOTIFY
-OPT_ON[dragonfly]=	NOTIFY
-OPT_ON[midnightbsd]=	NOTIFY
-OPT_ON[darwin]=		NOTIFY
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
 
 LICENSE=		GPLv2+:primary
 			LGPL20:primary
@@ -52,22 +46,17 @@ BUILD_DEPENDS=		kf6-extra-cmake-modules:primary:std
 			qt6-qtbase:dev:std
 			qt6-qtdeclarative:dev:std
 			qt6-qttools:dev:std
+			gamin:dev:std
 BUILDRUN_DEPENDS=	qt6-qtbase:primary:std
 			qt6-qtdeclarative:primary:std
 			qt6-qttools:primary:std
-
-[NOTIFY].DESCRIPTION=			Build with Inotify support
-[NOTIFY].BUILD_DEPENDS_ON=		libinotify:dev:std
-					gamin:dev:std
-[NOTIFY].BUILDRUN_DEPENDS_ON=		libinotify:primary:std
-					gamin:primary:std
-
+			gamin:primary:std
 
 # Evade PCH issue with GCC 13
 C_USES[freebsd]=	clang
 C_USES[midnightbsd]=	clang
 
-USES=			cmake mime-info:primary
+USES=			cmake mime-info:primary bsd:inotify
 
 DISTNAME=		${KF6_COMPONENT}-${PORTVERSION}
 CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt6/cmake
