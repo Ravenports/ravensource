@@ -20,13 +20,10 @@ DF_INDEX=		1
 
 SPKGS[std]=		set primary dev tools nls
 
-OPTIONS_AVAILABLE=	BSD JACK C11THREADS
-OPTIONS_STANDARD=	BSD JACK C11THREADS
-OPT_ON[dragonfly]=	BSD C11THREADS
-OPT_ON[freebsd]=	BSD
-OPT_ON[netbsd]=		BSD
-OPT_ON[openbsd]=	BSD
-OPT_ON[midnightbsd]=	BSD C11THREADS
+OPTIONS_AVAILABLE=	JACK C11THREADS
+OPTIONS_STANDARD=	JACK C11THREADS
+OPT_ON[dragonfly]=	C11THREADS
+OPT_ON[midnightbsd]=	C11THREADS
 
 FPC_EQUIVALENT=		multimedia/pipewire
 
@@ -52,7 +49,7 @@ BUILDRUN_DEPENDS=	dbus:primary:std
 EXRUN[tools]=		primary
 
 USES=			meson ncurses pkgconfig ssl shebangfix
-			python:build gettext:build
+			python:build gettext:build bsd:epoll,gudev,inotify
 GNOME_COMPONENTS=	glib
 SHEBANG_FILES=		doc/*.py
 MESON_ARGS=		-Dgstreamer=enabled
@@ -84,14 +81,6 @@ SOVERSION=		${SOVERSION}
 # avoid use of uselocale which is not supported on NetBSD
 VAR_OPSYS[netbsd]=	CFLAGS=-D_NETBSD_SOURCE
 			CFLAGS=-I{{LOCALBASE}}/include/libepoll-shim
-
-[BSD].DESCRIPTION=			BSD-specific build instructions
-[BSD].BUILD_DEPENDS_ON=			libinotify:dev:std
-					libepoll-shim:dev:std
-					libgudev-devd:dev:std
-[BSD].BUILDRUN_DEPENDS_ON=		libinotify:primary:std
-					libepoll-shim:primary:std
-					libgudev-devd:primary:std
 
 [JACK].DESCRIPTION=			Add Jack audio server support
 [JACK].BROKEN_ON=			Not yet supported
