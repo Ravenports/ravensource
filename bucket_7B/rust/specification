@@ -8,6 +8,7 @@ DEF[LIBC_PT2]=		167 169
 
 NAMEBASE=		rust
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		lang
 VARIANTS=		std
 SDESC[std]=		Systems programming language from Mozilla
@@ -64,9 +65,13 @@ BUILD_DEPENDS=		bash:primary:std
 # Rust calls -lexecinfo during linking although it doesn't appear in final binary
 # The dev package has the solink to make this happen, so it's a run dependency
 RUN_DEPENDS=		libexecinfo:dev:std
+EXRUN[single]=		ravensys-gcc:compilers:std
+			ravensys-gcc:cxx_run:std
+			ravensys-gcc:libs:std
+			ravensys-binutils:single:std
 
 USES=			cpe gmake zlib:build python:build shebangfix
-			execinfo c++:single dos2unix ssl:build compiler:single
+			execinfo c++:single dos2unix ssl:build
 			rootca:single
 CPE_VENDOR=		rust-lang
 MUST_CONFIGURE=		yes
