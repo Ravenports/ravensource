@@ -19,12 +19,8 @@ SPKGS[std]=		set primary dev tools
 # manpages docs
 # disables docs subpackage until graphviz's dot fixed
 
-OPTIONS_AVAILABLE=	EPOLLSHIM
-OPTIONS_STANDARD=	EPOLLSHIM
-OPT_ON[freebsd]=	EPOLLSHIM
-OPT_ON[midnightbsd]=	EPOLLSHIM
-OPT_ON[dragonfly]=	EPOLLSHIM
-OPT_ON[netbsd]=		EPOLLSHIM
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
 
 LICENSE=		MIT:primary
 LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
@@ -41,7 +37,7 @@ BUILDRUN_DEPENDS=	libffi:primary:std
 EXRUN[tools]=		primary
 EXRUN[dev]=		libffi:dev:std
 
-USES=			cpe meson pkgconfig expat
+USES=			cpe meson pkgconfig expat bsd:epoll
 GNOME_COMPONENTS=	libxml2
 # Graphviz's dot segfaults immediately since DF 5.8
 MESON_ARGS=		-Ddocumentation=false
@@ -51,7 +47,3 @@ INSTALL_TARGET=		install-strip
 SOVERSION=		${SOVERSION}
 PLIST_SUB=		EGLSOVERSION=${SOEGL}
 			EGLSOMAJOR=${SOEGL:R:R}
-
-[EPOLLSHIM].DESCRIPTION=		Platform depends on libepoll-shim
-[EPOLLSHIM].BUILDRUN_DEPENDS_ON=	libepoll-shim:primary:std
-[EPOLLSHIM].BUILD_DEPENDS_ON=		libepoll-shim:dev:std

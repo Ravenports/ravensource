@@ -19,12 +19,8 @@ DISTFILE[1]=		${COMPONENT}-everywhere-src-${PORTVERSION}.tar.xz:main
 
 SPKGS[std]=		set primary dev
 
-OPTIONS_AVAILABLE=	EPOLLSHIM EGL
-OPTIONS_STANDARD=	EPOLLSHIM EGL
-OPT_ON[freebsd]=	EPOLLSHIM
-OPT_ON[dragonfly]=	EPOLLSHIM
-OPT_ON[midnightbsd]=	EPOLLSHIM
-OPT_ON[netbsd]=		EPOLLSHIM
+OPTIONS_AVAILABLE=	EGL
+OPTIONS_STANDARD=	EGL
 OPT_ON[linux]=		EGL
 
 BUILD_DEPENDS=		xorg-x11:dev:std
@@ -37,7 +33,7 @@ BUILDRUN_DEPENDS=	qt6-qtbase:primary:std
 			qt6-qtdeclarative:primary:std
 			libffi:primary:std
 
-USES=			qt6 cmake pkgconfig perl:build cpe
+USES=			qt6 cmake pkgconfig perl:build cpe bsd:epoll
 CPE_VENDOR=		qt
 CPE_PRODUCT=		qt
 DISTNAME=		${COMPONENT}-everywhere-src-${PORTVERSION}
@@ -45,9 +41,6 @@ PLIST_SUB=		QTVER=${PORTVERSION}
 			SOMAJORMIN=${PORTVERSION:R}
 SOVERSION=		${PORTVERSION}
 INSTALL_REQ_TOOLCHAIN=	yes
-
-[EPOLLSHIM].DESCRIPTION=		Platform depends on libepoll-shim
-[EPOLLSHIM].BUILD_DEPENDS_ON=		libepoll-shim:dev:std
 
 [EGL].DESCRIPTION=			Platform detects EGL server support
 
