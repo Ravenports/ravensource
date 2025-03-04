@@ -17,12 +17,8 @@ DIST_SUBDIR=		kde6
 
 SPKGS[std]=		set primary dev
 
-OPTIONS_AVAILABLE=	EPOLLSHIM
-OPTIONS_STANDARD=	EPOLLSHIM
-OPT_ON[freebsd]=	EPOLLSHIM
-OPT_ON[netbsd]=		EPOLLSHIM
-OPT_ON[dragonfly]=	EPOLLSHIM
-OPT_ON[midnightbsd]=	EPOLLSHIM
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
 
 # Tests are GPL
 # LGPL-2.0-or-later.txt for LGPL20 is NOT a mistake! LGPL-2.0-only file is missing
@@ -58,9 +54,6 @@ XORG_COMPONENTS=	x11
 DISTNAME=		${KF6_COMPONENT}-${PORTVERSION}
 CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt6/cmake
 SOVERSION=		${PORTVERSION}
-
-[EPOLLSHIM].DESCRIPTION=		Platform depends on libepoll-shim
-[EPOLLSHIM].BUILDRUN_DEPENDS_ON=	libepoll-shim:primary:std
 
 post-extract:
 	${ECHO} "Terms extracted from 'src/util/kjobwindows.cpp':" > ${WRKDIR}/TERMS
