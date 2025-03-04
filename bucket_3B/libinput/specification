@@ -16,13 +16,8 @@ DISTFILE[1]=		libinput-${PORTVERSION}.tar.bz2:main
 
 SPKGS[std]=		set primary dev man
 
-OPTIONS_AVAILABLE=	BSD
-OPTIONS_STANDARD=	BSD
-
-OPT_ON[midnightbsd]=	BSD
-OPT_ON[dragonfly]=	BSD
-OPT_ON[freebsd]=	BSD
-OPT_ON[netbsd]=		BSD
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
 
 BROKEN[netbsd]=		Does not build on NetBSD
 
@@ -41,16 +36,7 @@ BUILDRUN_DEPENDS=	libevdev:primary:std
 			libwacom:primary:std
 			mtdev:primary:std
 
-USES=			meson pkgconfig
+USES=			meson pkgconfig bsd:epoll,gudev
 GNOME_COMPONENTS=	gtk3
 MESON_ARGS=		-Dtests=false
 SOVERSION=		${SOVERSION}
-
-[BSD].DESCRIPTION=			Support BSD platform
-[BSD].BUILD_DEPENDS_ON=			libepoll-shim:dev:std
-					libgudev-devd:dev:std
-					libudev-devd:dev:std
-[BSD].BUILDRUN_DEPENDS_ON=		libepoll-shim:primary:std
-					libudev-devd:primary:std
-# linux
-[BSD].BUILD_DEPENDS_OFF=		libgudev:dev:std
