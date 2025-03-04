@@ -17,13 +17,13 @@ DISTFILE[1]=		qtbase-everywhere-src-${PORTVERSION}.tar.xz:main
 
 SPKGS[std]=		set primary dev docs
 
-OPTIONS_AVAILABLE=	X11 WAYLAND EPOLLSHIM
-OPTIONS_STANDARD=	X11 WAYLAND EPOLLSHIM
+OPTIONS_AVAILABLE=	X11 WAYLAND
+OPTIONS_STANDARD=	X11 WAYLAND
 OPT_ON[all]=		X11
-OPT_ON[dragonfly]=	WAYLAND EPOLLSHIM
-OPT_ON[freebsd]=	WAYLAND EPOLLSHIM
-OPT_ON[midnightbsd]=	WAYLAND EPOLLSHIM
-OPT_ON[netbsd]=		WAYLAND EPOLLSHIM
+OPT_ON[dragonfly]=	WAYLAND
+OPT_ON[freebsd]=	WAYLAND
+OPT_ON[midnightbsd]=	WAYLAND
+OPT_ON[netbsd]=		WAYLAND
 OPT_ON[linux]=		WAYLAND
 
 BUILD_DEPENDS=		evdev-proto:single:std
@@ -115,10 +115,8 @@ VAR_OPSYS[linux]=	VAR1=linux
 [WAYLAND].BUILD_DEPENDS_ON=		wayland:dev:std
 [WAYLAND].BUILDRUN_DEPENDS_ON=		wayland:primary:std
 [WAYLAND].CMAKE_ARGS_ON=		-DFEATURE_wayland=ON
-
-[EPOLLSHIM].DESCRIPTION=		Platform depends on libepoll-shim
-[EPOLLSHIM].BUILD_DEPENDS_ON=		libepoll-shim:dev:std
-[EPOLLSHIM].EXTRA_PATCHES_ON=		extra-patch-src_corelib_configure.cmake
+[WAYLAND].USES_ON=			bsd:epoll
+[WAYLAND].EXTRA_PATCHES_ON=		extra-patch-src_corelib_configure.cmake
 
 post-patch:
 	${MKDIR} ${WRKSRC}/mkspecs/dragonfly-g++
