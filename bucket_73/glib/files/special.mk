@@ -10,6 +10,7 @@ pyscripts=	gio/tests/gengiotypefuncs.py \
 POST_PLIST_TARGET=	my-autolist
 
 my-autolist:
-	(cd ${STAGEDIR}${PREFIX} && ${FIND} share/glib-2.0/codegen \
+	(cd ${STAGEDIR}${PREFIX} && \
+	${FIND} share/glib-2.0/codegen share/glib-2.0/gdb share/gdb/auto-load \
 	\( -type f -o -type l \) 2>/dev/null | ${SORT}) \
-	>> ${WRKDIR}/.manifest.single.mktmp
+	>> ${WRKDIR}/.manifest.primary.mktmp
