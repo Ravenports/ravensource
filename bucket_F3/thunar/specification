@@ -18,17 +18,8 @@ DIST_SUBDIR=		xfce
 
 SPKGS[std]=		set primary dev man docs nls
 
-OPTIONS_AVAILABLE=	GUDEV GUDEV-DEVD NO-GUDEV
-OPTIONS_STANDARD=	GUDEV GUDEV-DEVD NO-GUDEV
-OPTGROUP_RADIO=		GUDEVS
-OPTDESCR[GUDEVS]=	Flavors of libudev gobject bindings
-OPTGROUP[GUDEVS]=	NO-GUDEV GUDEV GUDEV-DEVD
-
-OPT_ON[dragonfly]=	GUDEV-DEVD
-OPT_ON[midnightbsd]=	GUDEV-DEVD
-OPT_ON[freebsd]=	GUDEV-DEVD
-OPT_ON[netbsd]=		GUDEV-DEVD
-OPT_ON[linux]=		GUDEV
+OPTIONS_AVAILABLE=	NO-GUDEV
+OPTIONS_STANDARD=	NO-GUDEV
 OPT_ON[sunos]=		NO-GUDEV
 
 FPC_EQUIVALENT=		x11-fm/thunar
@@ -89,14 +80,7 @@ SOVERSION=		${SOVERSION}
 PLIST_SUB=		INTRO="@comment "
 
 [NO-GUDEV].DESCRIPTION=			Build without gudev support
-
-[GUDEV].DESCRIPTION=			Build with gudev library
-[GUDEV].BUILD_DEPENDS_ON=		libgudev:dev:std
-[GUDEV].BUILDRUN_DEPENDS_ON=		libgudev:primary:std
-
-[GUDEV-DEVD].DESCRIPTION=		Build with gudev-devd library (BSD)
-[GUDEV-DEVD].BUILD_DEPENDS_ON=		libgudev-devd:dev:std
-[GUDEV-DEVD].BUILDRUN_DEPENDS_ON=	libgudev-devd:primary:std
+[NO-GUDEV].USES_OFF=			bsd:gudev
 
 post-install:
 	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/thunarx \
