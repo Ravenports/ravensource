@@ -116,6 +116,7 @@ BUILD_DEPENDS=		a52dec:set:std
 			x265:set:std
 			abseil-cpp:set:std
 			aalib:set:std
+			libnotify:dev:std
 BUILDRUN_DEPENDS=	fribidi:primary:std
 			harfbuzz:primary:std
 			libarchive:primary:std
@@ -131,12 +132,13 @@ BUILDRUN_DEPENDS=	fribidi:primary:std
 			qt5-qtx11extras:primary:std
 			qt5-qtxmlpatterns:primary:std
 			readline:primary:std
+			libnotify:primary:std
 
 B_DEPS[linux]=		libusb:dev:std
 
 USES=			bison desktop-utils:primary expat freetype fontconfig gettext
 			gmake iconv jpeg libtool lua:tools png pkgconfig zlib
-			cpe ncurses execinfo:build
+			cpe ncurses execinfo:build bsd:epoll,gudev
 XORG_COMPONENTS=	ice sm x11 xcb xcb-render-util xcb-util xcb-util-image
 			xcb-util-keysyms xcb-util-wm xext xinerama xorgproto xpm
 SDL_COMPONENTS=		sdl1 image1
@@ -288,6 +290,7 @@ CONFIGURE_ARGS=		--enable-a52
 			--enable-x265
 			--enable-xcb
 			--enable-xvideo
+			--enable-notify
 			--disable-zvbi
 			--with-x
 			ac_cv_search_pthread_rwlock_init=-pthread
@@ -360,18 +363,8 @@ EXRUN[x264]=		primary x264:primary:std
 EXRUN[x265]=		primary x265:primary:std
 
 [BSD].DESCRIPTION=			Support BSD platform
-[BSD].BUILD_DEPENDS_ON=			libepoll-shim:dev:std
-					libgudev-devd:dev:std
-					libudev-devd:dev:std
-					libnotify:dev:std
-[BSD].BUILDRUN_DEPENDS_ON=		libepoll-shim:primary:std
-					libudev-devd:primary:std
-					libnotify:primary:std
-[BSD].CONFIGURE_ARGS_ON=		--enable-notify
-					--enable-oss
-
-# linux
-[BSD].BUILD_DEPENDS_OFF=		libgudev:dev:std
+[BSD].BUILD_DEPENDS_ON=			libudev-devd:dev:std
+[BSD].CONFIGURE_ARGS_ON=		--enable-oss
 
 post-extract:
 	${ECHO} "Terms extracted from 'modules/lua/libs.h':" > ${WRKDIR}/TERMS
