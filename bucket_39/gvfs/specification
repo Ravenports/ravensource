@@ -17,17 +17,8 @@ DIST_SUBDIR=		gnome4
 
 SPKGS[std]=		set primary nls
 
-OPTIONS_AVAILABLE=	GUDEV GUDEV-DEVD NO-GUDEV
-OPTIONS_STANDARD=	GUDEV GUDEV-DEVD NO-GUDEV
-OPTGROUP_RADIO=		GUDEVS
-OPTDESCR[GUDEVS]=	Flavors of libudev gobject bindings
-OPTGROUP[GUDEVS]=	NO-GUDEV GUDEV GUDEV-DEVD
-
-OPT_ON[dragonfly]=	GUDEV-DEVD
-OPT_ON[midnightbsd]=	GUDEV-DEVD
-OPT_ON[freebsd]=	GUDEV-DEVD
-OPT_ON[netbsd]=		GUDEV-DEVD
-OPT_ON[linux]=		GUDEV
+OPTIONS_AVAILABLE=	NO-GUDEV
+OPTIONS_STANDARD=	NO-GUDEV
 OPT_ON[sunos]=		NO-GUDEV
 
 FPC_EQUIVALENT=		devel/gvfs
@@ -90,23 +81,10 @@ LDFLAGS=		-Wl,-rpath,{{PREFIX}}/lib/gvfs
 [NO-GUDEV].DESCRIPTION=			Build without gudev support
 [NO-GUDEV].CONFIGURE_ARGS_ON=		-Dgudev=false
 					-Dcdda=false
-
-[GUDEV].DESCRIPTION=			Build with gudev library
-[GUDEV].USES_ON=			iconv
-[GUDEV].BUILD_DEPENDS_ON=		libcdio-paranoia:dev:std
-					libgudev:dev:std
-[GUDEV].BUILDRUN_DEPENDS_ON=		libcdio-paranoia:primary:std
-					libgudev:primary:std
-[GUDEV].CONFIGURE_ARGS_ON=		-Dgudev=true
-					-Dcdda=true
-
-[GUDEV-DEVD].DESCRIPTION=		Build with gudev-devd library (BSD)
-[GUDEV-DEVD].USES_ON=			iconv
-[GUDEV-DEVD].BUILD_DEPENDS_ON=		libgudev-devd:dev:std
-					libcdio-paranoia:dev:std
-[GUDEV-DEVD].BUILDRUN_DEPENDS_ON=	libcdio-paranoia:primary:std
-					libgudev-devd:primary:std
-[GUDEV-DEVD].CONFIGURE_ARGS_ON=		-Dgudev=true
+[NO-GUDEV].USES_OFF=			iconv bsd:gudev
+[NO-GUDEV].BUILD_DEPENDS_OFF=		libcdio-paranoia:dev:std
+[NO-GUDEV].BUILDRUN_DEPENDS_OFF=	libcdio-paranoia:primary:std
+[NO-GUDEV].CONFIGURE_ARGS_OFF=		-Dgudev=true
 					-Dcdda=true
 
 VAR_OPSYS[sunos]=	LDFLAGS=-lintl
