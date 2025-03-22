@@ -1,0 +1,40 @@
+DEF[PORTVERSION]=	1.5.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-pluggy
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v12 v13
+SDESC[v12]=		Plugin and hook calling mechanisms (3.12)
+SDESC[v13]=		Plugin and hook calling mechanisms (3.13)
+HOMEPAGE=		https://github.com/pytest-dev/pluggy
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/88/5f/e351af9a41f866ac3f1fac4ca0613908d9a41741cfcf2228f4ad853b697d
+DISTFILE[1]=		pluggy-${PORTVERSION}-py3-none-any.whl:main
+DIST_SUBDIR=		python-src
+
+SPKGS[v12]=		single
+SPKGS[v13]=		single
+
+OPTIONS_AVAILABLE=	PY312 PY313
+OPTIONS_STANDARD=	none
+VOPTS[v12]=		PY312=ON PY313=OFF
+VOPTS[v13]=		PY312=OFF PY313=ON
+
+# License listed at PyPI
+# MIT
+
+GENERATED=		yes
+DISTNAME=		pluggy-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# pre-commit ; extra == 'dev'
+# tox ; extra == 'dev'
+# pytest ; extra == 'testing'
+# pytest-benchmark ; extra == 'testing'
+
+[PY312].USES_ON=			python:v12,wheel
+[PY313].USES_ON=			python:v13,wheel
+

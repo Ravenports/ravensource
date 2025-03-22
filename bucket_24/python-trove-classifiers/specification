@@ -1,0 +1,37 @@
+DEF[PORTVERSION]=	2025.3.19.19
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-trove-classifiers
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v12 v13
+SDESC[v12]=		Canonical source for classifiers on PyPI (3.12)
+SDESC[v13]=		Canonical source for classifiers on PyPI (3.13)
+HOMEPAGE=		https://github.com/pypa/trove-classifiers
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/40/f8/9c6d334002e7b4ff34a875d2f6fe76c6c1544bd7fde3e39cb7cd2593488f
+DISTFILE[1]=		trove_classifiers-${PORTVERSION}-py3-none-any.whl:main
+DIST_SUBDIR=		python-src
+
+SPKGS[v12]=		single
+SPKGS[v13]=		single
+
+OPTIONS_AVAILABLE=	PY312 PY313
+OPTIONS_STANDARD=	none
+VOPTS[v12]=		PY312=ON PY313=OFF
+VOPTS[v13]=		PY312=OFF PY313=ON
+
+# License listed at PyPI
+# Not provided.
+
+GENERATED=		yes
+DISTNAME=		trove_classifiers-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+
+
+[PY312].USES_ON=			python:v12,wheel
+[PY313].USES_ON=			python:v13,wheel
+
