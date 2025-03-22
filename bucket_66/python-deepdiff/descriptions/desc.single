@@ -1,4 +1,4 @@
-# DeepDiff v 8.2.0
+# DeepDiff v 8.4.2
 
 ![Downloads]
 ![Python Versions]
@@ -23,6 +23,30 @@ Tested on Python 3.8+ and PyPy3.
 ## What is new?
 
 Please check the [ChangeLog] file for the detailed information.
+
+DeepDiff 8-4-2
+
+- fixes the type hints for the base
+- fixes summarize so if json dumps fails, we can still get a repr of the
+results
+- adds ipaddress support
+
+DeepDiff 8-4-1
+
+- Adding BaseOperatorPlus base class for custom operators
+- default_timezone can be passed now to set your default timezone to
+something other than UTC.
+- New summarization algorithm that produces valid json
+- Better type hint support
+- Breaking change in DeepHash where we raise Exception instead of logging
+if we can't hash a value.
+- Added the log_stacktrace parameter to DeepDiff. When True, it will log
+the stacktrace along with the error.
+
+DeepDiff 8-3-0
+
+- Fixed some static typing issues
+- Added the summarize module for better repr of nested values
 
 DeepDiff 8-2-0
 
@@ -73,28 +97,4 @@ Install optional packages:
 - [clevercsv] for more rubust CSV parsing
 - [orjson] for speed and memory optimized parsing
 - [pydantic]
-
-# Documentation
-
-<https://zepworks.com/deepdiff/current/>
-
-### A message from Sep, the creator of DeepDiff
-
-> 👋 Hi there,
->
-> Thank you for using DeepDiff!
-> As an engineer, I understand the frustration of wrestling with **unruly
-data** in pipelines.
-> That's why I developed a new tool - [Qluster] to empower non-engineers to
-control and resolve data issues at scale autonomously and **stop bugging
-the engineers**! 🛠️
->
-> If you are going through this pain now, I would love to give you [early
-access] to Qluster and get your feedback.
-
-# ChangeLog
-
-Please take a look at the [CHANGELOG] file.
-
-# Survey
 

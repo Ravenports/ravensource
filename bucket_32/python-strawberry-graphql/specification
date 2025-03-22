@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.261.1
+DEF[PORTVERSION]=	0.262.5
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-strawberry-graphql
@@ -11,7 +11,7 @@ HOMEPAGE=		https://strawberry.rocks/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/3b/90/e438f0bade8d39955077f6a9a9205485b8284fcc40601639dee810c161fb
+SITES[main]=		PYPIWHL/4d/6b/715835515ff21ab9de351df401a769a51b051dad6b67fa43778682de13a5
 DISTFILE[1]=		strawberry_graphql-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -42,6 +42,7 @@ DISTNAME=		strawberry_graphql-${PORTVERSION}.dist-info
 # litestar (>=2) ; (python_version >= "3.10" and python_version < "4.0") and (extra == "litestar")
 # opentelemetry-api (<2) ; extra == "opentelemetry"
 # opentelemetry-sdk (<2) ; extra == "opentelemetry"
+# packaging (>=23)
 # pydantic (>1.6.1) ; extra == "pydantic"
 # pygments (>=2.3,<3.0) ; extra == "debug-server" or extra == "cli"
 # pyinstrument (>=4.0.0) ; extra == "pyinstrument"
@@ -56,9 +57,11 @@ DISTNAME=		strawberry_graphql-${PORTVERSION}.dist-info
 # uvicorn (>=0.11.6) ; extra == "debug-server"
 
 [PY312].USES_ON=			python:v12,wheel
-[PY312].RUN_DEPENDS_ON=			python-python-dateutil:single:v12
+[PY312].RUN_DEPENDS_ON=			python-packaging:single:v12
+					python-python-dateutil:single:v12
 					python-typing-extensions:single:v12
 [PY313].USES_ON=			python:v13,wheel
-[PY313].RUN_DEPENDS_ON=			python-python-dateutil:single:v13
+[PY313].RUN_DEPENDS_ON=			python-packaging:single:v13
+					python-python-dateutil:single:v13
 					python-typing-extensions:single:v13
 

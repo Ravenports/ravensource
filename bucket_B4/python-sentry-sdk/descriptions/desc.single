@@ -1,20 +1,32 @@
 
   [image]
 
+<div align="center">
+
 _Bad software is everywhere, and we're tired of it. Sentry is on a mission
 to help developers write better software faster, so we can get back to
-enjoying technology. If you want to join us, [<kbd>**check out our open
-positions**</kbd>]_.
+enjoying technology. If you want to join us
+[<kbd>**Check out our open positions**</kbd>]_.
+
+[Discord]
+[Twitter Follow]
+[![PyPi page link -- version]](https://pypi.python.org/pypi/sentry-sdk)
+[image]
+[Build Status]
+
+<br/>
+
+</div>
 
 # Official Sentry SDK for Python
 
-[Build Status]
-[![PyPi page link -- version]](https://pypi.python.org/pypi/sentry-sdk)
-[Discord]
+Welcome to the official Python SDK for **[Sentry]**.
 
-Welcome to the official Python SDK for **[Sentry]**!
+## 📦 Getting Started
 
-## Getting Started
+### Prerequisites
+
+You need a Sentry [account] and [project].
 
 ### Installation
 
@@ -27,7 +39,7 @@ pip install --upgrade sentry-sdk
 
 ### Basic Configuration
 
-Here’s a quick configuration example to get Sentry up and running:
+Here's a quick configuration example to get Sentry up and running:
 
 ```python
 import sentry_sdk
@@ -37,7 +49,7 @@ sentry_sdk.init(
 Your DSN here
 
     # Set traces_sample_rate to 1.0 to capture 100%
-    # of transactions for performance monitoring.
+    # of traces for performance monitoring.
     traces_sample_rate=1.0,
 )
 ```
@@ -51,42 +63,28 @@ To generate some events that will show up in Sentry, you can log messages
 or capture errors:
 
 ```python
-from sentry_sdk import capture_message
-capture_message("Hello Sentry!")  # You'll see this in your Sentry
-dashboard.
+import sentry_sdk
+sentry_sdk.init(...)  # same as above
+
+sentry_sdk.capture_message("Hello Sentry!")  # You'll see this in your
+Sentry dashboard.
 
 raise ValueError("Oops, something went wrong!")  # This will create an
 error event in Sentry.
 ```
 
-#### Explore the Docs
+## 📚 Documentation
 
 For more details on advanced usage, integrations, and customization, check
-out the full documentation:
+out the full documentation on [https://docs.sentry.io].
 
-- [Official SDK Docs]
-- [API Reference]
+## 🧩 Integrations
 
-## Integrations
+Sentry integrates with a ton of popular Python libraries and frameworks,
+including [FastAPI], [Django], [Celery], [OpenAI] and many, many more. 
+Check out the [full list of integrations] to get the full picture.
 
-Sentry integrates with many popular Python libraries and frameworks,
-including:
-
-- [Django]
-- [Flask]
-- [FastAPI]
-- [Celery]
-- [AWS Lambda]
-
-Want more? [Check out the full list of integrations].
-
-### Rolling Your Own Integration?
-
-If you want to create a new integration or improve an existing one, we’d
-welcome your contributions! Please read our [contributing guide] before
-starting.
-
-## Migrating Between Versions?
+## 🚧 Migrating Between Versions?
 
 ### From `1.x` to `2.x`
 
@@ -98,3 +96,5 @@ our [migration guide] for assistance.
 
 Using the legacy `raven-python` client? It's now in maintenance mode, and
 we recommend migrating to the new SDK for an improved experience. Get all
+the details in our [migration guide].
+

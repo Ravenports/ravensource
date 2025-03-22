@@ -9,10 +9,11 @@ Python-ASN1 is a simple ASN.1 encoder and decoder for Python 2.7 and 3.5+.
 Features
 ========
 
-- Support BER (parser) and DER (parser and generator) encoding (except
+- Support BER (parser) and DER (parser and generator) encoding (including
 indefinite lengths)
 - 100% python, compatible with version 2.7, 3.5 and higher
 - Can be integrated by just including a file into your project
+- Support most common ASN.1 types including REAL (encoding and decoding).
 
 Dependencies
 ==============
@@ -23,6 +24,16 @@ Python 2 and 3 compatibility. To install Python-Future:
 .. code-block:: sh
 
   pip install future
+
+Python-ASN1 relies on [type hints]. For Python 2.7, a backport of the
+standard library typing module has to be installed:
+
+.. code-block:: sh
+
+  pip install typing
+
+This is not necessary for Python 3.5 and higher since it is part of the
+standard library.
 
 How to install Python-asn1
 ==========================
@@ -87,14 +98,3 @@ The complete documentation is available on Read The Docs:
 
 License
 =======
-
-Python-ASN1 is free software that is made available under the MIT license.
-Consult the file LICENSE that is distributed together with this library for
-the exact licensing terms.
-
-Copyright
-=========
-
-The following people have contributed to Python-ASN1. Collectively they own
-the copyright of this software.
-
