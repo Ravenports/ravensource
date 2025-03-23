@@ -63,3 +63,6 @@ post-install:
 		undumprevlog \
 		zsh_completion \
 		${STAGEDIR}${PREFIX}/share/mercurial/contrib/ )
+	# fix shebang (may have to consider !python legit)
+	${SED} -i'' -e 's|#!python|#!${LOCALBASE}/bin/python3|' \
+		${STAGEDIR}${PREFIX}/bin/hg
