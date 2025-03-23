@@ -37,3 +37,8 @@ DISTNAME=		ioflo-${PORTVERSION}
 [PY313].USES_ON=			python:v13,sutools
 [PY313].BUILDRUN_DEPENDS_ON=		python-setuptools-git:single:v13
 
+
+post-install:
+	# Fix python shebangs
+	${SED} -i'' -e 's|#!python|#!${LOCALBASE}/bin/python3|' \
+		${STAGEDIR}${PREFIX}/bin/ioflo*
