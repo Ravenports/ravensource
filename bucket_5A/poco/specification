@@ -58,6 +58,10 @@ EXRUN[pgsql]=		primary
 EXRUN[redis]=		primary
 			redis:single:std
 
+pre-configure:
+	# remove patch remnants that could get installed
+	${FIND} ${WRKSRC} -type f -name "*.orig" -delete
+
 post-install:
 .for l in ${LIBS}
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libPoco${l}.so
