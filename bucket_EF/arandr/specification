@@ -39,3 +39,6 @@ post-install:
 	# remove duplicate license
 	${RM} ${STAGEDIR}${PYTHON_SITELIBDIR}/screenlayout/data/gpl-3.txt
 	${FIND} ${STAGEDIR}${PYTHON_SITELIBDIR} -type d -empty -delete
+	# shebangfix doesn't work
+	${SED} -i'' -e 's|#!python|#!${LOCALBASE}/bin/python3|' \
+		${STAGEDIR}${PREFIX}/bin/*randr
