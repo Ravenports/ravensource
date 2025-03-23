@@ -1,0 +1,12 @@
+--- utils/meson.build.orig	2025-01-18 22:41:03 UTC
++++ utils/meson.build
+@@ -30,6 +30,9 @@ if cairo_dep.found()
+   pango_view_deps += libpangocairo_dep
+ endif
+ 
++x11_dep = cc.find_library('X11', required: true)
++pango_view_deps += x11_dep
++
+ pango_view = executable('pango-view', pango_view_sources,
+                         dependencies: pango_view_deps,
+                         include_directories: [ root_inc ],
