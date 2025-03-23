@@ -1,9 +1,9 @@
 Revert https://gitlab.gnome.org/GNOME/glib/commit/8abf3a04e699 for
 breaking at least graphics/inkscape as wchar_t is locale-dependent.
 
---- glib/gconvert.c.orig	2025-02-20 13:08:16 UTC
+--- glib/gconvert.c.orig	2025-03-06 13:09:13 UTC
 +++ glib/gconvert.c
-@@ -74,7 +74,7 @@ try_conversion (const char *to_codeset,
+@@ -69,7 +69,7 @@ try_conversion (const char *to_codeset,
    if (*cd == (iconv_t)-1 && errno == EINVAL)
      return FALSE;
  
@@ -12,7 +12,7 @@ breaking at least graphics/inkscape as wchar_t is locale-dependent.
    /* On FreeBSD request GNU iconv compatible handling of characters that cannot
     * be represented in the destination character set.
     * See https://cgit.freebsd.org/src/commit/?id=7c5b23111c5fd1992047922d4247c4a1ce1bb6c3
-@@ -126,6 +126,18 @@ g_iconv_open (const gchar  *to_codeset,
+@@ -121,6 +121,18 @@ g_iconv_open (const gchar  *to_codeset,
  	      const gchar  *from_codeset)
  {
    iconv_t cd;
@@ -31,7 +31,7 @@ breaking at least graphics/inkscape as wchar_t is locale-dependent.
    
    if (!try_conversion (to_codeset, from_codeset, &cd))
      {
-@@ -170,13 +182,6 @@ g_iconv_open (const gchar  *to_codeset,
+@@ -165,13 +177,6 @@ g_iconv_open (const gchar  *to_codeset,
   * GLib provides g_convert() and g_locale_to_utf8() which are likely
   * more convenient than the raw iconv wrappers.
   * 
@@ -42,10 +42,10 @@ breaking at least graphics/inkscape as wchar_t is locale-dependent.
 - * used), or it may return -1 and set an error such as %EILSEQ, in such a
 - * situation.
 - *
-  * Returns: count of non-reversible conversions, or -1 on error
-  **/
- gsize 
-@@ -285,14 +290,6 @@ close_converter (GIConv cd)
+  * See [`iconv(3posix)`](man:iconv(3posix)) and [`iconv(3)`](man:iconv(3)) for more details about behavior when an
+  * error occurs.
+  *
+@@ -283,14 +288,6 @@ close_converter (GIConv cd)
   * character until it knows that the next character is not a mark that
   * could combine with the base character.)
   *
@@ -60,7 +60,7 @@ breaking at least graphics/inkscape as wchar_t is locale-dependent.
   * Returns: (array length=bytes_written) (element-type guint8) (transfer full):
   *               If the conversion was successful, a newly allocated buffer
   *               containing the converted string, which must be freed with
-@@ -372,13 +369,6 @@ g_convert_with_iconv (const gchar *str,
+@@ -370,13 +367,6 @@ g_convert_with_iconv (const gchar *str,
  	      break;
  	    }
  	}
