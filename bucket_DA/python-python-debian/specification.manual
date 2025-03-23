@@ -1,0 +1,4 @@
+post-install:
+	# Fix python shebangs
+	${SED} -i'' -e 's|#!/usr/bin/python3|#!${PYTHON_CMD}|' \
+		${STAGEDIR}${PYTHON_SITELIBDIR}/debian/doc-debtags
