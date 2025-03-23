@@ -1,0 +1,11 @@
+--- data/meson.build.orig	2024-12-08 22:35:19 UTC
++++ data/meson.build
+@@ -21,7 +21,7 @@ endif
+ metainfo_with_relinfo = custom_target('gen-output',
+     input : ['../NEWS', 'org.freedesktop.appstream.cli.metainfo.xml'],
+     output : ['nol10n_withrelinfo_org.freedesktop.appstream.cli.metainfo.xml'],
+-    command : [ascli_exe, 'news-to-metainfo', '--limit=6', '@INPUT0@', '@INPUT1@', '@OUTPUT@']
++    command : ['hack.sh', '@INPUT1@', ascli_exe, '@INPUT0@', '@OUTPUT@']
+ )
+ 
+ metainfo_i18n = i18n.itstool_join(

@@ -60,6 +60,9 @@ SOVERSION=		${PORTVERSION}
 PLIST_SUB=		SO_MAJOR=${SO_MAJOR}
 MOUNT_PROCFS=		yes
 
+post-extract:
+	${INSTALL_SCRIPT} ${FILESDIR}/hack.sh ${WRKSRC}/data
+
 pre-configure:
 	${REINPLACE_CMD} -e "s|${CAT1}|file://${LOCALBASE}/share/xsl/docbook/|" \
 		${WRKSRC}/data/meson.build
