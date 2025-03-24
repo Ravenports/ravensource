@@ -2,7 +2,7 @@ $NetBSD: patch-egg_egg-unix-credentials.c,v 1.1 2020/11/22 21:26:51 nia Exp $
 
 LOCAL_CREDS path appears broken on NetBSD...
 
---- egg/egg-unix-credentials.c.orig	2023-12-03 16:59:21 UTC
+--- egg/egg-unix-credentials.c.orig	2025-03-18 08:38:44 UTC
 +++ egg/egg-unix-credentials.c
 @@ -48,6 +48,10 @@
  #include <ucred.h>

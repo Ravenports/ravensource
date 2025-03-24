@@ -1,0 +1,18 @@
+--- docs/meson.build.orig	2025-03-18 08:38:44 UTC
++++ docs/meson.build
+@@ -16,13 +16,14 @@ if get_option('manpage')
+       command: [
+         xsltproc,
+         '--nonet',
++        '--path', '__DBPATH__',
+         '--stringparam', 'man.output.quietly', '1',
+         '--stringparam', 'funcsynopsis.style', 'ansi',
+         '--stringparam', 'man.th.extra1.suppress', '1',
+         '--stringparam', 'man.authors.section.enabled', '0',
+         '--stringparam', 'man.copyright.section.enabled', '0',
+         '-o', '@OUTPUT@',
+-        'http://docbook.sourceforge.net/release/xsl/current/manpages/docbook.xsl',
++        'http://cdn.docbook.org/release/xsl/current/manpages/docbook.xsl',
+         '@INPUT@'
+       ]
+     )

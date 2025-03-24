@@ -1,10 +1,9 @@
-DEF[PORTVERSION]=	46.2
+DEF[PORTVERSION]=	48.0
 DEF[FOLDER]=		${PORTVERSION:R}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gnome-keyring
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		security
 VARIANTS=		std
 SDESC[std]=		Program that keeps passwords and other secrets
@@ -46,15 +45,15 @@ BUILDRUN_DEPENDS=	dbus:primary:std
 			p11-kit:primary:std
 RUN_DEPENDS=		pinentry:single:gnome3
 
-USES=			autoreconf cpe gmake libtool
-			pkgconfig python schemas:primary rootca:primary
+USES=			cpe meson pkgconfig python
+			schemas:primary rootca:primary
 GNOME_COMPONENTS=	gtk3 libxslt intltool
 CPE_VENDOR=		gnome
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--with-pam-dir={{PREFIX}}/lib
-INSTALL_TARGET=		install-strip
+MESON_ARGS=		-Dselinux=disabled
+			-Dsystemd=disabled
+			-Dpam=true
 GLIB_SCHEMAS=		org.gnome.crypto.cache.gschema.xml
 
 pre-configure:
 	${REINPLACE_CMD} -e 's|__DBPATH__|${PREFIX}/share/xsl/docbook/manpages|' \
-		${WRKSRC}/docs/Makefile.am
+		${WRKSRC}/docs/meson.build
