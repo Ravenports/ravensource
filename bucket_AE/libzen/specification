@@ -1,9 +1,10 @@
 DEF[PORTVERSION]=	0.4.41
-DEF[SOVERSION]=		0.0.0
+DEF[SOVERSION]=		0.4.41
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libzen
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		multimedia
 VARIANTS=		std
 SDESC[std]=		Small C++ derivate classes
@@ -27,19 +28,12 @@ LICENSE_SCHEME=		solo
 # FreeBSD uses the wrong version
 # FPC_EQUIVALENT=	multimedia/libzen
 
-USES=			cpe autoreconf:build libtool:build c++:primary dos2unix
+USES=			cpe c++:primary dos2unix pkgconfig cmake:insource
 CPE_VENDOR=		mediaarea
 CPE_PRODUCT=		zenlib
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--enable-shared
-			--enable-static
-CONFIGURE_WRKSRC=	{{WRKSRC}}/Project/GNU/Library
-BUILD_WRKSRC=		{{WRKSRC}}/Project/GNU/Library
-INSTALL_WRKSRC=		{{WRKSRC}}/Project/GNU/Library
-INSTALL_TARGET=		install-strip
+CMAKE_ARGS=		-DBUILD_SHARED_LIBS:BOOL=ON
+CONFIGURE_WRKSRC=	{{WRKSRC}}/Project/CMake
+BUILD_WRKSRC=		{{WRKSRC}}/Project/CMake
+INSTALL_WRKSRC=		{{WRKSRC}}/Project/CMake
+CMAKE_SOURCE_PATH=	{{CONFIGURE_WRKSRC}}
 SOVERSION=		${SOVERSION}
-
-VAR_OPSYS[sunos]=	CXXFLAGS=-fpermissive
-
-pre-configure:
-	cd ${CONFIGURE_WRKSRC} && ${SH} ./autogen.sh
