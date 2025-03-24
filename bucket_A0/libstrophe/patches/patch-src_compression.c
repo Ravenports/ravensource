@@ -1,4 +1,4 @@
---- src/compression.c.orig	2024-02-01 08:34:32 UTC
+--- src/compression.c.orig	2025-03-13 13:44:37 UTC
 +++ src/compression.c
 @@ -19,6 +19,10 @@
  
