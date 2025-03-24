@@ -1,23 +1,6 @@
---- dragonflybsd/Platform.c.orig	2024-01-10 09:54:15 UTC
+--- dragonflybsd/Platform.c.orig	2025-03-05 18:24:21 UTC
 +++ dragonflybsd/Platform.c
-@@ -36,6 +36,7 @@ in the source distribution for its full
- #include "XUtils.h"
- #include "dragonflybsd/DragonFlyBSDProcess.h"
- #include "dragonflybsd/DragonFlyBSDProcessTable.h"
-+#include "dragonflybsd/DragonFlyBSDMachine.h"
- #include "generic/fdstat_sysctl.h"
- 
- 
-@@ -193,7 +194,7 @@ double Platform_setCPUValues(Meter* this
- 
-    v[CPU_METER_NICE]   = cpuData->nicePercent;
-    v[CPU_METER_NORMAL] = cpuData->userPercent;
--   if (super->settings->detailedCPUTime) {
-+   if (host->settings->detailedCPUTime) {
-       v[CPU_METER_KERNEL]  = cpuData->systemPercent;
-       v[CPU_METER_IRQ]     = cpuData->irqPercent;
-       this->curItems = 4;
-@@ -232,9 +233,33 @@ void Platform_setSwapValues(Meter* this)
+@@ -239,9 +239,33 @@ void Platform_setSwapValues(Meter* this)
  }
  
  char* Platform_getProcessEnv(pid_t pid) {
