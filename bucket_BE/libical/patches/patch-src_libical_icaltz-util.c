@@ -1,7 +1,7 @@
---- src/libical/icaltz-util.c.orig	2024-12-23 12:01:49 UTC
+--- src/libical/icaltz-util.c.orig	2025-03-10 16:08:27 UTC
 +++ src/libical/icaltz-util.c
-@@ -53,6 +53,11 @@
- #define bswap_32 swap32
+@@ -43,6 +43,11 @@
+ #endif
  #endif
  
 +#if defined(__FreeBSD__) || defined(__DragonFly__) || defined(__NetBSD__)
