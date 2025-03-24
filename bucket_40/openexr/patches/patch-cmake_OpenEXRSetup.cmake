@@ -1,12 +1,11 @@
---- cmake/OpenEXRSetup.cmake.orig	2024-11-11 15:49:52 UTC
+--- cmake/OpenEXRSetup.cmake.orig	2025-03-22 16:08:13 UTC
 +++ cmake/OpenEXRSetup.cmake
-@@ -78,9 +78,6 @@ set(OPENEXR_OUTPUT_SUBDIR OpenEXR CACHE
- # but is pretty harmless to set globally
- set(CMAKE_INCLUDE_CURRENT_DIR ON)
- 
--# Suffix for debug configuration libraries
--# (if you should choose to install those)
--set(CMAKE_DEBUG_POSTFIX "_d" CACHE STRING "Suffix for debug builds")
+@@ -84,7 +84,7 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
+ # (if you should choose to install those)
+ # Don't override if the user has set it and don't save it in the cache
+ if (NOT CMAKE_DEBUG_POSTFIX)
+-  set(CMAKE_DEBUG_POSTFIX "_d")
++#  set(CMAKE_DEBUG_POSTFIX "_d")
+ endif()
  
  if(NOT OPENEXR_IS_SUBPROJECT)
-   # Usual cmake option to build shared libraries or not, only overridden if OpenEXR is a top level project,
