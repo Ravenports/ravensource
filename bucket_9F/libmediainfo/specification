@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	24.12
-DEF[SOVERSION]=		0.0.0
+DEF[PORTVERSION]=	25.03
+DEF[SOVERSION]=		0.2503.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libmediainfo
@@ -27,20 +27,22 @@ FPC_EQUIVALENT=		multimedia/libmediainfo
 
 BUILD_DEPENDS=		libzen:dev:std
 			tinyxml2:dev:std
-BUILDRUN_DEPENDS=	tinyxml2:primary:std
-			libzen:primary:std
+BUILDRUN_DEPENDS=	libzen:primary:std
+			tinyxml2:primary:std
 
-USES=			autoreconf:build dos2unix libtool:build pkgconfig zlib curl
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--enable-shared
-			--enable-static
-			--with-libtinyxml2=yes
-			--with-libcurl={{LOCALBASE}}
-CONFIGURE_WRKSRC=	{{WRKSRC}}/Project/GNU/Library
-BUILD_WRKSRC=		{{WRKSRC}}/Project/GNU/Library
-INSTALL_WRKSRC=		{{WRKSRC}}/Project/GNU/Library
-INSTALL_TARGET=		install-strip
+EXRUN[dev]=		zlib:dev:std
+			curl:dev:std
+			libzen:dev:std
+
+USES=			dos2unix pkgconfig zlib curl cmake:insource
+CMAKE_ARGS=		-DBUILD_ZLIB:BOOL=OFF
+			-DBUILD_ZENLIB:BOOL=OFF
+			-DBUILD_SHARED_LIBS:BOOL=ON
+CMAKE_SOURCE_PATH=	{{CONFIGURE_WRKSRC}}
+CONFIGURE_WRKSRC=	{{WRKSRC}}/Project/CMake
+BUILD_WRKSRC=		{{WRKSRC}}/Project/CMake
+INSTALL_WRKSRC=		{{WRKSRC}}/Project/CMake
 SOVERSION=		${SOVERSION}
 
-pre-configure:
-	cd ${CONFIGURE_WRKSRC} && ${SH} ./autogen.sh
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libmediainfo.so
