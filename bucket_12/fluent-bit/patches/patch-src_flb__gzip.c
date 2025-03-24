@@ -1,4 +1,4 @@
---- src/flb_gzip.c.orig	2025-02-25 13:27:54 UTC
+--- src/flb_gzip.c.orig	2025-03-18 04:26:19 UTC
 +++ src/flb_gzip.c
 @@ -98,7 +98,7 @@ static inline void flb_hex_dump(uint8_t
          line_length = 40;
