@@ -1,4 +1,4 @@
---- xdm/session.c.orig	2024-03-23 22:20:06 UTC
+--- xdm/session.c.orig	2025-03-09 01:13:49 UTC
 +++ xdm/session.c
 @@ -583,6 +583,7 @@ StartClient (
      pid_t	pid;

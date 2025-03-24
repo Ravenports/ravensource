@@ -1,4 +1,4 @@
---- greeter/greet.c.orig	2024-03-23 22:20:06 UTC
+--- greeter/greet.c.orig	2025-03-09 01:13:49 UTC
 +++ greeter/greet.c
 @@ -641,6 +641,7 @@ greet_user_rtn GreetUser(
      }
