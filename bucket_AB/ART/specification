@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.25.2
+DEF[PORTVERSION]=	1.25.3.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ART
@@ -44,6 +44,7 @@ GNOME_COMPONENTS=	gtk3 gtkmm30 librsvg glibmm24
 
 # TODO: OpenColorIO
 CMAKE_ARGS=		-DENABLE_OCIO:BOOL=OFF
+			-DENABLE_MIMALLOC:BOOL=OFF
 
 post-install:
 	${RMDIR} ${STAGEDIR}${PREFIX}/share/ART/ctlscripts
