@@ -1,14 +1,14 @@
---- src/idn2.c.orig	2024-01-26 10:17:26 UTC
+--- src/idn2.c.orig	2025-03-08 20:51:42 UTC
 +++ src/idn2.c
 @@ -33,7 +33,7 @@
  #include <unistring/localcharset.h>
  
  /* Gnulib headers. */
--#include "error.h"
-+#include "err.h"
- #include "gettext.h"
+-#include <error.h>
++#include <err.h>
+ #include <gettext.h>
  #define _(String) dgettext (PACKAGE, String)
- #include "progname.h"
+ #include <progname.h>
 @@ -172,7 +172,7 @@ process_input (char *readbuf, int flags)
        free (output);
      }
@@ -18,7 +18,7 @@
  }
  
  int
-@@ -245,7 +245,7 @@ main (int argc, char *argv[])
+@@ -246,7 +246,7 @@ main (int argc, char *argv[])
      }
  
    if (ferror (stdin))
