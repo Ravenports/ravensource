@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.4.3
+DEF[PORTVERSION]=	1.4.4
 DEF[XNAME]=		xinit
 # ----------------------------------------------------------------------------
 
@@ -29,5 +29,4 @@ INSTALL_TARGET=		install-strip
 
 post-patch:
 	${REINPLACE_CMD} 's/test.*-traditional.*;/true;/' ${WRKSRC}/configure
-	${REINPLACE_CMD} -e 's|hexdump|/usr/bin/hexdump|' ${WRKSRC}/startx.cpp
 	${REINPLACE_CMD} -e 's|/usr/local|${PREFIX}|g' ${WRKSRC}/man/xinit.man
