@@ -2,9 +2,9 @@ $NetBSD: patch-giscanner_ast.py,v 1.3 2024/04/09 17:55:46 wiz Exp $
 
 - add double underscore versions
 
---- giscanner/ast.py.orig	2024-09-13 13:08:54 UTC
+--- giscanner/ast.py.orig	2025-03-15 13:50:44 UTC
 +++ giscanner/ast.py
-@@ -351,6 +351,16 @@ type_names['uint32_t'] = TYPE_UINT32
+@@ -352,6 +352,16 @@ type_names['uint32_t'] = TYPE_UINT32
  type_names['int64_t'] = TYPE_INT64
  type_names['uint64_t'] = TYPE_UINT64
  
