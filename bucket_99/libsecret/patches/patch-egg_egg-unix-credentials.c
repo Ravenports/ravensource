@@ -1,4 +1,4 @@
---- egg/egg-unix-credentials.c.orig	2025-01-15 22:54:16 UTC
+--- egg/egg-unix-credentials.c.orig	2025-03-18 22:16:57 UTC
 +++ egg/egg-unix-credentials.c
 @@ -48,6 +48,10 @@
  #include <ucred.h>
