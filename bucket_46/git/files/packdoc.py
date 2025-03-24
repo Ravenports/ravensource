@@ -16,8 +16,8 @@ PREFIX = "tbd"
 
 def merge_point(major, minor, point):
     """ Handles 3 part tuples """
-    subfile = f"{major}.{minor}.{point}.txt"
-    finfile = f"{major}.{str(minor).zfill(2)}.txt"
+    subfile = f"{major}.{minor}.{point}.adoc"
+    finfile = f"{major}.{str(minor).zfill(2)}.adoc"
     abs_subfile = f"{STAGEDIR}{PREFIX}/{RNOTES}/{subfile}"
     abs_finfile = f"{STAGEDIR}{PREFIX}/{RNOTES}/{finfile}"    
     if os.path.exists(abs_subfile):
@@ -28,8 +28,8 @@ def merge_point(major, minor, point):
 
 def merge_subpoint(major, minor, point, subpoint):
     """ Handles 4 part tuples """
-    subfile = f"{major}.{minor}.{point}.{subpoint}.txt"
-    finfile = f"{major}.{str(minor).zfill(2)}.txt"
+    subfile = f"{major}.{minor}.{point}.{subpoint}.adoc"
+    finfile = f"{major}.{str(minor).zfill(2)}.adoc"
     abs_subfile = f"{STAGEDIR}{PREFIX}/{RNOTES}/{subfile}"
     abs_finfile = f"{STAGEDIR}{PREFIX}/{RNOTES}/{finfile}"    
     if os.path.exists(abs_subfile):
