@@ -1,6 +1,6 @@
---- src/vasprintf.c.orig	2023-08-15 13:54:03 UTC
+--- src/vasprintf.c.orig	2025-02-01 23:44:50 UTC
 +++ src/vasprintf.c
-@@ -72,6 +72,7 @@ https://www.gnu.org/licenses/ or write t
+@@ -71,6 +71,7 @@ If not, see <https://www.gnu.org/license
  #endif /* HAVE_VA_COPY */
  
  #ifdef HAVE_WCHAR_H
