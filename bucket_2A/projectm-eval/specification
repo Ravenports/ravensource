@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	1.0
-DEF[GH_TAG]=		ee180a2
+DEF[PORTVERSION]=	1.0.1
+DEF[GH_TAG]=		v${PORTVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		projectm-eval
@@ -26,3 +26,8 @@ LICENSE_SCHEME=		solo
 USES=			bison cmake
 
 CMAKE_ARGS=		-DCMAKE_BUILD_TYPE=Release
+
+post-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/lib/pkgconfig
+	${INSTALL_DATA} ${BUILD_WRKSRC}/pkgconfig/projectm-eval.pc \
+		${STAGEDIR}${PREFIX}/lib/pkgconfig
