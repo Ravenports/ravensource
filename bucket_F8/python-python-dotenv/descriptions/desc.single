@@ -3,7 +3,7 @@
 [![Build Status][build_status_badge]][build_status_link]
 [![PyPI version][pypi_badge]][pypi_link]
 
-Python-dotenv reads key-value pairs from a `.env` file and can set them as
+python-dotenv reads key-value pairs from a `.env` file and can set them as
 environment
 variables. It helps in the development of applications following the
 [12-factor] principles.
@@ -32,7 +32,7 @@ application, launching it in development is not very practical because you
 have to set
 those environment variables yourself.
 
-To help you with that, you can add Python-dotenv to your application to
+To help you with that, you can add python-dotenv to your application to
 make it load the
 configuration from a `.env` file when it is present (e.g. in development)
 while remaining
@@ -41,14 +41,16 @@ configurable via the environment:
 ```python
 from dotenv import load_dotenv
 
-load_dotenv()  # take environment variables from .env.
+load_dotenv()  # take environment variables
 
 # Code of your application, which uses environment variables (e.g. from
 `os.environ` or
 # `os.getenv`) as if they came from the actual environment.
 ```
 
-By default, `load_dotenv` doesn't override existing environment variables.
+By default, `load_dotenv` doesn't override existing environment variables
+and looks for a `.env` file in same directory as python script or searches
+for it incrementally higher up.
 
 To configure the development environment, add a `.env` in the root
 directory of your
@@ -96,5 +98,3 @@ parsed from the
 from dotenv import dotenv_values
 
 config = dotenv_values(".env")  # config = {"USER": "foo", "EMAIL":
-"foo@example.org"}
-```
