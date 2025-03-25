@@ -1,4 +1,4 @@
---- src/google/protobuf/stubs/port.h.orig	2024-12-03 19:41:48 UTC
+--- src/google/protobuf/stubs/port.h.orig	2025-03-13 19:50:35 UTC
 +++ src/google/protobuf/stubs/port.h
 @@ -25,6 +25,8 @@
  #ifdef _MSC_VER
@@ -9,7 +9,7 @@
  #elif defined(__APPLE__)
  #include <libkern/OSByteOrder.h>
  #elif defined(__linux__) || defined(__ANDROID__) || defined(__CYGWIN__)
-@@ -130,6 +132,11 @@ inline void GOOGLE_UNALIGNED_STORE64(voi
+@@ -137,6 +139,11 @@ inline void GOOGLE_UNALIGNED_STORE64(voi
  #define bswap_32(x) _byteswap_ulong(x)
  #define bswap_64(x) _byteswap_uint64(x)
  
