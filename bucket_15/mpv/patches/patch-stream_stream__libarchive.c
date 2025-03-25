@@ -2,7 +2,7 @@ $NetBSD: patch-stream_stream__libarchive.c,v 1.1 2022/05/17 13:12:13 ryoon Exp $
 
 * NetBSD does not implement uselocale().
 
---- stream/stream_libarchive.c.orig	2024-09-23 17:36:41 UTC
+--- stream/stream_libarchive.c.orig	2025-03-25 17:33:27 UTC
 +++ stream/stream_libarchive.c
 @@ -29,6 +29,10 @@
  #define MP_ARCHIVE_FLAG_MAYBE_RAR       (MP_ARCHIVE_FLAG_PRIV << 1)

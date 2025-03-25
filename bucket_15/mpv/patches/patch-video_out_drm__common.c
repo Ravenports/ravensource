@@ -1,4 +1,4 @@
---- video/out/drm_common.c.orig	2024-09-23 17:36:41 UTC
+--- video/out/drm_common.c.orig	2025-03-25 17:33:27 UTC
 +++ video/out/drm_common.c
 @@ -34,6 +34,7 @@
  #elif HAVE_VT_H

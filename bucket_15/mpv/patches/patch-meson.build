@@ -6,9 +6,9 @@
 - Enable support for DRM on NetBSD.
 - Install configuration files to examples, per pkgsrc conventions.
 
---- meson.build.orig	2024-09-23 17:36:41 UTC
+--- meson.build.orig	2025-03-25 17:33:27 UTC
 +++ meson.build
-@@ -300,6 +300,7 @@ if cc.has_multi_arguments('-Wformat', '-
+@@ -312,6 +312,7 @@ if cc.get_id() == 'gcc'
  endif
  
  darwin = host_machine.system() == 'darwin'
@@ -16,7 +16,7 @@
  win32 = host_machine.system() == 'cygwin' or host_machine.system() == 'windows'
  posix = not win32
  
-@@ -552,14 +553,17 @@ features += {'wsdisplay-usl-io.h': cc.ha
+@@ -555,14 +556,17 @@ features += {'wsdisplay-usl-io.h': cc.ha
  # macOS's pthread_setname_np is a special snowflake and differs from literally every other platform.
  features += {'mac-thread-name': darwin}
  
