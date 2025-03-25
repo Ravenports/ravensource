@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.6.3
+DEF[PORTVERSION]=	0.6.4
 DEF[SOVERSION]=		0.0.0
 # ----------------------------------------------------------------------------
 
@@ -12,7 +12,7 @@ CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		https://archive.xfce.org/src/apps/mousepad/${PORTVERSION:R}/
-DISTFILE[1]=		mousepad-${PORTVERSION}.tar.bz2:main
+DISTFILE[1]=		mousepad-${PORTVERSION}.tar.xz:main
 
 SPKGS[std]=		set primary nls
 
@@ -36,16 +36,12 @@ BUILDRUN_DEPENDS=	xfconf:primary:std
 			libxfce4ui:primary:std
 
 USES=			desktop-utils:primary schemas:primary
-			gmake libtool fontconfig:build pkgconfig
-GNOME_COMPONENTS=	glib intltool gtk3 gtksourceview3
-
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--enable-gtk3
-			--enable-nls
-			--enable-schemas-compile
-			--disable-debug
-			--libexecdir={{PREFIX}}/lib/xfce4
-			--disable-plugin-gspell
+			meson fontconfig:build pkgconfig
+GNOME_COMPONENTS=	glib intltool gtk3 gtksourceview4
+MESON_ARGS=		-Dgtksourceview4=enabled
+			-Dpolkit=disabled
+			-Dkeyfile-settings=false
+			-Dgspell-plugin=disabled
 GLIB_SCHEMAS=		org.xfce.mousepad.gschema.xml
 SOVERSION=		${SOVERSION}
 INSTALL_REQ_TOOLCHAIN=	yes
