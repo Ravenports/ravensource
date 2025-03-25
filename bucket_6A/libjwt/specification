@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	2.1.1
-DEF[SOVERSION]=		2.11.2
+DEF[PORTVERSION]=	3.2.0
+DEF[SOVERSION]=		14.2.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libjwt
@@ -30,8 +30,14 @@ BUILD_DEPENDS=		gnutls:dev:std
 BUILDRUN_DEPENDS=	gnutls:primary:std
 			jansson:primary:std
 
-USES=			autoreconf gmake libtool pkgconfig ssl
+EXRUN[tools]=		primary
 
-MUST_CONFIGURE=		gnu
-INSTALL_TARGET=		install-strip
+USES=			cmake pkgconfig ssl:openssl30
 SOVERSION=		${SOVERSION}
+
+post-install:
+	# drop duplicate license.  Readme is just links to site, not worth a subpackage
+	${RM} -r ${STAGEDIR}${STD_DOCDIR}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libjwt.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/jw*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/key2jwk
