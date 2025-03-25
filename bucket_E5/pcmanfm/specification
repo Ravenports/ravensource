@@ -1,10 +1,10 @@
 DEF[LIBFM_VER]=		EXTRACT_INFO(LIBFM_VERSION)
 DEF[PORTVERSION]=	${LIBFM_VER}
+DEF[TAG]=		${LIBFM_VER}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		pcmanfm
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		x11_fm
 VARIANTS=		std
 SDESC[std]=		Extremely fast and lightweight file manager
@@ -12,8 +12,9 @@ HOMEPAGE=		https://github.com/lxde/pcmanfm
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		SF/pcmanfm/PCManFM%20%2B%20Libfm%20%28tarball%20release%29/PCManFM/
-DISTFILE[1]=		pcmanfm-${PORTVERSION}.tar.xz:main
+SITES[main]=		GITHUB/lxde:pcmanfm:${TAG}
+# SF/pcmanfm/PCManFM%20%2B%20Libfm%20%28tarball%20release%29/PCManFM/
+DISTFILE[1]=		generated:main
 
 SPKGS[std]=		set primary dev nls man
 
@@ -31,9 +32,11 @@ FPC_EQUIVALENT=		x11-fm/pcmanfm
 
 BUILD_DEPENDS=		harfbuzz:dev:std
 			libfm:dev:std
+			libfm-extra:dev:std
 BUILDRUN_DEPENDS=	libfm:primary:std
 
-USES=			cpe pkgconfig gmake fontconfig
+USES=			autoreconf:build
+			cpe pkgconfig gmake fontconfig
 			desktop-utils:primary
 GNOME_COMPONENTS=	gtk3 gdkpixbuf intltool cairo
 XORG_COMPONENTS=	x11
@@ -42,13 +45,14 @@ MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-gtk=3
 			--enable-nls
 
+pre-configure:
+	(cd ${WRKSRC} && ./autogen.sh)
+	${REINPLACE_CMD} -e 's|pcmanfm.conf|pcmanfm.conf.sample|' \
+		${WRKSRC}/data/Makefile.in
+
 post-extract:
 	${MV} ${WRKSRC}/data/pcmanfm.conf \
 		${WRKSRC}/data/pcmanfm.conf.sample
-
-post-patch:
-	${REINPLACE_CMD} -e 's|pcmanfm.conf|pcmanfm.conf.sample|' \
-		${WRKSRC}/data/Makefile.in
 
 post-install:
 	${RMDIR} ${STAGEDIR}${PREFIX}/lib/pcmanfm

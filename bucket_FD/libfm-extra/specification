@@ -1,5 +1,6 @@
 DEF[PORTVERSION]=	EXTRACT_INFO(LIBFM_VERSION)
-DEF[SOVERSION]=		4.1.3
+DEF[SOVERSION]=		4.2.0
+DEF[TAG]=		${PORTVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libfm-extra
@@ -11,10 +12,10 @@ HOMEPAGE=		https://github.com/lxde/libfm
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		SF/pcmanfm/PCManFM%20%2B%20Libfm%20%28tarball%20release%29/LibFM/
-DISTFILE[1]=		libfm-${PORTVERSION}.tar.xz:main
+SITES[main]=		GITHUB/lxde:libfm:${TAG}
+DISTFILE[1]=		generated:main
 
-SPKGS[std]=		single
+SPKGS[std]=		set primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -23,16 +24,17 @@ OPTIONS_STANDARD=	none
 # file in the tarball still refects GPLv2 in error.  See NEWS for confirmation
 # So use a stock license instead of the provided one.
 
-LICENSE=		LGPL21+:single
+LICENSE=		LGPL21+:primary
 LICENSE_FILE=		LGPL21+:stock
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/fm.h
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		x11/libfm
 
-USES=			gmake libtool pkgconfig mbsdfix
+USES=			autoreconf:build libtool:build
+			gmake pkgconfig gtk-doc
 GNOME_COMPONENTS=	glib intltool
 INSTALL_TARGET=		install-strip
 DISTNAME=		libfm-${PORTVERSION}
@@ -44,9 +46,5 @@ CONFIGURE_ARGS=		--sysconfdir={{LOCALBASE}}/etc
 
 SOVERSION=		${SOVERSION}
 
-post-patch:
-	${REINPLACE_CMD} -e 's|^[[:blank:]]\{5,\}USE_NLS=yes|#&|' \
-		${WRKSRC}/configure
-	${REINPLACE_CMD} -e '/^pkgincludedir/s|-@FMLIBVER@||; \
-		/@LN_S@ @PACKAGE@-@FMLIBVER@/d' \
-		${WRKSRC}/src/Makefile.in
+pre-configure:
+	(cd ${WRKSRC} && ./autogen.sh)
