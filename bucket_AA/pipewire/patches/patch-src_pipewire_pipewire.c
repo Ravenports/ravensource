@@ -4,7 +4,7 @@ conflict, rename the PipeWire init function into "pipewire_init".
 
 Upstream issue: https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/1819
 
---- src/pipewire/pipewire.c.orig	2024-10-23 07:44:10 UTC
+--- src/pipewire/pipewire.c.orig	2025-03-14 10:07:06 UTC
 +++ src/pipewire/pipewire.c
 @@ -7,7 +7,7 @@
  #include <unistd.h>
@@ -24,7 +24,7 @@ Upstream issue: https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/1819
  {
  	const char *str;
  	struct spa_dict_item items[6];
-@@ -596,7 +596,7 @@ done:
+@@ -599,7 +599,7 @@ done:
   * used again after being deinitialized with a new pw_init() call.
   */
  SPA_EXPORT
@@ -33,7 +33,7 @@ Upstream issue: https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/1819
  {
  	struct support *support = &global_support;
  	struct registry *registry = &support->registry;
-@@ -622,6 +622,21 @@ done:
+@@ -625,6 +625,21 @@ done:
  
  }
  
@@ -55,7 +55,7 @@ Upstream issue: https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/1819
  /** Check if a debug category is enabled
   *
   * \param name the name of the category to check
-@@ -659,7 +674,7 @@ static void init_prgname(void)
+@@ -662,7 +677,7 @@ static void init_prgname(void)
  		}
  	}
  #endif
@@ -64,7 +64,7 @@ Upstream issue: https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/1819
  	{
  		ssize_t len;
  
-@@ -669,7 +684,7 @@ static void init_prgname(void)
+@@ -672,7 +687,7 @@ static void init_prgname(void)
  		}
  	}
  #endif

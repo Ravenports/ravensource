@@ -1,4 +1,4 @@
---- src/modules/module-rt.c.orig	2024-10-23 07:44:10 UTC
+--- src/modules/module-rt.c.orig	2025-03-14 10:07:06 UTC
 +++ src/modules/module-rt.c
 @@ -35,6 +35,9 @@
  #if defined(__FreeBSD__) || defined(__MidnightBSD__)
@@ -10,7 +10,7 @@
  #if defined(__GNU__)
  #include <hurd.h>
  #endif
-@@ -239,6 +242,10 @@ static pid_t _gettid(void)
+@@ -252,6 +255,10 @@ static pid_t _gettid(void)
  	return (pid_t) gettid();
  #elif defined(__linux__)
  	return syscall(SYS_gettid);

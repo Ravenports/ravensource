@@ -1,6 +1,6 @@
---- src/modules/module-rtp-source.c.orig	2024-10-23 07:44:10 UTC
+--- src/modules/module-rtp-source.c.orig	2025-03-14 10:07:06 UTC
 +++ src/modules/module-rtp-source.c
-@@ -238,10 +238,16 @@ static int make_socket(const struct sock
+@@ -267,10 +267,16 @@ static int make_socket(const struct sock
  		static const uint32_t ipv4_mcast_mask = 0xe0000000;
  		struct sockaddr_in *sa4 = (struct sockaddr_in*)sa;
  		if ((ntohl(sa4->sin_addr.s_addr) & ipv4_mcast_mask) == ipv4_mcast_mask) {

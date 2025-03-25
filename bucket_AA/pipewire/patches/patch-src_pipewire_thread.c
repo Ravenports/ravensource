@@ -1,4 +1,4 @@
---- src/pipewire/thread.c.orig	2024-10-23 07:44:10 UTC
+--- src/pipewire/thread.c.orig	2025-03-14 10:07:06 UTC
 +++ src/pipewire/thread.c
 @@ -9,6 +9,9 @@
  #ifdef __FreeBSD__
@@ -10,7 +10,7 @@
  
  #include <spa/utils/dict.h>
  #include <spa/utils/defs.h>
-@@ -28,19 +31,32 @@ do {									\
+@@ -29,18 +32,31 @@ do {									\
  	}								\
  } while(false);
  
@@ -20,7 +20,7 @@
  static int parse_affinity(const char *affinity, cpu_set_t *set)
 +#endif
  {
- 	struct spa_json it[2];
+ 	struct spa_json it[1];
  	int v;
  
 +#if defined(__NetBSD__)
@@ -28,11 +28,10 @@
 +#else
  	CPU_ZERO(set);
 +#endif
- 	spa_json_init(&it[0], affinity, strlen(affinity));
- 	if (spa_json_enter_array(&it[0], &it[1]) <= 0)
- 		spa_json_init(&it[1], affinity, strlen(affinity));
+ 	if (spa_json_begin_array_relax(&it[0], affinity, strlen(affinity)) <= 0)
+ 		return 0;
  
- 	while (spa_json_get_int(&it[1], &v) > 0) {
+ 	while (spa_json_get_int(&it[0], &v) > 0) {
 +#if defined(__NetBSD__)
 +		if (v >= 0 && v < (int)cpuset_size(set))
 +			cpuset_set(v, set);

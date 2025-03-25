@@ -1,6 +1,6 @@
---- spa/plugins/support/cpu.c.orig	2024-10-23 07:44:10 UTC
+--- spa/plugins/support/cpu.c.orig	2025-03-14 10:07:06 UTC
 +++ spa/plugins/support/cpu.c
-@@ -10,7 +10,7 @@
+@@ -12,7 +12,7 @@
  #include <sched.h>
  #include <fcntl.h>
  
@@ -9,7 +9,7 @@
  #include <sys/sysctl.h>
  #endif
  
-@@ -86,7 +86,7 @@ impl_cpu_force_flags(void *object, uint3
+@@ -92,7 +92,7 @@ impl_cpu_force_flags(void *object, uint3
  	return 0;
  }
  

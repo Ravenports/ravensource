@@ -1,4 +1,4 @@
---- src/modules/module-rtp-sap.c.orig	2024-10-23 07:44:10 UTC
+--- src/modules/module-rtp-sap.c.orig	2025-03-14 10:07:06 UTC
 +++ src/modules/module-rtp-sap.c
 @@ -32,6 +32,14 @@
  #define SO_PASSCRED LOCAL_CREDS_PERSISTENT
@@ -15,7 +15,7 @@
  /** \page page_module_rtp_sap SAP Announce and create RTP streams
   *
   * The `rtp-sap` module announces RTP streams that match the rules with the
-@@ -382,11 +390,13 @@ static int make_unix_socket(const char *
+@@ -390,11 +398,13 @@ static int make_unix_socket(const char *
  		return -1;
  	}
  
@@ -29,7 +29,7 @@
  
  	spa_zero(addr);
  	addr.sun_family = AF_UNIX;
-@@ -477,10 +487,16 @@ static int make_recv_socket(struct socka
+@@ -487,10 +497,16 @@ static int make_recv_socket(struct socka
  		static const uint32_t ipv4_mcast_mask = 0xe0000000;
  		struct sockaddr_in *sa4 = (struct sockaddr_in*)sa;
  		if ((ntohl(sa4->sin_addr.s_addr) & ipv4_mcast_mask) == ipv4_mcast_mask) {

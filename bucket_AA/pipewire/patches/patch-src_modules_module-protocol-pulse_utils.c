@@ -1,4 +1,4 @@
---- src/modules/module-protocol-pulse/utils.c.orig	2024-10-23 07:44:10 UTC
+--- src/modules/module-protocol-pulse/utils.c.orig	2025-03-14 10:07:06 UTC
 +++ src/modules/module-protocol-pulse/utils.c
 @@ -86,6 +86,7 @@ int check_flatpak(struct client *client,
  	root_fd = openat(AT_FDCWD, root_path, O_RDONLY | O_NONBLOCK | O_DIRECTORY | O_CLOEXEC | O_NOCTTY);

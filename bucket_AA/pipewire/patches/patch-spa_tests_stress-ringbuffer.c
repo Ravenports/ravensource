@@ -1,4 +1,4 @@
---- spa/tests/stress-ringbuffer.c.orig	2024-10-23 07:44:10 UTC
+--- spa/tests/stress-ringbuffer.c.orig	2025-03-14 10:07:06 UTC
 +++ spa/tests/stress-ringbuffer.c
 @@ -19,6 +19,9 @@
  static int sched_getcpu(void) { return -1; };

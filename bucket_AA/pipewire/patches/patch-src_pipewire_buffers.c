@@ -1,4 +1,4 @@
---- src/pipewire/buffers.c.orig	2024-10-23 07:44:10 UTC
+--- src/pipewire/buffers.c.orig	2025-03-14 10:07:06 UTC
 +++ src/pipewire/buffers.c
 @@ -48,7 +48,7 @@ static int alloc_buffers(struct pw_mempo
  	if (!SPA_FLAG_IS_SET(flags, PW_BUFFERS_FLAG_SHARED))
