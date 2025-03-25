@@ -1,11 +1,11 @@
---- meson.build.orig	2023-10-10 07:38:49 UTC
+--- meson.build.orig	2025-03-24 12:25:30 UTC
 +++ meson.build
-@@ -59,7 +59,7 @@ endforeach
+@@ -80,7 +80,7 @@ endforeach
  private_cfg.set('HAVE_SETXATTR', 
          cc.has_function('setxattr', prefix: '#include <sys/xattr.h>'))
  private_cfg.set('HAVE_ICONV', 
 -        cc.has_function('iconv', prefix: '#include <iconv.h>'))
 +        cc.has_function('dontuseiconv', prefix: '#include <iconv.h>'))
+ private_cfg.set('HAVE_BACKTRACE',
+         cc.has_function('backtrace', prefix: '#include <execinfo.h>'))
  
- # Test if structs have specific member
- private_cfg.set('HAVE_STRUCT_STAT_ST_ATIM',
