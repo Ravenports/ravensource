@@ -1,0 +1,39 @@
+DEF[PORTVERSION]=	8.0.2
+DEF[TAG]=		v${PORTVERSION}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		fast_float
+VERSION=		${PORTVERSION}
+KEYWORDS=		math
+VARIANTS=		std
+SDESC[std]=		Fast and exact C++ number parsing library
+HOMEPAGE=		https://github.com/fastfloat/fast_float
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/fastfloat:fast_float:${TAG}
+DISTFILE[1]=		generated:main
+
+SPKGS[std]=		single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:single APACHE20:single CUSTOM1:single
+LICENSE_NAME=		CUSTOM1:"Boost Software License 1.0"
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE-MIT
+			APACHE20:{{WRKSRC}}/LICENSE-APACHE
+			CUSTOM1:{{WRKSRC}}/LICENSE-BOOST
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_SCHEME=		dual
+
+FPC_EQUIVALENT=		math/fast_float
+
+USES=			cmake
+CMAKE_ARGS=		-DFASTFLOAT_INSTALL:BOOL=ON
+			-DFASTFLOAT_TEST:BOOL=OFF
+			-DFASTFLOAT_SANITIZE:BOOL=OFF
+
+post-extract:
+	# extract license terms to separate file
+	${AWK} '/^License/,EOF' ${WRKSRC}/README.md > ${WRKDIR}/TERMS
