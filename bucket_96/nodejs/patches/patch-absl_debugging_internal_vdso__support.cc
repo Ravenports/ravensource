@@ -1,4 +1,4 @@
---- deps/v8/third_party/abseil-cpp/absl/debugging/internal/vdso_support.cc.orig	2025-02-13 11:53:53 UTC
+--- deps/v8/third_party/abseil-cpp/absl/debugging/internal/vdso_support.cc.orig	2025-03-13 10:53:08 UTC
 +++ deps/v8/third_party/abseil-cpp/absl/debugging/internal/vdso_support.cc
 @@ -54,7 +54,7 @@
  using Elf32_auxv_t = Aux32Info;

@@ -1,6 +1,6 @@
---- node.gypi.orig	2025-02-13 11:53:54 UTC
+--- node.gypi.orig	2025-03-13 10:53:09 UTC
 +++ node.gypi
-@@ -295,6 +295,7 @@
+@@ -299,6 +299,7 @@
      [ 'OS=="solaris"', {
        'libraries': [
          '-lkstat',
