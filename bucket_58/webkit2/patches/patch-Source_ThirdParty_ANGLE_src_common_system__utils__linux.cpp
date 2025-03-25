@@ -1,9 +1,9 @@
---- Source/ThirdParty/ANGLE/src/common/system_utils_linux.cpp.orig	2024-08-19 06:28:35 UTC
+--- Source/ThirdParty/ANGLE/src/common/system_utils_linux.cpp.orig	2025-02-25 08:25:37 UTC
 +++ Source/ThirdParty/ANGLE/src/common/system_utils_linux.cpp
-@@ -56,6 +56,10 @@ void SetCurrentThreadName(const char *na
- {
+@@ -59,6 +59,10 @@ void SetCurrentThreadName(const char *na
      // There's a 15-character (16 including '\0') limit.  If the name is too big (and ERANGE is
-     // returned), just ignore the name.
+     // returned), name will be ignored.
+     ASSERT(strlen(name) < 16);
 +#if defined(__NetBSD__)
 +    pthread_setname_np(pthread_self(), "%s", (void *)name);
 +#else

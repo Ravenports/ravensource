@@ -1,4 +1,4 @@
---- Source/WebDriver/PlatformGTK.cmake.orig	2024-08-19 06:28:39 UTC
+--- Source/WebDriver/PlatformGTK.cmake.orig	2025-02-25 08:25:41 UTC
 +++ Source/WebDriver/PlatformGTK.cmake
 @@ -5,6 +5,7 @@ add_definitions(-DLIBEXECDIR="${CMAKE_IN
  list(APPEND WebDriver_SYSTEM_INCLUDE_DIRECTORIES

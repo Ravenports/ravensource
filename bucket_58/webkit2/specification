@@ -1,10 +1,10 @@
-DEF[PORTVERSION]=	2.46.6
-DEF[SOVERSION40]=	37.71.8
-DEF[SOVERSION41]=	0.16.8
-DEF[SOVERSION60]=	4.10.8
-DEF[JSSOVERSION40]=	18.25.15
-DEF[JSSOVERSION41]=	0.6.15
-DEF[JSSOVERSION60]=	1.3.15
+DEF[PORTVERSION]=	2.48.0
+DEF[SOVERSION40]=	37.72.5
+DEF[SOVERSION41]=	0.17.5
+DEF[SOVERSION60]=	4.11.5
+DEF[JSSOVERSION40]=	18.27.3
+DEF[JSSOVERSION41]=	0.8.3
+DEF[JSSOVERSION60]=	1.5.3
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		webkit2
@@ -38,8 +38,8 @@ LICENSE_FILE=		GPLv2+:stock
 LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_AWK=		BSD3CLAUSE:"^$$"
 			TERMS:"^$$"
-LICENSE_SOURCE=		BSD3CLAUSE:{{WRKSRC}}/Source/WebCore/css/parser/MediaQueryBlockWatcher.h
-			TERMS:{{WRKSRC}}/Source/WebCore/style/StyleScope.cpp
+LICENSE_SOURCE=		BSD3CLAUSE:{{WRKDIR}}/webkitgtk-${PORTVERSION}/Source/WebCore/css/parser/MediaQueryBlockWatcher.h
+			TERMS:{{WRKDIR}}/webkitgtk-${PORTVERSION}/Source/WebCore/style/StyleScope.cpp
 LICENSE_SCHEME=		multi
 
 FPC_EQUIVALENT=		www/webkit2-gtk3
@@ -99,7 +99,6 @@ GNOME_COMPONENTS=	gdkpixbuf introspection libxslt
 XORG_COMPONENTS=	x11 xcomposite xdamage xext xrender xt ice xfixes
 CPE_VENDOR=		webkitgtk
 CPE_PRODUCT=		webkitgtk
-DISTNAME=		webkitgtk-${PORTVERSION}
 INSTALL_TARGET=		install
 CMAKE_ARGS=		-DPORT=GTK
 			-DENABLE_GEOLOCATION:BOOL=ON
@@ -109,6 +108,7 @@ CMAKE_ARGS=		-DPORT=GTK
 			-DENABLE_GAMEPAD:BOOL=OFF
 			-DENABLE_INTROSPECTION:BOOL=OFF
 			-DENABLE_JOURNALD_LOG:BOOL=OFF
+			-DENABLE_SPEECH_SYNTHESIS:BOOL=OFF
 			-DSUPPRESS_ASSERT:BOOL=ON
 			-DUSE_JPEGXL:BOOL=ON
 			-DUSE_GSTREAMER_GL:BOOL=ON
@@ -116,6 +116,7 @@ CMAKE_ARGS=		-DPORT=GTK
 			-DUSE_LIBBACKTRACE:BOOL=OFF
 			-DUSE_SYSTEM_SYSPROF_CAPTURE:BOOL=OFF
 			-DUSE_SYSTEM_MALLOC:BOOL=ON
+			-DUSE_SKIA_OPENTYPE_SVG:BOOL=OFF
 # linux only (simple-mutex)
 			-DENABLE_WEBGL:BOOL=OFF
 # only for Linux, freeBSD 13, and NetBSD 10 (requires eventfd)
@@ -126,6 +127,9 @@ CONFIGURE_ENV=		XDG_CACHE_HOME={{WRKDIR}}
 CXXFLAGS=		-DFIXED_EXECUTABLE_MEMORY_POOL_SIZE_IN_MB=32
 PLIST_SUB=		INTRO="@comment "
 INSTALL_REQ_TOOLCHAIN=	yes
+
+# try to make ccache work for all 3 variants
+DISTNAME=		base-webkit2
 
 [API40].DESCRIPTION=			Build WebKit2 API 4.0 variant
 [API40].BUILD_DEPENDS_ON=		libsoup-2.4:dev:std
@@ -168,14 +172,12 @@ INSTALL_REQ_TOOLCHAIN=	yes
 					WKAPI=6.0
 					WKAPIMAJOR=6
 
+post-extract:
+	${MV} ${WRKDIR}/webkitgtk-${PORTVERSION} ${WRKDIR}/base-webkit2
+
 post-patch:
 	echo 'add_compile_definitions("U_DEFINE_FALSE_AND_TRUE=1")' \
 		>> ${WRKSRC}/Source/WTF/wtf/CMakeLists.txt
-
-post-patch-sunos:
-	${REINPLACE_CMD} -e '/USE_FILE_LOCK/ s|1|0|' \
-		${WRKSRC}/Source/WTF/wtf/PlatformUse.h \
-		${WRKSRC}/Source/WebCore/config.h
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so.*.*

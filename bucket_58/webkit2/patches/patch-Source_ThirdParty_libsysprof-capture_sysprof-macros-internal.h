@@ -1,4 +1,4 @@
---- Source/ThirdParty/libsysprof-capture/sysprof-macros-internal.h.orig	2024-08-19 06:28:36 UTC
+--- Source/ThirdParty/libsysprof-capture/sysprof-macros-internal.h.orig	2025-02-25 08:25:38 UTC
 +++ Source/ThirdParty/libsysprof-capture/sysprof-macros-internal.h
 @@ -64,6 +64,13 @@
  #ifdef __APPLE__

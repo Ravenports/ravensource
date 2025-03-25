@@ -1,4 +1,4 @@
---- Source/ThirdParty/ANGLE/src/common/aligned_memory.cpp.orig	2024-08-19 06:28:35 UTC
+--- Source/ThirdParty/ANGLE/src/common/aligned_memory.cpp.orig	2025-02-25 08:25:37 UTC
 +++ Source/ThirdParty/ANGLE/src/common/aligned_memory.cpp
 @@ -35,7 +35,7 @@ void *AlignedAlloc(size_t size, size_t a
  // memalign() on Android returns pointers which can safely be used with

@@ -1,16 +1,13 @@
-$NetBSD: patch-Source_WTF_wtf_FileSystem.cpp,v 1.3 2020/09/11 14:47:35 leot Exp $
-
-Support MAP_FILE if unavailable.
-
---- Source/WTF/wtf/FileSystem.cpp.orig	2024-12-18 08:50:45 UTC
+--- Source/WTF/wtf/FileSystem.cpp.orig	2025-02-25 08:25:40 UTC
 +++ Source/WTF/wtf/FileSystem.cpp
-@@ -361,6 +361,9 @@ bool MappedFileData::mapFileHandle(Platf
+@@ -47,6 +47,10 @@
+ #include <wtf/StdFilesystem.h>
  #endif
-     }
  
 +#ifndef MAP_FILE
 +#define MAP_FILE	0
 +#endif
-     void* data = mmap(0, size, pageProtection, MAP_FILE | (mapMode == MappedFileMode::Shared ? MAP_SHARED : MAP_PRIVATE), fd, 0);
++
+ namespace WTF::FileSystemImpl {
  
-     if (data == MAP_FAILED) {
+ #if HAVE(STD_FILESYSTEM) || HAVE(STD_EXPERIMENTAL_FILESYSTEM)
