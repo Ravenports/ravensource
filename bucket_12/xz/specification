@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	5.6.4
+DEF[PORTVERSION]=	5.8.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		xz
@@ -45,9 +45,10 @@ post-build:
 	# create statically linked version of xz
 	(cd ${WRKSRC}/src/xz && ${CC} -o .libs/xz-static \
 	xz-args.o xz-coder.o xz-file_io.o xz-hardware.o xz-main.o xz-message.o xz-mytime.o \
-	xz-options.o xz-signals.o xz-suffix.o xz-util.o xz-tuklib_open_stdxxx.o \
-	xz-tuklib_progname.o xz-tuklib_exit.o xz-tuklib_mbstr_width.o xz-tuklib_mbstr_fw.o \
-	xz-list.o ../liblzma/.libs/liblzma.a -lpthread)
+	xz-options.o xz-sandbox.o xz-signals.o xz-suffix.o xz-util.o \
+	xz-tuklib_open_stdxxx.o xz-tuklib_progname.o xz-tuklib_exit.o \
+	xz-tuklib_mbstr_fw.o xz-tuklib_mbstr_nonprint.o xz-tuklib_mbstr_width.o \
+	xz-tuklib_mbstr_wrap.o xz-list.o ../liblzma/.libs/liblzma.a -lpthread)
 
 post-install:
 	# install static version of xz
