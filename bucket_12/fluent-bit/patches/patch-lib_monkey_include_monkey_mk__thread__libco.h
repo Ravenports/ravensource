@@ -1,6 +1,6 @@
 NetBSD doesn't define THREAD_STACK_MIN, so pick an arbitrary 16 pages.
 
---- lib/monkey/include/monkey/mk_thread_libco.h.orig	2025-03-18 04:26:19 UTC
+--- lib/monkey/include/monkey/mk_thread_libco.h.orig	2025-03-24 22:35:10 UTC
 +++ lib/monkey/include/monkey/mk_thread_libco.h
 @@ -51,7 +51,12 @@ struct mk_thread {
      void (*cb_destroy) (void *);
