@@ -1,4 +1,5 @@
 DEF[PORTVERSION]=	%%VERSION%%
+# No longer true, only the root Cargo.lock exists
 # two cargo locks, must be manually combined.
 # task-x/src/taskchampion-cpp/corrosion/generator/Cargo.lock
 # task-x/Cargo.lock
@@ -33,6 +34,8 @@ FPC_EQUIVALENT=		deskutils/taskwarrior
 
 BUILD_DEPENDS=		libuuid:dev:std
 			rust:single:std
+			clang:dynlibs:std
+			clang:compiler:std
 BUILDRUN_DEPENDS=	libuuid:primary:std
 
 USES=			cargo cmake shebangfix execinfo cclibs:primary c++:primary
@@ -41,6 +44,7 @@ CMAKE_ARGS=		-DTASK_DOCDIR:STRING=share/doc/taskwarrior
 SHEBANG_FILES=		scripts/*/*.pl
 			doc/rc/refresh
 MAKE_ENV=		CARGO_HOME={{WRKDIR}}/.cargo
+			LIBCLANG_PATH={{LOCALBASE}}/lib
 
 CARGO_SKIP_BUILD=	yes
 CARGO_SKIP_INSTALL=	yes
