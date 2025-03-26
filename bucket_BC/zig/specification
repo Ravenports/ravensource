@@ -1,11 +1,11 @@
-DEF[PORTVERSION]=	0.13.0
+DEF[PORTVERSION]=	0.14.0
 DEF[GCC_VERSION]=	EXTRACT_INFO(GCCBASE_VERSION)
 DEF[GCC_LIB]=		toolchain/ravensys-gcc/{{ASLIB}}
 DEF[GCC_TARGET_LIB]=	toolchain/ravensys-gcc/lib/gcc/{{CONFIGURE_TARGET}}/${GCC_VERSION}
 DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
-DEF[LLVMBASE]=		llvm18
-DEF[CLANGBASE]=		clang18
-DEF[LLDBASE]=		lld18
+DEF[LLVMBASE]=		llvm
+DEF[CLANGBASE]=		clang
+DEF[LLDBASE]=		lld
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		zig
@@ -50,7 +50,7 @@ VAR_OPSYS[midnightbsd]=	MAKEFILE_LINE=CONFIGURE_TARGET=${MBSD64_TARGET}
 pre-configure:
 	${REINPLACE_CMD} \
 		-e 's|@GCC_TARGET_LIBDIR@|${LOCALBASE}/${GCC_TARGET_LIB}|' \
-		${WRKSRC}/src/link/Elf.zig
+		${WRKSRC}/lib/std/zig/LibCInstallation.zig
 	${REINPLACE_CMD} \
 		-e 's|@GCC_TARGET_LIBDIR@|${LOCALBASE}/${GCC_TARGET_LIB}|' \
 		-e 's|@GCC_LIBDIR@|${LOCALBASE}/${GCC_LIB}|' \
