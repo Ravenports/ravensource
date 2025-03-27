@@ -1,9 +1,8 @@
-DEF[PORTVERSION]=	5.45.4
+DEF[PORTVERSION]=	5.45.4.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		expect
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		lang
 VARIANTS=		std
 SDESC[std]=		Tool for automating interactive applications
@@ -11,8 +10,9 @@ HOMEPAGE=		https://core.tcl.tk/expect/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		SF/expect/Expect/${PORTVERSION}
-DISTFILE[1]=		expect${PORTVERSION}.tar.gz:main
+# SITES[main]=		SF/expect/Expect/${PORTVERSION} (use semi-official fork)
+SITES[main]=		https://www.tcl3d.org/bawt/download/InputLibs/
+DISTFILE[1]=		expect-${PORTVERSION}.7z:main
 
 SPKGS[std]=		set primary tools dev man
 
@@ -25,17 +25,18 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		lang/expect
 
+EXRUN[tools]=		primary
+
 USES=			autoreconf cpe tcl:tea
 CPE_VENDOR=		don_libes
 CONFIGURE_ARGS=		--datadir={{PREFIX}}/share/expect
-DISTNAME=		expect${PORTVERSION}
+CFLAGS=			-Wno-incompatible-pointer-types
+			-Wno-int-conversion
 PLIST_SUB=		PORTVERSION=${PORTVERSION}
 
-VAR_OPSYS[darwin]=	VAR1=1.dylib
-
 post-install:
-	${LN} -sf expect${PORTVERSION}/libexpect${PORTVERSION}.${LIBEXT} \
-		${STAGEDIR}${PREFIX}/lib/libexpect.${VAR1:Uso.1}
-	${LN} -sf libexpect.${VAR1:Uso.1} ${STAGEDIR}${PREFIX}/lib/libexpect.${LIBEXT}
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libexpect.${LIBEXT}
+	${LN} -sf expect${PORTVERSION}/libexpect${PORTVERSION}.so \
+		${STAGEDIR}${PREFIX}/lib/libexpect.so.1
+	${LN} -sf libexpect.so.1 ${STAGEDIR}${PREFIX}/lib/libexpect.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libexpect.so
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/expect

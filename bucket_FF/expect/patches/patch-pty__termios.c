@@ -1,4 +1,4 @@
---- pty_termios.c.orig	2018-02-02 19:15:52 UTC
+--- pty_termios.c.orig	2024-10-11 12:41:34 UTC
 +++ pty_termios.c
 @@ -77,6 +77,14 @@ with openpty which supports 4000 while p
  #include <sys/sysmacros.h>
