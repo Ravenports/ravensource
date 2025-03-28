@@ -7,11 +7,12 @@
 [versions]
 [license]
 [Pydantic v2]
+[![llms.txt]](https://docs.pydantic.dev/latest/llms.txt)
 
 Data validation using Python type hints.
 
 Fast and extensible, Pydantic plays nicely with your linters/IDE/brain.
-Define how data should be in pure, canonical Python 3.8+; validate it with
+Define how data should be in pure, canonical Python 3.9+; validate it with
 Pydantic.
 
 ## Pydantic Logfire :fire:
@@ -47,14 +48,14 @@ see the [Install] section in the documentation.
 
 ```python
 from datetime import datetime
-from typing import List, Optional
+from typing import Optional
 from pydantic import BaseModel
 
 class User(BaseModel):
     id: int
     name: str = 'John Doe'
     signup_ts: Optional[datetime] = None
-    friends: List[int] = []
+    friends: list[int] = []
 
 external_data = {'id': '123', 'signup_ts': '2017-06-01 12:22', 'friends':
 [1, '2', b'3']}
@@ -78,7 +79,7 @@ See our [security policy].
 
 ## Changelog
 
-## v2.10.6 (2025-01-23)
+## v2.11.1 (2025-03-28)
 
 [GitHub release]
 
@@ -86,15 +87,14 @@ See our [security policy].
 
 #### Fixes
 
-* Fix JSON Schema reference collection with `'examples'` keys by [@Viicos]
-in [#11325]
-* Fix url python serialization by [@sydney-runkle] in [#11331]
+* Do not override `'definitions-ref'` schemas containing serialization
+schemas or metadata by [@Viicos] in [#11644]
 
-## v2.10.5 (2025-01-08)
+## v2.11.0 (2025-03-27)
 
 [GitHub release]
 
 ### What's Changed
 
-#### Fixes
-
+Pydantic v2.11 is a version strongly focused on build time performance of
+Pydantic models (and core schema generation in general).

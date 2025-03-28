@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.10.6
+DEF[PORTVERSION]=	2.11.1
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-pydantic
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/pydantic/pydantic
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/f4/3c/8cc1cc84deffa6e25d2d0c688ebb80635dfdbf1dbea3e30c541c8cf4d860
+SITES[main]=		PYPIWHL/cc/12/f9221a949f2419e2e23847303c002476c26fbcfd62dc7f3d25d0bec5ca99
 DISTFILE[1]=		pydantic-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -31,8 +31,9 @@ DISTNAME=		pydantic-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
 # annotated-types>=0.6.0
-# pydantic-core==2.27.2
+# pydantic-core==2.33.0
 # typing-extensions>=4.12.2
+# typing-inspection>=0.4.0
 # email-validator>=2.0.0; extra == 'email'
 # tzdata; (python_version >= '3.9' and platform_system == 'Windows') and extra == 'timezone'
 
@@ -40,10 +41,12 @@ DISTNAME=		pydantic-${PORTVERSION}.dist-info
 [PY312].RUN_DEPENDS_ON=			python-annotated-types:single:v12
 					python-pydantic-core:single:v12
 					python-typing-extensions:single:v12
+					python-typing-inspection:single:v12
 [PY313].USES_ON=			python:v13,wheel
 [PY313].RUN_DEPENDS_ON=			python-annotated-types:single:v13
 					python-pydantic-core:single:v13
 					python-typing-extensions:single:v13
+					python-typing-inspection:single:v13
 
 USES=			cpe
 CPE_VENDOR=		pydantic_project
