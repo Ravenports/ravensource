@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	6.9.4
+DEF[PORTVERSION]=	7.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		mercurial
@@ -27,7 +27,9 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/mercurial
 
-USES=			cpe python:sutools gettext rootca:primary
+BUILD_DEPENDS=		python-setuptools-scm:single:python_used
+
+USES=			cpe python:pep517 gettext rootca:primary
 INSTALL_REQ_TOOLCHAIN=	yes
 
 post-install:
