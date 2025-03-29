@@ -1,5 +1,5 @@
---- src/nvim/os/pty_process_unix.c.orig	2025-01-29 10:10:58 UTC
-+++ src/nvim/os/pty_process_unix.c
+--- src/nvim/os/pty_proc_unix.c.orig	2025-03-26 13:48:09 UTC
++++ src/nvim/os/pty_proc_unix.c
 @@ -21,6 +21,71 @@
  # include <sys/stream.h>
  # include <sys/syscall.h>

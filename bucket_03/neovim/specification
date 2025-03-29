@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.10.4
+DEF[PORTVERSION]=	0.11.0
 DEF[SPEC_LUA]=		5.1
 DEF[LUA_VARIANT]=	lua${SPEC_LUA:S/.//}
 # ----------------------------------------------------------------------------
@@ -15,7 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/neovim:neovim:v${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[std]=		set primary nls man
+SPKGS[std]=		set primary man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -41,14 +41,11 @@ BUILD_DEPENDS=		gperf:primary:std
 			lua51:dev:std
 			lua51:primary:std
 			lua51:tools:std
+			utf8proc:dev:std
 BUILDRUN_DEPENDS=	libluv:primary:std
 			lua-lpeg:single:${LUA_VARIANT}
 			lua-bitop:single:${LUA_VARIANT}
-# #			libtermkey:primary:std
-# #			libuv:primary:std
-# #			libvterm:primary:std
-# #			luajit-openresty:primary:std
-# #			msgpack:primary:std
+			utf8proc:primary:std
 
 USES=			cmake libtool pkgconfig cclibs:primary
 			gettext desktop-utils:primary

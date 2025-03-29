@@ -1,5 +1,5 @@
---- src/nvim/os/process.c.orig	2025-01-29 10:10:58 UTC
-+++ src/nvim/os/process.c
+--- src/nvim/os/proc.c.orig	2025-03-26 13:48:09 UTC
++++ src/nvim/os/proc.c
 @@ -15,13 +15,13 @@
  # include <tlhelp32.h>
  #endif
