@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.2.9
+DEF[PORTVERSION]=	0.2.11
 DEF[FOLDER]=		${PORTVERSION:R}
 # ----------------------------------------------------------------------------
 
@@ -14,24 +14,28 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNOME/libmanette/${FOLDER}
 DISTFILE[1]=		libmanette-${PORTVERSION}.tar.xz:main
 
-SPKGS[std]=		single
+SPKGS[std]=		set primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		LGPL21+:single
+LICENSE=		LGPL21+:primary
 LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/libmanette.h
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		games/libmanette
 
+ONLY_FOR_OPSYS=		linux
+
 BUILD_DEPENDS=		vala:primary:std
 			evdev-proto:single:std
 			libevdev:dev:std
+			hidapi:dev:std
 BUILDRUN_DEPENDS=	libevdev:primary:std
+			hidapi:primary:std
 
 USES=			gmake meson pkgconfig
 GNOME_COMPONENTS=	introspection glib
