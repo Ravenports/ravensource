@@ -72,14 +72,18 @@ EXCLUDE_FILES=	\*/doc/man \
 	texmf-dist/scripts/accfonts/vpl2vpl \
 	texmf-dist/scripts/adhocfilelist/adhocfilelist.sh \
 	texmf-dist/scripts/albatross/albatross.sh \
+	texmf-dist/scripts/aomart/aom-fullref.pl \
 	texmf-dist/scripts/arara/arara.sh \
 	texmf-dist/scripts/attachfile2/pdfatfi.pl \
 	texmf-dist/scripts/authorindex/authorindex \
 	texmf-dist/scripts/bib2gls/bib2gls.sh \
 	texmf-dist/scripts/bib2gls/convertgls2bib.sh \
+	texmf-dist/scripts/bib2gls/datatool2bib.sh \
 	texmf-dist/scripts/bibcop/bibcop.pl \
 	texmf-dist/scripts/bibexport/bibexport.sh \
 	texmf-dist/scripts/bibtexperllibs/ltx2unitxt \
+	texmf-dist/scripts/bookshelf/bookshelf-listallfonts \
+	texmf-dist/scripts/bookshelf/bookshelf-mkfontsel \
 	texmf-dist/scripts/bundledoc/arlatex \
 	texmf-dist/scripts/bundledoc/bundledoc \
 	texmf-dist/scripts/cachepic/cachepic.tlu \
@@ -126,6 +130,8 @@ EXCLUDE_FILES=	\*/doc/man \
 	texmf-dist/scripts/epspdf/epspdftk.tcl \
 	texmf-dist/scripts/epstopdf/epstopdf.pl \
 	texmf-dist/scripts/exceltex/exceltex \
+	texmf-dist/scripts/expltools/explcheck.lua \
+	texmf-dist/scripts/extractbb/extractbb.lua \
 	texmf-dist/scripts/fig4latex/fig4latex \
 	texmf-dist/scripts/findhyph/findhyph \
 	texmf-dist/scripts/fontools/afm2afm \
@@ -144,6 +150,7 @@ EXCLUDE_FILES=	\*/doc/man \
 	texmf-dist/scripts/kotex-utils/komkindex.pl \
 	texmf-dist/scripts/kotex-utils/ttf2kotexfont.pl \
 	texmf-dist/scripts/l3build/l3build.lua \
+	texmf-dist/scripts/l3sys-query/l3sys-query.lua \
 	texmf-dist/scripts/latex-git-log/latex-git-log \
 	texmf-dist/scripts/latex-papersize/latex-papersize.py \
 	texmf-dist/scripts/latex2man/latex2man \
@@ -169,6 +176,7 @@ EXCLUDE_FILES=	\*/doc/man \
 	texmf-dist/scripts/m-tx/m-tx.lua \
 	texmf-dist/scripts/make4ht/make4ht \
 	texmf-dist/scripts/makedtx/makedtx.pl \
+	texmf-dist/scripts/markdown/markdown2tex.lua \
 	texmf-dist/scripts/match_parens/match_parens \
 	texmf-dist/scripts/mathspic/mathspic.pl \
 	texmf-dist/scripts/memoize/memoize-clean.pl \
@@ -176,6 +184,7 @@ EXCLUDE_FILES=	\*/doc/man \
 	texmf-dist/scripts/memoize/memoize-extract.pl \
 	texmf-dist/scripts/memoize/memoize-extract.py \
 	texmf-dist/scripts/mf2pt1/mf2pt1.pl \
+	texmf-dist/scripts/minted/latexminted.py \
 	texmf-dist/scripts/mkgrkindex/mkgrkindex \
 	texmf-dist/scripts/mkjobtexmf/mkjobtexmf.pl \
 	texmf-dist/scripts/mkpic/mkpic \
@@ -200,6 +209,7 @@ EXCLUDE_FILES=	\*/doc/man \
 	texmf-dist/scripts/pkfix/pkfix.pl \
 	texmf-dist/scripts/pkfix-helper/pkfix-helper \
 	texmf-dist/scripts/pmxchords/pmxchords.lua \
+	texmf-dist/scripts/ppmcheckpdf/ppmcheckpdf.lua \
 	texmf-dist/scripts/ps2eps/ps2eps.pl \
 	texmf-dist/scripts/ps2epss/pst-pdf/ps4pdf \
 	texmf-dist/scripts/pst-pdf/ps4pdf \
@@ -221,6 +231,7 @@ EXCLUDE_FILES=	\*/doc/man \
 	texmf-dist/scripts/simpdftex/simpdftex \
 	texmf-dist/scripts/spix/spix.py \
 	texmf-dist/scripts/splitindex/splitindex.pl \
+	texmf-dist/scripts/sqltex/sqltex \
 	texmf-dist/scripts/srcredact/srcredact.pl \
 	texmf-dist/scripts/sty2dtx/sty2dtx.pl \
 	texmf-dist/scripts/svn-multi/svn-multi.pl \
@@ -289,6 +300,7 @@ EXCLUDE_FILES=	\*/doc/man \
 	texmf-dist/scripts/tlcockpit/tlcockpit.sh \
 	texmf-dist/scripts/tlshell/tlshell.tcl \
 	texmf-dist/scripts/typeoutfileinfo/typeoutfileinfo.sh \
+	texmf-dist/scripts/typog/typog-grep.pl \
 	texmf-dist/scripts/ulqda/ulqda.pl \
 	texmf-dist/scripts/urlbst/urlbst \
 	texmf-dist/scripts/vpe/vpe.pl \
