@@ -1,5 +1,6 @@
-DEF[PORTVERSION]=	1.1.4
+DEF[PORTVERSION]=	1.1.5
 DEF[DL_FOLDER]=		${PORTVERSION:R}
+DEF[CAT1]=		http://docbook.sourceforge.net/release/xsl/current/
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		xfce4-terminal
@@ -12,7 +13,7 @@ CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		https://archive.xfce.org/src/apps/xfce4-terminal/${DL_FOLDER}/
-DISTFILE[1]=		xfce4-terminal-${PORTVERSION}.tar.bz2:main
+DISTFILE[1]=		xfce4-terminal-${PORTVERSION}.tar.xz:main
 
 SPKGS[std]=		set primary nls man themes
 
@@ -30,11 +31,13 @@ LICENSE_SCHEME=		solo
 
 BUILD_DEPENDS=		harfbuzz:dev:std
 			libxfce4ui:dev:std
+			docbook-xsl:primary:std
 BUILDRUN_DEPENDS=	libxfce4ui:primary:std
 
-USES=			gmake pkgconfig
+USES=			meson pkgconfig
 XORG_COMPONENTS=	x11
 GNOME_COMPONENTS=	cairo gtk3 intltool vte
 
-MUST_CONFIGURE=		gnu
-INSTALL_TARGET=		install-strip
+pre-configure:
+	${REINPLACE_CMD} -e "s|${CAT1}|file://${LOCALBASE}/share/xsl/docbook/|" \
+		${WRKSRC}/doc/meson.build
