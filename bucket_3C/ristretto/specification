@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.13.3
+DEF[PORTVERSION]=	0.13.4
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ristretto
@@ -11,7 +11,7 @@ CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		https://archive.xfce.org/src/apps/ristretto/${PORTVERSION:R}/
-DISTFILE[1]=		ristretto-${PORTVERSION}.tar.bz2:main
+DISTFILE[1]=		ristretto-${PORTVERSION}.tar.xz:main
 
 SPKGS[std]=		set primary nls
 
@@ -32,15 +32,13 @@ BUILD_DEPENDS=		harfbuzz:dev:std
 			appstream-glib:dev:std
 			libexif:dev:std
 			file:dev:std
+			libexo:dev:std
 BUILDRUN_DEPENDS=	file:primary:std
 			libexif:primary:std
 			libxfce4ui:primary:std
+			libexo:primary:std
 RUN_DEPENDS=		tumbler:primary:std
 
-USES=			gmake pkgconfig
+USES=			meson pkgconfig
 GNOME_COMPONENTS=	gtk3 intltool
 
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--disable-debug
-
-VAR_OPSYS[sunos]=	LDFLAGS=-lintl
