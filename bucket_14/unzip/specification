@@ -5,7 +5,7 @@ DEF[ICONV_LINK]=	-L{{ICONV_LIBRARY_PATH}} {{ICONV_LIB}} -Wl,-rpath,{{ICONV_LIBRA
 
 NAMEBASE=		unzip
 VERSION=		${PORTVERSION}
-REVISION=		3
+REVISION=		4
 KEYWORDS=		archivers
 VARIANTS=		std chinese korean russian
 SDESC[std]=		Extraction utility for .zip format archives
@@ -57,6 +57,10 @@ VAR_OPSYS[openbsd]=	CPPFLAGS=-DBSD
 VAR_OPSYS[linux]=	CPPFLAGS=-DNO_LCHMOD
 VAR_OPSYS[sunos]=	CPPFLAGS=-DNO_LCHMOD
 VAR_OPSYS[darwin]=	CPPFLAGS=-DBSD
+
+# CVE-2008-0888 was fixed with release of version 6.0, but CVE apparently
+# was never updated to reflect that.
+CVE_FIXED=		CVE-2008-0888
 
 [ICONV].USES_ON=			iconv
 [ICONV].CFLAGS_ON=			-DNATIVE -I{{ICONV_INCLUDE_PATH}}
