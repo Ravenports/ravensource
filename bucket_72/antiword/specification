@@ -3,7 +3,7 @@ DEF[PORTVERSION]=	0.37
 
 NAMEBASE=		antiword
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		converters
 VARIANTS=		std
 SDESC[std]=		MS Word reader/converter (to text or postscript)
@@ -33,6 +33,7 @@ BUILDRUN_DEPENDS=	gsfonts:single:std
 USES=			cpe
 CPE_VENDOR=		antiword_project
 INSTALL_TARGET=		"global_install"
+CVE_FIXED=		CVE-2014-8123
 
 post-patch:
 	${REINPLACE_CMD} -e 's|__PREFIX__|${PREFIX}|g' \

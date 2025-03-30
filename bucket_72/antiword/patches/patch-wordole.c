@@ -1,3 +1,6 @@
+CVE-2014-8123 patch
+bGetPPS(): Prevent overflow of atPPSlist[].szName[]
+
 --- wordole.c.orig	2005-08-26 21:49:57.000000000 +0200
 +++ wordole.c	2020-06-07 12:25:28.344416000 +0200
 @@ -259,6 +259,11 @@
