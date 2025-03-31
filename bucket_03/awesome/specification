@@ -1,4 +1,5 @@
 DEF[PORTVERSION]=	4.3
+# Remove cmake minimum argument on next release
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		awesome
@@ -47,6 +48,7 @@ XORG_COMPONENTS=	xcb-util-cursor xcb-util-keysyms xcb-util-wm
 			xcb-util-xrm xcb-util
 GNOME_COMPONENTS=	cairo gdkpixbuf pango introspection
 CMAKE_ARGS=		-DSYSCONFDIR={{PREFIX}}/etc
+			-DCMAKE_POLICY_VERSION_MINIMUM=3.5
 
 # will not build on gcc11 without this (test removal on next version)
 CFLAGS=			-fcommon
