@@ -1,5 +1,6 @@
 DEF[PORTVERSION]=	1.4.1
 DEF[SOVERSION]=		${PORTVERSION}
+# Remove cmake minimum argument on next release
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		slim
@@ -40,6 +41,7 @@ XORG_COMPONENTS=	x11 xft xmu xrandr
 CMAKE_ARGS=		-DBUILD_SLIMLOCK=no
 			-DBUILD_SHARED_LIBS=yes
 			-DUSE_CONSOLEKIT=yes
+			-DCMAKE_POLICY_VERSION_MINIMUM=3.5
 SOVERSION=		${SOVERSION}
 
 post-patch:
