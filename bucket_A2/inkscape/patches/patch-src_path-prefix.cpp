@@ -1,4 +1,4 @@
---- src/path-prefix.cpp.orig	2024-04-22 21:00:39 UTC
+--- src/path-prefix.cpp.orig	2025-03-23 14:08:11 UTC
 +++ src/path-prefix.cpp
 @@ -25,7 +25,7 @@
  #include <sys/sysctl.h>
