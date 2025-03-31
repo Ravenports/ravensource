@@ -3,6 +3,7 @@ DEF[TAG_BLOOM]=		437e1ad
 DEF[TAG_CORK]=		074e074
 DEF[TAG_IPSET]=		3ea7fe3
 DEF[TAG]=		9afa3ca
+# Remove cmake minimum argument on next release
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		shadowsocks-libev
@@ -53,6 +54,7 @@ RC_SUBR=		shadowsocks_libev:primary
 USES=			cpe cmake pcre
 CPE_VENDOR=		shadowsocks
 LDFLAGS=		-lpthread
+CMAKE_ARGS=		-DCMAKE_POLICY_VERSION_MINIMUM=3.5
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/ss-*
