@@ -6,6 +6,7 @@ DEF[LOGDIR]=		/var/log/mysql
 DEF[SOCK]=		mysql.sock
 DEF[DBUSER]=		mysql
 DEF[DBGROUP]=		mysql
+# Remove cmake minimum argument on next release
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		${PORTNAME}
@@ -101,6 +102,7 @@ CMAKE_ARGS=		-DCOMPILATION_COMMENT="Ravenports"
 			-DWITH_SSL="{{OPENSSLBASE}}"
 			-DWITH_ZLIB=system
 			-DWITH_PCRE=system
+			-DCMAKE_POLICY_VERSION_MINIMUM=3.5
 			-Wno-dev
 DISTNAME=		mariadb-${PORTVERSION}
 SHEBANG_FILES=		scripts/*.sh
