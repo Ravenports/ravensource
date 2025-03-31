@@ -1,10 +1,11 @@
-DEF[PORTVERSION]=	3.2.6
-DEF[SOVERSION]=		0.3.0
+DEF[BASEVERSION]=	3.2.7
+DEF[PORTVERSION]=	${BASEVERSION}.1
+DEF[SOVERSION]=		0.4.0
+DEF[TAG]=		v${BASEVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		wxWidgets
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		x11_toolkits
 VARIANTS=		std
 SDESC[std]=		GUI toolkit with GTK+ bindings
@@ -12,8 +13,8 @@ HOMEPAGE=		https://www.wxwidgets.org/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		https://github.com/wxWidgets/wxWidgets/releases/download/v${PORTVERSION}/
-DISTFILE[1]=		wxWidgets-${PORTVERSION}.tar.bz2:main
+SITES[main]=		https://github.com/wxWidgets/wxWidgets/releases/download/${TAG}/
+DISTFILE[1]=		wxWidgets-${BASEVERSION}.tar.bz2:main
 
 SPKGS[std]=		set primary nls dev
 
@@ -51,6 +52,7 @@ CONFIGURE_ARGS=		--with-libpng=sys
 			--enable-compat30
 			--with-gtk=3
 SOVERSION=		${SOVERSION}
+DISTNAME=		wxWidgets-${BASEVERSION}
 
 VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=--enable-precomp-headers=no
 
