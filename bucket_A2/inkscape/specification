@@ -1,5 +1,6 @@
 DEF[PORTVERSION]=	1.4
 DEF[GEOMVER]=		1.4.0
+# Remove cmake minimum argument on next release
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		inkscape
@@ -86,6 +87,7 @@ CMAKE_ARGS=		-DWITH_IMAGE_MAGICK:BOOL=OFF
 			-DWITH_LIBWPG:BOOL=ON
 			-DWITH_NLS:BOOL=ON
 			-DBUILD_SHARED_LIBS:BOOL=OFF
+			-DCMAKE_POLICY_VERSION_MINIMUM=3.5
 			-Wno-dev
 INSTALL_REQ_TOOLCHAIN=	yes
 PLIST_SUB=		GEOMVER=${GEOMVER}
