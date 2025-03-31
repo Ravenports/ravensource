@@ -8,7 +8,7 @@ Help -> About LibreOffice
 
 Tweaked by Yasushi Oshima, PR pkg/56048.
 
---- vcl/unx/generic/app/geninst.cxx.orig	2025-01-23 21:25:49 UTC
+--- vcl/unx/generic/app/geninst.cxx.orig	2025-03-21 15:34:31 UTC
 +++ vcl/unx/generic/app/geninst.cxx
 @@ -22,7 +22,7 @@
  #if defined(LINUX)

@@ -1,4 +1,4 @@
---- unoxml/source/dom/entity.hxx.orig	2025-01-23 21:25:49 UTC
+--- unoxml/source/dom/entity.hxx.orig	2025-03-21 15:34:31 UTC
 +++ unoxml/source/dom/entity.hxx
 @@ -19,6 +19,7 @@
  

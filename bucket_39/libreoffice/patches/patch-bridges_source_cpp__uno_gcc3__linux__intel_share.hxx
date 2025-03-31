@@ -2,7 +2,7 @@ $NetBSD: patch-bridges_source_cpp__uno_gcc3__linux__intel_share.hxx,v 1.2 2019/0
 
 * NetBSD has no _Unwind_Exception, fix runtime crash
 
---- bridges/source/cpp_uno/gcc3_linux_intel/share.hxx.orig	2025-01-23 21:25:49 UTC
+--- bridges/source/cpp_uno/gcc3_linux_intel/share.hxx.orig	2025-03-21 15:34:31 UTC
 +++ bridges/source/cpp_uno/gcc3_linux_intel/share.hxx
 @@ -62,6 +62,15 @@ public:
  
