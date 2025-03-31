@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	5.4.0
+DEF[PORTVERSION]=	5.5.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-celery
@@ -11,7 +11,7 @@ HOMEPAGE=		https://docs.celeryq.dev/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/90/c4/6a4d3772e5407622feb93dd25c86ce3c0fee746fa822a777a627d56b4f2a
+SITES[main]=		PYPIWHL/1a/98/d4eefe492ef810f304203cfff0f60554fab95514ec51b701a4529b66fa92
 DISTFILE[1]=		celery-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -30,55 +30,56 @@ GENERATED=		yes
 DISTNAME=		celery-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# billiard <5.0,>=4.2.0
-# kombu <6.0,>=5.3.4
-# vine <6.0,>=5.1.0
-# click <9.0,>=8.1.2
-# click-didyoumean >=0.3.0
-# click-repl >=0.2.0
-# click-plugins >=1.1.1
-# tzdata >=2022.7
-# python-dateutil >=2.8.2
-# importlib-metadata >=3.6 ; python_version < "3.8"
-# backports.zoneinfo >=0.2.1 ; python_version < "3.9"
-# pyArango >=2.0.2 ; extra == 'arangodb'
-# cryptography ==42.0.5 ; extra == 'auth'
-# azure-storage-blob >=12.15.0 ; extra == 'azureblockblob'
-# brotli >=1.0.0 ; (platform_python_implementation == "CPython") and extra == 'brotli'
-# brotlipy >=0.7.0 ; (platform_python_implementation == "PyPy") and extra == 'brotli'
-# cassandra-driver <4,>=3.25.0 ; extra == 'cassandra'
-# python-consul2 ==0.1.5 ; extra == 'consul'
-# pydocumentdb ==2.3.5 ; extra == 'cosmosdbsql'
-# couchbase >=3.0.0 ; (platform_python_implementation != "PyPy" and (platform_system != "Windows" or python_version < "3.10")) and extra == 'couchbase'
-# pycouchdb ==1.14.2 ; extra == 'couchdb'
-# Django >=2.2.28 ; extra == 'django'
-# boto3 >=1.26.143 ; extra == 'dynamodb'
-# elasticsearch <=8.13.0 ; extra == 'elasticsearch'
-# elastic-transport <=8.13.0 ; extra == 'elasticsearch'
-# eventlet >=0.32.0 ; (python_version < "3.10") and extra == 'eventlet'
-# google-cloud-storage >=2.10.0 ; extra == 'gcs'
-# gevent >=1.5.0 ; extra == 'gevent'
-# librabbitmq >=2.0.0 ; (python_version < "3.11") and extra == 'librabbitmq'
-# pylibmc ==1.6.3 ; (platform_system != "Windows") and extra == 'memcache'
-# pymongo[srv] >=4.0.2 ; extra == 'mongodb'
-# msgpack ==1.0.8 ; extra == 'msgpack'
-# python-memcached >=1.61 ; extra == 'pymemcache'
-# pyro4 ==4.82 ; (python_version < "3.11") and extra == 'pyro'
-# pytest-celery[all] >=1.0.0 ; extra == 'pytest'
-# redis !=4.5.5,<6.0.0,>=4.5.2 ; extra == 'redis'
-# boto3 >=1.26.143 ; extra == 's3'
-# softlayer-messaging >=1.0.3 ; extra == 'slmq'
-# ephem ==4.1.5 ; (platform_python_implementation != "PyPy") and extra == 'solar'
-# sqlalchemy <2.1,>=1.4.48 ; extra == 'sqlalchemy'
-# boto3 >=1.26.143 ; extra == 'sqs'
-# urllib3 >=1.26.16 ; extra == 'sqs'
-# kombu[sqs] >=5.3.4 ; extra == 'sqs'
-# pycurl >=7.43.0.5 ; (sys_platform != "win32" and platform_python_implementation == "CPython") and extra == 'sqs'
-# tblib >=1.3.0 ; (python_version < "3.8.0") and extra == 'tblib'
-# tblib >=1.5.0 ; (python_version >= "3.8.0") and extra == 'tblib'
-# PyYAML >=3.10 ; extra == 'yaml'
-# kazoo >=1.3.1 ; extra == 'zookeeper'
-# zstandard ==0.22.0 ; extra == 'zstd'
+# billiard<5.0,>=4.2.1
+# kombu<5.6,>=5.5.2
+# vine<6.0,>=5.1.0
+# click<9.0,>=8.1.2
+# click-didyoumean>=0.3.0
+# click-repl>=0.2.0
+# click-plugins>=1.1.1
+# backports.zoneinfo[tzdata]>=0.2.1; python_version < "3.9"
+# python-dateutil>=2.8.2
+# redis!=4.5.5,<6.0.0,>=4.5.2; extra == "redis"
+# librabbitmq>=2.0.0; python_version < "3.11" and extra == "librabbitmq"
+# pyro4==4.82; python_version < "3.11" and extra == "pyro"
+# eventlet>=0.32.0; python_version < "3.10" and extra == "eventlet"
+# pycouchdb==1.16.0; extra == "couchdb"
+# pymongo==4.10.1; extra == "mongodb"
+# cryptography==44.0.2; extra == "auth"
+# sqlalchemy<2.1,>=1.4.48; extra == "sqlalchemy"
+# softlayer_messaging>=1.0.3; extra == "slmq"
+# google-cloud-storage>=2.10.0; extra == "gcs"
+# google-cloud-firestore==2.20.1; extra == "gcs"
+# grpcio==1.67.0; extra == "gcs"
+# tblib>=1.5.0; python_version >= "3.8.0" and extra == "tblib"
+# tblib>=1.3.0; python_version < "3.8.0" and extra == "tblib"
+# boto3>=1.26.143; extra == "sqs"
+# urllib3>=1.26.16; extra == "sqs"
+# kombu[sqs]>=5.3.4; extra == "sqs"
+# pytest-celery[all]<1.3.0,>=1.2.0; extra == "pytest"
+# boto3>=1.26.143; extra == "s3"
+# python-memcached>=1.61; extra == "pymemcache"
+# gevent>=1.5.0; extra == "gevent"
+# pydantic>=2.4; extra == "pydantic"
+# Django>=2.2.28; extra == "django"
+# cassandra-driver<4,>=3.25.0; extra == "cassandra"
+# elasticsearch<=8.17.2; extra == "elasticsearch"
+# elastic-transport<=8.17.1; extra == "elasticsearch"
+# brotlipy>=0.7.0; platform_python_implementation == "PyPy" and extra == "brotli"
+# brotli>=1.0.0; platform_python_implementation == "CPython" and extra == "brotli"
+# ephem==4.2; platform_python_implementation != "PyPy" and extra == "solar"
+# azure-storage-blob>=12.15.0; extra == "azureblockblob"
+# azure-identity>=1.19.0; extra == "azureblockblob"
+# pydocumentdb==2.3.5; extra == "cosmosdbsql"
+# zstandard==0.23.0; extra == "zstd"
+# python-consul2==0.1.5; extra == "consul"
+# PyYAML>=3.10; extra == "yaml"
+# boto3>=1.26.143; extra == "dynamodb"
+# msgpack==1.1.0; extra == "msgpack"
+# pyArango>=2.0.2; extra == "arangodb"
+# kazoo>=1.3.1; extra == "zookeeper"
+# couchbase>=3.0.0; (platform_python_implementation != "PyPy" and (platform_system != "Windows" or python_version < "3.10")) and extra == "couchbase"
+# pylibmc==1.6.3; platform_system != "Windows" and extra == "memcache"
 
 [PY312].USES_ON=			python:v12,wheel
 [PY312].RUN_DEPENDS_ON=			python-billiard:single:v12
@@ -88,7 +89,6 @@ DISTNAME=		celery-${PORTVERSION}.dist-info
 					python-click-didyoumean:single:v12
 					python-click-repl:single:v12
 					python-click-plugins:single:v12
-					python-tzdata:single:v12
 					python-python-dateutil:single:v12
 [PY313].USES_ON=			python:v13,wheel
 [PY313].RUN_DEPENDS_ON=			python-billiard:single:v13
@@ -98,7 +98,6 @@ DISTNAME=		celery-${PORTVERSION}.dist-info
 					python-click-didyoumean:single:v13
 					python-click-repl:single:v13
 					python-click-plugins:single:v13
-					python-tzdata:single:v13
 					python-python-dateutil:single:v13
 
 USES=			cpe
