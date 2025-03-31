@@ -581,6 +581,9 @@ function set_buildrun (&$portdata, $PDUO) {
        else if (substr($distname, 0, 4) == "N2G-") {
           $distname = "n2g-" . substr($distname, 4);
        }
+       else if ($distname == "sip-6.10.0-1") {
+          $distname = "sip-6.10.0";
+       }
        $src = $WORKZONE . "/" . $distname . ".dist-info";
        $metadata = $src . "/METADATA";
        if (!file_exists($metadata)) {
