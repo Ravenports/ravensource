@@ -1,4 +1,5 @@
 DEF[PORTVERSION]=	0.37
+# Remove cmake minimum argument on next release
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		bsdisks
@@ -36,6 +37,7 @@ BUILDRUN_DEPENDS=	polkit-qt-1:primary:qt5
 USES=			cmake
 
 CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt5/cmake
+			-DCMAKE_POLICY_VERSION_MINIMUM=3.5
 
 post-stage:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/bsdisks
