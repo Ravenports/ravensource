@@ -8,7 +8,7 @@ DEF[CAT2]=		http://www.oasis-open.org/docbook/xml/
 
 NAMEBASE=		appstream-glib
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		devel
 VARIANTS=		std
 SDESC[std]=		Library for reading and writing AppStream metadata
@@ -47,7 +47,12 @@ BUILDRUN_DEPENDS=	gcab:primary:std
 			libuuid:primary:std
 			libyaml:primary:std
 
-EXRUN[tools]=		appstream-glib:primary:std
+EXRUN[tools]=		primary
+EXRUN[dev]=		libarchive:dev:std
+			libuuid:dev:std
+			gobject-introspection:dev:std
+			gdk-pixbuf:dev:std
+			glib:dev:std
 
 USES=			gmake libtool pkgconfig sqlite meson gtk-doc
 			curl fontconfig ssl:build
