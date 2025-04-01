@@ -1,5 +1,6 @@
 DEF[PORTVERSION]=	0.9.3_16.04.20160218
 DEF[SOVERSION]=		2.6.0
+# Remove cmake minimum argument on next release
 # ----------------------------------------------------------------------------
 # That's the latest version everybody packages; seems like a proper 0.9.3
 # release never happened...
@@ -41,6 +42,7 @@ BUILDRUN_DEPENDS=	qt5-qtbase:primary:std
 CMAKE_ARGS=		-DUSE_QT4=OFF
 			-DUSE_QT5=ON
 			-DCMAKE_PREFIX_PATH={{PREFIX}}/lib/qt5/cmake
+			-DCMAKE_POLICY_VERSION_MINIMUM=3.5
 
 DISTNAME=		libdbusmenu-qt-${PORTVERSION:S/_/+/g}
 SOVERSION=		${SOVERSION}
