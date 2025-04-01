@@ -1,0 +1,59 @@
+DEF[PORTVERSION]=	0.20.0
+DEF[ORCUS_VERSION]=	0.20
+DEF[SOVERSION]=		0.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		liborcus-0.20
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel misc
+VARIANTS=		std
+SDESC[std]=		File import library for spreadsheet documents
+HOMEPAGE=		https://gitlab.com/orcus/orcus
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITLAB/orcus:orcus:${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[std]=		set primary tools dev
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MPL:primary
+LICENSE_FILE=		MPL:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/liborcus
+
+BUILD_DEPENDS=		mdds-3.0:single:std
+			ixion-0.20:dev:std
+			boost-libraries:dev:std
+BUILDRUN_DEPENDS=	boost-libraries:primary:std
+			ixion-0.20:primary:std
+
+EXRUN[tools]=		primary
+
+PLIST_SUB=		VER=${ORCUS_VERSION}
+
+USES=			pkgconfig zlib cmake python:build bz2:build
+INSTALL_REQ_TOOLCHAIN=	yes
+SOVERSION=		${SOVERSION}
+DISTNAME=		orcus-${PORTVERSION}
+CMAKE_ARGS=		-DMDDS_INCLUDEDIR:STRING="{{LOCALBASE}}/include/mdds-1.2"
+			-DIXION_INCLUDEDIR:STRING="{{LOCALBASE}}/include/ixion-0.20"
+LDFLAGS=		-lboost_program_options
+			-lboost_thread
+			-lboost_filesystem
+			-lboost_iostreams
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/orcus*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib*.so
+	# manually create pkgconfig file
+	${SED} -e 's|@prefix@|${PREFIX}|; s|@exec_prefix@|${PREFIX}|' \
+	-e 's|@libdir@|${PREFIX}/lib|; s|@includedir@|${PREFIX}/include|' \
+	-e 's|liborcus-@ORCUS_API_VERSION@|orcus-${ORCUS_VERSION}|' \
+	-e 's|@ORCUS_API_VERSION@|${ORCUS_VERSION}|g' \
+	-e ' s|@VERSION@|${PORTVERSION}|g' ${WRKSRC}/liborcus.pc.in \
+	> ${STAGEDIR}${PREFIX}/lib/pkgconfig/liborcus-${ORCUS_VERSION}.pc
