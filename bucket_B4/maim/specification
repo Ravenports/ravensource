@@ -1,4 +1,5 @@
 DEF[PORTVERSION]=	5.8.0
+# Remove cmake minimum argument on next release
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		maim
@@ -38,6 +39,7 @@ BUILDRUN_DEPENDS=	icu:primary:std
 
 USES=			cmake jpeg png zlib:build
 XORG_COMPONENTS=	sm xcomposite xext xrender xrandr xfixes
+CMAKE_ARGS=		-DCMAKE_POLICY_VERSION_MINIMUM=3.5
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/maim
