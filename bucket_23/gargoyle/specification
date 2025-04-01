@@ -1,5 +1,6 @@
 DEF[PORTVERSION]=	2023.1
 DEF[TAG]=		${PORTVERSION}
+# Remove cmake minimum argument on next release
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gargoyle
@@ -33,6 +34,7 @@ BUILDRUN_DEPENDS=	freetype:primary:std
 
 USES=			cmake jpeg png zlib pkgconfig fontconfig ninja
 CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH="{{PREFIX}}/lib/qt5/cmake/"
+			-DCMAKE_POLICY_VERSION_MINIMUM=3.5
 MAKE_ARGS=		-dexplain
 SDL_COMPONENTS=		mixer2 sdl2
 
