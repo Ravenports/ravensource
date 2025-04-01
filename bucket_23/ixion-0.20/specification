@@ -1,0 +1,46 @@
+DEF[PORTVERSION]=	0.20.0
+DEF[API]=		0.20
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		ixion-0.20
+VERSION=		${PORTVERSION}
+KEYWORDS=		math
+VARIANTS=		std
+SDESC[std]=		General purpose formula parser and interpreter
+HOMEPAGE=		https://gitlab.com/ixion/ixion
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main libre
+SITES[main]=		https://gitlab.com/ixion/ixion/-/archive/${PORTVERSION}/
+DISTFILE[1]=		ixion-${PORTVERSION}.tar.bz2:main
+
+SPKGS[std]=		set primary dev
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MPL:primary
+LICENSE_FILE=		MPL:{{WRKSRC}}/LICENSE
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/libixion/address.cpp
+LICENSE_SCHEME=		solo
+
+BUILD_DEPENDS=		spdlog:dev:std
+			boost-libraries:dev:std
+			mdds-3.0:single:std
+BUILDRUN_DEPENDS=	boost-libraries:primary:std
+
+USES=			cmake python:build zlib
+PLIST_SUB=		VER=${API}
+DISTNAME=		ixion-${PORTVERSION}
+CMAKE_ARGS=		-DMDDS_INCLUDEDIR="{{LOCALBASE}}/include/mdds-1.2"
+			-DCMAKE_SKIP_BUILD_RPATH:BOOL=YES
+LDFLAGS=		-lboost_thread
+			-lboost_program_options
+			-lboost_filesystem
+VAR_OPSYS[linux]=	LDFLAGS=-ldl
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/ixion*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib*.so
