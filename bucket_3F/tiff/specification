@@ -1,5 +1,6 @@
 DEF[PORTVERSION]=	4.7.0
 DEF[SOVERSION]=		6.1.0
+# Remove cmake minimum argument on next release
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		tiff
@@ -40,6 +41,8 @@ USES=			cpe jpeg c++:primary zlib cmake zstd xz
 CPE_PRODUCT=		libtiff
 CPE_VERSION=		${PORTVERSION}
 SOVERSION=		${SOVERSION}
+
+CMAKE_ARGS=		-DCMAKE_POLICY_VERSION_MINIMUM=3.5
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
