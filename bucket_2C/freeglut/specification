@@ -1,6 +1,7 @@
 DEF[PORTVERSION]=	3.6.0
 DEF[SOVERSION]=		3.12.1
 DEF[BINS]=		CallbackMaker Fractals Fractals_random Lorenz One multi-touch shapes smooth_opengl3 spaceball subwin timer
+# Remove cmake minimum argument on next release
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		freeglut
@@ -39,6 +40,8 @@ INSTALL_TARGET=		install/strip
 SOVERSION=		${SOVERSION}
 # For FreeBSD
 INSTALL_REQ_TOOLCHAIN=	yes
+
+CMAKE_ARGS=		-DCMAKE_POLICY_VERSION_MINIMUM=3.5
 
 VAR_OPSYS[freebsd]=	LDFLAGS=-lusbhid
 			LDFLAGS=-lm
