@@ -1,5 +1,6 @@
 DEF[PORTVERSION]=	0.0.8
 DEF[SOVERSION]=		${PORTVERSION}
+# Remove cmake minimum argument on next release
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		uchardet
@@ -35,6 +36,8 @@ EXRUN[tools]=		primary
 
 USES=			cmake c++:primary
 SOVERSION=		${SOVERSION}
+
+CMAKE_ARGS=		-DCMAKE_POLICY_VERSION_MINIMUM=3.5
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/uchardet
