@@ -1,5 +1,6 @@
 DEF[PORTVERSION]=	0.4.41
 DEF[SOVERSION]=		0.4.41
+# Remove cmake minimum argument on next release
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libzen
@@ -32,6 +33,7 @@ USES=			cpe c++:primary dos2unix pkgconfig cmake:insource
 CPE_VENDOR=		mediaarea
 CPE_PRODUCT=		zenlib
 CMAKE_ARGS=		-DBUILD_SHARED_LIBS:BOOL=ON
+			-DCMAKE_POLICY_VERSION_MINIMUM=3.5
 CONFIGURE_WRKSRC=	{{WRKSRC}}/Project/CMake
 BUILD_WRKSRC=		{{WRKSRC}}/Project/CMake
 INSTALL_WRKSRC=		{{WRKSRC}}/Project/CMake
