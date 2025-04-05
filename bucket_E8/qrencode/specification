@@ -1,5 +1,6 @@
 DEF[PORTVERSION]=	4.1.1
 DEF[SOVERSION]=		${PORTVERSION}
+# Remove cmake minimum argument on next release
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		qrencode
@@ -34,6 +35,7 @@ EXRUN[tools]=		primary
 USES=			cmake iconv png pkgconfig zlib:build
 MUST_CONFIGURE=		gnu
 CMAKE_ARGS=		-DBUILD_SHARED_LIBS=ON
+			-DCMAKE_POLICY_VERSION_MINIMUM=3.5
 SOVERSION=		${SOVERSION}
 
 post-install:
