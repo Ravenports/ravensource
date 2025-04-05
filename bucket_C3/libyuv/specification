@@ -7,6 +7,7 @@ DEF[SHORT_TAG]=		c1fe566
 DEF[YUV_VERSION]=	1891
 DEF[PORTVERSION]=	${YUV_VERSION}.${HASH_DATE}
 DEF[SOVERSION]=		1.0.0
+# Remove cmake minimum argument on next release
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libyuv
@@ -39,6 +40,8 @@ SUB_LIST=		VERSION=${YUV_VERSION}
 
 USES=			cmake pkgconfig jpeg c++:primary
 SOVERSION=		${SOVERSION}
+
+CMAKE_ARGS=		-DCMAKE_POLICY_VERSION_MINIMUM=3.5
 
 EXRUN[dev]=		jpeg-turbo:dev:std
 
