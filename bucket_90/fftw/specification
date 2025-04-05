@@ -1,5 +1,6 @@
 DEF[PORTVERSION]=	3.3.10
 DEF[SOVERSION]=		3.6.9
+# Remove cmake minimum argument on next release
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		fftw
@@ -41,6 +42,7 @@ CMAKE_ARGS=		-DBUILD_SHARED_LIBS:BOOL=ON
 			-DBUILD_TESTS:BOOL=ON
 			-DENABLE_OPENMP:BOOL=ON
 			-DENABLE_THREADS:BOOL=ON
+			-DCMAKE_POLICY_VERSION_MINIMUM=3.5
 PLIST_SUB=		OPENMPI="@comment "
 			OMP={{VAR1}}
 SOVERSION=		${SOVERSION}
