@@ -1,5 +1,6 @@
 DEF[PORTVERSION]=	1.5.9
 DEF[PROTOLIB_HASH]=	702e909
+# Remove cmake minimum argument on next release
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		norm
@@ -33,6 +34,7 @@ LICENSE_SCHEME=		solo
 USES=			cmake c++:single dos2unix
 GNOME_COMPONENTS=	libxml2
 CMAKE_ARGS=		-DBUILD_SHARED_LIBS:BOOL=ON
+			-DCMAKE_POLICY_VERSION_MINIMUM=3.5
 
 post-extract-sunos:
 	${CP} ${FILESDIR}/getifaddrs.cpp ${WRKSRC}/protolib/src/unix/
