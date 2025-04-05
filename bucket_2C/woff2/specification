@@ -1,4 +1,5 @@
 DEF[PORTVERSION]=	1.0.2
+# Remove cmake minimum argument on next release
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		woff2
@@ -32,6 +33,8 @@ EXRUN[tools]=		primary
 
 USES=			cmake pkgconfig c++:primary
 SOVERSION=		${PORTVERSION}
+
+CMAKE_ARGS=		-DCMAKE_POLICY_VERSION_MINIMUM=3.5
 
 post-install:
 	${INSTALL_PROGRAM} ${WRKDIR}/.build/woff2_* ${STAGEDIR}${PREFIX}/bin
