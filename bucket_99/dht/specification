@@ -1,6 +1,7 @@
 DEF[PORTVERSION]=	0.27
 # equivalent to version 0.27 + Cmake files (post-0.27-transmission branch)
 DEF[HASH]=		01558551
+# Remove cmake minimum argument on next release
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		dht
@@ -27,6 +28,8 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		devel/jech-dht
 
 USES=			cmake
+
+CMAKE_ARGS=		-DCMAKE_POLICY_VERSION_MINIMUM=3.5
 
 post-install:
 	${RM} -r ${STAGEDIR}${STD_DOCDIR}
