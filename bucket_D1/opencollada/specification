@@ -1,4 +1,5 @@
 DEF[PORTVERSION]=	1.6.68
+# Remove cmake minimum argument on next release
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		opencollada
@@ -24,6 +25,7 @@ USES=			cmake c++:single iconv pkgconfig pcre dos2unix
 GNOME_COMPONENTS=	libxml2
 CMAKE_ARGS=		-DUSE_SHARED:BOOL=ON
 			-DUSE_STATIC:BOOL=OFF
+			-DCMAKE_POLICY_VERSION_MINIMUM=3.5
 LDFLAGS=		-Wl,-rpath,{{PREFIX}}/lib/opencollada
 DOS2UNIX_GLOB=		*.h
 
