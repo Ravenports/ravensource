@@ -3,6 +3,8 @@ DEF[SOVERSION]=		2.3.21
 # Original libart has been unmaintained for over a decade. The Trinity Desktop
 # Environment is one of the projects which still require this and has become
 # the new upstream, continuing to maintain it.
+#
+# Remove cmake minimum argument on next release
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libart-trinity
@@ -38,6 +40,8 @@ LICENSE_SCHEME=		solo
 USES=			cmake libtool
 DISTNAME=		libart-lgpl-trinity-${PORTVERSION}
 SOVERSION=		${SOVERSION}
+
+CMAKE_ARGS=		-DCMAKE_POLICY_VERSION_MINIMUM=3.5
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libart_lgpl_2.so
