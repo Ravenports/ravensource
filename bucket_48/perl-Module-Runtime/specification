@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.016
+DEF[PORTVERSION]=	0.017
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-Module-Runtime
@@ -7,11 +7,11 @@ KEYWORDS=		perl
 VARIANTS=		538 540
 SDESC[538]=		Runtime module handling (5.38)
 SDESC[540]=		Runtime module handling (5.40)
-HOMEPAGE=		none
+HOMEPAGE=		https://github.com/haarg/Module-Runtime
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		CPAN/ID:Z/ZE/ZEFRAM
+SITES[main]=		CPAN/ID:H/HA/HAARG
 DISTFILE[1]=		Module-Runtime-${PORTVERSION}.tar.gz:main
 
 SPKGS[538]=		single
@@ -32,16 +32,9 @@ DISTNAME=		Module-Runtime-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |        build : Module::Build
-# |        build : Test::More (perl 5.38 core) (perl 5.40 core)
-# |        build : strict (perl 5.38 core) (perl 5.40 core)
-# |        build : warnings (perl 5.38 core) (perl 5.40 core)
-# |    configure : Module::Build
-# |    configure : strict (perl 5.38 core) (perl 5.40 core)
-# |    configure : warnings (perl 5.38 core) (perl 5.40 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.38 core) (perl 5.40 core)
+# |         test : Test::More (perl 5.38 core) (perl 5.40 core)
 
-[PERL_538].USES_ON=			perl:538,buildmod,run
-[PERL_538].BUILD_DEPENDS_ON=		perl-Module-Build:single:538
-[PERL_540].USES_ON=			perl:540,buildmod,run
-[PERL_540].BUILD_DEPENDS_ON=		perl-Module-Build:single:540
+[PERL_538].USES_ON=			perl:538,configure
+[PERL_540].USES_ON=			perl:540,configure
 
