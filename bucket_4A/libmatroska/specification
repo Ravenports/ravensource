@@ -1,5 +1,6 @@
 DEF[PORTVERSION]=	1.7.1
 DEF[SOVERSION]=		7.0.0
+# Remove cmake minimum argument on next release
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libmatroska
@@ -35,6 +36,7 @@ BUILDRUN_DEPENDS=	libebml:primary:std
 USES=			cpe cmake c++:primary
 CPE_VENDOR=		matroska
 CMAKE_ARGS=		-DBUILD_SHARED_LIBS:BOOL=ON
+			-DCMAKE_POLICY_VERSION_MINIMUM=3.5
 SOVERSION=		${SOVERSION}
 
 post-install:
