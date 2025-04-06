@@ -1,4 +1,4 @@
---- erts/emulator/nifs/common/prim_tty_nif.c.orig	2025-03-27 14:22:55 UTC
+--- erts/emulator/nifs/common/prim_tty_nif.c.orig	2025-04-04 06:19:25 UTC
 +++ erts/emulator/nifs/common/prim_tty_nif.c
 @@ -43,12 +43,7 @@
  #include <locale.h>
