@@ -2,6 +2,7 @@ DEF[PORTVERSION]=	0.8.0
 DEF[SOVERSION]=		${PORTVERSION}
 DEF[MAJOR]=		${SOVERSION:R}
 DEF[TAG]=		${PORTVERSION}
+# Remove cmake minimum argument on next release
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		yaml-cpp
@@ -32,6 +33,7 @@ CPE_VENDOR=		yaml-cpp_project
 CMAKE_ARGS=		-DYAML_BUILD_SHARED_LIBS:BOOL=ON
 			-DYAML_CPP_BUILD_TOOLS:BOOL=OFF
 			-DYAML_CPP_BUILD_TESTS:BOOL=OFF
+			-DCMAKE_POLICY_VERSION_MINIMUM=3.5
 SOVERSION=		${SOVERSION}
 PLIST_SUB=		MAJOR=${MAJOR}
 
