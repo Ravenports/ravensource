@@ -1,5 +1,6 @@
 DEF[PORTVERSION]=	6.0.0
 DEF[SOVERSION]=		2.0.0
+# Remove cmake minimum argument on next release
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		msgpack
@@ -32,6 +33,8 @@ BUILD_DEPENDS=		gtest:set:std
 
 USES=			cmake zlib:build
 SOVERSION=		${SOVERSION}
+
+CMAKE_ARGS=		-DCMAKE_POLICY_VERSION_MINIMUM=3.5
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libmsgpack-c.so
