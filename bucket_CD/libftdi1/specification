@@ -1,5 +1,6 @@
 DEF[PORTVERSION]=	1.5
 DEF[SOVERSION]=		2.5.0
+# Remove cmake minimum argument on next release
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libftdi1
@@ -43,6 +44,7 @@ BR_DEPS[netbsd]=	libusb:primary:std
 USES=			cmake pkgconfig gettext
 CMAKE_ARGS=		-DDOCUMENTATION:BOOL=OFF
 			-DEXAMPLES:BOOL=OFF
+			-DCMAKE_POLICY_VERSION_MINIMUM=3.5
 SOVERSION=		${SOVERSION}
 
 post-install:
