@@ -2,6 +2,7 @@ DEF[PORTVERSION]=	0.9.15
 DEF[SOVERSION]=		${PORTVERSION}
 DEF[SOMAJOR]=		1
 DEF[TAG]=		LibVNCServer-${PORTVERSION}
+# Remove cmake minimum argument on next release
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libvncserver
@@ -55,6 +56,7 @@ CMAKE_ARGS=		-DWITH_24BPP:BOOL=ON
 			-DWITH_SASL:BOOL=OFF
 			-DWITH_GNUTLS:BOOL=OFF
 			-DWITH_EXAMPLES:BOOL=OFF
+			-DCMAKE_POLICY_VERSION_MINIMUM=3.5
 PLIST_SUB=		MAJORVER=${SOMAJOR}
 SOVERSION=		${SOVERSION}
 
