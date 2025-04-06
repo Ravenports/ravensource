@@ -1,5 +1,6 @@
 DEF[PORTVERSION]=	1.5.4
 DEF[SOVERSION]=		${PORTVERSION}
+# Remove cmake minimum argument on next release
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		srt
@@ -30,6 +31,7 @@ SHEBANG_FILES=		scripts/srt-ffplay
 
 CMAKE_ARGS=		-DOPENSSL_ROOT_DIR:STRING="{{OPENSSLBASE}}"
 			-DENABLE_ENCRYPTION:BOOL=ON
+			-DCMAKE_POLICY_VERSION_MINIMUM=3.5
 
 EXRUN[tools]=		primary
 			bash:primary:std
