@@ -1,5 +1,6 @@
 DEF[PORTVERSION]=	7.6
 DEF[SOVERSION]=		${PORTVERSION}
+# Remove cmake minimum argument on next release
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		slop
@@ -38,6 +39,8 @@ BUILDRUN_DEPENDS=	glew:primary:std
 USES=			cmake
 XORG_COMPONENTS=	xrender xext
 SOVERSION=		${SOVERSION}
+
+CMAKE_ARGS=		-DCMAKE_POLICY_VERSION_MINIMUM=3.5
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/slop
