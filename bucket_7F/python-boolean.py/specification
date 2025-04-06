@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	4.0
+DEF[PORTVERSION]=	5.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-boolean.py
@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/bastikr/boolean.py
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/3f/02/6389ef0529af6da0b913374dedb9bbde8eabfe45767ceec38cc37801b0bd
-DISTFILE[1]=		boolean.py-${PORTVERSION}-py3-none-any.whl:main
+SITES[main]=		PYPIWHL/e5/ca/78d423b324b8d77900030fa59c4aa9054261ef0925631cd2501dd015b7b7
+DISTFILE[1]=		boolean_py-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
 SPKGS[v12]=		single
@@ -27,10 +27,20 @@ VOPTS[v13]=		PY312=OFF PY313=ON
 # BSD-2-Clause
 
 GENERATED=		yes
-DISTNAME=		boolean.py-${PORTVERSION}.dist-info
+DISTNAME=		boolean_py-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-
+# pytest!=7.0.0,>=6; extra == "testing"
+# pytest-xdist>=2; extra == "testing"
+# twine; extra == "dev"
+# build; extra == "dev"
+# black; extra == "linting"
+# isort; extra == "linting"
+# pycodestyle; extra == "linting"
+# Sphinx>=3.3.1; extra == "docs"
+# sphinx-rtd-theme>=0.5.0; extra == "docs"
+# doc8>=0.8.1; extra == "docs"
+# sphinxcontrib-apidoc>=0.3.0; extra == "docs"
 
 [PY312].USES_ON=			python:v12,wheel
 [PY313].USES_ON=			python:v13,wheel
