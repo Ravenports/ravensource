@@ -1,4 +1,5 @@
 DEF[PORTVERSION]=	0.14.0
+# Remove cmake minimum argument on next release
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		hidapi
@@ -41,6 +42,8 @@ BR_DEPS[netbsd]=	libusb:primary:std
 USES=			cmake pkgconfig
 DISTNAME=		hidapi-hidapi-${PORTVERSION}
 SOVERSION=		${PORTVERSION}
+
+CMAKE_ARGS=		-DCMAKE_POLICY_VERSION_MINIMUM=3.5
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libhidapi-libusb.so
