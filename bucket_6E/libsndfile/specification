@@ -1,6 +1,7 @@
 DEF[PORTVERSION]=	1.2.2
 DEF[TAG]=		${PORTVERSION}
 DEF[SOVERSION]=		1.0.37
+# Remove cmake minimum argument on next release
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libsndfile
@@ -39,5 +40,6 @@ USES=			cmake cpe gmake pkgconfig python:build
 CMAKE_ARGS=		-DBUILD_SHARED_LIBS:BOOL=true
 			-DINSTALL_MANPAGES:BOOL=true
 			-DBUILD_PROGRAMS:BOOL=true
+			-DCMAKE_POLICY_VERSION_MINIMUM=3.5
 CPE_VENDOR=		libsndfile_project
 SOVERSION=		${SOVERSION}
