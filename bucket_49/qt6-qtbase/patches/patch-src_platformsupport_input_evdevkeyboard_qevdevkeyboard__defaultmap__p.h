@@ -1,12 +1,12 @@
---- src/platformsupport/input/evdevkeyboard/qevdevkeyboard_defaultmap_p.h.orig	2024-11-14 11:02:40 UTC
+--- src/platformsupport/input/evdevkeyboard/qevdevkeyboard_defaultmap_p.h.orig	2025-03-27 14:17:21 UTC
 +++ src/platformsupport/input/evdevkeyboard/qevdevkeyboard_defaultmap_p.h
-@@ -17,11 +17,7 @@
+@@ -19,11 +19,7 @@
+ #include <QtInputSupport/private/qkeyboardmap_p.h>
  
- #include "qnamespace.h"
  #include "private/qglobal_p.h"
 -#ifdef Q_OS_FREEBSD
 -#include <dev/evdev/input.h>
--#elif !defined(Q_OS_VXWORKS)
+-#else
  #include "linux/input.h"
 -#endif
  

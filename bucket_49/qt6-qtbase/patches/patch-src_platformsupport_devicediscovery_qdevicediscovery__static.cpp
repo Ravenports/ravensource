@@ -1,14 +1,11 @@
---- src/platformsupport/devicediscovery/qdevicediscovery_static.cpp.orig	2024-11-14 11:02:40 UTC
+--- src/platformsupport/devicediscovery/qdevicediscovery_static.cpp.orig	2025-03-27 14:17:21 UTC
 +++ src/platformsupport/devicediscovery/qdevicediscovery_static.cpp
-@@ -11,14 +11,7 @@
+@@ -11,11 +11,7 @@
  #include <QLoggingCategory>
  #include <QtCore/private/qcore_unix_p.h>
  
 -#ifdef Q_OS_FREEBSD
 -#include <dev/evdev/input.h>
--#elif defined(Q_OS_VXWORKS)
--#include <evdevLib.h>
--#define ABS_X           EV_DEV_PTR_ABS_X
 -#else
  #include <linux/input.h>
 -#endif

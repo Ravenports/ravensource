@@ -1,4 +1,4 @@
---- src/3rdparty/forkfd/forkfd.c.orig	2024-11-14 11:02:40 UTC
+--- src/3rdparty/forkfd/forkfd.c.orig	2025-03-27 14:17:21 UTC
 +++ src/3rdparty/forkfd/forkfd.c
 @@ -78,9 +78,11 @@
  #endif

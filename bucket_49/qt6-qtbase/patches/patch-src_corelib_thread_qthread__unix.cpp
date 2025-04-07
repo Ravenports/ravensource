@@ -1,15 +1,15 @@
---- src/corelib/thread/qthread_unix.cpp.orig	2024-11-14 11:02:40 UTC
+--- src/corelib/thread/qthread_unix.cpp.orig	2025-03-27 14:17:21 UTC
 +++ src/corelib/thread/qthread_unix.cpp
-@@ -38,7 +38,7 @@
- #include <sched.h>
- #include <errno.h>
+@@ -33,7 +33,7 @@
+ #  include <pthread_np.h>
+ #endif
  
 -#if defined(Q_OS_FREEBSD)
 +#if (defined(Q_OS_FREEBSD) || defined(__MidnightBSD__)) && !defined(__DragonFly__)
  #  include <sys/cpuset.h>
  #elif defined(Q_OS_BSD4)
  #  include <sys/sysctl.h>
-@@ -488,8 +488,8 @@ int QThread::idealThreadCount() noexcept
+@@ -541,8 +541,8 @@ int QThread::idealThreadCount() noexcept
      } else {
          cores = (int)psd.psd_proc_cnt;
      }
