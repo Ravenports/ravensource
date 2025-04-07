@@ -62,6 +62,9 @@ INFO=			info:autosprintf info:gettext
 CPE_PRODUCT=		gettext
 CPE_VENDOR=		gnu
 
+VAR_OPSYS[netbsd]=	CONFIGURE_ENV=ac_cv_func_utimens=no
+			CONFIGURE_ENV=ac_cv_func_lutimens=no
+
 post-extract:
 	${AWK} '/HAVE_CONFIG_H/ {exit}; {print}' \
 		${WRKSRC}/gettext-runtime/src/gettext.c > ${WRKDIR}/TERMS
