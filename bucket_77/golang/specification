@@ -13,11 +13,11 @@ DOWNLOAD_GROUPS=	main ravdist
 SITES[main]=		http://golang.org/dl/
 SITES[ravdist]=		https://leaf.dragonflybsd.org/~marino/raven-distfiles/golang/
 DISTFILE[1]=		go${PORTVERSION}.src.tar.gz:main
-DISTFILE[2]=		bootstrap-golang-1.22.2-dragonfly-x86_64.tzst:ravdist
-DISTFILE[3]=		bootstrap-golang-1.22.2-Linux-amd64.tzst:ravdist
-DISTFILE[4]=		bootstrap-golang-1.22.2-MidnightBSD-amd64.tzst:ravdist
+DISTFILE[2]=		bootstrap-golang-1.23.7-dragonfly-x86_64.tzst:ravdist
+DISTFILE[3]=		bootstrap-golang-1.23.7-linux-x86_64.tzst:ravdist
+DISTFILE[4]=		bootstrap-golang-1.23.7-midnightbsd-x86_64.tzst:ravdist
 DISTFILE[5]=		bootstrap-golang-1.22.2-NetBSD-amd64.tzst:ravdist
-DISTFILE[6]=		bootstrap-golang-1.22.2-FreeBSD-amd64.tzst:ravdist
+DISTFILE[6]=		bootstrap-golang-1.23.7-freebsd-x86_64.tzst:ravdist
 DF_INDEX=		1
 
 SPKGS[std]=		single
@@ -79,6 +79,8 @@ PLIST_SUB=		opsys_ARCH={{GOSYS}}_{{GOARCH}}
 [MIDNIGHT].DF_INDEX_ON=			4
 [NETBSD].DF_INDEX_ON=			5
 [FREEBSD].DF_INDEX_ON=			6
+
+[NETBSD].BROKEN_ON=			Requires bootstrap based on 1.23.7
 
 [PORTBOOT].BUILD_DEPENDS_ON=		go121:single:std
 [PORTBOOT].MAKEFILE_ON=			BOOTSTRAP_DIR={{LOCALBASE}}/go121
