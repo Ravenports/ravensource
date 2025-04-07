@@ -1,5 +1,5 @@
---- vendor/os_info-3.8.2/src/freebsd/mod.rs.orig	2025-03-15 16:27:19 UTC
-+++ vendor/os_info-3.8.2/src/freebsd/mod.rs
+--- vendor/os_info-3.10.0/src/freebsd/mod.rs.orig	2025-03-31 21:37:24 UTC
++++ vendor/os_info-3.10.0/src/freebsd/mod.rs
 @@ -26,23 +26,7 @@ pub fn current_platform() -> Info {
  fn get_os() -> Type {
      match uname("-s").as_deref() {

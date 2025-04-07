@@ -1,9 +1,9 @@
-DEF[PORTVERSION]=	1.85.1
-DEF[RUSTX_BOOT]=	1.84.0
+DEF[PORTVERSION]=	1.86.0
+DEF[RUSTX_BOOT]=	1.85.0
 DEF[CURL_VERSION]=	7.87.0
 DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
-DEF[LIBC_PT1]=		94 97 107 112 119 121 124 150 155 158
-DEF[LIBC_PT2]=		167 169
+DEF[LIBC_PT1]=		94 97 107 112 119 121 124 155
+DEF[LIBC_PT2]=		167 168 169
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		rust
@@ -103,6 +103,7 @@ SHEBANG_FILES=		src/llvm-project/compiler-rt/lib/sanitizer_common/symbolizer/scr
 			src/llvm-project/compiler-rt/lib/asan/scripts/asan_symbolize.py
 			library/core/src/unicode/printable.py
 			library/backtrace/ci/debuglink.sh
+			library/portable-simd/subtree-sync.sh
 DOS2UNIX_FILES=		vendor/openssl-probe*/src/lib.rs
 
 VAR_OPSYS[dragonfly]=	MAKEFILE_LINE=BOOTSTRAP_RUST=${RUSTX_BOOT}
