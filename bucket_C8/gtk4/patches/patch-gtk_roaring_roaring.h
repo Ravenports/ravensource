@@ -1,4 +1,4 @@
---- gtk/roaring/roaring.h.orig	2025-03-16 23:14:49 UTC
+--- gtk/roaring/roaring.h.orig	2025-04-07 00:45:14 UTC
 +++ gtk/roaring/roaring.h
 @@ -59,7 +59,6 @@ enum {
  #include <stdint.h>
