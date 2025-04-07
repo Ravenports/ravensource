@@ -65,4 +65,4 @@ mv ${ASSY}/raven ${ASSY}/bootstrap
 mv ${ASSY}/${TPKG} ${DISTDIR}/
 
 echo "cleaning everything up."
-rm -rf ${RASSY}
+rm -rf ${ASSY}
