@@ -29,7 +29,7 @@ USES=			cmake
 OPTIMIZER_LEVEL=	0
 SOVERSION=		${PORTVERSION}
 
-post-patch:
+pre-configure:
 	${REINPLACE_CMD} -e "s,share/pkgconfig,lib/pkgconfig,g" \
 		${WRKSRC}/src/CMakeLists.txt
 	${REINPLACE_CMD} -e 's|include/yajl|include|' \
@@ -37,4 +37,4 @@ post-patch:
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/* \
-		${STAGEDIR}${PREFIX}/lib/libyajl.${LIBEXT}
+		${STAGEDIR}${PREFIX}/lib/libyajl.so
