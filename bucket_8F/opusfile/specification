@@ -4,7 +4,7 @@ DEF[SOVERSION]=		0.4.5
 
 NAMEBASE=		opusfile
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		audio
 VARIANTS=		std
 SDESC[std]=		Opus playback library
@@ -41,6 +41,8 @@ MUST_CONFIGURE=		gnu
 INSTALL_REQ_TOOLCHAIN=	yes
 INSTALL_TARGET=		install-strip
 SOVERSION=		${SOVERSION}
+
+CVE_FIXED=		CVE-2022-47021
 
 pre-patch-freebsd:
 	${GREP} -l '@openssl@' ${WRKSRC}/opusurl.pc.in | \
