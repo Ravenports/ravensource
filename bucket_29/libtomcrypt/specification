@@ -4,7 +4,7 @@ DEF[SOVERSION]=		1.0.1
 
 NAMEBASE=		libtomcrypt
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		security
 VARIANTS=		std
 SDESC[std]=		Comprehensive, portable cryptographic toolkit
@@ -38,6 +38,8 @@ MAKE_ARGS=		INCPATH="{{PREFIX}}/include"
 			LIBPATH="{{PREFIX}}/lib"
 			EXTRALIBS="-ltommath"
 CFLAGS=			-DLTM_DESC
+
+CVE_FIXED=		CVE-2019-17362
 
 post-patch:
 	${REINPLACE_CMD} -e 's|gcc|${CC}|' -e 's| make | $$(MAKE) |' \
