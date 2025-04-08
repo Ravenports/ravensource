@@ -1,6 +1,6 @@
---- encoder/analysis.cpp.orig	2024-09-13 13:02:55 UTC
+--- encoder/analysis.cpp.orig	2024-11-22 12:07:34 UTC
 +++ encoder/analysis.cpp
-@@ -4220,7 +4220,7 @@ void Analysis::normFactor(const pixel* s
+@@ -4232,7 +4232,7 @@ void Analysis::normFactor(const pixel* s
  
      // 2. Calculate ac component
      uint64_t z_k = 0;
