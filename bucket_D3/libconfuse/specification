@@ -4,7 +4,7 @@ DEF[SOVERSION]=		2.1.0
 
 NAMEBASE=		libconfuse
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		devel
 VARIANTS=		std
 SDESC[std]=		Configuration file parser library
@@ -34,6 +34,8 @@ MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--disable-nls
 			--enable-shared
 SOVERSION=		${SOVERSION}
+
+CVE_FIXED=		CVE-2022-40320
 
 post-install:
 	${RM} -r ${STAGEDIR}${PREFIX}/share/doc/confuse
