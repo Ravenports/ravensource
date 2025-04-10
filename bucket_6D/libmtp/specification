@@ -44,6 +44,9 @@ EXRUN[tools]=		primary
 B_DEPS[linux]=		libusb:dev:std
 BR_DEPS[linux]=		libusb:primary:std
 
+B_DEPS[netbsd]=		libusb:dev:std
+BR_DEPS[netbsd]=	libusb:primary:std
+
 post-patch-dragonfly:
 	${REINPLACE_CMD} -e 's@machine/endian.h@sys/endian.h@g' \
 		${WRKSRC}/m4/byteorder.m4
