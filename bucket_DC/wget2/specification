@@ -58,5 +58,8 @@ INSTALL_REQ_TOOLCHAIN=	yes
 CFLAGS=			-Wno-attributes
 SOVERSION=		${SOVERSION}
 
+VAR_OPSYS[netbsd]=	CONFIGURE_ENV=ac_cv_func_utimens=no
+			CONFIGURE_ENV=ac_cv_func_lutimens=no
+
 post-install:
 	${RM} ${STAGEDIR}${PREFIX}/bin/wget2_noinstall
