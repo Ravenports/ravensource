@@ -81,6 +81,8 @@ SHEBANG_FILES=		tools/common.sh
 
 VAR_OPSYS[midnightbsd]=	CMAKE_ARGS=-DRAWSPEED_CACHELINESIZE=64
 VAR_OPSYS[freebsd]=	CMAKE_ARGS=-DRAWSPEED_CACHELINESIZE=64
+VAR_OPSYS[netbsd]=	CMAKE_ARGS=-DRAWSPEED_CACHELINESIZE=64
+			CFLAGS=-D_NETBSD_SOURCE
 
 # darktable defines the __XOPEN_SOURCE preprocessor macro, which
 # restricts symbol visibility on FreeBSD and causes compilation failures
@@ -93,6 +95,9 @@ pre-configure-freebsd:
 	${REINPLACE_CMD} '/add_definitions."-D_XOPEN_SOURCE=.*"/d' ${WRKSRC}/CMakeLists.txt
 
 pre-configure-midnightbsd:
+	${REINPLACE_CMD} '/add_definitions."-D_XOPEN_SOURCE=.*"/d' ${WRKSRC}/CMakeLists.txt
+
+pre-configure-netbsd:
 	${REINPLACE_CMD} '/add_definitions."-D_XOPEN_SOURCE=.*"/d' ${WRKSRC}/CMakeLists.txt
 
 post-install:
