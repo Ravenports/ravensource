@@ -1,4 +1,5 @@
 DEF[PORTVERSION]=	0.3.0
+# Remove cmake minimum argument on next release
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		cpp-hocon
@@ -32,6 +33,7 @@ BUILDRUN_DEPENDS=	leatherman:primary:std
 USES=			cmake curl:build
 CMAKE_ARGS=		-DBUILD_SHARED_LIBS=SHARED
 			-DENABLE_CXX_WERROR:BOOL=OFF
+			-DCMAKE_POLICY_VERSION_MINIMUM=3.5
 # problem with boost cmake files
 			-DBoost_NO_BOOST_CMAKE:BOOL=ON
 SOVERSION=		${PORTVERSION}
