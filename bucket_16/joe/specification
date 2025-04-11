@@ -19,10 +19,10 @@ SPKGS[std]=		set primary man
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-# GPLv2 license is not properly specified.  The only grant is at
-# src/mouse.[ch] and that specifies GPLv1.  Do not specify license
-# until issue resolved at future release.  (issue #388)
-# LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING
+LICENSE=		GPLv2:primary
+LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		editors/joe
 
@@ -33,7 +33,11 @@ INSTALL_REQ_TOOLCHAIN=	yes
 CFLAGS=			-I{{LOCALBASE}}/ncurses60/include
 LDFLAGS=		-L{{LOCALBASE}}/ncurses60/lib
 
-post-patch:
+post-extract:
+	${AWK} '/which is distributed/,/many Linux distrib/' \
+		${WRKSRC}/README.md > ${WRKDIR}/TERMS
+
+pre-configure:
 	${REINPLACE_CMD} -e 's|docs/README.old docs/man.md ||' \
 		${WRKSRC}/Makefile.in
 
