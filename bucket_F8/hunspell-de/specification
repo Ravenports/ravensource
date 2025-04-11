@@ -6,7 +6,7 @@ DEF[INSTLOC]=		{{STAGEDIR}}{{PREFIX}}/share/hunspell
 
 NAMEBASE=		hunspell-${SUFFIX}
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		textproc german
 VARIANTS=		std
 SDESC[std]=		Hunspell ${LANGUAGE} dictionary
@@ -25,7 +25,8 @@ OPTIONS_STANDARD=	none
 FPC_EQUIVALENT=		german/hunspell
 
 BUILD_DEPENDS=		aspell:tools:std
-			hunspell:primary:std
+			hunspell:tools:std
+			coreutils:primary:noprefix
 
 USES=			gmake perl:build shebangfix
 BUILD_TARGET=		hunspell-all
