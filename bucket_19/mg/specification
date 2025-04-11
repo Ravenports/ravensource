@@ -32,6 +32,9 @@ BR_DEPS[linux]=		libbsd:primary:std
 
 USES=			cmake ncurses pkgconfig
 
+VAR_OPSYS[netbsd]=	CFLAGS=-DHAVE_UTIL_H
+			CFLAGS=-D_OPENBSD_SOURCE
+
 do-install:
 	${INSTALL_PROGRAM} ${WRKDIR}/.build/mg ${STAGEDIR}${PREFIX}/bin
 	${INSTALL_MAN} ${WRKSRC}/mg.1 ${STAGEDIR}${MAN1PREFIX}/man/man1
