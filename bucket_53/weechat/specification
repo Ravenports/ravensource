@@ -44,6 +44,8 @@ CMAKE_ARGS=		-DENABLE_PYTHON3:BOOL=ON
 			-DENABLE_GUILE:BOOL=OFF
 			-DENABLE_JAVASCRIPT:BOOL=OFF
 
+VAR_OPSYS[netbsd]=	CFLAGS=-D_NETBSD_SOURCE
+
 post-patch:
 	${GREP} -l '/usr/local' \
 		${WRKSRC}/CMakeLists.txt \
