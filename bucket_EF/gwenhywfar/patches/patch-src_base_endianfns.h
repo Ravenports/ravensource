@@ -4,7 +4,7 @@
  #  define GWEN_ENDIAN_HTOLE64(x) (x)
  #else
  /* for Linux and others use definitions from endian.h */
-+# if defined(__FreeBSD__)
++# if defined(__FreeBSD__) || defined(__NetBSD__)
 +#  include <sys/endian.h>
 +# else
  #  include <endian.h>
