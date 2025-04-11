@@ -43,6 +43,7 @@ post-extract-midnightbsd:
 
 post-extract-netbsd:
 	${CP} ${WRKSRC}/configs/pconfig.FreeBSD ${WRKSRC}/configs/pconfig.${OPSYS}
+	${ECHO} "#define _NETBSD_SOURCE 1" >> ${WRKSRC}/configs/pconfig.${OPSYS}
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libflorist.so
