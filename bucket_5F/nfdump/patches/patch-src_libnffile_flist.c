@@ -4,7 +4,7 @@
  
  /* Functions */
  
-+#if defined(__linux__)
++#if defined(__linux__) || defined(__NetBSD__)
  static int compare(const FTSENT **f1, const FTSENT **f2) { return strcmp((*f1)->fts_name, (*f2)->fts_name); }  // End of compare
 +#else
 +static int compare(const FTSENT * const *f1, const FTSENT * const *f2) { return strcmp((*f1)->fts_name, (*f2)->fts_name); }
