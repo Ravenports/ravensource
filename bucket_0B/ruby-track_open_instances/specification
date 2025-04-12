@@ -1,19 +1,19 @@
-DEF[PORTVERSION]=	3.2.1
+DEF[PORTVERSION]=	0.1.0
 # ------------------------------------------------------------------------
 
-NAMEBASE=		ruby-process_executer
+NAMEBASE=		ruby-track_open_instances
 VERSION=		${PORTVERSION}
 KEYWORDS=		ruby
 VARIANTS=		v32 v33 v34
-SDESC[v32]=		API for executing commands in a subprocess (v32)
-SDESC[v33]=		API for executing commands in a subprocess (v33)
-SDESC[v34]=		API for executing commands in a subprocess (v34)
-HOMEPAGE=		https://github.com/main-branch/process_executer
+SDESC[v32]=		Tracks instances of allocated Ruby classes (v32)
+SDESC[v33]=		Tracks instances of allocated Ruby classes (v33)
+SDESC[v34]=		Tracks instances of allocated Ruby classes (v34)
+HOMEPAGE=		https://github.com/main-branch/track_open_instances
 CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		RUBYGEMS/
-DISTFILE[1]=		process_executer-3.2.1.gem:main
+DISTFILE[1]=		track_open_instances-0.1.0.gem:main
 DIST_SUBDIR=		ruby
 
 SPKGS[v32]=		single
@@ -30,28 +30,23 @@ VOPTS[v34]=		RUBY32=OFF RUBY33=OFF RUBY34=ON
 # => "MIT"
 
 # Requirements according to gem specification:
-#   track_open_instances (~> 0.1)
 #   bundler-audit (~> 0.9, development)
 #   create_github_release (~> 2.1, development)
 #   main_branch_shared_rubocop_config (~> 0.1, development)
 #   rake (~> 13.2, development)
 #   rspec (~> 3.13, development)
-#   rubocop (~> 1.66, development)
-#   semverify (~> 0.3, development)
+#   rubocop (~> 1.75, development)
 #   simplecov (~> 0.22, development)
-#   simplecov-lcov (~> 0.8, development)
-#   simplecov-rspec (~> 0.3, development)
+#   simplecov-json (~> 0.2, development)
+#   simplecov-rspec (~> 0.4, development)
 #   redcarpet (~> 3.6, development)
 #   yard (~> 0.9, >= 0.9.28, development)
 #   yardstick (~> 0.9, development)
 
-DISTNAME=		process_executer-${PORTVERSION}
+DISTNAME=		track_open_instances-${PORTVERSION}
 GENERATED=		yes
 
 [RUBY32].USES_ON=			gem:v32
-[RUBY32].BUILDRUN_DEPENDS_ON=		ruby-track_open_instances:single:v32
 [RUBY33].USES_ON=			gem:v33
-[RUBY33].BUILDRUN_DEPENDS_ON=		ruby-track_open_instances:single:v33
 [RUBY34].USES_ON=			gem:v34
-[RUBY34].BUILDRUN_DEPENDS_ON=		ruby-track_open_instances:single:v34
 
