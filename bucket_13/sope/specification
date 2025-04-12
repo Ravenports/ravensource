@@ -17,8 +17,9 @@ DIST_SUBDIR=		gnustep
 
 SPKGS[std]=		set primary dev tools pgsql ldap
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	NOMAJOR
+OPTIONS_STANDARD=	NOMAJOR
+OPT_ON[netbsd]=		NOMAJOR
 
 LICENSE=		LGPL21+:primary
 LICENSE_FILE=		LGPL21+:{{WRKSRC}}/sope-core/COPYING
@@ -56,6 +57,8 @@ MAKEFILE=		GNUmakefile
 
 PLIST_SUB=		SO_LDAP=${SO_LDAP}
 			SO_LDAP_MAJMIN=${SO_LDAP:R}
+
+[NOMAJOR].DESCRIPTION=			Does not install intermediate SO links
 
 do-configure:
 	cd ${WRKSRC} ; . ${GNUSTEP_MAKEFILES}/GNUstep.sh ; ./configure ${CONFIGURE_ARGS}
