@@ -1,4 +1,4 @@
---- src/spawn-posix.c.orig	2024-11-11 10:07:41 UTC
+--- src/spawn-posix.c.orig	2025-01-22 08:02:35 UTC
 +++ src/spawn-posix.c
 @@ -55,6 +55,10 @@
  # include <dirent.h>
