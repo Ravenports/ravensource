@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.23.7
+DEF[PORTVERSION]=	1.24.2
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		golang
@@ -16,7 +16,7 @@ DISTFILE[1]=		go${PORTVERSION}.src.tar.gz:main
 DISTFILE[2]=		bootstrap-golang-1.23.7-dragonfly-x86_64.tzst:ravdist
 DISTFILE[3]=		bootstrap-golang-1.23.7-linux-x86_64.tzst:ravdist
 DISTFILE[4]=		bootstrap-golang-1.23.7-midnightbsd-x86_64.tzst:ravdist
-DISTFILE[5]=		bootstrap-golang-1.22.2-NetBSD-amd64.tzst:ravdist
+DISTFILE[5]=		bootstrap-golang-1.23.7-netbsd-x86_64.tzst:ravdist
 DISTFILE[6]=		bootstrap-golang-1.23.7-freebsd-x86_64.tzst:ravdist
 DF_INDEX=		1
 
@@ -53,7 +53,6 @@ SHEBANG_LANG=		bash
 			perl
 SHEBANG_FILES=		src/*.bash
 			lib/time/*.bash
-			misc/wasm/go_js_wasm_exec
 			src/regexp/syntax/*.pl
 			src/crypto/internal/boring/build.sh
 			src/go/doc/comment/mkstd.sh
@@ -79,8 +78,6 @@ PLIST_SUB=		opsys_ARCH={{GOSYS}}_{{GOARCH}}
 [MIDNIGHT].DF_INDEX_ON=			4
 [NETBSD].DF_INDEX_ON=			5
 [FREEBSD].DF_INDEX_ON=			6
-
-[NETBSD].BROKEN_ON=			Requires bootstrap based on 1.23.7
 
 [PORTBOOT].BUILD_DEPENDS_ON=		go121:single:std
 [PORTBOOT].MAKEFILE_ON=			BOOTSTRAP_DIR={{LOCALBASE}}/go121
