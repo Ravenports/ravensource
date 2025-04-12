@@ -41,13 +41,6 @@ BUILD_DEPENDS=		mysql80:dev:std
 			utf8proc:dev:std
 BUILDRUN_DEPENDS=	utf8proc:primary:std
 
-USES=			cmake expat pcre2 pkgconfig sqlite ssl:openssl30 zlib
-
-CMAKE_ARGS=		-DPOCO_UNBUNDLED=on
-			-DENABLE_NETSSL=on
-
-SOVERSION=		${SOVERSION}
-
 # We don't have MongoDB, yet, so don't handle this spkg for now
 EXRUN[mysql]=		primary
 			mysql80:client:std
@@ -57,6 +50,15 @@ EXRUN[pgsql]=		primary
 			postgresql16:client:std
 EXRUN[redis]=		primary
 			redis:single:std
+
+BROKEN[netbsd]=		Needs more patching
+
+USES=			cmake expat pcre2 pkgconfig sqlite ssl:openssl30 zlib
+CMAKE_ARGS=		-DPOCO_UNBUNDLED=on
+			-DENABLE_NETSSL=on
+SOVERSION=		${SOVERSION}
+
+VAR_OPSYS[netbsd]=	CXXFLAGS=-D_NETBSD_SOURCE
 
 pre-configure:
 	# remove patch remnants that could get installed
