@@ -1,4 +1,4 @@
---- Modules/timemodule.c.orig	2025-02-04 14:51:09 UTC
+--- Modules/timemodule.c.orig	2025-04-08 13:54:08 UTC
 +++ Modules/timemodule.c
 @@ -185,7 +185,7 @@ py_clock(time_module_state *state, PyTim
  static int
@@ -7,5 +7,5 @@
 -#ifdef _AIX
 +#if defined(_AIX) || defined(__DragonFly__)
      long long clk_id = PyLong_AsLongLong(obj);
- #else
-     int clk_id = PyLong_AsInt(obj);
+ #elif defined(__DragonFly__)
+     long clk_id = PyLong_AsLong(obj);
