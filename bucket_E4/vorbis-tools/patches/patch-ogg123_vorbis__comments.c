@@ -1,4 +1,4 @@
---- ogg123/vorbis_comments.c.orig	2021-01-07 23:31:25 UTC
+--- ogg123/vorbis_comments.c.orig	2025-04-13 06:11:17 UTC
 +++ ogg123/vorbis_comments.c
 @@ -74,7 +74,7 @@ char *lookup_comment_prettyprint (const
  

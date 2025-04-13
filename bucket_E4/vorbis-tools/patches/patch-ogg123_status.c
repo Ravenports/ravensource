@@ -1,4 +1,4 @@
---- ogg123/status.c.orig	2021-01-02 19:54:35 UTC
+--- ogg123/status.c.orig	2025-04-13 06:11:17 UTC
 +++ ogg123/status.c
 @@ -26,6 +26,9 @@
  #ifdef HAVE_UNISTD_H
