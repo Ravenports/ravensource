@@ -33,7 +33,7 @@ LICENSE_SCHEME=		multi
 
 FPC_EQUIVALENT=		audio/opus-tools
 
-USES=			pkgconfig cclibs:primary
+USES=			pkgconfig cclibs:primary ssl:build
 
 MUST_CONFIGURE=		gnu
 
@@ -43,7 +43,6 @@ BUILDRUN_DEPENDS=	flac:primary:std
 			libopusenc:primary:std
 			opusfile:primary:std
 
-C_USES[netbsd]=		ssl:build
 VAR_OPSYS[netbsd]=	CONFIGURE_ENV=ac_cv_header_soundcard_h=no
 			CONFIGURE_ENV=ac_cv_header_sys_soundcard_h=no
 			CONFIGURE_ENV=ac_cv_header_machine_soundcard_h=no
