@@ -1,4 +1,4 @@
---- src/library/parallel/R/detectCores.R.orig	2021-04-19 22:02:04 UTC
+--- src/library/parallel/R/detectCores.R.orig	2024-12-04 14:08:21 UTC
 +++ src/library/parallel/R/detectCores.R
 @@ -37,6 +37,7 @@ detectCores <-
                       darwin = if(logical) "/usr/sbin/sysctl -n hw.logicalcpu 2>/dev/null" else "/usr/sbin/sysctl -n hw.physicalcpu 2>/dev/null",

@@ -1,6 +1,6 @@
---- src/modules/lapack/Makefile.in.orig	2024-03-26 23:02:08 UTC
+--- src/modules/lapack/Makefile.in.orig	2025-03-13 23:02:15 UTC
 +++ src/modules/lapack/Makefile.in
-@@ -110,16 +110,18 @@ $(lapack_la): $(lapack_la_OBJECTS)
+@@ -114,16 +114,18 @@ $(lapack_la): $(lapack_la_OBJECTS)
  ## BLAS routines into one place.
  ## FIXME:  @BLAS_LIBS@ is probably  not needed for newAccelerate.
  $(Rlapack_la): $(Rlapack_la_OBJECTS)
@@ -21,7 +21,7 @@
  installdirs:
  	@$(MKINSTALLDIRS) "$(DESTDIR)$(Rexecmodulesdir)"
  install-strip-Rlapack:
-@@ -132,6 +134,7 @@ install-strip: @USE_EXTERNAL_LAPACK_FALS
+@@ -136,6 +138,7 @@ install-strip: @USE_EXTERNAL_LAPACK_FALS
  	@if test -n "$(STRIP_SHARED_LIB)"; then \
  	  $(STRIP_SHARED_LIB) "$(DESTDIR)$(Rexecmodulesdir)/$(lapack_la)"; \
  	fi
