@@ -1,6 +1,6 @@
 --- node_modules/@npmcli/config/lib/index.js.orig	1985-10-26 08:15:00 UTC
 +++ node_modules/@npmcli/config/lib/index.js
-@@ -326,6 +326,9 @@ class Config {
+@@ -325,6 +325,9 @@ class Config {
  
      if (this.env.PREFIX) {
        this.globalPrefix = this.env.PREFIX
