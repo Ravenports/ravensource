@@ -1,4 +1,6 @@
-DEF[PORTVERSION]=	6.3p12
+DEF[CPE_VERSION]=	6.3
+DEF[CPE_UPDATE]=	p12
+DEF[PORTVERSION]=	${CPE_VERSION}${CPE_UPDATE}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		doas
@@ -30,6 +32,8 @@ BUILDRUN_DEPENDS=	openpam:primary:std
 
 USES=			cpe gmake
 CPE_VENDOR=		doas_project
+CPE_VERSION=		${CPE_VERSION}
+CPE_UPDATE=		${CPE_UPDATE}
 
 post-patch:
 	# I'm having trouble escaping GLOBAL_PATH properly, just modify makefile
