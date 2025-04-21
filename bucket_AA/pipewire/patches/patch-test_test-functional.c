@@ -1,4 +1,4 @@
---- test/test-functional.c.orig	2025-03-14 10:07:06 UTC
+--- test/test-functional.c.orig	2025-04-14 09:46:02 UTC
 +++ test/test-functional.c
 @@ -6,6 +6,8 @@
  

@@ -1,4 +1,4 @@
---- src/modules/module-rtp-sap.c.orig	2025-03-14 10:07:06 UTC
+--- src/modules/module-rtp-sap.c.orig	2025-04-14 09:46:02 UTC
 +++ src/modules/module-rtp-sap.c
 @@ -32,6 +32,14 @@
  #define SO_PASSCRED LOCAL_CREDS_PERSISTENT

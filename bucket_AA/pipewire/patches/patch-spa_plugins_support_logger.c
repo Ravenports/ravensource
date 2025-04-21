@@ -1,4 +1,4 @@
---- spa/plugins/support/logger.c.orig	2025-03-14 10:07:06 UTC
+--- spa/plugins/support/logger.c.orig	2025-04-14 09:46:02 UTC
 +++ spa/plugins/support/logger.c
 @@ -20,7 +20,7 @@
  #include <spa/utils/string.h>

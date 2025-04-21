@@ -1,4 +1,4 @@
---- src/pipewire/thread.c.orig	2025-03-14 10:07:06 UTC
+--- src/pipewire/thread.c.orig	2025-04-14 09:46:02 UTC
 +++ src/pipewire/thread.c
 @@ -9,6 +9,9 @@
  #ifdef __FreeBSD__

@@ -4,7 +4,7 @@ conflict, rename the PipeWire init function into "pipewire_init".
 
 Upstream issue: https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/1819
 
---- src/pipewire/pipewire.c.orig	2025-03-14 10:07:06 UTC
+--- src/pipewire/pipewire.c.orig	2025-04-14 09:46:02 UTC
 +++ src/pipewire/pipewire.c
 @@ -7,7 +7,7 @@
  #include <unistd.h>

@@ -1,4 +1,4 @@
---- src/modules/module-rt.c.orig	2025-03-14 10:07:06 UTC
+--- src/modules/module-rt.c.orig	2025-04-14 09:46:02 UTC
 +++ src/modules/module-rt.c
 @@ -35,6 +35,9 @@
  #if defined(__FreeBSD__) || defined(__MidnightBSD__)
