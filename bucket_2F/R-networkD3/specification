@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.4
+DEF[PORTVERSION]=	0.4.1
 # ------------------------------------------------------------------------
 
 NAMEBASE=		R-networkD3
@@ -6,13 +6,13 @@ VERSION=		${PORTVERSION}
 KEYWORDS=		cran
 VARIANTS=		std
 SDESC[std]=		D3 JavaScript Network Graphs from R
-HOMEPAGE=		https://CRAN.R-project.org/package=networkD3
+HOMEPAGE=		https://christophergandrud.github.io/networkD3/
 CONTACT=		CRAN_Automaton[cran@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		CRAN/src/contrib
 			https://loki.dragonflybsd.org/cranfiles/
-DISTFILE[1]=		networkD3_0.4.tar.gz:main
+DISTFILE[1]=		networkD3_0.4.1.tar.gz:main
 DIST_SUBDIR=		CRAN
 DF_INDEX=		1
 
@@ -29,8 +29,10 @@ DISTNAME=		networkD3
 GENERATED=		yes
 INSTALL_REQ_TOOLCHAIN=	yes
 
-BUILDRUN_DEPENDS=	R-htmlwidgets:single:std
+BUILDRUN_DEPENDS=	R-data.tree:single:std
+			R-htmlwidgets:single:std
 			R-igraph:single:std
+			R-jsonlite:single:std
 			R-magrittr:single:std
 
 
