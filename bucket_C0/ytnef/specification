@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	2.1.2
 
 NAMEBASE=		ytnef
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		converters mail
 VARIANTS=		std
 SDESC[std]=		Unpack data in MS Outlook TNEF format
@@ -33,3 +34,8 @@ SHEBANG_FILES=		{{WRKSRC}}/ytnef/ytnefprocess
 
 MUST_CONFIGURE=		gnu
 INSTALL_TARGET=		install-strip
+
+# CVE-2009-3887: fixed by https://github.com/Yeraze/ytnef/pull/9
+# CVE-2009-3721: fixed by https://github.com/Yeraze/ytnef/pull/6
+
+CVE_FIXED=		CVE-2009-3887 CVE-2009-3721
