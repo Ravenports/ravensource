@@ -1,4 +1,4 @@
---- src/tds/tls.c.orig	2023-11-24 09:00:02 UTC
+--- src/tds/tls.c.orig	2025-03-11 18:57:29 UTC
 +++ src/tds/tls.c
 @@ -53,6 +53,10 @@
  #include <sys/socket.h>
@@ -10,8 +10,8 @@
 +
  #include <freetds/tds.h>
  #include <freetds/utils/string.h>
- #include <freetds/tls.h>
-@@ -75,6 +79,15 @@
+ #include <freetds/utils.h>
+@@ -76,6 +80,15 @@
  #define SSL_PTR ptr
  #else
  
