@@ -4,6 +4,7 @@ DEF[RELEASE_TAG]=	v${PORTVERSION}
 
 NAMEBASE=		p7zip
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		archivers
 VARIANTS=		std
 SDESC[std]=		File archiver with high compression ratio
@@ -32,6 +33,10 @@ SINGLE_JOB=		yes
 BUILD_TARGET=		all3
 MAKEFILE=		makefile
 MAKE_ARGS=		OPTFLAGS="{{CXXFLAGS}}"
+
+# CVE-2017-17969 (8-MAY-2020) commit be73331
+# CVE-2018-5996  (8-MAY-2020) commit 7af1377
+CVE_FIXED=		CVE-2017-17969 CVE-2018-5996
 
 post-patch:
 	${REINPLACE_CMD} -e 's|{DEST_SHARE_DOC}|${STD_DOCDIR}|' \
