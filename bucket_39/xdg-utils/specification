@@ -1,4 +1,3 @@
-# New epoch, 1.1.5 was never release.  Take the top of the repo though (2022-11-06)
 DEF[PORTVERSION]=	1.2.1
 DEF[HASH]=		v${PORTVERSION}
 DEF[CAT1]=		http://docbook.sourceforge.net/release/xsl/current/
@@ -7,7 +6,7 @@ DEF[CAT2]=		http://www.oasis-open.org/docbook/xml/
 
 NAMEBASE=		xdg-utils
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 EPOCH=			1
 KEYWORDS=		devel
 VARIANTS=		std
@@ -41,6 +40,8 @@ USES=			cpe gmake
 CPE_VENDOR=		freedesktop
 MUST_CONFIGURE=		gnu
 DISTNAME=		xdg-utils-${HASH}
+
+CVE_FIXED=		CVE-2020-27748
 
 pre-configure:
 	${REINPLACE_CMD} -e 's|%%LOCALBASE%%|${LOCALBASE}|' \
