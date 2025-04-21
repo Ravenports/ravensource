@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	5.5.2
+DEF[PORTVERSION]=	5.5.3
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-kombu
@@ -11,7 +11,7 @@ HOMEPAGE=		https://kombu.readthedocs.io
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/af/ba/939f3db0fca87715c883e42cc93045347d61a9d519c270a38e54a06db6e1
+SITES[main]=		PYPIWHL/5d/35/1407fb0b2f5b07b50cbaf97fce09ad87d3bfefbf64f7171a8651cd8d2f68
 DISTFILE[1]=		kombu-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -32,31 +32,30 @@ DISTNAME=		kombu-${PORTVERSION}.dist-info
 # Requires-Dist extracted from wheel metadata
 # amqp<6.0.0,>=5.1.1
 # vine==5.1.0
-# typing-extensions==4.12.2; python_version < "3.10"
 # backports.zoneinfo[tzdata]>=0.2.1; python_version < "3.9"
-# tzdata==2025.2; python_version >= "3.9"
-# azure-servicebus>=7.10.0; extra == "azureservicebus"
-# azure-storage-queue>=12.6.0; extra == "azurestoragequeues"
-# azure-identity>=1.12.0; extra == "azurestoragequeues"
-# confluent-kafka>=2.2.0; extra == "confluentkafka"
-# python-consul2==0.1.5; extra == "consul"
+# tzdata>=2025.2; python_version >= "3.9"
+# msgpack==1.1.0; extra == "msgpack"
+# PyYAML>=3.10; extra == "yaml"
+# redis!=4.5.5,!=5.0.2,<=5.2.1,>=4.5.2; extra == "redis"
+# pymongo>=4.1.1; extra == "mongodb"
+# boto3>=1.26.143; extra == "sqs"
+# urllib3>=1.26.16; extra == "sqs"
 # google-cloud-pubsub>=2.18.4; extra == "gcpubsub"
 # google-cloud-monitoring>=2.16.0; extra == "gcpubsub"
 # grpcio==1.67.0; extra == "gcpubsub"
 # protobuf==4.25.5; extra == "gcpubsub"
+# kazoo>=2.8.0; extra == "zookeeper"
+# sqlalchemy<2.1,>=1.4.48; extra == "sqlalchemy"
 # librabbitmq>=2.0.0; python_version < "3.11" and extra == "librabbitmq"
-# pymongo>=4.1.1; extra == "mongodb"
-# msgpack==1.1.0; extra == "msgpack"
 # pyro4==4.82; extra == "pyro"
+# softlayer_messaging>=1.0.3; extra == "slmq"
+# azure-storage-queue>=12.6.0; extra == "azurestoragequeues"
+# azure-identity>=1.12.0; extra == "azurestoragequeues"
+# azure-servicebus>=7.10.0; extra == "azureservicebus"
 # qpid-python>=0.26; extra == "qpid"
 # qpid-tools>=0.26; extra == "qpid"
-# redis!=4.5.5,!=5.0.2,<=5.2.1,>=4.5.2; extra == "redis"
-# softlayer-messaging>=1.0.3; extra == "slmq"
-# sqlalchemy<2.1,>=1.4.48; extra == "sqlalchemy"
-# boto3>=1.26.143; extra == "sqs"
-# urllib3>=1.26.16; extra == "sqs"
-# PyYAML>=3.10; extra == "yaml"
-# kazoo>=2.8.0; extra == "zookeeper"
+# python-consul2==0.1.5; extra == "consul"
+# confluent-kafka>=2.2.0; extra == "confluentkafka"
 
 [PY312].USES_ON=			python:v12,wheel
 [PY312].RUN_DEPENDS_ON=			python-amqp:single:v12
