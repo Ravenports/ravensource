@@ -1,6 +1,6 @@
---- include/global.h.orig	2024-11-12 09:36:52 UTC
+--- include/global.h.orig	2025-04-14 16:42:04 UTC
 +++ include/global.h
-@@ -104,7 +104,7 @@ int snd_dlclose(void *handle);
+@@ -107,7 +107,7 @@ int snd_dlclose(void *handle);
  
  
  /** \brief alloca helper macro. */
