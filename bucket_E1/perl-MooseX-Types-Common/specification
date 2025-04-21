@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.001014
+DEF[PORTVERSION]=	0.001015
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-MooseX-Types-Common
@@ -33,6 +33,7 @@ DISTNAME=		MooseX-Types-Common-${PORTVERSION}
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
 # |      runtime : Carp (perl 5.38 core) (perl 5.40 core)
+# |      runtime : Moose
 # |      runtime : MooseX::Types
 # |      runtime : MooseX::Types::Moose
 # |      runtime : if (perl 5.38 core) (perl 5.40 core)
@@ -41,6 +42,7 @@ DISTNAME=		MooseX-Types-Common-${PORTVERSION}
 # |    configure : Module::Build::Tiny
 # |         test : File::Spec (perl 5.38 core) (perl 5.40 core)
 # |         test : Module::Metadata (perl 5.38 core) (perl 5.40 core)
+# |         test : Term::ANSIColor (perl 5.38 core) (perl 5.40 core)
 # |         test : Test::Deep
 # |         test : Test::More (perl 5.38 core) (perl 5.40 core)
 # |         test : Test::Warnings
@@ -49,9 +51,11 @@ DISTNAME=		MooseX-Types-Common-${PORTVERSION}
 # |         test : CPAN::Meta (perl 5.38 core) (perl 5.40 core)
 
 [PERL_538].USES_ON=			perl:538,buildmodtiny,run
-[PERL_538].BUILDRUN_DEPENDS_ON=		perl-MooseX-Types:single:538
+[PERL_538].BUILDRUN_DEPENDS_ON=		perl-Moose:single:538
+					perl-MooseX-Types:single:538
 [PERL_538].BUILD_DEPENDS_ON=		perl-Module-Build-Tiny:single:538
 [PERL_540].USES_ON=			perl:540,buildmodtiny,run
-[PERL_540].BUILDRUN_DEPENDS_ON=		perl-MooseX-Types:single:540
+[PERL_540].BUILDRUN_DEPENDS_ON=		perl-Moose:single:540
+					perl-MooseX-Types:single:540
 [PERL_540].BUILD_DEPENDS_ON=		perl-Module-Build-Tiny:single:540
 
