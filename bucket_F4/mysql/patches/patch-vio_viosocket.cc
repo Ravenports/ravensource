@@ -1,6 +1,6 @@
 * define ppoll on older NetBSD that only has pollts
 
---- vio/viosocket.cc.orig	2024-12-15 20:00:33 UTC
+--- vio/viosocket.cc.orig	2025-03-31 08:00:22 UTC
 +++ vio/viosocket.cc
 @@ -72,6 +72,13 @@
  

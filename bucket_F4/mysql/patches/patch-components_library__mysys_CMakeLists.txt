@@ -1,0 +1,15 @@
+--- components/library_mysys/CMakeLists.txt.orig	2025-03-31 08:00:22 UTC
++++ components/library_mysys/CMakeLists.txt
+@@ -32,10 +32,10 @@ SET(MY_SYSTEM_SOURCES
+ IF(LINUX)
+   LIST(APPEND MY_SYSTEM_SOURCES
+     my_system_api/my_system_api_linux.cc)
+-ELSEIF(APPLE)
++ELSEIF(CMAKE_SYSTEM_NAME MATCHES "Darwin|DragonFly|NetBSD")
+   LIST(APPEND MY_SYSTEM_SOURCES
+     my_system_api/my_system_api_apple.cc)
+-ELSEIF(FREEBSD)
++ELSEIF(CMAKE_SYSTEM_NAME MATCHES "FreeBSD|MidnightBSD")
+   LIST(APPEND MY_SYSTEM_SOURCES
+     my_system_api/my_system_api_freebsd.cc)
+ ELSEIF(SOLARIS)
