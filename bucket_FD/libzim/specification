@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	9.2.3
+DEF[PORTVERSION]=	9.3.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libzim
@@ -27,12 +27,11 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/libzim
 
-BUILD_DEPENDS=		gtest:set:std
-			icu:dev:std
+BUILD_DEPENDS=		icu:dev:std
 			xapian-core:dev:std
 BUILDRUN_DEPENDS=	icu:primary:std
 			xapian-core:primary:std
 
 USES=			execinfo meson ninja pkgconfig xz zstd
-
+MESON_ARGS=		-Dtests=false
 SOVERSION=		${PORTVERSION}
