@@ -1,45 +1,48 @@
 DEF[PORTVERSION]=	4.4
+DEF[TAG]=		${PORTVERSION}
+# Debian no longer provides unzoo (what FPC is based on)
+# Switch to Fedora recipe with CVE fixes:
+# https://src.fedoraproject.org/rpms/unzoo/tree/rawhide
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		unzoo
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		archivers
 VARIANTS=		std
 SDESC[std]=		ZOO archive extractor
-HOMEPAGE=		http://freshmeat.sourceforge.net/projects/unzoo/
+HOMEPAGE=		https://github.com/museoa/unzoo/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		FREELOCAL/ehaupt
-DISTFILE[1]=		unzoo_${PORTVERSION}.orig.tar.gz:main
-DISTFILE[2]=		unzoo_${PORTVERSION}-4.diff.gz:main
+SITES[main]=		GITHUB/museoa:unzoo:${TAG}
+DISTFILE[1]=		generated:main
 DF_INDEX=		1
 
-SPKGS[std]=		set primary man
+SPKGS[std]=		set primary docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 LICENSE=		PUBDOM:primary
-LICENSE_FILE=		PUBDOM:{{WRKSRC}}/debian/copyright
+LICENSE_FILE=		PUBDOM:{{WRKDIR}}/LICENSE
+LICENSE_SOURCE=		PUBDOM:{{WRKSRC}}/src/unzoo.c
+LICENSE_AWK=		PUBDOM:"SYNTAX"
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		archivers/unzoo
 
-PATCHFILES=		2
-PATCHFILES_STRIP=	-p1
-EXTRACT_DIRTY=		1
-
 USES=			cpe
 CFLAGS=			-DSYS_IS_UNIX
 			-DSYS_HAS_MKDIR
-			-trigraphs
+
+CVE_FIXED=		CVE-2007-1673
+			CVE-2015-1845
 
 do-build:
-	cd ${WRKSRC} && ${CC} ${CFLAGS} -o unzoo unzoo.c
+	cd ${WRKSRC}/src && ${CC} ${CFLAGS} -o unzoo unzoo.c
 
 do-install:
-	${INSTALL_PROGRAM} ${WRKSRC}/unzoo ${STAGEDIR}${PREFIX}/bin
-	${INSTALL_MAN} ${WRKSRC}/debian/unzoo.1 \
-		${STAGEDIR}${MANPREFIX}/man/man1
+	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
+	${INSTALL_PROGRAM} ${WRKSRC}/src/unzoo ${STAGEDIR}${PREFIX}/bin
+	${INSTALL_DATA} ${WRKSRC}/README.TXT ${STAGEDIR}${STD_DOCDIR}/unzoo.txt
