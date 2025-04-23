@@ -2,7 +2,7 @@ $NetBSD: patch-common_ubidiimp.h,v 1.1 2019/04/08 21:39:43 jperkin Exp $
 
 Avoid sys/regset.h pollution on SunOS.
 
---- common/ubidiimp.h.orig	2023-12-11 22:27:41 UTC
+--- common/ubidiimp.h.orig	2025-03-13 18:31:23 UTC
 +++ common/ubidiimp.h
 @@ -24,6 +24,11 @@
  #include "unicode/uchar.h"

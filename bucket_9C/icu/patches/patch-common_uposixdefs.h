@@ -3,7 +3,7 @@ $NetBSD: patch-common_uposixdefs.h,v 1.6 2018/07/26 22:37:48 abs Exp $
 C99 and related define overrides.
 Do not play _XOPEN_SOURCE games on NetBSD, as it breaks at least gcc 6.4 on NetBSD-8.0
 
---- common/uposixdefs.h.orig	2023-12-11 22:27:41 UTC
+--- common/uposixdefs.h.orig	2025-03-13 18:31:23 UTC
 +++ common/uposixdefs.h
 @@ -44,8 +44,10 @@
       * and define _XOPEN_SOURCE to different values depending on __STDC_VERSION__.
