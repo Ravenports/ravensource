@@ -1,9 +1,10 @@
-DEF[CPE_SW_EDITION]=	esr
-DEF[PORTVERSION]=	128.6.0
-DEF[TVER]=		${PORTVERSION}${CPE_SW_EDITION}
+DEF[PORTVERSION]=	137.0.2
+# DEF[CPE_SW_EDITION]=	esr
+# DEF[TVER]=		${PORTVERSION}${CPE_SW_EDITION}
+DEF[TVER]=		${PORTVERSION}
 DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
-DEF[CLANGBASE]=		clang18
-DEF[LLVMBASE]=		llvm18
+DEF[CLANGBASE]=		clang
+DEF[LLVMBASE]=		llvm
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		thunderbird
@@ -85,7 +86,7 @@ XORG_COMPONENTS=	x11 xcb xcomposite xdamage xext xfixes xrender xt
 			pixman
 GNOME_COMPONENTS=	gconf gtk3 gdkpixbuf pango
 CPE_VENDOR=		mozilla
-CPE_SW_EDITION=		${CPE_SW_EDITION}
+# CPE_SW_EDITION=		${CPE_SW_EDITION}
 MUST_CONFIGURE=		yes
 CONFIGURE_OUTSOURCE=	yes
 MOUNT_PROCFS=		yes
@@ -170,9 +171,9 @@ post-patch:
 		>> ${WRKSRC}/.mozconfig
 
 	# disable rust checksums
-.for RD in mp4parse
+.for RD in mtu quinn-udp
 	${REINPLACE_CMD} -e 's/"files":{[^}]*}/"files":{}/' \
-		 ${WRKSRC}/third_party/rust/${RD}/.cargo-checksum.json
+		 ${WRKSRC}/comm/third_party/rust/${RD}/.cargo-checksum.json
 .endfor
 
 pre-configure:

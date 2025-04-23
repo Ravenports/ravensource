@@ -1,0 +1,11 @@
+--- js/moz.configure.orig	2025-04-12 05:13:41 UTC
++++ js/moz.configure
+@@ -1198,7 +1198,7 @@ def enable_system_icu_option(enable_syst
+     return enable_system_icu
+ 
+ 
+-system_icu = pkg_check_modules("MOZ_ICU", "icu-i18n >= 76.1", when="--with-system-icu")
++system_icu = pkg_check_modules("MOZ_ICU", "icu-i18n icu-uc >= 76.1", when="--with-system-icu")
+ 
+ 
+ @depends(enable_system_icu_option)
