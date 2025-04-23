@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	2.2.14
 
 NAMEBASE=		mutt
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		mail
 VARIANTS=		std
 SDESC[std]=		Powerful terminal mail client
@@ -72,6 +73,11 @@ CONFIGURE_ARGS=		--disable-debug
 			--without-included-gettext
 			--without-qdbm
 INFO=			info:mutt
+
+# CVE addressed 18 DEC 2012
+# https://gitlab.com/muttmua/mutt/-/commit/fe72fc46d53fcb45b33fefe958cb61a9b0914a1b
+
+CVE_FIXED=		CVE-2011-1429
 
 post-install:
 	${RM} ${STAGEDIR}${PREFIX}/etc/mime.types
