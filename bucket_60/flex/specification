@@ -4,7 +4,7 @@ DEF[SOVERSION]=		2.0.0
 
 NAMEBASE=		flex
 VERSION=		${PORTVERSION}
-REVISION=		3
+REVISION=		4
 KEYWORDS=		textproc
 VARIANTS=		std ravensys
 SDESC[std]=		Fast lexical analyzer generator
@@ -42,6 +42,14 @@ SOVERSION=		${SOVERSION}
 CPE_VENDOR=		flex_project
 
 VAR_OPSYS[netbsd]=	CONFIGURE_ENV=ac_cv_func_reallocarray=no
+
+# CVE is effectively disputed - yes there is stack exhaustion but no bug and it
+# is building the parser, not running it, effectively similar to a compiler ICE.
+# Upstream no plans to address and there is no security issue.
+# Many repositories have whitelisted this
+# https://github.com/westes/flex/issues/414
+
+CVE_FIXED=		CVE-2019-6293
 
 [RAVENSYS].DESCRIPTION=			For ravensys-root - built without NLS
 [RAVENSYS].USES_OFF=			gettext
