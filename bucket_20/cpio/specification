@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	2.15
 
 NAMEBASE=		cpio
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		archivers
 VARIANTS=		std
 SDESC[std]=		Utility that copies files to or from archives
@@ -26,3 +27,7 @@ MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-rmt=/etc/rmt
 			--enable-nls
 INFO=			info:cpio
+
+# Issue applies to use of cpio in SUSE/OBS, doesn't apply to us (claimed by several repos)
+# CVE_CHECK_WHITELIST += "CVE-2010-4226"
+CVE_FIXED=		CVE-2010-4226
