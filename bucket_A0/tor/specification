@@ -4,6 +4,7 @@ DEF[PORTVERSION]=	0.4.8.16
 
 NAMEBASE=		tor
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		security net
 VARIANTS=		std
 SDESC[std]=		Anonymizing overlay network for TCP
@@ -52,6 +53,11 @@ CONFIGURE_ENV=		TOR_CPPFLAGS_libevent="-I{{LOCALBASE}}/include"
 			tor_cv_cflags__Wextra_semi=no
 SUB_LIST=		USER="{{USERS}}" GROUP="{{GROUPS}}"
 PLIST_SUB=		USER="{{USERS}}" GROUP="{{GROUPS}}"
+
+# CVE-2017-16541 is incorrectly attributed to "tor" when the description makes
+# it's clear that it's talking about "tor_browser", and the CVE was addressed
+# in that browser back in 2017.  Unclear why nobody has fix the "applies to" yet.
+CVE_FIXED=		CVE-2017-16541
 
 post-patch:
 	${REINPLACE_CMD} -E -e "s@(-z) (relro|now)@-Wl,\1,\2@g" \
