@@ -1,5 +1,5 @@
 # Breaks every time quazip is updated
-DEF[PORTVERSION]=	4.8.6
+DEF[PORTVERSION]=	4.8.7
 DEF[QUAZIP_VER]=	1.4
 # Remove cmake minimum argument on next release
 # ----------------------------------------------------------------------------
@@ -16,16 +16,16 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/texstudio-org/texstudio/archive/
 DISTFILE[1]=		${PORTVERSION}.tar.gz:main
 
-SPKGS[std]=		single
+SPKGS[std]=		set primary docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 # Licensed GPLv2+ but comes with v3 COPYING file only
 # Therefore use stock v2 license file
-LICENSE=		GPLv2+:single
+LICENSE=		GPLv2+:primary
 LICENSE_FILE=		GPLv2+:stock
-LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/texstudio.h
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SCHEME=		solo
@@ -55,7 +55,7 @@ RUN_DEPENDS=		texlive-bin:primary:std
 C_USES[midnightbsd]=	clang
 C_USES[freebsd]=	clang
 
-USES=			cmake pkgconfig zlib bz2 desktop-utils:single
+USES=			cmake pkgconfig zlib bz2 desktop-utils:primary
 XORG_COMPONENTS=	x11
 CMAKE_ARGS=		-DTEXSTUDIO_ENABLE_TESTS:BOOL=OFF
 			-DTEXSTUDIO_ENABLE_MEDIAPLAYER:BOOL=OFF
