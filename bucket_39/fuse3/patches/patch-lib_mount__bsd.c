@@ -1,4 +1,4 @@
---- lib/mount_bsd.c.orig	2025-03-24 12:25:30 UTC
+--- lib/mount_bsd.c.orig	2025-04-23 23:16:19 UTC
 +++ lib/mount_bsd.c
 @@ -81,7 +81,7 @@ static const struct fuse_opt fuse_mount_
  	FUSE_DUAL_OPT_KEY("private",		KEY_KERN),
