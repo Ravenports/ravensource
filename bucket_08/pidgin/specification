@@ -5,6 +5,7 @@ DEF[MODULES]=		gg,irc,jabber,novell,simple,zephyr,sametime
 
 NAMEBASE=		pidgin
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		net_im
 VARIANTS=		std
 SDESC[std]=		Multi-protocol instant messaging client
@@ -84,3 +85,7 @@ INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
 CPE_VENDOR=		pidgin
 SOVERSION=		${SOVERSION}
+
+# The CPE in the NVD database doesn't reflect correctly the vulnerable versions.
+# The vulnerability was fixed more than a decade ago
+CVE_FIXED=		CVE-2011-3594
