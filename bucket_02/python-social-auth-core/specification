@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	4.5.6
+DEF[PORTVERSION]=	4.6.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-social-auth-core
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/python-social-auth/social-core
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/44/48/d09817114dfaf4337a823aef52fefeef5d032118b2ab190d403bd8302d75
+SITES[main]=		PYPIWHL/06/a9/e99fe14113535c9bd191da4a6d76c3fc0c3bc6537dfab00b99eda25ac63f
 DISTFILE[1]=		social_auth_core-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -24,50 +24,57 @@ VOPTS[v12]=		PY312=ON PY313=OFF
 VOPTS[v13]=		PY312=OFF PY313=ON
 
 # License listed at PyPI
-# BSD
+# Not provided.
 
 GENERATED=		yes
 DISTNAME=		social_auth_core-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# PyJWT>=2.7.0
 # cryptography>=1.4
 # defusedxml>=0.5.0
 # oauthlib>=1.0.3
+# PyJWT>=2.7.0
 # python3-openid>=3.0.10
 # requests-oauthlib>=0.6.1
 # requests>=2.9.1
-# social-auth-core[saml]; extra == "all"
 # social-auth-core[azuread]; extra == "all"
-# social-auth-core[shopify]; extra == "all"
 # social-auth-core[google-onetap]; extra == "all"
+# social-auth-core[saml]; extra == "all"
+# social-auth-core[shopify]; extra == "all"
 # social-auth-core[all]; extra == "allpy3"
 # cryptography>=2.1.1; extra == "azuread"
-# flake8>=5.0.4; extra == "dev"
-# pytest>=4.5; extra == "dev"
-# httpretty~=1.1.0; extra == "dev"
 # coverage>=3.6; extra == "dev"
+# flake8>=5.0.4; extra == "dev"
+# google-auth-stubs==0.3.0; extra == "dev"
+# mypy==1.15.0; extra == "dev"
+# pyright==1.1.400; extra == "dev"
 # pytest-cov>=2.7.1; extra == "dev"
-# urllib3~=2.2.0; extra == "dev"
-# pyright>=1.1.391; extra == "dev"
-# google-auth~=2.38.0; extra == "google-onetap"
+# pytest-xdist>=3.6.1; extra == "dev"
+# pytest>=4.5; extra == "dev"
+# responses==0.25.7; extra == "dev"
+# types-defusedxml==0.7.0.20240218; extra == "dev"
+# types-oauthlib==3.2.0.20250408; extra == "dev"
+# types-python-jose==3.4.0.20250224; extra == "dev"
+# types-requests-oauthlib==2.0.0.20250306; extra == "dev"
+# types-requests==2.32.0.20250328; extra == "dev"
+# google-auth~=2.39.0; extra == "google-onetap"
+# python-jose<4.0,>=3.4.0; extra == "ping"
 # python3-saml>=1.5.0; extra == "saml"
-# lxml~=5.2.1; extra == "saml"
 # ShopifyAPI; extra == "shopify"
 
 [PY312].USES_ON=			python:v12,wheel
-[PY312].RUN_DEPENDS_ON=			python-PyJWT:single:v12
-					python-cryptography:single:v12
+[PY312].RUN_DEPENDS_ON=			python-cryptography:single:v12
 					python-defusedxml:single:v12
 					python-oauthlib:single:v12
+					python-PyJWT:single:v12
 					python-python3-openid:single:v12
 					python-requests-oauthlib:single:v12
 					python-requests:single:v12
 [PY313].USES_ON=			python:v13,wheel
-[PY313].RUN_DEPENDS_ON=			python-PyJWT:single:v13
-					python-cryptography:single:v13
+[PY313].RUN_DEPENDS_ON=			python-cryptography:single:v13
 					python-defusedxml:single:v13
 					python-oauthlib:single:v13
+					python-PyJWT:single:v13
 					python-python3-openid:single:v13
 					python-requests-oauthlib:single:v13
 					python-requests:single:v13
