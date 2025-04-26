@@ -31,3 +31,6 @@ DISTNAME=		SGMLSpm-${PORTVERSION}
 
 [PERL_538].USES_ON=			perl:538,configure
 [PERL_540].USES_ON=			perl:540,configure
+
+post-install:
+	(cd ${STAGEDIR}${PREFIX}/bin && ${LN} -s sgmlspl.pl sgmlspl)
