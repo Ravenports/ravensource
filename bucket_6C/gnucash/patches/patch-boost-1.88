@@ -1,0 +1,75 @@
+--- common/cmake_modules/GncAddSwigCommand.cmake.omv~	2025-04-12 03:08:45.376664233 +0200
++++ common/cmake_modules/GncAddSwigCommand.cmake	2025-04-12 03:08:48.883518422 +0200
+@@ -73,7 +73,7 @@ macro (gnc_add_swig_python_command _targ
+         endif()
+     set (DEFAULT_SWIG_PYTHON_FLAGS
+         -python ${SWIG_EXTRA_OPT}
+-        -Wall -Werror
++        -Wall
+         ${SWIG_ARGS}
+         )
+     set (DEFAULT_SWIG_PYTHON_C_INCLUDES
+--- libgnucash/app-utils/CMakeLists.txt.omv~	2025-04-12 03:05:47.647012280 +0200
++++ libgnucash/app-utils/CMakeLists.txt	2025-04-12 03:05:55.126361297 +0200
+@@ -70,7 +70,7 @@ endif()
+ 
+ 
+ add_library (gnc-app-utils ${app_utils_ALL_SOURCES} ${SWIG_APP_UTILS_GUILE_CPP})
+-target_link_libraries(gnc-app-utils ${app_utils_ALL_LIBRARIES})
++target_link_libraries(gnc-app-utils ${app_utils_ALL_LIBRARIES} boost_process)
+ 
+ target_include_directories (gnc-app-utils
+     PUBLIC
+--- libgnucash/app-utils/gnc-quotes.cpp.omv~	2025-04-12 02:53:45.566072214 +0200
++++ libgnucash/app-utils/gnc-quotes.cpp	2025-04-12 03:04:06.016275182 +0200
+@@ -39,6 +39,13 @@
+ #ifdef BOOST_WINDOWS_API
+ #include <boost/process/windows.hpp>
+ #endif
++#include <boost/process/v1/async.hpp>
++#include <boost/process/v1/child.hpp>
++#include <boost/process/v1/env.hpp>
++#include <boost/process/v1/environment.hpp>
++#include <boost/process/v1/error.hpp>
++#include <boost/process/v1/io.hpp>
++#include <boost/process/v1/search_path.hpp>
+ #include <boost/process.hpp>
+ #include <boost/regex.hpp>
+ #include <boost/property_tree/ptree.hpp>
+@@ -133,7 +140,7 @@ class GncFQQuoteSource final : public Gn
+     std::string c_fq_wrapper;
+     std::string m_version;
+     StrVec m_sources;
+-    bp::environment m_env;
++    bp::v1::environment m_env;
+ public:
+     GncFQQuoteSource();
+     ~GncFQQuoteSource() = default;
+@@ -152,7 +159,7 @@ static std::string parse_quotesource_err
+ static const std::string empty_string{};
+ 
+ GncFQQuoteSource::GncFQQuoteSource() :
+-c_cmd{bp::search_path("perl")},
++c_cmd{bp::v1::search_path("perl")},
+ m_version{}, m_sources{}, m_env{boost::this_process::environment()}
+ {
+     char *bindir = gnc_path_get_bindir();
+@@ -207,12 +214,12 @@ GncFQQuoteSource::run_cmd (const StrVec&
+         std::future<std::vector<char> > out_buf, err_buf;
+         boost::asio::io_context svc;
+ 
+-        auto input_buf = bp::buffer (json_string);
+-	bp::child process;
+-        process = bp::child(c_cmd, args,
+-                            bp::std_out > out_buf,
+-                            bp::std_err > err_buf,
+-                            bp::std_in < input_buf,
++        auto input_buf = bp::v1::buffer (json_string);
++	bp::v1::child process;
++        process = bp::v1::child(c_cmd, args,
++                            bp::v1::std_out > out_buf,
++                            bp::v1::std_err > err_buf,
++                            bp::v1::std_in < input_buf,
+ #ifdef BOOST_WINDOWS_API
+                             bp::windows::create_no_window,
+ #endif

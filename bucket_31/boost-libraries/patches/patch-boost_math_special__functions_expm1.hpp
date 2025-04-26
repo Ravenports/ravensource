@@ -1,4 +1,4 @@
---- boost/math/special_functions/expm1.hpp.orig	2024-12-05 00:53:33 UTC
+--- boost/math/special_functions/expm1.hpp.orig	2025-04-03 11:37:27 UTC
 +++ boost/math/special_functions/expm1.hpp
 @@ -299,7 +299,7 @@ BOOST_MATH_GPU_ENABLED inline typename t
  #endif

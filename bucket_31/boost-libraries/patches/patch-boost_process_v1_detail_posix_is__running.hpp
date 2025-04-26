@@ -1,4 +1,4 @@
---- boost/process/v1/detail/posix/is_running.hpp.orig	2024-12-05 00:53:35 UTC
+--- boost/process/v1/detail/posix/is_running.hpp.orig	2025-04-03 11:37:29 UTC
 +++ boost/process/v1/detail/posix/is_running.hpp
 @@ -17,10 +17,12 @@ namespace boost { namespace process { BO
  // This bit arrangement of status codes is not guaranteed by POSIX, but (according to comments in

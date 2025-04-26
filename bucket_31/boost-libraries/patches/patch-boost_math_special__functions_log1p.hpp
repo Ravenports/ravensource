@@ -1,6 +1,6 @@
 $NetBSD: patch-boost_math_special__functions_log1p.hpp,v 1.1 2017/05/29 14:39:29 ryoon Exp $
 
---- boost/math/special_functions/log1p.hpp.orig	2024-12-05 00:53:33 UTC
+--- boost/math/special_functions/log1p.hpp.orig	2025-04-03 11:37:27 UTC
 +++ boost/math/special_functions/log1p.hpp
 @@ -328,7 +328,7 @@ BOOST_MATH_GPU_ENABLED inline typename t
  #  undef log1p
