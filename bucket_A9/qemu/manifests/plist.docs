@@ -1,8 +1,12 @@
 share/doc/qemu/.buildinfo
 share/doc/qemu/dbus-dbusindex.html
 share/doc/qemu/genindex.html
+share/doc/qemu/glossary.html
 share/doc/qemu/index.html
 share/doc/qemu/objects.inv
+share/doc/qemu/qapi-qga-index.html
+share/doc/qemu/qapi-qmp-index.html
+share/doc/qemu/qapi-qsd-index.html
 share/doc/qemu/search.html
 share/doc/qemu/searchindex.js
 share/doc/qemu/_static/_sphinx_javascript_frameworks_compat.js
@@ -76,9 +80,11 @@ share/doc/qemu/about/removed-features.html
 share/doc/qemu/devel/atomics.html
 share/doc/qemu/devel/bitops.html
 share/doc/qemu/devel/block-coroutine-wrapper.html
+share/doc/qemu/devel/build-environment.html
 share/doc/qemu/devel/build-system.html
 share/doc/qemu/devel/clocks.html
 share/doc/qemu/devel/code-of-conduct.html
+share/doc/qemu/devel/codebase.html
 share/doc/qemu/devel/conflict-resolution.html
 share/doc/qemu/devel/control-flow-integrity.html
 share/doc/qemu/devel/crypto.html
@@ -103,12 +109,14 @@ share/doc/qemu/devel/multi-thread-tcg.html
 share/doc/qemu/devel/multiple-iothreads.html
 share/doc/qemu/devel/pci.html
 share/doc/qemu/devel/qapi-code-gen.html
+share/doc/qemu/devel/qapi-domain.html
 share/doc/qemu/devel/qdev-api.html
 share/doc/qemu/devel/qom-api.html
 share/doc/qemu/devel/qom.html
 share/doc/qemu/devel/rcu.html
 share/doc/qemu/devel/replay.html
 share/doc/qemu/devel/reset.html
+share/doc/qemu/devel/rust.html
 share/doc/qemu/devel/s390-cpu-topology.html
 share/doc/qemu/devel/s390-dasd-ipl.html
 share/doc/qemu/devel/secure-coding-practices.html
@@ -122,6 +130,7 @@ share/doc/qemu/devel/tcg-plugins.html
 share/doc/qemu/devel/tcg.html
 share/doc/qemu/devel/tracing.html
 share/doc/qemu/devel/trivial-patches.html
+share/doc/qemu/devel/uefi-vars.html
 share/doc/qemu/devel/ui.html
 share/doc/qemu/devel/vfio-iommufd.html
 share/doc/qemu/devel/virtio-backends.html
@@ -158,6 +167,7 @@ share/doc/qemu/docs/bypass-iommu.txt
 share/doc/qemu/docs/colo-proxy.txt
 share/doc/qemu/docs/conf.py
 share/doc/qemu/docs/defs.rst.inc
+share/doc/qemu/docs/glossary.rst
 share/doc/qemu/docs/igd-assign.txt
 share/doc/qemu/docs/image-fuzzer.txt
 share/doc/qemu/docs/index.rst
@@ -196,9 +206,11 @@ share/doc/qemu/docs/config/q35-virtio-serial.cfg
 share/doc/qemu/docs/devel/atomics.rst
 share/doc/qemu/docs/devel/bitops.rst
 share/doc/qemu/docs/devel/block-coroutine-wrapper.rst
+share/doc/qemu/docs/devel/build-environment.rst
 share/doc/qemu/docs/devel/build-system.rst
 share/doc/qemu/docs/devel/clocks.rst
 share/doc/qemu/docs/devel/code-of-conduct.rst
+share/doc/qemu/docs/devel/codebase.rst
 share/doc/qemu/docs/devel/conflict-resolution.rst
 share/doc/qemu/docs/devel/control-flow-integrity.rst
 share/doc/qemu/docs/devel/crypto.rst
@@ -223,12 +235,14 @@ share/doc/qemu/docs/devel/multi-thread-tcg.rst
 share/doc/qemu/docs/devel/multiple-iothreads.rst
 share/doc/qemu/docs/devel/pci.rst
 share/doc/qemu/docs/devel/qapi-code-gen.rst
+share/doc/qemu/docs/devel/qapi-domain.rst
 share/doc/qemu/docs/devel/qdev-api.rst
 share/doc/qemu/docs/devel/qom-api.rst
 share/doc/qemu/docs/devel/qom.rst
 share/doc/qemu/docs/devel/rcu.rst
 share/doc/qemu/docs/devel/replay.rst
 share/doc/qemu/docs/devel/reset.rst
+share/doc/qemu/docs/devel/rust.rst
 share/doc/qemu/docs/devel/s390-cpu-topology.rst
 share/doc/qemu/docs/devel/s390-dasd-ipl.rst
 share/doc/qemu/docs/devel/secure-coding-practices.rst
@@ -242,6 +256,7 @@ share/doc/qemu/docs/devel/tcg-plugins.rst
 share/doc/qemu/docs/devel/tcg.rst
 share/doc/qemu/docs/devel/tracing.rst
 share/doc/qemu/docs/devel/trivial-patches.rst
+share/doc/qemu/docs/devel/uefi-vars.rst
 share/doc/qemu/docs/devel/ui.rst
 share/doc/qemu/docs/devel/vfio-iommufd.rst
 share/doc/qemu/docs/devel/virtio-backends.rst
@@ -307,6 +322,7 @@ share/doc/qemu/docs/specs/acpi_hw_reduced_hotplug.rst
 share/doc/qemu/docs/specs/acpi_mem_hotplug.rst
 share/doc/qemu/docs/specs/acpi_nvdimm.rst
 share/doc/qemu/docs/specs/acpi_pci_hotplug.rst
+share/doc/qemu/docs/specs/aspeed-intc.rst
 share/doc/qemu/docs/specs/edu.rst
 share/doc/qemu/docs/specs/fsi.rst
 share/doc/qemu/docs/specs/fw_cfg.rst
@@ -323,6 +339,7 @@ share/doc/qemu/docs/specs/ppc-spapr-xive.rst
 share/doc/qemu/docs/specs/ppc-xive.rst
 share/doc/qemu/docs/specs/pvpanic.rst
 share/doc/qemu/docs/specs/rapl-msr.rst
+share/doc/qemu/docs/specs/riscv-aia.rst
 share/doc/qemu/docs/specs/riscv-iommu.rst
 share/doc/qemu/docs/specs/rocker.rst
 share/doc/qemu/docs/specs/sev-guest-firmware.rst
@@ -377,6 +394,7 @@ share/doc/qemu/docs/system/target-arm.rst
 share/doc/qemu/docs/system/target-avr.rst
 share/doc/qemu/docs/system/target-i386-desc.rst.inc
 share/doc/qemu/docs/system/target-i386.rst
+share/doc/qemu/docs/system/target-loongarch.rst
 share/doc/qemu/docs/system/target-m68k.rst
 share/doc/qemu/docs/system/target-mips.rst
 share/doc/qemu/docs/system/target-openrisc.rst
@@ -405,6 +423,7 @@ share/doc/qemu/docs/system/arm/exynos.rst
 share/doc/qemu/docs/system/arm/fby35.rst
 share/doc/qemu/docs/system/arm/highbank.rst
 share/doc/qemu/docs/system/arm/imx25-pdk.rst
+share/doc/qemu/docs/system/arm/imx8mp-evk.rst
 share/doc/qemu/docs/system/arm/integratorcp.rst
 share/doc/qemu/docs/system/arm/kzm.rst
 share/doc/qemu/docs/system/arm/mcimx6ul-evk.rst
@@ -425,6 +444,7 @@ share/doc/qemu/docs/system/arm/sx1.rst
 share/doc/qemu/docs/system/arm/versatile.rst
 share/doc/qemu/docs/system/arm/vexpress.rst
 share/doc/qemu/docs/system/arm/virt.rst
+share/doc/qemu/docs/system/arm/vmapple.rst
 share/doc/qemu/docs/system/arm/xenpvh.rst
 share/doc/qemu/docs/system/arm/xlnx-versal-virt.rst
 share/doc/qemu/docs/system/arm/xlnx-zcu102.rst
@@ -434,6 +454,7 @@ share/doc/qemu/docs/system/devices/canokey.rst
 share/doc/qemu/docs/system/devices/ccid.rst
 share/doc/qemu/docs/system/devices/cxl.rst
 share/doc/qemu/docs/system/devices/igb.rst
+share/doc/qemu/docs/system/devices/ivshmem-flat.rst
 share/doc/qemu/docs/system/devices/ivshmem.rst
 share/doc/qemu/docs/system/devices/keyboard.rst
 share/doc/qemu/docs/system/devices/net.rst
@@ -468,6 +489,7 @@ share/doc/qemu/docs/system/ppc/powernv.rst
 share/doc/qemu/docs/system/ppc/ppce500.rst
 share/doc/qemu/docs/system/ppc/prep.rst
 share/doc/qemu/docs/system/ppc/pseries.rst
+share/doc/qemu/docs/system/riscv/microblaze-v-generic.rst
 share/doc/qemu/docs/system/riscv/microchip-icicle-kit.rst
 share/doc/qemu/docs/system/riscv/shakti-c.rst
 share/doc/qemu/docs/system/riscv/sifive_u.rst
@@ -517,6 +539,7 @@ share/doc/qemu/specs/acpi_hw_reduced_hotplug.html
 share/doc/qemu/specs/acpi_mem_hotplug.html
 share/doc/qemu/specs/acpi_nvdimm.html
 share/doc/qemu/specs/acpi_pci_hotplug.html
+share/doc/qemu/specs/aspeed-intc.html
 share/doc/qemu/specs/edu.html
 share/doc/qemu/specs/fsi.html
 share/doc/qemu/specs/fw_cfg.html
@@ -533,6 +556,7 @@ share/doc/qemu/specs/ppc-spapr-xive.html
 share/doc/qemu/specs/ppc-xive.html
 share/doc/qemu/specs/pvpanic.html
 share/doc/qemu/specs/rapl-msr.html
+share/doc/qemu/specs/riscv-aia.html
 share/doc/qemu/specs/riscv-iommu.html
 share/doc/qemu/specs/rocker.html
 share/doc/qemu/specs/sev-guest-firmware.html
@@ -572,6 +596,7 @@ share/doc/qemu/system/security.html
 share/doc/qemu/system/target-arm.html
 share/doc/qemu/system/target-avr.html
 share/doc/qemu/system/target-i386.html
+share/doc/qemu/system/target-loongarch.html
 share/doc/qemu/system/target-m68k.html
 share/doc/qemu/system/target-mips.html
 share/doc/qemu/system/target-openrisc.html
@@ -600,6 +625,7 @@ share/doc/qemu/system/arm/exynos.html
 share/doc/qemu/system/arm/fby35.html
 share/doc/qemu/system/arm/highbank.html
 share/doc/qemu/system/arm/imx25-pdk.html
+share/doc/qemu/system/arm/imx8mp-evk.html
 share/doc/qemu/system/arm/integratorcp.html
 share/doc/qemu/system/arm/kzm.html
 share/doc/qemu/system/arm/mcimx6ul-evk.html
@@ -620,6 +646,7 @@ share/doc/qemu/system/arm/sx1.html
 share/doc/qemu/system/arm/versatile.html
 share/doc/qemu/system/arm/vexpress.html
 share/doc/qemu/system/arm/virt.html
+share/doc/qemu/system/arm/vmapple.html
 share/doc/qemu/system/arm/xenpvh.html
 share/doc/qemu/system/arm/xlnx-versal-virt.html
 share/doc/qemu/system/arm/xlnx-zcu102.html
@@ -629,6 +656,7 @@ share/doc/qemu/system/devices/canokey.html
 share/doc/qemu/system/devices/ccid.html
 share/doc/qemu/system/devices/cxl.html
 share/doc/qemu/system/devices/igb.html
+share/doc/qemu/system/devices/ivshmem-flat.html
 share/doc/qemu/system/devices/ivshmem.html
 share/doc/qemu/system/devices/keyboard.html
 share/doc/qemu/system/devices/net.html
@@ -663,6 +691,7 @@ share/doc/qemu/system/ppc/powernv.html
 share/doc/qemu/system/ppc/ppce500.html
 share/doc/qemu/system/ppc/prep.html
 share/doc/qemu/system/ppc/pseries.html
+share/doc/qemu/system/riscv/microblaze-v-generic.html
 share/doc/qemu/system/riscv/microchip-icicle-kit.html
 share/doc/qemu/system/riscv/shakti-c.html
 share/doc/qemu/system/riscv/sifive_u.html
