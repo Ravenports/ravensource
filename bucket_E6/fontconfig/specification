@@ -15,8 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://gitlab.freedesktop.org/fontconfig/fontconfig/-/archive/${PORTVERSION}/
 DISTFILE[1]=		fontconfig-${PORTVERSION}.tar.bz2:main
 
-SPKGS[std]=		set primary dev
-# man
+SPKGS[std]=		set primary dev man
 
 OPTIONS_AVAILABLE=	HINTING_NONE HINTING_SLIGHT HINTING_MEDIUM HINTING_FULL
 OPTIONS_STANDARD=	HINTING_NONE HINTING_SLIGHT HINTING_MEDIUM HINTING_FULL
@@ -33,15 +32,13 @@ LICENSE_SCHEME=		solo
 # FPC_EQUIVALENT=		x11-fonts/fontconfig
 
 BUILD_DEPENDS=		gperf:primary:std
-# docbook2man can't understand the sgml.
-# No idea what the problem is, but no man pages until somebody figures it out
-# #			docbook2X:primary:std
+			docbook-utils:primary:std
 
 EXRUN[dev]=		freetype:dev:std
 
 USES=			cpe meson pkgconfig freetype expat
 CPE_VENDOR=		fontconfig_project
-MESON_ARGS=		-Ddoc-man=disabled
+MESON_ARGS=		-Ddoc-man=enabled
 			-Ddoc-txt=disabled
 			-Ddoc-pdf=disabled
 			-Ddoc-html=disabled
