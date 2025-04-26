@@ -1,0 +1,34 @@
+DEF[PORTVERSION]=	0.6.15
+DEF[TAG]=		v${PORTVERSION}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		docbook-utils
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc
+VARIANTS=		std
+SDESC[std]=		Shell scripts to manage DocBook documents
+HOMEPAGE=		https://github.com/devexp-db/docbook-utils
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/devexp-db:docbook-utils:${TAG}
+DISTFILE[1]=		generated:main
+
+SPKGS[std]=		set primary man
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		textproc/docbook-utils
+
+BUILD_DEPENDS=		docbook-sgml:single:std
+			perl-SGMLSpm:single:perl_used
+BUILDRUN_DEPENDS=	docbook-dsssl:single:std
+			jade:primary:std
+
+USES=			perl gmake autoreconf shebangfix
+SHEBANG_FILES=		bin/sgmldiff.in
+SHEBANG_OLD_PERL=	@perl_bindir@/perl
+
+MUST_CONFIGURE=		gnu
+PLIST_SUB=		VER=${PORTVERSION}

@@ -1,0 +1,20 @@
+--- bin/jw.in.orig	2024-10-09 12:46:46 UTC
++++ bin/jw.in
+@@ -63,7 +63,7 @@ if [ $? -eq 0 ]
+ then
+   SGML_CONF=`sgmlwhich`
+ else
+-  SGML_CONF="/etc/sgml/sgml.conf"
++  SGML_CONF="@prefix@/etc/sgml.conf"
+ fi
+ 
+ # Set version message
+@@ -77,7 +77,7 @@ SGML_EXTRA_CATALOGS=""
+ 
+ # Set SGML base directory and centralized catalogs directory
+ SGML_BASE_DIR="@prefix@/share/sgml"
+-SGML_CATALOGS_DIR="/etc/sgml"
++SGML_CATALOGS_DIR="@prefix@/share/sgml"
+ if [ -f "$SGML_CONF" ]
+ then
+   RE='^[[:space:]]*SGML_BASE_DIR[[:space:]]*=[[:space:]]*'

@@ -1,0 +1,12 @@
+--- doc/man/Makefile.am.orig	2024-10-09 12:46:46 UTC
++++ doc/man/Makefile.am
+@@ -10,7 +10,7 @@ CLEANFILES=$(man1_MANS) $(man7_MANS) man
+ 
+ $(man1_MANS) $(man7_MANS): $(top_srcdir)/doc/docbook-utils.sgml \
+ 		$(top_srcdir)/helpers/docbook2man-spec.pl
+-	SGML_CATALOG_FILES=/etc/sgml/catalog \
++	SGML_CATALOG_FILES=$(prefix)/share/sgml/catalog \
+ 	SGML_SEARCH_PATH=$(top_srcdir)/doc:.. \
+ 		nsgmls $< | \
+-		sgmlspl $(top_srcdir)/helpers/docbook2man-spec.pl
++		sgmlspl.pl $(top_srcdir)/helpers/docbook2man-spec.pl
