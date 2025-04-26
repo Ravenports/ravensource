@@ -1,10 +1,10 @@
-DEF[PORTVERSION]=	2.4.0
+DEF[PORTVERSION]=	2.4.1
 DEF[DL_FOLDER]=		2.4
+DEF[FILEVER]=		${PORTVERSION}-4
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		dovecot
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		mail
 VARIANTS=		std
 SDESC[std]=		Secure IMAP and POP3 server
@@ -13,7 +13,7 @@ CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		https://dovecot.org/releases/${DL_FOLDER}/
-DISTFILE[1]=		dovecot-${PORTVERSION}.tar.gz:main
+DISTFILE[1]=		dovecot-${FILEVER}.tar.gz:main
 
 SPKGS[std]=		set primary dev man docs
 
@@ -43,7 +43,7 @@ GROUPS=			dovecot dovenull
 USERGROUP_SPKG=		primary
 
 USES=			cpe iconv libtool pkgconfig ssl:openssl30
-			gmake sqlite lz4 zlib mbsdfix
+			gmake sqlite lz4 zlib mbsdfix perl:build
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--localstatedir=/var
 			--with-statedir=/var/db/dovecot
@@ -69,6 +69,7 @@ LDFLAGS=		-L{{OPENSSLLIB}}
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
 PLIST_SUB=		REQUIRE="LOGIN"
+DISTNAME=		dovecot-${FILEVER}
 
 VAR_OPSYS[dragonfly]=	CONFIGURE_ENV=i_cv_fd_passing=yes
 VAR_OPSYS[netbsd]=	CFLAGS=-D_NETBSD_SOURCE
