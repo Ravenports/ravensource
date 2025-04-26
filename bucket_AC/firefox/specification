@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	135.0.1
+DEF[PORTVERSION]=	137.0.2
 DEF[FOXVERSION]=	${PORTVERSION}
 DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
 # ----------------------------------------------------------------------------
@@ -153,7 +153,7 @@ post-patch:
 		${WRKSRC}/netwerk/moz.build
 	# disable rust checksums
 	${REINPLACE_CMD} -e 's/"files":{[^}]*}/"files":{}/' \
-		${WRKSRC}/third_party/rust/libc/.cargo-checksum.json \
+		${WRKSRC}/third_party/rust/mtu/.cargo-checksum.json \
 		${WRKSRC}/third_party/rust/quinn-udp/.cargo-checksum.json
 	# Fix midnight
 	${REINPLACE_CMD} -e "s|%%MBSD64_TGT%%|${MBSD64_TARGET}|" \
