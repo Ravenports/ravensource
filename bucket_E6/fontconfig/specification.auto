@@ -15,8 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://gitlab.freedesktop.org/fontconfig/fontconfig/-/archive/${PORTVERSION}/
 DISTFILE[1]=		fontconfig-${PORTVERSION}.tar.bz2:main
 
-SPKGS[std]=		set primary dev
-# man
+SPKGS[std]=		set primary dev man docs
 
 OPTIONS_AVAILABLE=	HINTING_NONE HINTING_SLIGHT HINTING_MEDIUM HINTING_FULL
 OPTIONS_STANDARD=	HINTING_NONE HINTING_SLIGHT HINTING_MEDIUM HINTING_FULL
@@ -33,32 +32,33 @@ LICENSE_SCHEME=		solo
 # FPC_EQUIVALENT=		x11-fonts/fontconfig
 
 BUILD_DEPENDS=		gperf:primary:std
-# docbook2man can't understand the sgml.
-# No idea what the problem is, but no man pages until somebody figures it out
-# #			docbook2X:primary:std
 
 EXRUN[dev]=		freetype:dev:std
 
-USES=			cpe meson pkgconfig freetype expat
+USES=			cpe autoreconf gmake libtool pkgconfig freetype expat
+			python:build zlib:build gettext:build
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-configdir={{PREFIX}}/etc/fonts/conf.d
+			--with-templatedir={{PREFIX}}/etc/fonts/conf.avail
+			--with-xmldir={{PREFIX}}/etc/fonts
+			--with-expat-includes={{LOCALBASE}}/include
+			--with-expat-lib={{LOCALBASE}}/lib
+			--with-default-hinting={{PREFERRED_HINTING}}
+			--with-default-fonts={{PREFIX}}/share/fonts
+			--with-add-fonts={{LOCALBASE}}/lib/X11/fonts
+			--with-cache-dir=/var/db/fontconfig
+			--enable-nls=no
+			--disable-docs
+			--enable-static
+
+# Python is not required, because fc-blanks.h is available in distfile
+CONFIGURE_ENV=		PYTHON=":"
+INSTALL_TARGET=		install-strip
+INSTALL_REQ_TOOLCHAIN=	yes
 CPE_VENDOR=		fontconfig_project
-MESON_ARGS=		-Ddoc-man=disabled
-			-Ddoc-txt=disabled
-			-Ddoc-pdf=disabled
-			-Ddoc-html=disabled
-			-Dnls=disabled
-			-Dtests=disabled
-			-Dtools=enabled
-			-Dcache-build=disabled
-			-Diconv=disabled
-			-Dfontations=disabled
-			-Dxml-backend=expat
-			-Dcache-dir="/var/db/fontconfig"
-			-Dtemplate-dir="{{PREFIX}}/etc/fonts/conf.avail"
-			-Dconfig-dir="{{PREFIX}}/etc/fonts/conf.d"
-			-Dxml-dir="{{PREFIX}}/etc/fonts"
-			-Ddefault-fonts-dirs="{{PREFIX}}/share/fonts"
-			-Dadditional-fonts-dirs="{{LOCALBASE}}/lib/X11/fonts"
+
 SUB_FILES=		triggers-primary.ucl
+PLIST_SUB=		PREFERRED_HINTING={{PREFERRED_HINTING}}
 SOVERSION=		${SOVERSION}
 
 [HINTING_NONE].DESCRIPTION=		No hinting
@@ -66,16 +66,19 @@ SOVERSION=		${SOVERSION}
 [HINTING_MEDIUM].DESCRIPTION=		Medium hinting
 [HINTING_FULL].DESCRIPTION=		Full hinting
 
-[HINTING_NONE].CONFIGURE_ARGS_ON=	-Ddefault-hinting=none
-[HINTING_SLIGHT].CONFIGURE_ARGS_ON=	-Ddefault-hinting=slight
-[HINTING_MEDIUM].CONFIGURE_ARGS_ON=	-Ddefault-hinting=medium
-[HINTING_FULL].CONFIGURE_ARGS_ON=	-Ddefault-hinting=full
-
-[HINTING_NONE].PLIST_SUB_ON=		PREFERRED_HINTING=none
-[HINTING_SLIGHT].PLIST_SUB_ON=		PREFERRED_HINTING=slight
-[HINTING_MEDIUM].PLIST_SUB_ON=		PREFERRED_HINTING=medium
-[HINTING_FULL].PLIST_SUB_ON=		PREFERRED_HINTING=full
+[HINTING_NONE].MAKEFILE_ON=		PREFERRED_HINTING=none
+[HINTING_SLIGHT].MAKEFILE_ON=		PREFERRED_HINTING=slight
+[HINTING_MEDIUM].MAKEFILE_ON=		PREFERRED_HINTING=medium
+[HINTING_FULL].MAKEFILE_ON=		PREFERRED_HINTING=full
 
 post-install:
-	${MV} ${STAGEDIR}${PREFIX}/etc/fonts/fonts.conf \
+	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
+	${INSTALL_MAN} ${WRKSRC}/fc-*/*.1 \
+		${STAGEDIR}${MANPREFIX}/man/man1
+	${INSTALL_MAN} ${WRKSRC}/doc/*.5 \
+		${STAGEDIR}${MANPREFIX}/man/man5
+	${INSTALL_DATA} ${WRKSRC}/fonts.conf \
 		${STAGEDIR}${PREFIX}/etc/fonts/fonts.conf.sample
+.for doc in fontconfig-user.html fontconfig-user.pdf fontconfig-user.txt
+	${INSTALL_DATA} ${WRKSRC}/doc/${doc} ${STAGEDIR}${STD_DOCDIR}/
+.endfor

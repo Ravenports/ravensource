@@ -1,23 +1,22 @@
---- src/fclang.c.orig	2025-01-17 15:15:05 UTC
+--- src/fclang.c.orig	2025-04-11 06:47:01 UTC
 +++ src/fclang.c
-@@ -200,6 +200,7 @@ FcLangNormalize (const FcChar8 *lang)
+@@ -191,6 +191,7 @@ FcLangNormalize (const FcChar8 *lang)
  {
      FcChar8 *result = NULL, *s, *orig;
-     char *territory, *encoding, *modifier;
-+    char *script;
-     size_t llen, tlen = 0, mlen = 0;
+     char    *territory, *encoding, *modifier;
++    char    *script;
+     size_t   llen, tlen = 0, mlen = 0;
  
      if (!lang || !*lang)
-@@ -263,27 +264,33 @@ FcLangNormalize (const FcChar8 *lang)
+@@ -250,24 +251,30 @@ FcLangNormalize (const FcChar8 *lang)
  	    modifier = encoding;
  	}
      }
--    territory = strchr ((const char *) s, '_');
+-    territory = strchr ((const char *)s, '_');
 -    if (!territory)
--	territory = strchr ((const char *) s, '-');
-+    territory = strrchr ((const char *) s, '_');
-     if (territory)
-     {
+-	territory = strchr ((const char *)s, '-');
++    territory = strrchr ((const char *)s, '_');
+     if (territory) {
  	*territory = 0;
  	territory++;
  	tlen = strlen (territory);
@@ -30,22 +29,20 @@
 +    {
 +        *script = 0;
 +    }
-     llen = strlen ((const char *) s);
-     if (llen < 2 || llen > 3)
-     {
+     llen = strlen ((const char *)s);
+     if (llen < 2 || llen > 3) {
 -	fprintf (stderr, "Fontconfig warning: ignoring %s: not a valid language tag\n",
--		 lang);
+-	         lang);
 +	fprintf (stderr, "Fontconfig warning: ignoring %s: not a valid language tag (%s)\n",
-+		 s, lang);
++	         s, lang);
  	goto bail0;
      }
      if (territory && (tlen < 2 || tlen > 3) &&
- 	!(territory[0] == 'z' && tlen < 5))
-     {
+         !(territory[0] == 'z' && tlen < 5)) {
 -	fprintf (stderr, "Fontconfig warning: ignoring %s: not a valid region tag\n",
--		 lang);
+-	         lang);
 +	fprintf (stderr, "Fontconfig warning: ignoring %s: not a valid region tag (%s)\n",
-+		 territory, lang);
++	         territory, lang);
  	goto bail0;
      }
      if (territory)
