@@ -1,6 +1,4 @@
-# known to retag release
-DEF[PORTVERSION]=	3.2.10
-# Remove cmake minimum argument on next release
+DEF[PORTVERSION]=	4.0.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		fluent-bit
@@ -32,7 +30,7 @@ FPC_EQUIVALENT=		sysutils/fluent-bit
 RC_SUBR=		fluent-bit:primary
 
 USES=			cpe cmake bison zlib gmake pkgconfig shebangfix
-			ssl:openssl30 python:build cclibs:primary
+			ssl:openssl30 python:build cclibs:primary c++:primary
 # Don't use execinfo, keep dependencies down
 
 SHEBANG_ADD_SH=		lib/luajit-04dca791/configure
@@ -46,7 +44,6 @@ CMAKE_ARGS=		-DFLB_DEBUG=Off
 			-DFLB_OUT_PGSQL=Off
 			-DFLB_CONFIG_YAML=Off
 			-DFLB_HTTP_SERVER=On
-			-DCMAKE_POLICY_VERSION_MINIMUM=3.5
 CFLAGS=			-Wno-deprecated-declarations
 
 # For some reason, CMake is clearing this variable, ignoring CMakeList

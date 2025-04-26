@@ -1,7 +1,7 @@
 NetBSD doesn't define THREAD_STACK_MIN, so pick an arbitrary 16 pages.
 _XOPEN_SOURCE is messing up sys/socket.h on NetBSD so remove it.
 
---- include/fluent-bit/flb_coro.h.orig	2025-03-24 22:35:10 UTC
+--- include/fluent-bit/flb_coro.h.orig	2025-04-23 22:41:14 UTC
 +++ include/fluent-bit/flb_coro.h
 @@ -20,11 +20,6 @@
  #ifndef FLB_CORO_H

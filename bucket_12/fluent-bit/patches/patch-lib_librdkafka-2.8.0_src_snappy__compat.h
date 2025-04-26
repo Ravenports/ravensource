@@ -1,5 +1,5 @@
---- lib/librdkafka-2.4.0/src/snappy_compat.h.orig	2025-03-24 22:35:10 UTC
-+++ lib/librdkafka-2.4.0/src/snappy_compat.h
+--- lib/librdkafka-2.8.0/src/snappy_compat.h.orig	2025-04-23 22:41:14 UTC
++++ lib/librdkafka-2.8.0/src/snappy_compat.h
 @@ -33,7 +33,7 @@
  
  
