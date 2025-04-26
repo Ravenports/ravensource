@@ -1,6 +1,6 @@
---- src/intel/compiler/brw_eu_validate.c.orig	2025-01-22 18:12:23 UTC
+--- src/intel/compiler/brw_eu_validate.c.orig	2025-04-17 00:04:03 UTC
 +++ src/intel/compiler/brw_eu_validate.c
-@@ -85,6 +85,39 @@ typedef struct brw_hw_decoded_inst {
+@@ -97,6 +97,39 @@ typedef struct brw_hw_decoded_inst {
     } src[3];
  } brw_hw_decoded_inst;
  
