@@ -36,12 +36,12 @@ static Status EnsureFDFlags(int fd, int flags) {
 
   int status = fcntl(fd, F_GETFL);
   if (status == -1) {
-    error.SetErrorToErrno();
+    error = Status::FromErrno();
     return error;
   }
 
   if (fcntl(fd, F_SETFL, status | flags) == -1) {
-    error.SetErrorToErrno();
+    error = Status::FromErrno();
     return error;
   }
 
@@ -54,10 +54,10 @@ static Status CanTrace() {
   ret = ::sysctlbyname("security.bsd.unprivileged_proc_debug", &proc_debug,
                        &len, nullptr, 0);
   if (ret != 0)
-    return Status("sysctlbyname() security.bsd.unprivileged_proc_debug failed");
+    return Status::FromErrorString("sysctlbyname() security.bsd.unprivileged_proc_debug failed");
 
   if (proc_debug < 1)
-    return Status(
+    return Status::FromErrorString(
         "process debug disabled by security.bsd.unprivileged_proc_debug oid");
 
   return {};
@@ -238,7 +238,7 @@ Status NativeProcessDragonFly::PtraceWrapper(int req, lldb::pid_t pid, void *add
   if (ret == -1) {
     error = CanTrace();
     if (error.Success())
-      error.SetErrorToErrno();
+      error = Status::FromErrno();
   }
 
   if (result)
@@ -313,13 +313,13 @@ Status NativeProcessDragonFly::Resume(const ResumeActionList &resume_actions) {
     case eStateSuspended:
     case eStateStopped:
       if (action->signal != LLDB_INVALID_SIGNAL_NUMBER)
-        return Status("Passing signal to suspended thread unsupported");
+        return Status::FromErrorString("Passing signal to suspended thread unsupported");
 
       ret = thread.Suspend();
       break;
 
     default:
-      return Status(
+      return Status::FromErrorStringWithFormat(
           "NativeProcessDragonFly::%s (): unexpected state %s specified "
           "for pid %" PRIu64 ", tid %" PRIu64,
           __FUNCTION__, StateAsCString(action->state), GetID(), thread.GetID());
@@ -346,7 +346,7 @@ Status NativeProcessDragonFly::Halt() {
   if (StateIsStoppedState(m_state, false))
     return error;
   if (kill(GetID(), SIGSTOP) != 0)
-    error.SetErrorToErrno();
+    error = Status::FromErrno();
   return error;
 }
 
@@ -367,7 +367,7 @@ Status NativeProcessDragonFly::Signal(int signo) {
   Status error;
 
   if (kill(GetID(), signo))
-    error.SetErrorToErrno();
+    error = Status::FromErrno();
 
   return error;
 }
@@ -410,7 +410,7 @@ Status NativeProcessDragonFly::GetMemoryRegionInfo(lldb::addr_t load_addr,
 
   if (m_supports_mem_region == LazyBool::eLazyBoolNo) {
     // We're done.
-    return Status("unsupported");
+    return Status::FromErrorString("unsupported");
   }
 
   Status error = PopulateMemoryRegionCache();
@@ -472,7 +472,7 @@ Status NativeProcessDragonFly::PopulateMemoryRegionCache() {
   }
 
   m_supports_mem_region = LazyBool::eLazyBoolNo;
-  return Status("PopulateMemoryRegionCache Unimplemented");
+  return Status::FromErrorString("PopulateMemoryRegionCache Unimplemented");
 }
 
 size_t NativeProcessDragonFly::UpdateThreads() { return m_threads.size(); }
@@ -504,8 +504,9 @@ Status NativeProcessDragonFly::GetLoadedModuleFileSpec(const char *module_path,
       return Status();
     }
   }
-  return Status("Module file (%s) not found in process' memory map!",
-                module_file_spec.GetFilename().AsCString());
+  return Status::FromErrorStringWithFormat(
+    "Module file (%s) not found in process' memory map!",
+    module_file_spec.GetFilename().AsCString());
 }
 
 Status
@@ -527,7 +528,9 @@ NativeProcessDragonFly::GetFileLoadAddress(const llvm::StringRef &file_name,
       return Status();
     }
   }
-  return Status("No load address found for file %s.", file_name.str().c_str());
+  return Status::FromErrorStringWithFormat(
+    "No load address found for file %s.",
+    file_name.str().c_str());
 }
 
 void NativeProcessDragonFly::SigchldHandler() {
@@ -703,11 +706,11 @@ NativeProcessDragonFly::GetAuxvData() const {
 }
 
 Status NativeProcessDragonFly::SetupTrace() {
-  return Status("trace setup not implemented");
+  return Status::FromErrorString("trace setup not implemented");
 }
 
 Status NativeProcessDragonFly::ReinitializeThreads() {
-  return Status("reinitialize threads not implemented");
+  return Status::FromErrorString("reinitialize threads not implemented");
 }
 
 bool NativeProcessDragonFly::SupportHardwareSingleStepping() const {

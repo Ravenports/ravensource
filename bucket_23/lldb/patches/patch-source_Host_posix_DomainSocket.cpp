@@ -1,6 +1,6 @@
---- source/Host/posix/DomainSocket.cpp.orig	2024-12-17 11:04:04 UTC
+--- source/Host/posix/DomainSocket.cpp.orig	2025-04-16 00:23:49 UTC
 +++ source/Host/posix/DomainSocket.cpp
-@@ -49,6 +49,7 @@ static bool SetSockAddr(llvm::StringRef
+@@ -43,6 +43,7 @@ static bool SetSockAddr(llvm::StringRef
          offsetof(struct sockaddr_un, sun_path) + name_offset + name.size();
  
  #if defined(__APPLE__) || defined(__FreeBSD__) || defined(__NetBSD__) ||       \

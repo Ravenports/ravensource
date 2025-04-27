@@ -1,7 +1,7 @@
 DEF[NAMEBASE]=		lldb
 DEF[LLVMBASE]=		llvm
 DEF[CLANGBASE]=		clang
-DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM19_VERSION)
+DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM20_VERSION)
 DEF[SOVERSION]=		${LLVM_VERSION}
 # ----------------------------------------------------------------------------
 
@@ -39,7 +39,7 @@ BUILDRUN_DEPENDS=	${LLVMBASE}:primary:std
 			${CLANGBASE}:dynlibs:std
 
 USES=			cpe cmake c++:primary zlib:build execinfo python
-			ncurses xz lua:5.3
+			ninja ncurses xz lua:5.3
 GNOME_COMPONENTS=	libxml2
 CPE_VENDOR=		llvm
 CPE_PRODUCT=		llvm

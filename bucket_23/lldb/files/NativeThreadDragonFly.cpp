@@ -43,7 +43,7 @@ NativeThreadDragonFly::NativeThreadDragonFly(NativeProcessDragonFly &process,
 
 
 Status NativeThreadDragonFly::Resume() {
-    return Status("thread resume not implemented");
+    return Status::FromErrorString("thread resume not implemented");
 /*
   Status ret = NativeProcessDragonFly::PtraceWrapper(PT_RESUME, GetID());
   if (!ret.Success())
@@ -61,7 +61,7 @@ Status NativeThreadDragonFly::Resume() {
 }
 
 Status NativeThreadDragonFly::SingleStep() {
-    return Status("thread single-step not implemented");
+    return Status::FromErrorString("thread single-step not implemented");
 /*
   Status ret = NativeProcessDragonFly::PtraceWrapper(PT_RESUME, GetID());
   if (!ret.Success())
@@ -74,7 +74,7 @@ Status NativeThreadDragonFly::SingleStep() {
 }
 
 Status NativeThreadDragonFly::Suspend() {
-    return Status("thread suspend not implemented");
+    return Status::FromErrorString("thread suspend not implemented");
 /*
   Status ret = NativeProcessDragonFly::PtraceWrapper(PT_SUSPEND, GetID());
   if (ret.Success())
@@ -263,14 +263,14 @@ Status NativeThreadDragonFly::SetWatchpoint(lldb::addr_t addr, size_t size,
                                           uint32_t watch_flags, bool hardware) {
   assert(m_state == eStateStopped);
   if (!hardware)
-    return Status("not implemented");
+    return Status::FromErrorString("not implemented");
   Status error = RemoveWatchpoint(addr);
   if (error.Fail())
     return error;
   uint32_t wp_index =
       GetRegisterContext().SetHardwareWatchpoint(addr, size, watch_flags);
   if (wp_index == LLDB_INVALID_INDEX32)
-    return Status("Setting hardware watchpoint failed.");
+    return Status::FromErrorString("Setting hardware watchpoint failed.");
   m_watchpoint_index_map.insert({addr, wp_index});
   return Status();
 }
@@ -283,7 +283,7 @@ Status NativeThreadDragonFly::RemoveWatchpoint(lldb::addr_t addr) {
   m_watchpoint_index_map.erase(wp);
   if (GetRegisterContext().ClearHardwareWatchpoint(wp_index))
     return Status();
-  return Status("Clearing hardware watchpoint failed.");
+  return Status::FromErrorString("Clearing hardware watchpoint failed.");
 }
 
 Status NativeThreadDragonFly::SetHardwareBreakpoint(lldb::addr_t addr,
@@ -296,7 +296,7 @@ Status NativeThreadDragonFly::SetHardwareBreakpoint(lldb::addr_t addr,
   uint32_t bp_index = GetRegisterContext().SetHardwareBreakpoint(addr, size);
 
   if (bp_index == LLDB_INVALID_INDEX32)
-    return Status("Setting hardware breakpoint failed.");
+    return Status::FromErrorString("Setting hardware breakpoint failed.");
 
   m_hw_break_index_map.insert({addr, bp_index});
   return Status();
@@ -313,7 +313,7 @@ Status NativeThreadDragonFly::RemoveHardwareBreakpoint(lldb::addr_t addr) {
     return Status();
   }
 
-  return Status("Clearing hardware breakpoint failed.");
+  return Status::FromErrorString("Clearing hardware breakpoint failed.");
 }
 
 llvm::Error
