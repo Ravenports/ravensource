@@ -1,6 +1,6 @@
---- lib/Target/X86/MCTargetDesc/X86MCTargetDesc.h.orig	2025-01-14 09:41:02 UTC
+--- lib/Target/X86/MCTargetDesc/X86MCTargetDesc.h.orig	2025-04-16 00:23:49 UTC
 +++ lib/Target/X86/MCTargetDesc/X86MCTargetDesc.h
-@@ -17,6 +17,24 @@
+@@ -18,6 +18,24 @@
  #include <memory>
  #include <string>
  

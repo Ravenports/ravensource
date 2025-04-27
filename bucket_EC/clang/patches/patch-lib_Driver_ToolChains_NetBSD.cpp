@@ -1,4 +1,4 @@
---- lib/Driver/ToolChains/NetBSD.cpp.orig	2024-10-29 10:09:39 UTC
+--- lib/Driver/ToolChains/NetBSD.cpp.orig	2025-04-16 00:23:49 UTC
 +++ lib/Driver/ToolChains/NetBSD.cpp
 @@ -278,10 +278,15 @@ void netbsd::Linker::ConstructJob(Compil
    bool NeedsXRayDeps = addXRayRuntime(ToolChain, Args, CmdArgs);
@@ -27,7 +27,7 @@
      break;
    default:
      break;
-@@ -338,21 +342,19 @@ void netbsd::Linker::ConstructJob(Compil
+@@ -339,21 +343,19 @@ void netbsd::Linker::ConstructJob(Compil
        linkXRayRuntimeDeps(ToolChain, Args, CmdArgs);
      if (Args.hasArg(options::OPT_pthread))
        CmdArgs.push_back("-lpthread");
@@ -54,7 +54,7 @@
        }
      }
    }
-@@ -437,26 +439,6 @@ Tool *NetBSD::buildAssembler() const {
+@@ -438,26 +440,6 @@ Tool *NetBSD::buildAssembler() const {
  Tool *NetBSD::buildLinker() const { return new tools::netbsd::Linker(*this); }
  
  ToolChain::CXXStdlibType NetBSD::GetDefaultCXXStdlibType() const {
@@ -81,7 +81,7 @@
    return ToolChain::CST_Libstdcxx;
  }
  
-@@ -517,8 +499,9 @@ void NetBSD::addLibCxxIncludePaths(const
+@@ -518,8 +500,9 @@ void NetBSD::addLibCxxIncludePaths(const
  
  void NetBSD::addLibStdCxxIncludePaths(const llvm::opt::ArgList &DriverArgs,
                                        llvm::opt::ArgStringList &CC1Args) const {

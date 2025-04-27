@@ -1,4 +1,4 @@
---- lib/Driver/ToolChains/DragonFly.cpp.orig	2024-10-29 10:09:39 UTC
+--- lib/Driver/ToolChains/DragonFly.cpp.orig	2025-04-16 00:23:49 UTC
 +++ lib/Driver/ToolChains/DragonFly.cpp
 @@ -76,7 +76,7 @@ void dragonfly::Linker::ConstructJob(Com
        CmdArgs.push_back("-shared");
@@ -52,7 +52,7 @@
  
      // Use the static OpenMP runtime with -static-openmp
      bool StaticOpenMP = Args.hasArg(options::OPT_static_openmp) && !Static;
-@@ -167,16 +187,7 @@ void dragonfly::Linker::ConstructJob(Com
+@@ -168,16 +188,7 @@ void dragonfly::Linker::ConstructJob(Com
          CmdArgs.push_back("-lgcc");
          CmdArgs.push_back("-lgcc_eh");
      } else {
@@ -70,7 +70,7 @@
      }
    }
  
-@@ -210,7 +221,8 @@ DragonFly::DragonFly(const Driver &D, co
+@@ -211,7 +222,8 @@ DragonFly::DragonFly(const Driver &D, co
  
    getFilePaths().push_back(getDriver().Dir + "/../lib");
    getFilePaths().push_back(concat(getDriver().SysRoot, "/usr/lib"));
@@ -80,7 +80,7 @@
  }
  
  void DragonFly::AddClangSystemIncludeArgs(
-@@ -236,8 +248,9 @@ void DragonFly::AddClangSystemIncludeArg
+@@ -237,8 +249,9 @@ void DragonFly::AddClangSystemIncludeArg
  
  void DragonFly::addLibStdCxxIncludePaths(const llvm::opt::ArgList &DriverArgs,
                                           llvm::opt::ArgStringList &CC1Args) const {
@@ -92,7 +92,7 @@
  }
  
  Tool *DragonFly::buildAssembler() const {
-@@ -247,3 +260,5 @@ Tool *DragonFly::buildAssembler() const
+@@ -248,3 +261,5 @@ Tool *DragonFly::buildAssembler() const
  Tool *DragonFly::buildLinker() const {
    return new tools::dragonfly::Linker(*this);
  }

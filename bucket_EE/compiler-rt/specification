@@ -1,6 +1,7 @@
 DEF[NAMEBASE]=		compiler-rt
 DEF[LLVMBASE]=		llvm
-DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM19_VERSION)
+DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM20_VERSION)
+DEF[DSUBDIR]=		llvm20
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		${NAMEBASE}
@@ -15,6 +16,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/llvm/llvm-project/releases/download/llvmorg-${LLVM_VERSION}/
 DISTFILE[1]=		compiler-rt-${LLVM_VERSION}.src.tar.xz:main
 DISTFILE[2]=		cmake-${LLVM_VERSION}.src.tar.xz:main
+DIST_SUBDIR=		${DSUBDIR}
 DF_INDEX=		1 2
 
 SPKGS[std]=		single

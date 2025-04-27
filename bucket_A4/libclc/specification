@@ -1,9 +1,10 @@
 DEF[NAMEBASE]=		libclc
-DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM19_VERSION)
+DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM20_VERSION)
 DEF[LLVMBASE]=		llvm
 DEF[CLANGBASE]=		clang
-DEF[SPIRVBASE]=		spirv-llvm-translator
+DEF[SPIRVBASE]=		spirv-llvm-translator20
 DEF[PORTVERSION]=	${LLVM_VERSION}
+DEF[DSUBDIR]=		llvm20
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		${NAMEBASE}
@@ -17,6 +18,7 @@ CONTACT=		nobody
 DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/llvm/llvm-project/releases/download/llvmorg-${PORTVERSION}/
 DISTFILE[1]=		libclc-${PORTVERSION}.src.tar.xz:main
+DIST_SUBDIR=		${DSUBDIR}
 
 SPKGS[std]=		single
 

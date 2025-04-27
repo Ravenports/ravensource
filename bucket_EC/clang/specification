@@ -1,6 +1,6 @@
 DEF[NAMEBASE]=		clang
 DEF[LLVMBASE]=		llvm
-DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM19_VERSION)
+DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM20_VERSION)
 DEF[PORTREVISION]=	0
 DEF[MAJORMIN]=		${LLVM_VERSION:R}
 DEF[MAJOR]=		${LLVM_VERSION:R:R}
@@ -9,6 +9,7 @@ DEF[GCC_LIB]=		toolchain/ravensys-gcc/{{ASLIB}}
 DEF[GXX_INCLUDE]=	toolchain/ravensys-gcc/include/c++/${GCC_VERSION}
 DEF[GCC_TARGET_LIB]=	toolchain/ravensys-gcc/lib/gcc/{{CONFIGURE_TARGET}}/${GCC_VERSION}
 DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
+DEF[DSUBDIR]=		llvm20
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		${NAMEBASE}
@@ -26,6 +27,7 @@ SITES[main]=		https://github.com/llvm/llvm-project/releases/download/llvmorg-${L
 DISTFILE[1]=		clang-${LLVM_VERSION}.src.tar.xz:main
 DISTFILE[2]=		clang-tools-extra-${LLVM_VERSION}.src.tar.xz:main
 DISTFILE[3]=		cmake-${LLVM_VERSION}.src.tar.xz:main
+DIST_SUBDIR=		${DSUBDIR}
 DF_INDEX=		1 2 3
 
 SPKGS[std]=		set compiler extra dynlibs man
@@ -185,18 +187,19 @@ post-install:
 	${RMDIR} ${STAGEDIR}${PREFIX}/include/clang-tidy/misc/ConfusableTable
 	${RMDIR} ${STAGEDIR}${PREFIX}/include/clang/Basic/Target/MSP430
 	${RMDIR} ${STAGEDIR}${PREFIX}/include/clang/Basic/Target
+	${RMDIR} ${STAGEDIR}${PREFIX}/include/clang/CIRFrontendAction
 	${INSTALL_PROGRAM} ${WRKDIR}/.build/bin/clang-tblgen \
 		${STAGEDIR}${PREFIX}/bin/
 .for F in c-index-test clang-${MAJOR} clang++ clang-cl clang-cpp \
 	clang-check clang-doc clang-format \
 	clang-extdef-mapping clang-offload-bundler \
-	clang-move clang-refactor clang-rename clang-apply-replacements \
+	clang-move clang-refactor clang-apply-replacements \
 	clang-scan-deps clang-change-namespace clang-include-fixer clang-query \
 	clang-reorder-fields clang-tidy find-all-symbols clang-linker-wrapper \
-	clang-repl clang-offload-packager clang-pseudo amdgpu-arch nvptx-arch \
+	clang-repl clang-offload-packager amdgpu-arch nvptx-arch \
 	modularize diagtool pp-trace clang-include-cleaner clang-installapi \
 	clang-nvlink-wrapper
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/${F}
 .endfor
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libclang.${LIBEXT}
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libclang-cpp.${LIBEXT}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libclang.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libclang-cpp.so

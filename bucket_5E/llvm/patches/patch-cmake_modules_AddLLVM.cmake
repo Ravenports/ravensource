@@ -1,4 +1,4 @@
---- cmake/modules/AddLLVM.cmake.orig	2025-01-14 09:41:02 UTC
+--- cmake/modules/AddLLVM.cmake.orig	2025-04-16 00:23:49 UTC
 +++ cmake/modules/AddLLVM.cmake
 @@ -263,14 +263,10 @@ if (NOT DEFINED LLVM_LINKER_DETECTED AND
        set(LLVM_LINKER_IS_SOLARISLD YES CACHE INTERNAL "")
@@ -16,7 +16,7 @@
      endif()
    endif()
  
-@@ -2466,7 +2462,7 @@ function(llvm_setup_rpath name)
+@@ -2526,7 +2522,7 @@ function(llvm_setup_rpath name)
    elseif(UNIX)
      set(_build_rpath "\$ORIGIN/../lib${LLVM_LIBDIR_SUFFIX}" ${extra_libdir})
      set(_install_rpath "\$ORIGIN/../lib${LLVM_LIBDIR_SUFFIX}")

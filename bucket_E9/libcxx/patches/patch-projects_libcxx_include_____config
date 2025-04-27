@@ -1,7 +1,7 @@
---- projects/libcxx/include/__config.orig	2024-10-29 10:09:39 UTC
+--- projects/libcxx/include/__config.orig	2025-04-16 00:23:49 UTC
 +++ projects/libcxx/include/__config
-@@ -16,6 +16,10 @@
- #include <__configuration/compiler.h>
+@@ -17,6 +17,10 @@
+ #include <__configuration/language.h>
  #include <__configuration/platform.h>
  
 +#if defined(__FreeBSD__) || defined(__DragonFly__)
@@ -11,8 +11,8 @@
  #ifndef _LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER
  #  pragma GCC system_header
  #endif
-@@ -667,11 +671,11 @@ typedef __char32_t char32_t;
- #    define _LIBCPP_HAS_NO_C11_ALIGNED_ALLOC
+@@ -675,11 +679,11 @@ typedef __char32_t char32_t;
+ #    define _LIBCPP_HAS_C11_ALIGNED_ALLOC 1
  #  endif
  
 -#  if defined(__APPLE__) || defined(__FreeBSD__)
@@ -25,9 +25,9 @@
  #    define _LIBCPP_WCTYPE_IS_MASK
  #  endif
  
-@@ -807,7 +811,7 @@ typedef __char32_t char32_t;
-       !defined(_LIBCPP_HAS_THREAD_API_WIN32) &&                                                                        \
-       !defined(_LIBCPP_HAS_THREAD_API_EXTERNAL)
+@@ -815,7 +819,7 @@ typedef __char32_t char32_t;
+       !_LIBCPP_HAS_THREAD_API_WIN32 &&                                                                                 \
+       !_LIBCPP_HAS_THREAD_API_EXTERNAL
  
 -#    if defined(__FreeBSD__) ||                                                                                        \
 +#    if defined(__FreeDragon__) ||                                                                                        \

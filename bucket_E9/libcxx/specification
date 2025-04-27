@@ -2,7 +2,8 @@ DEF[NAMEBASE]=		libcxx
 DEF[LLVMBASE]=		llvm
 DEF[CLANGBASE]=		clang
 DEF[LLVMUNWIND]=	llvm-libunwind
-DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM19_VERSION)
+DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM20_VERSION)
+DEF[DSUBDIR]=		llvm20
 # Remove cmake minimum argument on next release
 # ----------------------------------------------------------------------------
 
@@ -20,6 +21,7 @@ DISTFILE[1]=		libcxx-${LLVM_VERSION}.src.tar.xz:main
 DISTFILE[2]=		libcxxabi-${LLVM_VERSION}.src.tar.xz:main
 DISTFILE[3]=		cmake-${LLVM_VERSION}.src.tar.xz:main
 DISTFILE[4]=		runtimes-${LLVM_VERSION}.src.tar.xz:main
+DIST_SUBDIR=		${DSUBDIR}
 DF_INDEX=		1 2 3 4
 
 SPKGS[std]=		set primary dev abi experimental
@@ -33,6 +35,8 @@ LICENSE_NAME=		CUSTOM1:"University of Illinois/NCSA Open Source License"
 LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/projects/libcxx/LICENSE.TXT
 			CUSTOM2:{{WRKSRC}}/projects/libcxxabi/LICENSE.TXT
 LICENSE_SCHEME=		multi
+
+BROKEN[all]=		Requires llvm libc which is unstable and therefore not packaged
 
 BUILD_DEPENDS=		python-Sphinx:single:python_default
 			${CLANGBASE}:set:std

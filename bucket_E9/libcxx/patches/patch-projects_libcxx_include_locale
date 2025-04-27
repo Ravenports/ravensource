@@ -1,20 +1,11 @@
---- projects/libcxx/include/locale.orig	2024-10-29 10:09:39 UTC
+--- projects/libcxx/include/locale.orig	2025-04-16 00:23:49 UTC
 +++ projects/libcxx/include/locale
-@@ -232,7 +232,7 @@ template <class charT> class messages_by
- #    include <__locale_dir/locale_base_api/bsd_locale_fallbacks.h>
- #  endif
- 
--#  if defined(__APPLE__) || defined(__FreeBSD__)
-+#  if defined(__APPLE__) || defined(__FreeDragon__)
- #    include <xlocale.h>
- #  endif
- 
-@@ -245,7 +245,7 @@ _LIBCPP_PUSH_MACROS
+@@ -243,7 +243,7 @@ _LIBCPP_PUSH_MACROS
  
  _LIBCPP_BEGIN_NAMESPACE_STD
  
--#  if defined(__APPLE__) || defined(__FreeBSD__)
-+#  if defined(__APPLE__) || defined(__FreeDragon__)
- #    define _LIBCPP_GET_C_LOCALE 0
- #  elif defined(__NetBSD__)
- #    define _LIBCPP_GET_C_LOCALE LC_C_LOCALE
+-#    if defined(__APPLE__) || defined(__FreeBSD__)
++#    if defined(__APPLE__) || defined(__FreeDragon__)
+ #      define _LIBCPP_GET_C_LOCALE 0
+ #    elif defined(__NetBSD__)
+ #      define _LIBCPP_GET_C_LOCALE LC_C_LOCALE

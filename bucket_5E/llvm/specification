@@ -1,12 +1,13 @@
 # When updating this port also check 'libclc' which is set 'noscheme' in
 # Repology and is thus easily forgotten
 DEF[NAMEBASE]=		llvm
-DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM19_VERSION)
+DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM20_VERSION)
 DEF[PORTREVISION]=	0
 DEF[PORTVERSION]=	${LLVM_VERSION}
 DEF[MAJORMIN]=		${PORTVERSION:R}
 DEF[MAJOR]=		${PORTVERSION:R:R}
 DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
+DEF[DSUBDIR]=		llvm20
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		${NAMEBASE}
@@ -22,6 +23,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/llvm/llvm-project/releases/download/llvmorg-${LLVM_VERSION}/
 DISTFILE[1]=		llvm-${PORTVERSION}.src.tar.xz:main
 DISTFILE[2]=		cmake-${PORTVERSION}.src.tar.xz:main
+DIST_SUBDIR=		${DSUBDIR}
 DF_INDEX=		1 2
 
 SPKGS[std]=		set primary tools dev
