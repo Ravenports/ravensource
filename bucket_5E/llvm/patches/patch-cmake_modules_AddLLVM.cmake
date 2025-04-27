@@ -1,4 +1,4 @@
---- cmake/modules/AddLLVM.cmake.orig	2024-10-29 10:09:39 UTC
+--- cmake/modules/AddLLVM.cmake.orig	2025-01-14 09:41:02 UTC
 +++ cmake/modules/AddLLVM.cmake
 @@ -263,14 +263,10 @@ if (NOT DEFINED LLVM_LINKER_DETECTED AND
        set(LLVM_LINKER_IS_SOLARISLD YES CACHE INTERNAL "")
