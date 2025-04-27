@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.9.7
+DEF[PORTVERSION]=	0.9.8
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-eyed3
@@ -11,7 +11,7 @@ HOMEPAGE=		https://eyeD3.nicfit.net/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/e1/33/b8b37a2d1a59d4f2856bf46ab54293cfc1b187532cba21512d60a6bac602
+SITES[main]=		PYPIWHL/3f/06/1c92cae67cb9ad4f46c89f199a5f5f50fc6b1e28eb73727ff95c999e3f2e
 DISTFILE[1]=		eyed3-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -24,34 +24,40 @@ VOPTS[v12]=		PY312=ON PY313=OFF
 VOPTS[v13]=		PY312=OFF PY313=ON
 
 # License listed at PyPI
-# GPL-3.0-or-later
+# Not provided.
 
 GENERATED=		yes
 DISTNAME=		eyed3-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# Pillow (>=8.0.1,<10.0.0); extra == "art-plugin"
-# check-manifest (>=0.45,<0.46); extra == "test"
-# coverage[toml] (>=5.3.1,<6.0.0)
-# deprecation (>=2.1.0,<3.0.0)
-# factory-boy (>=3.1.0,<4.0.0); extra == "test"
-# filetype (>=1.0.7,<2.0.0)
-# flake8 (>=3.8.4,<4.0.0); extra == "test"
-# pylast (>=4.0.0,<5.0.0); extra == "art-plugin"
-# pytest (>=6.2.1,<7.0.0); extra == "test"
-# pytest-cov (>=2.10.1,<3.0.0); extra == "test"
-# requests (>=2.25.0,<3.0.0); extra == "art-plugin"
-# ruamel.yaml (>=0.16.12,<0.17.0); extra == "yaml-plugin"
-# tox (>=3.20.1,<4.0.0); extra == "test"
+# filetype>=1.2.0
+# deprecation>=2.1.0
+# PyYAML>=6.0.2; extra == "yaml-plugin"
+# Pillow>=11.2.1; extra == "art-plugin"
+# pylast>=5.5.0; extra == "art-plugin"
+# requests>=2.32.3; extra == "art-plugin"
+# pytest>=8.3.5; extra == "test"
+# coverage>=7.8.0; extra == "test"
+# tox>=4.25.0; extra == "test"
+# factory-boy>=3.3.3; extra == "test"
+# pytest-cov>=6.1.1; extra == "test"
+# check-manifest>=0.50; extra == "test"
+# flake8>=7.2.0; extra == "test"
+# twine>=6.1.0; extra == "dev"
+# Sphinx>=7.4.7; extra == "dev"
+# sphinx-rtd-theme>=3.0.2; extra == "dev"
+# sphinx-issues>=5.0.1; extra == "dev"
+# cogapp>=3.4.1; extra == "dev"
+# Paver>=1.3.4; extra == "dev"
+# nicfit-py[cookiecutter]>=0.8.7; extra == "dev"
+# regarding>=0.2.0; extra == "dev"
 
 [PY312].USES_ON=			python:v12,wheel
-[PY312].RUN_DEPENDS_ON=			python-coverage:single:v12
+[PY312].RUN_DEPENDS_ON=			python-filetype:single:v12
 					python-deprecation:single:v12
-					python-filetype:single:v12
 [PY313].USES_ON=			python:v13,wheel
-[PY313].RUN_DEPENDS_ON=			python-coverage:single:v13
+[PY313].RUN_DEPENDS_ON=			python-filetype:single:v13
 					python-deprecation:single:v13
-					python-filetype:single:v13
 
 # Drop examples due to shebang issues
 post-install:
