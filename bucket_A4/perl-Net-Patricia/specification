@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.22
+DEF[PORTVERSION]=	1.23
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-Net-Patricia
@@ -7,7 +7,7 @@ KEYWORDS=		perl
 VARIANTS=		538 540
 SDESC[538]=		Patricia Trie for fast IP address lookups (5.38)
 SDESC[540]=		Patricia Trie for fast IP address lookups (5.40)
-HOMEPAGE=		none
+HOMEPAGE=		https://github.com/tobez/Net-Patricia
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
@@ -23,7 +23,7 @@ VOPTS[538]=		PERL_538=ON PERL_540=OFF
 VOPTS[540]=		PERL_538=OFF PERL_540=ON
 
 # License listed in CPAN directory:
-# unknown
+# gpl_2, freebsd
 
 GENERATED=		yes
 SINGLE_JOB=		yes
@@ -32,12 +32,16 @@ DISTNAME=		Net-Patricia-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
+# |      runtime : Carp (perl 5.38 core) (perl 5.40 core)
+# |      runtime : Exporter (perl 5.38 core) (perl 5.40 core)
 # |      runtime : Net::CIDR::Lite
+# |      runtime : Socket (perl 5.38 core) (perl 5.40 core)
 # |      runtime : Socket6
-# |      runtime : Test::More (perl 5.38 core) (perl 5.40 core)
 # |      runtime : version (perl 5.38 core) (perl 5.40 core)
 # |        build : ExtUtils::MakeMaker (perl 5.38 core) (perl 5.40 core)
 # |    configure : ExtUtils::MakeMaker (perl 5.38 core) (perl 5.40 core)
+# |         test : Storable (perl 5.38 core) (perl 5.40 core)
+# |         test : Test::More (perl 5.38 core) (perl 5.40 core)
 
 [PERL_538].USES_ON=			perl:538,configure
 [PERL_538].BUILDRUN_DEPENDS_ON=		perl-Net-CIDR-Lite:single:538
