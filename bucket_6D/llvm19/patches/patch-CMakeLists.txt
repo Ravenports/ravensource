@@ -1,0 +1,21 @@
+--- CMakeLists.txt.orig	2025-01-14 09:41:02 UTC
++++ CMakeLists.txt
+@@ -2,7 +2,9 @@
+ 
+ cmake_minimum_required(VERSION 3.20.0)
+ 
++if(NOT DEFINED LLVM_COMMON_CMAKE_UTILS)
+ set(LLVM_COMMON_CMAKE_UTILS ${CMAKE_CURRENT_SOURCE_DIR}/../cmake)
++endif()
+ include(${LLVM_COMMON_CMAKE_UTILS}/Modules/CMakePolicy.cmake
+   NO_POLICY_SCOPE)
+ 
+@@ -1193,7 +1195,7 @@ endif()
+ 
+ if( ${CMAKE_SYSTEM_NAME} MATCHES SunOS )
+    # special hack for Solaris to handle crazy system sys/regset.h
+-   include_directories("${LLVM_MAIN_INCLUDE_DIR}/llvm/Support/Solaris")
++   # ravenports: Don't implement sys/regset.h workaround, fix source instead.
+ endif( ${CMAKE_SYSTEM_NAME} MATCHES SunOS )
+ 
+ # Make sure we don't get -rdynamic in every binary. For those that need it,
