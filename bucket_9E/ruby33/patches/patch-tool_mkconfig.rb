@@ -1,4 +1,4 @@
---- tool/mkconfig.rb.orig	2024-11-05 00:49:11 UTC
+--- tool/mkconfig.rb.orig	2025-04-09 09:23:04 UTC
 +++ tool/mkconfig.rb
 @@ -169,8 +169,9 @@ def vars.expand(val, config = self)
    val.replace(newval) unless newval == val
