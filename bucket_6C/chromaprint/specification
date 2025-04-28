@@ -1,13 +1,13 @@
 DEF[PORTVERSION]=	1.5.1
 DEF[SOVERSION]=		${PORTVERSION}
-# Consider this a patch to 1.5.1 for ffmpeg5 support
-DEF[RELEASE_TAG]=	aa67c95
+# Consider this a patch to 1.5.1 for ffmpeg7 support
+DEF[RELEASE_TAG]=	41a3e8f
 # Remove cmake minimum argument on next release
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		chromaprint
 VERSION=		${PORTVERSION}
-REVISION=		4
+REVISION=		5
 KEYWORDS=		audio
 VARIANTS=		std
 SDESC[std]=		AcoustID audio fingerprinting library
@@ -33,8 +33,8 @@ LICENSE_SCHEME=		solo
 # Repology consideres FBSD version 1.5.1.20221217 incorrect
 # FPC_EQUIVALENT=		audio/chromaprint
 
-BUILD_DEPENDS=		ffmpeg5:dev:std
-BUILDRUN_DEPENDS=	ffmpeg5:primary:std
+BUILD_DEPENDS=		ffmpeg:dev:std
+BUILDRUN_DEPENDS=	ffmpeg:primary:std
 
 USES=			cmake c++:primary
 CMAKE_ARGS=		-DBUILD_TOOLS:BOOL=ON
