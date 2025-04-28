@@ -1,4 +1,4 @@
---- cpan/DB_File/Makefile.PL.orig	2023-11-28 11:57:27 UTC
+--- cpan/DB_File/Makefile.PL.orig	2025-03-30 10:34:42 UTC
 +++ cpan/DB_File/Makefile.PL
 @@ -50,6 +50,7 @@ WriteMakefile(
          LIBS            => ["-L${LIB_DIR} $LIBS"],
