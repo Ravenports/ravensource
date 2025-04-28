@@ -55,6 +55,8 @@ function set_perl_versions() {
             $PERL_MAJVER_B = $matches[1] . "." . $matches[2];
         }
     }
+    # HACK, REMOVE
+    $PERL_VERSION_A = "5.38.3";
 }
 
 
