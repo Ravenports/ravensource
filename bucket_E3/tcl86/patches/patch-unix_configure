@@ -1,8 +1,8 @@
---- unix/configure.orig	2024-09-06 16:02:44 UTC
+--- unix/configure.orig	2024-12-02 12:57:40 UTC
 +++ unix/configure
-@@ -6347,9 +6347,13 @@ fi
- 
+@@ -7303,9 +7303,13 @@ fi
  fi
+ 
  	    ;;
 -	Linux*|GNU*|NetBSD-Debian|DragonFly-*|FreeBSD-*)
 +	Linux*|GNU*|NetBSD-*|DragonFly-*|FreeBSD-*|SunOS-*|MidnightBSD*)
@@ -15,7 +15,7 @@
  
  	    CFLAGS_OPTIMIZE="-O2"
  	    # egcs-2.91.66 on Redhat Linux 6.0 generates lots of warnings
-@@ -6358,12 +6362,15 @@ fi
+@@ -7314,12 +7318,15 @@ fi
  	    #CFLAGS_OPTIMIZE="${CFLAGS_OPTIMIZE} -D__NO_STRING_INLINES -D__NO_MATH_INLINES"
  
  	    SHLIB_LD='${CC} ${CFLAGS} ${LDFLAGS} -shared'
@@ -27,13 +27,13 @@
  	    case $system in
 -	    DragonFly-*|FreeBSD-*)
 +	    Linux*|GNU*)
-+		DL_LIBS="-ldl"
-+		;;
-+	    DragonFly-*|FreeBSD-*|NetBSD-*|MidnightBSD-*)
- 		if test "${TCL_THREADS}" = "1"
- then :
++	       DL_LIBS="-ldl"
++	       ;;
++ 	    DragonFly-*|FreeBSD-*|NetBSD-*|MidnightBSD-*)
+ 		if test "${TCL_THREADS}" = "1"; then
  
-@@ -6515,7 +6522,7 @@ fi
+ 		    # The -pthread needs to go in the LDFLAGS, not LIBS
+@@ -7495,7 +7502,7 @@ fi
  	    UNSHARED_LIB_SUFFIX='${TCL_TRIM_DOTS}.a'
  	    TCL_LIB_VERSIONS_OK=nodots
  	    ;;
