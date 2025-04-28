@@ -6,6 +6,7 @@ bin/racc%%XY%%
 bin/rdoc%%XY%%
 bin/ri%%XY%%
 bin/ruby%%XY%%
+bin/syntax_suggest%%XY%%
 include/ruby-%%XDOTY%%/ruby.h
 include/ruby-%%XDOTY%%/%%RUBY_ARCH%%/ruby/config.h
 include/ruby-%%XDOTY%%/ruby/assert.h
@@ -854,6 +855,7 @@ lib/ruby/%%XDOTY%%/rubygems/s3_uri_signer.rb
 lib/ruby/%%XDOTY%%/rubygems/safe_yaml.rb
 lib/ruby/%%XDOTY%%/rubygems/security.rb
 lib/ruby/%%XDOTY%%/rubygems/security_option.rb
+lib/ruby/%%XDOTY%%/rubygems/shellwords.rb
 lib/ruby/%%XDOTY%%/rubygems/source.rb
 lib/ruby/%%XDOTY%%/rubygems/source_list.rb
 lib/ruby/%%XDOTY%%/rubygems/spec_fetcher.rb
@@ -920,6 +922,9 @@ lib/ruby/%%XDOTY%%/rubygems/ext/configure_builder.rb
 lib/ruby/%%XDOTY%%/rubygems/ext/ext_conf_builder.rb
 lib/ruby/%%XDOTY%%/rubygems/ext/rake_builder.rb
 lib/ruby/%%XDOTY%%/rubygems/ext/cargo_builder/link_flag_converter.rb
+lib/ruby/%%XDOTY%%/rubygems/gemcutter_utilities/webauthn_listener.rb
+lib/ruby/%%XDOTY%%/rubygems/gemcutter_utilities/webauthn_poller.rb
+lib/ruby/%%XDOTY%%/rubygems/gemcutter_utilities/webauthn_listener/response.rb
 lib/ruby/%%XDOTY%%/rubygems/optparse/lib/optionparser.rb
 lib/ruby/%%XDOTY%%/rubygems/optparse/lib/optparse.rb
 lib/ruby/%%XDOTY%%/rubygems/optparse/lib/optparse/ac.rb
@@ -1030,8 +1035,11 @@ lib/ruby/%%XDOTY%%/syntax_suggest/pathname_from_message.rb
 lib/ruby/%%XDOTY%%/syntax_suggest/priority_engulf_queue.rb
 lib/ruby/%%XDOTY%%/syntax_suggest/priority_queue.rb
 lib/ruby/%%XDOTY%%/syntax_suggest/ripper_errors.rb
+lib/ruby/%%XDOTY%%/syntax_suggest/scan_history.rb
 lib/ruby/%%XDOTY%%/syntax_suggest/unvisited_lines.rb
 lib/ruby/%%XDOTY%%/syntax_suggest/version.rb
+lib/ruby/%%XDOTY%%/syntax_suggest/capture/before_after_keyword_ends.rb
+lib/ruby/%%XDOTY%%/syntax_suggest/capture/falling_indent_lines.rb
 lib/ruby/%%XDOTY%%/syslog/logger.rb
 lib/ruby/%%XDOTY%%/unicode_normalize/normalize.rb
 lib/ruby/%%XDOTY%%/unicode_normalize/tables.rb
@@ -1054,13 +1062,14 @@ lib/ruby/%%XDOTY%%/yaml/store.rb
 lib/ruby/gems/%%XDOTY%%/gems/erb-4.0.2/libexec/erb
 lib/ruby/gems/%%XDOTY%%/gems/irb-1.6.2/exe/irb
 lib/ruby/gems/%%XDOTY%%/gems/racc-1.6.2/bin/racc
-lib/ruby/gems/%%XDOTY%%/gems/rdoc-6.5.0/exe/rdoc
-lib/ruby/gems/%%XDOTY%%/gems/rdoc-6.5.0/exe/ri
+lib/ruby/gems/%%XDOTY%%/gems/rdoc-6.5.1.1/exe/rdoc
+lib/ruby/gems/%%XDOTY%%/gems/rdoc-6.5.1.1/exe/ri
+lib/ruby/gems/%%XDOTY%%/gems/syntax_suggest-1.1.0/exe/syntax_suggest
 lib/ruby/gems/%%XDOTY%%/specifications/default/abbrev-0.1.1.gemspec
 lib/ruby/gems/%%XDOTY%%/specifications/default/base64-0.1.1.gemspec
 lib/ruby/gems/%%XDOTY%%/specifications/default/benchmark-0.2.1.gemspec
 lib/ruby/gems/%%XDOTY%%/specifications/default/bigdecimal-3.1.3.gemspec
-lib/ruby/gems/%%XDOTY%%/specifications/default/cgi-0.3.6.gemspec
+lib/ruby/gems/%%XDOTY%%/specifications/default/cgi-0.3.7.gemspec
 lib/ruby/gems/%%XDOTY%%/specifications/default/csv-3.2.6.gemspec
 lib/ruby/gems/%%XDOTY%%/specifications/default/date-3.3.3.gemspec
 lib/ruby/gems/%%XDOTY%%/specifications/default/delegate-0.3.0.gemspec
@@ -1085,7 +1094,7 @@ lib/ruby/gems/%%XDOTY%%/specifications/default/irb-1.6.2.gemspec
 lib/ruby/gems/%%XDOTY%%/specifications/default/json-2.6.3.gemspec
 lib/ruby/gems/%%XDOTY%%/specifications/default/logger-1.5.3.gemspec
 lib/ruby/gems/%%XDOTY%%/specifications/default/mutex_m-0.1.2.gemspec
-lib/ruby/gems/%%XDOTY%%/specifications/default/net-http-0.3.2.gemspec
+lib/ruby/gems/%%XDOTY%%/specifications/default/net-http-0.4.1.gemspec
 lib/ruby/gems/%%XDOTY%%/specifications/default/net-protocol-0.2.1.gemspec
 lib/ruby/gems/%%XDOTY%%/specifications/default/nkf-0.1.2.gemspec
 lib/ruby/gems/%%XDOTY%%/specifications/default/observer-0.1.1.gemspec
@@ -1100,7 +1109,7 @@ lib/ruby/gems/%%XDOTY%%/specifications/default/prettyprint-0.1.1.gemspec
 lib/ruby/gems/%%XDOTY%%/specifications/default/pstore-0.1.2.gemspec
 lib/ruby/gems/%%XDOTY%%/specifications/default/psych-5.0.1.gemspec
 lib/ruby/gems/%%XDOTY%%/specifications/default/racc-1.6.2.gemspec
-lib/ruby/gems/%%XDOTY%%/specifications/default/rdoc-6.5.0.gemspec
+lib/ruby/gems/%%XDOTY%%/specifications/default/rdoc-6.5.1.1.gemspec
 lib/ruby/gems/%%XDOTY%%/specifications/default/readline-0.0.3.gemspec
 lib/ruby/gems/%%XDOTY%%/specifications/default/readline-ext-0.1.5.gemspec
 lib/ruby/gems/%%XDOTY%%/specifications/default/reline-0.3.2.gemspec
@@ -1113,8 +1122,8 @@ lib/ruby/gems/%%XDOTY%%/specifications/default/set-1.0.3.gemspec
 lib/ruby/gems/%%XDOTY%%/specifications/default/shellwords-0.1.0.gemspec
 lib/ruby/gems/%%XDOTY%%/specifications/default/singleton-0.1.1.gemspec
 lib/ruby/gems/%%XDOTY%%/specifications/default/stringio-3.0.4.gemspec
-lib/ruby/gems/%%XDOTY%%/specifications/default/strscan-3.0.5.gemspec
-lib/ruby/gems/%%XDOTY%%/specifications/default/syntax_suggest-1.0.2.gemspec
+lib/ruby/gems/%%XDOTY%%/specifications/default/strscan-3.0.7.gemspec
+lib/ruby/gems/%%XDOTY%%/specifications/default/syntax_suggest-1.1.0.gemspec
 lib/ruby/gems/%%XDOTY%%/specifications/default/syslog-0.1.1.gemspec
 lib/ruby/gems/%%XDOTY%%/specifications/default/tempfile-0.1.3.gemspec
 lib/ruby/gems/%%XDOTY%%/specifications/default/time-0.2.2.gemspec
@@ -1122,7 +1131,7 @@ lib/ruby/gems/%%XDOTY%%/specifications/default/timeout-0.3.1.gemspec
 lib/ruby/gems/%%XDOTY%%/specifications/default/tmpdir-0.1.3.gemspec
 lib/ruby/gems/%%XDOTY%%/specifications/default/tsort-0.1.1.gemspec
 lib/ruby/gems/%%XDOTY%%/specifications/default/un-0.2.1.gemspec
-lib/ruby/gems/%%XDOTY%%/specifications/default/uri-0.12.1.gemspec
+lib/ruby/gems/%%XDOTY%%/specifications/default/uri-0.12.4.gemspec
 lib/ruby/gems/%%XDOTY%%/specifications/default/weakref-0.1.2.gemspec
 lib/ruby/gems/%%XDOTY%%/specifications/default/yaml-0.2.1.gemspec
 lib/ruby/gems/%%XDOTY%%/specifications/default/zlib-3.0.0.gemspec

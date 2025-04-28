@@ -3,9 +3,9 @@ $NetBSD: patch-lib_rubygems_platform.rb,v 1.1 2023/01/21 13:51:23 taca Exp $
 * Don't replace "i486" to "x86".
 * Allow simple "netbsd" as Gem::Platform.
 
---- lib/rubygems/platform.rb.orig	2023-03-30 11:06:29 UTC
+--- lib/rubygems/platform.rb.orig	2025-03-26 04:18:02 UTC
 +++ lib/rubygems/platform.rb
-@@ -76,12 +76,7 @@ class Gem::Platform
+@@ -77,12 +77,7 @@ class Gem::Platform
          arch.last << "-#{extra}"
        end
  
@@ -19,7 +19,7 @@ $NetBSD: patch-lib_rubygems_platform.rb,v 1.1 2023/01/21 13:51:23 taca Exp $
  
        if arch.length == 2 && arch.last =~ /^\d+(\.\d+)?$/ # for command-line
          @os, @version = arch
-@@ -110,6 +105,7 @@ class Gem::Platform
+@@ -111,6 +106,7 @@ class Gem::Platform
          @cpu = "x86" if @cpu.nil? && os =~ /32$/
          [os, version]
        when /netbsdelf/ then             [ "netbsdelf", nil ]

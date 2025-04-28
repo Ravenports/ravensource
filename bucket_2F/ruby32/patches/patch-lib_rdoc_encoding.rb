@@ -2,7 +2,7 @@ $NetBSD: patch-lib_rdoc_encoding.rb,v 1.1 2023/01/21 13:51:23 taca Exp $
 
 * Always convert "\r\n" to "\n" since it cause rdoc processing error.
 
---- lib/rdoc/encoding.rb.orig	2023-03-30 11:06:29 UTC
+--- lib/rdoc/encoding.rb.orig	2025-03-26 04:18:02 UTC
 +++ lib/rdoc/encoding.rb
 @@ -31,7 +31,7 @@ module RDoc::Encoding
  
