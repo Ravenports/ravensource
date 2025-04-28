@@ -3,7 +3,7 @@ DEF[PORTVERSION]=	7.6.0p1
 
 NAMEBASE=		opensmtpd
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		mail
 VARIANTS=		std
 SDESC[std]=		Free implementation of server-side SMTP protocol
@@ -27,9 +27,7 @@ FPC_EQUIVALENT=		mail/opensmtpd
 
 BUILD_DEPENDS=		groff:primary:std
 			libevent:dev:std
-			libasr:dev:std
 BUILDRUN_DEPENDS=	libevent:primary:std
-			libasr:primary:std
 
 RC_SUBR=		smtpd:primary
 SUB_FILES=		messages-primary.ucl
@@ -43,7 +41,6 @@ CPE_VENDOR=		openbsd
 MUST_CONFIGURE=		gnu
 MAKE_ARGS=		mansubdir=man
 CONFIGURE_ARGS=		--without-table-db
-			--with-libasr={{LOCALBASE}}
 			--with-libevent={{LOCALBASE}}
 			--with-libssl={{OPENSSLBASE}}
 			--sysconfdir={{PREFIX}}/etc/mail
