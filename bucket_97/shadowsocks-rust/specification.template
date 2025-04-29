@@ -36,6 +36,9 @@ SUB_LIST=		ETCDIR={{PREFIX}}/etc/shadowsocks-rust
 
 USES=			cargo zstd dos2unix cclibs:single
 
+#  for some reason, there are dirty results on DF so they rebuild
+INSTALL_REQ_TOOLCHAIN=	yes
+
 post-install:
 	${RM} ${STAGEDIR}${PREFIX}/.crates2.json
 	${MKDIR} ${STAGEDIR}${PREFIX}/etc/shadowsocks-rust

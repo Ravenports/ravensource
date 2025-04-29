@@ -27,6 +27,22 @@ FNR==NR {
      next
   }
 
+  # handle awful jemalloc-sys tag
+  if (item[1] == "jemalloc" && item[2] == "sys") {
+     ll++
+     name[ll""] = "jemalloc-sys"
+     version[ll""] = substr($0, 14)
+     next
+  }
+
+  # handle awful lz4-sys tag
+  if (item[1] == "lz4" && item[2] == "sys") {
+     ll++
+     name[ll""] = "lz4-sys"
+     version[ll""] = substr($0, 9)
+     next
+  }
+
   # handle standard crates
   ll++
   version[ll""] = item[n]
