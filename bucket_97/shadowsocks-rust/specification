@@ -1122,5 +1122,6 @@ USES=			cargo zstd dos2unix cclibs:single
 
 post-install:
 	${RM} ${STAGEDIR}${PREFIX}/.crates2.json
+	${MKDIR} ${STAGEDIR}${PREFIX}/etc/shadowsocks-rust
 	${INSTALL_DATA} ${WRKSRC}/examples/config.json \
 		${STAGEDIR}${PREFIX}/etc/shadowsocks-rust/config.json.sample
