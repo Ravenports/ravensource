@@ -1,0 +1,42 @@
+DEF[PORTVERSION]=	%%VERSION%%
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		shadowsocks-rust
+VERSION=		${PORTVERSION}
+KEYWORDS=		rust net
+VARIANTS=		std
+SDESC[std]=		Fast tunnel proxy to bypass firewalls
+HOMEPAGE=		https://github.com/shadowsocks/shadowsocks-rust
+CONTACT=		nobody
+
+%%DOWNLOAD_GROUPS%%
+SITES[main]=		https://crates.io/api/v1/crates/shadowsocks-rust/${PORTVERSION}/download?dummy=/
+%%CR_SITES%%
+
+DISTFILE[1]=		shadowsocks-rust-${PORTVERSION}.tar.gz:main
+%%CR_DISTFILES%%
+%%DF_INDEX%%
+
+SPKGS[std]=		single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		net/shadowsocks-rust
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+ONLY_FOR_OPSYS=		freebsd linux
+
+RC_SUBR=		sslocal-rust:single
+			ssserver-rust:single
+SUB_LIST=		ETCDIR={{PREFIX}}/etc/shadowsocks-rust
+
+USES=			cargo zstd dos2unix cclibs:single
+
+post-install:
+	${RM} ${STAGEDIR}${PREFIX}/.crates2.json
+	${INSTALL_DATA} ${WRKSRC}/examples/config.json \
+		${STAGEDIR}${PREFIX}/etc/shadowsocks-rust/config.json.sample
