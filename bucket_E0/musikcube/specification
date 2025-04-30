@@ -1,18 +1,22 @@
 DEF[PORTVERSION]=	3.0.4
+DEF[ASIO_TAG]=		f693a3e
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		musikcube
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		multimedia audio
 VARIANTS=		std
 SDESC[std]=		Terminal-based music player, server & more
 HOMEPAGE=		https://musikcube.com/
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
-DOWNLOAD_GROUPS=	main
+DOWNLOAD_GROUPS=	main asio
 SITES[main]=		GITHUB/clangen:musikcube:${PORTVERSION}
+SITES[asio]=		GITHUB/chriskohlhoff:asio:${ASIO_TAG}:src/3rdparty/asio
 DISTFILE[1]=		generated:main
+DISTFILE[2]=		generated:asio
+DF_INDEX=		1 2
 
 SPKGS[std]=		set primary dev server in_gme in_openmpt out_alsa out_sndio out_pipewire out_portaudio
 
@@ -25,11 +29,8 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		multimedia/musikcube
 
-BROKEN[all]=		Fails to build after asio upgrade
-
 # missing plugin: pulseaudio
 BUILD_DEPENDS=		alsa-lib:dev:std
-			asio:dev:std
 			curl:dev:std
 			ffmpeg6:dev:std
 			flac:dev:std
