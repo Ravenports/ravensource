@@ -1,9 +1,9 @@
-DEF[PORTVERSION]=	6.09
+DEF[PORTVERSION]=	6.10.1
+DEF[DISTVER]=		6.10
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		xscreensaver
 VERSION=		${PORTVERSION}
-REVISION=		2
 KEYWORDS=		x11
 VARIANTS=		std
 SDESC[std]=		Screen saver and locker for X11
@@ -31,8 +31,8 @@ BUILDRUN_DEPENDS=	bc:primary:std
 			openpam:primary:std
 EXRUN[gl]=		freeglut:primary:std
 			gle:primary:std
-			xscreensaver:primary:std
-EXRUN[gtk]=		xscreensaver:primary:std
+			primary
+EXRUN[gtk]=		primary
 
 USES=			cpe gmake jpeg perl:run png shebangfix
 XORG_COMPONENTS=	x11 xext xft xi xinerama xmu xrandr xt xxf86vm
@@ -58,14 +58,7 @@ CONFIGURE_ARGS=		--with-configdir={{PREFIX}}/share/xscreensaver/config/
 			--prefix={{PREFIX}}
 CFLAGS=			-I{{PREFIX}}/include/gdk-pixbuf-2.0
 MAKE_ARGS=		install_prefix={{STAGEDIR}}
-
-# tarball has problem with hardlink pointing to itself
-EXTRACT_HEAD[1]=	{{LOCALBASE}}/bin/gtar -xf
-EXTRACT_TAIL[1]=	--no-same-owner --no-same-permissions
-
-post-extract:
-	${CP} ${MK_TEMPLATES}/config.guess ${WRKSRC}/config.guess
-	${CP} ${MK_TEMPLATES}/config.sub ${WRKSRC}/config.sub
+DISTNAME=		xscreensaver-${DISTVER}
 
 post-install:
 	${RM} -r ${STAGEDIR}/etc
