@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.11.1
+DEF[PORTVERSION]=	0.11.2
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-scikit-build-core
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/scikit-build/scikit-build-core
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/41/54/79ec4bd01dc90d222c67d175c0324afb1c4998e523e96b44d67be0aafd28
+SITES[main]=		PYPIWHL/2f/ce/bed84766d74cf46620bb06162ed28157deb0f6f48440893ae3a5aa452d40
 DISTFILE[1]=		scikit_build_core-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -65,9 +65,10 @@ DISTNAME=		scikit_build_core-${PORTVERSION}.dist-info
 # hatchling>=1.24.0; extra == 'test-hatchling'
 # hatch-fancy-pypi-readme>=22.3; extra == 'test-meta'
 # setuptools-scm; extra == 'test-meta'
-# numpy; (python_version < '3.13' and platform_python_implementation != 'PyPy') and extra == 'test-numpy'
+# numpy; (python_version < '3.14' and platform_python_implementation != 'PyPy' and (platform_system != 'Windows' or platform_machine != 'ARM64')) and extra == 'test-numpy'
 # numpy~=1.24.0; (python_version == '3.8' and platform_python_implementation == 'PyPy') and extra == 'test-numpy'
 # numpy~=2.0.0; (python_version == '3.9' and platform_python_implementation == 'PyPy') and extra == 'test-numpy'
+# numpy~=2.2.0; (python_version == '3.10' and platform_python_implementation == 'PyPy') and extra == 'test-numpy'
 # fastjsonschema; extra == 'test-schema'
 # validate-pyproject; extra == 'test-schema'
 # setuptools>=70.1; (python_version >= '3.8') and extra == 'wheel-free-setuptools'

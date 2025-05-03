@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	7.4.10
+DEF[PORTVERSION]=	7.6.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-trytond
@@ -11,7 +11,7 @@ HOMEPAGE=		http://www.tryton.org/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/c3/21/320e1d721d1735609ecfc4b447c26eb70804a06929e3b86a801697d960fd
+SITES[main]=		PYPIWHL/41/d6/a3131061d5f760e633fdeef2f8f9ffcb97490274b9dd8a03c24dcb532d56
 DISTFILE[1]=		trytond-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -37,8 +37,9 @@ DISTNAME=		trytond-${PORTVERSION}.dist-info
 # python-dateutil
 # polib
 # python-sql>=1.5
+# simpleeval
 # werkzeug>=0.12
-# passlib>=1.7.0
+# pwdlib[argon2]>=0.2
 # pytz; python_version < "3.9"
 # backports.entry-points-selectable; python_version < "3.10"
 # pillow; extra == "test"
@@ -46,8 +47,6 @@ DISTNAME=		trytond-${PORTVERSION}.dist-info
 # psycopg2>=2.7.0; extra == "postgresql"
 # pydot; extra == "graphviz"
 # python-Levenshtein; extra == "levenshtein"
-# passlib[bcrypt]; extra == "bcrypt"
-# passlib[argon2]; extra == "argon2"
 # html2text; extra == "html2text"
 # weasyprint; extra == "weasyprint"
 # gevent>=1.1; extra == "coroutine"
@@ -67,8 +66,9 @@ DISTNAME=		trytond-${PORTVERSION}.dist-info
 					python-python-dateutil:single:v12
 					python-polib:single:v12
 					python-python-sql:single:v12
+					python-simpleeval:single:v12
 					python-Werkzeug:single:v12
-					python-passlib:single:v12
+					python-pwdlib:single:v12
 [PY313].USES_ON=			python:v13,wheel
 [PY313].RUN_DEPENDS_ON=			python-defusedxml:single:v13
 					python-lxml:single:v13
@@ -77,8 +77,9 @@ DISTNAME=		trytond-${PORTVERSION}.dist-info
 					python-python-dateutil:single:v13
 					python-polib:single:v13
 					python-python-sql:single:v13
+					python-simpleeval:single:v13
 					python-Werkzeug:single:v13
-					python-passlib:single:v13
+					python-pwdlib:single:v13
 
 USES=			cpe
 CPE_VENDOR=		tryton
