@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.0.0
+DEF[PORTVERSION]=	3.0.1
 DEF[SOVERSION]=		${PORTVERSION}
 DEF[SOMINOR]=		${PORTVERSION:R:E}
 # ----------------------------------------------------------------------------
@@ -40,8 +40,7 @@ EXRUN[dev]=		flac:dev:std
 			libvorbis:dev:std
 
 USES=			cmake jpeg freetype
-CMAKE_ARGS=		-DSFML_INSTALL_PKGCONFIG_FILES:BOOL=ON
-			-DSFML_USE_SYSTEM_DEPS:BOOL=ON
+CMAKE_ARGS=		-DSFML_USE_SYSTEM_DEPS:BOOL=ON
 			-DBUILD_SHARED_LIBS:BOOL=ON
 			-DWARNINGS_AS_ERRORS=FALSE
 XORG_COMPONENTS=	x11 xrandr xcursor xi
@@ -50,7 +49,6 @@ PLIST_SUB=		SOMINOR=${SOMINOR}
 
 pre-configure-dragonfly:
 	${REINPLACE_CMD} 's|FreeBSD|DragonFly|' \
-		${WRKSRC}/cmake/Config.cmake \
 		${WRKSRC}/include/SFML/Window/WindowHandle.hpp \
 		${WRKSRC}/include/SFML/Config.hpp
 	${REINPLACE_CMD} 's|dev/usb/usbhid.h|bus/u4b/usbhid.h|' \
@@ -58,7 +56,6 @@ pre-configure-dragonfly:
 
 pre-configure-midnightbsd:
 	${REINPLACE_CMD} 's|FreeBSD|MidnightBSD|' \
-		${WRKSRC}/cmake/Config.cmake \
 		${WRKSRC}/include/SFML/Window/WindowHandle.hpp \
 		${WRKSRC}/include/SFML/Config.hpp
 

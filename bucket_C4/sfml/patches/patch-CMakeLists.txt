@@ -1,12 +1,21 @@
---- CMakeLists.txt.orig	2024-12-20 23:55:10 UTC
+--- CMakeLists.txt.orig	2025-04-22 13:06:02 UTC
 +++ CMakeLists.txt
-@@ -215,9 +215,6 @@ if(SFML_INSTALL_PKGCONFIG_FILES)
+@@ -209,6 +209,7 @@ set(SFML_INSTALL_PKGCONFIG_DEFAULT OFF)
+ 
+ if(SFML_OS_LINUX OR SFML_OS_FREEBSD OR SFML_OS_OPENBSD OR SFML_OS_NETBSD)
+     set(SFML_INSTALL_PKGCONFIG_DEFAULT ON)
++    set(SFML_PKGCONFIG_DIR "lib/pkgconfig")
+ endif()
+ 
+ sfml_set_option(SFML_INSTALL_PKGCONFIG_FILES ${SFML_INSTALL_PKGCONFIG_DEFAULT} BOOL "ON to automatically install pkg-config files so other projects can find SFML")
+@@ -221,10 +222,6 @@ if(SFML_INSTALL_PKGCONFIG_FILES)
      # this could be e.g. macports on mac or msys2 on windows etc.
      set(SFML_PKGCONFIG_DIR "${SFML_RELATIVE_INSTALL_LIBDIR}/pkgconfig")
  
 -    if(SFML_OS_FREEBSD OR SFML_OS_OPENBSD OR SFML_OS_NETBSD)
 -        set(SFML_PKGCONFIG_DIR "libdata/pkgconfig")
 -    endif()
- 
+-
      sfml_set_option(SFML_PKGCONFIG_INSTALL_DIR "${SFML_PKGCONFIG_DIR}" PATH "Install directory for SFML's pkg-config .pc files")
  
+     if(SFML_BUILD_AUDIO AND SFML_BUILD_NETWORK AND SFML_BUILD_GRAPHICS AND SFML_BUILD_WINDOW)

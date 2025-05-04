@@ -1,6 +1,6 @@
 add NetBSD support
 
---- src/SFML/Window/FreeBSD/JoystickImpl.cpp.orig	2024-12-20 23:55:10 UTC
+--- src/SFML/Window/FreeBSD/JoystickImpl.cpp.orig	2025-04-22 13:06:02 UTC
 +++ src/SFML/Window/FreeBSD/JoystickImpl.cpp
 @@ -55,6 +55,16 @@ namespace
  std::unordered_map<unsigned int, std::string> plugged;

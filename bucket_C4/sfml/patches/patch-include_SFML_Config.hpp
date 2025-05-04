@@ -1,6 +1,6 @@
 add NetBSD support
 
---- include/SFML/Config.hpp.orig	2024-12-20 23:55:10 UTC
+--- include/SFML/Config.hpp.orig	2025-04-22 13:06:02 UTC
 +++ include/SFML/Config.hpp
 @@ -86,6 +86,11 @@
  // FreeBSD
