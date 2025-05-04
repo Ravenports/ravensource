@@ -4,7 +4,7 @@ DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
 
 NAMEBASE=		zsh
 VERSION=		${PORTVERSION}
-REVISION=		2
+REVISION=		3
 KEYWORDS=		shells
 VARIANTS=		std
 SDESC[std]=		Interactive Z Shell
@@ -17,7 +17,7 @@ DISTFILE[1]=		zsh-${PORTVERSION}.tar.xz:main
 DISTFILE[2]=		zsh-${PORTVERSION}-doc.tar.xz:main
 DF_INDEX=		1 2
 
-SPKGS[std]=		set primary examples docs man
+SPKGS[std]=		set primary examples docs man info
 
 OPTIONS_AVAILABLE=	CCLOCK
 OPTIONS_STANDARD=	CCLOCK
@@ -63,6 +63,8 @@ CPPFLAGS=		-DBOOL_DEFINED
 VAR_OPSYS[sunos]=	CPPFLAGS=-D_XPG6
 			CPPFLAGS=-DHAVE_BOOLCODES
 			LDFLAGS=-ltinfo
+
+INFO=			info:zsh
 
 # It is a mystery why MBSD needs to fake as freebsd.
 VAR_OPSYS[midnightbsd]=	MAKEFILE_LINE=CONFIGURE_TARGET=${MBSD64_TARGET}
