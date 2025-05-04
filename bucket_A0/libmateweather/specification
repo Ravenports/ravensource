@@ -1,0 +1,49 @@
+DEF[PORTVERSION]=	1.28.0
+DEF[SOVERSION]=		1.6.9
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libmateweather
+VERSION=		${PORTVERSION}
+KEYWORDS=		net
+VARIANTS=		std
+SDESC[std]=		MATE library to access online weather information
+HOMEPAGE=		https://mate-desktop.org/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://pub.mate-desktop.org/releases/${PORTVERSION:R}/
+DISTFILE[1]=		libmateweather-${PORTVERSION}.tar.xz:main
+DIST_SUBDIR=		mate
+
+SPKGS[std]=		set primary dev nls docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# GPLv2 license missing in distribution tarball
+LICENSE=		GPLv2+:primary
+			LGPL21+:primary
+LICENSE_FILE=		GPLv2+:stock
+			LGPL21+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SCHEME=		multi
+
+FPC_EQUIVALENT=		net/libmateweather
+
+BUILD_DEPENDS=		libsoup-2.4:dev:std
+BUILDRUN_DEPENDS=	libsoup-2.4:primary:std
+
+USES=			gettext gmake gtk-doc iconv libtool pkgconfig
+GNOME_COMPONENTS=	glib gtk3 libxml2
+
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-zoneinfo-dir=/usr/share/zoneinfo
+INSTALL_TARGET=		install-strip
+SOVERSION=		${SOVERSION}
+GLIB_SCHEMAS=		org.mate.weather.gschema.xml
+
+post-extract:
+	${ECHO} "Terms extracted from 'libmateweather/weather.h':" > ${WRKDIR}/TERMS
+	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/libmateweather/weather.h >> ${WRKDIR}/TERMS
+	${ECHO} "Terms extracted from 'libmateweather/parser.h':" >> ${WRKDIR}/TERMS
+	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/libmateweather/parser.h >> ${WRKDIR}/TERMS
