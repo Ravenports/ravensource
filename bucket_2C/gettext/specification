@@ -99,3 +99,9 @@ post-install:
 .endif
 	${RM} ${STAGEDIR}${PREFIX}/share/info/libtextstyle.info
 	${RMDIR} ${STAGEDIR}${PREFIX}/lib/gettext
+	# v0.24.1 broke a couple of autoreconf ports (wavpack, libmtp) with
+	# relocation of m4 files, so add symlinks
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/aclocal
+.for m4 in gettext iconv nls po lib-ld lib-link lib-prefix
+	${LN} -s ../gettext/m4/${m4}.m4 ${STAGEDIR}${PREFIX}/share/aclocal/${m4}.m4
+.endfor
