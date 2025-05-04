@@ -1,6 +1,6 @@
---- gettext-runtime/configure.orig	2024-12-31 11:37:54 UTC
+--- gettext-runtime/configure.orig	2025-05-02 15:34:04 UTC
 +++ gettext-runtime/configure
-@@ -25333,7 +25333,7 @@ extern
+@@ -25415,7 +25415,7 @@ extern
  "C"
  #endif
  const char *_nl_expand_alias (const char *);
@@ -9,7 +9,7 @@
  #else
  #define __GNU_GETTEXT_SYMBOL_EXPRESSION 0
  #endif
-@@ -25378,7 +25378,7 @@ extern
+@@ -25460,7 +25460,7 @@ extern
  "C"
  #endif
  const char *_nl_expand_alias (const char *);
@@ -18,12 +18,12 @@
  #else
  #define __GNU_GETTEXT_SYMBOL_EXPRESSION 0
  #endif
-@@ -32668,7 +32668,7 @@ then :
+@@ -32103,7 +32103,7 @@ else case e in #(
               # On Solaris 10 or newer, this test is no longer needed, because
               # libc contains the fully functional pthread functions.
-              case "$host_os" in
--               solaris | solaris2.[1-9] | solaris2.[1-9].* | hpux*)
-+               solaris | solaris2.[1-9] | solaris2.[1-9].* | hpux* | freebsd* | midnight* | dragon*)
+              case $host_os in #(
+-  solaris | solaris2.[1-9] | solaris2.[1-9].* | hpux*) :
++  solaris | solaris2.[1-9] | solaris2.[1-9].* | hpux* | freebsd* | midnight* | dragon*) :
+ 
  
  printf "%s\n" "#define PTHREAD_IN_USE_DETECTION_HARD 1" >>confdefs.h
- 

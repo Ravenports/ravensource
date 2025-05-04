@@ -1,4 +1,4 @@
---- gettext-runtime/intl/gnulib-lib/glthread/threadlib.c.orig	2024-02-21 10:43:51 UTC
+--- gettext-runtime/intl/gnulib-lib/glthread/threadlib.c.orig	2025-04-01 15:16:53 UTC
 +++ gettext-runtime/intl/gnulib-lib/glthread/threadlib.c
 @@ -62,11 +62,10 @@ glthread_in_use (void)
  

@@ -1,11 +1,11 @@
---- gettext-tools/configure.orig	2024-12-31 11:36:39 UTC
+--- gettext-tools/configure.orig	2025-05-02 15:34:19 UTC
 +++ gettext-tools/configure
-@@ -41230,7 +41230,7 @@ then :
+@@ -40732,7 +40732,7 @@ else case e in #(
               # On Solaris 10 or newer, this test is no longer needed, because
               # libc contains the fully functional pthread functions.
-              case "$host_os" in
--               solaris | solaris2.[1-9] | solaris2.[1-9].* | hpux*)
-+               solaris | solaris2.[1-9] | solaris2.[1-9].* | hpux* | freebsd* | midnight* | dragon*)
+              case $host_os in #(
+-  solaris | solaris2.[1-9] | solaris2.[1-9].* | hpux*) :
++  solaris | solaris2.[1-9] | solaris2.[1-9].* | hpux* | freebsd* | midnight* | dragon*) :
+ 
  
  printf "%s\n" "#define PTHREAD_IN_USE_DETECTION_HARD 1" >>confdefs.h
- 
