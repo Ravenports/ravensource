@@ -1,4 +1,4 @@
---- lib/Frontend/InitPreprocessor.cpp.orig	2025-04-16 00:23:49 UTC
+--- lib/Frontend/InitPreprocessor.cpp.orig	2025-04-29 23:05:17 UTC
 +++ lib/Frontend/InitPreprocessor.cpp
 @@ -879,7 +879,8 @@ static void InitializePredefinedMacros(c
      Builder.defineMacro("__GNUC__", Twine(GNUCMajor));

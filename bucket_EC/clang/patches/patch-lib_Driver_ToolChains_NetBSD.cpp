@@ -1,4 +1,4 @@
---- lib/Driver/ToolChains/NetBSD.cpp.orig	2025-04-16 00:23:49 UTC
+--- lib/Driver/ToolChains/NetBSD.cpp.orig	2025-04-29 23:05:17 UTC
 +++ lib/Driver/ToolChains/NetBSD.cpp
 @@ -278,10 +278,15 @@ void netbsd::Linker::ConstructJob(Compil
    bool NeedsXRayDeps = addXRayRuntime(ToolChain, Args, CmdArgs);
