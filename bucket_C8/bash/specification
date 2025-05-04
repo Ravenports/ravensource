@@ -7,7 +7,7 @@ DEF[STANDARD_PATH]=	/sbin:/bin:/usr/sbin:/usr/bin
 
 NAMEBASE=		bash
 VERSION=		${VERSION}
-REVISION=		2
+REVISION=		3
 KEYWORDS=		shells
 VARIANTS=		std static
 SDESC[std]=		GNU Bourne Again SHell
@@ -59,7 +59,7 @@ DISTFILE[38]=		bash52-037:patches
 
 DIST_SUBDIR=		bash
 
-SPKGS[std]=		set primary nls man docs
+SPKGS[std]=		set primary nls man docs info
 SPKGS[static]=		primary
 
 OPTIONS_AVAILABLE=	STATIC NLS NOTSTD
@@ -123,7 +123,7 @@ VAR_OPSYS[linux]=	VAR1=-Wl,--export-dynamic
 
 [NOTSTD].DESCRIPTION=			Non-standard designation
 [NOTSTD].USES_OFF=			makeinfo
-[NOTSTD].INFO_OFF=			primary:bash
+[NOTSTD].INFO_OFF=			info:bash
 
 post-patch:
 	# Ensure y.tab.c is regenerated
