@@ -4,7 +4,7 @@ DEF[SOVERSION]=		3.38.3
 
 NAMEBASE=		dbus
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		devel
 VARIANTS=		std
 SDESC[std]=		Message bus system for IPC communication
@@ -70,8 +70,3 @@ post-install:
 	# install xmlcat catalogs
 	(cd ${WRKDIR} && ${INSTALL_DATA} catalog* \
 		${STAGEDIR}${PREFIX}/share/xml/dbus-1/)
-	# Workaround for software looking for machine-id in wrong place (lumina)
-	${MKDIR} ${STAGEDIR}/var/lib
-	${MKDIR} ${STAGEDIR}/var/run
-	${LN} -s ../..${PREFIX}/var/lib/dbus ${STAGEDIR}/var/lib/dbus
-	${LN} -s ../..${PREFIX}/var/run/dbus ${STAGEDIR}/var/run/dbus
