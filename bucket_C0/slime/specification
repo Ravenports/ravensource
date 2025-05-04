@@ -4,6 +4,7 @@ DEF[LISPSITE]=		share/emacs/site-lisp
 
 NAMEBASE=		slime
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		editors
 VARIANTS=		std
 SDESC[std]=		Superior Lisp Interaction Mode for Emacs
@@ -14,7 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/slime:slime:v${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[std]=		set primary docs
+SPKGS[std]=		set primary docs info
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -31,6 +32,7 @@ SUB_FILES=		messages-primary.ucl
 SUB_LIST=		SLIME_LISPDIR="{{PREFIX}}/${LISPSITE}/slime"
 
 USES=			gmake makeinfo
+INFO=			info:slime
 
 post-extract:
 	# /var/games directory gets removed at deinstall
