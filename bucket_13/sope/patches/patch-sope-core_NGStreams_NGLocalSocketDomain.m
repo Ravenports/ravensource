@@ -2,7 +2,7 @@ $NetBSD: patch-sope-core_NGStreams_NGLocalSocketDomain.m,v 1.1 2021/06/14 16:51:
 
 Add support for DragonFly.
 
---- sope-core/NGStreams/NGLocalSocketDomain.m.orig	2025-03-24 09:41:38 UTC
+--- sope-core/NGStreams/NGLocalSocketDomain.m.orig	2025-04-30 09:04:04 UTC
 +++ sope-core/NGStreams/NGLocalSocketDomain.m
 @@ -25,7 +25,7 @@
  #include "NGLocalSocketAddress.h"
