@@ -1,4 +1,4 @@
---- include/SDL3/SDL_endian.h.orig	2025-03-04 22:37:06 UTC
+--- include/SDL3/SDL_endian.h.orig	2025-05-04 17:36:33 UTC
 +++ include/SDL3/SDL_endian.h
 @@ -140,10 +140,10 @@ _m_prefetch(void *__P)
  #else
