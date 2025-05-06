@@ -1,6 +1,6 @@
---- src/check/dt_check.cpp.orig	2025-02-20 15:02:44 UTC
+--- src/check/dt_check.cpp.orig	2025-05-06 10:19:16 UTC
 +++ src/check/dt_check.cpp
-@@ -288,12 +288,12 @@ static_assert(no_bswap16(0x04030201) ==
+@@ -275,12 +275,12 @@ static_assert(no_bswap16(0x04030201) ==
  static_assert(no_bswap32(0x04030201) == 0x04030201);
  static_assert(no_bswap64(0x0807060504030201ull) == 0x0807060504030201ull);
  #if !(ACC_CC_MSC) || defined(upx_is_constant_evaluated)

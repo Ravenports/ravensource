@@ -1,4 +1,4 @@
---- src/packer_c.cpp.orig	2025-02-20 15:02:44 UTC
+--- src/packer_c.cpp.orig	2025-05-06 10:19:16 UTC
 +++ src/packer_c.cpp
 @@ -258,7 +258,7 @@ void Packer::defineDecompressorSymbols()
          upx_uint32_t properties = // lc, lp, pb, dummy

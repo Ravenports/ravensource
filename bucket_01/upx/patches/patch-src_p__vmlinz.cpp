@@ -1,4 +1,4 @@
---- src/p_vmlinz.cpp.orig	2025-02-20 15:02:44 UTC
+--- src/p_vmlinz.cpp.orig	2025-05-06 10:19:16 UTC
 +++ src/p_vmlinz.cpp
 @@ -597,7 +597,7 @@ void PackBvmlinuzI386::pack(OutputFile *
              (res->lit_pos_bits << 8) |
