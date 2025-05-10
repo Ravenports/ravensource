@@ -1,6 +1,6 @@
---- imap/jmap_mail_submission.c.orig	2025-01-22 01:00:22 UTC
+--- imap/jmap_mail_submission.c.orig	2025-05-09 00:07:20 UTC
 +++ imap/jmap_mail_submission.c
-@@ -229,7 +229,7 @@ static int _emailsubmission_address_pars
+@@ -224,7 +224,7 @@ static int _emailsubmission_address_pars
              if (holduntil) {
                  if (!strcasecmp(key, "HOLDFOR")) {
                      char *endptr = (char *) val;

@@ -1,6 +1,6 @@
---- imap/httpd.h.orig	2025-01-22 01:00:22 UTC
+--- imap/httpd.h.orig	2025-05-09 00:07:20 UTC
 +++ imap/httpd.h
-@@ -286,7 +286,7 @@ typedef int (*encode_proc_t)(struct tran
+@@ -280,7 +280,7 @@ typedef int (*encode_proc_t)(struct tran
  
  /* Meta-data for response body (payload & representation headers) */
  struct resp_body_t {
