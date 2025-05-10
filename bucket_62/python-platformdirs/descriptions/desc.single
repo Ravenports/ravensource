@@ -67,10 +67,14 @@ On macOS:
     >>> appauthor = "Acme"
     >>> user_data_dir(appname, appauthor)
     '/Users/trentm/Library/Application Support/SuperApp'
-    >>> site_data_dir(appname, appauthor)
-    '/Library/Application Support/SuperApp'
+    >>> user_config_dir(appname, appauthor)
+    '/Users/trentm/Library/Application Support/SuperApp'
     >>> user_cache_dir(appname, appauthor)
     '/Users/trentm/Library/Caches/SuperApp'
+    >>> site_data_dir(appname, appauthor)
+    '/Library/Application Support/SuperApp'
+    >>> site_config_dir(appname, appauthor)
+    '/Library/Application Support/SuperApp'
     >>> user_log_dir(appname, appauthor)
     '/Users/trentm/Library/Logs/SuperApp'
     >>> user_documents_dir()
@@ -94,7 +98,3 @@ On Windows:
 
     >>> from platformdirs import *
     >>> appname = "SuperApp"
-    >>> appauthor = "Acme"
-    >>> user_data_dir(appname, appauthor)
-    'C:\\Users\\trentm\\AppData\\Local\\Acme\\SuperApp'
-    >>> user_data_dir(appname, appauthor, roaming=True)
