@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.2.2
+DEF[PORTVERSION]=	1.3.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-exceptiongroup
@@ -11,7 +11,7 @@ HOMEPAGE=		https://pypi.org/project/exceptiongroup/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/02/cc/b7e31358aac6ed1ef2bb790a9746ac2c69bcb3c8588b41616914eb106eaf
+SITES[main]=		PYPIWHL/36/f4/c6e662dade71f56cd2f3735141b265c3c79293c109549c1e6933b0651ffc
 DISTFILE[1]=		exceptiongroup-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -30,8 +30,10 @@ GENERATED=		yes
 DISTNAME=		exceptiongroup-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
+# typing-extensions >= 4.6.0; python_version < '3.13'
 # pytest >= 6 ; extra == "test"
 
 [PY312].USES_ON=			python:v12,wheel
+[PY312].RUN_DEPENDS_ON=			python-typing-extensions:single:v12
 [PY313].USES_ON=			python:v13,wheel
 
