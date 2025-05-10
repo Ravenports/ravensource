@@ -1,6 +1,6 @@
---- mysys/my_default.c.orig	2025-01-30 11:01:24 UTC
+--- mysys/my_default.c.orig	2025-04-28 13:44:16 UTC
 +++ mysys/my_default.c
-@@ -624,7 +624,7 @@ static int search_default_file_with_ext(
+@@ -627,7 +627,7 @@ static int search_default_file_with_ext(
    {
      MY_STAT stat_info;
      if (!my_stat(name,&stat_info,MYF(0)))
@@ -9,7 +9,7 @@
      /*
        Ignore world-writable regular files (exceptions apply).
        This is mainly done to protect us to not read a file that may be
-@@ -662,6 +662,14 @@ static int search_default_file_with_ext(
+@@ -665,6 +665,14 @@ static int search_default_file_with_ext(
          add_option(ctx, name))
        goto err;
  
@@ -24,7 +24,7 @@
    while (mysql_file_fgets(buff, sizeof(buff) - 1, fp))
    {
      line++;
-@@ -929,7 +937,8 @@ void my_print_default_files(const char *
+@@ -932,7 +940,8 @@ void my_print_default_files(const char *
            if (name[0] == FN_HOMELIB)	/* Add . to filenames in home */
              *end++= '.';
            strxmov(end, conf_file, *ext, " ", NullS);
@@ -34,7 +34,7 @@
          }
        }
      }
-@@ -1056,13 +1065,10 @@ static const char **init_default_directo
+@@ -1059,13 +1068,10 @@ static const char **init_default_directo
  
  #else
  
