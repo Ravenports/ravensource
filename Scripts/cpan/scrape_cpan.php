@@ -10,7 +10,6 @@ $EXTS         = array("tgz" => ".tar.gz", "zip" => ".zip", "tbz" =>".tar.bz2");
 
 $VA           = 538;    # single point of change when perl
 $VB           = 540;    # series are changed in ravenports
-$AUTOPERL     = "5.40";
 $ravensource_directory = "";
 $PERL_VERSION_A = "";
 $PERL_VERSION_B = "";
@@ -55,8 +54,6 @@ function set_perl_versions() {
             $PERL_MAJVER_B = $matches[1] . "." . $matches[2];
         }
     }
-    # HACK, REMOVE
-    $PERL_VERSION_A = "5.38.3";
 }
 
 
@@ -155,7 +152,6 @@ function set_core_module_definitions() {
     global
         $CORE_MODULES,
         $VA, $VB,
-        $AUTOPERL,
         $PERL_VERSION_A,
         $PERL_VERSION_B;
 
@@ -168,6 +164,7 @@ function set_core_module_definitions() {
                            $VB => $PERL_VERSION_B);
 
     foreach ($instructions as $V => $PV) {
+        $AUTOPERL = substr($V,0,1) . "." . substr($V,1,2);
         $output = shell_exec("env AUTOPERL=$AUTOPERL /raven/bin/corelist -v $PV");
         if (substr($output, 1, 28) == "Module::CoreList has no info") {
             exit($output);
