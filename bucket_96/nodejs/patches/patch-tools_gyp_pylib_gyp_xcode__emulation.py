@@ -1,6 +1,6 @@
---- tools/gyp/pylib/gyp/xcode_emulation.py.orig	2025-03-13 10:53:11 UTC
+--- tools/gyp/pylib/gyp/xcode_emulation.py.orig	2025-05-08 08:26:23 UTC
 +++ tools/gyp/pylib/gyp/xcode_emulation.py
-@@ -608,7 +608,7 @@ class XcodeSettings:
+@@ -606,7 +606,7 @@ class XcodeSettings:
  
          self._Appendf(cflags, "GCC_OPTIMIZATION_LEVEL", "-O%s", default="s")
  
@@ -9,7 +9,7 @@
              dbg_format = self._Settings().get("DEBUG_INFORMATION_FORMAT", "dwarf")
              if dbg_format == "dwarf":
                  cflags.append("-gdwarf-2")
-@@ -1101,7 +1101,7 @@ class XcodeSettings:
+@@ -1099,7 +1099,7 @@ class XcodeSettings:
          # For static libraries, no dSYMs are created.
          result = []
          if (
