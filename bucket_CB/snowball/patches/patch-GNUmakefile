@@ -1,22 +1,22 @@
---- GNUmakefile.orig	2021-11-10 02:42:18 UTC
+--- GNUmakefile.orig	2025-05-09 03:10:41 UTC
 +++ GNUmakefile
-@@ -170,12 +170,12 @@ C_OTHER_OBJECTS = $(C_OTHER_SOURCES:.c=.
+@@ -190,12 +190,12 @@ C_OTHER_OBJECTS = $(C_OTHER_SOURCES:.c=.
  JAVA_CLASSES = $(JAVA_SOURCES:.java=.class)
  JAVA_RUNTIME_CLASSES=$(JAVARUNTIME_SOURCES:.java=.class)
  
--CFLAGS=-O2 -W -Wall -Wmissing-prototypes -Wmissing-declarations
+-CFLAGS=-g -O2 -W -Wall -Wmissing-prototypes -Wmissing-declarations -Wshadow $(WERROR)
 -CPPFLAGS=
-+CFLAGS+=-fPIC -O2 -W -Wall -Wmissing-prototypes -Wmissing-declarations
++CFLAGS+=-fPIC -W -Wall -Wmissing-prototypes -Wmissing-declarations -Wshadow $(WERROR)
 +CPPFLAGS+=
  
  INCLUDES=-Iinclude
  
 -all: snowball$(EXEEXT) libstemmer.a stemwords$(EXEEXT) $(C_OTHER_SOURCES) $(C_OTHER_HEADERS) $(C_OTHER_OBJECTS)
-+all: snowball$(EXEEXT) libstemmer.a libstemmer.so stemwords$(EXEEXT) $(C_OTHER_SOURCES) $(C_OTHER_HEADERS) $(C_OTHER_OBJECTS)
++all: snowball$(EXEEXT) libstemmer.a stemwords$(EXEEXT) $(C_OTHER_SOURCES) $(C_OTHER_HEADERS) $(C_OTHER_OBJECTS) libstemmer.so
  
  algorithms.mk: libstemmer/mkalgorithms.pl libstemmer/modules.txt
  	libstemmer/mkalgorithms.pl algorithms.mk libstemmer/modules.txt
-@@ -225,6 +225,9 @@ libstemmer/libstemmer.o: libstemmer/modu
+@@ -257,6 +257,9 @@ libstemmer/libstemmer.o: libstemmer/modu
  libstemmer.a: libstemmer/libstemmer.o $(RUNTIME_OBJECTS) $(C_LIB_OBJECTS)
  	$(AR) -cru $@ $^
  
