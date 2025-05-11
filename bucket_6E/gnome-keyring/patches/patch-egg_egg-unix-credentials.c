@@ -1,6 +1,5 @@
-$NetBSD: patch-egg_egg-unix-credentials.c,v 1.1 2020/11/22 21:26:51 nia Exp $
-
 LOCAL_CREDS path appears broken on NetBSD...
+set_local_creds() is missing on FreeBSD
 
 --- egg/egg-unix-credentials.c.orig	2025-03-18 08:38:44 UTC
 +++ egg/egg-unix-credentials.c
@@ -8,7 +7,7 @@ LOCAL_CREDS path appears broken on NetBSD...
  #include <ucred.h>
  #endif
  
-+#if defined(__NetBSD__)
++#if defined(__NetBSD__) || defined(__FreeBSD__)
 +#undef LOCAL_CREDS
 +#endif
 +
