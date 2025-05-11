@@ -1,0 +1,45 @@
+DEF[PORTVERSION]=	4.9.3
+DEF[TAG]=		v${PORTVERSION}
+DEF[SOVERSION]=		22.1.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		netcdf
+VERSION=		${PORTVERSION}
+KEYWORDS=		science
+VARIANTS=		std
+SDESC[std]=		Network Common Data Form
+HOMEPAGE=		https://www.unidata.ucar.edu/software/netcdf/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/Unidata:netcdf-c:${TAG}
+DISTFILE[1]=		generated:main
+
+SPKGS[std]=		set primary dev tools man
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD3CLAUSE:primary
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/COPYRIGHT
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		science/netcdf
+
+BUILD_DEPENDS=		hdf5:dev:std
+			curl:dev:std
+			libzip:dev:std
+BUILDRUN_DEPENDS=	hdf5:primary:std
+			curl:primary:std
+			libzip:primary:std
+
+EXRUN[tools]=		primary
+
+USES=			cmake zstd zlib bz2
+GNOME_COMPONENTS=	libxml2
+CMAKE_ARGS=		-DNETCDF_ENABLE_EXAMPLES:BOOL=OFF
+SOVERSION=		${SOVERSION}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/nc[cdg]*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libnetcdf.so
