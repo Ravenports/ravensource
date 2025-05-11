@@ -63,3 +63,6 @@ DISTNAME=		deepdiff-${PORTVERSION}.dist-info
 [PY313].USES_ON=			python:v13,wheel
 [PY313].RUN_DEPENDS_ON=			python-orderly-set:single:v13
 
+post-install:
+	${SED} -i'' -e "s|/usr/bin/env python|${LOCALBASE}/bin/python3|" \
+		${STAGEDIR}${PYTHON_SITELIBDIR}/deepdiff/diff.py
