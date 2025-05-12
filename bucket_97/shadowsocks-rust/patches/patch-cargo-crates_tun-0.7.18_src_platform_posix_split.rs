@@ -1,5 +1,5 @@
---- cargo-crates/tun-0.7.18/src/platform/posix/split.rs.orig	2025-04-29 04:32:31 UTC
-+++ cargo-crates/tun-0.7.18/src/platform/posix/split.rs
+--- cargo-crates/tun-0.7.19/src/platform/posix/split.rs.orig	2025-05-12 00:10:42 UTC
++++ cargo-crates/tun-0.7.19/src/platform/posix/split.rs
 @@ -47,9 +47,9 @@ pub(crate) fn generate_packet_informatio
      const TUN_PROTO_IP4: [u8; PIL] = (libc::AF_INET as u32).to_be_bytes();
  

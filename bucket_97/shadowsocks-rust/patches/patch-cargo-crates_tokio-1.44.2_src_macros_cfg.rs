@@ -1,5 +1,5 @@
---- cargo-crates/tokio-1.44.2/src/macros/cfg.rs.orig	2025-04-29 04:32:32 UTC
-+++ cargo-crates/tokio-1.44.2/src/macros/cfg.rs
+--- cargo-crates/tokio-1.45.0/src/macros/cfg.rs.orig	2025-05-12 00:10:42 UTC
++++ cargo-crates/tokio-1.45.0/src/macros/cfg.rs
 @@ -84,9 +84,9 @@ macro_rules! cfg_atomic_waker_impl {
  macro_rules! cfg_aio {
      ($($item:item)*) => {

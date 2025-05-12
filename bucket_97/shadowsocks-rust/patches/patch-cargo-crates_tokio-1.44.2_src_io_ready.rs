@@ -1,5 +1,5 @@
---- cargo-crates/tokio-1.44.2/src/io/ready.rs.orig	2025-04-29 04:32:32 UTC
-+++ cargo-crates/tokio-1.44.2/src/io/ready.rs
+--- cargo-crates/tokio-1.45.0/src/io/ready.rs.orig	2025-05-12 00:10:42 UTC
++++ cargo-crates/tokio-1.45.0/src/io/ready.rs
 @@ -57,7 +57,7 @@ impl Ready {
      pub(crate) fn from_mio(event: &mio::event::Event) -> Ready {
          let mut ready = Ready::EMPTY;

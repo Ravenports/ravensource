@@ -1,5 +1,5 @@
---- cargo-crates/tun-0.7.18/src/platform/mod.rs.orig	2025-04-29 04:32:31 UTC
-+++ cargo-crates/tun-0.7.18/src/platform/mod.rs
+--- cargo-crates/tun-0.7.19/src/platform/mod.rs.orig	2025-05-12 00:10:42 UTC
++++ cargo-crates/tun-0.7.19/src/platform/mod.rs
 @@ -24,9 +24,9 @@ pub(crate) mod linux;
  #[cfg(all(target_os = "linux", not(target_env = "ohos")))]
  pub use self::linux::{Device, PlatformConfig, create};

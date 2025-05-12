@@ -1,4 +1,4 @@
---- cargo-crates/libc-0.2.172/src/unix/bsd/freebsdlike/dragonfly/mod.rs.orig	2025-04-29 04:32:31 UTC
+--- cargo-crates/libc-0.2.172/src/unix/bsd/freebsdlike/dragonfly/mod.rs.orig	2025-05-12 00:10:41 UTC
 +++ cargo-crates/libc-0.2.172/src/unix/bsd/freebsdlike/dragonfly/mod.rs
 @@ -45,6 +45,21 @@ pub type vm_map_entry_t = *mut vm_map_en
  

@@ -1,5 +1,5 @@
---- cargo-crates/shadowsocks-service-1.23.2/src/local/redir/tcprelay/sys/unix/bsd.rs.orig	2025-04-29 04:32:32 UTC
-+++ cargo-crates/shadowsocks-service-1.23.2/src/local/redir/tcprelay/sys/unix/bsd.rs
+--- cargo-crates/shadowsocks-service-1.23.3/src/local/redir/tcprelay/sys/unix/bsd.rs.orig	2025-05-12 00:10:42 UTC
++++ cargo-crates/shadowsocks-service-1.23.3/src/local/redir/tcprelay/sys/unix/bsd.rs
 @@ -19,10 +19,10 @@ use crate::{
  impl TcpListenerRedirExt for TcpListener {
      async fn bind_redir(ty: RedirType, addr: SocketAddr, accept_opts: AcceptOpts) -> io::Result<TcpListener> {

@@ -1,5 +1,5 @@
---- cargo-crates/shadowsocks-service-1.23.2/src/local/redir/sys/unix/mod.rs.orig	2025-04-29 04:32:32 UTC
-+++ cargo-crates/shadowsocks-service-1.23.2/src/local/redir/sys/unix/mod.rs
+--- cargo-crates/shadowsocks-service-1.23.3/src/local/redir/sys/unix/mod.rs.orig	2025-05-12 00:10:42 UTC
++++ cargo-crates/shadowsocks-service-1.23.3/src/local/redir/sys/unix/mod.rs
 @@ -3,6 +3,7 @@ use cfg_if::cfg_if;
  cfg_if! {
      if #[cfg(any(target_os = "macos",

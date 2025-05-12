@@ -1,5 +1,5 @@
---- cargo-crates/tokio-1.44.2/src/io/interest.rs.orig	2025-04-29 04:32:32 UTC
-+++ cargo-crates/tokio-1.44.2/src/io/interest.rs
+--- cargo-crates/tokio-1.45.0/src/io/interest.rs.orig	2025-05-12 00:10:42 UTC
++++ cargo-crates/tokio-1.45.0/src/io/interest.rs
 @@ -10,7 +10,7 @@ use std::ops;
  const READABLE: usize = 0b0001;
  const WRITABLE: usize = 0b0010;
