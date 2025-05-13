@@ -1,0 +1,37 @@
+DEF[BASEVERSION]=	5.0.0
+DEF[UPDATE_VER]=	beta6
+DEF[PORTVERSION]=	${BASEVERSION}-${UPDATE_VER}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		premake
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		std
+SDESC[std]=		Powerfully simple build configuration
+HOMEPAGE=		https://premake.github.io/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://github.com/premake/premake-core/releases/download/v${PORTVERSION}/
+DISTFILE[1]=		premake-${PORTVERSION}-src.zip:main
+
+SPKGS[std]=		single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD3CLAUSE:single
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/LICENSE.txt
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/premake5
+
+USES=			dos2unix gmake
+MAKEFILE=		Bootstrap.mak
+MAKE_ARGS=		CC="{{CC}}"
+			CXX="{{CXX}}"
+BUILD_TARGET=		bsd
+DISTNAME=		premake-${PORTVERSION}-src
+
+do-install:
+	${INSTALL_PROGRAM} ${WRKSRC}/bin/release/premake5 ${STAGEDIR}${PREFIX}/bin
