@@ -15,6 +15,7 @@ _INCLUDE_USES_ICONV_MK=	yes
 
 ICONV_CMD=		${LOCALBASE}/bin/iconv
 ICONV_LIB=		-liconv
+ICONV_LIB_PIC=		-liconv_pic
 ICONV_PREFIX=		${LOCALBASE}
 ICONV_CONFIGURE_ARG=	--with-libiconv-prefix=${LOCALBASE}
 ICONV_CONFIGURE_BASE=	--with-libiconv=${LOCALBASE}

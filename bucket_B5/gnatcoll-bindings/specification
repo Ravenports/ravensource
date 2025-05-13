@@ -84,7 +84,7 @@ do-build:
 	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
 		gprbuild -p -XLIBRARY_TYPE=${libtype} \
 		-XGNATCOLL_VERSION="${SOVERSION}" \
-		-XGNATCOLL_ICONV_OPT="-liconv_pic" \
+		-XGNATCOLL_ICONV_OPT="${ICONV_LIB_PIC}" \
 		-XGNATCOLL_PYTHON_CFLAGS="-I${PY3_INCLUDEDIR}" \
 		-P ${component}/gnatcoll_${component}.gpr)
 .  endfor
@@ -101,7 +101,7 @@ do-install:
 		--no-manifest \
 		-XGNATCOLL_VERSION="${SOVERSION}" \
 		-XLIBRARY_TYPE=${libtype} \
-		-XGNATCOLL_ICONV_OPT="-liconv_pic" \
+		-XGNATCOLL_ICONV_OPT="${ICONV_LIB_PIC}" \
 		-P ${component}/gnatcoll_${component}.gpr)
 .  endfor
 	${MKDIR} ${STAGEDIR}${PREFIX}/include/gnatcoll_${component}
