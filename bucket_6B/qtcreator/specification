@@ -1,0 +1,70 @@
+DEF[FOLDER]=		16.0
+DEF[PORTVERSION]=	${FOLDER}.1
+DEF[SOVERSION]=		${PORTVERSION}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		qtcreator
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		std
+SDESC[std]=		Cross-platform IDE for Qt
+HOMEPAGE=		https://wiki.qt.io/Qt_Creator
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://qt.mirror.constant.com/official_releases/qtcreator/${FOLDER}/${PORTVERSION}/
+			https://download.qt.io/official_releases/qtcreator/${FOLDER}/${PORTVERSION}/
+DISTFILE[1]=		qt-creator-opensource-src-${PORTVERSION}.tar.xz:main
+
+SPKGS[std]=		single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		CUSTOM1:single
+LICENSE_NAME=		CUSTOM1:"GPL3 + Qt-GPL-Exception v1.0"
+LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/LICENSE.GPL3-EXCEPT
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/qtcreator
+
+BUILD_DEPENDS=		libsecret:dev:std
+			qt6-qtbase:dev:std
+			qt6-qtdeclarative:dev:std
+			qt6-qt5compat:dev:std
+			qt6-qtshadertools:dev:std
+			qt6-qtquick3d:dev:std
+			qt6-qttools:dev:std
+BUILDRUN_DEPENDS=	libsecret:primary:std
+			qt6-qtbase:primary:std
+			qt6-qtdeclarative:primary:std
+			qt6-qt5compat:primary:std
+			qt6-qtshadertools:primary:std
+			qt6-qtquick3d:primary:std
+			qt6-qttools:primary:std
+
+USES=			qt6 cmake pkgconfig python execinfo
+			desktop-utils:single
+GNOME_COMPONENTS=	glib
+DISTNAME=		qt-creator-opensource-src-${PORTVERSION}
+SOVERSION=		${SOVERSION}
+
+# - Disable precompiled headers for now, they are missing compile flags.
+# - Disable the AppStatisticsPlugin for now, not implemented for FreeBSD.
+CMAKE_ARGS=		-DBUILD_WITH_PCH:BOOL=OFF
+			-DBUILD_PLUGIN_APPSTATISTICSMONITOR:BOOL=OFF
+			-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt6/cmake
+			-Wno-dev
+CONFIGURE_ENV=		LANG=en_US.UTF-8
+
+post-extract:
+	${AWK} '/Licenses and Attributions/,EOF' \
+		${WRKSRC}/README.md > ${WRKDIR}/TERMS
+
+post-install:
+	${RM} -r ${STAGEDIR}${PREFIX}/share/qtcreator/changelog
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/qtcreator
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/qtcreator/plugins/*.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/qtcreator/lib*.so.${SOVERSION}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/libexec/qtcreator/*
