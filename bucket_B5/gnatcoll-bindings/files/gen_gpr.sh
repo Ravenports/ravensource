@@ -18,10 +18,10 @@ case "$name" in
 		component_upper=GMP
 		linker_opts='"-lgmp"'
 		;;
-	"iconv")	
+	"iconv")
 		component=Iconv
 		component_upper=ICONV
-		linker_opts='"-liconv"'
+		linker_opts=	# none required (glibc or liconv_pic)
 		;;
 	"readline")
 		component=Readline
