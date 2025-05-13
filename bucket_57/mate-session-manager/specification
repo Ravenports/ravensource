@@ -1,0 +1,42 @@
+DEF[PORTVERSION]=	1.28.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		mate-session-manager
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11
+VARIANTS=		std
+SDESC[std]=		Session manager for MATE
+HOMEPAGE=		https://mate-desktop.org/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://pub.mate-desktop.org/releases/${PORTVERSION:R}/
+DISTFILE[1]=		mate-session-manager-${PORTVERSION}.tar.xz:main
+DIST_SUBDIR=		mate
+
+SPKGS[std]=		set primary man nls
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:primary
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/mate-session/main.c
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		x11/mate-session-manager
+
+BUILD_DEPENDS=		dbus-glib:dev:std
+BUILDRUN_DEPENDS=	dbus-glib:primary:std
+RUN_DEPENDS=		consolekit:primary:std
+			xorg-xdpyinfo:primary:std
+
+USES=			gettext gmake iconv pkgconfig
+XORG_COMPONENTS=	sm xtransproto x11
+GNOME_COMPONENTS=	glib gtk3
+
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-default-wm=mate-wm
+GLIB_SCHEMAS=		org.mate.session.gschema.xml
