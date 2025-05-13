@@ -5,6 +5,7 @@ DEF[TDS_VER]=		7.4
 
 NAMEBASE=		freetds
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		databases
 VARIANTS=		std
 SDESC[std]=		Sybase/Microsoft TDS protocol library
@@ -31,38 +32,44 @@ FPC_EQUIVALENT=		databases/freetds
 
 BUILD_DEPENDS=		libgcrypt:dev:std
 			unixODBC:dev:std
+			krb5:dev:std
 BUILDRUN_DEPENDS=	libgcrypt:primary:std
 			unixODBC:primary:std
+			krb5:primary:std
 
-EXRUN[tools]=		freetds:primary:std
+EXRUN[tools]=		primary
 
-USES=			autoreconf cpe gettext:build gmake iconv
-			libtool pkgconfig readline ssl:openssl30
-INSTALL_TARGET=		install-strip
-LDFLAGS=		-lgcrypt -lpthread
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--with-tdsver=${TDS_VER}
-			--sysconfdir={{PREFIX}}/etc/freetds
-			--enable-sybase-compat
-			--enable-msdblib
-			--with-openssl={{OPENSSLBASE}}
-			--with-unixodbc={{LOCALBASE}}
+USES=			cpe cmake gettext:build gmake iconv
+			pkgconfig readline ssl:openssl30
+CMAKE_ARGS=		-DENABLE_MSDBLIB:BOOL=ON
+			-DENABLE_ODBC_WIDE:BOOL=ON
+			-DENABLE_ODBC_MARS:BOOL=ON
+			-DENABLE_KRB5:BOOL=ON
+			-DWITH_OPENSSL:BOOL=ON
+			-DBUILD_SHARED_LIBS:BOOL=ON
+			-DCMAKE_INSTALL_SYSCONFDIR={{PREFIX}}/etc/freetds
 
 post-extract:
-	(cd ${WRKSRC} && ${LN} -s freetds.conf freetds.conf.sample)
-	(cd ${WRKSRC} && ${LN} -s locales.conf locales.conf.sample)
-	(cd ${WRKSRC}/src/pool && ${LN} -s pool.conf pool.conf.sample)
+	(cd ${WRKSRC} && ${CP} freetds.conf freetds.conf.sample)
+	(cd ${WRKSRC} && ${CP} locales.conf locales.conf.sample)
+	(cd ${WRKSRC}/src/pool && ${CP} pool.conf pool.conf.sample)
 
-post-patch:
-	${FIND} ${WRKSRC} -name "Makefile.am" | ${XARGS} ${REINPLACE_CMD} -e \
-		's|<malloc.h>|<stdlib.h>| ; \
-		 s|/freetds.conf|/freetds.conf.sample|g ; \
-		 s|/locales.conf|/locales.conf.sample|g ; \
-		 s|/pool.conf|/pool.conf.sample|g ; \
-		 s| common.h||g'
-	${REINPLACE_CMD} -e 's|\(\$with_iodbc/include\)|\1/libiodbc|g' \
-		${WRKSRC}/configure.ac
+pre-configure:
+	${REINPLACE_CMD} -e '/^set(libs / s|)| ${ICONV_LIB_NAME})|' \
+		-e '/readline/ s|)| ${ICONV_LIB_NAME})|' \
+		${WRKSRC}/src/apps/CMakeLists.txt
+	${REINPLACE_CMD} -e '/target_link_libraries/ s| tds | tds ${ICONV_LIB_NAME} |' \
+		${WRKSRC}/src/pool/CMakeLists.txt
 
 post-install:
+	# manually install man pages
+	${INSTALL_MAN} ${WRKSRC}/doc/*.1 ${STAGEDIR}${PREFIX}/share/man/man1/
+	${INSTALL_MAN} ${WRKSRC}/doc/*.5 ${STAGEDIR}${PREFIX}/share/man/man5/
+	# manually add interfaces.sample
 	${INSTALL_DATA} ${WRKSRC}/interfaces \
 		${STAGEDIR}${PREFIX}/etc/freetds/interfaces.sample
+	# manually instal osql (missing from cmake install)
+	${INSTALL_SCRIPT} ${WRKSRC}/src/apps/osql ${STAGEDIR}${PREFIX}/bin/
+	# manually stript
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib*.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/[bdft]*

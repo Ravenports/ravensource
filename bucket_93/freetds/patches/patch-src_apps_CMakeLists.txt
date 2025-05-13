@@ -1,0 +1,15 @@
+--- src/apps/CMakeLists.txt.orig	2025-05-13 21:13:26 UTC
++++ src/apps/CMakeLists.txt
+@@ -18,7 +18,11 @@ endif(WIN32)
+ add_executable(bsqlodbc bsqlodbc.c)
+ target_link_libraries(bsqlodbc tdsodbc replacements tdsutils ${libs})
+ 
+-INSTALL(TARGETS tsql bsqlodbc defncopy freebcp datacopy bsqldb
++add_executable(fisql fisql/fisql.c fisql/edit.c fisql/handlers.c fisql/interrupt.c fisql/terminal.c)
++target_include_directories(fisql PRIVATE fisql)
++target_link_libraries(fisql sybdb replacements readline)
++
++INSTALL(TARGETS tsql bsqlodbc defncopy freebcp datacopy bsqldb fisql
+ 	PUBLIC_HEADER DESTINATION include
+ 		RUNTIME DESTINATION bin
+ 		LIBRARY DESTINATION lib
