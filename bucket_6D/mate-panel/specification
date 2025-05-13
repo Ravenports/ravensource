@@ -1,0 +1,61 @@
+DEF[PORTVERSION]=	1.28.0
+DEF[SOVERSION]=		1.0.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		mate-panel
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11
+VARIANTS=		std
+SDESC[std]=		Panel component for MATE
+HOMEPAGE=		https://mate-desktop.org/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://pub.mate-desktop.org/releases/${PORTVERSION:R}/
+DISTFILE[1]=		mate-panel-${PORTVERSION}.tar.xz:main
+DIST_SUBDIR=		mate
+
+SPKGS[std]=		set primary dev man nls docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:primary
+			LGPL20+:primary
+			GFDL:docs
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+			LGPL20+:{{WRKSRC}}/COPYING.LIB
+			GFDL:{{WRKSRC}}/COPYING-DOCS
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SCHEME=		multi
+
+FPC_EQUIVALENT=		x11/mate-panel
+
+BUILD_DEPENDS=		dconf:dev:std
+			libmateweather:dev:std
+			libsoup-2.4:dev:std
+			libwnck:dev:std
+			mate-desktop:dev:std
+			mate-menus:dev:std
+			itstool:single:std
+BUILDRUN_DEPENDS=	dconf:primary:std
+			libmateweather:primary:std
+			libsoup-2.4:primary:std
+			libwnck:primary:std
+			mate-desktop:primary:std
+			mate-menus:primary:std
+
+USES=			gettext gmake gtk-doc iconv libtool pkgconfig
+XORG_COMPONENTS=	ice sm
+GNOME_COMPONENTS=	glib gtk3 introspection libxml2
+
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-html-dir={{PREFIX}}/doc
+SOVERSION=		${SOVERSION}
+INSTALL_TARGET=		install-strip
+
+post-extract:
+	${ECHO} "Terms extracted from 'mate-panel/menu.h':" > ${WRKDIR}/TERMS
+	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/mate-panel/menu.h >> ${WRKDIR}/TERMS
+	${ECHO} "Terms extracted from 'libmate-panel-applet/mate-panel-applet.h':" >> ${WRKDIR}/TERMS
+	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/libmate-panel-applet/mate-panel-applet.h >> ${WRKDIR}/TERMS
