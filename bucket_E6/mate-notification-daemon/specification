@@ -1,0 +1,50 @@
+DEF[PORTVERSION]=	1.28.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		mate-notification-daemon
+VERSION=		${PORTVERSION}
+KEYWORDS=		deskutils
+VARIANTS=		std
+SDESC[std]=		Send small notifications to your desktop
+HOMEPAGE=		https://mate-desktop.org/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://pub.mate-desktop.org/releases/${PORTVERSION:R}/
+DISTFILE[1]=		mate-notification-daemon-${PORTVERSION}.tar.xz:main
+DIST_SUBDIR=		mate
+
+SPKGS[std]=		set primary nls
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:primary
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/daemon/daemon.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		deskutils/mate-notification-daemon
+
+BUILD_DEPENDS=		dconf:dev:std
+			libcanberra:dev:std
+			libnotify:dev:std
+			libwnck:dev:std
+			mate-desktop:dev:std
+			mate-panel:dev:std
+BUILDRUN_DEPENDS=	dconf:primary:std
+			libcanberra:gtk3:std
+			libnotify:primary:std
+			libwnck:primary:std
+			mate-desktop:primary:std
+			mate-panel:primary:std
+
+USES=			gettext gmake iconv libtool pkgconfig
+GNOME_COMPONENTS=	glib gtk3 libxml2
+
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-static
+INSTALL_TARGET=		install-strip
+GLIB_SCHEMAS=		org.mate.NotificationDaemon.gschema.xml
