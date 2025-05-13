@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v${DLFOLDER}/
 DISTFILE[1]=		util-linux-${PORTVERSION}.tar.xz:main
 
-SPKGS[std]=		set primary dev tools docs
+SPKGS[std]=		set primary dev tools
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -29,7 +29,7 @@ LICENSE_SCHEME=		solo
 BUILD_DEPENDS=		bison:primary:std
 			openpam:dev:std
 
-USES=			cpe meson pkgconfig python:build
+USES=			cpe meson pkgconfig python
 # need by disabled apps ncurses:build zlib
 CPE_VENDOR=		kernel
 CPE_PRODUCT=		util-linux
@@ -69,7 +69,7 @@ MESON_ARGS=		-Dprogram-tests=false
 			-Dbuild-unshare=disabled
 			-Dbuild-nsenter=disabled
 			-Dbuild-script=disabled
-			-Dbuild-scriptlive=disabled
+			-Dbuild-scriptutils=disabled
 			-Dbuild-setterm=disabled
 			-Dbuild-mesg=disabled
 			-Dbuild-wall=disabled
@@ -102,12 +102,31 @@ MESON_ARGS=		-Dprogram-tests=false
 			-Dbuild-partx=disabled
 			-Dbuild-agetty=disabled
 			-Dbuild-sulogin=disabled
+			-Dbuild-col=disabled
+			-Dbuild-colcrt=disabled
+			-Dbuild-colrm=disabled
+			-Dbuild-rev=disabled
+			-Dbuild-hexdump=disabled
+			-Dbuild-choom=disabled
+			-Dbuild-ctrlaltdel=disabled
+			-Dbuild-flock=disabled
+			-Dbuild-mkfs=disabled
+			-Dbuild-isosize=disabled
+			-Dbuild-cal=disabled
+			-Dbuild-look=disabled
+			-Dbuild-mcookie=disabled
+			-Dbuild-namei=disabled
+			-Dbuild-whereis=disabled
+			-Dbuild-findfs=disabled
+			-Dbuild-kill=disabled
+			-Dbuild-getopt=disabled
+			-Dbuild-hardlink=disabled
+			-Dbuild-waitpid=disabled
+			-Dbuild-exch=disabled
+			-Dbuild-libsmartcols=disabled
+			-Dbuild-bits=disabled
 			-Dcryptsetup=disabled
 
 # Below needed for some of the disabled apps
 CFLAGS=			-DHAVE_NCURSES_TERM_H
 			-DHAVE_NCURSES_NCURSES_H
-
-post-install:
-	${MV} ${STAGEDIR}${PREFIX}/share/doc/util-linux \
-	${STAGEDIR}${STD_DOCDIR}
