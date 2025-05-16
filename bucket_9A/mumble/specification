@@ -56,6 +56,9 @@ USES=			cmake desktop-utils:client execinfo expat gmake pcre2
 			pkgconfig python:build shebangfix ssl zlib cpe
 XORG_COMPONENTS=	x11 xext xi
 
+B_DEPS[linux]=		alsa-lib:dev:std
+BR_DEPS[linux]=		alsa-lib:primary:std
+
 CMAKE_ARGS=		-DCMAKE_PREFIX_PATH={{PREFIX}}/lib/qt5/cmake
 			-Doverlay-xcompile=off
 			-Dice=off
@@ -74,6 +77,9 @@ CMAKE_ARGS=		-DCMAKE_PREFIX_PATH={{PREFIX}}/lib/qt5/cmake
 			-Dtranslations=on
 			-Dxinput2=on
 			-Doss=on
+			-Dspeechd=off
+			-Dpulseaudio=off
+			-Dpipewire=off
 
 SHEBANG_FILES=		auxiliary_files/run_scripts/mumble-overlay.in
 CONFIGURE_ENV=		MUMBLE_PYTHON={{PYTHON_CMD}}
@@ -84,3 +90,9 @@ post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/mumble
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/mumble/plugins/liblink.so
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/mumble/libmumbleoverlay.so.${SOVERSION}
+
+post-install-linux:
+	(cd ${STAGEDIR}${PREFIX}/etc/sysusers.d && \
+		${MV} mumble-server.conf mumble-server.conf.sample)
+	(cd ${STAGEDIR}${PREFIX}/etc/tmpfiles.d && \
+		${MV} mumble-server.conf mumble-server.conf.sample)
