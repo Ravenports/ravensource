@@ -1,4 +1,4 @@
---- librhash/byte_order.h.orig	2024-10-13 23:43:50 UTC
+--- librhash/byte_order.h.orig	2025-05-13 20:58:34 UTC
 +++ librhash/byte_order.h
 @@ -18,6 +18,13 @@
  extern "C" {

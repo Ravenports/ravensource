@@ -1,16 +1,16 @@
---- configure.orig	2024-10-13 23:43:50 UTC
+--- configure.orig	2025-05-13 20:58:34 UTC
 +++ configure
-@@ -716,9 +716,6 @@ elif darwin; then
+@@ -725,9 +725,6 @@ elif darwin; then
    SHARED_EXT=".${RHASH_VERSION}.dylib"
    SO_MAJ_EXT=".${RHASH_VERSION_MAJOR}.dylib"
    SOLINK_EXT=".dylib"
--elif linux || bsd; then
+-elif linux || bsd || gnu; then
 -  # use the full library version for the library file extension
 -  SHARED_EXT=".so.${RHASH_VERSION}"
  fi
  
  #####################################################################
-@@ -1031,4 +1028,4 @@ if test -f "${MAN_PATH}.in"; then
+@@ -1058,4 +1055,4 @@ if test -f "${MAN_PATH}.in"; then
    SED_SYSCONFDIR=$(echo $INSTALL_SYSCONFDIR | sed -e 's/\([|\\&]\)/\\\1/g')
    echo "Writing ${MAN_PATH}"
    sed -e "s|@SYSCONFDIR@|$SED_SYSCONFDIR|" ${MAN_PATH}.in > ${MAN_PATH}
