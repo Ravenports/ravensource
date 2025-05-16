@@ -5,8 +5,8 @@ set -e
 . "${dp_SCRIPTSDIR}/functions.sh"
 
 validate_env dp_DISTDIR dp_DISTINFO_FILE dp_DISABLE_CHECKSUM dp_DISABLE_SIZE \
-	dp_DIST_SUBDIR dp_ECHO_MSG dp_FETCH_CMD dp_FORCE_FETCH_ALL \
-	dp_FORCE_FETCH_LIST dp_MASTER_SITE_BACKUP dp_MASTER_SITE_OVERRIDE \
+	dp_DIST_SUBDIR dp_ECHO_MSG dp_FETCH_CMD \
+	dp_MASTER_SITE_BACKUP dp_MASTER_SITE_OVERRIDE \
 	dp_MASTER_SORT_AWK dp_TARGET dp_FETCH_ENV dp_OPSYS
 
 [ -n "${DEBUG_MK_SCRIPTS}" -o -n "${DEBUG_MK_SCRIPTS_DO_FETCH}" ] && set -x
@@ -34,30 +34,11 @@ else
 fi
 
 for _file in "${@}"; do
+	# _file = <filename>:<sitegroup>.  Validated at spec sheet level.
 	file=${_file%%:*}
+	sitegroup=${_file##*:}
 
-	# If this files has groups
-	if [ "$_file" = "$file" ]; then
-		${dp_ECHO_MSG} "===> /!\\ Error /!\\"
-		${dp_ECHO_MSG} "     The $file is missing the mandatory :group"
-		exit 1
-	else
-		select=$(echo "${_file##*:}" | sed -e 's/,/ /g')
-	fi
-
-	filebasename=${file##*/}
-	if [ -n "${dp_FORCE_FETCH_ALL}" ]; then
-		force_fetch=true
-	else
-		force_fetch=false
-		for afile in ${dp_FORCE_FETCH_LIST}; do
-			afile=${afile##*/}
-			if [ "x$afile" = "x$filebasename" ]; then
-				force_fetch=true
-			fi
-		done
-	fi
-	if [ -f "${file}" -a "$force_fetch" != "true" ]; then
+	if [ -f "${file}" ]; then
 		continue
 	fi
 	full_file="${dp_DIST_SUBDIR:+${dp_DIST_SUBDIR}/}${file}"
@@ -85,26 +66,23 @@ for _file in "${@}"; do
 	fi
 
 	__MASTER_SITES_TMP=
-	for group in $select; do
-		# Disable nounset for this, it may come up empty, but
-		# we don't want to fail with a strange error here.
-		set +u
-		eval __MASTER_SITES_TMP3="\${_DOWNLOAD_SITES_${group}}"
-		set -u
-		if [ -n "${__MASTER_SITES_TMP3}" ] ; then
-			for MS3 in ${__MASTER_SITES_TMP3}; do
-				__MASTER_SITES_TMP4="$(process_site ${MS3})"
-				__MASTER_SITES_TMP="${__MASTER_SITES_TMP} ${__MASTER_SITES_TMP4}"
-			done
-		else
-			# Always - because ${dp_TARGET} is limited to (do-fetch|makesum)
-			# This code should never run -- prevented by spec sheet validation
-			${dp_ECHO_MSG} "===> /!\\ Error /!\\"
-			${dp_ECHO_MSG} "     DL_SITES_${group} group is not defined."
-			${dp_ECHO_MSG} "     Check for typos, or errors."
-			exit 1
-		fi
-	done
+	# Disable nounset for this, it may come up empty, but
+	# we don't want to fail with a strange error here.
+	set +u
+	eval __MASTER_SITES_TMP3="\${_DOWNLOAD_SITES_${sitegroup}}"
+	set -u
+	if [ -n "${__MASTER_SITES_TMP3}" ] ; then
+		for MS3 in ${__MASTER_SITES_TMP3}; do
+			__MASTER_SITES_TMP4="$(process_site ${MS3})"
+			__MASTER_SITES_TMP="${__MASTER_SITES_TMP} ${__MASTER_SITES_TMP4}"
+		done
+	else
+		# Always - because ${dp_TARGET} is limited to (do-fetch|makesum)
+		${dp_ECHO_MSG} "===> /!\\ Error /!\\"
+		${dp_ECHO_MSG} "     DL_SITES_${sitegroup} site group is not defined."
+		${dp_ECHO_MSG} "     Check for typos, or errors."
+		exit 1
+	fi
 	__MASTER_SITES_TMP3=
 	__MASTER_SITES_TMP4=
 	SORTED_MASTER_SITES_CMD_TMP="echo ${dp_MASTER_SITE_OVERRIDE} $(/bin/echo -n "${__MASTER_SITES_TMP}" | awk "${dp_MASTER_SORT_AWK}") ${dp_MASTER_SITE_BACKUP}"
@@ -158,4 +136,3 @@ for _file in "${@}"; do
 	${dp_ECHO_MSG} "=> port manually into ${dp_DISTDIR} and try again."
 	exit 1
 done
-
