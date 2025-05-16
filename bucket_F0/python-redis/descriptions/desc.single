@@ -33,10 +33,16 @@ Python 3.8+.
 
 ## Installation
 
-Start a redis via docker:
+Start a redis via docker (for Redis versions >= 8.0):
 
 ``` bash
-docker run -p 6379:6379 -it redis/redis-stack:latest
+$ docker run -p 6379:6379 -it redis:latest
+```
+
+Start a redis via docker (for Redis versions < 8.0):
+
+``` bash
+$ docker run -p 6379:6379 -it redis/redis-stack:latest
 ```
 
 To install redis-py, simply:
@@ -59,7 +65,7 @@ Looking for a high-level library to handle object mapping? See
 
 ## Supported Redis Versions
 
-The most recent version of this library supports redis version [7.2], [7.4]
+The most recent version of this library supports Redis version [7.2], [7.4]
 and [8.0].
 
 The table below highlights version compatibility of the most-recent library
@@ -92,9 +98,3 @@ connection options, see [these examples].
 
 #### RESP3 Support
 To enable support for RESP3, ensure you have at least version 5.0 of the
-client, and change your connection object to include *protocol=3*
-
-``` python
->>> import redis
->>> r = redis.Redis(host='localhost', port=6379, db=0, protocol=3)
-```

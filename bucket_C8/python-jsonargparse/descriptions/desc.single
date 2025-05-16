@@ -20,6 +20,50 @@ a [substantial user base
 it serves as the framework behind pytorch-lightning's [LightningCLI
 ].
 
+Teaser examples
+---------------
+
+CLI with minimal boilerplate:
+
+.. code-block:: python
+
+    from jsonargparse import auto_cli
+
+    def main_function(...):  # your main parameters and logic here
+        ...
+
+    if __name__ == "__main__":
+        auto_cli(main_function)  # parses arguments and runs main_function
+
+Minimal boilerplate but manually parsing:
+
+.. code-block:: python
+
+    from jsonargparse import auto_parser
+
+    parser = auto_parser(main_function)
+    cfg = parser.parse_args()
+    ...
+
+Powerful argparse-like low level parsers:
+
+.. code-block:: python
+
+    from jsonargparse import ArgumentParser
+
+    parser = ArgumentParser()
+    parser.add_argument("--config", action="config")  # support config
+files
+    parser.add_argument("--opt", type=Union[int, Literal["off"]])  #
+complex arguments via type hints
+    parser.add_function_arguments(main_function, "function")  # add
+function parameters
+    parser.add_class_arguments(SomeClass, "class")  # add class parameters
+    ...
+    cfg = parser.parse_args()
+    init = parser.instantiate_classes(cfg)
+    ...
+
 Features
 --------
 
@@ -53,48 +97,4 @@ jsonargparse, while also combining advantages found in similar packages:
 - **Dataclasses** support, like [SimpleParsing
  ] and [Tyro
  ].
-
-Other notable features include:
-
-- **Extensive type hint support:** nested types (union, optional),
-containers
-  (list, dict, etc.), user-defined generics, restricted types (regex,
-numbers),
-  paths, URLs, types from stubs (``*.pyi``), future annotations (PEP [563
- ]), and backports (PEPs [604
- ]/[585
- ]).
-
-- **Keyword arguments introspection:** resolving of parameters used via
-  ``**kwargs``.
-
-- **Dependency injection:** support types that expect a class instance and
-  callables that return a class instance.
-
-- **Structured configs:** parse config files with more understandable
-non-flat
-  hierarchies.
-
-- **Config file formats:** [json], [yaml
- ], [toml], [jsonnet
- ] and extendable to more formats.
-
-- **Relative paths:** within config files and parsing of config paths
-referenced
-  inside other configs.
-
-- **Argument linking:** directing parsed values to multiple parameters,
-  preventing unnecessary interpolation in configs.
-
-Design principles
------------------
-
-- **Non-intrusive/decoupled:**
-
-  There is no requirement for unrelated modifications throughout a
-codebase,
-  maintaining the [separation of concerns principle
- ]. In simpler terms,
-  changes should make sense even without the CLI. No need to inherit from a
-  special class, add decorators, or use CLI-specific type hints.
 

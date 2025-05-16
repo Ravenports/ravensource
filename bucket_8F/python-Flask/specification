@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.1.0
+DEF[PORTVERSION]=	3.1.1
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-Flask
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/pallets/flask/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/af/47/93213ee66ef8fae3b93b3e29206f6b251e65c97bd91d8e1c5596ef15af0a
+SITES[main]=		PYPIWHL/3d/68/9d4508e893976286d2ead7f8f571314af6c2037af34853a30fd769c02e9d
 DISTFILE[1]=		flask-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -30,27 +30,30 @@ GENERATED=		yes
 DISTNAME=		flask-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# Werkzeug>=3.1
-# Jinja2>=3.1.2
-# itsdangerous>=2.2
+# blinker>=1.9.0
 # click>=8.1.3
-# blinker>=1.9
-# importlib-metadata>=3.6; python_version < '3.10'
+# importlib-metadata>=3.6.0; python_version < '3.10'
+# itsdangerous>=2.2.0
+# jinja2>=3.1.2
+# markupsafe>=2.1.1
+# werkzeug>=3.1.0
 # asgiref>=3.2 ; extra == "async"
 # python-dotenv ; extra == "dotenv"
 
 [PY312].USES_ON=			python:v12,wheel
-[PY312].RUN_DEPENDS_ON=			python-Werkzeug:single:v12
-					python-Jinja2:single:v12
-					python-itsdangerous:single:v12
+[PY312].RUN_DEPENDS_ON=			python-blinker:single:v12
 					python-click:single:v12
-					python-blinker:single:v12
+					python-itsdangerous:single:v12
+					python-Jinja2:single:v12
+					python-MarkupSafe:single:v12
+					python-Werkzeug:single:v12
 [PY313].USES_ON=			python:v13,wheel
-[PY313].RUN_DEPENDS_ON=			python-Werkzeug:single:v13
-					python-Jinja2:single:v13
-					python-itsdangerous:single:v13
+[PY313].RUN_DEPENDS_ON=			python-blinker:single:v13
 					python-click:single:v13
-					python-blinker:single:v13
+					python-itsdangerous:single:v13
+					python-Jinja2:single:v13
+					python-MarkupSafe:single:v13
+					python-Werkzeug:single:v13
 
 USES=			cpe
 CPE_VENDOR=		palletsprojects
