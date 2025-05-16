@@ -76,15 +76,14 @@ for _file in "${@}"; do
 			exit 1
 		fi
 	fi
-	case ${dp_TARGET} in
-		do-fetch|makesum)
-			${dp_ECHO_MSG} "=> $file doesn't seem to exist in ${dp_DISTDIR}."
-			if [ ! -w "${dp_DISTDIR}" ]; then
-				${dp_ECHO_MSG} "=> ${dp_DISTDIR} is not writable by you; cannot fetch."
-				exit 1
-			fi
-			;;
-	esac
+
+	# Always - because ${dp_TARGET} is limited to (do-fetch|makesum)
+	${dp_ECHO_MSG} "=> $file doesn't seem to exist in ${dp_DISTDIR}."
+	if [ ! -w "${dp_DISTDIR}" ]; then
+		${dp_ECHO_MSG} "=> ${dp_DISTDIR} is not writable by you; cannot fetch."
+		exit 1
+	fi
+
 	__MASTER_SITES_TMP=
 	for group in $select; do
 		# Disable nounset for this, it may come up empty, but
@@ -98,26 +97,17 @@ for _file in "${@}"; do
 				__MASTER_SITES_TMP="${__MASTER_SITES_TMP} ${__MASTER_SITES_TMP4}"
 			done
 		else
-			case ${dp_TARGET} in
-				do-fetch|makesum)
-					${dp_ECHO_MSG} "===> /!\\ Error /!\\"
-					${dp_ECHO_MSG} "     DL_SITES_${group} group is not defined."
-					${dp_ECHO_MSG} "     Check for typos, or errors."
-					exit 1
-					;;
-			esac
-
+			# Always - because ${dp_TARGET} is limited to (do-fetch|makesum)
+			# This code should never run -- prevented by spec sheet validation
+			${dp_ECHO_MSG} "===> /!\\ Error /!\\"
+			${dp_ECHO_MSG} "     DL_SITES_${group} group is not defined."
+			${dp_ECHO_MSG} "     Check for typos, or errors."
+			exit 1
 		fi
 	done
 	__MASTER_SITES_TMP3=
 	__MASTER_SITES_TMP4=
 	SORTED_MASTER_SITES_CMD_TMP="echo ${dp_MASTER_SITE_OVERRIDE} $(/bin/echo -n "${__MASTER_SITES_TMP}" | awk "${dp_MASTER_SORT_AWK}") ${dp_MASTER_SITE_BACKUP}"
-	case ${dp_TARGET} in
-		fetch-list)
-			/bin/echo -n "mkdir -p ${dp_DISTDIR} && "
-			/bin/echo -n "cd ${dp_DISTDIR} && { "
-			;;
-	esac
 	sites_remaining=0
 	sites="$(${SORTED_MASTER_SITES_CMD_TMP})"
 	for site in ${sites}; do
@@ -141,44 +131,31 @@ for _file in "${@}"; do
 		else
 			_fetch_cmd="${dp_FETCH_CMD} ${args}"
 		fi
-		case ${dp_TARGET} in
-			do-fetch|makesum)
-				${dp_ECHO_MSG} "=> Attempting to fetch ${site}${file}"
-				if env ${dp_FETCH_ENV} ${_fetch_cmd}; then
-					chmod 644 "${file}"
-					if [ "${dp_OPSYS}" = "Linux" -o "${dp_OPSYS}" = "SunOS" ]; then
-						actual_size=$(stat --printf=%s "${file}")
-					else
-						actual_size=$(stat -f %z "${file}")
-					fi
-					if [ -n "${dp_DISABLE_SIZE}" ] || [ -z "${CKSIZE}" ] || [ "${actual_size}" -eq "${CKSIZE}" ]; then
-						continue 2
-					else
-						${dp_ECHO_MSG} "=> Fetched file size mismatch (expected ${CKSIZE}, actual ${actual_size})"
-						if [ ${sites_remaining} -gt 0 ]; then
-							${dp_ECHO_MSG} "=> Trying next site"
-							rm -f "${file}"
-						fi
-					fi
+
+		# Always - because ${dp_TARGET} is limited to (do-fetch|makesum)
+		${dp_ECHO_MSG} "=> Attempting to fetch ${site}${file}"
+		if env ${dp_FETCH_ENV} ${_fetch_cmd}; then
+			chmod 644 "${file}"
+			if [ "${dp_OPSYS}" = "Linux" -o "${dp_OPSYS}" = "SunOS" ]; then
+				actual_size=$(stat --printf=%s "${file}")
+			else
+				actual_size=$(stat -f %z "${file}")
+			fi
+			if [ -n "${dp_DISABLE_SIZE}" ] || [ -z "${CKSIZE}" ] || [ "${actual_size}" -eq "${CKSIZE}" ]; then
+				continue 2
+			else
+				${dp_ECHO_MSG} "=> Fetched file size mismatch (expected ${CKSIZE}, actual ${actual_size})"
+				if [ ${sites_remaining} -gt 0 ]; then
+					${dp_ECHO_MSG} "=> Trying next site"
+					rm -f "${file}"
 				fi
-				;;
-			fetch-list)
-				/bin/echo -n "env $(escape "${_fetch_cmd}") || "
-				;;
-			fetch-url-list-int)
-				echo ${args}
-				;;
-		esac
+			fi
+		fi
 	done
-	case ${dp_TARGET} in
-		do-fetch|makesum)
-			${dp_ECHO_MSG} "=> Couldn't fetch it - please try to retrieve this"
-			${dp_ECHO_MSG} "=> port manually into ${dp_DISTDIR} and try again."
-			exit 1
-			;;
-		fetch-list)
-			echo "echo \"${file}\" not fetched; }"
-			;;
-	esac
+
+	# Always - because ${dp_TARGET} is limited to (do-fetch|makesum)
+	${dp_ECHO_MSG} "=> Couldn't fetch it - please try to retrieve this"
+	${dp_ECHO_MSG} "=> port manually into ${dp_DISTDIR} and try again."
+	exit 1
 done
 
