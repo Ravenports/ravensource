@@ -1,0 +1,30 @@
+DEF[PORTVERSION]=	2.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		webrtc-audio-processing
+VERSION=		${PORTVERSION}
+KEYWORDS=		audio
+VARIANTS=		std
+SDESC[std]=		AudioProcessing module from the WebRTC project
+HOMEPAGE=		https://freedesktop.org/software/pulseaudio/webrtc-audio-processing/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://freedesktop.org/software/pulseaudio/webrtc-audio-processing/
+DISTFILE[1]=		webrtc-audio-processing-${PORTVERSION}.tar.xz:main
+
+SPKGS[std]=		set primary dev
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD3CLAUSE:primary
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		audio/webrtc-audio-processing2
+
+BUILD_DEPENDS=		abseil-cpp:dev:std
+BUILDRUN_DEPENDS=	abseil-cpp:primary:std
+
+USES=			meson pkgconfig
