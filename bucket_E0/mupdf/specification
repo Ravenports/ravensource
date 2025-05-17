@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.25.6
+DEF[PORTVERSION]=	1.26.0
 # known to re-roll distfiles
 # ----------------------------------------------------------------------------
 
@@ -16,14 +16,14 @@ SITES[main]=		https://mupdf.com/downloads/archive/
 			https://fossies.org/linux/misc/
 DISTFILE[1]=		mupdf-${PORTVERSION}-source.tar.gz:main
 
-SPKGS[std]=		set primary tools dev man docs examples
+SPKGS[std]=		set tools dev man docs examples
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		AGPLv3+:primary
+LICENSE=		AGPLv3+:tools
 LICENSE_FILE=		AGPLv3+:{{WRKSRC}}/COPYING
-LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_TERMS=		tools:{{WRKDIR}}/TERMS
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		graphics/mupdf
@@ -33,13 +33,13 @@ BUILD_DEPENDS=		harfbuzz:dev:std
 			freeglut:dev:std
 			openjpeg:dev:std
 			jbig2dec:dev:std
+			brotli:dev:std
 BUILDRUN_DEPENDS=	harfbuzz:primary:std
 			openjpeg:primary:std
 			jbig2dec:primary:std
 			freeglut:primary:std
 			gumbo:primary:std
-
-EXRUN[tools]=		mupdf:primary:std
+			brotli:primary:std
 
 # requires libjpeg, jpeg-turbo (USES=jpeg) will not work
 USES=			cpe gmake pkgconfig zlib:build curl freetype
@@ -81,10 +81,6 @@ post-install:
 	${MV} ${STAGEDIR}${PREFIX}/bin/mupdf-x11 ${STAGEDIR}${PREFIX}/bin/mupdf
 	${INSTALL_PROGRAM} ${WRKSRC}/build/release/muraster \
 		${STAGEDIR}${PREFIX}/bin
-	${LN} -s libmupdf.so.${PORTVERSION} \
-		${STAGEDIR}${PREFIX}/lib/libmupdf.so
-	${LN} -s libmupdfthird.so.${PORTVERSION} \
-		${STAGEDIR}${PREFIX}/lib/libmupdfthird.so
 	${MKDIR} ${STAGEDIR}${PREFIX}/share/examples
 	${MV} ${STAGEDIR}${PREFIX}/share/doc/mupdf/examples \
 		${STAGEDIR}${STD_EXAMPLESDIR}

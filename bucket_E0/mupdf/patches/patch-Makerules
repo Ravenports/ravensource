@@ -1,24 +1,15 @@
---- Makerules.orig	2025-03-13 17:55:42 UTC
+--- Makerules.orig	2025-05-12 17:11:03 UTC
 +++ Makerules
-@@ -177,7 +177,7 @@ ifneq "$(CLUSTER)" ""
-   CFLAGS += -DCLUSTER
- endif
+@@ -216,7 +216,7 @@ ifeq ($(OS),Darwin)
  
--ifeq ($(OS),Linux)
-+ifeq ($(OS),%%OPSYS%%)
-     LINUX_OR_OPENBSD := yes
- endif
- ifeq ($(OS),OpenBSD)
-@@ -212,7 +212,7 @@ else ifeq ($(OS),MACOS)
- 
- else ifeq ($(LINUX_OR_OPENBSD),yes)
+ else
  
 -  ifeq ($(OS),Linux)
 +  ifeq ($(OS),%%OPSYS%%)
      HAVE_OBJCOPY := yes
    endif
  
-@@ -287,7 +287,7 @@ else ifeq ($(LINUX_OR_OPENBSD),yes)
+@@ -311,7 +311,7 @@ else
    endif
  
    ifeq ($(HAVE_LIBCRYPTO),)
@@ -26,4 +17,4 @@
 +    HAVE_LIBCRYPTO := no
    endif
    ifeq ($(HAVE_LIBCRYPTO),yes)
- 	LIBCRYPTO_CFLAGS := $(shell pkg-config --cflags libcrypto) -DHAVE_LIBCRYPTO
+     LIBCRYPTO_CFLAGS := $(shell pkg-config --cflags libcrypto) -DHAVE_LIBCRYPTO
