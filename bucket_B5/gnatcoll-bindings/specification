@@ -10,7 +10,7 @@ DEF[PY3_INCLUDEDIR]=	{{LOCALBASE}}/include/python${PY3DEFAULT}
 
 NAMEBASE=		gnatcoll-bindings
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 EPOCH=			1
 KEYWORDS=		devel
 VARIANTS=		std
@@ -56,8 +56,7 @@ EXRUN[syslog]=		gnatcoll-core:primary:std
 EXRUN[cpp]=		gnatcoll-core:primary:std
 EXRUN[gmp]=		gmp:primary:std
 			gnatcoll-core:primary:std
-EXRUN[iconv]=		libiconv:primary:std
-			gnatcoll-core:primary:std
+EXRUN[iconv]=		gnatcoll-core:primary:std
 EXRUN[readline]=	readline:primary:std
 			gnatcoll-core:primary:std
 EXRUN[python3]=		python${THIRD_SNAKE}:primary:std
@@ -126,5 +125,6 @@ do-install:
 		"${STAGEDIR}${PREFIX}" \
 		"-I${PY3_INCLUDEDIR}" \
 		"${SOVERSION}" \
-		"-lpython${PY3DEFAULT}"
+		"-lpython${PY3DEFAULT}" \
+		"${ICONV_LIB_PIC}"
 .endfor
