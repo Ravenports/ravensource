@@ -217,6 +217,7 @@ headers_BSD=\
 	efivar.h \
 	elf-hints.h \
 	elf.h \
+	endian.h \
 	err.h \
 	floatingpoint.h \
 	fstab.h \
