@@ -1,5 +1,5 @@
---- src/absl/base/internal/unscaledcycleclock.cc.orig	2023-01-11 14:22:54 UTC
-+++ src/absl/base/internal/unscaledcycleclock.cc
+--- tools/vendor/abseil-cpp/absl/base/internal/unscaledcycleclock.cc.orig	2025-01-07 11:51:24 UTC
++++ tools/vendor/abseil-cpp/absl/base/internal/unscaledcycleclock.cc
 @@ -23,7 +23,7 @@
  #if defined(__powerpc__) || defined(__ppc__)
  #ifdef __GLIBC__
