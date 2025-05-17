@@ -5,6 +5,7 @@ DEF[SOVERSION]=		${PORTVERSION}
 
 NAMEBASE=		gnatformat
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		textproc ada
 VARIANTS=		std
 SDESC[std]=		Ada code formatter based on Prettier-Ada library
@@ -31,9 +32,8 @@ BUILD_DEPENDS=		libadalang:dev:std
 BUILDRUN_DEPENDS=	libadalang:primary:std
 
 EXRUN[tools]=		gmp:primary:std
-			libiconv:primary:std
 
-USES=			gprbuild iconv:standalone
+USES=			gprbuild iconv:build
 MAKE_ARGS=		PROCESSORS={{MAKE_JOBS_NUMBER}}
 MAKE_ENV=		GPR_PROJECT_PATH={{WRKSRC}}
 BUILD_TARGET=		lib bin
