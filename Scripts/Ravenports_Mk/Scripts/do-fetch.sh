@@ -96,7 +96,7 @@ for _file in "${@}"; do
 		fi
 	fi
 
-	${dp_ECHO_MSG} "=> ${file} is not cached; attempting to retrieve."
+	${dp_ECHO_MSG} "=> ${file} is not cached."
 
 	__MASTER_SITES_TMP=
 	# Disable nounset for this, it may come up empty, but
