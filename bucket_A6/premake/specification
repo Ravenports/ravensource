@@ -33,5 +33,10 @@ MAKE_ARGS=		CC="{{CC}}"
 BUILD_TARGET=		bsd
 DISTNAME=		premake-${PORTVERSION}-src
 
+B_DEPS[linux]=		libuuid:dev:std
+BR_DEPS[linux]=		libuuid:primary:std
+VAR_OPSYS[linux]=	MAKEFILE_LINE=BUILD_TARGET=linux
+
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/bin/release/premake5 ${STAGEDIR}${PREFIX}/bin
+
