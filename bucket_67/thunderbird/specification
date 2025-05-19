@@ -139,6 +139,10 @@ VAR_OPSYS[linux]=	QMAKE_ARGS=--disable-elf-hack
 VAR_OPSYS[netbsd]=	QMAKE_ARGS=--enable-audio-backends=sndio
 VAR_OPSYS[midnightbsd]=	MAKEFILE_LINE=CONFIGURE_TARGET=${MBSD64_TARGET}
 
+post-extract-linux:
+	# remove patch that breaks linux
+	${RM} ${PATCHDIR}/patch-comm_third__party_rust__wgpu-hal_src_vulkan_drm.rs
+
 post-patch:
 	${REINPLACE_CMD} -e 's|%%LOCALBASE%%|${LOCALBASE}|g' \
 		${WRKSRC}/comm/mail/app/nsMailApp.cpp \
