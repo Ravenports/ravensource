@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	0.3.5
+DEF[SOVERSION]=		2.3.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		ctpl
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc
+VARIANTS=		std
+SDESC[std]=		Template engine library written in C
+HOMEPAGE=		https://ctpl.tuxfamily.org/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://ravenports.elderlinux.org/distcache/
+DISTFILE[1]=		ctpl-${PORTVERSION}.tar.gz:main
+
+SPKGS[std]=		set primary dev man nls tools
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv3+:primary
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/ctpl.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		textproc/ctpl
+
+USES=			autoreconf gettext gtk-doc libtool pkgconfig
+GNOME_COMPONENTS=	glib
+
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
+SOVERSION=		${SOVERSION}
