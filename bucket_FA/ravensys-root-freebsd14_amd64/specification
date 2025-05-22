@@ -1,0 +1,88 @@
+DEF[PRIME]=		14.2
+DEF[X_CURRENT]=		EXTRACT_VERSION(PLATFORM_FreeBSD_x86-64)
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		ravensys-root-freebsd14_amd64
+VERSION=		${PRIME}
+KEYWORDS=		raven
+VARIANTS=		std
+SDESC[std]=		FreeBSD/AMD64 ${PRIME} builder system root
+HOMEPAGE=		none
+CONTACT=		John_Marino[draco@marino.st]
+
+DOWNLOAD_GROUPS=	main r13
+SITES[main]=		https://leaf.dragonflybsd.org/~marino/dports-src/
+SITES[r13]=		http://ftp-archive.freebsd.org/pub/FreeBSD-Archive/old-releases/amd64/amd64/ISO-IMAGES/${PRIME}/
+
+DISTFILE[1]=		dummy-tarball.tar.gz:main
+DISTFILE[2]=		FreeBSD-${PRIME}-RELEASE-amd64-disc1.iso:r13
+DF_INDEX=		1 2
+
+SPKGS[std]=		single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+ONLY_FOR_OPSYS=		freebsd
+NOT_FOR_ARCH=		i386 aarch64
+
+INVALID_RPATH=		yes
+
+BUILD_DEPENDS=		nawk:primary:std
+			diffutils:primary:ravensys
+			libarchive:primary:static
+			gnugrep:primary:ravensys
+			file:primary:ravensys
+			findutils:primary:ravensys
+			flex:primary:ravensys
+			gzip:primary:std
+			xz:tools:std
+			unzip:primary:std
+			m4:primary:noprefix
+			sed:primary:ravensys
+			byacc:primary:std
+			less:primary:std
+			nvi:primary:std
+			coreutils:primary:ravensys
+			ravensys-binutils:single:std
+			ncurses:terminfo:std
+			rvn:primary:std
+			mandoc:primary:std
+			genpatch:primary:std
+			fetch:primary:std
+			ccache:primary:std
+			bzip2:tools:std
+			bmake:primary:std
+			ravensys-utils:primary:std
+
+SKIP_BUILD=		yes
+SINGLE_JOB=		yes
+EXTRACT_DIRTY=		2
+PLIST_SUB=		BASE={{SYSPATH}}
+INFRASTRUCTURE=		yes
+
+MAKE_ENV=		OPSYS="{{OPSYS}}"
+			ARCH="{{ARCH}}"
+			ARCHSTD="{{ARCH_STANDARD}}"
+			OSVERSION="{{OSVERSION}}"
+			OSREL="{{OSREL}}"
+			OSMAJOR="{{MAJOR}}"
+			MKDIR="{{MKDIR}}"
+			GCCX=ravensys-gcc
+MAKE_ARGS=		BASE={{RSYS}}
+
+VAR_OPSYS[freebsd]=	MAKEFILE_LINE=SYSTEM=${X_CURRENT}
+
+pre-fetch:
+	${SH} ${MK_SCRIPTS}/ravensys-root-validate_pkgs.sh ${PREFIX} \
+		${OPSYS} ${ARCH} ${ARCH_STANDARD} ${OSVERSION} ${OSREL} ${MAJOR}
+
+post-extract:
+	${MKDIR} ${WRKSRC}
+	${INSTALL_DATA} ${FILESDIR}/freebsd.mk ${WRKSRC}/system_specifics.mk
+	${INSTALL_DATA} ${MK_SCRIPTS}/ravensys-root-Makefile ${WRKSRC}/Makefile
+	${MV} ${WRKDIR}/${NAMEBASE}_2 ${WRKDIR}/freebsd
+
+pre-patch:
+	(cd ${WRKDIR}/freebsd && ${TAR} -xf usr/freebsd-dist/base.txz \
+		--no-same-owner --no-same-permissions)
