@@ -33,7 +33,6 @@ while read ravenport version fpc_port; do
 	autoselect-*) ;;	# unique to ravenports
 	ravensw) ;;		# unique to ravenports
 
-	lockf) ;;		# for sysroot
 	bc) ;;			# for sysroot
 	ed) ;;			# for sysroot
 	xz) ;;			# for sysroot, deleted from FPC

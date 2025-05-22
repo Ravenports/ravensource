@@ -1,16 +1,13 @@
 DEF[PRIME]=		6.4.0
-DEF[R62_RELEASE]=	6.2.2
 DEF[X_CURRENT]=		EXTRACT_VERSION(PLATFORM_DragonFly_x86-64)
-DEF[X_R62]=		EXTRACT_VERSION(PREVIOUS_DF64_R62)
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ravensys-root-dragonfly
 VERSION=		${PRIME}
-REVISION=		5
+REVISION=		6
 KEYWORDS=		raven
-VARIANTS=		std REL62
+VARIANTS=		std
 SDESC[std]=		DragonFly ${PRIME} builder system root
-SDESC[REL62]=		DragonFly ${R62_RELEASE} builder system root
 HOMEPAGE=		none
 CONTACT=		John_Marino[draco@marino.st]
 
@@ -20,14 +17,12 @@ SITES[avalon]=		https://mirror-master.dragonflybsd.org/iso-images/
 
 DISTFILE[1]=		dummy-tarball.tar.gz:main
 DISTFILE[2]=		dfly-x86_64-${PRIME}_REL.iso.bz2:avalon
-DISTFILE[3]=		dfly-x86_64-${R62_RELEASE}_REL.iso.bz2:avalon
+DF_INDEX=		1 2
 
 SPKGS[std]=		single
-SPKGS[REL62]=		single
 
-OPTIONS_AVAILABLE=	NOTSTD R62
+OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
-VOPTS[REL62]=		NOTSTD=ON R62=ON
 
 ONLY_FOR_OPSYS=		dragonfly
 
@@ -54,14 +49,15 @@ BUILD_DEPENDS=		nawk:primary:std
 			rvn:primary:std
 			mandoc:primary:std
 			genpatch:primary:std
-			lockf:primary:std
 			fetch:primary:std
 			ccache:primary:std
 			bzip2:tools:std
+			bmake:primary:std
+			ravensys-utils:primary:std
 
 SKIP_BUILD=		yes
 SINGLE_JOB=		yes
-EXTRACT_DIRTY=		2 3
+EXTRACT_DIRTY=		2
 PLIST_SUB=		BASE={{SYSPATH}}
 INFRASTRUCTURE=		yes
 
@@ -75,17 +71,7 @@ MAKE_ENV=		OPSYS="{{OPSYS}}"
 			GCCX=ravensys-gcc
 MAKE_ARGS=		BASE={{RSYS}}
 
-[NOTSTD].DESCRIPTION=			Earlier system root of DragonFly
-[NOTSTD].DF_INDEX_OFF=			2
-[NOTSTD].MAKEFILE_OFF=			SYSTEM=${X_CURRENT}
-[NOTSTD].BUILD_DEPENDS_OFF=		bmake:primary:std
-					ravensys-utils:primary:std
-
-[R62].DESCRIPTION=			DragonFly Release ${R62_RELEASE} system root
-[R62].DF_INDEX_ON=			3
-[R62].MAKEFILE_ON=			SYSTEM=${X_R62}
-[R62].BUILD_DEPENDS_ON=			bmake:primary:prevdbsd
-					ravensys-utils:primary:prevdbsd
+VAR_OPSYS[dragonfly]=	MAKEFILE_LINE=SYSTEM=${X_CURRENT}
 
 pre-fetch:
 	${SH} ${MK_SCRIPTS}/ravensys-root-validate_pkgs.sh ${PREFIX} \
@@ -95,9 +81,4 @@ post-extract:
 	${MKDIR} ${WRKSRC}
 	${INSTALL_DATA} ${FILESDIR}/dragonfly.mk ${WRKSRC}/system_specifics.mk
 	${INSTALL_DATA} ${MK_SCRIPTS}/ravensys-root-Makefile ${WRKSRC}/Makefile
-
-post-extract-NOTSTD-OFF:
 	${MV} ${WRKDIR}/${NAMEBASE}_2 ${WRKDIR}/dragonfly
-
-post-extract-R62-ON:
-	${MV} ${WRKDIR}/${NAMEBASE}_3 ${WRKDIR}/dragonfly
