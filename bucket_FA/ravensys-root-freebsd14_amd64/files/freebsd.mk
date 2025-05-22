@@ -109,12 +109,12 @@ dynamic_lib_FreeBSD=\
 	/lib/libdevstat.so.7 \
 	/lib/libjail.so.1 \
 	/lib/libcasper.so.1 \
-	/lib/libnv.so.0 \
+	/lib/libnv.so.1 \
+	/lib/librt.so.1 \
 	/usr/lib/libdevinfo.so.6 \
 	/usr/lib/libexecinfo.so.1 \
 	/usr/lib/libmemstat.so.3 \
 	/usr/lib/librpcsvc.so.5\
-	/usr/lib/librt.so.1 \
 	/usr/lib/libprocstat.so.1 \
 	/usr/lib/libusb.so.3 \
 	/usr/lib/libusbhid.so.4 \
@@ -278,9 +278,7 @@ headers_FreeBSD=\
 	jail.h \
 	# end
 
-.if "${OSMAJOR}" == "13"
 headers_FreeBSD+= threads.h
-.endif
 
 pcfiles_FreeBSD=\
 	libusb-0.1.pc \
@@ -319,14 +317,12 @@ install-platform: install-common
 		ln -s libdevinfo.so.6 libdevinfo.so && \
 		ln -s libprocstat.so.1 libprocstat.so && \
 		ln -s libgeom.so.5 libgeom.so && \
-		ln -s ${PREFIX}/lib/libexecinfo.so libexecinfo.so && \
 		ln -s libthr.so libpthread.so && \
 		ln -s libjail.so.1 libjail.so)
 	${BSD_INSTALL_LIB} ../${OPSYS:tl}/lib/libgcc_s.so.1 ${DESTDIR}${BASE}/usr/lib/
 	${BSD_INSTALL_LIB} ../${OPSYS:tl}/lib/libcxxrt.so.1 ${DESTDIR}${BASE}/usr/lib/
-	${BSD_INSTALL_LIB} ../${OPSYS:tl}/usr/lib/libc++.so.1 ${DESTDIR}${BASE}/usr/lib/
-.if "${OSMAJOR}" == "13"
-	${BSD_INSTALL_LIB} ../${OPSYS:tl}/lib/casper/libcap_fileargs.so.1 \
+	${BSD_INSTALL_LIB} ../${OPSYS:tl}/lib/libc++.so.1 ${DESTDIR}${BASE}/usr/lib/
+	${BSD_INSTALL_LIB} ../${OPSYS:tl}/lib/libcap_fileargs.so.1 \
 		${DESTDIR}${BASE}/usr/lib/
 	${BSD_INSTALL_LIB} ../${OPSYS:tl}/usr/lib/libstdthreads.so.0 \
 		${DESTDIR}${BASE}/usr/lib/
@@ -335,18 +331,13 @@ install-platform: install-common
 	(cd ${DESTDIR}${BASE}/usr/lib && \
 		ln -s libstdthreads.so.0 libstdthreads.so \
 	)
-.endif
 	sed -e 's|/lib/libc\.so|/usr/lib/libc.so|'  ../${OPSYS:tl}/usr/lib/libc.so \
 		> ${DESTDIR}${BASE}/usr/lib/libc.so
 	${BSD_INSTALL_SCRIPT} ../${OPSYS:tl}/usr/bin/lorder ${DESTDIR}${BASE}/usr/bin/
 
 	rmdir ${DESTDIR}${BASE}/usr/include/dev/powermac_nvram
-.if "${OSMAJOR}" == "12"
-	rmdir ${DESTDIR}${BASE}/usr/include/dev/nand
-.endif
-.if "${OSMAJOR}" == "13"
 	rmdir ${DESTDIR}${BASE}/usr/include/dev/wi
-.endif
+	rmdir ${DESTDIR}${BASE}/usr/include/dev/an
 	
 	# locale information
 .  for LC in COLLATE CTYPE MESSAGES MONETARY NUMERIC TIME
@@ -363,6 +354,7 @@ install-platform: install-common
 		${DESTDIR}${BASE}/usr/share/rc.conf
 	/usr/sbin/pwd_mkdb -p -d ${DESTDIR}${BASE}/usr/share \
 		${DESTDIR}${BASE}/usr/share/master.passwd
+. if "${MAJOR}" == "14"
 	${MKDIR} ${DESTDIR}${BASE}/var/run
 	# handle ldconfig hints
 	${BSD_INSTALL_PROGRAM} ../${OPSYS:tl}/sbin/ldconfig \
@@ -372,3 +364,7 @@ install-platform: install-common
 	mv ${DESTDIR}${BASE}/var/run/ld-elf.so.hints \
 		${DESTDIR}${BASE}/usr/share/
 	rm -rf ${DESTDIR}${BASE}/var
+. else
+	# for QA purposes
+	touch ${DESTDIR}${BASE}/usr/share/ld-elf.so.hints
+. endif
