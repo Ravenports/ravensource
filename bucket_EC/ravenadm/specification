@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.41
+DEF[PORTVERSION]=	3.42
 DEF[PORTREVISION]=	0
 DEF[RELEASE_TAG]=	v${PORTVERSION}
 DEF[FORMAT_TAG]=	v4.2
@@ -41,6 +41,7 @@ R_DEPS[sunos]=		mandoc:set:std
 USES=			zstd:build
 SET_DEBUGGING_ON=	yes
 BUILD_WRKSRC=		{{WRKSRC}}/build
+MAKE_ARGS=		PROCESSORS={{MAKE_JOBS_NUMBER}}
 INFRASTRUCTURE=		yes
 
 [WATCHDOG].DESCRIPTION=			Use "watchdog" monitor to abort stalled builds
