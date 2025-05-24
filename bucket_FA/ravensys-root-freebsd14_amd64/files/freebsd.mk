@@ -302,6 +302,7 @@ install-platform: install-common
 	@echo "==================================="
 	(cd ${DESTDIR}${BASE}/usr/lib && \
 		ln -s libm.so.5 libm.so && \
+		ln -s libnv.so.1 libnv.so && \
 		ln -s librt.so.1 librt.so && \
 		ln -s libkvm.so.7 libkvm.so && \
 		ln -s libmemstat.so.3 libmemstat.so && \
