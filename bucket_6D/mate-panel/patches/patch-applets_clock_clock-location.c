@@ -1,6 +1,6 @@
---- applets/clock/clock-location.c.orig	2024-02-20 01:30:10 UTC
+--- applets/clock/clock-location.c.orig	2024-10-17 05:27:56 UTC
 +++ applets/clock/clock-location.c
-@@ -447,19 +447,27 @@ clock_location_get_offset (ClockLocation *loc)
+@@ -447,19 +447,27 @@ clock_location_get_offset (ClockLocation
  
          unsetenv ("TZ");
          tm = localtime (&t);
