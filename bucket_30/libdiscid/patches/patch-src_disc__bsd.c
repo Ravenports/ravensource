@@ -1,4 +1,4 @@
---- src/disc_bsd.c.orig	2023-02-28 17:10:56 UTC
+--- src/disc_bsd.c.orig	2025-05-21 10:20:16 UTC
 +++ src/disc_bsd.c
 @@ -32,7 +32,7 @@
  #include <sys/types.h>
