@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	4.18.2
+DEF[PORTVERSION]=	4.20.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		parole
@@ -11,7 +11,7 @@ CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		https://archive.xfce.org/src/apps/parole/${PORTVERSION:R}/
-DISTFILE[1]=		parole-${PORTVERSION}.tar.bz2:main
+DISTFILE[1]=		parole-${PORTVERSION}.tar.xz:main
 DIST_SUBDIR=		xfce
 
 SPKGS[std]=		set primary nls
@@ -48,21 +48,18 @@ BUILDRUN_DEPENDS=	dbus-glib:primary:std
 			appstream-glib:primary:std
 RUN_DEPENDS=		xdg-utils:set:std
 
-USES=			gmake libtool pkgconfig gnome-icons:primary
+USES=			meson pkgconfig gnome-icons:primary
 			desktop-utils:primary
 GNOME_COMPONENTS=	gtk3 intltool
 XORG_COMPONENTS=	ice sm x11
+MESON_ARGS=		-Dnotify-plugin=enabled
+			-Dtray-plugin=enabled
+			-Dmpris2-plugin=enabled
+			-Dtaglib=enabled
+			-Dx11=enabled
+			-Dgtk-doc=false
 
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--disable-debug
-			--enable-notify-plugin
-			--enable-tray-plugin
-			--enable-taglib
-			--enable-mpris2-plugin
-			--without-html-dir
-INSTALL_TARGET=		install-strip
-
-post-patch:
-	${REINPLACE_CMD} -e 's|xfce4/src/misc|parole|g' \
+pre-configure:
+	# Fix .rc files path
+	${REINPLACE_CMD} -e 's|xfce4/src/misc|${PORTNAME}|g' \
 		${WRKSRC}/src/common/parole-rc-utils.h
-
