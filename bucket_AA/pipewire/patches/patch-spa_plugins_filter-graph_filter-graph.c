@@ -1,6 +1,6 @@
---- spa/plugins/filter-graph/filter-graph.c.orig	2025-04-14 09:46:02 UTC
+--- spa/plugins/filter-graph/filter-graph.c.orig	2025-05-22 08:59:37 UTC
 +++ spa/plugins/filter-graph/filter-graph.c
-@@ -299,7 +299,13 @@ static struct port *find_port(struct nod
+@@ -298,7 +298,13 @@ static struct port *find_port(struct nod
  	const struct spa_fga_descriptor *d;
  	uint32_t i, n_ports, port_id = SPA_ID_INVALID;
  

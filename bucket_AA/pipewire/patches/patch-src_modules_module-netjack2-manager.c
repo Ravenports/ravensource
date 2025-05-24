@@ -1,4 +1,4 @@
---- src/modules/module-netjack2-manager.c.orig	2025-04-14 09:46:02 UTC
+--- src/modules/module-netjack2-manager.c.orig	2025-05-22 08:59:37 UTC
 +++ src/modules/module-netjack2-manager.c
 @@ -39,6 +39,10 @@
  #include "module-netjack2/peer.c"
@@ -11,7 +11,7 @@
  #ifndef IPTOS_DSCP
  #define IPTOS_DSCP_MASK 0xfc
  #define IPTOS_DSCP(x) ((x) & IPTOS_DSCP_MASK)
-@@ -813,10 +817,16 @@ static int make_announce_socket(struct s
+@@ -892,10 +896,16 @@ static int make_announce_socket(struct s
  		static const uint32_t ipv4_mcast_mask = 0xe0000000;
  		struct sockaddr_in *sa4 = (struct sockaddr_in*)sa;
  		if ((ntohl(sa4->sin_addr.s_addr) & ipv4_mcast_mask) == ipv4_mcast_mask) {

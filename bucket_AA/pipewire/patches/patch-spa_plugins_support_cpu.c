@@ -1,4 +1,4 @@
---- spa/plugins/support/cpu.c.orig	2025-04-14 09:46:02 UTC
+--- spa/plugins/support/cpu.c.orig	2025-05-22 08:59:37 UTC
 +++ spa/plugins/support/cpu.c
 @@ -12,7 +12,7 @@
  #include <sched.h>
