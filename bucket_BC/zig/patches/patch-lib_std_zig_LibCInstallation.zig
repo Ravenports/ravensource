@@ -1,4 +1,4 @@
---- lib/std/zig/LibCInstallation.zig.orig	2025-03-04 22:31:02 UTC
+--- lib/std/zig/LibCInstallation.zig.orig	2025-05-22 05:46:47 UTC
 +++ lib/std/zig/LibCInstallation.zig
 @@ -973,23 +973,29 @@ pub fn resolveCrtPaths(
      };
