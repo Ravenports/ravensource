@@ -1,4 +1,4 @@
---- Make.defaults.orig	2024-11-04 14:42:14 UTC
+--- Make.defaults.orig	2025-05-16 14:11:33 UTC
 +++ Make.defaults
 @@ -91,7 +91,6 @@ USING_FREEBSD ?= $(shell echo $(OS) | gr
  
@@ -7,4 +7,4 @@
 -override HOSTCC       := $(prefix)clang
  endif
  
- HOSTARCH      ?= $(shell $(HOSTCC) -dumpmachine | cut -f1 -d- | sed -e s,i[3456789]86,ia32, -e 's,armv[67].*,arm,' )
+ HOSTARCH      := $(shell $(HOSTCC) -dumpmachine | cut -f1 -d- | sed -e s,i[3456789]86,ia32, -e 's,armv[67].*,arm,' )
