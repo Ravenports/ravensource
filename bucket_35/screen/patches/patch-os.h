@@ -1,4 +1,4 @@
---- os.h.orig	2024-08-28 19:55:03 UTC
+--- os.h.orig	2025-05-15 15:31:27 UTC
 +++ os.h
 @@ -148,7 +148,7 @@ typedef char* slot_t;	/* used internally
   */

@@ -1,6 +1,6 @@
---- socket.c.orig	2024-08-28 19:55:03 UTC
+--- socket.c.orig	2025-05-15 15:31:27 UTC
 +++ socket.c
-@@ -126,11 +126,13 @@ int FindSocket(int *fdp, int *nfoundp, i
+@@ -131,11 +131,13 @@ int FindSocket(int *fdp, int *nfoundp, i
  	char *firstn = NULL;
  	int nfound = 0, ngood = 0, ndead = 0, nwipe = 0, npriv = 0;
  	int nperfect = 0;
@@ -15,7 +15,7 @@
  
  	if (match) {
  		matchlen = strlen(match);
-@@ -207,8 +209,17 @@ int FindSocket(int *fdp, int *nfoundp, i
+@@ -217,8 +219,17 @@ int FindSocket(int *fdp, int *nfoundp, i
  		sent->next = NULL;
  		sent->name = SaveStr(name);
  		sent->mode = mode;
@@ -33,7 +33,7 @@
  		nfound++;
  		sockfd = MakeClientSocket(0);
  		/* MakeClientSocket sets ids back to eff */
-@@ -287,31 +298,36 @@ int FindSocket(int *fdp, int *nfoundp, i
+@@ -297,31 +308,36 @@ int FindSocket(int *fdp, int *nfoundp, i
  			break;
  		}
  		for (sent = slist; sent; sent = sent->next) {
