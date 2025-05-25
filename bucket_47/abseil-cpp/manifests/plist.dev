@@ -6,6 +6,7 @@ include/absl/base/casts.h
 include/absl/base/config.h
 include/absl/base/const_init.h
 include/absl/base/dynamic_annotations.h
+include/absl/base/fast_type_id.h
 include/absl/base/log_severity.h
 include/absl/base/macros.h
 include/absl/base/no_destructor.h
@@ -26,15 +27,13 @@ include/absl/base/internal/endian.h
 include/absl/base/internal/errno_saver.h
 include/absl/base/internal/exception_safety_testing.h
 include/absl/base/internal/exception_testing.h
-include/absl/base/internal/fast_type_id.h
 include/absl/base/internal/hide_ptr.h
 include/absl/base/internal/identity.h
-include/absl/base/internal/inline_variable.h
-include/absl/base/internal/inline_variable_testing.h
-include/absl/base/internal/invoke.h
+include/absl/base/internal/iterator_traits.h
+include/absl/base/internal/iterator_traits_test_helper.h
 include/absl/base/internal/low_level_alloc.h
 include/absl/base/internal/low_level_scheduling.h
-include/absl/base/internal/nullability_impl.h
+include/absl/base/internal/nullability_deprecated.h
 include/absl/base/internal/per_thread_tls.h
 include/absl/base/internal/poison.h
 include/absl/base/internal/pretty_function.h
@@ -78,6 +77,7 @@ include/absl/container/internal/hash_function_defaults.h
 include/absl/container/internal/hash_generator_testing.h
 include/absl/container/internal/hash_policy_testing.h
 include/absl/container/internal/hash_policy_traits.h
+include/absl/container/internal/hashtable_control_bytes.h
 include/absl/container/internal/hashtable_debug.h
 include/absl/container/internal/hashtable_debug_hooks.h
 include/absl/container/internal/hashtablez_sampler.h
@@ -86,6 +86,7 @@ include/absl/container/internal/layout.h
 include/absl/container/internal/node_slot_policy.h
 include/absl/container/internal/raw_hash_map.h
 include/absl/container/internal/raw_hash_set.h
+include/absl/container/internal/raw_hash_set_resize_impl.h
 include/absl/container/internal/test_allocator.h
 include/absl/container/internal/test_instance_tracker.h
 include/absl/container/internal/tracked.h
@@ -118,6 +119,7 @@ include/absl/debugging/symbolize_emscripten.inc
 include/absl/debugging/symbolize_unimplemented.inc
 include/absl/debugging/symbolize_win32.inc
 include/absl/debugging/internal/address_is_readable.h
+include/absl/debugging/internal/addresses.h
 include/absl/debugging/internal/bounded_utf8_length_sequence.h
 include/absl/debugging/internal/decode_rust_punycode.h
 include/absl/debugging/internal/demangle.h
@@ -170,6 +172,7 @@ include/absl/hash/internal/hash.h
 include/absl/hash/internal/hash_test.h
 include/absl/hash/internal/low_level_hash.h
 include/absl/hash/internal/spy_hash_state.h
+include/absl/hash/internal/weakly_mixed_integer.h
 include/absl/log/absl_check.h
 include/absl/log/absl_log.h
 include/absl/log/absl_vlog_is_on.h
@@ -242,6 +245,7 @@ include/absl/random/zipf_distribution.h
 include/absl/random/internal/chi_square.h
 include/absl/random/internal/distribution_caller.h
 include/absl/random/internal/distribution_test_util.h
+include/absl/random/internal/entropy_pool.h
 include/absl/random/internal/explicit_seed_seq.h
 include/absl/random/internal/fast_uniform_bits.h
 include/absl/random/internal/fastmath.h
@@ -254,7 +258,6 @@ include/absl/random/internal/nanobenchmark.h
 include/absl/random/internal/nonsecure_base.h
 include/absl/random/internal/pcg_engine.h
 include/absl/random/internal/platform.h
-include/absl/random/internal/pool_urbg.h
 include/absl/random/internal/randen.h
 include/absl/random/internal/randen_detect.h
 include/absl/random/internal/randen_engine.h
@@ -370,21 +373,12 @@ include/absl/time/internal/cctz/src/time_zone_libc.h
 include/absl/time/internal/cctz/src/time_zone_posix.h
 include/absl/time/internal/cctz/src/tzfile.h
 include/absl/types/any.h
-include/absl/types/bad_any_cast.h
-include/absl/types/bad_optional_access.h
-include/absl/types/bad_variant_access.h
 include/absl/types/compare.h
 include/absl/types/optional.h
 include/absl/types/span.h
 include/absl/types/variant.h
-include/absl/types/internal/optional.h
 include/absl/types/internal/span.h
-include/absl/types/internal/variant.h
 include/absl/utility/utility.h
-include/absl/utility/internal/if_constexpr.h
-lib/libabsl_bad_any_cast_impl.so
-lib/libabsl_bad_optional_access.so
-lib/libabsl_bad_variant_access.so
 lib/libabsl_base.so
 lib/libabsl_city.so
 lib/libabsl_civil_time.so
@@ -423,7 +417,6 @@ lib/libabsl_hashtablez_sampler.so
 lib/libabsl_int128.so
 lib/libabsl_kernel_timeout_internal.so
 lib/libabsl_leak_check.so
-lib/libabsl_log_entry.so
 lib/libabsl_log_flags.so
 lib/libabsl_log_globals.so
 lib/libabsl_log_initialize.so
@@ -444,8 +437,8 @@ lib/libabsl_periodic_sampler.so
 lib/libabsl_poison.so
 lib/libabsl_random_distributions.so
 lib/libabsl_random_internal_distribution_test_util.so
+lib/libabsl_random_internal_entropy_pool.so
 lib/libabsl_random_internal_platform.so
-lib/libabsl_random_internal_pool_urbg.so
 lib/libabsl_random_internal_randen.so
 lib/libabsl_random_internal_randen_hwaes.so
 lib/libabsl_random_internal_randen_hwaes_impl.so
@@ -485,7 +478,6 @@ lib/pkgconfig/absl_any.pc
 lib/pkgconfig/absl_any_invocable.pc
 lib/pkgconfig/absl_atomic_hook.pc
 lib/pkgconfig/absl_bad_any_cast.pc
-lib/pkgconfig/absl_bad_any_cast_impl.pc
 lib/pkgconfig/absl_bad_optional_access.pc
 lib/pkgconfig/absl_bad_variant_access.pc
 lib/pkgconfig/absl_base.pc
@@ -556,13 +548,15 @@ lib/pkgconfig/absl_hash.pc
 lib/pkgconfig/absl_hash_container_defaults.pc
 lib/pkgconfig/absl_hash_function_defaults.pc
 lib/pkgconfig/absl_hash_policy_traits.pc
+lib/pkgconfig/absl_hashtable_control_bytes.pc
 lib/pkgconfig/absl_hashtable_debug.pc
 lib/pkgconfig/absl_hashtable_debug_hooks.pc
 lib/pkgconfig/absl_hashtablez_sampler.pc
-lib/pkgconfig/absl_if_constexpr.pc
 lib/pkgconfig/absl_inlined_vector.pc
 lib/pkgconfig/absl_inlined_vector_internal.pc
 lib/pkgconfig/absl_int128.pc
+lib/pkgconfig/absl_iterator_traits_internal.pc
+lib/pkgconfig/absl_iterator_traits_test_helper_internal.pc
 lib/pkgconfig/absl_kernel_timeout_internal.pc
 lib/pkgconfig/absl_layout.pc
 lib/pkgconfig/absl_leak_check.pc
@@ -618,6 +612,7 @@ lib/pkgconfig/absl_random_bit_gen_ref.pc
 lib/pkgconfig/absl_random_distributions.pc
 lib/pkgconfig/absl_random_internal_distribution_caller.pc
 lib/pkgconfig/absl_random_internal_distribution_test_util.pc
+lib/pkgconfig/absl_random_internal_entropy_pool.pc
 lib/pkgconfig/absl_random_internal_fast_uniform_bits.pc
 lib/pkgconfig/absl_random_internal_fastmath.pc
 lib/pkgconfig/absl_random_internal_generate_real.pc
@@ -626,7 +621,6 @@ lib/pkgconfig/absl_random_internal_mock_helpers.pc
 lib/pkgconfig/absl_random_internal_nonsecure_base.pc
 lib/pkgconfig/absl_random_internal_pcg_engine.pc
 lib/pkgconfig/absl_random_internal_platform.pc
-lib/pkgconfig/absl_random_internal_pool_urbg.pc
 lib/pkgconfig/absl_random_internal_randen.pc
 lib/pkgconfig/absl_random_internal_randen_engine.pc
 lib/pkgconfig/absl_random_internal_randen_hwaes.pc
@@ -642,6 +636,7 @@ lib/pkgconfig/absl_random_seed_gen_exception.pc
 lib/pkgconfig/absl_random_seed_sequences.pc
 lib/pkgconfig/absl_raw_hash_map.pc
 lib/pkgconfig/absl_raw_hash_set.pc
+lib/pkgconfig/absl_raw_hash_set_resize_impl.pc
 lib/pkgconfig/absl_raw_logging_internal.pc
 lib/pkgconfig/absl_sample_recorder.pc
 lib/pkgconfig/absl_scoped_set_env.pc
@@ -668,3 +663,4 @@ lib/pkgconfig/absl_utility.pc
 lib/pkgconfig/absl_variant.pc
 lib/pkgconfig/absl_vlog_config_internal.pc
 lib/pkgconfig/absl_vlog_is_on.pc
+lib/pkgconfig/absl_weakly_mixed_integer.pc

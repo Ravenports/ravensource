@@ -1,4 +1,4 @@
---- absl/debugging/internal/vdso_support.cc.orig	2025-03-18 18:24:52 UTC
+--- absl/debugging/internal/vdso_support.cc.orig	2025-05-12 17:41:36 UTC
 +++ absl/debugging/internal/vdso_support.cc
 @@ -54,7 +54,7 @@
  using Elf32_auxv_t = Aux32Info;
