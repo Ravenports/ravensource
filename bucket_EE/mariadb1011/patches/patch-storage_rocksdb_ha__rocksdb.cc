@@ -1,4 +1,4 @@
---- storage/rocksdb/ha_rocksdb.cc.orig	2025-04-28 13:44:20 UTC
+--- storage/rocksdb/ha_rocksdb.cc.orig	2025-05-19 16:14:26 UTC
 +++ storage/rocksdb/ha_rocksdb.cc
 @@ -266,7 +266,7 @@ Rdb_cf_manager cf_manager;
  Rdb_ddl_manager ddl_manager;
