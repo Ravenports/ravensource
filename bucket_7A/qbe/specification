@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	1.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		qbe
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		std
+SDESC[std]=		Embeddable compiler backend for C type languages
+HOMEPAGE=		https://c9x.me/compile/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://c9x.me/compile/release/
+DISTFILE[1]=		qbe-${PORTVERSION}.tar.xz:main
+
+SPKGS[std]=		primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:primary
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/qbe
+
+do-build:
+	(cd ${WRKSRC} && make )
+
+do-install:
+	(cd ${WRKSRC} && make DESTDIR=${STAGEDIR} PREFIX=${PREFIX} install)
+	${MKDIR} -p ${STAGEDIR}${PREFIX}/share/doc/qbe
+	${INSTALL_DATA} ${WRKSRC}/doc/*.txt ${STAGEDIR}${PREFIX}/share/doc/qbe/
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/qbe
