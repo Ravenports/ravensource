@@ -1,0 +1,67 @@
+Project Organizer is an extension of Geany's project management displaying 
+a tree of files belonging to the project in the sidebar. In addition, it 
+enables complete indexing of the project files (and having code 
+completion, syntax highlighting and symbol definition/declaration jumps 
+for the whole project) quick swapping between header and source files, 
+improved opening of includes, searching project files by name and more. 
+External directories can be attached to the project to extend the plugin's 
+functionality to related directories outside the project tree. The plugin 
+was created with big projects in mind so everything works fast enough even 
+with projects consisting of tens of thousands of files.
+
+# Why was it created?
+
+A project in Geany is completely file-agnostic when it comes to the 
+question of what files are stored in the project. In principle the 
+information that Geany stores for every project is:
+
+* project's base directory
+* build settings
+* list of open files
+
+This approach is fine for smaller projects where most of the project files 
+are stored in a single directory but doesn't work very well with projects 
+consisting of many deeply nested directories containing thousands of 
+files. For such projects an expandable tree showing all the project files 
+is a better alternative making it much easier to to navigate among various 
+project directories. Knowing which files belong to the project makes it 
+possible to add other useful features like project file indexing, 
+header/source swapping or file searching.
+
+# Why are files belonging to a project defined by patterns?
+
+Maintaining a list of project files is rather painful with larger projects 
+consisting of thousands files and many developers working on them. Files 
+are created, deleted and moved quite frequently and after each change the 
+project has to be updated manually. Instead, Project Organizer defines a 
+list of files belonging to the project implicitly using:
+
+* project's base directory
+* a list of glob-like patterns (e.g. *.c, *.h, or just simply * if you 
+want to see everything)
+
+Every file under the base directory matching the patterns is included into 
+the project and updating the file list is as simple as pressing the 
+refresh button in the sidebar.
+
+# What are the differences between Project Organizer and GeanyPrj?
+
+There is another project-management Geany plugin - GeanyPrj. Project 
+Organizer and GeanyPrj differ in several aspects:
+
+* Project Organizer is an extension of Geany's project so every Geany 
+project is a Project Organizer project at the same time and vice versa. On 
+the other hand, GeanyPrj project is a separate project so if you want to 
+set build properties for a GeanyPrj project, you have to set up a second 
+Geany project in parallel.
+* GeanyPrj can display several projects in the sidebar; even though only a 
+single project can be opened with Project Organizer at one time, similar 
+effect can be achieved with the "external directories" feature.
+* Project Organizer displays full tree in the sidebar while GeanyPrj 
+displays only two-level tree (full directory name as a parent and a list 
+of files under the directory).
+* Project Organizer has configurable file patterns while patterns in 
+GeanyPrj are hard-coded
+* Project Organizer offers header/source swapping
+* Project Organizer offers finding project files by name and improved 
+include file opening

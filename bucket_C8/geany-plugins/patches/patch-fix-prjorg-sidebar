@@ -1,0 +1,27 @@
+From ffb743effce4862716e3400bf05d1c3b4f2b7d68 Mon Sep 17 00:00:00 2001
+From: Christopher Fore <csfore@posteo.net>
+Date: Sat, 9 Dec 2023 11:01:36 -0500
+Subject: [PATCH] projectorganizer: prjorg-sidebar.c: Cast g_ptr_array_free to
+ gchar**
+
+Grepping the source code shows this is already done in
+pohelper/src/gph-plugin.c at line 903.
+
+Tests run: Compiles on GCC 14
+
+Fixes #1297
+---
+ projectorganizer/src/prjorg-sidebar.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+--- projectorganizer/src/prjorg-sidebar.c.orig
++++ projectorganizer/src/prjorg-sidebar.c
+@@ -1562,7 +1562,7 @@ gchar **prjorg_sidebar_get_expanded_paths(void)
+ 		(GtkTreeViewMappingFunc)on_map_expanded, expanded_paths);
+ 	g_ptr_array_add(expanded_paths, NULL);
+ 
+-	return g_ptr_array_free(expanded_paths, FALSE);
++	return (gchar **) g_ptr_array_free(expanded_paths, FALSE);
+ }
+ 
+ 

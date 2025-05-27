@@ -1,0 +1,1 @@
+lib/geany/markdown.so
