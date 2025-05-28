@@ -40,6 +40,10 @@ GNOME_COMPONENTS=	libxml2
 CMAKE_ARGS=		-DNETCDF_ENABLE_EXAMPLES:BOOL=OFF
 SOVERSION=		${SOVERSION}
 
+pre-configure-netbsd:
+	# disable mremap
+	${REINPLACE_CMD} -e '/HAVE_MREMAP/d' ${WRKSRC}/CMakeLists.txt
+
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/nc[cdg]*
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libnetcdf.so
