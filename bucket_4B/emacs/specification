@@ -50,6 +50,7 @@ CONFIGURE_ARGS=		--localstatedir=/var
 			--with-modules
 			--with-xml2
 			--without-ns
+			--without-xwidgets
 INFO_PATH=		share/emacs/info
 PLIST_SUB=		VERSION=${PORTVERSION}
 			GNU_HOST={{CONFIGURE_TARGET}}
@@ -151,13 +152,9 @@ INSTALL_REQ_TOOLCHAIN=	yes
 					libotf
 					m17n-flt
 					toolkit-scroll-bars
-					xwidgets
 [X11GTK].BUILD_DEPENDS_ON=		harfbuzz:dev:std
 					m17n-lib:dev:std
-					webkit2:dev:api41
 [X11GTK].BUILDRUN_DEPENDS_ON=		m17n-lib:primary:std
-					webkit2:primary:api41
-[X11GTK].BROKEN_ON=			Webkit v2.42+ dropped xwidget support, crashes
 
 # gconf, imagemagick
 
