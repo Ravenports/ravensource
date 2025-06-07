@@ -1,0 +1,50 @@
+DEF[PORTVERSION]=	0.24.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		hare
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		std
+SDESC[std]=		Hare language build system and standard library
+HOMEPAGE=		https://harelang.org/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://git.sr.ht/~sircmpwn/hare/archive/
+DISTFILE[1]=		${PORTVERSION}.tar.gz:main
+DIST_SUBDIR=		harelang
+
+SPKGS[std]=		set primary man docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		devel/hare
+
+BUILD_DEPENDS=		scdoc:primary:std
+BUILDRUN_DEPENDS=	harec:primary:std
+
+USES=			gmake
+
+pre-build-freebsd:
+	(cd ${WRKSRC} && ${CP} configs/freebsd.mk config.mk)
+
+pre-build-netbsd:
+	(cd ${WRKSRC} && ${CP} configs/netbsd.mk config.mk)
+
+pre-build-linux:
+	(cd ${WRKSRC} && ${CP} configs/linux.mk config.mk)
+
+do-build:
+	(cd ${WRKSRC} && \
+		 ${REINPLACE_CMD} 's|/usr/local|/${PREFIX}|' config.mk && \
+		make VERSION=${PORTVERSION})
+
+do-install:
+	(cd ${WRKSRC} && make DESTDIR=${STAGEDIR} PREFIX=${PREFIX} install)
+	${MKDIR} -p ${STAGEDIR}${PREFIX}/share/doc/hare
+	${INSTALL_DATA} ${WRKSRC}/docs/*.md ${STAGEDIR}${PREFIX}/share/doc/hare/
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/hare \
+		${STAGEDIR}${PREFIX}/bin/haredoc
