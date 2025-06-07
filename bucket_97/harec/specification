@@ -1,0 +1,58 @@
+DEF[PORTVERSION]=	0.24.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		harec
+VERSION=		${PORTVERSION}
+KEYWORDS=		lang
+VARIANTS=		std
+SDESC[std]=		Hare language compiler
+HOMEPAGE=		https://harelang.org/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://git.sr.ht/~sircmpwn/harec/archive/
+DISTFILE[1]=		${PORTVERSION}.tar.gz:main
+DIST_SUBDIR=		harec
+
+SPKGS[std]=		set primary docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# Licensing is probably invalid; meant to be GPLv3 but there's no
+# trace of any terms.
+
+# LICENSE=		GPLv3:primary
+# LICENSE_FILE=		GPLv3:{{WRKSRC}}/COPYING
+# LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+# LICENSE_SOURCE=		TERMS:??!
+# LICENSE_AWK=		TERMS:??!
+# LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		lang/harec
+
+BUILDRUN_DEPENDS=	qbe:primary:std
+
+USES=			gmake
+
+pre-build-freebsd:
+	(cd ${WRKSRC} && ${CP} configs/freebsd.mk config.mk)
+
+pre-build-netbsd:
+	(cd ${WRKSRC} && ${CP} configs/netbsd.mk config.mk)
+
+pre-build-linux:
+	(cd ${WRKSRC} && ${CP} configs/linux.mk config.mk)
+
+do-build:
+	(cd ${WRKSRC} && \
+		${REINPLACE_CMD} 's|/usr/local|${PREFIX}|' config.mk && \
+		make VERSION=${PORTVERSION})
+
+do-install:
+	(cd ${WRKSRC} && make DESTDIR=${STAGEDIR} PREFIX=${PREFIX} install)
+	${MKDIR} -p ${STAGEDIR}${PREFIX}/share/doc/harec
+	${INSTALL_DATA} ${WRKSRC}/docs/*.txt ${STAGEDIR}${PREFIX}/share/doc/harec/
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/harec
