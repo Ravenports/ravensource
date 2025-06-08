@@ -1,4 +1,4 @@
---- libvips/iofuncs/memory.c.orig	2024-10-05 11:22:41 UTC
+--- libvips/iofuncs/memory.c.orig	2025-03-09 11:13:50 UTC
 +++ libvips/iofuncs/memory.c
 @@ -70,7 +70,7 @@
  #include <stdarg.h>
