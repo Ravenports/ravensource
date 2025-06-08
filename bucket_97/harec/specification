@@ -31,11 +31,19 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		lang/harec
 
+BROKEN[dragonfly]=	src/lex.c:144:15: error: expected declaration specifiers or '...' before 'sizeof'
+
 BUILDRUN_DEPENDS=	qbe:primary:std
 
 USES=			gmake
 
+pre-build-dragonfly:
+	(cd ${WRKSRC} && ${CP} configs/freebsd.mk config.mk)
+
 pre-build-freebsd:
+	(cd ${WRKSRC} && ${CP} configs/freebsd.mk config.mk)
+
+pre-build-midnightbsd:
 	(cd ${WRKSRC} && ${CP} configs/freebsd.mk config.mk)
 
 pre-build-netbsd:
