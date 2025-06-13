@@ -1,6 +1,5 @@
-DEF[PORTVERSION]=	1.24.3
-DEF[SOVERSION]=		11.33.2
-DEF[CPP_SOVERSION]=	6.21.3
+DEF[PORTVERSION]=	2.0.0
+DEF[SOVERSION]=		45.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gpgme
@@ -15,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GNUPG/gpgme
 DISTFILE[1]=		gpgme-${PORTVERSION}.tar.bz2:main
 
-SPKGS[std]=		set primary tools cpp dev cppdev info
+SPKGS[std]=		set primary tools dev info
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -35,25 +34,22 @@ BUILDRUN_DEPENDS=	libgpg-error:primary:std
 			gnupg:primary:std
 
 EXRUN[tools]=		gpgme:primary:std
-EXRUN[cpp]=		gpgme:primary:std
 EXRUN[dev]=		libassuan:dev:std
 			libgpg-error:dev:std
 
-USES=			cpe gmake libtool shebangfix mbsdfix c++:cpp
+USES=			cpe gmake libtool shebangfix
 SHEBANG_FILES=		tests/gpg/pinentry
 CPE_VENDOR=		gnu
 MUST_CONFIGURE=		gnu
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
-CONFIGURE_ARGS=		--enable-languages="cl cpp"
+CONFIGURE_ARGS=		--enable-languages="cl"
 			--enable-fd-passing
 			--disable-g13-test
 			--disable-gpg-test
 			--disable-gpgconf-test
 			--disable-gpgsm-test
 SOVERSION=		${SOVERSION}
-PLIST_SUB=		CPP_SOMAJOR=${CPP_SOVERSION:R:R}
-			CPP_SOVERSION=${CPP_SOVERSION}
 INFO=			info:gpgme
 
 post-patch:
