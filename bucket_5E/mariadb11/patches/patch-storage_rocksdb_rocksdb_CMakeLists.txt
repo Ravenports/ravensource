@@ -1,11 +1,29 @@
---- storage/rocksdb/rocksdb/CMakeLists.txt.orig	2025-02-11 19:06:02 UTC
+--- storage/rocksdb/rocksdb/CMakeLists.txt.orig	2025-05-21 14:09:16 UTC
 +++ storage/rocksdb/rocksdb/CMakeLists.txt
-@@ -413,7 +413,7 @@ elseif(CMAKE_SYSTEM_NAME MATCHES "Linux"
-   add_definitions(-DOS_LINUX)
- elseif(CMAKE_SYSTEM_NAME MATCHES "SunOS")
+@@ -102,7 +102,7 @@ if(MSVC)
+   option(WITH_XPRESS "build with windows built in compression" OFF)
+   include(${CMAKE_CURRENT_SOURCE_DIR}/thirdparty.inc)
+ else()
+-  if(CMAKE_SYSTEM_NAME MATCHES "FreeBSD" AND NOT CMAKE_SYSTEM_NAME MATCHES "kFreeBSD")
++  if(CMAKE_SYSTEM_NAME MATCHES "FreeBSD|MidnightBSD" AND NOT CMAKE_SYSTEM_NAME MATCHES "kFreeBSD")
+     # FreeBSD has jemalloc as default malloc
+     # but it does not have all the jemalloc files in include/...
+     set(WITH_JEMALLOC ON)
+@@ -541,7 +541,7 @@ elseif(CMAKE_SYSTEM_NAME MATCHES "SunOS"
    add_definitions(-DOS_SOLARIS)
+ elseif(CMAKE_SYSTEM_NAME MATCHES "kFreeBSD")
+   add_definitions(-DOS_GNU_KFREEBSD)
 -elseif(CMAKE_SYSTEM_NAME MATCHES "FreeBSD")
 +elseif(CMAKE_SYSTEM_NAME MATCHES "FreeBSD|MidnightBSD")
    add_definitions(-DOS_FREEBSD)
  elseif(CMAKE_SYSTEM_NAME MATCHES "NetBSD")
    add_definitions(-DOS_NETBSD)
+@@ -599,7 +599,7 @@ if(HAVE_PTHREAD_MUTEX_ADAPTIVE_NP)
+ endif()
+ 
+ include(CheckCXXSymbolExists)
+-if(CMAKE_SYSTEM_NAME MATCHES "^FreeBSD")
++if(CMAKE_SYSTEM_NAME MATCHES "^FreeBSD|MidnightBSD")
+   check_cxx_symbol_exists(malloc_usable_size malloc_np.h HAVE_MALLOC_USABLE_SIZE)
+ else()
+   check_cxx_symbol_exists(malloc_usable_size malloc.h HAVE_MALLOC_USABLE_SIZE)
