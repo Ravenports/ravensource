@@ -1,4 +1,4 @@
---- libwacom/libwacomint.h.orig	2025-03-21 06:02:36 UTC
+--- libwacom/libwacomint.h.orig	2025-06-13 00:10:02 UTC
 +++ libwacom/libwacomint.h
 @@ -169,6 +169,9 @@ WacomStylus* libwacom_stylus_unref(Wacom
  WacomMatch* libwacom_match_ref(WacomMatch *match);
