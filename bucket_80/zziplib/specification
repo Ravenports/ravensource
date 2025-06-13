@@ -1,8 +1,7 @@
-DEF[LIBVERSION]=	13.0.79
-DEF[PORTVERSION]=	0.13.79
+DEF[LIBVERSION]=	13.0.80
+DEF[PORTVERSION]=	0.13.80
 DEF[LIBS]=		zzip zzipfseeko zzipmmapped zzipwrap
 DEF[TAG]=		v${PORTVERSION}
-# Remove cmake minimum argument on next release
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		zziplib
@@ -43,11 +42,9 @@ USES=			shebangfix pkgconfig zlib cmake gmake cpe
 SDL_COMPONENTS=		sdl2
 CPE_VENDOR=		zziplib_project
 SHEBANG_FILES=		docs/*.py
-			docs/tools/*.py
 # #			BUILD_STATIC_LIBS isn't accepted (why?)
 CMAKE_ARGS=		-DBUILD_SHARED_LIBS:BOOL=ON
 			-DZZIPSDL:BOOL=ON
-			-DCMAKE_POLICY_VERSION_MINIMUM=3.5
 INSTALL_REQ_TOOLCHAIN=	yes
 INSTALL_TARGET=		install install-man install-docs
 
