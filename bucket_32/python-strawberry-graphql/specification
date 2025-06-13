@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.270.2
+DEF[PORTVERSION]=	0.273.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-strawberry-graphql
@@ -11,7 +11,7 @@ HOMEPAGE=		https://strawberry.rocks/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/8f/4f/f5d2189dcc455270a4f35eb0fcd8682ebfff1c1acf04598f0748b1334f42
+SITES[main]=		PYPIWHL/08/08/3efd0e1b9721f5c96178ccf4756538f98b0d9113bdedbbe9abaae82102d3
 DISTFILE[1]=		strawberry_graphql-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -31,37 +31,50 @@ DISTNAME=		strawberry_graphql-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
 # Django (>=3.2) ; extra == "django"
-# aiohttp (>=3.7.4.post0,<4.0.0) ; extra == "aiohttp"
-# asgiref (>=3.2,<4.0) ; extra == "django" or extra == "channels"
+# aiohttp (>=3.7.4.post0,<4) ; extra == "aiohttp"
+# asgiref (>=3.2,<4.0) ; extra == "channels"
+# asgiref (>=3.2,<4.0) ; extra == "django"
 # chalice (>=1.22,<2.0) ; extra == "chalice"
 # channels (>=3.0.5) ; extra == "channels"
 # fastapi (>=0.65.2) ; extra == "fastapi"
 # flask (>=1.1) ; extra == "flask"
-# graphql-core (>=3.2.0,<3.4.0) ; python_version >= "3.9" and python_version < "4.0"
-# libcst (>=0.4.7) ; extra == "debug" or extra == "debug-server" or extra == "cli"
-# litestar (>=2) ; (python_version >= "3.10" and python_version < "4.0") and (extra == "litestar")
+# graphql-core (>=3.2.0,<3.4.0)
+# libcst (>=0.4.7,<1.8.0) ; extra == "cli"
+# libcst (>=0.4.7,<1.8.0) ; extra == "debug"
+# libcst (>=0.4.7,<1.8.0) ; extra == "debug-server"
+# litestar (>=2) ; (python_version ~= "3.10") and (extra == "litestar")
 # opentelemetry-api (<2) ; extra == "opentelemetry"
 # opentelemetry-sdk (<2) ; extra == "opentelemetry"
 # packaging (>=23)
 # pydantic (>1.6.1) ; extra == "pydantic"
-# pygments (>=2.3,<3.0) ; extra == "debug-server" or extra == "cli"
+# pygments (>=2.3,<3.0) ; extra == "cli"
+# pygments (>=2.3,<3.0) ; extra == "debug-server"
 # pyinstrument (>=4.0.0) ; extra == "pyinstrument"
-# python-dateutil (>=2.7.0,<3.0.0)
-# python-multipart (>=0.0.7) ; extra == "asgi" or extra == "debug-server" or extra == "fastapi"
+# python-dateutil (>=2.7,<3.0)
+# python-multipart (>=0.0.7) ; extra == "asgi"
+# python-multipart (>=0.0.7) ; extra == "debug-server"
+# python-multipart (>=0.0.7) ; extra == "fastapi"
 # quart (>=0.19.3) ; extra == "quart"
-# rich (>=12.0.0) ; extra == "debug" or extra == "debug-server" or extra == "cli"
+# rich (>=12.0.0) ; extra == "cli"
+# rich (>=12.0.0) ; extra == "debug"
+# rich (>=12.0.0) ; extra == "debug-server"
 # sanic (>=20.12.2) ; extra == "sanic"
-# starlette (>=0.18.0) ; extra == "asgi" or extra == "debug-server"
-# typer (>=0.7.0) ; extra == "debug-server" or extra == "cli"
+# starlette (>=0.18.0) ; extra == "asgi"
+# starlette (>=0.18.0) ; extra == "debug-server"
+# typer (>=0.7.0) ; extra == "cli"
+# typer (>=0.7.0) ; extra == "debug-server"
 # typing-extensions (>=4.5.0)
 # uvicorn (>=0.11.6) ; extra == "debug-server"
+# websockets (>=15.0.1,<16) ; extra == "debug-server"
 
 [PY312].USES_ON=			python:v12,wheel
-[PY312].RUN_DEPENDS_ON=			python-packaging:single:v12
+[PY312].RUN_DEPENDS_ON=			python-graphql-core:single:v12
+					python-packaging:single:v12
 					python-python-dateutil:single:v12
 					python-typing-extensions:single:v12
 [PY313].USES_ON=			python:v13,wheel
-[PY313].RUN_DEPENDS_ON=			python-packaging:single:v13
+[PY313].RUN_DEPENDS_ON=			python-graphql-core:single:v13
+					python-packaging:single:v13
 					python-python-dateutil:single:v13
 					python-typing-extensions:single:v13
 

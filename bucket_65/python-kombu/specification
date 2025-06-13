@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	5.5.3
+DEF[PORTVERSION]=	5.5.4
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-kombu
@@ -11,7 +11,7 @@ HOMEPAGE=		https://kombu.readthedocs.io
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/5d/35/1407fb0b2f5b07b50cbaf97fce09ad87d3bfefbf64f7171a8651cd8d2f68
+SITES[main]=		PYPIWHL/ef/70/a07dcf4f62598c8ad579df241af55ced65bed76e42e45d3c368a6d82dbc1
 DISTFILE[1]=		kombu-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -34,10 +34,11 @@ DISTNAME=		kombu-${PORTVERSION}.dist-info
 # vine==5.1.0
 # backports.zoneinfo[tzdata]>=0.2.1; python_version < "3.9"
 # tzdata>=2025.2; python_version >= "3.9"
+# packaging
 # msgpack==1.1.0; extra == "msgpack"
 # PyYAML>=3.10; extra == "yaml"
 # redis!=4.5.5,!=5.0.2,<=5.2.1,>=4.5.2; extra == "redis"
-# pymongo>=4.1.1; extra == "mongodb"
+# pymongo==4.10.1; extra == "mongodb"
 # boto3>=1.26.143; extra == "sqs"
 # urllib3>=1.26.16; extra == "sqs"
 # google-cloud-pubsub>=2.18.4; extra == "gcpubsub"
@@ -61,8 +62,10 @@ DISTNAME=		kombu-${PORTVERSION}.dist-info
 [PY312].RUN_DEPENDS_ON=			python-amqp:single:v12
 					python-vine:single:v12
 					python-tzdata:single:v12
+					python-packaging:single:v12
 [PY313].USES_ON=			python:v13,wheel
 [PY313].RUN_DEPENDS_ON=			python-amqp:single:v13
 					python-vine:single:v13
 					python-tzdata:single:v13
+					python-packaging:single:v13
 

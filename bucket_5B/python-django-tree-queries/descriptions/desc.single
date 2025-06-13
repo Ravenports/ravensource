@@ -41,6 +41,12 @@ Other
 - Supports only trees with max. 50 levels on MySQL/MariaDB, since those
   databases do not support arrays and require us to provide a maximum
   length for the tree_path and tree_ordering upfront.
+- **Performance optimization**: The library automatically detects simple
+cases
+  (single field ordering, no tree filters, no custom tree fields) and uses
+an
+  optimized CTE that avoids creating a rank table, significantly improving
+  performance for basic tree queries.
 
 Here's a blog post offering some additional insight (hopefully) into the
 reasons for `django-tree-queries' existence
@@ -65,6 +71,10 @@ standard
 the
   `depth-first search algorithm
   <https://en.wikipedia.org/wiki/Depth-first_search>`__.
+- Use ``tree_filter() and tree_exclude()`` for better performance when
+  working with large tables - these filter the base table before building
+  the tree structure.
+- Use ``tree_fields()`` to aggregate ancestor field values into arrays.
 - Create a manager using
   ``TreeQuerySet.as_manager(with_tree_fields=True)`` if you want to add
   tree fields to queries by default.
@@ -87,14 +97,4 @@ tree structure. The common table expression could be hardened against such
 loops but this would involve a performance hit which we don't want -- this
 is a
 documented limitation (non-goal) of the library after all.
-
-Basic tree node
----------------
-
-.. code-block:: python
-
-    from tree_queries.models import TreeNode
-
-    class Node(TreeNode):
-        name = models.CharField(max_length=100)
 
