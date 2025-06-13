@@ -1,12 +1,13 @@
---- ext/vorbis/meson.build.orig	2023-01-23 19:29:34 UTC
+--- ext/vorbis/meson.build.orig	2025-05-29 22:56:43 UTC
 +++ ext/vorbis/meson.build
-@@ -20,6 +20,9 @@ vorbisidec_sources = [
- vorbis_dep = dependency('vorbis', version : '>= 1.3.1', allow_fallback: true, required : get_option('vorbis'))
- vorbisenc_dep = dependency('vorbisenc', version : '>= 1.3.1', allow_fallback: true, required : get_option('vorbis'))
- vorbisidec_dep = dependency('vorbisidec', allow_fallback: true, required : get_option('tremor'))
+@@ -59,6 +59,10 @@ vorbisenc_dep = dependency('vorbisenc',
+ vorbisidec_dep = dependency('vorbisidec', allow_fallback: true,
+                             include_type: 'system', required : get_option('tremor'))
+ 
 +video_dep = cc.find_library ('gstvideo-1.0', required : true)
 +audio_dep = cc.find_library ('gstaudio-1.0', required : true)
 +tag_dep = cc.find_library ('gsttag-1.0', required : true)
- 
++
  if vorbis_dep.found()
    vorbis_deps = [vorbis_dep]
+   if vorbisenc_dep.found()
