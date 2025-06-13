@@ -1,4 +1,4 @@
---- src/command.c.orig	2023-12-20 23:46:06 UTC
+--- src/command.c.orig	2025-05-31 04:36:14 UTC
 +++ src/command.c
 @@ -109,6 +109,9 @@ static TBOOLEAN pause_internal;    /* fl
  
