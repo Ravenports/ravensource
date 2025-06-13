@@ -629,6 +629,7 @@ lib/python%%XYDOT%%/_pyrepl/__init__.py
 lib/python%%XYDOT%%/_pyrepl/__main__.py
 lib/python%%XYDOT%%/_pyrepl/_minimal_curses.py
 lib/python%%XYDOT%%/_pyrepl/_threading_handler.py
+lib/python%%XYDOT%%/_pyrepl/base_eventqueue.py
 lib/python%%XYDOT%%/_pyrepl/commands.py
 lib/python%%XYDOT%%/_pyrepl/completing_reader.py
 lib/python%%XYDOT%%/_pyrepl/console.py
@@ -649,6 +650,7 @@ lib/python%%XYDOT%%/_pyrepl/unix_console.py
 lib/python%%XYDOT%%/_pyrepl/unix_eventqueue.py
 lib/python%%XYDOT%%/_pyrepl/utils.py
 lib/python%%XYDOT%%/_pyrepl/windows_console.py
+lib/python%%XYDOT%%/_pyrepl/windows_eventqueue.py
 lib/python%%XYDOT%%/_pyrepl/__pycache__/__init__%%PYC%%.opt-1.pyc
 lib/python%%XYDOT%%/_pyrepl/__pycache__/__init__%%PYC%%.opt-2.pyc
 lib/python%%XYDOT%%/_pyrepl/__pycache__/__init__%%PYC%%.pyc
@@ -661,6 +663,9 @@ lib/python%%XYDOT%%/_pyrepl/__pycache__/_minimal_curses%%PYC%%.pyc
 lib/python%%XYDOT%%/_pyrepl/__pycache__/_threading_handler%%PYC%%.opt-1.pyc
 lib/python%%XYDOT%%/_pyrepl/__pycache__/_threading_handler%%PYC%%.opt-2.pyc
 lib/python%%XYDOT%%/_pyrepl/__pycache__/_threading_handler%%PYC%%.pyc
+lib/python%%XYDOT%%/_pyrepl/__pycache__/base_eventqueue%%PYC%%.opt-1.pyc
+lib/python%%XYDOT%%/_pyrepl/__pycache__/base_eventqueue%%PYC%%.opt-2.pyc
+lib/python%%XYDOT%%/_pyrepl/__pycache__/base_eventqueue%%PYC%%.pyc
 lib/python%%XYDOT%%/_pyrepl/__pycache__/commands%%PYC%%.opt-1.pyc
 lib/python%%XYDOT%%/_pyrepl/__pycache__/commands%%PYC%%.opt-2.pyc
 lib/python%%XYDOT%%/_pyrepl/__pycache__/commands%%PYC%%.pyc
@@ -718,6 +723,9 @@ lib/python%%XYDOT%%/_pyrepl/__pycache__/utils%%PYC%%.pyc
 lib/python%%XYDOT%%/_pyrepl/__pycache__/windows_console%%PYC%%.opt-1.pyc
 lib/python%%XYDOT%%/_pyrepl/__pycache__/windows_console%%PYC%%.opt-2.pyc
 lib/python%%XYDOT%%/_pyrepl/__pycache__/windows_console%%PYC%%.pyc
+lib/python%%XYDOT%%/_pyrepl/__pycache__/windows_eventqueue%%PYC%%.opt-1.pyc
+lib/python%%XYDOT%%/_pyrepl/__pycache__/windows_eventqueue%%PYC%%.opt-2.pyc
+lib/python%%XYDOT%%/_pyrepl/__pycache__/windows_eventqueue%%PYC%%.pyc
 lib/python%%XYDOT%%/asyncio/__init__.py
 lib/python%%XYDOT%%/asyncio/__main__.py
 lib/python%%XYDOT%%/asyncio/base_events.py
@@ -5443,6 +5451,7 @@ lib/python%%XYDOT%%/test/test_doctest/decorator_mod.py
 lib/python%%XYDOT%%/test/test_doctest/doctest_aliases.py
 lib/python%%XYDOT%%/test/test_doctest/doctest_lineno.py
 lib/python%%XYDOT%%/test/test_doctest/sample_doctest.py
+lib/python%%XYDOT%%/test/test_doctest/sample_doctest_errors.py
 lib/python%%XYDOT%%/test/test_doctest/sample_doctest_no_docstrings.py
 lib/python%%XYDOT%%/test/test_doctest/sample_doctest_no_doctests.py
 lib/python%%XYDOT%%/test/test_doctest/sample_doctest_skip.py
@@ -5452,7 +5461,9 @@ lib/python%%XYDOT%%/test/test_doctest/test_doctest2.py
 lib/python%%XYDOT%%/test/test_doctest/test_doctest2.txt
 lib/python%%XYDOT%%/test/test_doctest/test_doctest3.txt
 lib/python%%XYDOT%%/test/test_doctest/test_doctest4.txt
+lib/python%%XYDOT%%/test/test_doctest/test_doctest_errors.txt
 lib/python%%XYDOT%%/test/test_doctest/test_doctest_skip.txt
+lib/python%%XYDOT%%/test/test_doctest/test_doctest_skip2.txt
 lib/python%%XYDOT%%/test/test_doctest/__pycache__/__init__%%PYC%%.opt-1.pyc
 lib/python%%XYDOT%%/test/test_doctest/__pycache__/__init__%%PYC%%.opt-2.pyc
 lib/python%%XYDOT%%/test/test_doctest/__pycache__/__init__%%PYC%%.pyc
@@ -5468,6 +5479,9 @@ lib/python%%XYDOT%%/test/test_doctest/__pycache__/doctest_lineno%%PYC%%.pyc
 lib/python%%XYDOT%%/test/test_doctest/__pycache__/sample_doctest%%PYC%%.opt-1.pyc
 lib/python%%XYDOT%%/test/test_doctest/__pycache__/sample_doctest%%PYC%%.opt-2.pyc
 lib/python%%XYDOT%%/test/test_doctest/__pycache__/sample_doctest%%PYC%%.pyc
+lib/python%%XYDOT%%/test/test_doctest/__pycache__/sample_doctest_errors%%PYC%%.opt-1.pyc
+lib/python%%XYDOT%%/test/test_doctest/__pycache__/sample_doctest_errors%%PYC%%.opt-2.pyc
+lib/python%%XYDOT%%/test/test_doctest/__pycache__/sample_doctest_errors%%PYC%%.pyc
 lib/python%%XYDOT%%/test/test_doctest/__pycache__/sample_doctest_no_docstrings%%PYC%%.opt-1.pyc
 lib/python%%XYDOT%%/test/test_doctest/__pycache__/sample_doctest_no_docstrings%%PYC%%.opt-2.pyc
 lib/python%%XYDOT%%/test/test_doctest/__pycache__/sample_doctest_no_docstrings%%PYC%%.pyc
@@ -6504,13 +6518,13 @@ lib/python%%XYDOT%%/test/test_pydoc/__pycache__/test_pydoc%%PYC%%.pyc
 lib/python%%XYDOT%%/test/test_pyrepl/__init__.py
 lib/python%%XYDOT%%/test/test_pyrepl/__main__.py
 lib/python%%XYDOT%%/test/test_pyrepl/support.py
+lib/python%%XYDOT%%/test/test_pyrepl/test_eventqueue.py
 lib/python%%XYDOT%%/test/test_pyrepl/test_input.py
 lib/python%%XYDOT%%/test/test_pyrepl/test_interact.py
 lib/python%%XYDOT%%/test/test_pyrepl/test_keymap.py
 lib/python%%XYDOT%%/test/test_pyrepl/test_pyrepl.py
 lib/python%%XYDOT%%/test/test_pyrepl/test_reader.py
 lib/python%%XYDOT%%/test/test_pyrepl/test_unix_console.py
-lib/python%%XYDOT%%/test/test_pyrepl/test_unix_eventqueue.py
 lib/python%%XYDOT%%/test/test_pyrepl/test_utils.py
 lib/python%%XYDOT%%/test/test_pyrepl/test_windows_console.py
 lib/python%%XYDOT%%/test/test_pyrepl/__pycache__/__init__%%PYC%%.opt-1.pyc
@@ -6522,6 +6536,9 @@ lib/python%%XYDOT%%/test/test_pyrepl/__pycache__/__main__%%PYC%%.pyc
 lib/python%%XYDOT%%/test/test_pyrepl/__pycache__/support%%PYC%%.opt-1.pyc
 lib/python%%XYDOT%%/test/test_pyrepl/__pycache__/support%%PYC%%.opt-2.pyc
 lib/python%%XYDOT%%/test/test_pyrepl/__pycache__/support%%PYC%%.pyc
+lib/python%%XYDOT%%/test/test_pyrepl/__pycache__/test_eventqueue%%PYC%%.opt-1.pyc
+lib/python%%XYDOT%%/test/test_pyrepl/__pycache__/test_eventqueue%%PYC%%.opt-2.pyc
+lib/python%%XYDOT%%/test/test_pyrepl/__pycache__/test_eventqueue%%PYC%%.pyc
 lib/python%%XYDOT%%/test/test_pyrepl/__pycache__/test_input%%PYC%%.opt-1.pyc
 lib/python%%XYDOT%%/test/test_pyrepl/__pycache__/test_input%%PYC%%.opt-2.pyc
 lib/python%%XYDOT%%/test/test_pyrepl/__pycache__/test_input%%PYC%%.pyc
@@ -6540,9 +6557,6 @@ lib/python%%XYDOT%%/test/test_pyrepl/__pycache__/test_reader%%PYC%%.pyc
 lib/python%%XYDOT%%/test/test_pyrepl/__pycache__/test_unix_console%%PYC%%.opt-1.pyc
 lib/python%%XYDOT%%/test/test_pyrepl/__pycache__/test_unix_console%%PYC%%.opt-2.pyc
 lib/python%%XYDOT%%/test/test_pyrepl/__pycache__/test_unix_console%%PYC%%.pyc
-lib/python%%XYDOT%%/test/test_pyrepl/__pycache__/test_unix_eventqueue%%PYC%%.opt-1.pyc
-lib/python%%XYDOT%%/test/test_pyrepl/__pycache__/test_unix_eventqueue%%PYC%%.opt-2.pyc
-lib/python%%XYDOT%%/test/test_pyrepl/__pycache__/test_unix_eventqueue%%PYC%%.pyc
 lib/python%%XYDOT%%/test/test_pyrepl/__pycache__/test_utils%%PYC%%.opt-1.pyc
 lib/python%%XYDOT%%/test/test_pyrepl/__pycache__/test_utils%%PYC%%.opt-2.pyc
 lib/python%%XYDOT%%/test/test_pyrepl/__pycache__/test_utils%%PYC%%.pyc
@@ -7145,8 +7159,7 @@ lib/python%%XYDOT%%/test/typinganndata/__pycache__/ann_module9%%PYC%%.pyc
 lib/python%%XYDOT%%/test/typinganndata/__pycache__/mod_generics_cache%%PYC%%.opt-1.pyc
 lib/python%%XYDOT%%/test/typinganndata/__pycache__/mod_generics_cache%%PYC%%.opt-2.pyc
 lib/python%%XYDOT%%/test/typinganndata/__pycache__/mod_generics_cache%%PYC%%.pyc
-lib/python%%XYDOT%%/test/wheeldata/setuptools-67.6.1-py3-none-any.whl
-lib/python%%XYDOT%%/test/wheeldata/wheel-0.43.0-py3-none-any.whl
+lib/python%%XYDOT%%/test/wheeldata/setuptools-%%SETUP%%-py3-none-any.whl
 lib/python%%XYDOT%%/test/xmltestdata/expat224_utf8_bug.xml
 lib/python%%XYDOT%%/test/xmltestdata/simple-ns.xml
 lib/python%%XYDOT%%/test/xmltestdata/simple.xml
@@ -7267,6 +7280,7 @@ lib/python%%XYDOT%%/tomllib/__init__.py
 lib/python%%XYDOT%%/tomllib/_parser.py
 lib/python%%XYDOT%%/tomllib/_re.py
 lib/python%%XYDOT%%/tomllib/_types.py
+lib/python%%XYDOT%%/tomllib/mypy.ini
 lib/python%%XYDOT%%/tomllib/__pycache__/__init__%%PYC%%.opt-1.pyc
 lib/python%%XYDOT%%/tomllib/__pycache__/__init__%%PYC%%.opt-2.pyc
 lib/python%%XYDOT%%/tomllib/__pycache__/__init__%%PYC%%.pyc
