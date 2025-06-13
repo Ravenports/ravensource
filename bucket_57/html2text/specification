@@ -1,10 +1,9 @@
 # Continued by Fabian Groffen officially
-DEF[PORTVERSION]=	2.2.3
+DEF[PORTVERSION]=	2.3.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		html2text
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		textproc
 VARIANTS=		std
 SDESC[std]=		Converts HTML documents into plain text
@@ -12,8 +11,8 @@ HOMEPAGE=		http://www.mbayer.de/html2text/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		https://github.com/grobian/html2text/releases/download/v${PORTVERSION}/
-DISTFILE[1]=		html2text-${PORTVERSION}.tar.gz:main
+SITES[main]=		GITHUB/grobian:html2text:v${PORTVERSION}
+DISTFILE[1]=		generated:main
 
 SPKGS[std]=		set primary man
 
@@ -29,15 +28,11 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		textproc/html2text
 
-USES=			c++:primary iconv gmake
+USES=			c++:primary iconv gmake bison
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		MANDIR={{MANPREFIX}}/man
 CXXFLAGS=		-Wno-write-strings
 			-Wno-deprecated-declarations
-
-post-extract:
-	${TOUCH} ${WRKSRC}/config.guess
-	${TOUCH} ${WRKSRC}/config.sub
 
 post-install:
 	${RM} -r ${STAGEDIR}${STD_DOCDIR}
