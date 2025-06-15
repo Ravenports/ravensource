@@ -11,6 +11,7 @@ DEF[SETUP_VER]=		79.0.1
 
 NAMEBASE=		python${PYTHON_SUFFIX}
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		lang python
 VARIANTS=		std
 SDESC[std]=		Interpreted object-oriented programming language
@@ -41,9 +42,6 @@ BUILDRUN_DEPENDS=	libffi:primary:std
 
 B_DEPS[linux]=		libuuid:dev:std
 BR_DEPS[linux]=		libuuid:primary:std
-
-B_DEPS[sunos]=		libuuid:dev:std
-BR_DEPS[sunos]=		libuuid:primary:std
 
 EXRUN[sqlite]=		sqlite:primary:std
 
@@ -110,6 +108,8 @@ VAR_OPSYS[sunos]=	PLIST_SUB=SOABI=.cpython-${PYTHON_SUFFIX}{{ABIFLAGS}}
 			PLIST_SUB=PLAT=sunos5
 			PLIST_SUB=FULLABI={{ABIFLAGS}}
 			CONFIGURE_ARGS=ac_cv_func_sethostname=no
+			MAKE_ARGS=MODULE__SOCKET_LDFLAGS="-lresolv -lsocket -lnsl"
+			MAKE_ARGS=MODULE__ASYNCIO_LDFLAGS="-lresolv -lnsl"
 
 [DEBUG].CONFIGURE_WITH_BOTH=		pydebug
 [DEBUG].MAKEFILE_ON=			ABIFLAGS:=d{{ABIFLAGS}}
@@ -148,3 +148,9 @@ post-install:
 		${STAGEDIR}${PREFIX}/lib/libpython${PYTHON_VER}${ABIFLAGS}.so.1.0-gdb.py
 	# remove duplicate license
 	${RM} ${STAGEDIR}${PREFIX}/lib/python${PYTHON_VER}/LICENSE.txt
+	# recompile
+	rm -rf ${STAGEDIR}${PREFIX}/lib/python${PYTHON_VER}${ABIFLAGS}/test
+	cp ${STAGEDIR}${PREFIX}/lib/libpython${PYTHON_VER}.so.1.0 ${LOCALBASE}/lib
+	(cd ${STAGEDIR}${PREFIX}/lib/python${PYTHON_VER}${ABIFLAGS} && \
+	        ../../bin/python${PYTHON_VER} -m compileall -f -d / . ||:)
+	${RM} ${LOCALBASE}/lib/libpython${PYTHON_VER}.so.1.0
