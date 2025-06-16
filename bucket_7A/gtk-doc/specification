@@ -4,7 +4,7 @@ DEF[DL_FOLDER]=		${PORTVERSION:R}
 
 NAMEBASE=		gtk-doc
 VERSION=		${PORTVERSION}
-REVISION=		2
+REVISION=		3
 KEYWORDS=		textproc
 VARIANTS=		std
 SDESC[std]=		GTK+ DocBook Documentation Generator
@@ -46,3 +46,5 @@ pre-configure:
 
 post-install:
 	(cd ${STAGEDIR} && python -m compileall -f -d / ${PREFIX} ||:)
+# Why does stuff end up outside of the staging area anyways?
+	${RM} -r ${PREFIX}/lib/__pycache__
