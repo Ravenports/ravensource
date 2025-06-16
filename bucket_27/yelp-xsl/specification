@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	42.1
+DEF[PORTVERSION]=	42.4
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		yelp-xsl
@@ -29,9 +29,12 @@ LICENSE_SCHEME=		multi
 
 FPC_EQUIVALENT=		textproc/yelp-xsl
 
-BUILD_DEPENDS=		itstool:single:std
+BUILD_DEPENDS=		bash:primary:std
+			itstool:single:std
+			libxslt:primary:std
 
-MUST_CONFIGURE=		gnu
+USES=			gettext meson shebangfix
+SHEBANG_FILES=		{{WRKSRC}}/xslt/common/domains/gen_yelp_xml.sh
 
 post-install:
 	${MV} ${STAGEDIR}${PREFIX}/share/pkgconfig ${STAGEDIR}${PREFIX}/lib
