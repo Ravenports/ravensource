@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.10
+DEF[PORTVERSION]=	3.11
 DEF[TAG]=		v${PORTVERSION}
 # ----------------------------------------------------------------------------
 
@@ -46,12 +46,9 @@ pre-configure:
 	${REINPLACE_CMD} -e "s|/usr/local|${PREFIX}|g" ${WRKSRC}/synth.1
 
 do-build:
-	(cd ${WRKSRC}/src && ${SETENV} ${MAKE_ENV} \
-		gcc -c unix_core.c -o ../build/unix_core.o)
 	(cd ${WRKSRC}/synthexec && ${SETENV} ${MAKE_ENV} \
 		gcc synthexec.c -o ../build/synthexec)
-	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} gprbuild -p -P default \
-		-largs build/unix_core.o)
+	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} gprbuild -p -P default)
 
 do-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/etc/bash_completion.d \
