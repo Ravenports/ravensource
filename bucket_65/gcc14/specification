@@ -6,8 +6,8 @@ DEF[IDENTIFICATION]=	EXTRACT_INFO(GCC14_IDENTIFICATION)
 DEF[GCC_VERSION]=	EXTRACT_INFO(GCC14_VERSION)
 DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
 DEF[STDCXX_VERSION]=	6.0.33
-DEF[DRACO_TAG]=		14.2.0-rev1
-DEF[DRACO_DIR]=		patches-14.2.0
+DEF[DRACO_TAG]=		14.3.0-base
+DEF[DRACO_DIR]=		patches-14.3.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gcc14
@@ -175,14 +175,6 @@ post-patch-linux:
 	# undo BSD thin socket modification
 	${MV} ${WRKSRC}/gcc/ada/libgnat/g-socthi.ads.orig \
 		${WRKSRC}/gcc/ada/libgnat/g-socthi.ads
-
-post-patch-darwin:
-	# undo BSD thin socket modification
-	${MV} ${WRKSRC}/gcc/ada/libgnat/g-socthi.ads.orig \
-		${WRKSRC}/gcc/ada/libgnat/g-socthi.ads
-	${FIND} ${WRKSRC} -name configure | ${XARGS} \
-		${SED} -i.mac -e 's|apple-darwin|raven-darwin|' \
-		${WRKSRC}/gcc/configure
 
 post-install:
 	cp ${STAGEDIR}${PREFIX}/bin/gcc ${STAGEDIR}${PREFIX}/bin/cc
