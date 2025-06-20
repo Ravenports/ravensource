@@ -1,0 +1,13 @@
+--- gcc/ada/gcc-interface/Make-lang.in.intermediate	2025-06-20 11:50:09 UTC
++++ gcc/ada/gcc-interface/Make-lang.in
+@@ -80,6 +80,10 @@ COMMON_ADA_INCLUDES = -I- -I. -Iada/gene
+ 
+ STAGE1_LIBS=
+ 
++ifeq ($(strip $(filter-out solaris2%,$(host_os))),)
++  STAGE1_LIBS=-lsocket
++endif
++
+ ifeq ($(strip $(filter-out linux%,$(host_os))),)
+   STAGE1_LIBS=-ldl
+ endif

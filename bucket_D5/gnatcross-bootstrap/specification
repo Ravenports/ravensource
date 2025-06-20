@@ -1,15 +1,15 @@
-DEF[PORTVERSION]=	EXTRACT_INFO(GCC13_PORTVERSION)
-DEF[PORTREVISION]=	EXTRACT_INFO(GCC13_BOOTSTRAP_REVISION)
-DEF[BRANCH]=		EXTRACT_INFO(GCC13_BRANCH)
-DEF[MS_SUBDIR]=		EXTRACT_INFO(GCC13_MS_SUBDIR)
-DEF[IDENTIFICATION]=	EXTRACT_INFO(GCC13_IDENTIFICATION)
-DEF[GCC_VERSION]=	EXTRACT_INFO(GCC13_VERSION)
-DEF[GCC_PREFIX]=	toolchain/gcc13
+DEF[PORTVERSION]=	EXTRACT_INFO(GCC14_PORTVERSION)
+DEF[PORTREVISION]=	EXTRACT_INFO(GCC14_BOOTSTRAP_REVISION)
+DEF[BRANCH]=		EXTRACT_INFO(GCC14_BRANCH)
+DEF[MS_SUBDIR]=		EXTRACT_INFO(GCC14_MS_SUBDIR)
+DEF[IDENTIFICATION]=	EXTRACT_INFO(GCC14_IDENTIFICATION)
+DEF[GCC_VERSION]=	EXTRACT_INFO(GCC14_VERSION)
+DEF[GCC_PREFIX]=	toolchain/gcc14
 DEF[FREEBSD_11]=	EXTRACT_INFO(GNATCROSS_FREEBSD_11)
 DEF[FREEBSD_12]=	EXTRACT_INFO(GNATCROSS_FREEBSD_12)
 DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
-DEF[DRACO_TAG]=		13.2.0-rev1
-DEF[DRACO_DIR]=		patches-13.3.0
+DEF[DRACO_TAG]=		14.2.0-base
+DEF[DRACO_DIR]=		patches-14.2.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gnatcross-bootstrap
@@ -23,31 +23,31 @@ CONTACT=		John_Marino[draco@marino.st]
 
 DOWNLOAD_GROUPS=	main mpfr gmp mpc iconv draco
 SITES[main]=		GCC/${MS_SUBDIR}
-SITES[mpfr]=		https://www.mpfr.org/mpfr-3.1.4/
+SITES[mpfr]=		https://www.mpfr.org/mpfr-4.2.2/
 SITES[mpc]=		GNU/mpc
 SITES[gmp]=		GNU/gmp
 SITES[iconv]=		GNU/libiconv
 SITES[draco]=		https://raw.githubusercontent.com/jrmarino/draco/${DRACO_TAG}/generated/${DRACO_DIR}/
 DISTFILE[1]=		${IDENTIFICATION}.tar.xz:main
-DISTFILE[2]=		mpfr-3.1.4.tar.xz:mpfr
-DISTFILE[3]=		gmp-6.1.0.tar.xz:gmp
-DISTFILE[4]=		mpc-1.0.3.tar.gz:mpc
-DISTFILE[5]=		libiconv-1.15.tar.gz:iconv
+DISTFILE[2]=		mpfr-4.2.2.tar.xz:mpfr
+DISTFILE[3]=		gmp-6.3.0.tar.xz:gmp
+DISTFILE[4]=		mpc-1.3.1.tar.gz:mpc
+DISTFILE[5]=		libiconv-1.18.tar.gz:iconv
 DISTFILE[6]=		patch-diff-ada:draco
 DISTFILE[7]=		patch-diff-core:draco
 DISTFILE[8]=		patch-diff-cxx:draco
 DISTFILE[9]=		patch-diff-ada-testsuite:draco
 DISTFILE[10]=		patch-diff-gcc-testsuite:draco
-DIST_SUBDIR=		gnatcross-bootstrap
+DIST_SUBDIR=		gnatcross-bootstrap-${PORTVERSION}
 DF_INDEX=		1 2 3 4 5
 
 SPKGS[std]=		single
 
-OPTIONS_AVAILABLE=	DISABLE FARM64_R11 FAMD64_R12 FI386_R12 SOL10 MAMD64_R3
-OPTIONS_STANDARD=	DISABLE FARM64_R11 FAMD64_R12 FI386_R12 SOL10 MAMD64_R3
+OPTIONS_AVAILABLE=	DISABLE FARM64_R11 FAMD64_R12 FI386_R12 OMNIOS MAMD64_R3
+OPTIONS_STANDARD=	DISABLE FARM64_R11 FAMD64_R12 FI386_R12 OMNIOS MAMD64_R3
 OPTGROUP_RADIO=		TARGET
 OPTDESCR[TARGET]=	Target platform for generated compiler
-OPTGROUP[TARGET]=	DISABLE FARM64_R11 FAMD64_R12 FI386_R12 SOL10 MAMD64_R3
+OPTGROUP[TARGET]=	DISABLE FARM64_R11 FAMD64_R12 FI386_R12 OMNIOS MAMD64_R3
 OPT_ON[all]=		DISABLE
 
 PATCHFILES=		6 7 8 9 10
@@ -83,7 +83,6 @@ CONFIGURE_ARGS=		--enable-languages="c,c++,ada"
 			--disable-libmpx
 			--disable-libcilkrts
 			--with-pkgversion="Ravenports"
-			--enable-obsolete
 CC=			{{BSPREFIX}}/bin/{{TGTSYS}}-gcc
 CXX=			{{BSPREFIX}}/bin/{{TGTSYS}}-c++
 CPP=			{{BSPREFIX}}/bin/{{TGTSYS}}-cpp
@@ -124,34 +123,20 @@ INFRASTRUCTURE=		yes
 					BSPREFIX={{LOCALBASE}}/FreeBSD12_I386
 					PREPEND_PATH={{BSPREFIX}}/{{TGTSYS}}/bin:{{BSPREFIX}}/bin
 
-[SOL10].DESCRIPTION=			Build native compiler for Solaris 10
-[SOL10].CONFIGURE_ARGS_ON=		--build={{CONFIGURE_TARGET}}
-					--host=x86_64-raven-solaris2.10
-					--target=x86_64-raven-solaris2.10
+[OMNIOS].DESCRIPTION=			Build native compiler for OmniOS v11
+[OMNIOS].CONFIGURE_ARGS_ON=		--build={{CONFIGURE_TARGET}}
+					--host=x86_64-raven-solaris2.11
+					--target=x86_64-raven-solaris2.11
 					--disable-libstdcxx-pch
 					--disable-multilib
 					--with-gnu-ld
 					--with-gnu-as
 					--with-ld={{LOCALBASE}}/toolchain/bin/ld
 					--with-as={{LOCALBASE}}/toolchain/bin/as
-[SOL10].BUILD_DEPENDS_ON=		gnatcross:single:SOL10
-[SOL10].MAKEFILE_ON=			TGTSYS=x86_64-raven-solaris2.10
-					BSPREFIX={{LOCALBASE}}/Solaris10_AMD64
+[OMNIOS].BUILD_DEPENDS_ON=		gnatcross:single:OMNIOS
+[OMNIOS].MAKEFILE_ON=			TGTSYS=x86_64-raven-solaris2.11
+					BSPREFIX={{LOCALBASE}}/OmniOS11
 					PREPEND_PATH={{BSPREFIX}}/{{TGTSYS}}/bin:{{BSPREFIX}}/bin
-[SOL10].MAKE_ENV_ON=			ac_cv_header_sys_sysctl_h=no
-					ac_cv_header_alloca_h=no
-					ac_cv_header_stdio_ext_h=no
-					ac_cv_header_malloc_h=no
-					ac_cv_func_clearerr_unlocked=no
-					ac_cv_func_feof_unlocked=no
-					ac_cv_func_ferror_unlocked=no
-					ac_cv_func_fileno_unlocked=no
-					ac_cv_func_asprintf=no
-					ac_cv_func_vasprintf=no
-					ac_cv_func_stpcpy=no
-					ac_cv_func_strnlen=no
-					ac_cv_func_madvise=no
-[SOL10].BROKEN_ON=			Doesn't get pass configure
 
 [MAMD64_R3].DESCRIPTION=		Build native compiler for MidnighBSD/AMD64 R3.0.0
 [MAMD64_R3].CONFIGURE_ARGS_ON=		--build={{CONFIGURE_TARGET}}
@@ -176,7 +161,7 @@ post-patch:
 	${REINPLACE_CMD} -e 's;\@PREFIX\@;${PREFIX:H};' \
 		-e 's;\@GCCAUX\@;${NAMEBASE};' \
 		-e 's;\@LOCALBASE\@;${LOCALBASE};g' \
-		${WRKSRC}/gcc/gcc.c \
+		${WRKSRC}/gcc/gcc.cc \
 		${WRKSRC}/gcc/config/darwin.h \
 		${WRKSRC}/gcc/config/dragonfly.h \
 		${WRKSRC}/gcc/config/sol2.h \
@@ -210,6 +195,13 @@ post-patch-MAMD64_R3-ON:
 	${REINPLACE_CMD} -e 's/#undef HAVE_ALIGNED_ALLOC/#define HAVE_ALIGNED_ALLOC 1/' \
 		${WRKSRC}/libstdc++-v3/config.h.in
 	${REINPLACE_CMD} -e '/<malloc.h>/d' ${WRKSRC}/libiberty/hashtab.c
+
+post-patch-OMNIOS-ON:
+	# undo BSD thin socket modification
+	${MV} ${WRKSRC}/gcc/ada/libgnat/g-socthi.ads.orig \
+		${WRKSRC}/gcc/ada/libgnat/g-socthi.ads
+	# Hack to link lsocket, might be a cross-build issue only?
+	${REINPLACE_CMD} -e '/^TGT_LIB =/ s/=/= -lsocket/' ${WRKSRC}/gcc/ada/gcc-interface/Makefile.in
 
 post-install:
 	cp ${STAGEDIR}${PREFIX}/${GCC_PREFIX}/bin/gcc ${STAGEDIR}${PREFIX}/${GCC_PREFIX}/bin/cc
