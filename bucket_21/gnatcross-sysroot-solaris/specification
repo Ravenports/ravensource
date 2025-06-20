@@ -1,42 +1,37 @@
-DEF[PORTVERSION]=	5
-DEF[SOLARIS_FILE]=	solaris_root_10_u8
+DEF[PORTVERSION]=	151054
+DEF[SOLARIS_FILE]=	omnios-r151054-sysroot.tar.gz
+DEF[CTARGET]=		x86_64-pc-solaris2.11
+DEF[XTARGET]=		OmniOS11
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gnatcross-sysroot-solaris
 VERSION=		${PORTVERSION}
 KEYWORDS=		lang
-VARIANTS=		SOL10
-SDESC[SOL10]=		Solaris 10 C/Ada cross-compiler sysroot
+VARIANTS=		std
+SDESC[std]=		OmniOS v11 C/Ada cross-compiler sysroot
 HOMEPAGE=		http://www.dragonlace.net
 CONTACT=		John_Marino[draco@marino.st]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		http://downloads.dragonlace.net/misc/
-DISTFILE[1]=		${SOLARIS_FILE}.v11.tar.xz:main
+SITES[main]=		http://leaf.dragonflybsd.org/~marino/raven-distfiles/omnios-sysroot/
+DISTFILE[1]=		${SOLARIS_FILE}:main
 DIST_SUBDIR=		gnatcross/solaris
 
-SPKGS[SOL10]=		single
+SPKGS[std]=		single
 
-OPTIONS_AVAILABLE=	SOL10
+OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
-VOPTS[SOL10]=		SOL10=ON
 
 NOT_FOR_ARCH=		aarch64
 
 SKIP_BUILD=		yes
 INVALID_RPATH=		yes
-EXTRACT_HEAD[1]=	{{TAR}} -xf
-EXTRACT_DIRTY=		1
 INFRASTRUCTURE=		yes
-
-[SOL10].DESCRIPTION=			Package Solaris 10 system root
-[SOL10].MAKEFILE_ON=			CTARGET=x86_64-raven-solaris2.10
-					PREFIX={{LOCALBASE}}/Solaris10_AMD64
-[SOL10].DF_INDEX_ON=			1
+PREFIX=			{{LOCALBASE}}/${XTARGET}
 
 do-install:
-	@${MKDIR} ${STAGEDIR}${PREFIX}/sysroot/usr
-	${MV} ${WRKSRC}/${SOLARIS_FILE}/lib ${STAGEDIR}${PREFIX}/sysroot
-	${MV} ${WRKSRC}/${SOLARIS_FILE}/usr/lib ${STAGEDIR}${PREFIX}/sysroot/usr
-	${MV} ${WRKSRC}/${SOLARIS_FILE}/usr/include ${STAGEDIR}${PREFIX}/sysroot/usr
+	${MKDIR} ${STAGEDIR}${PREFIX}/sysroot
+	${MV} ${WRKDIR}/solaris/* ${STAGEDIR}${PREFIX}/sysroot
 	${ECHO_CMD} ${CTARGET} > ${STAGEDIR}${PREFIX}/sysroot/target_triplet
+	${FIND} ${STAGEDIR}${PREFIX}/sysroot/usr -type d -empty -delete
+	${RMDIR} ${STAGEDIR}${PREFIX}/sysroot/etc
