@@ -1,0 +1,51 @@
+DEF[PORTVERSION]=	6.9.1
+DEF[SOVERSION]=		${PORTVERSION}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		shiboken6
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel python
+VARIANTS=		std
+SDESC[std]=		Python binding generator for C++ libraries
+HOMEPAGE=		https://doc.qt.io/qtforpython-6/shiboken6/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://download.qt.io/official_releases/QtForPython/pyside6/PySide6-${PORTVERSION}-src/
+DISTFILE[1]=		pyside-setup-everywhere-src-${PORTVERSION}.tar.xz:main
+
+SPKGS[std]=		set primary dev
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		devel/shiboken6
+
+BUILD_DEPENDS=		qt6-qtbase:dev:std
+			llvm:dev:std
+			llvm:tools:std
+BUILDRUN_DEPENDS=	qt6-qtbase:primary:std
+			clang:compiler:std
+			python-numpy:single:python_used
+
+USES=			clang execinfo python
+			cmake zlib:build shebangfix
+GNOME_COMPONENTS=	libxml2 libxslt
+SHEBANG_FILES=		shiboken_tool.py
+CONFIGURE_ENV=		LLVM_INSTALL_DIR={{LOCALBASE}}
+CMAKE_ARGS=		-DCMAKE_CXX_STANDARD_LIBRARIES=-lexecinfo
+			-DUSE_PYTHON_VERSION={{PYTHON_VER}}
+			-DBUILD_TESTS:BOOL=false
+			-DCMAKE_PREFIX_PATH:PATH={{LOCALBASE}}/lib/qt6/cmake
+			-DClang_DIR:PATH="{{LOCALBASE}}/lib/cmake/clang"
+			-DLLVM_DIR:PATH="{{LOCALBASE}}/lib/cmake/llvm"
+			-DNUMPY_INCLUDE_DIR:PATH="{{PYTHON_SITELIBDIR}}/numpy/_core/include"
+DISTNAME=		pyside-setup-everywhere-src-${PORTVERSION}/sources/shiboken6
+CXXFLAGS=		-Wno-unused-lambda-capture
+SOVERSION=		${SOVERSION}
+PLIST_SUB=		SOMAXMIN=${SOVERSION:R}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/shiboken6
+	# create python cache files
+	(cd ${STAGEDIR} && python -m compileall -f -d / . ||:)
