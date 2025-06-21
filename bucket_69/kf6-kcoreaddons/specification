@@ -56,10 +56,11 @@ BUILDRUN_DEPENDS=	qt6-qtbase:primary:std
 C_USES[freebsd]=	clang
 C_USES[midnightbsd]=	clang
 
-USES=			cmake mime-info:primary bsd:inotify
+USES=			cmake mime-info:primary bsd:inotify python:build
 
 DISTNAME=		${KF6_COMPONENT}-${PORTVERSION}
 CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt6/cmake
+			-DBUILD_PYTHON_BINDINGS:BOOL=OFF
 SOVERSION=		${PORTVERSION}
 
 post-extract:
