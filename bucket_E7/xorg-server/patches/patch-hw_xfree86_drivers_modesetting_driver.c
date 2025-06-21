@@ -1,6 +1,6 @@
---- hw/xfree86/drivers/modesetting/driver.c.orig	2024-12-17 17:51:31 UTC
+--- hw/xfree86/drivers/modesetting/driver.c.orig	2025-06-18 16:25:56 UTC
 +++ hw/xfree86/drivers/modesetting/driver.c
-@@ -925,8 +925,12 @@ try_enable_glamor(ScrnInfoPtr pScrn)
+@@ -964,8 +964,12 @@ try_enable_glamor(ScrnInfoPtr pScrn)
      modesettingPtr ms = modesettingPTR(pScrn);
      const char *accel_method_str = xf86GetOptValString(ms->drmmode.Options,
                                                         OPTION_ACCEL_METHOD);
