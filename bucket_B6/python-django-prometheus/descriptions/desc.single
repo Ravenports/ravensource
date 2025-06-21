@@ -10,7 +10,6 @@ https://gitter.im/django-prometheus/community]](https://gitter.im/django-prometh
 [Coverage Status]
 [![PyPi page link -- Python
 versions]](https://pypi.python.org/pypi/django-prometheus)
-[![Code style: black]](https://github.com/psf/black)
 
 ## Features
 
@@ -24,8 +23,8 @@ This library provides Prometheus metrics for Django related operations:
 
 ### Requirements
 
-* Django >= 3.2
-* Python 3.7 and above.
+* Django >= 4.2
+* Python 3.9 and above.
 
 ### Installation
 
@@ -92,9 +91,10 @@ PROMETHEUS_LATENCY_BUCKETS = (.1, .2, .5, .6, .8, 1.0, 2.0, 3.0, 4.0, 5.0,
 6.0, 7.5, 9.0, 12.0, 15.0, 20.0, 30.0, float("inf"))
 ```
 
-### Monitoring your databases
+---
 
-SQLite, MySQL, and PostgreSQL databases can be monitored. Just
-replace the `ENGINE` property of your database, replacing
-`django.db.backends` with `django_prometheus.db.backends`.
+You can have a custom namespace for your metrics:
 
+```python
+PROMETHEUS_METRIC_NAMESPACE = "project"
+```
