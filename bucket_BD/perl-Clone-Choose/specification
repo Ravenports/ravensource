@@ -1,18 +1,18 @@
-DEF[PORTVERSION]=	2.094
+DEF[PORTVERSION]=	0.010
 # ------------------------------------------------------------------------
 
-NAMEBASE=		perl-IO-Socket-SSL
+NAMEBASE=		perl-Clone-Choose
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
 VARIANTS=		538 540
-SDESC[538]=		Nearly ransparent SSL encapsulation (5.38)
-SDESC[540]=		Nearly ransparent SSL encapsulation (5.40)
-HOMEPAGE=		https://github.com/noxxi/p5-io-socket-ssl
+SDESC[538]=		Choose appropriate clone utility (5.38)
+SDESC[540]=		Choose appropriate clone utility (5.40)
+HOMEPAGE=		https://github.com/perl5-utils/Clone-Choose
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		CPAN/ID:S/SU/SULLR
-DISTFILE[1]=		IO-Socket-SSL-${PORTVERSION}.tar.gz:main
+SITES[main]=		CPAN/ID:H/HE/HERMES
+DISTFILE[1]=		Clone-Choose-${PORTVERSION}.tar.gz:main
 
 SPKGS[538]=		single
 SPKGS[540]=		single
@@ -27,19 +27,19 @@ VOPTS[540]=		PERL_538=OFF PERL_540=ON
 
 GENERATED=		yes
 SINGLE_JOB=		yes
-DISTNAME=		IO-Socket-SSL-${PORTVERSION}
+DISTNAME=		Clone-Choose-${PORTVERSION}
 
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |      runtime : Net::SSLeay
-# |      runtime : Scalar::Util (perl 5.38 core) (perl 5.40 core)
-# |        build : ExtUtils::MakeMaker (perl 5.38 core) (perl 5.40 core)
+# |      runtime : Storable (perl 5.38 core) (perl 5.40 core)
+# |      runtime : Module::Runtime
 # |    configure : ExtUtils::MakeMaker (perl 5.38 core) (perl 5.40 core)
-# |    configure : Net::SSLeay
+# |         test : Test::More (perl 5.38 core) (perl 5.40 core)
+# |         test : Test::Without::Module
 
 [PERL_538].USES_ON=			perl:538,configure
-[PERL_538].BUILDRUN_DEPENDS_ON=		perl-Net-SSLeay:single:538
+[PERL_538].BUILDRUN_DEPENDS_ON=		perl-Module-Runtime:single:538
 [PERL_540].USES_ON=			perl:540,configure
-[PERL_540].BUILDRUN_DEPENDS_ON=		perl-Net-SSLeay:single:540
+[PERL_540].BUILDRUN_DEPENDS_ON=		perl-Module-Runtime:single:540
 
