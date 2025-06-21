@@ -1,4 +1,4 @@
---- src/luarocks/core/cfg.lua.orig	2024-02-27 18:37:14 UTC
+--- src/luarocks/core/cfg.lua.orig	2025-06-17 22:22:41 UTC
 +++ src/luarocks/core/cfg.lua
 @@ -37,6 +37,7 @@ local platform_order = {
     "openbsd",
@@ -16,7 +16,7 @@
     solaris = { unix = true, solaris = true },
     windows = { windows = true, win32 = true },
     cygwin = { unix = true, cygwin = true },
-@@ -535,6 +537,8 @@ local function make_defaults(lua_version
+@@ -552,6 +554,8 @@ local function make_defaults(lua_version
        defaults.arch = "openbsd-"..target_cpu
     elseif platforms.netbsd then
        defaults.arch = "netbsd-"..target_cpu
