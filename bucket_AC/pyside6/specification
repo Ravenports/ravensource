@@ -1,0 +1,69 @@
+DEF[PORTVERSION]=	6.9.1
+DEF[SOVERSION]=		${PORTVERSION}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		pyside6
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel python
+VARIANTS=		std
+SDESC[std]=		Python binding generator for C++ libraries
+HOMEPAGE=		https://doc.qt.io/qtforpython-6/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://download.qt.io/official_releases/QtForPython/pyside6/PySide6-${PORTVERSION}-src/
+DISTFILE[1]=		pyside-setup-everywhere-src-${PORTVERSION}.tar.xz:main
+
+SPKGS[std]=		set primary dev
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		devel/pyside6
+
+BUILD_DEPENDS=		qt6-qtbase:dev:std
+			llvm:dev:std
+			llvm:tools:std
+			shiboken6:dev:std
+			qt6-qttools:dev:std
+			qt6-qtmultimedia:dev:std
+			qt6-qt5compat:dev:std
+			qt6-qtdeclarative:dev:std
+			qt6-qtquick3d:dev:std
+			qt6-qtquicktimeline:dev:std
+			qt6-qtshadertools:dev:std
+			qt6-qtspeech:dev:std
+			qt6-qtsvg:dev:std
+			qt6-qtwayland:dev:std
+BUILDRUN_DEPENDS=	qt6-qtbase:primary:std
+			qt6-qttools:primary:std
+			qt6-qtmultimedia:primary:std
+			qt6-qt5compat:primary:std
+			qt6-qtdeclarative:primary:std
+			qt6-qtquick3d:primary:std
+			qt6-qtquicktimeline:primary:std
+			qt6-qtshadertools:primary:std
+			qt6-qtspeech:primary:std
+			qt6-qtsvg:primary:std
+			qt6-qtwayland:primary:std
+			shiboken6:primary:std
+
+USES=			clang execinfo python
+			cmake zlib:build
+CONFIGURE_ENV=		LLVM_INSTALL_DIR={{LOCALBASE}}
+CMAKE_ARGS=		-DCMAKE_CXX_STANDARD_LIBRARIES=-lexecinfo
+			-DUSE_PYTHON_VERSION={{PYTHON_VER}}
+			-DBUILD_TESTS:BOOL=false
+			-DCMAKE_PREFIX_PATH:PATH={{LOCALBASE}}/lib/qt6/cmake
+			-DClang_DIR:PATH="{{LOCALBASE}}/lib/cmake/clang"
+			-DLLVM_DIR:PATH="{{LOCALBASE}}/lib/cmake/llvm"
+			-DNUMPY_INCLUDE_DIR:PATH="{{PYTHON_SITELIBDIR}}/numpy/_core/include"
+DISTNAME=		pyside-setup-everywhere-src-${PORTVERSION}/sources/pyside6
+SOVERSION=		${SOVERSION}
+PLIST_SUB=		SOMAXMIN=${SOVERSION:R}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/qt6/plugins/designer/libPySidePlugin.so
+	${STRIP_CMD} ${STAGEDIR}${PYTHON_SITELIBDIR}/PySide6/QtExampleIcons.abi3.so
+	# create python cache files
+	(cd ${STAGEDIR} && python -m compileall -f -d / . ||:)
