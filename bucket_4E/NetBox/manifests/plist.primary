@@ -32,6 +32,8 @@ share/netbox/circuits/forms/bulk_import.py
 share/netbox/circuits/forms/filtersets.py
 share/netbox/circuits/forms/model_forms.py
 share/netbox/circuits/graphql/__init__.py
+share/netbox/circuits/graphql/enums.py
+share/netbox/circuits/graphql/filter_mixins.py
 share/netbox/circuits/graphql/filters.py
 share/netbox/circuits/graphql/schema.py
 share/netbox/circuits/graphql/types.py
@@ -48,6 +50,7 @@ share/netbox/circuits/migrations/0048_circuitterminations_cached_relations.py
 share/netbox/circuits/migrations/0049_natural_ordering.py
 share/netbox/circuits/migrations/0050_virtual_circuits.py
 share/netbox/circuits/migrations/0051_virtualcircuit_group_assignment.py
+share/netbox/circuits/migrations/0052_extend_circuit_abs_distance_upper_limit.py
 share/netbox/circuits/migrations/__init__.py
 share/netbox/circuits/models/__init__.py
 share/netbox/circuits/models/base.py
@@ -62,9 +65,11 @@ share/netbox/circuits/tables/virtual_circuits.py
 share/netbox/circuits/tests/__init__.py
 share/netbox/circuits/tests/test_api.py
 share/netbox/circuits/tests/test_filtersets.py
+share/netbox/circuits/tests/test_tables.py
 share/netbox/circuits/tests/test_views.py
 share/netbox/core/__init__.py
 share/netbox/core/apps.py
+share/netbox/core/checks.py
 share/netbox/core/choices.py
 share/netbox/core/constants.py
 share/netbox/core/data_backends.py
@@ -96,6 +101,7 @@ share/netbox/core/forms/filtersets.py
 share/netbox/core/forms/mixins.py
 share/netbox/core/forms/model_forms.py
 share/netbox/core/graphql/__init__.py
+share/netbox/core/graphql/filter_mixins.py
 share/netbox/core/graphql/filters.py
 share/netbox/core/graphql/mixins.py
 share/netbox/core/graphql/schema.py
@@ -115,6 +121,8 @@ share/netbox/core/migrations/0010_gfk_indexes.py
 share/netbox/core/migrations/0011_move_objectchange.py
 share/netbox/core/migrations/0012_job_object_type_optional.py
 share/netbox/core/migrations/0013_job_data_encoder.py
+share/netbox/core/migrations/0014_datasource_sync_interval.py
+share/netbox/core/migrations/0015_remove_redundant_indexes.py
 share/netbox/core/migrations/__init__.py
 share/netbox/core/models/__init__.py
 share/netbox/core/models/change_logging.py
@@ -186,6 +194,8 @@ share/netbox/dcim/forms/model_forms.py
 share/netbox/dcim/forms/object_create.py
 share/netbox/dcim/forms/object_import.py
 share/netbox/dcim/graphql/__init__.py
+share/netbox/dcim/graphql/enums.py
+share/netbox/dcim/graphql/filter_mixins.py
 share/netbox/dcim/graphql/filters.py
 share/netbox/dcim/graphql/gfk_mixins.py
 share/netbox/dcim/graphql/mixins.py
@@ -219,13 +229,28 @@ share/netbox/dcim/migrations/0197_natural_sort_collation.py
 share/netbox/dcim/migrations/0198_natural_ordering.py
 share/netbox/dcim/migrations/0199_macaddress.py
 share/netbox/dcim/migrations/0200_populate_mac_addresses.py
+share/netbox/dcim/migrations/0201_add_power_outlet_status.py
+share/netbox/dcim/migrations/0202_location_comments_region_comments_sitegroup_comments.py
+share/netbox/dcim/migrations/0203_add_rack_outer_height.py
+share/netbox/dcim/migrations/0203_device_role_nested.py
+share/netbox/dcim/migrations/0204_device_role_rebuild.py
+share/netbox/dcim/migrations/0205_moduletypeprofile.py
+share/netbox/dcim/migrations/0206_load_module_type_profiles.py
+share/netbox/dcim/migrations/0207_remove_redundant_indexes.py
 share/netbox/dcim/migrations/__init__.py
+share/netbox/dcim/migrations/initial_data/module_type_profiles/cpu.json
+share/netbox/dcim/migrations/initial_data/module_type_profiles/fan.json
+share/netbox/dcim/migrations/initial_data/module_type_profiles/gpu.json
+share/netbox/dcim/migrations/initial_data/module_type_profiles/hard_disk.json
+share/netbox/dcim/migrations/initial_data/module_type_profiles/memory.json
+share/netbox/dcim/migrations/initial_data/module_type_profiles/power_supply.json
 share/netbox/dcim/models/__init__.py
 share/netbox/dcim/models/cables.py
 share/netbox/dcim/models/device_component_templates.py
 share/netbox/dcim/models/device_components.py
 share/netbox/dcim/models/devices.py
 share/netbox/dcim/models/mixins.py
+share/netbox/dcim/models/modules.py
 share/netbox/dcim/models/power.py
 share/netbox/dcim/models/racks.py
 share/netbox/dcim/models/sites.py
@@ -266,6 +291,7 @@ share/netbox/extras/reports.py
 share/netbox/extras/scripts.py
 share/netbox/extras/search.py
 share/netbox/extras/signals.py
+share/netbox/extras/storage.py
 share/netbox/extras/urls.py
 share/netbox/extras/utils.py
 share/netbox/extras/validators.py
@@ -292,6 +318,7 @@ share/netbox/extras/api/serializers_/notifications.py
 share/netbox/extras/api/serializers_/objecttypes.py
 share/netbox/extras/api/serializers_/savedfilters.py
 share/netbox/extras/api/serializers_/scripts.py
+share/netbox/extras/api/serializers_/tableconfigs.py
 share/netbox/extras/api/serializers_/tags.py
 share/netbox/extras/dashboard/__init__.py
 share/netbox/extras/dashboard/forms.py
@@ -310,6 +337,8 @@ share/netbox/extras/forms/model_forms.py
 share/netbox/extras/forms/reports.py
 share/netbox/extras/forms/scripts.py
 share/netbox/extras/graphql/__init__.py
+share/netbox/extras/graphql/enums.py
+share/netbox/extras/graphql/filter_mixins.py
 share/netbox/extras/graphql/filters.py
 share/netbox/extras/graphql/mixins.py
 share/netbox/extras/graphql/schema.py
@@ -350,6 +379,11 @@ share/netbox/extras/migrations/0120_eventrule_event_types.py
 share/netbox/extras/migrations/0121_customfield_related_object_filter.py
 share/netbox/extras/migrations/0122_charfield_null_choices.py
 share/netbox/extras/migrations/0123_journalentry_kind_default.py
+share/netbox/extras/migrations/0124_remove_staging.py
+share/netbox/extras/migrations/0125_alter_tag_options_tag_weight.py
+share/netbox/extras/migrations/0126_exporttemplate_file_name.py
+share/netbox/extras/migrations/0127_configtemplate_as_attachment_and_more.py
+share/netbox/extras/migrations/0128_tableconfig.py
 share/netbox/extras/migrations/__init__.py
 share/netbox/extras/models/__init__.py
 share/netbox/extras/models/configs.py
@@ -360,7 +394,6 @@ share/netbox/extras/models/models.py
 share/netbox/extras/models/notifications.py
 share/netbox/extras/models/scripts.py
 share/netbox/extras/models/search.py
-share/netbox/extras/models/staging.py
 share/netbox/extras/models/tags.py
 share/netbox/extras/tables/__init__.py
 share/netbox/extras/tables/columns.py
@@ -382,6 +415,7 @@ share/netbox/extras/tests/test_forms.py
 share/netbox/extras/tests/test_models.py
 share/netbox/extras/tests/test_scripts.py
 share/netbox/extras/tests/test_tags.py
+share/netbox/extras/tests/test_utils.py
 share/netbox/extras/tests/test_views.py
 share/netbox/ipam/__init__.py
 share/netbox/ipam/apps.py
@@ -420,6 +454,8 @@ share/netbox/ipam/forms/bulk_import.py
 share/netbox/ipam/forms/filtersets.py
 share/netbox/ipam/forms/model_forms.py
 share/netbox/ipam/graphql/__init__.py
+share/netbox/ipam/graphql/enums.py
+share/netbox/ipam/graphql/filter_mixins.py
 share/netbox/ipam/graphql/filters.py
 share/netbox/ipam/graphql/mixins.py
 share/netbox/ipam/graphql/schema.py
@@ -440,6 +476,11 @@ share/netbox/ipam/migrations/0073_charfield_null_choices.py
 share/netbox/ipam/migrations/0074_vlantranslationpolicy_vlantranslationrule.py
 share/netbox/ipam/migrations/0075_vlan_qinq.py
 share/netbox/ipam/migrations/0076_natural_ordering.py
+share/netbox/ipam/migrations/0077_vlangroup_tenant.py
+share/netbox/ipam/migrations/0078_iprange_mark_utilized.py
+share/netbox/ipam/migrations/0079_add_service_fhrp_group_parent_gfk.py
+share/netbox/ipam/migrations/0080_populate_service_parent.py
+share/netbox/ipam/migrations/0081_remove_service_device_virtual_machine_add_parent_gfk_index.py
 share/netbox/ipam/migrations/__init__.py
 share/netbox/ipam/models/__init__.py
 share/netbox/ipam/models/asns.py
@@ -483,7 +524,6 @@ share/netbox/netbox/preferences.py
 share/netbox/netbox/registry.py
 share/netbox/netbox/settings.py
 share/netbox/netbox/signals.py
-share/netbox/netbox/staging.py
 share/netbox/netbox/urls.py
 share/netbox/netbox/utils.py
 share/netbox/netbox/wsgi.py
@@ -513,6 +553,8 @@ share/netbox/netbox/forms/__init__.py
 share/netbox/netbox/forms/base.py
 share/netbox/netbox/forms/mixins.py
 share/netbox/netbox/graphql/__init__.py
+share/netbox/netbox/graphql/enums.py
+share/netbox/netbox/graphql/filter_lookups.py
 share/netbox/netbox/graphql/filter_mixins.py
 share/netbox/netbox/graphql/scalars.py
 share/netbox/netbox/graphql/schema.py
@@ -548,7 +590,6 @@ share/netbox/netbox/tests/test_models.py
 share/netbox/netbox/tests/test_plugins.py
 share/netbox/netbox/tests/test_registry.py
 share/netbox/netbox/tests/test_search.py
-share/netbox/netbox/tests/test_staging.py
 share/netbox/netbox/tests/test_tables.py
 share/netbox/netbox/tests/test_views.py
 share/netbox/netbox/tests/dummy_plugin/__init__.py
@@ -832,6 +873,7 @@ share/netbox/templates/dcim/manufacturer.html
 share/netbox/templates/dcim/module.html
 share/netbox/templates/dcim/modulebay.html
 share/netbox/templates/dcim/moduletype.html
+share/netbox/templates/dcim/moduletypeprofile.html
 share/netbox/templates/dcim/platform.html
 share/netbox/templates/dcim/powerfeed.html
 share/netbox/templates/dcim/poweroutlet.html
@@ -920,6 +962,8 @@ share/netbox/templates/extras/savedfilter.html
 share/netbox/templates/extras/script.html
 share/netbox/templates/extras/script_list.html
 share/netbox/templates/extras/script_result.html
+share/netbox/templates/extras/tableconfig.html
+share/netbox/templates/extras/tableconfig_edit.html
 share/netbox/templates/extras/tag.html
 share/netbox/templates/extras/webhook.html
 share/netbox/templates/extras/dashboard/reset.html
@@ -1036,6 +1080,7 @@ share/netbox/templates/users/objectpermission.html
 share/netbox/templates/users/token.html
 share/netbox/templates/users/token_edit.html
 share/netbox/templates/users/user.html
+share/netbox/templates/users/inc/user_activity.html
 share/netbox/templates/virtualization/cluster.html
 share/netbox/templates/virtualization/cluster_add_devices.html
 share/netbox/templates/virtualization/clustergroup.html
@@ -1086,6 +1131,8 @@ share/netbox/tenancy/forms/filtersets.py
 share/netbox/tenancy/forms/forms.py
 share/netbox/tenancy/forms/model_forms.py
 share/netbox/tenancy/graphql/__init__.py
+share/netbox/tenancy/graphql/enums.py
+share/netbox/tenancy/graphql/filter_mixins.py
 share/netbox/tenancy/graphql/filters.py
 share/netbox/tenancy/graphql/mixins.py
 share/netbox/tenancy/graphql/schema.py
@@ -1098,6 +1145,9 @@ share/netbox/tenancy/migrations/0014_contactassignment_ordering.py
 share/netbox/tenancy/migrations/0015_contactassignment_rename_content_type.py
 share/netbox/tenancy/migrations/0016_charfield_null_choices.py
 share/netbox/tenancy/migrations/0017_natural_ordering.py
+share/netbox/tenancy/migrations/0018_contact_groups.py
+share/netbox/tenancy/migrations/0019_contactgroup_comments_tenantgroup_comments.py
+share/netbox/tenancy/migrations/0020_remove_contactgroupmembership.py
 share/netbox/tenancy/migrations/__init__.py
 share/netbox/tenancy/models/__init__.py
 share/netbox/tenancy/models/contacts.py
@@ -1204,6 +1254,7 @@ share/netbox/utilities/html.py
 share/netbox/utilities/htmx.py
 share/netbox/utilities/jinja2.py
 share/netbox/utilities/json.py
+share/netbox/utilities/jsonschema.py
 share/netbox/utilities/markdown.py
 share/netbox/utilities/migration.py
 share/netbox/utilities/mptt.py
@@ -1212,6 +1263,7 @@ share/netbox/utilities/ordering.py
 share/netbox/utilities/paginator.py
 share/netbox/utilities/password_validation.py
 share/netbox/utilities/permissions.py
+share/netbox/utilities/proxy.py
 share/netbox/utilities/query.py
 share/netbox/utilities/query_functions.py
 share/netbox/utilities/querydict.py
@@ -1340,6 +1392,8 @@ share/netbox/virtualization/forms/filtersets.py
 share/netbox/virtualization/forms/model_forms.py
 share/netbox/virtualization/forms/object_create.py
 share/netbox/virtualization/graphql/__init__.py
+share/netbox/virtualization/graphql/enums.py
+share/netbox/virtualization/graphql/filter_mixins.py
 share/netbox/virtualization/graphql/filters.py
 share/netbox/virtualization/graphql/schema.py
 share/netbox/virtualization/graphql/types.py
@@ -1392,6 +1446,7 @@ share/netbox/vpn/forms/bulk_import.py
 share/netbox/vpn/forms/filtersets.py
 share/netbox/vpn/forms/model_forms.py
 share/netbox/vpn/graphql/__init__.py
+share/netbox/vpn/graphql/enums.py
 share/netbox/vpn/graphql/filters.py
 share/netbox/vpn/graphql/schema.py
 share/netbox/vpn/graphql/types.py
@@ -1402,6 +1457,8 @@ share/netbox/vpn/migrations/0004_alter_ikepolicy_mode.py
 share/netbox/vpn/migrations/0005_rename_indexes.py
 share/netbox/vpn/migrations/0006_charfield_null_choices.py
 share/netbox/vpn/migrations/0007_natural_ordering.py
+share/netbox/vpn/migrations/0008_add_l2vpn_status.py
+share/netbox/vpn/migrations/0009_remove_redundant_indexes.py
 share/netbox/vpn/migrations/__init__.py
 share/netbox/vpn/models/__init__.py
 share/netbox/vpn/models/crypto.py
@@ -1415,6 +1472,7 @@ share/netbox/vpn/tests/__init__.py
 share/netbox/vpn/tests/test_api.py
 share/netbox/vpn/tests/test_filtersets.py
 share/netbox/vpn/tests/test_models.py
+share/netbox/vpn/tests/test_tables.py
 share/netbox/vpn/tests/test_views.py
 share/netbox/wireless/__init__.py
 share/netbox/wireless/apps.py
@@ -1441,6 +1499,8 @@ share/netbox/wireless/forms/bulk_import.py
 share/netbox/wireless/forms/filtersets.py
 share/netbox/wireless/forms/model_forms.py
 share/netbox/wireless/graphql/__init__.py
+share/netbox/wireless/graphql/enums.py
+share/netbox/wireless/graphql/filter_mixins.py
 share/netbox/wireless/graphql/filters.py
 share/netbox/wireless/graphql/schema.py
 share/netbox/wireless/graphql/types.py
@@ -1450,6 +1510,8 @@ share/netbox/wireless/migrations/0010_charfield_null_choices.py
 share/netbox/wireless/migrations/0011_wirelesslan__location_wirelesslan__region_and_more.py
 share/netbox/wireless/migrations/0012_alter_wirelesslan__location_and_more.py
 share/netbox/wireless/migrations/0013_natural_ordering.py
+share/netbox/wireless/migrations/0014_wirelesslangroup_comments.py
+share/netbox/wireless/migrations/0015_extend_wireless_link_abs_distance_upper_limit.py
 share/netbox/wireless/migrations/__init__.py
 share/netbox/wireless/tables/__init__.py
 share/netbox/wireless/tables/wirelesslan.py
