@@ -1,4 +1,4 @@
---- absl/debugging/stacktrace.cc.orig	2025-05-12 17:41:36 UTC
+--- absl/debugging/stacktrace.cc.orig	2025-06-17 14:48:08 UTC
 +++ absl/debugging/stacktrace.cc
 @@ -61,7 +61,7 @@
  #include <alloca.h>

@@ -1,4 +1,4 @@
---- absl/time/internal/cctz/src/time_zone_lookup_test.cc.orig	2025-05-12 17:41:36 UTC
+--- absl/time/internal/cctz/src/time_zone_lookup_test.cc.orig	2025-06-17 14:48:08 UTC
 +++ absl/time/internal/cctz/src/time_zone_lookup_test.cc
 @@ -927,7 +927,7 @@ TEST(MakeTime, SysSecondsLimits) {
      const time_zone cut = LoadZone("libc:UTC");
