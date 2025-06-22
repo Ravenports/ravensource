@@ -1,6 +1,6 @@
---- lib/stdlib/src/calendar.erl.orig	2025-05-08 11:03:33 UTC
+--- lib/stdlib/src/calendar.erl.orig	2025-06-13 14:54:33 UTC
 +++ lib/stdlib/src/calendar.erl
-@@ -444,11 +444,19 @@ The return value is a list of 0, 1, or 2
+@@ -475,11 +475,19 @@ The return value is a list of 0, 1, or 2
        DateTime1 :: datetime1970(),
        DateTime :: datetime1970().
  local_time_to_universal_time_dst(DateTime) ->
