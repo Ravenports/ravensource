@@ -1,6 +1,6 @@
---- src/common/iop_order.c.orig	2024-12-15 21:38:01 UTC
+--- src/common/iop_order.c.orig	2025-06-15 16:52:40 UTC
 +++ src/common/iop_order.c
-@@ -38,23 +38,6 @@
+@@ -34,23 +34,6 @@
  
  static void _ioppr_reset_iop_order(GList *iop_order_list);
  

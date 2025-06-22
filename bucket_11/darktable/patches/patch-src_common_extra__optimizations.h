@@ -1,4 +1,4 @@
---- src/common/extra_optimizations.h.orig	2024-12-15 21:38:01 UTC
+--- src/common/extra_optimizations.h.orig	2025-06-15 16:52:40 UTC
 +++ src/common/extra_optimizations.h
 @@ -17,19 +17,3 @@
  */
