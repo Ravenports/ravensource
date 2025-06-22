@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	92.0
+DEF[PORTVERSION]=	93.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		mkvtoolnix
@@ -55,12 +55,12 @@ CONFIGURE_ARGS=		--with-boost="{{LOCALBASE}}"
 			--enable-gui
 			--with-qmake6="{{LOCALBASE}}/lib/qt6/bin/qmake"
 MAKE_ENV=		V=1
+			LC_ALL=en_US.UTF-8
 MAKEFILE=		Rakefile
 BUILD_TARGET=		#skip
 SOL_FUNCTIONS=		timegm:src/common/date_time.cpp
 CONFIGURE_ENV=		PKG_CONFIG_PATH="{{LOCALBASE}}/lib/qt6/pkgconfig"
 
-VAR_OPSYS[sunos]=	LDFLAGS=-lintl
 VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=--enable-precompiled-headers=no
 VAR_OPSYS[midnightbsd]=	CONFIGURE_ARGS=--enable-precompiled-headers=no
 
