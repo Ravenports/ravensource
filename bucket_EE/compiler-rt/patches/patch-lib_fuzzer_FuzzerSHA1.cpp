@@ -1,4 +1,4 @@
---- lib/fuzzer/FuzzerSHA1.cpp.orig	2025-05-13 22:18:22 UTC
+--- lib/fuzzer/FuzzerSHA1.cpp.orig	2025-06-13 04:54:32 UTC
 +++ lib/fuzzer/FuzzerSHA1.cpp
 @@ -40,7 +40,11 @@ namespace {  // Added for LibFuzzer
  # define SHA_BIG_ENDIAN
