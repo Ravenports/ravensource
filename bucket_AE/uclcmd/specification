@@ -30,11 +30,8 @@ BUILDRUN_DEPENDS=	libucl:primary:std
 
 B_DEPS[linux]=		libbsd:dev:std
 			libbsd:primary:std
-B_DEPS[sunos]=		libbsd4sol:single:std
 
 USES=			pkgconfig gmake
-
-VAR_OPSYS[sunos]=	CFLAGS=-I{{LOCALBASE}}/include/bsd
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/uclcmd

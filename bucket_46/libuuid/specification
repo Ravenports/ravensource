@@ -58,12 +58,7 @@ INSTALL_TARGET=		install-strip
 DISTNAME=		util-linux-${PORTVERSION}
 SOVERSION=		${SOVERSION}
 
-B_DEPS[sunos]=		libbsd4sol:single:std
 C_USES[sunos]=		perl:build
-VAR_OPSYS[sunos]=	CFLAGS=-I{{LOCALBASE}}/include/bsd
-			LDFLAGS=-lbsd
-			CFLAGS=-DHAVE_STRNLEN
-			CFLAGS=-DHAVE_STRNDUP
 
 # stdtod_l not seen since gcc14 (unclear why, <stdlib.h> is imported)
 CFLAGS=			-Wno-implicit-function-declaration

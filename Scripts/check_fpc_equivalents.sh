@@ -19,7 +19,6 @@ while read ravenport version fpc_port; do
 	musl-fts) ;;		# linux only
 	libgudev) ;;		# linux only
 	libnftnl) ;;		# linux only
-	libbsd4sol);;		# solaris only
 
 	ravenports) ;;		# unique to ravenports
 	libdl) ;;		# unique to ravenports

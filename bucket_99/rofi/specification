@@ -32,8 +32,6 @@ BUILD_DEPENDS=		check:dev:std
 BUILDRUN_DEPENDS=	libxkbcommon:primary:std
 			startup-notification:primary:std
 
-B_DEPS[sunos]=		libbsd4sol:single:std
-
 USES=			bison gmake libtool pkgconfig shebangfix
 GNOME_COMPONENTS=	cairo gdkpixbuf librsvg pango
 XORG_COMPONENTS=	xcb xcb-util-cursor xcb-util xcb-util-wm
@@ -46,8 +44,7 @@ SHEBANG_LANG=		bash
 SHEBANG_OLD_BASH=	"/usr/bin/env bash"
 SHEBANG_NEW_BASH=	/bin/sh
 
-VAR_OPSYS[sunos]=	CFLAGS=-I{{LOCALBASE}}/include/bsd
-			CONFIGURE_ENV=LIBS="-lbsd -lrt"
+# VAR_OPSYS[sunos]=	CONFIGURE_ENV=LIBS="-lrt"
 
 post-patch:
 	${REINPLACE_CMD} -e 's/ -pedantic//' ${WRKSRC}/configure

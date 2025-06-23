@@ -24,10 +24,6 @@ LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/COPYING
 
 FPC_EQUIVALENT=		print/indexinfo
 
-B_DEPS[sunos]=		libbsd4sol:single:std
-
 USES=			zlib
 INSTALL_TARGET=		install-strip
 VAR_OPSYS[freebsd]=	CFLAGS=-DHAVE_CAPSICUM
-VAR_OPSYS[sunos]=	CFLAGS=-I{{LOCALBASE}}/include/bsd
-			LDFLAGS=-lbsd

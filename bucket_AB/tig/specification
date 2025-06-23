@@ -27,7 +27,6 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/tig
 
-B_DEPS[sunos]=		libbsd4sol:single:std
 RUN_DEPENDS=		git:primary:std
 
 USES=			iconv gmake ncurses readline pkgconfig
@@ -38,6 +37,3 @@ CFLAGS=			-I{{NCURSESINC}}
 MAKE_ARGS=		V=1
 BUILD_TARGET=		all strip doc-man
 INSTALL_TARGET=		install install-doc-man
-
-VAR_OPSYS[sunos]=	CFLAGS=-I{{LOCALBASE}}/include/bsd
-			CONFIGURE_ENV=LIBS=-lbsd

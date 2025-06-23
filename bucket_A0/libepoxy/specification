@@ -25,8 +25,6 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		graphics/libepoxy
 
-B_DEPS[sunos]=		libbsd4sol:single:std
-
 BUILD_DEPENDS=		libglvnd:dev:std
 BUILDRUN_DEPENDS=	libglvnd:primary:std
 
@@ -35,6 +33,3 @@ EXRUN[dev]=		xorg-x11:dev:std
 
 USES=			meson pkgconfig python:build
 XORG_COMPONENTS=	x11
-
-VAR_OPSYS[sunos]=	CFLAGS=-I{{LOCALBASE}}/include/bsd
-			LDFLAGS=-lbsd

@@ -25,15 +25,12 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/hexd
 
-B_DEPS[sunos]=		libbsd4sol:single:std
-
 USES=			gmake
 
-VAR_OPSYS[sunos]=	CFLAGS=-I{{LOCALBASE}}/include/bsd
-			CFLAGS=-D__EXTENSIONS__
+# VAR_OPSYS[sunos]=	CFLAGS=-D__EXTENSIONS__
 
 post-patch-sunos:
-	${REINPLACE_CMD} -e '/_POSIX_C/d' ${WRKSRC}/hexd.c
+	# ${REINPLACE_CMD} -e '/_POSIX_C/d' ${WRKSRC}/hexd.c
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/hexd ${STAGEDIR}${PREFIX}/bin

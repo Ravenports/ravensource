@@ -28,8 +28,6 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		deskutils/clipit
 
-B_DEPS[sunos]=		libbsd4sol:single:std
-
 BUILD_DEPENDS=		harfbuzz:dev:std
 
 USES=			autoreconf pkgconfig gmake gnome-icons:primary
@@ -42,8 +40,6 @@ CFLAGS=			-Wno-deprecated-declarations
 			-Wno-int-conversion
 			-Wno-incompatible-pointer-types
 			-Wno-unused-but-set-variable
-VAR_OPSYS[sunos]=	CFLAGS=-I{{LOCALBASE}}/include/bsd
-			CONFIGURE_ENV=LIBS="-lbsd -lintl"
 
 post-patch:
 	# deal with intltool-0.40.5 bug (can't use intltool + gettext)
