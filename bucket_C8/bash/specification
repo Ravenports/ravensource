@@ -84,7 +84,7 @@ LICENSE_SCHEME=		solo
 BUILD_DEPENDS=		ncurses:dev:std
 RUN_DEPENDS=		ncurses:terminfo:std
 
-USES=			bison cpe solaris-funcs
+USES=			bison cpe
 DISTNAME=		bash-${PORTVERSION}
 MUST_CONFIGURE=		gnu
 CPE_VENDOR=		gnu
@@ -105,7 +105,6 @@ CONFIGURE_ARGS=		--enable-readline
 			--without-bash-malloc
 CPPFLAGS=		-DDEFAULT_PATH_VALUE='\"{{STANDARD_PATH}}:{{LOCALBASE}}/sbin:{{LOCALBASE}}/bin\"'
 			-DSTANDARD_UTILS_PATH='\"{{STANDARD_PATH}}\"'
-SOL_FUNCTIONS=		mkdtemp:lib/sh/tmpfile.c
 
 # Sun linker exports all symbols by default
 # Mac linker doesn't have -export-dynamic equivalent

@@ -67,8 +67,7 @@ EXRUN[utils]=		poppler:primary:std
 			lcms2:primary:std
 
 USES=			cmake:insource cpe png jpeg tiff libtool pkgconfig
-			fontconfig zlib python:build gettext:build
-			curl solaris-funcs
+			curl fontconfig zlib python:build gettext:build
 GNOME_COMPONENTS=	gtk3 gdkpixbuf pango
 CPE_VENDOR=		freedesktop
 CMAKE_ARGS=		-DENABLE_GLIB=ON
@@ -93,7 +92,6 @@ PLIST_SUB=		CPP_SOVERSION=${CPP_SOVERSION}
 			GLIB_SOMAJOR=${GLIB_SOVERSION:R:R}
 			NSS3={{NSS:U"@comment "}}
 SOVERSION=		${SOVERSION}
-SOL_FUNCTIONS=		strndup:poppler/GlobalParams.cc
 
 # Work around semicolon delimiter bug with CMAKE_ARGS/CMAKE_PREFIX_PATH
 # Add second path through the environment variable

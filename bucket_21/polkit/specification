@@ -41,8 +41,7 @@ BUILDRUN_DEPENDS=	dbus:primary:std
 			openpam:primary:std
 			duktape:primary:std
 
-USES=			meson pkgconfig shebangfix expat
-			solaris-funcs cpe
+USES=			meson pkgconfig shebangfix expat cpe
 GNOME_COMPONENTS=	glib introspection libxslt intltool
 CPE_VENDOR=		polkit_project
 SHEBANG_FILES=		{{WRKSRC}}/src/polkitbackend/toarray.pl
@@ -58,9 +57,6 @@ MESON_ARGS=		-Dauthfw=pam
 CFLAGS=			-Wno-deprecated-declarations
 			-Wno-implicit-function-declaration
 			-Wno-int-conversion
-SOL_FUNCTIONS=		getline:src/polkitagent/polkitagenthelperprivate.c
-
-VAR_OPSYS[sunos]=	LDFLAGS=-lintl
 
 pre-configure:
 	${REINPLACE_CMD} -e 's|__DBPATH__|${PREFIX}/share/xsl/docbook/manpages|' \

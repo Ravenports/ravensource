@@ -30,7 +30,7 @@ BUILD_DEPENDS=		libdrm:dev:std
 BUILDRUN_DEPENDS=	libdrm:primary:std
 			libglvnd:primary:std
 
-USES=			gmake meson pkgconfig solaris-funcs
+USES=			gmake meson pkgconfig
 XORG_COMPONENTS=	xorgproto pciaccess xext xfixes x11
 MESON_ARGS=		-Dwith_wayland=no
 			-Dwith_glx=yes
@@ -44,7 +44,6 @@ LDFLAGS=		-lpthread
 INSTALL_REQ_TOOLCHAIN=	yes
 INSTALL_TARGET=		install-strip
 SOVERSION=		${SOVERSION}
-SOL_FUNCTIONS=		strnlen:va/va_trace.c
 
 # prevent types conflict: videodev2.h vs. drm.h
 CFLAGS=			-DHAVE_LINUX_INTEGER_TYPES

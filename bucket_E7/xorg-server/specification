@@ -54,11 +54,10 @@ BUILDRUN_DEPENDS=	xorg-xkbcomp:primary:std
 EXRUN[dev]=		xorg-pixman:dev:std
 			xorg-pciaccess:dev:std
 
-USES=			cpe perl:build ssl solaris-funcs meson zlib:build
+USES=			cpe perl:build ssl meson zlib:build
 XORG_COMPONENTS=	xorgproto xtransproto
 			pixman xshmfence xau xdmcp xfont2 xkbfile
 CPE_VENDOR=		x.org
-SOL_FUNCTIONS=		strnlen:xkb/XKBGAlloc.c
 MESON_ARGS=		-Dxkb_dir="{{LOCALBASE}}/share/X11/xkb"
 			-Ddefault_font_path="{{fontlist:ts,}}"
 			-Dglamor=false

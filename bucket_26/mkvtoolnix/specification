@@ -47,7 +47,7 @@ BUILDRUN_DEPENDS=	boost-libraries:primary:std
 			qt6-qtmultimedia:primary:std
 
 USES=			zlib pkgconfig gettext pcre2 iconv
-			solaris-funcs mime-info:primary desktop-utils:primary
+			mime-info:primary desktop-utils:primary
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-boost="{{LOCALBASE}}"
 			--with-docbook-xsl-root="{{PREFIX}}/share/xsl/docbook"
@@ -58,7 +58,6 @@ MAKE_ENV=		V=1
 			LC_ALL=en_US.UTF-8
 MAKEFILE=		Rakefile
 BUILD_TARGET=		#skip
-SOL_FUNCTIONS=		timegm:src/common/date_time.cpp
 CONFIGURE_ENV=		PKG_CONFIG_PATH="{{LOCALBASE}}/lib/qt6/pkgconfig"
 
 VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=--enable-precompiled-headers=no

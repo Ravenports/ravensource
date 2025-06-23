@@ -30,15 +30,9 @@ LICENSE_SCHEME=		solo
 B_DEPS[linux]=		libbsd:dev:std
 BR_DEPS[linux]=		libbsd:primary:std
 
-USES=			fontconfig:fc fonts gmake pkgconfig:build solaris-funcs zlib:build
+USES=			fontconfig:fc fonts gmake pkgconfig:build zlib:build
 XORG_COMPONENTS=	x11 xft xinerama xrandr
-SOL_FUNCTIONS=		err.h:err.h
-			asprintf:xmalloc.c
-			asprintf:menu.c
-			asprintf:util.c
-			strsep:util.c
-			strsep:kbfunc.c
-			getline:kbfunc.c
+# SOL_FUNCTIONS=		err.h:err.h
 SINGLE_JOB=		yes
 
 VAR_OPSYS[linux]=	CFLAGS=-DLIBBSD_OVERLAY

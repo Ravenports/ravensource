@@ -36,11 +36,10 @@ BUILDRUN_DEPENDS=	graphviz:primary:std
 			xapian-core:primary:std
 
 USES=			bison cmake iconv python shebangfix cpe
-			zlib perl:build solaris-funcs
+			zlib perl:build
 CMAKE_ARGS=		-DDOC_INSTALL_DIR:PATH=share/doc/doxygen
 			-Dbuild_search:BOOLEAN=true
 			-Dbuild_wizard:BOOLEAN=false
-SOL_FUNCTIONS=		strnlen:src/portable.cpp
 
 # If build_doc is set, parallel builds break.  But docs require LATEX
 # which isn't in the tree, so no man pages.

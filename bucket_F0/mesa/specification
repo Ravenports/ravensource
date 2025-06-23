@@ -62,23 +62,10 @@ EXRUN[drivers]=		mesa:primary:std
 			libelf:primary:std
 
 USES=			cpe bison gettext:build gmake meson pkgconfig
-			zstd zlib expat shebangfix solaris-funcs
+			zstd zlib expat shebangfix
 			python:build c++:primary,drivers
 XORG_COMPONENTS=	x11 xdamage xext xfixes xshmfence xxf86vm xv xrandr xcb
 CPE_VENDOR=		mesa3d
-SOL_FUNCTIONS=		dirfd:src/util/disk_cache.c
-			asprintf:src/util/anon_file.c
-			asprintf:src/mesa/drivers/dri/common/megadriver_stub.c
-			asprintf:src/loader/loader.c
-			asprintf:src/egl/main/eglcurrent.c
-			asprintf:src/util/u_string.h
-			asprintf:src/amd/common/ac_rtld.c
-			strnlen:src/util/ralloc.c
-			strnlen:src/mesa/main/errors.c
-			strndup:src/loader/loader.c
-			strndup:src/egl/drivers/dri2/platform_x11.c
-			strndup:src/gallium/drivers/r600/evergreen_compute.c
-			strndup:src/gallium/drivers/radeonsi/si_debug.c
 MESON_ARGS=		-Dplatforms=x11{{WAYPLAT}}
 			-Dzstd=enabled
 			-Dgallium-drivers={{GALLIUM_DRIVERS:tW:tl:C/[[:space:]]/,/g}}

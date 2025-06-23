@@ -31,7 +31,7 @@ FPC_EQUIVALENT=		multimedia/gstreamer1
 
 DISTNAME=		gstreamer-${PORTVERSION}
 USES=			bison cpe gmake perl:build python:build,sutools
-			pkgconfig meson solaris-funcs
+			pkgconfig meson
 GNOME_COMPONENTS=	glib
 # GNOME_COMPONENTS+=introspection
 # This breaks at /usr/include/errno.h:57 on DF
@@ -47,7 +47,6 @@ MESON_ARGS=		-Ddoc=disabled
 			-Dnls=enabled
 SOVERSION=		${SOVERSION}
 PLIST_SUB=		VERSION=${GST_VERSION}
-SOL_FUNCTIONS=		strnlen:gst/gstregistrychunks.c
 
 VAR_OPSYS[sunos]=	LDFLAGS=-lsocket
 			LDFLAGS=-lintl
