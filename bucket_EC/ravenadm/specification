@@ -1,7 +1,8 @@
-DEF[PORTVERSION]=	3.43
+DEF[PORTVERSION]=	3.44
 DEF[PORTREVISION]=	0
 DEF[RELEASE_TAG]=	v${PORTVERSION}
-DEF[FORMAT_TAG]=	v4.4
+DEF[FORMAT_TAG]=	v4.5
+# ----------------------------------------------------------------------------
 
 NAMEBASE=		ravenadm
 VERSION=		${PORTVERSION}
@@ -43,6 +44,8 @@ SET_DEBUGGING_ON=	yes
 BUILD_WRKSRC=		{{WRKSRC}}/build
 MAKE_ARGS=		PROCESSORS={{MAKE_JOBS_NUMBER}}
 INFRASTRUCTURE=		yes
+
+VAR_OPSYS[sunos]=	LDFLAGS=-lsocket
 
 [WATCHDOG].DESCRIPTION=			Use "watchdog" monitor to abort stalled builds
 [NCURSES].DESCRIPTION=			Activate options dialog and pretty build monitor
