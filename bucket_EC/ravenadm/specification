@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.44
+DEF[PORTVERSION]=	3.45
 DEF[PORTREVISION]=	0
 DEF[RELEASE_TAG]=	v${PORTVERSION}
 DEF[FORMAT_TAG]=	v4.5
@@ -88,3 +88,7 @@ do-install:
 		${STAGEDIR}${PREFIX}/bin
 	${INSTALL_DATA} ${WRKSRC}/www/* ${STAGEDIR}${PREFIX}/share/ravenadm
 	${INSTALL_DATA} ${WRKSRC}/manpages/*.8 ${STAGEDIR}${MANPREFIX}/man/man8/
+
+post-install-freebsd:
+	${MKDIR} ${STAGEDIR}${PREFIX}/libexec
+	${INSTALL_PROGRAM} ${WRKSRC}/build/ravenexec ${STAGEDIR}${PREFIX}/libexec
