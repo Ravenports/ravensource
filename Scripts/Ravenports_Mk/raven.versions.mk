@@ -97,15 +97,16 @@ PGSQL_17_VERSION=	17.5
 
 #-------------------------------------------------------------------------
 # MYSQL and derivatives
-# Possible values: oracle-(8.0,8.4),innovation,mariadb-(10.6, 10.11, 11.[48])
+# Possible values: oracle-(8.0,8.4),innovation,mariadb-(10.6, 10.11, 11.[48], 12)
 #
 # MariaDB releases:
 #   MariaDB 10.6   EOL 06 JUL 2026 (STABLE-LTS)
 #   MariaDB 10.11  EOL 16 Feb 2028 (STABLE-LTS)
 #   MariaDB 11.4   EOL 29 May 2029 (STABLE-LTS)
 #   MariaDB 11.8   EOL 04 JUN 2028 (STABLE-LTS)
-#   MariaDB 12.0   ?               (ALPHA RELEASE)
-#
+#   MariaDB 12.0   EST     Q3 2025 (12.3 EST LTS)
+#   MariaDB 13.0   EST     Q3 2026 (13.3 EST LTS)
+#   MariaDB 14.0   EST     Q3 2027 (14.3 EST LTS)
 #-------------------------------------------------------------------------
 
 MYSQL_DEFAULT=			oracle-8.0
