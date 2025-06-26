@@ -1,4 +1,4 @@
---- libpkgconf/bsdstubs.c.orig	2025-06-19 04:56:01 UTC
+--- libpkgconf/bsdstubs.c.orig	2025-06-24 22:49:00 UTC
 +++ libpkgconf/bsdstubs.c
 @@ -17,6 +17,9 @@
   * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
