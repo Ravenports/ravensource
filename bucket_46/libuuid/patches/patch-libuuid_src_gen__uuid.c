@@ -1,9 +1,9 @@
 fcntl is portable, flock is not.
 Solaris does not have ifr.ifr_hwaddr.
 
---- libuuid/src/gen_uuid.c.orig	2025-01-13 12:10:36 UTC
+--- libuuid/src/gen_uuid.c.orig	2025-05-13 09:31:32 UTC
 +++ libuuid/src/gen_uuid.c
-@@ -167,7 +167,7 @@ static int get_node_id(unsigned char *no
+@@ -181,7 +181,7 @@ static int get_node_id(unsigned char *no
  	for (i = 0; i < n; i+= ifreq_size(*ifrp) ) {
  		ifrp = (struct ifreq *)((char *) ifc.ifc_buf+i);
  		strncpy(ifr.ifr_name, ifrp->ifr_name, IFNAMSIZ);
@@ -12,7 +12,7 @@ Solaris does not have ifr.ifr_hwaddr.
  		if (ioctl(sd, SIOCGIFHWADDR, &ifr) < 0)
  			continue;
  		a = (unsigned char *) &ifr.ifr_hwaddr.sa_data;
-@@ -246,16 +246,22 @@ static int get_clock(uint32_t *clock_hig
+@@ -260,16 +260,22 @@ static int get_clock(uint32_t *clock_hig
  	THREAD_LOCAL int		state_fd = STATE_FD_INIT;
  	THREAD_LOCAL FILE		*state_f;
  	THREAD_LOCAL uint16_t		clock_seq;
@@ -36,7 +36,7 @@ Solaris does not have ifr.ifr_hwaddr.
  			if ((errno == EAGAIN) || (errno == EINTR))
  				continue;
  			fclose(state_f);
-@@ -334,7 +340,8 @@ try_again:
+@@ -348,7 +354,8 @@ try_again:
  			      clock_seq, (long)last.tv_sec, (long)last.tv_usec, adjustment);
  		fflush(state_f);
  		rewind(state_f);

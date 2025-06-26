@@ -1,10 +1,10 @@
 Add NAME_MAX compat.
 
---- include/c.h.orig	2025-01-13 12:10:36 UTC
+--- include/c.h.orig	2025-06-23 11:25:00 UTC
 +++ include/c.h
-@@ -37,6 +37,10 @@
- # define NAME_MAX PATH_MAX
- #endif
+@@ -39,6 +39,10 @@
+ 
+ #define BIT(n)                 (1 << (n))
  
 +#ifndef NAME_MAX
 +# define NAME_MAX PATH_MAX
