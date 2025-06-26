@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.4.0
+DEF[PORTVERSION]=	2.4.1
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-django-prometheus
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/korfuri/django-prometheus
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/38/05/d980950fb8c3f6f96c644599b1a025fb50e827477b1acf36daef72aa7e76
+SITES[main]=		PYPIWHL/01/50/9c5e022fa92574e5d20606687f15a2aa255e10512a17d11a8216fa117f72
 DISTFILE[1]=		django_prometheus-${PORTVERSION}-py2.py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -30,10 +30,13 @@ GENERATED=		yes
 DISTNAME=		django_prometheus-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
+# Django<6.0,>=4.2
 # prometheus-client>=0.7
 
 [PY312].USES_ON=			python:v12,wheel
-[PY312].RUN_DEPENDS_ON=			python-prometheus-client:single:v12
+[PY312].RUN_DEPENDS_ON=			python-Django:single:v12
+					python-prometheus-client:single:v12
 [PY313].USES_ON=			python:v13,wheel
-[PY313].RUN_DEPENDS_ON=			python-prometheus-client:single:v13
+[PY313].RUN_DEPENDS_ON=			python-Django:single:v13
+					python-prometheus-client:single:v13
 
