@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.10.4
+DEF[PORTVERSION]=	1.0.1
 DEF[SOVERSION]=		${PORTVERSION}
 DEF[RELEASE_TAG]=	${PORTVERSION}
 # ----------------------------------------------------------------------------
@@ -15,7 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/podofo:podofo:${RELEASE_TAG}
 DISTFILE[1]=		generated:main
 
-SPKGS[std]=		set primary tools dev man
+SPKGS[std]=		set primary dev man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -34,20 +34,16 @@ BUILD_DEPENDS=		libunistring:dev:std
 BUILDRUN_DEPENDS=	libidn:primary:std
 			libunistring:primary:std
 
-EXRUN[tools]=		podofo:primary:std
-
 USES=			cpe cmake pkgconfig jpeg png tiff zlib
 			fontconfig ssl:openssl30 c++:primary
 GNOME_COMPONENTS=	libxml2
 CPE_VENDOR=		podofo_project
 CMAKE_ARGS=		-DOPENSSL_INCLUDE_DIR="{{OPENSSLINC}}"
 			-DOPENSSL_LIBRARIES="{{OPENSSLDIR}}"
-			-DPODOFO_BUILD_TOOLS:BOOL=ON
 			-DMANDIR={{MANPREFIX}}/man/
 SOVERSION=		${SOVERSION}
 
 post-install:
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/pod*
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libpodofo.so
 
 pre-configure:
