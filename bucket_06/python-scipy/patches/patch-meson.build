@@ -1,11 +1,11 @@
---- meson.build.orig	2025-05-08 02:14:18 UTC
+--- meson.build.orig	2025-06-22 01:57:22 UTC
 +++ meson.build
-@@ -14,7 +14,7 @@ project(
-   ],
- )
+@@ -16,7 +16,7 @@ project(
+ 
+ meson.add_dist_script('tools/trim_sdist_content.py')
  
 -py3 = import('python').find_installation(pure: false)
 +py3 = import('python').find_installation('%%PYTHONCMD%%', pure: false)
  py3_dep = py3.dependency()
  
- min_numpy_version = '1.23.5'  # keep in sync with pyproject.toml
+ min_numpy_version = '1.25.2'  # keep in sync with pyproject.toml
