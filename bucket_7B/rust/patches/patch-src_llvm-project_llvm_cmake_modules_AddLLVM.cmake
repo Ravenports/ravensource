@@ -1,6 +1,6 @@
---- src/llvm-project/llvm/cmake/modules/AddLLVM.cmake.orig	2025-03-31 21:37:24 UTC
+--- src/llvm-project/llvm/cmake/modules/AddLLVM.cmake.orig	2025-05-09 20:37:37 UTC
 +++ src/llvm-project/llvm/cmake/modules/AddLLVM.cmake
-@@ -2466,7 +2466,7 @@ function(llvm_setup_rpath name)
+@@ -2526,7 +2526,7 @@ function(llvm_setup_rpath name)
    elseif(UNIX)
      set(_build_rpath "\$ORIGIN/../lib${LLVM_LIBDIR_SUFFIX}" ${extra_libdir})
      set(_install_rpath "\$ORIGIN/../lib${LLVM_LIBDIR_SUFFIX}")

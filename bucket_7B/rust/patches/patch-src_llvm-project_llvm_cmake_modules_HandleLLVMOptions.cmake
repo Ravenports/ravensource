@@ -1,11 +1,11 @@
---- src/llvm-project/llvm/cmake/modules/HandleLLVMOptions.cmake.orig	2025-03-31 21:37:24 UTC
+--- src/llvm-project/llvm/cmake/modules/HandleLLVMOptions.cmake.orig	2025-05-09 20:37:37 UTC
 +++ src/llvm-project/llvm/cmake/modules/HandleLLVMOptions.cmake
-@@ -302,7 +302,7 @@ endif()
+@@ -312,7 +312,7 @@ endif()
  
  # Pass -Wl,-z,defs. This makes sure all symbols are defined. Otherwise a DSO
  # build might work on ELF but fail on MachO/COFF.
--if(NOT (CMAKE_SYSTEM_NAME MATCHES "Darwin|FreeBSD|OpenBSD|DragonFly|AIX|OS390" OR
-+if(NOT (CMAKE_SYSTEM_NAME MATCHES "Darwin|FreeBSD|OpenBSD|DragonFly|MidnightBSD|AIX|OS390" OR
+-if(NOT (CMAKE_SYSTEM_NAME MATCHES "Darwin|FreeBSD|OpenBSD|DragonFly|AIX|OS390|Emscripten" OR
++if(NOT (CMAKE_SYSTEM_NAME MATCHES "Darwin|FreeBSD|OpenBSD|DragonFly|MidnightBSD|AIX|OS390|Emscripten" OR
          WIN32 OR CYGWIN) AND
     NOT LLVM_USE_SANITIZER)
    set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -Wl,-z,defs")

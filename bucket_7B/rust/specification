@@ -1,9 +1,9 @@
-DEF[PORTVERSION]=	1.86.0
-DEF[RUSTX_BOOT]=	1.85.0
+DEF[PORTVERSION]=	1.87.0
+DEF[RUSTX_BOOT]=	1.86.0
 DEF[CURL_VERSION]=	7.87.0
 DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
 DEF[LIBC_PT1]=		94 97 107 112 119 121 124 155
-DEF[LIBC_PT2]=		167 168 169
+DEF[LIBC_PT2]=		167 168 169 170 171
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		rust
@@ -209,13 +209,11 @@ post-build-midnightbsd:
 
 do-build:
 	(cd ${BUILD_WRKSRC} && ${SETENV} ${MAKE_ENV} \
-		${PYTHON_CMD} x.py build --verbose --config ./config.toml \
-		--jobs ${MAKE_JOBS_NUMBER})
+		${PYTHON_CMD} x.py build --verbose --jobs ${MAKE_JOBS_NUMBER})
 
 do-install:
 	(cd ${BUILD_WRKSRC} && ${SETENV} ${MAKE_ENV} DESTDIR=${STAGEDIR} \
-		${PYTHON_CMD} x.py install --verbose --config ./config.toml \
-		--jobs ${MAKE_JOBS_NUMBER})
+		${PYTHON_CMD} x.py install --verbose --jobs ${MAKE_JOBS_NUMBER})
 
 post-install:
 	${RM} ${STAGEDIR}${PREFIX}/lib/rustlib/install.log
