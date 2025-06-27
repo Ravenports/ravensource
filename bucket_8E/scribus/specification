@@ -1,8 +1,10 @@
 DEF[PORTVERSION]=	1.6.4
+# PoDoFo temp disabled because Scribus 1.6.4 requires older podofo 0.10.4
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		scribus
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		print editors
 VARIANTS=		std
 SDESC[std]=		Page Layout and Desktop Publishing
@@ -39,7 +41,7 @@ BUILD_DEPENDS=		qt5-qttools:set:std
 			librevenge:dev:std
 			cups:dev:std
 			cups:primary:std
-			podofo:dev:std
+# #			podofo:dev:std
 			libwpg:dev:std
 			hunspell:dev:std
 			libvisio:dev:std
@@ -55,7 +57,7 @@ BUILDRUN_DEPENDS=	qt5-qtbase:primary:std
 			libmspub:single:std
 			libvisio:primary:std
 			poppler:primary:std
-			podofo:primary:std
+# #			podofo:primary:std
 			icu:primary:std
 			libqxp:single:std
 			libzmf:single:std
@@ -80,7 +82,8 @@ CMAKE_ARGS=		-DWANT_HUNSPELL=YES
 			-DQt5OpenGL_DIR="{{PREFIX}}/lib/qt5/cmake/Qt5OpenGL"
 			-DQt5LinguistTools_DIR="{{PREFIX}}/lib/qt5/cmake/Qt5LinguistTools"
 			-DQt5PrintSupport_DIR="{{PREFIX}}/lib/qt5/cmake/Qt5PrintSupport"
-			-DLIBPODOFO_CONFIG_H="{{LOCALBASE}}/include/podofo/auxiliary/podofo_config.h"
+			-DWITH_PODOFO:BOOL=OFF
+# #			-DLIBPODOFO_CONFIG_H="{{LOCALBASE}}/include/podofo/auxiliary/podofo_config.h"
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/scribus
