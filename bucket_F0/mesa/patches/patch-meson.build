@@ -1,15 +1,15 @@
---- meson.build.orig	2025-04-30 17:18:00 UTC
+--- meson.build.orig	2025-06-18 17:45:40 UTC
 +++ meson.build
-@@ -127,7 +127,7 @@ with_any_opengl = with_opengl or with_gl
- # Only build shared_glapi if at least one OpenGL API is enabled
- with_shared_glapi = with_shared_glapi and with_any_opengl
+@@ -130,7 +130,7 @@ pre_args += '-DHAVE_OPENGL_ES_2=@0@'.for
+ 
+ with_any_opengl = with_opengl or with_gles1 or with_gles2
  
 -system_has_kms_drm = ['openbsd', 'netbsd', 'freebsd', 'gnu/kfreebsd', 'dragonfly', 'linux', 'sunos', 'android', 'managarm'].contains(host_machine.system())
 +system_has_kms_drm = ['openbsd', 'netbsd', 'freebsd', 'gnu/kfreebsd', 'dragonfly', 'linux', 'sunos', 'android', 'managarm', 'midnightbsd'].contains(host_machine.system())
  
  gallium_drivers = get_option('gallium-drivers')
  if gallium_drivers.contains('auto')
-@@ -525,8 +525,8 @@ if not have_mtls_dialect
+@@ -515,8 +515,8 @@ if not have_mtls_dialect
    # cross-compiling, but because this is just an optimization we can skip it
    if meson.is_cross_build() and not meson.can_run_host_binaries()
      warning('cannot auto-detect -mtls-dialect when cross-compiling, using compiler default')
@@ -20,7 +20,7 @@
    else
      # The way to specify the TLSDESC dialect is architecture-specific.
      # We probe both because there is not a fallback guaranteed to work for all
-@@ -1154,7 +1154,7 @@ else
+@@ -1138,7 +1138,7 @@ else
    endif
  
    # FreeBSD annotated <pthread.h> but Mesa isn't ready
@@ -29,7 +29,7 @@
      _trial_c += ['-Werror=thread-safety']
    endif
  
-@@ -1426,34 +1426,34 @@ foreach f, prefix: functions_to_detect
+@@ -1410,34 +1410,34 @@ foreach f, prefix: functions_to_detect
  endforeach
  
  if cpp.links('''
