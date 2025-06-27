@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.24.2
+DEF[PORTVERSION]=	0.25.2
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		hare
@@ -46,7 +46,7 @@ pre-build-linux:
 
 do-build:
 	(cd ${WRKSRC} && \
-		 ${REINPLACE_CMD} 's|/usr/local|/${PREFIX}|' config.mk && \
+		${REINPLACE_CMD} 's|/usr/local|${PREFIX}|' config.mk && \
 		make VERSION=${PORTVERSION})
 
 do-install:
