@@ -1,4 +1,4 @@
---- src/python_interpreter/get_interpreter_metadata.py.orig	2024-07-07 02:31:46 UTC
+--- src/python_interpreter/get_interpreter_metadata.py.orig	2025-06-23 14:09:29 UTC
 +++ src/python_interpreter/get_interpreter_metadata.py
 @@ -19,6 +19,13 @@ if platform.python_implementation() == "
  else:
@@ -25,4 +25,4 @@
 +    "system": mysystem,
      # This one is for generating a config file for pyo3
      "pointer_width": struct.calcsize("P") * 8,
- }
+     "gil_disabled": sysconfig.get_config_var("Py_GIL_DISABLED") == 1,
