@@ -1,9 +1,8 @@
-DEF[PORTVERSION]=	42.2
+DEF[PORTVERSION]=	42.3
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		yelp
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		x11
 VARIANTS=		std
 SDESC[std]=		Help browser for the GNOME desktop
@@ -36,15 +35,17 @@ BUILD_DEPENDS=		appstream-glib:dev:std
 			libsoup:dev:std
 			itstool:single:std
 			webkit2:dev:api41
+			bash:primary:std
 BUILDRUN_DEPENDS=	hdf5:primary:std
 			libhandy:primary:std
 			webkit2:primary:api41
 			yelp-xsl:single:std
 
-USES=			desktop-utils:primary gmake libtool mbsdfix
-			pkgconfig sqlite schemas:primary
+USES=			desktop-utils:primary meson pkgconfig sqlite
+			shebangfix schemas:primary xz bz2
+XORG_COMPONENTS=	ice x11
 GNOME_COMPONENTS=	glib gtk3 libxslt
-
-MUST_CONFIGURE=		gnu
-INSTALL_TARGET=		install-strip
 GLIB_SCHEMAS=		org.gnome.yelp.gschema.xml
+SHEBANG_FILES=		data/domains/gen_yelp_xml.sh
+			src/link-gnome-help.sh
+CFLAGS=			-Wno-deprecated-declarations
