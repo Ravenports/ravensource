@@ -1,4 +1,4 @@
---- src/luarocks/core/cfg.lua.orig	2025-06-17 22:22:41 UTC
+--- src/luarocks/core/cfg.lua.orig	2025-06-27 06:32:52 UTC
 +++ src/luarocks/core/cfg.lua
 @@ -37,6 +37,7 @@ local platform_order = {
     "openbsd",
