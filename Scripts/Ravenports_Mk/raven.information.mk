@@ -50,9 +50,9 @@ GCC12_PHASE=			release
 # ------------------------------------------------------------------------
 
 GCC13_BRANCH=			13
-GCC13_POINT=			3.0
+GCC13_POINT=			4.0
 GCC13_VERSION=			${GCC13_BRANCH}.${GCC13_POINT}
-GCC13_REVISION=			3
+GCC13_REVISION=			0
 GCC13_GNATCROSS_REVISION=	0
 GCC13_BOOTSTRAP_REVISION=	0
 
