@@ -1,6 +1,6 @@
---- src/fclang.c.orig	2025-04-11 06:47:01 UTC
+--- src/fclang.c.orig	2025-06-27 03:12:04 UTC
 +++ src/fclang.c
-@@ -191,6 +191,7 @@ FcLangNormalize (const FcChar8 *lang)
+@@ -173,6 +173,7 @@ FcLangNormalize (const FcChar8 *lang)
  {
      FcChar8 *result = NULL, *s, *orig;
      char    *territory, *encoding, *modifier;
@@ -8,7 +8,7 @@
      size_t   llen, tlen = 0, mlen = 0;
  
      if (!lang || !*lang)
-@@ -250,24 +251,30 @@ FcLangNormalize (const FcChar8 *lang)
+@@ -232,24 +233,30 @@ FcLangNormalize (const FcChar8 *lang)
  	    modifier = encoding;
  	}
      }

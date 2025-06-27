@@ -1,6 +1,6 @@
---- src/fccfg.c.orig	2025-04-11 06:47:01 UTC
+--- src/fccfg.c.orig	2025-06-27 03:12:04 UTC
 +++ src/fccfg.c
-@@ -3130,7 +3130,7 @@ FcConfigFileInfoIterGet (FcConfig
+@@ -3175,7 +3175,7 @@ FcConfigFileInfoIterGet (FcConfig
      if (name)
  	*name = FcStrdup (r->name && r->name[0] ? r->name : (const FcChar8 *)"fonts.conf");
      if (description)
