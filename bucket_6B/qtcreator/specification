@@ -1,5 +1,5 @@
-DEF[FOLDER]=		16.0
-DEF[PORTVERSION]=	${FOLDER}.2
+DEF[FOLDER]=		17.0
+DEF[PORTVERSION]=	${FOLDER}.0
 DEF[SOVERSION]=		${PORTVERSION}
 # ----------------------------------------------------------------------------
 
@@ -23,7 +23,7 @@ OPTIONS_STANDARD=	none
 
 LICENSE=		CUSTOM1:single
 LICENSE_NAME=		CUSTOM1:"GPL3 + Qt-GPL-Exception v1.0"
-LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/LICENSE.GPL3-EXCEPT
+LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/LICENSES/LICENSE.GPL3-EXCEPT
 LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
 LICENSE_SCHEME=		solo
 
@@ -36,6 +36,9 @@ BUILD_DEPENDS=		libsecret:dev:std
 			qt6-qtshadertools:dev:std
 			qt6-qtquick3d:dev:std
 			qt6-qttools:dev:std
+			qt6-qtsvg:dev:std
+			qt6-qtquicktimeline:dev:std
+			libarchive:dev:std
 BUILDRUN_DEPENDS=	libsecret:primary:std
 			qt6-qtbase:primary:std
 			qt6-qtdeclarative:primary:std
@@ -43,6 +46,9 @@ BUILDRUN_DEPENDS=	libsecret:primary:std
 			qt6-qtshadertools:primary:std
 			qt6-qtquick3d:primary:std
 			qt6-qttools:primary:std
+			qt6-qtsvg:primary:std
+			qt6-qtquicktimeline:primary:std
+			libarchive:primary:std
 
 USES=			qt6 cmake pkgconfig python execinfo
 			desktop-utils:single
@@ -55,8 +61,10 @@ SOVERSION=		${SOVERSION}
 CMAKE_ARGS=		-DBUILD_WITH_PCH:BOOL=OFF
 			-DBUILD_PLUGIN_APPSTATISTICSMONITOR:BOOL=OFF
 			-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt6/cmake
+			-DQTC_USE_SYSTEM_LIBARCHIVE:BOOL=ON
 			-Wno-dev
 CONFIGURE_ENV=		LANG=en_US.UTF-8
+LDFLAGS=		-Wl,-rpath,{{PREFIX}}/lib/qtcreator
 
 post-extract:
 	${AWK} '/Licenses and Attributions/,EOF' \
@@ -66,5 +74,6 @@ post-install:
 	${RM} -r ${STAGEDIR}${PREFIX}/share/qtcreator/changelog
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/qtcreator
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/qtcreator/plugins/*.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/qtcreator/plugins/qmldesigner/*.so
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/qtcreator/lib*.so.${SOVERSION}
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/libexec/qtcreator/*
