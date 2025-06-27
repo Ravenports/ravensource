@@ -1,4 +1,4 @@
---- src/event/modules/ngx_eventport_module.c.orig	2025-04-23 11:48:54 UTC
+--- src/event/modules/ngx_eventport_module.c.orig	2025-06-24 17:22:41 UTC
 +++ src/event/modules/ngx_eventport_module.c
 @@ -51,7 +51,7 @@ typedef struct  port_notify {
      void       *portnfy_user;   /* user defined */
