@@ -3,15 +3,19 @@ DEF[PORTVERSION]=	0.8.4
 
 NAMEBASE=		extremetuxracer
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		games
 VARIANTS=		std
 SDESC[std]=		Downhill racing game
 HOMEPAGE=		https://sourceforge.net/projects/extremetuxracer/
-CONTACT=		Leonid_Bobrov[goleo@disroot.org]
+CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		SF/extremetuxracer/releases/${PORTVERSION}
-DISTFILE[1]=		etr-${PORTVERSION}.tar.xz:main
+# SITES[main]=		SF/extremetuxracer/releases/${PORTVERSION}
+# DISTFILE[1]=		etr-${PORTVERSION}.tar.xz:main
+# source of SFML 3.0 support patch
+SITES[main]=		GITHUB/jcowgill:extremetuxracer:5823ba6
+DISTFILE[1]=		generated:main
 
 SPKGS[std]=		single
 
@@ -26,7 +30,6 @@ LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/main.cpp
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		games/etracer
-BROKEN[all]=		Will not build with SFML 3.0.0
 
 BUILD_DEPENDS=		openal:dev:std
 			sfml:dev:std
@@ -36,9 +39,10 @@ BUILDRUN_DEPENDS=	libGLU:primary:std
 
 USES=			desktop-utils:single pkgconfig zlib:build
 			freetype:build
+			autoreconf
 XORG_COMPONENTS=	x11
 MUST_CONFIGURE=		gnu
-DISTNAME=		etr-${PORTVERSION}
+# DISTNAME=		etr-${PORTVERSION}
 
 post-install:
 	${RM} -r ${STAGEDIR}${PREFIX}/share/doc/etr
