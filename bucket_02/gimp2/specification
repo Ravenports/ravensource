@@ -1,0 +1,116 @@
+DEF[PORTVERSION]=	2.10.38
+DEF[SOVERSION]=		0.1000.${PORTVERSION:E}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gimp2
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		std
+SDESC[std]=		GNU Image Manipulation Program
+HOMEPAGE=		https://www.gimp.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GIMP/gimp/v${PORTVERSION:R}
+DISTFILE[1]=		gimp-${PORTVERSION}.tar.bz2:main
+
+SPKGS[std]=		set primary dev docs man nls
+
+OPTIONS_AVAILABLE=	LINUX
+OPTIONS_STANDARD=	LINUX
+OPT_ON[linux]=		LINUX
+
+NOT_FOR_OPSYS=		freebsd
+
+FPC_EQUIVALENT=		graphics/gimp-app
+
+BUILD_DEPENDS=		iso-codes:primary:std
+			libde265:dev:std
+			x265:dev:std
+			harfbuzz:dev:std
+			poppler:glibdev:std
+			poppler-data:dev:std
+			poppler:dev:std
+			libheif:dev:std
+			libmng:dev:std
+			gegl:dev:std
+			babl:dev:std
+			lcms2:dev:std
+			glib-networking:dev:std
+			libwmf:dev:std
+			alsa-lib:dev:std
+			gexiv2:dev:std
+			openexr:dev:std
+			WebP:dev:std
+			libmypaint:dev:std
+			openjpeg:dev:std
+			aalib:dev:std
+			json-glib:dev:std
+			libjxl:dev:std
+BUILDRUN_DEPENDS=	libmypaint:primary:std
+			mypaint-brushes1:single:std
+			glib-networking:primary:std
+			gegl:primary:std
+			alsa-lib:primary:std
+			harfbuzz:primary:std
+			aalib:primary:std
+			libmng:primary:std
+			libwmf:primary:std
+			libheif:primary:std
+			ghostscript:primary:std
+			xdg-utils:primary:std
+			poppler:glib:std
+			poppler-data:primary:std
+			lcms2:primary:std
+			gexiv2:primary:std
+			openexr:primary:std
+			WebP:primary:std
+			openjpeg:primary:std
+			json-glib:primary:std
+			libjxl:primary:std
+
+USES=			cpe gmake jpeg iconv libtool pkgconfig shebangfix
+			freetype execinfo xz bz2 zlib tiff mbsdfix
+			gnome-icons:primary desktop-utils:primary
+GNOME_COMPONENTS=	cairo gtk2 intltool librsvg
+XORG_COMPONENTS=	ice sm x11 xcursor xext xfixes xmu xpm xt
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
+CONFIGURE_ARGS=		--with-html-dir={{STD_DOCDIR}}
+			--with-bug-report-url="https://ravenports.com/"
+			--disable-gtk-doc
+			--with-print
+			--enable-default-binary
+			--disable-gimp-console
+			--disable-python
+			--without-appdata-test
+			--with-desktop-dir={{PREFIX}}/share
+			--with-icc-directory={{LOCALBASE}}/share/color/icc
+			--without-webkit
+			--with-aa
+			--with-libmng
+			--with-openexr
+			--with-jpeg2000
+			--with-libheif
+			--with-webp
+			--with-wmf
+			--with-gs
+CONFIGURE_ENV=		GIMP_THREAD_LIBS=-lpthread
+			LIBS={{VAR1}}
+CFLAGS=			-Wno-deprecated-declarations
+CPE_VENDOR=		gimp
+CPE_PRODUCT=		gimp
+DISTNAME=		gimp-${PORTVERSION}
+SHEBANG_FILES=		plug-ins/pygimp/plug-ins/*.py
+SOVERSION=		${SOVERSION}
+INSTALL_REQ_TOOLCHAIN=	yes
+
+[LINUX].DESCRIPTION=			Build variations for Linux
+[LINUX].CONFIGURE_ARGS_OFF=		--without-linux-input
+					--without-gudev
+[LINUX].CONFIGURE_ARGS_ON=		--with-linux-input
+					--with-gudev
+[LINUX].BUILD_DEPENDS_ON=		libgudev:dev:std
+[LINUX].BUILDRUN_DEPENDS_ON=		libgudev:primary:std
+[LINUX].MAKEFILE_ON=			VAR1="-lexecinfo -lm -ldl"
+[LINUX].MAKEFILE_OFF=			VAR1="-lexecinfo -lm"
