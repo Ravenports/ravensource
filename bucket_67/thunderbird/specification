@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	138.0.1
+DEF[PORTVERSION]=	139.0.2
 # DEF[CPE_SW_EDITION]=	esr
 # DEF[TVER]=		${PORTVERSION}${CPE_SW_EDITION}
 DEF[TVER]=		${PORTVERSION}
@@ -180,7 +180,7 @@ post-patch:
 		>> ${WRKSRC}/.mozconfig
 
 	# disable rust checksums
-.for RD in mtu quinn-udp
+.for RD in mtu quinn-udp wgpu-hal
 	${REINPLACE_CMD} -e 's/"files":{[^}]*}/"files":{}/' \
 		 ${WRKSRC}/comm/third_party/rust/${RD}/.cargo-checksum.json
 .endfor
