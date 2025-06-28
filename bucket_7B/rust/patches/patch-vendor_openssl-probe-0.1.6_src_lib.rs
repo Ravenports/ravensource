@@ -1,6 +1,6 @@
---- vendor/openssl-probe-0.1.5/src/lib.rs.orig	2025-06-28 00:05:37 UTC
-+++ vendor/openssl-probe-0.1.5/src/lib.rs
-@@ -26,11 +26,8 @@ fn cert_dirs_iter() -> impl Iterator<Ite
+--- vendor/openssl-probe-0.1.6/src/lib.rs.orig	2025-06-28 00:05:37 UTC
++++ vendor/openssl-probe-0.1.6/src/lib.rs
+@@ -31,11 +31,8 @@ pub fn candidate_cert_dirs() -> impl Ite
      [
          "/var/ssl",
          "/usr/share/ssl",
