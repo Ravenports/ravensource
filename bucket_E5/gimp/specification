@@ -1,10 +1,9 @@
-DEF[PORTVERSION]=	2.10.38
-DEF[SOVERSION]=		0.1000.${PORTVERSION:E}
+DEF[PORTVERSION]=	3.0.4
+DEF[SOVERSION]=		0.0.4
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gimp
 VERSION=		${PORTVERSION}
-REVISION=		3
 KEYWORDS=		graphics
 VARIANTS=		std
 SDESC[std]=		GNU Image Manipulation Program
@@ -13,7 +12,7 @@ CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		GIMP/gimp/v${PORTVERSION:R}
-DISTFILE[1]=		gimp-${PORTVERSION}.tar.bz2:main
+DISTFILE[1]=		gimp-${PORTVERSION}.tar.xz:main
 
 SPKGS[std]=		set primary dev docs man nls
 
@@ -22,6 +21,8 @@ OPTIONS_STANDARD=	LINUX
 OPT_ON[linux]=		LINUX
 
 FPC_EQUIVALENT=		graphics/gimp-app
+
+BROKEN[dragonfly]=	Fails self-hosting of splash png
 
 BUILD_DEPENDS=		iso-codes:primary:std
 			libde265:dev:std
@@ -46,6 +47,9 @@ BUILD_DEPENDS=		iso-codes:primary:std
 			aalib:dev:std
 			json-glib:dev:std
 			libjxl:dev:std
+			appstream-glib:dev:std
+			python-gi-docgen:set:python_used
+
 BUILDRUN_DEPENDS=	libmypaint:primary:std
 			mypaint-brushes1:single:std
 			glib-networking:primary:std
@@ -67,48 +71,50 @@ BUILDRUN_DEPENDS=	libmypaint:primary:std
 			openjpeg:primary:std
 			json-glib:primary:std
 			libjxl:primary:std
+			appstream-glib:primary:std
+			gsettings-desktop-schemas:primary:std
 
-USES=			cpe gmake jpeg iconv libtool pkgconfig shebangfix
-			freetype execinfo xz bz2 zlib tiff mbsdfix
-			gnome-icons:primary desktop-utils:primary
-GNOME_COMPONENTS=	cairo gtk2 intltool librsvg
+USES=			cpe meson jpeg iconv pkgconfig
+			freetype execinfo xz bz2 zlib tiff ssl:build
+			gnome-icons:primary desktop-utils:primary python
+GNOME_COMPONENTS=	cairo gtk3 intltool librsvg introspection
 XORG_COMPONENTS=	ice sm x11 xcursor xext xfixes xmu xpm xt
-MUST_CONFIGURE=		gnu
-INSTALL_TARGET=		install-strip
-CONFIGURE_ARGS=		--with-html-dir={{STD_DOCDIR}}
-			--with-bug-report-url="https://ravenports.com/"
-			--disable-gtk-doc
-			--with-print
-			--enable-default-binary
-			--disable-gimp-console
-			--disable-python
-			--without-appdata-test
-			--with-desktop-dir={{PREFIX}}/share
-			--with-icc-directory={{LOCALBASE}}/share/color/icc
-			--without-webkit
-			--with-aa
-			--with-libmng
-			--with-openexr
-			--with-jpeg2000
-			--with-libheif
-			--with-webp
-			--with-wmf
-			--with-gs
-CONFIGURE_ENV=		GIMP_THREAD_LIBS=-lpthread
-			LIBS={{VAR1}}
-CFLAGS=			-Wno-deprecated-declarations
+MESON_ARGS=		-Daa=enabled
+			-Dmng=enabled
+			-Dopenexr=enabled
+			-Djpeg2000=enabled
+			-Dheif=enabled
+			-Dwebp=enabled
+			-Dwmf=enabled
+			-Dghostscript=enabled
+			-Dalsa=disabled
+			-Dappdata-test=disabled
+			-Dicc-directory="{{LOCALBASE}}/share/color/icc"
+			-Dlinux-input=disabled
+			-Denable-console-bin=true
+			-Denable-multiproc=true
+			-Dprint=true
+			-Dbug-report-url="https://ravenports.com/"
+			-Dgi-docgen=enabled
+			-Dshmem-type=posix
+			-Dcheck-update=no
+			-Dheadless-tests=disabled
+			-Dappdata-test=disabled
+			-Dgudev=disabled
 CPE_VENDOR=		gimp
 CPE_PRODUCT=		gimp
-SHEBANG_FILES=		plug-ins/pygimp/plug-ins/*.py
 SOVERSION=		${SOVERSION}
-INSTALL_REQ_TOOLCHAIN=	yes
 
 [LINUX].DESCRIPTION=			Build variations for Linux
-[LINUX].CONFIGURE_ARGS_OFF=		--without-linux-input
-					--without-gudev
+# [LINUX].CONFIGURE_ARGS_OFF=		--without-linux-input
+# #--without-gudev
 [LINUX].CONFIGURE_ARGS_ON=		--with-linux-input
 					--with-gudev
 [LINUX].BUILD_DEPENDS_ON=		libgudev:dev:std
 [LINUX].BUILDRUN_DEPENDS_ON=		libgudev:primary:std
 [LINUX].MAKEFILE_ON=			VAR1="-lexecinfo -lm -ldl"
 [LINUX].MAKEFILE_OFF=			VAR1="-lexecinfo -lm"
+
+post-extract:
+	${CP} ${FILESDIR}/cp-plug-in-subfolder.py ${WRKSRC}/build/meson/
+	glib-compile-schemas ${LOCALBASE}/share/glib-2.0/schemas

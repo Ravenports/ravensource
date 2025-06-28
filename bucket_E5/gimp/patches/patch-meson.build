@@ -1,0 +1,19 @@
+--- meson.build.orig	2025-05-17 22:51:03 UTC
++++ meson.build
+@@ -1587,6 +1587,7 @@ conf.set('NO_FD_SET',
+   not platform_windows
+   and not cc.compiles('''
+     #include <sys/types.h>
++    #include <sys/select.h>
+     int main() { fd_set readMask, writeMask; return 0; }
+   ''')
+ )
+@@ -1994,7 +1995,7 @@ if meson.can_run_host_binaries() and hav
+ 
+   gimp_run_env.set('GIMP_TESTING_INTERPRETER_DIRS', meson.global_build_root() / 'plug-ins/python/')
+   gimp_run_env.append('GIMP_TESTING_INTERPRETER_DIRS', meson.global_build_root() / 'extensions/')
+-  gimp_run_env.set('GIMP_TESTING_ENVIRON_DIRS', meson.global_source_root() / 'data/environ/')
++  gimp_run_env.set('GIMP_TESTING_ENVIRON_DIRS', meson.global_build_root() / 'data/environ/')
+ 
+   # Makes build errors output way less polluted, making easier to debug
+   gimp_run_env.set('GIMP3_LOCALEDIR', meson.global_build_root() / 'po-plug-ins')
