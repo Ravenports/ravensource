@@ -173,8 +173,6 @@ post-patch:
 	# Ensure dwarf4-compatible addr2line
 	${REINPLACE_CMD} -e 's|/usr/bin/addr2line|${PREFIX:H}/bin/addr2line|g'\
 		${WRKSRC}/gcc/ada/traceback_symbolic.c
-	${REINPLACE_CMD} -e 's|static:crtbeginT.o%s;||' \
-		${WRKSRC}/gcc/config/freebsd-spec.h
 
 post-patch-linux:
 	# undo BSD thin socket modification
