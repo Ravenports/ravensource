@@ -1,4 +1,4 @@
---- external/skia/UnpackedTarball_skia.mk.orig	2025-03-21 15:34:31 UTC
+--- external/skia/UnpackedTarball_skia.mk.orig	2025-06-05 10:22:59 UTC
 +++ external/skia/UnpackedTarball_skia.mk
 @@ -24,7 +24,6 @@ skia_patches := \
      windows-text-gamma.patch.0 \
