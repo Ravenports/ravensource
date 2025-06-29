@@ -8,6 +8,7 @@ DEF[SKIA]=		m130-3c64459d5df2fa9794b277f0959ed8a92552bf4c
 DEF[DRAGONBOX]=		1.1.3
 DEF[BOX2D]=		2.4.1
 DEF[CMIS]=		0.6.2
+DEF[GPGME]=		1.24.3
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libreoffice
@@ -31,12 +32,14 @@ DISTFILE[5]=		skia-${SKIA}.tar.xz:devwww
 DISTFILE[6]=		dragonbox-${DRAGONBOX}.tar.gz:devwww
 DISTFILE[7]=		libcmis-${CMIS}.tar.xz:devwww
 DISTFILE[8]=		box2d-${BOX2D}.tar.gz:devwww
-DF_INDEX=		1 2 3 4 5 6 7 8
+DISTFILE[9]=		gpgme-${GPGME}.tar.bz2:devwww
+DF_INDEX=		1 2 3 4 5 6 7 8 9
 
 SPKGS[std]=		set primary man
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	GPGME
+OPTIONS_STANDARD=	GPGME
+OPT_ON[linux]=		GPGME
 
 LICENSE=		MPL:primary
 LICENSE_FILE=		MPL:{{WRKSRC}}/COPYING.MPL
@@ -220,6 +223,9 @@ BUILD_TARGET=		build
 INSTALL_TARGET=		distro-pack-install
 PLIST_SUB=		LOCALBASE="{{LOCALBASE}}"
 
+[GPGME].DESCRIPTION=			Build with embedded gpgme++
+[GPGME].CONFIGURE_ARGS_ON=		--with-system-gpgmepp=no
+
 post-extract:
 	${MKDIR} ${WRKSRC}/src
 	${MKDIR} ${WRKSRC}/tarballs
@@ -228,6 +234,7 @@ post-extract:
 	${CP} ${DISTDIR}/skia-${SKIA}.tar.xz ${WRKSRC}/tarballs
 	${CP} ${DISTDIR}/dragonbox-${DRAGONBOX}.tar.gz ${WRKSRC}/tarballs
 	${CP} ${DISTDIR}/box2d-${BOX2D}.tar.gz ${WRKSRC}/tarballs
+	${CP} ${DISTDIR}/gpgme-${GPGME}.tar.bz2 ${WRKSRC}/tarballs
 	if [ "${PORTVERSION}" != "${HELPVERSION}" ]; then \
 	   ${MV} ${WRKDIR}/libreoffice-${HELPVERSION}/helpcontent2 \
 	   ${WRKDIR}/libreoffice-${PORTVERSION}/;\
