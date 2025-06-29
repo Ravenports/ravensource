@@ -100,16 +100,15 @@ MESON_ARGS=		-Daa=enabled
 			-Dcheck-update=no
 			-Dheadless-tests=disabled
 			-Dappdata-test=disabled
-			-Dgudev=disabled
 CPE_VENDOR=		gimp
 CPE_PRODUCT=		gimp
 SOVERSION=		${SOVERSION}
 
 [LINUX].DESCRIPTION=			Build variations for Linux
-# [LINUX].CONFIGURE_ARGS_OFF=		--without-linux-input
-# #--without-gudev
-[LINUX].CONFIGURE_ARGS_ON=		--with-linux-input
-					--with-gudev
+[LINUX].CONFIGURE_ARGS_OFF=		-Dlinux-input=disabled
+					-Dgudev=disabled
+[LINUX].CONFIGURE_ARGS_ON=		-Dlinux-input=enabled
+					-Dgudev=enabled
 [LINUX].BUILD_DEPENDS_ON=		libgudev:dev:std
 [LINUX].BUILDRUN_DEPENDS_ON=		libgudev:primary:std
 [LINUX].MAKEFILE_ON=			VAR1="-lexecinfo -lm -ldl"
