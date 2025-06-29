@@ -1,4 +1,4 @@
---- src/app/app.cc.orig	2025-04-13 07:54:57 UTC
+--- src/app/app.cc.orig	2025-06-05 06:21:19 UTC
 +++ src/app/app.cc
 @@ -4860,7 +4860,15 @@ main(int argc,
                 struct termios tcattr;
