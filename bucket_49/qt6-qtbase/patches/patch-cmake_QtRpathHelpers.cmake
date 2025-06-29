@@ -1,4 +1,4 @@
---- cmake/QtRpathHelpers.cmake.orig	2025-03-27 14:17:21 UTC
+--- cmake/QtRpathHelpers.cmake.orig	2025-05-28 10:22:57 UTC
 +++ cmake/QtRpathHelpers.cmake
 @@ -8,6 +8,8 @@ function(qt_internal_get_relative_rpath_
          set(rpath_rel_base "@loader_path")

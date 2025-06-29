@@ -840,7 +840,6 @@ include/qt6/QtCore/%%QTVER%%/QtCore/private/qconfig_p.h
 include/qt6/QtCore/%%QTVER%%/QtCore/private/qcore_unix_p.h
 include/qt6/QtCore/%%QTVER%%/QtCore/private/qcoreapplication_p.h
 include/qt6/QtCore/%%QTVER%%/QtCore/private/qcoreevent_p.h
-include/qt6/QtCore/%%QTVER%%/QtCore/private/qdatastream_p.h
 include/qt6/QtCore/%%QTVER%%/QtCore/private/qdataurl_p.h
 include/qt6/QtCore/%%QTVER%%/QtCore/private/qdatetime_p.h
 include/qt6/QtCore/%%QTVER%%/QtCore/private/qdatetimeparser_p.h
@@ -955,6 +954,7 @@ include/qt6/QtCore/%%QTVER%%/QtCore/private/qtenvironmentvariables_p.h
 include/qt6/QtCore/%%QTVER%%/QtCore/private/qtextstream_p.h
 include/qt6/QtCore/%%QTVER%%/QtCore/private/qthread_p.h
 include/qt6/QtCore/%%QTVER%%/QtCore/private/qthreadpool_p.h
+include/qt6/QtCore/%%QTVER%%/QtCore/private/qthreadstorage_p.h
 include/qt6/QtCore/%%QTVER%%/QtCore/private/qtimer_p.h
 include/qt6/QtCore/%%QTVER%%/QtCore/private/qtimerinfo_unix_p.h
 include/qt6/QtCore/%%QTVER%%/QtCore/private/qtimezonelocale_p.h
@@ -1656,7 +1656,6 @@ include/qt6/QtGui/%%QTVER%%/QtGui/rhi/qrhi.h
 include/qt6/QtGui/%%QTVER%%/QtGui/rhi/qrhi_platform.h
 include/qt6/QtGui/%%QTVER%%/QtGui/rhi/qshader.h
 include/qt6/QtGui/%%QTVER%%/QtGui/rhi/qshaderdescription.h
-include/qt6/QtInputSupport/QtInputSupportDepends
 include/qt6/QtNetwork/QAbstractNetworkCache
 include/qt6/QtNetwork/QAbstractSocket
 include/qt6/QtNetwork/QAuthenticator
@@ -2615,8 +2614,6 @@ lib/qt6/libQt6FbSupport.a
 lib/qt6/libQt6FbSupport.prl
 lib/qt6/libQt6Gui.prl
 lib/qt6/libQt6Gui.so
-lib/qt6/libQt6InputSupport.a
-lib/qt6/libQt6InputSupport.prl
 lib/qt6/libQt6Network.prl
 lib/qt6/libQt6Network.so
 lib/qt6/libQt6OpenGL.prl
@@ -2840,6 +2837,8 @@ lib/qt6/cmake/Qt6/qbatchedtestrunner.in.cpp
 lib/qt6/cmake/Qt6/qt-internal-config.redo.bat.in
 lib/qt6/cmake/Qt6/qt-internal-config.redo.in
 lib/qt6/cmake/Qt6/qt.toolchain.cmake
+lib/qt6/cmake/Qt6/3rdparty/extra-cmake-modules/0001-ECMEnableSanitizers.cmake-fix-GCC-s-note-variable-tr.patch
+lib/qt6/cmake/Qt6/3rdparty/extra-cmake-modules/0002-ECMEnableSanitizers.cmake-replace-tabs-with-spaces.patch
 lib/qt6/cmake/Qt6/3rdparty/extra-cmake-modules/COPYING-CMAKE-SCRIPTS
 lib/qt6/cmake/Qt6/3rdparty/extra-cmake-modules/REUSE.toml
 lib/qt6/cmake/Qt6/3rdparty/extra-cmake-modules/qt_attribution.json
@@ -3104,15 +3103,7 @@ lib/qt6/cmake/Qt6GuiTools/Qt6GuiToolsTargets-release.cmake
 lib/qt6/cmake/Qt6GuiTools/Qt6GuiToolsTargets.cmake
 lib/qt6/cmake/Qt6GuiTools/Qt6GuiToolsVersionlessTargets.cmake
 lib/qt6/cmake/Qt6HostInfo/Qt6HostInfoConfig.cmake
-lib/qt6/cmake/Qt6InputSupportPrivate/Qt6InputSupportPrivateAdditionalTargetInfo.cmake
-lib/qt6/cmake/Qt6InputSupportPrivate/Qt6InputSupportPrivateConfig.cmake
-lib/qt6/cmake/Qt6InputSupportPrivate/Qt6InputSupportPrivateConfigVersion.cmake
-lib/qt6/cmake/Qt6InputSupportPrivate/Qt6InputSupportPrivateConfigVersionImpl.cmake
-lib/qt6/cmake/Qt6InputSupportPrivate/Qt6InputSupportPrivateDependencies.cmake
-lib/qt6/cmake/Qt6InputSupportPrivate/Qt6InputSupportPrivateTargets-release.cmake
-lib/qt6/cmake/Qt6InputSupportPrivate/Qt6InputSupportPrivateTargets.cmake
-lib/qt6/cmake/Qt6InputSupportPrivate/Qt6InputSupportPrivateVersionlessAliasTargets.cmake
-lib/qt6/cmake/Qt6InputSupportPrivate/Qt6InputSupportPrivateVersionlessTargets.cmake
+lib/qt6/cmake/Qt6HostInfo/Qt6HostInfoConfigVersion.cmake
 lib/qt6/cmake/Qt6Network/Qt6NetworkAdditionalTargetInfo.cmake
 lib/qt6/cmake/Qt6Network/Qt6NetworkConfig.cmake
 lib/qt6/cmake/Qt6Network/Qt6NetworkConfigVersion.cmake
@@ -3311,7 +3302,6 @@ lib/qt6/metatypes/qt6exampleiconsprivate_release_metatypes.json
 lib/qt6/metatypes/qt6examplesassetdownloaderprivate_release_metatypes.json
 lib/qt6/metatypes/qt6fbsupportprivate_release_metatypes.json
 lib/qt6/metatypes/qt6gui_release_metatypes.json
-lib/qt6/metatypes/qt6inputsupportprivate_release_metatypes.json
 lib/qt6/metatypes/qt6network_release_metatypes.json
 lib/qt6/metatypes/qt6opengl_release_metatypes.json
 lib/qt6/metatypes/qt6openglwidgets_release_metatypes.json
@@ -3717,7 +3707,6 @@ lib/qt6/mkspecs/modules/qt_lib_examples_asset_downloader_private.pri
 lib/qt6/mkspecs/modules/qt_lib_fb_support_private.pri
 lib/qt6/mkspecs/modules/qt_lib_gui.pri
 lib/qt6/mkspecs/modules/qt_lib_gui_private.pri
-lib/qt6/mkspecs/modules/qt_lib_input_support_private.pri
 lib/qt6/mkspecs/modules/qt_lib_network.pri
 lib/qt6/mkspecs/modules/qt_lib_network_private.pri
 lib/qt6/mkspecs/modules/qt_lib_opengl.pri
@@ -3809,7 +3798,6 @@ lib/qt6/modules/ExampleIconsPrivate.json
 lib/qt6/modules/ExamplesAssetDownloaderPrivate.json
 lib/qt6/modules/FbSupportPrivate.json
 lib/qt6/modules/Gui.json
-lib/qt6/modules/InputSupportPrivate.json
 lib/qt6/modules/Network.json
 lib/qt6/modules/OpenGL.json
 lib/qt6/modules/OpenGLWidgets.json

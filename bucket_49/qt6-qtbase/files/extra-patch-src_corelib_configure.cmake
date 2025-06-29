@@ -1,4 +1,4 @@
---- src/corelib/configure.cmake.orig	2025-03-27 14:17:21 UTC
+--- src/corelib/configure.cmake.orig	2025-05-28 10:22:57 UTC
 +++ src/corelib/configure.cmake
 @@ -168,8 +168,6 @@ std::filesystem::copy(
  # dladdr

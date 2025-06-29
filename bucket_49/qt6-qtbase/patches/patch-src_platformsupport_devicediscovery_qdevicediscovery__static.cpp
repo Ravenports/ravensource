@@ -1,4 +1,4 @@
---- src/platformsupport/devicediscovery/qdevicediscovery_static.cpp.orig	2025-03-27 14:17:21 UTC
+--- src/platformsupport/devicediscovery/qdevicediscovery_static.cpp.orig	2025-05-28 10:22:57 UTC
 +++ src/platformsupport/devicediscovery/qdevicediscovery_static.cpp
 @@ -11,11 +11,7 @@
  #include <QLoggingCategory>
