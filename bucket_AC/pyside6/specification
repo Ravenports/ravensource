@@ -62,6 +62,10 @@ DISTNAME=		pyside-setup-everywhere-src-${PORTVERSION}/sources/pyside6
 SOVERSION=		${SOVERSION}
 PLIST_SUB=		SOMAXMIN=${SOVERSION:R}
 
+# fix clang on linux
+VAR_OPSYS[linux]=	LDFLAGS=-L{{LOCALBASE}}/lib
+			LDFLAGS=-Wl,-rpath,{{LOCALBASE}}/lib
+
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/qt6/plugins/designer/libPySidePlugin.so
 	${STRIP_CMD} ${STAGEDIR}${PYTHON_SITELIBDIR}/PySide6/QtExampleIcons.abi3.so
