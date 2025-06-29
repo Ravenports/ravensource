@@ -1,4 +1,4 @@
---- src/pipewire/impl-node.c.orig	2025-05-22 08:59:37 UTC
+--- src/pipewire/impl-node.c.orig	2025-06-27 11:16:18 UTC
 +++ src/pipewire/impl-node.c
 @@ -8,7 +8,9 @@
  #include <unistd.h>

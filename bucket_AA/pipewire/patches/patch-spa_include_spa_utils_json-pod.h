@@ -1,4 +1,4 @@
---- spa/include/spa/utils/json-pod.h.orig	2025-05-22 08:59:37 UTC
+--- spa/include/spa/utils/json-pod.h.orig	2025-06-27 11:16:18 UTC
 +++ spa/include/spa/utils/json-pod.h
 @@ -121,7 +121,7 @@ SPA_API_JSON_POD int spa_json_to_pod_par
  		spa_pod_builder_none(b);

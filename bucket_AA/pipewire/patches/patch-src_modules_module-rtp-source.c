@@ -1,4 +1,4 @@
---- src/modules/module-rtp-source.c.orig	2025-05-22 08:59:37 UTC
+--- src/modules/module-rtp-source.c.orig	2025-06-27 11:16:18 UTC
 +++ src/modules/module-rtp-source.c
 @@ -267,10 +267,16 @@ static int make_socket(const struct sock
  		static const uint32_t ipv4_mcast_mask = 0xe0000000;

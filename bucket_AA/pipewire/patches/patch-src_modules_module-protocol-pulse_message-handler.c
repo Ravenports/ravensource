@@ -1,4 +1,4 @@
---- src/modules/module-protocol-pulse/message-handler.c.orig	2025-05-22 08:59:37 UTC
+--- src/modules/module-protocol-pulse/message-handler.c.orig	2025-06-27 11:16:18 UTC
 +++ src/modules/module-protocol-pulse/message-handler.c
 @@ -6,7 +6,9 @@
  #include <stdio.h>
