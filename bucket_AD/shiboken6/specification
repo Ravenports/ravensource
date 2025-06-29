@@ -42,6 +42,7 @@ CMAKE_ARGS=		-DCMAKE_CXX_STANDARD_LIBRARIES=-lexecinfo
 			-DNUMPY_INCLUDE_DIR:PATH="{{PYTHON_SITELIBDIR}}/numpy/_core/include"
 DISTNAME=		pyside-setup-everywhere-src-${PORTVERSION}/sources/shiboken6
 CXXFLAGS=		-Wno-unused-lambda-capture
+LDFLAGS=		-L{{LOCALBASE}}/lib -Wl,-rpath,{{LOCALBASE}/lib
 SOVERSION=		${SOVERSION}
 PLIST_SUB=		SOMAXMIN=${SOVERSION:R}
 
@@ -49,3 +50,4 @@ post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/shiboken6
 	# create python cache files
 	(cd ${STAGEDIR} && python -m compileall -f -d / . ||:)
+
