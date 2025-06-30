@@ -1,5 +1,5 @@
 # On linux, libintl is part of glibc so libintl.so doesn't get installed
-.if ${OPSYS} == Linux
+.if ${OPSYS} == Linux || ${OPSYS} == SunOS
 EXTERNAL="@comment "
 .else
 EXTERNAL=""
