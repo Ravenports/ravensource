@@ -49,7 +49,7 @@ INSTALL_TARGET=		install install-tex
 CPE_VENDOR=		gnu
 CPE_VERSION=		${PORTVERSION:R}
 PLIST_SUB=		TEXMF=share/texmf
-			XS={{NOXS:U""}}
+			TEXI2ANY={{NOT2A:U""}}
 INFO=			info:texinfo
 			info:info-stnd
 			info:texi2any_api
@@ -58,7 +58,7 @@ MAKE_ARGS=		TEXMF={{LOCALBASE}}/share/texmf
 			PERL={{LOCALBASE}}/bin/perl
 INSTALL_REQ_TOOLCHAIN=	yes
 
-VAR_OPSYS[midnightbsd]=	MAKEFILE_LINE=NOXS="@comment "
+VAR_OPSYS[sunos]=	MAKEFILE_LINE=NOT2A="@comment "
 
 post-extract:
 	${CHMOD} 755 ${WRKSRC}/build-aux/install-sh
