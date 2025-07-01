@@ -36,21 +36,12 @@ USES=			cpe charsetfix gmake
 CPE_VENDOR=		gnu
 MUST_CONFIGURE=		gnu
 
-# All platforms except for Darwin build properly
-# On Darwin, the programs relink the static libraries and
-# programs again during stage phase.  Once fixed, the
-# following line can be removed.
-# INSTALL_REQ_TOOLCHAIN=	yes
-
 [RAVENSYS].DESCRIPTION=			For ravensys-root - built without NLS
 [RAVENSYS].USES_OFF=			gettext
 [RAVENSYS].CONFIGURE_ARGS_OFF=		--program-prefix=g
 					--enable-nls
 [RAVENSYS].CONFIGURE_ARGS_ON=		--disable-nls
 [RAVENSYS].INFO_OFF=			info:sed
-
-post-patch-darwin:
-	${REINPLACE_CMD} -e "s|'cr'|'Scr'|" ${WRKSRC}/configure
 
 do-test:
 	(cd ${WRKSRC}/testsuite && ${MAKE} check)
