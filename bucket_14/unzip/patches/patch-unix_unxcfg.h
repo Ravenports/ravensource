@@ -5,7 +5,7 @@ $NetBSD: patch-unix_unxcfg.h,v 1.2 2014/05/03 11:24:19 ryoon Exp $
   Patch from OpenBSD Ports
   "timeb was already well deprecated on 4.4BSD"
 
---- unix/unxcfg.h.orig	2009-04-16 18:36:12.000000000 +0000
+--- unix/unxcfg.h.orig	2009-04-16 18:36:12 UTC
 +++ unix/unxcfg.h
 @@ -52,6 +52,7 @@
  

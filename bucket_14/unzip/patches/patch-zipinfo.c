@@ -3,7 +3,7 @@ $NetBSD: patch-zipinfo.c,v 1.1 2017/02/04 23:25:59 wiz Exp $
 Fix crash in zipinfo, CVE-2016-9844.
 http://www.openwall.com/lists/oss-security/2016/12/05/19
 
---- zipinfo.c.orig	2009-02-08 17:04:30.000000000 +0000
+--- zipinfo.c.orig	2009-02-08 17:04:30 UTC
 +++ zipinfo.c
 @@ -1921,7 +1921,18 @@ static int zi_short(__G)   /* return PK-
          ush  dnum=(ush)((G.crec.general_purpose_bit_flag>>1) & 3);

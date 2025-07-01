@@ -2,7 +2,7 @@ $NetBSD: patch-fileio.c,v 1.1 2014/12/25 16:48:33 wiz Exp $
 
 https://bugzilla.redhat.com/show_bug.cgi?id=CVE-2014-8141
 
---- fileio.c.orig	2009-04-20 00:03:44.000000000 +0000
+--- fileio.c.orig	2009-04-20 00:03:44 UTC
 +++ fileio.c
 @@ -176,6 +176,8 @@ static ZCONST char Far FilenameTooLongTr
  #endif
