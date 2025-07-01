@@ -54,7 +54,22 @@
      return rval;
  }
  
-@@ -155,6 +158,6 @@ backtrace_symbols_fd(void *const *buffer
+@@ -141,7 +144,7 @@ backtrace_symbols_fd(void *const *buffer
+                   5 +                      /* "> at " */
+                   strlen(info.dli_fname) + /* "filename" */
+                   2;                       /* "\n\0" */
+-            buf = alloca(len);
++            buf = __builtin_alloca(len);
+             if (buf == NULL)
+                 return;
+             snprintf(buf, len, "%p <%s+%d> at %s\n",
+@@ -150,11 +153,11 @@ backtrace_symbols_fd(void *const *buffer
+             len = 2 +                      /* "0x" */
+                   (sizeof(void *) * 2) +   /* "01234567" */
+                   2;                       /* "\n\0" */
+-            buf = alloca(len);
++            buf = __builtin_alloca(len);
+             if (buf == NULL)
                  return;
              snprintf(buf, len, "%p\n", buffer[i]);
          }
