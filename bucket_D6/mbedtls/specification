@@ -48,6 +48,8 @@ PLIST_SUB=		SO_TLS=${SO_TLS}
 			SO_509=${SO_509}
 			SO_CRYPTO=${SO_CRYPTO}
 
+VAR_OPSYS[sunos]=	LDFLAGS=-lsocket
+
 pre-build:
 	${FIND} ${WRKSRC} -name "*.orig" -delete
 	${REINPLACE_CMD} \

@@ -34,13 +34,26 @@ FPC_EQUIVALENT=		devel/libtool
 # Accordingly, don't install INFO=libtool which requires makeinfo which
 # has a huge dependency chain.
 
-USES=			cpe macfix
+USES=			cpe
 MUST_CONFIGURE=		gnu
 CPE_VENDOR=		gnu
 CPE_PRODUCT=		libtool
 CONFIGURE_ARGS=		--disable-ltdl-install
 
+VAR_OPSYS[sunos]=	CONFIGURE_ENV=LT_SYS_LIBRARY_PATH=/lib/amd64:/usr/lib/amd64
+
 post-patch:
 	${RM} ${WRKSRC}/doc/*.info*
 	${REINPLACE_CMD} -e "/INFO_DEPS =/d" ${WRKSRC}/Makefile.in
 	${FIND} ${WRKSRC} -type f | ${XARGS} ${TOUCH}
+
+post-install-sunos:
+	# During OmniOS bootstrap, the nawk system() command is simply ignored.
+	# hopefully this self-corrects.  To complete the bootstrap, use this hack
+	${AWK} '/^\. ["]/{exit}; {print}' ${WRKSRC}/libtoolize > /tmp/libtoolize
+	${CAT} ${WRKSRC}/build-aux/funclib.sh >> /tmp/libtoolize
+	${CAT} ${WRKSRC}/build-aux/options-parser >> /tmp/libtoolize
+	${CAT} ${WRKSRC}/build-aux/extract-trace >> /tmp/libtoolize
+	${ECHO} "" >> /tmp/libtoolize
+	${AWK} '/^# Set a version string./,EOF' ${WRKSRC}/libtoolize >> /tmp/libtoolize
+	${INSTALL_SCRIPT} /tmp/libtoolize ${STAGEDIR}${PREFIX}/bin/libtoolize

@@ -34,7 +34,7 @@ EXRUN[tools]=		primary
 EXRUN[bldtools]=	primary
 EXRUN[dev]=		aclocal
 
-USES=			charsetfix cpe libtool iconv:build c++:asprintf
+USES=			charsetfix cpe libtool iconv:build,standalone c++:asprintf
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--disable-csharp
 			--disable-java
@@ -82,6 +82,7 @@ pre-configure:
 		-e '/^installdirs-local:/s/installdirs-html//' \
 		${WRKSRC}/gettext-runtime/libasprintf/Makefile.in \
 		${WRKSRC}/gettext-runtime/man/Makefile.in
+
 	# use libiconv_pic.a instead of libiconv.so
 	${REINPLACE_CMD} -e "s|names_next_round='iconv '|names_next_round='iconv_pic '|" \
 		${WRKSRC}/gettext-tools/configure \
@@ -94,6 +95,8 @@ post-install:
 		${STAGEDIR}${PREFIX}/share/gettext/${PORTVERSION:R}
 .if "${.MAKE.OS.NAME}" == "Linux"
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/preloadable_libintl.so
+.elif "${.MAKE.OS.NAME}" == "SunOS"
+	# There's no library to strip
 .else
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libintl.${LIBEXT}
 .endif
