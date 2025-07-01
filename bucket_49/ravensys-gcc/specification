@@ -7,8 +7,10 @@ DEF[GCC_VERSION]=	EXTRACT_INFO(GCCBASE_VERSION)
 DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
 DEF[STDCXX_VERSION]=	6.0.33
 DEF[TOOLCHAIN]=		{{LOCALBASE}}/toolchain
-DEF[DRACO_TAG]=		14.2.0-base
+DEF[DRACO_TAG]=		14.2.0-rev1
 DEF[DRACO_DIR]=		patches-14.2.0
+DEF[DRACO3_TAG]=	14.3.0-base
+DEF[DRACO3_DIR]=	patches-14.3.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ravensys-gcc
@@ -19,16 +21,17 @@ SDESC[std]=		GNU Compiler collection (GCC), Series ${BRANCH}
 HOMEPAGE=		https://gcc.gnu.org/
 CONTACT=		John_Marino[draco@marino.st]
 
-DOWNLOAD_GROUPS=	main draco
+DOWNLOAD_GROUPS=	main draco draco3
 SITES[main]=		GCC/${MS_SUBDIR}
 SITES[draco]=		https://raw.githubusercontent.com/jrmarino/draco/${DRACO_TAG}/generated/${DRACO_DIR}/
+SITES[draco3]=		https://raw.githubusercontent.com/jrmarino/draco/${DRACO3_TAG}/generated/${DRACO3_DIR}/
 DISTFILE[1]=		${IDENTIFICATION}.tar.xz:main
-DISTFILE[2]=		patch-diff-ada:draco
+DISTFILE[2]=		patch-diff-ada:draco3
 DISTFILE[3]=		patch-diff-core:draco
 DISTFILE[4]=		patch-diff-cxx:draco
 DISTFILE[5]=		patch-diff-ada-testsuite:draco
 DISTFILE[6]=		patch-diff-gcc-testsuite:draco
-DIST_SUBDIR=		ravensys-gcc_${DRACO_TAG}
+DIST_SUBDIR=		ravensys-gcc_mixed
 
 SPKGS[std]=		set compilers ada_run cxx_run fortran_run libs infopages
 
@@ -44,7 +47,7 @@ LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING3
 LICENSE_TERMS=		compilers:{{WRKDIR}}/TERMS
 LICENSE_SCHEME=		multi
 
-FPC_EQUIVALENT=		lang/gcc11
+FPC_EQUIVALENT=		lang/gcc14
 
 BUILD_DEPENDS=		gmp:dev:std
 			mpfr:dev:std
@@ -90,9 +93,6 @@ CONFIGURE_ARGS=		--enable-languages="c,c++,ada,fortran"
 			--disable-libmpx
 			--disable-libcilkrts
 			--with-pkgversion="Ravenports"
-
-# gcc10+ is not supported on Solaris 10
-NOT_FOR_OPSYS=		sunos
 
 VAR_OPSYS[dragonfly]=	CONFIGURE_ARGS=--with-gnu-as
 			CONFIGURE_ARGS=--with-as=${TOOLCHAIN}/bin/as
@@ -166,24 +166,16 @@ post-patch:
 		${WRKSRC}/gcc/config/i386/gnu-user64.h \
 		${WRKSRC}/gcc/config/aarch64/aarch64-freebsd.h \
 		${WRKSRC}/gcc/ada/gnatls.adb
-	# Ensure dwarf4-compatible addr2line
-	${REINPLACE_CMD} -e 's|/usr/bin/addr2line|${PREFIX:H}/bin/addr2line|g'\
-		${WRKSRC}/gcc/ada/traceback_symbolic.c
-	${REINPLACE_CMD} -e 's|static:crtbeginT.o%s;||' \
-		${WRKSRC}/gcc/config/freebsd-spec.h
 
 post-patch-linux:
 	# undo BSD thin socket modification
 	${MV} ${WRKSRC}/gcc/ada/libgnat/g-socthi.ads.orig \
 		${WRKSRC}/gcc/ada/libgnat/g-socthi.ads
 
-post-patch-darwin:
+post-patch-sunos:
 	# undo BSD thin socket modification
 	${MV} ${WRKSRC}/gcc/ada/libgnat/g-socthi.ads.orig \
 		${WRKSRC}/gcc/ada/libgnat/g-socthi.ads
-	${FIND} ${WRKSRC} -name configure | ${XARGS} \
-		${SED} -i.mac -e 's|apple-darwin|raven-darwin|' \
-		${WRKSRC}/gcc/configure
 
 post-install:
 	cp ${STAGEDIR}${PREFIX}/bin/gcc ${STAGEDIR}${PREFIX}/bin/cc
