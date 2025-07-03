@@ -1,17 +1,17 @@
---- configure.orig	2020-12-04 14:05:14 UTC
-+++ configure
-@@ -5009,14 +5009,18 @@ prefer_static=no
+--- configure.orig	Fri Sep 23 14:13:22 2022
++++ configure	Thu Jul  3 05:52:33 2025
+@@ -5329,14 +5329,18 @@
  if test "$opt_static_link" = yes; then
  	prefer_static=yes
  	prefer_shared=no
 +	TINFO_LIBRARY=${prefix}/lib/libtinfo.a
  	# if we're using gcc, add `-static' to LDFLAGS, except on Solaris >= 2
- 	if test -n "$GCC" || test "$ac_cv_c_compiler_gnu" = "yes"; then
+ 	if test "$GCC" = "yes"; then
  		STATIC_LD="-static"
  		case "$host_os" in
 -		solaris2*|linux*)	;;
-+		linux*)	;;
-+		solaris*)	STATIC_LD= ;;
++		linux*) ;;
++		solaris*) STATIC_LD=	;;
  		*)		LDFLAGS="$LDFLAGS -static" ;;	# XXX experimental
  		esac
  	fi
@@ -20,24 +20,25 @@
  fi
  
  # set the appropriate make variables for building the "build tools"
-@@ -5160,13 +5164,13 @@ $as_echo "$ac_cv_lib_termcap_tgetent" >&
- if test "x$ac_cv_lib_termcap_tgetent" = xyes; then :
+@@ -5766,14 +5770,14 @@
+ then :
    bash_cv_termcap_lib=libtermcap
- else
--  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for tgetent in -ltinfo" >&5
--$as_echo_n "checking for tgetent in -ltinfo... " >&6; }
-+  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for tgetent in ${TINFO_LIBRARY}" >&5
-+$as_echo_n "checking for tgetent in ${TINFO_LIBRARY}... " >&6; }
- if ${ac_cv_lib_tinfo_tgetent+:} false; then :
-   $as_echo_n "(cached) " >&6
- else
+ else $as_nop
+-  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for tgetent in -ltinfo" >&5
+-printf %s "checking for tgetent in -ltinfo... " >&6; }
++  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for tgetent in ${TINFO_LIBRARY}" >&5
++printf %s "checking for tgetent in ${TINFO_LIBRARY}... " >&6; }
+ if test ${ac_cv_lib_tinfo_tgetent+y}
+ then :
+   printf %s "(cached) " >&6
+ else $as_nop
    ac_check_lib_save_LIBS=$LIBS
 -LIBS="-ltinfo  $LIBS"
 +LIBS="${TINFO_LIBRARY}  $LIBS"
  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
  /* end confdefs.h.  */
  
-@@ -5345,7 +5349,7 @@ elif test $bash_cv_termcap_lib = libterm
+@@ -5951,7 +5955,7 @@
  TERMCAP_LIB=-ltermcap
  TERMCAP_DEP=
  elif test $bash_cv_termcap_lib = libtinfo; then
@@ -46,24 +47,25 @@
  TERMCAP_DEP=
  elif test $bash_cv_termcap_lib = libncurses; then
  TERMCAP_LIB=-lncurses
-@@ -20076,13 +20080,13 @@ $as_echo "$ac_cv_lib_termcap_tgetent" >&
- if test "x$ac_cv_lib_termcap_tgetent" = xyes; then :
+@@ -21390,14 +21394,14 @@
+ then :
    bash_cv_termcap_lib=libtermcap
- else
--  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for tgetent in -ltinfo" >&5
--$as_echo_n "checking for tgetent in -ltinfo... " >&6; }
-+  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for tgetent in ${TINFO_LIBRARY}" >&5
-+$as_echo_n "checking for tgetent in ${TINFO_LIBRARY}... " >&6; }
- if ${ac_cv_lib_tinfo_tgetent+:} false; then :
-   $as_echo_n "(cached) " >&6
- else
+ else $as_nop
+-  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for tgetent in -ltinfo" >&5
+-printf %s "checking for tgetent in -ltinfo... " >&6; }
++  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking for tgetent in ${TINFO_LIBRARY}" >&5
++printf %s "checking for tgetent in ${TINFO_LIBRARY}... " >&6; }
+ if test ${ac_cv_lib_tinfo_tgetent+y}
+ then :
+   printf %s "(cached) " >&6
+ else $as_nop
    ac_check_lib_save_LIBS=$LIBS
 -LIBS="-ltinfo  $LIBS"
 +LIBS="${TINFO_LIBRARY}  $LIBS"
  cat confdefs.h - <<_ACEOF >conftest.$ac_ext
  /* end confdefs.h.  */
  
-@@ -20261,7 +20265,7 @@ elif test $bash_cv_termcap_lib = libterm
+@@ -21575,7 +21579,7 @@
  TERMCAP_LIB=-ltermcap
  TERMCAP_DEP=
  elif test $bash_cv_termcap_lib = libtinfo; then
