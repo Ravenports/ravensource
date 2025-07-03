@@ -1,22 +1,19 @@
-DEF[PRIME]=		14.2
-DEF[X_CURRENT]=		EXTRACT_VERSION(PLATFORM_FreeBSD_x86-64)
+DEF[X_CURRENT]=		EXTRACT_VERSION(PLATFORM_SunOS_x86-64)
 # ----------------------------------------------------------------------------
 
-NAMEBASE=		ravensys-root-freebsd14_amd64
-VERSION=		${PRIME}
-REVISION=		1
+NAMEBASE=		ravensys-root-sunos
+VERSION=		2
 KEYWORDS=		raven
 VARIANTS=		std
-SDESC[std]=		FreeBSD/AMD64 ${PRIME} builder system root
+SDESC[std]=		Solaris 2.11 system root for Ravenports build env
 HOMEPAGE=		none
 CONTACT=		John_Marino[draco@marino.st]
 
-DOWNLOAD_GROUPS=	main r14
-SITES[main]=		https://leaf.dragonflybsd.org/~marino/dports-src/
-SITES[r14]=		http://ftp-archive.freebsd.org/pub/FreeBSD-Archive/old-releases/amd64/amd64/ISO-IMAGES/${PRIME}/
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://leaf.dragonflybsd.org/~marino/raven-distfiles/omnios-sysroot/
 
-DISTFILE[1]=		dummy-tarball.tar.gz:main
-DISTFILE[2]=		FreeBSD-${PRIME}-RELEASE-amd64-disc1.iso:r14
+DISTFILE[1]=		omnios-r151054-rev2-sysroot.tar.gz:main
+DISTFILE[2]=		omnios-r151054-programs.tar.gz:main
 DF_INDEX=		1 2
 
 SPKGS[std]=		single
@@ -24,7 +21,7 @@ SPKGS[std]=		single
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-ONLY_FOR_OPSYS=		freebsd
+ONLY_FOR_OPSYS=		sunos
 NOT_FOR_ARCH=		i386 aarch64
 
 INVALID_RPATH=		yes
@@ -55,10 +52,10 @@ BUILD_DEPENDS=		nawk:primary:std
 			bzip2:tools:std
 			bmake:primary:std
 			ravensys-utils:primary:std
+			bash:primary:static
 
 SKIP_BUILD=		yes
 SINGLE_JOB=		yes
-EXTRACT_DIRTY=		2
 PLIST_SUB=		BASE={{SYSPATH}}
 INFRASTRUCTURE=		yes
 
@@ -72,7 +69,7 @@ MAKE_ENV=		OPSYS="{{OPSYS}}"
 			GCCX=ravensys-gcc
 MAKE_ARGS=		BASE={{RSYS}}
 
-VAR_OPSYS[freebsd]=	MAKEFILE_LINE=SYSTEM=${X_CURRENT}
+VAR_OPSYS[sunos]=	MAKEFILE_LINE=SYSTEM=${X_CURRENT}
 
 pre-fetch:
 	${SH} ${MK_SCRIPTS}/ravensys-root-validate_pkgs.sh ${PREFIX} \
@@ -80,10 +77,13 @@ pre-fetch:
 
 post-extract:
 	${MKDIR} ${WRKSRC}
-	${INSTALL_DATA} ${FILESDIR}/freebsd.mk ${WRKSRC}/system_specifics.mk
+	${INSTALL_DATA} ${FILESDIR}/sunos.mk ${WRKSRC}/system_specifics.mk
 	${INSTALL_DATA} ${MK_SCRIPTS}/ravensys-root-Makefile ${WRKSRC}/Makefile
-	${MV} ${WRKDIR}/${NAMEBASE}_2 ${WRKDIR}/freebsd
 
-pre-patch:
-	(cd ${WRKDIR}/freebsd && ${TAR} -xf usr/freebsd-dist/base.txz \
-		--no-same-owner --no-same-permissions)
+pre-install:
+	# copy solaris sysroot before everything
+	@${ECHO_MSG} "================================="
+	@${ECHO_MSG} "===  SunOS base installation  ==="
+	@${ECHO_MSG} "================================="
+	${MKDIR} ${STAGEDIR}${RSYS}
+	${CP} -a ${WRKDIR}/solaris/* ${STAGEDIR}${RSYS}/
