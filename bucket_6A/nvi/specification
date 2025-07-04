@@ -3,7 +3,7 @@ DEF[PORTVERSION]=	1.81.6
 
 NAMEBASE=		nvi
 VERSION=		${PORTVERSION}
-REVISION=		4
+REVISION=		5
 KEYWORDS=		editors
 VARIANTS=		std
 SDESC[std]=		Berkeley nvi with additional features
@@ -17,8 +17,9 @@ DISTFILE[1]=		nvi-${PORTVERSION}.tar.bz2:main
 
 SPKGS[std]=		set primary dev man
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	BYTECHAR
+OPTIONS_STANDARD=	BYTECHAR
+OPT_ON[sunos]=		BYTECHAR
 
 # This version of nvi was dropped by FreeBSD.  nvi2 doesn't work right
 # FPC_EQUIVALENT=		editors/nvi-devel
@@ -31,17 +32,23 @@ CONFIGURE_OUTSOURCE=	yes
 CONFIGURE_WRKSRC=	{{WRKSRC}}/build_unix
 CONFIGURE_SCRIPT=	dist/configure
 CONFIGURE_ARGS=		--program-prefix=n
-			--enable-widechar
 			--enable-shared=no
 			--with-db=system
 			--with-db-prefix={{LOCALBASE}}/db4
 			--with-curses={{NCURSESBASE}}
 CONFIGURE_ENV=		vi_cv_have_curses_setupterm=yes
 			vi_cv_path_preserve="/tmp"
-CPPFLAGS=		-I{{NCURSESINC}} -DNCURSES_WIDECHAR=1
+CPPFLAGS=		-I{{NCURSESINC}}
 LDFLAGS=		-L{{NCURSESLIB}}
 
 VAR_OPSYS[sunos]=	CONFIGURE_ENV=LIBS="-lrt -lsocket"
+
+# Solaris seems to be converting strings to UTF-8 instead of widechar
+# Provide a method to disable widechar which was previously enabled by default
+
+[BYTECHAR].DESCRIPTION=			Disable widechar capability
+[BYTECHAR].CPPFLAGS_OFF=		-DNCURSES_WIDECHAR=1
+[BYTECHAR].CONFIGURE_ARGS_OFF=		--enable-widechar
 
 post-extract:
 	# disable shared iconv and ncurses
