@@ -7,6 +7,7 @@ DEF[SOVERSION]=		${PORTVERSION}
 
 NAMEBASE=		libxslt
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		textproc
 VARIANTS=		std
 SDESC[std]=		XSLT C library for GNOME
@@ -18,7 +19,7 @@ SITES[main]=		GNOME/libxslt/${FOLDER}
 DISTFILE[1]=		libxslt-${PORTVERSION}.tar.xz:main
 DIST_SUBDIR=		gnome2
 
-SPKGS[std]=		set primary dev man
+SPKGS[std]=		set primary dev man docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -32,21 +33,18 @@ FPC_EQUIVALENT=		textproc/libxslt
 BUILD_DEPENDS=		libgcrypt:dev:std
 BUILDRUN_DEPENDS=	libgcrypt:primary:std
 
-USES=			cpe gmake libtool pkgconfig
+USES=			cpe cmake pkgconfig
 GNOME_COMPONENTS=	libxml2
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--with-html-dir={{PREFIX}}/share/doc
-			--with-crypto
-			--without-python
-			--enable-static
-INSTALL_REQ_TOOLCHAIN=	yes
-INSTALL_TARGET=		install-strip
+CMAKE_ARGS=		-DLIBXSLT_WITH_CRYPTO:BOOL=ON
+			-DBUILD_SHARED_LIBS:BOOL=ON
+			-DLIBXSLT_WITH_PROGRAMS:BOOL=ON
+			-DLIBXSLT_WITH_THREADS:BOOL=ON
+			-DLIBXSLT_WITH_PYTHON:BOOL=OFF
+			-DLIBXSLT_WITH_PROFILER:BOOL=OFF
+			-DLIBXSLT_WITH_TESTS:BOOL=OFF
+			-DLIBXSLT_WITH_XSLT_DEBUG=OFF
 CPE_VENDOR=		xmlsoft
 SOVERSION=		${SOVERSION}
 PLIST_SUB=		EXSLTSOVERSION=${EXSLTVERSION}
 			EXSLTSOMAJOR=${EXSLTVERSION:R:R}
-
-post-install:
-	# docs are disabled via patch
-	${INSTALL_MAN} ${WRKSRC}/doc/xsltproc.1 \
-		${STAGEDIR}${MANPREFIX}/man/man1/
+			EXSLTVER=${PORTVERSION}
