@@ -38,7 +38,7 @@ CONFIGURE_ARGS=		--program-prefix=n
 			--with-curses={{NCURSESBASE}}
 CONFIGURE_ENV=		vi_cv_have_curses_setupterm=yes
 			vi_cv_path_preserve="/tmp"
-CPPFLAGS=		-I{{NCURSESINC}} -Wno-incompatible-pointer-types -Wno-implicit-function-declaration
+CPPFLAGS=		-I{{NCURSESINC}} -DNCURSES_WIDECHAR=1
 LDFLAGS=		-L{{NCURSESLIB}}
 
 VAR_OPSYS[sunos]=	CONFIGURE_ENV=LIBS="-lrt -lsocket"

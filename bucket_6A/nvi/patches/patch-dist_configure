@@ -27,6 +27,18 @@
  		as_ac_Lib=`echo "ac_cv_lib_$vi_cv_curses''_initscr" | $as_tr_sh`
  { echo "$as_me:$LINENO: checking for initscr in -l$vi_cv_curses" >&5
  echo $ECHO_N "checking for initscr in -l$vi_cv_curses... $ECHO_C" >&6; }
+@@ -23655,9 +23655,9 @@ fi
+ 
+ 	if test "$vi_cv_curses" != "unknown"; then
+ 	    CURSHEADER=curses.h
+-	    if test "$vi_cv_curses" = "ncurses"; then
++	    if test "$vi_cv_curses" = "ncurses -ltinfo"; then
+ 
+-for ac_header in ncurses.h
++for ac_header in ncurses.h ncurses/ncurses.h
+ do
+ as_ac_Header=`echo "ac_cv_header_$ac_header" | $as_tr_sh`
+ if { as_var=$as_ac_Header; eval "test \"\${$as_var+set}\" = set"; }; then
 @@ -27631,6 +27631,8 @@ _ACEOF
  cat confdefs.h >>conftest.$ac_ext
  cat >>conftest.$ac_ext <<_ACEOF
