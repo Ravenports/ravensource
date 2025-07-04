@@ -37,11 +37,12 @@ install-platform: install-common
 
 	# from bash package
 	cp ${CPA} ${LOCALBASE}/bin/bash ${DESTDIR}${BASE}/bin/
-	# link bash as sh
-	ln -s bash ${DESTDIR}${BASE}/bin/sh 
+
+	# hardlink bash as sh
+	ln ${DESTDIR}${BASE}/bin/bash ${DESTDIR}${BASE}/bin/sh
 
 	# install coreutils (/bin)
-.  for item in [ chmod cp date echo expr kill link ln ls mkdir mv pwd \
+.  for item in [ date echo expr kill link ln ls mkdir mv pwd \
 	realpath rm rmdir sleep test unlink
 	cp ${CPA} ${LOCALBASE}/bin/${item} ${DESTDIR}${BASE}/bin/${item}
 .  endfor
@@ -53,3 +54,11 @@ install-platform: install-common
 	stat
 	cp ${CPA} ${LOCALBASE}/bin/${item} ${DESTDIR}${BASE}/usr/bin/${item}
 .  endfor
+
+	# install user and guest files
+	cp /port/files/passwd.initial ${DESTDIR}${BASE}/usr/share/passwd
+	cp /port/files/group.initial ${DESTDIR}${BASE}/usr/share/group
+
+	# install libgcc_s for sysroot programs that need it
+	cp ${LOCALBASE}/toolchain/ravensys-gcc/lib/amd64/libgcc_s.so.1 \
+		${DESTDIR}${BASE}/usr/lib/amd64/libgcc_s.so.1
