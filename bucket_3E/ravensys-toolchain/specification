@@ -14,12 +14,6 @@ SDESC[std]=		Compiler and binutils toolchain for Ravenports
 HOMEPAGE=		none
 CONTACT=		John_Marino[draco@marino.st]
 
-# lld takes an absurd amount of time to combine on solaris (over 6 hours
-# combined with llvm) and it will have to be rebuild constantly if
-# the toolchain package pulls it in as a metapackage.  Make an exception
-# and prebuild as-static-as-possible versions of lld and install them
-# as binary blobs (used for gcc8:lld port)
-
 DOWNLOAD_GROUPS=	main
 SITES[main]=		https://leaf.dragonflybsd.org/~marino/dports-src/lld/
 DISTFILE[1]=		lld-single-standard-7.0.1.sunos.tar.zst:main
@@ -32,7 +26,6 @@ OPTIONS_STANDARD=	none
 
 BUILD_DEPENDS=		ravensys-binutils:single:std
 			rvn:primary:std
-B_DEPS[sunos]=		ravensys-utils:primary:std
 
 PREFIX=			{{LOCALBASE}}/share/raven/toolchain
 SKIP_BUILD=		yes
@@ -58,8 +51,6 @@ INFRASTRUCTURE=		yes
 VAR_OPSYS[netbsd]=	MAKEFILE_LINE=SSP="@comment "
 VAR_OPSYS[linux]=	MAKEFILE_LINE=SSP="@comment "
 VAR_OPSYS[midnightbsd]=	MAKEFILE_LINE=CONFIGURE_TARGET=${MBSD64_TARGET}
-# VAR_OPSYS[netbsd]=	MAKEFILE_LINE=CC1_SHARED="@comment "
-# #			MAKEFILE_LINE=CC1_STATIC=
 
 post-extract:
 	${MKDIR} ${WRKSRC}

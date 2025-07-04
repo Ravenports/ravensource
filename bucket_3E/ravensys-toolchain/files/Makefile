@@ -30,8 +30,5 @@ install:
 
 .if "${OPSYS}" == "SunOS"
 	rm ${DESTDIR}${PREFIX}/bin/ld
-	cp ${LOCALBASE}/libexec/ld ${DESTDIR}${PREFIX}/bin/
-	cp /usr/bin/ld.sun ${DESTDIR}${PREFIX}/bin/
-	(cd ../ravensys-toolchain_1${LOCALBASE}/bin/ && \
-	 cp -a lld ld.lld ld64.lld ${DESTDIR}${PREFIX}/bin/)
+	cp /usr/bin/ld.sun ${DESTDIR}${PREFIX}/bin/ld
 .endif
