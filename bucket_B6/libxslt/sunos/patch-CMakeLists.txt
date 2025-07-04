@@ -1,0 +1,11 @@
+--- CMakeLists.txt.orig	2025-03-12 17:57:19 UTC
++++ CMakeLists.txt
+@@ -219,7 +219,7 @@ if(CMAKE_C_COMPILER_ID MATCHES "Clang" O
+ 		if (FLAG_UNDEFINED_VERSION)
+ 			target_link_options(LibXslt PRIVATE "LINKER:--undefined-version")
+ 		endif()
+-		target_link_options(LibXslt PRIVATE "LINKER:--version-script=${CMAKE_CURRENT_SOURCE_DIR}/libxslt/libxslt.syms")
++		target_link_options(LibXslt PRIVATE LINKER:-M${CMAKE_CURRENT_SOURCE_DIR}/libxslt/libxslt.syms)
+ 	endif()
+ endif()
+ 
