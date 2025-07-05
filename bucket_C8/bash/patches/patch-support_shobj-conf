@@ -1,20 +1,13 @@
 --- support/shobj-conf.orig	2021-12-03 15:54:46 UTC
 +++ support/shobj-conf
-@@ -113,7 +113,7 @@ sunos5*-*gcc*|solaris2*-*gcc*)
- 	SHLIB_LIBVERSION='$(SHLIB_LIBSUFF).$(SHLIB_MAJOR)'
+@@ -114,8 +114,8 @@ sunos5*-*gcc*|solaris2*-*gcc*)
  	;;
  
--sunos5*|solaris2*)
-+sunos5*)
- 	SHOBJ_CFLAGS='-K pic'
- 	SHOBJ_LD=/usr/ccs/bin/ld
+ sunos5*|solaris2*)
+-	SHOBJ_CFLAGS='-K pic'
+-	SHOBJ_LD=/usr/ccs/bin/ld
++	SHOBJ_CFLAGS='-fPIC'
++	SHOBJ_LD=/usr/bin/ld.sun
  	SHOBJ_LDFLAGS='-G -dy -z text -i -h $@'
-@@ -123,7 +123,7 @@ sunos5*|solaris2*)
- 	;;
  
- # All versions of Linux (including Gentoo/FreeBSD) or the semi-mythical GNU Hurd.
--linux*-*|gnu*-*|k*bsd*-gnu-*|midnightbsd*|freebsd*|dragonfly*)
-+linux*-*|gnu*-*|k*bsd*-gnu-*|midnightbsd*|freebsd*|dragonfly*|solaris*)
- 	SHOBJ_CFLAGS=-fPIC
- 	SHOBJ_LD='${CC}'
- 	SHOBJ_LDFLAGS='-shared -Wl,-soname,$@'
+ #	SHLIB_XLDFLAGS='-R $(libdir)'

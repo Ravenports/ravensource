@@ -7,7 +7,7 @@ DEF[STANDARD_PATH]=	/sbin:/bin:/usr/sbin:/usr/bin
 
 NAMEBASE=		bash
 VERSION=		${VERSION}
-REVISION=		4
+REVISION=		5
 KEYWORDS=		shells
 VARIANTS=		std static
 SDESC[std]=		GNU Bourne Again SHell
@@ -60,7 +60,7 @@ DISTFILE[38]=		bash52-037:patches
 DIST_SUBDIR=		bash
 
 SPKGS[std]=		set primary loadables dev nls man docs info
-SPKGS[static]=		primary
+SPKGS[static]=		set primary loadables dev
 
 OPTIONS_AVAILABLE=	STATIC NLS NOTSTD
 OPTIONS_STANDARD=	STATIC NLS
@@ -118,7 +118,6 @@ VAR_OPSYS[linux]=	VAR1=-Wl,--export-dynamic
 [NLS].CONFIGURE_ARGS_ON=		--with-libiconv-prefix={{ICONV_PREFIX}}
 
 [STATIC].BUILDRUN_DEPENDS_OFF=		ncurses:primary:std
-[STATIC].CFLAGS_ON=			-fcommon
 
 [NOTSTD].DESCRIPTION=			Non-standard designation
 [NOTSTD].USES_OFF=			makeinfo
@@ -144,8 +143,3 @@ post-install:
 
 post-install-NOTSTD-ON:
 	${RM} -r ${STAGEDIR}${STD_DOCDIR}
-
-post-install-STATIC-ON:
-	# These are not installed when --enable-static-link set
-	${RM} -r ${STAGEDIR}${PREFIX}/include
-	${RM} -r ${STAGEDIR}${PREFIX}/lib
