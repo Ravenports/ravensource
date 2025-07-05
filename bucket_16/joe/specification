@@ -28,10 +28,9 @@ FPC_EQUIVALENT=		editors/joe
 
 USES=			gmake iconv desktop-utils:primary ncurses
 MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-termcap
 BUILD_TARGET=		joe
 INSTALL_REQ_TOOLCHAIN=	yes
-CFLAGS=			-I{{LOCALBASE}}/ncurses60/include
-LDFLAGS=		-L{{LOCALBASE}}/ncurses60/lib
 
 post-extract:
 	${AWK} '/which is distributed/,/many Linux distrib/' \
