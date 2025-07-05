@@ -364,7 +364,7 @@ disable-network:
 	fi
 
 extract-fixup-modes:
-	@${CHMOD} -R u+w,a+rX ${WRKDIR}
+	@${CHMOD} -R u+w,a+rX ${WRKDIR} ||:
 
 
 .if !target(compile-package-desc)
