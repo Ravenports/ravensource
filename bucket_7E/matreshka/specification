@@ -1,13 +1,12 @@
 DEF[PORTVERSION]=	21.0
-DEF[CURRENTGCC]=	EXTRACT_INFO(GCCBASE_VERSION)
-DEF[LIBSUFFIX]=		${CURRENTGCC:R}
+DEF[LIBSUFFIX]=		${PORTVERSION:S/.//g}
 DEF[SOVERSION]=		20.0
 DEF[GPRFLAGS]=		--no-manifest
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		matreshka
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		devel
 VARIANTS=		std
 SDESC[std]=		Ada framework for information systems development
@@ -46,6 +45,12 @@ DISTNAME=		matreshka-${PORTVERSION}/matreshka
 [AMF].CONFIGURE_ENABLE_BOTH=		amf
 
 pre-configure:
+	# Remove obnoxious library naming based on ravensys-gcc
+	${GREP} -rl "Library_Name := .*RTL_Version_Suffix" ${WRKSRC}/gnat |\
+		${XARGS} ${REINPLACE_CMD} -e \
+		'/Library_Name :=/ s|Matreshka_Config.RTL_Version_Suffix|"-${LIBSUFFIX}"|'
+
+	# inline @PREFIX@ replacement
 	${REINPLACE_CMD} -e "s|@PREFIX@|${LOCALBASE}|" \
 		${WRKSRC}/tools/configure/configure-tests-mysql.adb \
 		${WRKSRC}/tools/configure/configure-tests-postgresql.adb \
