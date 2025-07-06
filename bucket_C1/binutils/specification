@@ -54,10 +54,6 @@ PLIST_SUB=		PLUGINAPI={{PLUGINAPI}}
 			TARGET={{CONFIGURE_TARGET}}
 DISTNAME=		binutils-with-gold-${PORTVERSION}
 
-# We need DT_RPATH set instead of DT_RUNPATH
-# See rtld man page, we need to be invulnerable to LD_LIBRARY_PATH
-LDFLAGS=		-Wl,--disable-new-dtags
-
 # This port differs from the ports binutils with regard to the gold linker.
 # The port binutils sets gold as default for many platforms, but this one
 # leaves bfd linker as the default for all platforms.
