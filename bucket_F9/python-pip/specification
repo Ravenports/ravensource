@@ -46,15 +46,6 @@ CPE_PRODUCT=		pip
 [PY313].MAKEFILE_ON=			POST_PLIST_TARGET+=setuptools-autolist
 
 
-post-patch:
-	# Exclude all __pycache__ changes from corruption detection
-	# (snapshots from pre-configure to post-build)
-	# obviously the pyc files should not be getting compiled.  (see issue #322)
-	# shifted this to ravenadm until the issue is resolved
-	# echo ".${LOCALBASE}/lib/python*/__pycache__"     >> ${EXMTREE}
-	# echo ".${LOCALBASE}/lib/python*/*/__pycache__"   >> ${EXMTREE}
-	# echo ".${LOCALBASE}/lib/python*/*/*/__pycache__" >> ${EXMTREE}
-
 do-build:
 	# By using --user, the pyc files are hardcoded with the wrong paths.
 	# those will have to be regenerated
@@ -63,7 +54,7 @@ do-build:
 do-install:
 	${RM} -r ${STAGEDIR}
 	${MKDIR} ${STAGEDIR}
-	${FIND} /root/.local/ -type d --name __pycache__ | xargs rm -rf
+	${FIND} /root/.local/ -type d -name __pycache__ | xargs rm -rf
 	${RM} /root/.local/bin/pip3
 	${MV} /root/.local ${STAGEDIR}${PREFIX}
 
