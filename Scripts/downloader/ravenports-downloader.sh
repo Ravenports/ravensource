@@ -40,7 +40,7 @@ fetch_command() {
 			echo "ftp -o ${local_file} ${url}"
 			;;
 		SunOS)
-			echo "/usr/sfw/bin/wget ${url} -O ${local_file}"
+			echo "/usr/bin/wget ${url} -O ${local_file}"
 			;;
 		Darwin)
 			echo "curl ${url} --output ${local_file}"
