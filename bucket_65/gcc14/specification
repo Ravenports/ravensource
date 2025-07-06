@@ -6,7 +6,7 @@ DEF[IDENTIFICATION]=	EXTRACT_INFO(GCC14_IDENTIFICATION)
 DEF[GCC_VERSION]=	EXTRACT_INFO(GCC14_VERSION)
 DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
 DEF[STDCXX_VERSION]=	6.0.33
-DEF[DRACO_TAG]=		14.3.0-rev1
+DEF[DRACO_TAG]=		14.3.0-rev2
 DEF[DRACO_DIR]=		patches-14.3.0
 # ----------------------------------------------------------------------------
 
@@ -91,9 +91,6 @@ CONFIGURE_ARGS=		--enable-languages="c,c++,ada,fortran"
 			--disable-libcilkrts
 			--with-pkgversion="Ravenports"
 
-# gcc10+ is not supported on Solaris 10
-NOT_FOR_OPSYS=		sunos
-
 VAR_OPSYS[dragonfly]=	CONFIGURE_ARGS=--with-gnu-as
 			CONFIGURE_ARGS=--with-as={{LOCALBASE}}/bin/as
 			CONFIGURE_ARGS=--with-ld={{LOCALBASE}}/bin/ld
@@ -121,6 +118,15 @@ VAR_OPSYS[linux]=	CONFIGURE_ARGS=--with-gnu-as
 			CONFIGURE_ARGS=--with-ld={{LOCALBASE}}/bin/ld
 			CONFIGURE_ARGS=--disable-libssp
 			MAKEFILE_LINE=SSP="@comment "
+
+# no matter what, the sun linker fails when building host backends
+# (originally due to multiple version of the same symbol)
+# Even OmniOS package has the bootstap disabled.  The actual error often isn't logged
+VAR_OPSYS[sunos]=	CONFIGURE_ARGS=--disable-bootstrap
+			CONFIGURE_ARGS=--with-gnu-as
+			CONFIGURE_ARGS=--with-as={{LOCALBASE}}/bin/as
+			CONFIGURE_ARGS=--without-gnu-ld
+			CONFIGURE_ARGS=--with-libiconv-prefix={{WRKDIR}}/fake
 
 INFO=			info:cpp
 			info:cppinternals
@@ -168,8 +174,15 @@ post-patch:
 		${WRKSRC}/gcc/config/i386/gnu-user64.h \
 		${WRKSRC}/gcc/config/aarch64/aarch64-freebsd.h \
 		${WRKSRC}/gcc/ada/gnatls.adb
+	${REINPLACE_CMD} -e 's|/usr/ccs/bin/elfdump|/usr/bin/elfdump|' \
+		${WRKSRC}/contrib/make_sunver.pl
 
 post-patch-linux:
+	# undo BSD thin socket modification
+	${MV} ${WRKSRC}/gcc/ada/libgnat/g-socthi.ads.orig \
+		${WRKSRC}/gcc/ada/libgnat/g-socthi.ads
+
+post-patch-sunos:
 	# undo BSD thin socket modification
 	${MV} ${WRKSRC}/gcc/ada/libgnat/g-socthi.ads.orig \
 		${WRKSRC}/gcc/ada/libgnat/g-socthi.ads
