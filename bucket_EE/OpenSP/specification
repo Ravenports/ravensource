@@ -14,12 +14,14 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		SF/openjade/opensp/${PORTVERSION}
 DISTFILE[1]=		OpenSP-${PORTVERSION}.tar.gz:main
 
-SPKGS[std]=		set primary dev
+SPKGS[std]=		set primary dev tools
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		textproc/opensp
+
+EXRUN[tools]=		primary
 
 USES=			gmake libtool perl fbsd10fix mbsdfix c++:primary
 MUST_CONFIGURE=		gnu
@@ -30,4 +32,4 @@ CONFIGURE_ARGS=		--enable-default-catalog={{PREFIX}}/share/sgml/catalog
 CXXFLAGS=		-Wno-deprecated
 
 post-install:
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libosp.${LIBEXT}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libosp.so
