@@ -37,3 +37,7 @@ DISTNAME=		libglvnd-v${PORTVERSION}
 SET_DEBUGGING_ON=	yes
 
 VAR_OPSYS[netbsd]=	CONFIGURE_ARGS=-Dtls=false
+
+pre-configure-sunos:
+	# drop symbol version
+	${REINPLACE_CMD} -e '/Wl,--version-script/d' ${WRKSRC}/src/GLdispatch/meson.build
