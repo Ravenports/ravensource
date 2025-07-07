@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	1.5.2
 
 NAMEBASE=		OpenSP
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		textproc
 VARIANTS=		std
 SDESC[std]=		Collection of SGML/XML tools
@@ -13,14 +14,14 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		SF/openjade/opensp/${PORTVERSION}
 DISTFILE[1]=		OpenSP-${PORTVERSION}.tar.gz:main
 
-SPKGS[std]=		single
+SPKGS[std]=		set primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		textproc/opensp
 
-USES=			gmake libtool perl fbsd10fix mbsdfix c++:single
+USES=			gmake libtool perl fbsd10fix mbsdfix c++:primary
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-default-catalog={{PREFIX}}/share/sgml/catalog
 			--datadir={{PREFIX}}/share/sgml/openjade
