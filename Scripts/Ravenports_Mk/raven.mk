@@ -454,8 +454,8 @@ do-extract:
 	@if ! (cd ${EXTRACT_WRKDIR_${N}} && ${EXTRACT_HEAD_${N}} ${DISTDIR}/${DIST_SUBDIR}/${DISTFILE_${N}:C/:.*//} ${EXTRACT_TAIL_${N}}); \
 	then exit 1; fi
 .  endfor
-	@${CHMOD} -R ug-s ${WRKDIR}
-	@${CHOWN} -R 0:0 ${WRKDIR}
+	@${CHMOD} -R ug-s ${WRKDIR} ||:
+	@${CHOWN} -R 0:0 ${WRKDIR} ||:
 .endif
 
 .if !target(extract-licenses)
