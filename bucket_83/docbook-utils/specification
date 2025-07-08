@@ -33,3 +33,6 @@ SHEBANG_OLD_PERL=	@perl_bindir@/perl
 
 MUST_CONFIGURE=		gnu
 PLIST_SUB=		VER=${PORTVERSION}
+
+pre-configure:
+	${REINPLACE_CMD} -e 's|@LOCALBASE@|${LOCALBASE}|' ${WRKSRC}/configure.ac

@@ -1,11 +1,17 @@
 --- configure.ac.orig	2024-10-09 12:46:46 UTC
 +++ configure.ac
-@@ -22,7 +22,7 @@ AC_SUBST(docdir)
+@@ -21,11 +21,11 @@ docdir='$(prefix)/doc'
+ AC_SUBST(docdir)
  
  dnl Checks for programs.
- jade_bindirs="/usr/bin /usr/local/bin"
+-jade_bindirs="/usr/bin /usr/local/bin"
 -AC_FIND_PROGRAM(nsgmls, $jade_bindirs, jade_bindir)
++jade_bindirs="/usr/bin @LOCALBASE@/bin"
 +AC_FIND_PROGRAM(onsgmls, $jade_bindirs, jade_bindir)
  AC_SUBST(jade_bindir)
  
- perl_bindirs="/usr/bin /usr/local/bin"
+-perl_bindirs="/usr/bin /usr/local/bin"
++perl_bindirs="/usr/bin @LOCALBASE@/bin"
+ AC_FIND_PROGRAM(perl, $perl_bindirs, perl_bindir)
+ AC_SUBST(perl_bindir)
+ 

@@ -1,0 +1,11 @@
+--- backends/man.in.orig	2024-10-09 12:46:46 UTC
++++ backends/man.in
+@@ -7,7 +7,7 @@ HELPER=$SGML_BASE_DIR/docbook/utils-@VER
+ TMPDIR=`mktemp -d /tmp/man.XXXXXX` || \
+  { echo >&2 "man backend: could not create secure temporary directory"; exit 1;}
+ trap 'rm -rf "${TMPDIR}"' EXIT
+-nsgmls ${SGML_INCLUDE} "$SGML_FILE" > "${TMPDIR}/nsgmls.tmp"
++onsgmls ${SGML_INCLUDE} "$SGML_FILE" > "${TMPDIR}/nsgmls.tmp"
+ sgmlspl $HELPER <"${TMPDIR}/nsgmls.tmp" 2>"${TMPDIR}/errs"
+ if [ $? -ne 0 ]
+ then
