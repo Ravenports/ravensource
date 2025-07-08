@@ -38,6 +38,10 @@ USES=			cpe meson pkgconfig gtk-doc rootca:tools
 CPE_VENDOR=		p11-kit_project
 INSTALL_TARGET=		install-strip
 MESON_ARGS=		-Dnls=false
+			-Dtest=false
 			-Dgtk_doc=true
 			-Dtrust_paths={{LOCALBASE}}/share/certs/ca-root-nss.crt
 SOVERSION=		${SOVERSION}
+
+VAR_OPSYS[sunos]=	CFLAGS=-D_POSIX_PTHREAD_SEMANTICS
+			LDFLAGS=-lsocket
