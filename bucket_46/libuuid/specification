@@ -60,6 +60,8 @@ SOVERSION=		${SOVERSION}
 
 C_USES[sunos]=		perl:build
 
+VAR_OPSYS[sunos]=	CFLAGS=-D_XPG7
+
 # stdtod_l not seen since gcc14 (unclear why, <stdlib.h> is imported)
 CFLAGS=			-Wno-implicit-function-declaration
 
@@ -71,11 +73,6 @@ pre-configure:
 
 post-install:
 	${RM} -r ${STAGEDIR}${PREFIX}/share/bash-completion
-
-post-patch-sunos:
-	# there's a problem with nls, just mass-remove the macro
-	${GREP} -rl '_(".*")' ${WRKSRC} | ${XARGS} \
-		${PERL} -p -i.pbak -e 's|[_][(]["](.*?)["][)]|"\1"|g'
 
 post-patch-NOSETPROC-ON:
 	${REINPLACE_CMD} -e '/setproctitle.c/d' ${WRKSRC}/lib/Makemodule.am
