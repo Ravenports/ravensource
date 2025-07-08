@@ -1,5 +1,6 @@
 DEF[PORTVERSION]=	1.3.2
 DEF[DATADIR]=		{{PREFIX}}/share/sgml/openjade
+DEF[SOVERSION]=		0.0.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		openjade
@@ -25,7 +26,8 @@ OPTIONS_STANDARD=	none
 # FPC_EQUIVALENT=		textproc/openjade
 
 RUN_DEPENDS=		xmlcatmgr:primary:std
-BUILDRUN_DEPENDS=	OpenSP:single:std
+			OpenSP:dev:std
+BUILDRUN_DEPENDS=	OpenSP:tools:std
 
 USES=			gmake libtool perl
 MUST_CONFIGURE=		gnu
@@ -36,6 +38,7 @@ INSTALL_TARGET=		install install-man
 MAKE_ENV=		STRIP="{{STRIP}}"
 PLIST_SUB=		XMLCATMGR={{LOCALBASE}}/bin/xmlcatmgr
 			CATALOG_PORTS_SGML={{PREFIX}}/share/sgml/catalog.ports
+SOVERSION=		${SOVERSION}
 
 post-install:
 	${FIND} ${WRKSRC}/dsssl -depth -maxdepth 1 -type f \
