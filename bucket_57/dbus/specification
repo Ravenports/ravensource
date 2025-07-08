@@ -56,6 +56,9 @@ SUB_FILES=		catalog catalog.xml
 SUB_LIST=		DTDDIR={{PREFIX}}/share/xml/dbus-1
 SOVERSION=		${SOVERSION}
 
+VAR_OPSYS[sunos]=	CONFIGURE_ARGS=-Depoll=disabled
+			LDFLAGS=-lsocket
+
 post-extract:
 	${AWK} '/^The Academic Free License/,/^but the BSD, MIT/' \
 		${WRKSRC}/COPYING > ${WRKDIR}/LICENSE_AFL
