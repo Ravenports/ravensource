@@ -1,6 +1,12 @@
 --- Makefile.lib.in.orig	2002-01-22 11:57:53 UTC
 +++ Makefile.lib.in
-@@ -28,7 +28,7 @@
+@@ -23,12 +23,12 @@ Makefile.lt:
+ 	echo 'LT_OBJS='`echo $(OBJS)|sed 's/\.o/.lo/g'` >Makefile.lt
+ 
+ lib$(LIB).la: $(LT_OBJS)
+-	$(LIBTOOL) --mode=link $(CC) $(LINKFLAGS) -o lib$(LIB).la $(LT_OBJS) \
++	$(LIBTOOL) --mode=link $(CXX) $(LINKFLAGS) $(LDFLAGS) -o lib$(LIB).la $(LT_OBJS) \
+ 	    -rpath $(libdir) -version-info $(LTVERSION) $(DEPLIBS)
  
  install:
  	$(mkinstalldirs) $(DESTDIR)$(libdir)

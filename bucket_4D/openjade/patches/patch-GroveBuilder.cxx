@@ -1,5 +1,5 @@
---- spgrove/GroveBuilder.cxx.orig	Sun Nov 17 03:01:12 2002
-+++ spgrove/GroveBuilder.cxx	Tue Aug  5 11:27:44 2003
+--- spgrove/GroveBuilder.cxx.orig	2002-11-16 18:01:12 UTC
++++ spgrove/GroveBuilder.cxx
 @@ -4,26 +4,24 @@
  // FIXME location for SgmlDocument node.
  

@@ -33,12 +33,17 @@ USES=			gmake libtool perl
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-default-catalog={{PREFIX}}/share/sgml/catalog
 			--datadir=${DATADIR}
+			--enable-spincludedir={{LOCALBASE}}/include/OpenSP
+			--enable-splibdir={{LOCALBASE}}/lib
 			--disable-nls
 INSTALL_TARGET=		install install-man
 MAKE_ENV=		STRIP="{{STRIP}}"
 PLIST_SUB=		XMLCATMGR={{LOCALBASE}}/bin/xmlcatmgr
 			CATALOG_PORTS_SGML={{PREFIX}}/share/sgml/catalog.ports
 SOVERSION=		${SOVERSION}
+CXXFLAGS=		-Wno-deprecated
+
+VAR_OPSYS[sunos]=	CXXFLAGS=-fno-use-cxa-atexit
 
 post-install:
 	${FIND} ${WRKSRC}/dsssl -depth -maxdepth 1 -type f \

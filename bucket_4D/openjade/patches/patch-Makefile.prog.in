@@ -1,6 +1,6 @@
---- Makefile.prog.in.orig	Tue Jan 22 20:57:53 2002
-+++ Makefile.prog.in	Sun Aug 22 05:48:16 2004
-@@ -12,7 +12,9 @@
+--- Makefile.prog.in.orig	2002-01-22 11:57:53 UTC
++++ Makefile.prog.in
+@@ -12,7 +12,9 @@ LINKFLAGS = @LINKFLAGS@
  
  ALL_LIBS = $(XLIBS) $(LIBS)
  Makefile.lt:
@@ -11,7 +11,7 @@
  
  PROG:=$(shell echo "$(PROG)" | sed '@program_transform_name@')
  
-@@ -25,7 +27,7 @@
+@@ -25,7 +27,7 @@ install: $(PROG)
  	-test -d $(DESTDIR)$(bindir) || \
  	  (mkdir $(DESTDIR)$(bindir); chmod 755 $(DESTDIR)$(bindir))
  	-rm -f $(DESTDIR)$(bindir)/$(PROG)

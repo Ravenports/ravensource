@@ -1,5 +1,5 @@
---- grove/Node.h.orig	Mon Oct 21 06:47:24 2002
-+++ grove/Node.h	Tue Aug  5 11:27:44 2003
+--- grove/Node.h.orig	2002-10-20 21:47:24 UTC
++++ grove/Node.h
 @@ -8,7 +8,8 @@
  #endif
  
@@ -10,7 +10,7 @@
  
  #ifdef SP_USE_DLL
  #ifdef BUILD_LIBGROVE
-@@ -34,10 +35,10 @@
+@@ -34,10 +35,10 @@ namespace GROVE_NAMESPACE {
  #endif
  
  #ifdef SP_MULTI_BYTE
