@@ -42,3 +42,7 @@ CMAKE_ARGS=		-DCMAKE_POLICY_VERSION_MINIMUM=3.5
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/uchardet
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libuchardet.${LIBEXT}
+
+pre-configure-sunos:
+	# sun linker not supported, so drop symbol map
+	${REINPLACE_CMD} -e '/Wl,--version-script/d' ${WRKSRC}/src/symbols.cmake
