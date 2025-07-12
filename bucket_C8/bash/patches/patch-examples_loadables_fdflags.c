@@ -1,6 +1,6 @@
---- examples/loadables/fdflags.c.orig	2022-07-26 14:16:57 UTC
+--- examples/loadables/fdflags.c.orig	2023-11-27 23:53:21 UTC
 +++ examples/loadables/fdflags.c
-@@ -109,6 +109,8 @@ static const struct
+@@ -121,6 +121,8 @@ static const struct
  
  #ifdef O_CLOEXEC
    { "cloexec",	O_CLOEXEC	},

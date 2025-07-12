@@ -1,6 +1,6 @@
---- lib/readline/terminal.c.orig	Thu Jul  3 06:06:42 2025
-+++ lib/readline/terminal.c	Thu Jul  3 06:12:32 2025
-@@ -697,6 +697,12 @@
+--- lib/readline/terminal.c.orig	2025-06-11 15:05:41 UTC
++++ lib/readline/terminal.c
+@@ -809,6 +809,12 @@ _rl_output_character_function (int c)
  {
    putc (c, _rl_out_stream);
  }

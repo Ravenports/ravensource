@@ -1,13 +1,11 @@
---- support/shobj-conf.orig	2021-12-03 15:54:46 UTC
+--- support/shobj-conf.orig	2024-02-14 15:42:57 UTC
 +++ support/shobj-conf
-@@ -114,8 +114,8 @@ sunos5*-*gcc*|solaris2*-*gcc*)
- 	;;
+@@ -115,7 +115,7 @@ sunos5*-*gcc*|solaris2*-*gcc*)
  
  sunos5*|solaris2*)
--	SHOBJ_CFLAGS='-K pic'
+ 	SHOBJ_CFLAGS='-fPIC'	# was -K pic
 -	SHOBJ_LD=/usr/ccs/bin/ld
-+	SHOBJ_CFLAGS='-fPIC'
-+	SHOBJ_LD=/usr/bin/ld.sun
++	SHOBJ_LD=ld
  	SHOBJ_LDFLAGS='-G -dy -z text -i -h $@'
  
  #	SHLIB_XLDFLAGS='-R $(libdir)'

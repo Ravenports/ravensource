@@ -1,6 +1,6 @@
---- lib/readline/rlprivate.h.orig	Thu Jul  3 06:05:24 2025
-+++ lib/readline/rlprivate.h	Thu Jul  3 11:27:57 2025
-@@ -406,6 +406,8 @@
+--- lib/readline/rlprivate.h.orig	2025-03-07 23:51:02 UTC
++++ lib/readline/rlprivate.h
+@@ -457,6 +457,8 @@ extern void _rl_sigwinch_resize_terminal
  extern int _rl_init_terminal_io (const char *);
  #ifdef _MINIX
  extern void _rl_output_character_function (int);

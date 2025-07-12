@@ -1,4 +1,4 @@
---- examples/loadables/finfo.c.orig	2020-06-29 14:56:32 UTC
+--- examples/loadables/finfo.c.orig	2023-10-30 19:01:06 UTC
 +++ examples/loadables/finfo.c
 @@ -28,7 +28,7 @@
  #endif
