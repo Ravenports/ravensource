@@ -1,4 +1,6 @@
-DEF[PORTVERSION]=	1.9.17
+DEF[CPE_UPDATE]=	p1
+DEF[CPE_VERSION]=	1.9.17
+DEF[PORTVERSION]=	${CPE_VERSION}${CPE_UPDATE}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		sudo
@@ -33,6 +35,8 @@ FPC_EQUIVALENT=		security/sudo
 
 USES=			cpe libtool gettext cclibs:primary zlib
 CPE_VENDOR=		todd_miller
+CPE_VERSION=		${CPE_VERSION}
+CPE_UPDATE=		${CPE_UPDATE}
 INSTALL_REQ_TOOLCHAIN=	yes
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--sysconfdir={{PREFIX}}/etc
