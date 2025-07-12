@@ -40,9 +40,3 @@ USES=			cmake pkgconfig python:build
 DISTNAME=		${KF6_COMPONENT}-${PORTVERSION}
 CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt6/cmake
 SOVERSION=		${SOVERSION}
-
-post-install:
-	(cd ${STAGEDIR}${PREFIX}/share/icons && ${RMDIR} breeze-dark/animations/24 \
-		breeze/emotes/24 \
-		breeze-dark/emotes/24 \
-		breeze/animations/24)
