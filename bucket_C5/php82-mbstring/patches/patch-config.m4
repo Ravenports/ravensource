@@ -1,4 +1,4 @@
---- config.m4.orig	2023-01-31 13:31:55 UTC
+--- config.m4.orig	2025-07-01 16:29:21 UTC
 +++ config.m4
 @@ -37,6 +37,31 @@ AC_DEFUN([PHP_MBSTRING_EXTENSION], [
  
