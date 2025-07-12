@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.23.0
+DEF[PORTVERSION]=	0.23.2
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-dulwich
@@ -11,7 +11,7 @@ HOMEPAGE=		https://www.dulwich.io/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/35/31/49318ee9db4b402e6d8b9b01bd4cae9298f59e1bb9bd56cf4a94e48fa069
+SITES[main]=		PYPIWHL/15/59/1e86420456b267a281e5e9e8a39994ef4e24121a2d234e3e081df707e50f
 DISTFILE[1]=		dulwich-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -31,14 +31,16 @@ DISTNAME=		dulwich-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
 # urllib3>=1.25
+# typing_extensions>=4.0; python_version < "3.10"
 # fastimport; extra == "fastimport"
 # urllib3>=1.24.1; extra == "https"
 # gpg; extra == "pgp"
 # paramiko; extra == "paramiko"
-# ruff==0.11.13; extra == "dev"
-# mypy==1.16.0; extra == "dev"
+# ruff==0.12.1; extra == "dev"
+# mypy==1.16.1; extra == "dev"
 # dissolve>=0.1.1; extra == "dev"
 # merge3; extra == "merge"
+# atheris; extra == "fuzzing"
 
 [PY312].USES_ON=			python:v12,wheel
 [PY312].RUN_DEPENDS_ON=			python-urllib3:single:v12

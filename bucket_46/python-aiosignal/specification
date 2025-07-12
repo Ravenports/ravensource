@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.3.2
+DEF[PORTVERSION]=	1.4.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-aiosignal
@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/aio-libs/aiosignal
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/ec/6a/bc7e17a3e87a2985d3e8f4da4cd0f481060eb78fb08596c42be62c90a4d9
-DISTFILE[1]=		aiosignal-${PORTVERSION}-py2.py3-none-any.whl:main
+SITES[main]=		PYPIWHL/fb/76/641ae371508676492379f16e2fa48f4e2c11741bd63c48be4b12a6b09cba
+DISTFILE[1]=		aiosignal-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
 SPKGS[v12]=		single
@@ -31,9 +31,11 @@ DISTNAME=		aiosignal-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
 # frozenlist>=1.1.0
+# typing-extensions>=4.2; python_version < "3.13"
 
 [PY312].USES_ON=			python:v12,wheel
 [PY312].RUN_DEPENDS_ON=			python-frozenlist:single:v12
+					python-typing-extensions:single:v12
 [PY313].USES_ON=			python:v13,wheel
 [PY313].RUN_DEPENDS_ON=			python-frozenlist:single:v13
 

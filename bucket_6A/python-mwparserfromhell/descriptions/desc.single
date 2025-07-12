@@ -4,7 +4,7 @@ mwparserfromhell
 **mwparserfromhell** (the *MediaWiki Parser from Hell*) is a Python package
 that provides an easy-to-use and outrageously powerful parser for
 MediaWiki_
-wikicode. It supports Python 3.8+.
+wikicode. It supports Python 3.9+.
 
 Developed by Earwig_ with contributions from `Σ`_, Legoktm_, and others.
 Full documentation is available on ReadTheDocs_. Development occurs on
@@ -13,23 +13,33 @@ GitHub_.
 Installation
 ------------
 
-The easiest way to install the parser is through the `Python Package
-Index`_;
-you can install the latest release with pip install mwparserfromhell
-(`get pip`_). Make sure your pip is up-to-date first, especially on
-Windows.
+The easiest way to install the parser is from `PyPI`_; you can install the
+latest release with pip install mwparserfromhell.
 
-Alternatively, get the latest development version:
+Prebuilt wheels are available on PyPI with a fast, compiled C tokenizer
+extension for most environments (Linux x86_64 and arm64, macOS x86_64 and
+arm64, Windows x86 and x86_64). If building from source and the C tokenizer
+cannot be built, you can fall back to the slower pure-Python implementation
+by
+setting the environment variable ``WITH_EXTENSION=0`` when installing.
+
+To get the latest development version (with `uv`_):
 
 .. code-block:: sh
 
     git clone https://github.com/earwig/mwparserfromhell.git
     cd mwparserfromhell
-    python setup.py install
+    uv sync
+    uv run python -c 'import mwparserfromhell;
+print(mwparserfromhell.__version__)'
 
-The comprehensive unit testing suite requires `pytest`_ (pip install
-pytest)
-and can be run with ``python -m pytest``.
+The comprehensive test suite can be run with pytest. If using uv, pass
+``--reinstall-package`` so updates to the extension module are properly
+tested:
+
+.. code-block:: sh
+
+    uv run --reinstall-package mwparserfromhell pytest
 
 Usage
 -----
@@ -88,13 +98,3 @@ Wikicode objects:
   {{includes a|template}}
   >>> print(foo.get(1).value.filter_templates()[0].get(1).value)
   template
-
-Templates can be easily modified to add, remove, or alter params. Wikicode
-objects can be treated like lists, with ``append()``, ``insert()``,
-``remove()``, ``replace()``, and more. They also have a ``matches()``
-method
-for comparing page or template names, which takes care of capitalization
-and
-whitespace:
-
-.. code-block:: python
