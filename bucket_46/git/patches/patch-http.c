@@ -1,4 +1,4 @@
---- http.c.orig	2025-06-16 05:42:57 UTC
+--- http.c.orig	2025-06-16 05:11:33 UTC
 +++ http.c
 @@ -2283,7 +2283,11 @@ static int http_request_reauth(const cha
  				return HTTP_START_FAILED;
