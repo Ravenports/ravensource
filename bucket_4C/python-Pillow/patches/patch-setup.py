@@ -1,13 +1,11 @@
---- setup.py.orig	2019-07-02 19:13:39 UTC
+--- setup.py.orig	2025-07-01 07:52:08 UTC
 +++ setup.py
-@@ -465,9 +465,7 @@ class pil_build_ext(build_ext):
-                 _add_directory(include_dirs, "/usr/X11/include")
+@@ -647,7 +647,7 @@ class pil_build_ext(build_ext):
+             for extension in self.extensions:
+                 extension.extra_compile_args = ["-Wno-nullability-completeness"]
  
-         elif (
--            sys.platform.startswith("linux")
--            or sys.platform.startswith("gnu")
--            or sys.platform.startswith("freebsd")
-+            sys.platform.startswith("nothing")
-         ):
+-        elif sys.platform.startswith(("linux", "gnu", "freebsd")):
++        elif sys.platform.startswith(("nothing")):
              for dirname in _find_library_dirs_ldconfig():
                  _add_directory(library_dirs, dirname)
+             if sys.platform.startswith("linux") and os.environ.get("ANDROID_ROOT"):
