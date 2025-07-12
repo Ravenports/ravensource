@@ -1,16 +1,14 @@
-DEF[PORTVERSION]=	7.6
+DEF[PORTVERSION]=	7.7
 DEF[SOVERSION]=		${PORTVERSION}
-# Remove cmake minimum argument on next release
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		slop
 VERSION=		${PORTVERSION}
-REVISION=		3
 KEYWORDS=		graphics x11
 VARIANTS=		std
 SDESC[std]=		Query for a selection and print to stdout
 HOMEPAGE=		https://github.com/naelstrof/slop
-CONTACT=		Leonid_Bobrov[goleo@disroot.org]
+CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/naelstrof:slop:v${PORTVERSION}
@@ -39,8 +37,6 @@ BUILDRUN_DEPENDS=	glew:primary:std
 USES=			cmake
 XORG_COMPONENTS=	xrender xext
 SOVERSION=		${SOVERSION}
-
-CMAKE_ARGS=		-DCMAKE_POLICY_VERSION_MINIMUM=3.5
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/slop
