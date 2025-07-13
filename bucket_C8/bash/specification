@@ -26,11 +26,11 @@ DISTFILE[1]=		bash-${PORTVERSION}.tar.gz:main
 DIST_SUBDIR=		bash
 
 SPKGS[std]=		set primary loadables dev nls man docs info
-SPKGS[static]=		set primary loadables dev
+SPKGS[static]=		primary
 
-OPTIONS_AVAILABLE=	STATIC NLS NOTSTD
+OPTIONS_AVAILABLE=	STATIC NLS
 OPTIONS_STANDARD=	STATIC NLS
-VOPTS[static]=		STATIC=ON NLS=OFF NOTSTD=ON
+VOPTS[static]=		STATIC=ON NLS=OFF
 OPT_ON[all]=		NLS
 
 LICENSE=		GPLv3+:primary
@@ -55,8 +55,7 @@ DISTNAME=		bash-${PORTVERSION}
 MUST_CONFIGURE=		gnu
 CPE_VENDOR=		gnu
 INSTALL_REQ_TOOLCHAIN=	yes
-CONFIGURE_ARGS=		--enable-readline
-			--enable-progcomp
+CONFIGURE_ARGS=		--enable-progcomp
 			--enable-process-substitution
 			--enable-history
 			--enable-help-builtin
@@ -83,21 +82,21 @@ VAR_OPSYS[linux]=	VAR1=-Wl,--export-dynamic
 [NLS].CONFIGURE_ENABLE_BOTH=		nls
 [NLS].CONFIGURE_ARGS_ON=		--with-libiconv-prefix={{ICONV_PREFIX}}
 
-[STATIC].BUILDRUN_DEPENDS_OFF=		ncurses:primary:std
+# static linking finds clash between readline and tinfo, so static
+# version can't be build with readline capability.
 
-[NOTSTD].DESCRIPTION=			Non-standard designation
-[NOTSTD].USES_OFF=			makeinfo
-[NOTSTD].INFO_OFF=			info:bash
+[STATIC].BUILDRUN_DEPENDS_OFF=		ncurses:primary:std
+[STATIC].USES_OFF=			makeinfo
+[STATIC].INFO_OFF=			info:bash
+[STATIC].CONFIGURE_ARGS_ON=		--enable-static-link
+					--enable-readline=no
+[STATIC].CONFIGURE_ARGS_OFF=		--enable-readline
 
 post-patch:
 	# Ensure y.tab.c is regenerated
 	${TOUCH} ${WRKSRC}/parse.y
 	${RM} ${WRKSRC}/y.tab.c
 	${REINPLACE_CMD} -e "s|%%PREFIX%%|${PREFIX}|g" ${WRKSRC}/doc/bash.1
-
-post-extract-STATIC-ON:
-	# force static linking
-	${RM} ${LOCALBASE}/lib/libncurses.so
 
 post-configure:
 	${FIND} ${WRKSRC} -name Makefile -print0 | ${XARGS} -0 \
@@ -107,5 +106,5 @@ post-install:
 	${LN} -sf bash ${STAGEDIR}${PREFIX}/bin/rbash
 	${RM} ${STAGEDIR}${STD_DOCDIR}/CHANGES
 
-post-install-NOTSTD-ON:
+post-install-STATIC-ON:
 	${RM} -r ${STAGEDIR}${STD_DOCDIR}
