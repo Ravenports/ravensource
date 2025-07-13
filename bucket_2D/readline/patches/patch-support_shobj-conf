@@ -1,4 +1,4 @@
---- support/shobj-conf.orig	2021-12-03 15:54:46 UTC
+--- support/shobj-conf.orig	2024-02-14 15:42:57 UTC
 +++ support/shobj-conf
 @@ -95,7 +95,7 @@ sunos4*)
  	SHLIB_LIBVERSION='$(SHLIB_LIBSUFF).$(SHLIB_MAJOR)$(SHLIB_MINOR)'
@@ -9,21 +9,21 @@
  	SHOBJ_LD='${CC}'
  	ld_used=`gcc -print-prog-name=ld`
  	if ${ld_used} -V 2>&1 | grep GNU >/dev/null 2>&1; then
-@@ -110,26 +110,19 @@ sunos5*-*gcc*|solaris2*-*gcc*)
+@@ -109,27 +109,19 @@ sunos5*-*gcc*|solaris2*-*gcc*)
+ 		SHOBJ_CFLAGS=-fpic
  	fi
  
- #	SHLIB_XLDFLAGS='-R $(libdir)'
+-#	SHLIB_XLDFLAGS='-R $(libdir)'
 -	SHLIB_LIBVERSION='$(SHLIB_LIBSUFF).$(SHLIB_MAJOR)'
 -	;;
 -
 -sunos5*|solaris2*)
--	SHOBJ_CFLAGS='-K pic'
+-	SHOBJ_CFLAGS='-fPIC'	# was -K pic
 -	SHOBJ_LD=/usr/ccs/bin/ld
 -	SHOBJ_LDFLAGS='-G -dy -z text -i -h $@'
 -
 -#	SHLIB_XLDFLAGS='-R $(libdir)'
--	SHLIB_LIBVERSION='$(SHLIB_LIBSUFF).$(SHLIB_MAJOR)'
-+	SHLIB_LIBVERSION='$(SHLIB_LIBSUFF).$(SHLIB_MAJOR)${SHLIB_MINOR}'
+ 	SHLIB_LIBVERSION='$(SHLIB_LIBSUFF).$(SHLIB_MAJOR)'
 +	SHLIB_LIBS='$(TERMCAP_LIB)'
  	;;
  
@@ -40,7 +40,7 @@
  	;;
  
  # Darwin/MacOS X
-@@ -174,7 +167,7 @@ darwin*)
+@@ -174,7 +166,7 @@ darwin*)
  	SHLIB_LIBS='-lncurses'	# see if -lcurses works on MacOS X 10.1 
  	;;
  

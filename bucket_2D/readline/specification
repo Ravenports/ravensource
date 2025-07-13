@@ -1,7 +1,7 @@
-DEF[PATCHLEVEL]=	13
-DEF[PATCH_DIST]=	2 3 4 5 6 7 8 9 10 11 12 13 14
-DEF[READLINE_VERSION]=	8.2
-DEF[PORTVERSION]=	${READLINE_VERSION}.${PATCHLEVEL}
+DEF[PATCHLEVEL]=	1
+DEF[PATCH_DIST]=	2
+DEF[READLINE_VERSION]=	8.3
+DEF[PORTVERSION]=	${READLINE_VERSION}p${PATCHLEVEL}
 DEF[DIST_VERSION]=	${READLINE_VERSION}
 # ----------------------------------------------------------------------------
 
@@ -18,18 +18,6 @@ SITES[main]=		GNU/readline
 SITES[patches]=		GNU/readline/readline-${DIST_VERSION}-patches
 DISTFILE[1]=		readline-${DIST_VERSION}.tar.gz:main
 DISTFILE[2]=		readline${DIST_VERSION:S/.//}-001:patches
-DISTFILE[3]=		readline${DIST_VERSION:S/.//}-002:patches
-DISTFILE[4]=		readline${DIST_VERSION:S/.//}-003:patches
-DISTFILE[5]=		readline${DIST_VERSION:S/.//}-004:patches
-DISTFILE[6]=		readline${DIST_VERSION:S/.//}-005:patches
-DISTFILE[7]=		readline${DIST_VERSION:S/.//}-006:patches
-DISTFILE[8]=		readline${DIST_VERSION:S/.//}-007:patches
-DISTFILE[9]=		readline${DIST_VERSION:S/.//}-008:patches
-DISTFILE[10]=		readline${DIST_VERSION:S/.//}-009:patches
-DISTFILE[11]=		readline${DIST_VERSION:S/.//}-010:patches
-DISTFILE[12]=		readline${DIST_VERSION:S/.//}-011:patches
-DISTFILE[13]=		readline${DIST_VERSION:S/.//}-012:patches
-DISTFILE[14]=		readline${DIST_VERSION:S/.//}-013:patches
 
 SPKGS[std]=		set primary dev man examples docs info
 
@@ -45,9 +33,10 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/readline
 
+PATCHFILES=		${PATCH_DIST}
+
 USES=			cpe ncurses
 DISTNAME=		readline-${DIST_VERSION}
-PATCHFILES=		${PATCH_DIST}
 CPE_VENDOR=		gnu
 CPE_VERSION=		${DIST_VERSION}
 CPE_UPDATE=		${PATCHLEVEL}
