@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.25
+DEF[PORTVERSION]=	0.25.1
 DEF[GETTEXTPO]=		0.5.14
 DEF[LIBINTL]=		8.4.4
 DEF[GETTEXTSTYLE]=	0.2.5
@@ -105,6 +105,6 @@ post-install:
 	# v0.24.1 broke a couple of autoreconf ports (wavpack, libmtp) with
 	# relocation of m4 files, so add symlinks
 	${MKDIR} ${STAGEDIR}${PREFIX}/share/aclocal
-.for m4 in gettext iconv nls po lib-ld lib-link lib-prefix
+.for m4 in gettext iconv po lib-ld lib-link lib-prefix
 	${LN} -s ../gettext/m4/${m4}.m4 ${STAGEDIR}${PREFIX}/share/aclocal/${m4}.m4
 .endfor
