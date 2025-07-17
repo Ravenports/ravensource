@@ -1,4 +1,4 @@
---- ui/cmdpipe.h.orig	2022-01-11 09:10:34 UTC
+--- ui/cmdpipe.h.orig	2025-07-06 15:36:42 UTC
 +++ ui/cmdpipe.h
 @@ -20,6 +20,7 @@
  #define CMDPIPE_H
