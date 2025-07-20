@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.0
+DEF[PORTVERSION]=	2.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		geany-plugins
@@ -13,15 +13,15 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://plugins.geany.org/geany-plugins/
 DISTFILE[1]=		geany-plugins-${PORTVERSION}.tar.bz2:main
 
-SPKGS[std]=		set docs addons autoclose automark codenav commander debugger
+SPKGS[std]=		set addons autoclose automark codenav commander debugger
 			defineformat geanyctags geanydoc geanyextrasel geanygendoc
 			geanyinsertnum geanylua geanymacro geanyminiscript
-			geanynumberedbookmarks geanypg geanyprj geanyvc geniuspaste
-			gitchangebar keyrecord latex lineoperations lipsum markdown
-			overview pairtaghighlighter pohelper pretty_printer
-			projectorganizer scope sendmail shiftcolumn spellcheck
+			bookmarks geanypg geanyprj geanyvc geniuspaste
+			gitchangebar keyrecord latex lineoperations lipsum lsp
+			markdown overview taghighlighter pohelper pretty_printer
+			projectorg scope sendmail shiftcolumn spellcheck
 			tableconvert treebrowser updatechecker vimode webhelper
-			workbench xmlsnippets
+			workbench xmlsnippets nls docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -61,6 +61,7 @@ CONFIGURE_ARGS=		--enable-addons
 			--enable-latex
 			--enable-lineoperations
 			--enable-lipsum
+			--enable-lsp
 			--enable-markdown
 			--enable-overview
 			--enable-pairtaghighlighter
@@ -81,45 +82,79 @@ CONFIGURE_ARGS=		--enable-addons
 			--enable-xmlsnippets
 INSTALL_TARGET=		install-strip
 
-BUILD_DEPENDS=		ctpl:dev:std
-			ctpl:primary:std
-			discount:dev:std
-			discount:primary:std
-			enchant:dev:std
-			enchant:primary:std
-			geany:dev:std
-			gpgme:dev:std
-			gpgme:primary:std
-			gtkspell:dev:std
-			gtkspell:primary:std
-			libgit2:dev:std
-			libgit2:primary:std
-			libsoup-2.4:dev:std
-			libsoup-2.4:primary:std
-			libxml2:dev:std
-			libxml2:primary:std
-			lua51:dev:std
-			lua51:primary:std
-			vte:dev:std
-			webkit2:dev:api40
-			webkit2:primary:api40
-BUILDRUN_DEPENDS=	geany:primary:std
-			vte:primary:std
+BUILD_DEPENDS=		ctpl:set:std
+			discount:set:std
+			enchant:set:std
+			geany:set:std
+			gpgme:set:std
+			gtkspell:set:std
+			libgit2:set:std
+			libsoup:set:std
+			libxml2:set:std
+			lua51:set:std
+			vte:set:std
+			webkit2:set:api40
 
-EXRUN[geanyctags]=	ctags:primary:std
-EXRUN[geanygendoc]=	ctpl:primary:std
-EXRUN[geanylua]=	lua51:primary:std
-EXRUN[geanypg]=		gpgme:primary:std
-EXRUN[geanyvc]=		gtkspell:primary:std
-EXRUN[geniuspaste]=	libsoup-2.4:primary:std
-EXRUN[gitchangebar]=	libgit2:primary:std
-EXRUN[markdown]=	discount:primary:std
+EXRUN[addons]=		geany:primary:std
+EXRUN[autoclose]=	geany:primary:std
+EXRUN[automark]=	geany:primary:std
+EXRUN[codenav]=		geany:primary:std
+EXRUN[commander]=	geany:primary:std
+EXRUN[debugger]=	geany:primary:std
+			vte:primary:std
+EXRUN[defineformat]=	geany:primary:std
+EXRUN[geanyctags]=	geany:primary:std
+			ctags:primary:std
+EXRUN[geanydoc]=	geany:primary:std
+EXRUN[geanyextrasel]=	geany:primary:std
+EXRUN[geanygendoc]=	geany:primary:std
+			ctpl:primary:std
+EXRUN[geanyinsertnum]=	geany:primary:std
+EXRUN[geanylua]=	geany:primary:std
+			lua51:primary:std
+EXRUN[geanymacro]=	geany:primary:std
+EXRUN[geanyminiscript]=	geany:primary:std
+EXRUN[bookmarks]=	geany:primary:std
+EXRUN[geanypg]=		geany:primary:std
+			gpgme:primary:std
+EXRUN[geanyprj]=	geany:primary:std
+EXRUN[geanyvc]=		geany:primary:std
+			enchant:primary:std
+			gtkspell:primary:std
+EXRUN[geniuspaste]=	geany:primary:std
+			libsoup:primary:std
+EXRUN[gitchangebar]=	geany:primary:std
+			libgit2:primary:std
+EXRUN[keyrecord]=	geany:primary:std
+EXRUN[latex]=		geany:primary:std
+EXRUN[lineoperations]=	geany:primary:std
+EXRUN[lipsum]=		geany:primary:std
+EXRUN[lsp]=		geany:primary:std
+EXRUN[markdown]=	geany:primary:std
+			discount:primary:std
 			webkit2:primary:api40
-EXRUN[pretty_printer]=	libxml2:primary:std
-EXRUN[spellcheck]=	enchant:primary:std
-EXRUN[updatechecker]=	libsoup-2.4:primary:std
-EXRUN[webhelper]=	webkit2:primary:api40
-EXRUN[workbench]=	libgit2:primary:std
+EXRUN[overview]=	geany:primary:std
+EXRUN[taghighlighter]=	geany:primary:std
+EXRUN[pohelper]=	geany:primary:std
+EXRUN[pretty_printer]=	geany:primary:std
+			libxml2:primary:std
+EXRUN[projectorg]=	geany:primary:std
+EXRUN[scope]=		geany:primary:std
+			vte:primary:std
+EXRUN[sendmail]=	geany:primary:std
+EXRUN[shiftcolumn]=	geany:primary:std
+EXRUN[spellcheck]=	geany:primary:std
+			enchant:primary:std
+EXRUN[tableconvert]=	geany:primary:std
+EXRUN[treebrowser]=	geany:primary:std
+EXRUN[updatechecker]=	geany:primary:std
+			libsoup:primary:std
+EXRUN[vimode]=		geany:primary:std
+EXRUN[webhelper]=	geany:primary:std
+			webkit2:primary:api40
+EXRUN[workbench]=	geany:primary:std
+			libgit2:primary:std
+EXRUN[xmlsnippets]=	geany:primary:std
 
 USES=			gettext libtool pkgconfig ssl:build
 GNOME_COMPONENTS=	glib gtk3 intltool

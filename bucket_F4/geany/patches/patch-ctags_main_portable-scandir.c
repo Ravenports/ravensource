@@ -1,4 +1,4 @@
---- ctags/main/portable-scandir.c.orig	2023-10-19 16:09:27 UTC
+--- ctags/main/portable-scandir.c.orig	2025-07-04 09:31:37 UTC
 +++ ctags/main/portable-scandir.c
 @@ -195,7 +195,11 @@ scandir(const char *directory_name,
                  return -1;
