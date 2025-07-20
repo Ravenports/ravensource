@@ -1,4 +1,4 @@
---- gettext-tools/libgettextpo/glthread/threadlib.c.orig	2025-06-04 21:38:19 UTC
+--- gettext-tools/libgettextpo/glthread/threadlib.c.orig	2025-07-08 08:54:49 UTC
 +++ gettext-tools/libgettextpo/glthread/threadlib.c
 @@ -62,11 +62,10 @@ glthread_in_use (void)
  
