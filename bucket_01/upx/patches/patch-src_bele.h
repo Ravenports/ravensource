@@ -1,6 +1,6 @@
---- src/bele.h.orig	2025-05-06 10:19:16 UTC
+--- src/bele.h.orig	2025-07-20 12:41:25 UTC
 +++ src/bele.h
-@@ -261,7 +261,7 @@ forceinline bele_constexpr upx_uint64_t
+@@ -262,7 +262,7 @@ forceinline bele_constexpr upx_uint64_t
  
  #else
  
@@ -9,7 +9,7 @@
  #if defined(__riscv) && __riscv_xlen == 64
      return (unsigned) __builtin_bswap64(upx_uint64_t(v) << 48);
  #else
-@@ -269,14 +269,14 @@ forceinline constexpr unsigned bswap16(u
+@@ -270,14 +270,14 @@ forceinline constexpr unsigned bswap16(u
      return __builtin_bswap32(v << 16);
  #endif
  }
@@ -26,7 +26,7 @@
  
  #endif
  
-@@ -291,13 +291,13 @@ forceinline constexpr upx_uint64_t no_bs
+@@ -292,13 +292,13 @@ forceinline constexpr upx_uint64_t no_bs
  #define ne16_to_be16(v) no_bswap16(v)
  #define ne32_to_be32(v) no_bswap32(v)
  #define ne64_to_be64(v) no_bswap64(v)

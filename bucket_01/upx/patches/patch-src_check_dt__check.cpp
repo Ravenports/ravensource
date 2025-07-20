@@ -1,4 +1,4 @@
---- src/check/dt_check.cpp.orig	2025-05-06 10:19:16 UTC
+--- src/check/dt_check.cpp.orig	2025-07-20 12:41:25 UTC
 +++ src/check/dt_check.cpp
 @@ -275,12 +275,12 @@ static_assert(no_bswap16(0x04030201) ==
  static_assert(no_bswap32(0x04030201) == 0x04030201);
@@ -18,4 +18,4 @@
 +static_assert(upx_bswap64(bswap64(0xf8f7f6f5f4f3f2f1ull)) == no_bswap64(0xf8f7f6f5f4f3f2f1ull));
  #endif
  
- static_assert(sign_extend(0u + 0, 8) == 0);
+ static_assert(sign_extend32(0u + 0, 8) == 0);
