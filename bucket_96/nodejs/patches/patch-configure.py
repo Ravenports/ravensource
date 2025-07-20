@@ -1,4 +1,4 @@
---- configure.py.orig	2025-06-24 19:38:42 UTC
+--- configure.py.orig	2025-07-15 17:11:15 UTC
 +++ configure.py
 @@ -45,6 +45,7 @@ from utils import SearchFiles
  parser = argparse.ArgumentParser()

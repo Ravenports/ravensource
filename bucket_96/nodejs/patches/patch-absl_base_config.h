@@ -1,4 +1,4 @@
---- deps/v8/third_party/abseil-cpp/absl/base/config.h.orig	2025-06-24 19:38:46 UTC
+--- deps/v8/third_party/abseil-cpp/absl/base/config.h.orig	2025-07-15 17:11:19 UTC
 +++ deps/v8/third_party/abseil-cpp/absl/base/config.h
 @@ -373,6 +373,7 @@ static_assert(ABSL_INTERNAL_INLINE_NAMES
  #ifdef ABSL_HAVE_MMAP
