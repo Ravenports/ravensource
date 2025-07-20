@@ -1,5 +1,5 @@
---- cargo-crates/libc-0.2.172/src/unix/bsd/freebsdlike/dragonfly/mod.rs.orig	2025-05-12 00:10:41 UTC
-+++ cargo-crates/libc-0.2.172/src/unix/bsd/freebsdlike/dragonfly/mod.rs
+--- cargo-crates/libc-0.2.174/src/unix/bsd/freebsdlike/dragonfly/mod.rs.orig	2025-07-20 23:55:03 UTC
++++ cargo-crates/libc-0.2.174/src/unix/bsd/freebsdlike/dragonfly/mod.rs
 @@ -45,6 +45,21 @@ pub type vm_map_entry_t = *mut vm_map_en
  
  pub type pmap = __c_anonymous_pmap;
@@ -22,7 +22,7 @@
  #[cfg_attr(feature = "extra_traits", derive(Debug))]
  pub enum sem {}
  impl Copy for sem {}
-@@ -529,6 +544,35 @@ s_no_extra_traits! {
+@@ -531,6 +546,35 @@ s_no_extra_traits! {
          pub uc_arg: *mut c_void,
          __pad: [c_int; 4],
      }
