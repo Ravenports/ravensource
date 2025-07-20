@@ -1,6 +1,6 @@
---- src/auto/configure.orig	2025-06-20 16:44:18 UTC
+--- src/auto/configure.orig	2025-07-20 14:50:01 UTC
 +++ src/auto/configure
-@@ -5955,7 +5955,7 @@ if test ${vi_cv_version_lua_luajit+y}
+@@ -6074,7 +6074,7 @@ if test ${vi_cv_version_lua_luajit+y}
  then :
    printf %s "(cached) " >&6
  else case e in #(
@@ -9,7 +9,7 @@
  esac
  fi
  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $vi_cv_version_lua_luajit" >&5
-@@ -6017,7 +6017,7 @@ if test ${vi_cv_version_plain_lua+y}
+@@ -6136,7 +6136,7 @@ if test ${vi_cv_version_plain_lua+y}
  then :
    printf %s "(cached) " >&6
  else case e in #(
@@ -18,7 +18,7 @@
  esac
  fi
  { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $vi_cv_version_plain_lua" >&5
-@@ -6138,7 +6138,7 @@ rm -f core conftest.err conftest.$ac_obj
+@@ -6257,7 +6257,7 @@ rm -f core conftest.err conftest.$ac_obj
        LIBS=$libs_save
      fi
      if test "x$lua_ok" = "xyes"; then
@@ -27,7 +27,7 @@
        LUA_SRC="if_lua.c"
        LUA_OBJ="objects/if_lua.o"
        LUA_PRO="if_lua.pro"
-@@ -6195,7 +6195,8 @@ printf "%s\n" "yes" >&6; }
+@@ -6314,7 +6314,8 @@ printf "%s\n" "yes" >&6; }
        printf "%s\n" "#define DYNAMIC_LUA 1" >>confdefs.h
  
        LUA_LIBS=""
@@ -37,67 +37,3 @@
      fi
      if test "X$LUA_CFLAGS$LUA_LIBS" != "X" && \
         test "x$MACOS_X" = "xyes" && test "x$vi_cv_with_luajit" != "xno" && \
-@@ -13275,6 +13276,7 @@ else case e in #(
- /* end confdefs.h.  */
- 
- #ifdef HAVE_TERMCAP_H
-+# include <term.h>
- # include <termcap.h>
- #endif
- #if STDC_HEADERS
-@@ -13358,6 +13360,7 @@ else case e in #(
- 
- #include "confdefs.h"
- #ifdef HAVE_TERMCAP_H
-+# include <term.h>
- # include <termcap.h>
- #endif
- #ifdef HAVE_STRING_H
-@@ -13418,6 +13421,7 @@ else case e in #(
- 
- #include "confdefs.h"
- #ifdef HAVE_TERMCAP_H
-+# include <term.h>
- # include <termcap.h>
- #endif
- #if STDC_HEADERS
-@@ -13461,6 +13465,7 @@ cat confdefs.h - <<_ACEOF >conftest.$ac_
- /* end confdefs.h.  */
- 
- #ifdef HAVE_TERMCAP_H
-+# include <term.h>
- # include <termcap.h>
- #endif
- 
-@@ -13486,6 +13491,7 @@ printf %s "checking whether ospeed can b
- /* end confdefs.h.  */
- 
- #ifdef HAVE_TERMCAP_H
-+# include <term.h>
- # include <termcap.h>
- #endif
- extern short ospeed;
-@@ -13522,6 +13528,7 @@ cat confdefs.h - <<_ACEOF >conftest.$ac_
- /* end confdefs.h.  */
- 
- #ifdef HAVE_TERMCAP_H
-+# include <term.h>
- # include <termcap.h>
- #endif
- 
-@@ -13547,6 +13554,7 @@ printf %s "checking whether UP, BC and P
- /* end confdefs.h.  */
- 
- #ifdef HAVE_TERMCAP_H
-+# include <term.h>
- # include <termcap.h>
- #endif
- extern char *UP, *BC, PC;
-@@ -13583,6 +13591,7 @@ cat confdefs.h - <<_ACEOF >conftest.$ac_
- /* end confdefs.h.  */
- 
- #ifdef HAVE_TERMCAP_H
-+# include <term.h>
- # include <termcap.h>
- #endif
- 
