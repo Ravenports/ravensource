@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	4.6.3
+DEF[PORTVERSION]=	4.7.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		weechat
@@ -53,8 +53,6 @@ post-patch:
 		${WRKSRC}/src/core/CMakeLists.txt \
 		${WRKSRC}/cmake/*.cmake | ${XARGS} \
 		${REINPLACE_CMD} 's|/usr/local|${LOCALBASE}|'
-	${REINPLACE_CMD} 's|python3|python-${PYTHON_VER}|' \
-		${WRKSRC}/cmake/FindPython.cmake
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/* \
