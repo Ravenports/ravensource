@@ -1,0 +1,98 @@
+DEF[PORTVERSION]=	140.0
+DEF[MAJOR]=		${PORTVERSION:R}
+DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		mozjs140
+VERSION=		${PORTVERSION}
+KEYWORDS=		lang
+VARIANTS=		std
+SDESC[std]=		Standalone JS interpreter from Mozilla ${MAJOR}-esr
+HOMEPAGE=		https://spidermonkey.dev
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		MOZILLA/firefox/releases/${PORTVERSION}esr/source
+DISTFILE[1]=		firefox-${PORTVERSION}esr.source.tar.xz:main
+
+SPKGS[std]=		set primary dev
+
+OPTIONS_AVAILABLE=	SYSICU
+OPTIONS_STANDARD=	SYSICU
+
+LICENSE=		MPL:primary
+LICENSE_FILE=		MPL:stock
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/js-config.h.in
+LICENSE_SCHEME=		solo
+
+BUILD_DEPENDS=		zip:primary:std
+			rust:single:std
+			llvm:tools:std
+			nspr:dev:std
+			cbindgen:single:std
+BUILDRUN_DEPENDS=	nspr:primary:std
+
+EXRUN[dev]=		nspr:dev:std
+
+DISTNAME=		firefox-${PORTVERSION}/js/src
+
+USES=			gmake perl pkgconfig zlib readline clang:keepcc
+			python:build
+MUST_CONFIGURE=		yes
+CONFIGURE_OUTSOURCE=	yes
+CONFIGURE_ARGS=		--prefix={{PREFIX}}
+			--target={{CONFIGURE_TARGET}}
+			--disable-debug
+			--disable-debug-symbols
+			--disable-jemalloc
+			--enable-readline
+			--enable-release
+			--enable-shared-js
+			--enable-tests
+			--enable-optimize
+			--enable-gczeal
+			--with-intl-api
+			--with-system-nspr
+			--with-system-zlib
+CONFIGURE_ENV=		BINDGEN_CFLAGS="-I{{LOCALBASE}}/include"
+
+PLIST_SUB=		MOZJS_MAJOR=${MAJOR}
+			MOZJS_MINOR=0
+
+VAR_OPSYS[linux]=	MAKEFILE_LINE=CONFIGURE_TARGET=x86_64-ravenadm-linux-gnu
+VAR_OPSYS[midnightbsd]=	MAKEFILE_LINE=CONFIGURE_TARGET=${MBSD64_TARGET}
+
+[SYSICU].DESCRIPTION=			Build with external ICU package
+[SYSICU].BUILD_DEPENDS_ON=		icu:dev:std
+[SYSICU].BUILDRUN_DEPENDS_ON=		icu:primary:std
+					icu:data:std
+[SYSICU].CONFIGURE_ARGS_ON=		--with-system-icu
+[SYSICU].USES_OFF=			c++:primary
+
+pre-configure:
+	${CHMOD} 755 ${WRKSRC}/configure
+	${REINPLACE_CMD} -e "s|%%MBSD64_TGT%%|${MBSD64_TARGET}|" \
+	${WRKSRC}/../../build/autoconf/config.guess
+	# don't allow linking with ssp
+	${REINPLACE_CMD} '/protector-strong/d' \
+	${WRKSRC}/../../build/moz.configure/toolchain.configure
+
+do-install:
+	# Makefile lost track of where targets are.
+	${INSTALL_DATA} ${BUILD_WRKSRC}/js/src/build/js.pc \
+		${STAGEDIR}${PREFIX}/lib/pkgconfig/mozjs-${MAJOR}.pc
+	(cd ${BUILD_WRKSRC}/dist/include && ${FIND} * -type d) |\
+		${XARGS} -I {} ${MKDIR} ${STAGEDIR}${PREFIX}/include/mozjs-${MAJOR}/{}
+	(cd ${BUILD_WRKSRC}/dist/include && ${FIND} * -type l) | ${XARGS} -I {} \
+		${INSTALL_DATA} ${BUILD_WRKSRC}/dist/include/{} \
+		${STAGEDIR}${PREFIX}/include/mozjs-${MAJOR}/{}
+	${INSTALL_SCRIPT} ${BUILD_WRKSRC}/js/src/build/js-config \
+		${STAGEDIR}${PREFIX}/bin/js${MAJOR}-config
+	${INSTALL_DATA} ${BUILD_WRKSRC}/js/src/build/libjs_static.a \
+		${STAGEDIR}${PREFIX}/lib/libjs_static.ajs
+	${INSTALL_PROGRAM} ${BUILD_WRKSRC}/dist/bin/js \
+		${STAGEDIR}${PREFIX}/bin/js${MAJOR}
+	${INSTALL_LIB} ${BUILD_WRKSRC}/dist/bin/libmozjs-${MAJOR}.so \
+		${STAGEDIR}${PREFIX}/lib/
