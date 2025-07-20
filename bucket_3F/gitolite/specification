@@ -1,9 +1,8 @@
-DEF[PORTVERSION]=	3.6.13
+DEF[PORTVERSION]=	3.6.14
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gitolite
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		std
 SDESC[std]=		Finely-grained git repository hosting
@@ -54,7 +53,7 @@ do-build:
 	${FIND} ${WRKSRC} '(' -name '*.bak' -o -name '*.orig' ')' -delete
 
 do-install:
-	@${MKDIR} ${STAGEDIR}${STD_DOCDIR}
+	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
 	(cd ${WRKSRC}/src && \
 		${COPYTREE_BIN} \* ${STAGEDIR}${PREFIX}/libexec/gitolite)
 	(cd ${WRKSRC}/lib && \
