@@ -1,6 +1,6 @@
---- configure.ac.orig	2025-05-14 03:11:06 UTC
+--- configure.ac.orig	2025-07-15 16:27:14 UTC
 +++ configure.ac
-@@ -1285,6 +1285,8 @@ main()
+@@ -1283,6 +1283,8 @@ main()
  		],
  [dragonfly*], [	LIBS="-lm $LIBS"
  		],
@@ -9,7 +9,7 @@
  [aix*],[	LIBS="-lm $LIBS"
  		ac_cv_func_round=no
  		ac_cv_func___builtin_setjmp=no
-@@ -2763,6 +2765,9 @@ AS_CASE([$coroutine_type], [yes|''], [
+@@ -2761,6 +2763,9 @@ AS_CASE([$coroutine_type], [yes|''], [
          [x86_64-dragonfly*], [
              coroutine_type=amd64
          ],
@@ -19,7 +19,7 @@
          [*-haiku*], [
              coroutine_type=pthread
          ],
-@@ -3136,7 +3141,7 @@ AC_SUBST(EXTOBJS)
+@@ -3134,7 +3139,7 @@ AC_SUBST(EXTOBJS)
  	[bsdi3*], [	AS_CASE(["$CC"],
  			[*shlicc*], [	: ${LDSHARED='$(CC) -r'}
  					rb_cv_dlopen=yes])],
@@ -28,7 +28,7 @@
  			: ${LDSHARED='$(CC) -shared'}
  			AS_IF([test "$rb_cv_binary_elf" = yes], [
  			    LDFLAGS="$LDFLAGS -Wl,-export-dynamic"
-@@ -3145,7 +3150,7 @@ AC_SUBST(EXTOBJS)
+@@ -3143,7 +3148,7 @@ AC_SUBST(EXTOBJS)
  	[interix*], [	: ${LDSHARED='$(CC) -shared'}
  			XLDFLAGS="$XLDFLAGS -Wl,-E"
  			rb_cv_dlopen=yes],
@@ -37,7 +37,7 @@
  			: ${LDSHARED='$(CC) -shared'}
  			AS_IF([test "$rb_cv_binary_elf" = yes], [
  			    LDFLAGS="$LDFLAGS -rdynamic"
-@@ -3220,7 +3225,7 @@ AS_IF([test "$rb_cv_dlopen" = yes], [
+@@ -3218,7 +3223,7 @@ AS_IF([test "$rb_cv_dlopen" = yes], [
  
              AC_MSG_CHECKING([whether $flag is accepted for bundle])
              : > conftest.c
@@ -46,7 +46,7 @@
                  test ! -s conftest.err], [
                  AC_MSG_RESULT([yes])
                  RUBY_APPEND_OPTIONS(DLDFLAGS, [$flag])
-@@ -3584,7 +3589,7 @@ AS_CASE("$enable_shared", [yes], [
+@@ -3582,7 +3587,7 @@ AS_CASE("$enable_shared", [yes], [
    ])
  
    AS_CASE(["$target_os"],
@@ -55,7 +55,7 @@
      [
       AS_IF([test "$GCC" = yes], [
         RUBY_TRY_LDFLAGS([${linker_flag}--no-undefined], [no_undefined=yes], [no_undefined=no])
-@@ -3599,7 +3604,7 @@ AS_CASE("$enable_shared", [yes], [
+@@ -3597,7 +3602,7 @@ AS_CASE("$enable_shared", [yes], [
      [sunos4*], [
  	LIBRUBY_ALIASES='$(LIBRUBY_SONAME) lib$(RUBY_SO_NAME).$(SOEXT)'
  	],
@@ -64,7 +64,7 @@
  	RUBY_APPEND_OPTIONS(LIBRUBY_DLDFLAGS, ['-Wl,-soname,$(LIBRUBY_SONAME)' "$LDFLAGS_OPTDIR"])
  	LIBRUBY_ALIASES='$(LIBRUBY_SONAME) lib$(RUBY_SO_NAME).$(SOEXT)'
  	AS_IF([test "$load_relative" = yes], [
-@@ -3608,7 +3613,7 @@ AS_CASE("$enable_shared", [yes], [
+@@ -3606,7 +3611,7 @@ AS_CASE("$enable_shared", [yes], [
  	    LIBRUBY_RELATIVE=yes
  	])
  	],
