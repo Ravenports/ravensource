@@ -1,15 +1,15 @@
---- include/libwebsockets.h.orig	2025-02-28 06:41:45 UTC
+--- include/libwebsockets.h.orig	2025-07-12 14:25:04 UTC
 +++ include/libwebsockets.h
-@@ -142,7 +142,7 @@ typedef int suseconds_t;
+@@ -163,7 +163,7 @@ typedef int suseconds_t;
  #include <sys/capability.h>
  #endif
  
--#if defined(__NetBSD__) || defined(__FreeBSD__) || defined(__QNX__) || defined(__OpenBSD__)
-+#if defined(__NetBSD__) || defined(__FreeBSD__) || defined(__QNX__) || defined(__OpenBSD__) || defined(__DragonFly__)
+-#if defined(__NetBSD__) || defined(__FreeBSD__) || defined(__QNX__) || defined(__OpenBSD__) || defined(__NuttX__)
++#if defined(__NetBSD__) || defined(__FreeBSD__) || defined(__QNX__) || defined(__OpenBSD__) || defined(__NuttX__) || defined(__DragonFly__)
  #include <sys/socket.h>
  #include <netinet/in.h>
  #endif
-@@ -169,7 +169,7 @@ typedef int suseconds_t;
+@@ -190,7 +190,7 @@ typedef int suseconds_t;
  #endif
  #endif
  
