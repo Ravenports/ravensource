@@ -1,6 +1,6 @@
---- lib/softoken/pkcs11.c.orig	2025-06-19 13:14:58 UTC
+--- lib/softoken/pkcs11.c.orig	2025-07-17 20:31:27 UTC
 +++ lib/softoken/pkcs11.c
-@@ -3593,8 +3593,8 @@ loser:
+@@ -3638,8 +3638,8 @@ loser:
          char buf[200];
          int major = 0, minor = 0;
  
