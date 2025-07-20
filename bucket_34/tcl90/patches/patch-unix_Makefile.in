@@ -1,4 +1,4 @@
---- unix/Makefile.in.orig	2024-12-12 18:07:26 UTC
+--- unix/Makefile.in.orig	2025-06-18 17:20:32 UTC
 +++ unix/Makefile.in
 @@ -54,10 +54,12 @@ DLL_INSTALL_DIR		= @DLL_INSTALL_DIR@
  SCRIPT_INSTALL_DIR	= $(INSTALL_ROOT)$(TCL_LIBRARY)
@@ -51,7 +51,7 @@
 +	${RANLIB} libtcl${SHORT_TCL_VER}.a
  
  ${STUB_LIB_FILE}: ${STUB_LIB_OBJS}
- 	@if [ "x${LIB_FILE}" = "xlibtcl${MAJOR_VERSION}.${MINOR_VERSION}.dll" ] ; then \
+ 	@if [ "x${LIB_FILE}" = "xcygtcl${MAJOR_VERSION}.${MINOR_VERSION}.dll" ] ; then \
 @@ -996,13 +1004,12 @@ trace-test: ${TCLTEST_EXE}
  # Installation rules
  #--------------------------------------------------------------------------
@@ -62,7 +62,7 @@
  INSTALL_PACKAGE_TARGETS = install-packages
  INSTALL_DEV_TARGETS = install-headers
  INSTALL_EXTRA_TARGETS = @EXTRA_INSTALL@
--INSTALL_TARGETS = $(INSTALL_BASE_TARGETS) $(INSTALL_DOC_TARGETS) $(INSTALL_DEV_TARGETS) \
+-INSTALL_TARGETS = $(INSTALL_BASE_TARGETS) $(INSTALL_DEV_TARGETS) $(INSTALL_DOC_TARGETS) \
 -		  $(INSTALL_PACKAGE_TARGETS) $(INSTALL_EXTRA_TARGETS)
 +INSTALL_TARGETS = $(INSTALL_BASE_TARGETS) $(INSTALL_DEV_TARGETS) $(INSTALL_EXTRA_TARGETS)
  
@@ -106,7 +106,7 @@
  	@echo "Installing library files to $(SCRIPT_INSTALL_DIR)/"
  	@for i in $(TOP_DIR)/library/*.tcl $(TOP_DIR)/library/tclIndex \
  		$(UNIX_DIR)/tclAppInit.c @LDAIX_SRC@ @DTRACE_SRC@ ; do \
-@@ -1074,32 +1084,30 @@ install-libraries: libraries
+@@ -1074,28 +1084,27 @@ install-libraries: libraries
  	    done
  	@echo "Installing package http 2.10.0 as a Tcl Module"
  	@$(INSTALL_DATA) $(TOP_DIR)/library/http/http.tcl \
@@ -138,7 +138,11 @@
  	done
 -	@if [ -n "$(TCL_MODULE_PATH)" -a -f $(TOP_DIR)/library/tm.tcl ] ; then \
  	    echo "Customizing tcl module path"; \
- 	    echo "if {![interp issafe]} { ::tcl::tm::roots [list $(TCL_MODULE_PATH)] }" >> \
+ 	    echo "if {![interp issafe]} {" >> \
+ 		"$(SCRIPT_INSTALL_DIR)/tm.tcl"; \
+@@ -1109,7 +1118,6 @@ install-libraries: libraries
+ 		"$(SCRIPT_INSTALL_DIR)/tm.tcl"; \
+ 	    echo "}" >> \
  		"$(SCRIPT_INSTALL_DIR)/tm.tcl"; \
 -	fi
  

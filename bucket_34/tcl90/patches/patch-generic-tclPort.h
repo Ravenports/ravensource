@@ -1,4 +1,4 @@
---- generic/tclPort.h.orig	2024-12-12 18:07:26 UTC
+--- generic/tclPort.h.orig	2025-06-16 12:11:43 UTC
 +++ generic/tclPort.h
 @@ -20,7 +20,7 @@
  #if defined(_WIN32)
