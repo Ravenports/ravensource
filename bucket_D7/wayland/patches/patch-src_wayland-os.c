@@ -1,4 +1,4 @@
---- src/wayland-os.c.orig	2024-05-30 18:59:51 UTC
+--- src/wayland-os.c.orig	2025-07-06 12:11:26 UTC
 +++ src/wayland-os.c
 @@ -42,6 +42,10 @@
  

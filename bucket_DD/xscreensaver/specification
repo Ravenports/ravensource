@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	6.10.1
-DEF[DISTVER]=		6.10
+DEF[PORTVERSION]=	6.12
+DEF[DISTVER]=		6.12
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		xscreensaver
@@ -61,6 +61,11 @@ MAKE_ARGS=		install_prefix={{STAGEDIR}}
 DISTNAME=		xscreensaver-${DISTVER}
 
 VAR_OPSYS[midnightbsd]=	CONFIGURE_ARGS=--build=x86_64-raven-midnightbsd3
+
+# hack for tar error
+# Skipping hardlink pointing to itself: xscreensaver-6.12/driver/wayland-dpy.c: Unknown error: -1
+EXTRACT_HEAD[1]=	env LANG=en_US.UTF-8 {{TAR}} -xf
+EXTRACT_TAIL[1]=	--no-same-owner --no-same-permissions || true
 
 post-install:
 	${RM} -r ${STAGEDIR}/etc
