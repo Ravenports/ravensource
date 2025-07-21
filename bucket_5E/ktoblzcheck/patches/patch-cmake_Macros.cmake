@@ -1,4 +1,4 @@
---- cmake/Macros.cmake.orig	2024-01-04 15:50:46 UTC
+--- cmake/Macros.cmake.orig	2025-05-20 08:49:45 UTC
 +++ cmake/Macros.cmake
 @@ -16,10 +16,10 @@ macro(setup_filenames)
          set(DATA_FILEPATH ${CMAKE_CURRENT_SOURCE_DIR}/${DATA_FILE})

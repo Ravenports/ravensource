@@ -1,14 +1,10 @@
-DEF[PORTVERSION]=	1.57
-DEF[BANKDATE]=		20240108
-# %d.%m.%Y
-DEF[BANKDATE_FORM2]=	08.01.2024
+DEF[PORTVERSION]=	1.59
 DEF[SOVERSION]=		1.5.26
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ktoblzcheck
 VERSION=		${PORTVERSION}
-REVISION=		1
-KEYWORDS=		finance german
+KEYWORDS=		finance
 VARIANTS=		std
 SDESC[std]=		Check bank codes of German banks
 HOMEPAGE=		https://sourceforge.net/projects/ktoblzcheck/
@@ -16,10 +12,8 @@ CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main bankdata
 SITES[main]=		SF/ktoblzcheck
-SITES[bankdata]=	FREELOCAL/jhale/ktoblzcheck
 DISTFILE[1]=		ktoblzcheck-${PORTVERSION}.tar.gz:main
-DISTFILE[2]=		ktoblzcheck-bankdata-${BANKDATE}.tar.gz:bankdata
-DF_INDEX=		1 2
+DF_INDEX=		1
 
 SPKGS[std]=		set primary dev tools man
 
@@ -37,28 +31,17 @@ FPC_EQUIVALENT=		finance/ktoblzcheck
 
 EXRUN[tools]=		primary
 
-BUILD_DEPENDS=		sqlite:dev:std
-			curl:dev:std
-BUILDRUN_DEPENDS=	python-openpyxl:single:python_used
-			curl:primary:std
+BUILD_DEPENDS=		curl:dev:std
+BUILDRUN_DEPENDS=	curl:primary:std
+RUN_DEPENDS=		ktoblzcheck-data:single:std
 
 SUB_FILES=		messages-primary.ucl
 			scripts-primary.ucl
 SUB_LIST=		DATADIR={{PREFIX}}/share/ktoblzcheck
-PLIST_SUB=		BANKDATE=${BANKDATE}
 
-USES=			cmake python:sqlite sqlite c++:primary
-CMAKE_ARGS=		-DENABLE_BANKDATA_DOWNLOAD:BOOL=OFF
+USES=			cmake sqlite c++:primary
+CMAKE_ARGS=		-DCMAKE_DISABLE_FIND_PACKAGE_Python3:BOOL=ON
 SOVERSION=		${SOVERSION}
-
-post-extract:
-.for F in blz_${BANKDATE}.txt ch_data.txt nl_data.xlsx sepa_${BANKDATE}.txt
-	${CP} ${WRKDIR}/ktoblzcheck-bankdata-${BANKDATE}/${F} ${WRKSRC}/src/bankdata/
-.endfor
-
-pre-configure:
-	${REINPLACE_CMD} -e 's|%%BANKDATA_DATE%%|${BANKDATE_FORM2}|' \
-		${WRKSRC}/src/bankdata/CMakeLists.txt
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/ktoblzcheck
