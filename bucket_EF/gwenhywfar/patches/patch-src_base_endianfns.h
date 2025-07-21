@@ -1,7 +1,7 @@
---- src/base/endianfns.h.orig	2017-08-07 19:02:11 UTC
+--- src/base/endianfns.h.orig	2025-01-01 14:40:35 UTC
 +++ src/base/endianfns.h
-@@ -40,7 +40,11 @@
- #  define GWEN_ENDIAN_HTOLE64(x) (x)
+@@ -63,7 +63,11 @@
+ 
  #else
  /* for Linux and others use definitions from endian.h */
 +# if defined(__FreeBSD__) || defined(__NetBSD__)

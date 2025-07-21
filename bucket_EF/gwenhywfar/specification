@@ -1,6 +1,6 @@
-DEF[PORTVERSION]=	5.12.0
-DEF[FOLDER]=		529
-DEF[SOVERSION]=		79.12.0
+DEF[PORTVERSION]=	5.12.1
+DEF[FOLDER]=		533
+DEF[SOVERSION]=		79.12.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gwenhywfar
@@ -15,7 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://www.aquamaniac.de/rdm/attachments/download/${FOLDER}/
 DISTFILE[1]=		gwenhywfar-${PORTVERSION}.tar.gz:main
 
-SPKGS[std]=		set primary dev gtk3 qt5 nls tools
+SPKGS[std]=		set primary dev gtk3 nls tools
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -41,8 +41,6 @@ BUILD_DEPENDS=		at-spi2-core:dev:std
 			harfbuzz:dev:std
 			libgcrypt:dev:std
 			pango:primary:std
-			qt5-qtbase:dev:std
-			qt5-qtbase:primary:std
 BUILDRUN_DEPENDS=	gnutls:primary:std
 			libgcrypt:primary:std
 
@@ -53,9 +51,6 @@ EXRUN[gtk3]=		primary
 			gdk-pixbuf:primary:std
 			gtk3:primary:std
 
-EXRUN[qt5]=		primary
-			qt5-qtbase:primary:std
-
 EXRUN[tools]=		primary
 			ssl
 
@@ -63,13 +58,9 @@ USES=			gmake iconv libtool pkgconfig ssl:build zlib:build
 			fontconfig gettext mbsdfix
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-release="yes"
-			--with-guis="gtk3 qt5"
-			--with-qt5-qmake={{LOCALBASE}}/lib/qt5/bin/qmake
-			--with-qt5-moc={{LOCALBASE}}/lib/qt5/bin/moc
-			--with-qt5-uic={{LOCALBASE}}/lib/qt5/bin/uic
+			--with-guis="cpp gtk3"
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
-LDFLAGS=		-Wl,-rpath,{{PREFIX}}/lib/qt5
 PLIST_SUB=		GWEN_MAJ_MIN_VER=${PORTVERSION:R}
 SOVERSION=		${SOVERSION}
 
