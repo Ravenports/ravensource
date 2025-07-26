@@ -20,8 +20,9 @@ DISTFILE[1]=		icu4c-${NAMEDVERSION}-src.tgz:main
 
 SPKGS[std]=		set primary tools data dev man
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	NOEXTRAS
+OPTIONS_STANDARD=	NOEXTRAS
+OPT_ON[sunos]=		NOEXTRAS
 
 # license is missing (dangling link.  it might have changed.  disabled for now
 # LICENSE=		CUSTOM1:primary
@@ -55,6 +56,9 @@ PLIST_SUB=		ICUMAJOR=${ICUMAJOR}
 			ICUVER=${PORTVERSION}
 			ENDIAN="l"
 
+[NOEXTRAS].DESCRIPTION=			Do not build extra tools
+[NOEXTRAS].CONFIGURE_ARGS_ON=		--disable-extras
+
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/g* \
 		${STAGEDIR}${PREFIX}/bin/*conv \
@@ -64,3 +68,7 @@ post-install:
 		${STAGEDIR}${PREFIX}/sbin/*
 	# ${RM} ${STAGEDIR}${PREFIX}/share/icu/${PORTVERSION}/LICENSE
 
+post-install-sunos:
+	# hack to workaround pkgdata failure that I can't explain
+	${INSTALL_DATA} ${WRKSRC}/data/out/icudt${ICUMAJOR}l.dat \
+		${STAGEDIR}${PREFIX}/share/icu/${PORTVERSION}/
