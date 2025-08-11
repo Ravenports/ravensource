@@ -1,6 +1,6 @@
---- secmem/secmem.c.orig	2022-08-24 10:31:59 UTC
+--- secmem/secmem.c.orig	2024-02-26 14:24:12 UTC
 +++ secmem/secmem.c
-@@ -85,7 +85,7 @@ log_fatal(char *template, ...)
+@@ -84,7 +84,7 @@ log_fatal(char *template, ...)
  #  define MAP_ANONYMOUS MAP_ANON
  #endif
  

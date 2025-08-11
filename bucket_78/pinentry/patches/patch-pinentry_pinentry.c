@@ -1,6 +1,6 @@
---- pinentry/pinentry.c.orig	2022-08-24 10:31:59 UTC
+--- pinentry/pinentry.c.orig	2024-07-03 09:19:19 UTC
 +++ pinentry/pinentry.c
-@@ -50,7 +50,7 @@
+@@ -42,7 +42,7 @@
  #include "pinentry.h"
  #include "password-cache.h"
  
@@ -9,7 +9,7 @@
  # include "pinentry-emacs.h"
  #endif
  #ifdef FALLBACK_CURSES
-@@ -1212,7 +1212,7 @@ option_handler (assuan_context_t ctx, co
+@@ -1201,7 +1201,7 @@ option_handler (assuan_context_t ctx, co
      }
    else if (!strcmp (key, "allow-emacs-prompt") && !*value)
      {
@@ -18,7 +18,7 @@
        pinentry_enable_emacs_cmd_handler ();
  #endif
      }
-@@ -1887,7 +1887,7 @@ cmd_getinfo (assuan_context_t ctx, char
+@@ -1896,7 +1896,7 @@ cmd_getinfo (assuan_context_t ctx, char
    else if (!strcmp (line, "ttyinfo"))
      {
        char emacs_status[10];

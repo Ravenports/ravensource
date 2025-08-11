@@ -1,7 +1,7 @@
 Rename encrypt to encrypt_pixmap to avoid namespace conflict with
 unistd.h encrypt() on FreeBSD 10.4
 
---- fltk/pinwindow.cxx.orig	2017-12-03 16:13:05 UTC
+--- fltk/pinwindow.cxx.orig	2023-03-20 07:31:44 UTC
 +++ fltk/pinwindow.cxx
 @@ -46,7 +46,7 @@ const char *PinWindow::PROMPT		= "Passph
  
