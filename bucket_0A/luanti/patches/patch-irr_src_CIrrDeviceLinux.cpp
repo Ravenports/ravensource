@@ -1,4 +1,4 @@
---- irr/src/CIrrDeviceLinux.cpp.orig	2025-02-14 18:38:27 UTC
+--- irr/src/CIrrDeviceLinux.cpp.orig	2025-05-23 15:43:08 UTC
 +++ irr/src/CIrrDeviceLinux.cpp
 @@ -8,7 +8,9 @@
  

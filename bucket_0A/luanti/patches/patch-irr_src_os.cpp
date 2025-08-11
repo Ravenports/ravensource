@@ -1,4 +1,4 @@
---- irr/src/os.cpp.orig	2025-02-14 18:38:27 UTC
+--- irr/src/os.cpp.orig	2025-05-23 15:43:08 UTC
 +++ irr/src/os.cpp
 @@ -21,7 +21,7 @@
  #define bswap_16(X) OSReadSwapInt16(&X, 0)
