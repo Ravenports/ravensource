@@ -1,4 +1,100 @@
-Docutils is a modular system for processing documentation
-into useful formats, such as HTML, XML, and LaTeX.  For
-input Docutils supports reStructuredText, an easy-to-read,
-what-you-see-is-what-you-get plaintext markup syntax.
+=======================
+ README: Docutils 0.22
+=======================
+
+:Author: David Goodger
+:Contact: goodger@python.org
+:Date: $Date: 2025-07-29 17:03:01 +0200 (Di, 29. Jul 2025) $
+:Web site: https://docutils.sourceforge.io/
+:Copyright: This document has been placed in the public domain.
+
+:Abstract: Docutils is a modular system for processing documentation into
+           useful formats, such as HTML, XML, and LaTeX.
+           For input Docutils supports reStructuredText, an easy-to-read,
+           what-you-see-is-what-you-get plaintext markup syntax.
+
+.. contents::
+
+Quick-Start
+===========
+
+This is for those who want to get up & running quickly.
+
+1. Docutils requires **Python**, available from
+   https://www.python.org/.
+   See Dependencies_ below for details.
+
+2. Install the latest stable release from PyPi with pip_::
+
+       pip install docutils
+
+   For alternatives and details, see section `Installation`_ below.
+
+3. Use the `front-end scripts`_ to convert reStructuredText documents.
+   Try for example::
+
+       docutils FAQ.rst FAQ.html
+
+   See Usage_ below for details.
+
+Purpose
+=======
+
+The purpose of the Docutils project is to provide a set of tools for
+processing plaintext documentation into useful formats, such as HTML,
+LaTeX, troff (man pages), OpenOffice, and native XML.  Support for the
+following sources has been implemented:
+
+* Standalone files.
+
+* `PEPs (Python Enhancement Proposals)`_.
+
+Support for the following sources is planned or provided by
+`third party tools`_:
+
+* Inline documentation from Python modules and packages, extracted
+  with namespace context.
+
+* Email (RFC-822 headers, quoted excerpts, signatures, MIME parts).
+
+* Wikis, with global reference lookups of "wiki links".
+
+* Compound documents, such as multiple chapter files merged into a
+  book.
+
+* And others as discovered.
+
+.. _PEPs (Python Enhancement Proposals):
+   https://peps.python.org/pep-0012
+.. _third party tools: docs/user/links.html#related-applications
+
+Dependencies
+============
+
+To run the code, Python_ must be installed.
+(Python is pre-installed with most Linux distributions.)
+
+* Since version 0.21, Docutils requires Python 3.9 or later.
+* Docutils versions 0.19 to 0.20.1 require Python 3.7 or later.
+* Docutils versions 0.16 to 0.18 require Python 2.7 or 3.5+.
+
+The **type hints** added in version 0.22 use Python 3.10 syntax.
+However, the Python interpreter treats them as annotations
+unless ``typing.TYPE_CHECKING is set to True``.
+
+.. _Python: https://www.python.org/.
+
+Recommendations
+---------------
+
+Docutils uses the following packages for enhanced functionality, if they
+are installed:
+
+* The recommended installer is pip_, setuptools_ works, too.
+
+* The `Python Imaging Library`_ (PIL) is used for some image
+  manipulation operations.
+
+* The `Pygments`_ package provides syntax highlight of "code" directives
+  and roles.
+

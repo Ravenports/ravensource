@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.278.0
+DEF[PORTVERSION]=	0.278.1
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-strawberry-graphql
@@ -11,7 +11,7 @@ HOMEPAGE=		https://strawberry.rocks/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/14/a0/7a7cbf69ed45621ea0060fdcb9f5e6206d582086d9d96e147ee29fa8c1db
+SITES[main]=		PYPIWHL/50/fd/a04e880ea1f25bd3e6a3a94dd2585880d49852e966fba33e9ea982d8932c
 DISTFILE[1]=		strawberry_graphql-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -39,6 +39,7 @@ DISTNAME=		strawberry_graphql-${PORTVERSION}.dist-info
 # fastapi (>=0.65.2) ; extra == "fastapi"
 # flask (>=1.1) ; extra == "flask"
 # graphql-core (>=3.2.0,<3.4.0)
+# lia-web (>=0.2.1)
 # libcst ; extra == "cli"
 # libcst ; extra == "debug"
 # libcst ; extra == "debug-server"
@@ -69,11 +70,13 @@ DISTNAME=		strawberry_graphql-${PORTVERSION}.dist-info
 
 [PY312].USES_ON=			python:v12,wheel
 [PY312].RUN_DEPENDS_ON=			python-graphql-core:single:v12
+					python-lia-web:single:v12
 					python-packaging:single:v12
 					python-python-dateutil:single:v12
 					python-typing-extensions:single:v12
 [PY313].USES_ON=			python:v13,wheel
 [PY313].RUN_DEPENDS_ON=			python-graphql-core:single:v13
+					python-lia-web:single:v13
 					python-packaging:single:v13
 					python-python-dateutil:single:v13
 					python-typing-extensions:single:v13

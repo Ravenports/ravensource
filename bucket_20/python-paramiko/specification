@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.5.1
+DEF[PORTVERSION]=	4.0.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-paramiko
@@ -7,11 +7,11 @@ KEYWORDS=		python
 VARIANTS=		v12 v13
 SDESC[v12]=		SSH2 protocol library (3.12)
 SDESC[v13]=		SSH2 protocol library (3.13)
-HOMEPAGE=		https://paramiko.org
+HOMEPAGE=		https://github.com/paramiko/paramiko
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/15/f8/c7bd0ef12954a81a1d3cea60a13946bd9a49a0036a5927770c461eade7ae
+SITES[main]=		PYPIWHL/a9/90/a744336f5af32c433bd09af7854599682a383b37cfd78f7de263de6ad6cb
 DISTFILE[1]=		paramiko-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -24,7 +24,7 @@ VOPTS[v12]=		PY312=ON PY313=OFF
 VOPTS[v13]=		PY312=OFF PY313=ON
 
 # License listed at PyPI
-# LGPL
+# Not provided.
 
 GENERATED=		yes
 DISTNAME=		paramiko-${PORTVERSION}.dist-info
@@ -32,23 +32,21 @@ DISTNAME=		paramiko-${PORTVERSION}.dist-info
 # Requires-Dist extracted from wheel metadata
 # bcrypt>=3.2
 # cryptography>=3.3
+# invoke>=2.0
 # pynacl>=1.5
 # pyasn1>=0.1.7; extra == "gssapi"
 # gssapi>=1.4.1; platform_system != "Windows" and extra == "gssapi"
 # pywin32>=2.1.8; platform_system == "Windows" and extra == "gssapi"
-# invoke>=2.0; extra == "invoke"
-# pyasn1>=0.1.7; extra == "all"
-# gssapi>=1.4.1; platform_system != "Windows" and extra == "all"
-# pywin32>=2.1.8; platform_system == "Windows" and extra == "all"
-# invoke>=2.0; extra == "all"
 
 [PY312].USES_ON=			python:v12,wheel
 [PY312].RUN_DEPENDS_ON=			python-bcrypt:single:v12
 					python-cryptography:single:v12
+					python-invoke:single:v12
 					python-PyNaCl:single:v12
 [PY313].USES_ON=			python:v13,wheel
 [PY313].RUN_DEPENDS_ON=			python-bcrypt:single:v13
 					python-cryptography:single:v13
+					python-invoke:single:v13
 					python-PyNaCl:single:v13
 
 USES=			cpe

@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.0.1
+DEF[PORTVERSION]=	3.1
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-django-rq
@@ -7,12 +7,12 @@ KEYWORDS=		python
 VARIANTS=		v12 v13
 SDESC[v12]=		Django integration of Redis Queue (3.12)
 SDESC[v13]=		Django integration of Redis Queue (3.13)
-HOMEPAGE=		https://github.com/rq/django-rq
+HOMEPAGE=		https://python-rq.org/patterns/django/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/38/06/b09fb3d5a52911ca4c5680635d53f21fb7229a968abb9585d55a4ca4031c
-DISTFILE[1]=		django_rq-${PORTVERSION}-py2.py3-none-any.whl:main
+SITES[main]=		PYPIWHL/22/01/422b77bc564070e49b1f67c096d39a1954b84338002e50e7b44fe99413b4
+DISTFILE[1]=		django_rq-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
 SPKGS[v12]=		single
@@ -24,23 +24,24 @@ VOPTS[v12]=		PY312=ON PY313=OFF
 VOPTS[v13]=		PY312=OFF PY313=ON
 
 # License listed at PyPI
-# MIT
+# Not provided.
 
 GENERATED=		yes
 DISTNAME=		django_rq-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
 # django>=3.2
-# rq>=2
 # redis>=3.5
-# sentry-sdk>=1.0.0; extra == "sentry"
+# rq>=2
+# prometheus-client>=0.4.0; extra == 'prometheus'
+# sentry-sdk>=1.0.0; extra == 'sentry'
 
 [PY312].USES_ON=			python:v12,wheel
 [PY312].RUN_DEPENDS_ON=			python-Django:single:v12
-					python-rq:single:v12
 					python-redis:single:v12
+					python-rq:single:v12
 [PY313].USES_ON=			python:v13,wheel
 [PY313].RUN_DEPENDS_ON=			python-Django:single:v13
-					python-rq:single:v13
 					python-redis:single:v13
+					python-rq:single:v13
 
