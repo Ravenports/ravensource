@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.1800
+DEF[PORTVERSION]=	2.1900
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-Authen-SASL
@@ -7,7 +7,7 @@ KEYWORDS=		perl
 VARIANTS=		538 540
 SDESC[538]=		SASL Authentication framework (5.38)
 SDESC[540]=		SASL Authentication framework (5.40)
-HOMEPAGE=		https://github.com/gbarr/perl-authen-sasl/
+HOMEPAGE=		https://github.com/perl-authen-sasl/perl-authen-sasl/
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
@@ -32,8 +32,8 @@ DISTNAME=		Authen-SASL-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
+# |      runtime : Crypt::URandom
 # |      runtime : Digest::HMAC_MD5
-# |      runtime : Digest::MD5 (perl 5.38 core) (perl 5.40 core)
 # |      runtime : GSSAPI
 # |    configure : ExtUtils::MakeMaker (perl 5.38 core) (perl 5.40 core)
 # |         test : Pod::Coverage::TrustPod
@@ -42,9 +42,11 @@ DISTNAME=		Authen-SASL-${PORTVERSION}
 # |         test : Test::Pod::Coverage
 
 [PERL_538].USES_ON=			perl:538,configure
-[PERL_538].BUILDRUN_DEPENDS_ON=		perl-Digest-HMAC:single:538
+[PERL_538].BUILDRUN_DEPENDS_ON=		perl-Crypt-URandom:single:538
+					perl-Digest-HMAC:single:538
 					perl-GSSAPI:single:538
 [PERL_540].USES_ON=			perl:540,configure
-[PERL_540].BUILDRUN_DEPENDS_ON=		perl-Digest-HMAC:single:540
+[PERL_540].BUILDRUN_DEPENDS_ON=		perl-Crypt-URandom:single:540
+					perl-Digest-HMAC:single:540
 					perl-GSSAPI:single:540
 
