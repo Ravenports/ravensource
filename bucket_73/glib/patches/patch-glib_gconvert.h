@@ -1,7 +1,7 @@
 Revert https://gitlab.gnome.org/GNOME/glib/commit/8abf3a04e699 for
 breaking at least graphics/inkscape as wchar_t is locale-dependent.
 
---- glib/gconvert.h.orig	2025-05-20 16:22:25 UTC
+--- glib/gconvert.h.orig	2025-06-13 11:55:59 UTC
 +++ glib/gconvert.h
 @@ -39,9 +39,7 @@ G_BEGIN_DECLS
   * GConvertError:
