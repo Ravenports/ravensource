@@ -1,4 +1,4 @@
---- src/egl/drivers/dri2/platform_wayland.c.orig	2025-07-16 15:07:31 UTC
+--- src/egl/drivers/dri2/platform_wayland.c.orig	2025-07-30 20:15:57 UTC
 +++ src/egl/drivers/dri2/platform_wayland.c
 @@ -2101,6 +2101,7 @@ registry_handle_global_drm(void *data, s
     if (strcmp(interface, wl_drm_interface.name) == 0) {
