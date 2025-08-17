@@ -1,8 +1,8 @@
 We never install pc files at /raven/libdata/pkgconfig!
 
---- modules/ECMGeneratePkgConfigFile.cmake.orig	2024-11-02 15:44:52 UTC
+--- modules/ECMGeneratePkgConfigFile.cmake.orig	2025-08-01 10:28:40 UTC
 +++ modules/ECMGeneratePkgConfigFile.cmake
-@@ -249,7 +249,7 @@ Requires: ${PKGCONFIG_TARGET_DEPS}
+@@ -253,7 +253,7 @@ Requires: ${PKGCONFIG_TARGET_DEPS}
    file(WRITE ${PKGCONFIG_FILENAME} "${PKGCONFIG_CONTENT}")
  
    if(EGPF_INSTALL)

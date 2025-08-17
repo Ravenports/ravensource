@@ -1,4 +1,4 @@
---- kde-modules/KDEMetaInfoPlatformCheck.cmake.orig	2024-11-02 15:44:52 UTC
+--- kde-modules/KDEMetaInfoPlatformCheck.cmake.orig	2025-08-01 10:28:40 UTC
 +++ kde-modules/KDEMetaInfoPlatformCheck.cmake
 @@ -46,6 +46,18 @@ if (NOT "${KF_IGNORE_PLATFORM_CHECK}")
                  if (CMAKE_SYSTEM_NAME MATCHES "OpenBSD")
