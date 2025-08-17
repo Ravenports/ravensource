@@ -1,4 +1,4 @@
---- libavutil/common.h.orig	2024-08-01 23:22:48 UTC
+--- libavutil/common.h.orig	2025-08-14 23:31:16 UTC
 +++ libavutil/common.h
 @@ -43,6 +43,10 @@
  #include "error.h"
