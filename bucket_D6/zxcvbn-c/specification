@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.5
+DEF[PORTVERSION]=	2.6
 DEF[TAG]=		v${PORTVERSION}
 DEF[SOVERSION]=		0.0.0
 # ----------------------------------------------------------------------------
@@ -15,7 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/tsyrogit:zxcvbn-c:${TAG}
 DISTFILE[1]=		generated:main
 
-SPKGS[std]=		set primary dev
+SPKGS[std]=		set primary dev tools
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -24,6 +24,12 @@ LICENSE=		MIT:primary
 LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE.txt
 LICENSE_SCHEME=		solo
 
-USES=			gmake
+EXRUN[tools]=		primary
+
+USES=			gmake c++:tools
 MAKEFILE=		makefile
 SOVERSION=		${SOVERSION}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libzxcvbn.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/zxcvbn-dictgen
