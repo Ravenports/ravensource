@@ -1,4 +1,4 @@
---- src/d_iwad.c.intermediate	2024-08-16 01:30:22 UTC
+--- src/d_iwad.c.orig	2025-08-16 17:17:00 UTC
 +++ src/d_iwad.c
 @@ -677,13 +677,14 @@ static void AddXdgDirs(void)
      if (env == NULL)
