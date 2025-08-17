@@ -1,4 +1,4 @@
---- kprop/kproplog.c.orig	2024-06-26 20:00:35 UTC
+--- kprop/kproplog.c.orig	2025-08-05 14:15:15 UTC
 +++ kprop/kproplog.c
 @@ -415,7 +415,7 @@ map_ulog(const char *filename, int *fd_o
          close(fd);
