@@ -1,4 +1,4 @@
---- src/as-system-info.c.orig	2025-04-24 15:32:28 UTC
+--- src/as-system-info.c.orig	2025-08-14 14:54:47 UTC
 +++ src/as-system-info.c
 @@ -49,7 +49,7 @@
  
