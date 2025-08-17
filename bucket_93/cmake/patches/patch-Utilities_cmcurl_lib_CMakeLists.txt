@@ -1,9 +1,9 @@
---- Utilities/cmcurl/lib/CMakeLists.txt.orig	2025-06-12 14:31:35 UTC
+--- Utilities/cmcurl/lib/CMakeLists.txt.orig	2025-08-05 14:55:57 UTC
 +++ Utilities/cmcurl/lib/CMakeLists.txt
-@@ -24,6 +24,7 @@
- set(LIB_NAME "libcurl")
- set(LIBCURL_OUTPUT_NAME "libcurl" CACHE STRING "Basename of the curl library")
- add_definitions("-DBUILDING_LIBCURL")
+@@ -26,6 +26,7 @@ set(LIBCURL_OUTPUT_NAME "${LIB_NAME}" CA
+ 
+ set_property(DIRECTORY APPEND PROPERTY COMPILE_DEFINITIONS "BUILDING_LIBCURL")
+ set_property(DIRECTORY APPEND PROPERTY COMPILE_DEFINITIONS "${CURL_DEBUG_MACROS}")
 +add_definitions(-DCURL_CA_BUNDLE="@RAVEN_CERT@")
  
  configure_file("curl_config.h.cmake" "${CMAKE_CURRENT_BINARY_DIR}/curl_config.h")
