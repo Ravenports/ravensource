@@ -1,6 +1,6 @@
---- config.mk	2023-01-13 06:28:24.304269397 +0000
-+++ config.mk.new	2023-01-13 06:36:14.886263477 +0000
-@@ -4,11 +4,11 @@
+--- config.mk.orig	2025-08-09 13:00:55 UTC
++++ config.mk
+@@ -4,11 +4,11 @@ VERSION = 6.6
  # Customize below to fit your system
  
  # paths
@@ -15,7 +15,7 @@
  
  # Xinerama, comment if you don't want it
  XINERAMALIBS  = -lXinerama
-@@ -16,7 +16,7 @@
+@@ -16,7 +16,7 @@ XINERAMAFLAGS = -DXINERAMA
  
  # freetype
  FREETYPELIBS = -lfontconfig -lXft

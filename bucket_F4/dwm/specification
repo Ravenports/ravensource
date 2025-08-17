@@ -1,9 +1,8 @@
-DEF[PORTVERSION]=	6.5
+DEF[PORTVERSION]=	6.6
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		dwm
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		x11_wm
 VARIANTS=		std
 SDESC[std]=		Dynamic suckless window manager for X
@@ -28,9 +27,8 @@ LICENSE_SCHEME=		solo
 USES=			fontconfig gmake pkgconfig
 XORG_COMPONENTS=	x11 xft xinerama xrender
 
-post-patch:
-	${REINPLACE_CMD} 's!__PREFIX__!${PREFIX}!g' \
-			${WRKSRC}/config.mk
+pre-configure:
+	${REINPLACE_CMD} 's!__PREFIX__!${PREFIX}!g' ${WRKSRC}/config.mk
 
 post-stage:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/dwm
