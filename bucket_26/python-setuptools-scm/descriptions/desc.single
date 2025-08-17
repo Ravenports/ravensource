@@ -18,18 +18,25 @@ files that are managed by the SCM
 Unwanted files must be excluded via `MANIFEST.in`
 or [configuring Git archive][git-archive-docs].
 
+> **⚠️ Important:** Installing setuptools-scm automatically enables a
+file finder that includes **all SCM-tracked files** in your source
+distributions. This can be surprising if you have development files tracked
+in Git/Mercurial that you don't want in your package. Use `MANIFEST.in` to
+exclude unwanted files. See the [documentation] for details.
+
 ## `pyproject.toml` usage
 
 The preferred way to configure [setuptools-scm] is to author
 settings in a `tool.setuptools_scm` section of `pyproject.toml`.
 
-This feature requires setuptools 61 or later.
+This feature requires setuptools 61 or later (recommended: >=80 for best
+compatibility).
 First, ensure that [setuptools-scm] is present during the project's
 build step by specifying it as one of the build requirements.
 
 ```toml title="pyproject.toml"
 [build-system]
-requires = ["setuptools>=64", "setuptools-scm>=8"]
+requires = ["setuptools>=80", "setuptools-scm>=8"]
 build-backend = "setuptools.build_meta"
 ```
 
@@ -51,6 +58,27 @@ dynamic = ["version"]
 [tool.setuptools_scm]
 ```
 
+!!! note "Simplified Configuration"
+
+    Starting with setuptools-scm 8.1+, if `setuptools_scm` (or
+`setuptools-scm`) is
+    present in your `build-system.requires`, the `[tool.setuptools_scm]`
+section
+    becomes optional! You can now enable setuptools-scm with just:
+
+    ```toml title="pyproject.toml"
+    [build-system]
+    requires = ["setuptools>=80", "setuptools-scm>=8"]
+    build-backend = "setuptools.build_meta"
+
+    [project]
+    dynamic = ["version"]
+    ```
+
+    The `[tool.setuptools_scm]` section is only needed if you want to
+customize
+    configuration options.
+
 Additionally, a version file can be written by specifying:
 
 ```toml title="pyproject.toml"
@@ -70,31 +98,3 @@ $ python -m setuptools_scm
 # To explore other options, try:
 $ python -m setuptools_scm --help
 ```
-
-For further configuration see the [documentation].
-
-[setuptools-scm]: https://github.com/pypa/setuptools-scm
-[documentation]: https://setuptools-scm.readthedocs.io/
-[git-archive-docs]:
-https://setuptools-scm.readthedocs.io/en/stable/usage/#builtin-mechanisms-for-obtaining-version-numbers
-
-## Interaction with Enterprise Distributions
-
-Some enterprise distributions like RHEL7
-ship rather old setuptools versions.
-
-In those cases its typically possible to build by using an sdist against
-`setuptools-scm<2.0`.
-As those old setuptools versions lack sensible types for versions,
-modern [setuptools-scm] is unable to support them sensibly.
-
-It's strongly recommended to build a wheel artifact using modern Python and
-setuptools,
-then installing the artifact instead of trying to run against old
-setuptools versions.
-
-## Code of Conduct
-
-Everyone interacting in the [setuptools-scm] project's codebases, issue
-trackers, chat rooms, and mailing lists is expected to follow the
-[PSF Code of Conduct].
