@@ -1,4 +1,4 @@
---- scripts/wsrep_sst_mariabackup.sh.orig	2025-05-19 16:14:25 UTC
+--- scripts/wsrep_sst_mariabackup.sh.orig	2025-07-28 16:12:32 UTC
 +++ scripts/wsrep_sst_mariabackup.sh
 @@ -823,8 +823,7 @@ recv_joiner()
      if [ $tmt -gt 0 ]; then
