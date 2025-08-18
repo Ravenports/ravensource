@@ -1,6 +1,6 @@
---- lib/fuse.c.orig	2025-04-23 23:16:19 UTC
+--- lib/fuse.c.orig	2025-07-19 12:34:56 UTC
 +++ lib/fuse.c
-@@ -4918,7 +4918,11 @@ static void *fuse_prune_nodes(void *fuse
+@@ -4893,7 +4893,11 @@ static void *fuse_prune_nodes(void *fuse
  	int sleep_time;
  
  #ifdef HAVE_PTHREAD_SETNAME_NP

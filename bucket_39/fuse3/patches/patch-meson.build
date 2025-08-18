@@ -1,11 +1,11 @@
---- meson.build.orig	2025-04-23 23:16:19 UTC
+--- meson.build.orig	2025-07-19 12:34:56 UTC
 +++ meson.build
-@@ -81,7 +81,7 @@ endforeach
- private_cfg.set('HAVE_SETXATTR', 
-         cc.has_function('setxattr', prefix: '#include <sys/xattr.h>'))
- private_cfg.set('HAVE_ICONV', 
--        cc.has_function('iconv', prefix: '#include <iconv.h>'))
-+        cc.has_function('dontuseiconv', prefix: '#include <iconv.h>'))
+@@ -116,7 +116,7 @@ endforeach
+ private_cfg.set('HAVE_SETXATTR',
+     cc.has_function('setxattr', prefix: '#include <sys/xattr.h>'))
+ private_cfg.set('HAVE_ICONV',
+-    cc.has_function('iconv', prefix: '#include <iconv.h>'))
++    cc.has_function('dontuseiconv', prefix: '#include <iconv.h>'))
  private_cfg.set('HAVE_BACKTRACE',
-         cc.has_function('backtrace', prefix: '#include <execinfo.h>'))
+     cc.has_function('backtrace', prefix: '#include <execinfo.h>'))
  

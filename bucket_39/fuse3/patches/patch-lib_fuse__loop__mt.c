@@ -1,4 +1,4 @@
---- lib/fuse_loop_mt.c.orig	2025-04-23 23:16:19 UTC
+--- lib/fuse_loop_mt.c.orig	2025-07-19 12:34:56 UTC
 +++ lib/fuse_loop_mt.c
 @@ -133,7 +133,11 @@ static void *fuse_do_work(void *data)
  	struct fuse_mt *mt = w->mt;
