@@ -1,4 +1,4 @@
---- converter/ppm/picttoppm.c.orig	2025-03-28 19:47:55 UTC
+--- converter/ppm/picttoppm.c.orig	2025-06-29 03:49:30 UTC
 +++ converter/ppm/picttoppm.c
 @@ -23,6 +23,7 @@
   */
