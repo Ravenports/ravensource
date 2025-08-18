@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	5.5.2.11
+DEF[PORTVERSION]=	5.5.2.14
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		lp_solve
@@ -6,11 +6,11 @@ VERSION=		${PORTVERSION}
 KEYWORDS=		math
 VARIANTS=		std
 SDESC[std]=		Linear Programming Solver
-HOMEPAGE=		https://lpsolve.sourceforge.net/5.5/
+HOMEPAGE=		https://github.com/lp-solve/lp_solve
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		SF/lpsolve/lpsolve/${PORTVERSION}
+SITES[main]=		https://github.com/lp-solve/lp_solve/releases/download/${PORTVERSION}/
 DISTFILE[1]=		lp_solve_${PORTVERSION}_source.tar.gz:main
 DISTFILE[2]=		lp_solve_${PORTVERSION}_bfp_LUSOL_source.tar.gz:main
 DF_INDEX=		1 2
@@ -29,7 +29,7 @@ LICENSE_AWK=		TERMS:"Release notes"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/lp_lib.h
 LICENSE_SCHEME=		solo
 
-DISTNAME=		lp_solve_${PORTVERSION:R:R}
+DISTNAME=		lp_solve
 
 post-patch:
 	${REINPLACE_CMD} -e "s/ FALSE/ LP_FALSE/; s/ TRUE/ LP_TRUE/" \
