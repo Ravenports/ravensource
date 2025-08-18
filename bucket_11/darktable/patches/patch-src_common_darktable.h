@@ -1,4 +1,4 @@
---- src/common/darktable.h.orig	2025-06-15 16:52:40 UTC
+--- src/common/darktable.h.orig	2025-08-01 05:36:09 UTC
 +++ src/common/darktable.h
 @@ -148,7 +148,7 @@ G_BEGIN_DECLS
  #if __has_attribute(target_clones) && !defined(_WIN32) && !defined(NATIVE_ARCH) && !defined(__APPLE__) && defined(__GLIBC__)
