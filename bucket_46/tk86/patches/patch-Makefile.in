@@ -1,4 +1,4 @@
---- Makefile.in.orig	2024-02-28 15:18:35 UTC
+--- Makefile.in.orig	2025-08-13 19:42:08 UTC
 +++ Makefile.in
 @@ -65,6 +65,8 @@ SCRIPT_INSTALL_DIR	= $(INSTALL_ROOT)$(TK
  
@@ -40,17 +40,16 @@
  
  ${STUB_LIB_FILE}: ${STUB_LIB_OBJS}
  	@if test "x${LIB_FILE}" = "xlibtk${MAJOR_VERSION}.${MINOR_VERSION}.dll"; then \
-@@ -705,8 +715,7 @@ INSTALL_DOC_TARGETS = install-doc
- INSTALL_DEV_TARGETS = install-headers
+@@ -706,7 +716,7 @@ INSTALL_DEV_TARGETS = install-headers
  INSTALL_DEMO_TARGETS = install-demos
  INSTALL_EXTRA_TARGETS = @EXTRA_INSTALL@
--INSTALL_TARGETS = $(INSTALL_BASE_TARGETS) $(INSTALL_DOC_TARGETS) $(INSTALL_DEV_TARGETS) \
--		$(INSTALL_DEMO_TARGETS) $(INSTALL_EXTRA_TARGETS)
-+INSTALL_TARGETS = $(INSTALL_BASE_TARGETS) $(INSTALL_DEV_TARGETS) $(INSTALL_EXTRA_TARGETS)
+ INSTALL_TARGETS = $(INSTALL_BASE_TARGETS) $(INSTALL_DEV_TARGETS) \
+-		$(INSTALL_DEMO_TARGETS) $(INSTALL_DOC_TARGETS) $(INSTALL_EXTRA_TARGETS)
++		$(INSTALL_EXTRA_TARGETS)
  
  install: $(INSTALL_TARGETS)
  
-@@ -715,7 +724,7 @@ install-strip:
+@@ -715,7 +725,7 @@ install-strip:
  		INSTALL_PROGRAM="STRIPPROG='${INSTALL_STRIP_PROGRAM}' $(INSTALL_PROGRAM) -s" \
  		INSTALL_LIBRARY="STRIPPROG='${INSTALL_STRIP_LIBRARY}' $(INSTALL_LIBRARY) -s"
  
@@ -59,7 +58,7 @@
  	@for i in "$(LIB_INSTALL_DIR)" "$(BIN_INSTALL_DIR)" \
  	    "$(PKG_INSTALL_DIR)" "$(CONFIG_INSTALL_DIR)" ; \
  	    do \
-@@ -746,6 +755,10 @@ install-binaries: $(TK_STUB_LIB_FILE) $(
+@@ -746,6 +756,10 @@ install-binaries: $(TK_STUB_LIB_FILE) $(
  	@echo "Installing $(LIB_FILE) to $(DLL_INSTALL_DIR)/"
  	@@INSTALL_LIB@
  	@chmod 555 "$(DLL_INSTALL_DIR)/$(LIB_FILE)"
@@ -70,7 +69,7 @@
  	@if test -f "tk${MAJOR_VERSION}${MINOR_VERSION}.dll"; then \
  	    $(INSTALL_LIBRARY) "tk${MAJOR_VERSION}${MINOR_VERSION}.dll" "$(DLL_INSTALL_DIR)";\
  	    chmod 555 "$(DLL_INSTALL_DIR)/tk${MAJOR_VERSION}${MINOR_VERSION}.dll";\
-@@ -761,7 +774,7 @@ install-binaries: $(TK_STUB_LIB_FILE) $(
+@@ -761,7 +775,7 @@ install-binaries: $(TK_STUB_LIB_FILE) $(
  	@EXTRA_INSTALL_BINARIES@
  	@echo "Installing pkg-config file to $(LIB_INSTALL_DIR)/pkgconfig/"
  	@$(INSTALL_DATA_DIR) "$(LIB_INSTALL_DIR)/pkgconfig"
@@ -79,7 +78,7 @@
  
  install-libraries: libraries
  	@for i in "$(SCRIPT_INSTALL_DIR)" "$(SCRIPT_INSTALL_DIR)/images" \
-@@ -859,7 +872,8 @@ install-doc:
+@@ -859,7 +873,8 @@ install-doc:
  install-headers:
  	@if test "$(@TK_WINDOWINGSYSTEM@_XLIB_HDRS)" != ""; then \
  	    XLIB_INCLUDE_INSTALL_DIR="$(INCLUDE_INSTALL_DIR)"/X11; fi; \
@@ -89,7 +88,7 @@
  	    do \
  	    if [ -n "$$i" -a ! -d "$$i" ] ; then \
  		echo "Making directory $$i"; \
-@@ -868,9 +882,12 @@ install-headers:
+@@ -868,9 +883,12 @@ install-headers:
  		fi; \
  	    done;
  	@echo "Installing header files to $(INCLUDE_INSTALL_DIR)/";
