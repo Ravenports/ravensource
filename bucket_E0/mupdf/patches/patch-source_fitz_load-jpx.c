@@ -13,7 +13,7 @@ $NetBSD: patch-source_fitz_load-jpx.c,v 1.10 2020/05/07 20:42:57 leot Exp $
 
   From OpenBSD ports textproc/mupdf/patch-source_fitz_load-jpx_c,v 1.5.
 
---- source/fitz/load-jpx.c.orig	2025-07-23 10:59:11 UTC
+--- source/fitz/load-jpx.c.orig	2025-08-22 20:10:30 UTC
 +++ source/fitz/load-jpx.c
 @@ -163,19 +163,7 @@ void opj_free(void *ptr)
  
