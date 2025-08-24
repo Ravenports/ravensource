@@ -2,7 +2,7 @@ $NetBSD: patch-lib_kdb_kdb__log.c,v 1.2 2020/04/09 10:57:05 adam Exp $
 
 Fix mmap/munmap -Werror=incompatible-pointer-types
 
---- lib/kdb/kdb_log.c.orig	2025-08-05 14:15:15 UTC
+--- lib/kdb/kdb_log.c.orig	2025-08-20 19:44:32 UTC
 +++ lib/kdb/kdb_log.c
 @@ -530,7 +530,7 @@ ulog_map(krb5_context context, const cha
          }

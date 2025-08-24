@@ -1,4 +1,4 @@
---- lib/krb5/os/localaddr.c.orig	2025-08-05 14:15:15 UTC
+--- lib/krb5/os/localaddr.c.orig	2025-08-20 19:44:32 UTC
 +++ lib/krb5/os/localaddr.c
 @@ -176,6 +176,7 @@ printaddr(struct sockaddr *sa)
  }

@@ -1,4 +1,4 @@
---- lib/crypto/builtin/aes/brg_endian.h.orig	2025-08-05 14:15:15 UTC
+--- lib/crypto/builtin/aes/brg_endian.h.orig	2025-08-20 19:44:32 UTC
 +++ lib/crypto/builtin/aes/brg_endian.h
 @@ -35,6 +35,8 @@ Issue Date: 10/09/2018
  #  include <sys/isa_defs.h>
