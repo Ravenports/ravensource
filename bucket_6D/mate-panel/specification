@@ -1,5 +1,7 @@
-DEF[PORTVERSION]=	1.28.4
+DEF[PORTVERSION]=	1.28.5
 DEF[SOVERSION]=		1.0.1
+DEF[TAG]=		v${PORTVERSION}
+DEF[TAG_MODULES]=	dd9bd34
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		mate-panel
@@ -10,10 +12,15 @@ SDESC[std]=		Panel component for MATE
 HOMEPAGE=		https://mate-desktop.org/
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
-DOWNLOAD_GROUPS=	main
-SITES[main]=		https://pub.mate-desktop.org/releases/${PORTVERSION:R}/
-DISTFILE[1]=		mate-panel-${PORTVERSION}.tar.xz:main
+DOWNLOAD_GROUPS=	main modules
+# SITES[main]=		https://pub.mate-desktop.org/releases/${PORTVERSION:R}/
+# DISTFILE[1]=		mate-panel-${PORTVERSION}.tar.xz:main
+SITES[main]=		GITHUB/mate-desktop:mate-panel:${TAG}
+SITES[modules]=		GITHUB/mate-desktop:mate-submodules:${TAG_MODULES}:mate-panel/mate-submodules
+DISTFILE[1]=		generated:main
+DISTFILE[2]=		generated:modules
 DIST_SUBDIR=		mate
+DF_INDEX=		1 2
 
 SPKGS[std]=		set primary dev man nls docs
 
@@ -35,9 +42,13 @@ BUILD_DEPENDS=		dconf:dev:std
 			libmateweather:dev:std
 			libsoup-2.4:dev:std
 			libwnck:dev:std
+			mate-common:primary:std
 			mate-desktop:dev:std
 			mate-menus:dev:std
 			itstool:single:std
+			yelp-tools:single:std
+			libtool:primary:std
+			autoconf-archive:primary:std
 BUILDRUN_DEPENDS=	dconf:primary:std
 			libmateweather:primary:std
 			libsoup-2.4:primary:std
@@ -45,12 +56,13 @@ BUILDRUN_DEPENDS=	dconf:primary:std
 			mate-desktop:primary:std
 			mate-menus:primary:std
 
-USES=			gettext gmake gtk-doc iconv libtool pkgconfig
+USES=			autoreconf:build gettext gmake gtk-doc iconv libtool pkgconfig
 XORG_COMPONENTS=	ice sm
 GNOME_COMPONENTS=	glib gtk3 introspection libxml2
 
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-html-dir={{PREFIX}}/doc
+			--enable-gtk-doc=yes
 SOVERSION=		${SOVERSION}
 INSTALL_TARGET=		install-strip
 
@@ -59,3 +71,6 @@ post-extract:
 	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/mate-panel/menu.h >> ${WRKDIR}/TERMS
 	${ECHO} "Terms extracted from 'libmate-panel-applet/mate-panel-applet.h':" >> ${WRKDIR}/TERMS
 	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/libmate-panel-applet/mate-panel-applet.h >> ${WRKDIR}/TERMS
+
+pre-configure:
+	(cd ${WRKSRC} && ${SETENV} ${CONFIGURE_ENV} ${SH} ./autogen.sh)
