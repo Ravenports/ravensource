@@ -1,6 +1,6 @@
---- src/flb_network.c.orig	2025-07-09 19:11:19 UTC
+--- src/flb_network.c.orig	2025-08-21 03:14:34 UTC
 +++ src/flb_network.c
-@@ -637,9 +637,7 @@ static int net_connect_async(int fd,
+@@ -638,9 +638,7 @@ static int net_connect_async(int fd,
              }
  
              /* Connection is broken, not much to do here */
@@ -11,7 +11,7 @@
              ret = strerror_r(error, so_error_buf, sizeof(so_error_buf));
              if (ret == 0) {
                  str = so_error_buf;
-@@ -1967,7 +1965,7 @@ static int net_address_unix_socket_peer_
+@@ -1969,7 +1967,7 @@ static int net_address_unix_socket_peer_
                                                  int output_buffer_size,
                                                  size_t *output_data_size)
  {
@@ -20,7 +20,7 @@
      unsigned int peer_credentials_size;
      struct ucred peer_credentials;
  #endif
-@@ -1985,7 +1983,7 @@ static int net_address_unix_socket_peer_
+@@ -1987,7 +1985,7 @@ static int net_address_unix_socket_peer_
          return -1;
      }
  
