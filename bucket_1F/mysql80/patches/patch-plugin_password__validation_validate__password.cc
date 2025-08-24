@@ -1,4 +1,4 @@
---- plugin/password_validation/validate_password.cc.orig	2025-03-31 08:19:27 UTC
+--- plugin/password_validation/validate_password.cc.orig	2025-07-09 08:45:01 UTC
 +++ plugin/password_validation/validate_password.cc
 @@ -26,6 +26,8 @@
  #include <mysql/plugin_validate_password.h>

@@ -1,6 +1,6 @@
---- CMakeLists.txt.orig	2025-03-31 07:51:10 UTC
+--- CMakeLists.txt.orig	2025-07-10 14:20:26 UTC
 +++ CMakeLists.txt
-@@ -2312,7 +2312,6 @@ ADD_SUBDIRECTORY(share)
+@@ -2337,7 +2337,6 @@ ADD_SUBDIRECTORY(share)
  ADD_SUBDIRECTORY(libservices)
  
  IF(NOT WITHOUT_SERVER)
@@ -8,7 +8,7 @@
    ADD_SUBDIRECTORY(sql)
  ENDIF()
  
-@@ -2391,8 +2390,6 @@ ENDIF()
+@@ -2416,8 +2415,6 @@ ENDIF()
  ADD_SUBDIRECTORY(scripts)
  
  IF(NOT WITHOUT_SERVER)
@@ -17,7 +17,7 @@
    ADD_SUBDIRECTORY(support-files)
    IF(WITH_INTERNAL)
      ADD_SUBDIRECTORY(internal)
-@@ -2594,6 +2591,7 @@ ENDIF()
+@@ -2619,6 +2616,7 @@ ENDIF()
  #
  # RPM installs documentation directly from the source tree
  #
@@ -25,7 +25,7 @@
  IF(NOT INSTALL_LAYOUT MATCHES "RPM")
    INSTALL(FILES
      README
-@@ -2620,6 +2618,7 @@ IF(HAVE_ASAN AND WIN32_CLANG)
+@@ -2645,6 +2643,7 @@ IF(HAVE_ASAN AND WIN32_CLANG)
    STRING_APPEND(CMAKE_CXX_FLAGS
      " -fsanitize=address -fsanitize-address-use-after-scope")
  ENDIF()

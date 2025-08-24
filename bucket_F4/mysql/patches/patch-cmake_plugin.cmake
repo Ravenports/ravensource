@@ -1,6 +1,6 @@
---- cmake/plugin.cmake.orig	2025-03-31 08:00:22 UTC
+--- cmake/plugin.cmake.orig	2025-07-09 08:56:06 UTC
 +++ cmake/plugin.cmake
-@@ -274,15 +274,6 @@ MACRO(MYSQL_ADD_PLUGIN plugin_arg)
+@@ -275,15 +275,6 @@ MACRO(MYSQL_ADD_PLUGIN plugin_arg)
  
        # For testing purposes, we need
        # <...>/lib/plugin/debug/authentication_ldap_sasl_client.so

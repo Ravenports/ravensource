@@ -1,4 +1,4 @@
---- plugin/group_replication/libmysqlgcs/src/bindings/xcom/xcom/xcom_vp_platform.h.orig	2025-03-31 08:19:27 UTC
+--- plugin/group_replication/libmysqlgcs/src/bindings/xcom/xcom/xcom_vp_platform.h.orig	2025-07-09 08:45:01 UTC
 +++ plugin/group_replication/libmysqlgcs/src/bindings/xcom/xcom/xcom_vp_platform.h
 @@ -37,13 +37,11 @@
  #endif
