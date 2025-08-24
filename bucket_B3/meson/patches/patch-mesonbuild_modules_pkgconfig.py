@@ -1,6 +1,6 @@
---- mesonbuild/modules/pkgconfig.py.orig	2025-05-04 03:21:23 UTC
+--- mesonbuild/modules/pkgconfig.py.orig	2025-08-24 17:28:31 UTC
 +++ mesonbuild/modules/pkgconfig.py
-@@ -702,7 +702,7 @@ class PkgConfigModule(NewExtensionModule
+@@ -716,7 +716,7 @@ class PkgConfigModule(NewExtensionModule
          pkgroot = pkgroot_name = kwargs['install_dir'] or default_install_dir
          if pkgroot is None:
              m = state.environment.machines.host
