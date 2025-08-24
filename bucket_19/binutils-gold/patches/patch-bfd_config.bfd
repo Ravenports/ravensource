@@ -1,0 +1,13 @@
+For loader.efi linking support.
+
+--- bfd/config.bfd.orig	2025-02-02 00:00:00 UTC
++++ bfd/config.bfd
+@@ -692,7 +692,7 @@ case "${targ}" in
+     ;;
+   x86_64-*-dragonfly*)
+     targ_defvec=x86_64_elf64_vec
+-    targ_selvecs="i386_elf32_vec iamcu_elf32_vec"
++    targ_selvecs="i386_elf32_vec iamcu_elf32_vec x86_64_pe_vec x86_64_pei_vec x86_64_elf64_vec"
+     want64=true
+     ;;
+   x86_64-*-freebsd* | x86_64-*-kfreebsd*-gnu)

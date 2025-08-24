@@ -1,0 +1,132 @@
+DEF[PORTVERSION]=	EXTRACT_INFO(BINUTILS_GOLD_VERSION)
+DEF[BUREMOVE]=		coffdump dlltool dllwrap nlmconv srconv sysdump windmc windres
+DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		binutils-gold
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		std
+SDESC[std]=		GNU binary tools
+HOMEPAGE=		https://www.gnu.org/software/binutils/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SOURCEWARE/binutils/releases
+DISTFILE[1]=		binutils-with-gold-${PORTVERSION}.tar.xz:main
+
+SPKGS[std]=		set primary dev man nls info
+
+OPTIONS_AVAILABLE=	NLS RELRO
+OPTIONS_STANDARD=	NLS RELRO
+OPT_ON[all]=		NLS
+
+LICENSE=		GPLv3+:primary
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING3
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"ifndef GAS"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/gas/as.h
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/binutils
+
+BUILD_DEPENDS=		mpfr:dev:std
+			gmp:dev:std
+
+USES=			cpe bison gmake libtool zlib:build c++:primary
+CPE_VENDOR=		gnu
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
+CONFIGURE_ARGS=		--disable-werror
+			--disable-shared
+			--with-gmp={{LOCALBASE}}
+			--with-mpfr={{LOCALBASE}}
+			--with-system-zlib
+			--with-lib-path=/usr/lib
+			--enable-targets=all
+			--enable-x86-relax-relocations=no
+			--enable-gprofng=no
+PLIST_SUB=		PLUGINAPI={{PLUGINAPI}}
+			LINKER={{LINKER}}
+			ASSEMBLER={{ASSEMBLER}}
+			GPROF={{GPROF}}
+			TARGET={{CONFIGURE_TARGET}}
+DISTNAME=		binutils-with-gold-${PORTVERSION}
+
+# This port differs from the ports binutils with regard to the gold linker.
+# The port binutils sets gold as default for many platforms, but this one
+# leaves bfd linker as the default for all platforms.
+
+VAR_OPSYS[dragonfly]=	VAR1=/libexec/ld-elf.so.2
+			VAR2=/libexec/ld-elf.so.2
+			MAKEFILE_LINE=BUILD_GOLD=yes
+			MAKEFILE_LINE=GOLD_CONFIG=--enable-gold
+VAR_OPSYS[freebsd]=	VAR1=/libexec/ld-elf.so.1
+			VAR2=/libexec/ld-elf.so.1
+			MAKEFILE_LINE=BUILD_GOLD=yes
+			MAKEFILE_LINE=GOLD_CONFIG=--enable-gold
+VAR_OPSYS[darwin]=	VAR1=/libexec/ld-elf.so.1
+			VAR2=/libexec/ld-elf.so.1
+			MAKEFILE_LINE=LINKER="@comment "
+			MAKEFILE_LINE=ASSEMBLER="@comment "
+			MAKEFILE_LINE=GPROF="@comment "
+VAR_OPSYS[sunos]=	VAR1=/lib/amd64/ld.so.1
+			VAR2=/lib/ld.so.1
+			MAKEFILE_LINE=BUILD_GOLD=yes
+			MAKEFILE_LINE=GOLD_CONFIG=--enable-gold
+VAR_OPSYS[linux]=	VAR1=/lib/ld64.so.1
+			VAR2=/lib/ldx32.so.1
+			MAKEFILE_LINE=BUILD_GOLD=yes
+			MAKEFILE_LINE=GOLD_CONFIG=--enable-gold
+VAR_OPSYS[openbsd]=	MAKEFILE_LINE=PLUGINAPI="@comment "
+VAR_OPSYS[midnightbsd]=	VAR1=/libexec/ld-elf.so.1
+			VAR2=/libexec/ld-elf.so.1
+			MAKEFILE_LINE=BUILD_GOLD=yes
+			MAKEFILE_LINE=GOLD_CONFIG=--enable-gold
+			MAKEFILE_LINE=CONFIGURE_TARGET=${MBSD64_TARGET}
+
+[RELRO].DESCRIPTION=			enable -z relro in ELF linker by default
+[RELRO].CONFIGURE_ARGS_ON=		--enable-relro
+[RELRO].CONFIGURE_ARGS_OFF=		--enable-relro=no
+
+[NLS].USES_ON=				gettext makeinfo
+[NLS].CONFIGURE_ENABLE_BOTH=		nls
+[NLS].INFO_ON=				info:as
+					info:binutils
+					info:gprof
+					info:bfd
+					info:ld
+					info:ctf-spec
+					info:sframe-spec
+					info:ldint
+
+post-patch:
+	${REINPLACE_CMD} \
+		-e 's|@ELF64_INTERPRETER@|${VAR1}|' \
+		-e 's|@ELF32_INTERPRETER@|${VAR2}|' \
+	${WRKSRC}/bfd/elfxx-x86.c \
+	${WRKSRC}/gold/x86_64.cc
+
+post-patch-NLS-OFF:
+	${REINPLACE_CMD} -e '/INFO_DEPS =/d' \
+		${WRKSRC}/ld/Makefile.in \
+		${WRKSRC}/gprof/Makefile.in \
+		${WRKSRC}/bfd/doc/Makefile.in \
+		${WRKSRC}/binutils/doc/Makefile.in \
+		${WRKSRC}/gas/doc/Makefile.in
+
+post-install:
+	${INSTALL_DATA} ${WRKSRC}/include/plugin-api.h \
+		${STAGEDIR}${PREFIX}/include/
+	${RM} ${STAGEDIR}${PREFIX}/include/ansidecl.h
+	${SED} -i'' '/#include "ansidecl.h"/d' \
+		${STAGEDIR}${PREFIX}/include/bfd.h
+.for tool in ${BUREMOVE}
+	${RM} ${STAGEDIR}${PREFIX}/bin/${BUTARGET}-${tool} \
+		${STAGEDIR}${MANPREFIX}/man/man1/${BUTARGET}-${tool}.1 \
+		${STAGEDIR}${PREFIX}/${BUTARGET}/bin/${tool}
+.endfor
+	# autoplist target files and ldscripts
+	${FIND} ${STAGEDIR}${PREFIX}/${CONFIGURE_TARGET} ! -type d | \
+		${SED} -e 's,^${STAGEDIR}${PREFIX}/,,' \
+		>> ${WRKDIR}/.manifest.primary.mktmp
