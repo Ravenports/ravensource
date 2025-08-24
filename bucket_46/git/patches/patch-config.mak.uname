@@ -1,7 +1,7 @@
---- config.mak.uname.orig	2025-06-16 05:11:33 UTC
+--- config.mak.uname.orig	2025-08-18 00:35:38 UTC
 +++ config.mak.uname
-@@ -229,8 +229,6 @@ ifeq ($(uname_S),SunOS)
- 		NO_STRTOUMAX = YesPlease
+@@ -251,8 +251,6 @@ ifeq ($(uname_S),SunOS)
+ 		NO_SETENV = YesPlease
  		GIT_TEST_CMP = cmp
          endif
 -	INSTALL = /usr/ucb/install
@@ -9,25 +9,20 @@
  	BASIC_CFLAGS += -D__EXTENSIONS__ -D__sun__
  endif
  ifeq ($(uname_O),Cygwin)
-@@ -281,8 +279,6 @@ ifeq ($(uname_S),FreeBSD)
- 		OLD_ICONV = YesPlease
+@@ -305,12 +303,8 @@ ifeq ($(uname_S),FreeBSD)
+         ifeq ($(shell v=$(uname_R) && test $${v%%.*} -lt 12 && echo 1),1)
+ 		NO_MEMMEM = UnfortunatelyYes
          endif
- 	NO_MEMMEM = YesPlease
 -	BASIC_CFLAGS += -I/usr/local/include
 -	BASIC_LDFLAGS += -L/usr/local/lib
  	DIR_HAS_BSD_GROUP_SEMANTICS = YesPlease
  	USE_ST_TIMESPEC = YesPlease
-         ifeq ($(shell expr "$(uname_R)" : '4\.'),2)
-@@ -290,8 +286,6 @@ ifeq ($(uname_S),FreeBSD)
- 		NO_UINTMAX_T = YesPlease
- 		NO_STRTOUMAX = YesPlease
-         endif
 -	PYTHON_PATH = /usr/local/bin/python
 -	PERL_PATH = /usr/local/bin/perl
  	HAVE_PATHS_H = YesPlease
  	HAVE_BSD_SYSCTL = YesPlease
  	HAVE_BSD_KERN_PROC_SYSCTL = YesPlease
-@@ -325,8 +319,6 @@ ifeq ($(uname_S),NetBSD)
+@@ -344,8 +338,6 @@ ifeq ($(uname_S),NetBSD)
          ifeq ($(shell expr "$(uname_R)" : '[01]\.'),2)
  		NEEDS_LIBICONV = YesPlease
          endif

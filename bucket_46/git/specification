@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.50.1
+DEF[PORTVERSION]=	2.51.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		git
@@ -71,10 +71,7 @@ SHEBANG_FILES=		*.perl
 			t/*/*/post
 			t/Git-SVN/Utils/*.t
 			git-p4.py
-			contrib/hooks/update-paranoid
 			contrib/fast-import/import-zips.py
-			contrib/remote-helpers/git-remote-bzr
-			contrib/remote-helpers/git-remote-hg
 			contrib/contacts/git-contacts
 			contrib/credential/netrc/git-credential-netrc.perl
 			templates/hooks/fsmonitor-watchman.sample
@@ -95,11 +92,6 @@ post-install:
 	(cd ${WRKDIR}/man1/ && ${COPYTREE_SHARE} . ${STAGEDIR}${MANPREFIX}/man/man1)
 	(cd ${WRKDIR}/man5/ && ${COPYTREE_SHARE} . ${STAGEDIR}${MANPREFIX}/man/man5)
 	(cd ${WRKDIR}/man7/ && ${COPYTREE_SHARE} . ${STAGEDIR}${MANPREFIX}/man/man7)
-	${MKDIR} ${STAGEDIR}${PREFIX}/share/emacs/site-lisp/git
-	${INSTALL_DATA} ${WRKSRC}/contrib/emacs/git.el \
-		${STAGEDIR}${PREFIX}/share/emacs/site-lisp/git/
-	${INSTALL_DATA} ${WRKSRC}/contrib/emacs/git-blame.el \
-		${STAGEDIR}${PREFIX}/share/emacs/site-lisp/git/
 
 	# Strip got missed
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/scalar
