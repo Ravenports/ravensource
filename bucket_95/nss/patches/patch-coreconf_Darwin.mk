@@ -1,4 +1,4 @@
---- coreconf/Darwin.mk.orig	2025-07-17 20:31:27 UTC
+--- coreconf/Darwin.mk.orig	2025-08-22 02:40:23 UTC
 +++ coreconf/Darwin.mk
 @@ -7,8 +7,8 @@ CC     ?= gcc
  CCC    ?= g++
