@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.23.0
+DEF[PORTVERSION]=	0.24.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-zstandard
@@ -30,12 +30,14 @@ GENERATED=		yes
 DISTNAME=		zstandard-${PORTVERSION}
 
 # Requires-Dist extracted from pyproject.toml file
-# build: cffi>=1.16.0; python_version <= '3.12'
-# build: cffi==1.17.0rc1; python_version >= '3.13'
+# build: cffi>=1.17.0 ; platform_python_implementation != 'PyPy'
+# build: packaging
 
 [PY312].USES_ON=			python:v12,pep517
 [PY312].BUILD_DEPENDS_ON=		python-cffi:single:v12
+					python-packaging:single:v12
 [PY313].USES_ON=			python:v13,pep517
 [PY313].BUILD_DEPENDS_ON=		python-cffi:single:v13
+					python-packaging:single:v13
 
 INSTALL_REQ_TOOLCHAIN=	yes
