@@ -5,7 +5,6 @@ DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
 
 NAMEBASE=		binutils
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		std
 SDESC[std]=		GNU binary tools
@@ -14,7 +13,7 @@ CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		SOURCEWARE/binutils/releases
-DISTFILE[1]=		binutils-with-gold-${PORTVERSION}.tar.xz:main
+DISTFILE[1]=		binutils-${PORTVERSION}.tar.xz:main
 
 SPKGS[std]=		set primary dev man nls info
 
@@ -40,6 +39,8 @@ MUST_CONFIGURE=		gnu
 INSTALL_TARGET=		install-strip
 CONFIGURE_ARGS=		--disable-werror
 			--disable-shared
+			--disable-gold
+			--disable-plugins
 			--with-gmp={{LOCALBASE}}
 			--with-mpfr={{LOCALBASE}}
 			--with-system-zlib
@@ -52,38 +53,18 @@ PLIST_SUB=		PLUGINAPI={{PLUGINAPI}}
 			ASSEMBLER={{ASSEMBLER}}
 			GPROF={{GPROF}}
 			TARGET={{CONFIGURE_TARGET}}
-DISTNAME=		binutils-with-gold-${PORTVERSION}
-
-# This port differs from the ports binutils with regard to the gold linker.
-# The port binutils sets gold as default for many platforms, but this one
-# leaves bfd linker as the default for all platforms.
 
 VAR_OPSYS[dragonfly]=	VAR1=/libexec/ld-elf.so.2
 			VAR2=/libexec/ld-elf.so.2
-			MAKEFILE_LINE=BUILD_GOLD=yes
-			MAKEFILE_LINE=GOLD_CONFIG=--enable-gold
 VAR_OPSYS[freebsd]=	VAR1=/libexec/ld-elf.so.1
 			VAR2=/libexec/ld-elf.so.1
-			MAKEFILE_LINE=BUILD_GOLD=yes
-			MAKEFILE_LINE=GOLD_CONFIG=--enable-gold
-VAR_OPSYS[darwin]=	VAR1=/libexec/ld-elf.so.1
-			VAR2=/libexec/ld-elf.so.1
-			MAKEFILE_LINE=LINKER="@comment "
-			MAKEFILE_LINE=ASSEMBLER="@comment "
-			MAKEFILE_LINE=GPROF="@comment "
 VAR_OPSYS[sunos]=	VAR1=/lib/amd64/ld.so.1
 			VAR2=/lib/ld.so.1
-			MAKEFILE_LINE=BUILD_GOLD=yes
-			MAKEFILE_LINE=GOLD_CONFIG=--enable-gold
 VAR_OPSYS[linux]=	VAR1=/lib/ld64.so.1
 			VAR2=/lib/ldx32.so.1
-			MAKEFILE_LINE=BUILD_GOLD=yes
-			MAKEFILE_LINE=GOLD_CONFIG=--enable-gold
 VAR_OPSYS[openbsd]=	MAKEFILE_LINE=PLUGINAPI="@comment "
 VAR_OPSYS[midnightbsd]=	VAR1=/libexec/ld-elf.so.1
 			VAR2=/libexec/ld-elf.so.1
-			MAKEFILE_LINE=BUILD_GOLD=yes
-			MAKEFILE_LINE=GOLD_CONFIG=--enable-gold
 			MAKEFILE_LINE=CONFIGURE_TARGET=${MBSD64_TARGET}
 
 [RELRO].DESCRIPTION=			enable -z relro in ELF linker by default
@@ -105,8 +86,7 @@ post-patch:
 	${REINPLACE_CMD} \
 		-e 's|@ELF64_INTERPRETER@|${VAR1}|' \
 		-e 's|@ELF32_INTERPRETER@|${VAR2}|' \
-	${WRKSRC}/bfd/elfxx-x86.c \
-	${WRKSRC}/gold/x86_64.cc
+	${WRKSRC}/bfd/elfxx-x86.c
 
 post-patch-NLS-OFF:
 	${REINPLACE_CMD} -e '/INFO_DEPS =/d' \
