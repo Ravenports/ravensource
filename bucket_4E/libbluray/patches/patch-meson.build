@@ -1,0 +1,13 @@
+--- meson.build.orig	2025-08-11 20:23:19 UTC
++++ meson.build
+@@ -59,6 +59,10 @@ elif host_machine.system() == 'openbsd'
+     test_args += '-D_BSD_SOURCE'
+ elif host_machine.system() == 'freebsd'
+     test_args += ['-D__BSD_VISIBLE=1', '-D__XSI_VISIBLE=1']
++elif host_machine.system() == 'dragonfly'
++    test_args += ['-D__BSD_VISIBLE=1', '-D__XSI_VISIBLE=1']
++elif host_machine.system() == 'midnightbsd'
++    test_args += ['-D__BSD_VISIBLE=1', '-D__XSI_VISIBLE=1']
+ elif host_machine.system() == 'sunos'
+     test_args += '-D__EXTENSIONS__'
+ elif host_machine.system() == 'linux'
