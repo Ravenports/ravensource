@@ -1,0 +1,38 @@
+DEF[PORTVERSION]=	42.1
+DEF[FOLDER]=		${PORTVERSION:R}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		yelp-tools
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc
+VARIANTS=		std
+SDESC[std]=		Tools for creating Yelp documentation
+HOMEPAGE=		https://gitlab.gnome.org/GNOME/yelp-tools
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNOME/yelp-tools/${FOLDER}
+DISTFILE[1]=		yelp-tools-${PORTVERSION}.tar.xz:main
+
+SPKGS[std]=		single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		textproc/yelp-tools
+
+LICENSE=		GPLv2+:single
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING.GPL
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/tools/yelp-build.in
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+BUILD_DEPENDS=		yelp-xsl:single:std
+			itstool:single:std
+			python-lxml:single:python_used
+
+USES=			meson pkgconfig python gettext shebangfix
+SHEBANG_FILES=		tools/yelp-build.in
+			tools/yelp-check.in
+			tools/yelp-new.in
