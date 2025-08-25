@@ -1,0 +1,99 @@
+# Don't forget to update autoselect-perl on each version change
+DEF[PORTVERSION]=	EXTRACT_VERSION(PERL_5.42_VERSION)
+DEF[PERL_VER]=		${PORTVERSION:R}
+DEF[MAINTAINER]=	John Marino
+DEF[MAINT_MAIL]=	draco@marino.st
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		perl-${PERL_VER}
+VERSION=		${PORTVERSION}
+KEYWORDS=		lang perl devel
+VARIANTS=		std
+SDESC[std]=		Practical Extraction and Report Language
+HOMEPAGE=		https://www.perl.org/
+CONTACT=		${MAINTAINER:S/ /_/}[${MAINT_MAIL}]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/../../src/5.0
+DISTFILE[1]=		perl-${PORTVERSION}.tar.xz:main
+DIST_SUBDIR=		perl5
+
+SPKGS[std]=		set primary man
+
+OPTIONS_AVAILABLE=	MULTIPLICITY THREADS BIT64INT DEBUG
+OPTIONS_STANDARD=	MULTIPLICITY THREADS BIT64INT DEBUG
+OPT_ON[all]=		MULTIPLICITY
+OPT_ON[freebsd]=	THREADS
+OPT_ON[dragonfly]=	THREADS
+OPT_ON[netbsd]=		THREADS
+OPT_ON[sunos]=		THREADS
+OPT_ON[linux]=		THREADS
+OPT_ON[midnightbsd]=	THREADS
+OPT_ON[i386]=		BIT64INT
+
+LICENSE=		ART10:primary GPLv1+:primary
+LICENSE_FILE=		ART10:{{WRKSRC}}/Artistic
+			GPLv1+:{{WRKSRC}}/Copying
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SCHEME=		dual
+
+FPC_EQUIVALENT=		lang/perl${PERL_VER}
+
+BUILD_DEPENDS=		gdbm:dev:std
+BUILDRUN_DEPENDS=	gdbm:primary:std
+RUN_DEPENDS=		autoselect-perl:single:std
+
+USES=			bdb cpe perl-interp cclibs:primary
+CPE_VENDOR=		perl
+CPE_PRODUCT=		perl
+DISTNAME=		perl-{{VERSION}}
+MUST_CONFIGURE=		yes
+CONFIGURE_SCRIPT=	Configure
+CONFIGURE_ARGS=		-Dcf_by="${MAINTAINER}"
+			-Dcf_email="${MAINT_MAIL}"
+			-Di_gdbm
+			-Dlocincpth="{{BDB_INCLUDE_DIR}} {{PREFIX}}/include"
+			-Dloclibpth="{{BDB_LIB_DIR}} {{PREFIX}}/lib"
+			-Aldflags="-Wl,-rpath,{{PREFIX}}/lib:{{PREFIX}}/toolchain/ravensys-gcc/{{MULTILIB}}"
+PLIST_SUB=		PREFIX={{PREFIX}}
+INSTALL_REQ_TOOLCHAIN=	yes
+TEST_TARGET=		test_harness
+TEST_ENV=		{{MAKE_ENV}}
+			TEST_JOBS={{MAKE_JOBS_NUMBER}}
+			LD_LIBRARY_PATH={{WRKSRC}}
+
+[MULTIPLICITY].DESCRIPTION=		Multiple interpret instances in same process
+[MULTIPLICITY].CONFIGURE_ARGS_ON=	-Dusemultiplicity=y
+[MULTIPLICITY].CONFIGURE_ARGS_OFF=	-Dusemultiplicity=n
+
+[BIT64INT].DESCRIPTION=			Use 64 bit integers (on i386)
+[BIT64INT].CONFIGURE_ARGS_ON=		-Duse64bitint
+
+[THREADS].DESCRIPTION=			Build threaded perl
+[THREADS].CONFIGURE_ARGS_ON=		-Dusethreads=y
+[THREADS].CONFIGURE_ARGS_OFF=		-Dusethreads=n
+
+[DEBUG].CONFIGURE_ARGS_ON=		-Doptimize="-g" -DDEBUGGING
+[DEBUG].CONFIGURE_ARGS_OFF=		-Doptimize="-O{{OPTIMIZER_LEVEL}}"
+
+post-extract:
+	${AWK} '/^LICENSING/,/^spells all this/' \
+		${WRKSRC}/README > ${WRKDIR}/TERMS
+
+post-patch:
+	${REINPLACE_CMD} -e 's|@WRKSRC@|${WRKSRC}|' \
+		${WRKSRC}/cpan/DB_File/Makefile.PL
+	${REINPLACE_CMD} -e 's|/usr/local|${PREFIX}|g' \
+		${WRKSRC}/cpan/CPAN/scripts/cpan \
+		${WRKSRC}/cpan/Encode/bin/enc2xs
+	# remove bad netbsd hint
+	${RM} ${WRKSRC}/cpan/DB_File/hints/netbsd.pl
+
+post-patch-sunos:
+	${REINPLACE_CMD} -e '/^libs = / s/= /= -lm /' \
+		${WRKSRC}/Makefile.SH
+
+post-stage:
+	# on linux, $SITE_ARCH/machine is created but not used
+	-[ -d ${STAGEDIR}${SITE_ARCH}/machine ] && \
+		${RMDIR} ${STAGEDIR}${SITE_ARCH}/machine
