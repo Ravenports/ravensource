@@ -1,5 +1,6 @@
-DEF[PORTVERSION]=	2.4.0
-DEF[FOLDER]=		${PORTVERSION:R}
+DEF[FILEVERSION]=	2.4.1-4
+DEF[FOLDER]=		2.4
+DEF[PORTVERSION]=	${FILEVERSION:S/-/r/}
 DEF[SOVERSION]=		0.0.0
 # ----------------------------------------------------------------------------
 
@@ -13,7 +14,7 @@ CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		https://pigeonhole.dovecot.org/releases/${FOLDER}/
-DISTFILE[1]=		dovecot-pigeonhole-${PORTVERSION}.tar.gz:main
+DISTFILE[1]=		dovecot-pigeonhole-${FILEVERSION}.tar.gz:main
 
 SPKGS[std]=		set primary dev man docs
 
@@ -42,5 +43,6 @@ LDFLAGS=		-Wl,-rpath,{{LOCALBASE}}/lib/dovecot
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
 SOVERSION=		${SOVERSION}
+DISTNAME=		dovecot-pigeonhole-${FILEVERSION}
 
 VAR_OPSYS[netbsd]=	CFLAGS=-D_NETBSD_SOURCE
