@@ -1,6 +1,4 @@
 DEF[PORTVERSION]=	1.38
-DEF[ALTAIRSIM_BIN]=	altairsim boot-mits boot-tarbell cpm13 cpm14 cpm14vdm cpm22 cpm22vdm mitscpm14 mitscpm22 ucsd
-DEF[CPMSIM_BIN]=	cpm13 cpm14 cpm1975 cpm22 cpm3 cpm3-8080 cpmsim mpm
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		z80pack
@@ -32,6 +30,10 @@ BUILDRUN_DEPENDS=	libGLU:primary:std
 
 USES=			gmake jpeg
 XORG_COMPONENTS=	x11
+
+post-patch:
+	${REINPLACE_CMD} -i'' -e 's|__PREFIX__|${PREFIX}|g' \
+		${FILESDIR}/runcpm
 
 do-build:
 	(cd ${WRKSRC}/cpmsim/srcsim && \

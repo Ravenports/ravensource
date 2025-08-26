@@ -1,23 +1,29 @@
 #!/bin/sh
+# A trivial cpmsim start script for Ravenports.
 
-PREFIX=/raven
+PREFIX=__PREFIX__
 
 help_function() {
     echo ""
-    echo "runcpm: Running this script directly only displays this help text. Simply run it by one of its alternative names to actually start the emulator."
+    echo "runcpm: Running this script directly only displays this help text. Simply"
+    echo "execute one its alternative names below to actually start the emulator:"
     echo ""
-    echo "Available versions:"
+    echo "  cpm1975   - run CP/M 1975 (pre-1.3)"
+    echo "  cpm13     - run CP/M 1.3"
+    echo "  cpm14     - run CP/M 1.4"
+    echo "  cpm22     - run CP/M 2.2"
+    echo "  cpm3      - run CP/M 3.0"
+    echo "  cpm3-8080 - run CP/M 3.0 for i8080"
+    echo "  mpm       - run MP/M 2"
     echo ""
-    echo "  cpm1975   - CP/M 1975 (pre-1.3)"
-    echo "  cpm13     - CP/M 1.3"
-    echo "  cpm14     - CP/M 1.4"
-    echo "  cpm22     - CP/M 2.2"
-    echo "  cpm3      - CP/M 3.0"
-    echo "  cpm3-8080 - CP/M 3.0 for i8080"
-    echo "  mpm       - MP/M 2"
+    echo "This script automatically manages disk images in ~/.cpmsim/disks. If you"
+    echo 'want to "reset" a disk, just delete it from ~/.cpmsim/disks/library. It'
+    echo "will restore a fresh image the next time you run it."
     echo ""
-    echo "It automatically manages disk images in ~/.cpmsim/disks. If you want to \"reset\" a disk, just delete it from ~/.cpmsim/disks/library. The script will copy the fresh image again next time."
-    echo "The script also only changes drivea.dsk and driveb.dsk in  ~/.cpmsim/disks depending on the OS you want to start. You can create your own drivec.dsk and drived.dsk if you wish and the data will persist."
+    echo "The script only shuffles around  drivea.dsk and driveb.dsk in"
+    echo "~/.cpmsim/disks (depending on the OS you want to start). You can create"
+    echo "your own drivec.dsk and drived.dsk (use the mkdskimg command for this)"
+    echo "if you wish and they will be left alone."
     echo ""
     exit 0
 }
@@ -52,7 +58,7 @@ cpm13() {
 }
 
 cpm14() {
-    copy_disk_image "cpm1a.dsk"
+    copy_disk_image "cpm14.dsk"
     rm -f "$HOME/.cpmsim/disks"/drive[ab].dsk
     ln -sf "$HOME/.cpmsim/disks/library/cpm14.dsk" "$HOME/.cpmsim/disks/drivea.dsk"
     cpmsim -d "$HOME/.cpmsim/disks/" "$@"
@@ -91,8 +97,8 @@ cpm3_8080() {
     copy_disk_image "cpm3-8080-1.dsk"
     copy_disk_image "cpm3-8080-2.dsk"
     rm -f "$HOME/.cpmsim/disks"/drive[ab].dsk
-    ln -sf "$HOME/.cpmsim/disks/library/cpm3-8080-1" "$HOME/.cpmsim/disks/drivea.dsk"
-    ln -sf "$HOME/.cpmsim/disks/library/cpm3-8080-1" "$HOME/.cpmsim/disks/driveb.dsk"
+    ln -sf "$HOME/.cpmsim/disks/library/cpm3-8080-1.dsk" "$HOME/.cpmsim/disks/drivea.dsk"
+    ln -sf "$HOME/.cpmsim/disks/library/cpm3-8080-2.dsk" "$HOME/.cpmsim/disks/driveb.dsk"
     cpmsim -d "$HOME/.cpmsim/disks/" "$@"
     exit 0
 }
