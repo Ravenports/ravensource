@@ -1,0 +1,162 @@
+#!/bin/sh
+
+PREFIX=/raven
+
+help_function() {
+    echo ""
+    echo "runcpm: Running this script directly only displays this help text. Simply run it by one of its alternative names to actually start the emulator."
+    echo ""
+    echo "Available versions:"
+    echo ""
+    echo "  cpm1975   - CP/M 1975 (pre-1.3)"
+    echo "  cpm13     - CP/M 1.3"
+    echo "  cpm14     - CP/M 1.4"
+    echo "  cpm22     - CP/M 2.2"
+    echo "  cpm3      - CP/M 3.0"
+    echo "  cpm3-8080 - CP/M 3.0 for i8080"
+    echo "  mpm       - MP/M 2"
+    echo ""
+    echo "It automatically manages disk images in ~/.cpmsim/disks. If you want to \"reset\" a disk, just delete it from ~/.cpmsim/disks/library. The script will copy the fresh image again next time."
+    echo "The script also only changes drivea.dsk and driveb.dsk in  ~/.cpmsim/disks depending on the OS you want to start. You can create your own drivec.dsk and drived.dsk if you wish and the data will persist."
+    echo ""
+    exit 0
+}
+
+copy_disk_image() {
+    disk_file="$1"
+    
+    # Check if the disk file already exists in library
+    if [ ! -e "$HOME/.cpmsim/disks/library/$disk_file" ]; then
+        src_file="$PREFIX/share/z80pack/disks/$disk_file"
+        dst_file="$HOME/.cpmsim/disks/library/$disk_file"
+        
+        if [ -e "$src_file" ]; then
+            cp "$src_file" "$dst_file"
+            if [ $? -ne 0 ]; then
+                echo "Error: Failed to copy $src_file to $dst_file." >&2
+                exit 1
+            fi
+        else
+            echo "Error: Source file $src_file does not exist!" >&2
+            exit 1
+        fi
+    fi
+}
+
+cpm13() {
+    copy_disk_image "cpm13.dsk"
+    rm -f "$HOME/.cpmsim/disks"/drive[ab].dsk
+    ln -sf "$HOME/.cpmsim/disks/library/cpm13.dsk" "$HOME/.cpmsim/disks/drivea.dsk"
+    cpmsim -d "$HOME/.cpmsim/disks/" "$@"
+    exit 0
+}
+
+cpm14() {
+    copy_disk_image "cpm1a.dsk"
+    rm -f "$HOME/.cpmsim/disks"/drive[ab].dsk
+    ln -sf "$HOME/.cpmsim/disks/library/cpm14.dsk" "$HOME/.cpmsim/disks/drivea.dsk"
+    cpmsim -d "$HOME/.cpmsim/disks/" "$@"
+    exit 0
+}
+
+cpm1975() {
+    copy_disk_image "cpm1975.dsk"
+    rm -f "$HOME/.cpmsim/disks"/drive[ab].dsk
+    ln -sf "$HOME/.cpmsim/disks/library/cpm1975.dsk" "$HOME/.cpmsim/disks/drivea.dsk"
+    cpmsim -d "$HOME/.cpmsim/disks/" "$@"
+    exit 0
+}
+
+cpm22() {
+    copy_disk_image "cpm22-1.dsk"
+    copy_disk_image "cpm22-2.dsk"
+    rm -f "$HOME/.cpmsim/disks"/drive[ab].dsk
+    ln -sf "$HOME/.cpmsim/disks/library/cpm22-1.dsk" "$HOME/.cpmsim/disks/drivea.dsk"
+    ln -sf "$HOME/.cpmsim/disks/library/cpm22-2.dsk" "$HOME/.cpmsim/disks/driveb.dsk"
+    cpmsim -d "$HOME/.cpmsim/disks/" "$@"
+    exit 0
+}
+
+cpm3() {
+    copy_disk_image "cpm3-1.dsk"
+    copy_disk_image "cpm3-2.dsk"
+    rm -f "$HOME/.cpmsim/disks"/drive[ab].dsk
+    ln -sf "$HOME/.cpmsim/disks/library/cpm3-1.dsk" "$HOME/.cpmsim/disks/drivea.dsk"
+    ln -sf "$HOME/.cpmsim/disks/library/cpm3-2.dsk" "$HOME/.cpmsim/disks/driveb.dsk"
+    cpmsim -d "$HOME/.cpmsim/disks/" "$@"
+    exit 0
+}
+
+cpm3_8080() {
+    copy_disk_image "cpm3-8080-1.dsk"
+    copy_disk_image "cpm3-8080-2.dsk"
+    rm -f "$HOME/.cpmsim/disks"/drive[ab].dsk
+    ln -sf "$HOME/.cpmsim/disks/library/cpm3-8080-1" "$HOME/.cpmsim/disks/drivea.dsk"
+    ln -sf "$HOME/.cpmsim/disks/library/cpm3-8080-1" "$HOME/.cpmsim/disks/driveb.dsk"
+    cpmsim -d "$HOME/.cpmsim/disks/" "$@"
+    exit 0
+}
+
+mpm() {
+    copy_disk_image "mpm-1.dsk"
+    copy_disk_image "mpm-2.dsk"
+    rm -f "$HOME/.cpmsim/disks"/drive[ab].dsk
+    ln -sf "$HOME/.cpmsim/disks/library/mpm-1.dsk" "$HOME/.cpmsim/disks/drivea.dsk"
+    ln -sf "$HOME/.cpmsim/disks/library/mpm-2.dsk" "$HOME/.cpmsim/disks/driveb.dsk"
+    cpmsim -d "$HOME/.cpmsim/disks/" "$@"
+    exit 0
+}
+
+# Check if running as root
+if [ "$(id -u)" = "0" ]; then
+    echo "Error: This script must not be run as root." >&2
+    exit 1
+fi
+
+# Check if HOME is set
+if [ -z "$HOME" ]; then
+    echo "Error: HOME environment variable is not set." >&2
+    exit 1
+fi
+
+# Check if .cpmsim exists in home directory
+if [ -e "$HOME/.cpmsim" ]; then
+    # If it exists, check if it's a directory and writable
+    if [ ! -d "$HOME/.cpmsim" ] || [ ! -w "$HOME/.cpmsim" ]; then
+        echo "Error: $HOME/.cpmsim exists but is not a writable directory." >&2
+        exit 1
+    fi
+else
+    # Ensure .cpmsim/disks/library directory exists
+    mkdir -p "$HOME/.cpmsim/disks/library"
+    if [ $? -ne 0 ]; then
+        echo "Error: Failed to create $HOME/.cpmsim/disks/library directory." >&2
+        exit 1
+    fi
+fi
+
+MYNAME=`basename $0`
+
+case $MYNAME in
+    cpm13)
+        cpm13
+        ;;
+    cpm14)
+        cpm14
+        ;;
+    cpm1975)
+        cpm1975
+        ;;
+    cpm22)
+        cpm22
+        ;;
+    cpm3)
+        cpm3
+        ;;
+    cpm3-8080)
+        cpm3_8080
+        ;;
+    *)
+        help_function
+        ;;
+esac

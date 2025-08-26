@@ -1,0 +1,58 @@
+DEF[PORTVERSION]=	1.38
+DEF[ALTAIRSIM_BIN]=	altairsim boot-mits boot-tarbell cpm13 cpm14 cpm14vdm cpm22 cpm22vdm mitscpm14 mitscpm22 ucsd
+DEF[CPMSIM_BIN]=	cpm13 cpm14 cpm1975 cpm22 cpm3 cpm3-8080 cpmsim mpm
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		z80pack
+VERSION=		${PORTVERSION}
+KEYWORDS=		emulators
+VARIANTS=		std
+SDESC[std]=		8080 and Z80 emulator with CP/M
+HOMEPAGE=		https://www.icl1900.co.uk/unix4fun/z80pack/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/udo-munk:z80pack:${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[std]=		set primary docs images
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:primary
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		emulators/z80pack
+
+BUILD_DEPENDS=		libglvnd:dev:std
+			libGLU:dev:std
+BUILDRUN_DEPENDS=	libGLU:primary:std
+
+USES=			gmake jpeg
+XORG_COMPONENTS=	x11
+
+do-build:
+	(cd ${WRKSRC}/cpmsim/srcsim && \
+		gmake PREFIX=${PREFIX} && \
+		cd ../srctools && \
+		gmake PREFIX=${PREFIX})
+
+do-install:
+.for p in bin2hex cpmrecv cpmsend mkdskimg ptp2bin
+	${INSTALL_PROGRAM} ${WRKSRC}/cpmsim/srctools/${p} ${STAGEDIR}${PREFIX}/bin
+.endfor
+	${INSTALL_PROGRAM} ${WRKSRC}/cpmsim/cpmsim ${STAGEDIR}${PREFIX}/bin
+	(cd ${WRKSRC}/cpmsim/disks/library && \
+		${COPYTREE_SHARE} . ${STAGEDIR}${PREFIX}/share/z80pack/disks)
+	${INSTALL_SCRIPT} ${FILESDIR}/runcpm ${STAGEDIR}${PREFIX}/bin
+	(cd ${WRKSRC}/doc && \
+		${COPYTREE_SHARE} . ${STAGEDIR}${PREFIX}/share/docs/z80pack)
+	ln ${STAGEDIR}${PREFIX}/bin/runcpm ${STAGEDIR}${PREFIX}/bin/cpm13
+	ln ${STAGEDIR}${PREFIX}/bin/runcpm ${STAGEDIR}${PREFIX}/bin/cpm14
+	ln ${STAGEDIR}${PREFIX}/bin/runcpm ${STAGEDIR}${PREFIX}/bin/cpm1975
+	ln ${STAGEDIR}${PREFIX}/bin/runcpm ${STAGEDIR}${PREFIX}/bin/cpm22
+	ln ${STAGEDIR}${PREFIX}/bin/runcpm ${STAGEDIR}${PREFIX}/bin/cpm3
+	ln ${STAGEDIR}${PREFIX}/bin/runcpm ${STAGEDIR}${PREFIX}/bin/cpm3-8080
+	ln ${STAGEDIR}${PREFIX}/bin/runcpm ${STAGEDIR}${PREFIX}/bin/mpm
