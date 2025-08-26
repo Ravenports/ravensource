@@ -17,8 +17,8 @@ help_function() {
     echo "  mpm       - run MP/M 2"
     echo ""
     echo "This script automatically manages disk images in ~/.cpmsim/disks. If you"
-    echo 'want to "reset" a disk, just delete it from ~/.cpmsim/disks/library. It'
-    echo "will restore a fresh image the next time you run it."
+    echo 'want to "reset" a disk, just delete it from ~/.cpmsim/disks/library.'
+    echo "Running the script the next time will restore a fresh image."
     echo ""
     echo "The script only shuffles around  drivea.dsk and driveb.dsk in"
     echo "~/.cpmsim/disks (depending on the OS you want to start). You can create"
@@ -44,6 +44,7 @@ copy_disk_image() {
             fi
         else
             echo "Error: Source file $src_file does not exist!" >&2
+            echo "(Did you install the 'images' subpackage?)" >&2
             exit 1
         fi
     fi
