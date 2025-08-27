@@ -1,0 +1,41 @@
+DEF[PORTVERSION]=	1.4.2
+DEF[SOVERSION]=		3.3.13
+# ----------------------------------------------------------------------------
+# Note: Most repos hold packages for the 1.5.x line, but that's considered
+# a *development* branch while 1.4.x is *stable* (but quite old). Maybe switch
+# to 1.5.x at some point?
+
+NAMEBASE=		libdsk
+VERSION=		${PORTVERSION}
+KEYWORDS=		emulators
+VARIANTS=		std
+SDESC[std]=		Disk / disk image access lib; supports serial line
+HOMEPAGE=		https://www.seasip.info/Unix/LibDsk
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://www.seasip.info/Unix/LibDsk/
+DISTFILE[1]=		libdsk-${PORTVERSION}.tar.gz:main
+
+SPKGS[std]=		set primary dev tools man
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:primary
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/doc/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/lib/comp.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		emulators/libdsk
+
+MUST_CONFIGURE=		gnu
+
+USES=			libtool
+
+SOVERSION=		${SOVERSION}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libdsk.so
