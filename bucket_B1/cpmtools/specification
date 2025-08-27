@@ -1,0 +1,53 @@
+DEF[PORTVERSION]=	2.24
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		cpmtools
+VERSION=		${PORTVERSION}
+KEYWORDS=		emulators
+VARIANTS=		std
+SDESC[std]=		Tools to access CP/M disks and disk images
+HOMEPAGE=		https://www.moria.de/~michael/cpmtools/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://distcache.freebsd.org/ports-distfiles/
+DISTFILE[1]=		cpmtools-${PORTVERSION}.tar.gz:main
+
+SPKGS[std]=		set primary man
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv3+:primary
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		emulators/cpmtools
+
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-libdsk={{LOCALBASE}}
+
+BUILD_DEPENDS=		libdsk:dev:std
+BUILDRUN_DEPENDS=	libdsk:primary:std
+
+# Build without ncurses (for now?) as it causes linker problems.
+# This means we have to do without fsed.cpm. It's a special tool
+# for people who want to analyze & debug CP/M filesystems.
+# USES=			ncurses
+
+post-extract:
+	(cd ${WRKSRC} && tail -n 13 README > ../TERMS)
+
+# Remove ncurses for tools that don't use it, anyway. Taken from the FPC.
+post-patch:
+	${REINPLACE_CMD} -e 's|getopt$$(OBJEXT)||g; s|getopt1$$(OBJEXT)||g' \
+		-e 's|\($$(CC).*fsed.cpm$$(OBJEXT).*$$(DEVICEOBJ)\)|\1 -lncurses|' \
+		-e '/^CFLAGS=/s|@CFLAGS@|@CFLAGS@ -DDISKDEFS=\\"@datarootdir@/diskdefs\\" -DFORMAT=\\"$$(DEFFORMAT)\\"|' \
+		-e 's|diskdefs @datarootdir@/diskdefs|diskdefs $$(DESTDIR)@datarootdir@/diskdefs|' \
+		${WRKSRC}/Makefile.in
+	${REINPLACE_CMD} -e 's|\(FSED_CPM=fsed.cpm\) LIBS=\"-lcurses $$LIBS\"|\1|' \
+		${WRKSRC}/configure
+
+post-install:
+	${RM} ${STAGEDIR}${PREFIX}/share/man/man1/fsed.cpm.1
