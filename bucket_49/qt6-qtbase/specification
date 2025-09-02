@@ -17,7 +17,7 @@ DISTFILE[1]=		qtbase-everywhere-src-${PORTVERSION}.tar.xz:main
 
 SPKGS[std]=		set primary dev docs
 
-OPTIONS_AVAILABLE=	X11 WAYLAND
+OPTIONS_AVAILABLE=	X11 WAYLAND VULKAN
 OPTIONS_STANDARD=	X11 WAYLAND
 OPT_ON[all]=		X11
 OPT_ON[dragonfly]=	WAYLAND
@@ -26,25 +26,24 @@ OPT_ON[midnightbsd]=	WAYLAND
 OPT_ON[netbsd]=		WAYLAND
 OPT_ON[linux]=		WAYLAND
 
-BUILD_DEPENDS=		evdev-proto:single:std
+BUILD_DEPENDS=		cups:dev:std
 			elftoolchain:dev:std
+			evdev-proto:single:std
+			fontconfig:dev:std
 			harfbuzz:dev:std
 			icu:dev:std
-			fontconfig:dev:std
 			libglvnd:dev:std
-			cups:dev:std
-			libxkbcommon:dev:std
 # #			libproxy:dev:std
-BUILDRUN_DEPENDS=	harfbuzz:icu:std
+			libxkbcommon:dev:std
+BUILDRUN_DEPENDS=	cups:primary:std
+			harfbuzz:icu:std
 			icu:primary:std
+			libb2:single:std
 # #			libproxy:primary:std
 			libxkbcommon:primary:std
-			libb2:single:std
-			cups:primary:std
-
-EXRUN[dev]=		libglvnd:dev:std
+EXRUN[dev]=		cups:dev:std
+			libglvnd:dev:std
 			libxkbcommon:dev:std
-			cups:dev:std
 
 USES=			qt6 zlib png sqlite jpeg pkgconfig execinfo
 			iconv perl:build shebangfix ssl:openssl30
@@ -115,6 +114,11 @@ VAR_OPSYS[linux]=	VAR1=linux
 [WAYLAND].CMAKE_ARGS_ON=		-DFEATURE_wayland=ON
 [WAYLAND].USES_ON=			bsd:epoll
 [WAYLAND].EXTRA_PATCHES_ON=		extra-patch-src_corelib_configure.cmake
+
+[VULKAN].DESCRIPTION=			Build with Vulkan support
+[VULKAN].BUILD_DEPENDS_ON=		vulkan-headers:single:std
+					vulkan-loader:dev:std
+[VULKAN].DEPENDS_ON=			vulkan-loader:primary:std
 
 post-patch:
 	${MKDIR} ${WRKSRC}/mkspecs/dragonfly-g++
