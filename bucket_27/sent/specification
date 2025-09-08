@@ -1,0 +1,48 @@
+DEF[PORTVERSION]=	1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		sent
+VERSION=		${PORTVERSION}
+KEYWORDS=		misc
+VARIANTS=		std
+SDESC[std]=		Simple plaintext presentation tool
+HOMEPAGE=		https://tools.suckless.org/sent/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://dl.suckless.org/tools/
+DISTFILE[1]=		sent-${PORTVERSION}.tar.gz:main
+SPKGS[std]=		set primary man docs examples
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		misc/sent
+
+LICENSE=		ISCL:primary
+LICENSE_FILE=		ISCL:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+USES=			fontconfig
+XORG_COMPONENTS=	x11 xft xrender
+RUN_DEPENDS=		farbfeld:primary:std
+
+EXTRACT_HEAD[1]=	{{TAR}} -x -Csent-${PORTVERSION} -f
+EXTRACT_TAIL[1]=	--no-same-owner --no-same-permissions
+
+pre-extract:
+	mkdir -p ${WRKDIR}/sent-${PORTVERSION}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/sent
+	# Install docs
+	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
+	${INSTALL_DATA} ${WRKSRC}/README.md ${STAGEDIR}${STD_DOCDIR}
+	# Install examples
+	${MKDIR} ${STAGEDIR}${STD_EXAMPLESDIR}
+	${INSTALL_DATA} \
+		${WRKSRC}/example \
+		${WRKSRC}/nyan.png \
+		${WRKSRC}/transparent_test.ff \
+		${STAGEDIR}${STD_EXAMPLESDIR}
+
