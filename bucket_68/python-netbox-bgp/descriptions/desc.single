@@ -22,6 +22,7 @@ This plugin provide following Models:
 | NetBox 4.1.x  | >= 0.14.0 |
 | NetBox 4.2.x  | 0.15.x    |
 | NetBox 4.3.x  | 0.16.x    |
+| NetBox 4.4.x  | 0.17.x    |
 
 ## Installation
 

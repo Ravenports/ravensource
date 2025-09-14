@@ -8,7 +8,7 @@ are working with [JSON], as in this ["spec"]:
 ```python
 >>> print(json.dumps(xmltodict.parse("""
 ...  <mydocument has="an attribute">
-...    <and>
+...    
 ...      <many>elements</many>
 ...      <many>more elements</many>
 ...    </and>
@@ -19,15 +19,15 @@ are working with [JSON], as in this ["spec"]:
 ...  """), indent=4))
 {
     "mydocument": {
-        "@has": "an attribute", 
+        "@has": "an attribute",
         "and": {
             "many": [
-                "elements", 
+                "elements",
                 "more elements"
            ]
-        }, 
+        },
         "plus": {
-            "@a": "complex", 
+            "@a": "complex",
             "#text": "element as well"
         }
     }
@@ -89,7 +89,7 @@ small memory footprint, suitable for big XML dumps like [Discogs] or
 >>> def handle_artist(_, artist):
 ...     print(artist['name'])
 ...     return True
->>> 
+>>>
 >>> xmltodict.parse(GzipFile('discogs_artists.xml.gz'),
 ...     item_depth=2, item_callback=handle_artist)
 A Perfect Circle

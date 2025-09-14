@@ -29,6 +29,26 @@ install it with [pip]:
 Changelog
 ~~~~~~~~~
 
+4.59.2 (released 2025-08-27)
+----------------------------
+
+- [varLib] Clear USE_MY_METRICS component flags when inconsistent across
+masters (#3912).
+- [varLib.instancer] Avoid negative advance width/height values when
+instatiating HVAR/VVAR,
+  (unlikely in well-behaved fonts) (#3918).
+- [subset] Fix shaping behaviour when pruning empty mark sets (#3915,
+harfbuzz/harfbuzz#5499).
+- [cu2qu] Fixed ``dot()`` product of perpendicular vectors not always
+returning exactly 0.0
+  in all Python implementations (#3911)
+- [varLib.instancer] Implemented fully-instantiating avar2 fonts (#3909).
+- [feaLib] Allow float values in VariableScalar's axis locations (#3906,
+#3907).
+- [cu2qu] Handle special case in calc_intersect for degenerate cubic curves
+where 3 to 4
+  control points are equal (#3904).
+
 4.59.1 (released 2025-08-14)
 ----------------------------
 
@@ -78,23 +98,3 @@ baseGlyphName
 ----------------------------
 
 - [feaLib] Don't try to combine ligature & multisub rules (#3874).
-- [feaLib/ast] Use weakref proxies to avoid cycles in visitor (#3873).
-- [varLib.instancer] Fixed instancing CFF2 fonts where VarData contains
-more than 64k items (#3858).
-
-4.58.4 (released 2025-06-13)
-----------------------------
-
-- [feaLib] Allow for empty MarkFilter & MarkAttach sets (#3856).
-
-4.58.3 (released 2025-06-13)
-----------------------------
-
-- [feaLib] Fixed iterable check for Python 3.13.4 and newer (#3854, #3855).
-
-4.58.2 (released 2025-06-06)
-----------------------------
-
-- [ttLib.reorderGlyphs] Handle CFF2 when reordering glyphs (#3852)
-- [subset] Copy name IDs in use before scrapping or scrambling them for
-webfonts (#3853)

@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.19.3
+DEF[PORTVERSION]=	0.20.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-vdirsyncer
@@ -7,11 +7,11 @@ KEYWORDS=		python
 VARIANTS=		v12 v13
 SDESC[v12]=		Synchronize calendars and contacts (3.12)
 SDESC[v13]=		Synchronize calendars and contacts (3.13)
-HOMEPAGE=		https://github.com/pimutils/vdirsyncer
+HOMEPAGE=		none
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/36/88/b1e26f8ec9e64822c5c276c3c900780862fc170da237a16a33ab507bc95b
+SITES[main]=		PYPIWHL/60/64/ba1083f60274f91f2d54190a134dada95fb22fa8e4b44d318efe9463fa45
 DISTFILE[1]=		vdirsyncer-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -24,32 +24,36 @@ VOPTS[v12]=		PY312=ON PY313=OFF
 VOPTS[v13]=		PY312=OFF PY313=ON
 
 # License listed at PyPI
-# BSD
+# Not provided.
 
 GENERATED=		yes
 DISTNAME=		vdirsyncer-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# click <9.0,>=5.0
-# click-log <0.5.0,>=0.3.0
-# requests >=2.20.0
-# atomicwrites >=0.1.7
-# aiohttp <4.0.0,>=3.8.0
-# aiostream <0.5.0,>=0.4.3
-# aiohttp-oauthlib ; extra == 'google'
+# click<9.0,>=5.0
+# click-log<0.5.0,>=0.3.0
+# requests>=2.20.0
+# aiohttp<4.0.0,>=3.8.2
+# aiostream<0.8.0,>=0.4.3
+# aiohttp-oauthlib; extra == "google"
+# hypothesis<7.0.0,>=6.72.0; extra == "test"
+# pytest; extra == "test"
+# pytest-cov; extra == "test"
+# pytest-httpserver; extra == "test"
+# trustme; extra == "test"
+# pytest-asyncio; extra == "test"
+# aioresponses; extra == "test"
 
 [PY312].USES_ON=			python:v12,wheel
 [PY312].RUN_DEPENDS_ON=			python-click:single:v12
 					python-click-log:single:v12
 					python-requests:single:v12
-					python-atomicwrites:single:v12
 					python-aiohttp:single:v12
 					python-aiostream:single:v12
 [PY313].USES_ON=			python:v13,wheel
 [PY313].RUN_DEPENDS_ON=			python-click:single:v13
 					python-click-log:single:v13
 					python-requests:single:v13
-					python-atomicwrites:single:v13
 					python-aiohttp:single:v13
 					python-aiostream:single:v13
 

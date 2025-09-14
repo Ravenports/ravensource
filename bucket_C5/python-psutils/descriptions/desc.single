@@ -22,35 +22,33 @@ some programs produce non-conforming output that can be successfully
 processed anyway. If PSUtils does not work for you, check whether your
 software needs to be configured to produce DSC-conformant PostScript.
 
-Some old Perl scripts, which mostly fix up the output of various obsolete
-programs and drivers to enable PSUtils to process it, are available in git
-in the `old-scripts` directory. They are not supported, and their use is
-discouraged, unless you know you need them!
-
 ## Installation
 
 The easiest way to install PSUtils is from PyPI, the Python Package Index:
 
-`pip install psutils`
+`pipx install psutils`
 
-(Note the PyPI package name!)
+(You may first need to install [pipx].)
 
 PSUtils requires libpaper, which allows named paper sizes to be used and
 configured:
 
 libpaper: https://github.com/rrthomas/libpaper
 
-Unfortunately, `pip` cannot install libpaper for you, but you might be able
+Unfortunately, `pipx` cannot install libpaper for you, but you might be
+able
 to install it with `brew` or from other package managers. Otherwise, you
-can install libpaper from source (see the link above).
+can
+install libpaper from source (see the link above).
 
-## Installation from source or git
+### Installation from source or git
 
-PSUtils requires Python 3.9 or later, a handful of Python libraries (listed
+PSUtils requires Python 3.12 or later, a handful of Python libraries
+(listed
 in `pyproject.toml`, and automatically installed by the build procedure).
 
-In the source directory: `python -m build` (requires the `build` package to
-be installed).
+In the source directory: `make build` (requires the `build` Python package
+to be installed).
 
 Note that to use the scripts before installing them, you need to run them
 as Python modules; for example:
