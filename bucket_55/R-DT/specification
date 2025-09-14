@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.33
+DEF[PORTVERSION]=	0.34.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		R-DT
@@ -12,7 +12,7 @@ CONTACT=		CRAN_Automaton[cran@ironwolf.systems]
 DOWNLOAD_GROUPS=	main
 SITES[main]=		CRAN/src/contrib
 			https://loki.dragonflybsd.org/cranfiles/
-DISTFILE[1]=		DT_0.33.tar.gz:main
+DISTFILE[1]=		DT_0.34.0.tar.gz:main
 DIST_SUBDIR=		CRAN
 DF_INDEX=		1
 
@@ -22,20 +22,19 @@ OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 # License listed on https://cran.r-project.org/
-# => GPL-3 | file LICENSE
+# => MIT + file LICENSE
 
 USES=			cran gmake
 DISTNAME=		DT
 GENERATED=		yes
 INSTALL_REQ_TOOLCHAIN=	yes
 
-BUILDRUN_DEPENDS=	R-htmltools:single:std
+BUILDRUN_DEPENDS=	R-crosstalk:single:std
+			R-htmltools:single:std
 			R-htmlwidgets:single:std
-			R-httpuv:single:std
+			R-jquerylib:single:std
 			R-jsonlite:single:std
 			R-magrittr:single:std
-			R-crosstalk:single:std
-			R-jquerylib:single:std
 			R-promises:single:std
 
 

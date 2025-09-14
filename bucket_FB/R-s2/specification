@@ -1,0 +1,35 @@
+DEF[PORTVERSION]=	1.1.9
+# ------------------------------------------------------------------------
+
+NAMEBASE=		R-s2
+VERSION=		${PORTVERSION}
+KEYWORDS=		cran
+VARIANTS=		std
+SDESC[std]=		Spherical Geometry Operators from S2 library
+HOMEPAGE=		https://r-spatial.github.io/s2/
+CONTACT=		CRAN_Automaton[cran@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CRAN/src/contrib
+			https://loki.dragonflybsd.org/cranfiles/
+DISTFILE[1]=		s2_1.1.9.tar.gz:main
+DIST_SUBDIR=		CRAN
+DF_INDEX=		1
+
+SPKGS[std]=		single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# License listed on https://cran.r-project.org/
+# => Apache License (== 2.0)
+
+USES=			cran gmake
+DISTNAME=		s2
+GENERATED=		yes
+INSTALL_REQ_TOOLCHAIN=	yes
+
+BUILDRUN_DEPENDS=	R-Rcpp:single:std
+			R-wk:single:std
+
+

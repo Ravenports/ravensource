@@ -1,0 +1,39 @@
+DEF[PORTVERSION]=	1.0-21
+# ------------------------------------------------------------------------
+
+NAMEBASE=		R-sf
+VERSION=		${PORTVERSION}
+KEYWORDS=		cran
+VARIANTS=		std
+SDESC[std]=		Simple Features for R
+HOMEPAGE=		https://r-spatial.github.io/sf/
+CONTACT=		CRAN_Automaton[cran@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CRAN/src/contrib
+			https://loki.dragonflybsd.org/cranfiles/
+DISTFILE[1]=		sf_1.0-21.tar.gz:main
+DIST_SUBDIR=		CRAN
+DF_INDEX=		1
+
+SPKGS[std]=		single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# License listed on https://cran.r-project.org/
+# => GPL-2 | MIT + file LICENSE
+
+USES=			cran gmake
+DISTNAME=		sf
+GENERATED=		yes
+INSTALL_REQ_TOOLCHAIN=	yes
+
+BUILDRUN_DEPENDS=	R-classInt:single:std
+			R-DBI:single:std
+			R-magrittr:single:std
+			R-s2:single:std
+			R-units:single:std
+			R-Rcpp:single:std
+
+
