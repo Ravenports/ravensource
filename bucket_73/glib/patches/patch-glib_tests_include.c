@@ -1,4 +1,4 @@
---- glib/tests/include.c.orig	2025-06-13 11:55:59 UTC
+--- glib/tests/include.c.orig	2025-09-05 12:42:14 UTC
 +++ glib/tests/include.c
 @@ -1,8 +1,11 @@
  /* Test case for bug 659866 */

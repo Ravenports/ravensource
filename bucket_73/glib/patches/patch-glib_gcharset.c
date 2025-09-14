@@ -1,6 +1,6 @@
---- glib/gcharset.c.orig	2025-06-13 11:55:59 UTC
+--- glib/gcharset.c.orig	2025-09-05 12:42:14 UTC
 +++ glib/gcharset.c
-@@ -289,6 +289,11 @@ _g_get_ctype_charset (const char **chars
+@@ -290,6 +290,11 @@ _g_get_ctype_charset (const char **chars
  
  #ifdef HAVE_LANGINFO_CODESET
    raw = nl_langinfo (CODESET);
