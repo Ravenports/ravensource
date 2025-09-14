@@ -1,9 +1,8 @@
-DEF[PORTVERSION]=	1.0.8
+DEF[PORTVERSION]=	1.0.9
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		xorg-cf-files
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		x11
 VARIANTS=		std
 SDESC[std]=		X.org cf files for use with imake builds
@@ -21,7 +20,7 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		x11/xorg-cf-files
 
-MUST_CONFIGURE=		gnu
+USES=			meson
 
 post-patch:
 	${MV} ${WRKSRC}/NetBSD.cf ${WRKSRC}/NetBSD.cf.original
