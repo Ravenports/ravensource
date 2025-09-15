@@ -24,7 +24,7 @@ OPTIONS_STANDARD=	none
 # License listed on https://cran.r-project.org/
 # => GPL-2 | MIT + file LICENSE
 
-USES=			cran gmake
+USES=			cran gmake pkgconfig
 DISTNAME=		sf
 GENERATED=		yes
 INSTALL_REQ_TOOLCHAIN=	yes
@@ -35,5 +35,15 @@ BUILDRUN_DEPENDS=	R-classInt:single:std
 			R-s2:single:std
 			R-units:single:std
 			R-Rcpp:single:std
+			gdal:primary:std
+			proj:primary:std
+			sqlite:primary:std
+			geos:primary:std
+
+BUILD_DEPENDS=		gdal:dev:std
+			proj:dev:std
+			sqlite:dev:std
+			geos:dev:std
+
 
 
