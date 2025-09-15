@@ -24,12 +24,16 @@ OPTIONS_STANDARD=	none
 # License listed on https://cran.r-project.org/
 # => Apache License (== 2.0)
 
-USES=			cran gmake
+USES=			cran gmake ssl pkgconfig
 DISTNAME=		s2
 GENERATED=		yes
 INSTALL_REQ_TOOLCHAIN=	yes
 
 BUILDRUN_DEPENDS=	R-Rcpp:single:std
 			R-wk:single:std
+			abseil-cpp:primary:std
+
+BUILD_DEPENDS=		abseil-cpp:dev:std
+
 
 
