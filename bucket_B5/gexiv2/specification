@@ -55,3 +55,6 @@ pre-install:
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libgexiv2*.so
 	${RM} -r ${STAGEDIR}${PREFIX}/lib/python*
+	# hack for gegl at least
+	${CP} ${STAGEDIR}${PREFIX}/lib/pkgconfig/gexiv2-${VERSION}.pc \
+		${STAGEDIR}${PREFIX}/lib/pkgconfig/gexiv2.pc
