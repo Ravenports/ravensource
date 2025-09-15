@@ -1,15 +1,17 @@
+USES=			gmake
 BUILD_DEPENDS=		libsodium:dev:std
 BUILDRUN_DEPENDS=	libsodium:primary:std
 INSTALL_REQ_TOOLCHAIN=	yes
 
-post-patch:
-# #	disable pic on BSD* to fix ld: internal error in relocate_tls, at x86_64.cc:5195
+pre-configure:
+	# disable pic on BSD* to fix ld: internal error in relocate_tls, at x86_64.cc:5195
+	# gmake is required[B
 	if [ "${OPSYS}" = "Linux" ]; then \
-	  ${REINPLACE_CMD} -e 's|with-pic"|with-pic", "--build=${CONFIGURE_TARGET}"|' ${WRKSRC}/setup.py;\
+	  ${REINPLACE_CMD} -e 's|"make|"gmake"|; s|with-pic"|with-pic", "--build=${CONFIGURE_TARGET}"|' ${WRKSRC}/setup.py;\
 	else \
-	  ${REINPLACE_CMD} -e 's|with-pic"|build=${CONFIGURE_TARGET}"|' ${WRKSRC}/setup.py;\
+	  ${REINPLACE_CMD} -e 's|"make"|"gmake"|; s|with-pic"|build=${CONFIGURE_TARGET}"|' ${WRKSRC}/setup.py;\
 	fi
 
-post-patch-sunos:
+pre-configure-sunos:
 	# fails one library test
 	${SED} -i.bak.sunos -e '/make.*check/d' ${WRKSRC}/setup.py

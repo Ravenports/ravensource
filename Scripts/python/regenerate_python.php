@@ -458,6 +458,13 @@ function generate_port($namebase) {
             $buildrun_block .= "[PY" . $SV . "].BUILDRUN_DEPENDS_ON=\t\t";
             foreach ($port_data[$namebase]["buildrun"] as $DEP) {
                 $indent = ($DEP == $port_data[$namebase]["buildrun"][0]) ? "" : "\t\t\t\t\t";
+                # HACK, REMOVE WHEN PYTHON V12 and V13 are GONE
+                if ($DEP == "python-cffi") {
+                    if (in_array ($V, array("v12", "v13"))) {
+                        $DEP = "python-cffi117";
+                    }
+                }
+                # END HACK
                 $mainspkg = in_array($DEP, $data_primary) ? ":primary:" : ":single:";
                 $buildrun_block .= $indent . $DEP . $mainspkg . $V . "\n";
             }
