@@ -428,8 +428,9 @@ function get_run_depends ($base_dependencies, $pversion) {
              $xformed = str_replace(array ("python_version",
                                            'implementation_name == "cpython"',
                                            'platform_python_implementation=="CPython"',
+                                           "platform_python_implementation!='PyPy'",
                                            '"', "'", ".", "and"),
-                                    array ("\$pversion", "1", "1", "", "", "", "&&"),
+                                    array ("\$pversion", "1", "1", "1", "", "", "", "&&"),
                                     $clause);
              $teststr = "\$required = " . $xformed . ";";
              eval($teststr);
@@ -659,7 +660,9 @@ function set_buildrun (&$portdata, $PDUO) {
        $clean_reqs = array_filter($clean_reqs, "skip_bad_SU_requirements");
     }
     $comment_reqs = preg_replace('/^/', '# ', $clean_reqs);
+    $clean_reqs = preg_replace('/ and /', 'QUEEN', $clean_reqs);
     $clean_reqs = preg_replace('/ /', '', $clean_reqs);
+    $clean_reqs = preg_replace('/QUEEN/', ' and ', $clean_reqs);
     $clean_reqs2 = array();
     $lowversion = $PDUO["VA"]["version"];
     foreach ($clean_reqs as $req) {
@@ -669,8 +672,8 @@ function set_buildrun (&$portdata, $PDUO) {
             // example: typing_extensions;python_version<="3.7"
             $sc = strpos($req, ";");
             $clause = substr($req, $sc + 1);
-            $xformed = str_replace(array ("python_version", '"', "'", ".", "and"),
-                                   array ("\$lowversion", "", "", "", "&&"),
+            $xformed = str_replace(array ("python_version", '"', "'", ".", "and", "platform_python_implementation!=PyPy"),
+                                   array ("\$lowversion", "", "", "", "&&", "1"),
                                    $clause);
             $teststr = "\$required = " . $xformed . ";";
             try {
