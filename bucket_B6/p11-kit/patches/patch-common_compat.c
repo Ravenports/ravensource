@@ -1,4 +1,4 @@
---- common/compat.c.orig	2024-03-07 14:46:09 UTC
+--- common/compat.c.orig	2025-06-17 04:02:27 UTC
 +++ common/compat.c
 @@ -41,18 +41,6 @@
   * This is excluded on SunOS due to it making the code compile in < XPG6 mode
