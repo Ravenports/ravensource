@@ -1,6 +1,6 @@
---- hw/ppc/mac_newworld.c.orig	2025-04-22 20:26:11 UTC
+--- hw/ppc/mac_newworld.c.orig	2025-08-26 18:32:38 UTC
 +++ hw/ppc/mac_newworld.c
-@@ -75,6 +75,11 @@
+@@ -76,6 +76,11 @@
  #include "hw/sysbus.h"
  #include "trace.h"
  

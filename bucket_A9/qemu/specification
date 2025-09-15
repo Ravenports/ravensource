@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	10.0.3
+DEF[PORTVERSION]=	10.1.0
 DEF[JQUERY]=		EXTRACT_INFO(LATEST_JQUERY)
 DEF[UNDERSCORE]=	EXTRACT_INFO(SPHINX_UNDERSCORE)
 # ----------------------------------------------------------------------------
@@ -15,7 +15,8 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://download.qemu.org/
 DISTFILE[1]=		qemu-${PORTVERSION}.tar.xz:main
 
-SPKGS[std]=		set primary dev docs nls man
+SPKGS[std]=		set primary dev nls
+# man docs
 
 OPTIONS_AVAILABLE=	NO_GA
 OPTIONS_STANDARD=	NO_GA
@@ -37,8 +38,8 @@ BUILD_DEPENDS=		cyrus-sasl:dev:std
 			libxkbcommon:dev:std
 			meson:single:std
 			nettle:dev:std
-			python-Sphinx:single:python_used
-			python-sphinx-rtd-theme:single:python_used
+# #			python-Sphinx:single:python_used
+# #			python-sphinx-rtd-theme:single:python_used
 			snappy:dev:std
 			texi2html:primary:std
 			vde2:dev:std
@@ -66,7 +67,8 @@ CONFIGURE_ARGS=		--disable-usb-redir
 			--disable-kvm
 			--disable-xen
 			--disable-vde
-			--enable-docs
+			--disable-docs
+# #			--enable-docs   (getting parallel sphinx errors)
 # #			--enable-debug
 # #			--enable-debug-info
 			--enable-nettle
@@ -119,10 +121,12 @@ post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/qemu-*
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/share/qemu/palcode-clipper
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/share/qemu/hppa-firmware.img
-	(cd ${WRKSRC} && ${COPYTREE_SHARE} docs ${STAGEDIR}${STD_DOCDIR}/)
-	# remove sphinx leftovers
-	${RM} -r ${STAGEDIR}${STD_DOCDIR}/docs/sphinx
-	# remove empty directories
-	${RMDIR} ${STAGEDIR}${STD_DOCDIR}/_sources
+
 	# remove whatever is in /var
 	${RM} -r ${STAGEDIR}/var
+
+	# (cd ${WRKSRC} && ${COPYTREE_SHARE} docs ${STAGEDIR}${STD_DOCDIR}/)
+	# remove sphinx leftovers
+	# ${RM} -r ${STAGEDIR}${STD_DOCDIR}/docs/sphinx
+	# remove empty directories
+	# ${RMDIR} ${STAGEDIR}${STD_DOCDIR}/_sources

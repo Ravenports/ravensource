@@ -1,8 +1,8 @@
---- util/meson.build.orig	2025-05-28 22:05:47 UTC
+--- util/meson.build.orig	2025-08-26 18:32:39 UTC
 +++ util/meson.build
-@@ -13,7 +13,7 @@ if host_os != 'windows'
-   util_ss.add(files('event_notifier-posix.c'))
-   util_ss.add(files('mmap-alloc.c'))
+@@ -15,7 +15,7 @@ if host_os != 'windows'
+     util_ss.add(files('mmap-alloc.c'))
+   endif
    freebsd_dep = []
 -  if host_os == 'freebsd'
 +  if host_os in ['freebsd', 'dragonfly', 'midnightbsd']
