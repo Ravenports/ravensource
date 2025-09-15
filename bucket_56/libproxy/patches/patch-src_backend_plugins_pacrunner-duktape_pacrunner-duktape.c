@@ -1,4 +1,4 @@
---- src/backend/plugins/pacrunner-duktape/pacrunner-duktape.c.orig	2025-06-28 13:39:48 UTC
+--- src/backend/plugins/pacrunner-duktape/pacrunner-duktape.c.orig	2025-09-09 19:40:36 UTC
 +++ src/backend/plugins/pacrunner-duktape/pacrunner-duktape.c
 @@ -29,6 +29,10 @@
  #include <netinet/in.h>
