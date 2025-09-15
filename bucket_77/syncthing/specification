@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.0.4
+DEF[PORTVERSION]=	2.0.9
 DEF[SWITCHES]=		-version v${PORTVERSION} -no-upgrade
 # ----------------------------------------------------------------------------
 
@@ -37,8 +37,10 @@ GROUPS=			syncthng
 USERGROUP_SPKG=		single
 
 USES=			cpe
-MAKE_ENV=		CGO_ENABLED=0
+MAKE_ENV=		GOPROXY=off
 			GOFLAGS="-mod=vendor"
+			BUILD_HOST={{OPSYS}}
+			BUILD_USER=ravenports
 EXTRACT_DIRTY=		1
 MOUNT_PROCFS=		yes
 
