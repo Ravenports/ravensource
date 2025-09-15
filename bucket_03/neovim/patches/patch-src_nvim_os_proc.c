@@ -1,4 +1,4 @@
---- src/nvim/os/proc.c.orig	2025-07-12 18:34:12 UTC
+--- src/nvim/os/proc.c.orig	2025-08-31 19:25:45 UTC
 +++ src/nvim/os/proc.c
 @@ -15,13 +15,13 @@
  # include <tlhelp32.h>
