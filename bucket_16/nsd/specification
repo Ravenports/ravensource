@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	4.12.0
+DEF[PORTVERSION]=	4.13.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		nsd
@@ -25,6 +25,8 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		dns/nsd
 
 BUILD_DEPENDS=		libevent:dev:std
+			protobuf-c:dev:std
+			protobuf-c:tools:std
 BUILDRUN_DEPENDS=	libevent:primary:std
 
 RC_SUBR=		nsd:primary
@@ -50,6 +52,7 @@ CONFIGURE_ARGS=		--with-libevent="{{LOCALBASE}}"
 			--enable-bind8-stats
 			--enable-zone-stats
 			--enable-ipv6
+			--disable-dnstap
 
 VAR_OPSYS[netbsd]=	CPPFLAGS=-D_NETBSD_SOURCE
 
