@@ -1,4 +1,4 @@
---- src/pipewire/pipewire.h.orig	2025-06-27 11:16:18 UTC
+--- src/pipewire/pipewire.h.orig	2025-07-23 15:42:58 UTC
 +++ src/pipewire/pipewire.h
 @@ -50,9 +50,12 @@ extern "C" {
   * \{
