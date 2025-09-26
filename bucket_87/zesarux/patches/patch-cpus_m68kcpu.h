@@ -1,4 +1,4 @@
---- cpus/m68kcpu.h.orig	2025-01-16 17:27:12 UTC
+--- cpus/m68kcpu.h.orig	2025-09-25 16:14:00 UTC
 +++ cpus/m68kcpu.h
 @@ -75,7 +75,7 @@
  
