@@ -1,6 +1,6 @@
---- sendlib.c.orig	2023-09-09 06:55:00 UTC
+--- sendlib.c.orig	2024-12-27 03:13:15 UTC
 +++ sendlib.c
-@@ -1229,7 +1229,9 @@ static void mutt_set_encoding (BODY *b,
+@@ -1231,7 +1231,9 @@ static void mutt_set_encoding (BODY *b,
    if (b->type == TYPETEXT)
    {
      char *chsname = mutt_get_body_charset (send_charset, sizeof (send_charset), b);
