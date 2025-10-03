@@ -1,4 +1,4 @@
---- xf86drm.c.orig	2024-12-04 18:30:30 UTC
+--- xf86drm.c.orig	2025-06-08 12:27:53 UTC
 +++ xf86drm.c
 @@ -62,7 +62,17 @@
  #endif
@@ -53,7 +53,7 @@
          return NULL;
  
      switch (tile_version) {
-@@ -1021,7 +1038,7 @@ static int drmGetMinorBase(int type)
+@@ -1026,7 +1043,7 @@ static int drmGetMinorBase(int type)
  
  static int drmGetMinorType(int major, int minor)
  {
@@ -62,7 +62,7 @@
      char name[SPECNAMELEN];
      int id;
  
-@@ -3274,7 +3291,7 @@ drm_public int drmIsMaster(int fd)
+@@ -3279,7 +3296,7 @@ drm_public int drmIsMaster(int fd)
  
  drm_public char *drmGetDeviceNameFromFd(int fd)
  {
@@ -71,7 +71,7 @@
      struct stat sbuf;
      int maj, min;
      int nodetype;
-@@ -3321,7 +3338,7 @@ static bool drmNodeIsDRM(int maj, int mi
+@@ -3326,7 +3343,7 @@ static bool drmNodeIsDRM(int maj, int mi
      snprintf(path, sizeof(path), "/sys/dev/char/%d:%d/device/drm",
               maj, min);
      return stat(path, &sbuf) == 0;
@@ -80,7 +80,7 @@
      char name[SPECNAMELEN];
  
      if (!devname_r(makedev(maj, min), S_IFCHR, name, sizeof(name)))
-@@ -3444,7 +3461,7 @@ static char *drmGetMinorNameForFD(int fd
+@@ -3449,7 +3466,7 @@ static char *drmGetMinorNameForFD(int fd
  
      closedir(sysdir);
      return NULL;
@@ -89,7 +89,7 @@
      struct stat sbuf;
      char dname[SPECNAMELEN];
      const char *mname;
-@@ -3629,6 +3646,65 @@ static int drmParseSubsystemType(int maj
+@@ -3634,6 +3651,65 @@ static int drmParseSubsystemType(int maj
              return DRM_BUS_VIRTIO;
       }
      return subsystem_type;
@@ -155,7 +155,7 @@
  #elif defined(__OpenBSD__) || defined(__DragonFly__) || defined(__FreeBSD__)
      return DRM_BUS_PCI;
  #else
-@@ -3655,7 +3731,7 @@ get_pci_path(int maj, int min, char *pci
+@@ -3660,7 +3736,7 @@ get_pci_path(int maj, int min, char *pci
  }
  #endif
  
@@ -164,7 +164,7 @@
  static int get_sysctl_pci_bus_info(int maj, int min, drmPciBusInfoPtr info)
  {
      char dname[SPECNAMELEN];
-@@ -3737,6 +3813,73 @@ static int drmParsePciBusInfo(int maj, i
+@@ -3742,6 +3818,73 @@ static int drmParsePciBusInfo(int maj, i
      info->func = func;
  
      return 0;
@@ -238,7 +238,7 @@
  #elif defined(__OpenBSD__) || defined(__DragonFly__)
      struct drm_pciinfo pinfo;
      int fd, type;
-@@ -3905,6 +4048,48 @@ static int drmParsePciDeviceInfo(int maj
+@@ -3910,6 +4053,48 @@ static int drmParsePciDeviceInfo(int maj
          return parse_config_sysfs_file(maj, min, device);
  
      return 0;
