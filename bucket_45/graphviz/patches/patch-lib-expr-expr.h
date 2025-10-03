@@ -1,4 +1,4 @@
---- lib/expr/expr.h.orig	2025-07-19 21:54:56 UTC
+--- lib/expr/expr.h.orig	2025-08-08 23:20:40 UTC
 +++ lib/expr/expr.h
 @@ -23,6 +23,7 @@ extern "C" {
  
