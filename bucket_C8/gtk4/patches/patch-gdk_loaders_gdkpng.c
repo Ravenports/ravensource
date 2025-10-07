@@ -1,6 +1,6 @@
---- gdk/loaders/gdkpng.c.orig	2025-06-09 20:44:13 UTC
+--- gdk/loaders/gdkpng.c.orig	2025-09-08 20:57:32 UTC
 +++ gdk/loaders/gdkpng.c
-@@ -344,7 +344,11 @@ gdk_load_png (GBytes      *bytes,
+@@ -345,7 +345,11 @@ gdk_load_png (GBytes      *bytes,
    png_set_read_user_chunk_fn (png, &cicp, png_read_chunk_func);
  #endif
  
@@ -12,7 +12,7 @@
      {
        g_free (buffer);
        g_free (row_pointers);
-@@ -639,7 +643,11 @@ gdk_save_png (GdkTexture *texture)
+@@ -664,7 +668,11 @@ gdk_save_png (GdkTexture *texture,
    gdk_color_state_ref (color_state);
    bytes = NULL;
  

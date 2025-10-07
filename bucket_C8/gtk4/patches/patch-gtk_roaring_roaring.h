@@ -1,6 +1,6 @@
---- gtk/roaring/roaring.h.orig	2025-10-03 18:50:24.760858000 +0200
-+++ gtk/roaring/roaring.h	2025-10-03 18:50:46.926883000 +0200
-@@ -89,7 +89,6 @@
+--- gtk/roaring/roaring.h.orig	2025-09-08 20:57:32 UTC
++++ gtk/roaring/roaring.h
+@@ -89,7 +89,6 @@ enum {
  #include <stdint.h>
  #include <stdlib.h>  // will provide posix_memalign with _POSIX_C_SOURCE as defined above
  #ifdef __GLIBC__
