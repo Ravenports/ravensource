@@ -1,18 +1,18 @@
-DEF[PORTVERSION]=	2.29
+DEF[PORTVERSION]=	0.04
 # ------------------------------------------------------------------------
 
-NAMEBASE=		perl-MIME-Types
+NAMEBASE=		perl-Data-Censor
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
 VARIANTS=		538 540
-SDESC[538]=		Definition of MIME types (5.38)
-SDESC[540]=		Definition of MIME types (5.40)
-HOMEPAGE=		https://github.com/markov2/perl5-MIME-Types
+SDESC[538]=		Censor sensitive stuff in a data structure (5.38)
+SDESC[540]=		Censor sensitive stuff in a data structure (5.40)
+HOMEPAGE=		https://github.com/bigpresh/Data-Censor
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		CPAN/ID:M/MA/MARKOV
-DISTFILE[1]=		MIME-Types-${PORTVERSION}.tar.gz:main
+SITES[main]=		CPAN/ID:B/BI/BIGPRESH
+DISTFILE[1]=		Data-Censor-${PORTVERSION}.tar.gz:main
 
 SPKGS[538]=		single
 SPKGS[540]=		single
@@ -23,24 +23,21 @@ VOPTS[538]=		PERL_538=ON PERL_540=OFF
 VOPTS[540]=		PERL_538=OFF PERL_540=ON
 
 # License listed in CPAN directory:
-# perl_5
+# unknown
 
 GENERATED=		yes
 SINGLE_JOB=		yes
-DISTNAME=		MIME-Types-${PORTVERSION}
+DISTNAME=		Data-Censor-${PORTVERSION}
 
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |      runtime : File::Basename (perl 5.38 core) (perl 5.40 core)
-# |      runtime : File::Spec (perl 5.38 core) (perl 5.40 core)
-# |      runtime : List::Util (perl 5.38 core) (perl 5.40 core)
-# |      runtime : Test::More (perl 5.38 core) (perl 5.40 core)
-# |        build : ExtUtils::MakeMaker (perl 5.38 core) (perl 5.40 core)
+# |      runtime : Ref::Util
+# |        build : Test::More (perl 5.38 core) (perl 5.40 core)
 # |    configure : ExtUtils::MakeMaker (perl 5.38 core) (perl 5.40 core)
-# |         test : Test::More (perl 5.38 core) (perl 5.40 core)
-# |         test : Test::Pod
 
 [PERL_538].USES_ON=			perl:538,configure
+[PERL_538].BUILDRUN_DEPENDS_ON=		perl-Ref-Util:single:538
 [PERL_540].USES_ON=			perl:540,configure
+[PERL_540].BUILDRUN_DEPENDS_ON=		perl-Ref-Util:single:540
 
