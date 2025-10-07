@@ -1,0 +1,45 @@
+DEF[PORTVERSION]=	0.1.10
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-pytokens
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v12 v13
+SDESC[v12]=		Spec compliant tokenizer (3.12)
+SDESC[v13]=		Spec compliant tokenizer (3.13)
+HOMEPAGE=		https://github.com/tusharsadhwani/pytokens
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/60/e5/63bed382f6a7a5ba70e7e132b8b7b8abbcf4888ffa6be4877698dcfbed7d
+DISTFILE[1]=		pytokens-${PORTVERSION}-py3-none-any.whl:main
+DIST_SUBDIR=		python-src
+
+SPKGS[v12]=		single
+SPKGS[v13]=		single
+
+OPTIONS_AVAILABLE=	PY312 PY313
+OPTIONS_STANDARD=	none
+VOPTS[v12]=		PY312=ON PY313=OFF
+VOPTS[v13]=		PY312=OFF PY313=ON
+
+# License listed at PyPI
+# MIT
+
+GENERATED=		yes
+DISTNAME=		pytokens-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# black; extra == "dev"
+# build; extra == "dev"
+# mypy; extra == "dev"
+# pytest; extra == "dev"
+# pytest-cov; extra == "dev"
+# setuptools; extra == "dev"
+# tox; extra == "dev"
+# twine; extra == "dev"
+# wheel; extra == "dev"
+
+[PY312].USES_ON=			python:v12,wheel
+[PY313].USES_ON=			python:v13,wheel
+
