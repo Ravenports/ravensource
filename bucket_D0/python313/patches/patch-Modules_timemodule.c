@@ -1,4 +1,4 @@
---- Modules/timemodule.c.orig	2025-08-14 11:12:11 UTC
+--- Modules/timemodule.c.orig	2025-10-07 12:01:51 UTC
 +++ Modules/timemodule.c
 @@ -185,7 +185,7 @@ py_clock(time_module_state *state, PyTim
  static int
