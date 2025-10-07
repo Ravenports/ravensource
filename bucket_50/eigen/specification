@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.4.0
+DEF[PORTVERSION]=	5.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		eigen
@@ -21,6 +21,10 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		math/eigen3
 
-USES=			cmake
+USES=			c++:single cmake
 SKIP_BUILD=		yes
 CMAKE_ARGS=		-DPKGCONFIG_INSTALL_DIR:PATH="lib/pkgconfig"
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libeigen_blas.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libeigen_lapack.so
