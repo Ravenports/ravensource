@@ -1,0 +1,63 @@
+DEF[PORTVERSION]=	0.14.6
+DEF[SOVERSION]=		2.14.6
+DEF[FOLDER]=		${PORTVERSION:R}
+DEF[CAT1]=		http://www.oasis-open.org/docbook/xml/
+DEF[VERSION]=		0.10
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gexiv2-0.14
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		std
+SDESC[std]=		GObject-based wrapper around the Exiv2 library
+HOMEPAGE=		https://wiki.gnome.org/Projects/gexiv2
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNOME/gexiv2/${FOLDER}
+DISTFILE[1]=		gexiv2-${PORTVERSION}.tar.xz:main
+
+SPKGS[std]=		set primary dev docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# license terms for GPL aren't done properly.
+# Don't assume "or later version".
+LICENSE=		GPLv2:primary
+LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"GEXIV2_H"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/gexiv2/gexiv2.h
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		graphics/gexiv2
+
+BUILD_DEPENDS=		vala:primary:std
+			exiv2:dev:std
+BUILDRUN_DEPENDS=	exiv2:primary:std
+
+EXRUN[dev]=		glib:dev:std
+			exiv2:dev:std
+
+USES=			pkgconfig libtool:build meson gtk-doc
+GNOME_COMPONENTS=	glib introspection pygobject
+SOVERSION=		${SOVERSION}
+MESON_ARGS=		-Dgtk_doc=true
+GTKDOC_OUTPUT_BASEDIR=	gexiv2
+DISTNAME=		gexiv2-${PORTVERSION}
+INSTALL_REQ_TOOLCHAIN=	yes
+PLIST_SUB=		VER=${VERSION}
+
+PATCH_STRIP=		-p1
+
+pre-configure:
+	${REINPLACE_CMD} -e "s|${CAT1}|file://${LOCALBASE}/share/xml/docbook/|" \
+		${WRKSRC}/docs/reference/gexiv2-docs.xml
+
+pre-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/vala/vapi
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libgexiv2*.so
+	${RM} -r ${STAGEDIR}${PREFIX}/lib/python*
