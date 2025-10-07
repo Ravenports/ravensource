@@ -1,4 +1,4 @@
---- src/osdef.sh.orig	2025-09-01 18:52:44 UTC
+--- src/osdef.sh.orig	2025-09-26 16:30:52 UTC
 +++ src/osdef.sh
 @@ -35,6 +35,7 @@ cat << EOF > osdef0.c
  #include "os_unixx.h"	/* bring in header files for os_unix.c */
