@@ -1,4 +1,4 @@
---- go.mod.orig	2025-08-12 23:25:19 UTC
+--- go.mod.orig	2025-09-17 16:16:16 UTC
 +++ go.mod
 @@ -7,4 +7,4 @@ go 1.13
  // This dependency cannot be upgraded or esbuild would no longer
