@@ -1,7 +1,6 @@
 # DEF[PORTVERSION]=	EXTRACT_INFO(FREI0R_VERSION)
-DEF[PORTVERSION]=	2.4.0
+DEF[PORTVERSION]=	2.4.1
 DEF[TAG]=		v${PORTVERSION}
-# Remove cmake minimum argument on next release
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		frei0r
@@ -35,7 +34,6 @@ GNOME_COMPONENTS=	cairo
 SINGLE_JOB=		yes
 CMAKE_ARGS=		-DWITHOUT_OPENCV:BOOL=ON
 			-DWITHOUT_GAVL:BOOL=ON
-			-DCMAKE_POLICY_VERSION_MINIMUM=3.5
 
 post-patch:
 	${REINPLACE_CMD} -e '/add_subdirectory (doc)/d' \
