@@ -31,6 +31,7 @@ openssl30/share/man/man1/openssl-ciphers.1
 openssl30/share/man/man1/openssl-cmds.1
 openssl30/share/man/man1/openssl-cmp.1
 openssl30/share/man/man1/openssl-cms.1
+openssl30/share/man/man1/openssl-configutl.1
 openssl30/share/man/man1/openssl-crl.1
 openssl30/share/man/man1/openssl-crl2pkcs7.1
 openssl30/share/man/man1/openssl-dgst.1
@@ -747,10 +748,16 @@ openssl30/share/man/man3/CMS_ReceiptRequest_get0_values.3
 openssl30/share/man/man3/CMS_ReceiptRequest_new.3
 openssl30/share/man/man3/CMS_RecipientInfo_decrypt.3
 openssl30/share/man/man3/CMS_RecipientInfo_encrypt.3
+openssl30/share/man/man3/CMS_RecipientInfo_kari_get0_ctx.3
 openssl30/share/man/man3/CMS_RecipientInfo_kari_set0_pkey.3
 openssl30/share/man/man3/CMS_RecipientInfo_kari_set0_pkey_and_peer.3
 openssl30/share/man/man3/CMS_RecipientInfo_kekri_get0_id.3
 openssl30/share/man/man3/CMS_RecipientInfo_kekri_id_cmp.3
+openssl30/share/man/man3/CMS_RecipientInfo_kemri_cert_cmp.3
+openssl30/share/man/man3/CMS_RecipientInfo_kemri_get0_ctx.3
+openssl30/share/man/man3/CMS_RecipientInfo_kemri_get0_kdf_alg.3
+openssl30/share/man/man3/CMS_RecipientInfo_kemri_set0_pkey.3
+openssl30/share/man/man3/CMS_RecipientInfo_kemri_set_ukm.3
 openssl30/share/man/man3/CMS_RecipientInfo_ktri_cert_cmp.3
 openssl30/share/man/man3/CMS_RecipientInfo_ktri_get0_signer_id.3
 openssl30/share/man/man3/CMS_RecipientInfo_set0_key.3
@@ -855,6 +862,7 @@ openssl30/share/man/man3/CRYPTO_THREAD_run_once.3
 openssl30/share/man/man3/CRYPTO_THREAD_unlock.3
 openssl30/share/man/man3/CRYPTO_THREAD_write_lock.3
 openssl30/share/man/man3/CRYPTO_aligned_alloc.3
+openssl30/share/man/man3/CRYPTO_aligned_alloc_array.3
 openssl30/share/man/man3/CRYPTO_alloc_ex_data.3
 openssl30/share/man/man3/CRYPTO_atomic_add.3
 openssl30/share/man/man3/CRYPTO_atomic_add64.3
@@ -863,8 +871,10 @@ openssl30/share/man/man3/CRYPTO_atomic_load.3
 openssl30/share/man/man3/CRYPTO_atomic_load_int.3
 openssl30/share/man/man3/CRYPTO_atomic_or.3
 openssl30/share/man/man3/CRYPTO_atomic_store.3
+openssl30/share/man/man3/CRYPTO_calloc.3
 openssl30/share/man/man3/CRYPTO_clear_free.3
 openssl30/share/man/man3/CRYPTO_clear_realloc.3
+openssl30/share/man/man3/CRYPTO_clear_realloc_array.3
 openssl30/share/man/man3/CRYPTO_free.3
 openssl30/share/man/man3/CRYPTO_free_ex_data.3
 openssl30/share/man/man3/CRYPTO_free_ex_index.3
@@ -874,6 +884,7 @@ openssl30/share/man/man3/CRYPTO_get_ex_data.3
 openssl30/share/man/man3/CRYPTO_get_ex_new_index.3
 openssl30/share/man/man3/CRYPTO_get_mem_functions.3
 openssl30/share/man/man3/CRYPTO_malloc.3
+openssl30/share/man/man3/CRYPTO_malloc_array.3
 openssl30/share/man/man3/CRYPTO_malloc_fn.3
 openssl30/share/man/man3/CRYPTO_mem_ctrl.3
 openssl30/share/man/man3/CRYPTO_mem_debug_pop.3
@@ -884,11 +895,14 @@ openssl30/share/man/man3/CRYPTO_mem_leaks_fp.3
 openssl30/share/man/man3/CRYPTO_memcmp.3
 openssl30/share/man/man3/CRYPTO_new_ex_data.3
 openssl30/share/man/man3/CRYPTO_realloc.3
+openssl30/share/man/man3/CRYPTO_realloc_array.3
 openssl30/share/man/man3/CRYPTO_realloc_fn.3
 openssl30/share/man/man3/CRYPTO_secure_allocated.3
+openssl30/share/man/man3/CRYPTO_secure_calloc.3
 openssl30/share/man/man3/CRYPTO_secure_clear_free.3
 openssl30/share/man/man3/CRYPTO_secure_free.3
 openssl30/share/man/man3/CRYPTO_secure_malloc.3
+openssl30/share/man/man3/CRYPTO_secure_malloc_array.3
 openssl30/share/man/man3/CRYPTO_secure_malloc_done.3
 openssl30/share/man/man3/CRYPTO_secure_malloc_init.3
 openssl30/share/man/man3/CRYPTO_secure_malloc_initialized.3
@@ -1617,9 +1631,11 @@ openssl30/share/man/man3/EVP_KDF_CTX_gettable_params.3
 openssl30/share/man/man3/EVP_KDF_CTX_kdf.3
 openssl30/share/man/man3/EVP_KDF_CTX_new.3
 openssl30/share/man/man3/EVP_KDF_CTX_reset.3
+openssl30/share/man/man3/EVP_KDF_CTX_set_SKEY.3
 openssl30/share/man/man3/EVP_KDF_CTX_set_params.3
 openssl30/share/man/man3/EVP_KDF_CTX_settable_params.3
 openssl30/share/man/man3/EVP_KDF_derive.3
+openssl30/share/man/man3/EVP_KDF_derive_SKEY.3
 openssl30/share/man/man3/EVP_KDF_do_all_provided.3
 openssl30/share/man/man3/EVP_KDF_fetch.3
 openssl30/share/man/man3/EVP_KDF_free.3
@@ -1963,6 +1979,7 @@ openssl30/share/man/man3/EVP_PKEY_decrypt_init.3
 openssl30/share/man/man3/EVP_PKEY_decrypt_init_ex.3
 openssl30/share/man/man3/EVP_PKEY_delete_attr.3
 openssl30/share/man/man3/EVP_PKEY_derive.3
+openssl30/share/man/man3/EVP_PKEY_derive_SKEY.3
 openssl30/share/man/man3/EVP_PKEY_derive_init.3
 openssl30/share/man/man3/EVP_PKEY_derive_init_ex.3
 openssl30/share/man/man3/EVP_PKEY_derive_set_peer.3
@@ -2022,6 +2039,7 @@ openssl30/share/man/man3/EVP_PKEY_get_params.3
 openssl30/share/man/man3/EVP_PKEY_get_raw_private_key.3
 openssl30/share/man/man3/EVP_PKEY_get_raw_public_key.3
 openssl30/share/man/man3/EVP_PKEY_get_security_bits.3
+openssl30/share/man/man3/EVP_PKEY_get_security_category.3
 openssl30/share/man/man3/EVP_PKEY_get_size.3
 openssl30/share/man/man3/EVP_PKEY_get_size_t_param.3
 openssl30/share/man/man3/EVP_PKEY_get_utf8_string_param.3
@@ -2215,6 +2233,7 @@ openssl30/share/man/man3/EVP_SKEY_get0_provider_name.3
 openssl30/share/man/man3/EVP_SKEY_get0_raw_key.3
 openssl30/share/man/man3/EVP_SKEY_get0_skeymgmt_name.3
 openssl30/share/man/man3/EVP_SKEY_import.3
+openssl30/share/man/man3/EVP_SKEY_import_SKEYMGMT.3
 openssl30/share/man/man3/EVP_SKEY_import_raw_key.3
 openssl30/share/man/man3/EVP_SKEY_is_a.3
 openssl30/share/man/man3/EVP_SKEY_to_provider.3
@@ -2652,6 +2671,7 @@ openssl30/share/man/man3/OPENSSL_LH_stats_bio.3
 openssl30/share/man/man3/OPENSSL_LINE.3
 openssl30/share/man/man3/OPENSSL_MALLOC_FAILURES.3
 openssl30/share/man/man3/OPENSSL_MALLOC_FD.3
+openssl30/share/man/man3/OPENSSL_MALLOC_SEED.3
 openssl30/share/man/man3/OPENSSL_MSTR.3
 openssl30/share/man/man3/OPENSSL_MSTR_HELPER.3
 openssl30/share/man/man3/OPENSSL_VERSION_BUILD_METADATA.3
@@ -2663,14 +2683,17 @@ openssl30/share/man/man3/OPENSSL_VERSION_PREREQ.3
 openssl30/share/man/man3/OPENSSL_VERSION_PRE_RELEASE.3
 openssl30/share/man/man3/OPENSSL_VERSION_TEXT.3
 openssl30/share/man/man3/OPENSSL_aligned_alloc.3
+openssl30/share/man/man3/OPENSSL_aligned_alloc_array.3
 openssl30/share/man/man3/OPENSSL_atexit.3
 openssl30/share/man/man3/OPENSSL_buf2hexstr.3
 openssl30/share/man/man3/OPENSSL_buf2hexstr_ex.3
+openssl30/share/man/man3/OPENSSL_calloc.3
 openssl30/share/man/man3/OPENSSL_cipher_name.3
 openssl30/share/man/man3/OPENSSL_cleanse.3
 openssl30/share/man/man3/OPENSSL_cleanup.3
 openssl30/share/man/man3/OPENSSL_clear_free.3
 openssl30/share/man/man3/OPENSSL_clear_realloc.3
+openssl30/share/man/man3/OPENSSL_clear_realloc_array.3
 openssl30/share/man/man3/OPENSSL_config.3
 openssl30/share/man/man3/OPENSSL_fork_child.3
 openssl30/share/man/man3/OPENSSL_fork_parent.3
@@ -2696,18 +2719,22 @@ openssl30/share/man/man3/OPENSSL_load_u32_le.3
 openssl30/share/man/man3/OPENSSL_load_u64_be.3
 openssl30/share/man/man3/OPENSSL_load_u64_le.3
 openssl30/share/man/man3/OPENSSL_malloc.3
+openssl30/share/man/man3/OPENSSL_malloc_array.3
 openssl30/share/man/man3/OPENSSL_malloc_init.3
 openssl30/share/man/man3/OPENSSL_mem_debug_pop.3
 openssl30/share/man/man3/OPENSSL_mem_debug_push.3
 openssl30/share/man/man3/OPENSSL_memdup.3
 openssl30/share/man/man3/OPENSSL_no_config.3
 openssl30/share/man/man3/OPENSSL_realloc.3
+openssl30/share/man/man3/OPENSSL_realloc_array.3
 openssl30/share/man/man3/OPENSSL_riscvcap.3
 openssl30/share/man/man3/OPENSSL_s390xcap.3
 openssl30/share/man/man3/OPENSSL_secure_actual_size.3
+openssl30/share/man/man3/OPENSSL_secure_calloc.3
 openssl30/share/man/man3/OPENSSL_secure_clear_free.3
 openssl30/share/man/man3/OPENSSL_secure_free.3
 openssl30/share/man/man3/OPENSSL_secure_malloc.3
+openssl30/share/man/man3/OPENSSL_secure_malloc_array.3
 openssl30/share/man/man3/OPENSSL_secure_zalloc.3
 openssl30/share/man/man3/OPENSSL_sk_deep_copy.3
 openssl30/share/man/man3/OPENSSL_sk_delete.3
@@ -2729,6 +2756,7 @@ openssl30/share/man/man3/OPENSSL_sk_push.3
 openssl30/share/man/man3/OPENSSL_sk_reserve.3
 openssl30/share/man/man3/OPENSSL_sk_set.3
 openssl30/share/man/man3/OPENSSL_sk_set_cmp_func.3
+openssl30/share/man/man3/OPENSSL_sk_set_thunks.3
 openssl30/share/man/man3/OPENSSL_sk_shift.3
 openssl30/share/man/man3/OPENSSL_sk_sort.3
 openssl30/share/man/man3/OPENSSL_sk_unshift.3
@@ -3351,6 +3379,7 @@ openssl30/share/man/man3/OSSL_PARAM_set_int64.3
 openssl30/share/man/man3/OSSL_PARAM_set_long.3
 openssl30/share/man/man3/OSSL_PARAM_set_octet_ptr.3
 openssl30/share/man/man3/OSSL_PARAM_set_octet_string.3
+openssl30/share/man/man3/OSSL_PARAM_set_octet_string_or_ptr.3
 openssl30/share/man/man3/OSSL_PARAM_set_size_t.3
 openssl30/share/man/man3/OSSL_PARAM_set_time_t.3
 openssl30/share/man/man3/OSSL_PARAM_set_uint.3
@@ -3483,6 +3512,7 @@ openssl30/share/man/man3/OSSL_STORE_LOADER_set_find.3
 openssl30/share/man/man3/OSSL_STORE_LOADER_set_load.3
 openssl30/share/man/man3/OSSL_STORE_LOADER_set_open.3
 openssl30/share/man/man3/OSSL_STORE_LOADER_set_open_ex.3
+openssl30/share/man/man3/OSSL_STORE_LOADER_settable_ctx_params.3
 openssl30/share/man/man3/OSSL_STORE_LOADER_up_ref.3
 openssl30/share/man/man3/OSSL_STORE_SEARCH.3
 openssl30/share/man/man3/OSSL_STORE_SEARCH_by_alias.3
@@ -4159,7 +4189,9 @@ openssl30/share/man/man3/SRP_user_pwd_set0_sv.3
 openssl30/share/man/man3/SRP_user_pwd_set1_ids.3
 openssl30/share/man/man3/SRP_user_pwd_set_gN.3
 openssl30/share/man/man3/SSL_ACCEPT_CONNECTION_NO_BLOCK.3
+openssl30/share/man/man3/SSL_ACCEPT_STREAM_BIDI.3
 openssl30/share/man/man3/SSL_ACCEPT_STREAM_NO_BLOCK.3
+openssl30/share/man/man3/SSL_ACCEPT_STREAM_UNI.3
 openssl30/share/man/man3/SSL_CIPHER_description.3
 openssl30/share/man/man3/SSL_CIPHER_find.3
 openssl30/share/man/man3/SSL_CIPHER_get_auth_nid.3
@@ -4629,6 +4661,7 @@ openssl30/share/man/man3/SSL_get0_security_ex_data.3
 openssl30/share/man/man3/SSL_get0_server_cert_type.3
 openssl30/share/man/man3/SSL_get0_session.3
 openssl30/share/man/man3/SSL_get0_signature_name.3
+openssl30/share/man/man3/SSL_get0_tlsext_status_ocsp_resp_ex.3
 openssl30/share/man/man3/SSL_get0_verified_chain.3
 openssl30/share/man/man3/SSL_get0_verify_cert_store.3
 openssl30/share/man/man3/SSL_get1_builtin_sigalgs.3
@@ -4813,6 +4846,7 @@ openssl30/share/man/man3/SSL_set0_chain.3
 openssl30/share/man/man3/SSL_set0_chain_cert_store.3
 openssl30/share/man/man3/SSL_set0_rbio.3
 openssl30/share/man/man3/SSL_set0_security_ex_data.3
+openssl30/share/man/man3/SSL_set0_tlsext_status_ocsp_resp_ex.3
 openssl30/share/man/man3/SSL_set0_tmp_dh_pkey.3
 openssl30/share/man/man3/SSL_set0_verify_cert_store.3
 openssl30/share/man/man3/SSL_set0_wbio.3
@@ -5186,6 +5220,7 @@ openssl30/share/man/man3/X509_CRL_get0_extensions.3
 openssl30/share/man/man3/X509_CRL_get0_lastUpdate.3
 openssl30/share/man/man3/X509_CRL_get0_nextUpdate.3
 openssl30/share/man/man3/X509_CRL_get0_signature.3
+openssl30/share/man/man3/X509_CRL_get0_tbs_sigalg.3
 openssl30/share/man/man3/X509_CRL_get_REVOKED.3
 openssl30/share/man/man3/X509_CRL_get_ext.3
 openssl30/share/man/man3/X509_CRL_get_ext_by_NID.3
@@ -5453,6 +5488,7 @@ openssl30/share/man/man3/X509_STORE_CTX_set_error.3
 openssl30/share/man/man3/X509_STORE_CTX_set_error_depth.3
 openssl30/share/man/man3/X509_STORE_CTX_set_ex_data.3
 openssl30/share/man/man3/X509_STORE_CTX_set_get_crl.3
+openssl30/share/man/man3/X509_STORE_CTX_set_ocsp_resp.3
 openssl30/share/man/man3/X509_STORE_CTX_set_purpose.3
 openssl30/share/man/man3/X509_STORE_CTX_set_trust.3
 openssl30/share/man/man3/X509_STORE_CTX_set_verify.3
@@ -6111,6 +6147,7 @@ openssl30/share/man/man3/i2d_PKCS7_SIGN_ENVELOPE.3
 openssl30/share/man/man3/i2d_PKCS7_bio.3
 openssl30/share/man/man3/i2d_PKCS7_bio_stream.3
 openssl30/share/man/man3/i2d_PKCS7_fp.3
+openssl30/share/man/man3/i2d_PKCS8PrivateKey.3
 openssl30/share/man/man3/i2d_PKCS8PrivateKeyInfo_bio.3
 openssl30/share/man/man3/i2d_PKCS8PrivateKeyInfo_fp.3
 openssl30/share/man/man3/i2d_PKCS8PrivateKey_bio.3
@@ -6310,6 +6347,7 @@ openssl30/share/man/man7/EVP_KEYMGMT-EC.7
 openssl30/share/man/man7/EVP_KEYMGMT-ED25519.7
 openssl30/share/man/man7/EVP_KEYMGMT-ED448.7
 openssl30/share/man/man7/EVP_KEYMGMT-HMAC.7
+openssl30/share/man/man7/EVP_KEYMGMT-LMS.7
 openssl30/share/man/man7/EVP_KEYMGMT-ML-DSA.7
 openssl30/share/man/man7/EVP_KEYMGMT-ML-KEM-1024.7
 openssl30/share/man/man7/EVP_KEYMGMT-ML-KEM-512.7
@@ -6359,6 +6397,7 @@ openssl30/share/man/man7/EVP_PKEY-ED25519.7
 openssl30/share/man/man7/EVP_PKEY-ED448.7
 openssl30/share/man/man7/EVP_PKEY-FFC.7
 openssl30/share/man/man7/EVP_PKEY-HMAC.7
+openssl30/share/man/man7/EVP_PKEY-LMS.7
 openssl30/share/man/man7/EVP_PKEY-ML-DSA-44.7
 openssl30/share/man/man7/EVP_PKEY-ML-DSA-65.7
 openssl30/share/man/man7/EVP_PKEY-ML-DSA-87.7
@@ -6400,6 +6439,7 @@ openssl30/share/man/man7/EVP_SIGNATURE-ECDSA.7
 openssl30/share/man/man7/EVP_SIGNATURE-ED25519.7
 openssl30/share/man/man7/EVP_SIGNATURE-ED448.7
 openssl30/share/man/man7/EVP_SIGNATURE-HMAC.7
+openssl30/share/man/man7/EVP_SIGNATURE-LMS.7
 openssl30/share/man/man7/EVP_SIGNATURE-ML-DSA-44.7
 openssl30/share/man/man7/EVP_SIGNATURE-ML-DSA-65.7
 openssl30/share/man/man7/EVP_SIGNATURE-ML-DSA-87.7
@@ -6422,6 +6462,7 @@ openssl30/share/man/man7/EVP_SIGNATURE-SLH-DSA.7
 openssl30/share/man/man7/EVP_SIGNATURE-Siphash.7
 openssl30/share/man/man7/Ed25519.7
 openssl30/share/man/man7/Ed448.7
+openssl30/share/man/man7/LMS.7
 openssl30/share/man/man7/OPENSSL_API_COMPAT.7
 openssl30/share/man/man7/OPENSSL_NO_DEPRECATED.7
 openssl30/share/man/man7/OSSL_PROVIDER-FIPS.7
