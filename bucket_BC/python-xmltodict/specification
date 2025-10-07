@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.0.0
+DEF[PORTVERSION]=	1.0.2
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-xmltodict
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/martinblech/xmltodict
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/89/e1/719fc59777227614641f3103964c58c6c10203c72633ef0d5cdcb2d7f676
+SITES[main]=		PYPIWHL/c0/20/69a0e6058bc5ea74892d089d64dfc3a62ba78917ec5e2cfa70f7c92ba3a5
 DISTFILE[1]=		xmltodict-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -24,13 +24,30 @@ VOPTS[v12]=		PY312=ON PY313=OFF
 VOPTS[v13]=		PY312=OFF PY313=ON
 
 # License listed at PyPI
-# MIT
+# Copyright (C) 2012 Martin Blech and individual contributors.
+# Permission is hereby granted, free of charge, to any person
+# obtaining a copy of this software and associated documentation files
+# (the "Software"), to deal in the Software without restriction,
+# including without limitation the rights to use, copy, modify, merge,
+# publish, distribute, sublicense, and/or sell copies of the Software,
+# and to permit persons to whom the Software is furnished to do so,
+# subject to the following conditions:
+# The above copyright notice and this permission notice shall be
+# included in all copies or substantial portions of the Software.
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY
+# KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+# OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+# NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+# LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+# OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+# WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 GENERATED=		yes
 DISTNAME=		xmltodict-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-
+# pytest; extra == "test"
+# pytest-cov; extra == "test"
 
 [PY312].USES_ON=			python:v12,wheel
 [PY313].USES_ON=			python:v13,wheel

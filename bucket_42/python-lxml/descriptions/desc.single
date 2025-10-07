@@ -23,30 +23,27 @@ has been established.
 Note that this requires Cython to be installed at an appropriate version
 for the build.
 
-6.0.1 (2025-08-22)
+6.0.2 (2025-09-21)
 ==================
 
 Bugs fixed
 ----------
 
-* LP#2116333: ``lxml.sax._getNsTag()`` could fail with an exception on
-malformed input.
+* LP#2125278: Compilation with libxml2 2.15.0 failed.
+  Original patch by Xi Ruoyao.
 
-* GH#467: Some test adaptations were made for libxml2 2.15.
-  Patch by Nick Wellnhofer.
+* Setting ``decompress=True`` in the parser had no effect in libxml2 2.15.
 
-* LP2119510, GH#473: A Python compatibility test was fixed for Python
-3.14+.
-  Patch by Lumír Balhar.
+* Binary wheels on Linux and macOS use the library version libxml2 2.14.6.
+  See https://gitlab.gnome.org/GNOME/libxml2/-/releases/v2.14.6
 
-* GH#471: Wheels for "riscv64" on recent Python versions were added.
-  Patch by ffgan.
+* Test failures in libxml2 2.15.0 were fixed.
 
-* GH#469: The wheel build no longer requires the wheel package
-unconditionally.
-  Patch by Miro Hrončok.
+Other changes
+-------------
 
-* Binary wheels use the library version libxml2 2.14.5.
+* Binary wheels for Py3.9-3.11 on the riscv64 architecture were added.
 
-* Windows binary wheels continue to use a security patched library version
-libxml2 2.11.9.
+* Error constants were updated to match libxml2 2.15.0.
+
+* Built using Cython 3.1.4.
