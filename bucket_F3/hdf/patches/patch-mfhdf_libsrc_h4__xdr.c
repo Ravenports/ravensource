@@ -1,4 +1,4 @@
---- mfhdf/libsrc/h4_xdr.c.orig	2024-02-29 16:34:10 UTC
+--- mfhdf/libsrc/h4_xdr.c.orig	2025-06-30 23:32:34 UTC
 +++ mfhdf/libsrc/h4_xdr.c
 @@ -36,6 +36,7 @@
   * xdr.
