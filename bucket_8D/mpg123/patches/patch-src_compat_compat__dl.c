@@ -1,4 +1,4 @@
---- src/compat/compat_dl.c.orig	2025-08-05 18:24:40 UTC
+--- src/compat/compat_dl.c.orig	2025-10-05 20:59:02 UTC
 +++ src/compat/compat_dl.c
 @@ -10,11 +10,10 @@
  */
