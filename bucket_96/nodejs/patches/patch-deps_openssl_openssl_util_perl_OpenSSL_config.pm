@@ -1,4 +1,4 @@
---- deps/openssl/openssl/util/perl/OpenSSL/config.pm.orig	2025-08-14 20:34:23 UTC
+--- deps/openssl/openssl/util/perl/OpenSSL/config.pm.orig	2025-09-10 19:10:15 UTC
 +++ deps/openssl/openssl/util/perl/OpenSSL/config.pm
 @@ -807,6 +807,7 @@ EOF
        [ 'ia64-.*-openbsd.*',      { target => "BSD-nodef-ia64" } ],
