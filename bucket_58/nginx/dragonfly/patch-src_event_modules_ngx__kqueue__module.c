@@ -1,6 +1,6 @@
---- src/event/modules/ngx_kqueue_module.c.orig	2025-06-24 17:22:41 UTC
+--- src/event/modules/ngx_kqueue_module.c.orig	2025-10-07 17:04:07 UTC
 +++ src/event/modules/ngx_kqueue_module.c
-@@ -429,8 +429,7 @@ ngx_kqueue_set_event(ngx_event_t *ev, ng
+@@ -438,8 +438,7 @@ ngx_kqueue_set_event(ngx_event_t *ev, ng
      if (filter == EVFILT_VNODE) {
          kev->fflags = NOTE_DELETE|NOTE_WRITE|NOTE_EXTEND
                                   |NOTE_ATTRIB|NOTE_RENAME
