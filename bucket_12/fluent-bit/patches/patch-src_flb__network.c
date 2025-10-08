@@ -1,17 +1,6 @@
---- src/flb_network.c.orig	2025-08-21 03:14:34 UTC
+--- src/flb_network.c.orig	2025-09-24 14:28:05 UTC
 +++ src/flb_network.c
-@@ -638,9 +638,7 @@ static int net_connect_async(int fd,
-             }
- 
-             /* Connection is broken, not much to do here */
--#if ((defined(_POSIX_C_SOURCE) && _POSIX_C_SOURCE >= 200112L) ||    \
--     (defined(_XOPEN_SOURCE) || _XOPEN_SOURCE - 0L >= 600L)) &&     \
--  (!defined(_GNU_SOURCE))
-+#if !defined(__linux__)
-             ret = strerror_r(error, so_error_buf, sizeof(so_error_buf));
-             if (ret == 0) {
-                 str = so_error_buf;
-@@ -1969,7 +1967,7 @@ static int net_address_unix_socket_peer_
+@@ -1967,7 +1967,7 @@ static int net_address_unix_socket_peer_
                                                  int output_buffer_size,
                                                  size_t *output_data_size)
  {
@@ -20,7 +9,7 @@
      unsigned int peer_credentials_size;
      struct ucred peer_credentials;
  #endif
-@@ -1987,7 +1985,7 @@ static int net_address_unix_socket_peer_
+@@ -1985,7 +1985,7 @@ static int net_address_unix_socket_peer_
          return -1;
      }
  
@@ -29,3 +18,10 @@
      peer_credentials_size = sizeof(struct ucred);
  
      result = getsockopt(fd,
+@@ -2343,4 +2343,4 @@ uint64_t flb_net_htonll(uint64_t value)
+ #else
+     return value;
+ #endif
+-}
+\ No newline at end of file
++}
