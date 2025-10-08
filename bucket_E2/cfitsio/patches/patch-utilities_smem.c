@@ -1,10 +1,10 @@
---- utilities/smem.c.orig	2025-03-26 18:19:36 UTC
+--- utilities/smem.c.orig	2025-09-29 02:59:26 UTC
 +++ utilities/smem.c
 @@ -1,7 +1,7 @@
  #include <stdio.h>
  #include <memory.h>
  #include <string.h>
--#ifdef __APPLE__
+-#if defined(__APPLE__) || defined(__FreeBSD__) || defined(__OpenBSD__)
 +#ifndef __linux__
  #include <stdlib.h>
  #else
