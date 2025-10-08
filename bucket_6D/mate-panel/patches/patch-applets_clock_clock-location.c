@@ -1,4 +1,4 @@
---- applets/clock/clock-location.c.orig	2025-04-24 07:06:31 UTC
+--- applets/clock/clock-location.c.orig	2025-10-07 18:59:49 UTC
 +++ applets/clock/clock-location.c
 @@ -447,19 +447,27 @@ clock_location_get_offset (ClockLocation
  
