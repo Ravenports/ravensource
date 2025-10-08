@@ -3,7 +3,7 @@
 [Build Status]
 [Documentation Status]
 
-## What's this
+## What is this?
 
 [MessagePack] is an efficient binary serialization format.
 It lets you exchange data among multiple languages like JSON.
@@ -27,20 +27,21 @@ PyPy.
 
 ### Windows
 
-When you can't use a binary distribution, you need to install Visual Studio
-or Windows SDK on Windows.
-Without extension, using pure Python implementation on CPython runs slowly.
+If you can't use a binary distribution, you need to install Visual Studio
+or the Windows SDK on Windows.
+Without the extension, the pure Python implementation on CPython runs
+slowly.
 
 ## How to use
 
 ### One-shot pack & unpack
 
 Use `packb` for packing and `unpackb` for unpacking.
-msgpack provides `dumps` and `loads` as an alias for compatibility with
+msgpack provides `dumps` and `loads` as aliases for compatibility with
 `json` and `pickle`.
 
-`pack` and `dump` packs to a file-like object.
-`unpack` and `load` unpacks from a file-like object.
+`pack` and `dump` pack to a file-like object.
+`unpack` and `load` unpack from a file-like object.
 
 ```pycon
 >>> import msgpack
@@ -72,7 +73,7 @@ for unpacked in unpacker:
     print(unpacked)
 ```
 
-### Packing/unpacking of custom data type
+### Packing/unpacking of custom data types
 
 It is also possible to pack/unpack custom data types. Here is an example
 for
@@ -97,4 +98,3 @@ def encode_datetime(obj):
     if isinstance(obj, datetime.datetime):
         return {'__datetime__': True, 'as_str':
 obj.strftime("%Y%m%dT%H:%M:%S.%f")}
-    return obj
