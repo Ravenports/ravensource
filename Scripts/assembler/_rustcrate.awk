@@ -19,6 +19,14 @@ FNR==NR {
      next
   }
 
+  # handle awful wasip2 tag
+  if (item[1] == "wasip2") {
+     ll++
+     name[ll""] = "wasip2"
+     version[ll""] = substr($0, 8)
+     next
+  }
+
   # handle awful curl-sys tag
   if (item[1] == "curl" && item[2] == "sys") {
      ll++
