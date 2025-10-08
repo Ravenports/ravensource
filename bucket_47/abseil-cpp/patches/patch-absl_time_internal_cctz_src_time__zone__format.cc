@@ -1,4 +1,4 @@
---- absl/time/internal/cctz/src/time_zone_format.cc.orig	2025-08-14 19:54:55 UTC
+--- absl/time/internal/cctz/src/time_zone_format.cc.orig	2025-09-22 18:24:38 UTC
 +++ absl/time/internal/cctz/src/time_zone_format.cc
 @@ -19,7 +19,7 @@
  #endif
