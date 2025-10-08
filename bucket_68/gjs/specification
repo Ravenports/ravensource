@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.84.2
+DEF[PORTVERSION]=	1.86.0
 DEF[SOVERSION]=		0.0.0
 # ----------------------------------------------------------------------------
 
@@ -31,13 +31,13 @@ LICENSE_SCHEME=		multi
 FPC_EQUIVALENT=		lang/gjs
 
 BUILD_DEPENDS=		dbus:dev:std
-			mozjs128:dev:std
+			mozjs140:dev:std
 			icu:dev:std
 BUILDRUN_DEPENDS=	dbus:primary:std
-			mozjs128:primary:std
+			mozjs140:primary:std
 RUN_DEPENDS=		gobject-introspection:primary:std
 
-EXRUN[dev]=		mozjs128:dev:std
+EXRUN[dev]=		mozjs140:dev:std
 			cairo:dev:std
 			gobject-introspection:dev:std
 
@@ -48,7 +48,9 @@ XORG_COMPONENTS=	pixman x11 xext xcb xrender
 MESON_ARGS=		-Dreadline=enabled
 			-Dprofiler=disabled
 			-Dinstalled_tests=false
+			-Dskip_gtk_tests=true
 
+CXXFLAGS=		-DXP_UNIX
 SOVERSION=		${SOVERSION}
 
 VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=-Db_pch=false
