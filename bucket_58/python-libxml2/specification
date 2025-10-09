@@ -29,6 +29,8 @@ VOPTS[v12]=		PY313=OFF PY312=ON
 
 FPC_EQUIVALENT=		textproc/py-libxml2
 
+BUILD_DEPENDS=		doxygen:primary:std
+
 USES=			cpe gmake iconv gettext libtool pkgconfig
 GNOME_COMPONENTS=	libxml2
 CPE_VENDOR=		xmlsoft
@@ -43,16 +45,11 @@ CONFIGURE_ARGS=		--with-iconv={{ICONV_PREFIX}}
 			--enable-static
 CFLAGS=			-Wno-deprecated-declarations
 
-# fake out doxyen detection (circular dep)
-CONFIGURE_ENV=		ac_cv_path_DOXYGEN=/fake
-
 [PY313].USES_ON=			python:v13
 [PY312].USES_ON=			python:v12
 
 pre-build:
-	# fake out python/generator.py with the missing doxygen
-	${MKDIR} ${WRKSRC}/doc/xml
-	${TOUCH} ${WRKSRC}/doc/html.stamp
+	(cd ${WRKSRC}/doc && ${MAKE_CMD})
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PYTHON_SITELIBDIR}/libxml2mod*.so
