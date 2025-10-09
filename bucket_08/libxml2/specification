@@ -1,7 +1,7 @@
 DEF[PORTVERSION]=	EXTRACT_INFO(LIBXML2_VERSION)
 DEF[PORTREVISION]=	EXTRACT_INFO(LIBXML2_REVISION)
 DEF[FOLDER]=		${PORTVERSION:R}
-DEF[SOVERSION]=		16.0.5
+DEF[SOVERSION]=		16.1.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libxml2
@@ -18,7 +18,7 @@ SITES[main]=		GNOME/libxml2/${FOLDER}
 DISTFILE[1]=		libxml2-${PORTVERSION}.tar.xz:main
 DIST_SUBDIR=		gnome2
 
-SPKGS[std]=		set primary dev man
+SPKGS[std]=		set primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -41,7 +41,7 @@ SOVERSION=		${SOVERSION}
 CPE_VENDOR=		xmlsoft
 
 post-patch:
-.for f in catalog.c xmlcatalog.c xmllint.c doc/xmllint.1
+.for f in catalog.c xmlcatalog.c xmllint.c
 	${REINPLACE_CMD} -e \
 		's|/etc/xml/catalog|${LOCALBASE}/share/xml/catalog|g; \
 		 s|/etc/sgml/catalog|${LOCALBASE}/share/sgml/catalog|g' \
