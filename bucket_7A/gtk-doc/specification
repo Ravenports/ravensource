@@ -4,6 +4,7 @@ DEF[DL_FOLDER]=		${PORTVERSION:R}
 
 NAMEBASE=		gtk-doc
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		textproc
 VARIANTS=		std
 SDESC[std]=		GTK+ DocBook Documentation Generator
@@ -28,7 +29,11 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		textproc/gtk-doc
 
-BUILD_DEPENDS=		itstool:single:std
+# DO NOT BUILD THE MANUAL
+# This requires itstool
+# Specifying itstool will cause a circularly dependency.
+# itstool needs doxygen, and at least one dependency for doxygen requires gtk-doc
+
 BUILDRUN_DEPENDS=	docbook-xml:single:std
 			docbook-xsl:primary:std
 			python-Pygments:single:python_default
@@ -36,6 +41,7 @@ BUILDRUN_DEPENDS=	docbook-xml:single:std
 USES=			meson gettext:build pkgconfig
 GNOME_COMPONENTS=	libxml2 libxslt glib
 MESON_ARGS=		-Dtests=false
+			-Dyelp_manual=false
 
 pre-configure:
 	${REINPLACE_CMD} -e "s|%%LOCALBASE%%|${LOCALBASE}|g" ${WRKSRC}/gtk-doc.xsl
