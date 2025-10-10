@@ -1,4 +1,4 @@
---- src/modules/module-vban-recv.c.orig	2025-07-23 15:42:58 UTC
+--- src/modules/module-vban-recv.c.orig	2025-09-11 08:12:34 UTC
 +++ src/modules/module-vban-recv.c
 @@ -241,10 +241,16 @@ static int make_socket(const struct sock
  		static const uint32_t ipv4_mcast_mask = 0xe0000000;

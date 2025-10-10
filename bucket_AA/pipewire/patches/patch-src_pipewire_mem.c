@@ -1,4 +1,4 @@
---- src/pipewire/mem.c.orig	2025-07-23 15:42:58 UTC
+--- src/pipewire/mem.c.orig	2025-09-11 08:12:34 UTC
 +++ src/pipewire/mem.c
 @@ -27,6 +27,7 @@ PW_LOG_TOPIC_EXTERN(log_mem);
  #define PW_LOG_TOPIC_DEFAULT log_mem

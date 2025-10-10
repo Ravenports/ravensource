@@ -1,4 +1,4 @@
---- spa/include/spa/utils/string.h.orig	2025-07-23 15:42:58 UTC
+--- spa/include/spa/utils/string.h.orig	2025-09-11 08:12:34 UTC
 +++ spa/include/spa/utils/string.h
 @@ -25,6 +25,11 @@ extern "C" {
   #endif
