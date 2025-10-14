@@ -1,0 +1,45 @@
+DEF[PORTVERSION]=	7.4.0
+DEF[SOVERSION]=		26.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		simdutf
+VERSION=		${PORTVERSION}
+KEYWORDS=		converters
+VARIANTS=		std
+SDESC[std]=		Unicode validation and transcoding with SIMD
+HOMEPAGE=		https://github.com/simdutf/simdutf
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/simdutf:simdutf:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[std]=		set primary dev tools
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		APACHE20:primary
+			MIT:primary
+LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE-APACHE
+			MIT:{{WRKSRC}}/LICENSE-MIT
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SCHEME=		dual
+
+FPC_EQUIVALENT=		converters/simdutf
+
+USES=			c++:primary cmake iconv
+
+CMAKE_ARGS=		-DBUILD_SHARED_LIBS=on
+			-DSIMDUTF_ICONV=on
+			-DSIMDUTF_TOOLS=on
+			-DSIMDUTF_TESTS=off
+
+SOVERSION=		${SOVERSION}
+
+post-extract:
+	(cd ${WRKSRC} && tail -n 7 README.md > ../TERMS)
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/fastbase64
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/sutf
