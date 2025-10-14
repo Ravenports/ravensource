@@ -3,7 +3,7 @@ $NetBSD: patch-core_logging.c,v 1.5 2022/11/02 07:26:47 wiz Exp $
 Fix build for NetBSD.
 https://github.com/unbit/uwsgi/pull/2506
 
---- core/logging.c.orig	2025-04-11 19:20:04 UTC
+--- core/logging.c.orig	2025-06-03 08:10:03 UTC
 +++ core/logging.c
 @@ -2,7 +2,9 @@
  #include "uwsgi.h"
