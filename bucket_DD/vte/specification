@@ -1,7 +1,7 @@
 # vte uses even/odd releases, so stick to e.g. 0.56.x, 0.58.x
-DEF[PORTVERSION]=	0.80.3
+DEF[PORTVERSION]=	0.82.0
 DEF[VTE_VERSION]=	2.91
-DEF[SOVERSION]=		0.8000.3
+DEF[SOVERSION]=		0.8200.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		vte
@@ -33,16 +33,20 @@ FPC_EQUIVALENT=		x11-toolkits/vte3
 
 BUILD_DEPENDS=		bash:primary:std
 			cmake:primary:std
+			fast_float:single:std
+			fmt:dev:std
 			gnutls:dev:std
 			harfbuzz:dev:std
 			icu:dev:std
 			lz4:dev:std
 			nettle:dev:std
+			simdutf:dev:std
 			vala:primary:std
-			fast_float:single:std
-BUILDRUN_DEPENDS=	gnutls:primary:std
+BUILDRUN_DEPENDS=	fmt:primary:std
+			gnutls:primary:std
 			icu:primary:std
 			lz4:primary:std
+			simdutf:primary:std
 
 USES=			meson pkgconfig pcre2 shebangfix python:build
 GNOME_COMPONENTS=	cairo gdkpixbuf gtk3 gtk4 intltool
