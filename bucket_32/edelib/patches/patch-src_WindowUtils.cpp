@@ -1,5 +1,5 @@
---- src/WindowUtils.cpp.orig	2014-06-21 23:24:07.000000000 +0200
-+++ src/WindowUtils.cpp	2017-10-18 12:26:55.886134000 +0200
+--- src/WindowUtils.cpp.orig	2025-10-14 21:23:46.817905000 +0200
++++ src/WindowUtils.cpp	2025-10-14 21:25:41.348421000 +0200
 @@ -1,5 +1,5 @@
  /*
 - * $Id: WindowUtils.cpp 3106 2011-10-21 20:26:08Z karijes $
@@ -18,7 +18,19 @@
  
  EDELIB_NS_BEGIN
  
-@@ -165,7 +167,7 @@
+@@ -140,9 +142,10 @@
+ 
+ 		XChangeProperty(fl_display, xp->xid, WM_PROTOCOLS, XA_ATOM, 32, 0, (unsigned char*)&WM_DELETE_WINDOW, 1);
+ 
++#if (FL_MAJOR_VERSION >= 1) && (FL_MINOR_VERSION <= 3)
+ 		// send size limits and border:
+ 		xp->sendxjunk();
+-
++#endif
+ 		// set the class property, which controls the icon used:
+ 		if(win->xclass()) {
+ 			char buffer[1024];
+@@ -165,7 +168,7 @@
  			XChangeProperty(fl_display, xp->xid, XA_WM_CLASS, XA_STRING, 8, 0, (unsigned char *)buffer, p-buffer-1);
  		}
  
@@ -27,7 +39,7 @@
  			// find some other window to be "transient for":
  			Fl_Window* wp = xp->next->w;
  			while(wp->parent()) 
-@@ -193,13 +195,14 @@
+@@ -193,13 +196,14 @@
  		XWMHints *hints = XAllocWMHints();
  		hints->input = True;
  		hints->flags = InputHint;
