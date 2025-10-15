@@ -983,6 +983,7 @@ include/qt6/QtCore/%%QTVER%%/QtCore/private/qstringconverter_p.h
 include/qt6/QtCore/%%QTVER%%/QtCore/private/qstringiterator_p.h
 include/qt6/QtCore/%%QTVER%%/QtCore/private/qsystemerror_p.h
 include/qt6/QtCore/%%QTVER%%/QtCore/private/qsystemsemaphore_p.h
+include/qt6/QtCore/%%QTVER%%/QtCore/private/qtclasshelper_p.h
 include/qt6/QtCore/%%QTVER%%/QtCore/private/qtcore-config_p.h
 include/qt6/QtCore/%%QTVER%%/QtCore/private/qtcoreglobal_p.h
 include/qt6/QtCore/%%QTVER%%/QtCore/private/qtemporaryfile_p.h
@@ -1472,6 +1473,7 @@ include/qt6/QtGui/%%QTVER%%/QtGui/private/qabstractlayoutstyleinfo_p.h
 include/qt6/QtGui/%%QTVER%%/QtGui/private/qabstracttextdocumentlayout_p.h
 include/qt6/QtGui/%%QTVER%%/QtGui/private/qaccessiblebridgeutils_p.h
 include/qt6/QtGui/%%QTVER%%/QtGui/private/qaccessiblecache_p.h
+include/qt6/QtGui/%%QTVER%%/QtGui/private/qaccessiblehelper_p.h
 include/qt6/QtGui/%%QTVER%%/QtGui/private/qaction_p.h
 include/qt6/QtGui/%%QTVER%%/QtGui/private/qactiongroup_p.h
 include/qt6/QtGui/%%QTVER%%/QtGui/private/qastchandler_p.h
@@ -2817,6 +2819,7 @@ lib/qt6/cmake/Qt6/QtProcessConfigureArgs.cmake
 lib/qt6/cmake/Qt6/QtProperties.cmake
 lib/qt6/cmake/Qt6/QtPublicAndroidHelpers.cmake
 lib/qt6/cmake/Qt6/QtPublicAppleHelpers.cmake
+lib/qt6/cmake/Qt6/QtPublicCMakeEarlyPolicyHelpers.cmake
 lib/qt6/cmake/Qt6/QtPublicCMakeHelpers.cmake
 lib/qt6/cmake/Qt6/QtPublicCMakeVersionHelpers.cmake
 lib/qt6/cmake/Qt6/QtPublicDependencyHelpers.cmake
@@ -2875,6 +2878,7 @@ lib/qt6/cmake/Qt6/qt-internal-config.redo.in
 lib/qt6/cmake/Qt6/qt.toolchain.cmake
 lib/qt6/cmake/Qt6/3rdparty/extra-cmake-modules/0001-ECMEnableSanitizers.cmake-fix-GCC-s-note-variable-tr.patch
 lib/qt6/cmake/Qt6/3rdparty/extra-cmake-modules/0002-ECMEnableSanitizers.cmake-replace-tabs-with-spaces.patch
+lib/qt6/cmake/Qt6/3rdparty/extra-cmake-modules/0003-ECMEnableSanitizers.cmake-fix-no-undefined-flag-replacement.patch
 lib/qt6/cmake/Qt6/3rdparty/extra-cmake-modules/COPYING-CMAKE-SCRIPTS
 lib/qt6/cmake/Qt6/3rdparty/extra-cmake-modules/REUSE.toml
 lib/qt6/cmake/Qt6/3rdparty/extra-cmake-modules/qt_attribution.json
@@ -3274,6 +3278,9 @@ lib/qt6/cmake/Qt6TestInternalsPrivate/Qt6TestInternalsPrivateConfigVersionImpl.c
 lib/qt6/cmake/Qt6TestInternalsPrivate/Qt6TestInternalsPrivateTargets.cmake
 lib/qt6/cmake/Qt6TestInternalsPrivate/Qt6TestInternalsPrivateVersionlessAliasTargets.cmake
 lib/qt6/cmake/Qt6TestInternalsPrivate/Qt6TestInternalsPrivateVersionlessTargets.cmake
+lib/qt6/cmake/Qt6TestInternalsPrivate/QtRunCMake.cmake
+lib/qt6/cmake/Qt6TestInternalsPrivate/QtRunCMakeTestWrappers.cmake
+lib/qt6/cmake/Qt6TestInternalsPrivate/RunCMake.cmake
 lib/qt6/cmake/Qt6TestInternalsPrivate/3rdparty/cmake/QtRunCMakeTestHelpers.cmake
 lib/qt6/cmake/Qt6TestInternalsPrivate/3rdparty/cmake/RunCMake.cmake
 lib/qt6/cmake/Qt6TestPrivate/Qt6TestPrivateAdditionalTargetInfo.cmake
@@ -3602,7 +3609,6 @@ lib/qt6/mkspecs/features/mac/rez.prf
 lib/qt6/mkspecs/features/mac/sdk.mk
 lib/qt6/mkspecs/features/mac/sdk.prf
 lib/qt6/mkspecs/features/mac/toolchain.prf
-lib/qt6/mkspecs/features/mac/unsupported/objc_namespace.prf
 lib/qt6/mkspecs/features/uikit/bitcode.prf
 lib/qt6/mkspecs/features/uikit/default_post.prf
 lib/qt6/mkspecs/features/uikit/default_pre.prf
