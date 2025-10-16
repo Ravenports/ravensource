@@ -1,6 +1,6 @@
---- src/multimedia/configure.cmake.orig	2025-10-15 11:28:20.077549000 +0200
-+++ src/multimedia/configure.cmake	2025-10-15 11:28:55.098077000 +0200
-@@ -129,7 +129,7 @@
+--- src/multimedia/configure.cmake.orig	2025-08-18 00:47:41 UTC
++++ src/multimedia/configure.cmake
+@@ -129,7 +129,7 @@ qt_feature("ffmpeg" PRIVATE
      ENABLE INPUT_ffmpeg STREQUAL 'yes'
      DISABLE INPUT_ffmpeg STREQUAL 'no'
      CONDITION FFmpeg_FOUND

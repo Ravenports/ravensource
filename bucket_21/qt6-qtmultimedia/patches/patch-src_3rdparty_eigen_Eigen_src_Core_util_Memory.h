@@ -1,4 +1,4 @@
---- src/3rdparty/eigen/Eigen/src/Core/util/Memory.h.orig	2025-05-04 13:16:35 UTC
+--- src/3rdparty/eigen/Eigen/src/Core/util/Memory.h.orig	2025-08-18 00:47:41 UTC
 +++ src/3rdparty/eigen/Eigen/src/Core/util/Memory.h
 @@ -585,11 +585,7 @@ template<typename T> EIGEN_DEVICE_FUNC T
  // you can overwrite Eigen's default behavior regarding alloca by defining EIGEN_ALLOCA
