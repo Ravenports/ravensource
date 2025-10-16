@@ -1,6 +1,6 @@
---- src/corelib/configure.cmake.orig	2025-05-28 10:22:57 UTC
+--- src/corelib/configure.cmake.orig	2025-08-11 04:54:51 UTC
 +++ src/corelib/configure.cmake
-@@ -168,8 +168,6 @@ std::filesystem::copy(
+@@ -221,8 +221,6 @@ std::filesystem::copy(
  # dladdr
  qt_config_compile_test(dladdr
      LABEL "dladdr"

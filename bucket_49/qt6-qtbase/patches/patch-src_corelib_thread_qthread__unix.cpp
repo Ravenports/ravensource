@@ -1,4 +1,4 @@
---- src/corelib/thread/qthread_unix.cpp.orig	2025-05-28 10:22:57 UTC
+--- src/corelib/thread/qthread_unix.cpp.orig	2025-08-11 04:54:51 UTC
 +++ src/corelib/thread/qthread_unix.cpp
 @@ -33,7 +33,7 @@
  #  include <pthread_np.h>

@@ -1,4 +1,4 @@
---- src/gui/configure.cmake.orig	2025-05-28 10:22:57 UTC
+--- src/gui/configure.cmake.orig	2025-08-11 04:54:51 UTC
 +++ src/gui/configure.cmake
 @@ -29,7 +29,7 @@ set_property(CACHE INPUT_libpng PROPERTY
  

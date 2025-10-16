@@ -1,4 +1,4 @@
---- src/platformsupport/input/evdevmouse/qevdevmousehandler.cpp.orig	2025-05-28 10:22:57 UTC
+--- src/platformsupport/input/evdevmouse/qevdevmousehandler.cpp.orig	2025-08-11 04:54:51 UTC
 +++ src/platformsupport/input/evdevmouse/qevdevmousehandler.cpp
 @@ -17,12 +17,7 @@
  

@@ -1,6 +1,6 @@
---- src/corelib/io/qfilesystemengine_unix.cpp.orig	2025-05-28 10:22:57 UTC
+--- src/corelib/io/qfilesystemengine_unix.cpp.orig	2025-08-11 04:54:51 UTC
 +++ src/corelib/io/qfilesystemengine_unix.cpp
-@@ -38,7 +38,9 @@
+@@ -39,7 +39,9 @@
  
  #if __has_include(<sys/disk.h>)
  // BSDs (including Apple Darwin)

@@ -1,4 +1,4 @@
---- src/corelib/global/qlogging.cpp.orig	2025-05-28 10:22:57 UTC
+--- src/corelib/global/qlogging.cpp.orig	2025-08-11 04:54:51 UTC
 +++ src/corelib/global/qlogging.cpp
 @@ -102,6 +102,12 @@ static int qt_gettid()
      pthread_threadid_np(NULL, &tid);

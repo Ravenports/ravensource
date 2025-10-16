@@ -1,4 +1,4 @@
---- src/corelib/thread/qfutex_p.h.orig	2025-05-28 10:22:57 UTC
+--- src/corelib/thread/qfutex_p.h.orig	2025-08-11 04:54:51 UTC
 +++ src/corelib/thread/qfutex_p.h
 @@ -35,7 +35,7 @@ QT_END_NAMESPACE
  

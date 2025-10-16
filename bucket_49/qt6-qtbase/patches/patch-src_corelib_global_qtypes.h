@@ -1,6 +1,6 @@
 Avoid __extendhfsf2 and friends
 
---- src/corelib/global/qtypes.h.orig	2025-05-28 10:22:57 UTC
+--- src/corelib/global/qtypes.h.orig	2025-08-11 04:54:51 UTC
 +++ src/corelib/global/qtypes.h
 @@ -274,23 +274,8 @@ using qsizetype = QIntegerForSizeof<std:
  
