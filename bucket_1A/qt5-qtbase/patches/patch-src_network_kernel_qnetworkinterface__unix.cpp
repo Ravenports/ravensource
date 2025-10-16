@@ -1,4 +1,4 @@
---- src/network/kernel/qnetworkinterface_unix.cpp.orig	2023-03-23 19:06:47 UTC
+--- src/network/kernel/qnetworkinterface_unix.cpp.orig	2023-04-24 13:43:14 UTC
 +++ src/network/kernel/qnetworkinterface_unix.cpp
 @@ -97,7 +97,7 @@ uint QNetworkInterfaceManager::interface
  {
