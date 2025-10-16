@@ -1,4 +1,4 @@
---- src/3rdparty/masm/wtf/Assertions.h.orig	2023-04-24 07:13:40 UTC
+--- src/3rdparty/masm/wtf/Assertions.h.orig	2023-06-09 14:08:47 UTC
 +++ src/3rdparty/masm/wtf/Assertions.h
 @@ -344,7 +344,7 @@ while (0)
  

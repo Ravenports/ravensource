@@ -2,7 +2,7 @@ $NetBSD: patch-src_qmltest_qmltest.pro,v 1.1 2021/01/12 16:46:45 jperkin Exp $
 
 Workaround linking issue on SunOS.
 
---- src/qmltest/qmltest.pro.orig	2023-04-24 07:13:40 UTC
+--- src/qmltest/qmltest.pro.orig	2023-06-09 14:08:47 UTC
 +++ src/qmltest/qmltest.pro
 @@ -6,6 +6,8 @@ DEFINES += QT_NO_URL_CAST_FROM_STRING QT
  QT = core testlib-private
