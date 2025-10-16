@@ -1,6 +1,6 @@
---- src/qml/jit/qv4assemblercommon_p.h.orig	2025-05-28 20:21:26 UTC
+--- src/qml/jit/qv4assemblercommon_p.h.orig	2025-08-17 20:21:26 UTC
 +++ src/qml/jit/qv4assemblercommon_p.h
-@@ -33,7 +33,7 @@ namespace QV4 {
+@@ -34,7 +34,7 @@ namespace QV4 {
  namespace JIT {
  
  #if defined(Q_PROCESSOR_X86_64) || defined(ENABLE_ALL_ASSEMBLERS_FOR_REFACTORING_PURPOSES)
