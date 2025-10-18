@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	42.3
+DEF[PORTVERSION]=	49.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		yelp
@@ -29,22 +29,25 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		x11/yelp
 
 BUILD_DEPENDS=		appstream-glib:dev:std
+			appstream:dev:std
 			harfbuzz:dev:std
 			hdf5:dev:std
+			libadwaita:dev:std
 			libhandy:dev:std
 			libsoup:dev:std
 			itstool:single:std
-			webkit2:dev:api41
+			webkit2:dev:api60
 			bash:primary:std
 BUILDRUN_DEPENDS=	hdf5:primary:std
+			libadwaita:primary:std
 			libhandy:primary:std
-			webkit2:primary:api41
+			webkit2:primary:api60
 			yelp-xsl:single:std
 
 USES=			desktop-utils:primary meson pkgconfig sqlite
 			shebangfix schemas:primary xz bz2
 XORG_COMPONENTS=	ice x11
-GNOME_COMPONENTS=	glib gtk3 libxslt
+GNOME_COMPONENTS=	glib gtk4 libxslt
 GLIB_SCHEMAS=		org.gnome.yelp.gschema.xml
 SHEBANG_FILES=		data/domains/gen_yelp_xml.sh
 			src/link-gnome-help.sh
