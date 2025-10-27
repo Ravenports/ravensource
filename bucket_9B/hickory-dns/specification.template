@@ -1,0 +1,42 @@
+DEF[PORTVERSION]=	%%VERSION%%
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		hickory-dns
+VERSION=		${PORTVERSION}
+KEYWORDS=		rust dns
+VARIANTS=		std
+SDESC[std]=		Rust based DNS server with DNSSEC support
+HOMEPAGE=		https://hickory-dns.org/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+%%DOWNLOAD_GROUPS%%
+SITES[main]=		GITHUB/hickory-dns:hickory-dns:v${PORTVERSION}
+%%CR_SITES%%
+DISTFILE[1]=		generated:main
+%%CR_DISTFILES%%
+%%DF_INDEX%%
+
+SPKGS[std]=		single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=                APACHE20:single
+                        MIT:single
+LICENSE_FILE=           APACHE20:{{WRKSRC}}/LICENSE-APACHE
+                        MIT:{{WRKSRC}}/LICENSE-MIT
+LICENSE_TERMS=          single:{{WRKSRC}}/copyright.txt
+LICENSE_SCHEME=         dual
+
+USES=			cargo
+CARGO_BUILD_ARGS=       --package hickory-dns
+
+# Override as cargo.mk does currently hard-code --path to . and this
+# means it doesn't support projects that use Rust workspaces
+do-install:
+        (cd ${WRKSRC} && ${CARGO_CARGO_RUN} install --path bin --root \
+                "${STAGEDIR}${PREFIX}" --verbose)
+        ${RM} -- "${STAGEDIR}${PREFIX}/.crates*"
+
+post-install:
+        ${RM} ${STAGEDIR}${PREFIX}/.crates*
