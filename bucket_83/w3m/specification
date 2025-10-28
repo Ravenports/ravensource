@@ -1,14 +1,10 @@
-# Repology finally accepts Debian as new source, but it has to be
-# with the crazy git version scheme, otherwise only X.Y.Z accepted.
-DEF[BASEVERSION]=	0.5.3
-DEF[RELEASE_DATE]=	20230121
-DEF[PORTVERSION]=	${BASEVERSION}.git${RELEASE_DATE}
-DEF[FILEBASE]=		v${BASEVERSION}+git${RELEASE_DATE}
+# The project is finally back to a normal version scheme without that Debian
+# garbage.
+DEF[PORTVERSION]=	0.5.5
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		w3m
 VERSION=		${PORTVERSION}
-REVISION=		1
 EPOCH=			3
 KEYWORDS=		www
 VARIANTS=		std
@@ -17,8 +13,9 @@ HOMEPAGE=		https://w3m.sourceforge.net/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		https://salsa.debian.org/debian/w3m/-/archive/${FILEBASE}/
-DISTFILE[1]=		w3m-${FILEBASE}.tar.bz2:main
+SITES[main]=		https://git.sr.ht/~rkta/w3m/archive/
+DISTFILE[1]=		v0.5.5.tar.gz:main
+DIST_SUBDIR=		w3m
 
 SPKGS[std]=		set primary man docs
 
@@ -42,7 +39,7 @@ CONFIGURE_ARGS=		--with-gc={{LOCALBASE}}
 			--disable-nls
 			--enable-image=no
 CONFIGURE_ENV=		DEFS="-I{{LOCALBASE}}/include"
-DISTNAME=		w3m-${FILEBASE}
+DISTNAME=		w3m-v${PORTVERSION}
 SINGLE_JOB=		yes
 
 post-extract:
