@@ -1,4 +1,4 @@
---- meson.build.orig	2025-08-26 18:32:38 UTC
+--- meson.build.orig	2025-10-08 20:50:34 UTC
 +++ meson.build
 @@ -49,8 +49,8 @@ qemu_icondir = get_option('datadir') / '
  genh = []
@@ -29,7 +29,7 @@
    nvmm = cc.find_library('nvmm', required: get_option('nvmm'))
    if nvmm.found()
      accelerators += 'CONFIG_NVMM'
-@@ -1508,7 +1508,7 @@ if have_system and get_option('curses').
+@@ -1509,7 +1509,7 @@ if have_system and get_option('curses').
        return 0;
      }'''
  
@@ -38,7 +38,7 @@
    curses = dependency(curses_dep_list,
                        required: false,
                        method: 'pkg-config')
-@@ -1531,14 +1531,15 @@ if have_system and get_option('curses').
+@@ -1532,14 +1532,15 @@ if have_system and get_option('curses').
        has_curses_h = cc.has_header('curses.h', args: curses_compile_args)
      endif
      if has_curses_h
