@@ -1,4 +1,4 @@
---- config.m4.orig	2024-11-20 09:48:35 UTC
+--- config.m4.orig	2025-09-23 14:14:32 UTC
 +++ config.m4
 @@ -35,7 +35,7 @@ if test "$PHP_PHAR" != "no"; then
    PHP_INSTALL_HEADERS([ext/phar], [php_phar.h])
