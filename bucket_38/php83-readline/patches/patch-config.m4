@@ -1,4 +1,4 @@
---- config.m4.orig	2023-11-21 14:40:35 UTC
+--- config.m4.orig	2025-09-23 17:57:26 UTC
 +++ config.m4
 @@ -3,16 +3,10 @@ PHP_ARG_WITH([libedit],
    [AS_HELP_STRING([--with-libedit],
@@ -17,7 +17,7 @@
  
  if test "$PHP_READLINE" && test "$PHP_READLINE" != "no"; then
    for i in $PHP_READLINE /usr/local /usr; do
-@@ -78,6 +72,13 @@ if test "$PHP_READLINE" && test "$PHP_RE
+@@ -91,6 +85,13 @@ if test "$PHP_READLINE" && test "$PHP_RE
    AC_DEFINE(HAVE_HISTORY_LIST, 1, [ ])
    AC_DEFINE(HAVE_LIBREADLINE, 1, [ ])
  
