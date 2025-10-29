@@ -1,4 +1,4 @@
---- readline_cli.c.orig	2024-11-20 09:48:35 UTC
+--- readline_cli.c.orig	2025-09-23 14:14:32 UTC
 +++ readline_cli.c
 @@ -19,6 +19,10 @@
  #include <config.h>
