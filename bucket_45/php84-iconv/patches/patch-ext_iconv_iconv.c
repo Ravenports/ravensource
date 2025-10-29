@@ -1,4 +1,4 @@
---- iconv.c.orig	2025-03-12 01:55:56 UTC
+--- iconv.c.orig	2025-09-23 14:14:32 UTC
 +++ iconv.c
 @@ -43,7 +43,7 @@
  #undef iconv
