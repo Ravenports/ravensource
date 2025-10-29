@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	6.4.5
+DEF[PORTVERSION]=	6.5.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		plasma-activities
@@ -53,12 +53,13 @@ XORG_COMPONENTS=	x11
 
 CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt6/cmake
 SOVERSION=		${PORTVERSION}
+PLIST_SUB=		SOMAJ=7
 
 post-extract:
 	${ECHO} "Terms extracted from 'src/cli/main.cpp':" > ${WRKDIR}/TERMS
 	${SED} -n '/include/!p;//q' ${WRKSRC}/src/cli/main.cpp >> ${WRKDIR}/TERMS
-	${ECHO} "Terms extracted from 'src/utils/range.h':" >> ${WRKDIR}/TERMS
-	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/src/utils/range.h >> ${WRKDIR}/TERMS
+	${ECHO} "Terms extracted from 'src/lib/version.h':" >> ${WRKDIR}/TERMS
+	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/src/lib/version.h >> ${WRKDIR}/TERMS
 	${ECHO} "Terms extracted from 'src/lib/info.h':" >> ${WRKDIR}/TERMS
 	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/src/lib/info.h >> ${WRKDIR}/TERMS
 	${ECHO} "Terms extracted from 'contrib/bash/prev-activity.sh':" >> ${WRKDIR}/TERMS
