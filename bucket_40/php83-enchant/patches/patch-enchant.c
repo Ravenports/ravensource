@@ -1,4 +1,4 @@
---- enchant.c.orig	2023-11-21 14:40:35 UTC
+--- enchant.c.orig	2025-09-23 17:57:26 UTC
 +++ enchant.c
 @@ -23,7 +23,7 @@
  #include "php_ini.h"
