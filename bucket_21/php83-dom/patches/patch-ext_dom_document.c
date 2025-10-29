@@ -1,6 +1,6 @@
---- document.c.orig	2023-11-21 14:40:35 UTC
+--- document.c.orig	2025-09-23 17:57:26 UTC
 +++ document.c
-@@ -27,6 +27,7 @@
+@@ -26,6 +26,7 @@
  #ifdef LIBXML_SCHEMAS_ENABLED
  #include <libxml/relaxng.h>
  #include <libxml/xmlschemas.h>
