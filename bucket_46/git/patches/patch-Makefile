@@ -1,4 +1,4 @@
---- Makefile.orig	2025-08-18 00:35:38 UTC
+--- Makefile.orig	2025-10-15 18:08:11 UTC
 +++ Makefile
 @@ -617,12 +617,12 @@ bash_completion_dir = $(prefix)/share/ba
  gitexecdir = libexec/git-core
@@ -15,7 +15,7 @@
  ETC_GITCONFIG = $(sysconfdir)/gitconfig
  ETC_GITATTRIBUTES = $(sysconfdir)/gitattributes
  lib = lib
-@@ -1720,9 +1720,9 @@ endif
+@@ -1722,9 +1722,9 @@ endif
  
  ifndef NO_OPENSSL
  	OPENSSL_LIBSSL = -lssl
@@ -28,7 +28,7 @@
          else
  		OPENSSL_LINK =
          endif
-@@ -2666,7 +2666,7 @@ git-instaweb: git-instaweb.sh generate-s
+@@ -2668,7 +2668,7 @@ git-instaweb: git-instaweb.sh generate-s
  	chmod +x $@+ && \
  	mv $@+ $@
  else # NO_PERL
@@ -37,7 +37,7 @@
  	$(QUIET_GEN) \
  	sed -e '1s|#!.*/sh|#!$(SHELL_PATH_SQ)|' \
  	    -e 's|@REASON@|NO_PERL=$(NO_PERL)|g' \
-@@ -3560,12 +3560,12 @@ endif
+@@ -3562,12 +3562,12 @@ endif
  ifndef NO_GETTEXT
  	$(INSTALL) -d -m 755 '$(DESTDIR_SQ)$(localedir_SQ)'
  	(cd po/build/locale && $(TAR) cf - .) | \
@@ -52,7 +52,7 @@
  endif
  ifndef NO_TCLTK
  	$(MAKE) -C gitk-git install
-@@ -3636,7 +3636,7 @@ install-man: install-man-perl
+@@ -3638,7 +3638,7 @@ install-man: install-man-perl
  install-man-perl: man-perl
  	$(INSTALL) -d -m 755 '$(DESTDIR_SQ)$(mandir_SQ)/man3'
  	(cd perl/build/man/man3 && $(TAR) cf - .) | \
