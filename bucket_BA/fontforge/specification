@@ -1,9 +1,8 @@
-DEF[PORTVERSION]=	20230101
+DEF[PORTVERSION]=	20251009
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		fontforge
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		print
 VARIANTS=		std
 SDESC[std]=		Outline and bitmap font editor
@@ -29,14 +28,16 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		print/fontforge
 
 BUILD_DEPENDS=		appstream-glib:dev:std
-			harfbuzz:dev:std
 			brotli:dev:std
-			libuninameslist:dev:std
+			gtkmm30:dev:std
+			harfbuzz:dev:std
 			libspiro:dev:std
+			libuninameslist:dev:std
 			woff2:dev:std
-BUILDRUN_DEPENDS=	libspiro:primary:std
+BUILDRUN_DEPENDS=	brotli:primary:std
+			gtkmm30:primary:std
+			libspiro:primary:std
 			libuninameslist:primary:std
-			brotli:primary:std
 			woff2:primary:std
 RUN_DEPENDS=		fonts-unifont:single:std
 
