@@ -1,4 +1,4 @@
---- CMakeLists.txt.orig	2025-06-17 01:41:15 UTC
+--- CMakeLists.txt.orig	2025-10-06 11:46:34 UTC
 +++ CMakeLists.txt
 @@ -59,7 +59,7 @@ set(GENERATE_WARNING "WARNING: This file
  #
@@ -7,5 +7,5 @@
 -elseif(APPLE OR CMAKE_SYSTEM_NAME MATCHES "BSD")
 +elseif(APPLE OR CMAKE_SYSTEM_NAME MATCHES "BSD|DragonFly")
      set(C_BSD 1)
- endif()
- 
+ elseif(CMAKE_SYSTEM_NAME MATCHES "AIX")
+     set(AIX TRUE)
