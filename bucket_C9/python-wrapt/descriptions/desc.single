@@ -1,17 +1,22 @@
-wrapt
-=====
+# wrapt
 
-|PyPI|
+[PyPI]
+[Documentation]
+[License]
 
-The aim of the **wrapt** module is to provide a transparent object proxy
-for Python, which can be used as the basis for the construction of function
-wrappers and decorator functions.
+A Python module for decorators, wrappers and monkey patching.
 
-The **wrapt** module focuses very much on correctness. It therefore goes
-way beyond existing mechanisms such as ``functools.wraps()`` to ensure that
-decorators preserve introspectability, signatures, type checking abilities
-etc. The decorators that can be constructed using this module will work in
-far more scenarios than typical decorators and provide more predictable and
+## Overview
+
+The **wrapt** module provides a transparent object proxy for Python, which
+can be used as the basis for the construction of function wrappers and
+decorator functions.
+
+The **wrapt** module focuses very much on correctness. It goes way beyond
+existing mechanisms such as `functools.wraps()` to ensure that decorators
+preserve introspectability, signatures, type checking abilities etc. The
+decorators that can be constructed using this module will work in far more
+scenarios than typical decorators and provide more predictable and
 consistent behaviour.
 
 To ensure that the overhead is as minimal as possible, a C extension module
@@ -19,33 +24,77 @@ is used for performance critical components. An automatic fallback to a
 pure Python implementation is also provided where a target system does not
 have a compiler to allow the C extension to be compiled.
 
-Documentation
--------------
+## Features
 
-For further information on the **wrapt** module see:
+- **Universal decorators** that work with functions, methods, classmethods,
+staticmethods, and classes
+- **Transparent object proxies** for advanced wrapping scenarios
+- **Monkey patching utilities** for safe runtime modifications
+- **C extension** for optimal performance with Python fallback
+- **Comprehensive introspection preservation** (signatures, annotations,
+etc.)
+- **Thread-safe decorator implementations**
 
-* http://wrapt.readthedocs.org/
+## Installation
 
-Quick Start
------------
+`bash
+pip install wrapt
+`
 
-To implement your decorator you need to first define a wrapper function.
-This will be called each time a decorated function is called. The wrapper
-function needs to take four positional arguments:
+## Quick Start
 
-* wrapped - The wrapped function which in turns needs to be called by your
-wrapper function.
-* instance - The object to which the wrapped function was bound when it was
-called.
-* args - The list of positional arguments supplied when the decorated
-function was called.
-* kwargs - The dictionary of keyword arguments supplied when the decorated
-function was called.
+### Basic Decorator
 
-The wrapper function would do whatever it needs to, but would usually in
-turn call the wrapped function that is passed in via the wrapped
-argument.
+```python
+import wrapt
 
-The decorator ``@wrapt.decorator`` then needs to be applied to the wrapper
-function to convert it into a decorator which can in turn be applied to
-other functions.
+@wrapt.decorator
+def pass_through(wrapped, instance, args, kwargs):
+    return wrapped(*args, **kwargs)
+
+@pass_through
+def function():
+    pass
+```
+
+### Decorator with Arguments
+
+```python
+import wrapt
+
+def with_arguments(myarg1, myarg2):
+    @wrapt.decorator
+    def wrapper(wrapped, instance, args, kwargs):
+        print(f"Arguments: {myarg1}, {myarg2}")
+        return wrapped(*args, **kwargs)
+    return wrapper
+
+@with_arguments(1, 2)
+def function():
+    pass
+```
+
+### Universal Decorator
+
+```python
+import inspect
+import wrapt
+
+@wrapt.decorator
+def universal(wrapped, instance, args, kwargs):
+    if instance is None:
+        if inspect.isclass(wrapped):
+            # Decorator was applied to a class
+            print("Decorating a class")
+        else:
+            # Decorator was applied to a function or staticmethod
+            print("Decorating a function")
+    else:
+        if inspect.isclass(instance):
+            # Decorator was applied to a classmethod
+            print("Decorating a classmethod")
+        else:
+            # Decorator was applied to an instancemethod
+            print("Decorating an instance method")
+    
+    return wrapped(*args, **kwargs)

@@ -1,12 +1,12 @@
-DEF[PORTVERSION]=	11.3.0
+DEF[PORTVERSION]=	12.0.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-Pillow
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
 VARIANTS=		v12 v13
-SDESC[v12]=		Python Imaging Library (Fork) (3.12)
-SDESC[v13]=		Python Imaging Library (Fork) (3.13)
+SDESC[v12]=		Python Imaging Library (fork) (3.12)
+SDESC[v13]=		Python Imaging Library (fork) (3.13)
 HOMEPAGE=		https://python-pillow.github.io
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -30,10 +30,12 @@ GENERATED=		yes
 DISTNAME=		pillow-${PORTVERSION}
 
 # Requires-Dist extracted from pyproject.toml file
-
+# build: pybind11
 
 [PY312].USES_ON=			python:v12,pep517
+[PY312].BUILD_DEPENDS_ON=		python-pybind11:single:v12
 [PY313].USES_ON=			python:v13,pep517
+[PY313].BUILD_DEPENDS_ON=		python-pybind11:single:v13
 
 USES=			cpe jpeg zlib
 CPE_VENDOR=		python

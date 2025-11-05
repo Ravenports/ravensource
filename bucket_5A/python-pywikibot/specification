@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	10.5.0
+DEF[PORTVERSION]=	10.7.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-pywikibot
@@ -11,7 +11,7 @@ HOMEPAGE=		https://www.mediawiki.org/wiki/Manual:Pywikibot
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/f3/76/d3bfe78c5d435ed12a019ab983e06eb9b6cbb87701b9f694f3f56aa43bf2
+SITES[main]=		PYPIWHL/56/28/e1d795acd3101f9c5102d24fd2f468512dbbb50124bff2d0be5926c5cf88
 DISTFILE[1]=		pywikibot-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -40,8 +40,12 @@ DISTNAME=		pywikibot-${PORTVERSION}.dist-info
 # memento_client==0.6.1; extra == "memento"
 # wikitextparser>=0.56.3; extra == "wikitextparser"
 # PyMySQL>=1.1.1; extra == "mysql"
-# Pillow>=11.1.0; python_version > "3.8" and extra == "tkinter"
-# Pillow==10.4.0; python_version < "3.9" and extra == "tkinter"
+# Pillow==10.4.0; (platform_python_implementation == "PyPy" and python_version < "3.9") and extra == "tkinter"
+# Pillow<11.3.0,>=11.1.0; (platform_python_implementation == "PyPy" and python_version >= "3.9" and python_version < "3.11") and extra == "tkinter"
+# Pillow>=11.1.0; (platform_python_implementation == "PyPy" and python_version >= "3.11") and extra == "tkinter"
+# Pillow==10.4.0; (platform_python_implementation != "PyPy" and python_version < "3.9") and extra == "tkinter"
+# Pillow<11.3.0,>=11.1.0; (platform_python_implementation != "PyPy" and python_version == "3.9") and extra == "tkinter"
+# Pillow>=11.1.0; (platform_python_implementation != "PyPy" and python_version >= "3.10") and extra == "tkinter"
 # PyJWT!=2.10.0,!=2.10.1; python_version > "3.8" and extra == "mwoauth"
 # mwoauth!=0.3.1,>=0.2.4; extra == "mwoauth"
 # beautifulsoup4>=4.7.1; extra == "html"
