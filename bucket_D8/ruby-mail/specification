@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.8.1
+DEF[PORTVERSION]=	2.9.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		ruby-mail
@@ -13,7 +13,7 @@ CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		RUBYGEMS/
-DISTFILE[1]=		mail-2.8.1.gem:main
+DISTFILE[1]=		mail-2.9.0.gem:main
 DIST_SUBDIR=		ruby
 
 SPKGS[v32]=		single
@@ -30,6 +30,7 @@ VOPTS[v34]=		RUBY32=OFF RUBY33=OFF RUBY34=ON
 # => "MIT"
 
 # Requirements according to gem specification:
+#   logger (>= 0)
 #   mini_mime (>= 0.1.1)
 #   net-smtp (>= 0)
 #   net-imap (>= 0)
@@ -45,17 +46,20 @@ DISTNAME=		mail-${PORTVERSION}
 GENERATED=		yes
 
 [RUBY32].USES_ON=			gem:v32
-[RUBY32].BUILDRUN_DEPENDS_ON=		ruby-mini_mime:single:v32
+[RUBY32].BUILDRUN_DEPENDS_ON=		ruby-logger:single:v32
+					ruby-mini_mime:single:v32
 					ruby-net-smtp:single:v32
 					ruby-net-imap:single:v32
 					ruby-net-pop:single:v32
 [RUBY33].USES_ON=			gem:v33
-[RUBY33].BUILDRUN_DEPENDS_ON=		ruby-mini_mime:single:v33
+[RUBY33].BUILDRUN_DEPENDS_ON=		ruby-logger:single:v33
+					ruby-mini_mime:single:v33
 					ruby-net-smtp:single:v33
 					ruby-net-imap:single:v33
 					ruby-net-pop:single:v33
 [RUBY34].USES_ON=			gem:v34
-[RUBY34].BUILDRUN_DEPENDS_ON=		ruby-mini_mime:single:v34
+[RUBY34].BUILDRUN_DEPENDS_ON=		ruby-logger:single:v34
+					ruby-mini_mime:single:v34
 					ruby-net-smtp:single:v34
 					ruby-net-imap:single:v34
 					ruby-net-pop:single:v34
