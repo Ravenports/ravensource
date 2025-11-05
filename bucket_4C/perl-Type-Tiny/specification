@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.008003
+DEF[PORTVERSION]=	2.008004
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-Type-Tiny
@@ -7,7 +7,7 @@ KEYWORDS=		perl
 VARIANTS=		538 540
 SDESC[538]=		Moo(se) compatible type constraint (5.38)
 SDESC[540]=		Moo(se) compatible type constraint (5.40)
-HOMEPAGE=		none
+HOMEPAGE=		https://github.com/tobyink/p5-type-tiny
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
@@ -23,25 +23,29 @@ VOPTS[538]=		PERL_538=ON PERL_540=OFF
 VOPTS[540]=		PERL_538=OFF PERL_540=ON
 
 # License listed in CPAN directory:
-# perl
+# perl_5
 
 GENERATED=		yes
 SINGLE_JOB=		yes
 DISTNAME=		Type-Tiny-${PORTVERSION}
 
-# ---------------------------------------------
-# |   Prerequisites extracted from META.yml
-# ---------------------------------------------
-# | configure_requires : ExtUtils::MakeMaker (perl 5.38.4 core) (perl 5.40.3 core)
-# |     build_requires : Test::More (perl 5.38.4 core) (perl 5.40.3 core)
-# |           requires : Exporter::Tiny
-# |         recommends : Class::XSAccessor
-# |         recommends : Devel::LexAlias
-# |         recommends : Devel::StackTrace
-# |         recommends : Ref::Util::XS
-# |         recommends : Regexp::Util
-# |         recommends : Sub::Util (perl 5.38.4 core) (perl 5.40.3 core)
-# |         recommends : Type::Tiny::XS
+# ----------------------------------------------
+# |   Prerequisites extracted from META.json
+# ----------------------------------------------
+# |      runtime : Exporter::Tiny
+# |      runtime : Class::XSAccessor
+# |      runtime : Devel::LexAlias
+# |      runtime : Devel::StackTrace
+# |      runtime : Ref::Util::XS
+# |      runtime : Regexp::Util
+# |      runtime : Sub::Util (perl 5.38 core) (perl 5.40 core)
+# |      runtime : Type::Tiny::XS
+# |    configure : ExtUtils::MakeMaker (perl 5.38 core) (perl 5.40 core)
+# |    configure : CPAN::Meta::Requirements (perl 5.38 core) (perl 5.40 core)
+# |         test : Test::More (perl 5.38 core) (perl 5.40 core)
+# |         test : Test::Deep
+# |         test : Test::Tester (perl 5.38 core) (perl 5.40 core)
+# |         test : Test::Warnings
 
 [PERL_538].USES_ON=			perl:538,configure
 [PERL_538].BUILDRUN_DEPENDS_ON=		perl-Exporter-Tiny:single:538

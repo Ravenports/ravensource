@@ -1,0 +1,44 @@
+DEF[PORTVERSION]=	1.41
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-Date-Range
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		538 540
+SDESC[538]=		Work with a range of dates (5.38)
+SDESC[540]=		Work with a range of dates (5.40)
+HOMEPAGE=		none
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:T/TM/TMTM
+DISTFILE[1]=		Date-Range-${PORTVERSION}.tar.gz:main
+
+SPKGS[538]=		single
+SPKGS[540]=		single
+
+OPTIONS_AVAILABLE=	PERL_538 PERL_540
+OPTIONS_STANDARD=	none
+VOPTS[538]=		PERL_538=ON PERL_540=OFF
+VOPTS[540]=		PERL_538=OFF PERL_540=ON
+
+# License listed in CPAN directory:
+# unknown
+
+GENERATED=		yes
+SINGLE_JOB=		yes
+DISTNAME=		Date-Range-${PORTVERSION}
+
+# ---------------------------------------------
+# |   Prerequisites extracted from META.yml
+# ---------------------------------------------
+# | configure_requires : ExtUtils::MakeMaker (perl 5.38.4 core) (perl 5.40.3 core)
+# |     build_requires : ExtUtils::MakeMaker (perl 5.38.4 core) (perl 5.40.3 core)
+# |           requires : Date::Simple
+# |           requires : Test::More (perl 5.38.4 core) (perl 5.40.3 core)
+
+[PERL_538].USES_ON=			perl:538,configure
+[PERL_538].BUILDRUN_DEPENDS_ON=		perl-Date-Simple:single:538
+[PERL_540].USES_ON=			perl:540,configure
+[PERL_540].BUILDRUN_DEPENDS_ON=		perl-Date-Simple:single:540
+

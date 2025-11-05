@@ -1,0 +1,66 @@
+DEF[PORTVERSION]=	0.17
+# ------------------------------------------------------------------------
+
+NAMEBASE=		perl-DateTime-Format-ISO8601
+VERSION=		${PORTVERSION}
+KEYWORDS=		perl
+VARIANTS=		538 540
+SDESC[538]=		Parses ISO8601 formats (5.38)
+SDESC[540]=		Parses ISO8601 formats (5.40)
+HOMEPAGE=		https://github.com/houseabsolute/DateTime-Format-ISO8601
+CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CPAN/ID:D/DR/DROLSKY
+DISTFILE[1]=		DateTime-Format-ISO8601-${PORTVERSION}.tar.gz:main
+
+SPKGS[538]=		single
+SPKGS[540]=		single
+
+OPTIONS_AVAILABLE=	PERL_538 PERL_540
+OPTIONS_STANDARD=	none
+VOPTS[538]=		PERL_538=ON PERL_540=OFF
+VOPTS[540]=		PERL_538=OFF PERL_540=ON
+
+# License listed in CPAN directory:
+# perl_5
+
+GENERATED=		yes
+SINGLE_JOB=		yes
+DISTNAME=		DateTime-Format-ISO8601-${PORTVERSION}
+
+# ----------------------------------------------
+# |   Prerequisites extracted from META.json
+# ----------------------------------------------
+# |      runtime : Carp (perl 5.38 core) (perl 5.40 core)
+# |      runtime : DateTime
+# |      runtime : DateTime::Format::Builder
+# |      runtime : Params::ValidationCompiler
+# |      runtime : Specio
+# |      runtime : Specio::Declare
+# |      runtime : Specio::Exporter
+# |      runtime : Specio::Library::Builtins
+# |      runtime : namespace::autoclean
+# |      runtime : parent (perl 5.38 core) (perl 5.40 core)
+# |      runtime : strict (perl 5.38 core) (perl 5.40 core)
+# |      runtime : warnings (perl 5.38 core) (perl 5.40 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.38 core) (perl 5.40 core)
+# |         test : ExtUtils::MakeMaker (perl 5.38 core) (perl 5.40 core)
+# |         test : File::Spec (perl 5.38 core) (perl 5.40 core)
+# |         test : Test2::V0 (perl 5.40 core)
+# |         test : Test::More (perl 5.38 core) (perl 5.40 core)
+# |         test : CPAN::Meta (perl 5.38 core) (perl 5.40 core)
+
+[PERL_538].USES_ON=			perl:538,configure
+[PERL_538].BUILDRUN_DEPENDS_ON=		perl-DateTime:single:538
+					perl-DateTime-Format-Builder:single:538
+					perl-Params-ValidationCompiler:single:538
+					perl-Specio:single:538
+					perl-namespace-autoclean:single:538
+[PERL_540].USES_ON=			perl:540,configure
+[PERL_540].BUILDRUN_DEPENDS_ON=		perl-DateTime:single:540
+					perl-DateTime-Format-Builder:single:540
+					perl-Params-ValidationCompiler:single:540
+					perl-Specio:single:540
+					perl-namespace-autoclean:single:540
+
