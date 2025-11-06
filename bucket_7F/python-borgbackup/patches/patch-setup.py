@@ -1,4 +1,4 @@
---- setup.py.orig	2024-07-02 22:06:38 UTC
+--- setup.py.orig	2025-10-31 18:16:12 UTC
 +++ setup.py
 @@ -181,7 +181,7 @@ if not on_rtd:
      syncfilerange_ext = Extension(
