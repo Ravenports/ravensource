@@ -41,9 +41,8 @@ CMAKE_ARGS=		-DDOC_INSTALL_DIR:PATH=share/doc/doxygen
 			-Dbuild_search:BOOLEAN=true
 			-Dbuild_wizard:BOOLEAN=false
 
-# If build_doc is set, parallel builds break.  But docs require LATEX
-# which isn't in the tree, so no man pages.
-# SINGLE_JOB=		yes
+# started building during stage (6 Nov 25)
+INSTALL_REQ_TOOLCHAIN=	yes
 
 post-patch:
 	@${REINPLACE_CMD} -e '/PERL_PATH/ s|/usr/bin/perl|${perl_CMD}|' \
