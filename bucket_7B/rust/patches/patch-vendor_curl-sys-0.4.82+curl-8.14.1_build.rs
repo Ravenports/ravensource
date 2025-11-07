@@ -1,6 +1,6 @@
---- vendor/curl-sys-0.4.52+curl-7.81.0/build.rs.orig	2025-06-23 19:24:54 UTC
-+++ vendor/curl-sys-0.4.52+curl-7.81.0/build.rs
-@@ -111,6 +111,7 @@ fn main() {
+--- vendor/curl-sys-0.4.82+curl-8.14.1/build.rs.orig	2025-08-04 12:20:29 UTC
++++ vendor/curl-sys-0.4.82+curl-8.14.1/build.rs
+@@ -117,6 +117,7 @@ fn main() {
          .include("curl/lib")
          .include("curl/include")
          .define("BUILDING_LIBCURL", None)
