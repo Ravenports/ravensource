@@ -1,4 +1,4 @@
---- CMake/Platforms.cmake.orig	2025-02-16 00:15:15 UTC
+--- CMake/Platforms.cmake.orig	2025-11-07 15:53:10 UTC
 +++ CMake/Platforms.cmake
 @@ -2,14 +2,14 @@ if(HAIKU)
    include(platforms/haiku)

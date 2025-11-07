@@ -1,4 +1,4 @@
---- CMake/functions/devilutionx_library.cmake.orig	2025-02-16 00:15:15 UTC
+--- CMake/functions/devilutionx_library.cmake.orig	2025-11-07 15:53:10 UTC
 +++ CMake/functions/devilutionx_library.cmake
 @@ -45,7 +45,7 @@ function(add_devilutionx_library NAME)
      target_compile_options(${NAME} PUBLIC -Wall -Wextra -Wno-unused-parameter)
