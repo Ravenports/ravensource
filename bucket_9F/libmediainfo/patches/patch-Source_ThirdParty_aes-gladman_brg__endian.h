@@ -1,4 +1,4 @@
---- Source/ThirdParty/aes-gladman/brg_endian.h.orig	2025-10-03 15:10:32 UTC
+--- Source/ThirdParty/aes-gladman/brg_endian.h.orig	2025-11-07 14:09:59 UTC
 +++ Source/ThirdParty/aes-gladman/brg_endian.h
 @@ -33,7 +33,7 @@ Issue Date: 10/09/2018
  /* Include files where endian defines and byteswap functions may reside */
