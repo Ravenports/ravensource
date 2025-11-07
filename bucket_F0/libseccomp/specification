@@ -1,0 +1,41 @@
+DEF[PORTVERSION]=	2.6.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libseccomp
+VERSION=		${PORTVERSION}
+KEYWORDS=		security
+VARIANTS=		std
+SDESC[std]=		High-level interface to the Linux seccomp filter
+HOMEPAGE=		https://github.com/seccomp/libseccomp/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/seccomp:libseccomp:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[std]=		set primary dev man
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL21:primary
+LICENSE_FILE=		LGPL21:{{WRKSRC}}/LICENSE
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/system.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+ONLY_FOR_OPSYS=		linux
+
+BUILD_DEPENDS=		coreutils:primary:noprefix
+			gperf:primary:std
+			python-Cython:single:python_default
+
+USES=			autoreconf gmake libtool
+
+MUST_CONFIGURE=		gnu
+
+SOVERSION=		${PORTVERSION}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libseccomp.so
