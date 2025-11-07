@@ -18,8 +18,12 @@ include/dovecot/auth-client-interface.h
 include/dovecot/auth-client-private.h
 include/dovecot/auth-client.h
 include/dovecot/auth-common.h
+include/dovecot/auth-digest.h
 include/dovecot/auth-fields.h
+include/dovecot/auth-gs2.h
+include/dovecot/auth-gssapi.h
 include/dovecot/auth-master-connection.h
+include/dovecot/auth-master-private.h
 include/dovecot/auth-master.h
 include/dovecot/auth-penalty.h
 include/dovecot/auth-policy.h
@@ -28,6 +32,10 @@ include/dovecot/auth-request-handler-private.h
 include/dovecot/auth-request-handler.h
 include/dovecot/auth-request-var-expand.h
 include/dovecot/auth-request.h
+include/dovecot/auth-sasl-common.h
+include/dovecot/auth-sasl-gssapi.h
+include/dovecot/auth-sasl-oauth2.h
+include/dovecot/auth-sasl.h
 include/dovecot/auth-scram-client.h
 include/dovecot/auth-scram-server.h
 include/dovecot/auth-scram.h
@@ -59,6 +67,7 @@ include/dovecot/cpu-count.h
 include/dovecot/cpu-limit.h
 include/dovecot/crc32.h
 include/dovecot/data-stack.h
+include/dovecot/db-ldap-sasl.h
 include/dovecot/db-ldap-settings.h
 include/dovecot/db-ldap.h
 include/dovecot/db-oauth2.h
@@ -72,6 +81,7 @@ include/dovecot/dbox-storage.h
 include/dovecot/dcrypt-iostream.h
 include/dovecot/dcrypt-private.h
 include/dovecot/dcrypt.h
+include/dovecot/dict-client.h
 include/dovecot/dict-private.h
 include/dovecot/dict-transaction-memory.h
 include/dovecot/dict.h
@@ -94,6 +104,7 @@ include/dovecot/doveadm-settings.h
 include/dovecot/doveadm-util.h
 include/dovecot/doveadm.h
 include/dovecot/dovecot-version.h
+include/dovecot/dregex.h
 include/dovecot/dsasl-client-private.h
 include/dovecot/dsasl-client.h
 include/dovecot/dsync-brain.h
@@ -392,6 +403,7 @@ include/dovecot/mailbox-watch.h
 include/dovecot/maildir-filename-flags.h
 include/dovecot/maildir-filename.h
 include/dovecot/maildir-keywords.h
+include/dovecot/maildir-mail.h
 include/dovecot/maildir-settings.h
 include/dovecot/maildir-storage.h
 include/dovecot/maildir-sync.h
@@ -420,11 +432,6 @@ include/dovecot/mdbox-settings.h
 include/dovecot/mdbox-storage-rebuild.h
 include/dovecot/mdbox-storage.h
 include/dovecot/mdbox-sync.h
-include/dovecot/mech-digest-md5-private.h
-include/dovecot/mech-otp-common.h
-include/dovecot/mech-plain-common.h
-include/dovecot/mech-scram.h
-include/dovecot/mech.h
 include/dovecot/memarea.h
 include/dovecot/mempool.h
 include/dovecot/message-address.h
@@ -534,6 +541,13 @@ include/dovecot/rfc822-parser.h
 include/dovecot/safe-memset.h
 include/dovecot/safe-mkdir.h
 include/dovecot/safe-mkstemp.h
+include/dovecot/sasl-common.h
+include/dovecot/sasl-oauth2.h
+include/dovecot/sasl-server-gssapi.h
+include/dovecot/sasl-server-mech-scram.h
+include/dovecot/sasl-server-oauth2.h
+include/dovecot/sasl-server-private.h
+include/dovecot/sasl-server-protected.h
 include/dovecot/sasl-server.h
 include/dovecot/sdbox-file.h
 include/dovecot/sdbox-settings.h
@@ -599,6 +613,11 @@ include/dovecot/test-mail-storage-common.h
 include/dovecot/test-subprocess.h
 include/dovecot/time-util.h
 include/dovecot/unichar.h
+include/dovecot/unicode-data-static.h
+include/dovecot/unicode-data-tables.h
+include/dovecot/unicode-data-types.h
+include/dovecot/unicode-data.h
+include/dovecot/unicode-transform.h
 include/dovecot/unix-socket-create.h
 include/dovecot/unlink-directory.h
 include/dovecot/unlink-old-files.h
@@ -609,6 +628,7 @@ include/dovecot/utc-mktime.h
 include/dovecot/utc-offset.h
 include/dovecot/var-expand-private.h
 include/dovecot/var-expand.h
+include/dovecot/version.h
 include/dovecot/wildcard-match.h
 include/dovecot/write-full.h
 lib/dovecot/lib01_acl_plugin.a
@@ -636,6 +656,8 @@ lib/dovecot/libdovecot-compression.a
 lib/dovecot/libdovecot-compression.so
 lib/dovecot/libdovecot-dsync.a
 lib/dovecot/libdovecot-dsync.so
+lib/dovecot/libdovecot-gssapi.a
+lib/dovecot/libdovecot-gssapi.so
 lib/dovecot/libdovecot-language.a
 lib/dovecot/libdovecot-language.so
 lib/dovecot/libdovecot-lda.a

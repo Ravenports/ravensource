@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.4.1-4
+DEF[PORTVERSION]=	2.4.2
 DEF[DL_FOLDER]=		2.4
 DEF[FILEVER]=		${PORTVERSION}
 # ----------------------------------------------------------------------------
@@ -65,7 +65,7 @@ CONFIGURE_ARGS=		--localstatedir=/var
 			--without-solr
 			--without-textcat
 CPPFLAGS=		-I{{OPENSSLINC}}
-LDFLAGS=		-L{{OPENSSLLIB}}
+LDFLAGS=		-L{{OPENSSLLIB}} {{ICONV_LIB}}
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
 PLIST_SUB=		REQUIRE="LOGIN"
@@ -79,5 +79,3 @@ post-patch:
 		-e 's|/usr/bin|${LOCALBASE}/bin|g' \
 		-e 's|/usr/local|${PREFIX}|g' \
 		${WRKSRC}/src/plugins/fts/decode2text.sh
-	${REINPLACE_CMD} -e '/^LIBS =/s/$$/ @LTLIBICONV@/' \
-		${WRKSRC}/src/lib-mail/Makefile.in
