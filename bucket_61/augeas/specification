@@ -7,7 +7,7 @@ DEF[GNULIB_HASH]=	2f7479a16a3395f1429c7795f10c5d19b9b4453e
 
 NAMEBASE=		augeas
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		textproc
 VARIANTS=		std
 SDESC[std]=		Configuration editing tool and API
@@ -15,11 +15,13 @@ HOMEPAGE=		http://augeas.net/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main savannah
-SITES[main]=		GITHUB/hercules-team:augeas:${TAG}
-SITES[savannah]=	https://git.savannah.gnu.org/cgit/gnulib.git/snapshot/
-DISTFILE[1]=		generated:main
-DISTFILE[2]=		gnulib-${GNULIB_HASH}.tar.gz:savannah
-DF_INDEX=		1 2
+SITES[main]=		https://github.com/hercules-team/augeas/releases/download/release-${PORTVERSION}/
+DISTFILE[1]=		augeas-${PORTVERSION}.tar.gz:main
+# SITES[main]=		GITHUB/hercules-team:augeas:${TAG}
+# SITES[savannah]=	https://git.savannah.gnu.org/cgit/gnulib.git/snapshot/
+# DISTFILE[1]=		generated:main
+# DISTFILE[2]=		gnulib-${GNULIB_HASH}.tar.gz:savannah
+# DF_INDEX=		1 2
 
 SPKGS[std]=		set primary dev tools man
 
@@ -28,11 +30,11 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		textproc/augeas
 
-BUILD_DEPENDS=		bash:primary:std
+# BUILD_DEPENDS=		bash:primary:std
 
 EXRUN[tools]=		primary
 
-USES=			autoreconf:build cpe bison gmake libtool:build
+USES=			cpe bison gmake libtool:build
 			pkgconfig readline cclibs:primary
 GNOME_COMPONENTS=	libxml2
 MUST_CONFIGURE=		gnu
@@ -42,8 +44,12 @@ PLIST_SUB=		FA_SOVERSION=${FA_VERSION}
 			FA_SOMAJOR=${FA_VERSION:R:R}
 SOVERSION=		${SOVERSION}
 
-post-extract:
-	${MV} ${WRKDIR}/gnulib-${GNULIB_HASH} ${WRKSRC}/gnulib
+# post-extract:
+# #	${MV} ${WRKDIR}/gnulib-${GNULIB_HASH} ${WRKSRC}/gnulib
+
+post-patch:
+	${TOUCH} -r ${WRKSRC}/gnulib/m4/gnulib-common.m4.orig \
+		${WRKSRC}/gnulib/m4/gnulib-common.m4
 
 pre-configure:
 	${REINPLACE_CMD} -e 's|%%PREFIX%%|${PREFIX}|' \
@@ -53,7 +59,7 @@ pre-configure:
 		${WRKSRC}/lenses/puppet.aug \
 		${WRKSRC}/lenses/puppet_auth.aug \
 		${WRKSRC}/lenses/puppetfileserver.aug
-	(cd ${WRKSRC} && ${LOCALBASE}/bin/bash ./autogen.sh \
+	# (cd ${WRKSRC} && ${LOCALBASE}/bin/bash ./autogen.sh \
 		--gnulib-srcdir=${WRKSRC}/gnulib \
 		--disable-dependency-tracking \
 		--enable-debug=no)
