@@ -1,13 +1,10 @@
-DEF[PORTVERSION]=	1.5.1
+DEF[PORTVERSION]=	1.6.0
 DEF[SOVERSION]=		${PORTVERSION}
-# Consider this a patch to 1.5.1 for ffmpeg7 support
-DEF[RELEASE_TAG]=	41a3e8f
-# Remove cmake minimum argument on next release
+DEF[RELEASE_TAG]=	v${PORTVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		chromaprint
 VERSION=		${PORTVERSION}
-REVISION=		5
 KEYWORDS=		audio
 VARIANTS=		std
 SDESC[std]=		AcoustID audio fingerprinting library
@@ -40,7 +37,6 @@ USES=			cmake c++:primary
 CMAKE_ARGS=		-DBUILD_TOOLS:BOOL=ON
 			-DAUDIO_PROCESSOR_LIB=swresample
 			-DFFT_LIB:STRING="avfft"
-			-DCMAKE_POLICY_VERSION_MINIMUM=3.5
 SOVERSION=		${SOVERSION}
 
 post-install:
