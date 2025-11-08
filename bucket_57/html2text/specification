@@ -1,5 +1,6 @@
-# Continued by Fabian Groffen officially
-DEF[PORTVERSION]=	2.3.0
+# Continued by Fabian Groffen officially (moved from github to gitlab)
+DEF[PORTVERSION]=	2.4.0
+DEF[TAG]=		v${PORTVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		html2text
@@ -11,8 +12,8 @@ HOMEPAGE=		http://www.mbayer.de/html2text/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GITHUB/grobian:html2text:v${PORTVERSION}
-DISTFILE[1]=		generated:main
+SITES[main]=		https://gitlab.com/grobian/html2text/-/archive/${TAG}/
+DISTFILE[1]=		html2text-${TAG}.tar.gz:main
 
 SPKGS[std]=		set primary man
 
@@ -33,6 +34,7 @@ MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		MANDIR={{MANPREFIX}}/man
 CXXFLAGS=		-Wno-write-strings
 			-Wno-deprecated-declarations
+DISTNAME=		html2text-${TAG}
 
 post-install:
 	${RM} -r ${STAGEDIR}${STD_DOCDIR}
