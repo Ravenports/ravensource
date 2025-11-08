@@ -1,17 +1,15 @@
-DEF[PORTVERSION]=	7.1.1
-DEF[SO_AVCODEC]=	61.19.101
-DEF[SO_AVDEVICE]=	61.3.100
-DEF[SO_AVFILTER]=	10.4.100
-DEF[SO_AVFORMAT]=	61.7.100
-DEF[SO_AVUTIL]=		59.39.100
-DEF[SO_POSTPROC]=	58.3.100
-DEF[SO_SWRESAMPLE]=	5.3.100
-DEF[SO_SCALE]=		8.3.100
+DEF[PORTVERSION]=	8.0
+DEF[SO_AVCODEC]=	62.11.100
+DEF[SO_AVDEVICE]=	62.1.100
+DEF[SO_AVFILTER]=	11.4.100
+DEF[SO_AVFORMAT]=	62.3.100
+DEF[SO_AVUTIL]=		60.8.100
+DEF[SO_SWRESAMPLE]=	6.1.100
+DEF[SO_SCALE]=		9.1.100
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ffmpeg
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		multimedia audio net
 VARIANTS=		std
 SDESC[std]=		Play, record, convert, and stream audio and video
@@ -115,7 +113,6 @@ CONFIGURE_ARGS=		--cc="{{CC}}"
 			--enable-pic
 			--enable-gpl
 			--enable-version3
-			--enable-postproc
 			--enable-avfilter
 			--enable-pthreads
 			--disable-alsa
@@ -209,12 +206,13 @@ PLIST_SUB=		AVCODEC_SO=${SO_AVCODEC}
 			AVFORMAT_MAJOR=${SO_AVFORMAT:R:R}
 			AVUTIL_SO=${SO_AVUTIL}
 			AVUTIL_MAJOR=${SO_AVUTIL:R:R}
-			POSTPROC_SO=${SO_POSTPROC}
-			POSTPROC_MAJOR=${SO_POSTPROC:R:R}
 			SWRESAMPLE_SO=${SO_SWRESAMPLE}
 			SWRESAMPLE_MAJOR=${SO_SWRESAMPLE:R:R}
 			SCALE_SO=${SO_SCALE}
 			SCALE_MAJOR=${SO_SCALE:R:R}
+
+# appeared with ffmpeg8
+INSTALL_REQ_TOOLCHAIN=	yes
 
 post-patch-sunos:
 	${REINPLACE_CMD} -e '/^enabled libxvid/ s/$$/ -lrt/' \
