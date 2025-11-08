@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	1.28.3
+DEF[PORTVERSION]=	1.29.0
+DEF[TAG]=		v${PORTVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		mate-notification-daemon
@@ -10,8 +11,10 @@ HOMEPAGE=		https://mate-desktop.org/
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		https://pub.mate-desktop.org/releases/${PORTVERSION:R}/
-DISTFILE[1]=		mate-notification-daemon-${PORTVERSION}.tar.xz:main
+# SITES[main]=		https://pub.mate-desktop.org/releases/${PORTVERSION:R}/
+# DISTFILE[1]=		mate-notification-daemon-${PORTVERSION}.tar.xz:main
+SITES[main]=		GITHUB/mate-desktop:mate-notification-daemon:${TAG}
+DISTFILE[1]=		generated:main
 DIST_SUBDIR=		mate
 
 SPKGS[std]=		set primary nls
@@ -41,7 +44,7 @@ BUILDRUN_DEPENDS=	dconf:primary:std
 			mate-desktop:primary:std
 			mate-panel:primary:std
 
-USES=			gettext gmake iconv libtool pkgconfig
+USES=			autoreconf gettext gmake iconv libtool pkgconfig
 GNOME_COMPONENTS=	glib gtk3 libxml2
 
 MUST_CONFIGURE=		gnu
