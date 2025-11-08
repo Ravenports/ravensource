@@ -1,4 +1,4 @@
---- src/main/complex.c.orig	2025-03-13 23:02:15 UTC
+--- src/main/complex.c.orig	2025-10-09 22:15:01 UTC
 +++ src/main/complex.c
 @@ -139,7 +139,7 @@ static double complex mycpow (double com
      } else if (yi == 0.0 && yr == (k = (int) yr) && abs(k) <= 65536)
