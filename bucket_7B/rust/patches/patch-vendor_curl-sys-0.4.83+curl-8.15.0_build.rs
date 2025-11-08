@@ -1,5 +1,5 @@
---- vendor/curl-sys-0.4.82+curl-8.14.1/build.rs.orig	2025-09-14 15:05:11 UTC
-+++ vendor/curl-sys-0.4.82+curl-8.14.1/build.rs
+--- vendor/curl-sys-0.4.83+curl-8.15.0/build.rs.orig	2025-10-28 16:34:16 UTC
++++ vendor/curl-sys-0.4.83+curl-8.15.0/build.rs
 @@ -117,6 +117,7 @@ fn main() {
          .include("curl/lib")
          .include("curl/include")

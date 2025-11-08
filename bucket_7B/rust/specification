@@ -1,9 +1,9 @@
-DEF[PORTVERSION]=	1.90.0
-DEF[RUSTX_BOOT]=	1.89.0
+DEF[PORTVERSION]=	1.91.0
+DEF[RUSTX_BOOT]=	1.90.0
 DEF[CURL_VERSION]=	7.88.0
 DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
 DEF[LIBC_PT1]=		155 158 164
-DEF[LIBC_PT2]=		168 169 171 172 174
+DEF[LIBC_PT2]=		168 169 171 172 174 175
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		rust
@@ -247,6 +247,7 @@ post-install:
 	    ${SED} -i'' -E \
 		-e '/share\/doc\/rust/d' \
 		-e '/bash_completion/d' \
+		-e '/target-spec-json-schema.json/d' \
 	        -e 's|:${STAGEDIR}|:|' \
 	        $$f; \
 	    ${AWK} '\
