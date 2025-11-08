@@ -1,6 +1,6 @@
---- lib/tests/arena.c.orig
+--- lib/tests/arena.c.orig	2025-11-05 10:29:01 UTC
 +++ lib/tests/arena.c
-@@ -33,6 +33,7 @@
+@@ -33,6 +33,7 @@ PRIntn stressThreads = 4;
  
  void DumpAll(void) { return; }
  
@@ -8,7 +8,7 @@
  /*
  ** Test Arena allocation.
  */
-@@ -90,6 +91,7 @@
+@@ -90,6 +91,7 @@ static void ArenaGrow(void) {
  
    return;
  } /* end ArenaGrow() */
@@ -16,9 +16,9 @@
  
  /*
  ** Test arena Mark and Release.
---- lib/tests/base64t.c.orig
+--- lib/tests/base64t.c.orig	2025-11-05 10:29:01 UTC
 +++ lib/tests/base64t.c
-@@ -2256,7 +2256,6 @@
+@@ -2256,7 +2256,6 @@ PRBool test_008(void) {
  
    for (i = 0; i < sizeof(array) / sizeof(array[0]); i++) {
      PRUint32 plen = PL_strlen(array[i].plaintext);
@@ -26,7 +26,7 @@
  
      char* rv = PL_Base64Encode(array[i].plaintext, plen, (char*)0);
  
-@@ -2965,9 +2964,6 @@
+@@ -2965,9 +2964,6 @@ PRBool test_024(void) {
    fflush(stdout);
  
    for (i = 0; i < sizeof(array) / sizeof(array[0]); i++) {
@@ -36,7 +36,7 @@
      char* rv = PL_Base64Encode(array[i].plaintext, 0, (char*)0);
  
      if ((char*)0 == rv) {
-@@ -3088,8 +3084,6 @@
+@@ -3088,8 +3084,6 @@ PRBool test_027(void) {
    fflush(stdout);
  
    for (i = 0; i < sizeof(array) / sizeof(array[0]); i++) {
@@ -45,9 +45,9 @@
      char* rv = PL_Base64Decode(array[i].cyphertext, 0, (char*)0);
  
      if ((char*)0 == rv) {
---- lib/tests/string.c.orig
+--- lib/tests/string.c.orig	2025-11-05 10:29:01 UTC
 +++ lib/tests/string.c
-@@ -111,7 +111,7 @@
+@@ -111,7 +111,7 @@ PRBool test_003(void) {
  
      rv = PL_strcpy(array[i].dest, array[i].str);
      if (array[i].rv != rv) {
@@ -56,7 +56,7 @@
               array[i].str ? array[i].str : "(null)", rv);
        return PR_FALSE;
      }
-@@ -223,7 +223,7 @@
+@@ -223,7 +223,7 @@ PRBool test_004(void) {
  
      rv = PL_strncpy(array[i].dest, array[i].str, array[i].len);
      if (array[i].rv != rv) {
@@ -65,7 +65,7 @@
               array[i].str ? array[i].str : "(null)", array[i].len, rv);
        return PR_FALSE;
      }
-@@ -337,7 +337,7 @@
+@@ -337,7 +337,7 @@ PRBool test_005(void) {
  
      rv = PL_strncpyz(array[i].dest, array[i].str, array[i].len);
      if (array[i].rv != rv) {
@@ -74,7 +74,7 @@
               array[i].str ? array[i].str : "(null)", array[i].len, rv);
        return PR_FALSE;
      }
-@@ -379,7 +379,7 @@
+@@ -379,7 +379,7 @@ PRBool test_006(void) {
      char* rv = PL_strdup(array[i]);
  
      if ((char*)0 == rv) {
@@ -83,7 +83,7 @@
        return PR_FALSE;
      }
  
-@@ -452,8 +452,8 @@
+@@ -452,8 +452,8 @@ PRBool test_007(void) {
      const char* b;
  
      if ((char*)0 == rv) {
@@ -94,7 +94,7 @@
        return PR_FALSE;
      }
  
-@@ -620,17 +620,17 @@
+@@ -620,17 +620,17 @@ PRBool test_009(void) {
  
      if ((const char*)0 == array[i].result) {
        if ((char*)0 != rv) {
@@ -116,7 +116,7 @@
                 array[i].result);
          return PR_FALSE;
        } else {
-@@ -639,10 +639,10 @@
+@@ -639,10 +639,10 @@ PRBool test_009(void) {
  
          while (*a) {
            if (*a != *b) {
@@ -129,7 +129,7 @@
              return PR_FALSE;
            }
  
-@@ -652,18 +652,18 @@
+@@ -652,18 +652,18 @@ PRBool test_009(void) {
  
          if (array[i].nulled) {
            if ((char)0 != *b) {
@@ -152,7 +152,7 @@
              return PR_FALSE;
            }
          }
-@@ -733,17 +733,17 @@
+@@ -733,17 +733,17 @@ PRBool test_010(void) {
  
      if ((const char*)0 == array[i].result) {
        if ((char*)0 != rv) {
@@ -174,7 +174,7 @@
                 array[i].result);
          return PR_FALSE;
        } else {
-@@ -752,10 +752,10 @@
+@@ -752,10 +752,10 @@ PRBool test_010(void) {
  
          while (1) {
            if (*a != *b) {
@@ -187,7 +187,7 @@
              return PR_FALSE;
            }
  
-@@ -986,9 +986,9 @@
+@@ -986,9 +986,9 @@ PRBool test_012(void) {
          break;
      }
  
@@ -199,7 +199,7 @@
             array[i].sign);
      return PR_FALSE;
    }
-@@ -1207,9 +1207,9 @@
+@@ -1207,9 +1207,9 @@ PRBool test_014(void) {
          break;
      }
  
@@ -211,7 +211,7 @@
             array[i].sign);
      return PR_FALSE;
    }
-@@ -1270,14 +1270,14 @@
+@@ -1270,14 +1270,14 @@ PRBool test_015(void) {
        }
      } else {
        if ((char*)0 == rv) {
@@ -230,7 +230,7 @@
          return PR_FALSE;
        }
      }
-@@ -1339,14 +1339,14 @@
+@@ -1339,14 +1339,14 @@ PRBool test_016(void) {
        }
      } else {
        if ((char*)0 == rv) {
@@ -249,7 +249,7 @@
          return PR_FALSE;
        }
      }
-@@ -1406,20 +1406,20 @@
+@@ -1406,20 +1406,20 @@ PRBool test_017(void) {
  
      if (PR_FALSE == array[i].ret) {
        if ((char*)0 != rv) {
@@ -276,7 +276,7 @@
          return PR_FALSE;
        }
      }
-@@ -1479,20 +1479,20 @@
+@@ -1479,20 +1479,20 @@ PRBool test_018(void) {
  
      if (PR_FALSE == array[i].ret) {
        if ((char*)0 != rv) {
@@ -303,7 +303,7 @@
          return PR_FALSE;
        }
      }
-@@ -1560,17 +1560,17 @@
+@@ -1560,17 +1560,17 @@ PRBool test_019(void) {
        }
      } else {
        if ((char*)0 == rv) {
@@ -325,7 +325,7 @@
          return PR_FALSE;
        }
      }
-@@ -1638,17 +1638,17 @@
+@@ -1638,17 +1638,17 @@ PRBool test_020(void) {
        }
      } else {
        if ((char*)0 == rv) {
@@ -347,7 +347,7 @@
          return PR_FALSE;
        }
      }
-@@ -1715,25 +1715,25 @@
+@@ -1715,25 +1715,25 @@ PRBool test_021(void) {
  
      if (PR_FALSE == array[i].ret) {
        if ((char*)0 != rv) {
@@ -381,7 +381,7 @@
          return PR_FALSE;
        }
      }
-@@ -1809,25 +1809,25 @@
+@@ -1809,25 +1809,25 @@ PRBool test_022(void) {
  
      if (PR_FALSE == array[i].ret) {
        if ((char*)0 != rv) {
@@ -415,7 +415,7 @@
          return PR_FALSE;
        }
      }
-@@ -1912,18 +1912,18 @@
+@@ -1912,18 +1912,18 @@ PRBool test_023(void) {
        }
      } else {
        if ((char*)0 == rv) {
@@ -438,7 +438,7 @@
          return PR_FALSE;
        }
      }
-@@ -2008,18 +2008,18 @@
+@@ -2008,18 +2008,18 @@ PRBool test_024(void) {
        }
      } else {
        if ((char*)0 == rv) {
@@ -461,7 +461,7 @@
          return PR_FALSE;
        }
      }
-@@ -2124,25 +2124,25 @@
+@@ -2124,25 +2124,25 @@ PRBool test_025(void) {
  
      if (PR_FALSE == array[i].ret) {
        if ((char*)0 != rv) {
@@ -495,7 +495,7 @@
          return PR_FALSE;
        }
      }
-@@ -2244,25 +2244,25 @@
+@@ -2244,25 +2244,25 @@ PRBool test_026(void) {
  
      if (PR_FALSE == array[i].ret) {
        if ((char*)0 != rv) {
@@ -529,7 +529,7 @@
          return PR_FALSE;
        }
      }
-@@ -2347,18 +2347,18 @@
+@@ -2347,18 +2347,18 @@ PRBool test_027(void) {
        }
      } else {
        if ((char*)0 == rv) {
@@ -552,7 +552,7 @@
          return PR_FALSE;
        }
      }
-@@ -2443,18 +2443,18 @@
+@@ -2443,18 +2443,18 @@ PRBool test_028(void) {
        }
      } else {
        if ((char*)0 == rv) {
@@ -575,7 +575,7 @@
          return PR_FALSE;
        }
      }
-@@ -2554,25 +2554,25 @@
+@@ -2554,25 +2554,25 @@ PRBool test_029(void) {
  
      if (PR_FALSE == array[i].ret) {
        if ((char*)0 != rv) {
@@ -609,7 +609,7 @@
          return PR_FALSE;
        }
      }
-@@ -2674,25 +2674,25 @@
+@@ -2674,25 +2674,25 @@ PRBool test_030(void) {
  
      if (PR_FALSE == array[i].ret) {
        if ((char*)0 != rv) {

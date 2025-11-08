@@ -1,4 +1,4 @@
---- pr/include/md/_freebsd.h.orig	2024-10-21 11:31:57 UTC
+--- pr/include/md/_freebsd.h.orig	2025-11-05 10:29:01 UTC
 +++ pr/include/md/_freebsd.h
 @@ -59,7 +59,15 @@
  #define _PR_HAVE_LARGE_OFF_T
