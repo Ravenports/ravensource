@@ -1,6 +1,6 @@
---- CMakeLists.txt.orig	2025-07-16 18:25:20 UTC
+--- CMakeLists.txt.orig	2025-10-08 16:55:14 UTC
 +++ CMakeLists.txt
-@@ -1268,7 +1268,7 @@ reset_find_package(GCRYPT GCRYPT_ERROR_L
+@@ -1324,7 +1324,7 @@ reset_find_package(GCRYPT GCRYPT_ERROR_L
  find_package(GCRYPT "1.8.0" REQUIRED)
  # C Asynchronous resolver
  reset_find_package(CARES)
@@ -9,11 +9,11 @@
  if (CARES_VERSION VERSION_GREATER_EQUAL "1.28.0")
  	# Suppress deprecation warnings.
  	add_compile_definitions(CARES_NO_DEPRECATED)
-@@ -3397,6 +3397,7 @@ if(BUILD_dumpcap AND PCAP_FOUND)
+@@ -3518,6 +3518,7 @@ if(BUILD_dumpcap AND PCAP_FOUND)
  		writecap
  		wsutil_static
  		pcap::pcap
 +		m
  		${CAP_LIBRARIES}
- 		${ZLIB_LIBRARIES}
- 		${ZLIBNG_LIBRARIES}
+ 		${NL_LIBRARIES}
+ 		${APPLE_CORE_FOUNDATION_LIBRARY}
