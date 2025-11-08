@@ -20,12 +20,12 @@ SITES[pcre2]=		GITHUB/fish-shell:rust-pcre2:0.2.9-utf32
 
 DISTFILE[1]=		fish-${PORTVERSION}.tar.xz:main
 %%CR_DISTFILES%%
-DISTFILE[77]=		generated:pcre2
+DISTFILE[83]=		generated:pcre2
 DIST_SUBDIR=		rust/crates
 %%DF_INDEX%%
-			77
+			83
 
-SPKGS[std]=		set primary dev docs nls man
+SPKGS[std]=		set primary dev docs man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -61,7 +61,3 @@ pre-configure:
 	@${ECHO_CMD} "directory = '${WRKSRC}/cargo-crates'" >> ${CFGTOML}
 	@${ECHO_CMD} "[source.crates-io]" >> ${CFGTOML}
 	@${ECHO_CMD} "replace-with = 'cargo'" >> ${CFGTOML}
-
-	# dragonfly spawn bindings
-	${CAT} ${FILESDIR}/dfly_spawn_support.rs \
-		>> ${WRKSRC}/cargo-crates/libc-0.2.159/src/unix/bsd/freebsdlike/dragonfly/mod.rs

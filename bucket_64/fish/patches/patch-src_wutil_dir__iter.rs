@@ -1,6 +1,6 @@
---- src/wutil/dir_iter.rs.orig	2025-03-13 03:16:55 UTC
+--- src/wutil/dir_iter.rs.orig	2025-10-07 20:56:06 UTC
 +++ src/wutil/dir_iter.rs
-@@ -283,11 +283,11 @@ impl DirIter {
+@@ -285,11 +285,11 @@ impl DirIter {
  
          self.entry.reset();
          self.entry.name = str2wcstring(d_name);
