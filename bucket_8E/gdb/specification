@@ -1,12 +1,11 @@
-DEF[PORTVERSION]=	13.2
+DEF[PORTVERSION]=	15.2
 DEF[SUFFIX]=		${PORTVERSION:S/.//g}
 DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
-DEF[PATCH_TAG]=		gdb_13.2-rev2
+DEF[PATCH_TAG]=		gdb_15.2-rev1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gdb
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		std
 SDESC[std]=		GNU debugger
@@ -39,7 +38,9 @@ FPC_EQUIVALENT=		devel/gdb
 NOT_FOR_ARCH=		aarch64
 
 BUILD_DEPENDS=		gmp:dev:std
+			mpfr:dev:std
 BUILDRUN_DEPENDS=	gmp:primary:std
+			mpfr:primary:std
 			source-highlight:primary:std
 
 PATCHFILES=		2 3
@@ -56,6 +57,7 @@ CONFIGURE_ARGS=		--program-suffix=${SUFFIX}
 			--enable-64-bit-bfd
 			--enable-tui
 			--disable-build-with-cxx
+			--disable-sim
 			--with-gdb-datadir={{PREFIX}}/share/gdb${SUFFIX}
 			{{ICONV_CONFIGURE_ARG}}
 			--with-system-readline
@@ -69,9 +71,10 @@ CFLAGS=			-DRL_NO_COMPAT
 			-D__STDC_LIMIT_MACROS
 			-Wno-unused-function
 			-Wno-unused-variable
+BUILD_TARGET=		all-gdb
 PLIST_SUB=		VER=${SUFFIX}
 EXTRACT_HEAD[1]=	{{TAR}} -xf
-EXTRACT_TAIL[1]=	--exclude dejagnu --exclude expect --exclude sim --exclude texinfo --exclude intl --exclude readline
+EXTRACT_TAIL[1]=	--exclude dejagnu --exclude expect --exclude texinfo --exclude intl --exclude readline
 
 VAR_OPSYS[midnightbsd]=	MAKEFILE_LINE=CONFIGURE_TARGET=${MBSD64_TARGET}
 
