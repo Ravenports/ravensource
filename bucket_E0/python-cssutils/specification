@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	2.11.1
 NAMEBASE=		python-cssutils
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v12 v13
-SDESC[v12]=		Cascading Style Sheets library (3.12)
+VARIANTS=		v13 v14
 SDESC[v13]=		Cascading Style Sheets library (3.13)
+SDESC[v14]=		Cascading Style Sheets library (3.14)
 HOMEPAGE=		https://github.com/jaraco/cssutils
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -15,13 +15,13 @@ SITES[main]=		PYPIWHL/a7/ec/bb273b7208c606890dc36540fe667d06ce840a6f62f9fae7e658
 DISTFILE[1]=		cssutils-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
-SPKGS[v12]=		single
 SPKGS[v13]=		single
+SPKGS[v14]=		single
 
-OPTIONS_AVAILABLE=	PY312 PY313
+OPTIONS_AVAILABLE=	PY313 PY314
 OPTIONS_STANDARD=	none
-VOPTS[v12]=		PY312=ON PY313=OFF
-VOPTS[v13]=		PY312=OFF PY313=ON
+VOPTS[v13]=		PY313=ON PY314=OFF
+VOPTS[v14]=		PY313=OFF PY314=ON
 
 # License listed at PyPI
 # Not provided.
@@ -48,8 +48,8 @@ DISTNAME=		cssutils-${PORTVERSION}.dist-info
 # lxml ; (python_version < "3.11") and extra == 'test'
 # importlib-resources ; (python_version < "3.9") and extra == 'test'
 
-[PY312].USES_ON=			python:v12,wheel
-[PY312].RUN_DEPENDS_ON=			python-more-itertools:single:v12
 [PY313].USES_ON=			python:v13,wheel
 [PY313].RUN_DEPENDS_ON=			python-more-itertools:single:v13
+[PY314].USES_ON=			python:v14,wheel
+[PY314].RUN_DEPENDS_ON=			python-more-itertools:single:v14
 

@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	1.1
 NAMEBASE=		python-html5lib
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v12 v13
-SDESC[v12]=		HTML parser based on WHATWG specification (3.12)
+VARIANTS=		v13 v14
 SDESC[v13]=		HTML parser based on WHATWG specification (3.13)
+SDESC[v14]=		HTML parser based on WHATWG specification (3.14)
 HOMEPAGE=		https://github.com/html5lib/html5lib-python
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -15,13 +15,13 @@ SITES[main]=		PYPIWHL/6c/dd/a834df6482147d48e225a49515aabc28974ad5a4ca3215c18a88
 DISTFILE[1]=		html5lib-${PORTVERSION}-py2.py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
-SPKGS[v12]=		single
 SPKGS[v13]=		single
+SPKGS[v14]=		single
 
-OPTIONS_AVAILABLE=	PY312 PY313
+OPTIONS_AVAILABLE=	PY313 PY314
 OPTIONS_STANDARD=	none
-VOPTS[v12]=		PY312=ON PY313=OFF
-VOPTS[v13]=		PY312=OFF PY313=ON
+VOPTS[v13]=		PY313=ON PY314=OFF
+VOPTS[v14]=		PY313=OFF PY314=ON
 
 # License listed at PyPI
 # MIT License
@@ -39,10 +39,10 @@ DISTNAME=		html5lib-${PORTVERSION}.dist-info
 # genshi ; extra == 'genshi'
 # lxml ; (platform_python_implementation == 'CPython') and extra == 'lxml'
 
-[PY312].USES_ON=			python:v12,wheel
-[PY312].RUN_DEPENDS_ON=			python-six:single:v12
-					python-webencodings:single:v12
 [PY313].USES_ON=			python:v13,wheel
 [PY313].RUN_DEPENDS_ON=			python-six:single:v13
 					python-webencodings:single:v13
+[PY314].USES_ON=			python:v14,wheel
+[PY314].RUN_DEPENDS_ON=			python-six:single:v14
+					python-webencodings:single:v14
 

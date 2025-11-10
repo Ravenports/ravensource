@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.29
 NAMEBASE=		python-versioneer
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v12 v13
-SDESC[v12]=		VCS-based management of version strings (3.12)
+VARIANTS=		v13 v14
 SDESC[v13]=		VCS-based management of version strings (3.13)
+SDESC[v14]=		VCS-based management of version strings (3.14)
 HOMEPAGE=		https://github.com/python-versioneer/python-versioneer
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -15,13 +15,13 @@ SITES[main]=		PYPIWHL/b0/79/f0f1ca286b78f6f33c521a36b5cbd5bd697c0d66217d8856f443
 DISTFILE[1]=		versioneer-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
-SPKGS[v12]=		single
 SPKGS[v13]=		single
+SPKGS[v14]=		single
 
-OPTIONS_AVAILABLE=	PY312 PY313
+OPTIONS_AVAILABLE=	PY313 PY314
 OPTIONS_STANDARD=	none
-VOPTS[v12]=		PY312=ON PY313=OFF
-VOPTS[v13]=		PY312=OFF PY313=ON
+VOPTS[v13]=		PY313=ON PY314=OFF
+VOPTS[v14]=		PY313=OFF PY314=ON
 
 # License listed at PyPI
 # This is free and unencumbered software released into the public
@@ -49,6 +49,6 @@ DISTNAME=		versioneer-${PORTVERSION}.dist-info
 # Requires-Dist extracted from wheel metadata
 # tomli ; (python_version < "3.11") and extra == 'toml'
 
-[PY312].USES_ON=			python:v12,wheel
 [PY313].USES_ON=			python:v13,wheel
+[PY314].USES_ON=			python:v14,wheel
 

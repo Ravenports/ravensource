@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	1.5.1
 NAMEBASE=		python-asn1crypto
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v12 v13
-SDESC[v12]=		Performant ASN.1 handling library (3.12)
+VARIANTS=		v13 v14
 SDESC[v13]=		Performant ASN.1 handling library (3.13)
+SDESC[v14]=		Performant ASN.1 handling library (3.14)
 HOMEPAGE=		https://github.com/wbond/asn1crypto
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -15,13 +15,13 @@ SITES[main]=		PYPIWHL/c9/7f/09065fd9e27da0eda08b4d6897f1c13535066174cc023af248fc
 DISTFILE[1]=		asn1crypto-${PORTVERSION}-py2.py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
-SPKGS[v12]=		single
 SPKGS[v13]=		single
+SPKGS[v14]=		single
 
-OPTIONS_AVAILABLE=	PY312 PY313
+OPTIONS_AVAILABLE=	PY313 PY314
 OPTIONS_STANDARD=	none
-VOPTS[v12]=		PY312=ON PY313=OFF
-VOPTS[v13]=		PY312=OFF PY313=ON
+VOPTS[v13]=		PY313=ON PY314=OFF
+VOPTS[v14]=		PY313=OFF PY314=ON
 
 # License listed at PyPI
 # MIT
@@ -32,6 +32,6 @@ DISTNAME=		asn1crypto-${PORTVERSION}.dist-info
 # Requires-Dist extracted from wheel metadata
 
 
-[PY312].USES_ON=			python:v12,wheel
 [PY313].USES_ON=			python:v13,wheel
+[PY314].USES_ON=			python:v14,wheel
 

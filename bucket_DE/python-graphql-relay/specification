@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	3.2.0
 NAMEBASE=		python-graphql-relay
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v12 v13
-SDESC[v12]=		Relay library for graphql-core (3.12)
+VARIANTS=		v13 v14
 SDESC[v13]=		Relay library for graphql-core (3.13)
+SDESC[v14]=		Relay library for graphql-core (3.14)
 HOMEPAGE=		https://github.com/graphql-python/graphql-relay-py
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -15,13 +15,13 @@ SITES[main]=		PYPIWHL/74/16/a4cf06adbc711bd364a73ce043b0b08d8fa5aae3df11b6ee4248
 DISTFILE[1]=		graphql_relay-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
-SPKGS[v12]=		single
 SPKGS[v13]=		single
+SPKGS[v14]=		single
 
-OPTIONS_AVAILABLE=	PY312 PY313
+OPTIONS_AVAILABLE=	PY313 PY314
 OPTIONS_STANDARD=	none
-VOPTS[v12]=		PY312=ON PY313=OFF
-VOPTS[v13]=		PY312=OFF PY313=ON
+VOPTS[v13]=		PY313=ON PY314=OFF
+VOPTS[v14]=		PY313=OFF PY314=ON
 
 # License listed at PyPI
 # MIT
@@ -33,8 +33,8 @@ DISTNAME=		graphql_relay-${PORTVERSION}.dist-info
 # graphql-core (<3.3,>=3.2)
 # typing-extensions (<5,>=4.1) ; python_version < "3.8"
 
-[PY312].USES_ON=			python:v12,wheel
-[PY312].RUN_DEPENDS_ON=			python-graphql-core:single:v12
 [PY313].USES_ON=			python:v13,wheel
 [PY313].RUN_DEPENDS_ON=			python-graphql-core:single:v13
+[PY314].USES_ON=			python:v14,wheel
+[PY314].RUN_DEPENDS_ON=			python-graphql-core:single:v14
 

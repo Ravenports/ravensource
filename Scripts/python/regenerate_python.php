@@ -41,8 +41,8 @@ $truncated_summaries = array();
 $no_descriptions = array();
 $ravensource_directory = "";
 $DUO = array();
-$DUO["VA"] = array ("version" => 312, "variant" => "v12");   # single point of change when python
-$DUO["VB"] = array ("version" => 313, "variant" => "v13");   # series are changed in ravenports
+$DUO["VA"] = array ("version" => 313, "variant" => "v13");   # single point of change when python
+$DUO["VB"] = array ("version" => 314, "variant" => "v14");   # series are changed in ravenports
 $PYTHON_VERSION_A = -1;
 $PYTHON_VERSION_B = -1;
 

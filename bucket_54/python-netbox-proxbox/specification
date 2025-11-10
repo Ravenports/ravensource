@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.0.5
 NAMEBASE=		python-netbox-proxbox
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v12 v13
-SDESC[v12]=		Proxmox plugin for Netbox (3.12)
+VARIANTS=		v13 v14
 SDESC[v13]=		Proxmox plugin for Netbox (3.13)
+SDESC[v14]=		Proxmox plugin for Netbox (3.14)
 HOMEPAGE=		none
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -15,13 +15,13 @@ SITES[main]=		PYPIWHL/bc/11/cac736f66095ca8bc958e596b33b0865aa9c8bc8aa69b6aa2f79
 DISTFILE[1]=		netbox_proxbox-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
-SPKGS[v12]=		single
 SPKGS[v13]=		single
+SPKGS[v14]=		single
 
-OPTIONS_AVAILABLE=	PY312 PY313
+OPTIONS_AVAILABLE=	PY313 PY314
 OPTIONS_STANDARD=	none
-VOPTS[v12]=		PY312=ON PY313=OFF
-VOPTS[v13]=		PY312=OFF PY313=ON
+VOPTS[v13]=		PY313=ON PY314=OFF
+VOPTS[v14]=		PY313=OFF PY314=ON
 
 # License listed at PyPI
 # Apache-2.0
@@ -33,10 +33,10 @@ DISTNAME=		netbox_proxbox-${PORTVERSION}.dist-info
 # proxmoxer (>=2.0.1,<3.0.0)
 # pynetbox (>=7.0.1,<8.0.0)
 
-[PY312].USES_ON=			python:v12,wheel
-[PY312].RUN_DEPENDS_ON=			python-proxmoxer:single:v12
-					python-pynetbox:single:v12
 [PY313].USES_ON=			python:v13,wheel
 [PY313].RUN_DEPENDS_ON=			python-proxmoxer:single:v13
 					python-pynetbox:single:v13
+[PY314].USES_ON=			python:v14,wheel
+[PY314].RUN_DEPENDS_ON=			python-proxmoxer:single:v14
+					python-pynetbox:single:v14
 

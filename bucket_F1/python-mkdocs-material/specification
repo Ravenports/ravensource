@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	9.6.23
 NAMEBASE=		python-mkdocs-material
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v12 v13
-SDESC[v12]=		Documentation that simply works (3.12)
+VARIANTS=		v13 v14
 SDESC[v13]=		Documentation that simply works (3.13)
+SDESC[v14]=		Documentation that simply works (3.14)
 HOMEPAGE=		https://github.com/squidfunk/mkdocs-material
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -15,13 +15,13 @@ SITES[main]=		PYPIWHL/f5/df/bc583e857174b0dc6df67d555123533f09e7e1ac0f3fae7693fb
 DISTFILE[1]=		mkdocs_material-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
-SPKGS[v12]=		single
 SPKGS[v13]=		single
+SPKGS[v14]=		single
 
-OPTIONS_AVAILABLE=	PY312 PY313
+OPTIONS_AVAILABLE=	PY313 PY314
 OPTIONS_STANDARD=	none
-VOPTS[v12]=		PY312=ON PY313=OFF
-VOPTS[v13]=		PY312=OFF PY313=ON
+VOPTS[v13]=		PY313=ON PY314=OFF
+VOPTS[v14]=		PY313=OFF PY314=ON
 
 # License listed at PyPI
 # Not provided.
@@ -49,18 +49,6 @@ DISTNAME=		mkdocs_material-${PORTVERSION}.dist-info
 # mkdocs-redirects~=1.2; extra == 'recommended'
 # mkdocs-rss-plugin~=1.6; extra == 'recommended'
 
-[PY312].USES_ON=			python:v12,wheel
-[PY312].RUN_DEPENDS_ON=			python-Babel:single:v12
-					python-backrefs:single:v12
-					python-colorama:single:v12
-					python-Jinja2:single:v12
-					python-Markdown:single:v12
-					python-mkdocs-material-extensions:single:v12
-					python-mkdocs:single:v12
-					python-paginate:single:v12
-					python-Pygments:single:v12
-					python-pymdown-extensions:single:v12
-					python-requests:single:v12
 [PY313].USES_ON=			python:v13,wheel
 [PY313].RUN_DEPENDS_ON=			python-Babel:single:v13
 					python-backrefs:single:v13
@@ -73,4 +61,16 @@ DISTNAME=		mkdocs_material-${PORTVERSION}.dist-info
 					python-Pygments:single:v13
 					python-pymdown-extensions:single:v13
 					python-requests:single:v13
+[PY314].USES_ON=			python:v14,wheel
+[PY314].RUN_DEPENDS_ON=			python-Babel:single:v14
+					python-backrefs:single:v14
+					python-colorama:single:v14
+					python-Jinja2:single:v14
+					python-Markdown:single:v14
+					python-mkdocs-material-extensions:single:v14
+					python-mkdocs:single:v14
+					python-paginate:single:v14
+					python-Pygments:single:v14
+					python-pymdown-extensions:single:v14
+					python-requests:single:v14
 

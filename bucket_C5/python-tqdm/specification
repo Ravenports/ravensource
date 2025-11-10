@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	4.67.1
 NAMEBASE=		python-tqdm
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v12 v13
-SDESC[v12]=		Fast, Extensible Progress Meter (3.12)
+VARIANTS=		v13 v14
 SDESC[v13]=		Fast, Extensible Progress Meter (3.13)
+SDESC[v14]=		Fast, Extensible Progress Meter (3.14)
 HOMEPAGE=		https://tqdm.github.io
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -15,13 +15,13 @@ SITES[main]=		PYPIWHL/d0/30/dc54f88dd4a2b5dc8a0279bdd7270e735851848b762aeb1c1184
 DISTFILE[1]=		tqdm-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
-SPKGS[v12]=		single
 SPKGS[v13]=		single
+SPKGS[v14]=		single
 
-OPTIONS_AVAILABLE=	PY312 PY313
+OPTIONS_AVAILABLE=	PY313 PY314
 OPTIONS_STANDARD=	none
-VOPTS[v12]=		PY312=ON PY313=OFF
-VOPTS[v13]=		PY312=OFF PY313=ON
+VOPTS[v13]=		PY313=ON PY314=OFF
+VOPTS[v14]=		PY313=OFF PY314=ON
 
 # License listed at PyPI
 # MPL-2.0 AND MIT
@@ -41,6 +41,6 @@ DISTNAME=		tqdm-${PORTVERSION}.dist-info
 # requests; extra == "telegram"
 # ipywidgets>=6; extra == "notebook"
 
-[PY312].USES_ON=			python:v12,wheel
 [PY313].USES_ON=			python:v13,wheel
+[PY314].USES_ON=			python:v14,wheel
 

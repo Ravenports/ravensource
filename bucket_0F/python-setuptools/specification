@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	80.9.0
 NAMEBASE=		python-setuptools
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v12 v13
-SDESC[v12]=		Python package development process library (3.12)
+VARIANTS=		v13 v14
 SDESC[v13]=		Python package development process library (3.13)
+SDESC[v14]=		Python package development process library (3.14)
 HOMEPAGE=		https://github.com/pypa/setuptools
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -15,13 +15,13 @@ SITES[main]=		PYPIWHL/a3/dc/17031897dae0efacfea57dfd3a82fdd2a2aeb58e0ff71b77b87e
 DISTFILE[1]=		setuptools-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
-SPKGS[v12]=		single
 SPKGS[v13]=		single
+SPKGS[v14]=		single
 
-OPTIONS_AVAILABLE=	PY312 PY313
+OPTIONS_AVAILABLE=	PY313 PY314
 OPTIONS_STANDARD=	none
-VOPTS[v12]=		PY312=ON PY313=OFF
-VOPTS[v13]=		PY312=OFF PY313=ON
+VOPTS[v13]=		PY313=ON PY314=OFF
+VOPTS[v14]=		PY313=OFF PY314=ON
 
 # License listed at PyPI
 # Not provided.
@@ -82,8 +82,8 @@ DISTNAME=		setuptools-${PORTVERSION}.dist-info
 # importlib_metadata>=7.0.2; python_version < "3.10" and extra == "type"
 # jaraco.develop>=7.21; sys_platform != "cygwin" and extra == "type"
 
-[PY312].USES_ON=			python:v12,wheel
 [PY313].USES_ON=			python:v13,wheel
+[PY314].USES_ON=			python:v14,wheel
 
 USES=			cpe
 CPE_VENDOR=		python

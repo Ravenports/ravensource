@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	21.0.0
 NAMEBASE=		python-hyperlink
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v12 v13
-SDESC[v12]=		Featureful, immutable, and correct URL (3.12)
+VARIANTS=		v13 v14
 SDESC[v13]=		Featureful, immutable, and correct URL (3.13)
+SDESC[v14]=		Featureful, immutable, and correct URL (3.14)
 HOMEPAGE=		https://github.com/python-hyper/hyperlink
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -15,13 +15,13 @@ SITES[main]=		PYPIWHL/6e/aa/8caf6a0a3e62863cbb9dab27135660acba46903b703e224f14f4
 DISTFILE[1]=		hyperlink-${PORTVERSION}-py2.py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
-SPKGS[v12]=		single
 SPKGS[v13]=		single
+SPKGS[v14]=		single
 
-OPTIONS_AVAILABLE=	PY312 PY313
+OPTIONS_AVAILABLE=	PY313 PY314
 OPTIONS_STANDARD=	none
-VOPTS[v12]=		PY312=ON PY313=OFF
-VOPTS[v13]=		PY312=OFF PY313=ON
+VOPTS[v13]=		PY313=ON PY314=OFF
+VOPTS[v14]=		PY313=OFF PY314=ON
 
 # License listed at PyPI
 # MIT
@@ -33,8 +33,8 @@ DISTNAME=		hyperlink-${PORTVERSION}.dist-info
 # idna (>=2.5)
 # typing ; python_version < "3.5"
 
-[PY312].USES_ON=			python:v12,wheel
-[PY312].RUN_DEPENDS_ON=			python-idna:single:v12
 [PY313].USES_ON=			python:v13,wheel
 [PY313].RUN_DEPENDS_ON=			python-idna:single:v13
+[PY314].USES_ON=			python:v14,wheel
+[PY314].RUN_DEPENDS_ON=			python-idna:single:v14
 

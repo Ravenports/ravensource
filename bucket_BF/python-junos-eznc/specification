@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	2.7.5
 NAMEBASE=		python-junos-eznc
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v12 v13
-SDESC[v12]=		Junos 'EZ' automation for non-programmers (3.12)
+VARIANTS=		v13 v14
 SDESC[v13]=		Junos 'EZ' automation for non-programmers (3.13)
+SDESC[v14]=		Junos 'EZ' automation for non-programmers (3.14)
 HOMEPAGE=		https://www.github.com/Juniper/py-junos-eznc
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -15,13 +15,13 @@ SITES[main]=		PYPIWHL/46/3c/36a0a265c920e478cec88faab97169cbc39d5d67822fcbd63eed
 DISTFILE[1]=		junos_eznc-${PORTVERSION}-py2.py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
-SPKGS[v12]=		single
 SPKGS[v13]=		single
+SPKGS[v14]=		single
 
-OPTIONS_AVAILABLE=	PY312 PY313
+OPTIONS_AVAILABLE=	PY313 PY314
 OPTIONS_STANDARD=	none
-VOPTS[v12]=		PY312=ON PY313=OFF
-VOPTS[v13]=		PY312=OFF PY313=ON
+VOPTS[v13]=		PY313=ON PY314=OFF
+VOPTS[v14]=		PY313=OFF PY314=ON
 
 # License listed at PyPI
 # Apache 2.0
@@ -42,18 +42,6 @@ DISTNAME=		junos_eznc-${PORTVERSION}.dist-info
 # pyparsing
 # transitions
 
-[PY312].USES_ON=			python:v12,wheel
-[PY312].RUN_DEPENDS_ON=			python-lxml:single:v12
-					python-ncclient:single:v12
-					python-scp:single:v12
-					python-Jinja2:single:v12
-					python-PyYAML:single:v12
-					python-paramiko:single:v12
-					python-six:single:v12
-					python-pyserial:single:v12
-					python-yamlordereddictloader:single:v12
-					python-pyparsing:single:v12
-					python-transitions:single:v12
 [PY313].USES_ON=			python:v13,wheel
 [PY313].RUN_DEPENDS_ON=			python-lxml:single:v13
 					python-ncclient:single:v13
@@ -66,4 +54,16 @@ DISTNAME=		junos_eznc-${PORTVERSION}.dist-info
 					python-yamlordereddictloader:single:v13
 					python-pyparsing:single:v13
 					python-transitions:single:v13
+[PY314].USES_ON=			python:v14,wheel
+[PY314].RUN_DEPENDS_ON=			python-lxml:single:v14
+					python-ncclient:single:v14
+					python-scp:single:v14
+					python-Jinja2:single:v14
+					python-PyYAML:single:v14
+					python-paramiko:single:v14
+					python-six:single:v14
+					python-pyserial:single:v14
+					python-yamlordereddictloader:single:v14
+					python-pyparsing:single:v14
+					python-transitions:single:v14
 

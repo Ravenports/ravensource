@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	2.4.0
 NAMEBASE=		python-django-solo
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v12 v13
-SDESC[v12]=		Djanjo manipulator of database singletons (3.12)
+VARIANTS=		v13 v14
 SDESC[v13]=		Djanjo manipulator of database singletons (3.13)
+SDESC[v14]=		Djanjo manipulator of database singletons (3.14)
 HOMEPAGE=		https://github.com/lazybird/django-solo/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -15,13 +15,13 @@ SITES[main]=		PYPIWHL/c3/3a/c5332bb9d3d58e2b6b7ed2a4c09ea2b0b1a8e3c5fe9d8169c086
 DISTFILE[1]=		django_solo-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
-SPKGS[v12]=		single
 SPKGS[v13]=		single
+SPKGS[v14]=		single
 
-OPTIONS_AVAILABLE=	PY312 PY313
+OPTIONS_AVAILABLE=	PY313 PY314
 OPTIONS_STANDARD=	none
-VOPTS[v12]=		PY312=ON PY313=OFF
-VOPTS[v13]=		PY312=OFF PY313=ON
+VOPTS[v13]=		PY313=ON PY314=OFF
+VOPTS[v14]=		PY313=OFF PY314=ON
 
 # License listed at PyPI
 # Creative Commons Attribution 3.0 Unported
@@ -33,8 +33,8 @@ DISTNAME=		django_solo-${PORTVERSION}.dist-info
 # django >=4.2
 # typing-extensions >=4.0.1 ; python_version < "3.11"
 
-[PY312].USES_ON=			python:v12,wheel
-[PY312].RUN_DEPENDS_ON=			python-Django:single:v12
 [PY313].USES_ON=			python:v13,wheel
 [PY313].RUN_DEPENDS_ON=			python-Django:single:v13
+[PY314].USES_ON=			python:v14,wheel
+[PY314].RUN_DEPENDS_ON=			python-Django:single:v14
 

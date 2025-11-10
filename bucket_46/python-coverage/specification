@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	7.11.3
 NAMEBASE=		python-coverage
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v12 v13
-SDESC[v12]=		Code coverage measurement for Python (3.12)
+VARIANTS=		v13 v14
 SDESC[v13]=		Code coverage measurement for Python (3.13)
+SDESC[v14]=		Code coverage measurement for Python (3.14)
 HOMEPAGE=		https://github.com/coveragepy/coveragepy
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -15,13 +15,13 @@ SITES[main]=		PYPIWHL/19/8f/92bdd27b067204b99f396a1414d6342122f3e2663459baf78710
 DISTFILE[1]=		coverage-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
-SPKGS[v12]=		single
 SPKGS[v13]=		single
+SPKGS[v14]=		single
 
-OPTIONS_AVAILABLE=	PY312 PY313
+OPTIONS_AVAILABLE=	PY313 PY314
 OPTIONS_STANDARD=	none
-VOPTS[v12]=		PY312=ON PY313=OFF
-VOPTS[v13]=		PY312=OFF PY313=ON
+VOPTS[v13]=		PY313=ON PY314=OFF
+VOPTS[v14]=		PY313=OFF PY314=ON
 
 # License listed at PyPI
 # Apache-2.0
@@ -32,6 +32,6 @@ DISTNAME=		coverage-${PORTVERSION}.dist-info
 # Requires-Dist extracted from wheel metadata
 # tomli; python_full_version <= "3.11.0a6" and extra == "toml"
 
-[PY312].USES_ON=			python:v12,wheel
 [PY313].USES_ON=			python:v13,wheel
+[PY314].USES_ON=			python:v14,wheel
 

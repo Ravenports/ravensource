@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.3.0
 NAMEBASE=		python-click-repl
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v12 v13
-SDESC[v12]=		REPL plugin for Click (3.12)
+VARIANTS=		v13 v14
 SDESC[v13]=		REPL plugin for Click (3.13)
+SDESC[v14]=		REPL plugin for Click (3.14)
 HOMEPAGE=		https://github.com/untitaker/click-repl
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -15,13 +15,13 @@ SITES[main]=		PYPIWHL/52/40/9d857001228658f0d59e97ebd4c346fe73e138c6de1bce61dc56
 DISTFILE[1]=		click_repl-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
-SPKGS[v12]=		single
 SPKGS[v13]=		single
+SPKGS[v14]=		single
 
-OPTIONS_AVAILABLE=	PY312 PY313
+OPTIONS_AVAILABLE=	PY313 PY314
 OPTIONS_STANDARD=	none
-VOPTS[v12]=		PY312=ON PY313=OFF
-VOPTS[v13]=		PY312=OFF PY313=ON
+VOPTS[v13]=		PY313=ON PY314=OFF
+VOPTS[v14]=		PY313=OFF PY314=ON
 
 # License listed at PyPI
 # MIT
@@ -36,10 +36,10 @@ DISTNAME=		click_repl-${PORTVERSION}.dist-info
 # pytest (>=7.2.1) ; extra == 'testing'
 # tox (>=4.4.3) ; extra == 'testing'
 
-[PY312].USES_ON=			python:v12,wheel
-[PY312].RUN_DEPENDS_ON=			python-click:single:v12
-					python-prompt-toolkit:single:v12
 [PY313].USES_ON=			python:v13,wheel
 [PY313].RUN_DEPENDS_ON=			python-click:single:v13
 					python-prompt-toolkit:single:v13
+[PY314].USES_ON=			python:v14,wheel
+[PY314].RUN_DEPENDS_ON=			python-click:single:v14
+					python-prompt-toolkit:single:v14
 

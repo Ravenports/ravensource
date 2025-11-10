@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	1.2
 NAMEBASE=		python-setuptools-git
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v12 v13
-SDESC[v12]=		Revision control system plugin for Git (3.12)
+VARIANTS=		v13 v14
 SDESC[v13]=		Revision control system plugin for Git (3.13)
+SDESC[v14]=		Revision control system plugin for Git (3.14)
 HOMEPAGE=		https://github.com/msabramo/setuptools-git
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -15,13 +15,13 @@ SITES[main]=		PYPIWHL/05/97/dd99fa9c0d9627a7b3c103a00f1566d8193aca8d473884ed258c
 DISTFILE[1]=		setuptools_git-${PORTVERSION}-py2.py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
-SPKGS[v12]=		single
 SPKGS[v13]=		single
+SPKGS[v14]=		single
 
-OPTIONS_AVAILABLE=	PY312 PY313
+OPTIONS_AVAILABLE=	PY313 PY314
 OPTIONS_STANDARD=	none
-VOPTS[v12]=		PY312=ON PY313=OFF
-VOPTS[v13]=		PY312=OFF PY313=ON
+VOPTS[v13]=		PY313=ON PY314=OFF
+VOPTS[v14]=		PY313=OFF PY314=ON
 
 # License listed at PyPI
 # BSD
@@ -32,6 +32,6 @@ DISTNAME=		setuptools_git-${PORTVERSION}.dist-info
 # Requires-Dist extracted from wheel metadata
 
 
-[PY312].USES_ON=			python:v12,wheel
 [PY313].USES_ON=			python:v13,wheel
+[PY314].USES_ON=			python:v14,wheel
 

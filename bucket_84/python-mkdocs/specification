@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	1.6.1
 NAMEBASE=		python-mkdocs
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v12 v13
-SDESC[v12]=		Project documentation with Markdown (3.12)
+VARIANTS=		v13 v14
 SDESC[v13]=		Project documentation with Markdown (3.13)
+SDESC[v14]=		Project documentation with Markdown (3.14)
 HOMEPAGE=		https://github.com/mkdocs/mkdocs
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -15,13 +15,13 @@ SITES[main]=		PYPIWHL/22/5b/dbc6a8cddc9cfa9c4971d59fb12bb8d42e161b7e7f8cc89e4913
 DISTFILE[1]=		mkdocs-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
-SPKGS[v12]=		single
 SPKGS[v13]=		single
+SPKGS[v14]=		single
 
-OPTIONS_AVAILABLE=	PY312 PY313
+OPTIONS_AVAILABLE=	PY313 PY314
 OPTIONS_STANDARD=	none
-VOPTS[v12]=		PY312=ON PY313=OFF
-VOPTS[v13]=		PY312=OFF PY313=ON
+VOPTS[v13]=		PY313=ON PY314=OFF
+VOPTS[v14]=		PY313=OFF PY314=ON
 
 # License listed at PyPI
 # Not provided.
@@ -61,19 +61,6 @@ DISTNAME=		mkdocs-${PORTVERSION}.dist-info
 # pyyaml==5.1; extra == 'min-versions'
 # watchdog==2.0; extra == 'min-versions'
 
-[PY312].USES_ON=			python:v12,wheel
-[PY312].RUN_DEPENDS_ON=			python-click:single:v12
-					python-ghp-import:single:v12
-					python-Jinja2:single:v12
-					python-Markdown:single:v12
-					python-MarkupSafe:single:v12
-					python-mergedeep:single:v12
-					python-mkdocs-get-deps:single:v12
-					python-packaging:single:v12
-					python-pathspec:single:v12
-					python-pyyaml-env-tag:single:v12
-					python-PyYAML:single:v12
-					python-watchdog:single:v12
 [PY313].USES_ON=			python:v13,wheel
 [PY313].RUN_DEPENDS_ON=			python-click:single:v13
 					python-ghp-import:single:v13
@@ -87,4 +74,17 @@ DISTNAME=		mkdocs-${PORTVERSION}.dist-info
 					python-pyyaml-env-tag:single:v13
 					python-PyYAML:single:v13
 					python-watchdog:single:v13
+[PY314].USES_ON=			python:v14,wheel
+[PY314].RUN_DEPENDS_ON=			python-click:single:v14
+					python-ghp-import:single:v14
+					python-Jinja2:single:v14
+					python-Markdown:single:v14
+					python-MarkupSafe:single:v14
+					python-mergedeep:single:v14
+					python-mkdocs-get-deps:single:v14
+					python-packaging:single:v14
+					python-pathspec:single:v14
+					python-pyyaml-env-tag:single:v14
+					python-PyYAML:single:v14
+					python-watchdog:single:v14
 

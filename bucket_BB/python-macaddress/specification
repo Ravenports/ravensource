@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	2.0.2
 NAMEBASE=		python-macaddress
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v12 v13
-SDESC[v12]=		MAC hardware identifier module (3.12)
+VARIANTS=		v13 v14
 SDESC[v13]=		MAC hardware identifier module (3.13)
+SDESC[v14]=		MAC hardware identifier module (3.14)
 HOMEPAGE=		https://github.com/mentalisttraceur/python-macaddress
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -15,13 +15,13 @@ SITES[main]=		PYPIWHL/6e/40/cfad5b515667b0465a3169757b5c9f17639dc1da145c65248e5b
 DISTFILE[1]=		macaddress-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
-SPKGS[v12]=		single
 SPKGS[v13]=		single
+SPKGS[v14]=		single
 
-OPTIONS_AVAILABLE=	PY312 PY313
+OPTIONS_AVAILABLE=	PY313 PY314
 OPTIONS_STANDARD=	none
-VOPTS[v12]=		PY312=ON PY313=OFF
-VOPTS[v13]=		PY312=OFF PY313=ON
+VOPTS[v13]=		PY313=ON PY314=OFF
+VOPTS[v14]=		PY313=OFF PY314=ON
 
 # License listed at PyPI
 # 0BSD
@@ -32,6 +32,6 @@ DISTNAME=		macaddress-${PORTVERSION}.dist-info
 # Requires-Dist extracted from wheel metadata
 
 
-[PY312].USES_ON=			python:v12,wheel
 [PY313].USES_ON=			python:v13,wheel
+[PY314].USES_ON=			python:v14,wheel
 

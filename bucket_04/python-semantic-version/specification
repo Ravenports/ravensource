@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	2.10.0
 NAMEBASE=		python-semantic-version
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v12 v13
-SDESC[v12]=		Library implementing the 'SemVer' scheme (3.12)
+VARIANTS=		v13 v14
 SDESC[v13]=		Library implementing the 'SemVer' scheme (3.13)
+SDESC[v14]=		Library implementing the 'SemVer' scheme (3.14)
 HOMEPAGE=		https://github.com/rbarrois/python-semanticversion
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -15,13 +15,13 @@ SITES[main]=		PYPIWHL/6a/23/8146aad7d88f4fcb3a6218f41a60f6c2d4e3a72de72da1825dc7
 DISTFILE[1]=		semantic_version-${PORTVERSION}-py2.py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
-SPKGS[v12]=		single
 SPKGS[v13]=		single
+SPKGS[v14]=		single
 
-OPTIONS_AVAILABLE=	PY312 PY313
+OPTIONS_AVAILABLE=	PY313 PY314
 OPTIONS_STANDARD=	none
-VOPTS[v12]=		PY312=ON PY313=OFF
-VOPTS[v13]=		PY312=OFF PY313=ON
+VOPTS[v13]=		PY313=ON PY314=OFF
+VOPTS[v14]=		PY313=OFF PY314=ON
 
 # License listed at PyPI
 # BSD
@@ -43,6 +43,6 @@ DISTNAME=		semantic_version-${PORTVERSION}.dist-info
 # Sphinx ; extra == 'doc'
 # sphinx-rtd-theme ; extra == 'doc'
 
-[PY312].USES_ON=			python:v12,wheel
 [PY313].USES_ON=			python:v13,wheel
+[PY314].USES_ON=			python:v14,wheel
 

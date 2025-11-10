@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	5.2.0
 NAMEBASE=		python-chardet
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v12 v13
-SDESC[v12]=		Universal character encoding detector (3.12)
+VARIANTS=		v13 v14
 SDESC[v13]=		Universal character encoding detector (3.13)
+SDESC[v14]=		Universal character encoding detector (3.14)
 HOMEPAGE=		https://github.com/chardet/chardet
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -15,13 +15,13 @@ SITES[main]=		PYPIWHL/38/6f/f5fbc992a329ee4e0f288c1fe0e2ad9485ed064cac731ed2fe47
 DISTFILE[1]=		chardet-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
-SPKGS[v12]=		single
 SPKGS[v13]=		single
+SPKGS[v14]=		single
 
-OPTIONS_AVAILABLE=	PY312 PY313
+OPTIONS_AVAILABLE=	PY313 PY314
 OPTIONS_STANDARD=	none
-VOPTS[v12]=		PY312=ON PY313=OFF
-VOPTS[v13]=		PY312=OFF PY313=ON
+VOPTS[v13]=		PY313=ON PY314=OFF
+VOPTS[v14]=		PY313=OFF PY314=ON
 
 # License listed at PyPI
 # LGPL
@@ -32,6 +32,6 @@ DISTNAME=		chardet-${PORTVERSION}.dist-info
 # Requires-Dist extracted from wheel metadata
 
 
-[PY312].USES_ON=			python:v12,wheel
 [PY313].USES_ON=			python:v13,wheel
+[PY314].USES_ON=			python:v14,wheel
 

@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.2.0
 NAMEBASE=		python-mkdocs-get-deps
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v12 v13
-SDESC[v12]=		List dependencies from by mydocs.yml file (3.12)
+VARIANTS=		v13 v14
 SDESC[v13]=		List dependencies from by mydocs.yml file (3.13)
+SDESC[v14]=		List dependencies from by mydocs.yml file (3.14)
 HOMEPAGE=		https://github.com/mkdocs/get-deps
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -15,13 +15,13 @@ SITES[main]=		PYPIWHL/9f/d4/029f984e8d3f3b6b726bd33cafc473b75e9e44c0f7e80a5b29ab
 DISTFILE[1]=		mkdocs_get_deps-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
-SPKGS[v12]=		single
 SPKGS[v13]=		single
+SPKGS[v14]=		single
 
-OPTIONS_AVAILABLE=	PY312 PY313
+OPTIONS_AVAILABLE=	PY313 PY314
 OPTIONS_STANDARD=	none
-VOPTS[v12]=		PY312=ON PY313=OFF
-VOPTS[v13]=		PY312=OFF PY313=ON
+VOPTS[v13]=		PY313=ON PY314=OFF
+VOPTS[v14]=		PY313=OFF PY314=ON
 
 # License listed at PyPI
 # Not provided.
@@ -35,12 +35,12 @@ DISTNAME=		mkdocs_get_deps-${PORTVERSION}.dist-info
 # platformdirs>=2.2.0
 # pyyaml>=5.1
 
-[PY312].USES_ON=			python:v12,wheel
-[PY312].RUN_DEPENDS_ON=			python-mergedeep:single:v12
-					python-platformdirs:single:v12
-					python-PyYAML:single:v12
 [PY313].USES_ON=			python:v13,wheel
 [PY313].RUN_DEPENDS_ON=			python-mergedeep:single:v13
 					python-platformdirs:single:v13
 					python-PyYAML:single:v13
+[PY314].USES_ON=			python:v14,wheel
+[PY314].RUN_DEPENDS_ON=			python-mergedeep:single:v14
+					python-platformdirs:single:v14
+					python-PyYAML:single:v14
 

@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	2.12.4
 NAMEBASE=		python-pydantic
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v12 v13
-SDESC[v12]=		Data validation using Python type hints (3.12)
+VARIANTS=		v13 v14
 SDESC[v13]=		Data validation using Python type hints (3.13)
+SDESC[v14]=		Data validation using Python type hints (3.14)
 HOMEPAGE=		https://github.com/pydantic/pydantic
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -15,13 +15,13 @@ SITES[main]=		PYPIWHL/82/2f/e68750da9b04856e2a7ec56fc6f034a5a79775e9b9a818822527
 DISTFILE[1]=		pydantic-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
-SPKGS[v12]=		single
 SPKGS[v13]=		single
+SPKGS[v14]=		single
 
-OPTIONS_AVAILABLE=	PY312 PY313
+OPTIONS_AVAILABLE=	PY313 PY314
 OPTIONS_STANDARD=	none
-VOPTS[v12]=		PY312=ON PY313=OFF
-VOPTS[v13]=		PY312=OFF PY313=ON
+VOPTS[v13]=		PY313=ON PY314=OFF
+VOPTS[v14]=		PY313=OFF PY314=ON
 
 # License listed at PyPI
 # Not provided.
@@ -37,16 +37,16 @@ DISTNAME=		pydantic-${PORTVERSION}.dist-info
 # email-validator>=2.0.0; extra == 'email'
 # tzdata; (python_version >= '3.9' and platform_system == 'Windows') and extra == 'timezone'
 
-[PY312].USES_ON=			python:v12,wheel
-[PY312].RUN_DEPENDS_ON=			python-annotated-types:single:v12
-					python-pydantic-core:single:v12
-					python-typing-extensions:single:v12
-					python-typing-inspection:single:v12
 [PY313].USES_ON=			python:v13,wheel
 [PY313].RUN_DEPENDS_ON=			python-annotated-types:single:v13
 					python-pydantic-core:single:v13
 					python-typing-extensions:single:v13
 					python-typing-inspection:single:v13
+[PY314].USES_ON=			python:v14,wheel
+[PY314].RUN_DEPENDS_ON=			python-annotated-types:single:v14
+					python-pydantic-core:single:v14
+					python-typing-extensions:single:v14
+					python-typing-inspection:single:v14
 
 USES=			cpe
 CPE_VENDOR=		pydantic_project

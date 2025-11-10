@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.4.1
 NAMEBASE=		python-propcache
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v12 v13
-SDESC[v12]=		Accelerated property cache (3.12)
+VARIANTS=		v13 v14
 SDESC[v13]=		Accelerated property cache (3.13)
+SDESC[v14]=		Accelerated property cache (3.14)
 HOMEPAGE=		https://github.com/aio-libs/propcache
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -15,13 +15,13 @@ SITES[main]=		PYPIWHL/5b/5a/bc7b4a4ef808fa59a816c17b20c4bef6884daebbdf627ff2a161
 DISTFILE[1]=		propcache-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
-SPKGS[v12]=		single
 SPKGS[v13]=		single
+SPKGS[v14]=		single
 
-OPTIONS_AVAILABLE=	PY312 PY313
+OPTIONS_AVAILABLE=	PY313 PY314
 OPTIONS_STANDARD=	none
-VOPTS[v12]=		PY312=ON PY313=OFF
-VOPTS[v13]=		PY312=OFF PY313=ON
+VOPTS[v13]=		PY313=ON PY314=OFF
+VOPTS[v14]=		PY313=OFF PY314=ON
 
 # License listed at PyPI
 # Apache-2.0
@@ -32,6 +32,6 @@ DISTNAME=		propcache-${PORTVERSION}.dist-info
 # Requires-Dist extracted from wheel metadata
 
 
-[PY312].USES_ON=			python:v12,wheel
 [PY313].USES_ON=			python:v13,wheel
+[PY314].USES_ON=			python:v14,wheel
 

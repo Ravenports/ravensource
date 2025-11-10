@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	1.3.0
 NAMEBASE=		python-backports.entry-points-selectable
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v12 v13
-SDESC[v12]=		Compatibility shim for importlib_metadata (3.12)
+VARIANTS=		v13 v14
 SDESC[v13]=		Compatibility shim for importlib_metadata (3.13)
+SDESC[v14]=		Compatibility shim for importlib_metadata (3.14)
 HOMEPAGE=		https://github.com/jaraco/backports.entry_points_selectable
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -15,13 +15,13 @@ SITES[main]=		PYPIWHL/5a/78/b3ba5d804ae21e26e6179bbe4e1338deaaba9d20161918f59e20
 DISTFILE[1]=		backports.entry_points_selectable-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
-SPKGS[v12]=		single
 SPKGS[v13]=		single
+SPKGS[v14]=		single
 
-OPTIONS_AVAILABLE=	PY312 PY313
+OPTIONS_AVAILABLE=	PY313 PY314
 OPTIONS_STANDARD=	none
-VOPTS[v12]=		PY312=ON PY313=OFF
-VOPTS[v13]=		PY312=OFF PY313=ON
+VOPTS[v13]=		PY313=ON PY314=OFF
+VOPTS[v14]=		PY313=OFF PY314=ON
 
 # License listed at PyPI
 # Not provided.
@@ -45,6 +45,6 @@ DISTNAME=		backports.entry_points_selectable-${PORTVERSION}.dist-info
 # pytest-black >=0.3.7 ; (platform_python_implementation != "PyPy") and extra == 'testing'
 # pytest-mypy >=0.9.1 ; (platform_python_implementation != "PyPy") and extra == 'testing'
 
-[PY312].USES_ON=			python:v12,wheel
 [PY313].USES_ON=			python:v13,wheel
+[PY314].USES_ON=			python:v14,wheel
 

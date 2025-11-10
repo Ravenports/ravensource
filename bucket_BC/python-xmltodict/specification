@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	1.0.2
 NAMEBASE=		python-xmltodict
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v12 v13
-SDESC[v12]=		Makes XML feel like JSON (3.12)
+VARIANTS=		v13 v14
 SDESC[v13]=		Makes XML feel like JSON (3.13)
+SDESC[v14]=		Makes XML feel like JSON (3.14)
 HOMEPAGE=		https://github.com/martinblech/xmltodict
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -15,13 +15,13 @@ SITES[main]=		PYPIWHL/c0/20/69a0e6058bc5ea74892d089d64dfc3a62ba78917ec5e2cfa70f7
 DISTFILE[1]=		xmltodict-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
-SPKGS[v12]=		single
 SPKGS[v13]=		single
+SPKGS[v14]=		single
 
-OPTIONS_AVAILABLE=	PY312 PY313
+OPTIONS_AVAILABLE=	PY313 PY314
 OPTIONS_STANDARD=	none
-VOPTS[v12]=		PY312=ON PY313=OFF
-VOPTS[v13]=		PY312=OFF PY313=ON
+VOPTS[v13]=		PY313=ON PY314=OFF
+VOPTS[v14]=		PY313=OFF PY314=ON
 
 # License listed at PyPI
 # Copyright (C) 2012 Martin Blech and individual contributors.
@@ -49,6 +49,6 @@ DISTNAME=		xmltodict-${PORTVERSION}.dist-info
 # pytest; extra == "test"
 # pytest-cov; extra == "test"
 
-[PY312].USES_ON=			python:v12,wheel
 [PY313].USES_ON=			python:v13,wheel
+[PY314].USES_ON=			python:v14,wheel
 
