@@ -3,8 +3,11 @@
 # Feature:		ninja
 # Usage:		USES=ninja
 #
-# Ravenadm sets ninja:single:std
-#
+# ------------------------------------------------------
+# Incorporated in ravenadm
+# ------------------------------------------------------
+# BUILD_DEPENDS+=   ninja:single:python_used
+# ------------------------------------------------------
 
 .if !defined(_INCLUDE_USES_NINJA_MK)
 _INCLUDE_USES_NINJA_MK=	yes
