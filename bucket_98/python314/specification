@@ -1,0 +1,149 @@
+DEF[PORTVERSION]=	EXTRACT_VERSION(PYTHON_3.14_VERSION)
+DEF[PIP_VER]=		EXTRACT_VERSION(PIP_3.14_VERSION)
+DEF[PYTHON_VER]=	${PORTVERSION:R}
+DEF[PYTHON_VERSION]=	python${PYTHON_VER}
+DEF[PYTHON_SUFFIX]=	${PYTHON_VER:S/.//g}
+DEF[PYTHON_SUFFIX2]=	${PYTHON_VER:S/3.//}
+DEF[SETUP_VER]=		79.0.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		python${PYTHON_SUFFIX}
+VERSION=		${PORTVERSION}
+KEYWORDS=		lang python
+VARIANTS=		std
+SDESC[std]=		Interpreted object-oriented programming language
+HOMEPAGE=		https://www.python.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://www.python.org/ftp/python/${PORTVERSION}/
+DISTFILE[1]=		Python-${PORTVERSION}.tar.xz:main
+DIST_SUBDIR=		python-src
+
+SPKGS[std]=		set primary dev man sqlite
+
+OPTIONS_AVAILABLE=	DEBUG PYMALLOC
+OPTIONS_STANDARD=	DEBUG PYMALLOC
+OPT_ON[all]=		PYMALLOC
+
+LICENSE=		CUSTOM1:primary
+LICENSE_NAME=		CUSTOM1:"Python Software Foundation License"
+LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+RUN_DEPENDS=		autoselect-python:single:std
+BUILD_DEPENDS=		libffi:dev:std
+			sqlite:dev:std
+			sqlite:primary:std
+BUILDRUN_DEPENDS=	libffi:primary:std
+
+B_DEPS[linux]=		libuuid:dev:std
+BR_DEPS[linux]=		libuuid:primary:std
+
+EXRUN[sqlite]=		sqlite:primary:std
+
+FPC_EQUIVALENT=		lang/python313
+
+USES=			bdb cpe ncurses pkgconfig readline ssl:openssl30 shebangfix
+			zlib gettext gmake expat bz2 xz
+DISTNAME=		Python-${PORTVERSION}
+INSTALL_REQ_TOOLCHAIN=	yes
+CPE_VENDOR=		python
+CPE_PRODUCT=		python
+CPE_VERSION=		${PORTVERSION}
+SHEBANG_NEW_PYTHON=	{{PREFIX}}/bin/python${PYTHON_VER}
+SHEBANG_FILES=		Lib/encodings/*.py
+			Lib/test/archivetestdata/header.sh
+			Lib/test/archivetestdata/exe_with_z64
+			Lib/test/archivetestdata/exe_with_zip
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-system-expat
+			--enable-shared
+			--without-ensurepip
+			--enable-ipv6
+			--with-openssl={{OPENSSLBASE}}
+CONFIGURE_ENV=		OPT=""
+CPPFLAGS=		-I{{NCURSESINC}}
+INSTALL_TARGET=		altinstall
+TEST_TARGET=		buildbottest
+TEST_ARGS=		TESTOPTS=-j{{MAKE_JOBS_NUMBER}}
+MAKE_ARGS=		INSTALL_SHARED="{{INSTALL_LIB}}"
+PLIST_SUB=		XYDOT=${PYTHON_VER}
+			XY=${PYTHON_SUFFIX}
+			XYZDOT=${PORTVERSION}
+			LOW_OPSYS={{OPSYS:tl}}
+			ABI={{ABIFLAGS}}
+			PIP=${PIP_VER}
+			SETUP=${SETUP_VER}
+			PYC=.cpython-${PYTHON_SUFFIX}{{ABIFLAGS}}
+VAR_OPSYS[linux]=	PLIST_SUB=SOABI=.cpython-${PYTHON_SUFFIX}{{ABIFLAGS}}-x86_64-linux-gnu
+			PLIST_SUB=SCD=x86_64-linux-gnu
+			PLIST_SUB=FULLABI={{ABIFLAGS}}-x86_64-linux-gnu
+			PLIST_SUB=PLAT={{OPSYS:tl}}
+			CPPFLAGS=-I{{LOCALBASE}}/include/uuid
+VAR_OPSYS[dragonfly]=	PLIST_SUB=SOABI=.cpython-${PYTHON_SUFFIX}{{ABIFLAGS}}
+			PLIST_SUB=SCD=
+			PLIST_SUB=FULLABI={{ABIFLAGS}}
+			PLIST_SUB=PLAT={{OPSYS:tl}}{{MAJOR:R}}
+			MAKEFILE_LINE=DISABLED_EXTENSIONS+=_crypt
+VAR_OPSYS[freebsd]=	PLIST_SUB=SOABI=.cpython-${PYTHON_SUFFIX}{{ABIFLAGS}}
+			PLIST_SUB=SCD=
+			PLIST_SUB=FULLABI={{ABIFLAGS}}
+			PLIST_SUB=PLAT={{OPSYS:tl}}{{MAJOR:R}}
+VAR_OPSYS[midnightbsd]=	PLIST_SUB=SOABI=.cpython-${PYTHON_SUFFIX}{{ABIFLAGS}}
+			PLIST_SUB=SCD=
+			PLIST_SUB=FULLABI={{ABIFLAGS}}
+			PLIST_SUB=PLAT={{OPSYS:tl}}{{MAJOR:R}}
+VAR_OPSYS[netbsd]=	PLIST_SUB=SOABI=.cpython-${PYTHON_SUFFIX}{{ABIFLAGS}}
+			PLIST_SUB=SCD=
+			PLIST_SUB=FULLABI={{ABIFLAGS}}
+			PLIST_SUB=PLAT={{OPSYS:tl}}{{MAJOR:R}}
+			MAKEFILE_LINE=DISABLED_EXTENSIONS+=_crypt
+VAR_OPSYS[sunos]=	PLIST_SUB=SOABI=.cpython-${PYTHON_SUFFIX}{{ABIFLAGS}}
+			PLIST_SUB=SCD=
+			PLIST_SUB=PLAT=sunos5
+			PLIST_SUB=FULLABI={{ABIFLAGS}}
+			CONFIGURE_ARGS=ac_cv_func_sethostname=no
+			MAKE_ARGS=MODULE__SOCKET_LDFLAGS="-lresolv -lsocket -lnsl"
+			MAKE_ARGS=MODULE__ASYNCIO_LDFLAGS="-lresolv -lnsl"
+
+[DEBUG].CONFIGURE_WITH_BOTH=		pydebug
+[DEBUG].MAKEFILE_ON=			ABIFLAGS:=d{{ABIFLAGS}}
+
+[PYMALLOC].DESCRIPTION=			Enable specialized mallocs
+[PYMALLOC].CONFIGURE_WITH_BOTH=		pymalloc
+
+pre-configure:
+# disable detection of multiarch as it breaks with clang >= 13, which adds a
+# major.minor version number in -print-multiarch output, confusing Python
+	@${REINPLACE_CMD} -e 's|^\( *MULTIARCH=\).*--print-multiarch.*|\1|' ${WRKSRC}/configure
+# Apply DISABLED_EXTENSIONS
+	@${ECHO_CMD} '*disabled*' > ${WRKSRC}/Modules/Setup.local
+.  for _module in ${DISABLED_EXTENSIONS}
+		@${ECHO_CMD} ${_module} >> ${WRKSRC}/Modules/Setup.local
+.  endfor
+	# ${REINPLACE_CMD} -e 's|/usr/local/bin/python|${python_CMD}|' \
+		${WRKSRC}/Lib/cgi.py
+
+post-extract-sunos:
+	# remove opt-[12].pyc from primary manifest
+	${SED} -i.sunos -e '/opt[-][12][.]pyc/d' /port/manifests/plist.primary
+
+post-install-DEBUG-OFF:
+	# Upstream Issue: http://bugs.python.org/issue17975 (won't fix, ever)
+	${RM} ${STAGEDIR}${PREFIX}/lib/libpython3.so
+
+post-install:
+	for i in ${STAGEDIR}${PREFIX}/lib/python${PYTHON_VER}/lib-dynload/*.so; do \
+		${STRIP_CMD} $$i; \
+	done
+	${INSTALL_DATA} ${WRKSRC}/Tools/gdb/libpython.py \
+		${STAGEDIR}${PREFIX}/lib/libpython${PYTHON_VER}${ABIFLAGS}.so.1.0-gdb.py
+	# remove duplicate license
+	${RM} ${STAGEDIR}${PREFIX}/lib/python${PYTHON_VER}/LICENSE.txt
+	# recompile
+	rm -rf ${STAGEDIR}${PREFIX}/lib/python${PYTHON_VER}${ABIFLAGS}/test
+	cp ${STAGEDIR}${PREFIX}/lib/libpython${PYTHON_VER}.so.1.0 ${LOCALBASE}/lib
+	(cd ${STAGEDIR}${PREFIX}/lib/python${PYTHON_VER}${ABIFLAGS} && \
+	        ../../bin/python${PYTHON_VER} -m compileall -f -d / . ||:)
+	${RM} ${LOCALBASE}/lib/libpython${PYTHON_VER}.so.1.0
