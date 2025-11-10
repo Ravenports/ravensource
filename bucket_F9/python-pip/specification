@@ -4,7 +4,8 @@
 #
 # From ENTERAFTER=install, `pip --version`
 # pip 24.2 from /raven/lib/python3.12/site-packages/pip (python 3.12)
-# pip 24.0 from /raven/lib/python3.11/site-packages/pip (python 3.11)
+# pip 25.2 from /raven/lib/python3.11/site-packages/pip (python 3.13)
+# pip xxxx from /raven/lib/python3.11/site-packages/pip (python 3.14)
 #
 DEF[PORTVERSION]=	EXTRACT_VERSION(PIP_3.13_VERSION)
 DEF[EXMTREE]=		/etc/mtree.preconfig.exclude
@@ -13,9 +14,10 @@ DEF[EXMTREE]=		/etc/mtree.preconfig.exclude
 NAMEBASE=		python-pip
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v12 v13
+VARIANTS=		v12 v13 v14
 SDESC[v12]=		Tool for installing python packages (3.12)
 SDESC[v13]=		Tool for installing python packages (3.13)
+SDESC[v14]=		Tool for installing python packages (3.14)
 HOMEPAGE=		https://pip.pypa.io/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -23,11 +25,13 @@ DOWNLOAD_GROUPS=	none
 
 SPKGS[v12]=		single
 SPKGS[v13]=		single
+SPKGS[v14]=		single
 
-OPTIONS_AVAILABLE=	PY312 PY313
+OPTIONS_AVAILABLE=	PY312 PY313 PY314
 OPTIONS_STANDARD=	none
-VOPTS[v12]=		PY313=OFF PY312=ON
-VOPTS[v13]=		PY313=ON PY312=OFF
+VOPTS[v12]=		PY313=OFF PY312=ON PY314=OFF
+VOPTS[v13]=		PY313=ON PY312=OFF PY314=OFF
+VOPTS[v14]=		PY313=ON PY312=OFF PY314=ON
 
 # License listed at PyPI
 # MIT
@@ -44,7 +48,9 @@ CPE_PRODUCT=		pip
 [PY312].MAKEFILE_ON=			POST_PLIST_TARGET+=setuptools-autolist
 [PY313].USES_ON=			python:v13
 [PY313].MAKEFILE_ON=			POST_PLIST_TARGET+=setuptools-autolist
-
+[PY314].USES_ON=			python:v14
+[PY314].MAKEFILE_ON=			POST_PLIST_TARGET+=setuptools-autolist
+[PY314].DESCRIPTION=			Build on python 3.14 (delete me)
 
 do-build:
 	# By using --user, the pyc files are hardcoded with the wrong paths.
