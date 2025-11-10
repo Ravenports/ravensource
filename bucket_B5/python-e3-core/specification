@@ -6,6 +6,7 @@ DEF[VER_DIST_INFO]=	${PORTVERSION:R}
 
 NAMEBASE=		python-e3-core
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		python
 VARIANTS=		v13 v14
 SDESC[v13]=		Adacore testing and building tools (3.13)
@@ -101,6 +102,7 @@ SUB_FILES=		build_rlimit.sh
 SUB_LIST=		PYCMD="{{PYTHON_CMD}}"
 PLIST_SUB=		DIVER=${VER_DIST_INFO}
 			OPSYS={{OPSYS:tl}}
+			PYC=.cpython-{{PYTHON_SUFFIX}}
 
 post-extract:
 	# unbelievable.  prebuilt rlimit binaries for like 20 systems.
@@ -127,3 +129,5 @@ do-install:
 		--disable-pip-version-check \
 		--no-deps $$whl
 	${FIND} ${STAGEDIR}${PREFIX}/lib -name "rlimit-*" | xargs ${STRIP_CMD}
+	# compile them separately (avoids embedded stagedir)
+	(cd ${STAGEDIR} && ${PYTHON_CMD} -m compileall -d / . ||:)
