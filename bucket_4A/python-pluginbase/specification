@@ -4,23 +4,24 @@ DEF[PORTVERSION]=	1.0.1
 NAMEBASE=		python-pluginbase
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v13 v12
+VARIANTS=		v13 v14
 SDESC[v13]=		Development basis of flexible plugins (3.13)
-SDESC[v12]=		Development basis of flexible plugins (3.12)
+SDESC[v14]=		Development basis of flexible plugins (3.14)
 HOMEPAGE=		https://github.com/mitsuhiko/pluginbase
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		PYPI/p/pluginbase
 DISTFILE[1]=		pluginbase-${PORTVERSION}.tar.gz:main
+DIST_SUBDIR=		python-src
 
 SPKGS[v13]=		single
-SPKGS[v12]=		single
+SPKGS[v14]=		single
 
-OPTIONS_AVAILABLE=	PY313 PY312
+OPTIONS_AVAILABLE=	PY313 PY314
 OPTIONS_STANDARD=	none
-VOPTS[v13]=		PY313=ON PY312=OFF
-VOPTS[v12]=		PY313=OFF PY312=ON
+VOPTS[v13]=		PY313=ON PY314=OFF
+VOPTS[v14]=		PY313=OFF PY314=ON
 
 # License listed at PyPI
 # Not provided.
@@ -32,5 +33,5 @@ DISTNAME=		pluginbase-${PORTVERSION}
 
 
 [PY313].USES_ON=			python:v13,sutools
-[PY312].USES_ON=			python:v12,sutools
+[PY314].USES_ON=			python:v14,sutools
 

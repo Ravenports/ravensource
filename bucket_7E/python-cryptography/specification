@@ -5,9 +5,9 @@ DEF[PORTVERSION]=	46.0.3
 NAMEBASE=		python-cryptography
 VERSION=		${PORTVERSION}
 KEYWORDS=		python rust
-VARIANTS=		v12 v13
+VARIANTS=		v14 v13
 SDESC[v13]=		Cryptographic recipes and primitives (3.13)
-SDESC[v12]=		Cryptographic recipes and primitives (3.12)
+SDESC[v14]=		Cryptographic recipes and primitives (3.14)
 HOMEPAGE=		https://github.com/pyca/cryptography
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -96,12 +96,12 @@ DF_INDEX=		1 2 3 4 5 6 7 8 9 10
 			31 32 33 34 35 36 37
 
 SPKGS[v13]=		single
-SPKGS[v12]=		single
+SPKGS[v14]=		single
 
-OPTIONS_AVAILABLE=	PY313 PY312
+OPTIONS_AVAILABLE=	PY313 PY314
 OPTIONS_STANDARD=	none
-VOPTS[v12]=		PY312=ON PY313=OFF
-VOPTS[v13]=		PY312=OFF PY313=ON
+VOPTS[v14]=		PY314=ON PY313=OFF
+VOPTS[v13]=		PY314=OFF PY313=ON
 
 # License listed at PyPI
 # BSD or Apache License, Version 2.0
@@ -122,10 +122,10 @@ CPE_VENDOR=		cryptography
 CPE_PRODUCT=		python-cryptography
 MAKE_ENV=		OPENSSL_STATIC=1
 
-[PY312].USES_ON=			python:v12,pep517
-[PY312].BUILD_DEPENDS_ON=		python-setuptools-rust:single:v12
-					python-maturin:single:v12
-[PY312].BUILDRUN_DEPENDS_ON=		python-cffi:single:v12
+[PY314].USES_ON=			python:v14,pep517
+[PY314].BUILD_DEPENDS_ON=		python-setuptools-rust:single:v14
+					python-maturin:single:v14
+[PY314].BUILDRUN_DEPENDS_ON=		python-cffi:single:v14
 
 [PY313].USES_ON=			python:v13,pep517
 [PY313].BUILD_DEPENDS_ON=		python-setuptools-rust:single:v13

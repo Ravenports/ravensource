@@ -6,8 +6,8 @@ DEF[SKIP_CRATE]=	maturin
 NAMEBASE=		python-maturin
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v12 v13
-SDESC[v12]=		Build and publish python rust packages (3.12)
+VARIANTS=		v14 v13
+SDESC[v14]=		Build and publish python rust packages (3.14)
 SDESC[v13]=		Build and publish python rust packages (3.13)
 HOMEPAGE=		https://github.com/pyo3/maturin
 CONTACT=		Python_Automaton[python@ironwolf.systems]
@@ -20,13 +20,13 @@ DISTFILE[1]=		maturin-${PORTVERSION}.tar.gz:main
 %%CR_DISTFILES%%
 %%DF_INDEX%%
 
-SPKGS[v12]=		single
+SPKGS[v14]=		single
 SPKGS[v13]=		single
 
-OPTIONS_AVAILABLE=	PY312 PY313
+OPTIONS_AVAILABLE=	PY314 PY313
 OPTIONS_STANDARD=	none
-VOPTS[v12]=		PY312=ON PY313=OFF
-VOPTS[v13]=		PY312=OFF PY313=ON
+VOPTS[v14]=		PY314=ON PY313=OFF
+VOPTS[v13]=		PY314=OFF PY313=ON
 
 # License listed at PyPI
 # MIT OR Apache-2.0
@@ -37,9 +37,9 @@ DISTNAME=		maturin-${PORTVERSION}
 # install_requires extracted from setup.py
 # setuptools-rust>=1.4.0
 
-[PY312].USES_ON=			python:v12,sutools
-[PY312].BUILDRUN_DEPENDS_ON=		python-setuptools-rust:single:v12
-					python-tomli:single:v12
+[PY314].USES_ON=			python:v14,sutools
+[PY314].BUILDRUN_DEPENDS_ON=		python-setuptools-rust:single:v14
+					python-tomli:single:v14
 [PY313].USES_ON=			python:v13,sutools
 [PY313].BUILDRUN_DEPENDS_ON=		python-setuptools-rust:single:v13
 

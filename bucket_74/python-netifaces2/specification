@@ -5,9 +5,9 @@ DEF[PORTVERSION]=	0.0.22
 NAMEBASE=		python-netifaces2
 VERSION=		${PORTVERSION}
 KEYWORDS=		python rust
-VARIANTS=		v12 v13
+VARIANTS=		v14 v13
 SDESC[v13]=		Portable network interface information (3.13)
-SDESC[v12]=		Portable network interface information (3.12)
+SDESC[v14]=		Portable network interface information (3.14)
 HOMEPAGE=		https://github.com/SamuelYvon/netifaces-2
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -117,13 +117,13 @@ DF_INDEX=		1 2 3 4 5 6 7 8 9 10
 			31 32 33 34 35 36 37 38 39 40
 			41 42 43 44 45 46 47
 
-SPKGS[v12]=		single
+SPKGS[v14]=		single
 SPKGS[v13]=		single
 
-OPTIONS_AVAILABLE=	PY312 PY313
+OPTIONS_AVAILABLE=	PY314 PY313
 OPTIONS_STANDARD=	none
-VOPTS[v12]=		PY312=ON PY313=OFF
-VOPTS[v13]=		PY312=OFF PY313=ON
+VOPTS[v14]=		PY314=ON PY313=OFF
+VOPTS[v13]=		PY314=OFF PY313=ON
 
 # License listed at PyPI
 # Apache-2.0 OR MIT
@@ -136,7 +136,7 @@ CARGO_SKIP_INSTALL=	yes
 
 USES=			cargo cclibs:single
 
-[PY312].USES_ON=			python:v12,pep517
-[PY312].BUILD_DEPENDS_ON=		python-maturin:single:v12
+[PY314].USES_ON=			python:v14,pep517
+[PY314].BUILD_DEPENDS_ON=		python-maturin:single:v14
 [PY313].USES_ON=			python:v13,pep517
 [PY313].BUILD_DEPENDS_ON=		python-maturin:single:v13

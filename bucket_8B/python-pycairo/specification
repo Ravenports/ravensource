@@ -5,8 +5,8 @@ DEF[PORTVERSION]=	1.28.0
 NAMEBASE=		python-pycairo
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v12 v13
-SDESC[v12]=		Bindings for cairo graphics library (3.12)
+VARIANTS=		v14 v13
+SDESC[v14]=		Bindings for cairo graphics library (3.14)
 SDESC[v13]=		Bindings for cairo graphics library (3.13)
 HOMEPAGE=		https://pycairo.readthedocs.io
 CONTACT=		Python_Automaton[python@ironwolf.systems]
@@ -16,13 +16,13 @@ SITES[main]=		PYPI/p/pycairo
 DISTFILE[1]=		pycairo-${PORTVERSION}.tar.gz:main
 DIST_SUBDIR=		python-src
 
-SPKGS[v12]=		set primary dev
+SPKGS[v14]=		set primary dev
 SPKGS[v13]=		set primary dev
 
-OPTIONS_AVAILABLE=	PY312 PY313
+OPTIONS_AVAILABLE=	PY314 PY313
 OPTIONS_STANDARD=	none
-VOPTS[v12]=		PY312=ON PY313=OFF
-VOPTS[v13]=		PY312=OFF PY313=ON
+VOPTS[v14]=		PY314=ON PY313=OFF
+VOPTS[v13]=		PY314=OFF PY313=ON
 
 # License listed at PyPI
 # LGPL-2.1-only OR MPL-1.1
@@ -33,7 +33,7 @@ DISTNAME=		pycairo-${PORTVERSION}
 # install_requires extracted from setup.py
 
 
-[PY312].USES_ON=			python:v12,sutools
+[PY314].USES_ON=			python:v14,sutools
 [PY313].USES_ON=			python:v13,sutools
 
 BUILD_DEPENDS=		glib:dev:std

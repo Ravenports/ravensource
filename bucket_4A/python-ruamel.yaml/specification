@@ -6,8 +6,8 @@ DEF[WHEEL_HASH]=	0f/73/bb1bc2529f852e7bf64a2dec885e89ff9f5cc7bbf6c9340eed30ff2c6
 NAMEBASE=		python-ruamel.yaml
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v12 v13
-SDESC[v12]=		YAML 1.2 parser/emitter (3.12)
+VARIANTS=		v14 v13
+SDESC[v14]=		YAML 1.2 parser/emitter (3.14)
 SDESC[v13]=		YAML 1.2 parser/emitter (3.13)
 HOMEPAGE=		none
 CONTACT=		Python_Automaton[python@ironwolf.systems]
@@ -17,13 +17,13 @@ SITES[main]=		PYPIWHL/${WHEEL_HASH}
 DISTFILE[1]=		ruamel.yaml-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
-SPKGS[v12]=		single
+SPKGS[v14]=		single
 SPKGS[v13]=		single
 
-OPTIONS_AVAILABLE=	PY312 PY313
+OPTIONS_AVAILABLE=	PY314 PY313
 OPTIONS_STANDARD=	none
-VOPTS[v12]=		PY312=ON PY313=OFF
-VOPTS[v13]=		PY312=OFF PY313=ON
+VOPTS[v14]=		PY314=ON PY313=OFF
+VOPTS[v13]=		PY314=OFF PY313=ON
 
 # License listed at PyPI
 # MIT license
@@ -37,7 +37,6 @@ DISTNAME=		ruamel.yaml-${PORTVERSION}.dist-info
 # mercurial >5.7 ; extra == 'docs'
 # ruamel.yaml.jinja2 >=0.2 ; extra == 'jinja2'
 
-[PY312].USES_ON=			python:v12,wheel
-[PY312].RUN_DEPENDS_ON=			python-ruamel.yaml.clib:single:v12
+[PY314].USES_ON=			python:v14,wheel
+[PY314].RUN_DEPENDS_ON=			python-ruamel.yaml.clib:single:v14
 [PY313].USES_ON=			python:v13,wheel
-

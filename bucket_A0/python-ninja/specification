@@ -6,8 +6,8 @@ DEF[TAG]=		v${PORTVERSION}
 NAMEBASE=		python-ninja
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v12 v13
-SDESC[v12]=		Small build system with a focus on speed (3.12)
+VARIANTS=		v14 v13
+SDESC[v14]=		Small build system with a focus on speed (3.14)
 SDESC[v13]=		Small build system with a focus on speed (3.13)
 HOMEPAGE=		https://ninja-build.org/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
@@ -17,13 +17,13 @@ SITES[main]=		GITHUB/ninja-build:ninja:${TAG}
 DISTFILE[1]=		generated:main
 DIST_SUBDIR=		python-src
 
-SPKGS[v12]=		single
+SPKGS[v14]=		single
 SPKGS[v13]=		single
 
-OPTIONS_AVAILABLE=	PY312 PY313
+OPTIONS_AVAILABLE=	PY314 PY313
 OPTIONS_STANDARD=	none
-VOPTS[v12]=		PY312=ON PY313=OFF
-VOPTS[v13]=		PY312=OFF PY313=ON
+VOPTS[v14]=		PY314=ON PY313=OFF
+VOPTS[v13]=		PY314=OFF PY313=ON
 
 LICENSE=		APACHE20:single
 LICENSE_FILE=		APACHE20:{{WRKSRC}}/COPYING
@@ -39,7 +39,7 @@ USES=			cmake c++:single
 CMAKE_ARGS=		-DBUILD_TESTING:BOOL=FALSE
 INSTALL_REQ_TOOLCHAIN=	yes
 
-[PY312].BUILDRUN_DEPENDS_ON=		python312:primary:std
+[PY314].BUILDRUN_DEPENDS_ON=		python314:primary:std
 [PY313].BUILDRUN_DEPENDS_ON=		python313:primary:std
 
 post-stage:

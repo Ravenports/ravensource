@@ -5,8 +5,8 @@ DEF[PORTVERSION]=	0.3.2
 NAMEBASE=		python-nh3
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v12 v13
-SDESC[v12]=		Leverage ammonia HTML sanitization library (3.12)
+VARIANTS=		v14 v13
+SDESC[v14]=		Leverage ammonia HTML sanitization library (3.14)
 SDESC[v13]=		Leverage ammonia HTML sanitization library (3.13)
 HOMEPAGE=		none
 CONTACT=		Python_Automaton[python@ironwolf.systems]
@@ -231,13 +231,13 @@ DF_INDEX=		1 2 3 4 5 6 7 8 9 10
 			81 82 83 84 85 86 87 88 89 90
 			91 92 93 94 95 96 97 98 99
 
-SPKGS[v12]=		single
+SPKGS[v14]=		single
 SPKGS[v13]=		single
 
-OPTIONS_AVAILABLE=	PY312 PY313
+OPTIONS_AVAILABLE=	PY314 PY313
 OPTIONS_STANDARD=	none
-VOPTS[v12]=		PY312=ON PY313=OFF
-VOPTS[v13]=		PY312=OFF PY313=ON
+VOPTS[v14]=		PY314=ON PY313=OFF
+VOPTS[v13]=		PY314=OFF PY313=ON
 
 # License listed at PyPI
 # MIT
@@ -250,8 +250,8 @@ CARGO_SKIP_INSTALL=	yes
 
 USES=			cargo cclibs:single
 
-[PY312].USES_ON=			python:v12,pep517
-[PY312].BUILD_DEPENDS_ON=		python-maturin:single:v12
+[PY314].USES_ON=			python:v14,pep517
+[PY314].BUILD_DEPENDS_ON=		python-maturin:single:v14
 
 [PY313].USES_ON=			python:v13,pep517
 [PY313].BUILD_DEPENDS_ON=		python-maturin:single:v13
