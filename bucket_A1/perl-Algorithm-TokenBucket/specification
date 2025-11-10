@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.38
 NAMEBASE=		perl-Algorithm-TokenBucket
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		538 540
-SDESC[538]=		Token bucket rate limiting algorithm (5.38)
+VARIANTS=		540 542
 SDESC[540]=		Token bucket rate limiting algorithm (5.40)
+SDESC[542]=		Token bucket rate limiting algorithm (5.42)
 HOMEPAGE=		https://github.com/kappa/Algorithm-TokenBucket
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:K/KA/KAPPA
 DISTFILE[1]=		Algorithm-TokenBucket-${PORTVERSION}.tar.gz:main
 
-SPKGS[538]=		single
 SPKGS[540]=		single
+SPKGS[542]=		single
 
-OPTIONS_AVAILABLE=	PERL_538 PERL_540
+OPTIONS_AVAILABLE=	PERL_540 PERL_542
 OPTIONS_STANDARD=	none
-VOPTS[538]=		PERL_538=ON PERL_540=OFF
-VOPTS[540]=		PERL_538=OFF PERL_540=ON
+VOPTS[540]=		PERL_540=ON PERL_542=OFF
+VOPTS[542]=		PERL_540=OFF PERL_542=ON
 
 # License listed in CPAN directory:
 # gpl_3
@@ -32,16 +32,16 @@ DISTNAME=		Algorithm-TokenBucket-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |      runtime : Time::HiRes (perl 5.38 core) (perl 5.40 core)
+# |      runtime : Time::HiRes (perl 5.40 core) (perl 5.42 core)
 # |    configure : Module::Build
 # |    configure : Module::Build::Tiny
-# |         test : Test::More (perl 5.38 core) (perl 5.40 core)
+# |         test : Test::More (perl 5.40 core) (perl 5.42 core)
 # |         test : Test::NoWarnings
 
-[PERL_538].USES_ON=			perl:538,buildmodtiny,run
-[PERL_538].BUILD_DEPENDS_ON=		perl-Module-Build:single:538
-					perl-Module-Build-Tiny:single:538
 [PERL_540].USES_ON=			perl:540,buildmodtiny,run
 [PERL_540].BUILD_DEPENDS_ON=		perl-Module-Build:single:540
 					perl-Module-Build-Tiny:single:540
+[PERL_542].USES_ON=			perl:542,buildmodtiny,run
+[PERL_542].BUILD_DEPENDS_ON=		perl-Module-Build:single:542
+					perl-Module-Build-Tiny:single:542
 

@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.08
 NAMEBASE=		perl-String-Tagged-Terminal
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		538 540
-SDESC[538]=		Formats terminal output (5.38)
+VARIANTS=		540 542
 SDESC[540]=		Formats terminal output (5.40)
+SDESC[542]=		Formats terminal output (5.42)
 HOMEPAGE=		none
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:P/PE/PEVANS
 DISTFILE[1]=		String-Tagged-Terminal-${PORTVERSION}.tar.gz:main
 
-SPKGS[538]=		single
 SPKGS[540]=		single
+SPKGS[542]=		single
 
-OPTIONS_AVAILABLE=	PERL_538 PERL_540
+OPTIONS_AVAILABLE=	PERL_540 PERL_542
 OPTIONS_STANDARD=	none
-VOPTS[538]=		PERL_538=ON PERL_540=OFF
-VOPTS[540]=		PERL_538=OFF PERL_540=ON
+VOPTS[540]=		PERL_540=ON PERL_542=OFF
+VOPTS[542]=		PERL_540=OFF PERL_542=ON
 
 # License listed in CPAN directory:
 # perl_5
@@ -35,18 +35,18 @@ DISTNAME=		String-Tagged-Terminal-${PORTVERSION}
 # |      runtime : Convert::Color
 # |      runtime : Convert::Color::XTerm
 # |      runtime : String::Tagged
-# |      runtime : constant (perl 5.38 core) (perl 5.40 core)
+# |      runtime : constant (perl 5.40 core) (perl 5.42 core)
 # |    configure : Module::Build
-# |         test : Test2::V0 (perl 5.40 core)
+# |         test : Test2::V0 (perl 5.40 core) (perl 5.42 core)
 
-[PERL_538].USES_ON=			perl:538,buildmod,run
-[PERL_538].BUILDRUN_DEPENDS_ON=		perl-Convert-Color:single:538
-					perl-Convert-Color-XTerm:single:538
-					perl-String-Tagged:single:538
-[PERL_538].BUILD_DEPENDS_ON=		perl-Module-Build:single:538
 [PERL_540].USES_ON=			perl:540,buildmod,run
 [PERL_540].BUILDRUN_DEPENDS_ON=		perl-Convert-Color:single:540
 					perl-Convert-Color-XTerm:single:540
 					perl-String-Tagged:single:540
 [PERL_540].BUILD_DEPENDS_ON=		perl-Module-Build:single:540
+[PERL_542].USES_ON=			perl:542,buildmod,run
+[PERL_542].BUILDRUN_DEPENDS_ON=		perl-Convert-Color:single:542
+					perl-Convert-Color-XTerm:single:542
+					perl-String-Tagged:single:542
+[PERL_542].BUILD_DEPENDS_ON=		perl-Module-Build:single:542
 

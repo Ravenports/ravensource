@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.34
 NAMEBASE=		perl-Debug-Client
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		538 540
-SDESC[538]=		Debug client side code for Padre (5.38)
+VARIANTS=		540 542
 SDESC[540]=		Debug client side code for Padre (5.40)
+SDESC[542]=		Debug client side code for Padre (5.42)
 HOMEPAGE=		none
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:S/SZ/SZABGAB
 DISTFILE[1]=		Debug-Client-${PORTVERSION}.tar.gz:main
 
-SPKGS[538]=		single
 SPKGS[540]=		single
+SPKGS[542]=		single
 
-OPTIONS_AVAILABLE=	PERL_538 PERL_540
+OPTIONS_AVAILABLE=	PERL_540 PERL_542
 OPTIONS_STANDARD=	none
-VOPTS[538]=		PERL_538=ON PERL_540=OFF
-VOPTS[540]=		PERL_538=OFF PERL_540=ON
+VOPTS[540]=		PERL_540=ON PERL_542=OFF
+VOPTS[542]=		PERL_540=OFF PERL_542=ON
 
 # License listed in CPAN directory:
 # perl
@@ -32,41 +32,31 @@ DISTNAME=		Debug-Client-${PORTVERSION}
 # ---------------------------------------------
 # |   Prerequisites extracted from META.yml
 # ---------------------------------------------
-# | configure_requires : ExtUtils::MakeMaker (perl 5.38.4 core) (perl 5.40.3 core)
-# |     build_requires : ExtUtils::MakeMaker (perl 5.38.4 core) (perl 5.40.3 core)
+# | configure_requires : ExtUtils::MakeMaker (perl 5.40.3 core) (perl 5.42.0 core)
+# |     build_requires : ExtUtils::MakeMaker (perl 5.40.3 core) (perl 5.42.0 core)
 # |     build_requires : File::HomeDir
-# |     build_requires : File::Temp (perl 5.38.4 core) (perl 5.40.3 core)
-# |     build_requires : List::Util (perl 5.38.4 core) (perl 5.40.3 core)
+# |     build_requires : File::Temp (perl 5.40.3 core) (perl 5.42.0 core)
+# |     build_requires : List::Util (perl 5.40.3 core) (perl 5.42.0 core)
 # |     build_requires : Test::CheckDeps
 # |     build_requires : Test::Class
 # |     build_requires : Test::Deep
-# |     build_requires : Test::More (perl 5.38.4 core) (perl 5.40.3 core)
+# |     build_requires : Test::More (perl 5.40.3 core) (perl 5.42.0 core)
 # |     build_requires : Test::Requires
-# |     build_requires : parent (perl 5.38.4 core) (perl 5.40.3 core)
-# |     build_requires : version (perl 5.38.4 core) (perl 5.40.3 core)
-# |           requires : Carp (perl 5.38.4 core) (perl 5.40.3 core)
-# |           requires : Exporter (perl 5.38.4 core) (perl 5.40.3 core)
-# |           requires : IO::Socket::IP (perl 5.38.4 core) (perl 5.40.3 core)
+# |     build_requires : parent (perl 5.40.3 core) (perl 5.42.0 core)
+# |     build_requires : version (perl 5.40.3 core) (perl 5.42.0 core)
+# |           requires : Carp (perl 5.40.3 core) (perl 5.42.0 core)
+# |           requires : Exporter (perl 5.40.3 core) (perl 5.42.0 core)
+# |           requires : IO::Socket::IP (perl 5.40.3 core) (perl 5.42.0 core)
 # |           requires : PadWalker
-# |           requires : Term::ReadLine (perl 5.38.4 core) (perl 5.40.3 core)
+# |           requires : Term::ReadLine (perl 5.40.3 core) (perl 5.42.0 core)
 # |           requires : Term::ReadLine::Gnu
-# |           requires : constant (perl 5.38.4 core) (perl 5.40.3 core)
-# |         recommends : ExtUtils::MakeMaker (perl 5.38.4 core) (perl 5.40.3 core)
-# |         recommends : File::Spec::Functions (perl 5.38.4 core) (perl 5.40.3 core)
-# |         recommends : List::Util (perl 5.38.4 core) (perl 5.40.3 core)
+# |           requires : constant (perl 5.40.3 core) (perl 5.42.0 core)
+# |         recommends : ExtUtils::MakeMaker (perl 5.40.3 core) (perl 5.42.0 core)
+# |         recommends : File::Spec::Functions (perl 5.40.3 core) (perl 5.42.0 core)
+# |         recommends : List::Util (perl 5.40.3 core) (perl 5.42.0 core)
 # |         recommends : Test::Pod
 # |         recommends : Test::Pod::Coverage
 
-[PERL_538].USES_ON=			perl:538,configure
-[PERL_538].BUILDRUN_DEPENDS_ON=		perl-PadWalker:single:538
-					perl-Term-ReadLine-Gnu:single:538
-					perl-Test-Pod:single:538
-					perl-Test-Pod-Coverage:single:538
-[PERL_538].BUILD_DEPENDS_ON=		perl-File-HomeDir:single:538
-					perl-Test-CheckDeps:single:538
-					perl-Test-Class:single:538
-					perl-Test-Deep:single:538
-					perl-Test-Requires:single:538
 [PERL_540].USES_ON=			perl:540,configure
 [PERL_540].BUILDRUN_DEPENDS_ON=		perl-PadWalker:single:540
 					perl-Term-ReadLine-Gnu:single:540
@@ -77,4 +67,14 @@ DISTNAME=		Debug-Client-${PORTVERSION}
 					perl-Test-Class:single:540
 					perl-Test-Deep:single:540
 					perl-Test-Requires:single:540
+[PERL_542].USES_ON=			perl:542,configure
+[PERL_542].BUILDRUN_DEPENDS_ON=		perl-PadWalker:single:542
+					perl-Term-ReadLine-Gnu:single:542
+					perl-Test-Pod:single:542
+					perl-Test-Pod-Coverage:single:542
+[PERL_542].BUILD_DEPENDS_ON=		perl-File-HomeDir:single:542
+					perl-Test-CheckDeps:single:542
+					perl-Test-Class:single:542
+					perl-Test-Deep:single:542
+					perl-Test-Requires:single:542
 

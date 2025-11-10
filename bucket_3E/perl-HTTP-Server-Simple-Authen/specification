@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.04
 NAMEBASE=		perl-HTTP-Server-Simple-Authen
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		538 540
-SDESC[538]=		Authentication plugin for HTTP (5.38)
+VARIANTS=		540 542
 SDESC[540]=		Authentication plugin for HTTP (5.40)
+SDESC[542]=		Authentication plugin for HTTP (5.42)
 HOMEPAGE=		none
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:M/MI/MIYAGAWA
 DISTFILE[1]=		HTTP-Server-Simple-Authen-${PORTVERSION}.tar.gz:main
 
-SPKGS[538]=		single
 SPKGS[540]=		single
+SPKGS[542]=		single
 
-OPTIONS_AVAILABLE=	PERL_538 PERL_540
+OPTIONS_AVAILABLE=	PERL_540 PERL_542
 OPTIONS_STANDARD=	none
-VOPTS[538]=		PERL_538=ON PERL_540=OFF
-VOPTS[540]=		PERL_538=OFF PERL_540=ON
+VOPTS[540]=		PERL_540=ON PERL_542=OFF
+VOPTS[542]=		PERL_540=OFF PERL_542=ON
 
 # License listed in CPAN directory:
 # Not provided in META.yml
@@ -34,14 +34,14 @@ DISTNAME=		HTTP-Server-Simple-Authen-${PORTVERSION}
 # ---------------------------------------------
 # |           requires : Authen::Simple
 # |           requires : HTTP::Server::Simple
-# |           requires : Test::More (perl 5.38.4 core) (perl 5.40.3 core)
+# |           requires : Test::More (perl 5.40.3 core) (perl 5.42.0 core)
 
-[PERL_538].USES_ON=			perl:538,configure
-[PERL_538].BUILDRUN_DEPENDS_ON=		perl-Authen-Simple:single:538
-					perl-HTTP-Server-Simple:single:538
 [PERL_540].USES_ON=			perl:540,configure
 [PERL_540].BUILDRUN_DEPENDS_ON=		perl-Authen-Simple:single:540
 					perl-HTTP-Server-Simple:single:540
+[PERL_542].USES_ON=			perl:542,configure
+[PERL_542].BUILDRUN_DEPENDS_ON=		perl-Authen-Simple:single:542
+					perl-HTTP-Server-Simple:single:542
 
 USES=			shebangfix
 SHEBANG_FILES=		server.pl

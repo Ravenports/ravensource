@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	2.601
 NAMEBASE=		perl-Email-Sender
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		538 540
-SDESC[538]=		Library for sending email (5.38)
+VARIANTS=		540 542
 SDESC[540]=		Library for sending email (5.40)
+SDESC[542]=		Library for sending email (5.42)
 HOMEPAGE=		https://github.com/rjbs/Email-Sender
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:R/RJ/RJBS
 DISTFILE[1]=		Email-Sender-${PORTVERSION}.tar.gz:main
 
-SPKGS[538]=		single
 SPKGS[540]=		single
+SPKGS[542]=		single
 
-OPTIONS_AVAILABLE=	PERL_538 PERL_540
+OPTIONS_AVAILABLE=	PERL_540 PERL_542
 OPTIONS_STANDARD=	none
-VOPTS[538]=		PERL_538=ON PERL_540=OFF
-VOPTS[540]=		PERL_538=OFF PERL_540=ON
+VOPTS[540]=		PERL_540=ON PERL_542=OFF
+VOPTS[542]=		PERL_540=OFF PERL_542=ON
 
 # License listed in CPAN directory:
 # perl_5
@@ -32,53 +32,43 @@ DISTNAME=		Email-Sender-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |      runtime : Carp (perl 5.38 core) (perl 5.40 core)
+# |      runtime : Carp (perl 5.40 core) (perl 5.42 core)
 # |      runtime : Email::Abstract
 # |      runtime : Email::Address::XS
 # |      runtime : Email::Simple
-# |      runtime : Fcntl (perl 5.38 core) (perl 5.40 core)
-# |      runtime : File::Basename (perl 5.38 core) (perl 5.40 core)
-# |      runtime : File::Path (perl 5.38 core) (perl 5.40 core)
-# |      runtime : File::Spec (perl 5.38 core) (perl 5.40 core)
-# |      runtime : IO::File (perl 5.38 core) (perl 5.40 core)
-# |      runtime : IO::Handle (perl 5.38 core) (perl 5.40 core)
-# |      runtime : List::Util (perl 5.38 core) (perl 5.40 core)
+# |      runtime : Fcntl (perl 5.40 core) (perl 5.42 core)
+# |      runtime : File::Basename (perl 5.40 core) (perl 5.42 core)
+# |      runtime : File::Path (perl 5.40 core) (perl 5.42 core)
+# |      runtime : File::Spec (perl 5.40 core) (perl 5.42 core)
+# |      runtime : IO::File (perl 5.40 core) (perl 5.42 core)
+# |      runtime : IO::Handle (perl 5.40 core) (perl 5.42 core)
+# |      runtime : List::Util (perl 5.40 core) (perl 5.42 core)
 # |      runtime : Module::Runtime
 # |      runtime : Moo
 # |      runtime : Moo::Role
 # |      runtime : MooX::Types::MooseLike
 # |      runtime : MooX::Types::MooseLike::Base
-# |      runtime : Net::SMTP (perl 5.38 core) (perl 5.40 core)
-# |      runtime : Scalar::Util (perl 5.38 core) (perl 5.40 core)
+# |      runtime : Net::SMTP (perl 5.40 core) (perl 5.42 core)
+# |      runtime : Scalar::Util (perl 5.40 core) (perl 5.42 core)
 # |      runtime : Sub::Exporter
 # |      runtime : Sub::Exporter::Util
-# |      runtime : Sys::Hostname (perl 5.38 core) (perl 5.40 core)
+# |      runtime : Sys::Hostname (perl 5.40 core) (perl 5.42 core)
 # |      runtime : Throwable::Error
 # |      runtime : Try::Tiny
-# |      runtime : strict (perl 5.38 core) (perl 5.40 core)
-# |      runtime : utf8 (perl 5.38 core) (perl 5.40 core)
-# |      runtime : warnings (perl 5.38 core) (perl 5.40 core)
-# |    configure : ExtUtils::MakeMaker (perl 5.38 core) (perl 5.40 core)
+# |      runtime : strict (perl 5.40 core) (perl 5.42 core)
+# |      runtime : utf8 (perl 5.40 core) (perl 5.42 core)
+# |      runtime : warnings (perl 5.40 core) (perl 5.42 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
 # |         test : Capture::Tiny
-# |         test : Cwd (perl 5.38 core) (perl 5.40 core)
-# |         test : Exporter (perl 5.38 core) (perl 5.40 core)
-# |         test : ExtUtils::MakeMaker (perl 5.38 core) (perl 5.40 core)
-# |         test : File::Spec (perl 5.38 core) (perl 5.40 core)
-# |         test : File::Temp (perl 5.38 core) (perl 5.40 core)
-# |         test : Test::More (perl 5.38 core) (perl 5.40 core)
-# |         test : lib (perl 5.38 core) (perl 5.40 core)
-# |         test : CPAN::Meta (perl 5.38 core) (perl 5.40 core)
+# |         test : Cwd (perl 5.40 core) (perl 5.42 core)
+# |         test : Exporter (perl 5.40 core) (perl 5.42 core)
+# |         test : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
+# |         test : File::Spec (perl 5.40 core) (perl 5.42 core)
+# |         test : File::Temp (perl 5.40 core) (perl 5.42 core)
+# |         test : Test::More (perl 5.40 core) (perl 5.42 core)
+# |         test : lib (perl 5.40 core) (perl 5.42 core)
+# |         test : CPAN::Meta (perl 5.40 core) (perl 5.42 core)
 
-[PERL_538].USES_ON=			perl:538,configure
-[PERL_538].BUILDRUN_DEPENDS_ON=		perl-Email-Abstract:single:538
-					perl-Email-Address-XS:single:538
-					perl-Email-Simple:single:538
-					perl-Module-Runtime:single:538
-					perl-Moo:single:538
-					perl-MooX-Types-MooseLike:single:538
-					perl-Sub-Exporter:single:538
-					perl-Throwable:single:538
-					perl-Try-Tiny:single:538
 [PERL_540].USES_ON=			perl:540,configure
 [PERL_540].BUILDRUN_DEPENDS_ON=		perl-Email-Abstract:single:540
 					perl-Email-Address-XS:single:540
@@ -89,4 +79,14 @@ DISTNAME=		Email-Sender-${PORTVERSION}
 					perl-Sub-Exporter:single:540
 					perl-Throwable:single:540
 					perl-Try-Tiny:single:540
+[PERL_542].USES_ON=			perl:542,configure
+[PERL_542].BUILDRUN_DEPENDS_ON=		perl-Email-Abstract:single:542
+					perl-Email-Address-XS:single:542
+					perl-Email-Simple:single:542
+					perl-Module-Runtime:single:542
+					perl-Moo:single:542
+					perl-MooX-Types-MooseLike:single:542
+					perl-Sub-Exporter:single:542
+					perl-Throwable:single:542
+					perl-Try-Tiny:single:542
 

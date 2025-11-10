@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	2.008004
 NAMEBASE=		perl-Type-Tiny
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		538 540
-SDESC[538]=		Moo(se) compatible type constraint (5.38)
+VARIANTS=		540 542
 SDESC[540]=		Moo(se) compatible type constraint (5.40)
+SDESC[542]=		Moo(se) compatible type constraint (5.42)
 HOMEPAGE=		https://github.com/tobyink/p5-type-tiny
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:T/TO/TOBYINK
 DISTFILE[1]=		Type-Tiny-${PORTVERSION}.tar.gz:main
 
-SPKGS[538]=		single
 SPKGS[540]=		single
+SPKGS[542]=		single
 
-OPTIONS_AVAILABLE=	PERL_538 PERL_540
+OPTIONS_AVAILABLE=	PERL_540 PERL_542
 OPTIONS_STANDARD=	none
-VOPTS[538]=		PERL_538=ON PERL_540=OFF
-VOPTS[540]=		PERL_538=OFF PERL_540=ON
+VOPTS[540]=		PERL_540=ON PERL_542=OFF
+VOPTS[542]=		PERL_540=OFF PERL_542=ON
 
 # License listed in CPAN directory:
 # perl_5
@@ -38,23 +38,15 @@ DISTNAME=		Type-Tiny-${PORTVERSION}
 # |      runtime : Devel::StackTrace
 # |      runtime : Ref::Util::XS
 # |      runtime : Regexp::Util
-# |      runtime : Sub::Util (perl 5.38 core) (perl 5.40 core)
+# |      runtime : Sub::Util (perl 5.40 core) (perl 5.42 core)
 # |      runtime : Type::Tiny::XS
-# |    configure : ExtUtils::MakeMaker (perl 5.38 core) (perl 5.40 core)
-# |    configure : CPAN::Meta::Requirements (perl 5.38 core) (perl 5.40 core)
-# |         test : Test::More (perl 5.38 core) (perl 5.40 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
+# |    configure : CPAN::Meta::Requirements (perl 5.40 core) (perl 5.42 core)
+# |         test : Test::More (perl 5.40 core) (perl 5.42 core)
 # |         test : Test::Deep
-# |         test : Test::Tester (perl 5.38 core) (perl 5.40 core)
+# |         test : Test::Tester (perl 5.40 core) (perl 5.42 core)
 # |         test : Test::Warnings
 
-[PERL_538].USES_ON=			perl:538,configure
-[PERL_538].BUILDRUN_DEPENDS_ON=		perl-Exporter-Tiny:single:538
-					perl-Class-XSAccessor:single:538
-					perl-Devel-LexAlias:single:538
-					perl-Devel-StackTrace:single:538
-					perl-Ref-Util-XS:single:538
-					perl-Regexp-Util:single:538
-					perl-Type-Tiny-XS:single:538
 [PERL_540].USES_ON=			perl:540,configure
 [PERL_540].BUILDRUN_DEPENDS_ON=		perl-Exporter-Tiny:single:540
 					perl-Class-XSAccessor:single:540
@@ -63,6 +55,14 @@ DISTNAME=		Type-Tiny-${PORTVERSION}
 					perl-Ref-Util-XS:single:540
 					perl-Regexp-Util:single:540
 					perl-Type-Tiny-XS:single:540
+[PERL_542].USES_ON=			perl:542,configure
+[PERL_542].BUILDRUN_DEPENDS_ON=		perl-Exporter-Tiny:single:542
+					perl-Class-XSAccessor:single:542
+					perl-Devel-LexAlias:single:542
+					perl-Devel-StackTrace:single:542
+					perl-Ref-Util-XS:single:542
+					perl-Regexp-Util:single:542
+					perl-Type-Tiny-XS:single:542
 
 # On solaris "file" locks up on /construction/perl-Type-Tiny/stage/
 # raven/lib/perl5/site_perl/Type/Tiny/Manual/Params.pod

@@ -8,8 +8,8 @@ $CPAN_CACHE   = "/var/cache/cpan";
 $SPECS_DIR    = $CPAN_CACHE . "/specs";
 $EXTS         = array("tgz" => ".tar.gz", "zip" => ".zip", "tbz" =>".tar.bz2");
 
-$VA           = 538;    # single point of change when perl
-$VB           = 540;    # series are changed in ravenports
+$VA           = 540;    # single point of change when perl
+$VB           = 542;    # series are changed in ravenports
 $ravensource_directory = "";
 $PERL_VERSION_A = "";
 $PERL_VERSION_B = "";

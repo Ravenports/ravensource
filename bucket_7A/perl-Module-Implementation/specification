@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.09
 NAMEBASE=		perl-Module-Implementation
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		538 540
-SDESC[538]=		Multiple module implementation loader (5.38)
+VARIANTS=		540 542
 SDESC[540]=		Multiple module implementation loader (5.40)
+SDESC[542]=		Multiple module implementation loader (5.42)
 HOMEPAGE=		https://github.com/autarch/Module-Implementation
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:D/DR/DROLSKY
 DISTFILE[1]=		Module-Implementation-${PORTVERSION}.tar.gz:main
 
-SPKGS[538]=		single
 SPKGS[540]=		single
+SPKGS[542]=		single
 
-OPTIONS_AVAILABLE=	PERL_538 PERL_540
+OPTIONS_AVAILABLE=	PERL_540 PERL_542
 OPTIONS_STANDARD=	none
-VOPTS[538]=		PERL_538=ON PERL_540=OFF
-VOPTS[540]=		PERL_538=OFF PERL_540=ON
+VOPTS[540]=		PERL_540=ON PERL_542=OFF
+VOPTS[542]=		PERL_540=OFF PERL_542=ON
 
 # License listed in CPAN directory:
 # artistic_2
@@ -32,26 +32,26 @@ DISTNAME=		Module-Implementation-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |      runtime : Carp (perl 5.38 core) (perl 5.40 core)
+# |      runtime : Carp (perl 5.40 core) (perl 5.42 core)
 # |      runtime : Module::Runtime
 # |      runtime : Try::Tiny
-# |      runtime : strict (perl 5.38 core) (perl 5.40 core)
-# |      runtime : warnings (perl 5.38 core) (perl 5.40 core)
-# |    configure : ExtUtils::MakeMaker (perl 5.38 core) (perl 5.40 core)
-# |         test : ExtUtils::MakeMaker (perl 5.38 core) (perl 5.40 core)
-# |         test : File::Spec (perl 5.38 core) (perl 5.40 core)
-# |         test : IO::Handle (perl 5.38 core) (perl 5.40 core)
-# |         test : IPC::Open3 (perl 5.38 core) (perl 5.40 core)
+# |      runtime : strict (perl 5.40 core) (perl 5.42 core)
+# |      runtime : warnings (perl 5.40 core) (perl 5.42 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
+# |         test : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
+# |         test : File::Spec (perl 5.40 core) (perl 5.42 core)
+# |         test : IO::Handle (perl 5.40 core) (perl 5.42 core)
+# |         test : IPC::Open3 (perl 5.40 core) (perl 5.42 core)
 # |         test : Test::Fatal
-# |         test : Test::More (perl 5.38 core) (perl 5.40 core)
+# |         test : Test::More (perl 5.40 core) (perl 5.42 core)
 # |         test : Test::Requires
-# |         test : lib (perl 5.38 core) (perl 5.40 core)
-# |         test : CPAN::Meta (perl 5.38 core) (perl 5.40 core)
+# |         test : lib (perl 5.40 core) (perl 5.42 core)
+# |         test : CPAN::Meta (perl 5.40 core) (perl 5.42 core)
 
-[PERL_538].USES_ON=			perl:538,configure
-[PERL_538].BUILDRUN_DEPENDS_ON=		perl-Module-Runtime:single:538
-					perl-Try-Tiny:single:538
 [PERL_540].USES_ON=			perl:540,configure
 [PERL_540].BUILDRUN_DEPENDS_ON=		perl-Module-Runtime:single:540
 					perl-Try-Tiny:single:540
+[PERL_542].USES_ON=			perl:542,configure
+[PERL_542].BUILDRUN_DEPENDS_ON=		perl-Module-Runtime:single:542
+					perl-Try-Tiny:single:542
 

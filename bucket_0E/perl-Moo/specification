@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	2.005005
 NAMEBASE=		perl-Moo
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		538 540
-SDESC[538]=		Minimalist Object Orientation (5.38)
+VARIANTS=		540 542
 SDESC[540]=		Minimalist Object Orientation (5.40)
+SDESC[542]=		Minimalist Object Orientation (5.42)
 HOMEPAGE=		https://github.com/moose/Moo
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:H/HA/HAARG
 DISTFILE[1]=		Moo-${PORTVERSION}.tar.gz:main
 
-SPKGS[538]=		single
 SPKGS[540]=		single
+SPKGS[542]=		single
 
-OPTIONS_AVAILABLE=	PERL_538 PERL_540
+OPTIONS_AVAILABLE=	PERL_540 PERL_542
 OPTIONS_STANDARD=	none
-VOPTS[538]=		PERL_538=ON PERL_540=OFF
-VOPTS[540]=		PERL_538=OFF PERL_540=ON
+VOPTS[540]=		PERL_540=ON PERL_542=OFF
+VOPTS[542]=		PERL_540=OFF PERL_542=ON
 
 # License listed in CPAN directory:
 # perl_5
@@ -32,28 +32,28 @@ DISTNAME=		Moo-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |      runtime : Carp (perl 5.38 core) (perl 5.40 core)
+# |      runtime : Carp (perl 5.40 core) (perl 5.42 core)
 # |      runtime : Class::Method::Modifiers
-# |      runtime : Exporter (perl 5.38 core) (perl 5.40 core)
+# |      runtime : Exporter (perl 5.40 core) (perl 5.42 core)
 # |      runtime : Role::Tiny
-# |      runtime : Scalar::Util (perl 5.38 core) (perl 5.40 core)
+# |      runtime : Scalar::Util (perl 5.40 core) (perl 5.42 core)
 # |      runtime : Sub::Defer
 # |      runtime : Sub::Quote
 # |      runtime : Class::XSAccessor
-# |      runtime : Sub::Util (perl 5.38 core) (perl 5.40 core)
-# |    configure : ExtUtils::MakeMaker (perl 5.38 core) (perl 5.40 core)
-# |         test : Test::More (perl 5.38 core) (perl 5.40 core)
-# |         test : CPAN::Meta::Requirements (perl 5.38 core) (perl 5.40 core)
-# |         test : Parse::CPAN::Meta (perl 5.38 core) (perl 5.40 core)
+# |      runtime : Sub::Util (perl 5.40 core) (perl 5.42 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
+# |         test : Test::More (perl 5.40 core) (perl 5.42 core)
+# |         test : CPAN::Meta::Requirements (perl 5.40 core) (perl 5.42 core)
+# |         test : Parse::CPAN::Meta (perl 5.40 core) (perl 5.42 core)
 
-[PERL_538].USES_ON=			perl:538,configure
-[PERL_538].BUILDRUN_DEPENDS_ON=		perl-Class-Method-Modifiers:single:538
-					perl-Role-Tiny:single:538
-					perl-Sub-Quote:single:538
-					perl-Class-XSAccessor:single:538
 [PERL_540].USES_ON=			perl:540,configure
 [PERL_540].BUILDRUN_DEPENDS_ON=		perl-Class-Method-Modifiers:single:540
 					perl-Role-Tiny:single:540
 					perl-Sub-Quote:single:540
 					perl-Class-XSAccessor:single:540
+[PERL_542].USES_ON=			perl:542,configure
+[PERL_542].BUILDRUN_DEPENDS_ON=		perl-Class-Method-Modifiers:single:542
+					perl-Role-Tiny:single:542
+					perl-Sub-Quote:single:542
+					perl-Class-XSAccessor:single:542
 

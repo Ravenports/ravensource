@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.62
 NAMEBASE=		perl-DBD-CSV
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		538 540
-SDESC[538]=		DBI driver for CSV files (5.38)
+VARIANTS=		540 542
 SDESC[540]=		DBI driver for CSV files (5.40)
+SDESC[542]=		DBI driver for CSV files (5.42)
 HOMEPAGE=		https://github.com/perl5-dbi/DBD-CSV
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:H/HM/HMBRAND
 DISTFILE[1]=		DBD-CSV-0.62.tgz:main
 
-SPKGS[538]=		single
 SPKGS[540]=		single
+SPKGS[542]=		single
 
-OPTIONS_AVAILABLE=	PERL_538 PERL_540
+OPTIONS_AVAILABLE=	PERL_540 PERL_542
 OPTIONS_STANDARD=	none
-VOPTS[538]=		PERL_538=ON PERL_540=OFF
-VOPTS[540]=		PERL_538=OFF PERL_540=ON
+VOPTS[540]=		PERL_540=ON PERL_542=OFF
+VOPTS[542]=		PERL_540=OFF PERL_542=ON
 
 # License listed in CPAN directory:
 # perl_5
@@ -40,24 +40,24 @@ DISTNAME=		DBD-CSV-${PORTVERSION}
 # |      runtime : DBI
 # |      runtime : SQL::Statement
 # |      runtime : Text::CSV_XS
-# |        build : Config (perl 5.38 core) (perl 5.40 core)
+# |        build : Config (perl 5.40 core) (perl 5.42 core)
 # |    configure : DBI
-# |    configure : ExtUtils::MakeMaker (perl 5.38 core) (perl 5.40 core)
-# |    configure : ExtUtils::MakeMaker (perl 5.38 core) (perl 5.40 core)
-# |         test : Cwd (perl 5.38 core) (perl 5.40 core)
-# |         test : Encode (perl 5.38 core) (perl 5.40 core)
-# |         test : Test::Harness (perl 5.38 core) (perl 5.40 core)
-# |         test : Test::More (perl 5.38 core) (perl 5.40 core)
-# |         test : charnames (perl 5.38 core) (perl 5.40 core)
-# |         test : Encode (perl 5.38 core) (perl 5.40 core)
-# |         test : Test::More (perl 5.38 core) (perl 5.40 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
+# |         test : Cwd (perl 5.40 core) (perl 5.42 core)
+# |         test : Encode (perl 5.40 core) (perl 5.42 core)
+# |         test : Test::Harness (perl 5.40 core) (perl 5.42 core)
+# |         test : Test::More (perl 5.40 core) (perl 5.42 core)
+# |         test : charnames (perl 5.40 core) (perl 5.42 core)
+# |         test : Encode (perl 5.40 core) (perl 5.42 core)
+# |         test : Test::More (perl 5.40 core) (perl 5.42 core)
 
-[PERL_538].USES_ON=			perl:538,configure
-[PERL_538].BUILDRUN_DEPENDS_ON=		perl-DBI:single:538
-					perl-SQL-Statement:single:538
-					perl-Text-CSV_XS:single:538
 [PERL_540].USES_ON=			perl:540,configure
 [PERL_540].BUILDRUN_DEPENDS_ON=		perl-DBI:single:540
 					perl-SQL-Statement:single:540
 					perl-Text-CSV_XS:single:540
+[PERL_542].USES_ON=			perl:542,configure
+[PERL_542].BUILDRUN_DEPENDS_ON=		perl-DBI:single:542
+					perl-SQL-Statement:single:542
+					perl-Text-CSV_XS:single:542
 

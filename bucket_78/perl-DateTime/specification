@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	1.66
 NAMEBASE=		perl-DateTime
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		538 540
-SDESC[538]=		Date and time object for Perl (5.38)
+VARIANTS=		540 542
 SDESC[540]=		Date and time object for Perl (5.40)
+SDESC[542]=		Date and time object for Perl (5.42)
 HOMEPAGE=		https://github.com/houseabsolute/DateTime.pm
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:D/DR/DROLSKY
 DISTFILE[1]=		DateTime-${PORTVERSION}.tar.gz:main
 
-SPKGS[538]=		single
 SPKGS[540]=		single
+SPKGS[542]=		single
 
-OPTIONS_AVAILABLE=	PERL_538 PERL_540
+OPTIONS_AVAILABLE=	PERL_540 PERL_542
 OPTIONS_STANDARD=	none
-VOPTS[538]=		PERL_538=ON PERL_540=OFF
-VOPTS[540]=		PERL_538=OFF PERL_540=ON
+VOPTS[540]=		PERL_540=ON PERL_542=OFF
+VOPTS[542]=		PERL_540=OFF PERL_542=ON
 
 # License listed in CPAN directory:
 # artistic_2
@@ -32,13 +32,13 @@ DISTNAME=		DateTime-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |      runtime : Carp (perl 5.38 core) (perl 5.40 core)
+# |      runtime : Carp (perl 5.40 core) (perl 5.42 core)
 # |      runtime : DateTime::Locale
 # |      runtime : DateTime::TimeZone
 # |      runtime : Dist::CheckConflicts
-# |      runtime : POSIX (perl 5.38 core) (perl 5.40 core)
+# |      runtime : POSIX (perl 5.40 core) (perl 5.42 core)
 # |      runtime : Params::ValidationCompiler
-# |      runtime : Scalar::Util (perl 5.38 core) (perl 5.40 core)
+# |      runtime : Scalar::Util (perl 5.40 core) (perl 5.42 core)
 # |      runtime : Specio
 # |      runtime : Specio::Declare
 # |      runtime : Specio::Exporter
@@ -47,37 +47,29 @@ DISTNAME=		DateTime-${PORTVERSION}
 # |      runtime : Specio::Library::String
 # |      runtime : Specio::Subs
 # |      runtime : Try::Tiny
-# |      runtime : XSLoader (perl 5.38 core) (perl 5.40 core)
-# |      runtime : integer (perl 5.38 core) (perl 5.40 core)
+# |      runtime : XSLoader (perl 5.40 core) (perl 5.42 core)
+# |      runtime : integer (perl 5.40 core) (perl 5.42 core)
 # |      runtime : namespace::autoclean
-# |      runtime : overload (perl 5.38 core) (perl 5.40 core)
-# |      runtime : parent (perl 5.38 core) (perl 5.40 core)
-# |      runtime : strict (perl 5.38 core) (perl 5.40 core)
-# |      runtime : warnings (perl 5.38 core) (perl 5.40 core)
-# |      runtime : warnings::register (perl 5.38 core) (perl 5.40 core)
+# |      runtime : overload (perl 5.40 core) (perl 5.42 core)
+# |      runtime : parent (perl 5.40 core) (perl 5.42 core)
+# |      runtime : strict (perl 5.40 core) (perl 5.42 core)
+# |      runtime : warnings (perl 5.40 core) (perl 5.42 core)
+# |      runtime : warnings::register (perl 5.40 core) (perl 5.42 core)
 # |    configure : Dist::CheckConflicts
-# |    configure : ExtUtils::MakeMaker (perl 5.38 core) (perl 5.40 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
 # |         test : CPAN::Meta::Check
-# |         test : CPAN::Meta::Requirements (perl 5.38 core) (perl 5.40 core)
-# |         test : ExtUtils::MakeMaker (perl 5.38 core) (perl 5.40 core)
-# |         test : File::Spec (perl 5.38 core) (perl 5.40 core)
-# |         test : Storable (perl 5.38 core) (perl 5.40 core)
-# |         test : Term::ANSIColor (perl 5.38 core) (perl 5.40 core)
+# |         test : CPAN::Meta::Requirements (perl 5.40 core) (perl 5.42 core)
+# |         test : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
+# |         test : File::Spec (perl 5.40 core) (perl 5.42 core)
+# |         test : Storable (perl 5.40 core) (perl 5.42 core)
+# |         test : Term::ANSIColor (perl 5.40 core) (perl 5.42 core)
 # |         test : Test::Fatal
-# |         test : Test::More (perl 5.38 core) (perl 5.40 core)
+# |         test : Test::More (perl 5.40 core) (perl 5.42 core)
 # |         test : Test::Warnings
 # |         test : Test::Without::Module
-# |         test : utf8 (perl 5.38 core) (perl 5.40 core)
-# |         test : CPAN::Meta (perl 5.38 core) (perl 5.40 core)
+# |         test : utf8 (perl 5.40 core) (perl 5.42 core)
+# |         test : CPAN::Meta (perl 5.40 core) (perl 5.42 core)
 
-[PERL_538].USES_ON=			perl:538,configure
-[PERL_538].BUILDRUN_DEPENDS_ON=		perl-DateTime-Locale:single:538
-					perl-DateTime-TimeZone:single:538
-					perl-Dist-CheckConflicts:single:538
-					perl-Params-ValidationCompiler:single:538
-					perl-Specio:single:538
-					perl-Try-Tiny:single:538
-					perl-namespace-autoclean:single:538
 [PERL_540].USES_ON=			perl:540,configure
 [PERL_540].BUILDRUN_DEPENDS_ON=		perl-DateTime-Locale:single:540
 					perl-DateTime-TimeZone:single:540
@@ -86,4 +78,12 @@ DISTNAME=		DateTime-${PORTVERSION}
 					perl-Specio:single:540
 					perl-Try-Tiny:single:540
 					perl-namespace-autoclean:single:540
+[PERL_542].USES_ON=			perl:542,configure
+[PERL_542].BUILDRUN_DEPENDS_ON=		perl-DateTime-Locale:single:542
+					perl-DateTime-TimeZone:single:542
+					perl-Dist-CheckConflicts:single:542
+					perl-Params-ValidationCompiler:single:542
+					perl-Specio:single:542
+					perl-Try-Tiny:single:542
+					perl-namespace-autoclean:single:542
 

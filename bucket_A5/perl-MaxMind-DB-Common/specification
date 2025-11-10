@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.040001
 NAMEBASE=		perl-MaxMind-DB-Common
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		538 540
-SDESC[538]=		Common MaxMind DB functions (5.38)
+VARIANTS=		540 542
 SDESC[540]=		Common MaxMind DB functions (5.40)
+SDESC[542]=		Common MaxMind DB functions (5.42)
 HOMEPAGE=		https://github.com/maxmind/MaxMind-DB-Common-perl
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:M/MA/MAXMIND
 DISTFILE[1]=		MaxMind-DB-Common-${PORTVERSION}.tar.gz:main
 
-SPKGS[538]=		single
 SPKGS[540]=		single
+SPKGS[542]=		single
 
-OPTIONS_AVAILABLE=	PERL_538 PERL_540
+OPTIONS_AVAILABLE=	PERL_540 PERL_542
 OPTIONS_STANDARD=	none
-VOPTS[538]=		PERL_538=ON PERL_540=OFF
-VOPTS[540]=		PERL_538=OFF PERL_540=ON
+VOPTS[540]=		PERL_540=ON PERL_542=OFF
+VOPTS[542]=		PERL_540=OFF PERL_542=ON
 
 # License listed in CPAN directory:
 # artistic_2
@@ -32,37 +32,29 @@ DISTNAME=		MaxMind-DB-Common-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |      runtime : Carp (perl 5.38 core) (perl 5.40 core)
+# |      runtime : Carp (perl 5.40 core) (perl 5.42 core)
 # |      runtime : Data::Dumper::Concise
 # |      runtime : DateTime
-# |      runtime : Exporter (perl 5.38 core) (perl 5.40 core)
+# |      runtime : Exporter (perl 5.40 core) (perl 5.42 core)
 # |      runtime : List::AllUtils
-# |      runtime : Math::BigInt (perl 5.38 core) (perl 5.40 core)
+# |      runtime : Math::BigInt (perl 5.40 core) (perl 5.42 core)
 # |      runtime : Moo
 # |      runtime : Moo::Role
 # |      runtime : MooX::StrictConstructor
-# |      runtime : Scalar::Util (perl 5.38 core) (perl 5.40 core)
+# |      runtime : Scalar::Util (perl 5.40 core) (perl 5.42 core)
 # |      runtime : Sub::Quote
-# |      runtime : autodie (perl 5.38 core) (perl 5.40 core)
-# |      runtime : constant (perl 5.38 core) (perl 5.40 core)
+# |      runtime : autodie (perl 5.40 core) (perl 5.42 core)
+# |      runtime : constant (perl 5.40 core) (perl 5.42 core)
 # |      runtime : namespace::autoclean
-# |      runtime : overload (perl 5.38 core) (perl 5.40 core)
-# |      runtime : strict (perl 5.38 core) (perl 5.40 core)
-# |      runtime : warnings (perl 5.38 core) (perl 5.40 core)
-# |    configure : ExtUtils::MakeMaker (perl 5.38 core) (perl 5.40 core)
-# |         test : ExtUtils::MakeMaker (perl 5.38 core) (perl 5.40 core)
-# |         test : File::Spec (perl 5.38 core) (perl 5.40 core)
-# |         test : Test::More (perl 5.38 core) (perl 5.40 core)
-# |         test : CPAN::Meta (perl 5.38 core) (perl 5.40 core)
+# |      runtime : overload (perl 5.40 core) (perl 5.42 core)
+# |      runtime : strict (perl 5.40 core) (perl 5.42 core)
+# |      runtime : warnings (perl 5.40 core) (perl 5.42 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
+# |         test : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
+# |         test : File::Spec (perl 5.40 core) (perl 5.42 core)
+# |         test : Test::More (perl 5.40 core) (perl 5.42 core)
+# |         test : CPAN::Meta (perl 5.40 core) (perl 5.42 core)
 
-[PERL_538].USES_ON=			perl:538,configure
-[PERL_538].BUILDRUN_DEPENDS_ON=		perl-Data-Dumper-Concise:single:538
-					perl-DateTime:single:538
-					perl-List-AllUtils:single:538
-					perl-Moo:single:538
-					perl-MooX-StrictConstructor:single:538
-					perl-Sub-Quote:single:538
-					perl-namespace-autoclean:single:538
 [PERL_540].USES_ON=			perl:540,configure
 [PERL_540].BUILDRUN_DEPENDS_ON=		perl-Data-Dumper-Concise:single:540
 					perl-DateTime:single:540
@@ -71,4 +63,12 @@ DISTNAME=		MaxMind-DB-Common-${PORTVERSION}
 					perl-MooX-StrictConstructor:single:540
 					perl-Sub-Quote:single:540
 					perl-namespace-autoclean:single:540
+[PERL_542].USES_ON=			perl:542,configure
+[PERL_542].BUILDRUN_DEPENDS_ON=		perl-Data-Dumper-Concise:single:542
+					perl-DateTime:single:542
+					perl-List-AllUtils:single:542
+					perl-Moo:single:542
+					perl-MooX-StrictConstructor:single:542
+					perl-Sub-Quote:single:542
+					perl-namespace-autoclean:single:542
 

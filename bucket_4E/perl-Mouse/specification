@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	2.6.0
 NAMEBASE=		perl-Mouse
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		538 540
-SDESC[538]=		Moose minus the antlers (5.38)
+VARIANTS=		540 542
 SDESC[540]=		Moose minus the antlers (5.40)
+SDESC[542]=		Moose minus the antlers (5.42)
 HOMEPAGE=		https://github.com/xslate/p5-Mouse
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:S/SY/SYOHEX
 DISTFILE[1]=		Mouse-v2.6.0.tar.gz:main
 
-SPKGS[538]=		single
 SPKGS[540]=		single
+SPKGS[542]=		single
 
-OPTIONS_AVAILABLE=	PERL_538 PERL_540
+OPTIONS_AVAILABLE=	PERL_540 PERL_542
 OPTIONS_STANDARD=	none
-VOPTS[538]=		PERL_538=ON PERL_540=OFF
-VOPTS[540]=		PERL_538=OFF PERL_540=ON
+VOPTS[540]=		PERL_540=ON PERL_542=OFF
+VOPTS[542]=		PERL_540=OFF PERL_542=ON
 
 # License listed in CPAN directory:
 # perl_5
@@ -32,26 +32,26 @@ DISTNAME=		Mouse-v2.6.0
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |      runtime : Scalar::Util (perl 5.38 core) (perl 5.40 core)
-# |      runtime : XSLoader (perl 5.38 core) (perl 5.40 core)
-# |    configure : Devel::PPPort (perl 5.38 core) (perl 5.40 core)
-# |    configure : ExtUtils::ParseXS (perl 5.38 core) (perl 5.40 core)
+# |      runtime : Scalar::Util (perl 5.40 core) (perl 5.42 core)
+# |      runtime : XSLoader (perl 5.40 core) (perl 5.42 core)
+# |    configure : Devel::PPPort (perl 5.40 core) (perl 5.42 core)
+# |    configure : ExtUtils::ParseXS (perl 5.40 core) (perl 5.42 core)
 # |    configure : Module::Build
 # |    configure : Module::Build::XSUtil
-# |    configure : version (perl 5.38 core) (perl 5.40 core)
+# |    configure : version (perl 5.40 core) (perl 5.42 core)
 # |         test : Test::Exception
 # |         test : Test::Fatal
 # |         test : Test::LeakTrace
-# |         test : Test::More (perl 5.38 core) (perl 5.40 core)
+# |         test : Test::More (perl 5.40 core) (perl 5.42 core)
 # |         test : Test::Output
 # |         test : Test::Requires
 # |         test : Try::Tiny
 
-[PERL_538].USES_ON=			perl:538,buildmod,run
-[PERL_538].BUILD_DEPENDS_ON=		perl-Module-Build:single:538
-					perl-Module-Build-XSUtil:single:538
 [PERL_540].USES_ON=			perl:540,buildmod,run
 [PERL_540].BUILD_DEPENDS_ON=		perl-Module-Build:single:540
 					perl-Module-Build-XSUtil:single:540
+[PERL_542].USES_ON=			perl:542,buildmod,run
+[PERL_542].BUILD_DEPENDS_ON=		perl-Module-Build:single:542
+					perl-Module-Build-XSUtil:single:542
 
 INSTALL_REQ_TOOLCHAIN=	yes

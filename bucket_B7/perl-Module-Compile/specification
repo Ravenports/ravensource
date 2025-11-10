@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.38
 NAMEBASE=		perl-Module-Compile
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		538 540
-SDESC[538]=		Perl Module Compilation (5.38)
+VARIANTS=		540 542
 SDESC[540]=		Perl Module Compilation (5.40)
+SDESC[542]=		Perl Module Compilation (5.42)
 HOMEPAGE=		https://github.com/ingydotnet/module-compile-pm
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:I/IN/INGY
 DISTFILE[1]=		Module-Compile-${PORTVERSION}.tar.gz:main
 
-SPKGS[538]=		single
 SPKGS[540]=		single
+SPKGS[542]=		single
 
-OPTIONS_AVAILABLE=	PERL_538 PERL_540
+OPTIONS_AVAILABLE=	PERL_540 PERL_542
 OPTIONS_STANDARD=	none
-VOPTS[538]=		PERL_538=ON PERL_540=OFF
-VOPTS[540]=		PERL_538=OFF PERL_540=ON
+VOPTS[540]=		PERL_540=ON PERL_542=OFF
+VOPTS[542]=		PERL_540=OFF PERL_542=ON
 
 # License listed in CPAN directory:
 # perl_5
@@ -32,15 +32,15 @@ DISTNAME=		Module-Compile-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |      runtime : App::Prove (perl 5.38 core) (perl 5.40 core)
+# |      runtime : App::Prove (perl 5.40 core) (perl 5.42 core)
 # |      runtime : Capture::Tiny
 # |      runtime : Digest::SHA1
-# |    configure : ExtUtils::MakeMaker (perl 5.38 core) (perl 5.40 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
 
-[PERL_538].USES_ON=			perl:538,configure
-[PERL_538].BUILDRUN_DEPENDS_ON=		perl-Capture-Tiny:single:538
-					perl-Digest-SHA1:single:538
 [PERL_540].USES_ON=			perl:540,configure
 [PERL_540].BUILDRUN_DEPENDS_ON=		perl-Capture-Tiny:single:540
 					perl-Digest-SHA1:single:540
+[PERL_542].USES_ON=			perl:542,configure
+[PERL_542].BUILDRUN_DEPENDS_ON=		perl-Capture-Tiny:single:542
+					perl-Digest-SHA1:single:542
 

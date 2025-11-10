@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	4.71
 NAMEBASE=		perl-CGI
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		538 540
-SDESC[538]=		Common Gateway Interface actions (5.38)
+VARIANTS=		540 542
 SDESC[540]=		Common Gateway Interface actions (5.40)
+SDESC[542]=		Common Gateway Interface actions (5.42)
 HOMEPAGE=		https://github.com/leejo/CGI.pm
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:L/LE/LEEJO
 DISTFILE[1]=		CGI-${PORTVERSION}.tar.gz:main
 
-SPKGS[538]=		single
 SPKGS[540]=		single
+SPKGS[542]=		single
 
-OPTIONS_AVAILABLE=	PERL_538 PERL_540
+OPTIONS_AVAILABLE=	PERL_540 PERL_542
 OPTIONS_STANDARD=	none
-VOPTS[538]=		PERL_538=ON PERL_540=OFF
-VOPTS[540]=		PERL_538=OFF PERL_540=ON
+VOPTS[540]=		PERL_540=ON PERL_542=OFF
+VOPTS[542]=		PERL_540=OFF PERL_542=ON
 
 # License listed in CPAN directory:
 # artistic_2
@@ -32,35 +32,35 @@ DISTNAME=		CGI-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |      runtime : Carp (perl 5.38 core) (perl 5.40 core)
-# |      runtime : Config (perl 5.38 core) (perl 5.40 core)
-# |      runtime : Encode (perl 5.38 core) (perl 5.40 core)
-# |      runtime : Exporter (perl 5.38 core) (perl 5.40 core)
-# |      runtime : File::Spec (perl 5.38 core) (perl 5.40 core)
-# |      runtime : File::Temp (perl 5.38 core) (perl 5.40 core)
+# |      runtime : Carp (perl 5.40 core) (perl 5.42 core)
+# |      runtime : Config (perl 5.40 core) (perl 5.42 core)
+# |      runtime : Encode (perl 5.40 core) (perl 5.42 core)
+# |      runtime : Exporter (perl 5.40 core) (perl 5.42 core)
+# |      runtime : File::Spec (perl 5.40 core) (perl 5.42 core)
+# |      runtime : File::Temp (perl 5.40 core) (perl 5.42 core)
 # |      runtime : HTML::Entities
 # |      runtime : URI
-# |      runtime : if (perl 5.38 core) (perl 5.40 core)
-# |      runtime : overload (perl 5.38 core) (perl 5.40 core)
-# |      runtime : parent (perl 5.38 core) (perl 5.40 core)
-# |      runtime : strict (perl 5.38 core) (perl 5.40 core)
-# |      runtime : utf8 (perl 5.38 core) (perl 5.40 core)
-# |      runtime : warnings (perl 5.38 core) (perl 5.40 core)
-# |        build : ExtUtils::MakeMaker (perl 5.38 core) (perl 5.40 core)
-# |    configure : ExtUtils::MakeMaker (perl 5.38 core) (perl 5.40 core)
-# |         test : Cwd (perl 5.38 core) (perl 5.40 core)
-# |         test : File::Find (perl 5.38 core) (perl 5.40 core)
-# |         test : IO::File (perl 5.38 core) (perl 5.40 core)
-# |         test : IO::Handle (perl 5.38 core) (perl 5.40 core)
-# |         test : POSIX (perl 5.38 core) (perl 5.40 core)
-# |         test : Test::More (perl 5.38 core) (perl 5.40 core)
+# |      runtime : if (perl 5.40 core) (perl 5.42 core)
+# |      runtime : overload (perl 5.40 core) (perl 5.42 core)
+# |      runtime : parent (perl 5.40 core) (perl 5.42 core)
+# |      runtime : strict (perl 5.40 core) (perl 5.42 core)
+# |      runtime : utf8 (perl 5.40 core) (perl 5.42 core)
+# |      runtime : warnings (perl 5.40 core) (perl 5.42 core)
+# |        build : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
+# |         test : Cwd (perl 5.40 core) (perl 5.42 core)
+# |         test : File::Find (perl 5.40 core) (perl 5.42 core)
+# |         test : IO::File (perl 5.40 core) (perl 5.42 core)
+# |         test : IO::Handle (perl 5.40 core) (perl 5.42 core)
+# |         test : POSIX (perl 5.40 core) (perl 5.42 core)
+# |         test : Test::More (perl 5.40 core) (perl 5.42 core)
 # |         test : Test::NoWarnings
 # |         test : Test::Warn
 
-[PERL_538].USES_ON=			perl:538,configure
-[PERL_538].BUILDRUN_DEPENDS_ON=		perl-HTML-Parser:single:538
-					perl-URI:single:538
 [PERL_540].USES_ON=			perl:540,configure
 [PERL_540].BUILDRUN_DEPENDS_ON=		perl-HTML-Parser:single:540
 					perl-URI:single:540
+[PERL_542].USES_ON=			perl:542,configure
+[PERL_542].BUILDRUN_DEPENDS_ON=		perl-HTML-Parser:single:542
+					perl-URI:single:542
 

@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	6.0.1
 NAMEBASE=		perl-Net-SNMP
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		538 540
-SDESC[538]=		Object oriented interface to SNMP (5.38)
+VARIANTS=		540 542
 SDESC[540]=		Object oriented interface to SNMP (5.40)
+SDESC[542]=		Object oriented interface to SNMP (5.42)
 HOMEPAGE=		none
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:D/DT/DTOWN
 DISTFILE[1]=		Net-SNMP-v6.0.1.tar.gz:main
 
-SPKGS[538]=		single
 SPKGS[540]=		single
+SPKGS[542]=		single
 
-OPTIONS_AVAILABLE=	PERL_538 PERL_540
+OPTIONS_AVAILABLE=	PERL_540 PERL_542
 OPTIONS_STANDARD=	none
-VOPTS[538]=		PERL_538=ON PERL_540=OFF
-VOPTS[540]=		PERL_538=OFF PERL_540=ON
+VOPTS[540]=		PERL_540=ON PERL_542=OFF
+VOPTS[542]=		PERL_540=OFF PERL_542=ON
 
 # License listed in CPAN directory:
 # perl
@@ -33,26 +33,19 @@ DISTNAME=		Net-SNMP-v6.0.1
 # |   Prerequisites extracted from META.yml
 # ---------------------------------------------
 # | configure_requires : Module::Build
-# |     build_requires : Test (perl 5.38.4 core) (perl 5.40.3 core)
-# |           requires : Carp (perl 5.38.4 core) (perl 5.40.3 core)
-# |           requires : Errno (perl 5.38.4 core) (perl 5.40.3 core)
-# |           requires : Exporter (perl 5.38.4 core) (perl 5.40.3 core)
-# |           requires : IO::Socket (perl 5.38.4 core) (perl 5.40.3 core)
-# |           requires : Math::BigInt (perl 5.38.4 core) (perl 5.40.3 core)
+# |     build_requires : Test (perl 5.40.3 core) (perl 5.42.0 core)
+# |           requires : Carp (perl 5.40.3 core) (perl 5.42.0 core)
+# |           requires : Errno (perl 5.40.3 core) (perl 5.42.0 core)
+# |           requires : Exporter (perl 5.40.3 core) (perl 5.42.0 core)
+# |           requires : IO::Socket (perl 5.40.3 core) (perl 5.42.0 core)
+# |           requires : Math::BigInt (perl 5.40.3 core) (perl 5.42.0 core)
 # |         recommends : Crypt::DES
 # |         recommends : Crypt::Rijndael
 # |         recommends : Digest::HMAC
-# |         recommends : Digest::MD5 (perl 5.38.4 core) (perl 5.40.3 core)
+# |         recommends : Digest::MD5 (perl 5.40.3 core) (perl 5.42.0 core)
 # |         recommends : Digest::SHA1
 # |         recommends : Socket6
 
-[PERL_538].USES_ON=			perl:538,buildmod,run
-[PERL_538].BUILDRUN_DEPENDS_ON=		perl-Crypt-DES:single:538
-					perl-Crypt-Rijndael:single:538
-					perl-Digest-HMAC:single:538
-					perl-Digest-SHA1:single:538
-					perl-Socket6:single:538
-[PERL_538].BUILD_DEPENDS_ON=		perl-Module-Build:single:538
 [PERL_540].USES_ON=			perl:540,buildmod,run
 [PERL_540].BUILDRUN_DEPENDS_ON=		perl-Crypt-DES:single:540
 					perl-Crypt-Rijndael:single:540
@@ -60,4 +53,11 @@ DISTNAME=		Net-SNMP-v6.0.1
 					perl-Digest-SHA1:single:540
 					perl-Socket6:single:540
 [PERL_540].BUILD_DEPENDS_ON=		perl-Module-Build:single:540
+[PERL_542].USES_ON=			perl:542,buildmod,run
+[PERL_542].BUILDRUN_DEPENDS_ON=		perl-Crypt-DES:single:542
+					perl-Crypt-Rijndael:single:542
+					perl-Digest-HMAC:single:542
+					perl-Digest-SHA1:single:542
+					perl-Socket6:single:542
+[PERL_542].BUILD_DEPENDS_ON=		perl-Module-Build:single:542
 

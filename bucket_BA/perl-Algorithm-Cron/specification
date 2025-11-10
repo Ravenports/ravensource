@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.10
 NAMEBASE=		perl-Algorithm-Cron
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		538 540
-SDESC[538]=		Abstract implementation of F scheduling (5.38)
+VARIANTS=		540 542
 SDESC[540]=		Abstract implementation of F scheduling (5.40)
+SDESC[542]=		Abstract implementation of F scheduling (5.42)
 HOMEPAGE=		none
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:P/PE/PEVANS
 DISTFILE[1]=		Algorithm-Cron-${PORTVERSION}.tar.gz:main
 
-SPKGS[538]=		single
 SPKGS[540]=		single
+SPKGS[542]=		single
 
-OPTIONS_AVAILABLE=	PERL_538 PERL_540
+OPTIONS_AVAILABLE=	PERL_540 PERL_542
 OPTIONS_STANDARD=	none
-VOPTS[538]=		PERL_538=ON PERL_540=OFF
-VOPTS[540]=		PERL_538=OFF PERL_540=ON
+VOPTS[540]=		PERL_540=ON PERL_542=OFF
+VOPTS[542]=		PERL_540=OFF PERL_542=ON
 
 # License listed in CPAN directory:
 # perl_5
@@ -34,12 +34,12 @@ DISTNAME=		Algorithm-Cron-${PORTVERSION}
 # ----------------------------------------------
 # |      runtime : Time::timegm
 # |        build : Test::Fatal
-# |        build : Test::More (perl 5.38 core) (perl 5.40 core)
+# |        build : Test::More (perl 5.40 core) (perl 5.42 core)
 
-[PERL_538].USES_ON=			perl:538,buildmod,run
-[PERL_538].BUILDRUN_DEPENDS_ON=		perl-Time-timegm:single:538
-[PERL_538].BUILD_DEPENDS_ON=		perl-Test-Fatal:single:538
 [PERL_540].USES_ON=			perl:540,buildmod,run
 [PERL_540].BUILDRUN_DEPENDS_ON=		perl-Time-timegm:single:540
 [PERL_540].BUILD_DEPENDS_ON=		perl-Test-Fatal:single:540
+[PERL_542].USES_ON=			perl:542,buildmod,run
+[PERL_542].BUILDRUN_DEPENDS_ON=		perl-Time-timegm:single:542
+[PERL_542].BUILD_DEPENDS_ON=		perl-Test-Fatal:single:542
 

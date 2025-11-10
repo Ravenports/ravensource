@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.25
 NAMEBASE=		perl-HTTP-Entity-Parser
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		538 540
-SDESC[538]=		PSGI compliant HTTP Entity Parser (5.38)
+VARIANTS=		540 542
 SDESC[540]=		PSGI compliant HTTP Entity Parser (5.40)
+SDESC[542]=		PSGI compliant HTTP Entity Parser (5.42)
 HOMEPAGE=		https://github.com/kazeburo/HTTP-Entity-Parser
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:K/KA/KAZEBURO
 DISTFILE[1]=		HTTP-Entity-Parser-${PORTVERSION}.tar.gz:main
 
-SPKGS[538]=		single
 SPKGS[540]=		single
+SPKGS[542]=		single
 
-OPTIONS_AVAILABLE=	PERL_538 PERL_540
+OPTIONS_AVAILABLE=	PERL_540 PERL_542
 OPTIONS_STANDARD=	none
-VOPTS[538]=		PERL_538=ON PERL_540=OFF
-VOPTS[540]=		PERL_538=OFF PERL_540=ON
+VOPTS[540]=		PERL_540=ON PERL_542=OFF
+VOPTS[542]=		PERL_540=OFF PERL_542=ON
 
 # License listed in CPAN directory:
 # perl_5
@@ -32,27 +32,20 @@ DISTNAME=		HTTP-Entity-Parser-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |      runtime : Encode (perl 5.38 core) (perl 5.40 core)
-# |      runtime : File::Temp (perl 5.38 core) (perl 5.40 core)
+# |      runtime : Encode (perl 5.40 core) (perl 5.42 core)
+# |      runtime : File::Temp (perl 5.40 core) (perl 5.42 core)
 # |      runtime : HTTP::MultiPartParser
 # |      runtime : Hash::MultiValue
 # |      runtime : JSON::MaybeXS
-# |      runtime : Module::Load (perl 5.38 core) (perl 5.40 core)
+# |      runtime : Module::Load (perl 5.40 core) (perl 5.42 core)
 # |      runtime : Stream::Buffered
 # |      runtime : WWW::Form::UrlEncoded
 # |    configure : Module::Build::Tiny
-# |         test : Cwd (perl 5.38 core) (perl 5.40 core)
-# |         test : File::Spec::Functions (perl 5.38 core) (perl 5.40 core)
+# |         test : Cwd (perl 5.40 core) (perl 5.42 core)
+# |         test : File::Spec::Functions (perl 5.40 core) (perl 5.42 core)
 # |         test : HTTP::Message
-# |         test : Test::More (perl 5.38 core) (perl 5.40 core)
+# |         test : Test::More (perl 5.40 core) (perl 5.42 core)
 
-[PERL_538].USES_ON=			perl:538,buildmodtiny,run
-[PERL_538].BUILDRUN_DEPENDS_ON=		perl-HTTP-MultiPartParser:single:538
-					perl-Hash-MultiValue:single:538
-					perl-JSON-MaybeXS:single:538
-					perl-Stream-Buffered:single:538
-					perl-WWW-Form-UrlEncoded:single:538
-[PERL_538].BUILD_DEPENDS_ON=		perl-Module-Build-Tiny:single:538
 [PERL_540].USES_ON=			perl:540,buildmodtiny,run
 [PERL_540].BUILDRUN_DEPENDS_ON=		perl-HTTP-MultiPartParser:single:540
 					perl-Hash-MultiValue:single:540
@@ -60,4 +53,11 @@ DISTNAME=		HTTP-Entity-Parser-${PORTVERSION}
 					perl-Stream-Buffered:single:540
 					perl-WWW-Form-UrlEncoded:single:540
 [PERL_540].BUILD_DEPENDS_ON=		perl-Module-Build-Tiny:single:540
+[PERL_542].USES_ON=			perl:542,buildmodtiny,run
+[PERL_542].BUILDRUN_DEPENDS_ON=		perl-HTTP-MultiPartParser:single:542
+					perl-Hash-MultiValue:single:542
+					perl-JSON-MaybeXS:single:542
+					perl-Stream-Buffered:single:542
+					perl-WWW-Form-UrlEncoded:single:542
+[PERL_542].BUILD_DEPENDS_ON=		perl-Module-Build-Tiny:single:542
 

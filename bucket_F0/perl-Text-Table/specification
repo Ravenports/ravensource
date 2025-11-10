@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	1.135
 NAMEBASE=		perl-Text-Table
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		538 540
-SDESC[538]=		Organize Data in Tables (5.38)
+VARIANTS=		540 542
 SDESC[540]=		Organize Data in Tables (5.40)
+SDESC[542]=		Organize Data in Tables (5.42)
 HOMEPAGE=		https://github.com/shlomif/Text-Table
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:S/SH/SHLOMIF
 DISTFILE[1]=		Text-Table-${PORTVERSION}.tar.gz:main
 
-SPKGS[538]=		single
 SPKGS[540]=		single
+SPKGS[542]=		single
 
-OPTIONS_AVAILABLE=	PERL_538 PERL_540
+OPTIONS_AVAILABLE=	PERL_540 PERL_542
 OPTIONS_STANDARD=	none
-VOPTS[538]=		PERL_538=ON PERL_540=OFF
-VOPTS[540]=		PERL_538=OFF PERL_540=ON
+VOPTS[540]=		PERL_540=ON PERL_542=OFF
+VOPTS[542]=		PERL_540=OFF PERL_542=ON
 
 # License listed in CPAN directory:
 # open_source
@@ -32,26 +32,26 @@ DISTNAME=		Text-Table-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |      runtime : Carp (perl 5.38 core) (perl 5.40 core)
-# |      runtime : List::Util (perl 5.38 core) (perl 5.40 core)
+# |      runtime : Carp (perl 5.40 core) (perl 5.42 core)
+# |      runtime : List::Util (perl 5.40 core) (perl 5.42 core)
 # |      runtime : Text::Aligner
-# |      runtime : overload (perl 5.38 core) (perl 5.40 core)
-# |      runtime : strict (perl 5.38 core) (perl 5.40 core)
-# |      runtime : warnings (perl 5.38 core) (perl 5.40 core)
+# |      runtime : overload (perl 5.40 core) (perl 5.42 core)
+# |      runtime : strict (perl 5.40 core) (perl 5.42 core)
+# |      runtime : warnings (perl 5.40 core) (perl 5.42 core)
 # |        build : Module::Build
-# |    configure : ExtUtils::MakeMaker (perl 5.38 core) (perl 5.40 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
 # |    configure : Module::Build
-# |         test : File::Spec (perl 5.38 core) (perl 5.40 core)
-# |         test : IO::Handle (perl 5.38 core) (perl 5.40 core)
-# |         test : IPC::Open3 (perl 5.38 core) (perl 5.40 core)
-# |         test : Test::More (perl 5.38 core) (perl 5.40 core)
-# |         test : constant (perl 5.38 core) (perl 5.40 core)
-# |         test : vars (perl 5.38 core) (perl 5.40 core)
+# |         test : File::Spec (perl 5.40 core) (perl 5.42 core)
+# |         test : IO::Handle (perl 5.40 core) (perl 5.42 core)
+# |         test : IPC::Open3 (perl 5.40 core) (perl 5.42 core)
+# |         test : Test::More (perl 5.40 core) (perl 5.42 core)
+# |         test : constant (perl 5.40 core) (perl 5.42 core)
+# |         test : vars (perl 5.40 core) (perl 5.42 core)
 
-[PERL_538].USES_ON=			perl:538,buildmod,run
-[PERL_538].BUILDRUN_DEPENDS_ON=		perl-Text-Aligner:single:538
-[PERL_538].BUILD_DEPENDS_ON=		perl-Module-Build:single:538
 [PERL_540].USES_ON=			perl:540,buildmod,run
 [PERL_540].BUILDRUN_DEPENDS_ON=		perl-Text-Aligner:single:540
 [PERL_540].BUILD_DEPENDS_ON=		perl-Module-Build:single:540
+[PERL_542].USES_ON=			perl:542,buildmod,run
+[PERL_542].BUILDRUN_DEPENDS_ON=		perl-Text-Aligner:single:542
+[PERL_542].BUILD_DEPENDS_ON=		perl-Module-Build:single:542
 

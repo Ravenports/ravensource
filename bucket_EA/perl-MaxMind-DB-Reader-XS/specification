@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	1.000009
 NAMEBASE=		perl-MaxMind-DB-Reader-XS
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		538 540
-SDESC[538]=		Fast XS implementation of MaxMind DB reader (5.38)
+VARIANTS=		540 542
 SDESC[540]=		Fast XS implementation of MaxMind DB reader (5.40)
+SDESC[542]=		Fast XS implementation of MaxMind DB reader (5.42)
 HOMEPAGE=		https://github.com/maxmind/MaxMind-DB-Reader-XS
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:M/MA/MAXMIND
 DISTFILE[1]=		MaxMind-DB-Reader-XS-${PORTVERSION}.tar.gz:main
 
-SPKGS[538]=		single
 SPKGS[540]=		single
+SPKGS[542]=		single
 
-OPTIONS_AVAILABLE=	PERL_538 PERL_540
+OPTIONS_AVAILABLE=	PERL_540 PERL_542
 OPTIONS_STANDARD=	none
-VOPTS[538]=		PERL_538=ON PERL_540=OFF
-VOPTS[540]=		PERL_538=OFF PERL_540=ON
+VOPTS[540]=		PERL_540=ON PERL_542=OFF
+VOPTS[542]=		PERL_540=OFF PERL_542=ON
 
 # License listed in CPAN directory:
 # artistic_2
@@ -38,37 +38,29 @@ DISTNAME=		MaxMind-DB-Reader-XS-${PORTVERSION}
 # |      runtime : MaxMind::DB::Reader::Role::HasMetadata
 # |      runtime : MaxMind::DB::Types
 # |      runtime : Moo
-# |      runtime : XSLoader (perl 5.38 core) (perl 5.40 core)
+# |      runtime : XSLoader (perl 5.40 core) (perl 5.42 core)
 # |      runtime : namespace::autoclean
-# |      runtime : strict (perl 5.38 core) (perl 5.40 core)
-# |      runtime : warnings (perl 5.38 core) (perl 5.40 core)
+# |      runtime : strict (perl 5.40 core) (perl 5.42 core)
+# |      runtime : warnings (perl 5.40 core) (perl 5.42 core)
 # |        build : Module::Build
 # |    configure : Module::Build
-# |         test : ExtUtils::MakeMaker (perl 5.38 core) (perl 5.40 core)
-# |         test : File::Spec (perl 5.38 core) (perl 5.40 core)
+# |         test : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
+# |         test : File::Spec (perl 5.40 core) (perl 5.42 core)
 # |         test : MaxMind::DB::Reader
 # |         test : Module::Implementation
 # |         test : Net::Works::Network
 # |         test : Path::Class
 # |         test : Test::Fatal
 # |         test : Test::MaxMind::DB::Common::Util
-# |         test : Test::More (perl 5.38 core) (perl 5.40 core)
+# |         test : Test::More (perl 5.40 core) (perl 5.42 core)
 # |         test : Test::Number::Delta
 # |         test : Test::Requires
-# |         test : autodie (perl 5.38 core) (perl 5.40 core)
-# |         test : lib (perl 5.38 core) (perl 5.40 core)
-# |         test : utf8 (perl 5.38 core) (perl 5.40 core)
-# |         test : version (perl 5.38 core) (perl 5.40 core)
-# |         test : CPAN::Meta (perl 5.38 core) (perl 5.40 core)
+# |         test : autodie (perl 5.40 core) (perl 5.42 core)
+# |         test : lib (perl 5.40 core) (perl 5.42 core)
+# |         test : utf8 (perl 5.40 core) (perl 5.42 core)
+# |         test : version (perl 5.40 core) (perl 5.42 core)
+# |         test : CPAN::Meta (perl 5.40 core) (perl 5.42 core)
 
-[PERL_538].USES_ON=			perl:538,buildmod,run
-[PERL_538].BUILDRUN_DEPENDS_ON=		perl-Math-Int128:single:538
-					perl-Math-Int64:single:538
-					perl-MaxMind-DB-Common:single:538
-					perl-MaxMind-DB-Reader:single:538
-					perl-Moo:single:538
-					perl-namespace-autoclean:single:538
-[PERL_538].BUILD_DEPENDS_ON=		perl-Module-Build:single:538
 [PERL_540].USES_ON=			perl:540,buildmod,run
 [PERL_540].BUILDRUN_DEPENDS_ON=		perl-Math-Int128:single:540
 					perl-Math-Int64:single:540
@@ -77,6 +69,14 @@ DISTNAME=		MaxMind-DB-Reader-XS-${PORTVERSION}
 					perl-Moo:single:540
 					perl-namespace-autoclean:single:540
 [PERL_540].BUILD_DEPENDS_ON=		perl-Module-Build:single:540
+[PERL_542].USES_ON=			perl:542,buildmod,run
+[PERL_542].BUILDRUN_DEPENDS_ON=		perl-Math-Int128:single:542
+					perl-Math-Int64:single:542
+					perl-MaxMind-DB-Common:single:542
+					perl-MaxMind-DB-Reader:single:542
+					perl-Moo:single:542
+					perl-namespace-autoclean:single:542
+[PERL_542].BUILD_DEPENDS_ON=		perl-Module-Build:single:542
 
 BUILD_DEPENDS=		libmaxminddb:dev:std
 BUILDRUN_DEPENDS=	libmaxminddb:primary:std

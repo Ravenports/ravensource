@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.24
 NAMEBASE=		perl-Alien-gmake
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		538 540
-SDESC[538]=		Find or build GNU Make (5.38)
+VARIANTS=		540 542
 SDESC[540]=		Find or build GNU Make (5.40)
+SDESC[542]=		Find or build GNU Make (5.42)
 HOMEPAGE=		https://github.com/PerlAlien/Alien-gmake
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:P/PL/PLICEASE
 DISTFILE[1]=		Alien-gmake-${PORTVERSION}.tar.gz:main
 
-SPKGS[538]=		single
 SPKGS[540]=		single
+SPKGS[542]=		single
 
-OPTIONS_AVAILABLE=	PERL_538 PERL_540
+OPTIONS_AVAILABLE=	PERL_540 PERL_542
 OPTIONS_STANDARD=	none
-VOPTS[538]=		PERL_538=ON PERL_540=OFF
-VOPTS[540]=		PERL_538=OFF PERL_540=ON
+VOPTS[540]=		PERL_540=ON PERL_542=OFF
+VOPTS[542]=		PERL_540=OFF PERL_542=ON
 
 # License listed in CPAN directory:
 # perl_5
@@ -36,23 +36,23 @@ DISTNAME=		Alien-gmake-${PORTVERSION}
 # |        build : Alien::Build
 # |        build : Alien::Build::MM
 # |        build : Capture::Tiny
-# |        build : ExtUtils::MakeMaker (perl 5.38 core) (perl 5.40 core)
+# |        build : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
 # |    configure : Alien::Build
 # |    configure : Alien::Build::MM
 # |    configure : Capture::Tiny
-# |    configure : ExtUtils::MakeMaker (perl 5.38 core) (perl 5.40 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
 # |    configure : File::chdir
-# |         test : Test2::V0 (perl 5.40 core)
+# |         test : Test2::V0 (perl 5.40 core) (perl 5.42 core)
 # |         test : Test::Alien
 
-[PERL_538].USES_ON=			perl:538,configure
-[PERL_538].BUILDRUN_DEPENDS_ON=		perl-Alien-Build:single:538
-[PERL_538].BUILD_DEPENDS_ON=		perl-Capture-Tiny:single:538
-					perl-File-chdir:single:538
 [PERL_540].USES_ON=			perl:540,configure
 [PERL_540].BUILDRUN_DEPENDS_ON=		perl-Alien-Build:single:540
 [PERL_540].BUILD_DEPENDS_ON=		perl-Capture-Tiny:single:540
 					perl-File-chdir:single:540
+[PERL_542].USES_ON=			perl:542,configure
+[PERL_542].BUILDRUN_DEPENDS_ON=		perl-Alien-Build:single:542
+[PERL_542].BUILD_DEPENDS_ON=		perl-Capture-Tiny:single:542
+					perl-File-chdir:single:542
 
 BUILDRUN_DEPENDS=	perl-Mozilla-CA:single:perl_used
 			perl-Net-SSLeay:single:perl_used

@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	2.4000
 NAMEBASE=		perl-Moose
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		538 540
-SDESC[538]=		Postmodern object system for Perl 5 (5.38)
+VARIANTS=		540 542
 SDESC[540]=		Postmodern object system for Perl 5 (5.40)
+SDESC[542]=		Postmodern object system for Perl 5 (5.42)
 HOMEPAGE=		https://github.com/moose/Moose
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:E/ET/ETHER
 DISTFILE[1]=		Moose-${PORTVERSION}.tar.gz:main
 
-SPKGS[538]=		single
 SPKGS[540]=		single
+SPKGS[542]=		single
 
-OPTIONS_AVAILABLE=	PERL_538 PERL_540
+OPTIONS_AVAILABLE=	PERL_540 PERL_542
 OPTIONS_STANDARD=	none
-VOPTS[538]=		PERL_538=ON PERL_540=OFF
-VOPTS[540]=		PERL_538=OFF PERL_540=ON
+VOPTS[540]=		PERL_540=ON PERL_542=OFF
+VOPTS[542]=		PERL_540=OFF PERL_542=ON
 
 # License listed in CPAN directory:
 # perl_5
@@ -32,7 +32,7 @@ DISTNAME=		Moose-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |      runtime : Carp (perl 5.38 core) (perl 5.40 core)
+# |      runtime : Carp (perl 5.40 core) (perl 5.42 core)
 # |      runtime : Class::Load
 # |      runtime : Class::Load::XS
 # |      runtime : Data::OptList
@@ -41,7 +41,7 @@ DISTNAME=		Moose-${PORTVERSION}
 # |      runtime : Devel::StackTrace
 # |      runtime : Dist::CheckConflicts
 # |      runtime : Eval::Closure
-# |      runtime : List::Util (perl 5.38 core) (perl 5.40 core)
+# |      runtime : List::Util (perl 5.40 core) (perl 5.42 core)
 # |      runtime : MRO::Compat
 # |      runtime : Module::Runtime
 # |      runtime : Module::Runtime::Conflicts
@@ -49,43 +49,25 @@ DISTNAME=		Moose-${PORTVERSION}
 # |      runtime : Package::Stash
 # |      runtime : Package::Stash::XS
 # |      runtime : Params::Util
-# |      runtime : Scalar::Util (perl 5.38 core) (perl 5.40 core)
+# |      runtime : Scalar::Util (perl 5.40 core) (perl 5.42 core)
 # |      runtime : Sub::Exporter
-# |      runtime : Sub::Util (perl 5.38 core) (perl 5.40 core)
+# |      runtime : Sub::Util (perl 5.40 core) (perl 5.42 core)
 # |      runtime : Try::Tiny
-# |      runtime : parent (perl 5.38 core) (perl 5.40 core)
-# |      runtime : strict (perl 5.38 core) (perl 5.40 core)
-# |      runtime : warnings (perl 5.38 core) (perl 5.40 core)
+# |      runtime : parent (perl 5.40 core) (perl 5.42 core)
+# |      runtime : strict (perl 5.40 core) (perl 5.42 core)
+# |      runtime : warnings (perl 5.40 core) (perl 5.42 core)
 # |      runtime : Data::OptList
 # |    configure : Dist::CheckConflicts
-# |    configure : ExtUtils::MakeMaker (perl 5.38 core) (perl 5.40 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
 # |         test : CPAN::Meta::Check
-# |         test : CPAN::Meta::Requirements (perl 5.38 core) (perl 5.40 core)
-# |         test : File::Spec (perl 5.38 core) (perl 5.40 core)
-# |         test : Module::Metadata (perl 5.38 core) (perl 5.40 core)
+# |         test : CPAN::Meta::Requirements (perl 5.40 core) (perl 5.42 core)
+# |         test : File::Spec (perl 5.40 core) (perl 5.42 core)
+# |         test : Module::Metadata (perl 5.40 core) (perl 5.42 core)
 # |         test : Test::Fatal
-# |         test : Test::More (perl 5.38 core) (perl 5.40 core)
+# |         test : Test::More (perl 5.40 core) (perl 5.42 core)
 # |         test : Test::Needs
-# |         test : CPAN::Meta (perl 5.38 core) (perl 5.40 core)
+# |         test : CPAN::Meta (perl 5.40 core) (perl 5.42 core)
 
-[PERL_538].USES_ON=			perl:538,configure
-[PERL_538].BUILDRUN_DEPENDS_ON=		perl-Class-Load:single:538
-					perl-Class-Load-XS:single:538
-					perl-Data-OptList:single:538
-					perl-Devel-GlobalDestruction:single:538
-					perl-Devel-OverloadInfo:single:538
-					perl-Devel-StackTrace:single:538
-					perl-Dist-CheckConflicts:single:538
-					perl-Eval-Closure:single:538
-					perl-MRO-Compat:single:538
-					perl-Module-Runtime:single:538
-					perl-Module-Runtime-Conflicts:single:538
-					perl-Package-DeprecationManager:single:538
-					perl-Package-Stash:single:538
-					perl-Package-Stash-XS:single:538
-					perl-Params-Util:single:538
-					perl-Sub-Exporter:single:538
-					perl-Try-Tiny:single:538
 [PERL_540].USES_ON=			perl:540,configure
 [PERL_540].BUILDRUN_DEPENDS_ON=		perl-Class-Load:single:540
 					perl-Class-Load-XS:single:540
@@ -104,6 +86,24 @@ DISTNAME=		Moose-${PORTVERSION}
 					perl-Params-Util:single:540
 					perl-Sub-Exporter:single:540
 					perl-Try-Tiny:single:540
+[PERL_542].USES_ON=			perl:542,configure
+[PERL_542].BUILDRUN_DEPENDS_ON=		perl-Class-Load:single:542
+					perl-Class-Load-XS:single:542
+					perl-Data-OptList:single:542
+					perl-Devel-GlobalDestruction:single:542
+					perl-Devel-OverloadInfo:single:542
+					perl-Devel-StackTrace:single:542
+					perl-Dist-CheckConflicts:single:542
+					perl-Eval-Closure:single:542
+					perl-MRO-Compat:single:542
+					perl-Module-Runtime:single:542
+					perl-Module-Runtime-Conflicts:single:542
+					perl-Package-DeprecationManager:single:542
+					perl-Package-Stash:single:542
+					perl-Package-Stash-XS:single:542
+					perl-Params-Util:single:542
+					perl-Sub-Exporter:single:542
+					perl-Try-Tiny:single:542
 
 CFLAGS=			-I.
 

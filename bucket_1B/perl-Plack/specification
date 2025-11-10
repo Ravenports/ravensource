@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	1.0051
 NAMEBASE=		perl-Plack
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		538 540
-SDESC[538]=		Glue for Web frameworks and Web Servers (5.38)
+VARIANTS=		540 542
 SDESC[540]=		Glue for Web frameworks and Web Servers (5.40)
+SDESC[542]=		Glue for Web frameworks and Web Servers (5.42)
 HOMEPAGE=		https://github.com/plack/Plack
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:M/MI/MIYAGAWA
 DISTFILE[1]=		Plack-${PORTVERSION}.tar.gz:main
 
-SPKGS[538]=		single
 SPKGS[540]=		single
+SPKGS[542]=		single
 
-OPTIONS_AVAILABLE=	PERL_538 PERL_540
+OPTIONS_AVAILABLE=	PERL_540 PERL_542
 OPTIONS_STANDARD=	none
-VOPTS[538]=		PERL_538=ON PERL_540=OFF
-VOPTS[540]=		PERL_538=OFF PERL_540=ON
+VOPTS[540]=		PERL_540=ON PERL_542=OFF
+VOPTS[542]=		PERL_540=OFF PERL_542=ON
 
 # License listed in CPAN directory:
 # perl_5
@@ -41,37 +41,20 @@ DISTNAME=		Plack-${PORTVERSION}
 # |      runtime : HTTP::Entity::Parser
 # |      runtime : HTTP::Headers::Fast
 # |      runtime : HTTP::Message
-# |      runtime : HTTP::Tiny (perl 5.38 core) (perl 5.40 core)
+# |      runtime : HTTP::Tiny (perl 5.40 core) (perl 5.42 core)
 # |      runtime : Hash::MultiValue
-# |      runtime : Pod::Usage (perl 5.38 core) (perl 5.40 core)
+# |      runtime : Pod::Usage (perl 5.40 core) (perl 5.42 core)
 # |      runtime : Stream::Buffered
 # |      runtime : Test::TCP
 # |      runtime : Try::Tiny
 # |      runtime : URI
 # |      runtime : WWW::Form::UrlEncoded
-# |      runtime : parent (perl 5.38 core) (perl 5.40 core)
-# |    configure : ExtUtils::MakeMaker (perl 5.38 core) (perl 5.40 core)
+# |      runtime : parent (perl 5.40 core) (perl 5.42 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
 # |    configure : File::ShareDir::Install
-# |         test : Test::More (perl 5.38 core) (perl 5.40 core)
+# |         test : Test::More (perl 5.40 core) (perl 5.42 core)
 # |         test : Test::Requires
 
-[PERL_538].USES_ON=			perl:538,configure
-[PERL_538].BUILDRUN_DEPENDS_ON=		perl-Apache-LogFormat-Compiler:single:538
-					perl-Cookie-Baker:single:538
-					perl-Devel-StackTrace:single:538
-					perl-Devel-StackTrace-AsHTML:single:538
-					perl-File-ShareDir:single:538
-					perl-Filesys-Notify-Simple:single:538
-					perl-HTTP-Entity-Parser:single:538
-					perl-HTTP-Headers-Fast:single:538
-					perl-HTTP-Message:single:538
-					perl-Hash-MultiValue:single:538
-					perl-Stream-Buffered:single:538
-					perl-Test-TCP:single:538
-					perl-Try-Tiny:single:538
-					perl-URI:single:538
-					perl-WWW-Form-UrlEncoded:single:538
-[PERL_538].BUILD_DEPENDS_ON=		perl-File-ShareDir-Install:single:538
 [PERL_540].USES_ON=			perl:540,configure
 [PERL_540].BUILDRUN_DEPENDS_ON=		perl-Apache-LogFormat-Compiler:single:540
 					perl-Cookie-Baker:single:540
@@ -89,4 +72,21 @@ DISTNAME=		Plack-${PORTVERSION}
 					perl-URI:single:540
 					perl-WWW-Form-UrlEncoded:single:540
 [PERL_540].BUILD_DEPENDS_ON=		perl-File-ShareDir-Install:single:540
+[PERL_542].USES_ON=			perl:542,configure
+[PERL_542].BUILDRUN_DEPENDS_ON=		perl-Apache-LogFormat-Compiler:single:542
+					perl-Cookie-Baker:single:542
+					perl-Devel-StackTrace:single:542
+					perl-Devel-StackTrace-AsHTML:single:542
+					perl-File-ShareDir:single:542
+					perl-Filesys-Notify-Simple:single:542
+					perl-HTTP-Entity-Parser:single:542
+					perl-HTTP-Headers-Fast:single:542
+					perl-HTTP-Message:single:542
+					perl-Hash-MultiValue:single:542
+					perl-Stream-Buffered:single:542
+					perl-Test-TCP:single:542
+					perl-Try-Tiny:single:542
+					perl-URI:single:542
+					perl-WWW-Form-UrlEncoded:single:542
+[PERL_542].BUILD_DEPENDS_ON=		perl-File-ShareDir-Install:single:542
 

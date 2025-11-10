@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	6.01
 NAMEBASE=		perl-HTTP-Negotiate
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		538 540
-SDESC[538]=		Choose a variant to serve (5.38)
+VARIANTS=		540 542
 SDESC[540]=		Choose a variant to serve (5.40)
+SDESC[542]=		Choose a variant to serve (5.42)
 HOMEPAGE=		https://github.com/gisle/http-negotiate
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:G/GA/GAAS
 DISTFILE[1]=		HTTP-Negotiate-${PORTVERSION}.tar.gz:main
 
-SPKGS[538]=		single
 SPKGS[540]=		single
+SPKGS[542]=		single
 
-OPTIONS_AVAILABLE=	PERL_538 PERL_540
+OPTIONS_AVAILABLE=	PERL_540 PERL_542
 OPTIONS_STANDARD=	none
-VOPTS[538]=		PERL_538=ON PERL_540=OFF
-VOPTS[540]=		PERL_538=OFF PERL_540=ON
+VOPTS[540]=		PERL_540=ON PERL_542=OFF
+VOPTS[542]=		PERL_540=OFF PERL_542=ON
 
 # License listed in CPAN directory:
 # perl
@@ -32,12 +32,12 @@ DISTNAME=		HTTP-Negotiate-${PORTVERSION}
 # ---------------------------------------------
 # |   Prerequisites extracted from META.yml
 # ---------------------------------------------
-# | configure_requires : ExtUtils::MakeMaker (perl 5.38.4 core) (perl 5.40.3 core)
-# |     build_requires : ExtUtils::MakeMaker (perl 5.38.4 core) (perl 5.40.3 core)
+# | configure_requires : ExtUtils::MakeMaker (perl 5.40.3 core) (perl 5.42.0 core)
+# |     build_requires : ExtUtils::MakeMaker (perl 5.40.3 core) (perl 5.42.0 core)
 # |           requires : HTTP::Headers
 
-[PERL_538].USES_ON=			perl:538,configure
-[PERL_538].BUILDRUN_DEPENDS_ON=		perl-HTTP-Message:single:538
 [PERL_540].USES_ON=			perl:540,configure
 [PERL_540].BUILDRUN_DEPENDS_ON=		perl-HTTP-Message:single:540
+[PERL_542].USES_ON=			perl:542,configure
+[PERL_542].BUILDRUN_DEPENDS_ON=		perl-HTTP-Message:single:542
 

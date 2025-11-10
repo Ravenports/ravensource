@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	1.45
 NAMEBASE=		perl-DateTime-Locale
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		538 540
-SDESC[538]=		Localization support for DateTime.pm (5.38)
+VARIANTS=		540 542
 SDESC[540]=		Localization support for DateTime.pm (5.40)
+SDESC[542]=		Localization support for DateTime.pm (5.42)
 HOMEPAGE=		https://github.com/houseabsolute/DateTime-Locale
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:D/DR/DROLSKY
 DISTFILE[1]=		DateTime-Locale-${PORTVERSION}.tar.gz:main
 
-SPKGS[538]=		single
 SPKGS[540]=		single
+SPKGS[542]=		single
 
-OPTIONS_AVAILABLE=	PERL_538 PERL_540
+OPTIONS_AVAILABLE=	PERL_540 PERL_542
 OPTIONS_STANDARD=	none
-VOPTS[538]=		PERL_538=ON PERL_540=OFF
-VOPTS[540]=		PERL_538=OFF PERL_540=ON
+VOPTS[540]=		PERL_540=ON PERL_542=OFF
+VOPTS[542]=		PERL_540=OFF PERL_542=ON
 
 # License listed in CPAN directory:
 # perl_5
@@ -32,48 +32,41 @@ DISTNAME=		DateTime-Locale-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |      runtime : Carp (perl 5.38 core) (perl 5.40 core)
+# |      runtime : Carp (perl 5.40 core) (perl 5.42 core)
 # |      runtime : Dist::CheckConflicts
-# |      runtime : Exporter (perl 5.38 core) (perl 5.40 core)
+# |      runtime : Exporter (perl 5.40 core) (perl 5.42 core)
 # |      runtime : File::ShareDir
-# |      runtime : File::Spec (perl 5.38 core) (perl 5.40 core)
-# |      runtime : List::Util (perl 5.38 core) (perl 5.40 core)
+# |      runtime : File::Spec (perl 5.40 core) (perl 5.42 core)
+# |      runtime : List::Util (perl 5.40 core) (perl 5.42 core)
 # |      runtime : Params::ValidationCompiler
 # |      runtime : Specio::Declare
 # |      runtime : Specio::Library::String
-# |      runtime : Storable (perl 5.38 core) (perl 5.40 core)
+# |      runtime : Storable (perl 5.40 core) (perl 5.42 core)
 # |      runtime : namespace::autoclean
-# |      runtime : strict (perl 5.38 core) (perl 5.40 core)
-# |      runtime : warnings (perl 5.38 core) (perl 5.40 core)
+# |      runtime : strict (perl 5.40 core) (perl 5.42 core)
+# |      runtime : warnings (perl 5.40 core) (perl 5.42 core)
 # |    configure : Dist::CheckConflicts
-# |    configure : ExtUtils::MakeMaker (perl 5.38 core) (perl 5.40 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
 # |    configure : File::ShareDir::Install
 # |         test : CPAN::Meta::Check
-# |         test : CPAN::Meta::Requirements (perl 5.38 core) (perl 5.40 core)
-# |         test : ExtUtils::MakeMaker (perl 5.38 core) (perl 5.40 core)
-# |         test : File::Spec (perl 5.38 core) (perl 5.40 core)
-# |         test : File::Temp (perl 5.38 core) (perl 5.40 core)
+# |         test : CPAN::Meta::Requirements (perl 5.40 core) (perl 5.42 core)
+# |         test : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
+# |         test : File::Spec (perl 5.40 core) (perl 5.42 core)
+# |         test : File::Temp (perl 5.40 core) (perl 5.42 core)
 # |         test : IPC::System::Simple
 # |         test : Path::Tiny
-# |         test : Scalar::Util (perl 5.38 core) (perl 5.40 core)
-# |         test : Term::ANSIColor (perl 5.38 core) (perl 5.40 core)
+# |         test : Scalar::Util (perl 5.40 core) (perl 5.42 core)
+# |         test : Term::ANSIColor (perl 5.40 core) (perl 5.42 core)
 # |         test : Test2::Plugin::NoWarnings
-# |         test : Test2::Plugin::UTF8 (perl 5.40 core)
-# |         test : Test2::Require::Module (perl 5.40 core)
-# |         test : Test2::V0 (perl 5.40 core)
+# |         test : Test2::Plugin::UTF8 (perl 5.40 core) (perl 5.42 core)
+# |         test : Test2::Require::Module (perl 5.40 core) (perl 5.42 core)
+# |         test : Test2::V0 (perl 5.40 core) (perl 5.42 core)
 # |         test : Test::File::ShareDir::Dist
-# |         test : Test::More (perl 5.38 core) (perl 5.40 core)
-# |         test : base (perl 5.38 core) (perl 5.40 core)
-# |         test : utf8 (perl 5.38 core) (perl 5.40 core)
-# |         test : CPAN::Meta (perl 5.38 core) (perl 5.40 core)
+# |         test : Test::More (perl 5.40 core) (perl 5.42 core)
+# |         test : base (perl 5.40 core) (perl 5.42 core)
+# |         test : utf8 (perl 5.40 core) (perl 5.42 core)
+# |         test : CPAN::Meta (perl 5.40 core) (perl 5.42 core)
 
-[PERL_538].USES_ON=			perl:538,configure
-[PERL_538].BUILDRUN_DEPENDS_ON=		perl-Dist-CheckConflicts:single:538
-					perl-File-ShareDir:single:538
-					perl-Params-ValidationCompiler:single:538
-					perl-Specio:single:538
-					perl-namespace-autoclean:single:538
-[PERL_538].BUILD_DEPENDS_ON=		perl-File-ShareDir-Install:single:538
 [PERL_540].USES_ON=			perl:540,configure
 [PERL_540].BUILDRUN_DEPENDS_ON=		perl-Dist-CheckConflicts:single:540
 					perl-File-ShareDir:single:540
@@ -81,4 +74,11 @@ DISTNAME=		DateTime-Locale-${PORTVERSION}
 					perl-Specio:single:540
 					perl-namespace-autoclean:single:540
 [PERL_540].BUILD_DEPENDS_ON=		perl-File-ShareDir-Install:single:540
+[PERL_542].USES_ON=			perl:542,configure
+[PERL_542].BUILDRUN_DEPENDS_ON=		perl-Dist-CheckConflicts:single:542
+					perl-File-ShareDir:single:542
+					perl-Params-ValidationCompiler:single:542
+					perl-Specio:single:542
+					perl-namespace-autoclean:single:542
+[PERL_542].BUILD_DEPENDS_ON=		perl-File-ShareDir-Install:single:542
 

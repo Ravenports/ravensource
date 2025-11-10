@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	1.57
 NAMEBASE=		perl-Log-Log4perl
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		538 540
-SDESC[538]=		Log4j implementation for Perl (5.38)
+VARIANTS=		540 542
 SDESC[540]=		Log4j implementation for Perl (5.40)
+SDESC[542]=		Log4j implementation for Perl (5.42)
 HOMEPAGE=		https://github.com/mschilli/log4perl
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:E/ET/ETJ
 DISTFILE[1]=		Log-Log4perl-${PORTVERSION}.tar.gz:main
 
-SPKGS[538]=		single
 SPKGS[540]=		single
+SPKGS[542]=		single
 
-OPTIONS_AVAILABLE=	PERL_538 PERL_540
+OPTIONS_AVAILABLE=	PERL_540 PERL_542
 OPTIONS_STANDARD=	none
-VOPTS[538]=		PERL_538=ON PERL_540=OFF
-VOPTS[540]=		PERL_538=OFF PERL_540=ON
+VOPTS[540]=		PERL_540=ON PERL_542=OFF
+VOPTS[542]=		PERL_540=OFF PERL_542=ON
 
 # License listed in CPAN directory:
 # perl_5
@@ -32,8 +32,8 @@ DISTNAME=		Log-Log4perl-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |      runtime : File::Path (perl 5.38 core) (perl 5.40 core)
-# |      runtime : File::Spec (perl 5.38 core) (perl 5.40 core)
+# |      runtime : File::Path (perl 5.40 core) (perl 5.42 core)
+# |      runtime : File::Spec (perl 5.40 core) (perl 5.42 core)
 # |      runtime : DBD::CSV
 # |      runtime : DBD::SQLite
 # |      runtime : DBI
@@ -41,18 +41,10 @@ DISTNAME=		Log-Log4perl-${PORTVERSION}
 # |      runtime : Log::Dispatch::FileRotate
 # |      runtime : SQL::Statement
 # |      runtime : XML::DOM
-# |        build : ExtUtils::MakeMaker (perl 5.38 core) (perl 5.40 core)
-# |    configure : ExtUtils::MakeMaker (perl 5.38 core) (perl 5.40 core)
-# |         test : Test::More (perl 5.38 core) (perl 5.40 core)
+# |        build : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
+# |         test : Test::More (perl 5.40 core) (perl 5.42 core)
 
-[PERL_538].USES_ON=			perl:538,configure
-[PERL_538].BUILDRUN_DEPENDS_ON=		perl-DBD-CSV:single:538
-					perl-DBD-SQLite:single:538
-					perl-DBI:single:538
-					perl-Log-Dispatch:single:538
-					perl-Log-Dispatch-FileRotate:single:538
-					perl-SQL-Statement:single:538
-					perl-XML-DOM:single:538
 [PERL_540].USES_ON=			perl:540,configure
 [PERL_540].BUILDRUN_DEPENDS_ON=		perl-DBD-CSV:single:540
 					perl-DBD-SQLite:single:540
@@ -61,4 +53,12 @@ DISTNAME=		Log-Log4perl-${PORTVERSION}
 					perl-Log-Dispatch-FileRotate:single:540
 					perl-SQL-Statement:single:540
 					perl-XML-DOM:single:540
+[PERL_542].USES_ON=			perl:542,configure
+[PERL_542].BUILDRUN_DEPENDS_ON=		perl-DBD-CSV:single:542
+					perl-DBD-SQLite:single:542
+					perl-DBI:single:542
+					perl-Log-Dispatch:single:542
+					perl-Log-Dispatch-FileRotate:single:542
+					perl-SQL-Statement:single:542
+					perl-XML-DOM:single:542
 

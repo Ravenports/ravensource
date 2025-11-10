@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.48
 NAMEBASE=		perl-Sysadm-Install
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		538 540
-SDESC[538]=		Typical installation tasks for sysadmins (5.38)
+VARIANTS=		540 542
 SDESC[540]=		Typical installation tasks for sysadmins (5.40)
+SDESC[542]=		Typical installation tasks for sysadmins (5.42)
 HOMEPAGE=		https://github.com/mschilli/sysadm-install-perl
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:M/MS/MSCHILLI
 DISTFILE[1]=		Sysadm-Install-${PORTVERSION}.tar.gz:main
 
-SPKGS[538]=		single
 SPKGS[540]=		single
+SPKGS[542]=		single
 
-OPTIONS_AVAILABLE=	PERL_538 PERL_540
+OPTIONS_AVAILABLE=	PERL_540 PERL_542
 OPTIONS_STANDARD=	none
-VOPTS[538]=		PERL_538=ON PERL_540=OFF
-VOPTS[540]=		PERL_538=OFF PERL_540=ON
+VOPTS[540]=		PERL_540=ON PERL_542=OFF
+VOPTS[542]=		PERL_540=OFF PERL_542=ON
 
 # License listed in CPAN directory:
 # unknown
@@ -32,26 +32,26 @@ DISTNAME=		Sysadm-Install-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |      runtime : Cwd (perl 5.38 core) (perl 5.40 core)
-# |      runtime : File::Basename (perl 5.38 core) (perl 5.40 core)
-# |      runtime : File::Copy (perl 5.38 core) (perl 5.40 core)
-# |      runtime : File::Path (perl 5.38 core) (perl 5.40 core)
-# |      runtime : File::Temp (perl 5.38 core) (perl 5.40 core)
+# |      runtime : Cwd (perl 5.40 core) (perl 5.42 core)
+# |      runtime : File::Basename (perl 5.40 core) (perl 5.42 core)
+# |      runtime : File::Copy (perl 5.40 core) (perl 5.42 core)
+# |      runtime : File::Path (perl 5.40 core) (perl 5.42 core)
+# |      runtime : File::Temp (perl 5.40 core) (perl 5.42 core)
 # |      runtime : File::Which
 # |      runtime : LWP::Simple
 # |      runtime : Log::Log4perl
 # |      runtime : Term::ReadKey
-# |        build : ExtUtils::MakeMaker (perl 5.38 core) (perl 5.40 core)
-# |    configure : ExtUtils::MakeMaker (perl 5.38 core) (perl 5.40 core)
+# |        build : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
 
-[PERL_538].USES_ON=			perl:538,configure
-[PERL_538].BUILDRUN_DEPENDS_ON=		perl-File-Which:single:538
-					perl-libwww-perl:single:538
-					perl-Log-Log4perl:single:538
-					perl-TermReadKey:single:538
 [PERL_540].USES_ON=			perl:540,configure
 [PERL_540].BUILDRUN_DEPENDS_ON=		perl-File-Which:single:540
 					perl-libwww-perl:single:540
 					perl-Log-Log4perl:single:540
 					perl-TermReadKey:single:540
+[PERL_542].USES_ON=			perl:542,configure
+[PERL_542].BUILDRUN_DEPENDS_ON=		perl-File-Which:single:542
+					perl-libwww-perl:single:542
+					perl-Log-Log4perl:single:542
+					perl-TermReadKey:single:542
 

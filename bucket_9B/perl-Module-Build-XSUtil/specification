@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.19
 NAMEBASE=		perl-Module-Build-XSUtil
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		538 540
-SDESC[538]=		Module::Build class for building XS modules (5.38)
+VARIANTS=		540 542
 SDESC[540]=		Module::Build class for building XS modules (5.40)
+SDESC[542]=		Module::Build class for building XS modules (5.42)
 HOMEPAGE=		https://github.com/hideo55/Module-Build-XSUtil
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:H/HI/HIDEAKIO
 DISTFILE[1]=		Module-Build-XSUtil-${PORTVERSION}.tar.gz:main
 
-SPKGS[538]=		single
 SPKGS[540]=		single
+SPKGS[542]=		single
 
-OPTIONS_AVAILABLE=	PERL_538 PERL_540
+OPTIONS_AVAILABLE=	PERL_540 PERL_542
 OPTIONS_STANDARD=	none
-VOPTS[538]=		PERL_538=ON PERL_540=OFF
-VOPTS[540]=		PERL_538=OFF PERL_540=ON
+VOPTS[540]=		PERL_540=ON PERL_542=OFF
+VOPTS[542]=		PERL_540=OFF PERL_542=ON
 
 # License listed in CPAN directory:
 # perl_5
@@ -33,25 +33,25 @@ DISTNAME=		Module-Build-XSUtil-${PORTVERSION}
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
 # |      runtime : Devel::CheckCompiler
-# |      runtime : Devel::PPPort (perl 5.38 core) (perl 5.40 core)
-# |      runtime : Exporter (perl 5.38 core) (perl 5.40 core)
-# |      runtime : ExtUtils::CBuilder (perl 5.38 core) (perl 5.40 core)
-# |      runtime : File::Basename (perl 5.38 core) (perl 5.40 core)
-# |      runtime : File::Path (perl 5.38 core) (perl 5.40 core)
-# |      runtime : XSLoader (perl 5.38 core) (perl 5.40 core)
-# |      runtime : parent (perl 5.38 core) (perl 5.40 core)
+# |      runtime : Devel::PPPort (perl 5.40 core) (perl 5.42 core)
+# |      runtime : Exporter (perl 5.40 core) (perl 5.42 core)
+# |      runtime : ExtUtils::CBuilder (perl 5.40 core) (perl 5.42 core)
+# |      runtime : File::Basename (perl 5.40 core) (perl 5.42 core)
+# |      runtime : File::Path (perl 5.40 core) (perl 5.42 core)
+# |      runtime : XSLoader (perl 5.40 core) (perl 5.42 core)
+# |      runtime : parent (perl 5.40 core) (perl 5.42 core)
 # |    configure : Module::Build
 # |         test : Capture::Tiny
 # |         test : Cwd::Guard
 # |         test : File::Copy::Recursive::Reduced
-# |         test : File::Spec::Functions (perl 5.38 core) (perl 5.40 core)
-# |         test : File::Temp (perl 5.38 core) (perl 5.40 core)
-# |         test : Test::More (perl 5.38 core) (perl 5.40 core)
+# |         test : File::Spec::Functions (perl 5.40 core) (perl 5.42 core)
+# |         test : File::Temp (perl 5.40 core) (perl 5.42 core)
+# |         test : Test::More (perl 5.40 core) (perl 5.42 core)
 
-[PERL_538].USES_ON=			perl:538,buildmod,run
-[PERL_538].BUILDRUN_DEPENDS_ON=		perl-Devel-CheckCompiler:single:538
-[PERL_538].BUILD_DEPENDS_ON=		perl-Module-Build:single:538
 [PERL_540].USES_ON=			perl:540,buildmod,run
 [PERL_540].BUILDRUN_DEPENDS_ON=		perl-Devel-CheckCompiler:single:540
 [PERL_540].BUILD_DEPENDS_ON=		perl-Module-Build:single:540
+[PERL_542].USES_ON=			perl:542,buildmod,run
+[PERL_542].BUILDRUN_DEPENDS_ON=		perl-Devel-CheckCompiler:single:542
+[PERL_542].BUILD_DEPENDS_ON=		perl-Module-Build:single:542
 

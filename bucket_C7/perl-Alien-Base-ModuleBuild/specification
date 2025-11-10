@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	1.17
 NAMEBASE=		perl-Alien-Base-ModuleBuild
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		538 540
-SDESC[538]=		Subclass for building Alien::modules (5.38)
+VARIANTS=		540 542
 SDESC[540]=		Subclass for building Alien::modules (5.40)
+SDESC[542]=		Subclass for building Alien::modules (5.42)
 HOMEPAGE=		https://github.com/PerlAlien/Alien-Base-ModuleBuild
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:P/PL/PLICEASE
 DISTFILE[1]=		Alien-Base-ModuleBuild-${PORTVERSION}.tar.gz:main
 
-SPKGS[538]=		single
 SPKGS[540]=		single
+SPKGS[542]=		single
 
-OPTIONS_AVAILABLE=	PERL_538 PERL_540
+OPTIONS_AVAILABLE=	PERL_540 PERL_542
 OPTIONS_STANDARD=	none
-VOPTS[538]=		PERL_538=ON PERL_540=OFF
-VOPTS[540]=		PERL_538=OFF PERL_540=ON
+VOPTS[540]=		PERL_540=ON PERL_542=OFF
+VOPTS[542]=		PERL_540=OFF PERL_542=ON
 
 # License listed in CPAN directory:
 # perl_5
@@ -35,35 +35,24 @@ DISTNAME=		Alien-Base-ModuleBuild-${PORTVERSION}
 # |      runtime : Alien::Base
 # |      runtime : Alien::Base::PkgConfig
 # |      runtime : Archive::Extract
-# |      runtime : Archive::Tar (perl 5.38 core) (perl 5.40 core)
+# |      runtime : Archive::Tar (perl 5.40 core) (perl 5.42 core)
 # |      runtime : Capture::Tiny
 # |      runtime : File::chdir
-# |      runtime : HTTP::Tiny (perl 5.38 core) (perl 5.40 core)
-# |      runtime : List::Util (perl 5.38 core) (perl 5.40 core)
+# |      runtime : HTTP::Tiny (perl 5.40 core) (perl 5.42 core)
+# |      runtime : List::Util (perl 5.40 core) (perl 5.42 core)
 # |      runtime : Module::Build
 # |      runtime : Path::Tiny
 # |      runtime : Shell::Config::Generate
 # |      runtime : Shell::Guess
 # |      runtime : Sort::Versions
-# |      runtime : Text::ParseWords (perl 5.38 core) (perl 5.40 core)
+# |      runtime : Text::ParseWords (perl 5.40 core) (perl 5.42 core)
 # |      runtime : URI
-# |      runtime : parent (perl 5.38 core) (perl 5.40 core)
+# |      runtime : parent (perl 5.40 core) (perl 5.42 core)
 # |        build : Module::Build
 # |    configure : Module::Build
-# |         test : Test2::V0 (perl 5.40 core)
+# |         test : Test2::V0 (perl 5.40 core) (perl 5.42 core)
 # |         test : URI::file
 
-[PERL_538].USES_ON=			perl:538,buildmod,run
-[PERL_538].BUILDRUN_DEPENDS_ON=		perl-Alien-Build:single:538
-					perl-Archive-Extract:single:538
-					perl-Capture-Tiny:single:538
-					perl-File-chdir:single:538
-					perl-Module-Build:single:538
-					perl-Path-Tiny:single:538
-					perl-Shell-Config-Generate:single:538
-					perl-Shell-Guess:single:538
-					perl-Sort-Versions:single:538
-					perl-URI:single:538
 [PERL_540].USES_ON=			perl:540,buildmod,run
 [PERL_540].BUILDRUN_DEPENDS_ON=		perl-Alien-Build:single:540
 					perl-Archive-Extract:single:540
@@ -75,4 +64,15 @@ DISTNAME=		Alien-Base-ModuleBuild-${PORTVERSION}
 					perl-Shell-Guess:single:540
 					perl-Sort-Versions:single:540
 					perl-URI:single:540
+[PERL_542].USES_ON=			perl:542,buildmod,run
+[PERL_542].BUILDRUN_DEPENDS_ON=		perl-Alien-Build:single:542
+					perl-Archive-Extract:single:542
+					perl-Capture-Tiny:single:542
+					perl-File-chdir:single:542
+					perl-Module-Build:single:542
+					perl-Path-Tiny:single:542
+					perl-Shell-Config-Generate:single:542
+					perl-Shell-Guess:single:542
+					perl-Sort-Versions:single:542
+					perl-URI:single:542
 

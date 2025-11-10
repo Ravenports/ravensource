@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	4.000002
 NAMEBASE=		perl-Mail-SpamAssassin
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		538 540
-SDESC[538]=		Extensible mail filter that identifies spam (5.38)
+VARIANTS=		540 542
 SDESC[540]=		Extensible mail filter that identifies spam (5.40)
+SDESC[542]=		Extensible mail filter that identifies spam (5.42)
 HOMEPAGE=		http://svn.apache.org/repos/asf/spamassassin/
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:G/GB/GBECHIS
 DISTFILE[1]=		Mail-SpamAssassin-4.0.2.tar.gz:main
 
-SPKGS[538]=		single
 SPKGS[540]=		single
+SPKGS[542]=		single
 
-OPTIONS_AVAILABLE=	PERL_538 PERL_540
+OPTIONS_AVAILABLE=	PERL_540 PERL_542
 OPTIONS_STANDARD=	none
-VOPTS[538]=		PERL_538=ON PERL_540=OFF
-VOPTS[540]=		PERL_538=OFF PERL_540=ON
+VOPTS[540]=		PERL_540=ON PERL_542=OFF
+VOPTS[542]=		PERL_540=OFF PERL_542=ON
 
 # License listed in CPAN directory:
 # apache_2_0
@@ -32,36 +32,36 @@ DISTNAME=		Mail-SpamAssassin-4.0.2
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |      runtime : Archive::Tar (perl 5.38 core) (perl 5.40 core)
-# |      runtime : Errno (perl 5.38 core) (perl 5.40 core)
-# |      runtime : File::Copy (perl 5.38 core) (perl 5.40 core)
-# |      runtime : File::Spec (perl 5.38 core) (perl 5.40 core)
+# |      runtime : Archive::Tar (perl 5.40 core) (perl 5.42 core)
+# |      runtime : Errno (perl 5.40 core) (perl 5.42 core)
+# |      runtime : File::Copy (perl 5.40 core) (perl 5.42 core)
+# |      runtime : File::Spec (perl 5.40 core) (perl 5.42 core)
 # |      runtime : HTML::Parser
-# |      runtime : IO::Zlib (perl 5.38 core) (perl 5.40 core)
+# |      runtime : IO::Zlib (perl 5.40 core) (perl 5.42 core)
 # |      runtime : Mail::DKIM
 # |      runtime : Net::DNS
 # |      runtime : NetAddr::IP
-# |      runtime : Pod::Usage (perl 5.38 core) (perl 5.40 core)
-# |      runtime : Sys::Hostname (perl 5.38 core) (perl 5.40 core)
-# |      runtime : Time::HiRes (perl 5.38 core) (perl 5.40 core)
-# |      runtime : Time::Local (perl 5.38 core) (perl 5.40 core)
+# |      runtime : Pod::Usage (perl 5.40 core) (perl 5.42 core)
+# |      runtime : Sys::Hostname (perl 5.40 core) (perl 5.42 core)
+# |      runtime : Time::HiRes (perl 5.40 core) (perl 5.42 core)
+# |      runtime : Time::Local (perl 5.40 core) (perl 5.42 core)
 # |      runtime : Archive::Zip
 # |      runtime : BSD::Resource
-# |      runtime : Compress::Zlib (perl 5.38 core) (perl 5.40 core)
+# |      runtime : Compress::Zlib (perl 5.40 core) (perl 5.42 core)
 # |      runtime : DBD::SQLite
 # |      runtime : DBI
-# |      runtime : DB_File (perl 5.38 core) (perl 5.40 core)
+# |      runtime : DB_File (perl 5.40 core) (perl 5.42 core)
 # |      runtime : Email::Address::XS
 # |      runtime : Encode::Detect::Detector
 # |      runtime : Geo::IP
 # |      runtime : IO::Socket::INET6
-# |      runtime : IO::Socket::IP (perl 5.38 core) (perl 5.40 core)
+# |      runtime : IO::Socket::IP (perl 5.40 core) (perl 5.42 core)
 # |      runtime : IO::Socket::SSL
 # |      runtime : IO::String
 # |      runtime : IP::Country::DB_File
 # |      runtime : IP::Country::Fast
 # |      runtime : LWP::Protocol::https
-# |      runtime : MIME::Base64 (perl 5.38 core) (perl 5.40 core)
+# |      runtime : MIME::Base64 (perl 5.40 core) (perl 5.42 core)
 # |      runtime : Mail::DKIM
 # |      runtime : Mail::DMARC
 # |      runtime : Mail::SPF
@@ -71,42 +71,15 @@ DISTNAME=		Mail-SpamAssassin-4.0.2
 # |      runtime : Net::LibIDN
 # |      runtime : Net::LibIDN2
 # |      runtime : Net::Patricia
-# |      runtime : Net::SMTP (perl 5.38 core) (perl 5.40 core)
+# |      runtime : Net::SMTP (perl 5.40 core) (perl 5.42 core)
 # |      runtime : Razor2::Client::Agent
-# |        build : ExtUtils::MakeMaker (perl 5.38 core) (perl 5.40 core)
-# |    configure : ExtUtils::MakeMaker (perl 5.38 core) (perl 5.40 core)
-# |         test : Test::Simple (perl 5.38 core) (perl 5.40 core)
+# |        build : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
+# |         test : Test::Simple (perl 5.40 core) (perl 5.42 core)
 # |         test : Devel::Cycle
 # |         test : Net::DNS::Nameserver
 # |         test : Text::Diff
 
-[PERL_538].USES_ON=			perl:538,configure
-[PERL_538].BUILDRUN_DEPENDS_ON=		perl-HTML-Parser:single:538
-					perl-Mail-DKIM:single:538
-					perl-Net-DNS:single:538
-					perl-NetAddr-IP:single:538
-					perl-Archive-Zip:single:538
-					perl-BSD-Resource:single:538
-					perl-DBD-SQLite:single:538
-					perl-DBI:single:538
-					perl-Email-Address-XS:single:538
-					perl-Encode-Detect:single:538
-					perl-Geo-IP:single:538
-					perl-IO-Socket-INET6:single:538
-					perl-IO-Socket-SSL:single:538
-					perl-IO-String:single:538
-					perl-IP-Country-DB_File:single:538
-					perl-IP-Country:single:538
-					perl-LWP-Protocol-https:single:538
-					perl-Mail-DMARC:single:538
-					perl-Mail-SPF:single:538
-					perl-MaxMind-DB-Reader:single:538
-					perl-MaxMind-DB-Reader-XS:single:538
-					perl-Net-CIDR-Lite:single:538
-					perl-Net-LibIDN:single:538
-					perl-Net-LibIDN2:single:538
-					perl-Net-Patricia:single:538
-					perl-Razor2-Client-Agent:single:538
 [PERL_540].USES_ON=			perl:540,configure
 [PERL_540].BUILDRUN_DEPENDS_ON=		perl-HTML-Parser:single:540
 					perl-Mail-DKIM:single:540
@@ -134,6 +107,33 @@ DISTNAME=		Mail-SpamAssassin-4.0.2
 					perl-Net-LibIDN2:single:540
 					perl-Net-Patricia:single:540
 					perl-Razor2-Client-Agent:single:540
+[PERL_542].USES_ON=			perl:542,configure
+[PERL_542].BUILDRUN_DEPENDS_ON=		perl-HTML-Parser:single:542
+					perl-Mail-DKIM:single:542
+					perl-Net-DNS:single:542
+					perl-NetAddr-IP:single:542
+					perl-Archive-Zip:single:542
+					perl-BSD-Resource:single:542
+					perl-DBD-SQLite:single:542
+					perl-DBI:single:542
+					perl-Email-Address-XS:single:542
+					perl-Encode-Detect:single:542
+					perl-Geo-IP:single:542
+					perl-IO-Socket-INET6:single:542
+					perl-IO-Socket-SSL:single:542
+					perl-IO-String:single:542
+					perl-IP-Country-DB_File:single:542
+					perl-IP-Country:single:542
+					perl-LWP-Protocol-https:single:542
+					perl-Mail-DMARC:single:542
+					perl-Mail-SPF:single:542
+					perl-MaxMind-DB-Reader:single:542
+					perl-MaxMind-DB-Reader-XS:single:542
+					perl-Net-CIDR-Lite:single:542
+					perl-Net-LibIDN:single:542
+					perl-Net-LibIDN2:single:542
+					perl-Net-Patricia:single:542
+					perl-Razor2-Client-Agent:single:542
 
 USES=			cpe zlib
 CPE_VENDOR=		apache

@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.53
 NAMEBASE=		perl-Specio
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		538 540
-SDESC[538]=		Type constraints and coercions for Perl (5.38)
+VARIANTS=		540 542
 SDESC[540]=		Type constraints and coercions for Perl (5.40)
+SDESC[542]=		Type constraints and coercions for Perl (5.42)
 HOMEPAGE=		https://github.com/houseabsolute/Specio
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:D/DR/DROLSKY
 DISTFILE[1]=		Specio-${PORTVERSION}.tar.gz:main
 
-SPKGS[538]=		single
 SPKGS[540]=		single
+SPKGS[542]=		single
 
-OPTIONS_AVAILABLE=	PERL_538 PERL_540
+OPTIONS_AVAILABLE=	PERL_540 PERL_542
 OPTIONS_STANDARD=	none
-VOPTS[538]=		PERL_538=ON PERL_540=OFF
-VOPTS[540]=		PERL_538=OFF PERL_540=ON
+VOPTS[540]=		PERL_540=ON PERL_542=OFF
+VOPTS[542]=		PERL_540=OFF PERL_542=ON
 
 # License listed in CPAN directory:
 # artistic_2
@@ -32,57 +32,44 @@ DISTNAME=		Specio-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |      runtime : B (perl 5.38 core) (perl 5.40 core)
-# |      runtime : Carp (perl 5.38 core) (perl 5.40 core)
+# |      runtime : B (perl 5.40 core) (perl 5.42 core)
+# |      runtime : Carp (perl 5.40 core) (perl 5.42 core)
 # |      runtime : Clone
 # |      runtime : Clone::PP
 # |      runtime : Devel::StackTrace
 # |      runtime : Eval::Closure
-# |      runtime : Exporter (perl 5.38 core) (perl 5.40 core)
-# |      runtime : IO::File (perl 5.38 core) (perl 5.40 core)
-# |      runtime : List::Util (perl 5.38 core) (perl 5.40 core)
+# |      runtime : Exporter (perl 5.40 core) (perl 5.42 core)
+# |      runtime : IO::File (perl 5.40 core) (perl 5.42 core)
+# |      runtime : List::Util (perl 5.40 core) (perl 5.42 core)
 # |      runtime : MRO::Compat
 # |      runtime : Module::Implementation
 # |      runtime : Module::Runtime
 # |      runtime : Role::Tiny
 # |      runtime : Role::Tiny::With
-# |      runtime : Scalar::Util (perl 5.38 core) (perl 5.40 core)
+# |      runtime : Scalar::Util (perl 5.40 core) (perl 5.42 core)
 # |      runtime : Sub::Quote
 # |      runtime : Test::Fatal
-# |      runtime : Test::More (perl 5.38 core) (perl 5.40 core)
+# |      runtime : Test::More (perl 5.40 core) (perl 5.42 core)
 # |      runtime : Try::Tiny
-# |      runtime : overload (perl 5.38 core) (perl 5.40 core)
-# |      runtime : parent (perl 5.38 core) (perl 5.40 core)
-# |      runtime : re (perl 5.38 core) (perl 5.40 core)
-# |      runtime : strict (perl 5.38 core) (perl 5.40 core)
-# |      runtime : version (perl 5.38 core) (perl 5.40 core)
-# |      runtime : warnings (perl 5.38 core) (perl 5.40 core)
+# |      runtime : overload (perl 5.40 core) (perl 5.42 core)
+# |      runtime : parent (perl 5.40 core) (perl 5.42 core)
+# |      runtime : re (perl 5.40 core) (perl 5.42 core)
+# |      runtime : strict (perl 5.40 core) (perl 5.42 core)
+# |      runtime : version (perl 5.40 core) (perl 5.42 core)
+# |      runtime : warnings (perl 5.40 core) (perl 5.42 core)
 # |      runtime : Ref::Util
-# |      runtime : Sub::Util (perl 5.38 core) (perl 5.40 core)
-# |    configure : ExtUtils::MakeMaker (perl 5.38 core) (perl 5.40 core)
-# |         test : ExtUtils::MakeMaker (perl 5.38 core) (perl 5.40 core)
-# |         test : File::Spec (perl 5.38 core) (perl 5.40 core)
-# |         test : FindBin (perl 5.38 core) (perl 5.40 core)
-# |         test : Test::More (perl 5.38 core) (perl 5.40 core)
+# |      runtime : Sub::Util (perl 5.40 core) (perl 5.42 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
+# |         test : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
+# |         test : File::Spec (perl 5.40 core) (perl 5.42 core)
+# |         test : FindBin (perl 5.40 core) (perl 5.42 core)
+# |         test : Test::More (perl 5.40 core) (perl 5.42 core)
 # |         test : Test::Needs
-# |         test : lib (perl 5.38 core) (perl 5.40 core)
-# |         test : open (perl 5.38 core) (perl 5.40 core)
-# |         test : utf8 (perl 5.38 core) (perl 5.40 core)
-# |         test : CPAN::Meta (perl 5.38 core) (perl 5.40 core)
+# |         test : lib (perl 5.40 core) (perl 5.42 core)
+# |         test : open (perl 5.40 core) (perl 5.42 core)
+# |         test : utf8 (perl 5.40 core) (perl 5.42 core)
+# |         test : CPAN::Meta (perl 5.40 core) (perl 5.42 core)
 
-[PERL_538].USES_ON=			perl:538,configure
-[PERL_538].BUILDRUN_DEPENDS_ON=		perl-Clone:single:538
-					perl-Clone-PP:single:538
-					perl-Devel-StackTrace:single:538
-					perl-Eval-Closure:single:538
-					perl-MRO-Compat:single:538
-					perl-Module-Implementation:single:538
-					perl-Module-Runtime:single:538
-					perl-Role-Tiny:single:538
-					perl-Sub-Quote:single:538
-					perl-Test-Fatal:single:538
-					perl-Try-Tiny:single:538
-					perl-Ref-Util:single:538
 [PERL_540].USES_ON=			perl:540,configure
 [PERL_540].BUILDRUN_DEPENDS_ON=		perl-Clone:single:540
 					perl-Clone-PP:single:540
@@ -96,4 +83,17 @@ DISTNAME=		Specio-${PORTVERSION}
 					perl-Test-Fatal:single:540
 					perl-Try-Tiny:single:540
 					perl-Ref-Util:single:540
+[PERL_542].USES_ON=			perl:542,configure
+[PERL_542].BUILDRUN_DEPENDS_ON=		perl-Clone:single:542
+					perl-Clone-PP:single:542
+					perl-Devel-StackTrace:single:542
+					perl-Eval-Closure:single:542
+					perl-MRO-Compat:single:542
+					perl-Module-Implementation:single:542
+					perl-Module-Runtime:single:542
+					perl-Role-Tiny:single:542
+					perl-Sub-Quote:single:542
+					perl-Test-Fatal:single:542
+					perl-Try-Tiny:single:542
+					perl-Ref-Util:single:542
 

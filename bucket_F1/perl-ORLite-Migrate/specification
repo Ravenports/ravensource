@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	1.10
 NAMEBASE=		perl-ORLite-Migrate
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		538 540
-SDESC[538]=		Nimble SQLite-specific schema migration (5.38)
+VARIANTS=		540 542
 SDESC[540]=		Nimble SQLite-specific schema migration (5.40)
+SDESC[542]=		Nimble SQLite-specific schema migration (5.42)
 HOMEPAGE=		none
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:A/AD/ADAMK
 DISTFILE[1]=		ORLite-Migrate-${PORTVERSION}.tar.gz:main
 
-SPKGS[538]=		single
 SPKGS[540]=		single
+SPKGS[542]=		single
 
-OPTIONS_AVAILABLE=	PERL_538 PERL_540
+OPTIONS_AVAILABLE=	PERL_540 PERL_542
 OPTIONS_STANDARD=	none
-VOPTS[538]=		PERL_538=ON PERL_540=OFF
-VOPTS[540]=		PERL_538=OFF PERL_540=ON
+VOPTS[540]=		PERL_540=ON PERL_542=OFF
+VOPTS[542]=		PERL_540=OFF PERL_542=ON
 
 # License listed in CPAN directory:
 # perl
@@ -32,13 +32,13 @@ DISTNAME=		ORLite-Migrate-${PORTVERSION}
 # ---------------------------------------------
 # |   Prerequisites extracted from META.yml
 # ---------------------------------------------
-# | configure_requires : ExtUtils::MakeMaker (perl 5.38.4 core) (perl 5.40.3 core)
-# |     build_requires : ExtUtils::MakeMaker (perl 5.38.4 core) (perl 5.40.3 core)
-# |     build_requires : Test::More (perl 5.38.4 core) (perl 5.40.3 core)
+# | configure_requires : ExtUtils::MakeMaker (perl 5.40.3 core) (perl 5.42.0 core)
+# |     build_requires : ExtUtils::MakeMaker (perl 5.40.3 core) (perl 5.42.0 core)
+# |     build_requires : Test::More (perl 5.40.3 core) (perl 5.42.0 core)
 # |           requires : DBD::SQLite
 # |           requires : DBI
-# |           requires : File::Path (perl 5.38.4 core) (perl 5.40.3 core)
-# |           requires : File::Spec (perl 5.38.4 core) (perl 5.40.3 core)
+# |           requires : File::Path (perl 5.40.3 core) (perl 5.42.0 core)
+# |           requires : File::Spec (perl 5.40.3 core) (perl 5.42.0 core)
 # |           requires : File::Which
 # |           requires : File::pushd
 # |           requires : IPC::Run3
@@ -46,15 +46,6 @@ DISTNAME=		ORLite-Migrate-${PORTVERSION}
 # |           requires : Params::Util
 # |           requires : Probe::Perl
 
-[PERL_538].USES_ON=			perl:538,configure
-[PERL_538].BUILDRUN_DEPENDS_ON=		perl-DBD-SQLite:single:538
-					perl-DBI:single:538
-					perl-File-Which:single:538
-					perl-File-pushd:single:538
-					perl-IPC-Run3:single:538
-					perl-ORLite:single:538
-					perl-Params-Util:single:538
-					perl-Probe-Perl:single:538
 [PERL_540].USES_ON=			perl:540,configure
 [PERL_540].BUILDRUN_DEPENDS_ON=		perl-DBD-SQLite:single:540
 					perl-DBI:single:540
@@ -64,4 +55,13 @@ DISTNAME=		ORLite-Migrate-${PORTVERSION}
 					perl-ORLite:single:540
 					perl-Params-Util:single:540
 					perl-Probe-Perl:single:540
+[PERL_542].USES_ON=			perl:542,configure
+[PERL_542].BUILDRUN_DEPENDS_ON=		perl-DBD-SQLite:single:542
+					perl-DBI:single:542
+					perl-File-Which:single:542
+					perl-File-pushd:single:542
+					perl-IPC-Run3:single:542
+					perl-ORLite:single:542
+					perl-Params-Util:single:542
+					perl-Probe-Perl:single:542
 

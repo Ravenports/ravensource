@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	1.21
 NAMEBASE=		perl-Module-Install
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		538 540
-SDESC[538]=		Standalone, extensible module installer (5.38)
+VARIANTS=		540 542
 SDESC[540]=		Standalone, extensible module installer (5.40)
+SDESC[542]=		Standalone, extensible module installer (5.42)
 HOMEPAGE=		https://github.com/Perl-Toolchain-Gang/Module-Install.git
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:E/ET/ETHER
 DISTFILE[1]=		Module-Install-${PORTVERSION}.tar.gz:main
 
-SPKGS[538]=		single
 SPKGS[540]=		single
+SPKGS[542]=		single
 
-OPTIONS_AVAILABLE=	PERL_538 PERL_540
+OPTIONS_AVAILABLE=	PERL_540 PERL_542
 OPTIONS_STANDARD=	none
-VOPTS[538]=		PERL_538=ON PERL_540=OFF
-VOPTS[540]=		PERL_538=OFF PERL_540=ON
+VOPTS[540]=		PERL_540=ON PERL_542=OFF
+VOPTS[542]=		PERL_540=OFF PERL_542=ON
 
 # License listed in CPAN directory:
 # perl
@@ -32,23 +32,23 @@ DISTNAME=		Module-Install-${PORTVERSION}
 # ---------------------------------------------
 # |   Prerequisites extracted from META.yml
 # ---------------------------------------------
-# | configure_requires : ExtUtils::MakeMaker (perl 5.38.4 core) (perl 5.40.3 core)
+# | configure_requires : ExtUtils::MakeMaker (perl 5.40.3 core) (perl 5.42.0 core)
 # | configure_requires : YAML::Tiny
-# |     build_requires : ExtUtils::MakeMaker (perl 5.38.4 core) (perl 5.40.3 core)
-# |     build_requires : Test::Harness (perl 5.38.4 core) (perl 5.40.3 core)
-# |     build_requires : Test::More (perl 5.38.4 core) (perl 5.40.3 core)
-# |     build_requires : autodie (perl 5.38.4 core) (perl 5.40.3 core)
-# |           requires : Devel::PPPort (perl 5.38.4 core) (perl 5.40.3 core)
-# |           requires : ExtUtils::Install (perl 5.38.4 core) (perl 5.40.3 core)
-# |           requires : ExtUtils::MakeMaker (perl 5.38.4 core) (perl 5.40.3 core)
-# |           requires : ExtUtils::ParseXS (perl 5.38.4 core) (perl 5.40.3 core)
-# |           requires : File::Path (perl 5.38.4 core) (perl 5.40.3 core)
+# |     build_requires : ExtUtils::MakeMaker (perl 5.40.3 core) (perl 5.42.0 core)
+# |     build_requires : Test::Harness (perl 5.40.3 core) (perl 5.42.0 core)
+# |     build_requires : Test::More (perl 5.40.3 core) (perl 5.42.0 core)
+# |     build_requires : autodie (perl 5.40.3 core) (perl 5.42.0 core)
+# |           requires : Devel::PPPort (perl 5.40.3 core) (perl 5.42.0 core)
+# |           requires : ExtUtils::Install (perl 5.40.3 core) (perl 5.42.0 core)
+# |           requires : ExtUtils::MakeMaker (perl 5.40.3 core) (perl 5.42.0 core)
+# |           requires : ExtUtils::ParseXS (perl 5.40.3 core) (perl 5.42.0 core)
+# |           requires : File::Path (perl 5.40.3 core) (perl 5.42.0 core)
 # |           requires : File::Remove
-# |           requires : File::Spec (perl 5.38.4 core) (perl 5.40.3 core)
+# |           requires : File::Spec (perl 5.40.3 core) (perl 5.42.0 core)
 # |           requires : Module::Build
-# |           requires : Module::CoreList (perl 5.38.4 core) (perl 5.40.3 core)
+# |           requires : Module::CoreList (perl 5.40.3 core) (perl 5.42.0 core)
 # |           requires : Module::ScanDeps
-# |           requires : Parse::CPAN::Meta (perl 5.38.4 core) (perl 5.40.3 core)
+# |           requires : Parse::CPAN::Meta (perl 5.40.3 core) (perl 5.42.0 core)
 # |           requires : YAML::Tiny
 # |         recommends : Archive::Zip
 # |         recommends : File::HomeDir
@@ -57,16 +57,6 @@ DISTNAME=		Module-Install-${PORTVERSION}
 # |         recommends : LWP::UserAgent
 # |         recommends : PAR::Dist
 
-[PERL_538].USES_ON=			perl:538,configure
-[PERL_538].BUILDRUN_DEPENDS_ON=		perl-File-Remove:single:538
-					perl-Module-Build:single:538
-					perl-Module-ScanDeps:single:538
-					perl-YAML-Tiny:single:538
-					perl-Archive-Zip:single:538
-					perl-File-HomeDir:single:538
-					perl-JSON:single:538
-					perl-libwww-perl:single:538
-					perl-PAR-Dist:single:538
 [PERL_540].USES_ON=			perl:540,configure
 [PERL_540].BUILDRUN_DEPENDS_ON=		perl-File-Remove:single:540
 					perl-Module-Build:single:540
@@ -77,4 +67,14 @@ DISTNAME=		Module-Install-${PORTVERSION}
 					perl-JSON:single:540
 					perl-libwww-perl:single:540
 					perl-PAR-Dist:single:540
+[PERL_542].USES_ON=			perl:542,configure
+[PERL_542].BUILDRUN_DEPENDS_ON=		perl-File-Remove:single:542
+					perl-Module-Build:single:542
+					perl-Module-ScanDeps:single:542
+					perl-YAML-Tiny:single:542
+					perl-Archive-Zip:single:542
+					perl-File-HomeDir:single:542
+					perl-JSON:single:542
+					perl-libwww-perl:single:542
+					perl-PAR-Dist:single:542
 

@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	2.07
 NAMEBASE=		perl-Text-SimpleTable
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		538 540
-SDESC[538]=		Simple eyecandy ASCII tables (5.38)
+VARIANTS=		540 542
 SDESC[540]=		Simple eyecandy ASCII tables (5.40)
+SDESC[542]=		Simple eyecandy ASCII tables (5.42)
 HOMEPAGE=		https://github.com/marcusramberg/text-simpletable
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:M/MR/MRAMBERG
 DISTFILE[1]=		Text-SimpleTable-${PORTVERSION}.tar.gz:main
 
-SPKGS[538]=		single
 SPKGS[540]=		single
+SPKGS[542]=		single
 
-OPTIONS_AVAILABLE=	PERL_538 PERL_540
+OPTIONS_AVAILABLE=	PERL_540 PERL_542
 OPTIONS_STANDARD=	none
-VOPTS[538]=		PERL_538=ON PERL_540=OFF
-VOPTS[540]=		PERL_538=OFF PERL_540=ON
+VOPTS[540]=		PERL_540=ON PERL_542=OFF
+VOPTS[542]=		PERL_540=OFF PERL_542=ON
 
 # License listed in CPAN directory:
 # artistic_2
@@ -32,18 +32,18 @@ DISTNAME=		Text-SimpleTable-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |      runtime : ExtUtils::MakeMaker (perl 5.38 core) (perl 5.40 core)
-# |      runtime : Test::More (perl 5.38 core) (perl 5.40 core)
+# |      runtime : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
+# |      runtime : Test::More (perl 5.40 core) (perl 5.42 core)
 # |      runtime : Text::VisualWidth::PP
 # |      runtime : Text::VisualWidth::UTF8
 # |      runtime : Unicode::LineBreak
 
-[PERL_538].USES_ON=			perl:538,configure
-[PERL_538].BUILDRUN_DEPENDS_ON=		perl-Text-VisualWidth-PP:single:538
-					perl-Text-VisualWidth:single:538
-					perl-Unicode-LineBreak:single:538
 [PERL_540].USES_ON=			perl:540,configure
 [PERL_540].BUILDRUN_DEPENDS_ON=		perl-Text-VisualWidth-PP:single:540
 					perl-Text-VisualWidth:single:540
 					perl-Unicode-LineBreak:single:540
+[PERL_542].USES_ON=			perl:542,configure
+[PERL_542].BUILDRUN_DEPENDS_ON=		perl-Text-VisualWidth-PP:single:542
+					perl-Text-VisualWidth:single:542
+					perl-Unicode-LineBreak:single:542
 

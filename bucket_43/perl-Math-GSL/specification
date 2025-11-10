@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.49
 NAMEBASE=		perl-Math-GSL
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		538 540
-SDESC[538]=		Interface to the GNU Scientific Library (5.38)
+VARIANTS=		540 542
 SDESC[540]=		Interface to the GNU Scientific Library (5.40)
+SDESC[542]=		Interface to the GNU Scientific Library (5.42)
 HOMEPAGE=		https://github.com/hakonhagland/perl-math-gsl/tree/master
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:H/HA/HAKONH
 DISTFILE[1]=		Math-GSL-${PORTVERSION}.tar.gz:main
 
-SPKGS[538]=		single
 SPKGS[540]=		single
+SPKGS[542]=		single
 
-OPTIONS_AVAILABLE=	PERL_538 PERL_540
+OPTIONS_AVAILABLE=	PERL_540 PERL_542
 OPTIONS_STANDARD=	none
-VOPTS[538]=		PERL_538=ON PERL_540=OFF
-VOPTS[540]=		PERL_538=OFF PERL_540=ON
+VOPTS[540]=		PERL_540=ON PERL_542=OFF
+VOPTS[542]=		PERL_540=OFF PERL_542=ON
 
 # License listed in CPAN directory:
 # gpl_1
@@ -32,27 +32,19 @@ DISTNAME=		Math-GSL-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |      runtime : Math::Complex (perl 5.38 core) (perl 5.40 core)
-# |      runtime : Scalar::Util (perl 5.38 core) (perl 5.40 core)
-# |      runtime : parent (perl 5.38 core) (perl 5.40 core)
-# |      runtime : version (perl 5.38 core) (perl 5.40 core)
+# |      runtime : Math::Complex (perl 5.40 core) (perl 5.42 core)
+# |      runtime : Scalar::Util (perl 5.40 core) (perl 5.42 core)
+# |      runtime : parent (perl 5.40 core) (perl 5.42 core)
+# |      runtime : version (perl 5.40 core) (perl 5.42 core)
 # |        build : Test::Class
 # |        build : Test::Exception
-# |        build : Test::More (perl 5.38 core) (perl 5.40 core)
+# |        build : Test::More (perl 5.40 core) (perl 5.42 core)
 # |        build : Test::Most
 # |        build : Test::Taint
 # |    configure : Math::GSL::Alien
 # |    configure : Module::Build
 # |    configure : PkgConfig
 
-[PERL_538].USES_ON=			perl:538,buildmod,run
-[PERL_538].BUILD_DEPENDS_ON=		perl-Test-Class:single:538
-					perl-Test-Exception:single:538
-					perl-Test-Most:single:538
-					perl-Test-Taint:single:538
-					perl-Math-GSL-Alien:single:538
-					perl-Module-Build:single:538
-					perl-PkgConfig:single:538
 [PERL_540].USES_ON=			perl:540,buildmod,run
 [PERL_540].BUILD_DEPENDS_ON=		perl-Test-Class:single:540
 					perl-Test-Exception:single:540
@@ -61,6 +53,14 @@ DISTNAME=		Math-GSL-${PORTVERSION}
 					perl-Math-GSL-Alien:single:540
 					perl-Module-Build:single:540
 					perl-PkgConfig:single:540
+[PERL_542].USES_ON=			perl:542,buildmod,run
+[PERL_542].BUILD_DEPENDS_ON=		perl-Test-Class:single:542
+					perl-Test-Exception:single:542
+					perl-Test-Most:single:542
+					perl-Test-Taint:single:542
+					perl-Math-GSL-Alien:single:542
+					perl-Module-Build:single:542
+					perl-PkgConfig:single:542
 
 USES=			cclibs:single
 BUILD_DEPENDS=		gsl:dev:std

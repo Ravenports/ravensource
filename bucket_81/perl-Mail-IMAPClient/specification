@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	3.43
 NAMEBASE=		perl-Mail-IMAPClient
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		538 540
-SDESC[538]=		IMAP4 client library (5.38)
+VARIANTS=		540 542
 SDESC[540]=		IMAP4 client library (5.40)
+SDESC[542]=		IMAP4 client library (5.42)
 HOMEPAGE=		none
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:P/PL/PLOBBES
 DISTFILE[1]=		Mail-IMAPClient-${PORTVERSION}.tar.gz:main
 
-SPKGS[538]=		single
 SPKGS[540]=		single
+SPKGS[542]=		single
 
-OPTIONS_AVAILABLE=	PERL_538 PERL_540
+OPTIONS_AVAILABLE=	PERL_540 PERL_542
 OPTIONS_STANDARD=	none
-VOPTS[538]=		PERL_538=ON PERL_540=OFF
-VOPTS[540]=		PERL_538=OFF PERL_540=ON
+VOPTS[540]=		PERL_540=ON PERL_542=OFF
+VOPTS[542]=		PERL_540=OFF PERL_542=ON
 
 # License listed in CPAN directory:
 # perl_5
@@ -32,23 +32,23 @@ DISTNAME=		Mail-IMAPClient-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |      runtime : Carp (perl 5.38 core) (perl 5.40 core)
-# |      runtime : Errno (perl 5.38 core) (perl 5.40 core)
-# |      runtime : Fcntl (perl 5.38 core) (perl 5.40 core)
-# |      runtime : File::Temp (perl 5.38 core) (perl 5.40 core)
-# |      runtime : IO::File (perl 5.38 core) (perl 5.40 core)
-# |      runtime : IO::Select (perl 5.38 core) (perl 5.40 core)
-# |      runtime : IO::Socket (perl 5.38 core) (perl 5.40 core)
-# |      runtime : IO::Socket::INET (perl 5.38 core) (perl 5.40 core)
-# |      runtime : List::Util (perl 5.38 core) (perl 5.40 core)
-# |      runtime : MIME::Base64 (perl 5.38 core) (perl 5.40 core)
+# |      runtime : Carp (perl 5.40 core) (perl 5.42 core)
+# |      runtime : Errno (perl 5.40 core) (perl 5.42 core)
+# |      runtime : Fcntl (perl 5.40 core) (perl 5.42 core)
+# |      runtime : File::Temp (perl 5.40 core) (perl 5.42 core)
+# |      runtime : IO::File (perl 5.40 core) (perl 5.42 core)
+# |      runtime : IO::Select (perl 5.40 core) (perl 5.42 core)
+# |      runtime : IO::Socket (perl 5.40 core) (perl 5.42 core)
+# |      runtime : IO::Socket::INET (perl 5.40 core) (perl 5.42 core)
+# |      runtime : List::Util (perl 5.40 core) (perl 5.42 core)
+# |      runtime : MIME::Base64 (perl 5.40 core) (perl 5.42 core)
 # |      runtime : Parse::RecDescent
-# |      runtime : Test::More (perl 5.38 core) (perl 5.40 core)
-# |        build : ExtUtils::MakeMaker (perl 5.38 core) (perl 5.40 core)
-# |    configure : ExtUtils::MakeMaker (perl 5.38 core) (perl 5.40 core)
+# |      runtime : Test::More (perl 5.40 core) (perl 5.42 core)
+# |        build : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
 
-[PERL_538].USES_ON=			perl:538,configure
-[PERL_538].BUILDRUN_DEPENDS_ON=		perl-Parse-RecDescent:single:538
 [PERL_540].USES_ON=			perl:540,configure
 [PERL_540].BUILDRUN_DEPENDS_ON=		perl-Parse-RecDescent:single:540
+[PERL_542].USES_ON=			perl:542,configure
+[PERL_542].BUILDRUN_DEPENDS_ON=		perl-Parse-RecDescent:single:542
 

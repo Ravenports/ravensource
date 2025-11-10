@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	6.810
 NAMEBASE=		perl-libwww-perl
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		538 540
-SDESC[538]=		World-Wide Web library for Perl (5.38)
+VARIANTS=		540 542
 SDESC[540]=		World-Wide Web library for Perl (5.40)
+SDESC[542]=		World-Wide Web library for Perl (5.42)
 HOMEPAGE=		https://github.com/libwww-perl/libwww-perl
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:O/OA/OALDERS
 DISTFILE[1]=		libwww-perl-6.81.tar.gz:main
 
-SPKGS[538]=		single
 SPKGS[540]=		single
+SPKGS[542]=		single
 
-OPTIONS_AVAILABLE=	PERL_538 PERL_540
+OPTIONS_AVAILABLE=	PERL_540 PERL_542
 OPTIONS_STANDARD=	none
-VOPTS[538]=		PERL_538=ON PERL_540=OFF
-VOPTS[540]=		PERL_538=OFF PERL_540=ON
+VOPTS[540]=		PERL_540=ON PERL_542=OFF
+VOPTS[542]=		PERL_540=OFF PERL_542=ON
 
 # License listed in CPAN directory:
 # perl_5
@@ -32,13 +32,13 @@ DISTNAME=		libwww-perl-6.81
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |      runtime : Digest::MD5 (perl 5.38 core) (perl 5.40 core)
-# |      runtime : Encode (perl 5.38 core) (perl 5.40 core)
+# |      runtime : Digest::MD5 (perl 5.40 core) (perl 5.42 core)
+# |      runtime : Encode (perl 5.40 core) (perl 5.42 core)
 # |      runtime : Encode::Locale
-# |      runtime : File::Copy (perl 5.38 core) (perl 5.40 core)
+# |      runtime : File::Copy (perl 5.40 core) (perl 5.42 core)
 # |      runtime : File::Listing
-# |      runtime : File::Temp (perl 5.38 core) (perl 5.40 core)
-# |      runtime : Getopt::Long (perl 5.38 core) (perl 5.40 core)
+# |      runtime : File::Temp (perl 5.40 core) (perl 5.42 core)
+# |      runtime : Getopt::Long (perl 5.40 core) (perl 5.42 core)
 # |      runtime : HTML::Entities
 # |      runtime : HTML::HeadParser
 # |      runtime : HTTP::Cookies
@@ -49,49 +49,36 @@ DISTNAME=		libwww-perl-6.81
 # |      runtime : HTTP::Request::Common
 # |      runtime : HTTP::Response
 # |      runtime : HTTP::Status
-# |      runtime : IO::Select (perl 5.38 core) (perl 5.40 core)
-# |      runtime : IO::Socket (perl 5.38 core) (perl 5.40 core)
+# |      runtime : IO::Select (perl 5.40 core) (perl 5.42 core)
+# |      runtime : IO::Socket (perl 5.40 core) (perl 5.42 core)
 # |      runtime : LWP::MediaTypes
-# |      runtime : MIME::Base64 (perl 5.38 core) (perl 5.40 core)
-# |      runtime : Module::Load (perl 5.38 core) (perl 5.40 core)
-# |      runtime : Net::FTP (perl 5.38 core) (perl 5.40 core)
+# |      runtime : MIME::Base64 (perl 5.40 core) (perl 5.42 core)
+# |      runtime : Module::Load (perl 5.40 core) (perl 5.42 core)
+# |      runtime : Net::FTP (perl 5.40 core) (perl 5.42 core)
 # |      runtime : Net::HTTP
-# |      runtime : Scalar::Util (perl 5.38 core) (perl 5.40 core)
+# |      runtime : Scalar::Util (perl 5.40 core) (perl 5.42 core)
 # |      runtime : Try::Tiny
 # |      runtime : URI
 # |      runtime : URI::Escape
 # |      runtime : WWW::RobotRules
-# |      runtime : parent (perl 5.38 core) (perl 5.40 core)
-# |      runtime : strict (perl 5.38 core) (perl 5.40 core)
-# |      runtime : warnings (perl 5.38 core) (perl 5.40 core)
-# |    configure : ExtUtils::MakeMaker (perl 5.38 core) (perl 5.40 core)
-# |    configure : File::Copy (perl 5.38 core) (perl 5.40 core)
-# |    configure : Getopt::Long (perl 5.38 core) (perl 5.40 core)
-# |         test : ExtUtils::MakeMaker (perl 5.38 core) (perl 5.40 core)
-# |         test : File::Spec (perl 5.38 core) (perl 5.40 core)
-# |         test : FindBin (perl 5.38 core) (perl 5.40 core)
+# |      runtime : parent (perl 5.40 core) (perl 5.42 core)
+# |      runtime : strict (perl 5.40 core) (perl 5.42 core)
+# |      runtime : warnings (perl 5.40 core) (perl 5.42 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
+# |    configure : File::Copy (perl 5.40 core) (perl 5.42 core)
+# |    configure : Getopt::Long (perl 5.40 core) (perl 5.42 core)
+# |         test : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
+# |         test : File::Spec (perl 5.40 core) (perl 5.42 core)
+# |         test : FindBin (perl 5.40 core) (perl 5.42 core)
 # |         test : HTTP::CookieJar::LWP
 # |         test : HTTP::Daemon
 # |         test : Test::Fatal
-# |         test : Test::More (perl 5.38 core) (perl 5.40 core)
+# |         test : Test::More (perl 5.40 core) (perl 5.42 core)
 # |         test : Test::Needs
 # |         test : Test::RequiresInternet
-# |         test : CPAN::Meta (perl 5.38 core) (perl 5.40 core)
+# |         test : CPAN::Meta (perl 5.40 core) (perl 5.42 core)
 # |         test : Test::LeakTrace
 
-[PERL_538].USES_ON=			perl:538,configure
-[PERL_538].BUILDRUN_DEPENDS_ON=		perl-Encode-Locale:single:538
-					perl-File-Listing:single:538
-					perl-HTML-Parser:single:538
-					perl-HTTP-Cookies:single:538
-					perl-HTTP-Date:single:538
-					perl-HTTP-Message:single:538
-					perl-HTTP-Negotiate:single:538
-					perl-LWP-MediaTypes:single:538
-					perl-Net-HTTP:single:538
-					perl-Try-Tiny:single:538
-					perl-URI:single:538
-					perl-WWW-RobotRules:single:538
 [PERL_540].USES_ON=			perl:540,configure
 [PERL_540].BUILDRUN_DEPENDS_ON=		perl-Encode-Locale:single:540
 					perl-File-Listing:single:540
@@ -105,6 +92,19 @@ DISTNAME=		libwww-perl-6.81
 					perl-Try-Tiny:single:540
 					perl-URI:single:540
 					perl-WWW-RobotRules:single:540
+[PERL_542].USES_ON=			perl:542,configure
+[PERL_542].BUILDRUN_DEPENDS_ON=		perl-Encode-Locale:single:542
+					perl-File-Listing:single:542
+					perl-HTML-Parser:single:542
+					perl-HTTP-Cookies:single:542
+					perl-HTTP-Date:single:542
+					perl-HTTP-Message:single:542
+					perl-HTTP-Negotiate:single:542
+					perl-LWP-MediaTypes:single:542
+					perl-Net-HTTP:single:542
+					perl-Try-Tiny:single:542
+					perl-URI:single:542
+					perl-WWW-RobotRules:single:542
 
 USES=			cpe
 CPE_VENDOR=		gisle_aas

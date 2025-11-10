@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.37
 NAMEBASE=		perl-Crypt-OpenSSL-RSA
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		538 540
-SDESC[538]=		RSA encoding/decoding using OpenSSL library (5.38)
+VARIANTS=		540 542
 SDESC[540]=		RSA encoding/decoding using OpenSSL library (5.40)
+SDESC[542]=		RSA encoding/decoding using OpenSSL library (5.42)
 HOMEPAGE=		https://github.com/cpan-authors/Crypt-OpenSSL-RSA
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:T/TO/TODDR
 DISTFILE[1]=		Crypt-OpenSSL-RSA-${PORTVERSION}.tar.gz:main
 
-SPKGS[538]=		single
 SPKGS[540]=		single
+SPKGS[542]=		single
 
-OPTIONS_AVAILABLE=	PERL_538 PERL_540
+OPTIONS_AVAILABLE=	PERL_540 PERL_542
 OPTIONS_STANDARD=	none
-VOPTS[538]=		PERL_538=ON PERL_540=OFF
-VOPTS[540]=		PERL_538=OFF PERL_540=ON
+VOPTS[540]=		PERL_540=ON PERL_542=OFF
+VOPTS[542]=		PERL_540=OFF PERL_542=ON
 
 # License listed in CPAN directory:
 # perl_5
@@ -33,21 +33,21 @@ DISTNAME=		Crypt-OpenSSL-RSA-${PORTVERSION}
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
 # |      runtime : Crypt::OpenSSL::Random
-# |      runtime : Test::More (perl 5.38 core) (perl 5.40 core)
+# |      runtime : Test::More (perl 5.40 core) (perl 5.42 core)
 # |      runtime : Crypt::OpenSSL::Bignum
-# |        build : ExtUtils::MakeMaker (perl 5.38 core) (perl 5.40 core)
-# |        build : Test (perl 5.38 core) (perl 5.40 core)
+# |        build : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
+# |        build : Test (perl 5.40 core) (perl 5.42 core)
 # |    configure : Crypt::OpenSSL::Guess
-# |    configure : ExtUtils::MakeMaker (perl 5.38 core) (perl 5.40 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
 
-[PERL_538].USES_ON=			perl:538,configure
-[PERL_538].BUILDRUN_DEPENDS_ON=		perl-Crypt-OpenSSL-Random:single:538
-					perl-Crypt-OpenSSL-Bignum:single:538
-[PERL_538].BUILD_DEPENDS_ON=		perl-Crypt-OpenSSL-Guess:single:538
 [PERL_540].USES_ON=			perl:540,configure
 [PERL_540].BUILDRUN_DEPENDS_ON=		perl-Crypt-OpenSSL-Random:single:540
 					perl-Crypt-OpenSSL-Bignum:single:540
 [PERL_540].BUILD_DEPENDS_ON=		perl-Crypt-OpenSSL-Guess:single:540
+[PERL_542].USES_ON=			perl:542,configure
+[PERL_542].BUILDRUN_DEPENDS_ON=		perl-Crypt-OpenSSL-Random:single:542
+					perl-Crypt-OpenSSL-Bignum:single:542
+[PERL_542].BUILD_DEPENDS_ON=		perl-Crypt-OpenSSL-Guess:single:542
 
 USES=			ssl
 MAKE_ARGS=		OTHERLDFLAGS="{{LDFLAGS}}"

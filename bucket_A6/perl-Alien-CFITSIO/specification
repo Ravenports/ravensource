@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	4.6.2.5
 NAMEBASE=		perl-Alien-CFITSIO
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		538 540
-SDESC[538]=		Build and Install the CFITSIO library (5.38)
+VARIANTS=		540 542
 SDESC[540]=		Build and Install the CFITSIO library (5.40)
+SDESC[542]=		Build and Install the CFITSIO library (5.42)
 HOMEPAGE=		https://gitlab.com/djerius/alien-cfitsio
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:D/DJ/DJERIUS
 DISTFILE[1]=		Alien-CFITSIO-v4.6.2.5.tar.gz:main
 
-SPKGS[538]=		single
 SPKGS[540]=		single
+SPKGS[542]=		single
 
-OPTIONS_AVAILABLE=	PERL_538 PERL_540
+OPTIONS_AVAILABLE=	PERL_540 PERL_542
 OPTIONS_STANDARD=	none
-VOPTS[538]=		PERL_538=ON PERL_540=OFF
-VOPTS[540]=		PERL_538=OFF PERL_540=ON
+VOPTS[540]=		PERL_540=ON PERL_542=OFF
+VOPTS[542]=		PERL_540=OFF PERL_542=ON
 
 # License listed in CPAN directory:
 # gpl_3
@@ -36,36 +36,36 @@ DISTNAME=		Alien-CFITSIO-v4.6.2.5
 # |        build : Alien::Build
 # |        build : Alien::Build::MM
 # |        build : Alien::patch
-# |        build : ExtUtils::MakeMaker (perl 5.38 core) (perl 5.40 core)
+# |        build : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
 # |    configure : Alien::Build
 # |    configure : Alien::Build::MM
 # |    configure : Alien::Build::Plugin::PkgConfig::Negotiate
 # |    configure : Alien::curl
 # |    configure : Alien::zlib
-# |    configure : ExtUtils::MakeMaker (perl 5.38 core) (perl 5.40 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
 # |    configure : Sort::Versions
-# |         test : ExtUtils::MakeMaker (perl 5.38 core) (perl 5.40 core)
-# |         test : File::Spec (perl 5.38 core) (perl 5.40 core)
-# |         test : IO::Handle (perl 5.38 core) (perl 5.40 core)
-# |         test : IPC::Open3 (perl 5.38 core) (perl 5.40 core)
+# |         test : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
+# |         test : File::Spec (perl 5.40 core) (perl 5.42 core)
+# |         test : IO::Handle (perl 5.40 core) (perl 5.42 core)
+# |         test : IPC::Open3 (perl 5.40 core) (perl 5.42 core)
 # |         test : Package::Stash
-# |         test : Test2::V0 (perl 5.40 core)
+# |         test : Test2::V0 (perl 5.40 core) (perl 5.42 core)
 # |         test : Test::Alien
-# |         test : Test::More (perl 5.38 core) (perl 5.40 core)
-# |         test : CPAN::Meta (perl 5.38 core) (perl 5.40 core)
+# |         test : Test::More (perl 5.40 core) (perl 5.42 core)
+# |         test : CPAN::Meta (perl 5.40 core) (perl 5.42 core)
 
-[PERL_538].USES_ON=			perl:538,configure
-[PERL_538].BUILDRUN_DEPENDS_ON=		perl-Alien-Build:single:538
-[PERL_538].BUILD_DEPENDS_ON=		perl-Alien-patch:single:538
-					perl-Alien-curl:single:538
-					perl-Alien-zlib:single:538
-					perl-Sort-Versions:single:538
 [PERL_540].USES_ON=			perl:540,configure
 [PERL_540].BUILDRUN_DEPENDS_ON=		perl-Alien-Build:single:540
 [PERL_540].BUILD_DEPENDS_ON=		perl-Alien-patch:single:540
 					perl-Alien-curl:single:540
 					perl-Alien-zlib:single:540
 					perl-Sort-Versions:single:540
+[PERL_542].USES_ON=			perl:542,configure
+[PERL_542].BUILDRUN_DEPENDS_ON=		perl-Alien-Build:single:542
+[PERL_542].BUILD_DEPENDS_ON=		perl-Alien-patch:single:542
+					perl-Alien-curl:single:542
+					perl-Alien-zlib:single:542
+					perl-Sort-Versions:single:542
 
 USES=			zlib
 

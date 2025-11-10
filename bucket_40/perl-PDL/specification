@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	2.100
 NAMEBASE=		perl-PDL
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		538 540
-SDESC[538]=		Perl Data Language (5.38)
+VARIANTS=		540 542
 SDESC[540]=		Perl Data Language (5.40)
+SDESC[542]=		Perl Data Language (5.42)
 HOMEPAGE=		https://github.com/PDLPorters/pdl
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:E/ET/ETJ
 DISTFILE[1]=		PDL-${PORTVERSION}.tar.gz:main
 
-SPKGS[538]=		single
 SPKGS[540]=		single
+SPKGS[542]=		single
 
-OPTIONS_AVAILABLE=	PERL_538 PERL_540
+OPTIONS_AVAILABLE=	PERL_540 PERL_542
 OPTIONS_STANDARD=	none
-VOPTS[538]=		PERL_538=ON PERL_540=OFF
-VOPTS[540]=		PERL_538=OFF PERL_540=ON
+VOPTS[540]=		PERL_540=ON PERL_542=OFF
+VOPTS[542]=		PERL_540=OFF PERL_542=ON
 
 # License listed in CPAN directory:
 # perl_5
@@ -32,40 +32,40 @@ DISTNAME=		PDL-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |      runtime : Data::Dumper (perl 5.38 core) (perl 5.40 core)
+# |      runtime : Data::Dumper (perl 5.40 core) (perl 5.42 core)
 # |      runtime : File::Map
 # |      runtime : File::Which
-# |      runtime : Filter::Simple (perl 5.38 core) (perl 5.40 core)
-# |      runtime : Filter::Util::Call (perl 5.38 core) (perl 5.40 core)
-# |      runtime : List::Util (perl 5.38 core) (perl 5.40 core)
-# |      runtime : Math::Complex (perl 5.38 core) (perl 5.40 core)
+# |      runtime : Filter::Simple (perl 5.40 core) (perl 5.42 core)
+# |      runtime : Filter::Util::Call (perl 5.40 core) (perl 5.42 core)
+# |      runtime : List::Util (perl 5.40 core) (perl 5.42 core)
+# |      runtime : Math::Complex (perl 5.40 core) (perl 5.42 core)
 # |      runtime : Pod::Select
-# |      runtime : Scalar::Util (perl 5.38 core) (perl 5.40 core)
-# |      runtime : Storable (perl 5.38 core) (perl 5.40 core)
-# |      runtime : Text::Balanced (perl 5.38 core) (perl 5.40 core)
-# |        build : ExtUtils::MakeMaker (perl 5.38 core) (perl 5.40 core)
-# |        build : ExtUtils::ParseXS (perl 5.38 core) (perl 5.40 core)
-# |        build : File::Path (perl 5.38 core) (perl 5.40 core)
+# |      runtime : Scalar::Util (perl 5.40 core) (perl 5.42 core)
+# |      runtime : Storable (perl 5.40 core) (perl 5.42 core)
+# |      runtime : Text::Balanced (perl 5.40 core) (perl 5.42 core)
+# |        build : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
+# |        build : ExtUtils::ParseXS (perl 5.40 core) (perl 5.42 core)
+# |        build : File::Path (perl 5.40 core) (perl 5.42 core)
 # |        build : Pod::Select
 # |    configure : Devel::CheckLib
-# |    configure : ExtUtils::MakeMaker (perl 5.38 core) (perl 5.40 core)
-# |    configure : File::Path (perl 5.38 core) (perl 5.40 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
+# |    configure : File::Path (perl 5.40 core) (perl 5.42 core)
 # |    configure : File::Which
-# |         test : CPAN::Meta (perl 5.38 core) (perl 5.40 core)
+# |         test : CPAN::Meta (perl 5.40 core) (perl 5.42 core)
 # |         test : Test::Deep
 # |         test : Test::Exception
 # |         test : Test::Warn
 
-[PERL_538].USES_ON=			perl:538,configure
-[PERL_538].BUILDRUN_DEPENDS_ON=		perl-File-Map:single:538
-					perl-File-Which:single:538
-					perl-Pod-Parser:single:538
-[PERL_538].BUILD_DEPENDS_ON=		perl-Devel-CheckLib:single:538
 [PERL_540].USES_ON=			perl:540,configure
 [PERL_540].BUILDRUN_DEPENDS_ON=		perl-File-Map:single:540
 					perl-File-Which:single:540
 					perl-Pod-Parser:single:540
 [PERL_540].BUILD_DEPENDS_ON=		perl-Devel-CheckLib:single:540
+[PERL_542].USES_ON=			perl:542,configure
+[PERL_542].BUILDRUN_DEPENDS_ON=		perl-File-Map:single:542
+					perl-File-Which:single:542
+					perl-Pod-Parser:single:542
+[PERL_542].BUILD_DEPENDS_ON=		perl-Devel-CheckLib:single:542
 
 BUILD_DEPENDS=		freeglut:dev:std
 			libGD:dev:std

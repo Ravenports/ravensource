@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.51
 NAMEBASE=		perl-MooseX-Types
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		538 540
-SDESC[538]=		Organise your Moose types in libraries (5.38)
+VARIANTS=		540 542
 SDESC[540]=		Organise your Moose types in libraries (5.40)
+SDESC[542]=		Organise your Moose types in libraries (5.42)
 HOMEPAGE=		https://github.com/moose/MooseX-Types
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:E/ET/ETHER
 DISTFILE[1]=		MooseX-Types-${PORTVERSION}.tar.gz:main
 
-SPKGS[538]=		single
 SPKGS[540]=		single
+SPKGS[542]=		single
 
-OPTIONS_AVAILABLE=	PERL_538 PERL_540
+OPTIONS_AVAILABLE=	PERL_540 PERL_542
 OPTIONS_STANDARD=	none
-VOPTS[538]=		PERL_538=ON PERL_540=OFF
-VOPTS[540]=		PERL_538=OFF PERL_540=ON
+VOPTS[540]=		PERL_540=ON PERL_542=OFF
+VOPTS[542]=		PERL_540=OFF PERL_542=ON
 
 # License listed in CPAN directory:
 # perl_5
@@ -32,46 +32,37 @@ DISTNAME=		MooseX-Types-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |      runtime : Carp (perl 5.38 core) (perl 5.40 core)
+# |      runtime : Carp (perl 5.40 core) (perl 5.42 core)
 # |      runtime : Carp::Clan
-# |      runtime : Exporter (perl 5.38 core) (perl 5.40 core)
+# |      runtime : Exporter (perl 5.40 core) (perl 5.42 core)
 # |      runtime : Module::Runtime
 # |      runtime : Moose
 # |      runtime : Moose::Exporter
 # |      runtime : Moose::Meta::TypeConstraint::Union
 # |      runtime : Moose::Util::TypeConstraints
-# |      runtime : Scalar::Util (perl 5.38 core) (perl 5.40 core)
+# |      runtime : Scalar::Util (perl 5.40 core) (perl 5.42 core)
 # |      runtime : Sub::Exporter
 # |      runtime : Sub::Exporter::ForMethods
 # |      runtime : Sub::Install
-# |      runtime : Sub::Util (perl 5.38 core) (perl 5.40 core)
-# |      runtime : base (perl 5.38 core) (perl 5.40 core)
+# |      runtime : Sub::Util (perl 5.40 core) (perl 5.42 core)
+# |      runtime : base (perl 5.40 core) (perl 5.42 core)
 # |      runtime : namespace::autoclean
-# |      runtime : overload (perl 5.38 core) (perl 5.40 core)
-# |      runtime : parent (perl 5.38 core) (perl 5.40 core)
-# |      runtime : strict (perl 5.38 core) (perl 5.40 core)
-# |      runtime : warnings (perl 5.38 core) (perl 5.40 core)
+# |      runtime : overload (perl 5.40 core) (perl 5.42 core)
+# |      runtime : parent (perl 5.40 core) (perl 5.42 core)
+# |      runtime : strict (perl 5.40 core) (perl 5.42 core)
+# |      runtime : warnings (perl 5.40 core) (perl 5.42 core)
 # |    configure : Module::Build::Tiny
-# |         test : File::Spec (perl 5.38 core) (perl 5.40 core)
-# |         test : Module::Metadata (perl 5.38 core) (perl 5.40 core)
+# |         test : File::Spec (perl 5.40 core) (perl 5.42 core)
+# |         test : Module::Metadata (perl 5.40 core) (perl 5.42 core)
 # |         test : Moose::Role
-# |         test : Term::ANSIColor (perl 5.38 core) (perl 5.40 core)
+# |         test : Term::ANSIColor (perl 5.40 core) (perl 5.42 core)
 # |         test : Test::Fatal
-# |         test : Test::More (perl 5.38 core) (perl 5.40 core)
+# |         test : Test::More (perl 5.40 core) (perl 5.42 core)
 # |         test : Test::Needs
-# |         test : if (perl 5.38 core) (perl 5.40 core)
-# |         test : lib (perl 5.38 core) (perl 5.40 core)
-# |         test : CPAN::Meta (perl 5.38 core) (perl 5.40 core)
+# |         test : if (perl 5.40 core) (perl 5.42 core)
+# |         test : lib (perl 5.40 core) (perl 5.42 core)
+# |         test : CPAN::Meta (perl 5.40 core) (perl 5.42 core)
 
-[PERL_538].USES_ON=			perl:538,buildmodtiny,run
-[PERL_538].BUILDRUN_DEPENDS_ON=		perl-Carp-Clan:single:538
-					perl-Module-Runtime:single:538
-					perl-Moose:single:538
-					perl-Sub-Exporter:single:538
-					perl-Sub-Exporter-ForMethods:single:538
-					perl-Sub-Install:single:538
-					perl-namespace-autoclean:single:538
-[PERL_538].BUILD_DEPENDS_ON=		perl-Module-Build-Tiny:single:538
 [PERL_540].USES_ON=			perl:540,buildmodtiny,run
 [PERL_540].BUILDRUN_DEPENDS_ON=		perl-Carp-Clan:single:540
 					perl-Module-Runtime:single:540
@@ -81,4 +72,13 @@ DISTNAME=		MooseX-Types-${PORTVERSION}
 					perl-Sub-Install:single:540
 					perl-namespace-autoclean:single:540
 [PERL_540].BUILD_DEPENDS_ON=		perl-Module-Build-Tiny:single:540
+[PERL_542].USES_ON=			perl:542,buildmodtiny,run
+[PERL_542].BUILDRUN_DEPENDS_ON=		perl-Carp-Clan:single:542
+					perl-Module-Runtime:single:542
+					perl-Moose:single:542
+					perl-Sub-Exporter:single:542
+					perl-Sub-Exporter-ForMethods:single:542
+					perl-Sub-Install:single:542
+					perl-namespace-autoclean:single:542
+[PERL_542].BUILD_DEPENDS_ON=		perl-Module-Build-Tiny:single:542
 
