@@ -1,10 +1,9 @@
-DEF[PORTVERSION]=	1.4.3
-DEF[SOVERSION]=		2.2.0
+DEF[PORTVERSION]=	1.5.0
+DEF[SOVERSION]=		2.3.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libdvdcss
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		multimedia
 VARIANTS=		std
 SDESC[std]=		Portable abstraction library for DVD decryption
@@ -13,9 +12,9 @@ CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		http://download.videolan.org/pub/videolan/libdvdcss/${PORTVERSION}/
-DISTFILE[1]=		libdvdcss-${PORTVERSION}.tar.bz2:main
+DISTFILE[1]=		libdvdcss-${PORTVERSION}.tar.xz:main
 
-SPKGS[std]=		set primary dev
+SPKGS[std]=		set primary dev docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -29,10 +28,8 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		multimedia/libdvdcss
 
-USES=			gmake libtool mbsdfix
+USES=			meson
 INSTALL_TARGET=		install-strip
-MUST_CONFIGURE=		gnu
+MESON_ARGS=		-Denable_docs=false
+			-Denable_examples=false
 SOVERSION=		${SOVERSION}
-
-post-install:
-	${RM} -r ${STAGEDIR}${STD_DOCDIR}
