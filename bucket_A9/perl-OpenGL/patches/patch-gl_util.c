@@ -1,6 +1,6 @@
---- gl_util.c.orig	2011-07-07 08:39:22.000000000 -0500
-+++ gl_util.c	2011-10-12 22:09:31.520959086 -0500
-@@ -756,6 +756,12 @@ int gl_component_count(GLenum format, GL
+--- gl_util.c.orig	2025-04-14 04:33:29 UTC
++++ gl_util.c
+@@ -759,6 +759,12 @@ int gl_component_count(GLenum format, GL
  
  /* 18 */
  #ifdef GL_EXT_cmyka

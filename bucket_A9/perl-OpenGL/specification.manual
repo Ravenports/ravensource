@@ -4,7 +4,9 @@ BUILDRUN_DEPENDS=	freeglut:primary:std
 CONFIGURE_ARGS=		interface=FREEGLUT verbose
 XORG_COMPONENTS=	x11 xext xmu xi ice
 
-post-patch:
+pre-configure:
 	${REINPLACE_CMD} -e 's|/usr/local|${LOCALBASE}|g' ${WRKSRC}/Makefile.PL
 	${REINPLACE_CMD} -e 's|LDFLAGS=|LDFLAGS=-L${LOCALBASE}/lib -Wl,-rpath,${LOCALBASE}/lib |' \
 		${WRKSRC}/utils/Makefile
+	${REINPLACE_CMD} -e 's|glBindBufferARB|glBindBuffer|g' \
+		${WRKSRC}/lib/OpenGL/V1.xs
