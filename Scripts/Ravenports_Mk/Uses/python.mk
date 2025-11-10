@@ -3,7 +3,7 @@
 #
 # Feature:	python
 # Usage:	USES=python
-# Valid ARGS:	(v12 or v13), build, (wheel or sutools or pep517), sqlite
+# Valid ARGS:	(v12 or v13 or v14), build, (wheel or sutools or pep517), sqlite
 #
 # --------------------------------------
 # Variables which can be set by the port
@@ -103,6 +103,8 @@ _INCLUDE_USES_PYTHON_MK=	yes
 _PYTHON_VERSION=	3.13
 .  elif !empty(python_ARGS:Mv12)
 _PYTHON_VERSION=	3.12
+.  elif !empty(python_ARGS:Mv14)
+_PYTHON_VERSION=	3.14
 .  else
 _PYTHON_VERSION=	${PYTHON3_DEFAULT}
 .  endif
