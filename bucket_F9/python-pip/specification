@@ -4,9 +4,9 @@
 #
 # From ENTERAFTER=install, `pip --version`
 # pip 25.2 from /raven/lib/python3.11/site-packages/pip (python 3.13)
-# pip xxxx from /raven/lib/python3.11/site-packages/pip (python 3.14)
+# pip 25.2 from /raven/lib/python3.11/site-packages/pip (python 3.14)
 #
-DEF[PORTVERSION]=	EXTRACT_VERSION(PIP_3.13_VERSION)
+DEF[PORTVERSION]=	EXTRACT_VERSION(PIP_3.14_VERSION)
 DEF[EXMTREE]=		/etc/mtree.preconfig.exclude
 # ------------------------------------------------------------------------
 
@@ -27,7 +27,7 @@ SPKGS[v14]=		single
 OPTIONS_AVAILABLE=	PY313 PY314
 OPTIONS_STANDARD=	none
 VOPTS[v13]=		PY313=ON PY314=OFF
-VOPTS[v14]=		PY313=ON PY314=ON
+VOPTS[v14]=		PY313=OFF PY314=ON
 
 # License listed at PyPI
 # MIT
@@ -44,7 +44,6 @@ CPE_PRODUCT=		pip
 [PY313].MAKEFILE_ON=			POST_PLIST_TARGET+=setuptools-autolist
 [PY314].USES_ON=			python:v14
 [PY314].MAKEFILE_ON=			POST_PLIST_TARGET+=setuptools-autolist
-[PY314].DESCRIPTION=			Build on python 3.14 (delete me)
 
 do-build:
 	# By using --user, the pyc files are hardcoded with the wrong paths.

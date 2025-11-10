@@ -3,7 +3,7 @@
 #
 # Feature:	python
 # Usage:	USES=python
-# Valid ARGS:	(v12 or v13 or v14), build, (wheel or sutools or pep517), sqlite
+# Valid ARGS:	(v13 or v14), build, (wheel or sutools or pep517), sqlite
 #
 # --------------------------------------
 # Variables which can be set by the port
