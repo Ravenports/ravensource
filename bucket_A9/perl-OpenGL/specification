@@ -51,3 +51,9 @@ pre-configure:
 		${WRKSRC}/utils/Makefile
 	${REINPLACE_CMD} -e 's|glBindBufferARB|glBindBuffer|g' \
 		${WRKSRC}/lib/OpenGL/V1.xs
+
+post-install:
+	${RM} ${STAGEDIR}${SITE_ARCH}/OpenGL/GLUT.pm
+	${RM} ${STAGEDIR}${SITE_ARCH}/auto/OpenGL/GLUT/GLUT.so
+	${RM} ${STAGEDIR}${SITE_MAN3}/OpenGL::GLUT.3
+	${RMDIR} ${STAGEDIR}${SITE_ARCH}/auto/OpenGL/GLUT
