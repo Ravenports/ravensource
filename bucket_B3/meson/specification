@@ -3,6 +3,11 @@
 # Update restricted to John Marino.
 # Reason: meson breaks on sunos just about every update (mispatch) so
 # it needs to be checked on each platform first.
+#
+# DELETE std variant after new meson handling fully adopted (every platform published new packages)
+# DELETE NONSTD option at the same time
+# std variant and v13 variant should be identical
+#
 DEF[PORTVERSION]=	1.9.1
 DEF[WHLHASH]=		9c/07/b48592d325cb86682829f05216e4efb2dc881762b8f1bafb48b57442307a
 # ----------------------------------------------------------------------------
@@ -10,9 +15,10 @@ DEF[WHLHASH]=		9c/07/b48592d325cb86682829f05216e4efb2dc881762b8f1bafb48b57442307
 NAMEBASE=		meson
 VERSION=		${PORTVERSION}
 KEYWORDS=		devel python
-VARIANTS=		std v13
+VARIANTS=		std v13 v14
 SDESC[std]=		High performance build system
 SDESC[v13]=		High performance build system (py 3.13)
+SDESC[v14]=		High performance build system (py 3.14)
 HOMEPAGE=		https://mesonbuild.com
 CONTACT=		John_Marino[draco@marino.st]
 
@@ -23,10 +29,12 @@ DIST_SUBDIR=		python-src
 
 SPKGS[std]=		single
 SPKGS[v13]=		single
+SPKGS[v14]=		single
 
-OPTIONS_AVAILABLE=	PY313
+OPTIONS_AVAILABLE=	PY313 PY314 NOTSTD
 OPTIONS_STANDARD=	none
-VOPTS[v13]=		PY313=ON
+VOPTS[v13]=		PY313=ON PY314=OFF NOTSTD=ON
+VOPTS[v14]=		PY313=OFF PY314=ON NOTSTD=ON
 
 LICENSE=		APACHE20:single
 LICENSE_FILE=		APACHE20:stock
@@ -37,10 +45,10 @@ FPC_EQUIVALENT=		devel/meson
 
 PATCH_WRKSRC=		{{WRKSRC}}/{{PYTHON_SITELIBDIR}}
 
-RUN_DEPENDS=		ninja:single:std
-
-[PY313].USES_ON=			python:v13,wheel
-[PY313].USES_OFF=			python:v12,wheel
+[PY314].USES_ON=			python:v14,wheel
+[PY314].USES_OFF=			python:v13,wheel
+[NOTSTD].DESCRIPTION=			Deprecated variant
+[NOTSTD].RUN_DEPENDS_ON=		python-ninja:single:v13
 
 post-extract:
 	${MKDIR} ${WRKSRC}
