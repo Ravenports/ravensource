@@ -1,0 +1,43 @@
+# Don't upgrade to 1.12.0 yet
+# It caused mass-breakage because the install stage was changed to require
+# the compiler chain.
+DEF[PORTVERSION]=	1.11.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		ninja
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		std
+SDESC[std]=		Small build system closest in spirit to Make
+HOMEPAGE=		https://ninja-build.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/ninja-build:ninja:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[std]=		single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		APACHE20:single
+LICENSE_FILE=		APACHE20:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/ninja.cc
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/ninja
+
+USES=			python c++:single
+
+post-patch:
+	${REINPLACE_CMD} "s/'-g', //" ${WRKSRC}/configure.py
+
+do-build:
+	(cd ${WRKSRC} && \
+		CXX="${CXX}" CFLAGS="${CXXFLAGS}" ${PYTHON_CMD} configure.py --bootstrap)
+
+do-install:
+	${INSTALL_PROGRAM} ${WRKSRC}/ninja ${STAGEDIR}${PREFIX}/bin
