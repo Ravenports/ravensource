@@ -36,8 +36,8 @@ DISTNAME=		pynacl-${PORTVERSION}
 # buildrun: cffi>=2.0.0; platform_python_implementation != 'PyPy' and python_version >= '3.9'
 
 [PY313].USES_ON=			python:v13,pep517
-[PY313].BUILD_DEPENDS_ON=		python-cffi117:single:v13
-[PY313].BUILDRUN_DEPENDS_ON=		python-cffi117:single:v13
+[PY313].BUILD_DEPENDS_ON=		python-cffi:single:v13
+[PY313].BUILDRUN_DEPENDS_ON=		python-cffi:single:v13
 [PY314].USES_ON=			python:v14,pep517
 [PY314].BUILD_DEPENDS_ON=		python-cffi:single:v14
 [PY314].BUILDRUN_DEPENDS_ON=		python-cffi:single:v14
@@ -51,7 +51,7 @@ pre-configure:
 	# disable pic on BSD* to fix ld: internal error in relocate_tls, at x86_64.cc:5195
 	# gmake is required[B
 	if [ "${OPSYS}" = "Linux" ]; then \
-	  ${REINPLACE_CMD} -e 's|"make|"gmake"|; s|with-pic"|with-pic", "--build=${CONFIGURE_TARGET}"|' ${WRKSRC}/setup.py;\
+	  ${REINPLACE_CMD} -e 's|"make"|"gmake"|; s|with-pic"|with-pic", "--build=${CONFIGURE_TARGET}"|' ${WRKSRC}/setup.py;\
 	else \
 	  ${REINPLACE_CMD} -e 's|"make"|"gmake"|; s|with-pic"|build=${CONFIGURE_TARGET}"|' ${WRKSRC}/setup.py;\
 	fi
