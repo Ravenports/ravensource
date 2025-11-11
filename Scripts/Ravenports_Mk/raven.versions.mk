@@ -84,12 +84,11 @@ TCL_9.0_VERSION=	9.0.2
 
 #-------------------------------------------------------------------------
 # PGSQL
-# Possible values: 13, 14, 15, 16, 17, 18
+# Possible values: 14, 15, 16, 17, 18
 #-------------------------------------------------------------------------
 
 PGSQL_DEFAULT?=		17
 
-PGSQL_13_VERSION=	13.22	# EOL 13 NOV 2025
 PGSQL_14_VERSION=	14.19	# EOL 12 NOV 2026
 PGSQL_15_VERSION=	15.14	# EOL 11 NOV 2027
 PGSQL_16_VERSION=	16.10	# EOL 09 NOV 2028
