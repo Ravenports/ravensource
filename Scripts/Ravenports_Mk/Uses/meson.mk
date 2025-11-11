@@ -7,7 +7,6 @@
 # Incorporated in ravenadm
 # ------------------------------------------------------
 # BUILD_DEPENDS+=  meson:single:python_used
-#                  ninja:single:python_used
 # ------------------------------------------------------
 #
 # The following files are bundled in source tar files.
