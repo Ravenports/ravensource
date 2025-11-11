@@ -84,16 +84,17 @@ TCL_9.0_VERSION=	9.0.2
 
 #-------------------------------------------------------------------------
 # PGSQL
-# Possible values: 13, 14, 15, 16, 17
+# Possible values: 13, 14, 15, 16, 17, 18
 #-------------------------------------------------------------------------
 
-PGSQL_DEFAULT?=		16
+PGSQL_DEFAULT?=		17
 
-PGSQL_13_VERSION=	13.22
-PGSQL_14_VERSION=	14.19
-PGSQL_15_VERSION=	15.14
-PGSQL_16_VERSION=	16.10
-PGSQL_17_VERSION=	17.6
+PGSQL_13_VERSION=	13.22	# EOL 13 NOV 2025
+PGSQL_14_VERSION=	14.19	# EOL 12 NOV 2026
+PGSQL_15_VERSION=	15.14	# EOL 11 NOV 2027
+PGSQL_16_VERSION=	16.10	# EOL 09 NOV 2028
+PGSQL_17_VERSION=	17.6	# EOL 08 NOV 2029
+PGSQL_18_VERSION=	18.0	# EOL 14 NOV 2030
 
 #-------------------------------------------------------------------------
 # MYSQL and derivatives
