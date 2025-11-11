@@ -1,0 +1,11 @@
+--- meson.build.orig	2025-09-22 20:11:33 UTC
++++ meson.build
+@@ -185,6 +185,8 @@ sema_kind = 'sysv'
+ if host_system == 'dragonfly'
+   # apparently the most similar
+   host_system = 'netbsd'
++elif host_system == 'midnightbsd'
++  host_system = 'freebsd'
+ elif host_system == 'android'
+   # while android isn't quite a normal linux, it seems close enough
+   # for our purposes so far
