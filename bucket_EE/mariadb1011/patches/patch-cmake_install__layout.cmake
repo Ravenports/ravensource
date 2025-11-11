@@ -1,4 +1,4 @@
---- cmake/install_layout.cmake.orig	2025-07-28 16:12:30 UTC
+--- cmake/install_layout.cmake.orig	2025-11-03 13:05:00 UTC
 +++ cmake/install_layout.cmake
 @@ -126,8 +126,8 @@ SET(INSTALL_SUPPORTFILESDIR_STANDALONE
  SET(INSTALL_MYSQLDATADIR_STANDALONE     "data")

@@ -1,11 +1,11 @@
---- cmake/libfmt.cmake.orig	2025-07-28 19:35:02 UTC
+--- cmake/libfmt.cmake.orig	2025-11-04 17:38:11 UTC
 +++ cmake/libfmt.cmake
 @@ -15,7 +15,7 @@ MACRO(BUNDLE_LIBFMT)
    ExternalProject_Add(
      libfmt
      PREFIX   "${dir}"
--    URL "https://github.com/fmtlib/fmt/releases/download/11.1.4/fmt-11.1.4.zip"
-+    URL "file:///distfiles/fmt-11.1.4.zip"
-     URL_MD5 ad6a56b15cddf4aad2a234e7cfc9e8c9
+-    URL "https://github.com/fmtlib/fmt/releases/download/12.0.0/fmt-12.0.0.zip"
++    URL "file:///distfiles/fmt-12.0.0.zip"
+     URL_MD5 9bd04e6e8c5b1733e4eefb473604219d
      INSTALL_COMMAND ""
      CONFIGURE_COMMAND ""

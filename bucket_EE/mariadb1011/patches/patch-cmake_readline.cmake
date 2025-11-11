@@ -1,4 +1,4 @@
---- cmake/readline.cmake.orig	2025-07-28 16:12:30 UTC
+--- cmake/readline.cmake.orig	2025-11-03 13:05:00 UTC
 +++ cmake/readline.cmake
 @@ -52,40 +52,17 @@ MACRO (MYSQL_CHECK_MULTIBYTE)
  ENDMACRO()

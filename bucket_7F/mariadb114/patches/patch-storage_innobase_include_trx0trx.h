@@ -1,6 +1,6 @@
---- storage/innobase/include/trx0trx.h.orig	2025-07-28 18:18:15 UTC
+--- storage/innobase/include/trx0trx.h.orig	2025-11-04 12:57:50 UTC
 +++ storage/innobase/include/trx0trx.h
-@@ -658,10 +658,8 @@ private:
+@@ -660,10 +660,8 @@ private:
    /** mutex protecting state and some of lock
    (some are protected by lock_sys.latch) */
    srw_spin_mutex mutex;
