@@ -12,7 +12,7 @@
 .if !defined(_INCLUDE_USES_NINJA_MK)
 _INCLUDE_USES_NINJA_MK=	yes
 
-MAKE_ARGS+=		-v
+MAKE_ARGS+=		-v -d explain
 CMAKE_ARGS+=		-GNinja
 MAKE_CMD=		ninja
 DESTDIR_VIA_ENV=	yes
