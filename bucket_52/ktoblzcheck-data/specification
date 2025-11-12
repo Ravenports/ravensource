@@ -1,5 +1,6 @@
 DEF[DATA_DATE_START]=	20250609
 DEF[DATA_DATE_END]=	20250907
+DEF[VALID_END_DATE]=	07.09.2025
 DEF[KBCD_DATE]=		20250515
 DEF[PORTVERSION]=	1.0.0.${DATA_DATE_START}
 # Public Domain but no license text available
@@ -47,5 +48,5 @@ post-extract:
 
 pre-configure:
 	# See comment in patches/patch-src_CMakeLists.txt.
-	${REINPLACE_CMD} -e 's|%%BANKDATA_END_DATE%%|'"$$(date -j -f "%Y%m%d" "+%d.%m.%Y" ${DATA_DATE_END})"'|' \
+	${REINPLACE_CMD} -e 's|%%BANKDATA_END_DATE%%|${VALID_END_DATE}|' \
 		${WRKSRC}/src/CMakeLists.txt
