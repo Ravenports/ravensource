@@ -117,3 +117,10 @@ SOVERSION=		${SOVERSION}
 post-extract:
 	${CP} ${FILESDIR}/cp-plug-in-subfolder.py ${WRKSRC}/build/meson/
 	glib-compile-schemas ${LOCALBASE}/share/glib-2.0/schemas
+
+post-extract-linux:
+	# HACK: meson/ninja fails to use gexiv2 cflags on every command
+	(cd ${LOCALBASE}/include && ${LN} -s gexiv2-*/gexiv2 .)
+
+post-install-linux:
+	${RM} ${LOCALBASE}/include/gexiv2
