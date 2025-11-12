@@ -9,6 +9,7 @@ DEF[DRAGONBOX]=		1.1.3
 DEF[BOX2D]=		2.4.1
 DEF[CMIS]=		0.6.2
 DEF[GPGME]=		1.24.3
+DEF[GPGERROR]=		1.55
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libreoffice
@@ -33,7 +34,8 @@ DISTFILE[6]=		dragonbox-${DRAGONBOX}.tar.gz:devwww
 DISTFILE[7]=		libcmis-${CMIS}.tar.xz:devwww
 DISTFILE[8]=		box2d-${BOX2D}.tar.gz:devwww
 DISTFILE[9]=		gpgme-${GPGME}.tar.bz2:devwww
-DF_INDEX=		1 2 3 4 5 6 7 8 9
+DISTFILE[10]=		libgpg-error-${GPGERROR}.tar.bz2:devwww
+DF_INDEX=		1 2 3 4 5 6 7 8 9 10
 
 SPKGS[std]=		set primary man
 
@@ -235,6 +237,7 @@ post-extract:
 	${CP} ${DISTDIR}/dragonbox-${DRAGONBOX}.tar.gz ${WRKSRC}/tarballs
 	${CP} ${DISTDIR}/box2d-${BOX2D}.tar.gz ${WRKSRC}/tarballs
 	${CP} ${DISTDIR}/gpgme-${GPGME}.tar.bz2 ${WRKSRC}/tarballs
+	${CP} ${DISTDIR}/libgpg-error-${GPGERROR}.tar.bz2 ${WRKSRC}/tarballs
 	if [ "${PORTVERSION}" != "${HELPVERSION}" ]; then \
 	   ${MV} ${WRKDIR}/libreoffice-${HELPVERSION}/helpcontent2 \
 	   ${WRKDIR}/libreoffice-${PORTVERSION}/;\
