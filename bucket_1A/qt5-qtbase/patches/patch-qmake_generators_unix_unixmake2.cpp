@@ -1,4 +1,4 @@
---- qmake/generators/unix/unixmake2.cpp.orig	2023-10-17 12:50:53 UTC
+--- qmake/generators/unix/unixmake2.cpp.orig	2024-01-04 19:21:43 UTC
 +++ qmake/generators/unix/unixmake2.cpp
 @@ -194,12 +194,12 @@ UnixMakefileGenerator::writeMakeParts(QT
      t << "####### Compiler, tools and options\n\n";

@@ -1,4 +1,4 @@
---- src/platformsupport/input/xkbcommon/qxkbcommon.cpp.orig	2023-10-17 12:50:53 UTC
+--- src/platformsupport/input/xkbcommon/qxkbcommon.cpp.orig	2024-01-04 19:21:43 UTC
 +++ src/platformsupport/input/xkbcommon/qxkbcommon.cpp
 @@ -273,10 +273,14 @@ static constexpr const auto KeyTbl = qMa
          Xkb2Qt<XKB_KEY_dead_small_schwa,        Qt::Key_Dead_Small_Schwa>,
