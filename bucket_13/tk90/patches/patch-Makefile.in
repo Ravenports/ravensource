@@ -1,4 +1,4 @@
---- Makefile.in.orig	2025-06-26 13:45:12 UTC
+--- Makefile.in.orig	2025-11-12 10:21:58 UTC
 +++ Makefile.in
 @@ -65,6 +65,8 @@ SCRIPT_INSTALL_DIR	= $(INSTALL_ROOT)$(TK
  
@@ -59,18 +59,18 @@
  	@for i in "$(LIB_INSTALL_DIR)" "$(BIN_INSTALL_DIR)" \
  	    "$(PKG_INSTALL_DIR)" "$(CONFIG_INSTALL_DIR)" ; \
  	    do \
-@@ -815,6 +824,10 @@ install-binaries: $(TK_STUB_LIB_FILE) $(
+@@ -814,6 +823,10 @@ install-binaries: $(TK_STUB_LIB_FILE) $(
+ 	    fi
  	@echo "Installing $(LIB_FILE) to $(DLL_INSTALL_DIR)/"
  	@@INSTALL_LIB@
- 	@chmod 555 "$(DLL_INSTALL_DIR)/$(LIB_FILE)"
 +	@ln -sf $(TK_LIB_FILE) "@DLL_INSTALL_DIR@"/libtk${SHORT_TK_VER}.so
 +	@echo "Installing libtk${SHORT_TK_VER}.a"
 +	@$(INSTALL_DATA) libtk${SHORT_TK_VER}.a "@DLL_INSTALL_DIR@"/libtk${SHORT_TK_VER}.a
 +	@chmod 555 "@DLL_INSTALL_DIR@"/libtk${SHORT_TK_VER}.a
  	@if test -f "tk${MAJOR_VERSION}${MINOR_VERSION}.dll"; then \
  	    $(INSTALL_LIBRARY) "tk${MAJOR_VERSION}${MINOR_VERSION}.dll" "$(DLL_INSTALL_DIR)";\
- 	    chmod 555 "$(DLL_INSTALL_DIR)/tk${MAJOR_VERSION}${MINOR_VERSION}.dll";\
-@@ -830,7 +843,7 @@ install-binaries: $(TK_STUB_LIB_FILE) $(
+ 	fi
+@@ -828,7 +841,7 @@ install-binaries: $(TK_STUB_LIB_FILE) $(
  	@EXTRA_INSTALL_BINARIES@
  	@echo "Installing pkg-config file to $(LIB_INSTALL_DIR)/pkgconfig/"
  	@$(INSTALL_DATA_DIR) "$(LIB_INSTALL_DIR)/pkgconfig"
@@ -79,7 +79,7 @@
  
  install-libraries: libraries
  	@for i in "$(SCRIPT_INSTALL_DIR)" "$(SCRIPT_INSTALL_DIR)/images" \
-@@ -928,7 +941,8 @@ install-doc:
+@@ -926,7 +939,8 @@ install-doc:
  install-headers:
  	@if test "$(@TK_WINDOWINGSYSTEM@_XLIB_HDRS)" != ""; then \
  	    XLIB_INCLUDE_INSTALL_DIR="$(INCLUDE_INSTALL_DIR)"/X11; fi; \
@@ -89,7 +89,7 @@
  	    do \
  	    if [ -n "$$i" -a ! -d "$$i" ] ; then \
  		echo "Making directory $$i"; \
-@@ -937,9 +951,12 @@ install-headers:
+@@ -935,9 +949,12 @@ install-headers:
  		fi; \
  	    done;
  	@echo "Installing header files to $(INCLUDE_INSTALL_DIR)/";
