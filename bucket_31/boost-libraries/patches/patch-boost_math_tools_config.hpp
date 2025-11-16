@@ -1,4 +1,4 @@
---- boost/math/tools/config.hpp.orig	2025-04-03 11:37:27 UTC
+--- boost/math/tools/config.hpp.orig	2025-08-06 18:49:11 UTC
 +++ boost/math/tools/config.hpp
 @@ -220,7 +220,7 @@
  
