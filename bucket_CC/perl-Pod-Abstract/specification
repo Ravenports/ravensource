@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.20
+DEF[PORTVERSION]=	0.26
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-Pod-Abstract
@@ -23,28 +23,33 @@ VOPTS[540]=		PERL_540=ON PERL_542=OFF
 VOPTS[542]=		PERL_540=OFF PERL_542=ON
 
 # License listed in CPAN directory:
-# Not provided in META.yml
+# perl_5
 
 GENERATED=		yes
 SINGLE_JOB=		yes
 DISTNAME=		Pod-Abstract-${PORTVERSION}
 
-# ---------------------------------------------
-# |   Prerequisites extracted from META.yml
-# ---------------------------------------------
-# |           requires : File::Temp (perl 5.40.3 core) (perl 5.42.0 core)
-# |           requires : IO::String
-# |           requires : Pod::Parser
-# |           requires : Scalar::Util (perl 5.40.3 core) (perl 5.42.0 core)
-# |           requires : Task::Weaken
-# |           requires : Test::More (perl 5.40.3 core) (perl 5.42.0 core)
+# ----------------------------------------------
+# |   Prerequisites extracted from META.json
+# ----------------------------------------------
+# |      runtime : File::Temp (perl 5.40 core) (perl 5.42 core)
+# |      runtime : IO::String
+# |      runtime : Module::Pluggable
+# |      runtime : Pod::Parser
+# |      runtime : Scalar::Util (perl 5.40 core) (perl 5.42 core)
+# |      runtime : Task::Weaken
+# |      runtime : Test::More (perl 5.40 core) (perl 5.42 core)
+# |        build : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
 
 [PERL_540].USES_ON=			perl:540,configure
 [PERL_540].BUILDRUN_DEPENDS_ON=		perl-IO-String:single:540
+					perl-Module-Pluggable:single:540
 					perl-Pod-Parser:single:540
 					perl-Task-Weaken:single:540
 [PERL_542].USES_ON=			perl:542,configure
 [PERL_542].BUILDRUN_DEPENDS_ON=		perl-IO-String:single:542
+					perl-Module-Pluggable:single:542
 					perl-Pod-Parser:single:542
 					perl-Task-Weaken:single:542
 
