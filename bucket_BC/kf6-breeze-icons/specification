@@ -40,3 +40,6 @@ USES=			cmake pkgconfig python:build
 DISTNAME=		${KF6_COMPONENT}-${PORTVERSION}
 CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt6/cmake
 SOVERSION=		${SOVERSION}
+
+post-install:
+	${FIND} ${STAGEDIR}${PREFIX} -type d -empty -delete
