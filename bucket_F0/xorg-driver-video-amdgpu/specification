@@ -1,11 +1,10 @@
-DEF[PORTVERSION]=	23.0.0
+DEF[PORTVERSION]=	25.0.0
 DEF[XNAME]=		driver-video-amdgpu
 DEF[ALTNAME]=		xf86-video-amdgpu
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		xorg-${XNAME}
 VERSION=		${PORTVERSION}
-REVISION=		2
 KEYWORDS=		x11_drivers
 VARIANTS=		std
 SDESC[std]=		X.org amdgpu video driver
@@ -18,8 +17,12 @@ DISTFILE[1]=		${ALTNAME}-${PORTVERSION}.tar.xz:main
 
 SPKGS[std]=		set primary man
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	UDEV
+OPTIONS_STANDARD=	UDEV
+OPT_ON[dragonfly]=	UDEV
+OPT_ON[freebsd]=	UDEV
+OPT_ON[linux]=		UDEV
+OPT_ON[midnightbsd]=	UDEV
 
 LICENSE=		MIT:primary
 LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
@@ -34,10 +37,13 @@ BUILD_DEPENDS=		libdrm:dev:std
 BUILDRUN_DEPENDS=	libdrm:primary:std
 			xorg-server:primary:std
 
-USES=			libtool mesa pkgconfig mbsdfix
+USES=			mesa pkgconfig meson
 XORG_COMPONENTS=	xorgproto
 DISTNAME=		${ALTNAME}-${PORTVERSION}
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--disable-udev
-			--disable-glamor
-INSTALL_TARGET=		install-strip
+MESON_ARGS=		-Dglamor=disabled
+
+[UDEV].DESCRIPTION=			Use udev for autoconfiguration of input devices
+[UDEV].BUILD_DEPENDS_ON=		libudev-devd:dev:std
+[UDEV].BUILDRUN_DEPENDS_ON=		libudev-devd:primary:std
+[UDEV].CONFIGURE_ARGS_ON=		-Dudev=enabled
+[UDEV].CONFIGURE_ARGS_OFF=		-Dudev=disabled
