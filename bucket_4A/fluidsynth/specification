@@ -1,5 +1,6 @@
-DEF[PORTVERSION]=	2.4.8
-DEF[SOVERSION]=		3.3.8
+DEF[PORTVERSION]=	2.5.1
+DEF[SOVERSION]=		3.5.0
+DEF[GCEM_HASH]=		012ae73
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		fluidsynth
@@ -10,9 +11,12 @@ SDESC[std]=		RT software synthesizer based on SoundFont2 specs
 HOMEPAGE=		https://www.fluidsynth.org
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
-DOWNLOAD_GROUPS=	main
+DOWNLOAD_GROUPS=	main cgem
 SITES[main]=		https://github.com/FluidSynth/fluidsynth/archive/
+SITES[cgem]=		GITHUB/kthohr:gcem:${GCEM_HASH}:gcem
 DISTFILE[1]=		v${PORTVERSION}.tar.gz:main
+DISTFILE[2]=		generated:cgem
+DF_INDEX=		1 2
 
 SPKGS[std]=		set primary dev man tools
 
