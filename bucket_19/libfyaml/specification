@@ -1,0 +1,40 @@
+DEF[PORTVERSION]=	0.9
+DEF[RELEASE_TAG]=	v${PORTVERSION}
+DEF[SOVERSION]=		0.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libfyaml
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc
+VARIANTS=		std
+SDESC[std]=		Fully feature complete YAML parser and emitter
+HOMEPAGE=		https://pantoniou.github.io/libfyaml/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://github.com/pantoniou/libfyaml/releases/download/${RELEASE_TAG}/
+DISTFILE[1]=		libfyaml-${PORTVERSION}.tar.gz:main
+
+SPKGS[std]=		set primary dev man tools
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		textproc/libfyaml
+
+LICENSE=		MIT:primary
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+EXRUN[tools]=		primary
+
+USES=			gmake libtool
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--mandir="{{MANPREFIX}}/man"
+CFLAGS=			-Wno-incompatible-pointer-types
+SOVERSION=		${SOVERSION}
+INSTALL_TARGET=		install-strip
+
+pre-configure:
+	${GREP} -rl "#include <alloca\\.h>" ${WRKSRC} |\
+	${XARGS} ${REINPLACE_CMD} -E "s|#include <alloca\\.h>|#include <stdlib.h>|"
