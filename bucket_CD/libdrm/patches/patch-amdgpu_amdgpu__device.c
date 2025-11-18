@@ -1,4 +1,4 @@
---- amdgpu/amdgpu_device.c.orig	2025-10-01 13:59:46 UTC
+--- amdgpu/amdgpu_device.c.orig	2025-11-02 02:30:31 UTC
 +++ amdgpu/amdgpu_device.c
 @@ -183,7 +183,12 @@ static int _amdgpu_device_initialize(int
  			return r;

@@ -1,4 +1,4 @@
---- tests/nouveau/threaded.c.orig	2025-10-01 13:59:46 UTC
+--- tests/nouveau/threaded.c.orig	2025-11-02 02:30:31 UTC
 +++ tests/nouveau/threaded.c
 @@ -36,7 +36,7 @@ static int failed;
  
