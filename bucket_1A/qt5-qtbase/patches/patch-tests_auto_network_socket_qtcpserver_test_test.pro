@@ -1,4 +1,4 @@
---- tests/auto/network/socket/qtcpserver/test/test.pro.orig	2024-01-04 19:21:43 UTC
+--- tests/auto/network/socket/qtcpserver/test/test.pro.orig	2024-05-08 05:17:16 UTC
 +++ tests/auto/network/socket/qtcpserver/test/test.pro
 @@ -16,6 +16,7 @@ win32 {
  QT = core network testlib
