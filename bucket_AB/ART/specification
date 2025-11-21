@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.25.10
+DEF[PORTVERSION]=	1.25.11
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ART
@@ -48,3 +48,5 @@ CMAKE_ARGS=		-DENABLE_OCIO:BOOL=OFF
 
 post-install:
 	${RMDIR} ${STAGEDIR}${PREFIX}/share/ART/ctlscripts
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/ART
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/ART-cli
