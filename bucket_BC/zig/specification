@@ -1,11 +1,11 @@
-DEF[PORTVERSION]=	0.14.1
+DEF[PORTVERSION]=	0.15.1
 DEF[GCC_VERSION]=	EXTRACT_INFO(GCCBASE_VERSION)
 DEF[GCC_LIB]=		toolchain/ravensys-gcc/{{ASLIB}}
 DEF[GCC_TARGET_LIB]=	toolchain/ravensys-gcc/lib/gcc/{{CONFIGURE_TARGET}}/${GCC_VERSION}
 DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
-DEF[LLVMBASE]=		llvm19
-DEF[CLANGBASE]=		clang19
-DEF[LLDBASE]=		lld19
+DEF[LLVMBASE]=		llvm
+DEF[CLANGBASE]=		clang
+DEF[LLDBASE]=		lld
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		zig
@@ -78,6 +78,7 @@ post-install:
 		lib/zig/libcxx \
 		lib/zig/libcxxabi \
 		lib/zig/std \
-		lib/zig/tsan \
+		lib/zig/libtsan \
+		lib/zig/libunwind \
 	\( -type f -o -type l \) 2>/dev/null | ${SORT}) \
 	>> ${WRKDIR}/.manifest.single.mktmp
