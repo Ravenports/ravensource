@@ -35,6 +35,7 @@ USES=			pkgconfig meson c++:primary
 GNOME_COMPONENTS=	glib libxml2 intltool
 MESON_ARGS=		-Dupdate-mimedb=false
 			-Dxdgmime-path="{{WRKSRC}}/src/xdgmime"
+INSTALL_REQ_TOOLCHAIN=	yes
 
 post-extract:
 	${AWK} '/Copyright/,/file named COPYING/' \
