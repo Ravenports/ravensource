@@ -1,4 +1,4 @@
---- tests/auto/network/ssl/ssl.pro.orig	2024-05-08 05:17:16 UTC
+--- tests/auto/network/ssl/ssl.pro.orig	2024-07-23 10:25:47 UTC
 +++ tests/auto/network/ssl/ssl.pro
 @@ -3,7 +3,6 @@ QT_FOR_CONFIG += network-private
  

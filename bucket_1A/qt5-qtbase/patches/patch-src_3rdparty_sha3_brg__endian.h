@@ -1,4 +1,4 @@
---- src/3rdparty/sha3/brg_endian.h.orig	2024-05-08 05:17:16 UTC
+--- src/3rdparty/sha3/brg_endian.h.orig	2024-07-23 10:25:47 UTC
 +++ src/3rdparty/sha3/brg_endian.h
 @@ -34,7 +34,7 @@ Changes for ARM 9/9/2010 [Downstream rel
  /* Include files where endian defines and byteswap functions may reside */
