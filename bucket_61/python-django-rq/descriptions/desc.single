@@ -1,35 +1,100 @@
-=========
-Django-RQ
-=========
+# Django-RQ
 
-|Build Status|
+[Build Status]
 
-Django integration with [RQ], a [Redis]
-based Python queuing library. `Django-RQ
-<https://github.com/rq/django-rq>`__ is a
-simple app that allows you to configure your queues in django's
-``settings.py``
-and easily use them in your project.
+Django integration with [RQ], a [Redis] based Python queuing library.
+[Django-RQ] is a simple app that allows you to configure your queues in
+Django's `settings.py` and easily use them in your project.
 
-=================
-Support Django-RQ
-=================
+## Support Django-RQ
 
-If you find ``django-rq`` useful, please consider supporting its
-development via [Tidelift].
+If you find `django-rq` useful, please consider supporting its development
+via [Tidelift].
 
-============
-Requirements
-============
+## Requirements
 
-* [Django] (3.2+)
-* [RQ]
+- [Django] (3.2+)
+- [RQ]
 
-============
-Installation
-============
+## Installation
 
-* Install ``django-rq`` (or [download from PyPI]):
+- Install `django-rq` (or [download from PyPI]):
 
-Django-RQ is maintained by [Stamps], an Indonesian based company that
-provides enterprise grade CRM and order management systems.
+```bash
+pip install django-rq
+```
+
+- Add `django_rq` to `INSTALLED_APPS` in `settings.py`:
+
+```python
+INSTALLED_APPS = (
+    # other apps
+    "django_rq",
+)
+```
+
+- Configure your queues in Django's `settings.py`:
+
+```python
+RQ_QUEUES = {
+    'default': {
+        'HOST': 'localhost',
+        'PORT': 6379,
+        'DB': 0,
+        'USERNAME': 'some-user',
+        'PASSWORD': 'some-password',
+        'DEFAULT_TIMEOUT': 360,
+        'DEFAULT_RESULT_TTL': 800,
+        'REDIS_CLIENT_KWARGS': {    # Eventual additional Redis connection
+arguments
+            'ssl_cert_reqs': None,
+        },
+    },
+    'with-sentinel': {
+        'SENTINELS': [('localhost', 26736), ('localhost', 26737)],
+        'MASTER_NAME': 'redismaster',
+        'DB': 0,
+        # Redis username/password
+        'USERNAME': 'redis-user',
+        'PASSWORD': 'secret',
+        'SOCKET_TIMEOUT': 0.3,
+        'CONNECTION_KWARGS': {  # Eventual additional Redis connection
+arguments
+            'ssl': True
+        },
+        'SENTINEL_KWARGS': {    # Eventual Sentinel connection arguments
+            # If Sentinel also has auth, username/password can be passed
+here
+            'username': 'sentinel-user',
+            'password': 'secret',
+        },
+    },
+    'high': {
+        'URL': os.getenv('REDISTOGO_URL', 'redis://localhost:6379/0'),  #
+If you're on Heroku
+        'DEFAULT_TIMEOUT': 500,
+    },
+    'low': {
+        'HOST': 'localhost',
+        'PORT': 6379,
+        'DB': 0,
+    }
+}
+
+RQ_EXCEPTION_HANDLERS = ['path.to.my.handler']  # If you need custom
+exception handlers
+```
+
+- Include `django_rq.urls` in your `urls.py`:
+
+```python
+urlpatterns += [
+    path('django-rq/', include('django_rq.urls'))
+]
+```
+
+## Usage
+
+### Putting jobs in the queue
+
+Django-RQ allows you to easily put jobs into any of the queues defined in
