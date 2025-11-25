@@ -1,4 +1,4 @@
---- hw/xfree86/common/xf86str.h.orig	2025-06-18 16:25:56 UTC
+--- hw/xfree86/common/xf86str.h.orig	2025-10-28 17:14:33 UTC
 +++ hw/xfree86/common/xf86str.h
 @@ -249,7 +249,7 @@ typedef struct _DriverRec {
   */
