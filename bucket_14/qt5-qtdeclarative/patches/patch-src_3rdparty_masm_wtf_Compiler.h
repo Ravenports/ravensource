@@ -2,7 +2,7 @@ $NetBSD: patch-src_3rdparty_masm_wtf_Compiler.h,v 1.1 2018/07/30 15:24:45 jperki
 
 Limit C11 _Static_assert to C code.
 
---- src/3rdparty/masm/wtf/Compiler.h.orig	2024-07-23 10:25:53 UTC
+--- src/3rdparty/masm/wtf/Compiler.h.orig	2024-11-08 13:36:12 UTC
 +++ src/3rdparty/masm/wtf/Compiler.h
 @@ -134,7 +134,7 @@
  #if GCC_VERSION_AT_LEAST(4, 8, 0)
