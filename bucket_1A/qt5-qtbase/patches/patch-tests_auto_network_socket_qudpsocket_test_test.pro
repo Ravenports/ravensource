@@ -1,4 +1,4 @@
---- tests/auto/network/socket/qudpsocket/test/test.pro.orig	2024-07-23 10:25:47 UTC
+--- tests/auto/network/socket/qudpsocket/test/test.pro.orig	2024-11-08 13:36:08 UTC
 +++ tests/auto/network/socket/qudpsocket/test/test.pro
 @@ -17,6 +17,7 @@ win32:debug_and_release {
  }

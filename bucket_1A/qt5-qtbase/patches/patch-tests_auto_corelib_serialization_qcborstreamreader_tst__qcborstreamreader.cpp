@@ -1,4 +1,4 @@
---- tests/auto/corelib/serialization/qcborstreamreader/tst_qcborstreamreader.cpp.orig	2024-07-23 10:25:47 UTC
+--- tests/auto/corelib/serialization/qcborstreamreader/tst_qcborstreamreader.cpp.orig	2024-11-08 13:36:08 UTC
 +++ tests/auto/corelib/serialization/qcborstreamreader/tst_qcborstreamreader.cpp
 @@ -365,7 +365,8 @@ template <typename T> static inline bool
      // converting FP to integral is UB if it can't be represented.;

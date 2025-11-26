@@ -2,7 +2,7 @@ $NetBSD: patch-tests_auto_corelib_io_qprocess_qprocess.pro,v 1.1 2014/12/30 17:2
 
 * Pass whitespace(s) in filename test cases.
 
---- tests/auto/corelib/io/qprocess/qprocess.pro.orig	2024-07-23 10:25:47 UTC
+--- tests/auto/corelib/io/qprocess/qprocess.pro.orig	2024-11-08 13:36:08 UTC
 +++ tests/auto/corelib/io/qprocess/qprocess.pro
 @@ -3,10 +3,7 @@ TEMPLATE = subdirs
  include(qprocess.pri)
