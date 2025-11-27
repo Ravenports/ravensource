@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	1.58.0
 
 NAMEBASE=		gvfs
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		std
 SDESC[std]=		GNOME virtual file system
@@ -36,12 +37,14 @@ BUILD_DEPENDS=		dbus:dev:std
 			libgpg-error:dev:std
 			libsecret:dev:std
 			libsoup:dev:std
+			libudisks:dev:std
 			p11-kit:dev:std
 BUILDRUN_DEPENDS=	dbus:primary:std
 			gcr:primary:std
 			libarchive:primary:std
 			libsecret:primary:std
 			libsoup:primary:std
+			libudisks:primary:std
 			p11-kit:primary:std
 
 USES=			cpe meson pkgconfig ssl:build
@@ -73,7 +76,7 @@ MESON_ARGS=		-Dsystemduserunitdir="no"
 			-Donedrive=false
 			-Dsftp=false
 			-Dsmb=false
-			-Dudisks2=false
+			-Dudisks2=true
 			-Dburn=true
 LDFLAGS=		-Wl,-rpath,{{PREFIX}}/lib/gvfs
 
