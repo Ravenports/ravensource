@@ -1,0 +1,50 @@
+DEF[PORTVERSION]=	2.3.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		lcov
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		std
+SDESC[std]=		Linux Test Project GCOV extension
+HOMEPAGE=		https://github.com/linux-test-project/lcov/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/linux-test-project:lcov:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[std]=		set primary man examples
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:primary
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/bin/geninfo
+LICENSE_AWK=		TERMS:"geninfo$"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/lcov
+
+BUILDRUN_DEPENDS=	bash:primary:std
+
+USES=			gmake perl python shebangfix
+SHEBANG_OLD_PERL=	/usr/bin/perl
+SHEBANG_GLOB=		*.sh
+SHEBANG_FILES=		bin/xml2lcovutil.py
+			bin/genhtml
+			bin/py2lcov
+			bin/xml2lcov
+			bin/genpng
+			bin/gendesc
+			bin/geninfo
+			bin/lcov
+			bin/perl2lcov
+
+post-patch:
+	${REINPLACE_CMD} 's|/bin/env perl|${PERL_CMD}|' \
+		${WRKSRC}/tests/gendiffcov/simple/annotate.sh
+
+do-install:
+	( cd ${WRKSRC} && gmake DESTDIR="${STAGEDIR}" PREFIX="${PREFIX}" install )
