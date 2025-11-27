@@ -1,0 +1,39 @@
+DEF[PORTVERSION]=	0.10.4
+DEF[SOVERSION]=		0.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		ayatana-ido
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		std
+SDESC[std]=		Ayatana Display Indicator Objects
+HOMEPAGE=		https://github.com/AyatanaIndicators/ayatana-ido/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/AyatanaIndicators:ayatana-ido:${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[std]=		set primary dev
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv3:primary
+			LGPL21:primary
+LICENSE_FILE=		GPLv3:{{WRKSRC}}/COPYING.GPL-3
+			LGPL21:{{WRKSRC}}/COPYING.LGPL-2.1
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/idorange.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		dual
+
+FPC_EQUIVALENT=		devel/ayatana-ido
+
+USES=			cmake pkgconfig
+GNOME_COMPONENTS=	glib gtk3
+
+SOVERSION=		${SOVERSION}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libayatana-ido3-0.4.so
