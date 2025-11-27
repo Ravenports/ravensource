@@ -1,0 +1,49 @@
+DEF[PORTVERSION]=	0.5.94
+DEF[SOVERSION]=		1.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libayatana-appindicator
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		std
+SDESC[std]=		Ayatana Application Indicators Shared Library
+HOMEPAGE=		https://github.com/AyatanaIndicators/libayatana-appindicator/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/AyatanaIndicators:libayatana-appindicator:${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[std]=		set primary dev
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL21:primary
+			LGPL3:primary
+LICENSE_FILE=		LGPL21:{{WRKSRC}}/COPYING.LGPL.2.1
+			LGPL3:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/app-indicator.h
+LICENSE_AWK=		TERMS:"ifndef"
+LICENSE_SCHEME=		dual
+
+FPC_EQUIVALENT=		devel/libayatana-appindicator
+
+BUILD_DEPENDS=		ayatana-ido:dev:std
+			libayatana-indicator:dev:std
+			libdbusmenu:dev:std
+			vala:primary:std
+BUILDRUN_DEPENDS=	libayatana-indicator:primary:std
+			libdbusmenu:primary:std
+
+USES=			cmake pkgconfig
+GNOME_COMPONENTS=	glib gtk3 introspection
+
+CMAKE_ARGS=		-DENABLE_GTKDOC=ON
+			-DENABLE_BINDINGS_MONO=OFF
+
+SOVERSION=		${SOVERSION}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libayatana-appindicator3.so
