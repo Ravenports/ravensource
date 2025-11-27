@@ -1,0 +1,67 @@
+DEF[PORTVERSION]=	1.28.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		mate-control-center
+VERSION=		${PORTVERSION}
+KEYWORDS=		sysutils
+VARIANTS=		std
+SDESC[std]=		Control center for MATE
+HOMEPAGE=		https://mate-desktop.org/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://pub.mate-desktop.org/releases/${PORTVERSION:R}/
+DISTFILE[1]=		mate-control-center-${PORTVERSION}.tar.xz:main
+DIST_SUBDIR=		mate
+
+SPKGS[std]=		set primary nls
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:primary
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/shell/control-center.c
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		sysutils/mate-control-center
+
+BUILD_DEPENDS=		accountsservice:dev:std
+			ayatana-ido:dev:std
+			dconf:dev:std
+			itstool:single:std
+			libayatana-appindicator:dev:std
+			libayatana-indicator:dev:std
+			libcanberra:dev:std
+			libdbusmenu:dev:std
+			libgtop:dev:std
+			libmatekbd:dev:std
+			libudisks:dev:std
+			libxklavier:dev:std
+			marco:dev:std
+			mate-desktop:dev:std
+			mate-menus:dev:std
+			polkit:dev:std
+			yelp-tools:single:std
+BUILDRUN_DEPENDS=	accountsservice:primary:std
+			dconf:primary:std
+			libayatana-appindicator:primary:std
+			libcanberra:gtk3:std
+			libgtop:primary:std
+			libmatekbd:primary:std
+			libudisks:primary:std
+			libxklavier:primary:std
+			marco:primary:std
+			mate-desktop:primary:std
+			mate-menus:primary:std
+			polkit:primary:std
+
+USES=			autoreconf desktop-utils:primary gettext gmake
+			iconv mime-info:primary pkgconfig
+XORG_COMPONENTS=	ice sm xext xscrnsaver
+GNOME_COMPONENTS=	glib gtk3 librsvg libxml2
+
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-systemd
