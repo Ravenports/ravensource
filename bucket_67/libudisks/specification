@@ -1,0 +1,50 @@
+DEF[PORTVERSION]=	2.11.0
+DEF[SOVERSION]=		0.0.0
+DEF[CAT1]=		http://docbook.sourceforge.net/release/xsl/current/manpages
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libudisks
+VERSION=		${PORTVERSION}
+KEYWORDS=		sysutils
+VARIANTS=		std
+SDESC[std]=		Storage devices manipulation library, from udisks
+HOMEPAGE=		https://www.freedesktop.org/wiki/Software/udisks/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://github.com/storaged-project/udisks/releases/download/udisks-${PORTVERSION}/
+DISTFILE[1]=		udisks-${PORTVERSION}.tar.bz2:main
+
+SPKGS[std]=		set primary dev man nls docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# Daemon and cli tool is GPL, library is LGPL
+LICENSE=		GPLv2+:primary
+			LGPL20+:primary
+LICENSE_FILE=		GPLv2+:stock
+			LGPL20+:stock
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/COPYING
+LICENSE_AWK=		TERMS:"included below"
+LICENSE_SCHEME=		multi
+
+FPC_EQUIVALENT=		sysutils/libudisks
+
+BUILD_DEPENDS=		bash:primary:std
+			docbook-xsl:primary:std
+			polkit:dev:std
+BUILDRUN_DEPENDS=	polkit:primary:std
+
+USES=			bsd:gudev gettext gmake libtool pkgconfig
+GNOME_COMPONENTS=	glib
+
+DISTNAME=		udisks-${PORTVERSION}
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-daemon
+SOVERSION=		${SOVERSION}
+
+pre-configure:
+	${SED} -i'' -e 's|${CAT1}|file://${LOCALBASE}/share/xsl/docbook/manpages|g' \
+		${WRKSRC}/doc/man/Makefile.in
