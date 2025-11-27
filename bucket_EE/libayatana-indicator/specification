@@ -1,0 +1,41 @@
+DEF[PORTVERSION]=	0.9.4
+DEF[SOVERSION]=		7.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libayatana-indicator
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		std
+SDESC[std]=		Ayatana Indicators Shared Library
+HOMEPAGE=		https://github.com/AyatanaIndicators/libayatana-indicator/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/AyatanaIndicators:libayatana-indicator:${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[std]=		set primary dev
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv3:primary
+LICENSE_FILE=		GPLv3:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/indicator-object.h
+LICENSE_AWK=		TERMS:"ifndef"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/libayatana-indicator
+
+BUILD_DEPENDS=		ayatana-ido:dev:std
+BUILDRUN_DEPENDS=	ayatana-ido:primary:std
+
+USES=			cmake pkgconfig
+GNOME_COMPONENTS=	glib gtk3
+
+SOVERSION=		${SOVERSION}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libayatana-indicator3.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/libexec/libayatana-indicator/ayatana-indicator-loader3
