@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	24.7.2
+DEF[PORTVERSION]=	24.11.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-incremental
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/twisted/incremental
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/0d/38/221e5b2ae676a3938c2c1919131410c342b6efc2baffeda395dd66eeca8f
+SITES[main]=		PYPIWHL/1d/55/0f4df2a44053867ea9cbea73fc588b03c55605cd695cee0a3d86f0029cb2
 DISTFILE[1]=		incremental-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -30,12 +30,11 @@ GENERATED=		yes
 DISTNAME=		incremental-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# setuptools >=61.0
-# tomli ; python_version < "3.11"
-# click >=6.0 ; extra == 'scripts'
+# packaging>=17.0
+# tomli; python_version < '3.11'
 
 [PY313].USES_ON=			python:v13,wheel
-[PY313].RUN_DEPENDS_ON=			python-setuptools:single:v13
+[PY313].RUN_DEPENDS_ON=			python-packaging:single:v13
 [PY314].USES_ON=			python:v14,wheel
-[PY314].RUN_DEPENDS_ON=			python-setuptools:single:v14
+[PY314].RUN_DEPENDS_ON=			python-packaging:single:v14
 
