@@ -1,4 +1,4 @@
---- src/3rdparty/masm/yarr/Yarr.h.orig	2024-11-08 13:36:12 UTC
+--- src/3rdparty/masm/yarr/Yarr.h.orig	2025-06-05 21:08:43 UTC
 +++ src/3rdparty/masm/yarr/Yarr.h
 @@ -27,6 +27,7 @@
  
