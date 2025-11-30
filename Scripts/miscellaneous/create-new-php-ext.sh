@@ -67,7 +67,7 @@ while read extension; do
 			mkdir -p ${RAVENSRC}/${bucketdir}
 		fi
 		cp -a ${RAVENSRC}/${oldbucket} ${RAVENSRC}/${newbucket}
-		sed -i '' -e "s|PHP_8.1_|PHP_${1}.${2}_|" ${RAVENSRC}/${newbucket}/specification
+		sed -i '' -e "s|PHP_8.4_|PHP_${1}.${2}_|" ${RAVENSRC}/${newbucket}/specification
 		sed -i '' -e "s|8\.1|${1}.${2}|g" ${RAVENSRC}/${newbucket}/descriptions/*
 	fi
 	(cd ${RAVENSRC}/${newbucket} && \
