@@ -2,6 +2,7 @@ DEF[PORTVERSION]=	EXTRACT_VERSION(PHP_8.5_VERSION)
 DEF[SUFFIX]=		${PORTVERSION:R:S/.//}
 DEF[MODULE]=		dom
 DEF[KEYWORD]=		textproc
+DEF[EXT]=		php-${PORTVERSION}/ext
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		php${SUFFIX}-${MODULE}
@@ -27,9 +28,10 @@ USES=			php:ext,${SUFFIX} pkgconfig cpe
 CPE_VENDOR=		php
 CPE_PRODUCT=		php
 GNOME_COMPONENTS=	libxml2
-DISTNAME=		php-${PORTVERSION}/ext/{{PHP_MODNAME}}
+DISTNAME=		${EXT}/{{PHP_MODNAME}}
 CONFIGURE_ARGS=		--enable-${MODULE}
 			--with-libxml-dir={{LOCALBASE}}
 EXTRACT_HEAD[1]=	{{TAR}} -xf
-EXTRACT_TAIL[1]=	php-${PORTVERSION}/ext/{{PHP_MODNAME}}
+EXTRACT_TAIL[1]=	${EXT}/{{PHP_MODNAME}} ${EXT}/lexbor
 CVE_FIXED=		CVE-2007-3205
+CFLAGS=			-I{{WRKSRC}}/../lexbor

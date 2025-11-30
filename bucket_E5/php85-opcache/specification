@@ -23,7 +23,7 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		${KEYWORD}/php${SUFFIX}-${MODULE}
 
-USES=			php:ext,${SUFFIX} cpe gmake pcre:build cclibs:single
+USES=			php:ext,${SUFFIX} cpe gmake
 CPE_VENDOR=		php
 CPE_PRODUCT=		php
 DISTNAME=		php-${PORTVERSION}/ext/{{PHP_MODNAME}}
@@ -33,3 +33,5 @@ EXTRACT_HEAD[1]=	{{TAR}} -xf
 EXTRACT_TAIL[1]=	php-${PORTVERSION}/ext/{{PHP_MODNAME}}
 PHP_MOD_PRIORITY=	10
 CVE_FIXED=		CVE-2007-3205
+
+BROKEN[all]=		Opcache is part of PHP since version 8.5

@@ -80,7 +80,7 @@ PHP_VERSION=	${PHP_${PHP_DOTVER}_VERSION}
 PHP_SAPI=	# assume none
 .      if ${PHP_SUFFIX} == 85
 PHP_EXT_DIR=	20250925
-PHP_EXT_INC=	hash json pcre spl
+PHP_EXT_INC=	hash json opcache pcre spl
 .    elif ${PHP_SUFFIX} == 84
 PHP_EXT_DIR=	20240924
 PHP_EXT_INC=	hash json pcre spl
