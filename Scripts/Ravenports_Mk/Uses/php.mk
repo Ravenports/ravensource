@@ -14,9 +14,9 @@
 #  mod      : Require the Apache Module for PHP.
 #  web      : Require the Apache Module or the CGI version of PHP.
 #  embed    : Require the embedded library version of PHP.
-#  80       : Specify latest PHP 8.0.x (otherwise use default PHP)
-#  81       : Specify latest PHP 8.1.x (otherwise use default PHP)
-#  82       : Specify latest PHP 8.2.x (otherwise use default PHP)
+#  83       : Specify latest PHP 8.3.x (otherwise use default PHP)
+#  84       : Specify latest PHP 8.4.x (otherwise use default PHP)
+#  85       : Specify latest PHP 8.5.x (otherwise use default PHP)
 #
 # If the port requires a predefined set of PHP extensions, they can be
 # listed in this way:
@@ -87,6 +87,7 @@ PHP_EXT_INC=	hash json pcre spl
 .    elif ${PHP_SUFFIX} == 83
 PHP_EXT_DIR=	20230831
 PHP_EXT_INC=	hash json pcre spl
+.    endif
 .  endif
 PHPXX=		php${PHP_VER}
 
