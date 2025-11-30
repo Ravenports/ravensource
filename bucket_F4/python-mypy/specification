@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.18.2
+DEF[PORTVERSION]=	1.19.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-mypy
@@ -11,7 +11,7 @@ HOMEPAGE=		https://www.mypy-lang.org/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/87/e3/be76d87158ebafa0309946c4a73831974d4d6ab4f4ef40c3b53a385a66fd
+SITES[main]=		PYPIWHL/09/0e/fe228ed5aeab470c6f4eb82481837fadb642a5aa95cc8215fd2214822c10
 DISTFILE[1]=		mypy-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -34,6 +34,7 @@ DISTNAME=		mypy-${PORTVERSION}.dist-info
 # mypy_extensions>=1.0.0
 # pathspec>=0.9.0
 # tomli>=1.1.0; python_version < "3.11"
+# librt>=0.6.2
 # psutil>=4.0; extra == "dmypy"
 # setuptools>=50; extra == "mypyc"
 # lxml; extra == "reports"
@@ -44,8 +45,10 @@ DISTNAME=		mypy-${PORTVERSION}.dist-info
 [PY313].RUN_DEPENDS_ON=			python-typing-extensions:single:v13
 					python-mypy-extensions:single:v13
 					python-pathspec:single:v13
+					python-librt:single:v13
 [PY314].USES_ON=			python:v14,wheel
 [PY314].RUN_DEPENDS_ON=			python-typing-extensions:single:v14
 					python-mypy-extensions:single:v14
 					python-pathspec:single:v14
+					python-librt:single:v14
 

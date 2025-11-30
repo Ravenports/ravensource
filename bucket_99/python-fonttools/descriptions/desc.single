@@ -18,7 +18,7 @@ are available at [Read the Docs].
 Installation
 ~~~~~~~~~~~~
 
-FontTools requires [Python] 3.9
+FontTools requires [Python] 3.10
 or later. We try to follow the same schedule of minimum Python version
 support as
 NumPy (see [NEP 29]).
@@ -28,6 +28,26 @@ install it with [pip]:
 
 Changelog
 ~~~~~~~~~
+
+4.61.0 (released 2025-11-28)
+----------------------------
+
+- [varLib.main]: **SECURITY** Only use basename(vf.filename) to prevent
+path traversal attacks when
+  running `fonttools varLib` command. Fixes CVE-2025-66034, see:
+ 
+https://github.com/fonttools/fonttools/security/advisories/GHSA-768j-98cg-p3fv.
+- [feaLib] Sort BaseLangSysRecords by tag (#3986).
+- Drop support for EOL Python 3.9 (#3982).
+- [instancer] Support --remove-overlaps for fonts with CFF2 table (#3975).
+- [CFF2ToCFF] Add --remove-overlaps option (#3976).
+- [feaLib] Raise an error for rsub with NULL target (#3979).
+- [bezierTools] Fix logic bug in curveCurveIntersections (#3963).
+- [feaLib] Error when condition sets have the same name (#3958).
+- [cu2qu.ufo] skip processing empty glyphs to support sparse kerning
+masters (#3956).
+- [unicodedata] Update to Unicode 17. Require ``unicodedata2 >= 17.0.0``
+when installed with 'unicode' extra.
 
 4.60.1 (released 2025-09-29)
 ----------------------------
@@ -78,23 +98,3 @@ user/normalized space,
   The bare ``fonttools varLib.avar`` script is deprecated, in favour of
 ``fonttools varLib.avar.build`` (or unbuild).
 - [interpolatable] Clarify linear_sum_assignment backend options and
-minimal dependency
-  usage (#3927).
-- [post] Speed up build_psNameMapping (#3923).
-- [ufoLib] Added typing annotations to fontTools.ufoLib (#3875).
-
-4.59.2 (released 2025-08-27)
-----------------------------
-
-- [varLib] Clear USE_MY_METRICS component flags when inconsistent across
-masters (#3912).
-- [varLib.instancer] Avoid negative advance width/height values when
-instatiating HVAR/VVAR,
-  (unlikely in well-behaved fonts) (#3918).
-- [subset] Fix shaping behaviour when pruning empty mark sets (#3915,
-harfbuzz/harfbuzz#5499).
-- [cu2qu] Fixed ``dot()`` product of perpendicular vectors not always
-returning exactly 0.0
-  in all Python implementations (#3911)
-- [varLib.instancer] Implemented fully-instantiating avar2 fonts (#3909).
-- [feaLib] Allow float values in VariableScalar's axis locations (#3906,

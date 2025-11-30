@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.7.9
+DEF[PORTVERSION]=	0.7.10
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-Genshi
@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/edgewall/genshi
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/89/86/7a8bb428086cdbf1d179af4d4d6f96e19e51d671cf119adc9c74a25feb27
-DISTFILE[1]=		Genshi-${PORTVERSION}-py3-none-any.whl:main
+SITES[main]=		PYPIWHL/27/69/259f8a1edc358a72c511b145c33b85a7667804a5c8ba04991aa5737d38a4
+DISTFILE[1]=		genshi-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
 SPKGS[v13]=		single
@@ -27,15 +27,12 @@ VOPTS[v14]=		PY313=OFF PY314=ON
 # BSD
 
 GENERATED=		yes
-DISTNAME=		Genshi-${PORTVERSION}.dist-info
+DISTNAME=		genshi-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# six
-# Babel (>=0.8) ; extra == 'i18n'
-# setuptools (>=0.6a2) ; extra == 'plugin'
+# Babel >=0.8 ; extra == 'i18n'
+# setuptools >=0.6a2 ; extra == 'plugin'
 
 [PY313].USES_ON=			python:v13,wheel
-[PY313].RUN_DEPENDS_ON=			python-six:single:v13
 [PY314].USES_ON=			python:v14,wheel
-[PY314].RUN_DEPENDS_ON=			python-six:single:v14
 

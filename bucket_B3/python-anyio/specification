@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	4.11.0
+DEF[PORTVERSION]=	4.12.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-anyio
@@ -11,7 +11,7 @@ HOMEPAGE=		https://pypi.org/project/anyio/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/15/b3/9b1a8074496371342ec1e796a96f99c82c945a339cd81a8e73de28b4cf9e
+SITES[main]=		PYPIWHL/7f/9c/36c5c37947ebfb8c7f22e0eb6e4d188ee2d53aa3880f3f2744fb894f0cb1
 DISTFILE[1]=		anyio-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -32,14 +32,12 @@ DISTNAME=		anyio-${PORTVERSION}.dist-info
 # Requires-Dist extracted from wheel metadata
 # exceptiongroup>=1.0.2; python_version < "3.11"
 # idna>=2.8
-# sniffio>=1.1
 # typing_extensions>=4.5; python_version < "3.13"
-# trio>=0.31.0; extra == "trio"
+# trio>=0.32.0; python_version >= "3.10" and extra == "trio"
+# trio>=0.31.0; python_version < "3.10" and extra == "trio"
 
 [PY313].USES_ON=			python:v13,wheel
 [PY313].RUN_DEPENDS_ON=			python-idna:single:v13
-					python-sniffio:single:v13
 [PY314].USES_ON=			python:v14,wheel
 [PY314].RUN_DEPENDS_ON=			python-idna:single:v14
-					python-sniffio:single:v14
 
