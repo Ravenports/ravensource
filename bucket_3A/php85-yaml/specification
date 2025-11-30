@@ -1,0 +1,32 @@
+DEF[PORTVERSION]=	EXTRACT_INFO(PECL_YAML)
+DEF[SUFFIX]=		85
+DEF[MODULE]=		yaml
+DEF[KEYWORD]=		textproc
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		php${SUFFIX}-${MODULE}
+VERSION=		${PORTVERSION}
+KEYWORDS=		lang www php ${KEYWORD}
+VARIANTS=		std
+SDESC[std]=		PHP ${PORTVERSION:R} extension: ${MODULE} parser
+HOMEPAGE=		https://pecl.php.net/package/yaml/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://pecl.php.net/get/
+DISTFILE[1]=		yaml-${PORTVERSION}.tgz:main
+DIST_SUBDIR=		PECL
+
+SPKGS[std]=		single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		${KEYWORD}/pecl-yaml
+
+BUILD_DEPENDS=		libyaml:dev:std
+BUILDRUN_DEPENDS=	libyaml:primary:std
+
+USES=			php:ext,${SUFFIX}
+DISTNAME=		yaml-${PORTVERSION}
+CONFIGURE_ARGS=		--with-${MODULE}={{LOCALBASE}}
