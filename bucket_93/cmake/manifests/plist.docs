@@ -142,6 +142,7 @@ share/doc/cmake/Help/command/include/OPTIONS_SHELL.rst
 share/doc/cmake/Help/command/include/POLICY_VERSION.rst
 share/doc/cmake/Help/command/include/SUPPORTED_LANGUAGES.rst
 share/doc/cmake/Help/command/include/UNSET_NOTE.rst
+share/doc/cmake/Help/cpack_gen/appimage.rst
 share/doc/cmake/Help/cpack_gen/archive.rst
 share/doc/cmake/Help/cpack_gen/bundle.rst
 share/doc/cmake/Help/cpack_gen/cygwin.rst
@@ -167,6 +168,7 @@ share/doc/cmake/Help/envvar/CLICOLOR.rst
 share/doc/cmake/Help/envvar/CLICOLOR_FORCE.rst
 share/doc/cmake/Help/envvar/CMAKE_APPBUNDLE_PATH.rst
 share/doc/cmake/Help/envvar/CMAKE_APPLE_SILICON_PROCESSOR.rst
+share/doc/cmake/Help/envvar/CMAKE_AUTOGEN_INTERMEDIATE_DIR_STRATEGY.rst
 share/doc/cmake/Help/envvar/CMAKE_BUILD_PARALLEL_LEVEL.rst
 share/doc/cmake/Help/envvar/CMAKE_BUILD_TYPE.rst
 share/doc/cmake/Help/envvar/CMAKE_COLOR_DIAGNOSTICS.rst
@@ -176,6 +178,7 @@ share/doc/cmake/Help/envvar/CMAKE_CONFIG_TYPE.rst
 share/doc/cmake/Help/envvar/CMAKE_CROSSCOMPILING_EMULATOR.rst
 share/doc/cmake/Help/envvar/CMAKE_EXPORT_BUILD_DATABASE.rst
 share/doc/cmake/Help/envvar/CMAKE_EXPORT_COMPILE_COMMANDS.rst
+share/doc/cmake/Help/envvar/CMAKE_FASTBUILD_VERBOSE_GENERATOR.rst
 share/doc/cmake/Help/envvar/CMAKE_FRAMEWORK_PATH.rst
 share/doc/cmake/Help/envvar/CMAKE_GENERATOR.rst
 share/doc/cmake/Help/envvar/CMAKE_GENERATOR_INSTANCE.rst
@@ -185,6 +188,7 @@ share/doc/cmake/Help/envvar/CMAKE_INCLUDE_PATH.rst
 share/doc/cmake/Help/envvar/CMAKE_INSTALL_MODE.rst
 share/doc/cmake/Help/envvar/CMAKE_INSTALL_PARALLEL_LEVEL.rst
 share/doc/cmake/Help/envvar/CMAKE_INSTALL_PREFIX.rst
+share/doc/cmake/Help/envvar/CMAKE_INTERMEDIATE_DIR_STRATEGY.rst
 share/doc/cmake/Help/envvar/CMAKE_LANG_COMPILER_LAUNCHER.rst
 share/doc/cmake/Help/envvar/CMAKE_LANG_IMPLICIT_LINK_DIRECTORIES_EXCLUDE.rst
 share/doc/cmake/Help/envvar/CMAKE_LANG_IMPLICIT_LINK_LIBRARIES_EXCLUDE.rst
@@ -245,6 +249,7 @@ share/doc/cmake/Help/generator/Borland Makefiles.rst
 share/doc/cmake/Help/generator/CodeBlocks.rst
 share/doc/cmake/Help/generator/CodeLite.rst
 share/doc/cmake/Help/generator/Eclipse CDT4.rst
+share/doc/cmake/Help/generator/FASTBuild.rst
 share/doc/cmake/Help/generator/Green Hills MULTI.rst
 share/doc/cmake/Help/generator/Kate.rst
 share/doc/cmake/Help/generator/MSYS Makefiles.rst
@@ -262,6 +267,7 @@ share/doc/cmake/Help/generator/Visual Studio 14 2015.rst
 share/doc/cmake/Help/generator/Visual Studio 15 2017.rst
 share/doc/cmake/Help/generator/Visual Studio 16 2019.rst
 share/doc/cmake/Help/generator/Visual Studio 17 2022.rst
+share/doc/cmake/Help/generator/Visual Studio 18 2026.rst
 share/doc/cmake/Help/generator/Visual Studio 6.rst
 share/doc/cmake/Help/generator/Visual Studio 7 .NET 2003.rst
 share/doc/cmake/Help/generator/Visual Studio 7.rst
@@ -272,6 +278,7 @@ share/doc/cmake/Help/generator/Xcode.rst
 share/doc/cmake/Help/generator/include/VS_TOOLSET_HOST_ARCH.rst
 share/doc/cmake/Help/generator/include/VS_TOOLSET_HOST_ARCH_LEGACY.rst
 share/doc/cmake/Help/include/COMPILE_DEFINITIONS_DISCLAIMER.rst
+share/doc/cmake/Help/include/ENVIRONMENT_MODIFICATION_OPS.rst
 share/doc/cmake/Help/include/INTERFACE_INCLUDE_DIRECTORIES_WARNING.rst
 share/doc/cmake/Help/include/INTERFACE_LINK_LIBRARIES_WARNING.rst
 share/doc/cmake/Help/manual/CTEST_EXAMPLE_MAKEFILE_JOB_SERVER.make
@@ -302,6 +309,15 @@ share/doc/cmake/Help/manual/cpack-generators.7.rst
 share/doc/cmake/Help/manual/cpack.1.rst
 share/doc/cmake/Help/manual/ctest.1.rst
 share/doc/cmake/Help/manual/ctest/show-only-schema.json
+share/doc/cmake/Help/manual/file_api/schema_cache.json
+share/doc/cmake/Help/manual/file_api/schema_cmakeFiles.json
+share/doc/cmake/Help/manual/file_api/schema_codemodel.json
+share/doc/cmake/Help/manual/file_api/schema_configureLog.json
+share/doc/cmake/Help/manual/file_api/schema_directory.json
+share/doc/cmake/Help/manual/file_api/schema_index.json
+share/doc/cmake/Help/manual/file_api/schema_stateful_query.json
+share/doc/cmake/Help/manual/file_api/schema_target.json
+share/doc/cmake/Help/manual/file_api/schema_toolchains.json
 share/doc/cmake/Help/manual/include/ID_RESERVE.rst
 share/doc/cmake/Help/manual/include/LINKS.rst
 share/doc/cmake/Help/manual/include/OPTIONS_BUILD.rst
@@ -783,6 +799,13 @@ share/doc/cmake/Help/policy/CMP0194.rst
 share/doc/cmake/Help/policy/CMP0195.rst
 share/doc/cmake/Help/policy/CMP0196.rst
 share/doc/cmake/Help/policy/CMP0197.rst
+share/doc/cmake/Help/policy/CMP0198.rst
+share/doc/cmake/Help/policy/CMP0199.rst
+share/doc/cmake/Help/policy/CMP0200.rst
+share/doc/cmake/Help/policy/CMP0201.rst
+share/doc/cmake/Help/policy/CMP0202.rst
+share/doc/cmake/Help/policy/CMP0203.rst
+share/doc/cmake/Help/policy/CMP0204.rst
 share/doc/cmake/Help/policy/include/DEPRECATED.rst
 share/doc/cmake/Help/policy/include/DISALLOWED_COMMAND.rst
 share/doc/cmake/Help/policy/include/REMOVED_COMMAND.rst
@@ -896,12 +919,15 @@ share/doc/cmake/Help/prop_sf/Fortran_PREPROCESS.rst
 share/doc/cmake/Help/prop_sf/GENERATED.rst
 share/doc/cmake/Help/prop_sf/HEADER_FILE_ONLY.rst
 share/doc/cmake/Help/prop_sf/INCLUDE_DIRECTORIES.rst
+share/doc/cmake/Help/prop_sf/INSTALL_OBJECT_NAME.rst
+share/doc/cmake/Help/prop_sf/JOB_POOL_COMPILE.rst
 share/doc/cmake/Help/prop_sf/KEEP_EXTENSION.rst
 share/doc/cmake/Help/prop_sf/LABELS.rst
 share/doc/cmake/Help/prop_sf/LANGUAGE.rst
 share/doc/cmake/Help/prop_sf/LOCATION.rst
 share/doc/cmake/Help/prop_sf/MACOSX_PACKAGE_LOCATION.rst
 share/doc/cmake/Help/prop_sf/OBJECT_DEPENDS.rst
+share/doc/cmake/Help/prop_sf/OBJECT_NAME.rst
 share/doc/cmake/Help/prop_sf/OBJECT_OUTPUTS.rst
 share/doc/cmake/Help/prop_sf/SKIP_AUTOGEN.rst
 share/doc/cmake/Help/prop_sf/SKIP_AUTOMOC.rst
@@ -1085,6 +1111,8 @@ share/doc/cmake/Help/prop_tgt/EXPORT_NAME.rst
 share/doc/cmake/Help/prop_tgt/EXPORT_NO_SYSTEM.rst
 share/doc/cmake/Help/prop_tgt/EXPORT_PROPERTIES.rst
 share/doc/cmake/Help/prop_tgt/EchoString.rst
+share/doc/cmake/Help/prop_tgt/FASTBUILD_CACHING.rst
+share/doc/cmake/Help/prop_tgt/FASTBUILD_DISTRIBUTION.rst
 share/doc/cmake/Help/prop_tgt/FOLDER.rst
 share/doc/cmake/Help/prop_tgt/FRAMEWORK.rst
 share/doc/cmake/Help/prop_tgt/FRAMEWORK_MULTI_CONFIG_POSTFIX_CONFIG.rst
@@ -1143,6 +1171,8 @@ share/doc/cmake/Help/prop_tgt/IMPORT_PREFIX.rst
 share/doc/cmake/Help/prop_tgt/IMPORT_SUFFIX.rst
 share/doc/cmake/Help/prop_tgt/INCLUDE_DIRECTORIES.rst
 share/doc/cmake/Help/prop_tgt/INSTALL_NAME_DIR.rst
+share/doc/cmake/Help/prop_tgt/INSTALL_OBJECT_NAME_STRATEGY.rst
+share/doc/cmake/Help/prop_tgt/INSTALL_OBJECT_ONLY_USE_DESTINATION.rst
 share/doc/cmake/Help/prop_tgt/INSTALL_REMOVE_ENVIRONMENT_RPATH.rst
 share/doc/cmake/Help/prop_tgt/INSTALL_RPATH.rst
 share/doc/cmake/Help/prop_tgt/INSTALL_RPATH_USE_LINK_PATH.rst
@@ -1263,6 +1293,7 @@ share/doc/cmake/Help/prop_tgt/RUNTIME_OUTPUT_DIRECTORY_CONFIG.rst
 share/doc/cmake/Help/prop_tgt/RUNTIME_OUTPUT_NAME.rst
 share/doc/cmake/Help/prop_tgt/RUNTIME_OUTPUT_NAME_CONFIG.rst
 share/doc/cmake/Help/prop_tgt/SKIP_BUILD_RPATH.rst
+share/doc/cmake/Help/prop_tgt/SKIP_LINTING.rst
 share/doc/cmake/Help/prop_tgt/SOURCES.rst
 share/doc/cmake/Help/prop_tgt/SOURCE_DIR.rst
 share/doc/cmake/Help/prop_tgt/SOVERSION.rst
@@ -1271,6 +1302,7 @@ share/doc/cmake/Help/prop_tgt/STATIC_LIBRARY_FLAGS.rst
 share/doc/cmake/Help/prop_tgt/STATIC_LIBRARY_FLAGS_CONFIG.rst
 share/doc/cmake/Help/prop_tgt/STATIC_LIBRARY_OPTIONS.rst
 share/doc/cmake/Help/prop_tgt/SUFFIX.rst
+share/doc/cmake/Help/prop_tgt/SYMBOLIC.rst
 share/doc/cmake/Help/prop_tgt/SYSTEM.rst
 share/doc/cmake/Help/prop_tgt/Swift_COMPILATION_MODE.rst
 share/doc/cmake/Help/prop_tgt/Swift_DEPENDENCIES_FILE.rst
@@ -1285,6 +1317,7 @@ share/doc/cmake/Help/prop_tgt/UNITY_BUILD.rst
 share/doc/cmake/Help/prop_tgt/UNITY_BUILD_BATCH_SIZE.rst
 share/doc/cmake/Help/prop_tgt/UNITY_BUILD_CODE_AFTER_INCLUDE.rst
 share/doc/cmake/Help/prop_tgt/UNITY_BUILD_CODE_BEFORE_INCLUDE.rst
+share/doc/cmake/Help/prop_tgt/UNITY_BUILD_FILENAME_PREFIX.rst
 share/doc/cmake/Help/prop_tgt/UNITY_BUILD_MODE.rst
 share/doc/cmake/Help/prop_tgt/UNITY_BUILD_RELOCATABLE.rst
 share/doc/cmake/Help/prop_tgt/UNITY_BUILD_UNIQUE_ID.rst
@@ -1429,6 +1462,7 @@ share/doc/cmake/Help/release/3.8.rst
 share/doc/cmake/Help/release/3.9.rst
 share/doc/cmake/Help/release/4.0.rst
 share/doc/cmake/Help/release/4.1.rst
+share/doc/cmake/Help/release/4.2.rst
 share/doc/cmake/Help/release/dev.txt
 share/doc/cmake/Help/release/index.rst
 share/doc/cmake/Help/variable/AIX.rst
@@ -1481,6 +1515,7 @@ share/doc/cmake/Help/variable/CMAKE_ARGC.rst
 share/doc/cmake/Help/variable/CMAKE_ARGV0.rst
 share/doc/cmake/Help/variable/CMAKE_AUTOGEN_BETTER_GRAPH_MULTI_CONFIG.rst
 share/doc/cmake/Help/variable/CMAKE_AUTOGEN_COMMAND_LINE_LENGTH_MAX.rst
+share/doc/cmake/Help/variable/CMAKE_AUTOGEN_INTERMEDIATE_DIR_STRATEGY.rst
 share/doc/cmake/Help/variable/CMAKE_AUTOGEN_ORIGIN_DEPENDS.rst
 share/doc/cmake/Help/variable/CMAKE_AUTOGEN_PARALLEL.rst
 share/doc/cmake/Help/variable/CMAKE_AUTOGEN_USE_SYSTEM_INCLUDE.rst
@@ -1563,6 +1598,7 @@ share/doc/cmake/Help/variable/CMAKE_CXX_MODULE_STD.rst
 share/doc/cmake/Help/variable/CMAKE_CXX_SCAN_FOR_MODULES.rst
 share/doc/cmake/Help/variable/CMAKE_CXX_STANDARD.rst
 share/doc/cmake/Help/variable/CMAKE_CXX_STANDARD_REQUIRED.rst
+share/doc/cmake/Help/variable/CMAKE_CXX_STDLIB_MODULES_JSON.rst
 share/doc/cmake/Help/variable/CMAKE_C_COMPILE_FEATURES.rst
 share/doc/cmake/Help/variable/CMAKE_C_EXTENSIONS.rst
 share/doc/cmake/Help/variable/CMAKE_C_STANDARD.rst
@@ -1608,6 +1644,21 @@ share/doc/cmake/Help/variable/CMAKE_EXPORT_PACKAGE_REGISTRY.rst
 share/doc/cmake/Help/variable/CMAKE_EXPORT_SARIF.rst
 share/doc/cmake/Help/variable/CMAKE_EXTRA_GENERATOR.rst
 share/doc/cmake/Help/variable/CMAKE_EXTRA_SHARED_LIBRARY_SUFFIXES.rst
+share/doc/cmake/Help/variable/CMAKE_FASTBUILD_ALLOW_RESPONSE_FILE.rst
+share/doc/cmake/Help/variable/CMAKE_FASTBUILD_CACHE_PATH.rst
+share/doc/cmake/Help/variable/CMAKE_FASTBUILD_CAPTURE_SYSTEM_ENV.rst
+share/doc/cmake/Help/variable/CMAKE_FASTBUILD_CLANG_GCC_UPDATE_XLANG_ARG.rst
+share/doc/cmake/Help/variable/CMAKE_FASTBUILD_CLANG_REWRITE_INCLUDES.rst
+share/doc/cmake/Help/variable/CMAKE_FASTBUILD_COMPILER_EXTRA_FILES.rst
+share/doc/cmake/Help/variable/CMAKE_FASTBUILD_ENV_OVERRIDES.rst
+share/doc/cmake/Help/variable/CMAKE_FASTBUILD_FORCE_RESPONSE_FILE.rst
+share/doc/cmake/Help/variable/CMAKE_FASTBUILD_IDE_ARGS.rst
+share/doc/cmake/Help/variable/CMAKE_FASTBUILD_SOURCE_MAPPING.rst
+share/doc/cmake/Help/variable/CMAKE_FASTBUILD_TRACK_BYPRODUCTS_AS_OUTPUT.rst
+share/doc/cmake/Help/variable/CMAKE_FASTBUILD_USE_DETERMINISTIC_PATHS.rst
+share/doc/cmake/Help/variable/CMAKE_FASTBUILD_USE_LIGHTCACHE.rst
+share/doc/cmake/Help/variable/CMAKE_FASTBUILD_USE_RELATIVE_PATHS.rst
+share/doc/cmake/Help/variable/CMAKE_FASTBUILD_VERBOSE_GENERATOR.rst
 share/doc/cmake/Help/variable/CMAKE_FIND_APPBUNDLE.rst
 share/doc/cmake/Help/variable/CMAKE_FIND_DEBUG_MODE.rst
 share/doc/cmake/Help/variable/CMAKE_FIND_DEBUG_MODE_NO_IMPLICIT_CONFIGURE_LOG.rst
@@ -1692,11 +1743,14 @@ share/doc/cmake/Help/variable/CMAKE_INSTALL_DEFAULT_COMPONENT_NAME.rst
 share/doc/cmake/Help/variable/CMAKE_INSTALL_DEFAULT_DIRECTORY_PERMISSIONS.rst
 share/doc/cmake/Help/variable/CMAKE_INSTALL_MESSAGE.rst
 share/doc/cmake/Help/variable/CMAKE_INSTALL_NAME_DIR.rst
+share/doc/cmake/Help/variable/CMAKE_INSTALL_OBJECT_NAME_STRATEGY.rst
+share/doc/cmake/Help/variable/CMAKE_INSTALL_OBJECT_ONLY_USE_DESTINATION.rst
 share/doc/cmake/Help/variable/CMAKE_INSTALL_PREFIX.rst
 share/doc/cmake/Help/variable/CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT.rst
 share/doc/cmake/Help/variable/CMAKE_INSTALL_REMOVE_ENVIRONMENT_RPATH.rst
 share/doc/cmake/Help/variable/CMAKE_INSTALL_RPATH.rst
 share/doc/cmake/Help/variable/CMAKE_INSTALL_RPATH_USE_LINK_PATH.rst
+share/doc/cmake/Help/variable/CMAKE_INTERMEDIATE_DIR_STRATEGY.rst
 share/doc/cmake/Help/variable/CMAKE_INTERNAL_PLATFORM_ABI.rst
 share/doc/cmake/Help/variable/CMAKE_INTERPROCEDURAL_OPTIMIZATION.rst
 share/doc/cmake/Help/variable/CMAKE_INTERPROCEDURAL_OPTIMIZATION_CONFIG.rst
@@ -1901,6 +1955,7 @@ share/doc/cmake/Help/variable/CMAKE_PROJECT_INCLUDE_BEFORE.rst
 share/doc/cmake/Help/variable/CMAKE_PROJECT_NAME.rst
 share/doc/cmake/Help/variable/CMAKE_PROJECT_PROJECT-NAME_INCLUDE.rst
 share/doc/cmake/Help/variable/CMAKE_PROJECT_PROJECT-NAME_INCLUDE_BEFORE.rst
+share/doc/cmake/Help/variable/CMAKE_PROJECT_SPDX_LICENSE.rst
 share/doc/cmake/Help/variable/CMAKE_PROJECT_TOP_LEVEL_INCLUDES.rst
 share/doc/cmake/Help/variable/CMAKE_PROJECT_VERSION.rst
 share/doc/cmake/Help/variable/CMAKE_PROJECT_VERSION_MAJOR.rst
@@ -1929,6 +1984,7 @@ share/doc/cmake/Help/variable/CMAKE_SKIP_BUILD_RPATH.rst
 share/doc/cmake/Help/variable/CMAKE_SKIP_INSTALL_ALL_DEPENDENCY.rst
 share/doc/cmake/Help/variable/CMAKE_SKIP_INSTALL_RPATH.rst
 share/doc/cmake/Help/variable/CMAKE_SKIP_INSTALL_RULES.rst
+share/doc/cmake/Help/variable/CMAKE_SKIP_LINTING.rst
 share/doc/cmake/Help/variable/CMAKE_SKIP_RPATH.rst
 share/doc/cmake/Help/variable/CMAKE_SKIP_TEST_ALL_DEPENDENCY.rst
 share/doc/cmake/Help/variable/CMAKE_SOURCE_DIR.rst
@@ -2176,6 +2232,7 @@ share/doc/cmake/Help/variable/PROJECT-NAME_DESCRIPTION.rst
 share/doc/cmake/Help/variable/PROJECT-NAME_HOMEPAGE_URL.rst
 share/doc/cmake/Help/variable/PROJECT-NAME_IS_TOP_LEVEL.rst
 share/doc/cmake/Help/variable/PROJECT-NAME_SOURCE_DIR.rst
+share/doc/cmake/Help/variable/PROJECT-NAME_SPDX_LICENSE.rst
 share/doc/cmake/Help/variable/PROJECT-NAME_VERSION.rst
 share/doc/cmake/Help/variable/PROJECT-NAME_VERSION_MAJOR.rst
 share/doc/cmake/Help/variable/PROJECT-NAME_VERSION_MINOR.rst
@@ -2188,6 +2245,7 @@ share/doc/cmake/Help/variable/PROJECT_HOMEPAGE_URL.rst
 share/doc/cmake/Help/variable/PROJECT_IS_TOP_LEVEL.rst
 share/doc/cmake/Help/variable/PROJECT_NAME.rst
 share/doc/cmake/Help/variable/PROJECT_SOURCE_DIR.rst
+share/doc/cmake/Help/variable/PROJECT_SPDX_LICENSE.rst
 share/doc/cmake/Help/variable/PROJECT_VERSION.rst
 share/doc/cmake/Help/variable/PROJECT_VERSION_MAJOR.rst
 share/doc/cmake/Help/variable/PROJECT_VERSION_MINOR.rst
