@@ -1,6 +1,6 @@
---- src/Makefile.orig	2025-10-02 21:13:43 UTC
+--- src/Makefile.orig	2025-11-18 14:58:24 UTC
 +++ src/Makefile
-@@ -143,7 +143,6 @@ endif
+@@ -150,7 +150,6 @@ endif
  FINAL_CFLAGS=$(STD) $(WARN) $(OPT) $(DEBUG) $(CFLAGS) $(REDIS_CFLAGS)
  FINAL_LDFLAGS=$(LDFLAGS) $(OPT) $(REDIS_LDFLAGS) $(DEBUG)
  FINAL_LIBS=-lm -lstdc++
@@ -8,7 +8,7 @@
  
  # Linux ARM32 needs -latomic at linking time
  ifneq (,$(findstring armv,$(uname_M)))
-@@ -228,12 +227,16 @@ ifeq ($(uname_S),Haiku)
+@@ -235,12 +234,16 @@ ifeq ($(uname_S),Haiku)
  	FINAL_LDFLAGS+= -lbsd -lnetwork
  	FINAL_LIBS+= -lpthread
  else

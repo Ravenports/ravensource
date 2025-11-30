@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	8.2.3
+DEF[PORTVERSION]=	8.4.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		redis
@@ -37,7 +37,7 @@ RC_SUBR=		redis:single
 			sentinel:single
 SUB_FILES=		messages-single.ucl
 
-USES=			cpe gmake execinfo c++:single
+USES=			cpe gmake execinfo pkgconfig c++:single
 CPE_VENDOR=		redislabs
 CFLAGS=			-Wno-implicit-fallthrough
 LDFLAGS=		-lm -lexecinfo
@@ -54,6 +54,10 @@ post-extract:
 		${WRKSRC}/LICENSE.txt > ${WRKDIR}/RSALv2
 	${AWK} '/2. Server Side Public License/,/return for a fee./' \
 		${WRKSRC}/LICENSE.txt > ${WRKDIR}/SSPL
+
+pre-configure:
+	# skip module tests (at least one requires link fix)
+	${REINPLACE_CMD} -e '/all:/ s/module_tests//' ${WRKSRC}/src/Makefile
 
 do-install:
 	(cd ${WRKSRC}/src && \
