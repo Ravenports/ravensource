@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# This script copies php81 extensions to phpXY extensions where
+# This script copies php84 extensions to phpXY extensions where
 # argument 1 is "X" and argument 2 is "Y".
 #
 # The script invokes "ravenadm dev distinfo" then "ravenadm dev buildsheet"
@@ -53,7 +53,7 @@ get_bucket() {
 }
 
 while read extension; do
-	oldport=php81-${extension}
+	oldport=php84-${extension}
 	newport=php${1}${2}-${extension}
 	oldbucket=$(get_bucket ${oldport})
 	newbucket=$(get_bucket ${newport})
