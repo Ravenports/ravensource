@@ -1,0 +1,142 @@
+DEF[PORTVERSION]=	EXTRACT_VERSION(PHP_8.5_VERSION)
+DEF[SUFFIX]=		${PORTVERSION:R:S/.//}
+DEF[SOMAJOR]=		${PORTVERSION:R:R}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		php${SUFFIX}
+VERSION=		${PORTVERSION}
+KEYWORDS=		lang www php
+VARIANTS=		std
+SDESC[std]=		PHP Hypertext Preprocessor version ${PORTVERSION:R}
+HOMEPAGE=		https://php.net/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PHP/distributions
+DISTFILE[1]=		php-${PORTVERSION}.tar.xz:main
+
+SPKGS[std]=		set primary dev man
+
+OPTIONS_AVAILABLE=	CLI CGI FPM EMBED DEBUGGER
+OPTIONS_STANDARD=	CLI CGI FPM EMBED DEBUGGER
+OPTGROUP_RESTRICTED=	SAPI
+OPTDESCR[SAPI]=		Server Application Programming Interface
+OPTGROUP[SAPI]=		CLI CGI FPM DEBUGGER
+OPT_ON[all]=		CLI CGI FPM EMBED DEBUGGER
+
+FPC_EQUIVALENT=		lang/php${SUFFIX}
+
+LICENSE=		CUSTOM1:primary
+LICENSE_NAME=		CUSTOM1:"PHP License v3.01"
+LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+BUILD_DEPENDS=		autoconf:primary:std
+
+EXRUN[dev]=		pcre2:dev:std
+			zlib:dev:std
+			libxml2:dev:std
+
+SUB_FILES=		scripts-dev.ucl
+SUB_LIST=		SUFFIX=${SUFFIX}
+
+USES=			cpe gmake pkgconfig zlib pcre2 cclibs:primary mbsdfix
+CPE_PRODUCT=		php
+GNOME_COMPONENTS=	libxml2
+DISTNAME=		php-${PORTVERSION}
+RC_SUBR=		php${SUFFIX}-fpm:primary
+MUST_CONFIGURE=		gnu
+DESTDIRNAME=		INSTALL_ROOT
+
+CONFIGURE_ARGS=		--with-layout=GNU
+			--with-libxml
+			--localstatedir=/var
+			--with-config-file-scan-dir={{PREFIX}}/etc/php${SUFFIX}
+			--sysconfdir={{PREFIX}}/etc/php${SUFFIX}
+			--libdir={{PREFIX}}/lib/php${SUFFIX}
+			--datadir={{PREFIX}}/share/php${SUFFIX}
+			--disable-all
+			--enable-mysqlnd
+			--program-suffix=${SUFFIX}
+CONFIGURE_ENV=		ac_cv_decimal_fp_supported="no"
+			lt_cv_path_SED="sed"
+PLIST_SUB=		SUFFIX=${SUFFIX} SOMAJOR=${SOMAJOR}
+
+# CVE-2007-3205: Official Statement from Red Hat (06/26/2007)
+# This is not a security vulnerability: it is the expected behaviour of parse_str when used
+# without a second parameter.
+CVE_FIXED=		CVE-2007-3205
+
+[CLI].DESCRIPTION=			Enable Command Line Interface SAPI
+[CGI].DESCRIPTION=			Enable Common Gateway Interface SAPI
+[FPM].DESCRIPTION=			Enable FastCGI Process Manager SAPI
+[EMBED].DESCRIPTION=			Build embedded SAPI library
+[DEBUGGER].DESCRIPTION=			Enable interactive debugger SAPI module support
+
+[CLI].CONFIGURE_ARGS_OFF=		--disable-cli
+[CGI].CONFIGURE_ARGS_OFF=		--disable-cgi
+[FPM].CONFIGURE_ARGS_ON=		--enable-fpm
+					--with-fpm-user={{WWWOWN}}
+					--with-fpm-group={{WWWGRP}}
+[EMBED].CONFIGURE_ARGS_ON=		--enable-embed
+[DEBUGGER].CONFIGURE_ENABLE_BOTH=	phpdbg
+
+[CLI].MAKEFILE_ON=			PHP_SAPI+=cli
+[CGI].MAKEFILE_ON=			PHP_SAPI+=cgi
+[FPM].MAKEFILE_ON=			PHP_SAPI+=fpm
+[EMBED].MAKEFILE_ON=			PHP_SAPI+=embed
+[DEBUGGER].MAKEFILE_ON=			PHP_SAPI+=phpdbg
+
+post-patch:
+	${TOUCH} ${WRKSRC}/ext/php_config.h
+	${REINPLACE_CMD} "s|^\(extension_dir\)|; \1|" ${WRKSRC}/php.ini-*
+	${REINPLACE_CMD} -e "/phpincludedir =/ s|/php|/php${SUFFIX}|" \
+		${WRKSRC}/scripts/Makefile.frag
+	${REINPLACE_CMD} -e "/includedir=/ s|php|php${SUFFIX}|" \
+		${WRKSRC}/scripts/phpize.in
+	${REINPLACE_CMD} -e "/include_dir=/ s|php|php${SUFFIX}|" \
+		-e "/^ldflags=/ s|@PHP|-L${PREFIX}/lib/php${SUFFIX} @PHP|" \
+		${WRKSRC}/scripts/php-config.in
+	${REINPLACE_CMD} -e "s|darwin|darwin-disable|" \
+		${WRKSRC}/sapi/cgi/config9.m4 \
+		${WRKSRC}/sapi/cli/config.m4 \
+		${WRKSRC}/sapi/fpm/config.m4
+
+post-patch-FPM-ON:
+	${REINPLACE_CMD} -e "s|^;\(pid\)|\1|;s|^;\(pm\.[a-z_]*_servers\)|\1|" \
+		${WRKSRC}/sapi/fpm/php-fpm.conf.in
+
+pre-configure:
+	(cd ${WRKSRC} && ${SETENV} MAKE=${MAKE_CMD} ./buildconf --force)
+
+post-build:
+	${ECHO_CMD} "PHP_VER=${SUFFIX}" > ${WRKDIR}/php.conf
+	${ECHO_CMD} "PHP_VERSION=${PORTVERSION}" >> ${WRKDIR}/php.conf
+	${ECHO_CMD} "PHP_SAPI=${PHP_SAPI}" >> ${WRKDIR}/php.conf
+	${ECHO_CMD} "PHP_EXT_INC=hash json pcre spl" >> ${WRKDIR}/php.conf
+	${SH} ${WRKSRC}/scripts/php-config --extension-dir | \
+		${SED} -ne 's,^${PREFIX}/lib/php${SUFFIX}/,PHP_EXT_DIR=,p'\
+		>> ${WRKDIR}/php.conf
+
+post-install:
+	@${MKDIR} ${STAGEDIR}${PREFIX}/etc/php${SUFFIX}
+	${RM} -r ${STAGEDIR}/var
+	${RM} -r ${STAGEDIR}${PREFIX}/include/php${SUFFIX}/include
+	${INSTALL_DATA} ${WRKSRC}/php.ini-development \
+		${WRKSRC}/php.ini-production \
+		${WRKDIR}/php.conf ${STAGEDIR}${PREFIX}/etc/php${SUFFIX}
+
+post-install-CLI-ON:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/php${SUFFIX}
+
+post-install-CGI-ON:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/php-cgi${SUFFIX}
+
+post-install-DEBUGGER-ON:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/phpdbg${SUFFIX}
+
+post-install-FPM-ON:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/sbin/php-fpm${SUFFIX}
+
+post-install-EMBED-ON:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/php${SUFFIX}/libphp.so

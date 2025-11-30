@@ -1,0 +1,19 @@
+--- configure.ac.orig	2025-11-18 08:02:20 UTC
++++ configure.ac
+@@ -55,6 +55,7 @@ AH_BOTTOM([
+ 
+ #include <string.h>
+ 
++#include <ext/php_config.h>
+ #endif /* PHP_CONFIG_H */
+ ])
+ 
+@@ -1385,7 +1386,7 @@ EXPANDED_SYSCONFDIR=$(eval echo $sysconf
+ EXPANDED_DATADIR=$datadir
+ EXPANDED_PHP_CONFIG_FILE_PATH=$(eval echo "$PHP_CONFIG_FILE_PATH")
+ EXPANDED_PHP_CONFIG_FILE_SCAN_DIR=$(eval echo "$PHP_CONFIG_FILE_SCAN_DIR")
+-INCLUDE_PATH=.:$EXPANDED_PEAR_INSTALLDIR
++INCLUDE_PATH=.:${prefix}/share/pear
+ 
+ exec_prefix=$old_exec_prefix
+ libdir=$old_libdir
