@@ -1,4 +1,4 @@
---- SCons/Tool/__init__.py.orig	2024-12-02 21:23:33 UTC
+--- SCons/Tool/__init__.py.orig	2025-09-29 18:58:07 UTC
 +++ SCons/Tool/__init__.py
 @@ -717,13 +717,12 @@ def tool_list(platform, env):
          ars = ['sgiar']
