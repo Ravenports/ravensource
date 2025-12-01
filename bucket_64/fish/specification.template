@@ -23,7 +23,7 @@ DISTFILE[1]=		fish-${PORTVERSION}.tar.xz:main
 DISTFILE[83]=		generated:pcre2
 DIST_SUBDIR=		rust/crates
 %%DF_INDEX%%
-			83
+			101
 
 SPKGS[std]=		set primary dev docs man
 
@@ -54,6 +54,7 @@ post-install:
 .for i in fish fish_indent fish_key_reader
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/${i}
 .endfor
+	${RMDIR} ${STAGEDIR}${PREFIX}/share/doc/fish/_sources
 
 pre-configure:
 	${MKDIR} ${DOTCARGO}
