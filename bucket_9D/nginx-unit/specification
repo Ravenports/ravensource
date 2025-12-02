@@ -14,7 +14,7 @@ SITES[main]=		https://unit.nginx.org/download/
 DISTFILE[1]=		unit-${PORTVERSION}.tar.gz:main
 
 SPKGS[std]=		set unitd unitpython unitperl man
-			php82 php83 php84
+			php83 php84 php85
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -28,16 +28,16 @@ FPC_EQUIVALENT=		www/unit
 
 RC_SUBR=		unitd:unitd
 
-BUILD_DEPENDS=		php82:primary:std
+BUILD_DEPENDS=		php83:primary:std
 			php84:primary:std
-			php83:primary:std
-			php82:dev:std
-			php84:dev:std
+			php85:primary:std
 			php83:dev:std
+			php84:dev:std
+			php85:dev:std
 EXRUN[unitperl]=	perl
 EXRUN[php83]=		php83:primary:std
-EXRUN[php82]=		php82:primary:std
 EXRUN[php84]=		php84:primary:std
+EXRUN[php85]=		php85:primary:std
 EXRUN[unitpython]=	python
 
 USES=			pcre2 gettext perl:build python:build
@@ -64,15 +64,15 @@ post-configure:
 	(cd ${CONFIGURE_WRKSRC} \
 	  && ./configure python --config=python${PYTHON_VER}-config \
 	  && ./configure perl --module=perl${PERL_VER} \
-	  && ./configure php --module=php82\
-			--config=php-config82\
-			--lib-path=${PREFIX}/lib/php82 \
 	  && ./configure php --module=php83\
 			--config=php-config83\
 			--lib-path=${PREFIX}/lib/php83 \
 	  && ./configure php --module=php84\
 			--config=php-config84\
 			--lib-path=${PREFIX}/lib/php84 \
+	  && ./configure php --module=php85\
+			--config=php-config85\
+			--lib-path=${PREFIX}/lib/php85 \
 	)
 
 post-install:
