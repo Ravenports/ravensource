@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	4.4.1
+DEF[PORTVERSION]=	4.5.0
+DEF[SOVERSION]=		21.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libwebsockets
@@ -28,6 +29,7 @@ BUILD_DEPENDS=		libuv:dev:std
 BUILDRUN_DEPENDS=	libuv:primary:std
 
 USES=			cmake pkgconfig zlib ssl
+SOVERSION=		${SOVERSION}
 CMAKE_ARGS=		-DLWS_BUILD_HASH:STRING="{{CONFIGURE_TARGET}}"
 			-DCMAKE_DISABLE_FIND_PACKAGE_Git:BOOL=ON
 			-DDISABLE_WERROR:BOOL=ON

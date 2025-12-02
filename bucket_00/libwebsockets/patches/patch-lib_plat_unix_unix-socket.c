@@ -1,4 +1,4 @@
---- lib/plat/unix/unix-sockets.c.orig	2025-07-12 14:25:04 UTC
+--- lib/plat/unix/unix-sockets.c.orig	2025-11-29 19:42:32 UTC
 +++ lib/plat/unix/unix-sockets.c
 @@ -109,6 +109,7 @@ lws_plat_set_socket_options(struct lws_v
  	socklen_t optlen = sizeof(optval);
