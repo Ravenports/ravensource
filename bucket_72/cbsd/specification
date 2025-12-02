@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	14.3.2
+DEF[PORTVERSION]=	15.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		cbsd
@@ -13,7 +13,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/cbsd:cbsd:v${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[std]=		set primary man docs
+SPKGS[std]=		set primary man docs examples
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -98,3 +98,13 @@ post-install:
 	    check=$$(file "$$f" | grep "dynamically linked,.*not stripped"); \
 	    if [ -n "$$check" ]; then ${STRIP_CMD} "$$f"; fi; \
 	done)
+
+	# move examples to standard location
+	${MKDIR} ${STAGEDIR}${STD_EXAMPLESDIR}
+	${MV} ${STAGEDIR}${PREFIX}/cbsd/share/examples/* ${STAGEDIR}${STD_EXAMPLESDIR}/
+	${RMDIR} ${STAGEDIR}${PREFIX}/cbsd/share/examples
+
+	# move documents to standard location
+	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
+	${MV} ${STAGEDIR}${PREFIX}/cbsd/share/docs/* ${STAGEDIR}${STD_DOCDIR}/
+	${FIND} ${STAGEDIR}${PREFIX}/cbsd/share/docs -empty -delete
