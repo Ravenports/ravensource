@@ -1,4 +1,4 @@
---- libevdev/libevdev.c.orig	2025-03-24 23:41:55 UTC
+--- libevdev/libevdev.c.orig	2025-12-01 05:36:19 UTC
 +++ libevdev/libevdev.c
 @@ -14,6 +14,10 @@
  #include <string.h>
