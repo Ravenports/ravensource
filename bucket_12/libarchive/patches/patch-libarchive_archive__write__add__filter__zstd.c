@@ -1,4 +1,4 @@
---- libarchive/archive_write_add_filter_zstd.c.orig	2025-10-15 21:48:36 UTC
+--- libarchive/archive_write_add_filter_zstd.c.orig	2025-11-17 22:04:25 UTC
 +++ libarchive/archive_write_add_filter_zstd.c
 @@ -84,7 +84,7 @@ struct private_data {
  /* If we don't have the library use default range values (zstdcli.c v1.4.0) */
