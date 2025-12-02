@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.2.13
+DEF[PORTVERSION]=	3.3.1
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-psycopg
@@ -7,11 +7,11 @@ KEYWORDS=		python
 VARIANTS=		v13 v14
 SDESC[v13]=		PostgreSQL database adapter for Python (3.13)
 SDESC[v14]=		PostgreSQL database adapter for Python (3.14)
-HOMEPAGE=		https://psycopg.org/psycopg3/
+HOMEPAGE=		https://psycopg.org/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/a9/14/f2724bd1986158a348316e86fdd0837a838b14a711df3f00e47fba597447
+SITES[main]=		PYPIWHL/b6/f3/0b4a4c25a47c2d907afa97674287dab61bc9941c9ac3972a67100e33894d
 DISTFILE[1]=		psycopg-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -24,20 +24,19 @@ VOPTS[v13]=		PY313=ON PY314=OFF
 VOPTS[v14]=		PY313=OFF PY314=ON
 
 # License listed at PyPI
-# LGPL-3.0-only
+# Not provided.
 
 GENERATED=		yes
 DISTNAME=		psycopg-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# backports.zoneinfo>=0.2.0; python_version < "3.9"
 # typing-extensions>=4.6; python_version < "3.13"
 # tzdata; sys_platform == "win32"
-# psycopg-c==3.2.13; implementation_name != "pypy" and extra == "c"
-# psycopg-binary==3.2.13; implementation_name != "pypy" and extra == "binary"
+# psycopg-c==3.3.1; implementation_name != "pypy" and extra == "c"
+# psycopg-binary==3.3.1; implementation_name != "pypy" and extra == "binary"
 # psycopg-pool; extra == "pool"
 # anyio>=4.0; extra == "test"
-# mypy>=1.14; extra == "test"
+# mypy>=1.19.0; implementation_name != "pypy" and extra == "test"
 # pproxy>=2.7; extra == "test"
 # pytest>=6.2.5; extra == "test"
 # pytest-cov>=3.0; extra == "test"
@@ -45,11 +44,12 @@ DISTNAME=		psycopg-${PORTVERSION}.dist-info
 # ast-comments>=1.1.2; extra == "dev"
 # black>=24.1.0; extra == "dev"
 # codespell>=2.2; extra == "dev"
+# cython-lint>=0.16; extra == "dev"
 # dnspython>=2.1; extra == "dev"
 # flake8>=4.0; extra == "dev"
 # isort[colors]>=6.0; extra == "dev"
 # isort-psycopg; extra == "dev"
-# mypy>=1.14; extra == "dev"
+# mypy>=1.19.0; extra == "dev"
 # pre-commit>=4.0.1; extra == "dev"
 # types-setuptools>=57.4; extra == "dev"
 # types-shapely>=2.0; extra == "dev"
