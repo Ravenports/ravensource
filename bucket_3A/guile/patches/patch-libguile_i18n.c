@@ -1,4 +1,4 @@
---- libguile/i18n.c.orig	2023-02-10 13:16:15 UTC
+--- libguile/i18n.c.orig	2022-10-21 15:39:38 UTC
 +++ libguile/i18n.c
 @@ -43,6 +43,7 @@
  #include "smob.h"

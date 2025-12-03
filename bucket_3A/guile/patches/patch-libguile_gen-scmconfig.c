@@ -1,4 +1,4 @@
---- libguile/gen-scmconfig.c.orig	2023-02-10 13:16:15 UTC
+--- libguile/gen-scmconfig.c.orig	2024-07-16 11:59:30 UTC
 +++ libguile/gen-scmconfig.c
 @@ -329,6 +329,10 @@ main (int argc, char *argv[])
    pf ("typedef int scm_t_off;\n");
