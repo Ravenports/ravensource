@@ -1,6 +1,6 @@
---- scheduler/auth.c.orig	2025-09-11 16:53:21 UTC
+--- scheduler/auth.c.orig	2025-11-27 15:21:54 UTC
 +++ scheduler/auth.c
-@@ -449,7 +449,7 @@ cupsdAuthorize(cupsd_client_t *con)	/* I
+@@ -455,7 +455,7 @@ cupsdAuthorize(cupsd_client_t *con)	/* I
  
      peersize = sizeof(peercred);
  
@@ -9,7 +9,7 @@
      if (getsockopt(httpGetFd(con->http), 0, LOCAL_PEERCRED, &peercred, &peersize))
  #  else
      if (getsockopt(httpGetFd(con->http), SOL_SOCKET, SO_PEERCRED, &peercred, &peersize))
-@@ -585,7 +585,7 @@ cupsdAuthorize(cupsd_client_t *con)	/* I
+@@ -591,7 +591,7 @@ cupsdAuthorize(cupsd_client_t *con)	/* I
        strlcpy(data.password, password, sizeof(data.password));
  
  #  ifdef __sun
@@ -18,7 +18,7 @@
  				     struct pam_response **,
  				     void *))pam_func;
  #  else
-@@ -859,7 +859,7 @@ cupsdAuthorize(cupsd_client_t *con)	/* I
+@@ -865,7 +865,7 @@ cupsdAuthorize(cupsd_client_t *con)	/* I
  
        peersize = sizeof(peercred);
  

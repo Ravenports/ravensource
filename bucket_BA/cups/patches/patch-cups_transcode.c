@@ -1,4 +1,4 @@
---- cups/transcode.c.orig	2025-09-11 16:53:21 UTC
+--- cups/transcode.c.orig	2025-11-27 15:21:54 UTC
 +++ cups/transcode.c
 @@ -165,7 +165,11 @@ cupsCharsetToUTF8(
      srclen       = strlen(src);
