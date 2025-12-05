@@ -1,4 +1,4 @@
-# Strawberry GraphQL Django integration
+# Strawberry GraphQL Django Integration
 
 [CI]
 [Coverage]
@@ -6,74 +6,64 @@
 [Downloads]
 ![PyPI - Python Version]
 
-[**Docs**] | [**Discord**]
+[**Documentation**] | [**Discord**]
 
-This package provides powerful tools to generate GraphQL types, queries,
-mutations and resolvers from Django models.
+Strawberry GraphQL Django integration provides powerful tools to build
+GraphQL APIs with Django. Automatically generate GraphQL types, queries,
+mutations, and resolvers from your Django models with full type safety.
 
-Installing `strawberry-graphql-django` package from the python package
-repository.
+## Installation
 
 ```shell
 pip install strawberry-graphql-django
 ```
 
-## Supported Features
+## Features
 
-- [x] GraphQL type generation from models
-- [x] Filtering, pagination and ordering
-- [x] Basic create, retrieve, update and delete (CRUD) types and mutations
-- [x] Basic Django auth support, current user query, login and logout
-mutations
-- [x] Django sync and async views
-- [x] Permission extension using django's permissioning system
-- [x] Relay support with automatic resolvers generation
-- [x] Query optimization to improve performance and avoid common pitfalls
-(e.g n+1)
-- [x] Debug Toolbar integration with graphiql to display metrics like SQL
-queries
-- [x] Unit test integration
+- 🍓 **Automatic Type Generation** - Generate GraphQL types from Django
+models with full type safety
+- 🔍 **Advanced Filtering** - Powerful filtering system with lookups
+(contains, exact, in, etc.)
+- 📄 **Pagination** - Built-in offset and cursor-based (Relay) pagination
+- 📊 **Ordering** - Sort results by any field with automatic ordering
+support
+- 🔐 **Authentication & Permissions** - Django auth integration with
+flexible permission system
+- ✨ **CRUD Mutations** - Auto-generated create, update, and delete
+mutations with validation
+- ⚡ **Query Optimizer** - Automatic `select_related` and
+`prefetch_related` to prevent N+1 queries
+- 🐍 **Django Integration** - Works with Django views (sync and async),
+forms, and validation
+- 🐛 **Debug Toolbar** - GraphiQL integration with Django Debug Toolbar
+for query inspection
 
-## Basic Usage
+## Quick Start
 
 ```python
 # models.py
-
 from django.db import models
 
 class Fruit(models.Model):
-    """A tasty treat"""
-    name = models.CharField(
-        max_length=20,
-    )
-    color = models.ForeignKey(
-        "Color",
-        on_delete=models.CASCADE,
-        related_name="fruits",
-        blank=True,
-        null=True,
-    )
+    name = models.CharField(max_length=20)
+    color = models.ForeignKey("Color", on_delete=models.CASCADE,
+related_name="fruits")
 
 class Color(models.Model):
-    name = models.CharField(
-        max_length=20,
-        help_text="field description",
-    )
+    name = models.CharField(max_length=20)
 `
 
 `python
 # types.py
-
 import strawberry_django
 from strawberry import auto
-
 from . import models
 
 @strawberry_django.type(models.Fruit)
 class Fruit:
     id: auto
     name: auto
-    color: 'Color'
+    color: "Color"
 
 @strawberry_django.type(models.Color)
 class Color:
@@ -84,11 +74,9 @@ class Color:
 
 `python
 # schema.py
-
 import strawberry
 import strawberry_django
 from strawberry_django.optimizer import DjangoOptimizerExtension
-
 from .types import Fruit
 
 @strawberry.type
@@ -97,4 +85,16 @@ class Query:
 
 schema = strawberry.Schema(
     query=Query,
-    extensions=[
+    extensions=[DjangoOptimizerExtension],
+)
+`
+
+`python
+# urls.py
+from django.urls import path
+from strawberry.django.views import AsyncGraphQLView
+from .schema import schema
+
+urlpatterns = [
+    path("graphql/", AsyncGraphQLView.as_view(schema=schema)),
+]
