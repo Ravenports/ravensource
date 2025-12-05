@@ -353,8 +353,11 @@ function generate_port($namebase) {
         if (substr($distname, 0, 6) == "eyeD3-") {
             $distname = "eyed3-" . substr($distname, 6);
         }
-        if (substr($distname, 0, 19) == "sphinxcontrib_jquery") {
+        else if (substr($distname, 0, 19) == "sphinxcontrib_jquery") {
             $distname = "sphinxcontrib.jquery" . substr($distname, 19);
+        }
+        else if (substr($distname, 0, 17) == "ruamel_yaml_clib-") {
+            $distname = "ruamel.yaml.clib-" . substr($distname, 17);
         }
         if ($whl_file) {
             $distname .= '.dist-info';

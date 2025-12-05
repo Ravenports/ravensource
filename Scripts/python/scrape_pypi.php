@@ -584,9 +584,6 @@ function set_buildrun (&$portdata, $PDUO) {
        else if (substr($distname, 0, 4) == "N2G-") {
           $distname = "n2g-" . substr($distname, 4);
        }
-       else if ($distname == "sip-6.10.0-1") {
-          $distname = "sip-6.10.0";
-       }
        $src = $WORKZONE . "/" . $distname . ".dist-info";
        $metadata = $src . "/METADATA";
        if (!file_exists($metadata)) {
@@ -613,6 +610,9 @@ function set_buildrun (&$portdata, $PDUO) {
     }
 
     # This is a setuptools "sdist" port (expected pyproject.toml or setup.py)
+    if (substr($distname, 0, 17) == "ruamel_yaml_clib-") {
+        $distname = "ruamel.yaml.clib-" . substr($distname, 17);
+    }
     $src = $WORKZONE . "/" . $distname;
     $mockfile = $src . "/obtain-req.py";
     $toml = $src . "/pyproject.toml";
