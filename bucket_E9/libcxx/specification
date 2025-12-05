@@ -2,9 +2,8 @@ DEF[NAMEBASE]=		libcxx
 DEF[LLVMBASE]=		llvm
 DEF[CLANGBASE]=		clang
 DEF[LLVMUNWIND]=	llvm-libunwind
-DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM20_VERSION)
-DEF[DSUBDIR]=		llvm20
-# Remove cmake minimum argument on next release
+DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM21_VERSION)
+DEF[DSUBDIR]=		llvm21
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		${NAMEBASE}
@@ -17,68 +16,49 @@ CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/llvm/llvm-project/releases/download/llvmorg-${LLVM_VERSION}/
-DISTFILE[1]=		libcxx-${LLVM_VERSION}.src.tar.xz:main
-DISTFILE[2]=		libcxxabi-${LLVM_VERSION}.src.tar.xz:main
-DISTFILE[3]=		cmake-${LLVM_VERSION}.src.tar.xz:main
-DISTFILE[4]=		runtimes-${LLVM_VERSION}.src.tar.xz:main
+DISTFILE[1]=		llvm-project-${LLVM_VERSION}.src.tar.xz:main
 DIST_SUBDIR=		${DSUBDIR}
-DF_INDEX=		1 2 3 4
+DF_INDEX=		1
 
-SPKGS[std]=		set primary dev abi experimental
+SPKGS[std]=		set primary dev abi unwind experimental
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		CUSTOM1:primary CUSTOM2:abi
+LICENSE=		CUSTOM1:primary CUSTOM2:abi CUSTOM3:unwind
 LICENSE_NAME=		CUSTOM1:"University of Illinois/NCSA Open Source License"
 			CUSTOM2:"University of Illinois/NCSA Open Source License"
-LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/projects/libcxx/LICENSE.TXT
-			CUSTOM2:{{WRKSRC}}/projects/libcxxabi/LICENSE.TXT
+			CUSTOM3:"University of Illinois/NCSA Open Source License"
+LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/libcxx/LICENSE.TXT
+			CUSTOM2:{{WRKSRC}}/libcxxabi/LICENSE.TXT
+			CUSTOM3:{{WRKSRC}}/libunwind/LICENSE.TXT
 LICENSE_SCHEME=		multi
 
-BROKEN[all]=		Requires llvm libc which is unstable and therefore not packaged
-
-BUILD_DEPENDS=		python-Sphinx:single:python_default
-			${CLANGBASE}:set:std
+BUILD_DEPENDS=		${CLANGBASE}:set:std
 			${LLVMBASE}:dev:std
 			${LLVMBASE}:tools:std
-			${LLVMUNWIND}:dev:std
-BUILDRUN_DEPENDS=	${LLVMUNWIND}:primary:std
 
-USES=			cpe cmake cclibs:primary python:build
+EXRUN[abi]=		unwind
+EXRUN[primary]=		unwind
+
+USES=			cpe cmake ninja python:build cclibs:primary,abi,unwind
 CPE_VENDOR=		llvm
 CPE_PRODUCT=		llvm
 CMAKE_BUILD_TYPE=	Release
-CMAKE_ARGS=		-DLLVM_HOST_TRIPLE:STRING="{{CONFIGURE_TARGET}}"
-			-DLLVM_ENABLE_SPHINX=ON
-			-DLIBCXX_INCLUDE_BENCHMARKS:BOOL=OFF
-			-DLLVM_ENABLE_RUNTIMES=libunwind
-			-DPython3_EXECUTABLE={{PYTHON_CMD}}
-			-DCMAKE_POLICY_VERSION_MINIMUM=3.5
-# #			-DLIBCXXABI_ENABLE_STATIC_UNWINDER:BOOL=OFF
-# #			-DLIBCXX_ENABLE_STATIC_ABI_LIBRARY:BOOL=ON
-# #			-DLIBCXX_CXX_ABI_LIBRARY_PATH={{WRKDIR}}/.build/lib
-LDFLAGS=		-L{{LOCALBASE}}/lib -Wl,-rpath,{{LOCALBASE}}/lib
-DISTNAME=		llvm
+CMAKE_ARGS=		-DLLVM_ENABLE_RUNTIMES:STRING=libcxx\;libcxxabi\;libunwind
+			-Wno-dev
+BUILD_TARGET=		cxx cxxabi unwind
+INSTALL_TARGET=		install-cxx
+			install-cxxabi
+			install-unwind
+DISTNAME=		llvm-project-${LLVM_VERSION}.src
+CMAKE_SOURCE_PATH=	{{WRKSRC}}/runtimes
 
-post-extract:
-	${MKDIR} ${WRKSRC}/projects
-	${MV} ${WRKDIR}/libcxx-${LLVM_VERSION}.src \
-		${WRKSRC}/projects/libcxx
-	${MV} ${WRKDIR}/libcxxabi-${LLVM_VERSION}.src \
-		${WRKSRC}/projects/libcxxabi
-	${SED} -e 's|%%VERSION%%|${LLVM_VERSION}|' ${FILESDIR}/CMakeLists.txt \
-		> ${WRKSRC}/CMakeLists.txt
-	# install more cmake functions
-	${CP} ${WRKDIR}/cmake-${LLVM_VERSION}.src/Modules/* \
-		${WRKSRC}/projects/libcxx/cmake/Modules/
-	${CP} ${WRKDIR}/cmake-${LLVM_VERSION}.src/Modules/* \
-		${WRKSRC}/projects/libcxxabi/cmake/Modules/
-	${CP} ${WRKDIR}/runtimes-${LLVM_VERSION}.src/cmake/Modules/* \
-		${WRKSRC}/projects/libcxx/cmake/Modules/
-	${CP} ${WRKDIR}/runtimes-${LLVM_VERSION}.src/cmake/Modules/* \
-		${WRKSRC}/projects/libcxxabi/cmake/Modules/
+do-install:
+	(cd ${INSTALL_WRKSRC} && ${SETENV} ${MAKE_ENV} \
+		${MAKE_CMD} ${INSTALL_TARGET})
 
 post-install:
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libc++.so.1.0
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libc++abi.so.1.0
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libc++.so.1
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libc++abi.so.1
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libunwind.so.1

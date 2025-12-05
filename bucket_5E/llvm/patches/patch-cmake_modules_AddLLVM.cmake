@@ -1,9 +1,9 @@
---- cmake/modules/AddLLVM.cmake.orig	2025-06-13 04:54:32 UTC
+--- cmake/modules/AddLLVM.cmake.orig	2025-12-01 12:58:50 UTC
 +++ cmake/modules/AddLLVM.cmake
-@@ -263,14 +263,10 @@ if (NOT DEFINED LLVM_LINKER_DETECTED AND
-       set(LLVM_LINKER_IS_SOLARISLD YES CACHE INTERNAL "")
-       set(LLVM_LINKER_IS_SOLARISLD_ILLUMOS YES CACHE INTERNAL "")
-       message(STATUS "Linker detection: Solaris ld (illumos)")
+@@ -257,14 +257,10 @@ if (NOT DEFINED LLVM_LINKER_DETECTED AND
+       set(LLVM_LINKER_DETECTED YES CACHE INTERNAL "")
+       set(LLVM_LINKER_IS_GNULD YES CACHE INTERNAL "")
+       message(STATUS "Linker detection: GNU ld")
 -    elseif("${stderr}" MATCHES "Solaris Link Editors" OR
 -           "${stdout}" MATCHES "Solaris Link Editors")
 +    else()
@@ -16,7 +16,7 @@
      endif()
    endif()
  
-@@ -2526,7 +2522,7 @@ function(llvm_setup_rpath name)
+@@ -2549,7 +2545,7 @@ function(llvm_setup_rpath name)
    elseif(UNIX)
      set(_build_rpath "\$ORIGIN/../lib${LLVM_LIBDIR_SUFFIX}" ${extra_libdir})
      set(_install_rpath "\$ORIGIN/../lib${LLVM_LIBDIR_SUFFIX}")

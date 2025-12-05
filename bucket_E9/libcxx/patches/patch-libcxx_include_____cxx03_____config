@@ -1,0 +1,33 @@
+--- libcxx/include/__cxx03/__config.orig	2025-12-01 12:58:50 UTC
++++ libcxx/include/__cxx03/__config
+@@ -598,7 +598,7 @@ typedef __char32_t char32_t;
+       };
+ // clang-format on
+ 
+-#  if defined(__APPLE__) || defined(__FreeBSD__) || defined(_LIBCPP_MSVCRT_LIKE) || defined(__NetBSD__)
++#  if defined(__APPLE__) || defined(__FreeBSD__) || defined(_LIBCPP_MSVCRT_LIKE) || defined(__NetBSD__) || defined(__DragonFly__)
+ #    define _LIBCPP_LOCALE__L_EXTENSIONS 1
+ #  endif
+ 
+@@ -634,11 +634,11 @@ typedef __char32_t char32_t;
+ #    define _LIBCPP_HAS_NO_C11_ALIGNED_ALLOC
+ #  endif
+ 
+-#  if defined(__APPLE__) || defined(__FreeBSD__)
++#  if defined(__APPLE__) || defined(__FreeBSD__) || defined(__DragonFly__)
+ #    define _LIBCPP_HAS_DEFAULTRUNELOCALE
+ #  endif
+ 
+-#  if defined(__APPLE__) || defined(__FreeBSD__)
++#  if defined(__APPLE__) || defined(__FreeBSD__) || defined(__DragonFly__)
+ #    define _LIBCPP_WCTYPE_IS_MASK
+ #  endif
+ 
+@@ -687,6 +687,7 @@ typedef __char32_t char32_t;
+       !defined(_LIBCPP_HAS_THREAD_API_EXTERNAL)
+ 
+ #    if defined(__FreeBSD__) ||                                                                                        \
++        defined(__DragonFly__) ||                                                                                      \
+         defined(__wasi__) ||                                                                                           \
+         defined(__NetBSD__) ||                                                                                         \
+         defined(__OpenBSD__) ||                                                                                        \

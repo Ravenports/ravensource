@@ -1,6 +1,6 @@
---- lib/Interpreter/Interpreter.cpp.orig	2025-06-13 04:54:32 UTC
+--- lib/Interpreter/Interpreter.cpp.orig	2025-12-01 12:58:50 UTC
 +++ lib/Interpreter/Interpreter.cpp
-@@ -300,7 +300,11 @@ public:
+@@ -302,7 +302,11 @@ public:
            switch (CI.getFrontendOpts().ProgramAction) {
            default:
              Err = llvm::createStringError(

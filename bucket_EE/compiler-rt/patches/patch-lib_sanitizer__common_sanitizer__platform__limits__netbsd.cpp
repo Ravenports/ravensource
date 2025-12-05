@@ -1,4 +1,4 @@
---- lib/sanitizer_common/sanitizer_platform_limits_netbsd.cpp.orig	2025-06-13 04:54:32 UTC
+--- lib/sanitizer_common/sanitizer_platform_limits_netbsd.cpp.orig	2025-12-01 12:58:50 UTC
 +++ lib/sanitizer_common/sanitizer_platform_limits_netbsd.cpp
 @@ -47,7 +47,6 @@
  #include <sys/ioctl_compat.h>
@@ -8,7 +8,7 @@
  #include <sys/midiio.h>
  #include <sys/mtio.h>
  #include <sys/power.h>
-@@ -493,12 +492,7 @@ struct urio_command {
+@@ -493,10 +492,6 @@ struct urio_command {
  #include <semaphore.h>
  #include <signal.h>
  #include <stddef.h>
@@ -17,17 +17,5 @@
 -#include <md5.h>
 -#include <rmd160.h>
  #include <soundcard.h>
--#include <term.h>
  #include <termios.h>
  #include <time.h>
- #include <ttyent.h>
-@@ -514,9 +508,6 @@ struct urio_command {
- #include <fstab.h>
- #include <stringlist.h>
- 
--#if defined(__x86_64__)
--#include <nvmm.h>
--#endif
- // clang-format on
- 
- // Include these after system headers to avoid name clashes and ambiguities.

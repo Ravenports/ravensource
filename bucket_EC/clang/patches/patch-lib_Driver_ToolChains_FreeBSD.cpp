@@ -1,6 +1,6 @@
---- lib/Driver/ToolChains/FreeBSD.cpp.orig	2025-06-13 04:54:32 UTC
+--- lib/Driver/ToolChains/FreeBSD.cpp.orig	2025-12-01 12:58:50 UTC
 +++ lib/Driver/ToolChains/FreeBSD.cpp
-@@ -292,6 +292,16 @@ void freebsd::Linker::ConstructJob(Compi
+@@ -281,6 +281,16 @@ void freebsd::Linker::ConstructJob(Compi
    addLinkerCompressDebugSectionsOption(ToolChain, Args, CmdArgs);
    AddLinkerInputs(ToolChain, Inputs, Args, CmdArgs, JA);
  
@@ -17,7 +17,7 @@
    unsigned Major = ToolChain.getTriple().getOSMajorVersion();
    bool Profiling = Args.hasArg(options::OPT_pg) && Major != 0 && Major < 14;
    if (!Args.hasArg(options::OPT_nostdlib, options::OPT_nodefaultlibs,
-@@ -408,6 +418,8 @@ FreeBSD::FreeBSD(const Driver &D, const
+@@ -397,6 +407,8 @@ FreeBSD::FreeBSD(const Driver &D, const
      getFilePaths().push_back(concat(getDriver().SysRoot, "/usr/lib32"));
    else
      getFilePaths().push_back(concat(getDriver().SysRoot, "/usr/lib"));
@@ -26,7 +26,7 @@
  }
  
  void FreeBSD::AddClangSystemIncludeArgs(
-@@ -444,22 +456,19 @@ void FreeBSD::AddClangSystemIncludeArgs(
+@@ -433,23 +445,19 @@ void FreeBSD::AddClangSystemIncludeArgs(
                            concat(D.SysRoot, "/usr/include"));
  }
  
@@ -45,12 +45,13 @@
  
 -void FreeBSD::AddCXXStdlibLibArgs(const ArgList &Args,
 -                                  ArgStringList &CmdArgs) const {
+-  Generic_ELF::AddCXXStdlibLibArgs(Args, CmdArgs);
 -  unsigned Major = getTriple().getOSMajorVersion();
--  bool Profiling = Args.hasArg(options::OPT_pg) && Major != 0 && Major < 14;
--
--  CmdArgs.push_back(Profiling ? "-lc++_p" : "-lc++");
--  if (Args.hasArg(options::OPT_fexperimental_library))
--    CmdArgs.push_back("-lc++experimental");
+-  bool SuffixedLib = Args.hasArg(options::OPT_pg) && Major != 0 && Major < 14;
+-  if (SuffixedLib && GetCXXStdlibType(Args) == CST_Libcxx)
+-    std::replace_if(
+-        CmdArgs.begin(), CmdArgs.end(),
+-        [](const char *S) { return StringRef(S) == "-lc++"; }, "-lc++_p");
 -}
 -
  void FreeBSD::AddCudaIncludeArgs(const ArgList &DriverArgs,

@@ -1,6 +1,6 @@
---- lib/Driver/ToolChains/Linux.cpp.orig	2025-06-13 04:54:32 UTC
+--- lib/Driver/ToolChains/Linux.cpp.orig	2025-12-01 12:58:50 UTC
 +++ lib/Driver/ToolChains/Linux.cpp
-@@ -696,43 +696,7 @@ void Linux::AddClangSystemIncludeArgs(co
+@@ -688,43 +688,7 @@ void Linux::AddClangSystemIncludeArgs(co
  
  void Linux::addLibStdCxxIncludePaths(const llvm::opt::ArgList &DriverArgs,
                                       llvm::opt::ArgStringList &CC1Args) const {
