@@ -1,8 +1,8 @@
 - Define ETIME if missing
 
---- src/amd/vulkan/winsys/amdgpu/radv_amdgpu_cs.c.orig	2025-07-30 20:15:57 UTC
+--- src/amd/vulkan/winsys/amdgpu/radv_amdgpu_cs.c.orig	2025-12-04 06:02:48 UTC
 +++ src/amd/vulkan/winsys/amdgpu/radv_amdgpu_cs.c
-@@ -42,6 +42,10 @@
+@@ -41,6 +41,10 @@
  
  enum { VIRTUAL_BUFFER_HASH_TABLE_SIZE = 1024 };
  

@@ -1,6 +1,6 @@
---- src/util/os_memory_aligned.h.orig	2025-07-30 20:15:57 UTC
+--- src/util/os_memory_aligned.h.orig	2025-12-04 06:02:48 UTC
 +++ src/util/os_memory_aligned.h
-@@ -53,11 +53,16 @@ add_overflow_size_t(size_t a, size_t b,
+@@ -42,11 +42,16 @@
  static inline void *
  os_malloc_aligned(size_t size, size_t alignment)
  {

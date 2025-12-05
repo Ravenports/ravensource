@@ -1,6 +1,6 @@
---- meson.build.orig	2025-07-30 20:15:57 UTC
+--- meson.build.orig	2025-12-04 06:02:48 UTC
 +++ meson.build
-@@ -130,7 +130,7 @@ pre_args += '-DHAVE_OPENGL_ES_2=@0@'.for
+@@ -144,7 +144,7 @@ pre_args += '-DHAVE_OPENGL_ES_2=@0@'.for
  
  with_any_opengl = with_opengl or with_gles1 or with_gles2
  
@@ -9,7 +9,7 @@
  
  gallium_drivers = get_option('gallium-drivers')
  if gallium_drivers.contains('auto')
-@@ -522,8 +522,8 @@ if not have_mtls_dialect
+@@ -538,8 +538,8 @@ if not have_mtls_dialect
    # cross-compiling, but because this is just an optimization we can skip it
    if meson.is_cross_build() and not meson.can_run_host_binaries()
      warning('cannot auto-detect -mtls-dialect when cross-compiling, using compiler default')
@@ -20,7 +20,7 @@
    else
      # The way to specify the TLSDESC dialect is architecture-specific.
      # We probe both because there is not a fallback guaranteed to work for all
-@@ -1159,7 +1159,7 @@ else
+@@ -1195,7 +1195,7 @@ else
    endif
  
    # FreeBSD annotated <pthread.h> but Mesa isn't ready
@@ -29,7 +29,7 @@
      _trial_c += ['-Werror=thread-safety']
    endif
  
-@@ -1431,34 +1431,34 @@ foreach f, prefix: functions_to_detect
+@@ -1419,34 +1419,34 @@ foreach f, prefix: functions_to_detect
  endforeach
  
  if cpp.links('''
