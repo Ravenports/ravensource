@@ -1,1 +1,4 @@
 USES=			pgsql:client
+
+pre-configure:
+	${REINPLACE_CMD} -e '/setuptools ==/d' ${WRKSRC}/pyproject.toml

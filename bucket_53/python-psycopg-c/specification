@@ -36,3 +36,6 @@ DISTNAME=		psycopg_c-${PORTVERSION}
 [PY314].USES_ON=			python:v14,pep517
 
 USES=			pgsql:client
+
+pre-configure:
+	${REINPLACE_CMD} -e '/setuptools ==/d' ${WRKSRC}/pyproject.toml
