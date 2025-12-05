@@ -1,19 +1,19 @@
-DEF[PORTVERSION]=	3.0.2
+DEF[PORTVERSION]=	0.3.0
 # ------------------------------------------------------------------------
 
-NAMEBASE=		ruby-connection_pool
+NAMEBASE=		ruby-syslog
 VERSION=		${PORTVERSION}
 KEYWORDS=		ruby
 VARIANTS=		v32 v33 v34
-SDESC[v32]=		Generic connection pool for Ruby (v32)
-SDESC[v33]=		Generic connection pool for Ruby (v33)
-SDESC[v34]=		Generic connection pool for Ruby (v34)
-HOMEPAGE=		https://github.com/mperham/connection_pool
+SDESC[v32]=		Interface to POSIX system logging facility (v32)
+SDESC[v33]=		Interface to POSIX system logging facility (v33)
+SDESC[v34]=		Interface to POSIX system logging facility (v34)
+HOMEPAGE=		https://github.com/ruby/syslog
 CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		RUBYGEMS/
-DISTFILE[1]=		connection_pool-3.0.2.gem:main
+DISTFILE[1]=		syslog-0.3.0.gem:main
 DIST_SUBDIR=		ruby
 
 SPKGS[v32]=		single
@@ -27,17 +27,18 @@ VOPTS[v33]=		RUBY32=OFF RUBY33=ON RUBY34=OFF
 VOPTS[v34]=		RUBY32=OFF RUBY33=OFF RUBY34=ON
 
 # License listed inside gem specification
-# => "MIT"
+# => "Ruby", "BSD-2-Clause"
 
 # Requirements according to gem specification:
-#   bundler (>= 0, development)
-#   maxitest (>= 0, development)
-#   rake (>= 0, development)
+#   logger (>= 0)
 
-DISTNAME=		connection_pool-${PORTVERSION}
+DISTNAME=		syslog-${PORTVERSION}
 GENERATED=		yes
 
 [RUBY32].USES_ON=			gem:v32
+[RUBY32].BUILDRUN_DEPENDS_ON=		ruby-logger:single:v32
 [RUBY33].USES_ON=			gem:v33
+[RUBY33].BUILDRUN_DEPENDS_ON=		ruby-logger:single:v33
 [RUBY34].USES_ON=			gem:v34
+[RUBY34].BUILDRUN_DEPENDS_ON=		ruby-logger:single:v34
 
