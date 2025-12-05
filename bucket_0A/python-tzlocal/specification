@@ -1,0 +1,42 @@
+DEF[PORTVERSION]=	5.3.1
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-tzlocal
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v13 v14
+SDESC[v13]=		Tzinfo object for the local timezone (3.13)
+SDESC[v14]=		Tzinfo object for the local timezone (3.14)
+HOMEPAGE=		https://pypi.org/project/tzlocal/
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/c2/14/e2a54fabd4f08cd7af1c07030603c3356b74da07f7cc056e600436edfa17
+DISTFILE[1]=		tzlocal-${PORTVERSION}-py3-none-any.whl:main
+DIST_SUBDIR=		python-src
+
+SPKGS[v13]=		single
+SPKGS[v14]=		single
+
+OPTIONS_AVAILABLE=	PY313 PY314
+OPTIONS_STANDARD=	none
+VOPTS[v13]=		PY313=ON PY314=OFF
+VOPTS[v14]=		PY313=OFF PY314=ON
+
+# License listed at PyPI
+# MIT
+
+GENERATED=		yes
+DISTNAME=		tzlocal-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# tzdata ; platform_system == "Windows"
+# pytest (>=4.3) ; extra == 'devenv'
+# pytest-mock (>=3.3) ; extra == 'devenv'
+# pytest-cov ; extra == 'devenv'
+# check-manifest ; extra == 'devenv'
+# zest.releaser ; extra == 'devenv'
+
+[PY313].USES_ON=			python:v13,wheel
+[PY314].USES_ON=			python:v14,wheel
+
