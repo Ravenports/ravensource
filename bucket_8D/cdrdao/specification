@@ -1,10 +1,9 @@
-DEF[PORTVERSION]=	1.2.5
-DEF[FOLDER]=		rel_1_2_5
+DEF[PORTVERSION]=	1.2.6
+DEF[FOLDER]=		rel_1_2_6
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		cdrdao
 VERSION=		${PORTVERSION}
-REVISION=		2
 KEYWORDS=		sysutils
 VARIANTS=		std
 SDESC[std]=		Tool to write CD-Rs in Disk-At-Once Mode
@@ -31,7 +30,7 @@ BUILDRUN_DEPENDS=	lame:primary:std
 			libmad:primary:std
 			libvorbis:primary:std
 
-USES=			cpe gmake pkgconfig c++:primary
+USES=			cpe gmake pkgconfig c++:primary iconv
 CPE_VENDOR=		andreas_mueller
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-gcdmaster=no
@@ -42,6 +41,7 @@ CONFIGURE_ENV=		AO_LIBS=-lao
 			MAD_LIBS=-lmad
 			VORBISFILE_LIBS=-lvorbisfile
 MAKE_ENV=		CCOM=cc
+LDFLAGS=		{{ICONV_LIB}}
 
 VAR_OPSYS[midnightbsd]=	CONFIGURE_ARGS=--with-scglib
 VAR_OPSYS[dragonfly]=	CONFIGURE_ARGS=--with-scglib

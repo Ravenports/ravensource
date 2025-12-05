@@ -1,4 +1,4 @@
---- dao/GenericMMC.cc.orig	2023-02-03 14:46:06 UTC
+--- dao/GenericMMC.cc.orig	2025-12-05 11:17:35 UTC
 +++ dao/GenericMMC.cc
 @@ -2075,7 +2075,7 @@ CdRawToc *GenericMMC::getRawToc(int sess
      return NULL;

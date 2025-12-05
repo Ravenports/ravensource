@@ -1,6 +1,6 @@
---- dao/ScsiIf-nt.cc.orig	2021-03-15 09:13:15 UTC
+--- dao/ScsiIf-nt.cc.orig	2025-12-05 11:17:35 UTC
 +++ dao/ScsiIf-nt.cc
-@@ -332,6 +332,12 @@ int ScsiIf::inquiry()
+@@ -263,6 +263,12 @@ int ScsiIf::inquiry()
       revision_[i] = 0;
    }
  

@@ -1,4 +1,4 @@
---- dao/ScsiIf-linux.cc.orig	2023-02-03 14:46:06 UTC
+--- dao/ScsiIf-linux.cc.orig	2025-12-05 11:17:35 UTC
 +++ dao/ScsiIf-linux.cc
 @@ -33,6 +33,7 @@
  #include <asm/param.h>

@@ -1,4 +1,4 @@
---- dao/ScsiIf-freebsd-cam.cc.orig	2023-01-25 14:30:35 UTC
+--- dao/ScsiIf-freebsd-cam.cc.orig	2025-12-05 11:17:35 UTC
 +++ dao/ScsiIf-freebsd-cam.cc
 @@ -28,7 +28,11 @@
  #include <string.h>
