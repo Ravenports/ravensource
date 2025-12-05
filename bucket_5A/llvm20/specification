@@ -1,0 +1,119 @@
+# When updating this port also check 'libclc' which is set 'noscheme' in
+# Repology and is thus easily forgotten
+DEF[NAMEBASE]=		llvm20
+DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM20_VERSION)
+DEF[PORTREVISION]=	0
+DEF[PORTVERSION]=	${LLVM_VERSION}
+DEF[MAJORMIN]=		${PORTVERSION:R}
+DEF[MAJOR]=		${PORTVERSION:R:R}
+DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
+DEF[DSUBDIR]=		llvm20
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		${NAMEBASE}
+VERSION=		${PORTVERSION}
+REVISION=		${PORTREVISION}
+KEYWORDS=		devel lang
+VARIANTS=		std
+SDESC[std]=		Low Level Virtual Machine (version ${MAJORMIN})
+HOMEPAGE=		http://llvm.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://github.com/llvm/llvm-project/releases/download/llvmorg-${LLVM_VERSION}/
+DISTFILE[1]=		llvm-${PORTVERSION}.src.tar.xz:main
+DISTFILE[2]=		cmake-${PORTVERSION}.src.tar.xz:main
+DIST_SUBDIR=		${DSUBDIR}
+DF_INDEX=		1 2
+
+SPKGS[std]=		set primary tools dev
+
+OPTIONS_AVAILABLE=	GOLD
+OPTIONS_STANDARD=	GOLD
+OPT_ON[freebsd]=	GOLD//x86_64
+OPT_ON[dragonfly]=	GOLD//x86_64
+OPT_ON[linux]=		GOLD//x86_64
+
+LICENSE=		CUSTOM1:primary
+LICENSE_NAME=		CUSTOM1:"University of Illinois/NCSA Open Source License"
+LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/LICENSE.TXT
+LICENSE_SCHEME=		solo
+
+EXRUN[tools]=		primary
+
+USES=			cmake ninja python:build execinfo zlib ncurses:dev
+			cpe shebangfix c++:primary
+GNOME_COMPONENTS=	libxml2
+CPE_VENDOR=		llvm
+CPE_PRODUCT=		llvm
+DISTNAME=		llvm-${PORTVERSION}.src
+CFLAGS=			-DNDEBUG
+CXXFLAGS=		-DNDEBUG
+CMAKE_ARGS=		-DLLVM_BUILD_LLVM_DYLIB=ON
+			-DLLVM_LINK_LLVM_DYLIB=ON
+			-DCMAKE_INSTALL_RPATH:STRING="{{LOCALBASE}}/llvm/lib"
+			-DCMAKE_BUILD_WITH_INSTALL_RPATH=ON
+			-DLLVM_HOST_TRIPLE:STRING="{{CONFIGURE_TARGET}}"
+			-DLLVM_PARALLEL_LINK_JOBS=1
+			-DLLVM_PARALLEL_COMPILE_JOBS={{MAKE_JOBS_NUMBER}}
+			-DLLVM_INCLUDE_TESTS:BOOL=OFF
+			-DLLVM_INCLUDE_EXAMPLES:BOOL=OFF
+			-DLLVM_BUILD_32_BITS:BOOL=OFF
+			-DLLVM_INSTALL_UTILS:BOOL=ON
+			-DLLVM_ENABLE_RTTI:BOOL=ON
+			-DLLVM_ENABLE_EH:BOOL=ON
+			-DLLVM_INCLUDE_BENCHMARKS:BOOL=OFF
+			-DLLVM_COMMON_CMAKE_UTILS={{WRKDIR}}/cmake-${LLVM_VERSION}.src
+CMAKE_BUILD_TYPE=	Release
+PLIST_SUB=		LLVM_RELEASE="${LLVM_VERSION}"
+			LLVM_MAJORMIN="${MAJORMIN}"
+			LLVM_MAJOR="${MAJOR}"
+SHEBANG_FILES=		utils/llvm-lit/llvm-lit.in
+			tools/opt-viewer/*.py
+
+VAR_OPSYS[midnightbsd]=	MAKEFILE_LINE=CONFIGURE_TARGET=${MBSD64_TARGET}
+
+[GOLD].DESCRIPTION=			Build the LLVM Gold plugin for LTO
+[GOLD].CMAKE_ARGS_ON=			-DLLVM_BINUTILS_INCDIR={{LOCALBASE}}/toolchain/include
+					-DLLVM_USE_LINKER=gold
+
+pre-configure:
+	# disable detection of shared ncurses/tinfo
+	${RM} ${LOCALBASE}/lib/libtinfo.so
+	${RM} ${LOCALBASE}/lib/libncurses.so
+	# Use PIC versions of ncurses/tinfo instead of static
+	${MV} ${LOCALBASE}/lib/libtinfo_pic.a ${LOCALBASE}/lib/libtinfo.a
+	${MV} ${LOCALBASE}/lib/libncurses_pic.a ${LOCALBASE}/lib/libncurses.a
+	# Replace config.(sub|guess)
+	${CP} ${MK_TEMPLATES}/config.guess ${WRKSRC}/cmake/config.guess
+	${CP} ${MK_TEMPLATES}/config.sub ${WRKSRC}/cmake/config.sub
+
+post-install:
+	${RM} -r ${STAGEDIR}${PREFIX}/include/llvm/MC/MCAnalysis
+	${RM} -r ${STAGEDIR}${PREFIX}/include/llvm/BinaryFormat/WasmRelocs
+
+	# don't use llvm-strip yet, it doesn't work on SunOS or MacOS
+.for F in bugpoint dsymutil llc lli llvm-ar llvm-as llvm-bcanalyzer \
+	llvm-c-test llvm-cat llvm-cfi-verify llvm-config llvm-cov \
+	llvm-cvtres llvm-cxxdump llvm-cxxfilt llvm-cxxmap llvm-diff llvm-dis \
+	llvm-dwarfdump llvm-dwp llvm-exegesis llvm-extract llvm-ifs \
+	llvm-link llvm-lto llvm-lto2 llvm-mc llvm-mca llvm-modextract llvm-mt \
+	llvm-nm llvm-objcopy llvm-objdump llvm-opt-report llvm-pdbutil \
+	llvm-profdata llvm-rc llvm-readobj llvm-rtdyld llvm-size \
+	llvm-split llvm-stress llvm-strings llvm-symbolizer llvm-tblgen \
+	llvm-undname llvm-xray llvm-jitlink llvm-lipo llvm-reduce \
+	llvm-otool llvm-sim llvm-windres llvm-debuginfod-find \
+	llvm-gsymutil llvm-jitlink-executor llvm-libtool-darwin llvm-ml \
+	llvm-profgen llvm-tli-checker llvm-debuginfod llvm-dwarfutil \
+	llvm-PerfectShuffle llvm-readtapi llvm-cgdata llvm-ctxprof-util \
+	obj2yaml opt sancov sanstats split-file verify-uselistorder yaml2obj \
+	FileCheck count not yaml-bench lli-child-target reduce-chunk-list \
+	UnicodeNameMappingGenerator llvm-debuginfo-analyzer llvm-remarkutil
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/${F}
+.endfor
+.for F in libLLVM.so.${MAJORMIN} libLTO.so.${MAJORMIN} libRemarks.so.${MAJORMIN}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/${F}
+.endfor
+
+post-install-GOLD-ON:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/LLVMgold.so
