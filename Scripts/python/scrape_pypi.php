@@ -494,7 +494,7 @@ EOF;
 function program_toml($file) {
     $code = <<<EOF
 import re
-import toml
+import tomllib
 from packaging.requirements import InvalidRequirement, Requirement
 
 reqs = {}
@@ -511,7 +511,9 @@ def filter_out(bdep):
       return True
    return False
 
-proj = toml.load(open("$file"))
+with open("$file", "rb") as fin:
+    proj = tomllib.load(fin)
+
 if "build-system" in proj:
    if "requires" in proj["build-system"]:
       reqs = proj["build-system"]["requires"]
