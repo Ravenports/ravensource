@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	4.0.2
+DEF[PORTVERSION]=	4.0.3
 DEF[TAG]=		${PORTVERSION}
 # ----------------------------------------------------------------------------
 
@@ -38,3 +38,7 @@ CPPFLAGS=		-fPIC
 INSTALL_REQ_TOOLCHAIN=	yes
 
 [X8664].DESCRIPTION=			Support x86-64 architecture
+
+post-install:
+	# why is this installed twice, but in the wrong directory?
+	${RM} ${STAGEDIR}${PREFIX}/lib/gnu-efi.pc
