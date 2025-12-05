@@ -1,6 +1,6 @@
---- configure.ac.orig	2024-09-01 13:50:54.829376000 +0200
-+++ configure.ac	2024-09-01 13:52:20.535310000 +0200
-@@ -121,7 +121,6 @@
+--- configure.ac.orig	2024-02-22 17:36:56 UTC
++++ configure.ac
+@@ -121,7 +121,6 @@ PKG_CHECK_MODULES(TYPING, $GMODULE_ADD g
  PKG_CHECK_MODULES(GIO, gio-2.0)
  PKG_CHECK_MODULES(GLIBTOP, libgtop-2.0)
  PKG_CHECK_MODULES(UDISKS, udisks2)
@@ -8,7 +8,7 @@
  
  PKG_CHECK_MODULES([DCONF], [dconf >= 0.13.4])
  AC_SUBST(DCONF_CFLAGS)
-@@ -178,6 +177,21 @@
+@@ -178,6 +177,21 @@ AS_IF([test "x$enable_appindicator" = xy
                           [$AYATANA_APPINDICATOR_PKG >= $APPINDICATOR_REQUIRED],
                           [AC_DEFINE(HAVE_AYATANA_APPINDICATOR, 1, [Have Ayatana AppIndicator])])])
  
@@ -30,7 +30,7 @@
  PKG_CHECK_MODULES(FONT_CAPPLET, $COMMON_MODULES pango)
  PKG_CHECK_MODULES(FONT_VIEWER, $COMMON_MODULES fontconfig freetype2 mate-desktop-2.0)
  
-@@ -313,6 +327,7 @@
+@@ -313,6 +327,7 @@ Configure summary:
  
          Ayatana AppIndicator (preferred)   $(test "x$enable_appindicator" = xyes && echo no || echo yes)
          Ubuntu AppIndicator (legacy)       $(test "x$enable_appindicator" = xyes && echo yes || echo no)
