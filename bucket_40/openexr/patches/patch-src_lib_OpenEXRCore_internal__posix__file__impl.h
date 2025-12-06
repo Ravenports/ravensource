@@ -1,4 +1,4 @@
---- src/lib/OpenEXRCore/internal_posix_file_impl.h.orig	2025-05-29 03:05:05 UTC
+--- src/lib/OpenEXRCore/internal_posix_file_impl.h.orig	2025-11-17 01:18:11 UTC
 +++ src/lib/OpenEXRCore/internal_posix_file_impl.h
 @@ -21,6 +21,10 @@
  #include <stdlib.h>
