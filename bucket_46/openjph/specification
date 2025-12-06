@@ -1,0 +1,43 @@
+DEF[PORTVERSION]=	0.25.3
+DEF[TAG]=		${PORTVERSION}
+DEF[SOVERSION]=		${PORTVERSION}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		openjph
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		std
+SDESC[std]=		Open-source implementation of JPEG2000 Part-15
+HOMEPAGE=		https://openjph.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/aous72:OpenJPH:${TAG}
+DISTFILE[1]=		generated:main
+
+SPKGS[std]=		set primary dev tools
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		graphics/openjph
+
+LICENSE=		BSD2CLAUSE:primary
+LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+EXRUN[tools]=		primary
+
+USES=			cmake tiff
+CMAKE_ARGS=		-DOJPH_BUILD_STREAM_EXPAND:BOOL=OFF
+			-DOJPH_BUILD_TESTS:BOOL=OFF
+			-DBUILD_SHARED_LIBS:BOOL=ON
+			-DOJPH_BUILD_EXECUTABLES:BOOL=ON
+			-DOJPH_ENABLE_TIFF_SUPPORT:BOOL=ON
+SOVERSION=		${SOVERSION}
+PLIST_SUB=		SOMAJMIN=${SOVERSION:R}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libopenjph.so
+
