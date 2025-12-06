@@ -1,6 +1,33 @@
---- CMakeLists.txt.orig	2025-03-14 23:36:42 UTC
+--- CMakeLists.txt.orig	2025-10-21 01:26:19 UTC
 +++ CMakeLists.txt
-@@ -53,15 +53,15 @@ set (PACKAGE_TARNAME "${PACKAGE}")
+@@ -25,26 +25,6 @@ if (ENABLE_WASM)
+   set(CMAKE_EXECUTABLE_SUFFIX ".js")
+ endif (ENABLE_WASM)
+ 
+-message ("-- Looking for git submodules")
+-if (EXISTS ${CMAKE_SOURCE_DIR}/src/libshared/src AND EXISTS ${CMAKE_SOURCE_DIR}/src/taskchampion-cpp/corrosion)
+-  message ("-- Found git submodules")
+-else (EXISTS ${CMAKE_SOURCE_DIR}/src/libshared/src)
+-  message ("-- Cloning git submodules")
+-  execute_process (COMMAND git submodule update --init
+-                   WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+-endif (EXISTS ${CMAKE_SOURCE_DIR}/src/libshared/src AND EXISTS ${CMAKE_SOURCE_DIR}/src/taskchampion-cpp/corrosion)
+-
+-message ("-- Looking for SHA1 references")
+-if (EXISTS ${CMAKE_SOURCE_DIR}/.git/index)
+-  set (HAVE_COMMIT true)
+-  execute_process (COMMAND git log -1 --pretty=format:%h --no-show-signature
+-                   WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+-                   OUTPUT_VARIABLE COMMIT)
+-  configure_file ( ${CMAKE_SOURCE_DIR}/commit.h.in
+-                   ${CMAKE_SOURCE_DIR}/commit.h)
+-  message ("-- Found SHA1 reference: ${COMMIT}")
+-endif (EXISTS ${CMAKE_SOURCE_DIR}/.git/index)
+-
+ set (PACKAGE "${PROJECT_NAME}")
+ set (VERSION "${PROJECT_VERSION}")
+ set (PACKAGE_BUGREPORT "support@gothenburgbitfactory.org")
+@@ -53,15 +33,15 @@ set (PACKAGE_TARNAME "${PACKAGE}")
  set (PACKAGE_VERSION "${VERSION}")
  set (PACKAGE_STRING "${PACKAGE} ${VERSION}")
  
@@ -20,7 +47,7 @@
  SET (TASK_BINDIR  bin            CACHE STRING "Installation directory for the binary")
  
  # rust libs require these
-@@ -75,10 +75,10 @@ check_struct_has_member ("struct tm" tm_
+@@ -74,10 +54,10 @@ check_struct_has_member ("struct tm" tm_
  check_struct_has_member ("struct stat" st_birthtime "sys/types.h;sys/stat.h" HAVE_ST_BIRTHTIME)
  
  message ("-- Looking for libuuid")
@@ -33,7 +60,7 @@
    find_path    (UUID_INCLUDE_DIR   uuid/uuid.h)
    find_library (UUID_LIBRARY NAMES uuid)
    if (UUID_INCLUDE_DIR AND UUID_LIBRARY)
-@@ -91,7 +91,7 @@ else (DARWIN OR FREEBSD OR OPENBSD)
+@@ -90,7 +70,7 @@ else (DARWIN OR FREEBSD OR OPENBSD)
    else (UUID_INCLUDE_DIR AND UUID_LIBRARY)
      message (FATAL_ERROR "-- libuuid not found.")
    endif (UUID_INCLUDE_DIR AND UUID_LIBRARY)
