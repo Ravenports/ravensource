@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	20190329
+DEF[PORTVERSION]=	20251001
 DEF[DISTPREFIX]=	aspell6
 DEF[DIST_ITERATION]=	1-0
 DEF[LANGUAGE]=		European Portuguese
@@ -9,7 +9,6 @@ DEF[VERINST]=		EXTRACT_INFO(ASPELL_INSTALL_VERSION)
 
 NAMEBASE=		aspell-${SUFFIX}
 VERSION=		${PORTVERSION}.${DIST_ITERATION:S/-/./g}
-REVISION=		1
 KEYWORDS=		textproc
 VARIANTS=		std
 SDESC[std]=		Aspell ${LANGUAGE} dictionary
@@ -20,7 +19,8 @@ DOWNLOAD_GROUPS=	main
 # SITES[main]=		GNU/aspell/dict/${SUFFIX}
 # DISTFILE[1]=		${DISTPREFIX}-${SUFFIX}-${PORTVERSION}-${DIST_ITERATION}.tar.bz2:main
 SITES[main]=		https://natura.di.uminho.pt/download/sources/Dictionaries/aspell6/
-DISTFILE[1]=		${DISTPREFIX}.pt-preao-${PORTVERSION}.tar.bz2:main
+# DISTFILE[1]=		${DISTPREFIX}.pt-preao-${PORTVERSION}.tar.bz2:main
+DISTFILE[1]=		${DISTPREFIX}.pt-${PORTVERSION}.tar.bz2:main
 
 SPKGS[std]=		single
 
@@ -35,4 +35,4 @@ USES=			gmake
 MUST_CONFIGURE=		yes
 PLIST_SUB=		VER=${VERINST}
 # DISTNAME=		${DISTPREFIX}-${SUFFIX}-${PORTVERSION}-${DIST_ITERATION}
-DISTNAME=		aspell6-pt_PT-preao-20190329-0
+DISTNAME=		aspell6-pt_PT-${PORTVERSION}-0
