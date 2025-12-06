@@ -1,6 +1,6 @@
---- libshiboken/helper.cpp.orig	2025-05-30 11:57:51 UTC
+--- libshiboken/helper.cpp.orig	2025-11-18 11:43:26 UTC
 +++ libshiboken/helper.cpp
-@@ -22,6 +22,14 @@
+@@ -24,6 +24,14 @@
  #  include <pthread.h>
  #endif
  
@@ -15,7 +15,7 @@
  static std::optional<std::string> getStringAttr(PyObject *obj, const char *what)
  {
      if (PyObject_HasAttrString(obj, what) != 0) { // Check first to suppress error.
-@@ -586,6 +594,10 @@ ThreadId currentThreadId()
+@@ -602,6 +610,10 @@ ThreadId currentThreadId()
      return GetCurrentThreadId();
  #elif defined(__APPLE_CC__)
      return reinterpret_cast<ThreadId>(pthread_self());

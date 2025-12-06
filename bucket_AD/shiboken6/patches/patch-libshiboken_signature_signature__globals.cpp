@@ -1,6 +1,6 @@
---- libshiboken/signature/signature_globals.cpp.orig	2025-05-30 11:57:51 UTC
+--- libshiboken/signature/signature_globals.cpp.orig	2025-11-18 11:43:26 UTC
 +++ libshiboken/signature/signature_globals.cpp
-@@ -208,25 +208,19 @@ static int init_phase_2(safe_globals_str
+@@ -217,25 +217,19 @@ static int init_phase_2(safe_globals_str
  ////////////////////////////////////////////////////////////////////////////
  // a stack trace for linux-like platforms
  #include <cstdio>

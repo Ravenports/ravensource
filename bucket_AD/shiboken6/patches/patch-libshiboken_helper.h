@@ -1,6 +1,6 @@
---- libshiboken/helper.h.orig	2025-05-30 11:57:51 UTC
+--- libshiboken/helper.h.orig	2025-11-18 11:43:26 UTC
 +++ libshiboken/helper.h
-@@ -70,7 +70,11 @@ class ArrayPointer
+@@ -69,7 +69,11 @@ class ArrayPointer
  template <class T>
  using AutoArrayPointer = ArrayPointer<T>; // deprecated
  
