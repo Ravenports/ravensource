@@ -1,4 +1,4 @@
---- coreconf/Darwin.mk.orig	2025-11-18 14:23:46 UTC
+--- coreconf/Darwin.mk.orig	2025-12-05 03:57:44 UTC
 +++ coreconf/Darwin.mk
 @@ -7,8 +7,8 @@ CC     ?= gcc
  CCC    ?= g++
@@ -10,7 +10,7 @@
  
  DEFAULT_COMPILER = gcc
  
-@@ -127,21 +127,4 @@ PROCESS_MAP_FILE = grep -v ';+' $< | gre
+@@ -128,21 +128,4 @@ PROCESS_MAP_FILE = grep -v ';+' $< | gre
  USE_SYSTEM_ZLIB = 1
  ZLIB_LIBS	= -lz
  

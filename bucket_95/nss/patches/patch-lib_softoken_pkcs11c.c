@@ -1,4 +1,4 @@
---- lib/softoken/pkcs11c.c.orig	2025-11-18 14:23:46 UTC
+--- lib/softoken/pkcs11c.c.orig	2025-12-05 03:57:44 UTC
 +++ lib/softoken/pkcs11c.c
 @@ -7329,9 +7329,6 @@ sftk_unwrapPrivateKey(SFTKObject *key, S
              break;
