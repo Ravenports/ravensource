@@ -1,0 +1,40 @@
+From 0ff335d715540a164c906a58f850f00c79627b51 Mon Sep 17 00:00:00 2001
+From: Ben Taylor <ben.taylor@linaro.org>
+Date: Mon, 13 Oct 2025 15:17:44 +0100
+Subject: [PATCH] Remove uses of mbedtls_pk_verify_new
+
+Signed-off-by: Ben Taylor <ben.taylor@linaro.org>
+---
+ library/ssl_tls12_client.c  | 2 +-
+ library/ssl_tls13_generic.c | 4 ++--
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+
+--- library/ssl_tls12_client.c.orig
++++ library/ssl_tls12_client.c
+@@ -1995,7 +1995,7 @@ static int ssl_parse_server_key_exchange(mbedtls_ssl_context *ssl)
+ 
+ #if defined(MBEDTLS_X509_RSASSA_PSS_SUPPORT)
+         if (pk_alg == MBEDTLS_PK_RSASSA_PSS) {
+-            ret = mbedtls_pk_verify_new(pk_alg, peer_pk,
++            ret = mbedtls_pk_verify_ext((mbedtls_pk_sigalg_t) pk_alg, peer_pk,
+                                         md_alg, hash, hashlen,
+                                         p, sig_len);
+         } else
+--- library/ssl_tls13_generic.c.orig
++++ library/ssl_tls13_generic.c
+@@ -300,13 +300,13 @@ static int ssl_tls13_parse_certificate_verify(mbedtls_ssl_context *ssl,
+ 
+     MBEDTLS_SSL_DEBUG_BUF(3, "verify hash", verify_hash, verify_hash_len);
+ 
+-    if ((ret = mbedtls_pk_verify_new(sig_alg,
++    if ((ret = mbedtls_pk_verify_ext((mbedtls_pk_sigalg_t) sig_alg,
+                                      &ssl->session_negotiate->peer_cert->pk,
+                                      md_alg, verify_hash, verify_hash_len,
+                                      p, signature_len)) == 0) {
+         return 0;
+     }
+-    MBEDTLS_SSL_DEBUG_RET(1, "mbedtls_pk_verify_new", ret);
++    MBEDTLS_SSL_DEBUG_RET(1, "mbedtls_pk_verify_ext", ret);
+ 
+ error:
+     /* RFC 8446 section 4.4.3

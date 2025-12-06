@@ -1,8 +1,12 @@
-DEF[PORTVERSION]=	3.6.4
-DEF[FRAMEWORK_TAG]=	2a3e2c5
-DEF[SO_TLS]=		21
-DEF[SO_509]=		7
-DEF[SO_CRYPTO]=		16
+DEF[PORTVERSION]=	4.0.0
+DEF[FRAMEWORK_TAG]=	f58263d
+DEF[TPCRYPTO_TAG]=	cb9d0ed
+DEF[SUBFRAME_TAG]=	1726775
+DEF[SO_TLS]=		22
+DEF[SO_509]=		8
+DEF[SO_CRYPTO]=		17
+DEF[SO_TFPSA]=		1.0.0
+DEF[SOVERSION]=		4.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		mbedtls
@@ -13,12 +17,16 @@ SDESC[std]=		Light-weight cryptographic and SSL/TLS library
 HOMEPAGE=		https://www.trustedfirmware.org/projects/mbed-tls/
 CONTACT=		nobody
 
-DOWNLOAD_GROUPS=	main framework
+DOWNLOAD_GROUPS=	main framework crypto subframe
 SITES[main]=		GITHUB/ARMmbed:mbedtls:v${PORTVERSION}
 SITES[framework]=	GITHUB/Mbed-TLS:mbedtls-framework:${FRAMEWORK_TAG}:framework
+SITES[crypto]=		GITHUB/Mbed-TLS:TF-PSA-Crypto:${TPCRYPTO_TAG}:tf-psa-crypto
+SITES[subframe]=	GITHUB/Mbed-TLS:mbedtls-framework:${SUBFRAME_TAG}:tf-psa-crypto/framework
 DISTFILE[1]=		generated:main
 DISTFILE[2]=		generated:framework
-DF_INDEX=		1 2
+DISTFILE[3]=		generated:crypto
+DISTFILE[4]=		generated:subframe
+DF_INDEX=		1 2 3 4
 
 SPKGS[std]=		set primary tools dev
 
@@ -36,28 +44,29 @@ LICENSE_SOURCE=		TERMS:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		dual
 
 BUILD_DEPENDS=		python-Jinja2:single:python_used
+			python-jsonschema:single:python_used
 
 EXRUN[tools]=		mbedtls:primary:std
 
-USES=			cpe gmake python
+USES=			cpe cmake perl:build python:build
 CPE_VENDOR=		arm
 CPE_PRODUCT=		mbed_tls
-MAKE_ENV=		SHARED=1
-BUILD_TARGET=		no_test
+CMAKE_ARGS=		-DENABLE_TESTING:BOOL=OFF
+			-DUSE_SHARED_MBEDTLS_LIBRARY:BOOL=ON
 PLIST_SUB=		SO_TLS=${SO_TLS}
 			SO_509=${SO_509}
 			SO_CRYPTO=${SO_CRYPTO}
+			SO_TFPSA=${SO_TFPSA}
+			SO_TFPSAMAJ=${SO_TFPSA:R:R}
+SOVERSION=		${SOVERSION}
 
 VAR_OPSYS[sunos]=	LDFLAGS=-lsocket
 
-pre-build:
-	${FIND} ${WRKSRC} -name "*.orig" -delete
-	${REINPLACE_CMD} \
-		-e 's/PREFIX/NAMEPREFIX/' \
-		-e 's/$$(DESTDIR)/&$$(PREFIX)/' \
-		${WRKSRC}/Makefile
-
 post-install:
+	# correct obvious bug in CMakeList.txt wrt DESTDIR
+	${MV} ${PREFIX}/lib/libmbedcrypto.so ${STAGEDIR}${PREFIX}/lib/
+	${MV} ${PREFIX}/lib/libmbedcrypto.so.${SO_CRYPTO} ${STAGEDIR}${PREFIX}/lib/
+
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib*.so
 	${FIND} ${STAGEDIR}${PREFIX}/bin -type f | while read f; \
 	do \
