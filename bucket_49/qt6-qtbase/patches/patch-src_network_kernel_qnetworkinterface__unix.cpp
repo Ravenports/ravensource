@@ -2,7 +2,7 @@ $NetBSD: patch-src_network_kernel_qnetworkinterface__unix.cpp,v 1.1 2024/04/27 1
 
 On NetBSD, ifr_ifindex is aliased to ifr_index, so avoid redundant definition.
 
---- src/network/kernel/qnetworkinterface_unix.cpp.orig	2025-08-11 04:54:51 UTC
+--- src/network/kernel/qnetworkinterface_unix.cpp.orig	2025-11-12 10:17:57 UTC
 +++ src/network/kernel/qnetworkinterface_unix.cpp
 @@ -61,11 +61,13 @@ static auto &ifreq_index(Req &req, std::
      return req.ifr_index;

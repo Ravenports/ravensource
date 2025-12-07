@@ -1,0 +1,11 @@
+--- src/configure.cmake.orig	2025-11-13 20:37:17 UTC
++++ src/configure.cmake
+@@ -7,7 +7,7 @@
+ 
+ #### Libraries
+ 
+-if(LINUX OR QT_FIND_ALL_PACKAGES_ALWAYS)
++if(UNIX OR QT_FIND_ALL_PACKAGES_ALWAYS)
+     # waylandclient libraries
+     if(TARGET Wayland::Client)
+         qt_internal_disable_find_package_global_promotion(Wayland::Client)

@@ -1,4 +1,4 @@
---- src/qml/jit/qv4assemblercommon_p.h.orig	2025-08-17 20:21:26 UTC
+--- src/qml/jit/qv4assemblercommon_p.h.orig	2025-11-13 17:42:03 UTC
 +++ src/qml/jit/qv4assemblercommon_p.h
 @@ -34,7 +34,7 @@ namespace QV4 {
  namespace JIT {

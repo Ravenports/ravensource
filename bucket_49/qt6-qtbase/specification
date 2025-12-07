@@ -110,8 +110,11 @@ VAR_OPSYS[linux]=	VAR1=linux
 					-DFEATURE_xlib=OFF
 [WAYLAND].DESCRIPTION=			Build with wayland support
 [WAYLAND].BUILD_DEPENDS_ON=		wayland:dev:std
+					wayland:tools:std
 [WAYLAND].BUILDRUN_DEPENDS_ON=		wayland:primary:std
-[WAYLAND].CMAKE_ARGS_ON=		-DFEATURE_wayland=ON
+[WAYLAND].CMAKE_ARGS_ON=		-DFEATURE_wayland:BOOL=ON
+					-DFEATURE_wayland_client:BOOL=ON
+					-DFEATURE_wayland_server:BOOL=ON
 [WAYLAND].USES_ON=			bsd:epoll
 [WAYLAND].EXTRA_PATCHES_ON=		extra-patch-src_corelib_configure.cmake
 

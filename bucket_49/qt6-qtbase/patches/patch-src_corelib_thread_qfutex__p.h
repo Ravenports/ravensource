@@ -1,6 +1,6 @@
---- src/corelib/thread/qfutex_p.h.orig	2025-08-11 04:54:51 UTC
+--- src/corelib/thread/qfutex_p.h.orig	2025-11-12 10:17:57 UTC
 +++ src/corelib/thread/qfutex_p.h
-@@ -35,7 +35,7 @@ QT_END_NAMESPACE
+@@ -36,7 +36,7 @@ QT_END_NAMESPACE
  
  #if defined(Q_OS_DARWIN)
  #  include "qfutex_mac_p.h"

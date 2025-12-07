@@ -16,6 +16,11 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://qt.mirror.constant.com/official_releases/qt/${MINOR_VER}/${PORTVERSION}/submodules/
 			https://download.qt.io/official_releases/qt/${MINOR_VER}/${PORTVERSION}/submodules/
 DISTFILE[1]=		${COMPONENT}-everywhere-src-${PORTVERSION}.tar.xz:main
+DISTFILE[2]=		qtbase-everywhere-src-${PORTVERSION}.tar.xz:main
+DISTFILE[3]=		qtdeclarative-everywhere-src-${PORTVERSION}.tar.xz:main
+DISTFILE[4]=		qtmultimedia-everywhere-src-${PORTVERSION}.tar.xz:main
+DISTFILE[5]=		qttools-everywhere-src-${PORTVERSION}.tar.xz:main
+DF_INDEX=		1 2 3 4 5
 
 SPKGS[std]=		single
 
@@ -27,7 +32,7 @@ BUILD_DEPENDS=		qt6-qtbase:dev:std
 			qt6-qttools:dev:std
 BUILDRUN_DEPENDS=	qt6-qtbase:primary:std
 
-USES=			qt6 cmake pkgconfig perl:build cpe
+USES=			qt6 cmake ninja pkgconfig perl:build cpe
 CPE_VENDOR=		qt
 CPE_PRODUCT=		qt
 DISTNAME=		${COMPONENT}-everywhere-src-${PORTVERSION}
@@ -35,6 +40,12 @@ PLIST_SUB=		QTVER=${PORTVERSION}
 			SOMAJORMIN=${PORTVERSION:R}
 SOVERSION=		${PORTVERSION}
 SINGLE_JOB=		yes
+
+post-extract:
+	${MV} ${WRKDIR}/qtbase-* ${WRKDIR}/qtbase
+	${MV} ${WRKDIR}/qttools-* ${WRKDIR}/qttools
+	${MV} ${WRKDIR}/qtmultimedia-* ${WRKDIR}/qtmultimedia
+	${MV} ${WRKDIR}/qtdeclarative-* ${WRKDIR}/qtdeclarative
 
 pre-build:
 	# Not necessary on DF, but needed on FreeBSD and Linux (not sure why)

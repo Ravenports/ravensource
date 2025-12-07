@@ -19,31 +19,33 @@ DISTFILE[1]=		${COMPONENT}-everywhere-src-${PORTVERSION}.tar.xz:main
 
 SPKGS[std]=		set primary dev
 
-OPTIONS_AVAILABLE=	EGL
-OPTIONS_STANDARD=	EGL
-OPT_ON[linux]=		EGL
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
 
 BUILD_DEPENDS=		xorg-x11:dev:std
 			wayland:dev:std
 			qt6-qtbase:dev:std
 			qt6-qtdeclarative:dev:std
+			qt6-qtsvg:dev:std
 			libffi:dev:std
+			wayland:primary:std
 			wayland:tools:std
+			libGLU:dev:std
 BUILDRUN_DEPENDS=	qt6-qtbase:primary:std
 			qt6-qtdeclarative:primary:std
+			qt6-qtsvg:primary:std
 			libffi:primary:std
+			libGLU:primary:std
 
-USES=			qt6 cmake pkgconfig perl:build cpe bsd:epoll
+USES=			qt6 cmake pkgconfig perl:build cpe bsd:epoll ninja
 CPE_VENDOR=		qt
 CPE_PRODUCT=		qt
 DISTNAME=		${COMPONENT}-everywhere-src-${PORTVERSION}
+CMAKE_ARGS=		-Wno-dev
 PLIST_SUB=		QTVER=${PORTVERSION}
 			SOMAJORMIN=${PORTVERSION:R}
 SOVERSION=		${PORTVERSION}
 INSTALL_REQ_TOOLCHAIN=	yes
 
-[EGL].DESCRIPTION=			Platform detects EGL server support
-
 post-install:
 	${FIND} ${STAGEDIR}${PREFIX}/lib/ -name "*plugin.so" | ${XARGS} ${STRIP_CMD}
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/libexec/qt6/qtwaylandscanner
