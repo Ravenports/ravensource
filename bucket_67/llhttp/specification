@@ -1,0 +1,33 @@
+DEF[PORTVERSION]=	9.3.0
+# same as release/v${PORTVERSION}
+DEF[TAG]=		86b83a5
+DEF[SOVERSION]=		${PORTVERSION}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		llhttp
+VERSION=		${PORTVERSION}
+KEYWORDS=		www
+VARIANTS=		std
+SDESC[std]=		Parser for HTTP messages
+HOMEPAGE=		https://github.com/nodejs/llhttp
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/nodejs:llhttp:${TAG}
+DISTFILE[1]=		generated:main
+
+SPKGS[std]=		set primary dev
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		www/llhttp
+
+LICENSE=		MIT:primary
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE-MIT
+LICENSE_SCHEME=		solo
+
+USES=			cmake cpe
+CMAKE_ARGS=		-DBUILD_SHARED_LIBS:BOOL=ON
+SOVERSION=		${SOVERSION}
+PLIST_SUB=		SOMAJMIN=${SOVERSION:R}
