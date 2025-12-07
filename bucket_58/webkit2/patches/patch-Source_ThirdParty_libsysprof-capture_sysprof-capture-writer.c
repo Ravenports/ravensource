@@ -1,4 +1,4 @@
---- Source/ThirdParty/libsysprof-capture/sysprof-capture-writer.c.orig	2025-02-25 08:25:38 UTC
+--- Source/ThirdParty/libsysprof-capture/sysprof-capture-writer.c.orig	2025-08-11 07:56:49 UTC
 +++ Source/ThirdParty/libsysprof-capture/sysprof-capture-writer.c
 @@ -59,6 +59,7 @@
  #include <assert.h>

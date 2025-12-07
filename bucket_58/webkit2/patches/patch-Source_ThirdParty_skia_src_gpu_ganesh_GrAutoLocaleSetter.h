@@ -1,6 +1,6 @@
 NetBSD does not support uselocale
 
---- Source/ThirdParty/skia/src/gpu/ganesh/GrAutoLocaleSetter.h.orig	2025-02-25 08:25:40 UTC
+--- Source/ThirdParty/skia/src/gpu/ganesh/GrAutoLocaleSetter.h.orig	2025-08-11 07:56:52 UTC
 +++ Source/ThirdParty/skia/src/gpu/ganesh/GrAutoLocaleSetter.h
 @@ -27,7 +27,7 @@
  #define HAVE_XLOCALE 0

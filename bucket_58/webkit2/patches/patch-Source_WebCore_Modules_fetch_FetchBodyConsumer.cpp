@@ -1,4 +1,4 @@
---- Source/WebCore/Modules/fetch/FetchBodyConsumer.cpp.orig	2025-03-11 09:29:45 UTC
+--- Source/WebCore/Modules/fetch/FetchBodyConsumer.cpp.orig	2025-08-11 07:56:53 UTC
 +++ Source/WebCore/Modules/fetch/FetchBodyConsumer.cpp
 @@ -46,6 +46,32 @@
  #include <wtf/text/MakeString.h>

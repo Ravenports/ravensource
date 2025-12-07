@@ -1,4 +1,4 @@
---- Source/WebKit/UIProcess/Launcher/glib/ProcessLauncherGLib.cpp.orig	2025-03-11 09:29:45 UTC
+--- Source/WebKit/UIProcess/Launcher/glib/ProcessLauncherGLib.cpp.orig	2025-08-11 07:56:57 UTC
 +++ Source/WebKit/UIProcess/Launcher/glib/ProcessLauncherGLib.cpp
 @@ -43,6 +43,13 @@
  #include <wtf/text/CString.h>

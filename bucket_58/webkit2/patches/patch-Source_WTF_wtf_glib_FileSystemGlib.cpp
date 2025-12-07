@@ -1,4 +1,4 @@
---- Source/WTF/wtf/glib/FileSystemGlib.cpp.orig	2025-02-25 08:25:40 UTC
+--- Source/WTF/wtf/glib/FileSystemGlib.cpp.orig	2025-08-11 07:56:53 UTC
 +++ Source/WTF/wtf/glib/FileSystemGlib.cpp
 @@ -82,7 +82,7 @@ CString currentExecutablePath()
      ssize_t result = readlink("/proc/curproc/file", readLinkBuffer, PATH_MAX);

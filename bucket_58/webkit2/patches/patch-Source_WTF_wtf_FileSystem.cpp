@@ -1,6 +1,6 @@
---- Source/WTF/wtf/FileSystem.cpp.orig	2025-02-25 08:25:40 UTC
+--- Source/WTF/wtf/FileSystem.cpp.orig	2025-08-11 07:56:53 UTC
 +++ Source/WTF/wtf/FileSystem.cpp
-@@ -47,6 +47,10 @@
+@@ -49,6 +49,10 @@
  #include <wtf/StdFilesystem.h>
  #endif
  

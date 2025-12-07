@@ -1,4 +1,4 @@
---- Source/ThirdParty/ANGLE/src/common/system_utils_linux.cpp.orig	2025-02-25 08:25:37 UTC
+--- Source/ThirdParty/ANGLE/src/common/system_utils_linux.cpp.orig	2025-11-07 13:21:47 UTC
 +++ Source/ThirdParty/ANGLE/src/common/system_utils_linux.cpp
 @@ -59,6 +59,10 @@ void SetCurrentThreadName(const char *na
      // There's a 15-character (16 including '\0') limit.  If the name is too big (and ERANGE is
