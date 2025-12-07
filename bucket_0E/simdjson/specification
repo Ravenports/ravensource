@@ -1,0 +1,45 @@
+DEF[PORTVERSION]=	4.2.2
+DEF[SOVERSION]=		29.0.0
+DEF[TAG]=		v${PORTVERSION}
+# 20 NOV 2025
+DEF[DATA_TAG]=		4197c42
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		simdjson
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		std
+SDESC[std]=		SIMD-accelerated C++ JSON parser
+HOMEPAGE=		https://github.com/simdjson/simdjson
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main data
+SITES[main]=		GITHUB/simdjson:simdjson:${TAG}
+SITES[data]=		GITHUB/simdjson:simdjson-data:${DATA_TAG}:simdjson_data/dependencies/.cache/simdjson-data
+DISTFILE[1]=		generated:main
+DISTFILE[2]=		generated:data
+DF_INDEX=		1 2
+
+SPKGS[std]=		set primary dev
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		devel/simdjson
+
+LICENSE=		APACHE20:primary MIT:primary
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE
+			MIT:{{WRKSRC}}/LICENSE-MIT
+LICENSE_SCHEME=		dual
+
+USES=			cmake c++:primary
+CMAKE_ARGS=		-DBUILD_SHARED_LIBS:BOOL=ON
+SOVERSION=		${SOVERSION}
+
+post-extract:
+	# license terms
+	${AWK} '/^License/,EOF' ${WRKSRC}/README.md > ${WRKDIR}/TERMS
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libsimdjson.so
