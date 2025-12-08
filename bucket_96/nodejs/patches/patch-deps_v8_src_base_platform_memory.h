@@ -1,4 +1,4 @@
---- deps/v8/src/base/platform/memory.h.orig	2025-09-25 14:43:12 UTC
+--- deps/v8/src/base/platform/memory.h.orig	2025-11-16 23:17:50 UTC
 +++ deps/v8/src/base/platform/memory.h
 @@ -21,14 +21,16 @@
  #include <malloc/malloc.h>

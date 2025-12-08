@@ -1,6 +1,6 @@
---- deps/v8/third_party/abseil-cpp/absl/time/internal/cctz/src/time_zone_lookup_test.cc.orig	2025-09-25 14:43:14 UTC
+--- deps/v8/third_party/abseil-cpp/absl/time/internal/cctz/src/time_zone_lookup_test.cc.orig	2025-11-16 23:17:51 UTC
 +++ deps/v8/third_party/abseil-cpp/absl/time/internal/cctz/src/time_zone_lookup_test.cc
-@@ -927,7 +927,7 @@ TEST(MakeTime, SysSecondsLimits) {
+@@ -440,7 +440,7 @@ TEST(MakeTime, SysSecondsLimits) {
      const time_zone cut = LoadZone("libc:UTC");
      const year_t max_tm_year = year_t{std::numeric_limits<int>::max()} + 1900;
      tp = convert(civil_second(max_tm_year, 12, 31, 23, 59, 59), cut);

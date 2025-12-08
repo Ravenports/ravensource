@@ -1,4 +1,4 @@
---- deps/v8/src/trap-handler/trap-handler.h.orig	2025-09-25 14:43:13 UTC
+--- deps/v8/src/trap-handler/trap-handler.h.orig	2025-11-16 23:17:50 UTC
 +++ deps/v8/src/trap-handler/trap-handler.h
 @@ -18,6 +18,7 @@ namespace v8::internal::trap_handler {
  // X64 on Linux, Windows, MacOS, FreeBSD.
@@ -7,4 +7,4 @@
 +     V8_OS_DRAGONFLYBSD || \
       V8_OS_FREEBSD)
  #define V8_TRAP_HANDLER_SUPPORTED true
- // Arm64 (non-simulator) on Linux, Windows, MacOS.
+ // Arm64 native on Linux, Windows, MacOS.

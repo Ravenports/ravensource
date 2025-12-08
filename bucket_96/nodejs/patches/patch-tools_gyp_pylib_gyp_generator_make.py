@@ -1,4 +1,4 @@
---- tools/gyp/pylib/gyp/generator/make.py.orig	2025-09-25 14:43:15 UTC
+--- tools/gyp/pylib/gyp/generator/make.py.orig	2025-11-16 23:17:53 UTC
 +++ tools/gyp/pylib/gyp/generator/make.py
 @@ -2562,7 +2562,7 @@ def GenerateOutput(target_list, target_d
                  "flock_index": 2,

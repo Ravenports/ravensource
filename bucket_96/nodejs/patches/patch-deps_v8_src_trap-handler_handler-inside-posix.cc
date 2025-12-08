@@ -1,6 +1,6 @@
---- deps/v8/src/trap-handler/handler-inside-posix.cc.orig	2025-09-25 14:43:13 UTC
+--- deps/v8/src/trap-handler/handler-inside-posix.cc.orig	2025-11-16 23:17:50 UTC
 +++ deps/v8/src/trap-handler/handler-inside-posix.cc
-@@ -27,7 +27,7 @@
+@@ -28,7 +28,7 @@
  
  #include <signal.h>
  
@@ -9,7 +9,7 @@
  #include <ucontext.h>
  #elif V8_OS_DARWIN
  #include <sys/ucontext.h>
-@@ -61,6 +61,8 @@ namespace trap_handler {
+@@ -62,6 +62,8 @@ namespace trap_handler {
  #define CONTEXT_REG(reg, REG) &uc->uc_mcontext->__ss.__##reg
  #elif V8_OS_FREEBSD
  #define CONTEXT_REG(reg, REG) &uc->uc_mcontext.mc_##reg

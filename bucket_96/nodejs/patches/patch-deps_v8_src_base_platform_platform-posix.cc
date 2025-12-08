@@ -1,6 +1,6 @@
---- deps/v8/src/base/platform/platform-posix.cc.orig	2025-09-25 14:43:12 UTC
+--- deps/v8/src/base/platform/platform-posix.cc.orig	2025-11-16 23:17:50 UTC
 +++ deps/v8/src/base/platform/platform-posix.cc
-@@ -58,7 +58,7 @@
+@@ -60,7 +60,7 @@
  #include <malloc/malloc.h>
  #elif V8_OS_OPENBSD
  #include <sys/malloc.h>
@@ -9,7 +9,7 @@
  #include <malloc.h>
  #endif
  
-@@ -76,7 +76,7 @@
+@@ -78,7 +78,7 @@
  #include <sys/syscall.h>
  #endif
  
@@ -18,7 +18,7 @@
  #define MAP_ANONYMOUS MAP_ANON
  #endif
  
-@@ -153,7 +153,7 @@ int GetFlagsForMemoryPermission(OS::Memo
+@@ -155,7 +155,7 @@ int GetFlagsForMemoryPermission(OS::Memo
    flags |= (page_type == PageType::kShared) ? MAP_SHARED : MAP_PRIVATE;
    if (access == OS::MemoryPermission::kNoAccess ||
        access == OS::MemoryPermission::kNoAccessWillJitLater) {
@@ -27,7 +27,7 @@
      flags |= MAP_NORESERVE;
  #endif  // !V8_OS_AIX && !V8_OS_FREEBSD && !V8_OS_QNX
  #if V8_OS_QNX
-@@ -423,6 +423,13 @@ void* OS::GetRandomMmapAddr() {
+@@ -461,6 +461,13 @@ void* OS::GetRandomMmapAddr() {
  #endif
  #endif
  #endif
@@ -41,7 +41,7 @@
    return reinterpret_cast<void*>(raw_addr);
  }
  
-@@ -588,14 +595,11 @@ bool OS::DiscardSystemPages(void* addres
+@@ -626,14 +633,11 @@ bool OS::DiscardSystemPages(void* addres
      // MADV_FREE_REUSABLE sometimes fails, so fall back to MADV_DONTNEED.
      ret = madvise(address, size, MADV_DONTNEED);
    }
@@ -58,7 +58,7 @@
  #else
    int ret = madvise(address, size, MADV_DONTNEED);
  #endif
-@@ -1168,7 +1172,11 @@ Thread::Thread(const Options& options)
+@@ -1206,7 +1210,11 @@ Thread::Thread(const Options& options)
        stack_size_(options.stack_size()),
        priority_(options.priority()),
        start_semaphore_(nullptr) {
@@ -70,7 +70,7 @@
    if (stack_size_ > 0) stack_size_ = std::max(stack_size_, min_stack_size);
    set_name(options.name());
  }
-@@ -1183,7 +1191,7 @@ static void SetThreadName(const char* na
+@@ -1221,7 +1229,7 @@ static void SetThreadName(const char* na
    pthread_set_name_np(pthread_self(), name);
  #elif V8_OS_NETBSD
    static_assert(Thread::kMaxThreadNameLength <= PTHREAD_MAX_NAMELEN_NP);
@@ -79,7 +79,7 @@
  #elif V8_OS_DARWIN
    // pthread_setname_np is only available in 10.6 or later, so test
    // for it at runtime.
-@@ -1359,6 +1367,7 @@ void Thread::SetThreadLocal(LocalStorage
+@@ -1401,6 +1409,7 @@ void Thread::SetThreadLocal(LocalStorage
  // support it. MacOS and FreeBSD are different here.
  #if !defined(V8_OS_FREEBSD) && !defined(V8_OS_DARWIN) && !defined(_AIX) && \
      !defined(V8_OS_SOLARIS)
@@ -87,7 +87,7 @@
  
  namespace {
  #if DEBUG
-@@ -1421,6 +1430,7 @@ Stack::StackSlot Stack::ObtainCurrentThr
+@@ -1463,6 +1472,7 @@ Stack::StackSlot Stack::ObtainCurrentThr
  #endif  // V8_OS_ZOS
  }
  

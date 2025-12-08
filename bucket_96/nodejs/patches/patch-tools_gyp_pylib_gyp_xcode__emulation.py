@@ -1,4 +1,4 @@
---- tools/gyp/pylib/gyp/xcode_emulation.py.orig	2025-09-25 14:43:15 UTC
+--- tools/gyp/pylib/gyp/xcode_emulation.py.orig	2025-11-16 23:17:53 UTC
 +++ tools/gyp/pylib/gyp/xcode_emulation.py
 @@ -605,7 +605,7 @@ class XcodeSettings:
  

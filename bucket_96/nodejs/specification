@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	24.10.0
+DEF[PORTVERSION]=	25.2.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		nodejs
@@ -40,11 +40,22 @@ BROKEN[sunos]=		The ld.sun linker does not support required options
 BUILD_DEPENDS=		libnghttp2:dev:std
 			nghttp3:dev:std
 			libuv:dev:std
+			brotli:dev:std
+			c-ares:dev:std
+			llhttp:dev:std
+			ngtcp2:dev:std
+			simdjson:dev:std
 BUILDRUN_DEPENDS=	libuv:primary:std
 			libnghttp2:primary:std
 			nghttp3:primary:std
+			brotli:primary:std
+			c-ares:primary:std
+			llhttp:primary:std
+			ngtcp2:primary:std
+			simdjson:primary:std
 
-USES=			execinfo gmake pkgconfig shebangfix cpe zlib
+USES=			execinfo gmake pkgconfig shebangfix cpe
+			zlib zstd ssl:openssl30
 			python:build c++:primary
 CPE_VENDOR=		nodejs
 CPE_PRODUCT=		node.js
@@ -56,6 +67,15 @@ CONFIGURE_ARGS=		--prefix={{PREFIX}}
 			--shared-zlib
 			--shared-nghttp2
 			--shared-nghttp3
+			--shared-ngtcp2
+			--shared-zlib
+			--shared-zstd
+			--shared-brotli
+			--shared-cares
+			--shared-http-parser
+			--shared-simdjson
+			--shared-openssl
+			--openssl-use-def-ca-store
 # #			--debug
 SHEBANG_FILES=		tools/specialize_node_d.py
 MAKE_ENV=		CC.host={{CC}}
@@ -79,6 +99,19 @@ VAR_OPSYS[midnightbsd]=	CONFIGURE_ARGS=--dest-os=freebsd
 [SYSTEM].BUILDRUN_DEPENDS_ON=		icu:primary:std
 
 pre-configure:
+	# Remove bundled libraries
+	${RM} -r ${WRKSRC}/deps/brotli
+	${RM} -r ${WRKSRC}/deps/cares/
+	${RM} -r ${WRKSRC}/deps/llhttp/
+	${RM} -r ${WRKSRC}/deps/nghttp2/
+	${RM} -r ${WRKSRC}/deps/ngtcp2/
+	${RM} -r ${WRKSRC}/deps/npm/
+	${RM} -r ${WRKSRC}/deps/simdjson/
+	${RM} -r ${WRKSRC}/deps/uv/
+	${RM} -r ${WRKSRC}/deps/zlib/
+	${RM} -r ${WRKSRC}/deps/zstd/
+
+	# Use raven prefix
 	${GREP} -rl "/usr/local" ${WRKSRC} | \
 		${XARGS} ${REINPLACE_CMD} -e 's|/usr/local|${LOCALBASE}|g'
 	# So many different ways to run python. Fix them all.
