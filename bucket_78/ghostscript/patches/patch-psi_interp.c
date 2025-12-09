@@ -7,7 +7,7 @@ gmake[3]: *** [psi/int.mak:1909: soobj/interp.o] Error 1
 
 avoid the asserts completely.
 
---- psi/interp.c.orig	2025-04-29 11:01:29 UTC
+--- psi/interp.c.orig	2025-09-09 09:36:39 UTC
 +++ psi/interp.c
 @@ -50,7 +50,6 @@
  #include "store.h"
