@@ -1,6 +1,6 @@
 The /usr/local value is replaced by post-patch target
 
---- gio/xdgmime/xdgmime.c.orig	2025-10-21 14:26:53 UTC
+--- gio/xdgmime/xdgmime.c.orig	2025-11-18 16:59:09 UTC
 +++ gio/xdgmime/xdgmime.c
 @@ -228,7 +228,7 @@ xdg_init_dirs (void)
    xdg_data_dirs = getenv ("XDG_DATA_DIRS");

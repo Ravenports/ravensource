@@ -1,4 +1,4 @@
---- gio/gunixmounts.c.orig	2025-10-21 14:26:53 UTC
+--- gio/gunixmounts.c.orig	2025-11-18 16:59:09 UTC
 +++ gio/gunixmounts.c
 @@ -74,6 +74,10 @@ extern char* hasmntopt(const struct mnte
  #define O_BINARY 0

@@ -2,7 +2,7 @@ $NetBSD: patch-glib_gthread.c,v 1.1 2024/04/09 16:57:18 wiz Exp $
 
 Fix build on NetBSD.
 
---- glib/gthread.c.orig	2025-10-21 14:26:53 UTC
+--- glib/gthread.c.orig	2025-11-18 16:59:09 UTC
 +++ glib/gthread.c
 @@ -1168,7 +1168,7 @@ g_get_num_processors (void)
  
