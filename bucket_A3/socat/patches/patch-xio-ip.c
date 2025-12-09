@@ -1,6 +1,6 @@
---- xio-ip.c.orig	2024-08-24 16:06:11 UTC
+--- xio-ip.c.orig	2025-12-08 07:44:32 UTC
 +++ xio-ip.c
-@@ -799,7 +799,7 @@ int xioresolve(const char *node, const c
+@@ -888,7 +888,7 @@ int xioresolve(const char *node, const c
     }
     if (res == NULL) {
        Error3("xioresolve(node=\"%s\", pf=%d, ...): %s",
