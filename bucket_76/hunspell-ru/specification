@@ -13,12 +13,8 @@ HOMEPAGE=		https://hunspell.github.io/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		https://cgit.freedesktop.org/libreoffice/dictionaries/plain/ru_RU/
-DISTFILE[1]=		ru_RU.aff:main
-DISTFILE[2]=		ru_RU.dic:main
-DISTFILE[3]=		README_ru_RU.txt:main
-DIST_SUBDIR=		hunspell-russian-${PORTVERSION}
-DF_INDEX=		1 2 3
+SITES[main]=		https://leaf.dragonflybsd.org/~marino/raven-distfiles/
+DISTFILE[1]=		ru_RU_dictionary.tar.gz:main
 
 SPKGS[std]=		single
 
@@ -29,19 +25,14 @@ FPC_EQUIVALENT=		russian/hunspell
 
 # License is similar to Apache v1.0 license
 LICENSE=		CUSTOM1:single
-LICENSE_FILE=		CUSTOM1:{{WRKDIR}}/README_ru_RU.txt
+LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/README_ru_RU.txt
 LICENSE_NAME=		CUSTOM1:"A.I. Lebedev License"
 LICENSE_SCHEME=		solo
 
+DISTNAME=		ru_RU_dictionary
 SKIP_BUILD=		yes
-EXTRACT_HEAD[1]=	{{CP}} -pRP
-EXTRACT_TAIL[1]=	.
-EXTRACT_HEAD[2]=	{{CP}} -pRP
-EXTRACT_TAIL[2]=	.
-EXTRACT_HEAD[3]=	{{CP}} -pRP
-EXTRACT_TAIL[3]=	.
 
 do-install:
 	${MKDIR} ${INSTLOC}
-	${INSTALL_DATA} ${WRKDIR}/ru_RU.aff ${INSTLOC}
-	${INSTALL_DATA} ${WRKDIR}/ru_RU.dic ${INSTLOC}
+	${INSTALL_DATA} ${WRKSRC}/ru_RU.aff ${INSTLOC}
+	${INSTALL_DATA} ${WRKSRC}/ru_RU.dic ${INSTLOC}
