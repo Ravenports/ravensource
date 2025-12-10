@@ -8,7 +8,7 @@ DEF[TAG]=		9afa3ca
 
 NAMEBASE=		shadowsocks-libev
 VERSION=		${PORTVERSION}
-REVISION=		4
+REVISION=		5
 KEYWORDS=		net
 VARIANTS=		std
 SDESC[std]=		Secure socks5 proxy
@@ -54,6 +54,7 @@ RC_SUBR=		shadowsocks_libev:primary
 USES=			cpe cmake pcre
 CPE_VENDOR=		shadowsocks
 LDFLAGS=		-lpthread
+CFLAGS=			-DMBEDTLS_DECLARE_PRIVATE_IDENTIFIERS
 CMAKE_ARGS=		-DCMAKE_POLICY_VERSION_MINIMUM=3.5
 
 post-install:
