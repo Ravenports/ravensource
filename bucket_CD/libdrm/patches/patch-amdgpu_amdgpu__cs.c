@@ -2,7 +2,7 @@ $NetBSD: patch-amdgpu_amdgpu__cs.c,v 1.3 2022/03/13 15:20:01 tnn Exp $
 
 libc-supplied compat alloca(3) should not be used
 
---- amdgpu/amdgpu_cs.c.orig	2025-11-02 02:30:31 UTC
+--- amdgpu/amdgpu_cs.c.orig	2025-11-17 15:17:12 UTC
 +++ amdgpu/amdgpu_cs.c
 @@ -28,9 +28,7 @@
  #include <pthread.h>
