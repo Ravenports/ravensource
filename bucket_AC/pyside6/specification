@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	6.9.1
+DEF[PORTVERSION]=	6.10.1
 DEF[SOVERSION]=		${PORTVERSION}
 # ----------------------------------------------------------------------------
 
@@ -68,6 +68,6 @@ VAR_OPSYS[linux]=	LDFLAGS=-L{{LOCALBASE}}/lib
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/qt6/plugins/designer/libPySidePlugin.so
-	${STRIP_CMD} ${STAGEDIR}${PYTHON_SITELIBDIR}/PySide6/QtExampleIcons.abi3.so
+	# ${STRIP_CMD} ${STAGEDIR}${PYTHON_SITELIBDIR}/PySide6/QtExampleIcons.abi3.so
 	# create python cache files
 	(cd ${STAGEDIR} && python -m compileall -f -d / . ||:)
