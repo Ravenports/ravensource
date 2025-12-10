@@ -1,5 +1,6 @@
 DEF[PORTVERSION]=	13.0.0
 DEF[TAG]=		v${PORTVERSION}
+DEF[QT6_VER]=		EXTRACT_INFO(QT6_VERSION)
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		copyq
@@ -58,6 +59,10 @@ CMAKE_ARGS=		-DWITH_PLUGINS:BOOL=TRUE
 			-DWITH_QT6:BOOL=TRUE
 			-DCMAKE_PREFIX_PATH={{PREFIX}}/lib/qt6/cmake
 DISTNAME=		Copyq-${PORTVERSION}
+
+# hack for Qt 6.10+
+CXXFLAGS=		-I{{PREFIX}}/include/qt6/QtGui/${QT6_VER}
+			-I{{PREFIX}}/include/qt6/QtCore/${QT6_VER}
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/copyq
