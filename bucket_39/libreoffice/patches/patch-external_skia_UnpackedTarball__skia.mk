@@ -1,14 +1,14 @@
---- external/skia/UnpackedTarball_skia.mk.orig	2025-06-05 10:22:59 UTC
+--- external/skia/UnpackedTarball_skia.mk.orig	2025-12-01 19:30:03 UTC
 +++ external/skia/UnpackedTarball_skia.mk
-@@ -24,7 +24,6 @@ skia_patches := \
-     windows-text-gamma.patch.0 \
+@@ -23,7 +23,6 @@ skia_patches := \
+     windows-do-not-modify-logfont.patch.0 \
      windows-force-unicode-api.patch.0 \
      fix-without-gl.patch.1 \
 -    windows-typeface-directwrite.patch.1 \
      windows-raster-surface-no-copies.patch.1 \
      fix-windows-dwrite.patch.1 \
      swap-buffers-rect.patch.1 \
-@@ -34,6 +33,9 @@ skia_patches := \
+@@ -33,6 +32,9 @@ skia_patches := \
      allow-no-es2restrictions.patch.1 \
      vk_mem_alloc.patch.1 \
      macosmetal.patch.1 \

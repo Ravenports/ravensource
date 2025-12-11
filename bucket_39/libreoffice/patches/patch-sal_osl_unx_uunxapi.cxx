@@ -1,4 +1,4 @@
---- sal/osl/unx/uunxapi.cxx.orig	2025-06-05 10:22:59 UTC
+--- sal/osl/unx/uunxapi.cxx.orig	2025-12-01 19:30:03 UTC
 +++ sal/osl/unx/uunxapi.cxx
 @@ -615,6 +615,7 @@ std::string UnixErrnoString(int nErrno)
  #pragma clang diagnostic ignored "-Wdeprecated-pragma"
