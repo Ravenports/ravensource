@@ -5,6 +5,7 @@ DEF[TONYEK_VER]=	0.1
 
 NAMEBASE=		libetonyek
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		graphics
 VARIANTS=		std
 SDESC[std]=		Import filter for Apple Keynote presentations
@@ -26,7 +27,7 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		graphics/libetonyek01
 
-BUILD_DEPENDS=		mdds:single:std
+BUILD_DEPENDS=		mdds-3.0:single:std
 			glm:single:std
 			boost-libraries:dev:std
 			librevenge:dev:std
@@ -39,6 +40,7 @@ MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--disable-tests
 			--disable-werror
 			--without-docs
+			--with-mdds=3.0
 INSTALL_TARGET=		install-strip
 PLIST_SUB=		VER=${TONYEK_VER}
 SOVERSION=		${SOVERSION}
