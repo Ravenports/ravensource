@@ -1,4 +1,4 @@
---- cmake/build-pofiles.cmake.orig	2024-10-04 15:07:17 UTC
+--- cmake/build-pofiles.cmake.orig	2025-12-05 13:21:38 UTC
 +++ cmake/build-pofiles.cmake
 @@ -41,7 +41,7 @@ foreach(pofile IN LISTS pofiles)
  
