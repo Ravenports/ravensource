@@ -1,15 +1,14 @@
-DEF[PORTVERSION]=	1.14.6
-DEF[DISTFILE_VER]=	1.14.6
-DEF[SOVERSION]=		310.5.1
-DEF[CPP_SOVERSION]=	310.0.6
-DEF[HDF5_FORT_SOVER]=	310.3.2
-DEF[HL_SOVER]=		310.0.6
-DEF[HL_FORT_SOVER]=	310.0.6
+DEF[PORTVERSION]=	2.0.0
+DEF[DISTFILE_VER]=	${PORTVERSION}
+DEF[SOVERSION]=		320.0.0
+DEF[CPP_SOVERSION]=	320.0.0
+DEF[HDF5_FORT_SOVER]=	320.0.0
+DEF[HL_SOVER]=		320.0.0
+DEF[HL_FORT_SOVER]=	320.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		hdf5
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		archivers science
 VARIANTS=		std
 SDESC[std]=		General purpose file format for scientific data
@@ -17,7 +16,7 @@ HOMEPAGE=		https://www.hdfgroup.org/solutions/hdf5/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		https://github.com/HDFGroup/hdf5/releases/download/hdf5_${PORTVERSION}/
+SITES[main]=		https://github.com/HDFGroup/hdf5/releases/download/${PORTVERSION}/
 DISTFILE[1]=		hdf5-${DISTFILE_VER}.tar.gz:main
 
 SPKGS[std]=		set primary cxx fort tools dev
@@ -27,7 +26,7 @@ OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 LICENSE=		BSD3CLAUSE:primary
-LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/COPYING
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		science/hdf5
@@ -36,15 +35,14 @@ EXRUN[tools]=		hdf5:dev:std
 EXRUN[cxx]=		hdf5:primary:std
 EXRUN[fort]=		hdf5:primary:std
 
-USES=			cpe libtool zlib c++:cxx fortran:fort mbsdfix
+USES=			cpe cmake zlib c++:cxx fortran:fort
 CPE_VENDOR=		hdfgroup
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--enable-instrument
-			--enable-cxx
-			--enable-fortran
-			--enable-build-mode=production
-			--disable-tests
-			--with-examplesdir={{STD_EXAMPLESDIR}}
+CMAKE_ARGS=		-DBUILD_SHARED_LIBS:BOOL=ON
+			-DBUILD_STATIC_LIBS:BOOL=ON
+			-DBUILD_TESTING:BOOL=OFF
+			=DHDF5_BUILD_EXAMPLES:BOOL=ON
+			-DHDF5_BUILD_FORTRAN:BOOL=ON
+			-DHDF5_BUILD_CPP_LIB:BOOL=ON
 SOVERSION=		${SOVERSION}
 PLIST_SUB=		HL_SOVER=${HL_SOVER}
 			HL_SOMAJOR=${HL_SOVER:R:R}
@@ -54,17 +52,19 @@ PLIST_SUB=		HL_SOVER=${HL_SOVER}
 			HL_FORT_SOMAJOR=${HL_FORT_SOVER:R:R}
 			CPP_SOVERSION=${CPP_SOVERSION}
 			CPP_SOMAJOR=${CPP_SOVERSION:R:R}
-INSTALL_TARGET=		install-strip
-INSTALL_REQ_TOOLCHAIN=	yes
-SINGLE_JOB=		yes
 DISTNAME=		hdf5-${DISTFILE_VER}
-CFLAGS=			-Wno-missing-include-dirs
 
-post-patch:
-	${REINPLACE_CMD} -e 's|-O3||g' ${WRKSRC}/config/gnu-flags
-	${FIND} ${WRKSRC} -regex '.*/examples/Makefile.in' | ${XARGS} \
-		${REINPLACE_CMD} \
-		-e '/LD_LIBRARY_PATH/ s|^|#|' \
-		-e 's|(INSTALL)|(BSD_INSTALL_DATA)|'
-	${FIND} ${WRKSRC} -name \*.sh\* | ${XARGS} \
-		${REINPLACE_CMD} -e 's|\[ -a|\[ -f|g'
+pre-configure:
+	# fix isnan
+	${REINPLACE_CMD} -e 's|= isnan(|= __builtin_isnan(|g' \
+		${WRKSRC}/tools/lib/h5diff_array.c
+
+post-install:
+	# remove garbage
+	${RM} ${STAGEDIR}${PREFIX}/share/LICENSE
+	${RM} ${STAGEDIR}${PREFIX}/share/CHANGELOG.md
+	${RM} ${STAGEDIR}${PREFIX}/share/USING_HDF5_CMake.txt
+
+	# strip things
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib*.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
