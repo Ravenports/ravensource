@@ -1,8 +1,8 @@
---- include/pcm.h.orig	2025-04-14 16:42:04 UTC
+--- include/pcm.h.orig	2025-12-07 19:41:56 UTC
 +++ include/pcm.h
 @@ -35,6 +35,13 @@
  #ifndef __ALSA_PCM_H
- #define __ALSA_PCM_H
+ #define __ALSA_PCM_H /**< header include loop protection */
  
 +#ifndef ESTRPIPE
 +#define ESTRPIPE EPIPE

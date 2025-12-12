@@ -1,8 +1,19 @@
---- src/ucm/main.c.orig	2025-04-14 16:42:04 UTC
+--- src/ucm/main.c.orig	2025-12-07 19:41:56 UTC
 +++ src/ucm/main.c
-@@ -176,7 +176,11 @@ static int read_tlv_file(unsigned int **
+@@ -40,6 +40,10 @@
+ #include <sys/wait.h>
+ #include <limits.h>
+ 
++#if !defined(CLOCK_MONOTONIC_RAW)
++#define CLOCK_MONOTONIC_RAW CLOCK_MONOTONIC
++#endif
++
+ /*
+  * misc
+  */
+@@ -176,7 +180,11 @@ static int read_tlv_file(unsigned int **
  		err = -errno;
- 		return err;
+ 		goto __fail;
  	}
 +#if defined(__FreeBSD__) || defined(__DragonFly__)
 +	if (fstat(fd, &st) == -1) {
