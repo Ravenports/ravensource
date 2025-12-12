@@ -1,12 +1,12 @@
---- Makefile.orig	2025-09-06 19:51:17 UTC
+--- Makefile.orig	2025-12-09 22:19:25 UTC
 +++ Makefile
-@@ -46,9 +46,6 @@ else
+@@ -47,9 +47,6 @@ else
+ 	SOEXTVER_MAJOR = $(SOEXT).$(SONAME_MAJOR)
  	SOEXTVER = $(SOEXT).$(SONAME_MAJOR).$(SONAME_MINOR)
  	LINKSHARED += -shared -Wl,-soname,libtree-sitter.$(SOEXTVER)
- endif
 -ifneq ($(filter $(shell uname),FreeBSD NetBSD DragonFly),)
 -	PCLIBDIR := $(PREFIX)/libdata/pkgconfig
 -endif
+ endif
  
  all: libtree-sitter.a libtree-sitter.$(SOEXT) tree-sitter.pc
- 
