@@ -1,4 +1,4 @@
---- library/std/src/fs/tests.rs.orig	2025-11-07 03:39:30 UTC
+--- library/std/src/fs/tests.rs.orig	2025-12-08 12:52:32 UTC
 +++ library/std/src/fs/tests.rs
 @@ -3,6 +3,7 @@ use rand::RngCore;
  #[cfg(any(

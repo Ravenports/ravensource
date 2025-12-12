@@ -1,6 +1,6 @@
---- library/std/src/sys/fs/unix.rs.orig	2025-11-07 03:39:30 UTC
+--- library/std/src/sys/fs/unix.rs.orig	2025-12-08 12:52:32 UTC
 +++ library/std/src/sys/fs/unix.rs
-@@ -1281,6 +1281,7 @@ impl File {
+@@ -1287,6 +1287,7 @@ impl File {
  
      #[cfg(any(
          target_os = "freebsd",
@@ -8,7 +8,7 @@
          target_os = "fuchsia",
          target_os = "linux",
          target_os = "netbsd",
-@@ -1305,6 +1306,7 @@ impl File {
+@@ -1311,6 +1312,7 @@ impl File {
  
      #[cfg(not(any(
          target_os = "freebsd",
@@ -16,7 +16,7 @@
          target_os = "fuchsia",
          target_os = "linux",
          target_os = "netbsd",
-@@ -1320,6 +1322,7 @@ impl File {
+@@ -1326,6 +1328,7 @@ impl File {
  
      #[cfg(any(
          target_os = "freebsd",
@@ -24,7 +24,7 @@
          target_os = "fuchsia",
          target_os = "linux",
          target_os = "netbsd",
-@@ -1344,6 +1347,7 @@ impl File {
+@@ -1350,6 +1353,7 @@ impl File {
  
      #[cfg(not(any(
          target_os = "freebsd",
@@ -32,7 +32,7 @@
          target_os = "fuchsia",
          target_os = "linux",
          target_os = "netbsd",
-@@ -1359,6 +1363,7 @@ impl File {
+@@ -1365,6 +1369,7 @@ impl File {
  
      #[cfg(any(
          target_os = "freebsd",
@@ -40,7 +40,7 @@
          target_os = "fuchsia",
          target_os = "linux",
          target_os = "netbsd",
-@@ -1399,6 +1404,7 @@ impl File {
+@@ -1405,6 +1410,7 @@ impl File {
  
      #[cfg(not(any(
          target_os = "freebsd",
@@ -48,7 +48,7 @@
          target_os = "fuchsia",
          target_os = "linux",
          target_os = "netbsd",
-@@ -1417,6 +1423,7 @@ impl File {
+@@ -1423,6 +1429,7 @@ impl File {
  
      #[cfg(any(
          target_os = "freebsd",
@@ -56,7 +56,7 @@
          target_os = "fuchsia",
          target_os = "linux",
          target_os = "netbsd",
-@@ -1457,6 +1464,7 @@ impl File {
+@@ -1463,6 +1470,7 @@ impl File {
  
      #[cfg(not(any(
          target_os = "freebsd",
@@ -64,7 +64,7 @@
          target_os = "fuchsia",
          target_os = "linux",
          target_os = "netbsd",
-@@ -1475,6 +1483,7 @@ impl File {
+@@ -1481,6 +1489,7 @@ impl File {
  
      #[cfg(any(
          target_os = "freebsd",
@@ -72,7 +72,7 @@
          target_os = "fuchsia",
          target_os = "linux",
          target_os = "netbsd",
-@@ -1499,6 +1508,7 @@ impl File {
+@@ -1505,6 +1514,7 @@ impl File {
  
      #[cfg(not(any(
          target_os = "freebsd",
