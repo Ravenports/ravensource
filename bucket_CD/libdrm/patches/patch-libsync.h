@@ -1,6 +1,6 @@
 define ETIME as ETIMEOUT same as done in mesa
 
---- libsync.h.orig	2025-11-17 15:17:12 UTC
+--- libsync.h.orig	2025-12-11 21:17:34 UTC
 +++ libsync.h
 @@ -35,6 +35,9 @@
  #include <sys/ioctl.h>

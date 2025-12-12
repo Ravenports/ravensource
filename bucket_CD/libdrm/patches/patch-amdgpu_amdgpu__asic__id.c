@@ -1,6 +1,6 @@
---- amdgpu/amdgpu_asic_id.c.orig	2025-12-08 13:15:17 UTC
+--- amdgpu/amdgpu_asic_id.c.orig	2025-12-11 21:17:34 UTC
 +++ amdgpu/amdgpu_asic_id.c
-@@ -236,7 +236,11 @@ static void split_env_var_free(char **sp
+@@ -237,7 +237,11 @@ static void split_env_var_free(char **sp
  static char *find_asic_id_table(void)
  {
  	// first check the paths in AMDGPU_ASIC_ID_TABLE_PATHS environment variable

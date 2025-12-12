@@ -1,4 +1,4 @@
---- intel/intel_bufmgr_gem.c.orig	2025-11-17 15:17:12 UTC
+--- intel/intel_bufmgr_gem.c.orig	2025-12-11 21:17:34 UTC
 +++ intel/intel_bufmgr_gem.c
 @@ -966,6 +966,27 @@ drm_intel_gem_bo_alloc_userptr(drm_intel
  	return &bo_gem->bo;
