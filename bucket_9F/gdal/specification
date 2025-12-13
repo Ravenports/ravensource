@@ -29,6 +29,9 @@ FPC_EQUIVALENT=		graphics/gdal
 
 BUILD_DEPENDS=		geos:dev:std
 			hdf5:dev:std
+			hdf5:cxx:std
+			hdf5:fort:std
+			hdf5:tools:std
 			Imath:dev:std
 			libarchive:dev:std
 			libgeotiff:dev:std
@@ -140,4 +143,5 @@ post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/gdal[a-z_]*
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/gnm*
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/[nos]*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/gdal
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libgdal.so
