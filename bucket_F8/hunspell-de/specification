@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	20161207
+DEF[PORTVERSION]=	20240224
 DEF[SUFFIX]=		de
 DEF[LANGUAGE]=		German
 DEF[INSTLOC]=		{{STAGEDIR}}{{PREFIX}}/share/hunspell
@@ -6,16 +6,17 @@ DEF[INSTLOC]=		{{STAGEDIR}}{{PREFIX}}/share/hunspell
 
 NAMEBASE=		hunspell-${SUFFIX}
 VERSION=		${PORTVERSION}
-REVISION=		2
 KEYWORDS=		textproc german
 VARIANTS=		std
 SDESC[std]=		Hunspell ${LANGUAGE} dictionary
 HOMEPAGE=		https://www.j3e.de/ispell/igerman98/
 CONTACT=		nobody
 
+# recipe: https://src.fedoraproject.org/rpms/hunspell-de/blob/rawhide/f/hunspell-de.spec
+# https://cgit.freedesktop.org/libreoffice/dictionaries/plain/de
 DOWNLOAD_GROUPS=	main
-SITES[main]=		https://www.j3e.de/ispell/igerman98/dict/
-DISTFILE[1]=		igerman98-${PORTVERSION}.tar.bz2:main
+SITES[main]=		https://leaf.dragonflybsd.org/~marino/raven-distfiles/
+DISTFILE[1]=		dict-de-20240224.tar.gz:main
 
 SPKGS[std]=		single
 
@@ -24,23 +25,22 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		german/hunspell
 
-BUILD_DEPENDS=		aspell:tools:std
-			hunspell:tools:std
-			coreutils:primary:noprefix
+LICENSE=		GPLv2:single GPLv3:single
+LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING_GPLv2
+			GPLv3:{{WRKSRC}}/COPYING_GPLv3
+LICENSE_TERMS=		single:{{WRKSRC}}/README_de_DE_frami.txt
+LICENSE_SCHEME=		dual
 
-USES=			gmake perl:build shebangfix
-BUILD_TARGET=		hunspell-all
-SHEBANG_FILES=		bin/*.pl
-DISTNAME=		igerman98-${PORTVERSION}
-
-post-patch:
-	${REINPLACE_CMD} -e "s/AFFIX_EXPANDER = ispell/AFFIX_EXPANDER = aspell/g" \
-		${WRKSRC}/Makefile
+SKIP_BUILD=		yes
+DISTNAME=		dict-de-${PORTVERSION}
 
 do-install:
 	${MKDIR} ${INSTLOC}
-	${INSTALL_DATA} ${WRKSRC}/hunspell/de_??.aff ${INSTLOC}/
-	${INSTALL_DATA} ${WRKSRC}/hunspell/de_??.dic ${INSTLOC}/
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/hunspell-de
+.for CC in AT CH DE
+	${INSTALL_DATA} ${WRKSRC}/de_${CC}_frami.aff ${INSTLOC}/de_${CC}.aff
+	${INSTALL_DATA} ${WRKSRC}/de_${CC}_frami.dic ${INSTLOC}/de_${CC}.dic
+.endfor
 .for ALIAS in de_LI
 	${LN} -sf de_CH.aff ${INSTLOC}/${ALIAS}.aff
 	${LN} -sf de_CH.dic ${INSTLOC}/${ALIAS}.dic
@@ -49,3 +49,5 @@ do-install:
 	${LN} -sf de_DE.aff ${INSTLOC}/${ALIAS}.aff
 	${LN} -sf de_DE.dic ${INSTLOC}/${ALIAS}.dic
 .endfor
+	${INSTALL_DATA} ${WRKSRC}/README_extension_owner.txt \
+		${STAGEDIR}${PREFIX}/share/hunspell-de/
