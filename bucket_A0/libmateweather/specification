@@ -1,5 +1,6 @@
-DEF[PORTVERSION]=	1.28.0
+DEF[PORTVERSION]=	1.28.1
 DEF[SOVERSION]=		1.6.9
+DEF[TAG]=		v${PORTVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libmateweather
@@ -11,8 +12,10 @@ HOMEPAGE=		https://mate-desktop.org/
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		https://pub.mate-desktop.org/releases/${PORTVERSION:R}/
-DISTFILE[1]=		libmateweather-${PORTVERSION}.tar.xz:main
+# SITES[main]=		https://pub.mate-desktop.org/releases/${PORTVERSION:R}/
+# DISTFILE[1]=		libmateweather-${PORTVERSION}.tar.xz:main
+SITES[main]=		GITHUB/mate-desktop:libmateweather:${TAG}
+DISTFILE[1]=		generated:main
 DIST_SUBDIR=		mate
 
 SPKGS[std]=		set primary dev nls docs
@@ -31,13 +34,18 @@ LICENSE_SCHEME=		multi
 FPC_EQUIVALENT=		net/libmateweather
 
 BUILD_DEPENDS=		libsoup-2.4:dev:std
+			mate-common:primary:std
+			libtool:primary:std
+			autoconf-archive:primary:std
 BUILDRUN_DEPENDS=	libsoup-2.4:primary:std
 
 USES=			gettext gmake gtk-doc iconv libtool pkgconfig
+			autoreconf:build
 GNOME_COMPONENTS=	glib gtk3 libxml2
 
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-zoneinfo-dir=/usr/share/zoneinfo
+			--enable-gtk-doc
 INSTALL_TARGET=		install-strip
 SOVERSION=		${SOVERSION}
 GLIB_SCHEMAS=		org.mate.weather.gschema.xml
@@ -47,3 +55,6 @@ post-extract:
 	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/libmateweather/weather.h >> ${WRKDIR}/TERMS
 	${ECHO} "Terms extracted from 'libmateweather/parser.h':" >> ${WRKDIR}/TERMS
 	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/libmateweather/parser.h >> ${WRKDIR}/TERMS
+
+pre-configure:
+	cd ${WRKSRC} && ${SETENV} NOCONFIGURE=yes ${SH} ./autogen.sh
