@@ -1,4 +1,4 @@
---- src/tools/process_stub/main.cpp.orig	2025-10-28 11:28:21 UTC
+--- src/tools/process_stub/main.cpp.orig	2025-12-09 14:09:10 UTC
 +++ src/tools/process_stub/main.cpp
 @@ -28,6 +28,11 @@
  #include <sys/prctl.h>
