@@ -1,5 +1,5 @@
---- tools/rpmuncompress.c.orig	2024-10-07 09:35:46 UTC
-+++ tools/rpmuncompress.c
+--- tools/rpmuncompress.cc.orig	2025-12-10 13:48:29 UTC
++++ tools/rpmuncompress.cc
 @@ -5,6 +5,7 @@
  #include <errno.h>
  #include <stdio.h>

@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	4.20.1
-DEF[SOVERSION]=		10.2.1
+DEF[PORTVERSION]=	6.0.1
+DEF[SOVERSION]=		10.7.0
 DEF[MAJOR]=		${PORTVERSION:R}
 DEF[BINARIES]=		rpm rpm2archive rpm2cpio rpmbuild rpmdb rpmgraph rpmkeys rpmlua rpmsign rpmsort rpmspec
 DEF[LIBRARIES]=		librpm librpmbuild librpmio librpmsign
@@ -56,11 +56,12 @@ BUILDRUN_DEPENDS=	bzip2:primary:std
 # #			rpm-sequoia:primary:std
 			xz:primary:std
 			zstd:primary:std
+			scdoc:primary:std
 EXRUN[tools]=		primary
 EXRUN[python]=		primary
 
 USES=			cmake fortran:primary gettext lua:5.4 pkgconfig python
-			shebangfix sqlite ssl zlib cpe
+			shebangfix sqlite ssl zlib cpe c++:primary
 SHEBANG_FILES=		scripts/brp-compress
 			scripts/check-rpaths-worker
 			scripts/check-prereqs
@@ -70,6 +71,7 @@ SHEBANG_FILES=		scripts/brp-compress
 			scripts/pkgconfigdeps.sh
 			scripts/rpm_macros_provides.sh
 			scripts/sysusers.sh
+			scripts/rpm-setup-autosign
 
 # For now just disable Linux-only stuff & things that cause problems
 CMAKE_ARGS=		-DWITH_CAP=OFF
@@ -99,3 +101,4 @@ post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/python*/site-packages/rpm/_rpm.so
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/rpm/rpmdeps
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/rpm/rpmuncompress
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/rpm/rpmdump

@@ -1,4 +1,4 @@
---- misc/fts.c.orig	2024-10-07 09:35:46 UTC
+--- misc/fts.c.orig	2025-12-10 13:48:29 UTC
 +++ misc/fts.c
 @@ -37,12 +37,14 @@ static char sccsid[] = "@(#)fts.c	8.6 (B
  #endif
@@ -34,9 +34,9 @@
  #if defined(sun)
  #   define __errno_location()	(&errno)
  #   define dirfd(dirp)		-1
-@@ -72,14 +78,17 @@ static char sccsid[] = "@(#)fts.c	8.6 (B
- #		define stat64	stat
- #endif
+@@ -75,14 +81,17 @@ static char sccsid[] = "@(#)fts.c	8.6 (B
+ #if defined(_AIX)
+ #   define __errno_location()   (&errno)
  #endif
 +#if defined(__NetBSD__)
 +#   define __errno_location()  (&errno)
