@@ -11,22 +11,29 @@ DEF[SOVERSION]=		4.0.0
 
 NAMEBASE=		mbedtls
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		security devel
 VARIANTS=		std
 SDESC[std]=		Light-weight cryptographic and SSL/TLS library
 HOMEPAGE=		https://www.trustedfirmware.org/projects/mbed-tls/
 CONTACT=		nobody
 
-DOWNLOAD_GROUPS=	main framework crypto subframe
-SITES[main]=		GITHUB/ARMmbed:mbedtls:v${PORTVERSION}
-SITES[framework]=	GITHUB/Mbed-TLS:mbedtls-framework:${FRAMEWORK_TAG}:framework
-SITES[crypto]=		GITHUB/Mbed-TLS:TF-PSA-Crypto:${TPCRYPTO_TAG}:tf-psa-crypto
-SITES[subframe]=	GITHUB/Mbed-TLS:mbedtls-framework:${SUBFRAME_TAG}:tf-psa-crypto/framework
-DISTFILE[1]=		generated:main
-DISTFILE[2]=		generated:framework
-DISTFILE[3]=		generated:crypto
-DISTFILE[4]=		generated:subframe
-DF_INDEX=		1 2 3 4
+# Don't build from github -- PSA-Crypto requires python-jsonschema which requires rust
+#
+# DOWNLOAD_GROUPS=	main framework crypto subframe
+# SITES[main]=		GITHUB/ARMmbed:mbedtls:v${PORTVERSION}
+# SITES[framework]=	GITHUB/Mbed-TLS:mbedtls-framework:${FRAMEWORK_TAG}:framework
+# SITES[crypto]=		GITHUB/Mbed-TLS:TF-PSA-Crypto:${TPCRYPTO_TAG}:tf-psa-crypto
+# SITES[subframe]=	GITHUB/Mbed-TLS:mbedtls-framework:${SUBFRAME_TAG}:tf-psa-crypto/framework
+# DISTFILE[1]=		generated:main
+# DISTFILE[2]=		generated:framework
+# DISTFILE[3]=		generated:crypto
+# DISTFILE[4]=		generated:subframe
+# DF_INDEX=		1 2 3 4
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://github.com/Mbed-TLS/mbedtls/releases/download/mbedtls-${PORTVERSION}/
+DISTFILE[1]=		mbedtls-${PORTVERSION}.tar.bz2:main
 
 SPKGS[std]=		set primary tools dev
 
@@ -44,7 +51,7 @@ LICENSE_SOURCE=		TERMS:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		dual
 
 BUILD_DEPENDS=		python-Jinja2:single:python_used
-			python-jsonschema:single:python_used
+# #			python-jsonschema:single:python_used
 
 EXRUN[tools]=		mbedtls:primary:std
 
