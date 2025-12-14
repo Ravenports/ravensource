@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	3.0.4
-DEF[SOVERSION]=		0.0.4
+DEF[PORTVERSION]=	3.0.6
+DEF[SOVERSION]=		0.6.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gimp
@@ -47,6 +47,7 @@ BUILD_DEPENDS=		iso-codes:primary:std
 			aalib:dev:std
 			json-glib:dev:std
 			libjxl:dev:std
+			appstream:dev:std
 			appstream-glib:dev:std
 			python-gi-docgen:set:python_used
 
@@ -71,13 +72,14 @@ BUILDRUN_DEPENDS=	libmypaint:primary:std
 			openjpeg:primary:std
 			json-glib:primary:std
 			libjxl:primary:std
+			appstream:primary:std
 			appstream-glib:primary:std
 			gsettings-desktop-schemas:primary:std
 
 USES=			cpe meson jpeg iconv pkgconfig
 			freetype execinfo xz bz2 zlib tiff ssl:build
 			gnome-icons:primary desktop-utils:primary python
-GNOME_COMPONENTS=	cairo gtk3 intltool librsvg introspection
+GNOME_COMPONENTS=	cairo gtk3 intltool librsvg introspection glib
 XORG_COMPONENTS=	ice sm x11 xcursor xext xfixes xmu xpm xt
 MESON_ARGS=		-Daa=enabled
 			-Dmng=enabled
@@ -115,12 +117,4 @@ SOVERSION=		${SOVERSION}
 [LINUX].MAKEFILE_OFF=			VAR1="-lexecinfo -lm"
 
 post-extract:
-	${CP} ${FILESDIR}/cp-plug-in-subfolder.py ${WRKSRC}/build/meson/
 	glib-compile-schemas ${LOCALBASE}/share/glib-2.0/schemas
-
-post-extract-linux:
-	# HACK: meson/ninja fails to use gexiv2 cflags on every command
-	(cd ${LOCALBASE}/include && ${LN} -s gexiv2-*/gexiv2 .)
-
-post-install-linux:
-	${RM} ${LOCALBASE}/include/gexiv2
