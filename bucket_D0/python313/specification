@@ -40,6 +40,9 @@ BUILDRUN_DEPENDS=	libffi:primary:std
 B_DEPS[linux]=		libuuid:dev:std
 BR_DEPS[linux]=		libuuid:primary:std
 
+B_DEPS[netbsd]=		libuuid:dev:std
+BR_DEPS[netbsd]=	libuuid:primary:std
+
 EXRUN[sqlite]=		sqlite:primary:std
 
 FPC_EQUIVALENT=		lang/python313
@@ -98,6 +101,7 @@ VAR_OPSYS[netbsd]=	PLIST_SUB=SOABI=.cpython-${PYTHON_SUFFIX}{{ABIFLAGS}}
 			PLIST_SUB=SCD=
 			PLIST_SUB=FULLABI={{ABIFLAGS}}
 			PLIST_SUB=PLAT={{OPSYS:tl}}{{MAJOR:R}}
+			CONFIGURE_ARGS=ac_cv_header_uuid_h=false
 			MAKEFILE_LINE=DISABLED_EXTENSIONS+=_crypt
 VAR_OPSYS[sunos]=	PLIST_SUB=SOABI=.cpython-${PYTHON_SUFFIX}{{ABIFLAGS}}
 			PLIST_SUB=SCD=
