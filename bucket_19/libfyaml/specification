@@ -38,3 +38,9 @@ INSTALL_TARGET=		install-strip
 pre-configure:
 	${GREP} -rl "#include <alloca\\.h>" ${WRKSRC} |\
 	${XARGS} ${REINPLACE_CMD} -E "s|#include <alloca\\.h>|#include <stdlib.h>|"
+
+pre-configure-netbsd:
+	${REINPLACE_CMD} 's|getopt_long_only|getopt_long|g' \
+		${WRKSRC}/src/internal/fy-b3sum.c \
+		${WRKSRC}/src/internal/fy-thread.c \
+		${WRKSRC}/src/tool/fy-tool.c
