@@ -3,12 +3,12 @@ DEF[PORTVERSION]=	25.04.0
 DEF[SOVERSION]=		148.0.0
 DEF[CPP_SOVERSION]=	2.1.0
 DEF[GLIB_SOVERSION]=	8.29.0
-DEF[QT5_SOVERSION]=	1.38.0
 DEF[QT6_SOVERSION]=	3.10.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		poppler
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		graphics print
 VARIANTS=		std
 SDESC[std]=		PDF rendering library
@@ -19,7 +19,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://poppler.freedesktop.org/
 DISTFILE[1]=		poppler-${PORTVERSION}.tar.xz:main
 
-SPKGS[std]=		set primary cpp glib qt5 qt6 utils man dev cppdev glibdev qt5dev qt6dev
+SPKGS[std]=		set primary cpp glib qt6 utils man dev cppdev glibdev qt6dev
 
 OPTIONS_AVAILABLE=	INTROSPECTION
 OPTIONS_STANDARD=	INTROSPECTION
@@ -36,7 +36,6 @@ FPC_EQUIVALENT=		graphics/poppler
 
 BUILD_DEPENDS=		cairo:dev:std
 			cairo:primary:std
-			qt5-qttools:set:std
 			qt6-qttools:set:std
 			boost-libraries:dev:std
 			glib:dev:std
@@ -58,8 +57,6 @@ BUILDRUN_DEPENDS=	lcms2:primary:std
 EXRUN[cpp]=		poppler:primary:std
 EXRUN[glib]=		poppler:primary:std
 			cairo:primary:std
-EXRUN[qt5]=		poppler:primary:std
-			qt5-qtbase:primary:std
 EXRUN[qt6]=		poppler:primary:std
 			qt6-qtbase:primary:std
 EXRUN[utils]=		poppler:primary:std
@@ -72,20 +69,18 @@ GNOME_COMPONENTS=	gtk3 gdkpixbuf pango
 CPE_VENDOR=		freedesktop
 CMAKE_ARGS=		-DENABLE_GLIB=ON
 			-DENABLE_UTILS=ON
-			-DENABLE_QT5=ON
+			-DENABLE_QT5=OFF
 			-DENABLE_QT6=ON
 			-DENABLE_LIBCURL=ON
 			-DBUILD_GTK_TESTS=OFF
 			-DENABLE_GTK_DOC=OFF
 			-DCMAKE_VERBOSE_MAKEFILE:BOOL=TRUE
-			-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt5/cmake
+			-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt6/cmake
 			-DENABLE_UNSTABLE_API_ABI_HEADERS=ON
 			-DENABLE_GPGME:BOOL=FALSE
 			-DENABLE_NSS3:BOOL={{NSS3:UFALSE}}
 PLIST_SUB=		CPP_SOVERSION=${CPP_SOVERSION}
 			CPP_SOMAJOR=${CPP_SOVERSION:R:R}
-			QT5_SOVERSION=${QT5_SOVERSION}
-			QT5_SOMAJOR=${QT5_SOVERSION:R:R}
 			QT6_SOVERSION=${QT6_SOVERSION}
 			QT6_SOMAJOR=${QT6_SOVERSION:R:R}
 			GLIB_SOVERSION=${GLIB_SOVERSION}
