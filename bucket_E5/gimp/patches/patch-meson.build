@@ -1,6 +1,25 @@
 --- meson.build.orig	2025-10-05 17:14:02 UTC
 +++ meson.build
-@@ -1487,6 +1487,7 @@ conf.set('NO_FD_SET',
+@@ -171,6 +171,10 @@ platform_linux = (
+   host_os.contains('linux')
+ )
+ 
++platform_netbsd = (
++  host_os.contains('netbsd')
++)
++
+ platform_windows = (
+   host_os.contains('mingw') or
+   host_os.contains('cygwin') or
+@@ -407,6 +411,7 @@ rpc               = platform_windows ? c
+ dbghelp           = platform_windows ? cc.find_library('dbghelp') : no_dep
+ winsock           = platform_windows ? cc.find_library('ws2_32') : no_dep
+ mscms             = platform_windows ? cc.find_library('mscms') : no_dep
++realtime          = platform_netbsd ? cc.find_library('rt') : no_dep
+ atk_minver        = '2.4.0'
+ atk               = dependency('atk',                version: '>='+atk_minver)
+ babl_minver       = '0.1.114'
+@@ -1487,6 +1492,7 @@ conf.set('NO_FD_SET',
    not platform_windows
    and not cc.compiles('''
      #include <sys/types.h>
