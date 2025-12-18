@@ -93,7 +93,7 @@ VAR_OPSYS[linux]=	VAR1=linux
 			CONFIGURE_ARGS=-L
 			CONFIGURE_ARGS=/usr/lib/x86_64-linux-gnu/
 
-post-patch:
+pre-configure:
 	${MKDIR} ${WRKSRC}/mkspecs/dragonfly-g++
 	${MKDIR} ${WRKSRC}/mkspecs/midnightbsd-g++
 	${INSTALL_DATA} ${WRKSRC}/mkspecs/freebsd-g++/qplatformdefs.h \
@@ -106,7 +106,7 @@ post-patch:
 	# Clean up files created by patching
 	find ${WRKSRC}/mkspecs/ -name "*.orig" -delete
 
-post-patch-sunos:
+pre-configure-sunos:
 	# getauxval test triggers false positive on Solaris
 	${REINPLACE_CMD} -e 's|sys/auxv.h|sys/auxvnope.h|' \
 		${WRKSRC}/src/corelib/global/qconfig-bootstrapped.h
