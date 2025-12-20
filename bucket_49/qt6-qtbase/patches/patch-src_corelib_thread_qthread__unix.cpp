@@ -5,7 +5,7 @@
  #endif
  
 -#if defined(Q_OS_FREEBSD)
-+#if (defined(Q_OS_FREEBSD) || defined(__MidnightBSD__)) && !defined(__DragonFly__)
++#if defined(Q_OS_FREEBSD) && !defined(__DragonFly__) && !defined(__MidnightBSD__)
  #  include <sys/cpuset.h>
  #elif defined(Q_OS_BSD4)
  #  include <sys/sysctl.h>
@@ -14,7 +14,7 @@
          cores = (int)psd.psd_proc_cnt;
      }
 -#elif (defined(Q_OS_LINUX) && !defined(Q_OS_ANDROID)) || defined(Q_OS_FREEBSD)
-+#elif (defined(Q_OS_LINUX) && !defined(Q_OS_ANDROID)) || (defined(Q_OS_FREEBSD) && !defined(__DragonFly__))
++#elif (defined(Q_OS_LINUX) && !defined(Q_OS_ANDROID)) || (defined(Q_OS_FREEBSD) && !defined(__DragonFly__) && !defined(__MidnightBSD__))
      QT_WARNING_PUSH
  #  if defined(Q_CC_CLANG) && Q_CC_CLANG >= 1800
      QT_WARNING_DISABLE_CLANG("-Wvla-cxx-extension")
