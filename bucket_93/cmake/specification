@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	4.2.1
 
 NAMEBASE=		cmake
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		std
 SDESC[std]=		Cross-platform Makefile generator
@@ -58,7 +59,11 @@ INSTALL_TARGET=		install/strip
 VAR_OPSYS[netbsd]=	CXXFLAGS=-D_NETBSD_SOURCE
 
 post-patch:
-	${CP} ${FILESDIR}/MidnightBSD.cmake ${WRKSRC}/Modules/Platform
+	${CP} ${FILESDIR}/MidnightBSD*.cmake ${WRKSRC}/Modules/Platform
+.for fname in Clang-ASM Clang-C Clang-CXX Determine-CXX GNU GNU-ASM GNU-C GNU-CXX GNU-Fortran
+	${CP} ${WRKSRC}/Modules/Platform/FreeBSD-${fname}.cmake \
+		${WRKSRC}/Modules/Platform/MidnightBSD-${fname}.cmake
+.endfor
 
 pre-configure:
 	${REINPLACE_CMD} -e "s@CYGWIN@true@g" \
