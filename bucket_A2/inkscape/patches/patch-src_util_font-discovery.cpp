@@ -1,6 +1,6 @@
 get_face method was removed (glib update?)
 
---- src/util/font-discovery.cpp.orig	2025-03-23 14:08:11 UTC
+--- src/util/font-discovery.cpp.orig	2025-04-27 18:26:33 UTC
 +++ src/util/font-discovery.cpp
 @@ -312,12 +312,6 @@ std::shared_ptr<const std::vector<FontIn
      double counter = 0.0;
