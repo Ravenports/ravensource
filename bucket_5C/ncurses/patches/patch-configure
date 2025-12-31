@@ -1,6 +1,6 @@
---- configure.orig	2024-04-28 13:16:56.914659000 +0200
-+++ configure	2024-04-28 13:23:06.643138000 +0200
-@@ -1689,7 +1689,7 @@
+--- configure.orig	2024-04-10 08:09:48 UTC
++++ configure
+@@ -1689,7 +1689,7 @@ echo $ECHO_N "checking for prefix... $EC
  if test "x$prefix" = "xNONE" ; then
  	case "$cf_cv_system_name" in
  		# non-vendor systems don't have a conflict
@@ -9,7 +9,7 @@
  		prefix=/usr
  		;;
  	(*)	prefix=$ac_default_prefix
-@@ -3147,7 +3147,7 @@
+@@ -3147,7 +3147,7 @@ if test "$cross_compiling" = yes ; then
  	LDCONFIG=:
  else
  	case "$cf_cv_system_name" in
@@ -18,7 +18,7 @@
  		test -z "$LDCONFIG" && LDCONFIG="/sbin/ldconfig -R"
  		;;
  	(*) LDPATH=$PATH:/sbin:/usr/sbin
-@@ -6442,14 +6442,14 @@
+@@ -6442,14 +6442,14 @@ echo $ECHO_N "checking for an rpath opti
  			LD_RPATH_OPT="-rpath "
  		fi
  		;;
@@ -35,7 +35,7 @@
  		;;
  	(netbsd*)
  		LD_RPATH_OPT="-Wl,-rpath,"
-@@ -6458,7 +6458,7 @@
+@@ -6458,7 +6458,7 @@ echo $ECHO_N "checking for an rpath opti
  		LD_RPATH_OPT="-rpath "
  		;;
  	(solaris2*)
@@ -44,7 +44,7 @@
  		;;
  	(*)
  		;;
-@@ -6979,12 +6979,12 @@
+@@ -6979,12 +6979,12 @@ CF_EOF
  		CC_SHARED_OPTS=
  		MK_SHARED_LIB='${LD} -Wshared -Wxld=-export_all -o $@'
  		;;
@@ -59,7 +59,7 @@
  		CC_SHARED_OPTS="$CC_SHARED_OPTS -DPIC"
  		if test "$DFT_LWR_MODEL" = "shared" && test "$cf_cv_enable_rpath" = yes ; then
  			LOCAL_LDFLAGS="${cf_ld_rpath_opt}\$(LOCAL_LIBDIR)"
-@@ -7070,11 +7070,11 @@
+@@ -7070,11 +7070,11 @@ CF_EOF
  		# tested with SunOS 5.5.1 (solaris 2.5.1) and gcc 2.7.2
  		# tested with SunOS 5.10 (solaris 10) and gcc 3.4.3
  		if test "$DFT_LWR_MODEL" = "shared" ; then
@@ -73,7 +73,7 @@
  		fi
  
  	test "$cf_cv_shlib_version" = auto && cf_cv_shlib_version=rel
-@@ -10400,7 +10400,7 @@
+@@ -10400,7 +10400,7 @@ case "$host_os" in
  	cf_xopen_source="-D_DARWIN_C_SOURCE"
  	cf_XOPEN_SOURCE=
  	;;
