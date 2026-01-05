@@ -1,0 +1,53 @@
+DEF[PORTVERSION]=	1.28.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		mate-calc
+VERSION=		${PORTVERSION}
+KEYWORDS=		math
+VARIANTS=		std
+SDESC[std]=		MATE calculator application
+HOMEPAGE=		https://github.com/mate-desktop/mate-calc/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/mate-desktop:mate-calc:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+DIST_SUBDIR=		mate
+
+SPKGS[std]=		set primary nls man
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:primary
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/mate-calc.c
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		math/mate-calc
+
+BUILD_DEPENDS=		appstream-glib:dev:std
+			gmp:dev:std
+			itstool:single:std
+			mpc:dev:std
+			mpfr:dev:std
+			yelp-tools:single:std
+BUILDRUN_DEPENDS=	appstream-glib:primary:std
+			mpc:primary:std
+			mpfr:primary:std
+
+USES=			autoreconf gettext gmake pkgconfig
+GNOME_COMPONENTS=	glib gtk3 intltool libxml2
+
+MUST_CONFIGURE=		gnu
+CFLAGS=			-Wno-implicit-function-declaration
+
+# stupid hack to make the configure script happy
+post-patch:
+	${LN} -s ${PREFIX}/share/gettext/m4/progtest.m4 \
+		${PREFIX}/share/aclocal/progtest.m4
+
+post-build:
+	${RM} ${PREFIX}/share/aclocal/progtest.m4
