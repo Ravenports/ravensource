@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	0.6.3
+DEF[SOVERSION]=		0.6.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		docopt-cpp
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		std
+SDESC[std]=		Command line arguments parser for C++11 and later
+HOMEPAGE=		http://docopt.org/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/docopt:docopt.cpp:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[std]=		set primary dev
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:primary
+			CUSTOM1:primary
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE-MIT
+			CUSTOM1:{{WRKSRC}}/LICENSE-Boost-1.0
+LICENSE_NAME=		CUSTOM1:"Boost Software License - Version 1.0"
+LICENSE_SCHEME=		dual
+
+USES=			c++:primary cmake
+
+CMAKE_ARGS=		-DCMAKE_POLICY_VERSION_MINIMUM=3.5
+
+SOVERSION=		${SOVERSION}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libdocopt.so
