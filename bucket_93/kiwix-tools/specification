@@ -1,0 +1,42 @@
+DEF[PORTVERSION]=	3.8.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		kiwix-tools
+VERSION=		${PORTVERSION}
+KEYWORDS=		www
+VARIANTS=		std
+SDESC[std]=		Collection of Kiwix related command line tools
+HOMEPAGE=		https://github.com/kiwix/kiwix-tools/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/kiwix:kiwix-tools:${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[std]=		set primary man
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv3+:primary
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/version.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		www/kiwix-tools
+
+BUILD_DEPENDS=		docopt-cpp:dev:std
+			curl:dev:std
+			icu:dev:std
+			libkiwix:dev:std
+			libmicrohttpd:dev:std
+			libzim:dev:std
+			pugixml:dev:std
+			xapian-core:dev:std
+BUILDRUN_DEPENDS=	docopt-cpp:primary:std
+			libkiwix:primary:std
+			libzim:primary:std
+
+USES=			meson pkgconfig ssl xz zlib zstd
