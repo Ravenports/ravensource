@@ -4,6 +4,7 @@ DEF[SVR_OPTIONS]=	STANDARD VIRTUAL XEPHYR NEST
 
 NAMEBASE=		xorg
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		x11
 VARIANTS=		std minimal
 SDESC[std]=		X.Org complete distribution meta-port
@@ -41,9 +42,10 @@ FPC_EQUIVALENT=		x11/xorg
 [NEST].RUN_DEPENDS_ON=			xorg-server:set:nest
 
 [MINIMAL].DESCRIPTION=			Minimal distribution variant
-[MINIMAL].RUN_DEPENDS_OFF=		xorg-fonts:single:std
+[MINIMAL].RUN_DEPENDS_OFF=		xorg-apps:single:std
 					xorg-drivers:single:std
-					xorg-apps:single:std
+					xorg-fonts:single:std
+					xorg-libraries:single:std
 					xcursor-themes:single:std
 [MINIMAL].RUN_DEPENDS_ON=		xorg-drivers-minimal:single:std
 					xorg-xauth:set:std
