@@ -1,4 +1,4 @@
---- src/lj_prng.c.orig	2025-05-29 05:19:55 UTC
+--- src/lj_prng.c.orig	2025-10-30 01:00:44 UTC
 +++ src/lj_prng.c
 @@ -113,6 +113,7 @@ static PRGR libfunc_rgr;
  #include <sys/syscall.h>
@@ -9,7 +9,7 @@
  /*
  ** In their infinite wisdom Apple decided to disallow getentropy() in the
 @@ -128,6 +129,7 @@ static PRGR libfunc_rgr;
- #elif (LJ_TARGET_BSD && !defined(__NetBSD__)) || LJ_TARGET_SOLARIS || LJ_TARGET_CYGWIN || LJ_TARGET_QNX
+ #elif (LJ_TARGET_BSD && !defined(__NetBSD__)) || LJ_TARGET_SOLARIS || LJ_TARGET_CYGWIN || LJ_TARGET_QNX || LJ_TARGET_HURD
  #define LJ_TARGET_HAS_GETENTROPY	1
  #endif
 +# endif
