@@ -1,4 +1,4 @@
---- libqpdf/QUtil.cc.orig	2025-04-06 13:23:49 UTC
+--- libqpdf/QUtil.cc.orig	2025-05-04 16:40:46 UTC
 +++ libqpdf/QUtil.cc
 @@ -896,6 +896,9 @@ QUtil::get_current_qpdf_time()
  # if HAVE_TM_GMTOFF
