@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	5.6.0
+DEF[PORTVERSION]=	5.6.2
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-celery
@@ -11,7 +11,7 @@ HOMEPAGE=		https://docs.celeryq.dev/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/01/4e/53a125038d6a814491a0ae3457435c13cf8821eb602292cf9db37ce35f62
+SITES[main]=		PYPIWHL/dd/bd/9ecd619e456ae4ba73b6583cc313f26152afae13e9a82ac4fe7f8856bfd1
 DISTFILE[1]=		celery-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -38,7 +38,7 @@ DISTNAME=		celery-${PORTVERSION}.dist-info
 # click-repl>=0.2.0
 # click-plugins>=1.1.1
 # python-dateutil>=2.8.2
-# exceptiongroup>=1.3.0
+# exceptiongroup>=1.3.0; python_version < "3.11"
 # tzlocal
 # pyArango>=2.0.2; extra == "arangodb"
 # cryptography==46.0.3; extra == "auth"
@@ -58,7 +58,7 @@ DISTNAME=		celery-${PORTVERSION}.dist-info
 # eventlet>=0.32.0; python_version < "3.10" and extra == "eventlet"
 # gevent>=1.5.0; extra == "gevent"
 # google-cloud-storage>=2.10.0; extra == "gcs"
-# google-cloud-firestore==2.21.0; extra == "gcs"
+# google-cloud-firestore==2.22.0; extra == "gcs"
 # grpcio==1.75.1; extra == "gcs"
 # librabbitmq>=2.0.0; python_version < "3.11" and extra == "librabbitmq"
 # pylibmc==1.6.3; platform_system != "Windows" and extra == "memcache"
@@ -93,7 +93,6 @@ DISTNAME=		celery-${PORTVERSION}.dist-info
 					python-click-repl:single:v13
 					python-click-plugins:single:v13
 					python-python-dateutil:single:v13
-					python-exceptiongroup:single:v13
 					python-tzlocal:single:v13
 [PY314].USES_ON=			python:v14,wheel
 [PY314].RUN_DEPENDS_ON=			python-billiard:single:v14
@@ -104,7 +103,6 @@ DISTNAME=		celery-${PORTVERSION}.dist-info
 					python-click-repl:single:v14
 					python-click-plugins:single:v14
 					python-python-dateutil:single:v14
-					python-exceptiongroup:single:v14
 					python-tzlocal:single:v14
 
 USES=			cpe

@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.287.3
+DEF[PORTVERSION]=	0.289.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-strawberry-graphql
@@ -11,7 +11,7 @@ HOMEPAGE=		https://strawberry.rocks/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/7c/8e/ffd20e179cc8218465599922660323f453c7b955aca2b909e5b86ba61eb0
+SITES[main]=		PYPIWHL/1f/88/6a831f429d15c5d4bf4cc6af48acf1d9fbc2187c19b8834efc84d80ad550
 DISTFILE[1]=		strawberry_graphql-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -32,14 +32,14 @@ DISTNAME=		strawberry_graphql-${PORTVERSION}.dist-info
 # Requires-Dist extracted from wheel metadata
 # Django (>=3.2) ; extra == "django"
 # aiohttp (>=3.7.4.post0,<4) ; extra == "aiohttp"
-# asgiref (>=3.2,<4.0) ; extra == "channels"
-# asgiref (>=3.2,<4.0) ; extra == "django"
-# chalice (>=1.22,<2.0) ; extra == "chalice"
+# asgiref (>=3.2) ; extra == "channels"
+# asgiref (>=3.2) ; extra == "django"
+# chalice (>=1.22) ; extra == "chalice"
 # channels (>=3.0.5) ; extra == "channels"
+# cross-web (>=0.4.0)
 # fastapi (>=0.65.2) ; extra == "fastapi"
 # flask (>=1.1) ; extra == "flask"
 # graphql-core (>=3.2.0,<3.4.0)
-# lia-web (>=0.2.1)
 # libcst ; extra == "cli"
 # libcst ; extra == "debug"
 # libcst ; extra == "debug-server"
@@ -48,8 +48,8 @@ DISTNAME=		strawberry_graphql-${PORTVERSION}.dist-info
 # opentelemetry-sdk (<2) ; extra == "opentelemetry"
 # packaging (>=23)
 # pydantic (>1.6.1) ; extra == "pydantic"
+# pygments (>=2.3) ; extra == "cli"
 # pygments (>=2.3) ; extra == "debug-server"
-# pygments (>=2.3,<3.0) ; extra == "cli"
 # pyinstrument (>=4.0.0) ; extra == "pyinstrument"
 # python-dateutil (>=2.7)
 # python-multipart (>=0.0.7) ; extra == "asgi"
@@ -73,14 +73,14 @@ DISTNAME=		strawberry_graphql-${PORTVERSION}.dist-info
 # websockets (>=15.0.1,<16) ; extra == "debug-server"
 
 [PY313].USES_ON=			python:v13,wheel
-[PY313].RUN_DEPENDS_ON=			python-graphql-core:single:v13
-					python-lia-web:single:v13
+[PY313].RUN_DEPENDS_ON=			python-cross-web:single:v13
+					python-graphql-core:single:v13
 					python-packaging:single:v13
 					python-python-dateutil:single:v13
 					python-typing-extensions:single:v13
 [PY314].USES_ON=			python:v14,wheel
-[PY314].RUN_DEPENDS_ON=			python-graphql-core:single:v14
-					python-lia-web:single:v14
+[PY314].RUN_DEPENDS_ON=			python-cross-web:single:v14
+					python-graphql-core:single:v14
 					python-packaging:single:v14
 					python-python-dateutil:single:v14
 					python-typing-extensions:single:v14

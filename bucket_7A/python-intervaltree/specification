@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.1.0
+DEF[PORTVERSION]=	3.2.1
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-intervaltree
@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/chaimleib/intervaltree
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/i/intervaltree
-DISTFILE[1]=		intervaltree-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/83/7f/8a80a1c7c2ed05822b5a2b312d2995f30c533641f8198366ba2e26a7bb03
+DISTFILE[1]=		intervaltree-${PORTVERSION}-py2.py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
 SPKGS[v13]=		single
@@ -24,16 +24,16 @@ VOPTS[v13]=		PY313=ON PY314=OFF
 VOPTS[v14]=		PY313=OFF PY314=ON
 
 # License listed at PyPI
-# Apache License, Version 2.0
+# Not provided.
 
 GENERATED=		yes
-DISTNAME=		intervaltree-${PORTVERSION}
+DISTNAME=		intervaltree-${PORTVERSION}.dist-info
 
-# install_requires extracted from setup.py
-# sortedcontainers<3.0,>=2.0
+# Requires-Dist extracted from wheel metadata
+# sortedcontainers
 
-[PY313].USES_ON=			python:v13,sutools
-[PY313].BUILDRUN_DEPENDS_ON=		python-sortedcontainers:single:v13
-[PY314].USES_ON=			python:v14,sutools
-[PY314].BUILDRUN_DEPENDS_ON=		python-sortedcontainers:single:v14
+[PY313].USES_ON=			python:v13,wheel
+[PY313].RUN_DEPENDS_ON=			python-sortedcontainers:single:v13
+[PY314].USES_ON=			python:v14,wheel
+[PY314].RUN_DEPENDS_ON=			python-sortedcontainers:single:v14
 

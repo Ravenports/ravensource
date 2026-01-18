@@ -1,10 +1,10 @@
 =========================
- README: Docutils 0.22.3
+ README: Docutils 0.22.4
 =========================
 
 :Author: David Goodger
 :Contact: goodger@python.org
-:Date: $Date: 2025-11-06 03:17:08 +0100 (Do, 06. Nov 2025) $
+:Date: $Date: 2025-12-18 19:44:54 +0100 (Do, 18. Dez 2025) $
 :Web site: https://docutils.sourceforge.io/
 :Copyright: This document has been placed in the public domain.
 
