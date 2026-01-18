@@ -1,4 +1,4 @@
---- spa/plugins/v4l2/v4l2-utils.c.orig	2025-09-11 08:12:34 UTC
+--- spa/plugins/v4l2/v4l2-utils.c.orig	2025-10-09 09:14:51 UTC
 +++ spa/plugins/v4l2/v4l2-utils.c
 @@ -15,6 +15,12 @@
  #include <spa/utils/cleanup.h>

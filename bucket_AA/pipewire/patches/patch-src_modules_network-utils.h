@@ -1,4 +1,4 @@
---- src/modules/network-utils.h.orig	2025-09-11 08:12:34 UTC
+--- src/modules/network-utils.h.orig	2025-10-09 09:14:51 UTC
 +++ src/modules/network-utils.h
 @@ -8,7 +8,7 @@
  #include <net/if.h>

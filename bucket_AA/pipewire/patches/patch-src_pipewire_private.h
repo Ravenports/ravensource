@@ -1,4 +1,4 @@
---- src/pipewire/private.h.orig	2025-09-11 08:12:34 UTC
+--- src/pipewire/private.h.orig	2025-10-09 09:14:51 UTC
 +++ src/pipewire/private.h
 @@ -14,6 +14,11 @@ extern "C" {
  #include <sys/socket.h>

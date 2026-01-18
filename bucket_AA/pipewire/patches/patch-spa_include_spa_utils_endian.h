@@ -1,4 +1,4 @@
---- spa/include/spa/utils/endian.h.orig	2025-09-11 08:12:34 UTC
+--- spa/include/spa/utils/endian.h.orig	2025-10-09 09:14:51 UTC
 +++ spa/include/spa/utils/endian.h
 @@ -5,7 +5,7 @@
  #ifndef SPA_ENDIAN_H

@@ -1,4 +1,4 @@
---- src/modules/module-netjack2-manager.c.orig	2025-09-11 08:12:34 UTC
+--- src/modules/module-netjack2-manager.c.orig	2025-10-09 09:14:51 UTC
 +++ src/modules/module-netjack2-manager.c
 @@ -39,6 +39,10 @@
  #include "module-netjack2/peer.c"
