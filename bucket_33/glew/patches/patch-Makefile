@@ -1,8 +1,8 @@
---- Makefile.orig	2020-03-15 11:53:59 UTC
+--- Makefile.orig	2025-12-21 21:50:38 UTC
 +++ Makefile
 @@ -43,7 +43,7 @@ endif
- GLEW_PREFIX ?= /usr
- GLEW_DEST ?= /usr
+ GLEW_PREFIX ?= /usr/local
+ GLEW_DEST ?= /usr/local
  BINDIR    ?= $(GLEW_DEST)/bin
 -LIBDIR    ?= $(GLEW_DEST)/lib
 +GLIBDIR   ?= $(GLEW_DEST)/lib
@@ -45,20 +45,17 @@
  
  tmp/$(SYSTEM)/default/static/glew.o: src/glew.c include/GL/glew.h include/GL/wglew.h include/GL/glxew.h
  	@mkdir -p $(dir $@)
-@@ -180,24 +181,24 @@ bin:
- 	mkdir bin
- 
- bin/$(GLEWINFO.BIN): $(GLEWINFO.BIN.OBJ) $(LIB.SHARED.DIR)/$(LIB.SHARED)
--	$(CC) $(CFLAGS) -o $@ $(GLEWINFO.BIN.OBJ) $(BIN.LIBS)
-+	$(CC) $(CFLAGS) -o $@ $(GLEWINFO.BIN.OBJ) $(BIN.LIBS) $(LDFLAGS)
+@@ -180,23 +181,23 @@ bin/$(GLEWINFO.BIN): $(GLEWINFO.BIN.OBJ)
+ 	@mkdir -p $(dir $@)
+ 	$(CC) $(CFLAGS) -o $@ $(GLEWINFO.BIN.OBJ) $(BIN.LIBS)
  ifneq ($(STRIP),)
 -	$(STRIP) -x $@
 +	$(STRIP) $@
  endif
  
  bin/$(VISUALINFO.BIN): $(VISUALINFO.BIN.OBJ) $(LIB.SHARED.DIR)/$(LIB.SHARED)
--	$(CC) $(CFLAGS) -o $@ $(VISUALINFO.BIN.OBJ) $(BIN.LIBS)
-+	$(CC) $(CFLAGS) -o $@ $(VISUALINFO.BIN.OBJ) $(BIN.LIBS) $(LDFLAGS)
+ 	@mkdir -p $(dir $@)
+ 	$(CC) $(CFLAGS) -o $@ $(VISUALINFO.BIN.OBJ) $(BIN.LIBS)
  ifneq ($(STRIP),)
 -	$(STRIP) -x $@
 +	$(STRIP) $@
@@ -76,7 +73,7 @@
  
  # Install targets
  
-@@ -206,26 +207,26 @@ install.all: install install.bin
+@@ -205,26 +206,26 @@ install.all: install install.bin
  install:     install.include install.lib install.pkgconfig
  
  install.lib: glew.lib
