@@ -1,4 +1,4 @@
---- src/ucm/main.c.orig	2025-12-07 19:41:56 UTC
+--- src/ucm/main.c.orig	2026-01-13 07:12:40 UTC
 +++ src/ucm/main.c
 @@ -40,6 +40,10 @@
  #include <sys/wait.h>

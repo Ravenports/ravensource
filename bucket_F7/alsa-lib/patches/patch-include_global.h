@@ -1,4 +1,4 @@
---- include/global.h.orig	2025-12-07 19:41:56 UTC
+--- include/global.h.orig	2026-01-13 07:12:40 UTC
 +++ include/global.h
 @@ -107,7 +107,7 @@ int snd_dlclose(void *handle);
  
