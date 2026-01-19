@@ -4,6 +4,9 @@ FNR==NR {
   # store crates list
   n=split ($0,item,"-")
 
+  # count number of "+" characters
+  numplus_one = split($0, discard, "+")
+
   # Omitted skipped crates.  'skip' variable can contain hyphens
   testname = item[1]
   for (j=2; j < n; j++) { testname = testname "-" item[j] }
@@ -11,45 +14,39 @@ FNR==NR {
      next
   }
 
-  # handle awful wasi tag
-  if (item[1] == "wasi") {
+  # handle tags using the + style
+  # e.g. wasi:0.11.0+wasi-snapshot-preview1
+  # e.g. wasip2-1.0.1+wasi-0.2.4
+  # e.g. curl-sys-0.4.83+curl-8.15.0
+  # e.g. jemalloc-sys-0.5.4+5.3.0-patched
+  # e.g. lz4-sys-1.11.1+lz4-1.10.0
+
+  if (numplus_one > 1) {
+     m=split(discard[1], subitem, "-")
+     newname= subitem[1]
+     for (j=2; j< m; j++) { newname = newname "-" subitem[j] }
+
      ll++
-     name[ll""] = "wasi"
-     version[ll""] = substr($0, 6)
+     name[ll""] = newname
+     version[ll""] = substr($0, length(newname) + 2)
      next
   }
 
-  # handle awful wasip2 tag
-  if (item[1] == "wasip2") {
-     ll++
-     name[ll""] = "wasip2"
-     version[ll""] = substr($0, 8)
-     next
-  }
+  # handle awful wasi tag
+  #if (item[1] == "wasi") {
+  #   ll++
+  #   name[ll""] = "wasi"
+  #   version[ll""] = substr($0, 6)
+  #   next
+  #}
 
   # handle awful curl-sys tag
-  if (item[1] == "curl" && item[2] == "sys") {
-     ll++
-     name[ll""] = "curl-sys"
-     version[ll""] = substr($0, 10)
-     next
-  }
-
-  # handle awful jemalloc-sys tag
-  if (item[1] == "jemalloc" && item[2] == "sys") {
-     ll++
-     name[ll""] = "jemalloc-sys"
-     version[ll""] = substr($0, 14)
-     next
-  }
-
-  # handle awful lz4-sys tag
-  if (item[1] == "lz4" && item[2] == "sys") {
-     ll++
-     name[ll""] = "lz4-sys"
-     version[ll""] = substr($0, 9)
-     next
-  }
+  #if (item[1] == "curl" && item[2] == "sys") {
+  #   ll++
+  #   name[ll""] = "curl-sys"
+  #   version[ll""] = substr($0, 10)
+  #   next
+  #}
 
   # handle standard crates
   ll++
