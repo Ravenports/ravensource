@@ -1,4 +1,4 @@
---- scribus/util_debug.cpp.orig	2025-06-27 17:04:30 UTC
+--- scribus/util_debug.cpp.orig	2026-01-19 14:51:40 UTC
 +++ scribus/util_debug.cpp
 @@ -53,7 +53,7 @@ void tDebug(const QString& message)
   */
