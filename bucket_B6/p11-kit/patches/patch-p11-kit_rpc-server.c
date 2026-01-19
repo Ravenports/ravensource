@@ -1,4 +1,4 @@
---- p11-kit/rpc-server.c.orig	2025-09-03 08:08:38 UTC
+--- p11-kit/rpc-server.c.orig	2025-02-13 10:29:30 UTC
 +++ p11-kit/rpc-server.c
 @@ -58,6 +58,7 @@
  #include <limits.h>
