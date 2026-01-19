@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	4.19.0
-DEF[DISTHASH]=		0f3a862394265a31d8465fc5e627d6429bbd8394
+DEF[PORTVERSION]=	4.20.1
+DEF[DISTHASH]=		74623235ae99f6e835e1e465017ce4c544ae6b53
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		iso-codes
@@ -20,17 +20,15 @@ OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 LICENSE=		LGPL21+:primary
-LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/LICENSES/LGPL-2.1-or-later.txt
 LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/scripts/pot_from_json.py
-LICENSE_AWK=		TERMS:"^$$"
+LICENSE_AWK=		TERMS:"^Read"
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		misc/iso-codes
 
-USES=			gettext:build gmake python shebangfix
+USES=			meson gettext:build python shebangfix
 SHEBANG_GLOB=		*.py
 SHEBANG_OLD_PYTHON=	/usr/bin/env[[:space:]]python3
-MUST_CONFIGURE=		gnu
-MAKE_ARGS=		pkgconfigdir={{PREFIX}}/lib/pkgconfig
 DISTNAME=		iso-codes-v${PORTVERSION}-${DISTHASH}
