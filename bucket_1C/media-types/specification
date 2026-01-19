@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	13.0.0
+DEF[PORTVERSION]=	14.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		media-types
@@ -11,7 +11,8 @@ CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		https://salsa.debian.org/debian/media-types/-/archive/${PORTVERSION}/
-DISTFILE[1]=		media-types-${PORTVERSION}.tar.gz:main
+			https://salsa.debian.org/debian/media-types/-/archive/debian/${PORTVERSION}/
+DISTFILE[1]=		media-types-debian-${PORTVERSION}.tar.gz:main
 
 SPKGS[std]=		single
 
@@ -23,6 +24,7 @@ LICENSE_FILE=		PUBDOM:{{WRKSRC}}/debian/copyright
 LICENSE_SCHEME=		solo
 
 SKIP_BUILD=		yes
+DISTNAME=		media-types-debian-${PORTVERSION}
 
 do-install:
 	${INSTALL_SCRIPT} ${WRKSRC}/mime.types ${STAGEDIR}${PREFIX}/etc/
