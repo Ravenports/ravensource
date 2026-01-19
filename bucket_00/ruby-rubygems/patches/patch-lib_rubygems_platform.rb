@@ -1,6 +1,6 @@
---- lib/rubygems/platform.rb.orig	2025-09-09 04:54:45 UTC
+--- lib/rubygems/platform.rb.orig	2026-01-13 23:55:37 UTC
 +++ lib/rubygems/platform.rb
-@@ -122,6 +122,7 @@ class Gem::Platform
+@@ -111,6 +111,7 @@ class Gem::Platform
                          @cpu = "x86" if @cpu.nil? && os.end_with?("32")
                          [os, version]
                        when /netbsdelf/ then                  ["netbsdelf", nil]
