@@ -1,4 +1,4 @@
---- src/common/iop_order.c.orig	2025-08-01 05:36:09 UTC
+--- src/common/iop_order.c.orig	2025-12-20 17:20:27 UTC
 +++ src/common/iop_order.c
 @@ -34,23 +34,6 @@
  

@@ -1,4 +1,4 @@
---- src/common/utility.c.orig	2025-08-01 05:36:09 UTC
+--- src/common/utility.c.orig	2025-12-20 17:20:27 UTC
 +++ src/common/utility.c
 @@ -40,6 +40,10 @@
    #include <FileAPI.h>

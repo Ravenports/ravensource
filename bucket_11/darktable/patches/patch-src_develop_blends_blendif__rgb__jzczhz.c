@@ -1,4 +1,4 @@
---- src/develop/blends/blendif_rgb_jzczhz.c.orig	2025-08-01 05:36:09 UTC
+--- src/develop/blends/blendif_rgb_jzczhz.c.orig	2025-12-20 17:20:27 UTC
 +++ src/develop/blends/blendif_rgb_jzczhz.c
 @@ -16,15 +16,6 @@
      along with darktable.  If not, see <http://www.gnu.org/licenses/>.

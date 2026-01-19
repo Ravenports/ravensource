@@ -1,4 +1,4 @@
---- src/external/rawspeed/cmake/Modules/cpu-cache-line-size.cpp.orig	2025-07-31 08:31:51 UTC
+--- src/external/rawspeed/cmake/Modules/cpu-cache-line-size.cpp.orig	2025-12-11 00:57:45 UTC
 +++ src/external/rawspeed/cmake/Modules/cpu-cache-line-size.cpp
 @@ -11,7 +11,7 @@
  #include <elf.h>
