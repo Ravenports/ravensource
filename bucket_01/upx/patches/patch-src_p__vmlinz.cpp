@@ -1,6 +1,6 @@
---- src/p_vmlinz.cpp.orig	2025-07-20 12:41:25 UTC
+--- src/p_vmlinz.cpp.orig	2026-01-07 11:13:41 UTC
 +++ src/p_vmlinz.cpp
-@@ -597,7 +597,7 @@ void PackBvmlinuzI386::pack(OutputFile *
+@@ -599,7 +599,7 @@ void PackBvmlinuzI386::pack(OutputFile *
              (res->lit_pos_bits << 8) |
              (res->pos_bits << 16);
          if (bele->isBE()) // big endian - bswap32

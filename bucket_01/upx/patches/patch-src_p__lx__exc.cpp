@@ -1,6 +1,6 @@
---- src/p_lx_exc.cpp.orig	2025-07-20 12:41:25 UTC
+--- src/p_lx_exc.cpp.orig	2026-01-07 11:13:41 UTC
 +++ src/p_lx_exc.cpp
-@@ -371,7 +371,7 @@ PackLinuxI386::buildLinuxLoader(
+@@ -373,7 +373,7 @@ PackLinuxI386::buildLinuxLoader(
              (res->lit_pos_bits << 8) |
              (res->pos_bits << 16);
          if (bele->isBE()) // big endian - bswap32

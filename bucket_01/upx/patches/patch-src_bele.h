@@ -1,4 +1,4 @@
---- src/bele.h.orig	2025-07-20 12:41:25 UTC
+--- src/bele.h.orig	2026-01-07 11:13:41 UTC
 +++ src/bele.h
 @@ -262,7 +262,7 @@ forceinline bele_constexpr upx_uint64_t
  
@@ -36,7 +36,7 @@
 +#define ne16_to_le16(v) upx_bswap16(v)
 +#define ne32_to_le32(v) upx_bswap32(v)
 +#define ne64_to_le64(v) upx_bswap64(v)
- #else
+ #elif (ACC_ABI_LITTLE_ENDIAN)
 -#define ne16_to_be16(v) bswap16(v)
 -#define ne32_to_be32(v) bswap32(v)
 -#define ne64_to_be64(v) bswap64(v)
