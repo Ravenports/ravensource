@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.4.0
+DEF[PORTVERSION]=	2.4.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		pcsc-lite
@@ -65,3 +65,6 @@ post-patch:
 post-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/lib/pcsc/drivers
 	${MKDIR} ${STAGEDIR}${PREFIX}/lib/pcsc/services
+	# libsystemd still installs files even if disabled
+	${RM} -r ${STAGEDIR}${PREFIX}/lib/systemd
+	${RM} -r ${STAGEDIR}${PREFIX}/sysusers.d
