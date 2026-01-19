@@ -1,6 +1,6 @@
---- src/flb_network.c.orig	2025-11-11 21:07:03 UTC
+--- src/flb_network.c.orig	2025-12-23 22:03:54 UTC
 +++ src/flb_network.c
-@@ -1967,7 +1967,7 @@ static int net_address_unix_socket_peer_
+@@ -1968,7 +1968,7 @@ static int net_address_unix_socket_peer_
                                                  int output_buffer_size,
                                                  size_t *output_data_size)
  {
@@ -9,7 +9,7 @@
      unsigned int peer_credentials_size;
      struct ucred peer_credentials;
  #endif
-@@ -1985,7 +1985,7 @@ static int net_address_unix_socket_peer_
+@@ -1986,7 +1986,7 @@ static int net_address_unix_socket_peer_
          return -1;
      }
  
@@ -18,7 +18,7 @@
      peer_credentials_size = sizeof(struct ucred);
  
      result = getsockopt(fd,
-@@ -2343,4 +2343,4 @@ uint64_t flb_net_htonll(uint64_t value)
+@@ -2344,4 +2344,4 @@ uint64_t flb_net_htonll(uint64_t value)
  #else
      return value;
  #endif

@@ -1,5 +1,5 @@
 # known to reroll
-DEF[PORTVERSION]=	4.2.1
+DEF[PORTVERSION]=	4.2.2
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		fluent-bit
@@ -30,11 +30,10 @@ FPC_EQUIVALENT=		sysutils/fluent-bit
 
 RC_SUBR=		fluent-bit:primary
 
-USES=			cpe cmake bison zlib gmake pkgconfig shebangfix
+USES=			cpe cmake bison zlib gmake pkgconfig
 			ssl:openssl30 python:build cclibs:primary c++:primary
 # Don't use execinfo, keep dependencies down
 
-SHEBANG_ADD_SH=		lib/luajit-04dca791/configure
 CPE_VENDOR=		treasuredata
 CPE_PRODUCT=		fluent_bit
 CMAKE_ARGS=		-DFLB_DEBUG=Off
