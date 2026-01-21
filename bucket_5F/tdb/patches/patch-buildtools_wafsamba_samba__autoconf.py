@@ -1,7 +1,7 @@
 Disable libssp -- it causes segfaults on several platforms, likly some
 kind of missing os-specific support or consideration.
 
---- buildtools/wafsamba/samba_autoconf.py.orig	2024-07-03 08:51:36 UTC
+--- buildtools/wafsamba/samba_autoconf.py.orig	2025-07-31 11:01:43 UTC
 +++ buildtools/wafsamba/samba_autoconf.py
 @@ -719,44 +719,6 @@ def SAMBA_CONFIG_H(conf, path=None):
      if not IN_LAUNCH_DIR(conf):
