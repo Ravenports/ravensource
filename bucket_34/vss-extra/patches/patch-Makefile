@@ -1,0 +1,17 @@
+--- Makefile.orig	2025-09-01 13:39:24 UTC
++++ Makefile
+@@ -21,11 +21,14 @@ INSTALL_LIBRARY_DIR    ?= $(DESTDIR)$(LI
+ INSTALL_ALI_DIR        ?= $(INSTALL_LIBRARY_DIR)/vss/$(word 2, $(subst _, ,$*))
+ 
+ GPRBUILD_FLAGS = -p -j0 $(GPRFLAGS) \
++	-XLIBRARY_TYPE=$(word 2, $(subst _, ,$*)) \
+ 	-XVSS_BUILD_PROFILE=$(word 1, $(subst _, ,$*)) \
+ 	-XVSS_LIBRARY_TYPE=$(word 2, $(subst _, ,$*))
+ GPRINSTALL_FLAGS = $(GPRFLAGS) \
++	-XLIBRARY_TYPE=$(word 2, $(subst _, ,$*)) \
+ 	-XVSS_BUILD_PROFILE=$(word 1, $(subst _, ,$*)) \
+ 	-XVSS_LIBRARY_TYPE=$(word 2, $(subst _, ,$*)) \
++	--no-manifests \
+ 	--build-name=$(word 2, $(subst _, ,$*)) \
+ 	--build-var=LIBRARY_TYPE --build-var=VSS_LIBRARY_TYPE \
+ 	--prefix=$(PREFIX) --exec-subdir=$(INSTALL_EXEC_DIR) \

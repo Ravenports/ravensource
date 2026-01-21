@@ -1,4 +1,4 @@
---- core/src/os/unix/libc-wrappers.c.orig	2024-09-24 09:28:32 UTC
+--- core/src/os/unix/libc-wrappers.c.orig	2025-11-28 12:36:47 UTC
 +++ core/src/os/unix/libc-wrappers.c
 @@ -408,6 +408,23 @@ void __gnatcoll_readdir(DIR *dirp, struc
  

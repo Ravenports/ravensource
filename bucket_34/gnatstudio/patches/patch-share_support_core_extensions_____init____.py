@@ -1,4 +1,4 @@
---- share/support/core/extensions/__init__.py.intermediate	2025-11-11 06:41:01 UTC
+--- share/support/core/extensions/__init__.py.orig	2025-09-19 10:04:04 UTC
 +++ share/support/core/extensions/__init__.py
 @@ -54,14 +54,14 @@ class extend_module:
  

@@ -1,4 +1,4 @@
-DEF[SOVERSION]=		25.0.0
+DEF[SOVERSION]=		26.0.0
 DEF[PORTVERSION]=	${SOVERSION}
 DEF[RELEASE]=		v${PORTVERSION}
 DEF[GNARL]=		"-lgnarl","-Wl,-rpath,{{PREFIX}}/lib"
@@ -17,7 +17,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/AdaCore:libadalang:${RELEASE}
 DISTFILE[1]=		generated:main
 
-SPKGS[std]=		set primary dev tools
+SPKGS[std]=		set primary dev tools examples
 
 OPTIONS_AVAILABLE=	DEBUG
 OPTIONS_STANDARD=	DEBUG
@@ -60,7 +60,8 @@ VAR_OPSYS[freebsd]=	MAKEFILE_LINE=XTRALIB=,"-lutil"
 
 do-configure:
 	(cd ${BUILD_WRKSRC} && ${SETENV} ${MAKE_ENV} \
-		${PYTHON_CMD} manage.py generate)
+		${PYTHON_CMD} -m langkit.scripts.lkm generate)
+
 	# prepare for mains.gpr modification
 	${PATCH} -d ${PATCH_WRKSRC} --backup --forward -E -p0 --batch \
 		< ${FILESDIR}/pc-patch-build_mains.gpr
@@ -74,13 +75,15 @@ do-configure:
 
 do-build:
 	(cd ${BUILD_WRKSRC} && ${SETENV} ${MAKE_ENV} \
-		${PYTHON_CMD} manage.py build\
-		${MAKE_ARGS:NDESTDIR=*})
+		${PYTHON_CMD} -m langkit.scripts.lkm build \
+		--library-types=static,static-pic,relocatable)
 
 do-install:
 	(cd ${BUILD_WRKSRC} && ${SETENV} ${MAKE_ENV} \
-		${PYTHON_CMD} manage.py install\
-		${MAKE_ARGS:NDESTDIR=*} ${STAGEDIR}${PREFIX})
+		${PYTHON_CMD} -m langkit.scripts.lkm install \
+		--library-types=static,static-pic,relocatable \
+		${STAGEDIR}${PREFIX})
+
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/[n]*
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/gnat_compare
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/lal_dda
@@ -89,8 +92,8 @@ do-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/lal_unparse
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libadalang.relocatable/libadalang.so
 	${SED} -i'' -e 's|/usr/bin/env python|${PYTHON_CMD}|' \
-		${STAGEDIR}${PREFIX}/bin/lal_playground
+		${STAGEDIR}${PREFIX}/bin/lal_playground \
+		${STAGEDIR}${PREFIX}/share/examples/libadalang/check*.py \
+		${STAGEDIR}${PREFIX}/share/examples/libadalang/detect*.py
 	${RM} -r ${STAGEDIR}${PREFIX}/share/gpr/manifests
-	${RM} -r ${STAGEDIR}${PREFIX}/share/examples/libadalang
-	${RM} ${STAGEDIR}${PREFIX}/python/setup.py
 	${RMDIR} ${STAGEDIR}${PREFIX}/lib/windows

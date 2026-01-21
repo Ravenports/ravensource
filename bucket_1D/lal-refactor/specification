@@ -1,4 +1,4 @@
-DEF[SOVERSION]=		25.0.0
+DEF[SOVERSION]=		26.0.0
 DEF[PORTVERSION]=	${SOVERSION}
 DEF[RELEASE]=		v${PORTVERSION}
 # ----------------------------------------------------------------------------
@@ -28,13 +28,14 @@ LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SCHEME=		solo
 
 BUILD_DEPENDS=		libadalang-tools:dev:std
-			libvss:dev:std
+			vss-extra:dev:std
 			libgpr2:dev:std
 			libadalang:dev:std
 			gnatcoll-core:dev:std
 			gnatcoll-bindings:dev:std
 			langkit_support:dev:std
 BUILDRUN_DEPENDS=	libadalang-tools:primary:std
+			vss-extra:primary:std
 
 USES=			gmake gprbuild iconv:standalone ada:primary
 MAKE_ARGS=		PROCESSORS={{MAKE_JOBS_NUMBER}}
@@ -50,3 +51,4 @@ pre-configure:
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lal_refactor.relocatable/liblal-refactor.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/lalrefactor

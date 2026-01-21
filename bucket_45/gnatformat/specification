@@ -1,11 +1,10 @@
-DEF[PORTVERSION]=	25.0.0
+DEF[PORTVERSION]=	26.0.0
 DEF[RELEASE]=		v${PORTVERSION}
 DEF[SOVERSION]=		${PORTVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gnatformat
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		textproc ada
 VARIANTS=		std
 SDESC[std]=		Ada code formatter based on Prettier-Ada library
@@ -29,11 +28,13 @@ LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SCHEME=		solo
 
 BUILD_DEPENDS=		libadalang:dev:std
+			vss-extra:dev:std
 BUILDRUN_DEPENDS=	libadalang:primary:std
+			vss-extra:primary:std
 
 EXRUN[tools]=		gmp:primary:std
 
-USES=			gprbuild iconv:build
+USES=			gprbuild iconv:build gmake
 MAKE_ARGS=		PROCESSORS={{MAKE_JOBS_NUMBER}}
 MAKE_ENV=		GPR_PROJECT_PATH={{WRKSRC}}
 BUILD_TARGET=		lib bin

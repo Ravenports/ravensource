@@ -1,42 +1,47 @@
---- Makefile.orig	2024-10-14 16:47:27 UTC
+--- Makefile.orig	2025-07-02 16:04:06 UTC
 +++ Makefile
-@@ -15,12 +15,7 @@ ifeq ($(OS),Windows_NT)
-    PYTHON=python.exe
+@@ -16,12 +16,7 @@ ifeq ($(OS),Windows_NT)
     EXE=.exe
+    LSP_OS=$(OS)
  else
 -   UNAME_S := $(shell uname -s)
 -   ifeq ($(UNAME_S),Linux)
-       OS=unix
+-      LSP_OS=unix
 -   else ifeq ($(UNAME_S),Darwin)
--      OS=osx
+-      LSP_OS=osx
 -   endif
++   LSP_OS=unix
     PYTHON=python3
     EXE=
  endif
-@@ -112,6 +107,8 @@ endif
- 	$(GPRBUILD) -P gnat/lsp_3_17.gpr -p $(COVERAGE_BUILD_FLAGS)
- 	$(GPRBUILD) -P gnat/tester.gpr -p $(BUILD_FLAGS)
- 	$(GPRBUILD) -P gnat/lsp_client.gpr -p $(COVERAGE_BUILD_FLAGS)
-+	$(GPRBUILD) -P gnat/lsp_client_glib.gpr -p $(COVERAGE_BUILD_FLAGS) \
+@@ -118,6 +113,8 @@ endif
+ 	$(GPRBUILD) -P gnat/lsp_3_17.gpr -p $(COVERAGE_BUILD_FLAGS) $(GPRBUILD_CARGS)
+ 	$(GPRBUILD) -P gnat/tester.gpr -p $(BUILD_FLAGS) $(GPRBUILD_CARGS)
+ 	$(GPRBUILD) -P gnat/lsp_client.gpr -p $(COVERAGE_BUILD_FLAGS) $(GPRBUILD_CARGS)
++	$(GPRBUILD) -P gnat/lsp_client_glib.gpr -p $(COVERAGE_BUILD_FLAGS) $(GPRBUILD_CARGS) \
 +		-XVERSION=$(VERSION) -XBUILD_DATE=$(BUILD_DATE)
  ifdef NODE
  	mkdir -p integration/vscode/ada/$(NODE_ARCH_PLATFORM)
  	cp -v -f $(ALS) integration/vscode/ada/$(NODE_ARCH_PLATFORM)
-@@ -135,15 +132,17 @@ endif
+@@ -140,16 +137,20 @@ ifneq ($(COVERAGE),)
+ endif
  
  install:
- 	gprinstall -f -P gnat/lsp_server.gpr -p -r --mode=usage \
+-	gprinstall -f -P gnat/lsp_server.gpr -p -r --mode=usage \
 -		--prefix=$(DESTDIR) $(LIBRARY_FLAGS)
 -	gprinstall -f -P gnat/tester.gpr -p --prefix=$(DESTDIR) $(LIBRARY_FLAGS)
++	gprinstall -f -P gnat/lsp_server.gpr -p -r --mode=usage --no-manifests \
 +		--prefix=$(DESTDIR)$(PREFIX) $(LIBRARY_FLAGS)
-+	gprinstall -f -P gnat/tester.gpr -p --prefix=$(DESTDIR)$(PREFIX) $(LIBRARY_FLAGS)
++	gprinstall -f -P gnat/tester.gpr -p --no-manifests \
++		--prefix=$(DESTDIR)$(PREFIX) $(LIBRARY_FLAGS)
  	gprinstall -f -P gnat/lsp_client.gpr -p -r	\
  		--mode=dev				\
 -		--prefix=$(DESTDIR)			\
++		--no-manifests                          \
 +		--prefix=$(DESTDIR)$(PREFIX)		\
  		$(LIBRARY_FLAGS)
 +	gprinstall -f -P gnat/lsp_client_glib.gpr -p -r \
-+		--mode=dev --prefix=$(DESTDIR)$(PREFIX) $(LIBRARY_FLAGS)
++		--mode=dev --no-manifests --prefix=$(DESTDIR)$(PREFIX) $(LIBRARY_FLAGS)
  ifneq ($(COVERAGE),)
 -	mkdir -p $(DESTDIR)/share/als/sids || true
 -	cp .obj/*/*.sid $(DESTDIR)/share/als/sids/

@@ -1,6 +1,6 @@
-DEF[PORTVERSION]=	25.0.0
+DEF[PORTVERSION]=	26.0.0
 DEF[RELEASE]=		v${PORTVERSION}
-DEF[SOVERSION]=		25.0
+DEF[SOVERSION]=		26.0
 DEF[JQUERY]=		EXTRACT_INFO(LATEST_JQUERY)
 DEF[UNDERSCORE]=	EXTRACT_INFO(SPHINX_UNDERSCORE)
 # ----------------------------------------------------------------------------
@@ -18,7 +18,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/AdaCore:gnatcoll-core:${RELEASE}
 DISTFILE[1]=		generated:main
 
-SPKGS[std]=		set primary dev docs
+SPKGS[std]=		set primary dev docs examples
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -67,7 +67,11 @@ pre-build:
 	(cd ${BUILD_WRKSRC}/docs && ${DO_MAKE_BUILD} html)
 
 post-install:
-	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
-	(cd ${WRKSRC}/docs/_build && ${COPYTREE_SHARE} . ${STAGEDIR}${STD_DOCDIR})
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libgnatcoll_*.so
 	${RM} -r ${STAGEDIR}${PREFIX}/share/gpr/manifests
+
+	# relocate docs
+	${MV} ${STAGEDIR}${PREFIX}/share/doc/gnatcoll ${STAGEDIR}${STD_DOCDIR}
+
+	# relocate examples
+	${MV} ${STAGEDIR}${PREFIX}/share/examples/gnatcoll ${STAGEDIR}${STD_EXAMPLESDIR}

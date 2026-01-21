@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	25.0.0
+DEF[PORTVERSION]=	26.0.0
 DEF[RELEASE]=		v${PORTVERSION}
 # ----------------------------------------------------------------------------
 
@@ -37,11 +37,10 @@ BUILD_TARGET=		build-tools
 INSTALL_TARGET=		install-tools
 INSTALL_REQ_TOOLCHAIN=	yes
 
-post-extract:
-	${MV} ${WRKSRC}/gpr2.gpr ${WRKSRC}/gpr2.gpr.disabled
-
 post-install:
-	# remove manifests
-	${RM} -r ${STAGEDIR}${PREFIX}/share/gpr
 	# strip binaries
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/gpr*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/libexec/gprbuild/*
+
+	# discard examples
+	${RM} -r ${STAGEDIR}${PREFIX}/share/examples

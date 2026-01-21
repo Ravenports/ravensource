@@ -1,32 +1,32 @@
---- Makefile.orig	2024-09-24 15:34:53 UTC
+--- Makefile.orig	2025-09-24 12:13:12 UTC
 +++ Makefile
-@@ -57,7 +57,8 @@ install-lib:
+@@ -70,7 +70,8 @@ install-lib:
  			-XLIBRARY_TYPE=$$library_type \
  			-XGNATFORMAT_BUILD_MODE=$(BUILD_MODE) \
  			--install-name=gnatformat \
 -			--prefix="$(PREFIX)" \
 +			--prefix="$(DESTDIR)$(PREFIX)" \
 +			--no-manifests \
- 			--sources-subdir=include/lal-refactor \
+ 			--sources-subdir=include/gnatformat \
  			--build-name=$$library_type \
  			--build-var=LIBRARY_TYPE \
-@@ -71,7 +72,8 @@ install-bin:
+@@ -86,7 +87,8 @@ install-bin:
  		-XLIBRARY_TYPE=$(LIBRARY_TYPE) \
  		-XBUILD_MODE=$(BUILD_MODE) \
- 		--install-name=gnatformat_driver \
+ 		--install-name=gnatformat \
 -		--prefix="$(PREFIX)" \
 +		--prefix="$(DESTDIR)$(PREFIX)" \
 +		--no-manifests \
- 		-P $(BIN_PROJECT) \
+ 		-P $(GNATFORMAT_DRIVER_PROJECT) \
  		-p \
  		-f ;
-@@ -97,7 +99,8 @@ install-test-programs:
- 			-XGNATFORMAT_LIBRARY_TYPE=$(LIBRARY_TYPE) \
- 			-XLIBRARY_TYPE=$(LIBRARY_TYPE) \
- 			-XGNATFORMAT_BUILD_MODE=$(BUILD_MODE) \
--			--prefix="$(PREFIX)" \
-+			--prefix="$(DESTDIR)$(PREFIX)" \
-+			--no-manifests \
- 			--install-name=test_programs \
- 			--mode=usage \
- 			-P $$proj -p -f ; \
+@@ -103,7 +105,8 @@ install-bin-stripped:
+ 		-XLIBRARY_TYPE=$(LIBRARY_TYPE) \
+ 		-XBUILD_MODE=$(BUILD_MODE) \
+ 		--install-name=gnatformat \
+-		--prefix="$(PREFIX)" \
++		--prefix="$(DESTDIR)$(PREFIX)" \
++		--no-manifests \
+ 		-P $(GNATFORMAT_DRIVER_PROJECT) \
+ 		-p \
+ 		-f ;

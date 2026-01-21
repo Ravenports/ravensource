@@ -1,4 +1,4 @@
---- src/gprbuild-link.adb.orig	2024-10-07 12:45:16 UTC
+--- src/gprbuild-link.adb.orig	2025-09-15 13:19:27 UTC
 +++ src/gprbuild-link.adb
 @@ -3302,8 +3302,6 @@ package body Gprbuild.Link is
           if Opt.Run_Path_Option

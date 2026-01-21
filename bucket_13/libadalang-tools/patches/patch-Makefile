@@ -1,15 +1,16 @@
---- Makefile.orig	2024-09-23 13:30:31 UTC
+--- Makefile.orig	2025-09-02 13:48:16 UTC
 +++ Makefile
-@@ -114,7 +114,7 @@ install-lib:
+@@ -113,7 +113,8 @@ install-lib:
  			gprinstall $(RELOCATE_BUILD) \
  				-XLIBRARY_TYPE=$$kind \
  				-XLALTOOLS_BUILD_MODE=$(BUILD_MODE) \
 -				--prefix="$(DESTDIR)" \
++				--no-manifests \
 +				--prefix="$(DESTDIR)$(PREFIX)" \
  				--sources-subdir=include/$$(basename $$proj | cut -d. -f1) \
  				--build-name=$$kind \
  				--build-var=LIBRARY_TYPE --build-var=LAL_TOOLS_BUILD \
-@@ -124,10 +124,10 @@ install-lib:
+@@ -123,10 +124,10 @@ install-lib:
  
  .PHONY: install-bin-strip
  install-bin-strip:

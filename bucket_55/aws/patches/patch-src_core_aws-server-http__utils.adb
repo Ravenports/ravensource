@@ -1,8 +1,8 @@
 Current_Process_Id is not available on GCC 6.x
 
---- src/core/aws-server-http_utils.adb.orig	2024-09-18 15:17:37 UTC
+--- src/core/aws-server-http_utils.adb.orig	2025-09-18 19:54:11 UTC
 +++ src/core/aws-server-http_utils.adb
-@@ -38,7 +38,6 @@ with Ada.Strings.Unbounded;
+@@ -36,7 +36,6 @@ with Ada.Strings.Unbounded;
  with Ada.Text_IO;
  
  with GNAT.MD5;
@@ -10,7 +10,7 @@ Current_Process_Id is not available on GCC 6.x
  with GNAT.Regexp;
  
  with AWS.Digest;
-@@ -937,9 +936,7 @@ package body AWS.Server.HTTP_Utils is
+@@ -935,9 +934,7 @@ package body AWS.Server.HTTP_Utils is
        -------------------------
  
        function Get_File_Upload_UID return String is

@@ -1,8 +1,8 @@
---- core/src/os/unix/process-wrappers.c.orig	2024-09-24 09:28:32 UTC
+--- core/src/os/unix/process-wrappers.c.orig	2025-11-28 12:36:47 UTC
 +++ core/src/os/unix/process-wrappers.c
-@@ -28,6 +28,10 @@
- #include <unistd.h>
+@@ -29,6 +29,10 @@
  #include <sys/wait.h>
+ #include <sys/time.h>
  #include <signal.h>
 +#ifdef __NetBSD__
 +#include <sys/select.h>

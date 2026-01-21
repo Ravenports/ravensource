@@ -1,4 +1,4 @@
---- share/plug-ins/dispatching.py.orig	2024-11-01 10:55:18 UTC
+--- share/plug-ins/dispatching.py.orig	2025-09-19 10:04:04 UTC
 +++ share/plug-ins/dispatching.py
 @@ -44,22 +44,14 @@ class Dispatching_Highlighter(Location_H
          GPS.Hook("preferences_changed").add(self.__on_preferences_changed)

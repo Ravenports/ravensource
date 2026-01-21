@@ -1,6 +1,6 @@
-Revert to older code compatible with gcc
+Revert to older code compatible with gcc 14
 
---- gpr/src/gpr-compilation-protocol.adb.orig	2024-10-07 12:45:16 UTC
+--- gpr/src/gpr-compilation-protocol.adb.orig	2025-09-15 13:19:27 UTC
 +++ gpr/src/gpr-compilation-protocol.adb
 @@ -22,7 +22,7 @@
  --                                                                          --
@@ -35,8 +35,8 @@ Revert to older code compatible with gcc
        Set_File_Last_Modify_Time_Stamp
          (Path_Name,
 -         To_Ada
--           (time_t
--              (Conversions.To_Unix_Time
+-           (Long_Long_Integer
+-              (Conversions.To_Unix_Time_64
 -                 (Time_Of
 -                    (TS (1, 4), TS (5, 6), TS (7, 8),
 -                     TS (9, 10), TS (11, 12), TS (13, 14))))));

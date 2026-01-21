@@ -1,4 +1,4 @@
-DEF[SOVERSION]=		25.0.0
+DEF[SOVERSION]=		26.0.0
 DEF[PORTVERSION]=	${SOVERSION}
 DEF[RELEASE]=		v${PORTVERSION}
 # ----------------------------------------------------------------------------
@@ -15,7 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/AdaCore:gpr:${RELEASE}
 DISTFILE[1]=		generated:main
 
-SPKGS[std]=		set primary dev
+SPKGS[std]=		set primary dev examples
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -38,23 +38,10 @@ BUILDRUN_DEPENDS=	langkit_support:primary:std
 EXRUN[dev]=		gnatcoll-bindings:dev:std
 			gnatcoll-core:dev:std
 
-# if GPR2_BUILD is "release", this happens:
-# during RTL pass: expand
-# +===========================GNAT BUG DETECTED==============================+
-# | 14.2.0 (x86_64-raven-dragonfly6.4) in set_parm_rtl, at cfgexpand.cc:1436 |
-# | No source file position information available                            |
-# | Compiling /construction/libgpr2/gpr-25.0.0/src/build/gpr2-build-actions-post_bind.adb|
-# | Please submit a bug report; see https://gcc.gnu.org/bugs/ .              |
-# | Use a subject line meaningful to you and us to track the bug.            |
-# | Include the entire contents of this bug box in the report.               |
-# | Include the exact command that you entered.                              |
-# | Also include sources listed below.                                       |
-# +==========================================================================+
-
 USES=			gmake gprbuild python:build iconv:build
 MAKE_ARGS=		prefix="{{STAGEDIR}}{{PREFIX}}"
 			GPR2KBDIR="{{LOCALBASE}}/share/gprconfig"
-			GPR2_BUILD="debug"
+			GPR2_BUILD="release"
 			PROCESSORS={{MAKE_JOBS_NUMBER}}
 BUILD_TARGET=		build-lib-static
 			build-lib-relocatable
@@ -69,3 +56,5 @@ pre-configure:
 post-install:
 	# strip binaries
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libgpr2.so
+	# relocate examples
+	${MV} ${STAGEDIR}${PREFIX}/share/examples/gpr2 ${STAGEDIR}${STD_EXAMPLESDIR}

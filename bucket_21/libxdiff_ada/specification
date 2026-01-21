@@ -1,0 +1,28 @@
+DEF[PORTVERSION]=	20250930
+DEF[HASH]=		1911fe5
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		libxdiff_ada
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc ada
+VARIANTS=		std
+SDESC[std]=		Ada wrapper to git xdiff library
+HOMEPAGE=		https://github.com/AdaCore/xdiff
+CONTACT=		John_Marino[draco@marino.st]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/adacore:xdiff:${HASH}
+DISTFILE[1]=		generated:main
+
+SPKGS[std]=		single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL21:single
+LICENSE_FILE=		LGPL21:stock
+LICENSE_TERMS=		single:{{WRKSRC}}/src/c_xdiff/src/COPYING
+LICENSE_SCHEME=		solo
+
+USES=			gprbuild gmake
+INSTALL_REQ_TOOLCHAIN=	yes

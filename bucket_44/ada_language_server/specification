@@ -1,6 +1,6 @@
-DEF[SOVERSION]=		25.0.0
+DEF[SOVERSION]=		26.0.202507021
 DEF[PORTVERSION]=	${SOVERSION}
-DEF[RELEASE]=		v${PORTVERSION}
+DEF[RELEASE]=		${PORTVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ada_language_server
@@ -29,12 +29,14 @@ BUILD_DEPENDS=		ada_libfswatch:single:std
 			libadalang:dev:std
 			libadalang-tools:dev:std
 			gnatformat:dev:std
+			vss-extra:dev:std
 BUILDRUN_DEPENDS=	libadalang-tools:primary:std
 			lal-refactor:primary:std
 			ada_spawn:primary:std
 			gnatformat:primary:std
 
-EXRUN[dev]=		libvss:dev:std
+EXRUN[dev]=		vss-text:dev:std
+			vss-extra:dev:std
 			gtkada:dev:std
 			ada_spawn:dev:std
 			gnatcoll-core:dev:std

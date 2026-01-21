@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	25.1.0
+DEF[PORTVERSION]=	26.0.0
 DEF[RELEASE_TAG]=	v${PORTVERSION}
 DEF[TPARSER_TAG]=	7bc8a2b
 DEF[ADDL_RPATH]=	{{LOCALBASE}}/lib:{{OPENSSLLIB}}
@@ -84,6 +84,7 @@ pre-configure:
 		${WRKSRC}/include/include.gpr
 	${REINPLACE_CMD} -e 's|latexpdf||' ${WRKSRC}/Makefile
 	${REINPLACE_CMD} -e 's|GPROPTS = |GPROPTS = -v |' ${WRKSRC}/Makefile
+	${REINPLACE_CMD} -e 's|@OPENSSLINC@|${OPENSSLINC}|' ${WRKSRC}/config/Makefile
 	# Use system xmlada for templates parser
 	${REINPLACE_CMD} -e 's|tp_xmlada|xmlada|' \
 		${WRKSRC}/templates_parser/templates_parser.gpr

@@ -1,0 +1,44 @@
+From b367314f312245194fbcfcdaa599cd0491936605 Mon Sep 17 00:00:00 2001
+From: Eric Botcazou <ebotcazou@adacore.com>
+Date: Thu, 11 Dec 2025 01:25:28 +0100
+Subject: [PATCH] Fix an illegal Ada 2012 construct now spotted by the compiler
+
+The call to the first Nth_Arg in the second Nth_Arg is illegal per the
+RM 6.4.1(6.4) subclause: In a function call, the accessibility level of
+the actual object for each explicitly aliased parameter shall not be
+statically deeper than the accessibility level of the master of the call.
+
+Issue: eng/toolchain/gnat#1696
+---
+ gnatcoll_extras/src/gnatcoll-scripts-vss_utils.adb | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+--- gnatcoll_extras/src/gnatcoll-scripts-vss_utils.adb.orig	2025-09-19 10:04:04 UTC
++++ gnatcoll_extras/src/gnatcoll-scripts-vss_utils.adb
+@@ -41,7 +41,7 @@ package body GNATCOLL.Scripts.VSS_Utils
+    function Nth_Arg
+      (Data    : GNATCOLL.Scripts.Python.Python_Callback_Data'Class;
+       N       : Positive;
+-      Success : aliased out Boolean) return VSS.Strings.Virtual_String;
++      Success : out Boolean) return VSS.Strings.Virtual_String;
+ 
+    procedure Initialize
+      (Text   : in out VSS.Implementation.UTF8_Strings.UTF8_String_Data;
+@@ -102,7 +102,7 @@ package body GNATCOLL.Scripts.VSS_Utils
+ 
+    function Nth_Arg
+      (Data : GNATCOLL.Scripts.Python.Python_Callback_Data'Class;
+-      N    : Positive; Success : aliased out Boolean)
++      N    : Positive; Success : out Boolean)
+       return VSS.Strings.Virtual_String
+    is
+       Item : GNATCOLL.Python.PyObject;
+@@ -136,7 +136,7 @@ package body GNATCOLL.Scripts.VSS_Utils
+      (Data : Callback_Data'Class;
+       N    : Positive) return VSS.Strings.Virtual_String
+    is
+-      Success : aliased Boolean;
++      Success : Boolean;
+ 
+    begin
+       if Data in GNATCOLL.Scripts.Python.Python_Callback_Data'Class then

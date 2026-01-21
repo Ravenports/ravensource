@@ -1,0 +1,11 @@
+--- config/Makefile.orig	2025-09-18 19:54:11 UTC
++++ config/Makefile
+@@ -121,7 +121,7 @@ ifeq ($(IS_CROSS), true)
+ else
+ 	( cd $(STP_DIR)/src; \
+ 		gcc -C -E -DTARGET=\"$(TARGET)\" os_lib-tmplt.c \
+-			-DSOCKET_$(SOCKET) \
++			-DSOCKET_$(SOCKET) -I@OPENSSLINC@\
+ 			> os_lib-tmplt.i; \
+ 		gcc -S os_lib-tmplt.i; \
+ 		$(XOSCONS) os_lib )

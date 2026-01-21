@@ -27,6 +27,8 @@ include/gnatcoll_core/gnatcoll-file_paths.ads
 include/gnatcoll_core/gnatcoll-format_columns_vertical.ads
 include/gnatcoll_core/gnatcoll-formatters.adb
 include/gnatcoll_core/gnatcoll-formatters.ads
+include/gnatcoll_core/gnatcoll-geometry.adb
+include/gnatcoll_core/gnatcoll-geometry.ads
 include/gnatcoll_core/gnatcoll-hash-blake3.adb
 include/gnatcoll_core/gnatcoll-hash-blake3.ads
 include/gnatcoll_core/gnatcoll-hash-xxhash.ads
@@ -51,6 +53,8 @@ include/gnatcoll_core/gnatcoll-mmap-system__unix.adb
 include/gnatcoll_core/gnatcoll-mmap-system__unix.ads
 include/gnatcoll_core/gnatcoll-mmap.adb
 include/gnatcoll_core/gnatcoll-mmap.ads
+include/gnatcoll_core/gnatcoll-opt_parse-misc_parsers.adb
+include/gnatcoll_core/gnatcoll-opt_parse-misc_parsers.ads
 include/gnatcoll_core/gnatcoll-opt_parse.adb
 include/gnatcoll_core/gnatcoll-opt_parse.ads
 include/gnatcoll_core/gnatcoll-os-constants__unix.ads
@@ -97,6 +101,9 @@ include/gnatcoll_core/gnatcoll-os-stat-fstat__unix.adb
 include/gnatcoll_core/gnatcoll-os-stat-stat__unix.adb
 include/gnatcoll_core/gnatcoll-os-stat.adb
 include/gnatcoll_core/gnatcoll-os-stat.ads
+include/gnatcoll_core/gnatcoll-os-temp-init__unix.adb
+include/gnatcoll_core/gnatcoll-os-temp.adb
+include/gnatcoll_core/gnatcoll-os-temp.ads
 include/gnatcoll_core/gnatcoll-os.ads
 include/gnatcoll_core/gnatcoll-paragraph_filling-badnesses.adb
 include/gnatcoll_core/gnatcoll-paragraph_filling-badnesses.ads
@@ -195,7 +202,7 @@ include/gnatcoll_minimal/gnatcoll-storage_pools.ads
 include/gnatcoll_minimal/gnatcoll-tribooleans.adb
 include/gnatcoll_minimal/gnatcoll-tribooleans.ads
 include/gnatcoll_minimal/gnatcoll.ads
-include/gnatcoll_minimal/gnatcoll_support.c
+include/gnatcoll_minimal/gnatcoll_atomics.c
 include/gnatcoll_projects/gnatcoll-projects-aux.adb
 include/gnatcoll_projects/gnatcoll-projects-aux.ads
 include/gnatcoll_projects/gnatcoll-projects-krunch.adb
@@ -223,6 +230,7 @@ lib/gnatcoll_core.relocatable/gnatcoll-file_indexes.ali
 lib/gnatcoll_core.relocatable/gnatcoll-file_paths.ali
 lib/gnatcoll_core.relocatable/gnatcoll-format_columns_vertical.ali
 lib/gnatcoll_core.relocatable/gnatcoll-formatters.ali
+lib/gnatcoll_core.relocatable/gnatcoll-geometry.ali
 lib/gnatcoll_core.relocatable/gnatcoll-hash-blake3.ali
 lib/gnatcoll_core.relocatable/gnatcoll-hash-xxhash__generic.ali
 lib/gnatcoll_core.relocatable/gnatcoll-hash.ali
@@ -235,6 +243,7 @@ lib/gnatcoll_core.relocatable/gnatcoll-json-utility.ali
 lib/gnatcoll_core.relocatable/gnatcoll-json.ali
 lib/gnatcoll_core.relocatable/gnatcoll-mmap-system__unix.ali
 lib/gnatcoll_core.relocatable/gnatcoll-mmap.ali
+lib/gnatcoll_core.relocatable/gnatcoll-opt_parse-misc_parsers.ali
 lib/gnatcoll_core.relocatable/gnatcoll-opt_parse.ali
 lib/gnatcoll_core.relocatable/gnatcoll-os-constants__unix.ali
 lib/gnatcoll_core.relocatable/gnatcoll-os-dir.ali
@@ -251,6 +260,7 @@ lib/gnatcoll_core.relocatable/gnatcoll-os-process.ali
 lib/gnatcoll_core.relocatable/gnatcoll-os-process_types__unix.ali
 lib/gnatcoll_core.relocatable/gnatcoll-os-random__unix.ali
 lib/gnatcoll_core.relocatable/gnatcoll-os-stat.ali
+lib/gnatcoll_core.relocatable/gnatcoll-os-temp.ali
 lib/gnatcoll_core.relocatable/gnatcoll-os.ali
 lib/gnatcoll_core.relocatable/gnatcoll-paragraph_filling-badnesses.ali
 lib/gnatcoll_core.relocatable/gnatcoll-paragraph_filling-words.ali
@@ -291,6 +301,7 @@ lib/gnatcoll_core.static/gnatcoll-file_indexes.ali
 lib/gnatcoll_core.static/gnatcoll-file_paths.ali
 lib/gnatcoll_core.static/gnatcoll-format_columns_vertical.ali
 lib/gnatcoll_core.static/gnatcoll-formatters.ali
+lib/gnatcoll_core.static/gnatcoll-geometry.ali
 lib/gnatcoll_core.static/gnatcoll-hash-blake3.ali
 lib/gnatcoll_core.static/gnatcoll-hash-xxhash__generic.ali
 lib/gnatcoll_core.static/gnatcoll-hash.ali
@@ -303,6 +314,7 @@ lib/gnatcoll_core.static/gnatcoll-json-utility.ali
 lib/gnatcoll_core.static/gnatcoll-json.ali
 lib/gnatcoll_core.static/gnatcoll-mmap-system__unix.ali
 lib/gnatcoll_core.static/gnatcoll-mmap.ali
+lib/gnatcoll_core.static/gnatcoll-opt_parse-misc_parsers.ali
 lib/gnatcoll_core.static/gnatcoll-opt_parse.ali
 lib/gnatcoll_core.static/gnatcoll-os-constants__unix.ali
 lib/gnatcoll_core.static/gnatcoll-os-dir.ali
@@ -319,6 +331,7 @@ lib/gnatcoll_core.static/gnatcoll-os-process.ali
 lib/gnatcoll_core.static/gnatcoll-os-process_types__unix.ali
 lib/gnatcoll_core.static/gnatcoll-os-random__unix.ali
 lib/gnatcoll_core.static/gnatcoll-os-stat.ali
+lib/gnatcoll_core.static/gnatcoll-os-temp.ali
 lib/gnatcoll_core.static/gnatcoll-os.ali
 lib/gnatcoll_core.static/gnatcoll-paragraph_filling-badnesses.ali
 lib/gnatcoll_core.static/gnatcoll-paragraph_filling-words.ali
@@ -359,6 +372,7 @@ lib/gnatcoll_core.static-pic/gnatcoll-file_indexes.ali
 lib/gnatcoll_core.static-pic/gnatcoll-file_paths.ali
 lib/gnatcoll_core.static-pic/gnatcoll-format_columns_vertical.ali
 lib/gnatcoll_core.static-pic/gnatcoll-formatters.ali
+lib/gnatcoll_core.static-pic/gnatcoll-geometry.ali
 lib/gnatcoll_core.static-pic/gnatcoll-hash-blake3.ali
 lib/gnatcoll_core.static-pic/gnatcoll-hash-xxhash__generic.ali
 lib/gnatcoll_core.static-pic/gnatcoll-hash.ali
@@ -371,6 +385,7 @@ lib/gnatcoll_core.static-pic/gnatcoll-json-utility.ali
 lib/gnatcoll_core.static-pic/gnatcoll-json.ali
 lib/gnatcoll_core.static-pic/gnatcoll-mmap-system__unix.ali
 lib/gnatcoll_core.static-pic/gnatcoll-mmap.ali
+lib/gnatcoll_core.static-pic/gnatcoll-opt_parse-misc_parsers.ali
 lib/gnatcoll_core.static-pic/gnatcoll-opt_parse.ali
 lib/gnatcoll_core.static-pic/gnatcoll-os-constants__unix.ali
 lib/gnatcoll_core.static-pic/gnatcoll-os-dir.ali
@@ -387,6 +402,7 @@ lib/gnatcoll_core.static-pic/gnatcoll-os-process.ali
 lib/gnatcoll_core.static-pic/gnatcoll-os-process_types__unix.ali
 lib/gnatcoll_core.static-pic/gnatcoll-os-random__unix.ali
 lib/gnatcoll_core.static-pic/gnatcoll-os-stat.ali
+lib/gnatcoll_core.static-pic/gnatcoll-os-temp.ali
 lib/gnatcoll_core.static-pic/gnatcoll-os.ali
 lib/gnatcoll_core.static-pic/gnatcoll-paragraph_filling-badnesses.ali
 lib/gnatcoll_core.static-pic/gnatcoll-paragraph_filling-words.ali

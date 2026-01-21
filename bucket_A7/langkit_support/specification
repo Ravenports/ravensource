@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	25.0.0
+DEF[PORTVERSION]=	26.0.0
 DEF[RELEASE]=		v${PORTVERSION}
 DEF[BUILD_MODE]=	prod
 DEF[MYDISTNAME]=	langkit-${PORTVERSION}
@@ -8,7 +8,6 @@ DEF[THIRD_SNAKE]=	${PY3DEFAULT:S|.||}
 
 NAMEBASE=		langkit_support
 VERSION=		${PORTVERSION}
-REVISION=		1
 EPOCH=			1
 KEYWORDS=		ada devel
 VARIANTS=		std
@@ -79,12 +78,6 @@ do-build:
 		--build-mode=prod \
 		--library-types=static,static-pic,relocatable)
 
-	# Construct python wheels
-	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} python -m build \
-		--no-isolation --wheel contrib/python/build/python)
-	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} python -m build \
-		--no-isolation --wheel contrib/lkt/build/python)
-
 do-install:
 	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
 		python manage.py install-langkit-support \
@@ -92,38 +85,21 @@ do-install:
 		--build-mode=prod \
 		${STAGEDIR}${PREFIX})
 
-	(cd ${WRKSRC}/contrib/lkt && ${SETENV} ${MAKE_ENV} \
-		python manage.py install \
+	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} python \
+		-m langkit.scripts.lkm install \
+		-c lkt/langkit.yaml \
 		--library-types=static,static-pic,relocatable \
 		--build-mode=prod \
 		--disable-all-mains \
 		${STAGEDIR}${PREFIX})
 
-	(cd ${WRKSRC}/contrib/python && ${SETENV} ${MAKE_ENV} \
-		python manage.py install \
-		--library-types=static,static-pic,relocatable \
-		--build-mode=prod \
-		--disable-all-mains \
-		${STAGEDIR}${PREFIX})
-
-	# install wheels in stage directory
-	${MKDIR} ${STAGEDIR}${PYTHONPREFIX_SITELIBDIR}
-	(cd ${BUILD_WRKSRC} && ${SETENV} AUTOPYTHON=${_PYTHON_VERSION} \
-		python -m installer \
-		--destdir ${STAGEDIR} \
-		--prefix ${PREFIX} \
-		${BUILD_WRKSRC}/contrib/python/build/python/dist/*.whl)
-
-	(cd ${BUILD_WRKSRC} && ${SETENV} AUTOPYTHON=${_PYTHON_VERSION} \
-		python -m installer \
-		--destdir ${STAGEDIR} \
-		--prefix ${PREFIX} \
-		${BUILD_WRKSRC}/contrib/lkt/build/python/dist/*.whl)
+	# fix shebang
+	${SED} -i'' -e 's|/usr/bin/env python|${PYTHON_CMD}|' \
+		${STAGEDIR}${PREFIX}/bin/lkt_playground
 
 	# strip
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/langkit_support.relocatable/liblangkit_support.so
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/liblktlang.relocatable/liblktlang.so
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libpythonlang.relocatable/libpythonlang.so
 
 	# Remove redundant manifest file
 	${RM} -r ${STAGEDIR}${PREFIX}/share/gpr/manifests

@@ -1,6 +1,6 @@
---- src/core/aws-server.adb.orig	2024-09-18 15:17:37 UTC
+--- src/core/aws-server.adb.orig	2025-09-18 19:54:11 UTC
 +++ src/core/aws-server.adb
-@@ -970,7 +970,7 @@ package body AWS.Server is
+@@ -975,7 +975,7 @@ package body AWS.Server is
  
           S.Phase := Wait_For_Client;
  

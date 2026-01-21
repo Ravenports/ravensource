@@ -1,5 +1,5 @@
 # This builds as a static library so "single" subpackage is appropriate
-DEF[PORTVERSION]=	25.0.0
+DEF[PORTVERSION]=	26.0.0
 DEF[RELEASE]=		v${PORTVERSION}
 # ----------------------------------------------------------------------------
 
@@ -27,7 +27,8 @@ LICENSE_SOURCE=		TERMS:{{WRKSRC}}/source/parser/markdown.ads
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		libvss:dev:std
+BUILD_DEPENDS=		vss-text:dev:std
+			vss-extra:dev:std
 
 USES=			gmake gprbuild
 INSTALL_REQ_TOOLCHAIN=	yes

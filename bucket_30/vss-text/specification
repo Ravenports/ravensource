@@ -1,0 +1,45 @@
+DEF[SOVERSION]=		26.0.0
+DEF[PORTVERSION]=	${SOVERSION}
+DEF[RELEASE]=		v${PORTVERSION}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		vss-text
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc devel ada
+VARIANTS=		std
+SDESC[std]=		High level string and text processing library
+HOMEPAGE=		https://github.com/AdaCore/vss-text
+CONTACT=		John_Marino[draco@marino.st]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/AdaCore:vss-text:${RELEASE}
+DISTFILE[1]=		generated:main
+
+SPKGS[std]=		set primary dev
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		APACHE20:primary
+LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE.txt
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/source/text/vss-strings.ads
+LICENSE_SCHEME=		solo
+
+BUILD_DEPENDS=		xmlada:dev:std
+BUILDRUN_DEPENDS=	xmlada:primary:std
+
+USES=			gmake gprbuild
+MAKE_ARGS=		BUILD_MODE=prod
+BUILD_TARGET=		build-all-libs
+INSTALL_TARGET=		install-all-libs
+INSTALL_REQ_TOOLCHAIN=	yes
+SOVERSION=		${SOVERSION}
+
+pre-configure:
+	# Set library versions
+	${REINPLACE_CMD} -e 's|%%SOVERSION%%|${SOVERSION}|' ${WRKSRC}/gnat/vss*.gpr
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib*.so
