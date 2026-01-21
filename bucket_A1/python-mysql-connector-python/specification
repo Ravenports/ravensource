@@ -11,8 +11,8 @@ HOMEPAGE=		https://dev.mysql.com/doc/connector-python/en/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/95/e1/45373c06781340c7b74fe9b88b85278ac05321889a307eaa5be079a997d4
-DISTFILE[1]=		mysql_connector_python-${PORTVERSION}-py2.py3-none-any.whl:main
+SITES[main]=		PYPI/m/mysql-connector-python
+DISTFILE[1]=		mysql_connector_python-${PORTVERSION}.tar.gz:main
 DIST_SUBDIR=		python-src
 
 SPKGS[v13]=		single
@@ -27,16 +27,11 @@ VOPTS[v14]=		PY313=OFF PY314=ON
 # GNU GPLv2 (with FOSS License Exception)
 
 GENERATED=		yes
-DISTNAME=		mysql_connector_python-${PORTVERSION}.dist-info
+DISTNAME=		mysql_connector_python-${PORTVERSION}
 
-# Requires-Dist extracted from wheel metadata
-# dnspython==2.6.1; extra == "dns-srv"
-# gssapi==1.8.3; extra == "gssapi"
-# fido2==1.1.2; extra == "webauthn"
-# opentelemetry-api==1.33.1; extra == "telemetry"
-# opentelemetry-sdk==1.33.1; extra == "telemetry"
-# opentelemetry-exporter-otlp-proto-http==1.33.1; extra == "telemetry"
+# Requires-Dist extracted from pyproject.toml file
 
-[PY313].USES_ON=			python:v13,wheel
-[PY314].USES_ON=			python:v14,wheel
+
+[PY313].USES_ON=			python:v13,pep517
+[PY314].USES_ON=			python:v14,pep517
 
