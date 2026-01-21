@@ -1,3 +1,8 @@
 USES=			cpe
 CPE_VENDOR=		python
 CPE_PRODUCT=		setuptools
+
+post-install:
+	# remove /Users/jaraco/code/pypa/setuptools/.tox/vendor/bin/python3 shebang
+	${SED} -i'' -e '/^#!.*/d' \
+	${STAGEDIR}${PREFIX}/lib/python*/site-packages/setuptools/_vendor/bin/wheel
