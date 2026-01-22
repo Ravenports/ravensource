@@ -1,6 +1,6 @@
---- Source/Modules/CMakeBuildUtilities.cmake.orig	2025-12-08 18:33:58 UTC
+--- Source/Modules/CMakeBuildUtilities.cmake.orig	2026-01-20 14:46:37 UTC
 +++ Source/Modules/CMakeBuildUtilities.cmake
-@@ -146,11 +146,7 @@ else()
+@@ -142,11 +142,7 @@ else()
    if(CMAKE_TESTS_CDASH_SERVER)
      set(CMAKE_CURL_TEST_URL "${CMAKE_TESTS_CDASH_SERVER}/user.php")
    endif()
