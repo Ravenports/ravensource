@@ -1,17 +1,17 @@
-DEF[PORTVERSION]=	0.45.1
+DEF[PORTVERSION]=	0.46.3
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-wheel
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
 VARIANTS=		v13 v14
-SDESC[v13]=		Built-package format for Python (3.13)
-SDESC[v14]=		Built-package format for Python (3.14)
+SDESC[v13]=		Wheel file command line tool (3.13)
+SDESC[v14]=		Wheel file command line tool (3.14)
 HOMEPAGE=		https://github.com/pypa/wheel
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/0b/2c/87f3254fd8ffd29e4c02732eee68a83a1d3c346ae39bc6822dcbcb697f2b
+SITES[main]=		PYPIWHL/87/22/b76d483683216dde3d67cba61fb2444be8d5be289bf628c13fc0fd90e5f9
 DISTFILE[1]=		wheel-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -30,11 +30,14 @@ GENERATED=		yes
 DISTNAME=		wheel-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
+# packaging >= 24.0
 # pytest >= 6.0.0 ; extra == "test"
-# setuptools >= 65 ; extra == "test"
+# setuptools >= 77 ; extra == "test"
 
 [PY313].USES_ON=			python:v13,wheel
+[PY313].RUN_DEPENDS_ON=			python-packaging:single:v13
 [PY314].USES_ON=			python:v14,wheel
+[PY314].RUN_DEPENDS_ON=			python-packaging:single:v14
 
 USES=			cpe
 CPE_VENDOR=		wheel_project

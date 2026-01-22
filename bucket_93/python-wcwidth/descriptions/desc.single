@@ -4,50 +4,26 @@
 Introduction
 ============
 
-This library is mainly for CLI programs that carefully produce output for
-Terminals, or make pretend to be an emulator.
-
-**Problem Statement**: The printable length of *most* strings are equal to
-the
-number of cells they occupy on the screen ``1 character : 1 cell``. 
-However,
-there are categories of characters that *occupy 2 cells* (full-wide), and
-others that *occupy 0* cells (zero-width).
-
-**Solution**: POSIX.1-2001 and POSIX.1-2008 conforming systems provide
-`wcwidth(3)`_ and `wcswidth(3)`_ C functions of which this python module's
-functions precisely copy.  *These functions return the number of cells a
-unicode string is expected to occupy.*
+This library is mainly for CLI/TUI programs that carefully produce output
+for Terminals.
 
 Installation
 ------------
 
-The stable version of this package is maintained on pypi, install using
-pip::
+The stable version of this package is maintained on pypi, install or
+upgrade, using pip::
 
-    pip install wcwidth
+    pip install --upgrade wcwidth
 
-Example
+Problem
 -------
 
-**Problem**: given the following phrase (Japanese),
+All Python string-formatting functions, `textwrap.wrap()`_, `str.ljust()`_,
+`str.rjust()`_, and
+`str.center()`_ **incorrectly** measure the displayed width of a string as
+equal to the number of
+their codepoints.
 
-   >>>  text = u'コンニチハ'
+Some examples of **incorrect results**:
 
-Python **incorrectly** uses the *string length* of 5 codepoints rather than
-the
-*printable length* of 10 cells, so that when using the `rjust` function,
-the
-output length is wrong::
-
-    >>> print(len('コンニチハ'))
-    5
-
-    >>> print('コンニチハ'.rjust(20, '_'))
-    _______________コンニチハ
-
-By defining our own "rjust" function that uses wcwidth, we can correct
-this::
-
-   >>> def wc_rjust(text, length, padding=' '):
-       :alt: MIT License
+    :alt: MIT License
