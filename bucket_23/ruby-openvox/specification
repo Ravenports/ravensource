@@ -4,10 +4,10 @@ DEF[PORTVERSION]=	8.24.2
 NAMEBASE=		ruby-openvox
 VERSION=		${PORTVERSION}
 KEYWORDS=		ruby
-VARIANTS=		v32 v33 v34
-SDESC[v32]=		Community version of Puppet (v32)
+VARIANTS=		v33 v34 v40
 SDESC[v33]=		Community version of Puppet (v33)
 SDESC[v34]=		Community version of Puppet (v34)
+SDESC[v40]=		Community version of Puppet (v40)
 HOMEPAGE=		https://github.com/OpenVoxProject/openvox
 CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
@@ -16,18 +16,18 @@ SITES[main]=		RUBYGEMS/
 DISTFILE[1]=		openvox-8.24.2.gem:main
 DIST_SUBDIR=		ruby
 
-SPKGS[v32]=		single
 SPKGS[v33]=		single
 SPKGS[v34]=		single
+SPKGS[v40]=		single
 
-OPTIONS_AVAILABLE=	RUBY32 RUBY33 RUBY34
+OPTIONS_AVAILABLE=	RUBY33 RUBY34 RUBY40
 OPTIONS_STANDARD=	none
-VOPTS[v32]=		RUBY32=ON RUBY33=OFF RUBY34=OFF
-VOPTS[v33]=		RUBY32=OFF RUBY33=ON RUBY34=OFF
-VOPTS[v34]=		RUBY32=OFF RUBY33=OFF RUBY34=ON
+VOPTS[v33]=		RUBY33=ON RUBY34=OFF RUBY40=OFF
+VOPTS[v34]=		RUBY33=OFF RUBY34=ON RUBY40=OFF
+VOPTS[v40]=		RUBY33=OFF RUBY34=OFF RUBY40=ON
 
 # License listed inside gem specification
-# => "Apache-2.0"
+# => UNSET
 
 # Requirements according to gem specification:
 #   base64 (>= 0.1, < 0.4)
@@ -48,20 +48,6 @@ VOPTS[v34]=		RUBY32=OFF RUBY33=OFF RUBY34=ON
 DISTNAME=		openvox-${PORTVERSION}
 GENERATED=		yes
 
-[RUBY32].USES_ON=			gem:v32
-[RUBY32].BUILDRUN_DEPENDS_ON=		ruby-base64:single:v32
-					ruby-benchmark:single:v32
-					ruby-concurrent-ruby:single:v32
-					ruby-deep_merge:single:v32
-					ruby-fast_gettext:single:v32
-					ruby-getoptlong:single:v32
-					ruby-locale:single:v32
-					ruby-multi_json:single:v32
-					ruby-openfact:single:v32
-					ruby-ostruct:single:v32
-					ruby-puppet-resource_api:single:v32
-					ruby-scanf:single:v32
-					ruby-semantic_puppet:single:v32
 [RUBY33].USES_ON=			gem:v33
 [RUBY33].BUILDRUN_DEPENDS_ON=		ruby-base64:single:v33
 					ruby-benchmark:single:v33
@@ -92,4 +78,18 @@ GENERATED=		yes
 					ruby-racc:single:v34
 					ruby-scanf:single:v34
 					ruby-semantic_puppet:single:v34
+[RUBY40].USES_ON=			gem:v40
+[RUBY40].BUILDRUN_DEPENDS_ON=		ruby-base64:single:v40
+					ruby-benchmark:single:v40
+					ruby-concurrent-ruby:single:v40
+					ruby-deep_merge:single:v40
+					ruby-fast_gettext:single:v40
+					ruby-getoptlong:single:v40
+					ruby-locale:single:v40
+					ruby-multi_json:single:v40
+					ruby-openfact:single:v40
+					ruby-ostruct:single:v40
+					ruby-puppet-resource_api:single:v40
+					ruby-scanf:single:v40
+					ruby-semantic_puppet:single:v40
 

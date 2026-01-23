@@ -29,9 +29,9 @@ $namebase_queue = array();
 $port_data = array();
 $truncated_summaries = array();
 $ravensource_directory = "";
-$VA = 32;	# single point of change when ruby
-$VB = 33;	# series are changed in ravenports
-$VC = 34;
+$VA = 33;	# single point of change when ruby
+$VB = 34;	# series are changed in ravenports
+$VC = 40;
 $RUBY_VERSION_A = -1;
 $RUBY_VERSION_B = -1;
 $RUBY_VERSION_C = -1;
@@ -231,8 +231,11 @@ function determine_variants($namebase, $minversion) {
     return $variants;
 }
 
-function filter32($var) {
-   return ($var != "racc");
+function filter40($var) {
+   if ($var == "racc") return false;
+   if ($var == "rdoc") return false;
+   if ($var == "irb") return false;
+   return true;
 }
 
 
@@ -337,8 +340,8 @@ function generate_port($namebase) {
         $available_options .= $prespace . "RUBY" . $SV;
         $buildrun_block .= "[RUBY" . $SV . "].USES_ON=\t\t\tgem:$V\n";
         $brcopy = $port_data[$namebase]["buildrun"];
-        if ($V == "v32") {
-           $brcopy = array_filter($brcopy, "filter32");
+        if ($V == "v40") {
+           $brcopy = array_filter($brcopy, "filter40");
         }
         if (count($brcopy)) {
             $buildrun_block .= "[RUBY" . $SV . "].BUILDRUN_DEPENDS_ON=\t\t";

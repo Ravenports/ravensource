@@ -4,10 +4,10 @@ DEF[PORTVERSION]=	0.10.1
 NAMEBASE=		ruby-ronn-ng
 VERSION=		${PORTVERSION}
 KEYWORDS=		ruby
-VARIANTS=		v32 v33 v34
-SDESC[v32]=		Builds man pages from Markdown (v32)
+VARIANTS=		v33 v34 v40
 SDESC[v33]=		Builds man pages from Markdown (v33)
 SDESC[v34]=		Builds man pages from Markdown (v34)
+SDESC[v40]=		Builds man pages from Markdown (v40)
 HOMEPAGE=		https://github.com/apjanke/ronn-ng
 CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
@@ -16,18 +16,18 @@ SITES[main]=		RUBYGEMS/
 DISTFILE[1]=		ronn-ng-0.10.1.gem:main
 DIST_SUBDIR=		ruby
 
-SPKGS[v32]=		single
 SPKGS[v33]=		single
 SPKGS[v34]=		single
+SPKGS[v40]=		single
 
-OPTIONS_AVAILABLE=	RUBY32 RUBY33 RUBY34
+OPTIONS_AVAILABLE=	RUBY33 RUBY34 RUBY40
 OPTIONS_STANDARD=	none
-VOPTS[v32]=		RUBY32=ON RUBY33=OFF RUBY34=OFF
-VOPTS[v33]=		RUBY32=OFF RUBY33=ON RUBY34=OFF
-VOPTS[v34]=		RUBY32=OFF RUBY33=OFF RUBY34=ON
+VOPTS[v33]=		RUBY33=ON RUBY34=OFF RUBY40=OFF
+VOPTS[v34]=		RUBY33=OFF RUBY34=ON RUBY40=OFF
+VOPTS[v40]=		RUBY33=OFF RUBY34=OFF RUBY40=ON
 
 # License listed inside gem specification
-# => "MIT"
+# => UNSET
 
 # Requirements according to gem specification:
 #   kramdown (~> 2, >= 2.1)
@@ -44,11 +44,6 @@ VOPTS[v34]=		RUBY32=OFF RUBY33=OFF RUBY34=ON
 DISTNAME=		ronn-ng-${PORTVERSION}
 GENERATED=		yes
 
-[RUBY32].USES_ON=			gem:v32
-[RUBY32].BUILDRUN_DEPENDS_ON=		ruby-kramdown:single:v32
-					ruby-kramdown-parser-gfm:single:v32
-					ruby-mustache:single:v32
-					ruby-nokogiri:single:v32
 [RUBY33].USES_ON=			gem:v33
 [RUBY33].BUILDRUN_DEPENDS_ON=		ruby-kramdown:single:v33
 					ruby-kramdown-parser-gfm:single:v33
@@ -59,4 +54,9 @@ GENERATED=		yes
 					ruby-kramdown-parser-gfm:single:v34
 					ruby-mustache:single:v34
 					ruby-nokogiri:single:v34
+[RUBY40].USES_ON=			gem:v40
+[RUBY40].BUILDRUN_DEPENDS_ON=		ruby-kramdown:single:v40
+					ruby-kramdown-parser-gfm:single:v40
+					ruby-mustache:single:v40
+					ruby-nokogiri:single:v40
 

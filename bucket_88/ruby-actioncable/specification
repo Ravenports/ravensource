@@ -4,10 +4,10 @@ DEF[PORTVERSION]=	8.1.2
 NAMEBASE=		ruby-actioncable
 VERSION=		${PORTVERSION}
 KEYWORDS=		ruby
-VARIANTS=		v32 v33 v34
-SDESC[v32]=		WebSocket framework for Rails (v32)
+VARIANTS=		v33 v34 v40
 SDESC[v33]=		WebSocket framework for Rails (v33)
 SDESC[v34]=		WebSocket framework for Rails (v34)
+SDESC[v40]=		WebSocket framework for Rails (v40)
 HOMEPAGE=		https://rubyonrails.org
 CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
@@ -16,18 +16,18 @@ SITES[main]=		RUBYGEMS/
 DISTFILE[1]=		actioncable-8.1.2.gem:main
 DIST_SUBDIR=		ruby
 
-SPKGS[v32]=		single
 SPKGS[v33]=		single
 SPKGS[v34]=		single
+SPKGS[v40]=		single
 
-OPTIONS_AVAILABLE=	RUBY32 RUBY33 RUBY34
+OPTIONS_AVAILABLE=	RUBY33 RUBY34 RUBY40
 OPTIONS_STANDARD=	none
-VOPTS[v32]=		RUBY32=ON RUBY33=OFF RUBY34=OFF
-VOPTS[v33]=		RUBY32=OFF RUBY33=ON RUBY34=OFF
-VOPTS[v34]=		RUBY32=OFF RUBY33=OFF RUBY34=ON
+VOPTS[v33]=		RUBY33=ON RUBY34=OFF RUBY40=OFF
+VOPTS[v34]=		RUBY33=OFF RUBY34=ON RUBY40=OFF
+VOPTS[v40]=		RUBY33=OFF RUBY34=OFF RUBY40=ON
 
 # License listed inside gem specification
-# => "MIT"
+# => UNSET
 
 # Requirements according to gem specification:
 #   activesupport (= 8.1.2)
@@ -39,12 +39,6 @@ VOPTS[v34]=		RUBY32=OFF RUBY33=OFF RUBY34=ON
 DISTNAME=		actioncable-${PORTVERSION}
 GENERATED=		yes
 
-[RUBY32].USES_ON=			gem:v32
-[RUBY32].BUILDRUN_DEPENDS_ON=		ruby-activesupport:single:v32
-					ruby-actionpack:single:v32
-					ruby-nio4r:single:v32
-					ruby-websocket-driver:single:v32
-					ruby-zeitwerk:single:v32
 [RUBY33].USES_ON=			gem:v33
 [RUBY33].BUILDRUN_DEPENDS_ON=		ruby-activesupport:single:v33
 					ruby-actionpack:single:v33
@@ -57,4 +51,10 @@ GENERATED=		yes
 					ruby-nio4r:single:v34
 					ruby-websocket-driver:single:v34
 					ruby-zeitwerk:single:v34
+[RUBY40].USES_ON=			gem:v40
+[RUBY40].BUILDRUN_DEPENDS_ON=		ruby-activesupport:single:v40
+					ruby-actionpack:single:v40
+					ruby-nio4r:single:v40
+					ruby-websocket-driver:single:v40
+					ruby-zeitwerk:single:v40
 

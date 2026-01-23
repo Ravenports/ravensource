@@ -4,10 +4,10 @@ DEF[PORTVERSION]=	3.1.2
 NAMEBASE=		ruby-carrierwave
 VERSION=		${PORTVERSION}
 KEYWORDS=		ruby
-VARIANTS=		v32 v33 v34
-SDESC[v32]=		Ruby file upload library (v32)
+VARIANTS=		v33 v34 v40
 SDESC[v33]=		Ruby file upload library (v33)
 SDESC[v34]=		Ruby file upload library (v34)
+SDESC[v40]=		Ruby file upload library (v40)
 HOMEPAGE=		https://github.com/carrierwaveuploader/carrierwave
 CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
@@ -16,18 +16,18 @@ SITES[main]=		RUBYGEMS/
 DISTFILE[1]=		carrierwave-3.1.2.gem:main
 DIST_SUBDIR=		ruby
 
-SPKGS[v32]=		single
 SPKGS[v33]=		single
 SPKGS[v34]=		single
+SPKGS[v40]=		single
 
-OPTIONS_AVAILABLE=	RUBY32 RUBY33 RUBY34
+OPTIONS_AVAILABLE=	RUBY33 RUBY34 RUBY40
 OPTIONS_STANDARD=	none
-VOPTS[v32]=		RUBY32=ON RUBY33=OFF RUBY34=OFF
-VOPTS[v33]=		RUBY32=OFF RUBY33=ON RUBY34=OFF
-VOPTS[v34]=		RUBY32=OFF RUBY33=OFF RUBY34=ON
+VOPTS[v33]=		RUBY33=ON RUBY34=OFF RUBY40=OFF
+VOPTS[v34]=		RUBY33=OFF RUBY34=ON RUBY40=OFF
+VOPTS[v40]=		RUBY33=OFF RUBY34=OFF RUBY40=ON
 
 # License listed inside gem specification
-# => "MIT"
+# => UNSET
 
 # Requirements according to gem specification:
 #   activesupport (>= 6.0.0)
@@ -55,13 +55,6 @@ VOPTS[v34]=		RUBY32=OFF RUBY33=OFF RUBY34=ON
 DISTNAME=		carrierwave-${PORTVERSION}
 GENERATED=		yes
 
-[RUBY32].USES_ON=			gem:v32
-[RUBY32].BUILDRUN_DEPENDS_ON=		ruby-activesupport:single:v32
-					ruby-activemodel:single:v32
-					ruby-image_processing:single:v32
-					ruby-marcel:single:v32
-					ruby-addressable:single:v32
-					ruby-ssrf_filter:single:v32
 [RUBY33].USES_ON=			gem:v33
 [RUBY33].BUILDRUN_DEPENDS_ON=		ruby-activesupport:single:v33
 					ruby-activemodel:single:v33
@@ -76,6 +69,13 @@ GENERATED=		yes
 					ruby-marcel:single:v34
 					ruby-addressable:single:v34
 					ruby-ssrf_filter:single:v34
+[RUBY40].USES_ON=			gem:v40
+[RUBY40].BUILDRUN_DEPENDS_ON=		ruby-activesupport:single:v40
+					ruby-activemodel:single:v40
+					ruby-image_processing:single:v40
+					ruby-marcel:single:v40
+					ruby-addressable:single:v40
+					ruby-ssrf_filter:single:v40
 
 USES=			cpe
 CPE_VENDOR=		carrierwave_project

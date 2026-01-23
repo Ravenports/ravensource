@@ -3,7 +3,7 @@
 # Global variables to hold gem database
 $GEM_INDEX    = array();
 $GEMEXE       = "/raven/bin/gem";
-$RUBYEXE      = "/raven/bin/ruby32";
+$RUBYEXE      = "/raven/bin/ruby34";
 $LATEST_SPECS = "latest_specs.4.8.gz";
 $RUBY_CACHE   = "/var/cache/rubygems";
 $SPECS_DIR    = $RUBY_CACHE . "/specs";

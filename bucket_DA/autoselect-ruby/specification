@@ -1,8 +1,8 @@
 # manually update when ruby versions are cycled.  Set versions to descend.
 DEF[PORTVERSION]=	7
-DEF[ALPHA]=		34
-DEF[BRAVO]=		33
-DEF[CHARLIE]=		32
+DEF[ALPHA]=		40
+DEF[BRAVO]=		34
+DEF[CHARLIE]=		33
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		autoselect-ruby
@@ -36,8 +36,8 @@ post-patch:
 do-build:
 	(cd ${WRKSRC} && ${CC} ${CFLAGS} ${LDFLAGS} -o generic autoselect.c)
 
-# ruby 32 is the last one with racc + doesn't have syntax_suggestion
+# ruby40 dropped irb, rdoc, and ri.
 do-install:
-.for prog in gem erb irb racc rdoc ri ruby syntax_suggest
+.for prog in gem erb irb rdoc ri ruby syntax_suggest
 	${INSTALL_PROGRAM} ${WRKSRC}/generic ${STAGEDIR}${PREFIX}/bin/${prog}
 .endfor

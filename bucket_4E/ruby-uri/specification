@@ -4,10 +4,10 @@ DEF[PORTVERSION]=	1.1.1
 NAMEBASE=		ruby-uri
 VERSION=		${PORTVERSION}
 KEYWORDS=		ruby
-VARIANTS=		v32 v33 v34
-SDESC[v32]=		Uniform Resource Identifiers module (v32)
+VARIANTS=		v33 v34 v40
 SDESC[v33]=		Uniform Resource Identifiers module (v33)
 SDESC[v34]=		Uniform Resource Identifiers module (v34)
+SDESC[v40]=		Uniform Resource Identifiers module (v40)
 HOMEPAGE=		https://github.com/ruby/uri
 CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
@@ -16,27 +16,27 @@ SITES[main]=		RUBYGEMS/
 DISTFILE[1]=		uri-1.1.1.gem:main
 DIST_SUBDIR=		ruby
 
-SPKGS[v32]=		single
 SPKGS[v33]=		single
 SPKGS[v34]=		single
+SPKGS[v40]=		single
 
-OPTIONS_AVAILABLE=	RUBY32 RUBY33 RUBY34
+OPTIONS_AVAILABLE=	RUBY33 RUBY34 RUBY40
 OPTIONS_STANDARD=	none
-VOPTS[v32]=		RUBY32=ON RUBY33=OFF RUBY34=OFF
-VOPTS[v33]=		RUBY32=OFF RUBY33=ON RUBY34=OFF
-VOPTS[v34]=		RUBY32=OFF RUBY33=OFF RUBY34=ON
+VOPTS[v33]=		RUBY33=ON RUBY34=OFF RUBY40=OFF
+VOPTS[v34]=		RUBY33=OFF RUBY34=ON RUBY40=OFF
+VOPTS[v40]=		RUBY33=OFF RUBY34=OFF RUBY40=ON
 
 # License listed inside gem specification
-# => "Ruby", "BSD-2-Clause"
+# => UNSET
 
 # Requirements according to gem specification:
 
 DISTNAME=		uri-${PORTVERSION}
 GENERATED=		yes
 
-[RUBY32].USES_ON=			gem:v32
 [RUBY33].USES_ON=			gem:v33
 [RUBY34].USES_ON=			gem:v34
+[RUBY40].USES_ON=			gem:v40
 
 USES=			cpe
 CPE_VENDOR=		ruby-lang
