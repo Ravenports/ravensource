@@ -1,0 +1,51 @@
+DEF[PORTVERSION]=	0.53.2
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-uharfbuzz
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v13 v14
+SDESC[v13]=		Steamlined harfbuzz cpython bindings (3.13)
+SDESC[v14]=		Steamlined harfbuzz cpython bindings (3.14)
+HOMEPAGE=		https://github.com/trufont/uharfbuzz
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPI/u/uharfbuzz
+DISTFILE[1]=		uharfbuzz-${PORTVERSION}.tar.gz:main
+DIST_SUBDIR=		python-src
+
+SPKGS[v13]=		single
+SPKGS[v14]=		single
+
+OPTIONS_AVAILABLE=	PY313 PY314
+OPTIONS_STANDARD=	none
+VOPTS[v13]=		PY313=ON PY314=OFF
+VOPTS[v14]=		PY313=OFF PY314=ON
+
+# License listed at PyPI
+# Apache License 2.0
+
+GENERATED=		yes
+DISTNAME=		uharfbuzz-${PORTVERSION}
+
+# Requires-Dist extracted from pyproject.toml file
+# build: setuptools_scm >= 2.1
+# build: cython >= 3.1
+# build: pkgconfig
+
+[PY313].USES_ON=			python:v13,pep517
+[PY313].BUILD_DEPENDS_ON=		python-setuptools-scm:single:v13
+					python-Cython:single:v13
+					python-pkgconfig:single:v13
+[PY314].USES_ON=			python:v14,pep517
+[PY314].BUILD_DEPENDS_ON=		python-setuptools-scm:single:v14
+					python-Cython:single:v14
+					python-pkgconfig:single:v14
+
+BUILD_DEPENDS=		harfbuzz:dev:std
+BUILDRUN_DEPENDS=	harfbuzz:primary:std
+
+MAKE_ENV=		CYTHON_ANNOTATE=0
+			CYTHON_LINETRACE=0
+			USE_SYSTEM_LIBS=1
