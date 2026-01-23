@@ -4,10 +4,11 @@ DEF[PORTVERSION]=	3.13.0
 NAMEBASE=		lua-luarocks
 VERSION=		${PORTVERSION}
 KEYWORDS=		devel
-VARIANTS=		lua52 lua53 lua54
+VARIANTS=		lua52 lua53 lua54 lua55
 SDESC[lua52]=		Package manager for Lua modules (Lua 5.2)
 SDESC[lua53]=		Package manager for Lua modules (Lua 5.3)
 SDESC[lua54]=		Package manager for Lua modules (Lua 5.4)
+SDESC[lua55]=		Package manager for Lua modules (Lua 5.5)
 HOMEPAGE=		https://luarocks.org
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
@@ -18,12 +19,14 @@ DISTFILE[1]=		luarocks-${PORTVERSION}.tar.gz:main
 SPKGS[lua52]=		single
 SPKGS[lua53]=		single
 SPKGS[lua54]=		single
+SPKGS[lua55]=		single
 
-OPTIONS_AVAILABLE=	LUA52 LUA53 LUA54
+OPTIONS_AVAILABLE=	LUA52 LUA53 LUA54 LUA55
 OPTIONS_STANDARD=	none
-VOPTS[lua52]=		LUA52=ON LUA53=OFF LUA54=OFF
-VOPTS[lua53]=		LUA52=OFF LUA53=ON LUA54=OFF
-VOPTS[lua54]=		LUA52=OFF LUA53=OFF LUA54=ON
+VOPTS[lua52]=		LUA52=ON LUA53=OFF LUA54=OFF LUA55=OFF
+VOPTS[lua53]=		LUA52=OFF LUA53=ON LUA54=OFF LUA55=OFF
+VOPTS[lua54]=		LUA52=OFF LUA53=OFF LUA54=ON LUA55=OFF
+VOPTS[lua55]=		LUA52=OFF LUA53=OFF LUA54=OFF LUA55=ON
 
 LICENSE=		MIT:single
 LICENSE_FILE=		MIT:{{WRKSRC}}/COPYING
@@ -46,6 +49,10 @@ MUST_CONFIGURE=		gnu
 [LUA54].DESCRIPTION=			Build with Lua 5.4
 [LUA54].USES_ON=			lua:5.4,tools
 [LUA54].BUILDRUN_DEPENDS_ON=		lua-zlib:single:lua54
+
+[LUA55].DESCRIPTION=			Build with Lua 5.5
+[LUA55].USES_ON=			lua:5.5,tools
+[LUA55].BUILDRUN_DEPENDS_ON=		lua-zlib:single:lua55
 
 # Must override, because configure does not like the default argument
 # "x86_64-raven-freebsd11"
