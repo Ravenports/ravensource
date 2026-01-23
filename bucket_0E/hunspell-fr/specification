@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	7.0
+DEF[PORTVERSION]=	7.7
 DEF[SUFFIX]=		fr
 DEF[LANGUAGE]=		French
 DEF[INSTLOC]=		{{STAGEDIR}}{{PREFIX}}/share/hunspell
@@ -16,8 +16,11 @@ CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
 # SITES[main]=		https://grammalecte.net/download/fr/
-SITES[main]=		https://leaf.dragonflybsd.org/~marino/orphaned-distfiles/
-DISTFILE[1]=		hunspell-french-dictionaries-v${PORTVERSION}.zip:main
+# SITES[main]=		https://leaf.dragonflybsd.org/~marino/orphaned-distfiles/
+# DISTFILE[1]=		hunspell-french-dictionaries-v${PORTVERSION}.zip:main
+# cached from https://salsa.debian.org/debian/hunspell-fr
+SITES[main]=		https://leaf.dragonflybsd.org/~marino/raven-distfiles/
+DISTFILE[1]=		hunspell-fr-upstream-${PORTVERSION}.tar.gz:main
 
 SPKGS[std]=		single
 SPKGS[reforme1990]=	single
@@ -31,7 +34,7 @@ VOPTS[variantes]=	REFORME=OFF VARIANTES=ON
 FPC_EQUIVALENT=		french/hunspell
 
 SKIP_BUILD=		yes
-EXTRACT_DIRTY=		1
+DISTNAME=		hunspell-fr-upstream-${PORTVERSION}
 
 [REFORME].DESCRIPTION=			Build 1990 reforme French variant
 [VARIANTES].DESCRIPTION=		Build all other French variants
