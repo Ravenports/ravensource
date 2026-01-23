@@ -1,0 +1,99 @@
+DEF[PORTVERSION]=	EXTRACT_VERSION(LUA_5.5_VERSION)
+DEF[LUA_VER]=		${PORTVERSION:R}
+DEF[SUFFIX]=		${LUA_VER:S/.//}
+DEF[RARY]=		lua-${LUA_VER}
+DEF[LIBRARY]=		lib${RARY}
+DEF[MAJOR]=		1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		lua${SUFFIX}
+VERSION=		${PORTVERSION}
+KEYWORDS=		lang
+VARIANTS=		std
+SDESC[std]=		Light, powerful language for app. extension
+HOMEPAGE=		https://www.lua.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://www.lua.org/ftp/
+DISTFILE[1]=		lua-${PORTVERSION}.tar.gz:main
+
+SPKGS[std]=		set primary tools dev man
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:primary
+LICENSE_FILE=		MIT:{{WRKDIR}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		lang/lua54
+
+BUILD_DEPENDS=		libedit:dev:std
+			libedit:primary:std
+
+EXRUN[tools]=		libedit:primary:std
+
+USES=			cpe readline
+CPE_VENDOR=		lua
+CPE_PRODUCT=		lua
+DISTNAME=		lua-${PORTVERSION}
+CFLAGS=			-fPIC
+LDFLAGS=		-lm -pthread
+SINGLE_JOB=		yes
+BUILD_WRKSRC=		{{WRKSRC}}/src
+MAKE_ARGS=		MYCFLAGS="{{CFLAGS}} {{CPPFLAGS}}"
+			MYLDFLAGS="{{LDFLAGS}}"
+			MYLIBS="-L{{LOCALBASE}}/lib -lreadline"
+			CC="{{CC}}"
+			ARFLAGS=rcu
+			LUA_T=lua${SUFFIX}
+			LUAC_T=luac${SUFFIX}
+			LUA_A=${LIBRARY}.a
+			LUA_SO=${LIBRARY}.so
+			LUA_SONAME=${LIBRARY}.so.${MAJOR}
+			TO_BIN="lua${SUFFIX} luac${SUFFIX}"
+			TO_LIB="liblua-${LUA_VER}.a liblua-${LUA_VER}.{{LIBEXT}}"
+			INSTALL_TOP={{STAGEDIR}}{{PREFIX}}
+			INSTALL_INC={{STAGEDIR}}{{PREFIX}}/include/lua${SUFFIX}
+			INSTALL_EXEC="{{INSTALL_PROGRAM}}"
+PLIST_SUB=		LUA_VER=${LUA_VER}
+			SUFFIX=${SUFFIX}
+SUB_FILES=		lua-${LUA_VER}.pc
+SUB_LIST=		version=${PORTVERSION}
+			includedir={{PREFIX}}/include/lua${SUFFIX}
+			libdir={{PREFIX}}/lib
+			library=${RARY}
+SOVERSION=		${MAJOR}.0.0
+
+VAR_OPSYS[freebsd]=	MAKEFILE_LINE=BUILD_TARGET=freebsd
+VAR_OPSYS[dragonfly]=	MAKEFILE_LINE=BUILD_TARGET=bsd
+VAR_OPSYS[netbsd]=	MAKEFILE_LINE=BUILD_TARGET=bsd
+VAR_OPSYS[openbsd]=	MAKEFILE_LINE=BUILD_TARGET=bsd
+VAR_OPSYS[midnightbsd]=	MAKEFILE_LINE=BUILD_TARGET=bsd
+VAR_OPSYS[sunos]=	MAKEFILE_LINE=BUILD_TARGET=solaris
+VAR_OPSYS[darwin]=	MAKEFILE_LINE=BUILD_TARGET=macosx
+VAR_OPSYS[linux]=	MAKEFILE_LINE=BUILD_TARGET=linux
+
+post-extract:
+	${AWK} '/\/\*\*/ {start=1} /^$$/{start=0} {if (start) print}' \
+		${WRKSRC}/src/lua.h > ${WRKDIR}/LICENSE
+
+pre-configure:
+	${REINPLACE_CMD} -e 's,rand *(,random(,g' ${WRKSRC}/src/lmathlib.c
+	${REINPLACE_CMD} -e "/LUA_ROOT/s|/usr/local|${PREFIX}|" \
+		${WRKSRC}/src/luaconf.h ${WRKSRC}/src/lua.c
+	${REINPLACE_CMD} -e 's|man/man1|share/man/man1|' ${WRKSRC}/Makefile
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/liblua-${LUA_VER}.${LIBEXT}
+	${MV} ${STAGEDIR}${MANPREFIX}/man/man1/lua.1 \
+		${STAGEDIR}${MANPREFIX}/man/man1/lua${SUFFIX}.1
+	${MV} ${STAGEDIR}${MANPREFIX}/man/man1/luac.1 \
+		${STAGEDIR}${MANPREFIX}/man/man1/luac${SUFFIX}.1
+	${INSTALL_DATA} ${WRKDIR}/lua-${LUA_VER}.pc \
+		${STAGEDIR}${PREFIX}/lib/pkgconfig
+	(cd ${STAGEDIR}${PREFIX}/lib &&\
+		${MV} ${LIBRARY}.so ${LIBRARY}.so.${MAJOR} &&\
+		${LN} -s ${LIBRARY}.so.${MAJOR} ${LIBRARY}.so &&\
+		${LN} -s ${LIBRARY}.a ${LIBRARY}_pic.a)
