@@ -1,0 +1,44 @@
+DEF[PORTVERSION]=	0.6.3
+# ------------------------------------------------------------------------
+
+NAMEBASE=		ruby-pp
+VERSION=		${PORTVERSION}
+KEYWORDS=		ruby
+VARIANTS=		v33 v34 v40
+SDESC[v33]=		Provides a PrettyPrinter for Ruby objects (v33)
+SDESC[v34]=		Provides a PrettyPrinter for Ruby objects (v34)
+SDESC[v40]=		Provides a PrettyPrinter for Ruby objects (v40)
+HOMEPAGE=		https://github.com/ruby/pp
+CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		RUBYGEMS/
+DISTFILE[1]=		pp-0.6.3.gem:main
+DIST_SUBDIR=		ruby
+
+SPKGS[v33]=		single
+SPKGS[v34]=		single
+SPKGS[v40]=		single
+
+OPTIONS_AVAILABLE=	RUBY33 RUBY34 RUBY40
+OPTIONS_STANDARD=	none
+VOPTS[v33]=		RUBY33=ON RUBY34=OFF RUBY40=OFF
+VOPTS[v34]=		RUBY33=OFF RUBY34=ON RUBY40=OFF
+VOPTS[v40]=		RUBY33=OFF RUBY34=OFF RUBY40=ON
+
+# License listed inside gem specification
+# => UNSET
+
+# Requirements according to gem specification:
+#   prettyprint (>= 0)
+
+DISTNAME=		pp-${PORTVERSION}
+GENERATED=		yes
+
+[RUBY33].USES_ON=			gem:v33
+[RUBY33].BUILDRUN_DEPENDS_ON=		ruby-prettyprint:single:v33
+[RUBY34].USES_ON=			gem:v34
+[RUBY34].BUILDRUN_DEPENDS_ON=		ruby-prettyprint:single:v34
+[RUBY40].USES_ON=			gem:v40
+[RUBY40].BUILDRUN_DEPENDS_ON=		ruby-prettyprint:single:v40
+

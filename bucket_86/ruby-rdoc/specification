@@ -1,0 +1,37 @@
+DEF[PORTVERSION]=	7.1.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		ruby-rdoc
+VERSION=		${PORTVERSION}
+KEYWORDS=		ruby
+VARIANTS=		v40
+SDESC[v40]=		Produces HTML and command-line documentation (v40)
+HOMEPAGE=		https://ruby.github.io/rdoc
+CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		RUBYGEMS/
+DISTFILE[1]=		rdoc-7.1.0.gem:main
+DIST_SUBDIR=		ruby
+
+SPKGS[v40]=		single
+
+OPTIONS_AVAILABLE=	RUBY40
+OPTIONS_STANDARD=	none
+VOPTS[v40]=		RUBY40=ON
+
+# License listed inside gem specification
+# => UNSET
+
+# Requirements according to gem specification:
+#   psych (>= 4.0.0)
+#   erb (>= 0)
+#   tsort (>= 0)
+
+DISTNAME=		rdoc-${PORTVERSION}
+GENERATED=		yes
+
+[RUBY40].USES_ON=			gem:v40
+[RUBY40].BUILDRUN_DEPENDS_ON=		ruby-psych:single:v40
+					ruby-tsort:single:v40
+

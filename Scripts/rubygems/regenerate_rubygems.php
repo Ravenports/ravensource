@@ -215,9 +215,9 @@ function determine_variants($namebase, $minversion) {
 #        if (meets_minimum_version_requirement($V, $minversion)) {
 #            array_push($variants, "v" . $V);
 #        }
-# The lone exception is racc, which is needed for ruby33+
-         if ($namebase == "racc") {
-             if ($V == "33" || $V == "34") {
+# The lone exception is rdoc and irb, which is needed for ruby40+
+         if ($namebase == "rdoc" || $namebase == "irb") {
+             if ($V == "40" || $V == "41") {
                  array_push($variants, "v" . $V);
              }
          } else {

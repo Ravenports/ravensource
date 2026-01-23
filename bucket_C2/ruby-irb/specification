@@ -1,0 +1,37 @@
+DEF[PORTVERSION]=	1.16.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		ruby-irb
+VERSION=		${PORTVERSION}
+KEYWORDS=		ruby
+VARIANTS=		v40
+SDESC[v40]=		CLI tool for REPL (Read Eval Print Loop) (v40)
+HOMEPAGE=		https://github.com/ruby/irb
+CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		RUBYGEMS/
+DISTFILE[1]=		irb-1.16.0.gem:main
+DIST_SUBDIR=		ruby
+
+SPKGS[v40]=		single
+
+OPTIONS_AVAILABLE=	RUBY40
+OPTIONS_STANDARD=	none
+VOPTS[v40]=		RUBY40=ON
+
+# License listed inside gem specification
+# => UNSET
+
+# Requirements according to gem specification:
+#   reline (>= 0.4.2)
+#   rdoc (>= 4.0.0)
+#   pp (>= 0.6.0)
+
+DISTNAME=		irb-${PORTVERSION}
+GENERATED=		yes
+
+[RUBY40].USES_ON=			gem:v40
+[RUBY40].BUILDRUN_DEPENDS_ON=		ruby-reline:single:v40
+					ruby-pp:single:v40
+
