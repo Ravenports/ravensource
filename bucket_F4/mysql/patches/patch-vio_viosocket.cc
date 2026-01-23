@@ -1,10 +1,10 @@
 * define ppoll on older NetBSD that only has pollts
 
---- vio/viosocket.cc.orig	2025-07-09 08:56:06 UTC
+--- vio/viosocket.cc.orig	2025-12-15 13:32:53 UTC
 +++ vio/viosocket.cc
-@@ -72,6 +72,13 @@
+@@ -92,6 +92,13 @@
  
- #include "mysql/psi/mysql_socket.h"
+ struct timespec;
  
 +#ifdef __NetBSD__
 +#include <sys/param.h>

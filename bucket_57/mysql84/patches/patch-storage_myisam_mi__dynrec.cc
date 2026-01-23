@@ -1,4 +1,4 @@
---- storage/myisam/mi_dynrec.cc.orig	2025-07-10 14:20:26 UTC
+--- storage/myisam/mi_dynrec.cc.orig	2025-12-15 11:53:49 UTC
 +++ storage/myisam/mi_dynrec.cc
 @@ -93,6 +93,9 @@ bool mi_dynmap_file(MI_INFO *info, my_of
        mapping. When swap space is not reserved one might get SIGSEGV

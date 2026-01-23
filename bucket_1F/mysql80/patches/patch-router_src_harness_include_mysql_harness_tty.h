@@ -1,4 +1,4 @@
---- router/src/harness/include/mysql/harness/tty.h.orig	2025-07-09 08:45:01 UTC
+--- router/src/harness/include/mysql/harness/tty.h.orig	2025-12-17 13:14:47 UTC
 +++ router/src/harness/include/mysql/harness/tty.h
 @@ -39,6 +39,10 @@
  #include <unistd.h>

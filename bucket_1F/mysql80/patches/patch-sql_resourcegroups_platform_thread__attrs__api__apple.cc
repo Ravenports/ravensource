@@ -1,4 +1,4 @@
---- sql/resourcegroups/platform/thread_attrs_api_apple.cc.orig	2025-07-09 08:45:01 UTC
+--- sql/resourcegroups/platform/thread_attrs_api_apple.cc.orig	2025-12-17 13:14:47 UTC
 +++ sql/resourcegroups/platform/thread_attrs_api_apple.cc
 @@ -86,7 +86,11 @@ bool set_thread_priority(int, my_thread_
  uint32_t num_vcpus_using_affinity() { return 0; }

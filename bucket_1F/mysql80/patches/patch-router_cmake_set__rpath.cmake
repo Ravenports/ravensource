@@ -1,6 +1,6 @@
---- router/cmake/set_rpath.cmake.orig	2025-10-31 15:47:45.054929000 +0100
-+++ router/cmake/set_rpath.cmake	2025-10-31 15:48:40.875994000 +0100
-@@ -27,8 +27,7 @@
+--- router/cmake/set_rpath.cmake.orig	2025-12-17 13:14:47 UTC
++++ router/cmake/set_rpath.cmake
+@@ -27,8 +27,7 @@ ELSE()
    SET(RPATH_ORIGIN "\$ORIGIN")
  ENDIF()
  

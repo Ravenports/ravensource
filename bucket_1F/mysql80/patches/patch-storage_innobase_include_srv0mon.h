@@ -1,4 +1,4 @@
---- storage/innobase/include/srv0mon.h.orig	2025-07-09 08:45:01 UTC
+--- storage/innobase/include/srv0mon.h.orig	2025-12-17 13:14:47 UTC
 +++ storage/innobase/include/srv0mon.h
 @@ -41,6 +41,10 @@ Foundation, Inc., 51 Franklin St, Fifth
  /* Required for FreeBSD so that INT64_MAX is defined. */
