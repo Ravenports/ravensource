@@ -1,5 +1,5 @@
 Gunicorn
---------
+========
 
 Gunicorn 'Green Unicorn' is a Python WSGI HTTP Server for UNIX. It's a
 pre-fork
@@ -8,47 +8,54 @@ broadly
 compatible with various web frameworks, simply implemented, light on server
 resource usage, and fairly speedy.
 
-Feel free to join us in `#gunicorn`_ on `Libera.chat`_.
+**New in v24**: Native ASGI support (beta) for async frameworks like
+FastAPI!
+
+Quick Start
+-----------
+
+.. code-block:: bash
+
+    pip install gunicorn
+    gunicorn myapp:app --workers 4
+
+For ASGI applications (FastAPI, Starlette):
+
+.. code-block:: bash
+
+    gunicorn myapp:app --worker-class asgi
+
+Features
+--------
+
+- WSGI support for Django, Flask, Pyramid, and any WSGI framework
+- **ASGI support** (beta) for FastAPI, Starlette, Quart
+- uWSGI binary protocol for nginx integration
+- Multiple worker types: sync, gthread, gevent, eventlet, asgi
+- Graceful worker process management
+- Compatible with Python 3.12+
 
 Documentation
 -------------
 
-The documentation is hosted at https://docs.gunicorn.org.
+Full documentation at https://gunicorn.org
 
-Installation
-------------
+- [Quickstart]
+- [Configuration]
+- [Deployment]
+- [Settings Reference]
 
-Gunicorn requires **Python 3.x >= 3.7**.
+Community
+---------
 
-Install from PyPI::
-
-    $ pip install gunicorn
-
-Usage
------
-
-Basic usage::
-
-    $ gunicorn [OPTIONS] APP_MODULE
-
-Where APP_MODULE is of the pattern ``$(MODULE_NAME):$(VARIABLE_NAME)``. The
-module name can be a full dotted path. The variable name refers to a WSGI
-callable that should be found in the specified module.
-
-Example with test app::
-
-    $ cd examples
-    $ gunicorn --workers=2 test:app
-
-Contributing
-------------
-
-See [our complete contributor's guide] for more details.
+- Report bugs on [GitHub Issues]
+- Chat in `#gunicorn`_ on `Libera.chat`_
+- See `CONTRIBUTING.md <CONTRIBUTING.md>`_ for contribution guidelines
 
 License
 -------
 
-Gunicorn is released under the MIT License. See the LICENSE_ file for more
+Gunicorn is released under the MIT License. See the LICENSE_ file for
 details.
 
 .. _Unicorn: https://bogomips.org/unicorn/

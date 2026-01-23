@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	23.0.0
+DEF[PORTVERSION]=	24.0.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-gunicorn
@@ -11,7 +11,7 @@ HOMEPAGE=		https://gunicorn.org
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/cb/7d/6dac2a6e1eba33ee43f318edbed4ff29151a49b5d37f080aad1e6469bca4
+SITES[main]=		PYPIWHL/d7/52/b757a35f115b0273f62b8557435e7b867424d0d7e363808e3413d62da49a
 DISTFILE[1]=		gunicorn-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -24,23 +24,23 @@ VOPTS[v13]=		PY313=ON PY314=OFF
 VOPTS[v14]=		PY313=OFF PY314=ON
 
 # License listed at PyPI
-# MIT
+# Not provided.
 
 GENERATED=		yes
 DISTNAME=		gunicorn-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
 # packaging
-# importlib-metadata ; python_version < "3.8"
-# eventlet !=0.36.0,>=0.24.1 ; extra == 'eventlet'
-# gevent >=1.4.0 ; extra == 'gevent'
-# setproctitle ; extra == 'setproctitle'
-# gevent ; extra == 'testing'
-# eventlet ; extra == 'testing'
-# coverage ; extra == 'testing'
-# pytest ; extra == 'testing'
-# pytest-cov ; extra == 'testing'
-# tornado >=0.2 ; extra == 'tornado'
+# gevent>=24.10.1; extra == "gevent"
+# eventlet>=0.40.3; extra == "eventlet"
+# tornado>=6.5.0; extra == "tornado"
+# setproctitle; extra == "setproctitle"
+# gevent>=24.10.1; extra == "testing"
+# eventlet>=0.40.3; extra == "testing"
+# coverage; extra == "testing"
+# pytest; extra == "testing"
+# pytest-cov; extra == "testing"
+# pytest-asyncio; extra == "testing"
 
 [PY313].USES_ON=			python:v13,wheel
 [PY313].RUN_DEPENDS_ON=			python-packaging:single:v13
