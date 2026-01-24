@@ -1,50 +1,34 @@
---- library/std/src/fs/tests.rs.orig	2025-12-08 12:52:32 UTC
+--- library/std/src/fs/tests.rs.orig	2026-01-19 16:34:28 UTC
 +++ library/std/src/fs/tests.rs
-@@ -3,6 +3,7 @@ use rand::RngCore;
- #[cfg(any(
-     windows,
-     target_os = "freebsd",
-+    target_os = "dragonfly",
-     target_os = "linux",
-     target_os = "netbsd",
-     target_os = "illumos",
-@@ -13,6 +14,7 @@ use crate::char::MAX_LEN_UTF8;
- #[cfg(any(
-     windows,
-     target_os = "freebsd",
-+    target_os = "dragonfly",
-     target_os = "linux",
-     target_os = "netbsd",
-     target_os = "illumos",
-@@ -226,6 +228,7 @@ fn file_test_io_seek_and_write() {
- #[cfg(any(
-     windows,
-     target_os = "freebsd",
-+    target_os = "dragonfly",
-     target_os = "linux",
-     target_os = "netbsd",
-     target_os = "solaris",
-@@ -251,6 +254,7 @@ fn file_lock_multiple_shared() {
- #[cfg(any(
-     windows,
-     target_os = "freebsd",
-+    target_os = "dragonfly",
-     target_os = "linux",
-     target_os = "netbsd",
-     target_os = "solaris",
-@@ -277,6 +281,7 @@ fn file_lock_blocking() {
- #[cfg(any(
-     windows,
-     target_os = "freebsd",
-+    target_os = "dragonfly",
-     target_os = "linux",
-     target_os = "netbsd",
-     target_os = "solaris",
-@@ -300,6 +305,7 @@ fn file_lock_drop() {
- #[cfg(any(
-     windows,
-     target_os = "freebsd",
-+    target_os = "dragonfly",
-     target_os = "linux",
-     target_os = "netbsd",
-     target_os = "solaris",
+@@ -211,6 +211,7 @@ fn file_test_io_seek_and_write() {
+         target_os = "aix",
+         target_os = "cygwin",
+         target_os = "freebsd",
++        target_os = "dragonfly",
+         target_os = "fuchsia",
+         target_os = "illumos",
+         target_os = "linux",
+@@ -243,6 +244,7 @@ fn file_lock_multiple_shared() {
+         target_os = "aix",
+         target_os = "cygwin",
+         target_os = "freebsd",
++        target_os = "dragonfly",
+         target_os = "fuchsia",
+         target_os = "illumos",
+         target_os = "linux",
+@@ -276,6 +278,7 @@ fn file_lock_blocking() {
+         target_os = "aix",
+         target_os = "cygwin",
+         target_os = "freebsd",
++        target_os = "dragonfly",
+         target_os = "fuchsia",
+         target_os = "illumos",
+         target_os = "linux",
+@@ -306,6 +309,7 @@ fn file_lock_drop() {
+         target_os = "aix",
+         target_os = "cygwin",
+         target_os = "freebsd",
++        target_os = "dragonfly",
+         target_os = "fuchsia",
+         target_os = "illumos",
+         target_os = "linux",

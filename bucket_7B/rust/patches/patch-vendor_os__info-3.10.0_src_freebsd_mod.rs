@@ -1,4 +1,4 @@
---- vendor/os_info-3.10.0/src/freebsd/mod.rs.orig	2025-12-08 12:52:32 UTC
+--- vendor/os_info-3.10.0/src/freebsd/mod.rs.orig	2026-01-19 16:34:28 UTC
 +++ vendor/os_info-3.10.0/src/freebsd/mod.rs
 @@ -26,23 +26,7 @@ pub fn current_platform() -> Info {
  fn get_os() -> Type {

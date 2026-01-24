@@ -1,6 +1,6 @@
---- src/bootstrap/src/core/builder/cargo.rs.orig	2025-12-08 12:52:32 UTC
+--- src/bootstrap/src/core/builder/cargo.rs.orig	2026-01-19 16:34:28 UTC
 +++ src/bootstrap/src/core/builder/cargo.rs
-@@ -280,12 +280,13 @@ impl Cargo {
+@@ -290,12 +290,13 @@ impl Cargo {
                  && !target.contains("xous")
              {
                  self.rustflags.arg("-Clink-args=-Wl,-z,origin");
