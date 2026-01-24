@@ -1,14 +1,13 @@
 # careful updating this port.  It frequently breaks libreoffice and inkscape
-DEF[PORTVERSION]=	25.04.0
-DEF[SOVERSION]=		148.0.0
-DEF[CPP_SOVERSION]=	2.1.0
-DEF[GLIB_SOVERSION]=	8.29.0
-DEF[QT6_SOVERSION]=	3.10.0
+DEF[PORTVERSION]=	25.10.0
+DEF[SOVERSION]=		154.0.0
+DEF[CPP_SOVERSION]=	2.2.0
+DEF[GLIB_SOVERSION]=	8.31.0
+DEF[QT6_SOVERSION]=	3.11.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		poppler
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		graphics print
 VARIANTS=		std
 SDESC[std]=		PDF rendering library
@@ -62,6 +61,18 @@ EXRUN[qt6]=		poppler:primary:std
 EXRUN[utils]=		poppler:primary:std
 			cairo:primary:std
 			lcms2:primary:std
+EXRUN[dev]=		lcms2:dev:std
+			jpeg-turbo:dev:std
+			openjpeg:dev:std
+			zlib:dev:std
+			curl:dev:std
+			tiff:dev:std
+			png:dev:std
+			freetype:dev:std
+			fontconfig:dev:std
+EXRUN[glibdev]=		glib:dev:std
+			cairo:dev:std
+			freetype:dev:std
 
 USES=			cmake:insource cpe png jpeg tiff libtool pkgconfig
 			curl fontconfig zlib python:build gettext:build
