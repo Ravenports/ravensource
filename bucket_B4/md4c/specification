@@ -1,0 +1,37 @@
+DEF[PORTVERSION]=	0.5.2
+DEF[TAG]=		release-${PORTVERSION}
+DEF[SOVERSION]=		${PORTVERSION}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		md4c
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc
+VARIANTS=		std
+SDESC[std]=		Markdown Parser written in C
+HOMEPAGE=		https://github.com/mity/md4c/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/mity:md4c:${TAG}
+DISTFILE[1]=		generated:main
+
+SPKGS[std]=		set primary dev man tools
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:primary
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE.md
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		textproc/md4c
+
+EXRUN[tools]=		primary
+
+USES=			cmake cpe
+CPE_VENDOR=		md4c_project
+SOVERSION=		${SOVERSION}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib*.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/md2html
