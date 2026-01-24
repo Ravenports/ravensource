@@ -1,6 +1,6 @@
---- cmake/Install.cmake.orig	2025-11-13 12:09:28 UTC
+--- cmake/Install.cmake.orig	2026-01-07 07:34:20 UTC
 +++ cmake/Install.cmake
-@@ -102,7 +102,7 @@ install(FILES share/config.fish
+@@ -108,7 +108,7 @@ install(FILES share/config.fish
  fish_create_dirs(${rel_datadir}/fish/vendor_completions.d ${rel_datadir}/fish/vendor_functions.d
      ${rel_datadir}/fish/vendor_conf.d)
  
@@ -9,7 +9,7 @@
  configure_file(fish.pc.in fish.pc.noversion @ONLY)
  
  add_custom_command(OUTPUT fish.pc
-@@ -115,7 +115,7 @@ add_custom_command(OUTPUT fish.pc
+@@ -121,7 +121,7 @@ add_custom_command(OUTPUT fish.pc
  add_custom_target(build_fish_pc ALL DEPENDS fish.pc)
  
  install(FILES ${CMAKE_CURRENT_BINARY_DIR}/fish.pc
