@@ -1,8 +1,11 @@
-DEF[PORTVERSION]=	5.45.4.1
+# using the bawt fork
+DEF[REALVERSION]=	5.45.4.1
+DEF[PORTVERSION]=	5.34.4
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		expect
 VERSION=		${PORTVERSION}
+EPOCH=			1
 KEYWORDS=		lang
 VARIANTS=		std
 SDESC[std]=		Tool for automating interactive applications
@@ -12,7 +15,7 @@ CONTACT=		nobody
 DOWNLOAD_GROUPS=	main
 # SITES[main]=		SF/expect/Expect/${PORTVERSION} (use semi-official fork)
 SITES[main]=		https://www.tcl3d.org/bawt/download/InputLibs/
-DISTFILE[1]=		expect-${PORTVERSION}.7z:main
+DISTFILE[1]=		expect-${REALVERSION}.7z:main
 
 SPKGS[std]=		set primary tools dev man
 
@@ -32,10 +35,11 @@ CPE_VENDOR=		don_libes
 CONFIGURE_ARGS=		--datadir={{PREFIX}}/share/expect
 CFLAGS=			-Wno-incompatible-pointer-types
 			-Wno-int-conversion
-PLIST_SUB=		PORTVERSION=${PORTVERSION}
+PLIST_SUB=		REALVERSION=${REALVERSION}
+DISTNAME=		expect-${REALVERSION}
 
 post-install:
-	${LN} -sf expect${PORTVERSION}/libexpect${PORTVERSION}.so \
+	${LN} -sf expect${REALVERSION}/libexpect${REALVERSION}.so \
 		${STAGEDIR}${PREFIX}/lib/libexpect.so.1
 	${LN} -sf libexpect.so.1 ${STAGEDIR}${PREFIX}/lib/libexpect.so
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libexpect.so
