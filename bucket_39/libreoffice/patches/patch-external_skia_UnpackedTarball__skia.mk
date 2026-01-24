@@ -1,4 +1,4 @@
---- external/skia/UnpackedTarball_skia.mk.orig	2025-12-01 19:30:03 UTC
+--- external/skia/UnpackedTarball_skia.mk.orig	2026-01-14 23:16:14 UTC
 +++ external/skia/UnpackedTarball_skia.mk
 @@ -23,7 +23,6 @@ skia_patches := \
      windows-do-not-modify-logfont.patch.0 \
