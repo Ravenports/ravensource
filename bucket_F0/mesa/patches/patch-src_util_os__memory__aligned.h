@@ -1,4 +1,4 @@
---- src/util/os_memory_aligned.h.orig	2025-12-17 21:00:46 UTC
+--- src/util/os_memory_aligned.h.orig	2026-01-01 18:34:04 UTC
 +++ src/util/os_memory_aligned.h
 @@ -42,11 +42,16 @@
  static inline void *
