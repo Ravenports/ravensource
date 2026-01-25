@@ -49,8 +49,11 @@ quit_if_compiler_is_missing() {
    fi
    candidate="${prefix}/toolchain/${ADA_COMPILER}/bin/gcc"
    if [ ! -x "$candidate" ]; then
-      echo "FATAL: The compiler '$candidate' does not exist or is not executable"
-      exit 1
+      candidate="${prefix}/${ADA_COMPILER}/bin/gcc"
+      if [ ! -x "$candidate" ]; then
+         echo "FATAL: The compiler '$candidate' does not exist or is not executable"
+         exit 1
+      fi
    fi
    $candidate --version
 }
