@@ -47,9 +47,11 @@ quit_if_compiler_is_missing() {
       echo "FATAL: The variable ADA_COMPILER must be defined."
       exit 1
    fi
-   candidate="${prefix}/toolchain/${ADA_COMPILER}/bin/gcc"
+   PREPEND="${prefix}/toolchain/${ADA_COMPILER}/bin"
+   candidate="${PREPEND}/gcc"
    if [ ! -x "$candidate" ]; then
-      candidate="${prefix}/${ADA_COMPILER}/bin/gcc"
+      PREPEND="${prefix}/${ADA_COMPILER}/bin"
+      candidate="${PREPEND}/gcc"
       if [ ! -x "$candidate" ]; then
          echo "FATAL: The compiler '$candidate' does not exist or is not executable"
          exit 1
@@ -80,7 +82,7 @@ quit_if_compiler_is_missing
 mkdir -p "${ACATS_RESULTS_DIR:?}"
 rm -rf "${ACATS_RESULTS_DIR:?}/*"
 
-TAILORED_PATH="${prefix}/toolchain/${ADA_COMPILER}/bin:/sbin:/bin:/usr/sbin:/usr/bin:${prefix}/bin"
+TAILORED_PATH="${PREPEND}:/sbin:/bin:/usr/sbin:/usr/bin:${prefix}/bin"
 START_TESTS="${prefix}/share/ACATS/run_local.sh"
 
 # Execute the ACATS testsuite
