@@ -1,4 +1,4 @@
---- src/kioworkers/file/file_unix.cpp.orig	2025-11-13 21:10:07 UTC
+--- src/kioworkers/file/file_unix.cpp.orig	2026-01-02 17:42:39 UTC
 +++ src/kioworkers/file/file_unix.cpp
 @@ -289,6 +289,9 @@ static bool createUDSEntry(const QString
  #if HAVE_SYS_XATTR_H || HAVE_SYS_EXTATTR_H
