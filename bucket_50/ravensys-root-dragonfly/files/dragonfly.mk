@@ -360,3 +360,7 @@ install-platform: install-common
 	mv ${DESTDIR}${BASE}/var/run/ld-elf.so.hints \
 		${DESTDIR}${BASE}/usr/share/
 	rm -rf ${DESTDIR}${BASE}/var
+
+	# support /etc/localtime
+	${BSD_INSTALL_DATA} ../${OPSYS:tl}/usr/share/zoneinfo/UTC \
+		${DESTDIR}${BASE}/usr/share/localtime
