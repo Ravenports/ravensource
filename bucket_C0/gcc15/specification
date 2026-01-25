@@ -1,0 +1,191 @@
+DEF[PORTVERSION]=	EXTRACT_INFO(GCC15_PORTVERSION)
+DEF[PORTREVISION]=	EXTRACT_INFO(GCC15_REVISION)
+DEF[BRANCH]=		EXTRACT_INFO(GCC15_BRANCH)
+DEF[MS_SUBDIR]=		EXTRACT_INFO(GCC15_MS_SUBDIR)
+DEF[IDENTIFICATION]=	EXTRACT_INFO(GCC15_IDENTIFICATION)
+DEF[GCC_VERSION]=	EXTRACT_INFO(GCC15_VERSION)
+DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
+DEF[STDCXX_VERSION]=	6.0.34
+DEF[DRACO_TAG]=		15.2.0-base
+DEF[DRACO_DIR]=		patches-15.2.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gcc15
+VERSION=		${PORTVERSION}
+REVISION=		${PORTREVISION}
+KEYWORDS=		lang raven
+VARIANTS=		std
+SDESC[std]=		GNU Compiler collection (GCC), Series ${BRANCH}
+HOMEPAGE=		https://gcc.gnu.org/
+CONTACT=		John_Marino[draco@marino.st]
+
+DOWNLOAD_GROUPS=	main draco
+SITES[main]=		GCC/${MS_SUBDIR}
+SITES[draco]=		https://raw.githubusercontent.com/jrmarino/draco/${DRACO_TAG}/generated/${DRACO_DIR}/
+DISTFILE[1]=		${IDENTIFICATION}.tar.xz:main
+DISTFILE[2]=		patch-diff-ada:draco
+DISTFILE[3]=		patch-diff-core:draco
+DISTFILE[4]=		patch-diff-cxx:draco
+DISTFILE[5]=		patch-diff-ada-testsuite:draco
+DISTFILE[6]=		patch-diff-gcc-testsuite:draco
+DIST_SUBDIR=		gcc15_${DRACO_TAG}
+
+SPKGS[std]=		set compilers ada_run cxx_run fortran_run libs info man
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv3+:compilers
+			LGPL3+:compilers
+			GPLv3RLE+:compilers
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING3
+			LGPL3+:{{WRKSRC}}/COPYING3.LIB
+			GPLv3RLE+:{{WRKSRC}}/COPYING.RUNTIME
+LICENSE_TERMS=		compilers:{{WRKDIR}}/TERMS
+LICENSE_SCHEME=		multi
+
+FPC_EQUIVALENT=		lang/gcc14
+
+BUILD_DEPENDS=		gmp:dev:std
+			mpfr:dev:std
+			mpc:dev:std
+			binutils:dev:std
+BUILDRUN_DEPENDS=	binutils:primary:std
+EXRUN[ada_run]=		gcc${BRANCH}:libs:std
+EXRUN[cxx_run]=		gcc${BRANCH}:libs:std
+EXRUN[fortran_run]=	gcc${BRANCH}:libs:std
+EXRUN[compilers]=	gcc${BRANCH}:cxx_run:std
+
+PATCHFILES=		2 3 4 5 6
+
+USES=			cpe gmake libtool perl:build iconv:build
+# for info pages
+			makeinfo
+DISTNAME=		${IDENTIFICATION}
+MUST_CONFIGURE=		gnu
+CPE_VENDOR=		gnu
+CPE_PRODUCT=		gcc
+PLIST_SUB=		GCCVER=${GCC_VERSION}
+			TARGET={{CONFIGURE_TARGET}}
+			BRANCH=${BRANCH}
+			VSTDCXX=${STDCXX_VERSION}
+			SSP={{SSP}}
+PREFIX=			{{LOCALBASE}}/{{NAMEBASE}}
+INSTALL_TARGET=		install-strip
+CONFIGURE_OUTSOURCE=	yes
+CONFIGURE_ARGS=		--enable-languages="c,c++,ada,fortran"
+			--with-local-prefix={{LOCALBASE}}
+			--with-gmp={{LOCALBASE}}
+			--with-mpc={{LOCALBASE}}
+			--with-mpfr={{LOCALBASE}}
+			--enable-shared
+			--enable-threads=posix
+			--enable-checking=release
+			--enable-libquadmath
+			--enable-gnu-indirect-function
+			--disable-nls
+			--disable-multilib
+			--disable-libsanitizer
+			--disable-libvtv
+			--disable-libmpx
+			--disable-libcilkrts
+			--with-pkgversion="Ravenports"
+
+VAR_OPSYS[dragonfly]=	CONFIGURE_ARGS=--with-gnu-as
+			CONFIGURE_ARGS=--with-as={{LOCALBASE}}/bin/as
+			CONFIGURE_ARGS=--with-ld={{LOCALBASE}}/bin/ld
+			CONFIGURE_ARGS=--with-libiconv-prefix={{WRKDIR}}/fake
+VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=--disable-libstdcxx-pch
+			CONFIGURE_ARGS=--with-gnu-as
+			CONFIGURE_ARGS=--with-as={{LOCALBASE}}/bin/as
+			CONFIGURE_ARGS=--with-ld={{LOCALBASE}}/bin/ld
+			CONFIGURE_ARGS=--with-libiconv-prefix={{WRKDIR}}/fake
+VAR_OPSYS[netbsd]=	CONFIGURE_ARGS=--disable-libstdcxx-pch
+			CONFIGURE_ARGS=--with-gnu-as
+			CONFIGURE_ARGS=--with-as={{LOCALBASE}}/bin/as
+			CONFIGURE_ARGS=--with-ld={{LOCALBASE}}/bin/ld
+			CONFIGURE_ARGS=--with-libiconv-prefix={{WRKDIR}}/fake
+			CONFIGURE_ARGS=--disable-libssp
+			MAKEFILE_LINE=SSP="@comment "
+VAR_OPSYS[midnightbsd]=	CONFIGURE_ARGS=--disable-libstdcxx-pch
+			CONFIGURE_ARGS=--with-gnu-as
+			CONFIGURE_ARGS=--with-as={{LOCALBASE}}/bin/as
+			CONFIGURE_ARGS=--with-ld={{LOCALBASE}}/bin/ld
+			CONFIGURE_ARGS=--with-libiconv-prefix={{WRKDIR}}/fake
+			MAKEFILE_LINE=CONFIGURE_TARGET=${MBSD64_TARGET}
+VAR_OPSYS[linux]=	CONFIGURE_ARGS=--with-gnu-as
+			CONFIGURE_ARGS=--with-as={{LOCALBASE}}/bin/as
+			CONFIGURE_ARGS=--with-ld={{LOCALBASE}}/bin/ld
+			CONFIGURE_ARGS=--disable-libssp
+			MAKEFILE_LINE=SSP="@comment "
+
+# no matter what, the sun linker fails when building host backends
+# (originally due to multiple version of the same symbol)
+# Even OmniOS package has the bootstap disabled.  The actual error often isn't logged
+VAR_OPSYS[sunos]=	CONFIGURE_ARGS=--disable-bootstrap
+			CONFIGURE_ARGS=--with-gnu-as
+			CONFIGURE_ARGS=--with-as={{LOCALBASE}}/bin/as
+			CONFIGURE_ARGS=--without-gnu-ld
+			CONFIGURE_ARGS=--with-libiconv-prefix={{WRKDIR}}/fake
+
+INFO=			info:cpp
+			info:cppinternals
+			info:gcc
+			info:gccinstall
+			info:gccint
+			info:gfortran
+			info:gnat-style
+			info:gnat_rm
+			info:gnat_ugn
+			info:libquadmath
+			info:libitm
+			info:libgomp
+
+# Removed ALLSTAGES OPTION (left for info)
+# [ALLSTAGES].DESCRIPTION=		Three stage build (full bootstrap)
+# [ALLSTAGES].CONFIGURE_ARGS_OFF=		--disable-bootstrap --disable-libcc1
+
+post-extract:
+	${HEAD} -n 19 ${WRKSRC}/gcc/gcc.h > ${WRKDIR}/TERMS
+	${HEAD} -n 31 ${WRKSRC}/gcc/ada/adaint.h >> ${WRKDIR}/TERMS
+	${HEAD} -n 18 ${WRKSRC}/libiberty/hex.c >> ${WRKDIR}/TERMS
+	# Use iconv_pic.a instead of iconv.a
+	if [ -f ${LOCALBASE}/include/iconv.h ]; then \
+	${MKDIR} ${WRKDIR}/fake/include ${WRKDIR}/fake/lib ;\
+	${INSTALL_DATA} ${LOCALBASE}/include/iconv.h \
+		${WRKDIR}/fake/include/ ;\
+	${INSTALL_DATA} ${LOCALBASE}/lib/libiconv_pic.a \
+		${WRKDIR}/fake/lib/libiconv.a ;\
+	fi
+
+post-patch:
+	# Update LINK_SPEC to add gcc-aux lib runpath in every binary
+	@${ECHO} "Configuring LINK_SPEC runpath"
+	${REINPLACE_CMD} -e 's;\@PREFIX\@;${PREFIX:H};g' \
+		-e 's;\@GCCAUX\@;${NAMEBASE};' \
+		-e 's;\@LOCALBASE\@;${LOCALBASE};g' \
+		${WRKSRC}/gcc/gcc.cc \
+		${WRKSRC}/gcc/config/darwin.h \
+		${WRKSRC}/gcc/config/dragonfly.h \
+		${WRKSRC}/gcc/config/sol2.h \
+		${WRKSRC}/gcc/config/netbsd-elf.h \
+		${WRKSRC}/gcc/config/i386/freebsd64.h \
+		${WRKSRC}/gcc/config/i386/freebsd.h \
+		${WRKSRC}/gcc/config/i386/gnu-user64.h \
+		${WRKSRC}/gcc/config/aarch64/aarch64-freebsd.h \
+		${WRKSRC}/gcc/ada/gnatls.adb
+	${REINPLACE_CMD} -e 's|/usr/ccs/bin/elfdump|/usr/bin/elfdump|' \
+		${WRKSRC}/contrib/make_sunver.pl
+
+post-install:
+	cp ${STAGEDIR}${PREFIX}/bin/gcc ${STAGEDIR}${PREFIX}/bin/cc
+	${RM} ${STAGEDIR}${MANPREFIX}/man/man7/*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/gcc/${CONFIGURE_TARGET}/${GCC_VERSION}/adalib/libgnarl.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/gcc/${CONFIGURE_TARGET}/${GCC_VERSION}/adalib/libgnat.so
+	# remove when info pages re-enabled
+	${RM} ${STAGEDIR}${PREFIX}/share/info/libitm.info
+	${RM} ${STAGEDIR}${PREFIX}/share/info/libgomp.info
+	${RM} ${STAGEDIR}${PREFIX}/share/info/libquadmath.info
+
+	# do this for all platforms now
+	${RM} -r ${STAGEDIR}${PREFIX}/lib/gcc/${CONFIGURE_TARGET}/${GCC_VERSION}/include-fixed
