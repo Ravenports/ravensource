@@ -4,13 +4,13 @@ DEF[X_CURRENT]=		EXTRACT_VERSION(PLATFORM_Linux_x86-64)
 DEF[X_ABI26]=		EXTRACT_VERSION(PREVIOUS_Linux_K44)
 DEF[ABI26_FILES]=	2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20
 DEF[ABI32_FILES_1]=	21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45
-DEF[ABI32_FILES_2]=	46 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69
+DEF[ABI32_FILES_2]=	46 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70
 DEF[ABI32_FILES]=	${ABI32_FILES_1} ${ABI32_FILES_2}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ravensys-root-linux
 VERSION=		${PRIME}
-REVISION=		9
+REVISION=		10
 KEYWORDS=		raven
 VARIANTS=		std ABI26
 SDESC[std]=		Linux ${PRIME} builder system root
@@ -24,6 +24,7 @@ DOWNLOAD_GROUPS=	main leaf sting ubuntu1 ubuntu2 ubuntu3 ubuntu4 ubuntu5 ubuntu6
 			debian8 debian9 debian10 debian11 debian12 debian13 debian14
 			debian16 debian18 debian19 debian20 debian21
 			debian22 debian24 debian25 debian26 debian27 debian28 debian29
+			debian30
 SITES[main]=		https://leaf.dragonflybsd.org/~marino/dports-src/
 SITES[ubuntu1]=		http://security.ubuntu.com/ubuntu/pool/main/g/glibc/
 SITES[ubuntu2]=		UBUNTU/h/hostname
@@ -68,6 +69,7 @@ SITES[debian26]=	DEBIAN/pool/main/x/xz-utils
 SITES[debian27]=	DEBIAN/pool/main/libg/libgcrypt20
 SITES[debian28]=	DEBIAN/pool/main/libg/libgpg-error
 SITES[debian29]=	DEBIAN/pool/main/libc/libcap2
+SITES[debian30]=	DEBIAN/pool/main/t/tzdata
 
 DISTFILE[1]=		dummy-tarball.tar.gz:main
 DISTFILE[2]=		locales_2.23-0ubuntu10_all.deb:sting
@@ -139,6 +141,7 @@ DISTFILE[66]=		libgcrypt20_1.10.1-3_amd64.deb:debian27
 DISTFILE[67]=		libgpg-error0_1.46-1_amd64.deb:debian28
 DISTFILE[68]=		libcap2_2.66-4_amd64.deb:debian29
 DISTFILE[69]=		libcap-dev_2.66-4_amd64.deb:debian29
+DISTFILE[70]=		tzdata_2025b-0+deb12u2_all.deb:debian30
 
 DIST_SUBDIR=		linux-sysroot
 

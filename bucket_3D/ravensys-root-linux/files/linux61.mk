@@ -113,3 +113,7 @@ install-platform: install-common
 	# pre-generated locale definitions
 	cp ${CPA} ../ravensys-root-linux_48/locale-archive \
 		${DESTDIR}${BASE}/usr/lib/locale/
+
+	# support /etc/localtime
+	${BSD_INSTALL_DATA} ../${OPSYS:tl}/usr/share/zoneinfo/UTC \
+		${DESTDIR}${BASE}/usr/share/localtime
