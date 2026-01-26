@@ -369,5 +369,5 @@ install-platform: install-common
 	ln -s amd64 ${DESTDIR}${BASE}/usr/include/machine
 
 	# entire timezone data
-	cp ${CPA} ../${OPSYS:tl}/usr/share/zoneinfo \
-		${DESTDIR}${BASE}/usr/share/
+	${BSD_INSTALL_DATA} ../${OPSYS:tl}/usr/share/zoneinfo/UTC \
+                ${DESTDIR}${BASE}/usr/share/localtime
