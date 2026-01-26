@@ -8,6 +8,7 @@ destdir="$2"
 python_includes="$3"
 soversion="$4"
 python3_linking="\"$5\""
+iconv_linking="$6"
 
 component_lower="$name"
 component_target="$name"
@@ -18,10 +19,10 @@ case "$name" in
 		component_upper=GMP
 		linker_opts='"-lgmp"'
 		;;
-	"iconv")	
+	"iconv")
 		component=Iconv
 		component_upper=ICONV
-		linker_opts='"-liconv"'
+		linker_opts="\"${iconv_linking}\""
 		;;
 	"readline")
 		component=Readline
@@ -82,7 +83,7 @@ esac
 
 case "$name" in
 	"iconv")
-		iconvhandle="s|%%ICONV_ON%%||"
+		iconvhandle="s|%%ICONV_ON%%||; s|%%ICONV_LINK%%|${iconv_linking}|"
 		;;
 	*)
 		iconvhandle="/%%ICONV_ON%%/d"

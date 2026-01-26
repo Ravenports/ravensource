@@ -10,6 +10,7 @@ DEF[PY3_INCLUDEDIR]=	{{LOCALBASE}}/include/python${PY3DEFAULT}
 
 NAMEBASE=		gnatcoll-bindings
 VERSION=		${PORTVERSION}
+REVISION=		1
 EPOCH=			1
 KEYWORDS=		devel
 VARIANTS=		std
@@ -55,8 +56,7 @@ EXRUN[syslog]=		gnatcoll-core:primary:std
 EXRUN[cpp]=		gnatcoll-core:primary:std
 EXRUN[gmp]=		gmp:primary:std
 			gnatcoll-core:primary:std
-EXRUN[iconv]=		libiconv:primary:std
-			gnatcoll-core:primary:std
+EXRUN[iconv]=		gnatcoll-core:primary:std
 EXRUN[readline]=	readline:primary:std
 			gnatcoll-core:primary:std
 EXRUN[python3]=		python${THIRD_SNAKE}:primary:std
@@ -84,7 +84,7 @@ do-build:
 	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
 		gprbuild -p -XLIBRARY_TYPE=${libtype} \
 		-XGNATCOLL_VERSION="${SOVERSION}" \
-		-XGNATCOLL_ICONV_OPT="-liconv_pic" \
+		-XGNATCOLL_ICONV_OPT="${ICONV_LIB_PIC}" \
 		-XGNATCOLL_PYTHON_CFLAGS="-I${PY3_INCLUDEDIR}" \
 		-P ${component}/gnatcoll_${component}.gpr)
 .  endfor
@@ -101,7 +101,7 @@ do-install:
 		--no-manifest \
 		-XGNATCOLL_VERSION="${SOVERSION}" \
 		-XLIBRARY_TYPE=${libtype} \
-		-XGNATCOLL_ICONV_OPT="-liconv_pic" \
+		-XGNATCOLL_ICONV_OPT="${ICONV_LIB_PIC}" \
 		-P ${component}/gnatcoll_${component}.gpr)
 .  endfor
 	${MKDIR} ${STAGEDIR}${PREFIX}/include/gnatcoll_${component}
@@ -125,5 +125,6 @@ do-install:
 		"${STAGEDIR}${PREFIX}" \
 		"-I${PY3_INCLUDEDIR}" \
 		"${SOVERSION}" \
-		"-lpython${PY3DEFAULT}"
+		"-lpython${PY3DEFAULT}" \
+		"${ICONV_LIB_PIC}"
 .endfor
