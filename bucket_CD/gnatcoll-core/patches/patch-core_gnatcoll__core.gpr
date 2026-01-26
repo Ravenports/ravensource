@@ -1,6 +1,16 @@
 --- core/gnatcoll_core.gpr.orig	2025-11-28 12:36:47 UTC
 +++ core/gnatcoll_core.gpr
-@@ -154,7 +154,7 @@ library project GNATCOLL_Core is
+@@ -75,9 +75,6 @@ library project GNATCOLL_Core is
+    Blake3_C_Flags := ();
+ 
+    case Blake3_Arch is
+-      when "x86_64-linux" =>
+-         Sources := Sources & ("src/hash/blake3/x86_64-linux");
+-         Project_Languages := Project_Languages & ("Asm_Cpp");
+       when "aarch64-linux" =>
+          Sources := Sources & ("src/hash/blake3/aarch64-linux");
+       when "x86_64-windows" =>
+@@ -154,7 +151,7 @@ library project GNATCOLL_Core is
     end case;
     case OS is
        when "unix" =>
@@ -9,7 +19,7 @@
        when others =>
           null;
     end case;
-@@ -173,7 +173,7 @@ library project GNATCOLL_Core is
+@@ -173,7 +170,7 @@ library project GNATCOLL_Core is
  
     case Library_Type is
        when "relocatable" =>
@@ -18,7 +28,7 @@
  
           --  Put user options in front, for options like --as-needed.
           for Leading_Library_Options use External_As_List ("LDFLAGS", " ");
-@@ -398,7 +398,7 @@ library project GNATCOLL_Core is
+@@ -398,7 +395,7 @@ library project GNATCOLL_Core is
  
     package Install is
        for Artifacts ("share/examples/gnatcoll") use ("../examples/*");
