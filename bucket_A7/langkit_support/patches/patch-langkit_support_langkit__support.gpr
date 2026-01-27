@@ -1,5 +1,14 @@
 --- langkit/support/langkit_support.gpr.orig	2025-09-19 07:31:11 UTC
 +++ langkit/support/langkit_support.gpr
+@@ -15,7 +15,7 @@ library project Langkit_Support is
+ 
+    type Library_Standalone_Type is ("standard", "no", "encapsulated");
+    Library_Standalone : Library_Standalone_Type := external
+-     ("LANGKIT_SUPPORT_STANDALONE", external ("STANDALONE", "standard"));
++     ("LANGKIT_SUPPORT_STANDALONE", external ("STANDALONE", "@SALTYPE@"));
+ 
+    for Languages use ("Ada");
+    for Source_Dirs use (".");
 @@ -81,6 +81,7 @@ library project Langkit_Support is
     end case;
  

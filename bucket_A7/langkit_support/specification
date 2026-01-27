@@ -8,6 +8,7 @@ DEF[THIRD_SNAKE]=	${PY3DEFAULT:S|.||}
 
 NAMEBASE=		langkit_support
 VERSION=		${PORTVERSION}
+REVISION=		1
 EPOCH=			1
 KEYWORDS=		ada devel
 VARIANTS=		std
@@ -24,8 +25,12 @@ DF_INDEX=		1 2
 
 SPKGS[std]=		set primary bindings modules dev
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	REGULAR
+OPTIONS_STANDARD=	REGULAR
+OPT_ON[netbsd]=		REGULAR
+OPT_ON[freebsd]=	REGULAR
+OPT_ON[dragonfly]=	REGULAR
+OPT_ON[midnightbsd]=	REGULAR
 
 BUILD_DEPENDS=		python${THIRD_SNAKE}:primary:std
 			gmp:dev:std
@@ -62,6 +67,11 @@ DISTNAME=		${MYDISTNAME}
 SOVERSION=		${PORTVERSION}
 MAKE_ENV=		GPR_PROJECT_PATH={{LOCALBASE}}/share/gpr
 
+# BSD SAL auto-initialization doesn't work as of gcc 14.3.0, gcc 15.2.0
+[REGULAR].DESCRIPTION=			Build as regular, not Stand-Alone Library
+[REGULAR].MAKEFILE_ON=			SALTYPE=no
+[REGULAR].MAKEFILE_OFF=			SALTYPE=standard
+
 post-extract:
 	# relocate adasat source
 	${MV} ${WRKSRC}/adasat/adasat.gpr ${WRKSRC}/langkit/support/
@@ -69,6 +79,7 @@ post-extract:
 
 pre-configure:
 	${REINPLACE_CMD} -e 's|%%SOVERSION%%|${PORTVERSION}|' \
+		-e 's|@SALTYPE@|${SALTYPE}|' \
 		${WRKSRC}/langkit/support/langkit_support.gpr
 
 do-build:
