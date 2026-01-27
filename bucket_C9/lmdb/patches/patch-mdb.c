@@ -1,4 +1,4 @@
---- mdb.c.orig	2024-01-29 18:20:26 UTC
+--- mdb.c.orig	2024-05-21 17:16:06 UTC
 +++ mdb.c
 @@ -131,6 +131,8 @@ typedef SSIZE_T	ssize_t;
  # define MDB_FDATASYNC		fsync
