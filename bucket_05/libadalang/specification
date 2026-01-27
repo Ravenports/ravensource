@@ -6,6 +6,7 @@ DEF[GNARL]=		"-lgnarl","-Wl,-rpath,{{PREFIX}}/lib"
 
 NAMEBASE=		libadalang
 VERSION=		${PORTVERSION}
+REVISION=		1
 EPOCH=			1
 KEYWORDS=		lang devel
 VARIANTS=		std
@@ -19,9 +20,13 @@ DISTFILE[1]=		generated:main
 
 SPKGS[std]=		set primary dev tools examples
 
-OPTIONS_AVAILABLE=	DEBUG
-OPTIONS_STANDARD=	DEBUG
+OPTIONS_AVAILABLE=	DEBUG REGULAR
+OPTIONS_STANDARD=	DEBUG REGULAR
 OPT_ON[all]=		DEBUG
+OPT_ON[netbsd]=		REGULAR
+OPT_ON[freebsd]=	REGULAR
+OPT_ON[dragonfly]=	REGULAR
+OPT_ON[midnightbsd]=	REGULAR
 
 LICENSE=		APACHE20:primary
 LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE.txt
@@ -58,6 +63,11 @@ VAR_OPSYS[freebsd]=	MAKEFILE_LINE=XTRALIB=,"-lutil"
 
 [DEBUG].MAKEFILE_ON=			WITH_DEBUG=yes
 
+# BSD SAL auto-initialization doesn't work as of gcc 14.3.0, gcc 15.2.0
+[REGULAR].DESCRIPTION=			Build as regular, not Stand-Alone Library
+[REGULAR].MAKEFILE_ON=			SALTYPE=no
+[REGULAR].MAKEFILE_OFF=			SALTYPE=standard
+
 do-configure:
 	(cd ${BUILD_WRKSRC} && ${SETENV} ${MAKE_ENV} \
 		${PYTHON_CMD} -m langkit.scripts.lkm generate)
@@ -71,6 +81,7 @@ do-configure:
 	${PATCH} -d ${PATCH_WRKSRC} --backup --forward -E -p0 --batch \
 		< ${FILESDIR}/pc-patch-build_libadalang.gpr
 	${REINPLACE_CMD} -e 's|@SOVERSION@|${SOVERSION}|' \
+		-e 's|@SALTYPE@|${SALTYPE}|' \
 		${WRKSRC}/build/libadalang.gpr
 
 do-build:
