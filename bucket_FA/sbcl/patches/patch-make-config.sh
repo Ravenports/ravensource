@@ -1,6 +1,6 @@
 Linux LARGEFILE option does not seem to build.
 
---- make-config.sh.orig	2025-11-30 15:14:54 UTC
+--- make-config.sh.orig	2025-12-28 10:52:59 UTC
 +++ make-config.sh
 @@ -301,7 +301,7 @@ case `uname` in
          ;;
