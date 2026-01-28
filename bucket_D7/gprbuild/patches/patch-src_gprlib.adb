@@ -28,7 +28,7 @@
  
           elsif Partial_Linker_Path = null then
 -            Fail_Program (null, "unknown object file """ & Opt & """");
-+            Put_Line ("WARNING: unknown object '" & Opt & "'");
++            Put_Line ("WARNING - No defined Partial Linker: unknown object '" & Opt & "'");
           else
              Trailing_PL_Options.Append (Opt);
           end if;
