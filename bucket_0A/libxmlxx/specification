@@ -1,6 +1,5 @@
 # Unstable version, required because of glibmm updates
-DEF[PORTVERSION]=	5.4.0
-DEF[FOLDER]=		${PORTVERSION:R}
+DEF[PORTVERSION]=	5.6.0
 DEF[SOVERSION]=		1.0.0
 DEF[API]=		5.0
 # ----------------------------------------------------------------------------
@@ -10,12 +9,12 @@ VERSION=		${PORTVERSION}
 KEYWORDS=		textproc
 VARIANTS=		std
 SDESC[std]=		API ${API} C++ wrapper for libxml2 parser library
-HOMEPAGE=		https://libxmlplusplus.sourceforge.net/
+HOMEPAGE=		https://github.com/libxmlplusplus/libxmlplusplus
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GNOME/libxml++/${FOLDER}
-DISTFILE[1]=		libxml++-${PORTVERSION}.tar.xz:main
+SITES[main]=		GITHUB/libxmlplusplus:libxmlplusplus:${PORTVERSION}
+DISTFILE[1]=		generated:main
 
 SPKGS[std]=		set primary dev
 
@@ -33,7 +32,7 @@ LICENSE_SCHEME=		solo
 
 USES=			gmake pkgconfig perl:build meson c++:primary
 GNOME_COMPONENTS=	libxml2
-DISTNAME=		libxml++-${PORTVERSION}
+DISTNAME=		libxmlplusplus-${PORTVERSION}
 MESON_ARGS=		-Dbuild-tests=false
 			-Dbuild-examples=false
 			-Dbuild-documentation=false
