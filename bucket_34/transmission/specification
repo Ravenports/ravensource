@@ -1,9 +1,8 @@
-DEF[PORTVERSION]=	4.0.6
+DEF[PORTVERSION]=	4.1.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		transmission
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		net_p2p
 VARIANTS=		std daemon gtk qt web
 SDESC[std]=		Lightweight BitTorrent client (CLI client)
@@ -61,9 +60,10 @@ CMAKE_ARGS=		-DENABLE_NLS:BOOL=ON
 
 [GTK].DESCRIPTION=			Build GTK+ version of transmission
 [GTK].CMAKE_ARGS_ON=			-DENABLE_GTK:BOOL=ON
+					-DUSE_GTK_VERSION=4
 [GTK].CMAKE_ARGS_OFF=			-DENABLE_GTK:BOOL=OFF
 [GTK].USES_ON=				desktop-utils:single
-[GTK].GNOME_COMPONENTS_ON=		cairo gdkpixbuf gtk3 pango intltool gtkmm30 glibmm
+[GTK].GNOME_COMPONENTS_ON=		cairo gdkpixbuf gtk4 pango intltool gtkmm40 glibmm
 [GTK].BUILD_DEPENDS_ON=			appstream-glib:dev:std
 					libnotify:dev:std
 					harfbuzz:dev:std
@@ -92,10 +92,12 @@ CMAKE_ARGS=		-DENABLE_NLS:BOOL=ON
 					miniupnpc:dev:std
 					libnatpmp:dev:std
 					libb64:dev:std
+					libdeflate:dev:std
 					libpsl:dev:std
 [WEB].BUILDRUN_DEPENDS_OFF=		libevent:primary:std
 					dht:single:std
 					libb64:primary:std
+					libdeflate:primary:std
 					libnatpmp:primary:std
 					miniupnpc:primary:std
 					libpsl:primary:std
