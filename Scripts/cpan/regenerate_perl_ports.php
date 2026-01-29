@@ -279,7 +279,6 @@ OPTIONS_AVAILABLE=	$available_options
 OPTIONS_STANDARD=	none
 $vopts_block
 # License listed in CPAN directory:
-# TERRITORY-MARKED
 $license
 
 GENERATED=		yes
