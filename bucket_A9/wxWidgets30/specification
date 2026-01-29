@@ -6,9 +6,8 @@ NAMEBASE=		wxWidgets30
 VERSION=		${PORTVERSION}
 REVISION=		1
 KEYWORDS=		x11_toolkits
-VARIANTS=		std gtk2
+VARIANTS=		std
 SDESC[std]=		GUI toolkit with GTK+ bindings (gtk3)
-SDESC[gtk2]=		GUI toolkit with GTK+ bindings (gtk2)
 HOMEPAGE=		https://www.wxwidgets.org/
 CONTACT=		nobody
 
@@ -17,11 +16,9 @@ SITES[main]=		https://github.com/wxWidgets/wxWidgets/releases/download/v${PORTVE
 DISTFILE[1]=		wxWidgets-${PORTVERSION}.tar.bz2:main
 
 SPKGS[std]=		set primary dev nls
-SPKGS[gtk2]=		set primary dev nls
 
-OPTIONS_AVAILABLE=	GTK2
+OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
-VOPTS[gtk2]=		GTK2=ON
 
 FPC_EQUIVALENT=		x11-toolkits/wxgtk30
 
@@ -34,6 +31,7 @@ BUILDRUN_DEPENDS=	libmspack:primary:std
 USES=			cpe gmake png jpeg tiff zlib execinfo
 			expat iconv pkgconfig gettext
 XORG_COMPONENTS=	x11 sm xxf86vm xinerama
+GNOME_COMPONENTS=	gtk3
 CPE_VENDOR=		wxwidgets
 CPE_PRODUCT=		wxwidgets
 MUST_CONFIGURE=		gnu
@@ -46,25 +44,18 @@ CONFIGURE_ARGS=		--with-libpng=sys
 			--with-expat=sys
 			--with-opengl
 			--with-libmspack
+			--with-gtk=3
 			--enable-backtrace
 			--enable-graphics_ctx
 			--enable-compat26
 			--enable-compat28
-PLIST_SUB=		GTKVER={{GTKVER}}
+PLIST_SUB=		GTKVER=3
 SOVERSION=		${SOVERSION}
 DISTNAME=		wxWidgets-${PORTVERSION}
 
 VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=--enable-precomp-headers=no
 VAR_OPSYS[netbsd]=	CONFIGURE_ARGS=--disable-precomp-headers
 VAR_OPSYS[midnightbsd]=	CONFIGURE_ARGS=--disable-precomp-headers
-
-[GTK2].DESCRIPTION=			Build with GTK+2 instead of GTK+3
-[GTK2].CONFIGURE_ARGS_ON=		--with-gtk=2
-[GTK2].CONFIGURE_ARGS_OFF=		--with-gtk=3
-[GTK2].GNOME_COMPONENTS_ON=		gtk2
-[GTK2].GNOME_COMPONENTS_OFF=		gtk3
-[GTK2].MAKEFILE_ON=			GTKVER=2
-[GTK2].MAKEFILE_OFF=			GTKVER=3
 
 post-install:
 	${RM} -r ${STAGEDIR}${PREFIX}/share/locale/zh
