@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	3.6.1
 
 NAMEBASE=		postgis
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		databases geography
 VARIANTS=		std
 SDESC[std]=		Spatial and Geographic objects for PostgreSQL
@@ -24,7 +25,7 @@ LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING
 LICENSE_TERMS=		primary:{{WRKSRC}}/LICENSE.TXT
 LICENSE_SCHEME=		solo
 
-FPC_EQUIVALENT=		databases/postgis35
+FPC_EQUIVALENT=		databases/postgis36
 
 BUILD_DEPENDS=		geos:dev:std
 			harfbuzz:dev:std
@@ -40,20 +41,20 @@ BUILDRUN_DEPENDS=	gdal:primary:std
 			protobuf-c:primary:std
 
 USES=			autoreconf:build gmake iconv libtool:build pkgconfig pcre
-			perl:build shebangfix cpe pgsql:server,contrib
+			gettext:build perl:build shebangfix cpe pgsql:server,contrib
 CPE_VENDOR=		postgis
 CPE_PRODUCT=		postgis
 CPE_TARGET_SW=		postgresql
-GNOME_COMPONENTS=	libxml2 gtk2
+GNOME_COMPONENTS=	libxml2
 SHEBANG_GLOB=		*.pl
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		{{ICONV_CONFIGURE_BASE}}
 			--with-topology
 			--with-raster
 			--with-address-standardizer
-			--with-gui
 			--with-json
 			--with-protobuf
+			--without-gui
 INSTALL_REQ_TOOLCHAIN=	yes
 PLIST_SUB=		VERSION=${PORTVERSION}
 			XDOTY=${PORTVERSION:R}
