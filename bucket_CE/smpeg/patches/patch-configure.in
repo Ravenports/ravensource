@@ -1,8 +1,16 @@
---- configure.in.orig	2018-04-23 00:23:56.325249000 +0200
-+++ configure.in	2018-04-23 00:24:26.244430000 +0200
-@@ -59,7 +59,20 @@
+--- configure.in.orig	2018-04-22 21:49:56 UTC
++++ configure.in
+@@ -58,8 +58,28 @@ AC_LIBTOOL_WIN32_DLL
+ AM_PROG_LIBTOOL
  AC_PROG_INSTALL
  
++# Stub for AM_PATH_GTK_2_0 if it's not found in the system library
++m4_ifndef([AM_PATH_GTK_2_0], [
++  AC_DEFUN([AM_PATH_GTK_2_0], [
++    echo "GTK 2.0 macro not found; skipping GTK checks."
++  ])
++])
++
  dnl Work around the lack of certain typedefs.
 -AC_TYPE_SOCKLEN_T
 +AC_DEFUN(AC_TYPE_SOCKLEN_T,

@@ -4,7 +4,7 @@ DEF[SOVERSION]=		0.1.4
 
 NAMEBASE=		smpeg
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		multimedia
 VARIANTS=		std
 SDESC[std]=		SDL MPEG video/audio player and library
@@ -32,9 +32,8 @@ FPC_EQUIVALENT=		multimedia/smpeg
 
 EXRUN[tools]=		primary
 
-USES=			autoreconf gmake libtool pkgconfig
+USES=			autoreconf gmake libtool pkgconfig c++:primary
 SDL_COMPONENTS=		sdl1
-GNOME_COMPONENTS=	gtk2
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--disable-gtk-player
 			--disable-opengl-player
@@ -46,6 +45,9 @@ PLIST_SUB=		PKGVER=${PORTVERSION:R}
 
 VAR_OPSYS[sunos]=	LDFLAGS=-lsocket
 			LDFLAGS=-lnsl
+
+pre-configure:
+	${MV} ${WRKSRC}/configure.in ${WRKSRC}/configure.ac
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libsmpeg-${PORTVERSION:R}.so.${SOVERSION}
