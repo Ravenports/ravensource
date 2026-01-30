@@ -4,6 +4,7 @@ DEF[DISTVER]=		${PORTVERSION}
 
 NAMEBASE=		xscreensaver
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		x11
 VARIANTS=		std
 SDESC[std]=		Screen saver and locker for X11
@@ -64,6 +65,10 @@ VAR_OPSYS[midnightbsd]=	CONFIGURE_ARGS=--build=x86_64-raven-midnightbsd3
 # Skipping hardlink pointing to itself: xscreensaver-6.12/driver/wayland-dpy.c: Unknown error: -1
 EXTRACT_HEAD[1]=	env LANG=en_US.UTF-8 {{TAR}} -xf
 EXTRACT_TAIL[1]=	--no-same-owner --no-same-permissions || true
+
+pre-configure:
+	${REINPLACE_CMD} -e "s|@BASH@|${LOCALBASE}/bin/bash|" \
+		${WRKSRC}/hacks/glx/xshadertoy-compile.pl
 
 post-install:
 	${RM} -r ${STAGEDIR}/etc
