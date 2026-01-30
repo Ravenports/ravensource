@@ -8,3 +8,14 @@
  #include <sys/midiio.h>
  #include <sys/mtio.h>
  #include <sys/power.h>
+@@ -493,10 +492,6 @@ struct urio_command {
+ #include <semaphore.h>
+ #include <signal.h>
+ #include <stddef.h>
+-#include <md2.h>
+-#include <md4.h>
+-#include <md5.h>
+-#include <rmd160.h>
+ #include <soundcard.h>
+ #include <termios.h>
+ #include <time.h>
