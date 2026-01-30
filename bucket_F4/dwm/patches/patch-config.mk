@@ -1,6 +1,6 @@
---- config.mk.orig	2025-08-09 13:00:55 UTC
+--- config.mk.orig	2026-01-10 10:33:58 UTC
 +++ config.mk
-@@ -4,11 +4,11 @@ VERSION = 6.6
+@@ -4,11 +4,11 @@ VERSION = 6.7
  # Customize below to fit your system
  
  # paths
