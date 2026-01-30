@@ -1,0 +1,17 @@
+$NetBSD: patch-meson.build,v 1.2 2025/12/27 15:37:50 wiz Exp $
+
+Install config files to examples, per pkgsrc policy.
+
+Check for uselocale() before using it.
+https://github.com/i3/i3/issues/6566
+
+--- meson.build.orig	2025-12-19 07:19:53 UTC
++++ meson.build
+@@ -52,6 +52,7 @@ endif
+ 
+ cdata.set('HAVE_STRNDUP', cc.has_function('strndup'))
+ cdata.set('HAVE_MKDIRP', cc.has_function('mkdirp'))
++cdata.set('HAVE_USELOCALE', cc.has_function('uselocale'))
+ 
+ # Instead of generating config.h directly, make vcs_tag generate it so that
+ # @VCS_TAG@ is replaced.
