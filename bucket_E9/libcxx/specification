@@ -34,6 +34,8 @@ LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/libcxx/LICENSE.TXT
 			CUSTOM3:{{WRKSRC}}/libunwind/LICENSE.TXT
 LICENSE_SCHEME=		multi
 
+BROKEN[netbsd]=		Breaks due to missing uselocal() support
+
 BUILD_DEPENDS=		${CLANGBASE}:set:std
 			${LLVMBASE}:dev:std
 			${LLVMBASE}:tools:std
