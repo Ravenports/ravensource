@@ -1,6 +1,6 @@
 Fix build with LibreSSL.
 
---- libraries/libldap/tls_o.c.orig	2024-05-21 17:19:11 UTC
+--- libraries/libldap/tls_o.c.orig	2025-05-22 17:56:21 UTC
 +++ libraries/libldap/tls_o.c
 @@ -48,7 +48,7 @@
  #include <openssl/dh.h>
@@ -38,7 +38,7 @@ Fix build with LibreSSL.
  #define	SSL_CTX_up_ref(ctx)	CRYPTO_add( &(ctx->references), 1, CRYPTO_LOCK_SSL_CTX )
  #endif
  	SSL_CTX_up_ref( c );
-@@ -750,7 +750,7 @@ tlso_session_my_dn( tls_session *sess, s
+@@ -758,7 +758,7 @@ tlso_session_my_dn( tls_session *sess, s
  	if (!x) return LDAP_INVALID_CREDENTIALS;
  	
  	xn = X509_get_subject_name(x);
@@ -47,7 +47,7 @@ Fix build with LibreSSL.
  	der_dn->bv_len = i2d_X509_NAME( xn, NULL );
  	der_dn->bv_val = xn->bytes->data;
  #else
-@@ -786,7 +786,7 @@ tlso_session_peer_dn( tls_session *sess,
+@@ -794,7 +794,7 @@ tlso_session_peer_dn( tls_session *sess,
  		return LDAP_INVALID_CREDENTIALS;
  
  	xn = X509_get_subject_name(x);
@@ -56,7 +56,7 @@ Fix build with LibreSSL.
  	der_dn->bv_len = i2d_X509_NAME( xn, NULL );
  	der_dn->bv_val = xn->bytes->data;
  #else
-@@ -1225,7 +1225,7 @@ struct tls_data {
+@@ -1237,7 +1237,7 @@ struct tls_data {
  	Sockbuf_IO_Desc		*sbiod;
  };
  
