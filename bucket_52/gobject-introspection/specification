@@ -6,6 +6,7 @@ DEF[PORTVERSION]=	1.86.0
 
 NAMEBASE=		gobject-introspection
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		std
 SDESC[std]=		Introspection data generator for GObject libraries
@@ -53,7 +54,7 @@ post-install:
 	# remove artifacts from doctemplates fix
 	${FIND} ${STAGEDIR}${PREFIX}/lib/gobject-introspection/giscanner/doctemplates \
 		-type f -name "meson.build*" -delete
-.for base in GLib GModule GObject Gio
+.for base in GLib GModule GObject Gio GioUnix
 	${INSTALL_DATA} ${WRKSRC}/${MESON_BUILD_DIR}/gir/${base}-2.0.typelib \
 		${STAGEDIR}${PREFIX}/lib/girepository-1.0/
 	${INSTALL_DATA} ${WRKSRC}/${MESON_BUILD_DIR}/gir/${base}-2.0.gir \
