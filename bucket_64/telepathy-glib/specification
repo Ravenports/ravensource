@@ -1,0 +1,45 @@
+DEF[PORTVERSION]=	0.24.2
+DEF[SOVERSION]=		0.84.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		telepathy-glib
+VERSION=		${PORTVERSION}
+KEYWORDS=		net_im
+VARIANTS=		std
+SDESC[std]=		GLib bindings for the Telepathy D-Bus protocol
+HOMEPAGE=		https://telepathy.freedesktop.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://telepathy.freedesktop.org/releases/telepathy-glib/
+DISTFILE[1]=		telepathy-glib-${PORTVERSION}.tar.gz:main
+
+SPKGS[std]=		set primary dev docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL21:primary
+LICENSE_FILE=		LGPL21:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/telepathy-glib/telepathy-glib.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		net-im/telepathy-glib
+
+BUILD_DEPENDS=		vala:primary:std
+			libxslt:dev:std
+			gobject-introspection:dev:std
+			gobject-introspection:primary:std
+			dbus:dev:std
+			dbus-glib:dev:std
+BUILDRUN_DEPENDS=	dbus:primary:std
+			dbus-glib:primary:std
+
+USES=			gmake libtool pkgconfig python:build gtk-doc
+GNOME_COMPONENTS=	glib
+SOVERSION=		${SOVERSION}
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-vala-bindings
+INSTALL_TARGET=		install-strip
