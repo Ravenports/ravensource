@@ -1,0 +1,26 @@
+DEF[PORTVERSION]=	3.10.1
+DEF[DL_FOLDER]=		${PORTVERSION:R}
+DEF[SOVERSION]=		0.1001.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		tinysparql
+VERSION=		${PORTVERSION}
+KEYWORDS=		databases
+VARIANTS=		std
+SDESC[std]=		Low-footprint RDF triple store (SPARQL 1.1)
+HOMEPAGE=		https://gitlab.gnome.org/GNOME/tinysparql
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNOME/tinysparql/${DL_FOLDER}
+DISTFILE[1]=		tinysparql-${PORTVERSION}.tar.xz:main
+
+SPKGS[std]=		set primary dev nls man docs tools
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		devel/tinysparql
+
+USES=			gmake
+SOVERSION=		${SOVERSION}

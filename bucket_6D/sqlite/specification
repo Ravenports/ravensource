@@ -6,6 +6,7 @@ DEF[SOVERSION]=		${PORTVERSION}
 
 NAMEBASE=		sqlite
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		databases
 VARIANTS=		std editline
 # variants only affect sqlite binary (history not linked to library)
@@ -52,7 +53,10 @@ CPPFLAGS=		-DSQLITE_ENABLE_FTS3
 			-DSQLITE_USE_URI=1
 CONFIGURE_ARGS=		--enable-threadsafe
 			--soname=legacy
-LDFLAGS=		-lpthread
+			--fts3
+			--fts4
+			--fts5
+LDFLAGS=		-lpthread -lm
 SOVERSION=		${SOVERSION}
 
 [EDITLINE].DESCRIPTION=			Build with editline shell history
