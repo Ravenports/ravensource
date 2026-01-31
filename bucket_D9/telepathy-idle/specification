@@ -1,0 +1,35 @@
+DEF[PORTVERSION]=	0.2.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		telepathy-idle
+VERSION=		${PORTVERSION}
+KEYWORDS=		net_im
+VARIANTS=		std
+SDESC[std]=		IRC connection manager for Telepathy
+HOMEPAGE=		https://telepathy.freedesktop.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://telepathy.freedesktop.org/releases/telepathy-idle/
+DISTFILE[1]=		telepathy-idle-${PORTVERSION}.tar.gz:main
+
+SPKGS[std]=		set primary man
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL21:primary
+LICENSE_FILE=		LGPL21:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/idle-connection.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		net-im/telepathy-idle
+
+BUILD_DEPENDS=		telepathy-glib:dev:std
+BUILDRUN_DEPENDS=	telepathy-glib:primary:std
+
+USES=			gmake pkgconfig libtool ssl gettext python:build
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
