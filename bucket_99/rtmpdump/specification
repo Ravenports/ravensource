@@ -6,6 +6,7 @@ DEF[PORTVERSION]=	2.6
 
 NAMEBASE=		rtmpdump
 VERSION=		${PORTVERSION}
+REVISION=		1
 EPOCH=			1
 KEYWORDS=		multimedia
 VARIANTS=		std
@@ -43,7 +44,7 @@ LICENSE_SCHEME=		solo
 
 EXRUN[tools]=		primary
 
-USES=			cpe pkgconfig ssl:openssl30 zlib
+USES=			cpe gmake pkgconfig ssl:openssl30 zlib
 CPE_VENDOR=		rtmpdump_project
 MAKE_ENV=		THREADLIB="-lpthread"
 LDFLAGS=		-L{{OPENSSLLIB}}
@@ -55,3 +56,6 @@ CFLAGS=			-I{{OPENSSLINC}}
 
 VAR_OPSYS[sunos]=	LDFLAGS=-lsocket
 			LDFLAGS=-lnsl
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/librtmp.so
