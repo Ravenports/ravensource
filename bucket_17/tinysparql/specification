@@ -22,5 +22,33 @@ OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		devel/tinysparql
 
-USES=			gmake
+BUILD_DEPENDS=		vala:primary:std
+			asciidoc:single:std
+			dbus:dev:std
+			libsoup:dev:std
+			json-glib:dev:std
+			python-PyGObject:dev:python_used
+			icu:dev:std
+BUILDRUN_DEPENDS=	dbus:primary:std
+			libsoup:primary:std
+			json-glib:primary:std
+			python-snowballstemmer:single:python_used
+			python-PyGObject:primary:python_used
+			icu:primary:std
+
+EXRUN[tools]=		primary
+
+USES=			meson gettext pkgconfig sqlite python:build
+GNOME_COMPONENTS=	glib introspection libxml2
+MESON_ARGS=		-Dsystemd_user_services=false
+			-Dintrospection=enabled
+			-Dbash_completion=true
+			-Dbash_completion_dir={{LOCALBASE}}/etc/bash_completion.d
+			-Ddocs=true
+			-Dman=true
+			-Dvapi=enabled
+			-Davahi=disabled
 SOVERSION=		${SOVERSION}
+
+post-install:
+	${MV} ${STAGEDIR}${PREFIX}/share/doc/Tsparql-3.0 ${STAGEDIR}${STD_DOCDIR}
