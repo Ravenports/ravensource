@@ -1,0 +1,33 @@
+DEF[PORTVERSION]=	%%VERSION%%
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		cobalt
+VERSION=		${PORTVERSION}
+KEYWORDS=		rust www
+VARIANTS=		std
+SDESC[std]=		Static site generator written in Rust
+HOMEPAGE=		https://cobalt-org.github.io/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+%%DOWNLOAD_GROUPS%%
+SITES[main]=		GITHUB/cobalt-org:cobalt.rs:v${PORTVERSION}
+%%CR_SITES%%
+DISTFILE[1]=		generated:main
+%%CR_DISTFILES%%
+%%DF_INDEX%%
+
+SPKGS[std]=		single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# According to Cargo.toml licensing is MIT or APACHE 2.0
+# Using MIT only here as there's no suitable terms for Apache 2.0
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:"{{WRKSRC}}/LICENSE-MIT"
+LICENSE_SCHEME=		solo
+
+USES=			cargo
+
+post-install:
+	${RM} ${STAGEDIR}${PREFIX}/.crates2.json
