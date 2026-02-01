@@ -1,0 +1,43 @@
+DEF[PORTVERSION]=	1.14.2
+DEF[FOLDER]=		${PORTVERSION:R}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gspell
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc
+VARIANTS=		std
+SDESC[std]=		Spell checking for GTK applications
+HOMEPAGE=		none
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNOME/gspell/${FOLDER}
+DISTFILE[1]=		gspell-${PORTVERSION}.tar.xz:main
+
+SPKGS[std]=		set primary dev nls tools
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL21:primary
+LICENSE_FILE=		LGPL21:{{WRKSRC}}/LICENSES/LGPL-2.1-or-later.txt
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/gspell/gspell.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		textproc/gspell
+
+BUILD_DEPENDS=		enchant:dev:std
+			icu:dev:std
+			vala:primary:std
+BUILDRUN_DEPENDS=	enchant:primary:std
+			icu:primary:std
+
+EXRUN[tools]=		primary
+
+USES=			gettext meson pkgconfig
+GNOME_COMPONENTS=	glib gtk3 introspection
+MESON_ARGS=		-Dgtk_doc=false
+			-Dtests=false
+			-Dinstall_tests=false
