@@ -1,0 +1,46 @@
+DEF[PORTVERSION]=	49.0
+DEF[FOLDER]=		${PORTVERSION:R}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		polari
+VERSION=		${PORTVERSION}
+KEYWORDS=		irc
+VARIANTS=		std
+SDESC[std]=		Internet Relay Chat client for GNOME
+HOMEPAGE=		https://apps.gnome.org/Polari/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GNOME/polari/${FOLDER}
+DISTFILE[1]=		polari-${PORTVERSION}.tar.xz:main
+
+SPKGS[std]=		set primary nls
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:primary
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/LICENSES/GPL-2.0-or-later.txt
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/polari.c
+LICENSE_AWK=		TERMS:"<girepository"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		irc/polari
+
+BUILD_DEPENDS=		appstream-glib:dev:std
+			itstool:single:std
+			gjs:dev:std
+			telepathy-glib:dev:std
+			tinysparql:dev:std
+BUILDRUN_DEPENDS=	appstream-glib:primary:std
+			telepathy-glib:primary:std
+			gjs:primary:std
+			tinysparql:primary:std
+RUN_DEPENDS=		telepathy-idle:primary:std
+			gspell:tools:std
+
+USES=			meson pkgconfig
+			schemas:primary desktop-utils:primary
+GNOME_COMPONENTS=	introspection
+GLIB_SCHEMAS=		org.gnome.Polari.gschema.xml
