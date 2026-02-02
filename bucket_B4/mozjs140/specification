@@ -5,6 +5,7 @@ DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
 
 NAMEBASE=		mozjs140
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		lang
 VARIANTS=		std
 SDESC[std]=		Standalone JS interpreter from Mozilla ${MAJOR}-esr
@@ -17,8 +18,8 @@ DISTFILE[1]=		firefox-${PORTVERSION}esr.source.tar.xz:main
 
 SPKGS[std]=		set primary dev
 
-OPTIONS_AVAILABLE=	SYSICU DEBUG
-OPTIONS_STANDARD=	SYSICU DEBUG
+OPTIONS_AVAILABLE=	SYSICU DEBUG TEST
+OPTIONS_STANDARD=	SYSICU DEBUG TEST
 
 LICENSE=		MPL:primary
 LICENSE_FILE=		MPL:stock
@@ -48,7 +49,6 @@ CONFIGURE_ARGS=		--prefix={{PREFIX}}
 			--enable-readline
 			--enable-release
 			--enable-shared-js
-			--enable-tests
 			--enable-optimize
 			--enable-gczeal
 			--with-intl-api
@@ -72,6 +72,14 @@ VAR_OPSYS[midnightbsd]=	MAKEFILE_LINE=CONFIGURE_TARGET=${MBSD64_TARGET}
 [DEBUG].CONFIGURE_ARGS_OFF=		--disable-debug
 					--disable-debug-symbols
 [DEBUG].MAKEFILE_ON=			WITH_DEBUG=yes
+
+[TEST].DESCRIPTION=			Run self-test after build
+[TEST].CONFIGURE_ARGS_OFF=		--disable-tests
+[TEST].CONFIGURE_ARGS_ON=		--enable-tests
+[TEST].BUILD_DEPENDS_ON=		python-six:single:python_used
+
+post-build-TEST-ON:
+	(cd ${BUILD_WRKSRC} && ${DO_MAKE_BUILD} check-jstests)
 
 pre-configure:
 	${CHMOD} 755 ${WRKSRC}/configure
