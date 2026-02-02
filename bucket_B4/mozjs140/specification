@@ -17,8 +17,8 @@ DISTFILE[1]=		firefox-${PORTVERSION}esr.source.tar.xz:main
 
 SPKGS[std]=		set primary dev
 
-OPTIONS_AVAILABLE=	SYSICU
-OPTIONS_STANDARD=	SYSICU
+OPTIONS_AVAILABLE=	SYSICU DEBUG
+OPTIONS_STANDARD=	SYSICU DEBUG
 
 LICENSE=		MPL:primary
 LICENSE_FILE=		MPL:stock
@@ -44,8 +44,6 @@ MUST_CONFIGURE=		yes
 CONFIGURE_OUTSOURCE=	yes
 CONFIGURE_ARGS=		--prefix={{PREFIX}}
 			--target={{CONFIGURE_TARGET}}
-			--disable-debug
-			--disable-debug-symbols
 			--disable-jemalloc
 			--enable-readline
 			--enable-release
@@ -70,6 +68,10 @@ VAR_OPSYS[midnightbsd]=	MAKEFILE_LINE=CONFIGURE_TARGET=${MBSD64_TARGET}
 					icu:data:std
 [SYSICU].CONFIGURE_ARGS_ON=		--with-system-icu
 [SYSICU].USES_OFF=			c++:primary
+
+[DEBUG].CONFIGURE_ARGS_OFF=		--disable-debug
+					--disable-debug-symbols
+[DEBUG].MAKEFILE_ON=			WITH_DEBUG=yes
 
 pre-configure:
 	${CHMOD} 755 ${WRKSRC}/configure
