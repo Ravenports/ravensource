@@ -65,7 +65,7 @@ DISTNAME=		scikit_build-${PORTVERSION}.dist-info
 					python-setuptools:single:v14
 					python-wheel:single:v14
 
-post-install:
+pre-install:
 	${SED} -i'' -e "s|os400|dragonfly|" \
 		${STAGEDIR}${PREFIX}/lib/py*/site-packages/skbuild/platform_specifics/platform_factory.py
 	(cd ${STAGEDIR} && ${PYTHON_CMD} -m compileall -f -d / . ||:)

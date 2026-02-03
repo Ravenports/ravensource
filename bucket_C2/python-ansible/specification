@@ -41,7 +41,7 @@ USES=			cpe
 CPE_VENDOR=		redhat
 CPE_PRODUCT=		ansible
 
-post-install:
+pre-install:
 	# Don't package windows powershell files
 	${RM} ${STAGEDIR}${PYTHON_SITELIBDIR}/ansible_collections/lowlydba/sqlserver/plugins/modules/*.ps1
 	# Fix bash shebangs

@@ -39,7 +39,7 @@ DISTNAME=		python_debian-${PORTVERSION}.dist-info
 [PY314].USES_ON=			python:v14,wheel
 [PY314].RUN_DEPENDS_ON=			python-charset-normalizer:single:v14
 
-post-install:
+pre-install:
 	# Fix python shebangs
 	${SED} -i'' -e 's|#!/usr/bin/python3|#!${PYTHON_CMD}|' \
 		${STAGEDIR}${PYTHON_SITELIBDIR}/debian/doc-debtags

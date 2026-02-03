@@ -49,6 +49,6 @@ DISTNAME=		meson_python-${PORTVERSION}.dist-info
 
 R_DEPS[linux]=		patchelf:primary:std
 
-post-install:
+pre-install:
 	${SED} -i'' -e "s|sys.platform == 'linux':|True:|" \
 		${STAGEDIR}${PYTHON_SITELIBDIR}/mesonpy/_rpath.py

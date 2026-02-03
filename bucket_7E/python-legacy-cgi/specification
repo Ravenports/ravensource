@@ -35,6 +35,6 @@ DISTNAME=		legacy_cgi-${PORTVERSION}.dist-info
 [PY313].USES_ON=			python:v13,wheel
 [PY314].USES_ON=			python:v14,wheel
 
-post-install:
+pre-install:
 	${SED} -i'' -e "s|/usr/local/bin/python|${LOCALBASE}/bin/python${PYTHON_VER}|" \
 	${STAGEDIR}${PREFIX}/lib/python${PYTHON_VER}/site-packages/cgi.py
