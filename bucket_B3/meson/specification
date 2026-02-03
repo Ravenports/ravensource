@@ -65,8 +65,3 @@ post-extract:
 
 pre-configure:
 	${FIND} ${WRKSRC} -name "*.orig" -type f -delete
-
-do-install:
-	${MKDIR} ${STAGEDIR}
-	${MV} ${WRKSRC}${PREFIX} ${STAGEDIR}/
-	(cd ${STAGEDIR} && ${PYTHON_CMD} -m compileall -d / . ||:)
