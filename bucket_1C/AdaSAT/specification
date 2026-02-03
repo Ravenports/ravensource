@@ -5,6 +5,7 @@ DEF[RELEASE_TAG]=	v${PORTVERSION}
 
 NAMEBASE=		AdaSAT
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		math ada
 VARIANTS=		std
 SDESC[std]=		Implementation of a DPLL-based SAT solver in Ada
@@ -39,7 +40,14 @@ pre-configure:
 	${REINPLACE_CMD} -e 's|%%SOVERSION%%|${SOVERSION}|' ${WRKSRC}/adasat.gpr
 
 post-install:
-	# remove manifests
-	${RM} -r ${STAGEDIR}${PREFIX}/share/gpr/manifests
-	# strip binaries
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/adasat.relocatable/libadasat.so
+	# Fix non-standard placement of shared libraries
+	${RM} ${STAGEDIR}${PREFIX}/lib/libadasat.so*
+	${RM} ${STAGEDIR}${PREFIX}/lib/adasat.relocatable/libadasat.so
+	${MV} ${STAGEDIR}${PREFIX}/lib/adasat.relocatable/libadasat.so.${SOVERSION} \
+		${STAGEDIR}${PREFIX}/lib/
+	${LN} -s libadasat.so.${SOVERSION} ${STAGEDIR}${PREFIX}/lib/libadasat.so
+	${LN} -s ../libadasat.so.${SOVERSION} ${STAGEDIR}${PREFIX}/lib/adasat.relocatable/libadasat.so
+	${LN} -s ../libadasat.so.${SOVERSION} ${STAGEDIR}${PREFIX}/lib/adasat.relocatable/libadasat.so.${SOVERSION}
+
+	# strip library
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libadasat.so
