@@ -1,0 +1,30 @@
+DEF[PORTVERSION]=	0.5.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		rs-tftpd
+VERSION=		${PORTVERSION}
+KEYWORDS=		rust net
+VARIANTS=		std
+SDESC[std]=		TFTP server daemon & client implemented in Rust
+HOMEPAGE=		https://github.com/altugbakan/rs-tftpd
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/altugbakan:rs-tftpd:${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[std]=		set primary client
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:primary
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE.md
+LICENSE_SCHEME=		solo
+
+USES=			cargo
+
+CARGO_FEATURES=		client
+
+post-install:
+	${RM} ${STAGEDIR}${PREFIX}/.crates2.json
