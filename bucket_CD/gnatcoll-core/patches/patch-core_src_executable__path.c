@@ -1,10 +1,11 @@
 --- core/src/executable_path.c.orig	2026-02-03 02:47:56 UTC
 +++ core/src/executable_path.c
-@@ -59,11 +59,44 @@ c_executable_path (char *buffer, int siz
+@@ -59,11 +59,45 @@ c_executable_path (char *buffer, int siz
      return readlink("/proc/self/exe", buffer, (size_t) size);
  }
  
 +#elif defined(__FreeBSD__) || defined(__DragonFly__)
++#include <stddef.h>
 +#include <sys/types.h>
 +#include <sys/sysctl.h>
 +int
