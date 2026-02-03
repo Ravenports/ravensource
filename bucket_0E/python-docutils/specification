@@ -35,6 +35,6 @@ DISTNAME=		docutils-${PORTVERSION}.dist-info
 [PY313].USES_ON=			python:v13,wheel
 [PY314].USES_ON=			python:v14,wheel
 
-post-install:
+pre-install:
 	${SED} -i'' -e "s|/usr/bin/python3|${PREFIX}/bin/python3|" \
 		${STAGEDIR}${PREFIX}/lib/python*/site-packages/docutils/utils/smartquotes.py
