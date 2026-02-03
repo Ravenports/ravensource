@@ -6,7 +6,7 @@ DEF[GNARL]=		"-lgnarl","-Wl,-rpath,{{PREFIX}}/lib"
 
 NAMEBASE=		libadalang
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 EPOCH=			1
 KEYWORDS=		lang devel
 VARIANTS=		std
@@ -22,11 +22,11 @@ SPKGS[std]=		set primary dev tools examples
 
 OPTIONS_AVAILABLE=	DEBUG REGULAR
 OPTIONS_STANDARD=	DEBUG REGULAR
-OPT_ON[all]=		DEBUG
-OPT_ON[netbsd]=		REGULAR
-OPT_ON[freebsd]=	REGULAR
-OPT_ON[dragonfly]=	REGULAR
-OPT_ON[midnightbsd]=	REGULAR
+# OPT_ON[all]=		DEBUG
+# OPT_ON[netbsd]=	REGULAR
+# OPT_ON[freebsd]=	REGULAR
+# OPT_ON[dragonfly]=	REGULAR
+# OPT_ON[midnightbsd]=	REGULAR
 
 LICENSE=		APACHE20:primary
 LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE.txt
@@ -50,7 +50,7 @@ EXRUN[dev]=		libgpr2:dev:std
 			langkit_support:dev:std
 			prettier-ada:dev:std
 
-USES=			gprbuild iconv:build python:build,sutools ada:primary
+USES=			gprbuild iconv:build python:build,pep517 ada:primary
 MUST_CONFIGURE=		yes
 INSTALL_REQ_TOOLCHAIN=	yes
 MAKE_ARGS=		--build-mode dev
@@ -95,12 +95,24 @@ do-install:
 		--library-types=static,static-pic,relocatable \
 		${STAGEDIR}${PREFIX})
 
+	# construct python wheel
+	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} python -m build \
+		--no-isolation --wheel build/python)
+
+	# install wheel in stage directory
+	(cd ${BUILD_WRKSRC} && ${SETENV} AUTOPYTHON=${_PYTHON_VERSION} \
+		python -m installer \
+		--destdir ${STAGEDIR} \
+		--prefix ${PREFIX} \
+		${BUILD_WRKSRC}/build/python/dist/*.whl)
+
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/[n]*
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/gnat_compare
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/lal_dda
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/lal_prep
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/lal_parse
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/lal_unparse
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/incrementality
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libadalang.relocatable/libadalang.so
 	${SED} -i'' -e 's|/usr/bin/env python|${PYTHON_CMD}|' \
 		${STAGEDIR}${PREFIX}/bin/lal_playground \
