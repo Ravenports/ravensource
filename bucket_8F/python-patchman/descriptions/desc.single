@@ -41,14 +41,14 @@ for installation options.
 ## Usage
 
 The web interface contains a dashboard with items that need attention, and
-various pages to manipulate hosts, repositories, packages, operating
-systems and
-reports.
+various pages to manipulate and view hosts, repositories and mirrors,
+packages,
+operating system releases and variants, reports, errata and CVEs.
 
 To populate the database, simply run the client on some hosts:
 
 ```shell
-$ patchman-client -s http://patchman.example.org
+$ patchman-client -s http://patchman.example.com
 ```
 
 This should provide some initial data to work with.
@@ -62,39 +62,39 @@ the usage:
 
 ```shell
 $ sbin/patchman -h
-usage: patchman [-h] [-f] [-q] [-r] [-R REPO] [-lr] [-lh] [-u] [-A] [-H
-HOST]
-                [-p] [-c] [-d] [-n] [-a] [-D hostA hostB]
+usage: patchman [-h] [-f] [-q] [-r] [-R REPO] [-lr] [-lh] [-dh] [-u] [-A]
+[-shro | -uhro] [-sdns | -udns] [-H HOST] [-p] [-c] [-d] [-rd] [-n] [-a]
+[-D hostA hostB] [-e] [-E ERRATUM_TYPE] [-v] [--cve CVE]
+[--fetch-nist-data]
 
 Patchman CLI tool
 
-optional arguments:
+options:
   -h, --help            show this help message and exit
   -f, --force           Ignore stored checksums and force-refresh all
-mirrors
+Mirrors
   -q, --quiet           Quiet mode (e.g. for cronjobs)
-  -r, --refresh-repos   Refresh repositories
-  -R REPO, --repo REPO  Only perform action on a specific repository
+  -r, --refresh-repos   Refresh Repositories
+  -R REPO, --repo REPO  Only perform action on a specific Repository
 (repo_id)
-  -lr, --list-repos     List all repositories
-  -lh, --list-hosts     List all hosts
-  -u, --host-updates    Find host updates
+  -lr, --list-repos     List all Repositories
+  -lh, --list-hosts     List all Hosts
+  -dh, --delete-hosts   Delete hosts, requires -H, matches substring
+patterns
+  -u, --host-updates    Find Host updates
   -A, --host-updates-alt
-                        Find host updates (alternative algorithm that may
-be
-                        faster when there are many homogeneous hosts)
-  -H HOST, --host HOST  Only perform action on a specific host (fqdn)
-  -p, --process-reports
-                        Process pending reports
-  -c, --clean-reports   Remove all but the last three reports
-  -d, --dbcheck         Perform some sanity checks and clean unused db
-entries
-  -n, --dns-checks      Perform reverse DNS checks if enabled for that host
-  -a, --all             Convenience flag for -r -A -p -c -d -n
-  -D hostA hostB, --diff hostA hostB
-                        Show differences between two hosts in diff-like
-output
-  -e, --errata          Download CentOS errata from https://cefs.steve-
-                        meier.de/
-```
-
+                        Find Host updates (alternative algorithm that may
+be faster when there are many homogeneous hosts)
+  -shro, --set-host-repos-only
+                        Set host_repos_only, requires -H, matches substring
+patterns
+  -uhro, --unset-host-repos-only
+                        Unset host_repos_only, requires -H, matches
+substring patterns
+  -sdns, --set-check-dns
+                        Set check_dns, requires -H, matches substring
+patterns
+  -udns, --unset-check-dns
+                        Unset check_dns, requires -H, matches substring
+patterns
+  -H HOST, --host HOST  Only perform action on a specific Host (fqdn)
