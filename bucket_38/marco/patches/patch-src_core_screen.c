@@ -1,4 +1,4 @@
---- src/core/screen.c.orig	2024-02-16 21:06:54 UTC
+--- src/core/screen.c.orig	2024-02-16 21:05:23 UTC
 +++ src/core/screen.c
 @@ -2668,7 +2668,7 @@ collect_timed_out_foreach (void *element
    double elapsed;

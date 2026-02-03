@@ -1,10 +1,9 @@
-DEF[PORTVERSION]=	1.28.1
+DEF[PORTVERSION]=	1.28.2
 DEF[SOVERSION]=		2.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		marco
 VERSION=		${PORTVERSION}
-REVISION=		3
 KEYWORDS=		x11_wm
 VARIANTS=		std
 SDESC[std]=		Fully-fledged but low-frills WM for the MATE DE
@@ -12,8 +11,8 @@ HOMEPAGE=		https://mate-desktop.org/
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		https://pub.mate-desktop.org/releases/${PORTVERSION:R}/
-DISTFILE[1]=		marco-${PORTVERSION}.tar.xz:main
+SITES[main]=		GITHUB/mate-desktop:marco:v${PORTVERSION}
+DISTFILE[1]=		generated:main
 DIST_SUBDIR=		mate
 
 SPKGS[std]=		set primary dev man nls
@@ -30,18 +29,21 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		x11-wm/marco
 
-BUILD_DEPENDS=		harfbuzz:dev:std
+BUILD_DEPENDS=		autoconf-archive:primary:std
+			harfbuzz:dev:std
 			itstool:single:std
 			libcanberra:dev:std
+			mate-common:primary:std
 			mate-desktop:dev:std
 			startup-notification:dev:std
+			yelp-tools:single:std
 BUILDRUN_DEPENDS=	libcanberra:primary:std
 			libcanberra:gtk3:std
 			mate-desktop:primary:std
 			startup-notification:primary:std
 			zenity:primary:std
 
-USES=			gmake libtool pkgconfig schemas:primary
+USES=			autoreconf gmake libtool pkgconfig schemas:primary
 XORG_COMPONENTS=	xres
 GNOME_COMPONENTS=	glib gtk3 dconf
 
