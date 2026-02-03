@@ -81,6 +81,8 @@ pre-configure:
 	${REINPLACE_CMD} -e 's|%%SOVERSION%%|${PORTVERSION}|' \
 		-e 's|@SALTYPE@|${SALTYPE}|' \
 		${WRKSRC}/langkit/support/langkit_support.gpr
+	${REINPLACE_CMD} -e 's|%%SOVERSION%%|${PORTVERSION}|' \
+		${WRKSRC}/langkit/support/adasat.gpr
 
 do-build:
 	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
