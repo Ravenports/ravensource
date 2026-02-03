@@ -1,4 +1,4 @@
---- deps/v8/src/trap-handler/trap-handler.h.orig	2026-01-19 10:31:53 UTC
+--- deps/v8/src/trap-handler/trap-handler.h.orig	2026-01-26 18:28:08 UTC
 +++ deps/v8/src/trap-handler/trap-handler.h
 @@ -18,6 +18,7 @@ namespace v8::internal::trap_handler {
  // X64 on Linux, Windows, MacOS, FreeBSD.
