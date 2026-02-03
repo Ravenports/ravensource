@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.28.0
+DEF[PORTVERSION]=	1.28.1
 DEF[SOVERSION]=		2.4.9
 # ----------------------------------------------------------------------------
 
@@ -11,8 +11,8 @@ HOMEPAGE=		https://mate-desktop.org/
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		https://pub.mate-desktop.org/releases/${PORTVERSION:R}/
-DISTFILE[1]=		mate-menus-${PORTVERSION}.tar.xz:main
+SITES[main]=		GITHUB/mate-desktop:mate-menus:v${PORTVERSION}
+DISTFILE[1]=		generated:main
 DIST_SUBDIR=		mate
 
 SPKGS[std]=		set primary dev nls
@@ -29,7 +29,10 @@ LICENSE_SCHEME=		multi
 
 FPC_EQUIVALENT=		x11/mate-menus
 
-USES=			gettext gmake iconv libtool pkgconfig python
+BUILD_DEPENDS=		autoconf-archive:primary:std
+			mate-common:primary:std
+
+USES=			autoreconf gettext gmake iconv libtool pkgconfig python
 GNOME_COMPONENTS=	glib introspection
 
 MUST_CONFIGURE=		gnu
