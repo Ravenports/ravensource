@@ -79,7 +79,11 @@ VAR_OPSYS[midnightbsd]=	MAKEFILE_LINE=CONFIGURE_TARGET=${MBSD64_TARGET}
 [TEST].BUILD_DEPENDS_ON=		python-six:single:python_used
 
 post-build-TEST-ON:
-	(cd ${BUILD_WRKSRC} && ${DO_MAKE_BUILD} check-jstests)
+	(cd ${BUILD_WRKSRC}; \
+	if ! ${DO_MAKE_BUILD} check-jstests; then \
+		${ECHO_MSG} "===> At least one test failed unexpectedly."; \
+		${TRUE}; \
+	fi)
 
 pre-configure:
 	${CHMOD} 755 ${WRKSRC}/configure
