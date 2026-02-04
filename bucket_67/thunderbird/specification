@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	147.0
+DEF[PORTVERSION]=	147.0.1
 # DEF[CPE_SW_EDITION]=	esr
 # DEF[TVER]=		${PORTVERSION}${CPE_SW_EDITION}
 DEF[TVER]=		${PORTVERSION}
@@ -78,6 +78,8 @@ BR_DEPS[linux]=		sndio:primary:std
 			alsa-lib:primary:std
 B_DEPS[netbsd]=		sndio:dev:std
 BR_DEPS[netbsd]=	sndio:primary:std
+
+SUB_FILES=		launch
 
 USES=			cpe desktop-utils:single gmake jpeg png zlib
 			perl:build pkgconfig iconv bz2 python:build,sqlite
@@ -200,10 +202,10 @@ post-install:
 	(cd ${STAGEDIR}${PREFIX}/share/pixmaps && ${LN} -sf \
 		../../lib/thunderbird/chrome/icons/default/default48.png \
 		thunderbird.png)
-	# regenerate symlink to avoid absolute paths
+
+	# replace symlink with a launch script
 	${RM} ${STAGEDIR}${PREFIX}/bin/thunderbird
-	(cd ${STAGEDIR}${PREFIX}/bin && \
-		${LN} -sf ../lib/thunderbird/thunderbird thunderbird)
+	${INSTALL_SCRIPT} ${WRKDIR}/launch ${STAGEDIR}${PREFIX}/bin/thunderbird
 
 post-install-netbsd:
 	${PAXCTL} +m ${STAGEDIR}${PREFIX}/lib/thunderbird/thunderbird
