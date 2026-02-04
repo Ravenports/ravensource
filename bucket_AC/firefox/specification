@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	147.0.1
+DEF[PORTVERSION]=	147.0.3
 DEF[FOXVERSION]=	${PORTVERSION}
 DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
 DEF[CLANGBASE]=		clang
@@ -77,6 +77,8 @@ BR_DEPS[linux]=		sndio:primary:std
 			alsa-lib:primary:std
 B_DEPS[netbsd]=		sndio:dev:std
 BR_DEPS[netbsd]=	sndio:primary:std
+
+SUB_FILES=		launch
 
 USES=			cpe desktop-utils:single gmake jpeg perl:build
 			pkgconfig png python:build,sqlite zlib
@@ -174,7 +176,11 @@ post-install:
 		${STAGEDIR}${PREFIX}/share/applications/
 	(cd ${STAGEDIR}${PREFIX}/share/pixmaps &&\
 	${LN} -s ../../lib/firefox/browser/chrome/icons/default/default48.png firefox.png)
-	# Rewrite symlink to make it relative instead of absolute
-	(cd ${STAGEDIR}${PREFIX}/bin &&\
-	${RM} firefox &&\
-	${LN} -s ../lib/firefox/firefox firefox)
+
+	# replace symlink with a launch script
+	${RM} ${STAGEDIR}${PREFIX}/bin/firefox
+	${INSTALL_SCRIPT} ${WRKDIR}/launch ${STAGEDIR}${PREFIX}/bin/firefox
+
+post-install-netbsd:
+	${PAXCTL} +m ${STAGEDIR}${PREFIX}/lib/firefox/firefox
+	${PAXCTL} +m ${STAGEDIR}${PREFIX}/lib/firefox/firefox-bin
