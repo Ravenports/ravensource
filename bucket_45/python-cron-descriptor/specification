@@ -1,0 +1,43 @@
+DEF[PORTVERSION]=	2.0.6
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-cron-descriptor
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v13 v14
+SDESC[v13]=		Cron expression converter library (3.13)
+SDESC[v14]=		Cron expression converter library (3.14)
+HOMEPAGE=		https://github.com/Salamek/cron-descriptor
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/21/cc/361326a54ad92e2e12845ad15e335a4e14b8953665007fb514d3393dfb0f
+DISTFILE[1]=		cron_descriptor-${PORTVERSION}-py3-none-any.whl:main
+DIST_SUBDIR=		python-src
+
+SPKGS[v13]=		single
+SPKGS[v14]=		single
+
+OPTIONS_AVAILABLE=	PY313 PY314
+OPTIONS_STANDARD=	none
+VOPTS[v13]=		PY313=ON PY314=OFF
+VOPTS[v14]=		PY313=OFF PY314=ON
+
+# License listed at PyPI
+# Not provided.
+
+GENERATED=		yes
+DISTNAME=		cron_descriptor-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# typing_extensions
+# ruff; extra == "dev"
+# mypy; extra == "dev"
+# polib; extra == "dev"
+# pytest; extra == "test"
+
+[PY313].USES_ON=			python:v13,wheel
+[PY313].RUN_DEPENDS_ON=			python-typing-extensions:single:v13
+[PY314].USES_ON=			python:v14,wheel
+[PY314].RUN_DEPENDS_ON=			python-typing-extensions:single:v14
+

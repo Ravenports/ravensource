@@ -1,0 +1,56 @@
+DEF[PORTVERSION]=	2.8.1
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-django-celery-beat
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v13 v14
+SDESC[v13]=		Database-backed Periodic Tasks (3.13)
+SDESC[v14]=		Database-backed Periodic Tasks (3.14)
+HOMEPAGE=		https://github.com/celery/django-celery-beat
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/61/e5/3a0167044773dee989b498e9a851fc1663bea9ab879f1179f7b8a827ac10
+DISTFILE[1]=		django_celery_beat-${PORTVERSION}-py3-none-any.whl:main
+DIST_SUBDIR=		python-src
+
+SPKGS[v13]=		single
+SPKGS[v14]=		single
+
+OPTIONS_AVAILABLE=	PY313 PY314
+OPTIONS_STANDARD=	none
+VOPTS[v13]=		PY313=ON PY314=OFF
+VOPTS[v14]=		PY313=OFF PY314=ON
+
+# License listed at PyPI
+# BSD
+
+GENERATED=		yes
+DISTNAME=		django_celery_beat-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# celery<6.0,>=5.2.3
+# importlib-metadata<5.0; python_version < "3.8"
+# django-timezone-field>=5.0
+# backports.zoneinfo; python_version < "3.9"
+# tzdata
+# python-crontab>=2.3.4
+# cron-descriptor>=1.2.32
+# Django<6.0,>=2.2
+
+[PY313].USES_ON=			python:v13,wheel
+[PY313].RUN_DEPENDS_ON=			python-celery:single:v13
+					python-django-timezone-field:single:v13
+					python-tzdata:single:v13
+					python-python-crontab:single:v13
+					python-cron-descriptor:single:v13
+					python-Django:single:v13
+[PY314].USES_ON=			python:v14,wheel
+[PY314].RUN_DEPENDS_ON=			python-celery:single:v14
+					python-django-timezone-field:single:v14
+					python-tzdata:single:v14
+					python-python-crontab:single:v14
+					python-cron-descriptor:single:v14
+					python-Django:single:v14
+

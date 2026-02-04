@@ -1,0 +1,37 @@
+DEF[PORTVERSION]=	3.6
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-cvss
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v13 v14
+SDESC[v13]=		Common Vulnerability Scoring System 2/3/4 (3.13)
+SDESC[v14]=		Common Vulnerability Scoring System 2/3/4 (3.14)
+HOMEPAGE=		https://github.com/RedHatProductSecurity/cvss
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/63/6d/fe2c65b94a28ae0481dc254e8cd664b82390069003bea945076d8a445f2b
+DISTFILE[1]=		cvss-${PORTVERSION}-py2.py3-none-any.whl:main
+DIST_SUBDIR=		python-src
+
+SPKGS[v13]=		single
+SPKGS[v14]=		single
+
+OPTIONS_AVAILABLE=	PY313 PY314
+OPTIONS_STANDARD=	none
+VOPTS[v13]=		PY313=ON PY314=OFF
+VOPTS[v14]=		PY313=OFF PY314=ON
+
+# License listed at PyPI
+# LGPLv3+
+
+GENERATED=		yes
+DISTNAME=		cvss-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+
+
+[PY313].USES_ON=			python:v13,wheel
+[PY314].USES_ON=			python:v14,wheel
+

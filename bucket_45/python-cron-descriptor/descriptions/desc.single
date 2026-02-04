@@ -1,0 +1,100 @@
+# Cron Descriptor
+
+[Python tests]
+[Donate]
+
+A Python library that converts cron expressions into human readable
+strings. Ported to Python from
+https://github.com/bradyholt/cron-expression-descriptor.
+
+**Author**: Adam Schubert (https://www.salamek.cz)  
+**Original Author & Credit**: Brady Holt (http://www.geekytidbits.com)  
+**License**: [MIT]
+
+## Features         
+ * Supports all cron expression special characters including * / , - ? L W,
+#
+ * Supports 5, 6 (w/ seconds or year), or 7 (w/ seconds and year) part cron
+expressions
+ * Provides casing options (Sentence, Title, Lower, etc.)
+ * Localization with support for ~31 languages
+ * Supports Python 3.9 - 3.13
+
+## Installation
+Using PIP
+```bash
+pip install cron-descriptor
+```
+
+## Usage example
+
+### Simple
+```python
+from cron_descriptor import get_description, ExpressionDescriptor
+
+print(get_description("* 2 3 * *"))
+
+#OR
+
+print(str(ExpressionDescriptor("* 2 3 * *")))
+```
+
+### Advanced
+```python
+# Consult Options.py/CasingTypeEnum.py/DescriptionTypeEnum.py for more info
+from cron_descriptor import Options, CasingTypeEnum, DescriptionTypeEnum,
+ExpressionDescriptor
+
+descriptor = ExpressionDescriptor(
+    expression = "*/10 * * * *",
+    casing_type = CasingTypeEnum.Sentence,
+    use_24hour_time_format = True
+)
+
+# GetDescription uses DescriptionTypeEnum.FULL by default:
+print(descriptor.get_description())
+print(f"{descriptor = }")
+
+# Or passing Options class as second argument:
+
+options = Options()
+options.casing_type = CasingTypeEnum.Sentence
+options.use_24hour_time_format = True
+descriptor = ExpressionDescriptor("*/10 * * * *", options)
+print(descriptor.get_description(DescriptionTypeEnum.FULL))
+```
+
+## Languages Available
+
+| Language            | Locale Code | Contributor                          
+                  |
+|---------------------|-------------|---------------------------------------------------------|
+| English             | en          | [Brady Holt]              |
+| Chinese Simplified  | zh_CN       | [Star Peng]                |
+| Chinese Traditional | zh_TW       | [Ricky Chiang]             |
+| Czech               | cs_CZ       | [Adam Schubert]             |
+| Danish              | da_DK       | [Rasmus Melchior Jacobsen]     |
+| Dutch               | nl_NL       | [TotalMace]               |
+| Finnish             | fi_FI       | [Mikael Rosenberg]           |
+| French              | fr_FR       | [Arnaud TAMAILLON]         |
+| German              | de_DE       | [Michael Schuler]          |
+| Hebrew              | he_IL       | [Ariel Deil]              |
+| Hungarian           | hu_HU       | [Varga Miklós]            |
+| Italian             | it_IT       | [rinaldihno]             |
+| Japanese            | ja_JP       | [Tho Nguyen]           |
+| Korean              | ko_KR       | [KyuJoo Han]                 |
+| Norwegian           | nb_NO       | [Siarhei Khalipski]|
+| Persian             | fa_IR       | [A. Bahrami]             |
+| Polish              | pl_PL       | [foka]                         |
+| Portuguese          | pt_PT       | [Renato Lima]               |
+| Portuguese (Brazil) | pt_BR       | [Renato Lima]               |
+| Romanian            | ro_RO       | [Illegitimis]           |
+| Russian             | ru_RU       | [LbISS]                       |
+| Slovenian           | sl_SI       | [Jani Bevk]                   |
+| Spanish             | es_ES       | [Ivan Santos]                |
+| Spanish (Mexico)    | es_MX       | [Ion Mincu]                |
+| Swedish             | sv_SE       | [Åke Engelbrektson]          |
+| Vietnamese          | vi_VN       | [Nguyen Duc Son]              |
+| Turkish             | tr_TR       | [Mustafa SADEDİL]           |
+| Tamil               | ta_IN       | [Sankar Hari]            |
+| Ukrainian           | uk_UA       | [Taras]                 |
