@@ -90,6 +90,10 @@ do-build:
 		--library-types=static,static-pic,relocatable)
 
 do-install:
+	# Normally libadalang.so would go in the dev subpackage.
+	# It has been placed in the primary subpackage because the lal_utils
+	# python module dlopens libadalang.so, not libadalang.so.26.0.0
+
 	(cd ${BUILD_WRKSRC} && ${SETENV} ${MAKE_ENV} \
 		${PYTHON_CMD} -m langkit.scripts.lkm install \
 		--library-types=static,static-pic,relocatable \
