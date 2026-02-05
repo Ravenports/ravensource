@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	0.20220715.0
+# manually updated because PyPI is out of date
+DEF[PORTVERSION]=	0.20250521.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-pypng
@@ -11,8 +12,10 @@ HOMEPAGE=		https://gitlab.com/drj11/pypng
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/3e/b9/3766cc361d93edb2ce81e2e1f87dd98f314d7d513877a342d31b30741680
-DISTFILE[1]=		pypng-${PORTVERSION}-py3-none-any.whl:main
+# SITES[main]=		PYPIWHL/3e/b9/3766cc361d93edb2ce81e2e1f87dd98f314d7d513877a342d31b30741680
+# DISTFILE[1]=		pypng-${PORTVERSION}-py3-none-any.whl:main
+SITES[main]=		https://gitlab.com/drj11/pypng/-/archive/pypng-${PORTVERSION}/
+DISTFILE[1]=		pypng-pypng-${PORTVERSION}.tar.gz:main
 DIST_SUBDIR=		python-src
 
 SPKGS[v13]=		single
@@ -27,11 +30,12 @@ VOPTS[v14]=		PY313=OFF PY314=ON
 # MIT
 
 GENERATED=		yes
-DISTNAME=		pypng-${PORTVERSION}.dist-info
+# DISTNAME=		pypng-${PORTVERSION}.dist-info
+DISTNAME=		pypng-pypng-${PORTVERSION}
 
 # Requires-Dist extracted from wheel metadata
 
 
-[PY313].USES_ON=			python:v13,wheel
-[PY314].USES_ON=			python:v14,wheel
+[PY313].USES_ON=			python:v13,pep517
+[PY314].USES_ON=			python:v14,pep517
 
