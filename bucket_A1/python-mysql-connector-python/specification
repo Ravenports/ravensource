@@ -1,4 +1,6 @@
-DEF[PORTVERSION]=	9.5.0
+# manually maintained (pypi didn't publish source files)
+DEF[PORTVERSION]=	9.6.0
+DEF[TAG]=		${PORTVERSION}
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-mysql-connector-python
@@ -11,8 +13,10 @@ HOMEPAGE=		https://dev.mysql.com/doc/connector-python/en/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/m/mysql-connector-python
-DISTFILE[1]=		mysql_connector_python-${PORTVERSION}.tar.gz:main
+# SITES[main]=		PYPI/m/mysql-connector-python
+# DISTFILE[1]=		mysql_connector_python-${PORTVERSION}.tar.gz:main
+SITES[main]=		GITHUB/mysql:mysql-connector-python:${TAG}
+DISTFILE[1]=		generated:main
 DIST_SUBDIR=		python-src
 
 SPKGS[v13]=		single
@@ -27,7 +31,7 @@ VOPTS[v14]=		PY313=OFF PY314=ON
 # GNU GPLv2 (with FOSS License Exception)
 
 GENERATED=		yes
-DISTNAME=		mysql_connector_python-${PORTVERSION}
+# DISTNAME=		mysql_connector_python-${PORTVERSION}
 
 # Requires-Dist extracted from pyproject.toml file
 
