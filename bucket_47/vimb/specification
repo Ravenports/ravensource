@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	3.7.0
 
 NAMEBASE=		vimb
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		www
 VARIANTS=		std
 SDESC[std]=		Vim-like browser
@@ -34,18 +35,15 @@ BUILD_DEPENDS=		glib:dev:std
 BUILDRUN_DEPENDS=	webkit2:primary:api41
 
 USES=			desktop-utils:primary gmake pkgconfig zlib:build
-			gettext gold
-GNOME_COMPONENTS=	pango cairo gtk3
-CFLAGS=			-D_BSD_SOURCE
+GNOME_COMPONENTS=	glib gtk3
 MAKE_ENV=		V=1
-SINGLE_JOB=		yes
 
 VAR_OPSYS[sunos]=	LDFLAGS=-lsocket
 			LDFLAGS=-lnsl
+VAR_OPSYS[netbsd]=	CFLAGS=-D_NETBSD_SOURCE
 
-post-extract:
-	${MKDIR} ${WRKSRC}/.git
-	${TOUCH} ${WRKSRC}/.git/index
+pre-configure:
+	${ECHO_CMD} "#define VERSION \"${PORTVERSION}\"" > ${WRKSRC}/version.h
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/vimb
