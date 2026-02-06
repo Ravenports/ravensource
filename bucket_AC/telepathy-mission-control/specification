@@ -1,0 +1,41 @@
+DEF[PORTVERSION]=	5.16.6
+DEF[SOVERSION]=		0.5.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		telepathy-mission-control
+VERSION=		${PORTVERSION}
+KEYWORDS=		net_im
+VARIANTS=		std
+SDESC[std]=		Central control for Telepathy connection manager
+HOMEPAGE=		https://telepathy.freedesktop.org/components/telepathy-mission-control/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://telepathy.freedesktop.org/releases/telepathy-mission-control/
+DISTFILE[1]=		telepathy-mission-control-${PORTVERSION}.tar.gz:main
+
+SPKGS[std]=		set primary dev man docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL21+:primary
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/mcd-account.h
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		net-im/telepathy-mission-control
+
+BUILD_DEPENDS=		telepathy-glib:dev:std
+BUILDRUN_DEPENDS=	telepathy-glib:primary:std
+
+USES=			gmake libtool pkgconfig gtk-doc gettext
+			python:build schemas:primary
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-upower
+GLIB_SCHEMAS=		im.telepathy.MissionControl.FromEmpathy.gschema.xml
+GTKDOC_OUTPUT_BASEDIR=	mission-control-plugins
+INSTALL_TARGET=		install-strip
+SOVERSION=		${SOVERSION}
