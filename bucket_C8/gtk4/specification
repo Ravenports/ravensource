@@ -5,6 +5,7 @@ DEF[SOVERSION]=		1.2000.3
 
 NAMEBASE=		gtk4
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		x11_toolkits
 VARIANTS=		std
 SDESC[std]=		Gimp Toolkit for X11 GUI
@@ -23,24 +24,22 @@ SPKGS[std]=		set primary dev man nls icon_cache tools
 OPTIONS_AVAILABLE=	CUPS BROADWAY INTROSPECTION COLORD
 OPTIONS_STANDARD=	CUPS BROADWAY INTROSPECTION COLORD
 OPT_ON[all]=		CUPS BROADWAY
+OPT_ON[freebsd]=	INTROSPECTION
+OPT_ON[midnightbsd]=	INTROSPECTION
 # COLORD is broken again
 
 FPC_EQUIVALENT=		x11-toolkits/gtk40
 
-BUILD_DEPENDS=		git:primary:std
-			graphene:dev:std
+BUILD_DEPENDS=		graphene:dev:std
 			harfbuzz:dev:std
-			libdrm:dev:std
+			libdrm:set:std
 			libepoxy:dev:std
-			libidn2:dev:std
 			libxkbcommon:dev:std
 			python-docutils:single:python_used
 			sassc:single:std
+			gdb:primary:std
 BUILDRUN_DEPENDS=	graphene:primary:std
-			iso-codes:primary:std
-			libdrm:primary:std
 			libepoxy:primary:std
-			libidn2:primary:std
 			libxkbcommon:primary:std
 
 EXRUN[icon_cache]=	gdk-pixbuf:primary:std
@@ -53,8 +52,8 @@ EXRUN[dev]=		graphene:dev:std
 			glib:dev:std
 
 USES=			gmake pkgconfig cpe meson gtk-doc
-			jpeg tiff schemas:primary perl:build python:build
-GNOME_COMPONENTS=	atk cairo gdkpixbuf librsvg pango
+			jpeg tiff png schemas:primary perl:build python:build
+GNOME_COMPONENTS=	cairo gdkpixbuf librsvg pango
 XORG_COMPONENTS=	xext x11 xinerama xi xrandr xcursor xfixes
 			xdamage xcomposite
 CPE_VENDOR=		gtk
