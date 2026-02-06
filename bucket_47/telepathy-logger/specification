@@ -1,0 +1,47 @@
+DEF[PORTVERSION]=	0.8.2
+DEF[SOVERSION]=		3.3.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		telepathy-logger
+VERSION=		${PORTVERSION}
+KEYWORDS=		net_im
+VARIANTS=		std
+SDESC[std]=		Telepathy framework logging daemon
+HOMEPAGE=		https://telepathy.freedesktop.org/components/telepathy-logger/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://telepathy.freedesktop.org/releases/telepathy-logger/
+DISTFILE[1]=		telepathy-logger-${PORTVERSION}.tar.bz2:main
+
+SPKGS[std]=		set primary dev docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL21+:primary
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/telepathy-logger.c
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		net-im/telepathy-logger
+
+BUILD_DEPENDS=		libxslt:dev:std
+			telepathy-glib:dev:std
+BUILDRUN_DEPENDS=	telepathy-glib:primary:std
+
+USES=			gmake pkgconfig sqlite libtool schemas:primary
+			gettext:tools python:build
+GNOME_COMPONENTS=	glib intltool libxml2 introspection
+GLIB_SCHEMAS=		org.freedesktop.Telepathy.Logger.gschema.xml
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
+MAKE_ENV=		PYTHONDONTWRITEBYTECODE=1
+CFLAGS=			-Wno-cast-function-type
+SOVERSION=		${SOVERSION}
+
+post-patch:
+	${REINPLACE_CMD} -e 's|/usr/bin/python|/usr/bin/env python|g' \
+		${WRKSRC}/tools/*.py
