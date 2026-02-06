@@ -4,6 +4,7 @@ DEF[FOLDER]=		${PORTVERSION:R}
 
 NAMEBASE=		polari
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		irc
 VARIANTS=		std
 SDESC[std]=		Internet Relay Chat client for GNOME
@@ -28,16 +29,17 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		irc/polari
 
-BUILD_DEPENDS=		appstream-glib:dev:std
+BUILD_DEPENDS=		appstream-glib:set:std
 			itstool:single:std
 			gjs:dev:std
 			telepathy-glib:dev:std
 			tinysparql:dev:std
-BUILDRUN_DEPENDS=	appstream-glib:primary:std
-			telepathy-glib:primary:std
+BUILDRUN_DEPENDS=	telepathy-glib:primary:std
 			gjs:primary:std
 			tinysparql:primary:std
 RUN_DEPENDS=		telepathy-idle:primary:std
+			telepathy-logger:primary:std
+			telepathy-mission-control:primary:std
 			gspell:tools:std
 
 USES=			meson pkgconfig
