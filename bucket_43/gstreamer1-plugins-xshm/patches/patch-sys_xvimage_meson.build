@@ -1,10 +1,10 @@
---- sys/xvimage/meson.build.orig	2023-01-23 19:29:34 UTC
+--- sys/xvimage/meson.build.orig	2026-01-27 17:02:33 UTC
 +++ sys/xvimage/meson.build
-@@ -13,6 +13,7 @@ if cc.has_argument ('-Wno-deprecated-dec
+@@ -29,6 +29,7 @@ if cc.has_argument ('-Wno-deprecated-dec
  endif
  
  xvideo_dep = dependency('xv', required : get_option('xvideo'))
 +video_dep = cc.find_library ('gstvideo-1.0', required : true)
  
- if xvideo_dep.found()
+ if xvideo_dep.found() and x11_dep.found()
    gstxvimage = library('gstxvimagesink',

@@ -1,6 +1,6 @@
---- gst-libs/gst/adaptivedemux/meson.build.orig	2021-01-13 21:11:25 UTC
+--- gst-libs/gst/adaptivedemux/meson.build.orig	2026-01-27 17:02:33 UTC
 +++ gst-libs/gst/adaptivedemux/meson.build
-@@ -9,7 +9,7 @@ gstadaptivedemux = library('gstadaptived
+@@ -19,7 +19,7 @@ gstadaptivedemux = library('gstadaptived
    soversion : soversion,
    darwin_versions : osxversion,
    install : true,
@@ -8,4 +8,4 @@
 +  dependencies : [gstbase_dep, gsturidownloader_dep, libintl_dep],
  )
  
- gstadaptivedemux_dep = declare_dependency(link_with : gstadaptivedemux,
+ gst_libraries += [[pkg_name, {'lib': gstadaptivedemux}]]

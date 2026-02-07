@@ -1,17 +1,16 @@
---- gst/udp/meson.build.orig	2021-01-13 21:08:53 UTC
+--- gst/udp/meson.build.orig	2026-01-27 17:02:33 UTC
 +++ gst/udp/meson.build
-@@ -6,12 +6,13 @@ udp_sources = [
-   'gstdynudpsink.c',
-   'gstudpnetutils.c'
- ]
-+socket_dep = cc.find_library('socket', required : true)
+@@ -30,11 +30,12 @@ if get_option('udp').disabled()
+   subdir_done()
+ endif
  
++socket_dep = cc.find_library('socket', required : true)
  gstudp = library('gstudp',
    udp_sources,
    c_args : gst_plugins_good_args,
    include_directories : [configinc, libsinc],
 -  dependencies : [gst_dep, gstbase_dep, gstnet_dep, gio_dep],
-+  dependencies : [gst_dep, gstbase_dep, gstnet_dep, gio_dep,socket_dep],
++  dependencies : [gst_dep, gstbase_dep, gstnet_dep, gio_dep, socket_dep],
    install : true,
    install_dir : plugins_install_dir,
  )

@@ -1,10 +1,10 @@
---- meson.build.orig	2021-01-13 21:11:25 UTC
+--- meson.build.orig	2026-01-27 17:02:33 UTC
 +++ meson.build
-@@ -353,6 +353,7 @@ if gstgl_dep.found()
+@@ -396,6 +396,7 @@ if gstgl_dep.found()
  endif
  
  libm = cc.find_library('m', required : false)
 +socket_dep = cc.find_library('socket', required : true)
- glib_dep = dependency('glib-2.0', version : glib_req, fallback: ['glib', 'libglib_dep'])
- gmodule_dep = dependency('gmodule-2.0', fallback: ['glib', 'libgmodule_dep'])
- gio_dep = dependency('gio-2.0', fallback: ['glib', 'libgio_dep'])
+ gio_dep = dependency('gio-2.0', version: glib_req, default_options: {'sysprof': 'disabled'})
+ gmodule_dep = dependency('gmodule-no-export-2.0')
+ # gio-unix-2.0 is used by sys/bluez

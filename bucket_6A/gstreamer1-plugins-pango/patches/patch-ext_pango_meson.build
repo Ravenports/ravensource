@@ -1,10 +1,10 @@
---- ext/pango/meson.build.orig	2023-01-23 19:29:34 UTC
+--- ext/pango/meson.build.orig	2026-01-27 17:02:33 UTC
 +++ ext/pango/meson.build
-@@ -8,6 +8,7 @@ pango_sources = [
-   'gsttimeoverlay.c',
- ]
+@@ -26,6 +26,7 @@ plugin_sources += {
+   'pango': pathsep.join(doc_sources)
+ }
  
 +video_dep = cc.find_library ('gstvideo-1.0', required : true)
  pango_dep = dependency('pangocairo', version : '>=1.22.0', required : get_option('pango'),
-   fallback: ['pango', 'libpangocairo_dep'],
-   default_options: ['cairo=enabled'])
+   allow_fallback: true, default_options: ['cairo=enabled'])
+ 

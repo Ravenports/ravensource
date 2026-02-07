@@ -1,17 +1,16 @@
---- gst/rtsp/meson.build.orig	2021-01-13 21:08:53 UTC
+--- gst/rtsp/meson.build.orig	2026-01-27 17:02:33 UTC
 +++ gst/rtsp/meson.build
-@@ -4,12 +4,13 @@ rtsp_sources = [
-   'gstrtpdec.c',
-   'gstrtspext.c',
- ]
-+libintl_dep = cc.find_library('intl', required : true)
+@@ -26,11 +26,12 @@ if get_option('rtsp').disabled()
+   subdir_done()
+ endif
  
++libintl_dep = cc.find_library('intl', required : true)
  gstrtsp = library('gstrtsp',
    rtsp_sources,
    c_args : gst_plugins_good_args,
    include_directories : [configinc, libsinc],
--  dependencies : [gstbase_dep, gio_dep, gstrtp_dep, gstrtsp_dep, gstsdp_dep, gstnet_dep],
-+  dependencies : [gstbase_dep, gio_dep, gstrtp_dep, gstrtsp_dep, gstsdp_dep, gstnet_dep, libintl_dep],
+-  dependencies : [gstbase_dep, gstrtp_dep, gstrtsp_dep, gstsdp_dep, gstnet_dep, gio_dep],
++  dependencies : [gstbase_dep, gstrtp_dep, gstrtsp_dep, gstsdp_dep, gstnet_dep, gio_dep, libintl_dep],
    install : true,
    install_dir : plugins_install_dir,
  )

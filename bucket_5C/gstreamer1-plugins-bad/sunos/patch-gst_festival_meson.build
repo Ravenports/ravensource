@@ -1,11 +1,11 @@
---- gst/festival/meson.build.orig       2021-01-13 21:11:25 UTC
+--- gst/festival/meson.build.orig	2026-01-27 17:02:33 UTC
 +++ gst/festival/meson.build
-@@ -6,7 +6,7 @@ gstfestival = library('gstfestival',
+@@ -23,7 +23,7 @@ gstfestival = library('gstfestival',
    festival_sources,
    c_args : gst_plugins_bad_args,
    include_directories : [configinc],
--  dependencies : [gstbase_dep, gstaudio_dep] + winsock2,
-+  dependencies : [gstbase_dep, gstaudio_dep, socket_dep, nsl_dep] + winsock2,
+-  dependencies : [gstbase_dep, gstaudio_dep] + winsock2 + network_deps,
++  dependencies : [gstbase_dep, gstaudio_dep, socket_dep, nsl_dep] + winsock2 + network_deps,
    install : true,
    install_dir : plugins_install_dir,
  )

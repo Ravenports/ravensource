@@ -1,4 +1,4 @@
---- sys/v4l2/v4l2_calls.c.orig	2024-04-09 20:48:55 UTC
+--- sys/v4l2/v4l2_calls.c.orig	2026-01-27 17:02:33 UTC
 +++ sys/v4l2/v4l2_calls.c
 @@ -1333,10 +1333,12 @@ gst_v4l2_query_dv_timings (GstV4l2Object
  
