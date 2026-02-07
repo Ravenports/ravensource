@@ -1,0 +1,65 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Ball=C3=B3=20Gy=C3=B6rgy?= <ballogyor@gmail.com>
+Date: Wed, 13 Nov 2024 14:13:28 +0100
+Subject: [PATCH] Add option to disable URL preview feature
+
+It has security and privacy concerns.
+
+Closes: https://gitlab.gnome.org/GNOME/polari/-/issues/133
+---
+ data/org.gnome.Polari.gschema.xml | 5 +++++
+ data/ui/main-window.ui            | 4 ++++
+ src/application.js                | 2 ++
+ src/chatView.js                   | 3 ++-
+ 4 files changed, 13 insertions(+), 1 deletion(-)
+
+--- data/org.gnome.Polari.gschema.xml.orig
++++ data/org.gnome.Polari.gschema.xml
+@@ -36,6 +36,11 @@ SPDX-FileCopyrightText: 2015 Florian Müllner <fmuellner@gnome.or>
+       <summary>Last active channel</summary>
+       <description>Last active (selected) channel</description>
+     </key>
++    <key type="b" name="url-preview">
++      <default>false</default>
++      <summary>URL Preview</summary>
++      <description>Show preview for URLs.</description>
++    </key>
+   </schema>
+ 
+   <schema id="org.gnome.Polari.Account">
+--- data/ui/main-window.ui.orig
++++ data/ui/main-window.ui
+@@ -21,6 +21,10 @@ SPDX-License-Identifier: GPL-2.0-or-later
+         <attribute name="action">app.run-in-background</attribute>
+         <attribute name="label" translatable="yes">Run in Background</attribute>
+       </item>
++      <item>
++        <attribute name="action">app.url-preview</attribute>
++        <attribute name="label" translatable="yes">URL Preview</attribute>
++      </item>
+     </section>
+     <section>
+       <item>
+--- src/application.js.orig
++++ src/application.js
+@@ -361,6 +361,8 @@ class Application extends Adw.Application {
+         this._settings = new Gio.Settings({schema_id: 'org.gnome.Polari'});
+         let action = this._settings.create_action('run-in-background');
+         this.add_action(action);
++        action = this._settings.create_action('url-preview');
++        this.add_action(action);
+ 
+         action = this.lookup_action('user-list');
+         action.connect('notify::enabled', () => {
+--- src/chatView.js.orig
++++ src/chatView.js
+@@ -1305,7 +1305,8 @@ class ChatView extends Gtk.ScrolledWindow {
+             this._insertWithTags(iter,
+                 url.name, tags.concat(this._lookupTag('url'), tag));
+ 
+-            if (GLib.uri_parse_scheme(url.url).startsWith('http'))
++            if (this._app._settings.get_boolean('url-preview') &&
++                GLib.uri_parse_scheme(url.url).startsWith('http'))
+                 previews.push(new URLPreview({uri: url.url}));
+ 
+             pos = url.pos + url.name.length;
