@@ -4,7 +4,7 @@ Include the correct headers for realpath(3), PATH_MAX.
 
 Should help SunOS.
 
---- src/config.c.orig	2025-12-19 07:19:53 UTC
+--- src/config.c.orig	2026-02-06 07:30:55 UTC
 +++ src/config.c
 @@ -12,6 +12,8 @@
  
