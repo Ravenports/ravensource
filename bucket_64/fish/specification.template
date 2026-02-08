@@ -20,10 +20,10 @@ SITES[pcre2]=		GITHUB/fish-shell:rust-pcre2:0.2.9-utf32
 
 DISTFILE[1]=		fish-${PORTVERSION}.tar.xz:main
 %%CR_DISTFILES%%
-DISTFILE[108]=		generated:pcre2
+DISTFILE[126]=		generated:pcre2
 DIST_SUBDIR=		rust/crates
 %%DF_INDEX%%
-			108
+			126
 
 SPKGS[std]=		set primary dev docs man
 
@@ -45,7 +45,7 @@ USES=			cmake cpe ncurses shebangfix python:build
 CPE_VENDOR=		fishshell
 SHEBANG_FILES=		share/tools/*.py
 			share/tools/web_config/webconfig.py
-CMAKE_ARGS=		-DWITH_GETTEXT:BOOL=ON
+CMAKE_ARGS=		-DWITH_MESSAGE_LOCALIZATION:BOOL=ON
 MANDIRS=		{{PREFIX}}/share/fish/man/man1
 
 VAR_OPSYS[sunos]=	LDFLAGS=-lintl
