@@ -1,4 +1,4 @@
---- interfaces/cc/aspell.h.orig	2023-12-03 05:10:07 UTC
+--- interfaces/cc/aspell.h.orig	2026-01-27 08:46:38 UTC
 +++ interfaces/cc/aspell.h
 @@ -245,7 +245,7 @@ void delete_aspell_can_have_error(struct
  
