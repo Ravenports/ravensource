@@ -1,4 +1,4 @@
---- src/google/protobuf/stubs/port.h.orig	2026-01-12 16:32:06 UTC
+--- src/google/protobuf/stubs/port.h.orig	2026-01-29 19:43:18 UTC
 +++ src/google/protobuf/stubs/port.h
 @@ -25,6 +25,8 @@
  #ifdef _MSC_VER
