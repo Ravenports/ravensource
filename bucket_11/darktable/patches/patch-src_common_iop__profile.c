@@ -1,4 +1,4 @@
---- src/common/iop_profile.c.orig	2025-12-20 17:20:27 UTC
+--- src/common/iop_profile.c.orig	2026-02-04 20:20:09 UTC
 +++ src/common/iop_profile.c
 @@ -30,24 +30,6 @@
  #include <stdlib.h>
