@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.0.22
+DEF[PORTVERSION]=	2.1.1
 DEF[SOVERSION]=		${PORTVERSION}
 # ----------------------------------------------------------------------------
 
@@ -36,10 +36,12 @@ BUILD_DEPENDS=		cjson:dev:std
 			docbook-xsl:primary:std
 			libxslt:dev:std
 			libxslt:primary:std
+			argon2:dev:std
 BUILDRUN_DEPENDS=	cjson:primary:std
 			libuuid:primary:std
 			c-ares:primary:std
 			libwebsockets:primary:std
+			argon2:primary:std
 
 EXRUN[tools]=		mosquitto:primary:std
 EXRUN[cxx]=		mosquitto:primary:std
@@ -48,10 +50,12 @@ RC_SUBR=		mosquitto:tools
 USERGROUP_SPKG=		primary
 USERS=			nobody
 
-USES=			cpe cmake ssl zlib c++:cxx rootca:tools
+USES=			cpe cmake ssl zlib sqlite readline
+			c++:cxx rootca:tools
 CPE_VENDOR=		eclipse
 CMAKE_ARGS=		-DWITH_SRV:BOOL=ON
 			-DWITH_WEBSOCKETS:BOOL=ON
+			-DWITH_TESTS:BOOL=OFF
 			-DOPENSSL_ROOT_DIR={{OPENSSLBASE}}
 SOVERSION=		${SOVERSION}
 
@@ -65,7 +69,7 @@ post-install:
 		${STAGEDIR}${PREFIX}/etc/mosquitto/pskfile.sample
 	${MV} ${STAGEDIR}${PREFIX}/etc/mosquitto/aclfile.example \
 		${STAGEDIR}${PREFIX}/etc/mosquitto/aclfile.sample
-	${MV} ${STAGEDIR}${PREFIX}/etc/mosquitto/mosquitto.conf \
+	${MV} ${STAGEDIR}${PREFIX}/etc/mosquitto/mosquitto.conf.example \
 		${STAGEDIR}${PREFIX}/etc/mosquitto/mosquitto.conf.sample
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/m*

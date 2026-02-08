@@ -1,11 +1,11 @@
---- apps/mosquitto_ctrl/CMakeLists.txt.orig	2025-07-11 21:32:27 UTC
+--- apps/mosquitto_ctrl/CMakeLists.txt.orig	2026-02-04 22:33:13 UTC
 +++ apps/mosquitto_ctrl/CMakeLists.txt
-@@ -32,7 +32,7 @@ if (WITH_TLS AND CJSON_FOUND)
- 	if (UNIX)
- 		if (APPLE)
- 			target_link_libraries(mosquitto_ctrl dl)
--		elseif (${CMAKE_SYSTEM_NAME} MATCHES "OpenBSD")
-+		elseif (${CMAKE_SYSTEM_NAME} MATCHES "OpenBSD|FreeBSD|DragonFly|MidnightBSD")
+@@ -86,7 +86,7 @@ if(WITH_TLS)
+ 	if(UNIX)
+ 		if(APPLE)
+ 			target_link_libraries(mosquitto_ctrl PRIVATE dl)
+-		elseif(${CMAKE_SYSTEM_NAME} MATCHES "OpenBSD")
++		elseif(${CMAKE_SYSTEM_NAME} MATCHES "OpenBSD|FreeBSD|DragonFly|MidnightBSD")
  			#
- 		elseif (${CMAKE_SYSTEM_NAME} MATCHES "NetBSD")
+ 		elseif(${CMAKE_SYSTEM_NAME} MATCHES "NetBSD")
  			#
