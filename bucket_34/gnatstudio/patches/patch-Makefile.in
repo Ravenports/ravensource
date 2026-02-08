@@ -26,3 +26,12 @@
  
  BUILD?=Debug
  
+@@ -61,7 +60,7 @@ install-common:
+ 
+ 	(cd share; tar cf - library/*.py) | (cd $(sharedir)/gnatstudio; tar xf -)
+ 	(cd share; tar cf - support/) | (cd $(sharedir)/gnatstudio; tar xf -)
+-	-${PYTHON} distrib/gnat_switches.py > $(sharedir)/gnatstudio/support/core/gnat_switches.py
++	echo "switches_comments={}" > $(sharedir)/gnatstudio/support/core/gnat_switches.py
+ 	$(RM) $(sharedir)/gnatstudio/plug-ins/emacs.xml
+ 	$(RM) $(sharedir)/gnatstudio/plug-ins/python_doc.py
+ 	$(RM) $(sharedir)/gnatstudio/plug-ins/python_doc.pyc

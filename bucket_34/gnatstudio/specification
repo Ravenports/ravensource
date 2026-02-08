@@ -7,6 +7,7 @@ DEF[DATE_TXT]=		19 September 2025
 
 NAMEBASE=		gnatstudio
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		std
 SDESC[std]=		Multilanguage IDE for Ada, SPARK, C/C++, and more
@@ -55,6 +56,8 @@ BUILDRUN_DEPENDS=	gnatcoll-db:sql:std
 RUN_DEPENDS=		librsvg:primary:std
 			gdb:primary:std
 			libcanberra:primary:std
+			python-jedi:single:python_used
+			python-pycodestyle:single:python_used
 EXRUN[primary]=		ravensys-gcc:compilers:std
 			ravensys-gcc:ada_run:std
 			ravensys-gcc:cxx_run:std
@@ -90,16 +93,10 @@ SHEBANG_FILES=		share/support/core/gs_utils/internal/dialogs.py
 [DEBUG].MAKEFILE_ON=			WITH_DEBUG=yes
 
 post-extract:
-	${FIND} ${WRKSRC} -type f -name ".cvsignore" -delete
-	${FIND} ${WRKSRC} -type d -empty -delete
 	echo "${DATE_TXT}" > ${WRKSRC}/DATE.txt
 	echo "${VERSION_TXT}" > ${WRKSRC}/VERSION.txt
 
-post-patch:
-	${ECHO} "GNAT_SOURCES=" > ${WRKSRC}/Makefile.gnat
-
 pre-configure:
-	${RM} ${WRKSRC}/share/plug-ins/*.orig
 	${REINPLACE_CMD} -e 's|@PREFIX@|${PREFIX}|g' \
 		${WRKSRC}/gnatstudio/gps.gpr \
 		${WRKSRC}/gnatdoc/gnatdoc.gpr \
@@ -122,20 +119,43 @@ pre-configure:
 		${WRKSRC}/testsuite/Makefile
 	${REINPLACE_CMD} -e 's/latexpdf//g' ${WRKSRC}/docs/Makefile.in
 
+	${FIND} ${WRKSRC} -type f -name "*.orig" -delete
+	${FIND} ${WRKSRC} -type f -name "*.bak" -delete
+
 do-build:
 	cd ${WRKSRC}/docs && ${SETENV} ${MAKE_ENV} \
 		${MAKE_CMD} ${MAKE_ARGS} all
 	cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
 		${MAKE_CMD} ${MAKE_ARGS} ${BUILD_TARGET}
 
+pre-install:
+	# .gitignore can't be removed after the build
+	${FIND} ${WRKSRC} -type f -name ".gitignore" -delete
+	${FIND} ${WRKSRC} -type f -name ".cvsignore" -delete
+	${FIND} ${WRKSRC} -type d -empty -delete
+
 post-install:
-	${FIND} ${STAGEDIR}${PREFIX} -type f -name ".gitignore" -delete
-	${FIND} ${STAGEDIR}${PREFIX} -type f -name "*.orig" -delete
 	${FIND} ${STAGEDIR}${PREFIX} -type d -empty -delete
 	${FIND} ${STAGEDIR}${PREFIX} -type d -name "__pycache__" | ${XARGS} rm -rf
+	(cd ${STAGEDIR} && ${PYTHON_CMD} -m compileall -d / . ||:)
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/gnatdoc3
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/gnatstudio
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/gnatstudio_cli
 	${INSTALL_SCRIPT} ${WRKDIR}/gps ${STAGEDIR}${PREFIX}/bin
 	echo "This is the GPS GPL Edition for Ravenports." \
 		> ${STAGEDIR}${PREFIX}/share/gnatstudio/about.txt
+
+	# Automatically add __pycache__ files to the primary manifest
+	(cd ${STAGEDIR}${PREFIX} && \
+		${FIND} share/gnatstudio -type d -name __pycache__ |\
+		${XARGS} -I DIR ${FIND} DIR ! -type d 2>/dev/null | \
+		${SORT} >> ${WRKDIR}/.manifest.primary.mktmp)
+
+	# Automatically add __pycache__ files to the examples manifest
+	(cd ${STAGEDIR}${PREFIX} && \
+		${FIND} share/examples -type d -name __pycache__ |\
+		${XARGS} -I DIR ${FIND} DIR ! -type d 2>/dev/null | \
+		${SORT} >> ${WRKDIR}/.manifest.examples.mktmp)
 
 post-install-netbsd:
 	${PAXCTL} +m ${STAGEDIR}${PREFIX}/bin/gnatstudio
