@@ -1,10 +1,9 @@
-DEF[PORTVERSION]=	3.0.6
-DEF[SOVERSION]=		0.6.0
+DEF[PORTVERSION]=	3.0.8
+DEF[SOVERSION]=		0.8.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gimp
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		graphics
 VARIANTS=		std
 SDESC[std]=		GNU Image Manipulation Program
@@ -115,5 +114,5 @@ SOVERSION=		${SOVERSION}
 [LINUX].MAKEFILE_ON=			VAR1="-lexecinfo -lm -ldl"
 [LINUX].MAKEFILE_OFF=			VAR1="-lexecinfo -lm"
 
-post-extract:
+pre-configure:
 	glib-compile-schemas ${LOCALBASE}/share/glib-2.0/schemas

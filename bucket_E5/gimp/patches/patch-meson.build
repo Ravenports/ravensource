@@ -1,6 +1,6 @@
---- meson.build.orig	2025-10-05 17:14:02 UTC
+--- meson.build.orig	2026-01-24 16:10:30 UTC
 +++ meson.build
-@@ -171,6 +171,10 @@ platform_linux = (
+@@ -179,6 +179,10 @@ platform_linux = (
    host_os.contains('linux')
  )
  
@@ -11,15 +11,28 @@
  platform_windows = (
    host_os.contains('mingw') or
    host_os.contains('cygwin') or
-@@ -407,6 +411,7 @@ rpc               = platform_windows ? c
+@@ -431,6 +435,7 @@ rpc               = platform_windows ? c
  dbghelp           = platform_windows ? cc.find_library('dbghelp') : no_dep
  winsock           = platform_windows ? cc.find_library('ws2_32') : no_dep
  mscms             = platform_windows ? cc.find_library('mscms') : no_dep
 +realtime          = platform_netbsd ? cc.find_library('rt') : no_dep
+ 
  atk_minver        = '2.4.0'
  atk               = dependency('atk',                version: '>='+atk_minver)
- babl_minver       = '0.1.114'
-@@ -1487,6 +1492,7 @@ conf.set('NO_FD_SET',
+@@ -462,9 +467,9 @@ gegl_minver       = '0.4.62'
+ gegl              = dependency('gegl-0.4',           version: '>='+gegl_minver)
+ exiv2_minver      = '0.27.4'
+ exiv2             = dependency('exiv2',              version: '>='+exiv2_minver)
+-gexiv2_minver     = '0.14.0'
+-gexiv2_maxver     = '0.15.0'
+-gexiv2            = dependency('gexiv2',             version: ['>='+gexiv2_minver, '<'+gexiv2_maxver])
++gexiv2_minver     = '0.16.0'
++gexiv2_maxver     = '0.18.0'
++gexiv2            = dependency('gexiv2-0.16',        version: ['>='+gexiv2_minver, '<'+gexiv2_maxver])
+ 
+ gio               = dependency('gio-2.0')
+ gio_specific_name = platform_windows ? 'gio-windows-2.0' : 'gio-unix-2.0'
+@@ -1539,6 +1544,7 @@ conf.set('NO_FD_SET',
    not platform_windows
    and not cc.compiles('''
      #include <sys/types.h>
