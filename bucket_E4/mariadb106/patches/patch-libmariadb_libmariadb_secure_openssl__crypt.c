@@ -1,4 +1,4 @@
---- libmariadb/libmariadb/secure/openssl_crypt.c.orig	2025-10-25 17:20:00 UTC
+--- libmariadb/libmariadb/secure/openssl_crypt.c.orig	2026-01-27 21:45:36 UTC
 +++ libmariadb/libmariadb/secure/openssl_crypt.c
 @@ -36,8 +36,6 @@ static const EVP_MD *ma_hash_get_algorit
      return EVP_sha384();

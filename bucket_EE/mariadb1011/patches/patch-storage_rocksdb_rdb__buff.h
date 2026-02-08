@@ -1,4 +1,4 @@
---- storage/rocksdb/rdb_buff.h.orig	2025-11-03 13:05:02 UTC
+--- storage/rocksdb/rdb_buff.h.orig	2026-01-31 10:47:56 UTC
 +++ storage/rocksdb/rdb_buff.h
 @@ -40,6 +40,8 @@
  #define be16toh(x) OSSwapBigToHostInt16(x)
