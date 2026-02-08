@@ -1,6 +1,7 @@
 DEF[BASEVERSION]=	5.0.0
-DEF[UPDATE_VER]=	beta7
+DEF[UPDATE_VER]=	beta8
 DEF[PORTVERSION]=	${BASEVERSION}-${UPDATE_VER}
+DEF[TAG]=		v${PORTVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		premake
@@ -12,8 +13,8 @@ HOMEPAGE=		https://premake.github.io/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		https://github.com/premake/premake-core/releases/download/v${PORTVERSION}/
-DISTFILE[1]=		premake-${PORTVERSION}-src.zip:main
+SITES[main]=		GITHUB/premake:premake-core:${TAG}
+DISTFILE[1]=		generated:main
 
 SPKGS[std]=		single
 
@@ -31,7 +32,6 @@ MAKEFILE=		Bootstrap.mak
 MAKE_ARGS=		CC="{{CC}}"
 			CXX="{{CXX}}"
 BUILD_TARGET=		bsd
-EXTRACT_DIRTY=		1
 
 B_DEPS[linux]=		libuuid:dev:std
 BR_DEPS[linux]=		libuuid:primary:std
