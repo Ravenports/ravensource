@@ -57,6 +57,8 @@ MAKE_ARGS=		STRIP={{STRIP_CMD}}
 MANDIRS=		{{PREFIX}}/cbsd/man
 SINGLE_JOB=		yes
 
+VAR_OPSYS[freebsd]=	LDFLAGS=-ljail
+
 pre-configure:
 	# rename conflicting function
 	${REINPLACE_CMD} -e "s|sigblockall|mysigblockall|g" \
