@@ -1,0 +1,13 @@
+--- Makefile.orig	2026-02-03 12:38:10 UTC
++++ Makefile
+@@ -163,7 +163,9 @@ ifdef WITH_REDIS
+ 	EXTRAC += ../../bin/cbsdsh/cbsdredis.c ../../bin/cbsdsh/contrib/credis.c -DWITH_REDIS
+ endif
+ 	$(CC) tools/src/select_jail.c -o tools/select_jail && $(STRIP) tools/select_jail
+-	bin/cbsdsh/build && $(STRIP) bin/cbsdsh/src/dash && mv bin/cbsdsh/src/dash bin/cbsdsh/cbsd
++	(cd bin/cbsdsh && ./configure --with-libsqlite3)
++	$(MAKE) -C bin/cbsdsh/src
++	$(STRIP) bin/cbsdsh/src/dash && mv bin/cbsdsh/src/dash bin/cbsdsh/cbsd
+ 	$(MAKE) -C misc/src/sipcalc && $(STRIP) misc/src/sipcalc/sipcalc
+ 	$(MAKE) -C misc/src/cbsd_md5 && $(STRIP) misc/src/cbsd_md5/cbsd_md5
+ 	$(MAKE) -C share/bsdconfig/cbsd

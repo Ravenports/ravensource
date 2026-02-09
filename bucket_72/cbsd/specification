@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	15.0.0
+DEF[PORTVERSION]=	15.0.1
+DEF[CBSD_HOME]=		/cbsd
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		cbsd
@@ -21,7 +22,7 @@ OPTIONS_STANDARD=	none
 FPC_EQUIVALENT=		sysutils/cbsd
 
 LICENSE=		BSD2CLAUSE:primary
-LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/LICENSE
+LICENSE_FILE=		BSD2CLAUSE:{{WRKDIR}}/LICENSE
 LICENSE_SCHEME=		solo
 
 ONLY_FOR_OPSYS=		freebsd dragonfly midnightbsd
@@ -33,6 +34,7 @@ BUILD_DEPENDS=		elftoolchain:dev:std
 			curl:dev:std
 			file:dev:std
 			libedit:dev:std
+			coreutils:primary:noprefix
 BUILDRUN_DEPENDS=	libssh2:primary:std
 			libedit:primary:std
 			file:primary:std
@@ -50,61 +52,75 @@ USERS=			cbsd
 GROUPS=			cbsd
 USERGROUP_SPKG=		primary
 
-USES=			pkgconfig:buildrun ssl cmake sqlite
+USES=			autoreconf:build pkgconfig:buildrun gmake ssl sqlite
+MAKE_ARGS=		STRIP={{STRIP_CMD}}
 MANDIRS=		{{PREFIX}}/cbsd/man
 SINGLE_JOB=		yes
 
-post-extract:
-	${MKDIR} ${WRKSRC}/bin/tool_mknodes
-	${MKDIR} ${WRKSRC}/bin/tool_mksyntax
-	${INSTALL_DATA} ${FILESDIR}/CM.txt \
-		${WRKSRC}/CMakeLists.txt
-	${INSTALL_DATA} ${FILESDIR}/CM_bin.txt \
-		${WRKSRC}/bin/CMakeLists.txt
-	${INSTALL_DATA} ${FILESDIR}/CM_bin_mknodes.txt \
-		${WRKSRC}/bin/tool_mknodes/CMakeLists.txt
-	${INSTALL_DATA} ${FILESDIR}/CM_bin_mksyntax.txt \
-		${WRKSRC}/bin/tool_mksyntax/CMakeLists.txt
-	${INSTALL_DATA} ${FILESDIR}/CM_bin_cbsdsh.txt \
-		${WRKSRC}/bin/cbsdsh/CMakeLists.txt
-	${INSTALL_DATA} ${FILESDIR}/CM_misc.txt \
-		${WRKSRC}/misc/CMakeLists.txt
-	${INSTALL_DATA} ${FILESDIR}/CM_tools.txt \
-		${WRKSRC}/tools/CMakeLists.txt
-	${INSTALL_DATA} ${FILESDIR}/CM_sbin.txt \
-		${WRKSRC}/sbin/CMakeLists.txt
-
 pre-configure:
+	# rename conflicting function
+	${REINPLACE_CMD} -e "s|sigblockall|mysigblockall|g" \
+		${WRKSRC}/bin/cbsdsh/src/jobs.[ch] \
+		${WRKSRC}/bin/cbsdsh/src/trap.[ch]
+
+	# remove system elf header
 	${REINPLACE_CMD} -e '/<sys\/elf_common.h>/d' \
 		${WRKSRC}/misc/src/elf_tables.c
 	# fix hardcoded paths
 	${GREP} -rl '/usr/local' ${WRKSRC} | ${XARGS} \
 		${SED} -i'' -e 's|/usr/local|${PREFIX}|g'
-	# fix search path
-	${REINPLACE_CMD} -e 's|_PATH_DEFPATH|"/bin:/sbin:/usr/bin:/usr/sbin:${PREFIX}/bin:${PREFIX}/sbin"|'\
-		${WRKSRC}/bin/cbsdsh/var.c
 
-post-install:
-	# Add symbolic link
+	# relocate license
+	${MV} ${WRKSRC}/LICENSE ${WRKDIR}/
+
+	# autoreconf
+	(cd ${WRKSRC}/bin/cbsdsh && autoreconf -iv)
+
+pre-install:
+	# get rid of stuff we don't want installed
+	${FIND} ${WRKSRC} -type f -name .gitignore -delete
+	${FIND} ${WRKSRC} -type f -name "*.orig" -delete
+	${FIND} ${WRKSRC} -type f -name "*.bak" -delete
+	${FIND} ${WRKSRC} -type f -name placeholder -delete
+	${RM} ${WRKSRC}/Makefile
+	${RM} ${WRKSRC}/.clang-format
+
+do-install:
+	@${ECHO_MSG} "Installing in ${PREFIX}${CBSD_HOME}"
+	${CP} -a ${WRKSRC} ${STAGEDIR}${PREFIX}${CBSD_HOME}
+	${INSTALL_PROGRAM} ${WRKSRC}/bin/cbsdsh/cbsd \
+		${STAGEDIR}${PREFIX}/bin
+	${INSTALL_PROGRAM} ${WRKSRC}/misc/src/sipcalc/sipcalc \
+		${STAGEDIR}${PREFIX}${CBSD_HOME}/misc
+	${INSTALL_PROGRAM} ${WRKSRC}/misc/src/cbsd_md5/cbsd_md5 \
+		${STAGEDIR}${PREFIX}${CBSD_HOME}/misc
+	${RM} -r ${STAGEDIR}${PREFIX}${CBSD_HOME}/bin/cbsdsh \
+		${STAGEDIR}${PREFIX}${CBSD_HOME}/bin/src \
+		${STAGEDIR}${PREFIX}${CBSD_HOME}/lib \
+		${STAGEDIR}${PREFIX}${CBSD_HOME}/misc/src \
+		${STAGEDIR}${PREFIX}${CBSD_HOME}/sbin/src \
+		${STAGEDIR}${PREFIX}${CBSD_HOME}/tools/src
+	${INSTALL_MAN} ${WRKSRC}/man/cbsd.8 \
+		${STAGEDIR}${PREFIX}/share/man/man8
 	${MKDIR} ${STAGEDIR}${PREFIX}/libexec/bsdconfig
 	(cd ${STAGEDIR}${PREFIX}/libexec/bsdconfig &&\
-		${LN} -sf ../../cbsd/share/bsdconfig/cbsd cbsd)
-	# Strip
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/cbsd
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/cbsd/bin/c*
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/cbsd/sbin/netmask
-	(cd ${STAGEDIR}${PREFIX}/cbsd && ${FIND} tools misc -type f | while read f; \
-	do \
-	    check=$$(file "$$f" | grep "dynamically linked,.*not stripped"); \
-	    if [ -n "$$check" ]; then ${STRIP_CMD} "$$f"; fi; \
-	done)
+		${LN} -sf ../..${CBSD_HOME}/share/bsdconfig/cbsd cbsd)
+
+	# define samples
+	${MV} ${STAGEDIR}${PREFIX}${CBSD_HOME}/etc/modules.conf \
+		${STAGEDIR}${PREFIX}${CBSD_HOME}/etc/modules.conf.sample
+	${MV} ${STAGEDIR}${PREFIX}${CBSD_HOME}/etc/spice.conf \
+		${STAGEDIR}${PREFIX}${CBSD_HOME}/etc/spice.conf.sample
+	${MV} ${STAGEDIR}${PREFIX}${CBSD_HOME}/cbsd.conf \
+		${STAGEDIR}${PREFIX}${CBSD_HOME}/cbsd.conf.sample
 
 	# move examples to standard location
 	${MKDIR} ${STAGEDIR}${STD_EXAMPLESDIR}
-	${MV} ${STAGEDIR}${PREFIX}/cbsd/share/examples/* ${STAGEDIR}${STD_EXAMPLESDIR}/
-	${RMDIR} ${STAGEDIR}${PREFIX}/cbsd/share/examples
+	${MV} ${STAGEDIR}${PREFIX}${CBSD_HOME}/share/examples/* ${STAGEDIR}${STD_EXAMPLESDIR}/
+	${RMDIR} ${STAGEDIR}${PREFIX}${CBSD_HOME}/share/examples
 
 	# move documents to standard location
 	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
-	${MV} ${STAGEDIR}${PREFIX}/cbsd/share/docs/* ${STAGEDIR}${STD_DOCDIR}/
-	${FIND} ${STAGEDIR}${PREFIX}/cbsd/share/docs -empty -delete
+	${MV} ${STAGEDIR}${PREFIX}${CBSD_HOME}/share/docs/* ${STAGEDIR}${STD_DOCDIR}/
+	${MV} ${STAGEDIR}${PREFIX}${CBSD_HOME}/*.md ${STAGEDIR}${STD_DOCDIR}/
+	${FIND} ${STAGEDIR}${PREFIX}${CBSD_HOME}/share/docs -empty -delete

@@ -1,5 +1,5 @@
---- bin/cbsdsh/jail.c.orig	2025-12-02 00:38:43 UTC
-+++ bin/cbsdsh/jail.c
+--- bin/cbsdsh/src/jail.c.orig	2026-02-03 12:38:10 UTC
++++ bin/cbsdsh/src/jail.c
 @@ -1,7 +1,7 @@
  #include <sys/param.h>
  #include <sys/jail.h>
