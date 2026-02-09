@@ -1,6 +1,5 @@
-DEF[PORTVERSION]=	2023.1
+DEF[PORTVERSION]=	2026.1
 DEF[TAG]=		${PORTVERSION}
-# Remove cmake minimum argument on next release
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gargoyle
@@ -15,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/garglk:garglk:${TAG}
 DISTFILE[1]=		generated:main
 
-SPKGS[std]=		set primary dev man
+SPKGS[std]=		set primary man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -28,17 +27,19 @@ LICENSE_SOURCE=		TERMS:{{WRKSRC}}/garglk/garglk.h
 LICENSE_SCHEME=		solo
 
 BUILD_DEPENDS=		freetype:dev:std
-			qt5-qtbase:dev:std
+			qt6-qtbase:dev:std
+			fmt:dev:std
 BUILDRUN_DEPENDS=	freetype:primary:std
-			qt5-qtbase:primary:std
+			qt6-qtbase:primary:std
+			fmt:primary:std
 
 USES=			cmake jpeg png zlib pkgconfig fontconfig ninja
-CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH="{{PREFIX}}/lib/qt5/cmake/"
-			-DCMAKE_POLICY_VERSION_MINIMUM=3.5
-MAKE_ARGS=		-dexplain
+			desktop-utils:primary mime-info:primary
+CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH="{{PREFIX}}/lib/qt6/cmake/"
+			-DCMAKE_SKIP_INSTALL_ALL_DEPENDENCY:BOOL=ON
 SDL_COMPONENTS=		mixer2 sdl2
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/gargoyle
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libgarglk.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib*.so
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/libexec/gargoyle/*
