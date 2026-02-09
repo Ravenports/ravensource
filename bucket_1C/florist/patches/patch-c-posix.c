@@ -1,4 +1,4 @@
---- c-posix.c.orig	2023-03-02 16:00:46 UTC
+--- c-posix.c.orig	2026-01-06 09:07:40 UTC
 +++ c-posix.c
 @@ -59,6 +59,7 @@
  #include <stdarg.h>
