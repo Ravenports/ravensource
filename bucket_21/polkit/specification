@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	126
+DEF[PORTVERSION]=	127
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		polkit
@@ -54,6 +54,7 @@ MESON_ARGS=		-Dauthfw=pam
 			-Dgtk_doc=false
 			-Dpolkitd_user=polkitd
 			-Dsession_tracking=ConsoleKit
+			-Dgettext=true
 CFLAGS=			-Wno-deprecated-declarations
 			-Wno-implicit-function-declaration
 			-Wno-int-conversion
@@ -64,7 +65,7 @@ pre-configure:
 	${REINPLACE_CMD} -e 's|/usr/bin/|${PREFIX}/bin/|g' \
 		${WRKSRC}/docs/man/pkexec.xml \
 		${WRKSRC}/src/examples/org.freedesktop.policykit.examples.pkexec.policy.in
-	${REINPLACE_CMD} -e 's|/usr/local|${PREFIX}|g' \
+	${REINPLACE_CMD} -e 's|%%LOCALBASE%%|${PREFIX}|g' \
 		${WRKSRC}/docs/man/polkit.xml
 
 post-patch-sunos:
