@@ -1,6 +1,6 @@
-DEF[PORTVERSION]=	3.10.2
-DEF[NETTLE_SOVERSION]=	8.11
-DEF[HOGWEED_SOVERSION]=	6.11
+DEF[PORTVERSION]=	4.0
+DEF[NETTLE_SOVERSION]=	9.0
+DEF[HOGWEED_SOVERSION]=	7.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		nettle
@@ -33,7 +33,7 @@ FPC_EQUIVALENT=		security/nettle
 BUILD_DEPENDS=		gmp:dev:std
 BUILDRUN_DEPENDS=	gmp:primary:std
 
-EXRUN[tools]=		nettle:primary:std
+EXRUN[tools]=		primary
 
 USES=			cpe gmake makeinfo
 CPE_VENDOR=		nettle_project
@@ -44,6 +44,7 @@ INFO=			info:nettle
 SOVERSION=		${NETTLE_SOVERSION}
 PLIST_SUB=		HW_SOVERSION=${HOGWEED_SOVERSION}
 			HW_SOMAJOR=${HOGWEED_SOVERSION:R}
+DISTNAME=		nettle-${PORTVERSION}
 
 # on macos, libweed.a gets rebuilt unnecessarily.
 # That is broken, so adding toolchain to end is a hack that needs fixing
