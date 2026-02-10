@@ -1,6 +1,6 @@
---- gold/x86_64.cc.orig	2025-02-02 00:00:00 UTC
+--- gold/x86_64.cc.orig	2026-02-08 00:00:00 UTC
 +++ gold/x86_64.cc
-@@ -1301,7 +1301,7 @@ const Target::Target_info Target_x86_64<
+@@ -1300,7 +1300,7 @@ const Target::Target_info Target_x86_64<
    true,			// is_default_stack_executable
    true,			// can_icf_inline_merge_sections
    '\0',			// wrap_char
@@ -9,7 +9,7 @@
    0x400000,		// default_text_segment_address
    0x1000,		// abi_pagesize (overridable by -z max-page-size)
    0x1000,		// common_pagesize (overridable by -z common-page-size)
-@@ -1330,7 +1330,7 @@ const Target::Target_info Target_x86_64<
+@@ -1329,7 +1329,7 @@ const Target::Target_info Target_x86_64<
    true,			// is_default_stack_executable
    true,			// can_icf_inline_merge_sections
    '\0',			// wrap_char
