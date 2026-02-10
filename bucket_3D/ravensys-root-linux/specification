@@ -1,10 +1,7 @@
 DEF[PRIME]=		3.2.0
-DEF[ABI26_RELEASE]=	2.6.32
 DEF[X_CURRENT]=		EXTRACT_VERSION(PLATFORM_Linux_x86-64)
-DEF[X_ABI26]=		EXTRACT_VERSION(PREVIOUS_Linux_K44)
-DEF[ABI26_FILES]=	2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20
-DEF[ABI32_FILES_1]=	21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45
-DEF[ABI32_FILES_2]=	46 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70
+DEF[ABI32_FILES_1]=	2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26
+DEF[ABI32_FILES_2]=	27 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51
 DEF[ABI32_FILES]=	${ABI32_FILES_1} ${ABI32_FILES_2}
 # ----------------------------------------------------------------------------
 
@@ -12,39 +9,21 @@ NAMEBASE=		ravensys-root-linux
 VERSION=		${PRIME}
 REVISION=		10
 KEYWORDS=		raven
-VARIANTS=		std ABI26
+VARIANTS=		std
 SDESC[std]=		Linux ${PRIME} builder system root
-SDESC[ABI26]=		Linux ${ABI26_RELEASE} builder system root
 HOMEPAGE=		none
 CONTACT=		John_Marino[draco@marino.st]
 
-DOWNLOAD_GROUPS=	main leaf sting ubuntu1 ubuntu2 ubuntu3 ubuntu4 ubuntu5 ubuntu6
-			ubuntu7 ubuntu8 ubuntu9 ubuntu10 ubuntu11
-			debian2 debian3 debian6 debian7
+DOWNLOAD_GROUPS=	main leaf debian2 debian3 debian6 debian7
 			debian8 debian9 debian10 debian11 debian12 debian13 debian14
 			debian16 debian18 debian19 debian20 debian21
 			debian22 debian24 debian25 debian26 debian27 debian28 debian29
 			debian30
 SITES[main]=		https://leaf.dragonflybsd.org/~marino/dports-src/
-SITES[ubuntu1]=		http://security.ubuntu.com/ubuntu/pool/main/g/glibc/
-SITES[ubuntu2]=		UBUNTU/h/hostname
-SITES[ubuntu3]=		UBUNTU/d/dash
-SITES[ubuntu4]=		UBUNTU/p/pax
-SITES[ubuntu5]=		UBUNTU/d/debianutils
-SITES[ubuntu6]=		UBUNTU/b/bsdmainutils
-SITES[ubuntu7]=		http://security.ubuntu.com/ubuntu/pool/main/s/shadow/
-SITES[ubuntu8]=		http://security.ubuntu.com/ubuntu/pool/main/l/linux/
-SITES[ubuntu9]=		UBUNTU/a/attr
-SITES[ubuntu10]=	UBUNTU/a/acl
-SITES[ubuntu11]=	http://security.ubuntu.com/ubuntu/pool/main/s/systemd/
-SITES[sting]=		http://www.ravenports.com/cache-distfiles/
 SITES[leaf]=		https://leaf.dragonflybsd.org/~marino/raven-distfiles/linux-61-sysroot/
 
-# SITES[debian1]=	DEBIAN/pool/main/g/glibc
 SITES[debian2]=		DEBIAN/pool/main/a/attr
 SITES[debian3]=		DEBIAN/pool/main/a/acl
-# SITES[debian4]=	DEBIAN/pool/main/s/systemd
-# SITES[debian5]=	http://security.debian.org/debian-security/pool/updates/main/l/linux/
 SITES[debian6]=		DEBIAN/pool/main/h/hostname
 SITES[debian7]=		DEBIAN/pool/main/d/dash
 SITES[debian8]=		DEBIAN/pool/main/s/shadow
@@ -54,15 +33,12 @@ SITES[debian11]=	DEBIAN/pool/main/libn/libnsl
 SITES[debian12]=	DEBIAN/pool/main/libt/libtirpc
 SITES[debian13]=	DEBIAN/pool/main/libn/libnss-nis
 SITES[debian14]=	DEBIAN/pool/main/libn/libnss-nisplus
-# SITES[debian15]=	DEBIAN/pool/main/n/nss
 SITES[debian16]=	DEBIAN/pool/main/g/gnu-which
-# SITES[debian17]=	DEBIAN/pool/main/k/krb5
 SITES[debian18]=	DEBIAN/pool/main/e/e2fsprogs
 SITES[debian19]=	DEBIAN/pool/main/k/keyutils
 SITES[debian20]=	DEBIAN/pool/main/libb/libbsd
 SITES[debian21]=	DEBIAN/pool/main/libm/libmd
 SITES[debian22]=	DEBIAN/pool/main/libn/libnl3
-# SITES[debian23]=	DEBIAN/pool/main/s/systemd
 SITES[debian24]=	DEBIAN/pool/main/libz/libzstd
 SITES[debian25]=	DEBIAN/pool/main/l/lz4
 SITES[debian26]=	DEBIAN/pool/main/x/xz-utils
@@ -72,85 +48,64 @@ SITES[debian29]=	DEBIAN/pool/main/libc/libcap2
 SITES[debian30]=	DEBIAN/pool/main/t/tzdata
 
 DISTFILE[1]=		dummy-tarball.tar.gz:main
-DISTFILE[2]=		locales_2.23-0ubuntu10_all.deb:sting
-DISTFILE[3]=		libc6_2.23-0ubuntu9_amd64.deb:sting
-DISTFILE[4]=		libc6-dev_2.23-0ubuntu9_amd64.deb:sting
-DISTFILE[5]=		hostname_3.16ubuntu2_amd64.deb:ubuntu2
-DISTFILE[6]=		dash_0.5.8-2.1ubuntu2_amd64.deb:ubuntu3
-DISTFILE[7]=		pax_20151013-1_amd64.deb:ubuntu4
-DISTFILE[8]=		debianutils_4.7_amd64.deb:ubuntu5
-DISTFILE[9]=		libc-bin_2.23-0ubuntu9_amd64.deb:sting
-DISTFILE[10]=		bsdmainutils_9.0.6ubuntu3_amd64.deb:ubuntu6
-DISTFILE[11]=		passwd_4.2-3.1ubuntu5.3_amd64.deb:ubuntu7
-DISTFILE[12]=		linux-libc-dev_4.4.0-78.99_amd64.deb:sting
-DISTFILE[13]=		libc6-dev-amd64_2.23-0ubuntu9_i386.deb:sting
-DISTFILE[14]=		libc6-dev_2.23-0ubuntu9_i386.deb:sting
-DISTFILE[15]=		libattr1-dev_2.4.47-2_amd64.deb:ubuntu9
-DISTFILE[16]=		libattr1_2.4.47-2_amd64.deb:ubuntu9
-DISTFILE[17]=		libacl1-dev_2.2.52-3_amd64.deb:ubuntu10
-DISTFILE[18]=		libacl1_2.2.52-3_amd64.deb:ubuntu10
-DISTFILE[19]=		libudev1_229-4ubuntu21.27_amd64.deb:ubuntu11
-DISTFILE[20]=		libudev-dev_229-4ubuntu21.27_amd64.deb:ubuntu11
-
-DISTFILE[21]=		locales_2.36-9+deb12u1_all.deb:leaf
-DISTFILE[22]=		libc6-dev_2.36-9+deb12u1_amd64.deb:leaf
-DISTFILE[23]=		libc6_2.36-9+deb12u1_amd64.deb:leaf
-DISTFILE[24]=		libc-bin_2.36-9+deb12u1_amd64.deb:leaf
-DISTFILE[25]=		libattr1-dev_2.5.1-4_amd64.deb:debian2
-DISTFILE[26]=		libattr1_2.5.1-4_amd64.deb:debian2
-DISTFILE[27]=		libacl1-dev_2.3.1-3_amd64.deb:debian3
-DISTFILE[28]=		libacl1_2.3.1-3_amd64.deb:debian3
-DISTFILE[29]=		libudev-dev_252.12-1~deb12u1_amd64.deb:leaf
-DISTFILE[30]=		libudev1_252.12-1~deb12u1_amd64.deb:leaf
-DISTFILE[31]=		linux-libc-dev_6.1.38-4_amd64.deb:leaf
-DISTFILE[32]=		libcrypt-dev_4.4.33-2_amd64.deb:debian10
-DISTFILE[33]=		libcrypt1_4.4.33-2_amd64.deb:debian10
-DISTFILE[34]=		libnsl-dev_1.3.0-2_amd64.deb:debian11
-DISTFILE[35]=		libnsl2_1.3.0-2_amd64.deb:debian11
-DISTFILE[36]=		libtirpc-dev_1.3.3+ds-1_amd64.deb:debian12
-DISTFILE[37]=		libtirpc3_1.3.3+ds-1_amd64.deb:debian12
-DISTFILE[38]=		libnss3-dev_3.87.1-1_amd64.deb:leaf
-DISTFILE[39]=		libnss3_3.87.1-1_amd64.deb:leaf
-DISTFILE[40]=		gnu-which_2.21+dfsg-2_amd64.deb:debian16
-DISTFILE[41]=		hostname_3.23+nmu1_amd64.deb:debian6
-DISTFILE[42]=		dash_0.5.12-2_amd64.deb:debian7
-DISTFILE[43]=		passwd_4.13+dfsg1-1+b1_amd64.deb:debian8
-DISTFILE[44]=		pax_20201030-1_amd64.deb:debian9
-DISTFILE[45]=		libnss-nis_3.1-4_amd64.deb:debian13
-DISTFILE[46]=		libnss-nisplus_1.3-4_amd64.deb:debian14
-DISTFILE[47]=		ld.so.cache.tar.gz:leaf
-DISTFILE[48]=		locale-archive.tar.zst:leaf
-DISTFILE[49]=		libgssapi-krb5-2_1.20.1-2_amd64.deb:leaf
-DISTFILE[50]=		libkrb5-3_1.20.1-2_amd64.deb:leaf
-DISTFILE[51]=		libk5crypto3_1.20.1-2_amd64.deb:leaf
-DISTFILE[52]=		libkrb5support0_1.20.1-2_amd64.deb:leaf
-DISTFILE[53]=		libcom-err2_1.47.0-2_amd64.deb:debian18
-DISTFILE[54]=		libkeyutils1_1.6.3-2_amd64.deb:debian19
-DISTFILE[55]=		libbsd0_0.11.7-2_amd64.deb:debian20
-DISTFILE[56]=		libmd0_1.0.4-2_amd64.deb:debian21
-DISTFILE[57]=		libnl-genl-3-dev_3.7.0-0.2+b1_amd64.deb:debian22
-DISTFILE[58]=		libnl-genl-3-200_3.7.0-0.2+b1_amd64.deb:debian22
-DISTFILE[59]=		libnl-3-dev_3.7.0-0.2+b1_amd64.deb:debian22
-DISTFILE[60]=		libnl-3-200_3.7.0-0.2+b1_amd64.deb:debian22
-DISTFILE[61]=		libsystemd-dev_252.12-1~deb12u1_amd64.deb:leaf
-DISTFILE[62]=		libsystemd0_247.3-7+deb11u2_amd64.deb:leaf
-DISTFILE[63]=		libzstd1_1.5.4+dfsg2-5_amd64.deb:debian24
-DISTFILE[64]=		liblz4-1_1.9.4-1_amd64.deb:debian25
-DISTFILE[65]=		liblzma5_5.4.1-0.2_amd64.deb:debian26
-DISTFILE[66]=		libgcrypt20_1.10.1-3_amd64.deb:debian27
-DISTFILE[67]=		libgpg-error0_1.46-1_amd64.deb:debian28
-DISTFILE[68]=		libcap2_2.66-4_amd64.deb:debian29
-DISTFILE[69]=		libcap-dev_2.66-4_amd64.deb:debian29
-DISTFILE[70]=		tzdata_2025b-0+deb12u2_all.deb:debian30
+DISTFILE[2]=		locales_2.36-9+deb12u1_all.deb:leaf
+DISTFILE[3]=		libc6-dev_2.36-9+deb12u1_amd64.deb:leaf
+DISTFILE[4]=		libc6_2.36-9+deb12u1_amd64.deb:leaf
+DISTFILE[5]=		libc-bin_2.36-9+deb12u1_amd64.deb:leaf
+DISTFILE[6]=		libattr1-dev_2.5.1-4_amd64.deb:debian2
+DISTFILE[7]=		libattr1_2.5.1-4_amd64.deb:debian2
+DISTFILE[8]=		libacl1-dev_2.3.1-3_amd64.deb:debian3
+DISTFILE[9]=		libacl1_2.3.1-3_amd64.deb:debian3
+DISTFILE[10]=		libudev-dev_252.12-1~deb12u1_amd64.deb:leaf
+DISTFILE[11]=		libudev1_252.12-1~deb12u1_amd64.deb:leaf
+DISTFILE[12]=		linux-libc-dev_6.1.38-4_amd64.deb:leaf
+DISTFILE[13]=		libcrypt-dev_4.4.33-2_amd64.deb:debian10
+DISTFILE[14]=		libcrypt1_4.4.33-2_amd64.deb:debian10
+DISTFILE[15]=		libnsl-dev_1.3.0-2_amd64.deb:debian11
+DISTFILE[16]=		libnsl2_1.3.0-2_amd64.deb:debian11
+DISTFILE[17]=		libtirpc-dev_1.3.3+ds-1_amd64.deb:debian12
+DISTFILE[18]=		libtirpc3_1.3.3+ds-1_amd64.deb:debian12
+DISTFILE[19]=		libnss3-dev_3.87.1-1_amd64.deb:leaf
+DISTFILE[20]=		libnss3_3.87.1-1_amd64.deb:leaf
+DISTFILE[21]=		gnu-which_2.21+dfsg-2_amd64.deb:debian16
+DISTFILE[22]=		hostname_3.23+nmu1_amd64.deb:debian6
+DISTFILE[23]=		dash_0.5.12-2_amd64.deb:debian7
+DISTFILE[24]=		passwd_4.13+dfsg1-1+b1_amd64.deb:debian8
+DISTFILE[25]=		pax_20201030-1_amd64.deb:debian9
+DISTFILE[26]=		libnss-nis_3.1-4_amd64.deb:debian13
+DISTFILE[27]=		libnss-nisplus_1.3-4_amd64.deb:debian14
+DISTFILE[28]=		ld.so.cache.tar.gz:leaf
+DISTFILE[29]=		locale-archive.tar.zst:leaf
+DISTFILE[30]=		libgssapi-krb5-2_1.20.1-2_amd64.deb:leaf
+DISTFILE[31]=		libkrb5-3_1.20.1-2_amd64.deb:leaf
+DISTFILE[32]=		libk5crypto3_1.20.1-2_amd64.deb:leaf
+DISTFILE[33]=		libkrb5support0_1.20.1-2_amd64.deb:leaf
+DISTFILE[34]=		libcom-err2_1.47.0-2_amd64.deb:debian18
+DISTFILE[35]=		libkeyutils1_1.6.3-2_amd64.deb:debian19
+DISTFILE[36]=		libbsd0_0.11.7-2_amd64.deb:debian20
+DISTFILE[37]=		libmd0_1.0.4-2_amd64.deb:debian21
+DISTFILE[38]=		libnl-genl-3-dev_3.7.0-0.2+b1_amd64.deb:debian22
+DISTFILE[39]=		libnl-genl-3-200_3.7.0-0.2+b1_amd64.deb:debian22
+DISTFILE[40]=		libnl-3-dev_3.7.0-0.2+b1_amd64.deb:debian22
+DISTFILE[41]=		libnl-3-200_3.7.0-0.2+b1_amd64.deb:debian22
+DISTFILE[42]=		libsystemd-dev_252.12-1~deb12u1_amd64.deb:leaf
+DISTFILE[43]=		libsystemd0_247.3-7+deb11u2_amd64.deb:leaf
+DISTFILE[44]=		libzstd1_1.5.4+dfsg2-5_amd64.deb:debian24
+DISTFILE[45]=		liblz4-1_1.9.4-1_amd64.deb:debian25
+DISTFILE[46]=		liblzma5_5.4.1-0.2_amd64.deb:debian26
+DISTFILE[47]=		libgcrypt20_1.10.1-3_amd64.deb:debian27
+DISTFILE[48]=		libgpg-error0_1.46-1_amd64.deb:debian28
+DISTFILE[49]=		libcap2_2.66-4_amd64.deb:debian29
+DISTFILE[50]=		libcap-dev_2.66-4_amd64.deb:debian29
+DISTFILE[51]=		tzdata_2025b-0+deb12u2_all.deb:debian30
 
 DIST_SUBDIR=		linux-sysroot
+DF_INDEX=		${ABI32_FILES} 28 29
 
 SPKGS[std]=		single
-SPKGS[ABI26]=		single
 
-OPTIONS_AVAILABLE=	NOTSTD ABI26
+OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
-VOPTS[ABI26]=		NOTSTD=ON ABI26=ON
 
 ONLY_FOR_OPSYS=		linux
 
@@ -182,11 +137,13 @@ BUILD_DEPENDS=		nawk:primary:std
 			bzip2:tools:std
 			shadow:single:std
 			bash:primary:static
+			bmake:primary:std
+			ravensys-utils:primary:std
 
 SKIP_BUILD=		yes
 SINGLE_JOB=		yes
-EXTRACT_DIRTY=		${ABI26_FILES} ${ABI32_FILES} 47 48
-EXTRACT_DEB_PACKAGE=	${ABI26_FILES} ${ABI32_FILES}
+EXTRACT_DIRTY=		${ABI32_FILES} 28 29
+EXTRACT_DEB_PACKAGE=	${ABI32_FILES}
 PLIST_SUB=		BASE={{SYSPATH}}
 INFRASTRUCTURE=		yes
 
@@ -200,18 +157,7 @@ MAKE_ENV=		OPSYS="{{OPSYS}}"
 			GCCX=ravensys-gcc
 MAKE_ARGS=		BASE={{RSYS}}
 
-[NOTSTD].DESCRIPTION=			Earlier system root of GNU/Linux
-[NOTSTD].DF_INDEX_OFF=			${ABI32_FILES} 47 48
-[NOTSTD].MAKEFILE_OFF=			SYSTEM=${X_CURRENT}
-[NOTSTD].BUILD_DEPENDS_OFF=		bmake:primary:std
-					ravensys-utils:primary:std
-
-[ABI26].DESCRIPTION=			GNU/Linux ABI ${ABI26_RELEASE} system root
-[ABI26].DF_INDEX_ON=			${ABI26_FILES} 36 37
-[ABI26].MAKEFILE_ON=			SYSTEM=${X_ABI26}
-[ABI26].BUILD_DEPENDS_ON=		bmake:primary:prevlinux
-					ravensys-utils:primary:prevlinux
-[ABI26].BROKEN_ON=			ABI26 will not receive rvn support
+VAR_OPSYS[linux]=	MAKEFILE_LINE=SYSTEM=${X_CURRENT}
 
 pre-fetch:
 	${SH} ${MK_SCRIPTS}/ravensys-root-validate_pkgs.sh ${PREFIX} \
@@ -220,30 +166,9 @@ pre-fetch:
 post-extract:
 	${MKDIR} ${WRKSRC} ${WRKDIR}/linux
 	${INSTALL_DATA} ${MK_SCRIPTS}/ravensys-root-Makefile ${WRKSRC}/Makefile
-
-post-extract-NOTSTD-OFF:
 	${INSTALL_DATA} ${FILESDIR}/linux61.mk ${WRKSRC}/system_specifics.mk
 .for NDX in ${ABI32_FILES}
 	@echo "copy ${NAMEBASE}_${NDX} files over"
 	@cp -a ${WRKDIR}/${NAMEBASE}_${NDX}/* ${WRKDIR}/linux/
 	@${RM} -r ${WRKDIR}/${NAMEBASE}_${NDX}
-.endfor
-
-pre-extract-ABI26-ON:
-.if "${.MAKE.OS.MAJOR}" == "6.1"
-	@echo "Linux 6.1 can't build ravensys-root-linux:ABI26"
-	false
-.endif
-
-post-extract-ABI26-ON:
-	${INSTALL_DATA} ${FILESDIR}/linux.mk ${WRKSRC}/system_specifics.mk
-.for NDX in ${ABI26_FILES} 36 37
-	@if [ "${NDX}" = "14" ]; then \
-		echo "move ${NAMEBASE}_${NDX} to i386_files" ;\
-		${MV} ${WRKDIR}/${NAMEBASE}_${NDX} ${WRKDIR}/i386_files ;\
-	else \
-		echo "copy ${NAMEBASE}_${NDX} files over" ;\
-		cp -a ${WRKDIR}/${NAMEBASE}_${NDX}/* ${WRKDIR}/linux/ ;\
-		${RM} -r ${WRKDIR}/${NAMEBASE}_${NDX} ;\
-	fi
 .endfor
