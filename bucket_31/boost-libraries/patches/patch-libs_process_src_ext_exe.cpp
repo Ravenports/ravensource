@@ -1,4 +1,4 @@
---- libs/process/src/ext/exe.cpp.orig	2025-08-06 18:49:13 UTC
+--- libs/process/src/ext/exe.cpp.orig	2025-12-03 13:46:45 UTC
 +++ libs/process/src/ext/exe.cpp
 @@ -39,7 +39,7 @@
  #if (defined(__FreeBSD__) || defined(__DragonFly__) || defined(__NetBSD__))

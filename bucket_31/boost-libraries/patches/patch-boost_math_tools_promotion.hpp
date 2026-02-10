@@ -1,7 +1,7 @@
 Remove the guard; long double should be allowed as a type, even when
 long double math functions are not present. Allows py-scipy to build.
 
---- boost/math/tools/promotion.hpp.orig	2025-08-06 18:49:11 UTC
+--- boost/math/tools/promotion.hpp.orig	2025-12-03 13:46:43 UTC
 +++ boost/math/tools/promotion.hpp
 @@ -117,12 +117,6 @@ namespace boost
        template <class... Args>

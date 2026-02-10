@@ -1,4 +1,4 @@
---- tools/build/src/engine/pathsys.cpp.orig	2025-08-06 18:49:15 UTC
+--- tools/build/src/engine/pathsys.cpp.orig	2025-12-03 13:46:48 UTC
 +++ tools/build/src/engine/pathsys.cpp
 @@ -451,36 +451,6 @@ char * executable_path( char const * arg
  #else
