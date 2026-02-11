@@ -29,7 +29,7 @@ MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-official-khronos-headers
 			--enable-custom-vendordir
 INSTALL_TARGET=		install-strip
-MAKE_ARGS=		RUBY=ruby{{RUBY_SUFFIX}}
+MAKE_ENV=		RUBY=ruby{{RUBY_SUFFIX}}
 
 post-patch:
 	${REINPLACE_CMD} -e 's|/etc/|${LOCALBASE}/etc/|g' \
