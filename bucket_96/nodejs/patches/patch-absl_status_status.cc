@@ -1,4 +1,4 @@
---- deps/v8/third_party/abseil-cpp/absl/status/status.cc.orig	2026-01-26 18:28:09 UTC
+--- deps/v8/third_party/abseil-cpp/absl/status/status.cc.orig	2026-02-03 00:18:04 UTC
 +++ deps/v8/third_party/abseil-cpp/absl/status/status.cc
 @@ -13,7 +13,7 @@
  // limitations under the License.
