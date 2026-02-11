@@ -34,6 +34,7 @@ FPC_EQUIVALENT=		devel/libffcall
 USES=			gmake libtool
 
 MUST_CONFIGURE=		gnu
+SINGLE_JOB=		yes
 CONFIGURE_ARGS=		--enable-shared
 SOVERSION=		${SOVERSION}
 
@@ -43,9 +44,6 @@ PLIST_SUB=		AVCALL=${AVCALL}
 			CAMAJOR=${CALLBACK:R:R}
 			TRAMPOLINE=${TRAMPOLINE}
 			TRMAJOR=${TRAMPOLINE:R:R}
-
-do-build:
-	( cd ${WRKSRC} && gmake )
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libavcall.so
