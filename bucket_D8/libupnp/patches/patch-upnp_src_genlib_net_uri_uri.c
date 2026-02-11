@@ -1,4 +1,4 @@
---- upnp/src/genlib/net/uri/uri.c.orig	2025-06-11 21:09:33 UTC
+--- upnp/src/genlib/net/uri/uri.c.orig	2025-07-15 01:04:35 UTC
 +++ upnp/src/genlib/net/uri/uri.c
 @@ -37,10 +37,12 @@
   */
