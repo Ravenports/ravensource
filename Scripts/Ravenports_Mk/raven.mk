@@ -760,7 +760,7 @@ MAKE_JOBS_NUMBER=	${_MAKE_JOBS_NUMBER}
 _MAKE_JOBS?=		-j${MAKE_JOBS_NUMBER}
 .endif
 
-DO_MAKE_BUILD?=		${SETENV} ${MAKE_ENV} ${MAKE_CMD} ${MAKE_FLAGS} \
+DO_MAKE_BUILD?=		${SETENVI} ${MAKE_ENV} ${MAKE_CMD} ${MAKE_FLAGS} \
 			${MAKEFILE} ${_MAKE_JOBS} ${MAKE_ARGS:C,^${DESTDIRNAME}=.*,,g}
 
 build-message:
@@ -831,7 +831,7 @@ stage-dir:
 
 .if !target(do-install) && !defined(NO_INSTALL)
 do-install:
-	@(cd ${INSTALL_WRKSRC} && ${SETENV} ${MAKE_ENV} \
+	@(cd ${INSTALL_WRKSRC} && ${SETENVI} ${MAKE_ENV} \
 		${MAKE_CMD} ${MAKE_FLAGS} ${MAKEFILE} ${MAKE_ARGS} \
 		${INSTALL_TARGET})
 .endif
@@ -1171,7 +1171,7 @@ test-message:
 
 .if !target(do-test)
 .  if defined(TEST_TARGET)
-DO_MAKE_TEST?=		${SETENV} ${MAKE_ENV} ${TEST_ENV} ${MAKE_CMD} ${MAKE_FLAGS} \
+DO_MAKE_TEST?=		${SETENVI} ${MAKE_ENV} ${TEST_ENV} ${MAKE_CMD} ${MAKE_FLAGS} \
 			${MAKEFILE} ${TEST_ARGS}
 do-test:
 	@(cd ${TEST_WRKSRC}; \
