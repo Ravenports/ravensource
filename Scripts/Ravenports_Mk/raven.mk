@@ -1249,9 +1249,18 @@ COPYTREE_BIN=	${SH} ${MK_SCRIPTS}/copytree.sh ${BINMODE}
 COPYTREE_SHARE=	${SH} ${MK_SCRIPTS}/copytree.sh ${_SHAREMODE}
 
 MAKE_ENV+=		ADA_PROJECT_PATH="${LOCALBASE}/share/gpr"\
-			F77="gfortran" FC="gfortran"
+			F77="gfortran" \
+			FC="gfortran" \
+			HOME="${HOME}" \
+			SHELL="${SHELL}" \
+			SSL_VARIANT="${SSL_VARIANT}"
+
 CONFIGURE_ENV+=		ADA_PROJECT_PATH="${LOCALBASE}/share/gpr"\
-			F77="gfortran" FC="gfortran"
+			F77="gfortran" \
+			FC="gfortran" \
+			HOME="${HOME}" \
+			SHELL="${SHELL}" \
+			SSL_VARIANT="${SSL_VARIANT}"
 
 # --------------------------------------------------------------------------
 # --  Debugging
