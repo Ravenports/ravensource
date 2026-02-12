@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	6.0.4
 
 NAMEBASE=		gnuplot
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		math
 VARIANTS=		std lite
 SDESC[std]=		Command-line driven graphing utility
@@ -67,9 +68,9 @@ CONFIGURE_ARGS=		--with-readline=gnu
 [LITE].GNOME_COMPONENTS_OFF=		atk cairo gtk3
 [LITE].XORG_COMPONENTS_OFF=		x11
 [LITE].BUILD_DEPENDS_OFF=		libGD:dev:std
-					wxWidgets30:dev:std
+					wxWidgets:dev:std
 [LITE].BUILDRUN_DEPENDS_OFF=		libGD:primary:std
-					wxWidgets30:primary:std
+					wxWidgets:primary:std
 
 post-patch:
 	${REINPLACE_CMD} -e \
