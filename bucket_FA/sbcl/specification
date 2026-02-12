@@ -123,7 +123,7 @@ pre-build-midnightbsd:
 	${REINPLACE_CMD} '/PAXCTL/d' ${WRKSRC}/src/runtime/Config.x86-64-freebsd
 
 do-build:
-	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${SH} make.sh ${CMAKE_ARGS} || ${TRUE})
+	(cd ${WRKSRC} && ${SETENVI} ${MAKE_ENV} ${SH} make.sh ${CMAKE_ARGS} || ${TRUE})
 
 do-install:
 	(cd ${WRKSRC} && ${SETENV} \
