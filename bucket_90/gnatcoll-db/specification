@@ -59,7 +59,7 @@ pre-configure:
 
 do-configure:
 .for component in ${COMPONENTS}
-	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
+	(cd ${WRKSRC} && ${SETENVI} ${MAKE_ENV} \
 		${MAKE_CMD} -C ${component} \
 		BUILD=PROD ENABLE_SHARED=yes \
 		PROCESSORS=${MAKE_JOBS_NUMBER} \
@@ -68,7 +68,7 @@ do-configure:
 
 do-build:
 .for component in ${COMPONENTS}
-	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
+	(cd ${WRKSRC} && ${SETENVI} ${MAKE_ENV} \
 		${MAKE_CMD} -C ${component} \
 		ADA_PROJECT_PATH="${PREFIX}/share/gpr:${WRKSRC}/sql:${WRKSRC}/sqlite:${WRKSRC}/xref")
 .endfor
