@@ -1,4 +1,4 @@
---- lib/erl_interface/src/connect/ei_resolve.c.orig	2025-12-10 11:05:56 UTC
+--- lib/erl_interface/src/connect/ei_resolve.c.orig	2026-01-13 09:25:18 UTC
 +++ lib/erl_interface/src/connect/ei_resolve.c
 @@ -433,7 +433,8 @@ struct hostent *ei_gethostbyname_r(const
  
