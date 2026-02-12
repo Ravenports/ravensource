@@ -5,6 +5,7 @@ DEF[SOVERSION]=		3.18.0
 
 NAMEBASE=		freeimage
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		graphics
 VARIANTS=		std
 SDESC[std]=		Simple C/C++ bitmap graphics library
@@ -51,15 +52,15 @@ MAKE_ARGS=		CC="{{CC}}" CPP="{{CPP}}" CXX="{{CXX}}"
 SOVERSION=		${SOVERSION}
 
 pre-configure:
-		${REINPLACE_CMD} -e 's|/usr|${PREFIX}| ; s|-o root -g root || ; \
-			/^-fPIC/d' ${WRKSRC}/Makefile.gnu ${WRKSRC}/Makefile.fip
+	${REINPLACE_CMD} -e 's|/usr|${PREFIX}| ; s|-o root -g root || ; \
+		/^-fPIC/d' ${WRKSRC}/Makefile.gnu ${WRKSRC}/Makefile.fip
 
-do-build:
-		( cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} gmake -f Makefile.gnu ${_MAKE_JOBS} ${MAKE_ARGS} && \
-			${SETENV} ${MAKE_ENV} gmake -f Makefile.fip ${_MAKE_JOBS} ${MAKE_ARGS} )
+post-build:
+	${SETENVI} ${WRK_ENV} ${MAKE_ENV} ${MAKE_CMD} -f Makefile.fip ${_MAKE_JOBS} \
+		${MAKE_ARGS} -C ${BUILD_WRKSRC}
 
-do-install:
-		( cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} gmake -f Makefile.gnu install ${MAKE_ARGS} && \
-			${SETENV} ${MAKE_ENV} gmake -f Makefile.fip install ${MAKE_ARGS} )
-		${MKDIR} -p ${STAGEDIR}${PREFIX}/lib/pkgconfig
-		${INSTALL_DATA} ${WRKDIR}/freeimage.pc ${STAGEDIR}${PREFIX}/lib/pkgconfig
+post-install:
+	${SETENVI} ${WRK_ENV} ${MAKE_ENV} ${MAKE_CMD} -f Makefile.fip ${MAKE_ARGS} \
+		-C ${INSTALL_WRKSRC} ${INSTALL_TARGET}
+	${MKDIR} -p ${STAGEDIR}${PREFIX}/lib/pkgconfig
+	${INSTALL_DATA} ${WRKDIR}/freeimage.pc ${STAGEDIR}${PREFIX}/lib/pkgconfig
