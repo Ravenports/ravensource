@@ -1,6 +1,4 @@
-# manually maintained (pypi didn't publish source files)
 DEF[PORTVERSION]=	9.6.0
-DEF[TAG]=		${PORTVERSION}
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-mysql-connector-python
@@ -13,10 +11,8 @@ HOMEPAGE=		https://dev.mysql.com/doc/connector-python/en/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-# SITES[main]=		PYPI/m/mysql-connector-python
-# DISTFILE[1]=		mysql_connector_python-${PORTVERSION}.tar.gz:main
-SITES[main]=		GITHUB/mysql:mysql-connector-python:${TAG}
-DISTFILE[1]=		generated:main
+SITES[main]=		PYPIWHL/15/dd/b3250826c29cee7816de4409a2fe5e469a68b9a89f6bfaa5eed74f05532c
+DISTFILE[1]=		mysql_connector_python-${PORTVERSION}-py2.py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
 SPKGS[v13]=		single
@@ -31,11 +27,16 @@ VOPTS[v14]=		PY313=OFF PY314=ON
 # GNU GPLv2 (with FOSS License Exception)
 
 GENERATED=		yes
-# DISTNAME=		mysql_connector_python-${PORTVERSION}
+DISTNAME=		mysql_connector_python-${PORTVERSION}.dist-info
 
-# Requires-Dist extracted from pyproject.toml file
+# Requires-Dist extracted from wheel metadata
+# dnspython==2.6.1; extra == "dns-srv"
+# gssapi==1.8.3; extra == "gssapi"
+# fido2==1.1.2; extra == "webauthn"
+# opentelemetry-api==1.33.1; extra == "telemetry"
+# opentelemetry-sdk==1.33.1; extra == "telemetry"
+# opentelemetry-exporter-otlp-proto-http==1.33.1; extra == "telemetry"
 
-
-[PY313].USES_ON=			python:v13,pep517
-[PY314].USES_ON=			python:v14,pep517
+[PY313].USES_ON=			python:v13,wheel
+[PY314].USES_ON=			python:v14,wheel
 
