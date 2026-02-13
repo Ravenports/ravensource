@@ -36,6 +36,7 @@ lib/node_modules/npm/docs/content/commands/npm-explain.md
 lib/node_modules/npm/docs/content/commands/npm-explore.md
 lib/node_modules/npm/docs/content/commands/npm-find-dupes.md
 lib/node_modules/npm/docs/content/commands/npm-fund.md
+lib/node_modules/npm/docs/content/commands/npm-get.md
 lib/node_modules/npm/docs/content/commands/npm-help-search.md
 lib/node_modules/npm/docs/content/commands/npm-help.md
 lib/node_modules/npm/docs/content/commands/npm-init.md
@@ -43,6 +44,7 @@ lib/node_modules/npm/docs/content/commands/npm-install-ci-test.md
 lib/node_modules/npm/docs/content/commands/npm-install-test.md
 lib/node_modules/npm/docs/content/commands/npm-install.md
 lib/node_modules/npm/docs/content/commands/npm-link.md
+lib/node_modules/npm/docs/content/commands/npm-ll.md
 lib/node_modules/npm/docs/content/commands/npm-login.md
 lib/node_modules/npm/docs/content/commands/npm-logout.md
 lib/node_modules/npm/docs/content/commands/npm-ls.md
@@ -64,6 +66,7 @@ lib/node_modules/npm/docs/content/commands/npm-root.md
 lib/node_modules/npm/docs/content/commands/npm-run.md
 lib/node_modules/npm/docs/content/commands/npm-sbom.md
 lib/node_modules/npm/docs/content/commands/npm-search.md
+lib/node_modules/npm/docs/content/commands/npm-set.md
 lib/node_modules/npm/docs/content/commands/npm-shrinkwrap.md
 lib/node_modules/npm/docs/content/commands/npm-star.md
 lib/node_modules/npm/docs/content/commands/npm-stars.md
@@ -72,6 +75,7 @@ lib/node_modules/npm/docs/content/commands/npm-stop.md
 lib/node_modules/npm/docs/content/commands/npm-team.md
 lib/node_modules/npm/docs/content/commands/npm-test.md
 lib/node_modules/npm/docs/content/commands/npm-token.md
+lib/node_modules/npm/docs/content/commands/npm-trust.md
 lib/node_modules/npm/docs/content/commands/npm-undeprecate.md
 lib/node_modules/npm/docs/content/commands/npm-uninstall.md
 lib/node_modules/npm/docs/content/commands/npm-unpublish.md
@@ -120,6 +124,7 @@ lib/node_modules/npm/docs/output/commands/npm-explain.html
 lib/node_modules/npm/docs/output/commands/npm-explore.html
 lib/node_modules/npm/docs/output/commands/npm-find-dupes.html
 lib/node_modules/npm/docs/output/commands/npm-fund.html
+lib/node_modules/npm/docs/output/commands/npm-get.html
 lib/node_modules/npm/docs/output/commands/npm-help-search.html
 lib/node_modules/npm/docs/output/commands/npm-help.html
 lib/node_modules/npm/docs/output/commands/npm-init.html
@@ -127,6 +132,7 @@ lib/node_modules/npm/docs/output/commands/npm-install-ci-test.html
 lib/node_modules/npm/docs/output/commands/npm-install-test.html
 lib/node_modules/npm/docs/output/commands/npm-install.html
 lib/node_modules/npm/docs/output/commands/npm-link.html
+lib/node_modules/npm/docs/output/commands/npm-ll.html
 lib/node_modules/npm/docs/output/commands/npm-login.html
 lib/node_modules/npm/docs/output/commands/npm-logout.html
 lib/node_modules/npm/docs/output/commands/npm-ls.html
@@ -148,6 +154,7 @@ lib/node_modules/npm/docs/output/commands/npm-root.html
 lib/node_modules/npm/docs/output/commands/npm-run.html
 lib/node_modules/npm/docs/output/commands/npm-sbom.html
 lib/node_modules/npm/docs/output/commands/npm-search.html
+lib/node_modules/npm/docs/output/commands/npm-set.html
 lib/node_modules/npm/docs/output/commands/npm-shrinkwrap.html
 lib/node_modules/npm/docs/output/commands/npm-star.html
 lib/node_modules/npm/docs/output/commands/npm-stars.html
@@ -156,6 +163,7 @@ lib/node_modules/npm/docs/output/commands/npm-stop.html
 lib/node_modules/npm/docs/output/commands/npm-team.html
 lib/node_modules/npm/docs/output/commands/npm-test.html
 lib/node_modules/npm/docs/output/commands/npm-token.html
+lib/node_modules/npm/docs/output/commands/npm-trust.html
 lib/node_modules/npm/docs/output/commands/npm-undeprecate.html
 lib/node_modules/npm/docs/output/commands/npm-uninstall.html
 lib/node_modules/npm/docs/output/commands/npm-unpublish.html
@@ -191,6 +199,7 @@ lib/node_modules/npm/lib/cli.js
 lib/node_modules/npm/lib/lifecycle-cmd.js
 lib/node_modules/npm/lib/npm.js
 lib/node_modules/npm/lib/package-url-cmd.js
+lib/node_modules/npm/lib/trust-cmd.js
 lib/node_modules/npm/lib/cli/entry.js
 lib/node_modules/npm/lib/cli/exit-handler.js
 lib/node_modules/npm/lib/cli/update-notifier.js
@@ -262,6 +271,11 @@ lib/node_modules/npm/lib/commands/update.js
 lib/node_modules/npm/lib/commands/version.js
 lib/node_modules/npm/lib/commands/view.js
 lib/node_modules/npm/lib/commands/whoami.js
+lib/node_modules/npm/lib/commands/trust/github.js
+lib/node_modules/npm/lib/commands/trust/gitlab.js
+lib/node_modules/npm/lib/commands/trust/index.js
+lib/node_modules/npm/lib/commands/trust/list.js
+lib/node_modules/npm/lib/commands/trust/revoke.js
 lib/node_modules/npm/lib/utils/audit-error.js
 lib/node_modules/npm/lib/utils/auth.js
 lib/node_modules/npm/lib/utils/cmd-list.js
@@ -317,6 +331,7 @@ lib/node_modules/npm/man/man1/npm-explain.1
 lib/node_modules/npm/man/man1/npm-explore.1
 lib/node_modules/npm/man/man1/npm-find-dupes.1
 lib/node_modules/npm/man/man1/npm-fund.1
+lib/node_modules/npm/man/man1/npm-get.1
 lib/node_modules/npm/man/man1/npm-help-search.1
 lib/node_modules/npm/man/man1/npm-help.1
 lib/node_modules/npm/man/man1/npm-init.1
@@ -324,6 +339,7 @@ lib/node_modules/npm/man/man1/npm-install-ci-test.1
 lib/node_modules/npm/man/man1/npm-install-test.1
 lib/node_modules/npm/man/man1/npm-install.1
 lib/node_modules/npm/man/man1/npm-link.1
+lib/node_modules/npm/man/man1/npm-ll.1
 lib/node_modules/npm/man/man1/npm-login.1
 lib/node_modules/npm/man/man1/npm-logout.1
 lib/node_modules/npm/man/man1/npm-ls.1
@@ -345,6 +361,7 @@ lib/node_modules/npm/man/man1/npm-root.1
 lib/node_modules/npm/man/man1/npm-run.1
 lib/node_modules/npm/man/man1/npm-sbom.1
 lib/node_modules/npm/man/man1/npm-search.1
+lib/node_modules/npm/man/man1/npm-set.1
 lib/node_modules/npm/man/man1/npm-shrinkwrap.1
 lib/node_modules/npm/man/man1/npm-star.1
 lib/node_modules/npm/man/man1/npm-stars.1
@@ -353,6 +370,7 @@ lib/node_modules/npm/man/man1/npm-stop.1
 lib/node_modules/npm/man/man1/npm-team.1
 lib/node_modules/npm/man/man1/npm-test.1
 lib/node_modules/npm/man/man1/npm-token.1
+lib/node_modules/npm/man/man1/npm-trust.1
 lib/node_modules/npm/man/man1/npm-undeprecate.1
 lib/node_modules/npm/man/man1/npm-uninstall.1
 lib/node_modules/npm/man/man1/npm-unpublish.1
@@ -915,6 +933,7 @@ lib/node_modules/npm/node_modules/glob/dist/commonjs/glob.js
 lib/node_modules/npm/node_modules/glob/dist/commonjs/has-magic.js
 lib/node_modules/npm/node_modules/glob/dist/commonjs/ignore.js
 lib/node_modules/npm/node_modules/glob/dist/commonjs/index.js
+lib/node_modules/npm/node_modules/glob/dist/commonjs/index.min.js
 lib/node_modules/npm/node_modules/glob/dist/commonjs/package.json
 lib/node_modules/npm/node_modules/glob/dist/commonjs/pattern.js
 lib/node_modules/npm/node_modules/glob/dist/commonjs/processor.js
@@ -923,6 +942,7 @@ lib/node_modules/npm/node_modules/glob/dist/esm/glob.js
 lib/node_modules/npm/node_modules/glob/dist/esm/has-magic.js
 lib/node_modules/npm/node_modules/glob/dist/esm/ignore.js
 lib/node_modules/npm/node_modules/glob/dist/esm/index.js
+lib/node_modules/npm/node_modules/glob/dist/esm/index.min.js
 lib/node_modules/npm/node_modules/glob/dist/esm/package.json
 lib/node_modules/npm/node_modules/glob/dist/esm/pattern.js
 lib/node_modules/npm/node_modules/glob/dist/esm/processor.js
@@ -1005,17 +1025,20 @@ lib/node_modules/npm/node_modules/is-cidr/dist/index.js
 lib/node_modules/npm/node_modules/is-fullwidth-code-point/index.js
 lib/node_modules/npm/node_modules/is-fullwidth-code-point/license
 lib/node_modules/npm/node_modules/is-fullwidth-code-point/package.json
+lib/node_modules/npm/node_modules/isexe/LICENSE.md
 lib/node_modules/npm/node_modules/isexe/package.json
-lib/node_modules/npm/node_modules/isexe/dist/cjs/index.js
-lib/node_modules/npm/node_modules/isexe/dist/cjs/options.js
-lib/node_modules/npm/node_modules/isexe/dist/cjs/package.json
-lib/node_modules/npm/node_modules/isexe/dist/cjs/posix.js
-lib/node_modules/npm/node_modules/isexe/dist/cjs/win32.js
-lib/node_modules/npm/node_modules/isexe/dist/mjs/index.js
-lib/node_modules/npm/node_modules/isexe/dist/mjs/options.js
-lib/node_modules/npm/node_modules/isexe/dist/mjs/package.json
-lib/node_modules/npm/node_modules/isexe/dist/mjs/posix.js
-lib/node_modules/npm/node_modules/isexe/dist/mjs/win32.js
+lib/node_modules/npm/node_modules/isexe/dist/commonjs/index.js
+lib/node_modules/npm/node_modules/isexe/dist/commonjs/index.min.js
+lib/node_modules/npm/node_modules/isexe/dist/commonjs/options.js
+lib/node_modules/npm/node_modules/isexe/dist/commonjs/package.json
+lib/node_modules/npm/node_modules/isexe/dist/commonjs/posix.js
+lib/node_modules/npm/node_modules/isexe/dist/commonjs/win32.js
+lib/node_modules/npm/node_modules/isexe/dist/esm/index.js
+lib/node_modules/npm/node_modules/isexe/dist/esm/index.min.js
+lib/node_modules/npm/node_modules/isexe/dist/esm/options.js
+lib/node_modules/npm/node_modules/isexe/dist/esm/package.json
+lib/node_modules/npm/node_modules/isexe/dist/esm/posix.js
+lib/node_modules/npm/node_modules/isexe/dist/esm/win32.js
 lib/node_modules/npm/node_modules/json-parse-even-better-errors/LICENSE.md
 lib/node_modules/npm/node_modules/json-parse-even-better-errors/package.json
 lib/node_modules/npm/node_modules/json-parse-even-better-errors/lib/index.js
@@ -1257,6 +1280,17 @@ lib/node_modules/npm/node_modules/node-gyp/gyp/pylib/gyp/xcode_emulation_test.py
 lib/node_modules/npm/node_modules/node-gyp/gyp/pylib/gyp/xcode_ninja.py
 lib/node_modules/npm/node_modules/node-gyp/gyp/pylib/gyp/xcodeproj_file.py
 lib/node_modules/npm/node_modules/node-gyp/gyp/pylib/gyp/xml_fix.py
+lib/node_modules/npm/node_modules/node-gyp/gyp/pylib/gyp/__pycache__/MSVSUtil.cpython-313.pyc
+lib/node_modules/npm/node_modules/node-gyp/gyp/pylib/gyp/__pycache__/MSVSVersion.cpython-313.pyc
+lib/node_modules/npm/node_modules/node-gyp/gyp/pylib/gyp/__pycache__/__init__.cpython-313.pyc
+lib/node_modules/npm/node_modules/node-gyp/gyp/pylib/gyp/__pycache__/common.cpython-313.pyc
+lib/node_modules/npm/node_modules/node-gyp/gyp/pylib/gyp/__pycache__/input.cpython-313.pyc
+lib/node_modules/npm/node_modules/node-gyp/gyp/pylib/gyp/__pycache__/msvs_emulation.cpython-313.pyc
+lib/node_modules/npm/node_modules/node-gyp/gyp/pylib/gyp/__pycache__/ninja_syntax.cpython-313.pyc
+lib/node_modules/npm/node_modules/node-gyp/gyp/pylib/gyp/__pycache__/simple_copy.cpython-313.pyc
+lib/node_modules/npm/node_modules/node-gyp/gyp/pylib/gyp/__pycache__/xcode_emulation.cpython-313.pyc
+lib/node_modules/npm/node_modules/node-gyp/gyp/pylib/gyp/__pycache__/xcode_ninja.cpython-313.pyc
+lib/node_modules/npm/node_modules/node-gyp/gyp/pylib/gyp/__pycache__/xcodeproj_file.cpython-313.pyc
 lib/node_modules/npm/node_modules/node-gyp/gyp/pylib/gyp/generator/__init__.py
 lib/node_modules/npm/node_modules/node-gyp/gyp/pylib/gyp/generator/analyzer.py
 lib/node_modules/npm/node_modules/node-gyp/gyp/pylib/gyp/generator/android.py
@@ -1273,6 +1307,10 @@ lib/node_modules/npm/node_modules/node-gyp/gyp/pylib/gyp/generator/ninja.py
 lib/node_modules/npm/node_modules/node-gyp/gyp/pylib/gyp/generator/ninja_test.py
 lib/node_modules/npm/node_modules/node-gyp/gyp/pylib/gyp/generator/xcode.py
 lib/node_modules/npm/node_modules/node-gyp/gyp/pylib/gyp/generator/xcode_test.py
+lib/node_modules/npm/node_modules/node-gyp/gyp/pylib/gyp/generator/__pycache__/__init__.cpython-313.pyc
+lib/node_modules/npm/node_modules/node-gyp/gyp/pylib/gyp/generator/__pycache__/make.cpython-313.pyc
+lib/node_modules/npm/node_modules/node-gyp/gyp/pylib/gyp/generator/__pycache__/ninja.cpython-313.pyc
+lib/node_modules/npm/node_modules/node-gyp/gyp/pylib/gyp/generator/__pycache__/xcode.cpython-313.pyc
 lib/node_modules/npm/node_modules/node-gyp/gyp/pylib/packaging/LICENSE
 lib/node_modules/npm/node_modules/node-gyp/gyp/pylib/packaging/LICENSE.APACHE
 lib/node_modules/npm/node_modules/node-gyp/gyp/pylib/packaging/LICENSE.BSD
@@ -1291,6 +1329,9 @@ lib/node_modules/npm/node_modules/node-gyp/gyp/pylib/packaging/specifiers.py
 lib/node_modules/npm/node_modules/node-gyp/gyp/pylib/packaging/tags.py
 lib/node_modules/npm/node_modules/node-gyp/gyp/pylib/packaging/utils.py
 lib/node_modules/npm/node_modules/node-gyp/gyp/pylib/packaging/version.py
+lib/node_modules/npm/node_modules/node-gyp/gyp/pylib/packaging/__pycache__/__init__.cpython-313.pyc
+lib/node_modules/npm/node_modules/node-gyp/gyp/pylib/packaging/__pycache__/_structures.cpython-313.pyc
+lib/node_modules/npm/node_modules/node-gyp/gyp/pylib/packaging/__pycache__/version.cpython-313.pyc
 lib/node_modules/npm/node_modules/node-gyp/lib/Find-VisualStudio.cs
 lib/node_modules/npm/node_modules/node-gyp/lib/build.js
 lib/node_modules/npm/node_modules/node-gyp/lib/clean.js
