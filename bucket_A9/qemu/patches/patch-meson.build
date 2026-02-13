@@ -1,4 +1,4 @@
---- meson.build.orig	2025-12-06 15:26:45 UTC
+--- meson.build.orig	2025-12-23 19:48:56 UTC
 +++ meson.build
 @@ -49,8 +49,8 @@ qemu_icondir = get_option('datadir') / '
  genh = []
@@ -9,7 +9,7 @@
 +bsd_oses = ['midnightbsd', 'freebsd', 'netbsd', 'openbsd', 'dragonfly', 'darwin']
 +supported_oses = ['windows', 'freebsd', 'netbsd', 'openbsd', 'darwin', 'sunos', 'linux', 'emscripten', 'dragonfly', 'midnightbsd']
  supported_cpus = ['ppc', 'ppc64', 's390x', 'riscv32', 'riscv64', 'x86', 'x86_64',
-   'arm', 'aarch64', 'loongarch64', 'mips', 'mips64', 'sparc64', 'wasm32']
+   'arm', 'aarch64', 'loongarch64', 'mips64', 'sparc64', 'wasm32']
  
 @@ -255,7 +255,7 @@ have_tools = get_option('tools') \
    .allowed()
@@ -20,7 +20,7 @@
             error_message: 'unsupported OS for QEMU guest agent') \
    .allowed()
  have_block = have_system or have_tools
-@@ -903,7 +903,7 @@ if get_option('hvf').allowed()
+@@ -909,7 +909,7 @@ if get_option('hvf').allowed()
  endif
  
  nvmm = not_found
@@ -29,7 +29,7 @@
    nvmm = cc.find_library('nvmm', required: get_option('nvmm'))
    if nvmm.found()
      accelerators += 'CONFIG_NVMM'
-@@ -1509,7 +1509,7 @@ if have_system and get_option('curses').
+@@ -1521,7 +1521,7 @@ if have_system and get_option('curses').
        return 0;
      }'''
  
@@ -38,7 +38,7 @@
    curses = dependency(curses_dep_list,
                        required: false,
                        method: 'pkg-config')
-@@ -1532,14 +1532,15 @@ if have_system and get_option('curses').
+@@ -1544,14 +1544,15 @@ if have_system and get_option('curses').
        has_curses_h = cc.has_header('curses.h', args: curses_compile_args)
      endif
      if has_curses_h
