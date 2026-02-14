@@ -1,0 +1,89 @@
+DEF[PORTVERSION]=	2.7.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		sftpgo
+VERSION=		${PORTVERSION}
+KEYWORDS=		ftp
+VARIANTS=		std
+SDESC[std]=		Fully featured and highly configurable SFTP serve
+HOMEPAGE=		https://sftpgo.com/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://github.com/drakkan/sftpgo/releases/download/v${PORTVERSION}/
+DISTFILE[1]=		sftpgo_v${PORTVERSION}_src_with_deps.tar.xz:main
+
+SPKGS[std]=		set primary man
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		AGPLv3:primary CUSTOM1:primary
+LICENSE_NAME=		CUSTOM1:"Additional Terms under GNU AGPL"
+LICENSE_FILE=		AGPLv3:{{WRKSRC}}/LICENSE
+			CUSTOM1:{{WRKSRC}}/NOTICE
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/main.go
+LICENSE_AWK=		TERMS:"^package"
+LICENSE_SCHEME=		dual
+
+FPC_EQUIVALENT=		ftp/sftpgo
+
+USERS=			sftpgo
+GROUPS=			sftpgo
+USERGROUP_SPKG=		primary
+
+RC_SUBR=		sftpgo:primary
+
+BUILD_DEPENDS=		golang:single:std
+
+EXTRACT_DIRTY=		1
+MOUNT_PROCFS=		yes
+
+MAKE_ENV=		GOPROXY=off
+			GOFLAGS="-trimpath -mod=vendor -modcacherw"
+			GO_NO_VENDOR_CHECKS=1
+			GOMAXPROCS={{MAKE_JOBS_NUMBER}}
+			GO_WRKSRC={{WRKSRC}}
+			GOBIN={{WRKDIR}}/bin
+			GO111MODULE=on
+
+pre-configure:
+	${REINPLACE_CMD} -e 's|"templates"|"${PREFIX}/share/sftpgo/templates"|; \
+		s|"static"|"${PREFIX}/share/sftpgo/static"|; \
+		s|"sftpgo.db"|"/var/db/sftpgo/sftpgo.db"|' \
+		${WRKSRC}/sftpgo.json
+
+do-build:
+	(cd ${WRKSRC} && ${SETENVI} ${MAKE_ENV} \
+		go build -buildmode=exe -v -o ${WRKDIR}/bin/sftpgo)
+
+post-build:
+	${WRKDIR}/bin/sftpgo gen completion bash > ${WRKDIR}/bash_completions
+	${WRKDIR}/bin/sftpgo gen completion fish > ${WRKDIR}/fish_completions
+	${WRKDIR}/bin/sftpgo gen completion zsh > ${WRKDIR}/zsh_completions
+	${MKDIR} ${WRKDIR}/manpages
+	${WRKDIR}/bin/sftpgo gen man --dir ${WRKDIR}/manpages
+
+do-install:
+	${INSTALL_PROGRAM} ${WRKDIR}/bin/sftpgo ${STAGEDIR}${PREFIX}/bin
+
+post-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/sftpgo
+	${MKDIR} ${STAGEDIR}${PREFIX}/etc/bash_completion.d
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/fish/completions
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/zsh/site-functions
+
+	cd ${WRKSRC} && \
+		${COPYTREE_SHARE} templates ${STAGEDIR}${PREFIX}/share/sftpgo && \
+		${COPYTREE_SHARE} static ${STAGEDIR}${PREFIX}/share/sftpgo
+	${INSTALL_DATA} ${WRKSRC}/sftpgo.json ${STAGEDIR}${PREFIX}/etc/sftpgo.json.sample
+	${INSTALL_DATA} ${WRKDIR}/bash_completions \
+		${STAGEDIR}${PREFIX}/etc/bash_completion.d/sftpgo
+
+	${INSTALL_DATA} ${WRKDIR}/fish_completions \
+		${STAGEDIR}${PREFIX}/share/fish/completions/sftpgo.fish
+	${INSTALL_DATA} ${WRKDIR}/zsh_completions \
+		${STAGEDIR}${PREFIX}/share/zsh/site-functions/_sftpgo
+	${FIND} ${WRKDIR}/manpages -type f -execdir \
+		${INSTALL_MAN} {} ${STAGEDIR}${PREFIX}/share/man/man1 \;
