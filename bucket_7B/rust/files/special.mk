@@ -11,6 +11,10 @@ SFX=			${ARCH_STANDARD}-unknown-linux-gnu
 .elif "${OPSYS}" == "NetBSD"
 DF_INDEX+=		11 12 13
 COMPEXT=		gz
+.elif "${OPSYS}" == "SunOS"
+DF_INDEX+=		14 15 16
+COMPEXT=		gz
+SFX=			${ARCH_STANDARD}-unknown-illumos
 .elif "${OPSYS}" == "MidnightBSD"
 DF_INDEX+=		5 6 7
 COMPEXT=		gz

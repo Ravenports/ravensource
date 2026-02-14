@@ -35,8 +35,13 @@ DISTFILE[10]=		cargo-${RUSTX_BOOT}-x86_64-unknown-linux-gnu.tar.gz:main
 DISTFILE[11]=		rustc-${RUSTX_BOOT}-x86_64-unknown-netbsd.tar.gz:main
 DISTFILE[12]=		rust-std-${RUSTX_BOOT}-x86_64-unknown-netbsd.tar.gz:main
 DISTFILE[13]=		cargo-${RUSTX_BOOT}-x86_64-unknown-netbsd.tar.gz:main
-DISTFILE[14]=		curl-${CURL_VERSION}.tar.xz:curl
-DF_INDEX=		1 14
+
+DISTFILE[14]=		rustc-${RUSTX_BOOT}-x86_64-unknown-illumos.tar.gz:main
+DISTFILE[15]=		rust-std-${RUSTX_BOOT}-x86_64-unknown-illumos.tar.gz:main
+DISTFILE[16]=		cargo-${RUSTX_BOOT}-x86_64-unknown-illumos.tar.gz:main
+
+DISTFILE[17]=		curl-${CURL_VERSION}.tar.xz:curl
+DF_INDEX=		1 17
 
 SPKGS[std]=		single
 
@@ -50,9 +55,8 @@ LICENSE_TERMS=		single:{{WRKSRC}}/COPYRIGHT
 LICENSE_SCHEME=		dual
 
 FPC_EQUIVALENT=		lang/rust
-ONLY_FOR_OPSYS=		dragonfly freebsd linux netbsd midnightbsd
 
-EXTRACT_ONLY=		1 14
+EXTRACT_ONLY=		1 17
 
 # Use bundled libgit2 to avoid API mismatch which results in failure
 # to fetch from crates IO
@@ -116,6 +120,8 @@ VAR_OPSYS[freebsd]=	MAKEFILE_LINE=BOOTSTRAP_RUST=${RUSTX_BOOT}
 VAR_OPSYS[netbsd]=	MAKEFILE_LINE=BOOTSTRAP_RUST=${RUSTX_BOOT}
 			MAKEFILE_LINE=BOOTSTRAP_CARGO=${RUSTX_BOOT}
 VAR_OPSYS[linux]=	MAKEFILE_LINE=BOOTSTRAP_RUST=${RUSTX_BOOT}
+			MAKEFILE_LINE=BOOTSTRAP_CARGO=${RUSTX_BOOT}
+VAR_OPSYS[sunos]=	MAKEFILE_LINE=BOOTSTRAP_RUST=${RUSTX_BOOT}
 			MAKEFILE_LINE=BOOTSTRAP_CARGO=${RUSTX_BOOT}
 VAR_OPSYS[midnightbsd]=	MAKEFILE_LINE=BOOTSTRAP_RUST=${RUSTX_BOOT}
 			MAKEFILE_LINE=BOOTSTRAP_CARGO=${RUSTX_BOOT}
@@ -193,6 +199,10 @@ pre-build-freebsd:
 pre-build-midnightbsd:
 	${LN} -s ${LOCALBASE}/toolchain/ravensys-gcc/lib/libstdc++.so \
 	${LOCALBASE}/lib/libc++.so
+
+pre-build-sunos:
+	${LN} -s ${LOCALBASE}/toolchain/ravensys-gcc/lib/amd64/libssp.so.0 \
+	${WRKDIR}/bootstrap/lib/libssp.so.0
 
 pre-build-netbsd:
 	${LN} -s ${LOCALBASE}/toolchain/ravensys-gcc/lib/libgcc_s.so.1 \
