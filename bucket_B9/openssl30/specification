@@ -1,11 +1,14 @@
+# Override the upstream SO major version 3 with 103
+# We're seeing potential clashes with rtld of FreeBSD and OmniOS
 DEF[PORTVERSION]=	3.6.1
-DEF[SOVERSION]=		3
+DEF[SOVERSION]=		103
 DEF[NAMEBASE]=		openssl30
 DEF[BASE]=		{{PREFIX}}/${NAMEBASE}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		${NAMEBASE}
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		security devel
 VARIANTS=		std
 SDESC[std]=		SSL and crypto library
@@ -79,11 +82,15 @@ VAR_OPSYS[sunos]=	CONFIGURE_ARGS=-lrt
 [ZLIB].DESCRIPTION=			zlib compression support
 [ZLIB].CONFIGURE_ARGS_ON=		zlib-dynamic
 
-post-patch:
+pre-configure:
+	# Handle document and man page installation changes
 	${REINPLACE_CMD} \
 		-e 's|^MANDIR=.*$$|MANDIR=${MANPREFIX}/man|' \
 		-e 's| install_html_docs$$||' \
 		${WRKSRC}/Configurations/unix-Makefile.tmpl
+	# Override SONAME extension of so.3
+	${REINPLACE_CMD} -e '/SHLIB_VERSION=/ s|3|${SOVERSION}|' \
+		${WRKSRC}/VERSION.dat
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${BASE}/bin/openssl
@@ -97,7 +104,7 @@ post-install:
 
 	# strip
 	${STRIP_CMD} ${STAGEDIR}${BASE}/lib/lib*.so
-	${STRIP_CMD} ${STAGEDIR}${BASE}/lib/engines-3/*.so
+	${STRIP_CMD} ${STAGEDIR}${BASE}/lib/engines-${SOVERSION}/*.so
 	${STRIP_CMD} ${STAGEDIR}${BASE}/lib/ossl-modules/legacy.so
 
 	# Relocation documentation to standard
