@@ -1,0 +1,14 @@
+Ensure kqueue monitoring can be disabled.
+https://sourceforge.net/p/minidlna/bugs/337/
+
+--- minidlna.c.orig	2023-05-31 08:25:59 UTC
++++ minidlna.c
+@@ -1150,7 +1150,7 @@ main(int argc, char **argv)
+ 	lastdbtime = _get_dbtime();
+ 
+ #ifdef HAVE_WATCH
+-	if (!GETFLAG(SCANNING_MASK))
++	if (GETFLAG(INOTIFY_MASK) && !GETFLAG(SCANNING_MASK))
+ 		start_monitor();
+ #endif
+ 

@@ -1,0 +1,61 @@
+DEF[PORTVERSION]=	1.3.3
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		readymedia
+VERSION=		${PORTVERSION}
+KEYWORDS=		net multimedia www
+VARIANTS=		std
+SDESC[std]=		DLNA/UPnP-AV compliant media server
+HOMEPAGE=		https://minidlna.sourceforge.net/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SF/minidlna/minidlna/${PORTVERSION}
+DISTFILE[1]=		minidlna-${PORTVERSION}.tar.gz:main
+
+SPKGS[std]=		set primary man nls
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2:primary
+LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/minidlna.c
+LICENSE_AWK=		TERMS:"<stdlib.h>"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		net/minidlna
+
+USERS=			dlna
+GROUPS=			dlna
+USERGROUP_SPKG=		primary
+RC_SUBR=		minidlna:primary
+
+SUB_FILES=		messages-primary.ucl
+SUB_LIST=		USER=dlna
+
+BUILD_DEPENDS=		ffmpeg:dev:std
+			libid3tag:dev:std
+			libexif:dev:std
+			libvorbis:dev:std
+			flac:dev:std
+BUILDRUN_DEPENDS=	ffmpeg:primary:std
+			libid3tag:primary:std
+			libexif:primary:std
+			libvorbis:primary:std
+			flac:primary:std
+
+USES=			autoreconf cpe jpeg sqlite gettext iconv
+CPE_VENDOR=		readymedia_project
+CPE_PRODUCT=		readymedia
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--with-db-path=/var/db/minidlna
+			--with-os-url="https://www.ravenports.com"
+DISTNAME=		minidlna-${PORTVERSION}
+
+post-install:
+	${INSTALL_MAN} ${WRKSRC}/*.5 ${STAGEDIR}${PREFIX}/share/man/man5/
+	${INSTALL_MAN} ${WRKSRC}/*.8 ${STAGEDIR}${PREFIX}/share/man/man8/
+	${INSTALL_DATA} ${WRKSRC}/minidlna.conf \
+		${STAGEDIR}${PREFIX}/etc/minidlna.conf.sample

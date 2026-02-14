@@ -1,0 +1,21 @@
+64bit time_t
+
+--- kqueue.c.orig	2023-05-31 08:25:59 UTC
++++ kqueue.c
+@@ -28,6 +28,7 @@
+ 
+ #include <sys/types.h>
+ #include <sys/event.h>
++#include <sys/time.h>
+ #include <assert.h>
+ #include <errno.h>
+ #include <stdlib.h>
+@@ -189,7 +190,7 @@ kqueue_process(struct timeval *tv)
+ 
+ 	TIMEVAL_TO_TIMESPEC(tv, &ts);
+ 
+-	DPRINTF(E_DEBUG, L_GENERAL, "kevent timer: %lu.%06lu, changes: %d\n",
++	DPRINTF(E_DEBUG, L_GENERAL, "kevent timer: %lld.%06lu, changes: %d\n",
+ 	    ts.tv_sec, ts.tv_nsec, n);
+ 
+ 	events = kevent(kq, change_list, n, event_list, MAXEVENTS, &ts);
