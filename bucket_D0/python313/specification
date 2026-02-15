@@ -9,6 +9,7 @@ DEF[SETUP_VER]=		79.0.1
 
 NAMEBASE=		python${PYTHON_SUFFIX}
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		lang python
 VARIANTS=		std
 SDESC[std]=		Interpreted object-oriented programming language
@@ -129,10 +130,6 @@ pre-configure:
 	# ${REINPLACE_CMD} -e 's|/usr/local/bin/python|${python_CMD}|' \
 		${WRKSRC}/Lib/cgi.py
 
-post-extract-sunos:
-	# remove opt-[12].pyc from primary manifest
-	${SED} -i.sunos -e '/opt[-][12][.]pyc/d' /port/manifests/plist.primary
-
 post-install-DEBUG-OFF:
 	# Upstream Issue: http://bugs.python.org/issue17975 (won't fix, ever)
 	${RM} ${STAGEDIR}${PREFIX}/lib/libpython3.so
@@ -149,5 +146,5 @@ post-install:
 	rm -rf ${STAGEDIR}${PREFIX}/lib/python${PYTHON_VER}${ABIFLAGS}/test
 	cp ${STAGEDIR}${PREFIX}/lib/libpython${PYTHON_VER}.so.1.0 ${LOCALBASE}/lib
 	(cd ${STAGEDIR}${PREFIX}/lib/python${PYTHON_VER}${ABIFLAGS} && \
-	        ../../bin/python${PYTHON_VER} -m compileall -f -d / . ||:)
+	        ../../bin/python${PYTHON_VER} -m compileall -f -d / . -o0 -o1 -o2||:)
 	${RM} ${LOCALBASE}/lib/libpython${PYTHON_VER}.so.1.0
