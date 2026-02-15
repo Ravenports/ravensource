@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	3.01
 
 NAMEBASE=		nasm
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel lang
 VARIANTS=		std
 SDESC[std]=		General-purpose x86 and amd64 assembler
@@ -36,6 +37,7 @@ CPE_PRODUCT=		netwide_assembler
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--docdir="{{STD_DOCDIR}}"
 MAKE_ARGS=		INSTALLROOT={{STAGEDIR}}
+CONFIGURE_ENV=		pa_cv_CFLAGS__std_c23=no
 INSTALL_TARGET=		install install_doc
 
 post-patch:
