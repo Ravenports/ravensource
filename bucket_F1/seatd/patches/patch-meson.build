@@ -1,0 +1,35 @@
+--- meson.build.orig	2026-01-05 10:44:28.000000000 +0100
++++ meson.build	2026-02-15 16:15:19.934285000 +0100
+@@ -158,6 +158,16 @@
+ 	endif
+ endif
+ 
++if get_option('libseat-consolekit2') != 'disabled'
++	basu = dependency('basu', required: true)
++	add_project_arguments('-DCONSOLEKIT2_ENABLED=1', language: 'c')
++	private_files += [
++		'libseat/backend/consolekit2.c',
++		'common/drm.c',
++	]
++	private_deps += basu
++endif
++
+ # needed for cross-compilation
+ realtime = meson.get_compiler('c').find_library('rt')
+ private_deps += realtime
+@@ -194,6 +204,7 @@
+ libseat_vars = {
+ 	'have_seatd': with_seatd.to_string(),
+ 	'have_logind': logind.found().to_string(),
++	'have_consolekit2': (get_option('libseat-consolekit2') != 'disabled').to_string(),
+ 	'have_builtin': with_builtin.to_string(),
+ }
+ 
+@@ -287,6 +298,7 @@
+ 	'libseat-builtin': with_builtin,
+ 	'libseat-systemd': logind.found() and logind.name() == 'libsystemd',
+ 	'libseat-elogind': logind.found() and logind.name() == 'libelogind',
++	'libseat-consolekit2': get_option('libseat-consolekit2') != 'disabled',
+ 	'server': with_server,
+ 	'man-pages': scdoc.found(),
+ }, bool_yn: true)
