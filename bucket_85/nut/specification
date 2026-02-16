@@ -1,0 +1,137 @@
+DEF[PORTVERSION]=	2.8.4
+DEF[FOLDER]=		${PORTVERSION:R}
+DEF[NUT_USER]=		nut
+DEF[NUT_GROUP]=		nut
+DEF[STATEDIR]=		/var/db/nut
+DEF[CGIDIR_REL]=	www/cgi-bin/nut
+DEF[WWWDIR_REL]=	www/nut
+DEF[SOVERSION]=		4.0.0
+DEF[UPS_SOVERSION]=	7.0.0
+DEF[NUT_SOVERSION]=	2.0.2
+DEF[STUB_SOVERSION]=	1.0.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		nut
+VERSION=		${PORTVERSION}
+KEYWORDS=		sysutils
+VARIANTS=		std
+SDESC[std]=		Network UPS Tools
+HOMEPAGE=		https://networkupstools.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://www.networkupstools.org/source/${FOLDER}/
+DISTFILE[1]=		nut-${PORTVERSION}.tar.gz:main
+
+SPKGS[std]=		set primary dev man docs examples
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		sysutils/nut
+
+BUILD_DEPENDS=		libltdl:dev:std
+			libGD:dev:std
+			net-snmp:dev:std
+			neon:dev:std
+			freeipmi:dev:std
+BUILDRUN_DEPENDS=	libltdl:primary:std
+			libGD:primary:std
+			net-snmp:primary:std
+			neon:primary:std
+			freeipmi:primary:std
+
+USERS=			${NUT_USER}
+GROUPS=			${NUT_GROUP}
+USERGROUP_SPKG=		primary
+
+RC_SUBR=		nut:primary
+			nut_upsmon:primary
+			nut_upslog:primary
+SUB_LIST=		STATEDIR=${STATEDIR}
+			NUT_USER=${NUT_USER}
+			NUT_GROUP=${NUT_GROUP}
+
+USES=			autoreconf:build gmake libtool pkgconfig python:build ssl
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--sysconfdir={{PREFIX}}/etc/nut
+			--datadir={{PREFIX}}/etc/nut
+			--with-devd-dir={{PREFIX}}/etc/devd
+			--with-drvpath={{PREFIX}}/libexec/nut
+			--localstatedir=${STATEDIR}
+			--with-statepath=${STATEDIR}
+			--with-altpidpath=${STATEDIR}
+			--with-pidpath=${STATEDIR}
+			--with-pkgconfig-dir={{PREFIX}}/lib/pkgconfig
+			--with-user=${NUT_USER}
+			--with-group=${NUT_GROUP}
+			--with-python={{PYTHON_CMD}}
+			--without-python2
+			--with-python3={{PYTHON_CMD}}
+			--without-nut_monitor
+			--without-powerman
+			--without-modbus
+			--without-avahi
+			--with-ltdl
+			--with-nut-scanner
+			--with-doc=man=auto
+			--with-cgi
+			--with-cgipath={{PREFIX}}/${CGIDIR_REL}
+			--with-htmlpath={{PREFIX}}/${WWWDIR_REL}
+			--with-gd-libs=-lgd
+			--with-serial
+			--with-usb=auto
+			--with-snmp
+			--with-neon
+			--with-openssl
+			--with-freeipmi
+			--with-dev
+			--disable-rpath
+INSTALL_REQ_TOOLCHAIN=	yes
+SOVERSION=		${SOVERSION}
+
+PLIST_SUB=		NUT_USER=${NUT_USER}
+			NUT_GROUP=${NUT_GROUP}
+			STATEDIR=${STATEDIR}
+			CGIDIR=${CGIDIR_REL}
+			WWWDIR=${WWWDIR_REL}
+			UPS_SOVERSION=${UPS_SOVERSION}
+			UPS_SOMAJOR=${UPS_SOVERSION:R:R}
+			NUT_SOVERSION=${NUT_SOVERSION}
+			NUT_SOMAJOR=${NUT_SOVERSION:R:R}
+			STUB_SOVERSION=${STUB_SOVERSION}
+			STUB_SOMAJOR=${STUB_SOVERSION:R:R}
+
+pre-configure:
+	${FIND} ${WRKSRC} -type f | \
+		${XARGS} ${REINPLACE_CMD} -i'' -e 's|/usr/bin/env python|${PYTHON_CMD}|'
+	${FIND} ${WRKSRC} -type f | \
+		${XARGS} ${REINPLACE_CMD} -i'' -e 's|/usr/local/ups|${PREFIX}|'
+
+pre-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/libexec/nut
+	${REINPLACE_CMD} -e 's/device-name\*/cdev/g' \
+		${WRKSRC}/scripts/devd/nut-usb.conf
+
+post-install:
+	${MKDIR} ${STAGEDIR}${STATEDIR}
+	${MKDIR} ${STAGEDIR}${PREFIX}/etc/syslog.d
+	${MKDIR} ${STAGEDIR}${PREFIX}/etc/bash_completion.d/
+	${MKDIR} ${STAGEDIR}${STD_DOCDIR}/cables
+	${MKDIR} ${STAGEDIR}/var/log/nut
+	${MKDIR} ${STAGEDIR}${STD_EXAMPLESDIR}
+	${RMDIR} ${STAGEDIR}${STD_DOCDIR}/html-man
+	${INSTALL_DATA} ${WRKSRC}/scripts/misc/nut.bash_completion \
+		${STAGEDIR}${PREFIX}/etc/bash_completion.d/
+	${INSTALL_DATA} ${WRKSRC}/docs/cables/*.txt ${STAGEDIR}${STD_DOCDIR}/cables
+	${INSTALL_DATA} ${WRKSRC}/docs/*.txt ${STAGEDIR}${STD_DOCDIR}
+	${INSTALL_DATA} ${WRKSRC}/docs/FAQ.txt ${STAGEDIR}${STD_DOCDIR}
+.for file in AUTHORS COPYING ChangeLog INSTALL MAINTAINERS NEWS README
+	${INSTALL_DATA} ${WRKSRC}/${file} ${STAGEDIR}${STD_DOCDIR}
+.endfor
+	${INSTALL_DATA} ${FILESDIR}/nut.syslog \
+		${STAGEDIR}${STD_EXAMPLESDIR}/syslog.sample
+	${INSTALL_DATA} ${FILESDIR}/nut.newsyslog \
+		${STAGEDIR}${STD_EXAMPLESDIR}/newsyslog.sample
+	${INSTALL_DATA} ${FILESDIR}/nut_upslog.sample \
+		${STAGEDIR}${STD_EXAMPLESDIR}/nut_upslog.sample
