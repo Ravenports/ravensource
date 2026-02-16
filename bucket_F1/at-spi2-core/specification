@@ -47,7 +47,7 @@ INSTALL_REQ_TOOLCHAIN=	yes
 GTKDOC_OUTPUT_BASEDIR=	libatspi
 SOVERSION=		${SOVERSION}
 
-VAR_OPSYS[sunos]=	LDFLAGS=-lintl
+VAR_OPSYS[sunos]=	CFLAGS=-D__EXTENSIONS__
 
 post-install:
 	${RM} -r ${STAGEDIR}${PREFIX}/lib/systemd
