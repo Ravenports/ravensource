@@ -55,6 +55,9 @@ install-platform: install-common
 	cp ${CPA} ${LOCALBASE}/bin/${item} ${DESTDIR}${BASE}/usr/bin/${item}
 .  endfor
 
+	# install gnu strip
+	${BSD_INSTALL_PROGRAM} ${LOCALBASE}/toolchain/bin/strip ${DESTDIR}${BASE}/usr/bin
+
 	# install user and guest files
 	cp /port/files/passwd.initial ${DESTDIR}${BASE}/usr/share/passwd
 	cp /port/files/group.initial ${DESTDIR}${BASE}/usr/share/group
