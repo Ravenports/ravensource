@@ -7,6 +7,7 @@ DEF[STANDARD_PATH]=	/sbin:/bin:/usr/sbin:/usr/bin
 
 NAMEBASE=		bash
 VERSION=		${VERSION}
+REVISION=		1
 KEYWORDS=		shells
 VARIANTS=		std static
 SDESC[std]=		GNU Bourne Again SHell
@@ -53,7 +54,6 @@ PATCHFILES=		${PATCHFILES}
 # readline is bundled and linked statically
 
 BUILD_DEPENDS=		ncurses:dev:std
-RUN_DEPENDS=		ncurses:terminfo:std
 
 USES=			bison cpe
 DISTNAME=		bash-${PORTVERSION}
@@ -72,6 +72,7 @@ CONFIGURE_ARGS=		--enable-progcomp
 			--enable-alias
 			--enable-brace-expansion
 			--enable-array-variables
+			--enable-readline
 			--without-bash-malloc
 CPPFLAGS=		-DDEFAULT_PATH_VALUE='\"{{STANDARD_PATH}}:{{LOCALBASE}}/sbin:{{LOCALBASE}}/bin\"'
 			-DSTANDARD_UTILS_PATH='\"{{STANDARD_PATH}}\"'
@@ -91,11 +92,11 @@ VAR_OPSYS[linux]=	VAR1=-Wl,--export-dynamic
 # version can't be build with readline capability.
 
 [STATIC].BUILDRUN_DEPENDS_OFF=		ncurses:primary:std
+[STATIC].RUN_DEPENDS_OFF=		ncurses:terminfo:std
 [STATIC].USES_OFF=			makeinfo
 [STATIC].INFO_OFF=			info:bash
 [STATIC].CONFIGURE_ARGS_ON=		--enable-static-link
-					--enable-readline=no
-[STATIC].CONFIGURE_ARGS_OFF=		--enable-readline
+					--disable-ncurses-terminfo
 
 post-patch:
 	# Ensure y.tab.c is regenerated
