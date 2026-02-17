@@ -98,7 +98,3 @@ do-install:
 	cd ${WRKSRC}/stage/ && ${FIND} lib -type l | \
 		${PAX} -rw -p p ${STAGEDIR}${PREFIX}
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.${LIBEXT}
-
-post-install-darwin:
-	(cd ${STAGEDIR}${PREFIX} && ${FIND} lib -name "*.dylib" | ${XARGS}\
-		-I{LIB} /usr/bin/install_name_tool -id "${PREFIX}/{LIB}" {LIB})
