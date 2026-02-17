@@ -35,6 +35,9 @@ SOVERSION=		${SOVERSION}
 SET_DEBUGGING_ON=	yes
 OPTIMIZER_LEVEL=	0
 
+# for memset_s support on OmniOS
+VAR_OPSYS[sunos]=	CFLAGS=-D__STDC_WANT_LIB_EXT1__=1
+
 post-patch:
 	# remove -O3 flags
 	${REINPLACE_CMD} -e '/-O3/d' ${WRKSRC}/configure.ac
