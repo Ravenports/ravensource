@@ -1,4 +1,4 @@
---- configure.orig	2019-12-04 05:07:57 UTC
+--- configure.orig	2019-12-28 14:19:24 UTC
 +++ configure
 @@ -4316,7 +4316,7 @@ SHARED_EXTENSION=""
  STATIC_EXTENSION=""
@@ -9,11 +9,29 @@
  	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: .so .a .o" >&5
  $as_echo ".so .a .o" >&6; }
  	STATIC_EXTENSION="a"
-@@ -4376,10 +4376,10 @@ $as_echo "ok" >&6; }
+@@ -4369,17 +4369,27 @@ PRE_SHARED_LIB=""
+ SO_API_MAJOR_LINK=""
+ SO_LINK=""
+ case "$target_os" in
+-     linux*|solaris*|gnu*|*qnx*)
++     solaris*)
+ 	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: ok" >&5
+ $as_echo "ok" >&6; }
+ 	STATIC_LIB="libxvidcore.\$(STATIC_EXTENSION)"
  	SHARED_LIB="libxvidcore.\$(SHARED_EXTENSION).\$(API_MAJOR).\$(API_MINOR)"
  	SO_API_MAJOR_LINK="libxvidcore.\$(SHARED_EXTENSION).\$(API_MAJOR)"
  	SO_LINK="libxvidcore.\$(SHARED_EXTENSION)"
 -	SPECIFIC_LDFLAGS="-Wl,-soname,libxvidcore.\$(SHARED_EXTENSION).\$(API_MAJOR) -shared -Wl,--version-script=libxvidcore.ld -lc -lm"
++	SPECIFIC_LDFLAGS="-Wl,-soname,libxvidcore.\$(SHARED_EXTENSION).\$(API_MAJOR) -shared -lc -lm"
++	SPECIFIC_CFLAGS="-fPIC"
++	;;
++     linux*|gnu*|*qnx*)
++	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: ok" >&5
++$as_echo "ok" >&6; }
++	STATIC_LIB="libxvidcore.\$(STATIC_EXTENSION)"
++	SHARED_LIB="libxvidcore.\$(SHARED_EXTENSION).\$(API_MAJOR).\$(API_MINOR)"
++	SO_API_MAJOR_LINK="libxvidcore.\$(SHARED_EXTENSION).\$(API_MAJOR)"
++	SO_LINK="libxvidcore.\$(SHARED_EXTENSION)"
 +	SPECIFIC_LDFLAGS="-Wl,-soname,libxvidcore.\$(SHARED_EXTENSION).\$(API_MAJOR) -shared -Wl,--version-script,libxvidcore.ld -lc -lm"
  	SPECIFIC_CFLAGS="-fPIC"
  	;;
@@ -22,7 +40,7 @@
  	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: ok" >&5
  $as_echo "ok" >&6; }
  	STATIC_LIB="libxvidcore.\$(STATIC_EXTENSION)"
-@@ -4617,7 +4617,7 @@ $as_echo "$as_me: WARNING: nasm version
+@@ -4617,7 +4627,7 @@ $as_echo "$as_me: WARNING: nasm version
         { $as_echo "$as_me:${as_lineno-$LINENO}: checking for asm object format" >&5
  $as_echo_n "checking for asm object format... " >&6; }
         case "$target_os" in

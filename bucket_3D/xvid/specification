@@ -3,7 +3,7 @@ DEF[PORTVERSION]=	1.3.7
 
 NAMEBASE=		xvid
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		multimedia
 VARIANTS=		std
 SDESC[std]=		ISO MPEG-4 compliant video codec
@@ -30,9 +30,15 @@ FPC_EQUIVALENT=		multimedia/xvid
 
 BUILD_DEPENDS=		nasm:primary:std
 
+# the resulting objects from the asm don't link correctly on Solaris.
+# nor on amd64 -- they are not PIC, but the ABI demands it
+# big patch available from Gentoo, if someone is interested:
+# http://bugs.gentoo.org/show_bug.cgi?id=90287
+
 USES=			gmake
 SINGLE_JOB=		yes
 MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-assembly
 DISTNAME=		xvidcore/build/generic
 
 post-install:
