@@ -4,7 +4,7 @@ DEF[FAMVERSION]=	0.0.0
 
 NAMEBASE=		gamin
 VERSION=		${PORTVERSION}
-REVISION=		3
+REVISION=		4
 KEYWORDS=		devel
 VARIANTS=		std
 SDESC[std]=		Monitor files and directories for changes
@@ -32,14 +32,22 @@ FPC_EQUIVALENT=		devel/gamin
 USES=			gmake libtool pkgconfig fbsd10fix mbsdfix
 GNOME_COMPONENTS=	glib
 MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-debug
+			--disable-debug-api
+			--disable-gtk-doc
+			--without-threads
+			--without-python
+
 
 CPPFLAGS=		-DHAVE_LINUX
 CFLAGS=			-Wno-implicit-function-declaration
 			-Wno-incompatible-pointer-types
+			-Wno-deprecated-declarations
 
-SOVERSION=		${PORTVERSION}
 PLIST_SUB=		FAMVERSION=${FAMVERSION}
 			FAMMAJOR=${FAMVERSION:R:R}
+
+VAR_OPSYS[sunos]=	LDFLAGS=-lsocket
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so*
