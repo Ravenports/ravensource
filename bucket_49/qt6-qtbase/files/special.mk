@@ -4,7 +4,7 @@ PLIST_SUB+=EVDEV-OFF="@comment "
 PLIST_SUB+=EVDEV-OFF=
 .endif
 
-.if ${OPSYS} == Linux
+.if ${OPSYS} == Linux || ${OPSYS} == SunOS
 PLIST_SUB+=FSWTYPE=inotify
 PLIST_SUB+=DSSTYPE=udev
 .else

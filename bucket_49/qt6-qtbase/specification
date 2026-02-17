@@ -102,6 +102,7 @@ VAR_OPSYS[netbsd]=	VAR1=netbsd
 			MAKEFILE_LINE=FEAT_EVDEV="@comment "
 VAR_OPSYS[sunos]=	VAR1=solaris
 			VAR2=" /lib/64"
+			MAKEFILE_LINE=FEAT_EVDEV="@comment "
 VAR_OPSYS[linux]=	VAR1=linux
 			VAR2=" /usr/lib/x86_64-linux-gnu"
 
@@ -141,10 +142,10 @@ post-patch-sunos:
 	${REINPLACE_CMD} -e 's|sys/auxv.h|sys/auxvnope.h|' \
 		${WRKSRC}/src/corelib/global/qconfig-bootstrapped.h
 	# sun linker doesn't support -O1
-	${REINPLACE_CMD} -e '/QMAKE_LFLAGS_RELEASE/d' \
+	${REINPLACE_CMD} -i'' -e '/QMAKE_LFLAGS_RELEASE/d' \
 		${WRKSRC}/mkspecs/common/g++-unix.conf
 	# sun linker doesn't support GNU version scripts
-	${REINPLACE_CMD} \
+	${REINPLACE_CMD} -i'' \
 		-e '/QMAKE_LFLAGS_VERSION_SCRIPT/d' \
 		-e '/QMAKE_LFLAGS_RPATHLINK/d' \
 		${WRKSRC}/mkspecs/common/gcc-base-unix.conf
