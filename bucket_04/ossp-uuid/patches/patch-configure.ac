@@ -1,0 +1,10 @@
+--- configure.ac.orig	2025-12-08 18:04:55 UTC
++++ configure.ac
+@@ -83,6 +83,7 @@ AC_CHECK_FUNCS(getentropy)
+ 
+ case $(uname) in
+     Darwin) AC_SUBST(LDVERSFLAGS, ['-Wl,-exported_symbols_list,libuuid.darwinver']) AC_SUBST(LDVERSDEP, [libuuid.darwinver]) ;;
++    SunOS) ;;
+     *     ) AC_SUBST(LDVERSFLAGS, ['-Wl,--version-script=$(S)/libuuid.ver'])        AC_SUBST(LDVERSDEP, [libuuid.ver])       ;;
+ esac
+ echo "version script is $LDVERSFLAGS"
