@@ -4,6 +4,7 @@ DEF[SOVERSION]=		${PORTVERSION}
 
 NAMEBASE=		aom
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		multimedia
 VARIANTS=		std
 SDESC[std]=		Alliance for Open Media video codec
@@ -16,8 +17,9 @@ DISTFILE[1]=		libaom-${PORTVERSION}.tar.gz:main
 
 SPKGS[std]=		set primary tools dev
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	ASM
+OPTIONS_STANDARD=	ASM
+OPT_ON[all]=		ASM
 
 LICENSE=		BSD2CLAUSE:primary
 LICENSE_FILE=		BSD2CLAUSE:{{WRKSRC}}/LICENSE
@@ -25,8 +27,6 @@ LICENSE_SCHEME=		solo
 
 # FPC uses different versioning scheme
 # FPC_EQUIVALENT=		multimedia/aom
-
-BUILD_DEPENDS=		nasm:primary:std
 
 EXRUN[tools]=		aom:primary:std
 
@@ -40,6 +40,13 @@ SOVERSION=		${SOVERSION}
 SINGLE_JOB=		yes
 INSTALL_REQ_TOOLCHAIN=	yes
 DISTNAME=		libaom-${PORTVERSION}
+
+# If aarch64 ever gets supported, this has to be improved
+
+[ASM].DESCRIPTION=			Use NASM assembler during build
+[ASM].BUILD_DEPENDS_ON=			nasm:primary:std
+[ASM].CMAKE_ARGS_OFF=			-DAOM_TARGET_CPU="generic"
+[ASM].CMAKE_ARGS_ON=			-DAOM_TARGET_CPU="x86_64"
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/aomdec
