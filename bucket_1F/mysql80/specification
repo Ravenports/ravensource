@@ -92,6 +92,7 @@ CMAKE_ARGS=		-DINSTALL_PKGCONFIGDIR="{{LOCALBASE}}/lib/pkgconfig"
 			-DWITH_SSL={{OPENSSLBASE}}
 			-DINSTALL_MYSQLTESTDIR=0
 			-DWITH_UNIT_TESTS:BOOL=OFF
+			-DWITH_AUTHENTICATION_LDAP:BOOL=OFF
 CFLAGS=			-Wno-deprecated-declarations
 CXXFLAGS=		-DNDEBUG
 SUB_FILES=		my.cnf.sample
@@ -147,11 +148,16 @@ post-extract:
 	${RM} -rv ${WRKSRC}/sql/sql_hints.yy.cc ${WRKSRC}/sql/sql_hints.yy.h
 	${CP} ${FILESDIR}/ffsll.cc ${WRKSRC}/sql/
 
+pre-configure-sunos:
+	${REINPLACE_CMD} -e 's|-Wl,--no-as-needed||' \
+		${WRKSRC}/plugin/x/protocol/plugin/CMakeLists.txt
+
 pre-configure:
 	${REINPLACE_CMD} -e 's|@LOCALBASE@|${LOCALBASE}|' \
 		-e 's|@OPENSSLLIB@|${OPENSSLLIB}|g' \
 		${WRKSRC}/scripts/CMakeLists.txt
 	${RM} ${WRKSRC}/cmake/os/FreeBSD.cmake
+	${RM} ${WRKSRC}/cmake/os/SunOS.cmake
 	# current_path not supported by DragonFly
 	${REINPLACE_CMD} -e '/mock_server/d' \
 		${WRKSRC}/router/src/CMakeLists.txt
