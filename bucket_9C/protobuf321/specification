@@ -33,8 +33,6 @@ CMAKE_ARGS=		-Dprotobuf_BUILD_TESTS:BOOL=OFF
 			-DBUILD_SHARED_LIBS:BOOL=ON
 DISTNAME=		protobuf-${PORTVERSION}/cmake
 PLIST_SUB=		PROTOCVER=${SOVERSION}
-# protobuf doesn't build with RP gold linker v2.37 (still true FEB 2022)
-LDFLAGS=		-fuse-ld=bfd
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so
