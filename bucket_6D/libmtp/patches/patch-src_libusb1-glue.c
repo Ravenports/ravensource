@@ -1,6 +1,6 @@
---- src/libusb1-glue.c.orig	2024-11-20 13:47:46.000000000 +0100
-+++ src/libusb1-glue.c	2025-01-05 21:55:34.942857000 +0100
-@@ -153,7 +153,7 @@
+--- src/libusb1-glue.c.orig	2024-11-20 12:47:46 UTC
++++ src/libusb1-glue.c
+@@ -153,7 +153,7 @@ static LIBMTP_error_number_t init_usb()
     * We use the same level debug between MTP and USB.
     */
    if (libusb1_initialized)
@@ -9,7 +9,7 @@
  
    if (libusb_init(&libmtp_libusb_context) < 0) {
      LIBMTP_ERROR("Libusb1 init failed\n");
-@@ -163,8 +163,8 @@
+@@ -163,8 +163,8 @@ static LIBMTP_error_number_t init_usb()
    libusb1_initialized = 1;
  
    if ((LIBMTP_debug & LIBMTP_DEBUG_USB) != 0)
