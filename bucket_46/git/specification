@@ -112,9 +112,9 @@ post-install:
 		${STAGEDIR}${PREFIX}/etc/bash_completion.d/git.sh
 
 	# subtree support
-	(cd ${WRKSRC}/Documentation  && ${SETENV} ${MAKE_ENV} \
+	(cd ${WRKSRC}/Documentation  && ${SETENVI} ${MAKE_ENV} \
 		${MAKE_CMD} ${MAKE_FLAGS} Makefile asciidoc.conf)
-	(cd ${WRKSRC}/contrib/subtree && ${SETENV} ${MAKE_ENV} \
+	(cd ${WRKSRC}/contrib/subtree && ${SETENVI} ${MAKE_ENV} \
 		${MAKE_CMD} ${MAKE_FLAGS} Makefile ${MAKE_ARGS} \
 		install install-doc)
 

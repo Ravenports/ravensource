@@ -8,6 +8,7 @@ argument 2: PREFIX
 
 import os
 import sys
+import subprocess
 
 RNOTES = "share/doc/git/RelNotes"
 STAGEDIR = "tbd"
@@ -21,7 +22,7 @@ def merge_point(major, minor, point):
     abs_subfile = f"{STAGEDIR}{PREFIX}/{RNOTES}/{subfile}"
     abs_finfile = f"{STAGEDIR}{PREFIX}/{RNOTES}/{finfile}"    
     if os.path.exists(abs_subfile):
-        os.system(f"/bin/cat {abs_subfile} >> {abs_finfile}")
+        subprocess.run(f"/bin/cat {abs_subfile} >> {abs_finfile}", shell=True)
         os.remove(abs_subfile)
         print(f"Merge {subfile} => {finfile}")
 
@@ -33,7 +34,7 @@ def merge_subpoint(major, minor, point, subpoint):
     abs_subfile = f"{STAGEDIR}{PREFIX}/{RNOTES}/{subfile}"
     abs_finfile = f"{STAGEDIR}{PREFIX}/{RNOTES}/{finfile}"    
     if os.path.exists(abs_subfile):
-        os.system(f"/bin/cat {abs_subfile} >> {abs_finfile}")
+        subprocess.run(f"/bin/cat {abs_subfile} >> {abs_finfile}", shell=True)
         os.remove(abs_subfile)
         print(f"Merge {subfile} => {finfile}")
 
