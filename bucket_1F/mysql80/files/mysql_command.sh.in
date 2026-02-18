@@ -1,0 +1,29 @@
+#!/bin/sh
+#
+# Init script for mysqld.
+#
+
+. /lib/svc/share/smf_include.sh
+
+PIDFILE="%%MY_DBDIR%%/mysql.pid"
+
+ulimit -n 10240
+
+case "$1" in
+start)
+	%%PREFIX%%/bin/mysqld_safe -U =mysql \
+		--basedir=%%PREFIX%% \
+		--datadir=%%MY_DBDIR%% \
+		--pid-file=${PIDFILE} \
+		--log-error=/var/log/mysql/error.log &
+	;;
+stop)
+	[ -f ${PIDFILE} ] && kill `/usr/bin/head -1 ${PIDFILE}`
+	;;
+*)
+	echo "Usage: $0 {start|stop}" >&2
+	exit 1
+	;;
+esac
+
+exit $SMF_EXIT_OK
