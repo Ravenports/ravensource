@@ -1,8 +1,8 @@
-DEF[PORTVERSION]=	0.11.1
+DEF[PORTVERSION]=	0.11.2
 DEF[SOVERSION]=		${PORTVERSION}
 DEF[RELEASE_TAG]=	v${PORTVERSION}
-DEF[RELEASE_SKCMS]=	42030a7
-DEF[RELEASE_SJPEG]=	e5ab130
+DEF[RELEASE_SKCMS]=	96d9171
+DEF[RELEASE_SJPEG]=	94e0df6
 # Remove cmake minimum argument on next release
 # ----------------------------------------------------------------------------
 
@@ -64,11 +64,13 @@ EXRUN[dev]=		highway:dev:std
 
 USES=			cpe cmake pkgconfig mime-info:primary
 			gif:build jpeg:build png:build zlib:build
+GNOME_COMPONENTS=	gdkpixbuf
 CPE_VENDOR=		libjxl_project
 SOVERSION=		${SOVERSION}
 CMAKE_ARGS=		-DJPEGXL_ENABLE_MANPAGES:BOOL=ON
 			-DJPEGXL_ENABLE_OPENEXR:BOOL=ON
 			-DJPEGXL_ENABLE_PLUGINS:BOOL=ON
+			-DJPEGXL_ENABLE_PLUGIN_GIMP210:BOOL=OFF
 			-DJPEGXL_FORCE_SYSTEM_BROTLI:BOOL=ON
 			-DBUILD_TESTING:BOOL=OFF
 			-DCMAKE_POLICY_VERSION_MINIMUM=3.5
@@ -78,3 +80,4 @@ PLIST_SUB=		SOMAJMIN=${SOVERSION:R}
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libjx*.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/gdk-pixbuf-2.0/*/loaders/libpixbufloader-jxl.so
