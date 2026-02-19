@@ -1,4 +1,4 @@
---- lib/nghttp2-1.65.0/lib/nghttp2_net.h.orig	2025-12-23 22:03:54 UTC
+--- lib/nghttp2-1.65.0/lib/nghttp2_net.h.orig	2026-02-17 18:22:08 UTC
 +++ lib/nghttp2-1.65.0/lib/nghttp2_net.h
 @@ -29,9 +29,7 @@
  #  include <config.h>
