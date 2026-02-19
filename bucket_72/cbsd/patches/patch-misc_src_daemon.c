@@ -1,4 +1,4 @@
---- misc/src/daemon.c.orig	2026-02-03 12:38:10 UTC
+--- misc/src/daemon.c.orig	2026-02-18 17:39:50 UTC
 +++ misc/src/daemon.c
 @@ -156,7 +156,7 @@ main(int argc, char *argv[])
  
