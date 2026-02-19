@@ -1,8 +1,8 @@
---- configure.orig	2023-08-18 08:45:36 UTC
+--- configure.orig	2026-02-17 09:13:25 UTC
 +++ configure
-@@ -191,8 +191,8 @@ case `$cc -v 2>&1` in
-   *clang*) gcc=1 ;;
- esac
+@@ -241,8 +241,8 @@ if test $cover -eq 1; then
+   fi
+ fi
  
 -show $cc -c $test.c
 -if test "$gcc" -eq 1 && ($cc -c $test.c) >> configure.log 2>&1; then
@@ -10,13 +10,13 @@
 +if [ "x" = "x" ]; then
    echo ... using gcc >> configure.log
    CC="$cc"
-   CFLAGS="${CFLAGS--O3}"
-@@ -226,6 +226,8 @@ if test "$gcc" -eq 1 && ($cc -c $test.c)
+   CFLAGS="${CFLAGS--O3} -fPIC"
+@@ -289,6 +289,8 @@ if test "$gcc" -eq 1 && ($cc -c $test.c)
      uname=`(uname -s || echo unknown) 2>/dev/null`
    fi
    case "$uname" in
 +  SunOS)
 +        LDSHARED=${LDSHARED-"$cc -shared -Wl,-soname,libz.so.1"} ;;
-   Linux* | linux* | *-linux* | GNU | GNU/* | solaris*)
+   Linux* | linux* | *-linux* | GNU | GNU/* | solaris* | Haiku)
          case "$mname" in
          *sparc*)

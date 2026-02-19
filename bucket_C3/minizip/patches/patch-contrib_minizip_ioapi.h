@@ -1,4 +1,4 @@
---- ioapi.h.orig	2023-08-03 18:17:07 UTC
+--- ioapi.h.orig	2026-02-17 12:47:06 UTC
 +++ ioapi.h
 @@ -50,7 +50,7 @@
  #define ftello64 ftell
