@@ -1,4 +1,4 @@
---- src/CMakeLists.txt.orig	2026-02-04 22:33:13 UTC
+--- src/CMakeLists.txt.orig	2026-02-09 09:29:46 UTC
 +++ src/CMakeLists.txt
 @@ -211,7 +211,7 @@ endif()
  if(UNIX)
@@ -9,12 +9,3 @@
  		target_link_libraries(mosquitto PRIVATE m)
  	elseif (${CMAKE_SYSTEM_NAME} MATCHES "NetBSD")
  		target_link_libraries(mosquitto PRIVATE m)
-@@ -248,7 +248,7 @@ if(WITH_WEBSOCKETS)
- 			"${mosquitto_SOURCE_DIR}/deps/picohttpparser")
- 	else()
- 		if(STATIC_WEBSOCKETS)
--			target_link_libraries(mosquitto PRIVATE websockets_static)
-+			target_link_libraries(mosquitto PRIVATE websockets pthread)
- 			if(WIN32)
- 				target_link_libraries(mosquitto PRIVATE iphlpapi)
- 			endif()

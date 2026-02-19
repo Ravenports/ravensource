@@ -1,4 +1,4 @@
---- apps/db_dump/db_dump.c.orig	2026-02-04 22:33:13 UTC
+--- apps/db_dump/db_dump.c.orig	2026-02-09 09:29:46 UTC
 +++ apps/db_dump/db_dump.c
 @@ -42,6 +42,10 @@ Contributors:
  #include <sys/endian.h>
