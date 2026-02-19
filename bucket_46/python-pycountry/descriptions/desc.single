@@ -2,10 +2,6 @@
  pycountry
 ###########
 
-..
-   image:g:
-https://travis-ci.org/flyingcircusio/pycountry.svg?branch=master
-
 pycountry provides the ISO databases for the standards:
 
 -  `639-3 <https://en.wikipedia.org/wiki/ISO_639-3>`_ Languages
@@ -34,16 +30,6 @@ wrapper around the ISO standard using the ``pkg-isocodes`` database from
 Debian *as is*. If you need changes to the political situation in the
 world, please talk to the ISO or Debian people, not me.
 
-******************************
- Donations / Monetary Support
-******************************
-
-This is a small project that I maintain in my personal time. I am not
-interested in personal financial gain. However, if you would like to
-support the project then I would love if you would donate to [Feminist
-Frequency] instead. Also, let
-the world know you did so, so that others can follow your path.
-
 ***************
  Contributions
 ***************
@@ -65,8 +51,8 @@ configured upon import of pycountry and works as an iterable:
    >>> len(pycountry.countries)
    249
    >>> list(pycountry.countries)[0]
-   Country(alpha_2='AF', alpha_3='AFG', name='Afghanistan', numeric='004',
-official_name='Islamic Republic of Afghanistan')
+   Country(alpha_2='AW', alpha_3='ABW', flag='🇦🇼', name='Aruba',
+numeric='533')
 
 Specific countries can be looked up by their various codes and provide
 the information included in the standard as attributes:
@@ -75,8 +61,8 @@ the information included in the standard as attributes:
 
    >>> germany = pycountry.countries.get(alpha_2='DE')
    >>> germany
-   Country(alpha_2='DE', alpha_3='DEU', name='Germany', numeric='276',
-official_name='Federal Republic of Germany')
+   Country(alpha_2='DE', alpha_3='DEU', flag='🇩🇪', name='Germany',
+numeric='276', official_name='Federal Republic of Germany')
    >>> germany.alpha_2
    'DE'
    >>> germany.alpha_3
@@ -98,3 +84,17 @@ ones with fewer matches:
 .. code:: pycon
 
    >>> pycountry.countries.search_fuzzy('England')
+   [Country(alpha_2='GB', alpha_3='GBR', flag='🇬🇧', name='United
+Kingdom', numeric='826', official_name='United Kingdom of Great Britain and
+Northern Ireland')]
+
+   >>> pycountry.countries.search_fuzzy('Cote')
+   [Country(alpha_2='CI', alpha_3='CIV', flag='🇨🇮', name="Côte
+d'Ivoire", numeric='384', official_name="Republic of Côte d'Ivoire"),
+    Country(alpha_2='FR', alpha_3='FRA', flag='🇫🇷', name='France',
+numeric='250', official_name='French Republic'),
+    Country(alpha_2='HN', alpha_3='HND', flag='🇭🇳', name='Honduras',
+numeric='340', official_name='Republic of Honduras')]
+
+Attributes for the country class can be accessed using the
+__getattr__ method. If the requested attribute is a key for the
