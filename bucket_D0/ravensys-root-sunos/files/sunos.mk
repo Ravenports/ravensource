@@ -62,6 +62,11 @@ install-platform: install-common
 	cp /port/files/passwd.initial ${DESTDIR}${BASE}/usr/share/passwd
 	cp /port/files/group.initial ${DESTDIR}${BASE}/usr/share/group
 
+	# install dtd for SMF configuration
+	mkdir -p ${DESTDIR}${BASE}/usr/share/lib/xml/dtd
+	mv ${DESTDIR}${BASE}/usr/share/service_bundle.dtd.1 \
+		${DESTDIR}${BASE}/usr/share/lib/xml/dtd/
+
 	# install libgcc_s for sysroot programs that need it
 	cp ${LOCALBASE}/toolchain/ravensys-gcc/lib/amd64/libgcc_s.so.1 \
 		${DESTDIR}${BASE}/usr/lib/amd64/libgcc_s.so.1
