@@ -55,11 +55,12 @@ EXRUN[client]=		libedit:primary:std
 
 B_DEPS[linux]=		patchelf:primary:std
 
-USES=			cpe bison cmake perl:run shebangfix zstd zlib
+USES=			cpe bison cmake perl:run shebangfix zstd zlib smf
 			lz4 execinfo ssl:openssl30 pkgconfig
 			c++:server,client cclibs:server,client
 CPE_VENDOR=		oracle
 CPE_PRODUCT=		mysql
+SMF_NAME=		mysql
 DISTNAME=		mysql-${PORTVERSION}
 SHEBANG_FILES=		scripts/*.pl
 CMAKE_BUILD_TYPE=	Release
@@ -103,13 +104,10 @@ SUB_LIST=		MY_DBDIR=${MY_DBDIR}
 			MY_SECDIR=${MY_SECDIR}
 			MY_TMPDIR=${MY_TMPDIR}
 			OPSYS="{{OPSYS}}"
-			SMF_NAME=mysql
-			SMF_PREFIX=ravenports
 			SMF_METHOD_SCRIPT=mysql_command.sh
 PLIST_SUB=		MY_DBDIR=${MY_DBDIR}
 			MY_SECDIR=${MY_SECDIR}
 			MY_TMPDIR=${MY_TMPDIR}
-			SMF_NAME=mysql
 			RPCGEN=
 RC_SUBR=		mysql-server:server
 USERS=			mysql
@@ -196,8 +194,4 @@ post-install:
 	(cd ${STAGEDIR}${PREFIX}/bin && ${STRIP_CMD} $$list)
 
 post-install-sunos:
-	# install SMF manifest and method files
-	${MKDIR} ${STAGEDIR}${PREFIX}/lib/svc/manifest
-	${MKDIR} ${STAGEDIR}${PREFIX}/lib/svc/method
-	${INSTALL_DATA} ${WRKDIR}/manifest.xml ${STAGEDIR}${PREFIX}/lib/svc/manifest
-	${INSTALL_SCRIPT} ${WRKDIR}/mysql_command.sh ${STAGEDIR}${PREFIX}/lib/svc/method
+	${INSTALL_SCRIPT} ${WRKDIR}/mysql_command.sh ${STAGEDIR}${PREFIX}/${SMF_METHOD_DIR}/
