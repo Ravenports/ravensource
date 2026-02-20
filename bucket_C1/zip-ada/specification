@@ -34,6 +34,9 @@ INSTALL_REQ_TOOLCHAIN=	yes
 pre-configure:
 	${REINPLACE_CMD} -e "s/@SOVERSION@/${SOVERSION}/" ${WRKSRC}/zipada_lib.gpr
 
+pre-configure-sunos:
+	${REINPLACE_CMD} -e "s|-Wl,--gc-sections||" ${WRKSRC}/zipada.gpr
+
 do-build:
 .for project in zipada_lib zipada zipada_test
 	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} gprbuild -p -P ${project}.gpr)
