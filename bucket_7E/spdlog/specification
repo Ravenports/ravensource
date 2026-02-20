@@ -37,5 +37,9 @@ CMAKE_ARGS=		-DSPDLOG_BUILD_EXAMPLE:BOOL=NO
 SOVERSION=		${SOVERSION}
 PLIST_SUB=		SOMAJMIN=${SOVERSION:R}
 
+pre-configure:
+	# remove patch backups
+	${FIND} ${WRKSRC} -type f -name "*.orig" -delete
+
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libspdlog.so
