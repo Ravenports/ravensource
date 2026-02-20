@@ -73,6 +73,12 @@ shebangonefile() {
 	/bin/sh) ;;
 	/bin/csh) ;;	# not in ravensys-root
 	/bin/tcsh) ;;	# not in ravensys-root
+	/bin/ksh)
+		# Only valid for Solaris
+		if [ "${OPSYS}" != "SunOS" ]; then
+			badinterp="${interp}"
+		fi
+		;;
 	/bin/dash | /bin/bash)
 		# Only valid for linux, Solaris and MacOS
 		if [ "${OPSYS}" != "Linux" ] && [ "${OPSYS}" != "SunOS" ] && [ "${OPSYS}" != "Darwin" ]; then
