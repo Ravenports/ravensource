@@ -58,6 +58,9 @@ install-platform: install-common
 	# install gnu strip
 	${BSD_INSTALL_PROGRAM} ${LOCALBASE}/toolchain/bin/strip ${DESTDIR}${BASE}/usr/bin
 
+	# install gnu ar
+	${BSD_INSTALL_PROGRAM} ${LOCALBASE}/toolchain/bin/ar ${DESTDIR}${BASE}/usr/bin/gar
+
 	# install user and guest files
 	cp /port/files/passwd.initial ${DESTDIR}${BASE}/usr/share/passwd
 	cp /port/files/group.initial ${DESTDIR}${BASE}/usr/share/group
