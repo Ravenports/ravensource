@@ -5,6 +5,7 @@ DEF[ALTNAME]=		xhost
 
 NAMEBASE=		xorg-${XNAME}
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		x11
 VARIANTS=		std
 SDESC[std]=		Server access control program for X
@@ -21,9 +22,9 @@ SPKGS[std]=		set primary man
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-USES=			gettext:build
 XORG_COMPONENTS=	xmu
 DISTNAME=		${ALTNAME}-${PORTVERSION}
 MUST_CONFIGURE=		gnu
+CONFIGURE_ENV=		ac_cv_search_gettext=no
 INSTALL_TARGET=		install-strip
 FPC_EQUIVALENT=		x11/${ALTNAME}
