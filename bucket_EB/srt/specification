@@ -26,6 +26,9 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		www/srt
 
+EXRUN[tools]=		primary
+			bash:primary:std
+
 USES=			c++:primary cmake shebangfix ssl
 SHEBANG_FILES=		scripts/srt-ffplay
 
@@ -33,8 +36,7 @@ CMAKE_ARGS=		-DOPENSSL_ROOT_DIR:STRING="{{OPENSSLBASE}}"
 			-DENABLE_ENCRYPTION:BOOL=ON
 			-DCMAKE_POLICY_VERSION_MINIMUM=3.5
 
-EXRUN[tools]=		primary
-			bash:primary:std
+VAR_OPSYS[sunos]=	LDFLAGS=-lsocket
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libsrt.so
