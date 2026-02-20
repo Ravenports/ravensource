@@ -1,4 +1,4 @@
---- storage/rocksdb/ha_rocksdb.cc.orig	2025-11-13 17:00:50 UTC
+--- storage/rocksdb/ha_rocksdb.cc.orig	2026-02-06 17:11:17 UTC
 +++ storage/rocksdb/ha_rocksdb.cc
 @@ -265,7 +265,7 @@ Rdb_cf_manager cf_manager;
  Rdb_ddl_manager ddl_manager;
@@ -36,7 +36,7 @@
    io_watchdog = new Rdb_io_watchdog(std::move(directories));
    io_watchdog->reset_timeout(rocksdb_io_write_timeout_secs);
  #endif
-@@ -5880,7 +5880,7 @@ static int rocksdb_done_func(void *const
+@@ -5883,7 +5883,7 @@ static int rocksdb_done_func(void *const
    delete commit_latency_stats;
    commit_latency_stats = nullptr;
  
