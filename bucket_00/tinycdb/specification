@@ -34,9 +34,13 @@ MAKE_ARGS=		CC="{{CC}}"
 			prefix="{{PREFIX}}"
 			mandir="{{MANPREFIX}}/man"
 
-post-patch:
+pre-configure:
 	${REINPLACE_CMD} -e 's|--soname=|-soname,|' \
 		-e '/version-script=/ s/pt=/pt,/' \
+		${WRKSRC}/Makefile
+
+pre-configure-sunos:
+	${SED} -i'.sunback' -e 's|.(LDFLAGS_VSCRIPT).(LIBMAP)||' \
 		${WRKSRC}/Makefile
 
 post-install:
