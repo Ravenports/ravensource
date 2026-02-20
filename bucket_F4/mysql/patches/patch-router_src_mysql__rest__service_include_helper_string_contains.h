@@ -4,7 +4,7 @@
  inline bool index(const char *value, const char *search_for, uint32_t *idx) {
    auto ptr = strstr(value, search_for);
    if (nullptr == ptr) return false;
-+#if defined(__linux__)
++#if defined(__linux__) || defined(__sun__)
    if (idx) *idx = static_cast<uint32_t>(std::distance(value, ptr));
 +#else
 +  char* char_value = const_cast<char*>(value);

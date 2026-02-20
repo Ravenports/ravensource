@@ -1,6 +1,17 @@
 --- CMakeLists.txt.orig	2025-12-15 13:32:53 UTC
 +++ CMakeLists.txt
-@@ -2434,7 +2434,6 @@ ADD_SUBDIRECTORY(share)
+@@ -1958,10 +1958,6 @@ MYSQL_CHECK_KERBEROS_DLLS()
+ MYSQL_CHECK_SASL()
+ MYSQL_CHECK_SASL_DLLS()
+ 
+-# Add LDAP library
+-MYSQL_CHECK_LDAP()
+-MYSQL_CHECK_LDAP_DLLS()
+-
+ # Add Windows specific jemalloc DLL
+ IF(WIN32)
+   MYSQL_CHECK_WIN_JEMALLOC()
+@@ -2434,7 +2430,6 @@ ADD_SUBDIRECTORY(share)
  ADD_SUBDIRECTORY(libservices)
  
  IF(NOT WITHOUT_SERVER)
@@ -8,7 +19,7 @@
    ADD_SUBDIRECTORY(sql)
  ENDIF()
  
-@@ -2515,8 +2514,6 @@ ENDIF()
+@@ -2515,8 +2510,6 @@ ENDIF()
  ADD_SUBDIRECTORY(scripts)
  
  IF(NOT WITHOUT_SERVER)
@@ -17,7 +28,7 @@
    ADD_SUBDIRECTORY(support-files)
    IF(WITH_INTERNAL)
      ADD_SUBDIRECTORY(internal)
-@@ -2745,6 +2742,7 @@ ENDIF()
+@@ -2745,6 +2738,7 @@ ENDIF()
  #
  # RPM installs documentation directly from the source tree
  #
@@ -25,7 +36,7 @@
  IF(NOT INSTALL_LAYOUT MATCHES "RPM")
    INSTALL(FILES
      README
-@@ -2771,6 +2769,7 @@ IF(HAVE_ASAN AND WIN32_CLANG)
+@@ -2771,6 +2765,7 @@ IF(HAVE_ASAN AND WIN32_CLANG)
    STRING_APPEND(CMAKE_CXX_FLAGS
      " -fsanitize=address -fsanitize-address-use-after-scope")
  ENDIF()

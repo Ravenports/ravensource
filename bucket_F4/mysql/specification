@@ -56,11 +56,12 @@ EXRUN[client]=		libedit:primary:std
 
 B_DEPS[linux]=		patchelf:primary:std
 
-USES=			cpe bison cmake perl:run shebangfix zstd zlib
+USES=			cpe bison cmake perl:run shebangfix zstd zlib smf
 			lz4 execinfo ssl:openssl30 pkgconfig
 			c++:server,client cclibs:server,client
 CPE_VENDOR=		oracle
 CPE_PRODUCT=		mysql
+SMF_NAME=		mysql
 DISTNAME=		mysql-${PORTVERSION}
 SHEBANG_FILES=		scripts/*.pl
 CMAKE_BUILD_TYPE=	Release
@@ -93,14 +94,18 @@ CMAKE_ARGS=		-DINSTALL_PKGCONFIGDIR="{{LOCALBASE}}/lib/pkgconfig"
 			-DWITH_SSL_PATH={{OPENSSLBASE}}
 			-DINSTALL_MYSQLTESTDIR=0
 			-DWITH_UNIT_TESTS:BOOL=OFF
+			-DWITH_AUTHENTICATION_LDAP:BOOL=OFF
 CFLAGS=			-Wno-deprecated-declarations
 CXXFLAGS=		-DNDEBUG
 SUB_FILES=		my.cnf.sample
+			manifest.xml
+			mysql_command.sh
 			messages-server.ucl
 SUB_LIST=		MY_DBDIR=${MY_DBDIR}
 			MY_SECDIR=${MY_SECDIR}
 			MY_TMPDIR=${MY_TMPDIR}
 			OPSYS="{{OPSYS}}"
+			SMF_METHOD_SCRIPT=mysql_command.sh
 PLIST_SUB=		MY_DBDIR=${MY_DBDIR}
 			MY_SECDIR=${MY_SECDIR}
 			MY_TMPDIR=${MY_TMPDIR}
@@ -109,7 +114,6 @@ RC_SUBR=		mysql-server:server
 USERS=			mysql
 GROUPS=			mysql
 USERGROUP_SPKG=		server
-INFO=			info:mysql
 
 # abi check requires compiler in stage
 INSTALL_REQ_TOOLCHAIN=	yes
@@ -148,10 +152,15 @@ post-extract:
 	${RM} -rv ${WRKSRC}/sql/sql_hints.yy.cc ${WRKSRC}/sql/sql_hints.yy.h
 	${CP} ${FILESDIR}/ffsll.cc ${WRKSRC}/sql/
 
+pre-configure-sunos:
+	${REINPLACE_CMD} -e 's|-Wl,--no-as-needed||' \
+		${WRKSRC}/plugin/x/protocol/plugin/CMakeLists.txt
+
 pre-configure:
 	${REINPLACE_CMD} -e 's|@LOCALBASE@|${LOCALBASE}|' \
 		${WRKSRC}/scripts/CMakeLists.txt
 	${RM} ${WRKSRC}/cmake/os/FreeBSD.cmake
+	${RM} ${WRKSRC}/cmake/os/SunOS.cmake
 	# current_path not supported by DragonFly
 	${REINPLACE_CMD} -e '/mock_server/d' \
 		${WRKSRC}/router/src/CMakeLists.txt
@@ -183,3 +192,6 @@ post-install:
 		$$1 != "mysqld_safe" && $$1 != "mysqldumpslow" && \
 		$$1 != "mysqld_multi") print}'); \
 	(cd ${STAGEDIR}${PREFIX}/bin && ${STRIP_CMD} $$list)
+
+post-install-sunos:
+	${INSTALL_SCRIPT} ${WRKDIR}/mysql_command.sh ${STAGEDIR}${PREFIX}/${SMF_METHOD_DIR}/
