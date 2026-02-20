@@ -614,10 +614,25 @@ usergroup() {
 	return ${rc}
 }
 
+smf() {
+	local rc
+	rc=0
+	if [ -f "/tmp/.smf.present" ]; then
+		echo checking smf manifest
+		if ! /usr/bin/env SVCCFG_REPOSITORY=/etc/svc/repository.db \
+			/usr/bin/svccfg validate "${STAGEDIR}/../manifest.xml"
+		then
+			err "SMF manifests has a syntax error"
+			rc=1
+		fi
+	fi
+	return ${rc}
+}
+
 checks="shebang symlinks paths desktopfileutils sharedmimeinfo"
 checks="$checks suidfiles libtool prefixvar terminfo"
 checks="$checks sonames nls_files doc_files uses_fbsd10fix uses_mbsdfix"
-checks="$checks info_files completeset rcscripts usergroup"
+checks="$checks info_files completeset rcscripts usergroup smf"
 # don't add to this line
 checks="$checks missing_license licterms showlic py_conflicts"
 
