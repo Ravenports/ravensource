@@ -1,6 +1,9 @@
 @sample etc/mysql/my.cnf.sample
 @sample etc/mysql/mysqlrouter.conf.sample
 %%ONLY-LINUX%%lib/mysql/plugin/auth_socket.so
+%%ONLY-SUNOS%%@smf lib/svc/manifest/%%SMF_NAME%%.xml
+%%ONLY-SUNOS%%lib/svc/method/mysql_command.sh
+%%ONLY-SUNOS%%share/mysql/solaris/postinstall-solaris
 %%RPCGEN%%lib/mysql/plugin/group_replication.so
 bin/comp_err
 bin/ibd2sdi
