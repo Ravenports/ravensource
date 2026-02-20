@@ -37,6 +37,9 @@ CONFIGURE_ENV=		ac_cv_header_X11_Xmu_Atoms_h=yes
 			ac_cv_header_X11_Intrinsic_h=yes
 			ac_cv_lib_Xmu_XmuClientWindow=yes
 
+C_USES[sunos]=		iconv
+VAR_OPSYS[sunos]=	LDFLAGS=-liconv
+
 post-patch:
 	${REINPLACE_CMD} 's,mktemp,mktemp -t xclip,' ${WRKSRC}/xclip-copyfile
 
