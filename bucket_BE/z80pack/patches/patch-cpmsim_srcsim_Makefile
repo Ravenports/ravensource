@@ -1,0 +1,11 @@
+--- cpmsim/srcsim/Makefile.orig	2024-06-01 14:02:02 UTC
++++ cpmsim/srcsim/Makefile
+@@ -52,7 +52,7 @@ endif
+ 
+ DEFS = -DCONFDIR=\"$(CONF_DIR)\" -DDISKSDIR=\"$(DISKS_DIR)\"
+ INCS = -I. -I$(CORE_DIR) -I$(IO_DIR) $(PLAT_INCS)
+-CPPFLAGS = $(DEFS) $(INCS)
++CPPFLAGS = $(DEFS) $(INCS) -D__EXTENSIONS__
+ 
+ CSTDS = -std=c99 -D_DEFAULT_SOURCE # -D_XOPEN_SOURCE=700L
+ CWARNS = -Wall -Wextra -Wwrite-strings

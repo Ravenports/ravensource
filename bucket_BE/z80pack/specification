@@ -31,6 +31,8 @@ BUILDRUN_DEPENDS=	libGLU:primary:std
 USES=			gmake jpeg
 XORG_COMPONENTS=	x11
 
+VAR_OPSYS[sunos]=	MAKE_ENV=PLAT_LDFLAGS=-lsocket
+
 post-patch:
 	${REINPLACE_CMD} -i'' -e 's|__PREFIX__|${PREFIX}|g' \
 		${FILESDIR}/runcpm
