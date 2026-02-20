@@ -31,6 +31,10 @@ MAKEFILE=		GNUmakefile
 
 EXRUN[primary]=		snowball:libstemmer_c:std
 
+pre-configure-sunos:
+	${REINPLACE_CMD} -e 's|,-version-script,libstemmer/symbol.map||' \
+		${WRKSRC}/GNUmakefile
+
 do-install:
 		${INSTALL_PROGRAM} ${WRKSRC}/snowball ${STAGEDIR}${PREFIX}/bin
 		${INSTALL_PROGRAM} ${WRKSRC}/stemwords ${STAGEDIR}${PREFIX}/bin
