@@ -123,6 +123,8 @@ VAR_OPSYS[linux]=	MAKEFILE_LINE=BOOTSTRAP_RUST=${RUSTX_BOOT}
 			MAKEFILE_LINE=BOOTSTRAP_CARGO=${RUSTX_BOOT}
 VAR_OPSYS[sunos]=	MAKEFILE_LINE=BOOTSTRAP_RUST=${RUSTX_BOOT}
 			MAKEFILE_LINE=BOOTSTRAP_CARGO=${RUSTX_BOOT}
+			CFLAGS=-D_POSIX_PTHREAD_SEMANTICS
+			CFLAGS=-D__EXTENSIONS__
 VAR_OPSYS[midnightbsd]=	MAKEFILE_LINE=BOOTSTRAP_RUST=${RUSTX_BOOT}
 			MAKEFILE_LINE=BOOTSTRAP_CARGO=${RUSTX_BOOT}
 # #			CONFIGURE_ARGS=--target=${MBSD64_TARGET}
@@ -231,7 +233,7 @@ do-install:
 post-install:
 	${RM} ${STAGEDIR}${PREFIX}/lib/rustlib/install.log
 	${RM} ${STAGEDIR}${PREFIX}/lib/rustlib/uninstall.sh
-	${RM} -r ${STAGEDIR}${PREFIX}/share/doc/rust*
+	${RM} -r ${STAGEDIR}${PREFIX}/share/doc
 	# Remove cargo-fmt.old, rustfmt.old, cargo-clippy.old, clippy-driver.old
 	${RM} ${STAGEDIR}${PREFIX}/bin/*.old
 
@@ -255,7 +257,7 @@ post-install:
 	# both components manifests list them.
 	for f in ${STAGEDIR}${PREFIX}/lib/rustlib/manifest-*; do \
 	    ${SED} -i'' -E \
-		-e '/share\/doc\/rust/d' \
+		-e '/share\/doc\//d' \
 		-e '/bash_completion/d' \
 		-e '/target-spec-json-schema.json/d' \
 	        -e 's|:${STAGEDIR}|:|' \
