@@ -4,6 +4,7 @@ DEF[SOVERSION]=		5.2.5
 
 NAMEBASE=		zeromq
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		net
 VARIANTS=		std
 SDESC[std]=		High-performance, asynchronous messaging library
@@ -16,8 +17,12 @@ DISTFILE[1]=		zeromq-${PORTVERSION}.tar.gz:main
 
 SPKGS[std]=		set primary dev man
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	NORM
+OPTIONS_STANDARD=	NORM
+OPT_ON[dragonfly]=	NORM
+OPT_ON[freebsd]=	NORM
+OPT_ON[linux]=		NORM
+OPT_ON[midnightbsd]=	NORM
 
 LICENSE=		MPL:primary
 LICENSE_FILE=		MPL:{{WRKSRC}}/LICENSE
@@ -36,8 +41,13 @@ INSTALL_TARGET=		install-strip
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-libsodium
 			--with-pkgconfigdir={{LOCALBASE}}/lib/pkgconfig
-			--with-norm={{LOCALBASE}}
 			--without-pgm
 			--disable-Werror
 MAKE_ENV=		V=1
 SOVERSION=		${SOVERSION}
+
+[NORM].DESCRIPTION=			Build with multicast support via norm
+
+[NORM].BUILDRUN_DEPENDS_ON=		norm:single:std
+[NORM].CONFIGURE_ARGS_ON=		--with-norm={{LOCALBASE}}
+[NORM].CONFIGURE_ARGS_OFF=		--without-norm
