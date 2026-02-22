@@ -37,6 +37,8 @@ USES=			cmake c++:primary
 CMAKE_ARGS=		-DBUILD_SHARED_LIBS:BOOL=ON
 SOVERSION=		${SOVERSION}
 
+C_USES[freebsd]=	clang
+
 post-extract:
 	# license terms
 	${AWK} '/^License/,EOF' ${WRKSRC}/README.md > ${WRKDIR}/TERMS
