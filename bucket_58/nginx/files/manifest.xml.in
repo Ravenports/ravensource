@@ -14,11 +14,8 @@
         <service_fmri value="svc:/system/filesystem/autofs:default"/>
       </dependency>
 
-    <exec_method type="method" name="start" exec="%%PREFIX%%/sbin/nginx -c %{config_file}" timeout_seconds="60">
-        <method_context>
-          <method_credential user="%%WWWOWN%%" group="%%WWWGRP%%" privileges="net_privaddr"/>
-        </method_context>
-      </exec_method>
+    <!-- method_context is unnecessary.  nginx starts as root, but drops workers to %%WWWOWN%%:%%WWWGRP%% -->
+    <exec_method type="method" name="start" exec="%%PREFIX%%/sbin/nginx -c %{config_file}" timeout_seconds="60"/>
     <exec_method type="method" name="stop" exec="%%PREFIX%%/sbin/nginx -s stop" timeout_seconds="60" />
     <exec_method type="method" name="refresh" exec="%%PREFIX%%/sbin/nginx -s reload" timeout_seconds="60" />
     <property_group name="startd" type="framework">

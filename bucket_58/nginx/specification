@@ -2,10 +2,10 @@
 # however, odd releases 1.13.x, 1.15.x, etc are called "mainline" and
 # considered more reliable
 DEF[PORTVERSION]=	1.29.5
-DEF[REVISION]=		0
-DEF[NGINX_VARDIR]=	/var
+DEF[REVISION]=		2
+DEF[NGINX_VARDIR]=	{{PREFIX}}/var
 DEF[NGINX_LOGDIR]=	${NGINX_VARDIR}/log/nginx
-DEF[NGINX_RUNDIR]=	${NGINX_VARDIR}/run
+DEF[NGINX_RUNDIR]=	${NGINX_VARDIR}/run/nginx
 DEF[NGINX_TMPDIR]=	${NGINX_VARDIR}/tmp/nginx
 DEF[NGINX_ACCESSLOG]=	${NGINX_LOGDIR}/access.log
 DEF[NGINX_ERRORLOG]=	${NGINX_LOGDIR}/error.log
@@ -242,6 +242,7 @@ PLIST_SUB=		WWWOWN={{WWWOWN}}
 			WWWGRP={{WWWGRP}}
 			NGINX_TMPDIR=${NGINX_TMPDIR}
 			NGINX_LOGDIR=${NGINX_LOGDIR}
+			NGINX_RUNDIR=${NGINX_RUNDIR}
 SUB_FILES=		messages-primary.ucl
 			manifest.xml
 SUB_LIST=		WWWOWN={{WWWOWN}}
@@ -360,6 +361,7 @@ do-install:
 		${STAGEDIR}${PREFIX}/libexec/nginx \
 		${STAGEDIR}${NGINX_TMPDIR} \
 		${STAGEDIR}${NGINX_LOGDIR} \
+		${STAGEDIR}${NGINX_RUNDIR} \
 		${STAGEDIR}${PREFIX}/www/nginx-dist
 	${INSTALL_PROGRAM} ${WRKSRC}/objs/nginx ${STAGEDIR}${PREFIX}/sbin
 .for i in koi-utf koi-win win-utf
