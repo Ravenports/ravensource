@@ -1,0 +1,55 @@
+DEF[PORTVERSION]=	7.5.0
+DEF[TAG]=		v${PORTVERSION}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		ugrep
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc
+VARIANTS=		std
+SDESC[std]=		Ultra fast grep with interactive query UI
+HOMEPAGE=		https://ugrep.com/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/Genivia:ugrep:${TAG}
+DISTFILE[1]=		generated:main
+
+SPKGS[std]=		set primary man
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		BSD3CLAUSE:primary
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/LICENSE.txt
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		textproc/ugrep
+
+BUILD_DEPENDS=		lz4:dev:std
+			zstd:dev:std
+			pcre2:dev:std
+			brotli:dev:std
+BUILDRUN_DEPENDS=	lz4:primary:std
+			zstd:primary:std
+			pcre2:primary:std
+			brotli:primary:std
+
+USES=			gmake shebangfix c++:primary
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-hidden
+			--enable-mmap
+			--enable-pager
+			--enable-pretty
+			--enable-7zip
+			--enable-avx
+			--enable-sse2
+			--without-bzip3
+			--with-zstd={{LOCALBASE}}
+			--with-pcre2={{LOCALBASE}}
+			--with-brotli={{LOCALBASE}}
+			--with-bash-completion-dir={{PREFIX}}/etc/bash_completion.d
+			--with-fish-completion-dir={{PREFIX}}/share/fish/completions
+			--with-zsh-completion-dir={{PREFIX}}/share/zsh/site-functions
+			--disable-neon
+SHEBANG_FILES=		bin/ug+
+			bin/ugrep+
