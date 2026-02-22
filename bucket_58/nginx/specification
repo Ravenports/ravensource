@@ -194,9 +194,10 @@ GROUPS=			{{WWWGRP}}
 USERGROUP_SPKG=		primary
 RC_SUBR=		nginx:primary
 
-USES=			cpe ssl zlib pcre
+USES=			cpe ssl zlib pcre smf
 CPE_VENDOR=		nginx
 CPE_PRODUCT=		nginx
+SMF_NAME=		nginx
 
 MUST_CONFIGURE=		yes
 CONFIGURE_ARGS=		--prefix={{PREFIX}}/etc/nginx
@@ -242,11 +243,13 @@ PLIST_SUB=		WWWOWN={{WWWOWN}}
 			NGINX_TMPDIR=${NGINX_TMPDIR}
 			NGINX_LOGDIR=${NGINX_LOGDIR}
 SUB_FILES=		messages-primary.ucl
+			manifest.xml
 SUB_LIST=		WWWOWN={{WWWOWN}}
 			WWWGRP={{WWWGRP}}
 			NGINX_TMPDIR=${NGINX_TMPDIR}
 			NGINX_LOGDIR=${NGINX_LOGDIR}
 			NGINX_RUNDIR=${NGINX_RUNDIR}
+			SYSCONFDIR={{PREFIX}}/etc/nginx
 
 # File AIO only supported by FreeBSD (&DF) and linux
 VAR_OPSYS[linux]=	CONFIGURE_ARGS=--with-file-aio
@@ -384,3 +387,7 @@ post-install:
 		>>${STAGEDIR}${PREFIX}/etc/nginx/nginx.conf-dist
 	${INSTALL_MAN} ${WRKSRC}/objs/nginx.8 \
 		${STAGEDIR}${MAN8PREFIX}/man/man8
+
+post-install-sunos:
+	# There are no SMF method scripts
+	${RMDIR} ${STAGEDIR}${PREFIX}/${SMF_METHOD_DIR}
