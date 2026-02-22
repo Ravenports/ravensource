@@ -62,8 +62,9 @@ SOVERSION=		${SOVERSION}
 PLIST_SUB=		SOVER_GTK=${SOVER_GTK}
 			SOMAJ_GTK=${SOVER_GTK:R:R}
 
-post-patch-sunos:
-	${REINPLACE_CMD} -e '/as-needed/d' ${WRKSRC}/configure
+pre-configure-sunos:
+	${REINPLACE_CMD} -e '/-Wl,--as-needed/d' \
+		-e 's|-Wl,--gc-sections||' ${WRKSRC}/configure
 
 post-install:
 	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/libcanberra \
