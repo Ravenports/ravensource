@@ -31,7 +31,7 @@ OPT_ON[freebsd]=	LLVMPIPE//i386|x86_64
 OPT_ON[dragonfly]=	LLVMPIPE//i386|x86_64
 OPT_ON[midnightbsd]=	LLVMPIPE//i386|x86_64
 OPT_ON[linux]=		LLVMPIPE//i386|x86_64
-# OPT_ON[sunos]=	LLVMPIPE	# libclc stopped building again
+OPT_ON[sunos]=		LLVMPIPE
 
 LICENSE=		MIT:primary
 			CUSTOM1:primary
@@ -104,11 +104,9 @@ VAR_OPSYS[sunos]=	CPPFLAGS=-D__EXTENSIONS__=1
 			CPPFLAGS=-Wno-unused-function
 			CXXFLAGS=-Drestrict=__restrict__
 			CFLAGS=-D_POSIX_PTHREAD_SEMANTICS
-			CFLAGS=-DF_DUPFD_CLOEXEC=F_DUPFD
 			CFLAGS=-Wno-incompatible-pointer-types
 			LDFLAGS=-lsocket
 			LDFLAGS=-lnsl
-			MAKEFILE_LINE=MESON_ARGS+=-Dshader-cache=false
 
 [X86_DRIVERS].DESCRIPTION=		Build drivers for i386 and x86_64 architectures
 [ARM_DRIVERS].DESCRIPTION=		Build drivers for aarch64 architecture
