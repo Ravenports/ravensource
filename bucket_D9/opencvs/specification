@@ -29,7 +29,10 @@ LICENSE_AWK=		BSD2CLAUSE:"^\#include"
 LICENSE_SOURCE=		BSD2CLAUSE:{{WRKSRC}}/cvs.c
 LICENSE_SCHEME=		solo
 
+# Can't build on OmniOS because <sys/tree.h> is missing
 FPC_EQUIVALENT=		devel/opencvs
+
+NOT_FOR_OPSYS=		sunos
 
 # requires prog.mk which is not provided by ravenports framework
 BUILD_DEPENDS=		bmake:primary:std
