@@ -1,0 +1,51 @@
+DEF[PORTVERSION]=	3.2.1
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-portend
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v13 v14
+SDESC[v13]=		TCP port monitoring and discovery (3.13)
+SDESC[v14]=		TCP port monitoring and discovery (3.14)
+HOMEPAGE=		https://github.com/jaraco/portend
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/49/11/b0b19077f80cb8972b44c96af983e8cfcdb1506090bacef137ed8b448af8
+DISTFILE[1]=		portend-${PORTVERSION}-py3-none-any.whl:main
+DIST_SUBDIR=		python-src
+
+SPKGS[v13]=		single
+SPKGS[v14]=		single
+
+OPTIONS_AVAILABLE=	PY313 PY314
+OPTIONS_STANDARD=	none
+VOPTS[v13]=		PY313=ON PY314=OFF
+VOPTS[v14]=		PY313=OFF PY314=ON
+
+# License listed at PyPI
+# Not provided.
+
+GENERATED=		yes
+DISTNAME=		portend-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# tempora>=1.8
+# pytest!=8.1.*,>=6; extra == "test"
+# sphinx>=3.5; extra == "doc"
+# jaraco.packaging>=9.3; extra == "doc"
+# rst.linker>=1.9; extra == "doc"
+# furo; extra == "doc"
+# sphinx-lint; extra == "doc"
+# jaraco.tidelift>=1.4; extra == "doc"
+# pytest-checkdocs>=2.4; extra == "check"
+# pytest-ruff>=0.2.1; sys_platform != "cygwin" and extra == "check"
+# pytest-cov; extra == "cover"
+# pytest-enabler>=2.2; extra == "enabler"
+# pytest-mypy; extra == "type"
+
+[PY313].USES_ON=			python:v13,wheel
+[PY313].RUN_DEPENDS_ON=			python-tempora:single:v13
+[PY314].USES_ON=			python:v14,wheel
+[PY314].RUN_DEPENDS_ON=			python-tempora:single:v14
+

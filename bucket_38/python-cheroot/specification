@@ -1,0 +1,48 @@
+DEF[PORTVERSION]=	11.1.2
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-cheroot
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v13 v14
+SDESC[v13]=		Highly-optimized, pure-python HTTP server (3.13)
+SDESC[v14]=		Highly-optimized, pure-python HTTP server (3.14)
+HOMEPAGE=		https://cheroot.cherrypy.dev
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/41/99/af65511a10c4212438ac52bc5e45e486e7a04d292201ad84dfd9208fe9a8
+DISTFILE[1]=		cheroot-${PORTVERSION}-py3-none-any.whl:main
+DIST_SUBDIR=		python-src
+
+SPKGS[v13]=		single
+SPKGS[v14]=		single
+
+OPTIONS_AVAILABLE=	PY313 PY314
+OPTIONS_STANDARD=	none
+VOPTS[v13]=		PY313=ON PY314=OFF
+VOPTS[v14]=		PY313=OFF PY314=ON
+
+# License listed at PyPI
+# Not provided.
+
+GENERATED=		yes
+DISTNAME=		cheroot-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# more-itertools (>=2.6)
+# jaraco.functools
+# sphinx (>=1.8.2) ; extra == 'docs'
+# jaraco.packaging (>=3.2) ; extra == 'docs'
+# sphinx-tabs (>=1.1.0) ; extra == 'docs'
+# furo ; extra == 'docs'
+# python-dateutil ; extra == 'docs'
+# sphinxcontrib-apidoc (>=0.3.0) ; extra == 'docs'
+
+[PY313].USES_ON=			python:v13,wheel
+[PY313].RUN_DEPENDS_ON=			python-more-itertools:single:v13
+					python-jaraco.functools:single:v13
+[PY314].USES_ON=			python:v14,wheel
+[PY314].RUN_DEPENDS_ON=			python-more-itertools:single:v14
+					python-jaraco.functools:single:v14
+
