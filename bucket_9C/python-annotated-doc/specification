@@ -1,0 +1,37 @@
+DEF[PORTVERSION]=	0.0.4
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-annotated-doc
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v13 v14
+SDESC[v13]=		Annotate class and code attributes (3.13)
+SDESC[v14]=		Annotate class and code attributes (3.14)
+HOMEPAGE=		https://github.com/fastapi/annotated-doc
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/1e/d3/26bf1008eb3d2daa8ef4cacc7f3bfdc11818d111f7e2d0201bc6e3b49d45
+DISTFILE[1]=		annotated_doc-${PORTVERSION}-py3-none-any.whl:main
+DIST_SUBDIR=		python-src
+
+SPKGS[v13]=		single
+SPKGS[v14]=		single
+
+OPTIONS_AVAILABLE=	PY313 PY314
+OPTIONS_STANDARD=	none
+VOPTS[v13]=		PY313=ON PY314=OFF
+VOPTS[v14]=		PY313=OFF PY314=ON
+
+# License listed at PyPI
+# Not provided.
+
+GENERATED=		yes
+DISTNAME=		annotated_doc-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+
+
+[PY313].USES_ON=			python:v13,wheel
+[PY314].USES_ON=			python:v14,wheel
+

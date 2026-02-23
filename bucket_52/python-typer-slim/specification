@@ -1,0 +1,39 @@
+DEF[PORTVERSION]=	0.24.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-typer-slim
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v13 v14
+SDESC[v13]=		Command line interface builder (3.13)
+SDESC[v14]=		Command line interface builder (3.14)
+HOMEPAGE=		https://github.com/fastapi/typer
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/a7/24/5480c20380dfd18cf33d14784096dca45a24eae6102e91d49a718d3b6855
+DISTFILE[1]=		typer_slim-${PORTVERSION}-py3-none-any.whl:main
+DIST_SUBDIR=		python-src
+
+SPKGS[v13]=		single
+SPKGS[v14]=		single
+
+OPTIONS_AVAILABLE=	PY313 PY314
+OPTIONS_STANDARD=	none
+VOPTS[v13]=		PY313=ON PY314=OFF
+VOPTS[v14]=		PY313=OFF PY314=ON
+
+# License listed at PyPI
+# Not provided.
+
+GENERATED=		yes
+DISTNAME=		typer_slim-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# typer>=0.24.0
+
+[PY313].USES_ON=			python:v13,wheel
+[PY313].RUN_DEPENDS_ON=			python-typer:single:v13
+[PY314].USES_ON=			python:v14,wheel
+[PY314].RUN_DEPENDS_ON=			python-typer:single:v14
+

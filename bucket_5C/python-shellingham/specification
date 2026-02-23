@@ -1,0 +1,37 @@
+DEF[PORTVERSION]=	1.5.4
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-shellingham
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v13 v14
+SDESC[v13]=		Tool to Detect Surrounding Shell (3.13)
+SDESC[v14]=		Tool to Detect Surrounding Shell (3.14)
+HOMEPAGE=		https://github.com/sarugaku/shellingham
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/e0/f9/0595336914c5619e5f28a1fb793285925a8cd4b432c9da0a987836c7f822
+DISTFILE[1]=		shellingham-${PORTVERSION}-py2.py3-none-any.whl:main
+DIST_SUBDIR=		python-src
+
+SPKGS[v13]=		single
+SPKGS[v14]=		single
+
+OPTIONS_AVAILABLE=	PY313 PY314
+OPTIONS_STANDARD=	none
+VOPTS[v13]=		PY313=ON PY314=OFF
+VOPTS[v14]=		PY313=OFF PY314=ON
+
+# License listed at PyPI
+# ISC License
+
+GENERATED=		yes
+DISTNAME=		shellingham-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+
+
+[PY313].USES_ON=			python:v13,wheel
+[PY314].USES_ON=			python:v14,wheel
+
