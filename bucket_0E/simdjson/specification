@@ -7,6 +7,7 @@ DEF[DATA_TAG]=		4197c42
 
 NAMEBASE=		simdjson
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		std
 SDESC[std]=		SIMD-accelerated C++ JSON parser
@@ -35,9 +36,8 @@ LICENSE_SCHEME=		dual
 
 USES=			cmake c++:primary
 CMAKE_ARGS=		-DBUILD_SHARED_LIBS:BOOL=ON
+			-DCMAKE_DISABLE_PRECOMPILE_HEADERS:BOOL=ON
 SOVERSION=		${SOVERSION}
-
-C_USES[freebsd]=	clang
 
 post-extract:
 	# license terms
