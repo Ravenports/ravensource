@@ -1,0 +1,11 @@
+--- rsvg/meson.build.orig	2026-02-23 05:26:54 UTC
++++ rsvg/meson.build
+@@ -170,7 +170,7 @@ version_script = meson.current_build_dir
+ 
+ if host_system in ['darwin', 'ios']
+   vflag = '-Wl,-exported_symbols_list,@0@'.format(version_script)
+-elif host_system in ['windows', 'cygwin']
++elif host_system in ['windows', 'cygwin', 'solaris', 'sunos']
+   vflag = []
+ else
+   vflag = '-Wl,--version-script,@0@'.format(version_script)
