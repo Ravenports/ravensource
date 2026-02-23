@@ -243,7 +243,7 @@ function meets_version_requirements ($PYVER, $requirements_string) {
                 break;
             case "!=":
                 # inverted!  We're satisfied if we *don't* match
-                if ($py_version >= $minver && $py_version < $nexver) {
+                if ($py_version == $minver) {
                     $satisfied = false;
                 }
                 break;

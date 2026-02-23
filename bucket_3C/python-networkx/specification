@@ -4,8 +4,9 @@ DEF[PORTVERSION]=	3.6.1
 NAMEBASE=		python-networkx
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v13
+VARIANTS=		v13 v14
 SDESC[v13]=		Graph attributes of complex networks (3.13)
+SDESC[v14]=		Graph attributes of complex networks (3.14)
 HOMEPAGE=		https://networkx.org/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
@@ -15,10 +16,12 @@ DISTFILE[1]=		networkx-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
 SPKGS[v13]=		single
+SPKGS[v14]=		single
 
-OPTIONS_AVAILABLE=	PY313
+OPTIONS_AVAILABLE=	PY313 PY314
 OPTIONS_STANDARD=	none
-VOPTS[v13]=		PY313=ON
+VOPTS[v13]=		PY313=ON PY314=OFF
+VOPTS[v14]=		PY313=OFF PY314=ON
 
 # License listed at PyPI
 # Not provided.
@@ -66,4 +69,5 @@ DISTNAME=		networkx-${PORTVERSION}.dist-info
 # pytest-randomly; extra == "test-extras"
 
 [PY313].USES_ON=			python:v13,wheel
+[PY314].USES_ON=			python:v14,wheel
 
