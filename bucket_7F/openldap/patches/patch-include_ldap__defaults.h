@@ -1,4 +1,4 @@
---- include/ldap_defaults.h.orig	2025-05-22 17:56:21 UTC
+--- include/ldap_defaults.h.orig	2026-01-29 22:21:21 UTC
 +++ include/ldap_defaults.h
 @@ -40,7 +40,7 @@
  
