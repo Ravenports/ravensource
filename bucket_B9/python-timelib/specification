@@ -1,0 +1,39 @@
+DEF[PORTVERSION]=	0.3.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-timelib
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v13 v14
+SDESC[v13]=		Parse english textual date descriptions (3.13)
+SDESC[v14]=		Parse english textual date descriptions (3.14)
+HOMEPAGE=		https://github.com/pediapress/timelib/
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPI/t/timelib
+DISTFILE[1]=		timelib-${PORTVERSION}.tar.gz:main
+DIST_SUBDIR=		python-src
+
+SPKGS[v13]=		single
+SPKGS[v14]=		single
+
+OPTIONS_AVAILABLE=	PY313 PY314
+OPTIONS_STANDARD=	none
+VOPTS[v13]=		PY313=ON PY314=OFF
+VOPTS[v14]=		PY313=OFF PY314=ON
+
+# License listed at PyPI
+# zlib/php
+
+GENERATED=		yes
+DISTNAME=		timelib-${PORTVERSION}
+
+# Requires-Dist extracted from pyproject.toml file
+# build: Cython
+
+[PY313].USES_ON=			python:v13,pep517
+[PY313].BUILD_DEPENDS_ON=		python-Cython:single:v13
+[PY314].USES_ON=			python:v14,pep517
+[PY314].BUILD_DEPENDS_ON=		python-Cython:single:v14
+

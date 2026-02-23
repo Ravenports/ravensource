@@ -1,0 +1,39 @@
+DEF[PORTVERSION]=	0.1.2
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-rpm-vercmp
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v13 v14
+SDESC[v13]=		Pure Python implementation of rpmvercmp (3.13)
+SDESC[v14]=		Pure Python implementation of rpmvercmp (3.14)
+HOMEPAGE=		none
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPI/r/rpm-vercmp
+DISTFILE[1]=		rpm_vercmp-${PORTVERSION}.tar.gz:main
+DIST_SUBDIR=		python-src
+
+SPKGS[v13]=		single
+SPKGS[v14]=		single
+
+OPTIONS_AVAILABLE=	PY313 PY314
+OPTIONS_STANDARD=	none
+VOPTS[v13]=		PY313=ON PY314=OFF
+VOPTS[v14]=		PY313=OFF PY314=ON
+
+# License listed at PyPI
+# Not provided.
+
+GENERATED=		yes
+DISTNAME=		rpm_vercmp-${PORTVERSION}
+
+# install_requires extracted from setup.py
+# pbr
+
+[PY313].USES_ON=			python:v13,sutools
+[PY313].BUILDRUN_DEPENDS_ON=		python-pbr:single:v13
+[PY314].USES_ON=			python:v14,sutools
+[PY314].BUILDRUN_DEPENDS_ON=		python-pbr:single:v14
+

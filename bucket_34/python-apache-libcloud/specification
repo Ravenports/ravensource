@@ -1,0 +1,39 @@
+DEF[PORTVERSION]=	3.9.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-apache-libcloud
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v13 v14
+SDESC[v13]=		Unified interface for the cloud (3.13)
+SDESC[v14]=		Unified interface for the cloud (3.14)
+HOMEPAGE=		https://libcloud.apache.org
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/d2/23/74cc34d6c23542560f33e93d42fb3dd322ad13c9822022ed87f902793946
+DISTFILE[1]=		apache_libcloud-${PORTVERSION}-py3-none-any.whl:main
+DIST_SUBDIR=		python-src
+
+SPKGS[v13]=		single
+SPKGS[v14]=		single
+
+OPTIONS_AVAILABLE=	PY313 PY314
+OPTIONS_STANDARD=	none
+VOPTS[v13]=		PY313=ON PY314=OFF
+VOPTS[v14]=		PY313=OFF PY314=ON
+
+# License listed at PyPI
+# Apache License (2.0)
+
+GENERATED=		yes
+DISTNAME=		apache_libcloud-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# requests>=2.26.0
+
+[PY313].USES_ON=			python:v13,wheel
+[PY313].RUN_DEPENDS_ON=			python-requests:single:v13
+[PY314].USES_ON=			python:v14,wheel
+[PY314].RUN_DEPENDS_ON=			python-requests:single:v14
+

@@ -1,0 +1,37 @@
+DEF[PORTVERSION]=	1.3.7
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-setproctitle
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v13 v14
+SDESC[v13]=		Customize the process title (3.13)
+SDESC[v14]=		Customize the process title (3.14)
+HOMEPAGE=		https://github.com/dvarrazzo/py-setproctitle
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPI/s/setproctitle
+DISTFILE[1]=		setproctitle-${PORTVERSION}.tar.gz:main
+DIST_SUBDIR=		python-src
+
+SPKGS[v13]=		single
+SPKGS[v14]=		single
+
+OPTIONS_AVAILABLE=	PY313 PY314
+OPTIONS_STANDARD=	none
+VOPTS[v13]=		PY313=ON PY314=OFF
+VOPTS[v14]=		PY313=OFF PY314=ON
+
+# License listed at PyPI
+# BSD-3-Clause
+
+GENERATED=		yes
+DISTNAME=		setproctitle-${PORTVERSION}
+
+# Requires-Dist extracted from pyproject.toml file
+
+
+[PY313].USES_ON=			python:v13,pep517
+[PY314].USES_ON=			python:v14,pep517
+

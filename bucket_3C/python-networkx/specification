@@ -1,0 +1,69 @@
+DEF[PORTVERSION]=	3.6.1
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-networkx
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v13
+SDESC[v13]=		Graph attributes of complex networks (3.13)
+HOMEPAGE=		https://networkx.org/
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/9e/c9/b2622292ea83fbb4ec318f5b9ab867d0a28ab43c5717bb85b0a5f6b3b0a4
+DISTFILE[1]=		networkx-${PORTVERSION}-py3-none-any.whl:main
+DIST_SUBDIR=		python-src
+
+SPKGS[v13]=		single
+
+OPTIONS_AVAILABLE=	PY313
+OPTIONS_STANDARD=	none
+VOPTS[v13]=		PY313=ON
+
+# License listed at PyPI
+# Not provided.
+
+GENERATED=		yes
+DISTNAME=		networkx-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# asv; extra == "benchmarking"
+# virtualenv; extra == "benchmarking"
+# numpy>=1.25; extra == "default"
+# scipy>=1.11.2; extra == "default"
+# matplotlib>=3.8; extra == "default"
+# pandas>=2.0; extra == "default"
+# pre-commit>=4.1; extra == "developer"
+# mypy>=1.15; extra == "developer"
+# sphinx>=8.0; extra == "doc"
+# pydata-sphinx-theme>=0.16; extra == "doc"
+# sphinx-gallery>=0.18; extra == "doc"
+# numpydoc>=1.8.0; extra == "doc"
+# pillow>=10; extra == "doc"
+# texext>=0.6.7; extra == "doc"
+# myst-nb>=1.1; extra == "doc"
+# intersphinx-registry; extra == "doc"
+# osmnx>=2.0.0; extra == "example"
+# momepy>=0.7.2; extra == "example"
+# contextily>=1.6; extra == "example"
+# seaborn>=0.13; extra == "example"
+# cairocffi>=1.7; extra == "example"
+# igraph>=0.11; extra == "example"
+# scikit-learn>=1.5; extra == "example"
+# iplotx>=0.9.0; extra == "example"
+# lxml>=4.6; extra == "extra"
+# pygraphviz>=1.14; extra == "extra"
+# pydot>=3.0.1; extra == "extra"
+# sympy>=1.10; extra == "extra"
+# build>=0.10; extra == "release"
+# twine>=4.0; extra == "release"
+# wheel>=0.40; extra == "release"
+# changelist==0.5; extra == "release"
+# pytest>=7.2; extra == "test"
+# pytest-cov>=4.0; extra == "test"
+# pytest-xdist>=3.0; extra == "test"
+# pytest-mpl; extra == "test-extras"
+# pytest-randomly; extra == "test-extras"
+
+[PY313].USES_ON=			python:v13,wheel
+

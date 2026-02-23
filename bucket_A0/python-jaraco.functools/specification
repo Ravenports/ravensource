@@ -1,0 +1,53 @@
+DEF[PORTVERSION]=	4.4.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-jaraco.functools
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v13 v14
+SDESC[v13]=		Functools like those found in stdlib (3.13)
+SDESC[v14]=		Functools like those found in stdlib (3.14)
+HOMEPAGE=		https://github.com/jaraco/jaraco.functools
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/fd/c4/813bb09f0985cb21e959f21f2464169eca882656849adf727ac7bb7e1767
+DISTFILE[1]=		jaraco_functools-${PORTVERSION}-py3-none-any.whl:main
+DIST_SUBDIR=		python-src
+
+SPKGS[v13]=		single
+SPKGS[v14]=		single
+
+OPTIONS_AVAILABLE=	PY313 PY314
+OPTIONS_STANDARD=	none
+VOPTS[v13]=		PY313=ON PY314=OFF
+VOPTS[v14]=		PY313=OFF PY314=ON
+
+# License listed at PyPI
+# Not provided.
+
+GENERATED=		yes
+DISTNAME=		jaraco_functools-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# more_itertools
+# pytest!=8.1.*,>=6; extra == "test"
+# jaraco.classes; extra == "test"
+# sphinx>=3.5; extra == "doc"
+# jaraco.packaging>=9.3; extra == "doc"
+# rst.linker>=1.9; extra == "doc"
+# furo; extra == "doc"
+# sphinx-lint; extra == "doc"
+# jaraco.tidelift>=1.4; extra == "doc"
+# pytest-checkdocs>=2.4; extra == "check"
+# pytest-ruff>=0.2.1; sys_platform != "cygwin" and extra == "check"
+# pytest-cov; extra == "cover"
+# pytest-enabler>=3.4; extra == "enabler"
+# pytest-mypy>=1.0.1; extra == "type"
+# mypy<1.19; platform_python_implementation == "PyPy" and extra == "type"
+
+[PY313].USES_ON=			python:v13,wheel
+[PY313].RUN_DEPENDS_ON=			python-more_itertools:single:v13
+[PY314].USES_ON=			python:v14,wheel
+[PY314].RUN_DEPENDS_ON=			python-more_itertools:single:v14
+

@@ -1,0 +1,73 @@
+DEF[PORTVERSION]=	18.10.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-CherryPy
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v13 v14
+SDESC[v13]=		Object-Oriented HTTP framework (3.13)
+SDESC[v14]=		Object-Oriented HTTP framework (3.14)
+HOMEPAGE=		https://www.cherrypy.dev
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/97/61/4aba4860c91e66adbc44a62a437ad845abab21cc3dcb0b8e320000d091dd
+DISTFILE[1]=		CherryPy-${PORTVERSION}-py3-none-any.whl:main
+DIST_SUBDIR=		python-src
+
+SPKGS[v13]=		single
+SPKGS[v14]=		single
+
+OPTIONS_AVAILABLE=	PY313 PY314
+OPTIONS_STANDARD=	none
+VOPTS[v13]=		PY313=ON PY314=OFF
+VOPTS[v14]=		PY313=OFF PY314=ON
+
+# License listed at PyPI
+# Not provided.
+
+GENERATED=		yes
+DISTNAME=		CherryPy-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# cheroot >=8.2.1
+# portend >=2.1.1
+# more-itertools
+# zc.lockfile
+# jaraco.collections
+# importlib-metadata ; python_version <= "3.7"
+# pywin32 >=227 ; sys_platform == "win32" and implementation_name == "cpython" and python_version < "3.10"
+# sphinx ; extra == 'docs'
+# docutils ; extra == 'docs'
+# alabaster ; extra == 'docs'
+# sphinxcontrib-apidoc >=0.3.0 ; extra == 'docs'
+# rst.linker >=1.11 ; extra == 'docs'
+# jaraco.packaging >=3.2 ; extra == 'docs'
+# simplejson ; extra == 'json'
+# python-memcached >=1.58 ; extra == 'memcached_session'
+# routes >=2.3.1 ; extra == 'routes_dispatcher'
+# pyOpenSSL ; extra == 'ssl'
+# objgraph ; extra == 'testing'
+# pytest >=5.3.5 ; extra == 'testing'
+# pytest-cov ; extra == 'testing'
+# pytest-forked ; extra == 'testing'
+# pytest-sugar ; extra == 'testing'
+# path.py ; extra == 'testing'
+# requests-toolbelt ; extra == 'testing'
+# pytest-services >=2 ; extra == 'testing'
+# setuptools ; extra == 'testing'
+# flup ; extra == 'xcgi'
+
+[PY313].USES_ON=			python:v13,wheel
+[PY313].RUN_DEPENDS_ON=			python-cheroot:single:v13
+					python-portend:single:v13
+					python-more-itertools:single:v13
+					python-zc.lockfile:single:v13
+					python-jaraco.collections:single:v13
+[PY314].USES_ON=			python:v14,wheel
+[PY314].RUN_DEPENDS_ON=			python-cheroot:single:v14
+					python-portend:single:v14
+					python-more-itertools:single:v14
+					python-zc.lockfile:single:v14
+					python-jaraco.collections:single:v14
+

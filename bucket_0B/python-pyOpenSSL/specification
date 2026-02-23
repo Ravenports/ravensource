@@ -1,0 +1,45 @@
+DEF[PORTVERSION]=	25.3.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-pyOpenSSL
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v13 v14
+SDESC[v13]=		Wrapper of OpenSSL library (3.13)
+SDESC[v14]=		Wrapper of OpenSSL library (3.14)
+HOMEPAGE=		https://pyopenssl.org/
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/d1/81/ef2b1dfd1862567d573a4fdbc9f969067621764fbb74338496840a1d2977
+DISTFILE[1]=		pyopenssl-${PORTVERSION}-py3-none-any.whl:main
+DIST_SUBDIR=		python-src
+
+SPKGS[v13]=		single
+SPKGS[v14]=		single
+
+OPTIONS_AVAILABLE=	PY313 PY314
+OPTIONS_STANDARD=	none
+VOPTS[v13]=		PY313=ON PY314=OFF
+VOPTS[v14]=		PY313=OFF PY314=ON
+
+# License listed at PyPI
+# Apache License, Version 2.0
+
+GENERATED=		yes
+DISTNAME=		pyopenssl-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# cryptography<47,>=45.0.7
+# typing-extensions>=4.9; python_version < "3.13" and python_version >= "3.8"
+# pytest-rerunfailures; extra == "test"
+# pretend; extra == "test"
+# pytest>=3.0.1; extra == "test"
+# sphinx!=5.2.0,!=5.2.0.post0,!=7.2.5; extra == "docs"
+# sphinx_rtd_theme; extra == "docs"
+
+[PY313].USES_ON=			python:v13,wheel
+[PY313].RUN_DEPENDS_ON=			python-cryptography:single:v13
+[PY314].USES_ON=			python:v14,wheel
+[PY314].RUN_DEPENDS_ON=			python-cryptography:single:v14
+
