@@ -41,6 +41,9 @@ MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-pcaudiolib
 SOVERSION=		${SOVERSION}
 
+VAR_OPSYS[sunos]=	CFLAGS=-D_LARGEFILE64_SOURCE
+			CFLAGS=-D__EXTENSIONS__
+
 pre-configure:
 	${REINPLACE_CMD} -e 's|%%DATADIR%%|${PREFIX}/share/${NAMEBASE}|' \
 		${WRKSRC}/Makefile.am
