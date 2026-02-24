@@ -6,7 +6,7 @@ DEF[IDENTIFICATION]=	EXTRACT_INFO(GCC15_IDENTIFICATION)
 DEF[GCC_VERSION]=	EXTRACT_INFO(GCC15_VERSION)
 DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
 DEF[STDCXX_VERSION]=	6.0.34
-DEF[DRACO_TAG]=		15.2.0-rev3
+DEF[DRACO_TAG]=		15.2.0-rev4
 DEF[DRACO_DIR]=		patches-15.2.0
 # ----------------------------------------------------------------------------
 
@@ -120,11 +120,7 @@ VAR_OPSYS[linux]=	CONFIGURE_ARGS=--with-gnu-as
 			CONFIGURE_ARGS=--disable-libssp
 			MAKEFILE_LINE=SSP="@comment "
 
-# no matter what, the sun linker fails when building host backends
-# (originally due to multiple version of the same symbol)
-# Even OmniOS package has the bootstap disabled.  The actual error often isn't logged
-VAR_OPSYS[sunos]=	CONFIGURE_ARGS=--disable-bootstrap
-			CONFIGURE_ARGS=--with-gnu-as
+VAR_OPSYS[sunos]=	CONFIGURE_ARGS=--with-gnu-as
 			CONFIGURE_ARGS=--with-as={{LOCALBASE}}/bin/as
 			CONFIGURE_ARGS=--without-gnu-ld
 			CONFIGURE_ARGS=--with-libiconv-prefix={{WRKDIR}}/fake
