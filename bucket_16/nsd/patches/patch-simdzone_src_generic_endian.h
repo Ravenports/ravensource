@@ -1,4 +1,4 @@
---- simdzone/src/generic/endian.h.orig	2025-09-03 08:20:24 UTC
+--- simdzone/src/generic/endian.h.orig	2025-12-04 10:17:03 UTC
 +++ simdzone/src/generic/endian.h
 @@ -77,6 +77,8 @@
  #define le32toh(x) OSSwapLittleToHostInt32(x)
