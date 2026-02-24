@@ -6,7 +6,7 @@ void JS::TraceEdge<JSObject*>(JSTracer*, JS::Heap<JSObject*>*, char const*)
 void js::UnsafeTraceManuallyBarrieredEdge<JSObject*>(JSTracer*, JSObject**, char const*)
 void js::UnsafeTraceManuallyBarrieredEdge<JS::Value>(JSTracer*, JS::Value*, char const*)
 
---- ../../config/gcc_hidden.h.orig	2026-01-06 21:09:41 UTC
+--- ../../config/gcc_hidden.h.orig	2026-02-13 16:59:05 UTC
 +++ ../../config/gcc_hidden.h
 @@ -3,4 +3,4 @@
   * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
