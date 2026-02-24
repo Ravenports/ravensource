@@ -36,3 +36,6 @@ MAKE_ARGS=		NO_PYTHON=yes
 			INSTALL_PROGRAM="{{INSTALL_PROGRAM}}"
 			INSTALL_LIB="{{INSTALL_LIB}}"
 SOVERSION=		${PORTVERSION}
+
+pre-configure-sunos:
+	${REINPLACE_CMD} -e 's|-Wl,--version-script=..LIBFDT_version.||' ${WRKSRC}/Makefile
