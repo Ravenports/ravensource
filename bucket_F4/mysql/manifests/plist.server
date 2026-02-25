@@ -1,8 +1,6 @@
 @sample etc/mysql/my.cnf.sample
 @sample etc/mysql/mysqlrouter.conf.sample
 %%ONLY-LINUX%%lib/mysql/plugin/auth_socket.so
-%%ONLY-SUNOS%%@smf lib/svc/manifest/%%SMF_NAME%%.xml
-%%ONLY-SUNOS%%lib/svc/method/mysql_command.sh
 %%ONLY-SUNOS%%share/mysql/solaris/postinstall-solaris
 %%RPCGEN%%lib/mysql/plugin/group_replication.so
 bin/comp_err
@@ -260,6 +258,8 @@ share/mysql/spanish/errmsg.sys
 share/mysql/swedish/errmsg.sys
 share/mysql/ukrainian/errmsg.sys
 @dir var/lib/mysqlrouter
-@dir(mysql,mysql,0750) %%MY_SECDIR%%
-@dir(mysql,mysql,0750) %%MY_TMPDIR%%
-@dir(mysql,mysql,0750) etc/mysql/keyring
+@dir(mysql,mysql,750) %%MY_DBDIR%%
+@dir(mysql,mysql,750) %%MY_LOGDIR%%
+@dir(mysql,mysql,750) %%MY_SECDIR%%
+@dir(mysql,mysql,750) %%MY_TMPDIR%%
+@dir(mysql,mysql,750) etc/mysql/keyring

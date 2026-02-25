@@ -1,13 +1,14 @@
 DEF[PORTVERSION]=	EXTRACT_VERSION(MYSQL_innovation_VERSION)
 DEF[MYSQL_RELEASE]=	${PORTVERSION:R}
-DEF[MY_DBDIR]=		/var/db/mysql
-DEF[MY_SECDIR]=		/var/db/mysql_secure
-DEF[MY_TMPDIR]=		/var/db/mysql_tmpdir
+DEF[MY_DBDIR]=		var/db/mysql
+DEF[MY_SECDIR]=		var/db/mysql_secure
+DEF[MY_TMPDIR]=		var/db/mysql_tmpdir
+DEF[MY_LOGDIR]=		var/log/mysql
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		mysql
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		3
 KEYWORDS=		databases
 VARIANTS=		std
 SDESC[std]=		Multithreaded SQL database (server)
@@ -56,12 +57,13 @@ EXRUN[client]=		libedit:primary:std
 
 B_DEPS[linux]=		patchelf:primary:std
 
-USES=			cpe bison cmake perl:run shebangfix zstd zlib smf
+USES=			cpe bison cmake perl:run shebangfix zstd zlib smf:server
 			lz4 execinfo ssl:openssl30 pkgconfig
 			c++:server,client cclibs:server,client
 CPE_VENDOR=		oracle
 CPE_PRODUCT=		mysql
 SMF_NAME=		mysql
+SMF_METHODS=		mysql_command.sh
 DISTNAME=		mysql-${PORTVERSION}
 SHEBANG_FILES=		scripts/*.pl
 CMAKE_BUILD_TYPE=	Release
@@ -78,9 +80,13 @@ CMAKE_ARGS=		-DINSTALL_PKGCONFIGDIR="{{LOCALBASE}}/lib/pkgconfig"
 			-DINSTALL_MYSQLTESTDIR="share/mysql/tests"
 			-DINSTALL_PLUGINDIR="lib/mysql/plugin"
 			-DINSTALL_SBINDIR="libexec"
-			-DINSTALL_SECURE_FILE_PRIVDIR="${MY_SECDIR}"
+			-DINSTALL_SECURE_FILE_PRIVDIR="{{PREFIX}}/${MY_SECDIR}"
 			-DINSTALL_SHAREDIR="share"
 			-DINSTALL_SUPPORTFILESDIR="share/mysql"
+			-DINSTALL_LAYOUT=STANDALONE
+			-DINSTALL_LOGDIR_ERROR=${MY_LOGDIR}
+			-DINSTALL_LOGDIR_BIN=${MY_LOGDIR}
+			-DINSTALL_LOGDIR_SLOW=${MY_LOGDIR}
 			-DRPATH_OPTION_PC=" -Wl,-rpath,{{PREFIX}}/lib/mysql"
 			-DMYSQL_KEYRINGDIR="etc/mysql/keyring"
 			-DWITH_BOOST="{{WRKSRC}}/boost"
@@ -101,14 +107,16 @@ SUB_FILES=		my.cnf.sample
 			manifest.xml
 			mysql_command.sh
 			messages-server.ucl
-SUB_LIST=		MY_DBDIR=${MY_DBDIR}
-			MY_SECDIR=${MY_SECDIR}
-			MY_TMPDIR=${MY_TMPDIR}
+SUB_LIST=		MY_DBDIR={{PREFIX}}/${MY_DBDIR}
+			MY_SECDIR={{PREFIX}}/${MY_SECDIR}
+			MY_TMPDIR={{PREFIX}}/${MY_TMPDIR}
+			MY_LOGDIR={{PREFIX}}/${MY_LOGDIR}
 			OPSYS="{{OPSYS}}"
 			SMF_METHOD_SCRIPT=mysql_command.sh
 PLIST_SUB=		MY_DBDIR=${MY_DBDIR}
 			MY_SECDIR=${MY_SECDIR}
 			MY_TMPDIR=${MY_TMPDIR}
+			MY_LOGDIR=${MY_LOGDIR}
 			RPCGEN=
 RC_SUBR=		mysql-server:server
 USERS=			mysql
@@ -166,9 +174,11 @@ pre-configure:
 		${WRKSRC}/router/src/CMakeLists.txt
 
 post-install:
-	${MKDIR} ${STAGEDIR}${PREFIX}/etc/mysql/keyring \
-		${STAGEDIR}${MY_SECDIR} \
-		${STAGEDIR}${MY_TMPDIR}
+	${MKDIR} ${STAGEDIR}${PREFIX}/etc/mysql/keyring
+	${MKDIR} ${STAGEDIR}${PREFIX}/${MY_DBDIR}
+	${MKDIR} ${STAGEDIR}${PREFIX}/${MY_SECDIR}
+	${MKDIR} ${STAGEDIR}${PREFIX}/${MY_TMPDIR}
+	${MKDIR} ${STAGEDIR}${PREFIX}/${MY_LOGDIR}
 	${INSTALL_DATA} ${WRKDIR}/my.cnf.sample \
 		${STAGEDIR}${ETCDIR}/my.cnf.sample
 	${MV} ${STAGEDIR}${PREFIX}/share/doc/mysql/sample_mysqlrouter.conf \
@@ -192,6 +202,3 @@ post-install:
 		$$1 != "mysqld_safe" && $$1 != "mysqldumpslow" && \
 		$$1 != "mysqld_multi") print}'); \
 	(cd ${STAGEDIR}${PREFIX}/bin && ${STRIP_CMD} $$list)
-
-post-install-sunos:
-	${INSTALL_SCRIPT} ${WRKDIR}/mysql_command.sh ${STAGEDIR}${PREFIX}/${SMF_METHOD_DIR}/
