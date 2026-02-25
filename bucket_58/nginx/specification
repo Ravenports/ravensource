@@ -194,7 +194,7 @@ GROUPS=			{{WWWGRP}}
 USERGROUP_SPKG=		primary
 RC_SUBR=		nginx:primary
 
-USES=			cpe ssl zlib pcre smf
+USES=			cpe ssl zlib pcre smf:primary
 CPE_VENDOR=		nginx
 CPE_PRODUCT=		nginx
 SMF_NAME=		nginx
@@ -389,7 +389,3 @@ post-install:
 		>>${STAGEDIR}${PREFIX}/etc/nginx/nginx.conf-dist
 	${INSTALL_MAN} ${WRKSRC}/objs/nginx.8 \
 		${STAGEDIR}${MAN8PREFIX}/man/man8
-
-post-install-sunos:
-	# There are no SMF method scripts
-	${RMDIR} ${STAGEDIR}${PREFIX}/${SMF_METHOD_DIR}
