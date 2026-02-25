@@ -1,6 +1,5 @@
-DEF[PORTVERSION]=	0.16.3
+DEF[PORTVERSION]=	0.16.4
 DEF[SOVERSION]=		${PORTVERSION}
-# Remove cmake minimum argument on next release
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libid3tag
@@ -28,12 +27,12 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		audio/libid3tag
 
+BUILD_DEPENDS=		gperf:primary:std
+
 USES=			cpe cmake pkgconfig zlib
 CPE_VENDOR=		libid3tag_project
 SOVERSION=		${SOVERSION}
 DISTNAME=		libid3tag
-
-CMAKE_ARGS=		-DCMAKE_POLICY_VERSION_MINIMUM=3.5
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libid3tag.so
