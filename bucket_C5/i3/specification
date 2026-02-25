@@ -36,6 +36,8 @@ RUN_DEPENDS=		perl-IPC-Run:single:perl_default
 			perl-Try-Tiny:single:perl_default
 			perl-AnyEvent-I3:single:perl_default
 
+C_USES[sunos]=		iconv
+
 USES=			meson perl zlib gettext:build fontconfig:build
 GNOME_COMPONENTS=	cairo pango
 XORG_COMPONENTS=	xcb
@@ -47,6 +49,8 @@ XORG_COMPONENTS=	xcb
 INSTALL_TARGET=		install-strip
 
 VAR_OPSYS[linux]=	CFLAGS=-DHAVE_strndup=1
+VAR_OPSYS[sunos]=	CFLAGS=-D__EXTENSIONS__
+			LDFLAGS=-lsocket
 
 post-install:
 	${INSTALL_DATA} ${WRKSRC}/man/*.1 ${STAGEDIR}${MANPREFIX}/man/man1/
