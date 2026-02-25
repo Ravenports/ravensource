@@ -3,20 +3,23 @@ puremagic
 =========
 
 puremagic is a pure python module that will identify a file based off
-it's magic numbers.
-
-|CoverageStatus| |License| |PyPi|
+its magic numbers. It has zero runtime dependencies and serves as a
+lightweight, cross-platform alternative to python-magic/libmagic.
 
 It is designed to be minimalistic and inherently cross platform
-compatible. It is also designed to be a stand in for python-magic, it
-incorporates the functions from\_file(filename[, mime]) and
-from\_string(string[, mime]) however the magic\_file() and
-magic\_string() are more powerful and will also display confidence and
+compatible. It is also designed to be a stand in for python-magic. It
+implements the functions :code:`from_file(filename[, mime])` and
+:code:`from_string(string[, mime])` however the :code:`magic_file()` and
+:code:`magic_string()` are more powerful and will also display confidence
+and
 duplicate matches.
 
-It does NOT try to match files off non-magic string. In other words it
-will not search for a string within a certain window of bytes like
-others might.
+Starting with version 2.0, puremagic includes a **deep scan** system
+that performs content-aware analysis beyond simple magic number matching.
+This improves accuracy for formats like Office documents, text files,
+CSV, MP3, Python source, JSON, HDF5, email, and many scientific formats.
+Deep scan is enabled by default and can be disabled by setting the
+environment variable :code:`PUREMAGIC_DEEPSCAN=0`.
 
 Advantages over using a wrapper for 'file' or 'libmagic':
 
@@ -36,9 +39,62 @@ Disadvantages:
 Compatibility
 ~~~~~~~~~~~~~
 
--  Python 3.7+
+-  Python 3.12+
+
+For use with Python 3.7–3.11, use the 1.x release chain.
 
 Using github ci to run continuous integration tests on listed platforms.
 
-Install from pypy
+Install from PyPI
 -----------------
+
+.. code:: bash
+
+        $ pip install puremagic
+
+On linux environments, you may want to be clear you are using python3
+
+.. code:: bash
+
+        $ python3 -m pip install puremagic
+
+Usage
+-----
+
+"from_file" will return the most likely file extension. "magic_file"
+will give you every possible result it finds, as well as the confidence.
+
+.. code:: python
+
+        import puremagic
+
+        filename = "test/resources/images/test.gif"
+
+        ext = puremagic.from_file(filename)
+        # '.gif'
+
+        puremagic.magic_file(filename)
+        # [['.gif', 'image/gif', 'Graphics interchange format file
+(GIF87a)', 0.7],
+        #  ['.gif', '', 'GIF file', 0.5]]
+
+With "magic_file" it gives each match, highest confidence first:
+
+-  possible extension(s)
+-  mime type
+-  description
+-  confidence (All headers have to perfectly match to make the list,
+   however this orders it by longest header, therefore most precise,
+   first)
+
+If you already have a file open, or raw byte string, you could also use:
+
+* from_string
+* from_stream
+* magic_string
+* magic_stream
+
+.. code:: python
+
+        with open(r"test\resources\video\test.mp4", "rb") as file:
+            print(puremagic.magic_stream(file))
