@@ -5,7 +5,7 @@ $PYTHON_CACHE = "/var/cache/python";
 $PYTHON_CACHE_JSON = $PYTHON_CACHE . "/json";
 $PYTHON_CACHE_ETAG = $PYTHON_CACHE . "/etag";
 $PYTHON_CACHE_DIST = $PYTHON_CACHE . "/distfiles";
-$PYTHONEXE = "/raven/bin/python3.12";
+$PYTHONEXE = "/raven/bin/python3.13";
 $EXTS    = array("tgz" => ".tar.gz",
                  "zip" => ".zip",
                  "tbz" => ".tar.bz2",

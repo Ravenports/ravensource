@@ -3,7 +3,7 @@
 # Requires php82 with openssl and posix extensions
 # if arguments are given, they are used as the toplevel ports,
 # overriding the master top-level ports list
-# Also requires: python 3.12
+# Also requires: python 3.13
 #                python-setuptools-scm
 #                python-setuptools-git
 #                python-setuptools-rust
