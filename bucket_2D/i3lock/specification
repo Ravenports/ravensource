@@ -36,3 +36,6 @@ USES=			meson pkgconfig zlib:build
 XORG_COMPONENTS=	xcb-util xcb-util-keysyms xcb-util-image
 			x11 xcb xt xext xcb-util-xrm xkbfile
 GNOME_COMPONENTS=	cairo
+
+VAR_OPSYS[sunos]=	CFLAGS=-D__EXTENSIONS__
+			CFLAGS=-Du_int32_t=uint32_t
