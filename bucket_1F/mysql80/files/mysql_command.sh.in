@@ -11,11 +11,11 @@ ulimit -n 10240
 
 case "$1" in
 start)
-	%%PREFIX%%/bin/mysqld_safe -U =mysql \
+	%%PREFIX%%/bin/mysqld_safe --user=mysql \
 		--basedir=%%PREFIX%% \
 		--datadir=%%MY_DBDIR%% \
 		--pid-file=${PIDFILE} \
-		--log-error=/var/log/mysql/error.log &
+		--log-error=%%MY_LOGDIR%%/error.log &
 	;;
 stop)
 	[ -f ${PIDFILE} ] && kill `/usr/bin/head -1 ${PIDFILE}`
