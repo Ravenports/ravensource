@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.1.4
+DEF[PORTVERSION]=	2.1.5
 # ------------------------------------------------------------------------
 
 NAMEBASE=		ruby-locale
@@ -13,7 +13,7 @@ CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		RUBYGEMS/
-DISTFILE[1]=		locale-2.1.4.gem:main
+DISTFILE[1]=		locale-2.1.5.gem:main
 DIST_SUBDIR=		ruby
 
 SPKGS[v33]=		single
@@ -30,6 +30,7 @@ VOPTS[v40]=		RUBY33=OFF RUBY34=OFF RUBY40=ON
 # => UNSET
 
 # Requirements according to gem specification:
+#   fiddle (>= 0)
 #   bundler (>= 0, development)
 #   kramdown (>= 0, development)
 #   rake (>= 0, development)
@@ -41,6 +42,9 @@ DISTNAME=		locale-${PORTVERSION}
 GENERATED=		yes
 
 [RUBY33].USES_ON=			gem:v33
+[RUBY33].BUILDRUN_DEPENDS_ON=		ruby-fiddle:single:v33
 [RUBY34].USES_ON=			gem:v34
+[RUBY34].BUILDRUN_DEPENDS_ON=		ruby-fiddle:single:v34
 [RUBY40].USES_ON=			gem:v40
+[RUBY40].BUILDRUN_DEPENDS_ON=		ruby-fiddle:single:v40
 
