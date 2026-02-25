@@ -9,7 +9,6 @@
 #                python-setuptools-rust
 #                python-pip
 #                python-Cython
-#                python-legacy-cgi  (dropped since 3.13)
 
 $SCRIPTDIR = __DIR__;
 
