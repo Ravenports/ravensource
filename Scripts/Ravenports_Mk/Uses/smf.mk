@@ -2,16 +2,22 @@
 #
 # Feature:      smf
 # Usage:        USES=smf
-# Valid ARGS:   none
+# Valid ARGS:   name of subpackage
 #
 # SMF_PREFIX
 #   This is the global FMRI prefix that will be used in SMF.  The
 #   default value is "ravenports", so the general URI will be of
 #   the form "svc:/ravenports/<package>:<instance>".
+#   This is immutable.
 #
 # SMF_NAME
 #  This sets the service name part of the FMRI, and defaults to the
 #  lower-case string of NAMEBASE.
+#
+# SMF_METHODS
+#  This is a list of defined methods to install.
+#  They will be located at $WRKDIR, which means they are generated
+#  by SUB_FILES regardless if there are substitutions or not.
 
 
 .if !defined(_INCLUDE_USES_SMF_MK)
@@ -26,6 +32,7 @@ SMF_METHOD_DIR?=		${SMF_DIR}/method
 
 SMF_NAME?=			${NAMEBASE:tl}
 SMF_MANIFEST_FILE?=		${SMF_MANIFEST_DIR}/${SMF_NAME}.xml
+SMF_METHODS?=			# no defined methods
 
 PLIST_SUB+=			SMF_NAME=${SMF_NAME}
 PLIST_SUB+=			SMF_PREFIX=${SMF_PREFIX}
@@ -43,9 +50,13 @@ tag_smf:
 
 install_manifest:
 	${MKDIR} ${STAGEDIR}${PREFIX}/${SMF_MANIFEST_DIR}
-	${MKDIR} ${STAGEDIR}${PREFIX}/${SMF_METHOD_DIR}
 	${INSTALL_DATA} ${WRKDIR}/manifest.xml ${STAGEDIR}${PREFIX}/${SMF_MANIFEST_FILE}
-
+	${ECHO} "@smf ${SMF_MANIFEST_FILE}" >> ${WRKDIR}/.manifest.${smf_ARGS}.mktmp
+.for method in ${SMF_METHODS}
+	${MKDIR} ${STAGEDIR}${PREFIX}/${SMF_METHOD_DIR}
+	${INSTALL_SCRIPT} ${WRKDIR}/${method} ${STAGEDIR}${PREFIX}/${SMF_METHOD_DIR}/
+	${ECHO} "${SMF_METHOD_DIR}/${method}" >> ${WRKDIR}/.manifest.${smf_ARGS}.mktmp
+.endfor
 
 
 .endif	# _INCLUDE_USES_SMF_MK
