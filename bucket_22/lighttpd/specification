@@ -1,8 +1,9 @@
 DEF[PORTVERSION]=	1.4.82
-DEF[REVISION]=		0
-DEF[CACHEDIR]=		/var/cache/lighttpd
-DEF[LOGDIR]=		/var/log/lighttpd
-DEF[HOMEDIR]=		/var/run/lighttpd
+DEF[REVISION]=		1
+DEF[RUNDIR]=		var/run/lighttpd
+DEF[CACHEDIR]=		var/cache/lighttpd
+DEF[LOGDIR]=		var/log/lighttpd
+DEF[HOMEDIR]=		${RUNDIR}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		lighttpd
@@ -39,6 +40,7 @@ BUILD_DEPENDS=		libev:dev:std
 BUILDRUN_DEPENDS=	libev:primary:std
 
 USES=			autoreconf cpe gmake libtool pkgconfig ssl lua:5.3 zlib bz2 pcre2
+			smf:primary
 MUST_CONFIGURE=		gnu
 CFLAGS=			-std=gnu99
 CONFIGURE_ARGS=		--libdir={{PREFIX}}/lib/lighttpd
@@ -62,6 +64,7 @@ PLIST_SUB=		WWWOWN="wwwraven"
 			LOGDIR="${LOGDIR}"
 
 RC_SUBR=		lighttpd:primary
+SUB_FILES=		manifest.xml
 SUB_LIST=		REQUIRE="DAEMON {{REQUIRES}}"
 
 VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=--with-attr
@@ -84,7 +87,10 @@ VAR_OPSYS[linux]=	CONFIGURE_ARGS=--with-attr
 [GEOIP].BUILDRUN_DEPENDS_ON=		libmaxminddb:primary:std
 [GEOIP].CONFIGURE_WITH_BOTH=		maxminddb
 
-post-patch:
+pre-configure:
+	${REINPLACE_CMD} -E \
+		-e "s|/etc/lighttpd|${PREFIX}/etc/lighttpd|g" \
+		${WRKSRC}/doc/config/lighttpd.conf
 	${REINPLACE_CMD} -E \
 		-e 's|^(server.document-root.*=).*|\1 "${PREFIX}/www" + "/data"|' \
 		-e "s|/etc/lighttpd|${PREFIX}/etc/lighttpd|g" \
@@ -92,30 +98,28 @@ post-patch:
 		-e 's|^(server.network-backend.*=).*|\1 "writev"|' \
 		-e "s|^(server.username.*=).*|\1 \"wwwraven\"|" \
 		-e "s|^(server.groupname.*=).*|\1 \"wwwraven\"|" \
-		-e "s|^(var.log_root.*=).*|\1 \"${LOGDIR}\"|" \
+		-e "s|^(var.log_root.*=).*|\1 \"${PREFIX}/${LOGDIR}\"|" \
 		-e "s|^(var.server_root.*=).*|\1 \"${WWWDIR_LIGHTTPD}\"|" \
-		-e "s|^(var.home_dir.*=).*|\1 \"${HOMEDIR}\"|" \
-		-e "s|^(var.cache_dir.*=).*|\1 \"${CACHEDIR}\"|" \
-		${WRKSRC}/doc/config/lighttpd.conf
-	${REINPLACE_CMD} -e "s|/etc/lighttpd|${PREFIX}/etc/lighttpd|g" \
-		${WRKSRC}/doc/config/conf.d/auth.conf
-	${REINPLACE_CMD} -e "s|/usr/bin/python|${LOCALBASE}/bin/python2.7|" \
-		${WRKSRC}/doc/config/conf.d/cgi.conf \
-		${WRKSRC}/tests/*.conf
-	${ECHO} >> ${WRKSRC}/doc/config/lighttpd.conf
-	${ECHO} "# IPv4 listening socket" >> \
-		${WRKSRC}/doc/config/lighttpd.conf
-	${ECHO} "\$$SERVER[\"socket\"] == \"0.0.0.0:80\" { }" >> \
-		${WRKSRC}/doc/config/lighttpd.conf
+		-e "s|^(var.home_dir.*=).*|\1 \"${PREFIX}/${HOMEDIR}\"|" \
+		-e "s|^(var.state_dir.*=).*|\1 \"${PREFIX}/${RUNDIR}\"|" \
+		-e "s|^(var.cache_dir.*=).*|\1 \"${PREFIX}/${CACHEDIR}\"|" \
+		${WRKSRC}/doc/config/lighttpd.annotated.conf
+	${REINPLACE_CMD} -e "s|/usr/bin/python|${LOCALBASE}/bin/python|" \
+		${WRKSRC}/doc/config/conf.d/cgi.conf
+
+pre-configure-sunos:
+	# don't drop a pid file, SMF is used instead
+	${SED} -i'.sun' -E "s|^server.pid-file|#server.pid-file|" \
+		${WRKSRC}/doc/config/lighttpd.annotated.conf
 
 post-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/etc/lighttpd/conf.d
 	${MKDIR} ${STAGEDIR}${PREFIX}/etc/lighttpd/vhosts.d
 	${MKDIR} ${STAGEDIR}${WWWDIR_LIGHTTPD}
-	${MKDIR} -m 0700 ${STAGEDIR}${CACHEDIR}
-	${MKDIR} -m 0700 ${STAGEDIR}${HOMEDIR}/sockets
-	${MKDIR} -m 0700 ${STAGEDIR}${LOGDIR}
-.for FILE in lighttpd.conf modules.conf
+	${MKDIR} -m 0700 ${STAGEDIR}${PREFIX}/${CACHEDIR}
+	${MKDIR} -m 0700 ${STAGEDIR}${PREFIX}/${HOMEDIR}/sockets
+	${MKDIR} -m 0700 ${STAGEDIR}${PREFIX}/${LOGDIR}
+.for FILE in lighttpd.conf modules.conf lighttpd.annotated.conf
 	${INSTALL_DATA} ${WRKSRC}/doc/config/${FILE} \
 		${STAGEDIR}${PREFIX}/etc/lighttpd/${FILE}.sample
 .endfor

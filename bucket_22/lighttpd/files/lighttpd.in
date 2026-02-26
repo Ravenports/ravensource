@@ -11,7 +11,7 @@
 # lighttpd_conf (path):		Set full path to configuration file.
 #				Default is "%%ETCDIR%%/lighttpd.conf".
 # lighttpd_pidfile (path):	Set full path to pid file.
-#				Default is "/var/run/lighttpd.pid".
+#				Default is "%%PREFIX%%/var/run/lighttpd.pid".
 #
 # Add the following lines to /etc/rc.conf for multiple instances:
 # (overrides lighttpd_conf and lighttpd_pidfile from above)
@@ -21,7 +21,7 @@
 # lighttpd_${i}_conf (path):	Set full path to instance configuration file.
 #				Default is "%%ETCDIR%%/${i}.conf".
 # lighttpd_${i}_pidfile (path):	Set full path to instance pid file
-#				Default is "/var/run/lighttpd_${i}.pid".
+#				Default is "%%PREFIX%%/var/run/lighttpd_${i}.pid".
 #
 
 . /etc/rc.subr
@@ -32,7 +32,7 @@ rcvar=lighttpd_enable
 load_rc_config $name
 
 : ${lighttpd_enable="NO"}
-: ${lighttpd_pidfile="/var/run/${name}.pid"}
+: ${lighttpd_pidfile="%%PREFIX%%/var/run/${name}.pid"}
 
 # Compatibility for old configuration file location
 deprecated_conf=
@@ -95,7 +95,7 @@ lighttpd_run_instance()
 	name=${_orig_name}_${_i}
 	eval ${name}_enable=${lighttpd_enable}
 	eval lighttpd_conf=\"\${lighttpd_${_i}_conf:-"%%ETCDIR%%/${_i}.conf"}\"
-	eval lighttpd_pidfile=\"\${lighttpd_${_i}_pidfile:-"/var/run/lighttpd_${_i}.pid"}\"
+	eval lighttpd_pidfile=\"\${lighttpd_${_i}_pidfile:-"%%PREFIX%%/var/run/lighttpd_${_i}.pid"}\"
 	command_args="-f ${lighttpd_conf}"
 	pidfile=${lighttpd_pidfile}
 	required_files=${lighttpd_conf}
