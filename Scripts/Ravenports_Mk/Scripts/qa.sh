@@ -304,8 +304,8 @@ libtool() {
 }
 
 prefixvar() {
-	if [ -d "${STAGEDIR}${PREFIX}/var" ]; then
-		notice "port uses ${PREFIX}/var instead of /var"
+	if [ -d "${STAGEDIR}/var" ]; then
+		notice "port uses /var instead of ${PREFIX}/var"
 	fi
 }
 
