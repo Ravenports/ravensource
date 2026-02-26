@@ -5,6 +5,7 @@ DEF[SOMAJOR]=		${PORTVERSION:R:R}
 
 NAMEBASE=		php${SUFFIX}
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		lang www php
 VARIANTS=		std
 SDESC[std]=		PHP Hypertext Preprocessor version ${PORTVERSION:R}
@@ -33,6 +34,10 @@ LICENSE_SCHEME=		solo
 
 BUILD_DEPENDS=		autoconf:primary:std
 
+USERS=			{{WWWOWN}}
+GROUPS=			{{WWWGRP}}
+USERGROUP_SPKG=		primary
+
 SMF_NAME=		php${SUFFIX}-fpm
 SUB_FILES=		scripts-dev.ucl
 			manifest.xml
@@ -49,7 +54,7 @@ DESTDIRNAME=		INSTALL_ROOT
 
 CONFIGURE_ARGS=		--with-layout=GNU
 			--with-libxml
-			--localstatedir=/var
+			--localstatedir={{PREFIX}}/var
 			--with-config-file-scan-dir={{PREFIX}}/etc/php${SUFFIX}
 			--sysconfdir={{PREFIX}}/etc/php${SUFFIX}
 			--libdir={{PREFIX}}/lib/php${SUFFIX}
@@ -59,7 +64,10 @@ CONFIGURE_ARGS=		--with-layout=GNU
 			--program-suffix=${SUFFIX}
 CONFIGURE_ENV=		ac_cv_decimal_fp_supported="no"
 			lt_cv_path_SED="sed"
-PLIST_SUB=		SUFFIX=${SUFFIX} SOMAJOR=${SOMAJOR}
+PLIST_SUB=		SUFFIX=${SUFFIX}
+			SOMAJOR=${SOMAJOR}
+			WWWOWN="{{WWWOWN}}"
+			WWWGRP="{{WWWGRP}}"
 
 # CVE-2007-3205: Official Statement from Red Hat (06/26/2007)
 # This is not a security vulnerability: it is the expected behaviour of parse_str when used
@@ -102,7 +110,10 @@ post-patch:
 		${WRKSRC}/sapi/fpm/config.m4
 
 post-patch-FPM-ON:
-	${REINPLACE_CMD} -e "s|^;\(pid\)|\1|;s|^;\(pm\.[a-z_]*_servers\)|\1|" \
+	# enable pid file and change location
+	# override default location of error log
+	${REINPLACE_CMD} -e "s|^;pid = run/|pid = run/php${SUFFIX}/|" \
+		-e "s|^;error_log = log/|error_log = log/php${SUFFIX}/|" \
 		${WRKSRC}/sapi/fpm/php-fpm.conf.in
 
 pre-configure:
@@ -118,8 +129,9 @@ post-build:
 		>> ${WRKDIR}/php.conf
 
 post-install:
-	@${MKDIR} ${STAGEDIR}${PREFIX}/etc/php${SUFFIX}
-	${RM} -r ${STAGEDIR}/var
+	${MKDIR} ${STAGEDIR}${PREFIX}/etc/php${SUFFIX}
+	${MKDIR} ${STAGEDIR}${PREFIX}/var/run/php${SUFFIX}
+	${MKDIR} ${STAGEDIR}${PREFIX}/var/log/php${SUFFIX}
 	${RM} -r ${STAGEDIR}${PREFIX}/include/php${SUFFIX}/include
 	${INSTALL_DATA} ${WRKSRC}/php.ini-development \
 		${WRKSRC}/php.ini-production \
