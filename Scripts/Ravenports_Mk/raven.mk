@@ -1256,6 +1256,8 @@ MAKE_ENV+=		ADA_PROJECT_PATH="${LOCALBASE}/share/gpr"\
 			SSL_VARIANT="${SSL_VARIANT}"
 
 CONFIGURE_ENV+=		ADA_PROJECT_PATH="${LOCALBASE}/share/gpr"\
+			XML_CATALOG_FILES="${LOCALBASE}/share/xml/catalog" \
+			SGML_CATALOG_FILES="${LOCALBASE}/share/sgml/docbook/catalog" \
 			F77="gfortran" \
 			FC="gfortran" \
 			HOME="${HOME}" \
