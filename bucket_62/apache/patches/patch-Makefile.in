@@ -1,0 +1,34 @@
+--- Makefile.in.orig	2025-07-07 10:18:22 UTC
++++ Makefile.in
+@@ -32,12 +32,9 @@ include $(top_srcdir)/build/program.mk
+ install-conf:
+ 	@echo Installing configuration files
+ 	@$(MKINSTALLDIRS) $(DESTDIR)$(sysconfdir) $(DESTDIR)$(sysconfdir)/extra
+-	@$(MKINSTALLDIRS) $(DESTDIR)$(sysconfdir)/original/extra
+ 	@cd $(top_srcdir)/docs/conf; \
+ 	for i in mime.types magic; do \
+-	    if test ! -f $(DESTDIR)$(sysconfdir)/$$i; then \
+-	        $(INSTALL_DATA) $$i $(DESTDIR)$(sysconfdir); \
+-	    fi; \
++	    $(INSTALL_DATA) $$i $(DESTDIR)$(sysconfdir)/$${i}.sample; \
+ 	done; \
+ 	for j in $(top_srcdir)/docs/conf $(top_builddir)/docs/conf ; do \
+ 	    cd $$j ; \
+@@ -108,15 +105,12 @@ install-conf:
+ 	    				-e 's#@@SSLPort@@#$(SSLPORT)#g' \
+ 	    				< $$i; \
+ 	    		fi \
+-	    	) > $(DESTDIR)$(sysconfdir)/original/$$i; \
+-	    	chmod 0644 $(DESTDIR)$(sysconfdir)/original/$$i; \
++	    	) > $(DESTDIR)$(sysconfdir)/$${i}.sample; \
++	    	chmod 0644 $(DESTDIR)$(sysconfdir)/$${i}.sample; \
+ 	    	file=$$i; \
+ 	    	if [ "$$i" = "httpd.conf" ]; then \
+ 	    		file=`echo $$i|sed s/.*.conf/$(PROGRAM_NAME).conf/`; \
+ 	    	fi; \
+-	    	if test ! -f $(DESTDIR)$(sysconfdir)/$$file; then \
+-	    		$(INSTALL_DATA) $(DESTDIR)$(sysconfdir)/original/$$i $(DESTDIR)$(sysconfdir)/$$file; \
+-	    	fi; \
+ 	    	fi; \
+ 	    done ; \
+ 	done ; \

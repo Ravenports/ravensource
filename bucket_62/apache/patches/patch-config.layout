@@ -6,8 +6,8 @@
  
 +# Ravenports Layout
 +<Layout Ravenports>
-+  prefix:        /raven
-+  localstatedir: /var/rav-apache
++  prefix:        %%PREFIX%%
++  localstatedir: %%PREFIX%%/var
 +  exec_prefix:   ${prefix}
 +  bindir:        ${exec_prefix}/bin
 +  sbindir:       ${exec_prefix}/sbin
@@ -21,11 +21,11 @@
 +  iconsdir:      ${datadir}/icons
 +  htdocsdir:     ${datadir}/data
 +  cgidir:        ${datadir}/cgi-bin
++  proxycachedir: ${datadir}/proxy
 +  manualdir:     ${prefix}/share/doc/apache
 +  includedir:    ${prefix}/include/apache
-+  runtimedir:    ${localstatedir}/run
-+  logfiledir:    ${localstatedir}/log
-+  proxycachedir: ${datadir}/proxy
++  runtimedir:    %%PREFIX%%/var/run/httpd
++  logfiledir:    %%PREFIX%%/var/log/httpd
 +</Layout>
 +
  # Debian layout

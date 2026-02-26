@@ -1,8 +1,11 @@
 DEF[PORTVERSION]=	2.4.66
+DEF[WWW_LOGDIR]=	var/log/httpd
+DEF[WWW_RUNDIR]=	var/run/httpd
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		apache
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		www
 VARIANTS=		std
 SDESC[std]=		Secure, efficient and extensible HTTP server
@@ -46,14 +49,15 @@ BUILDRUN_DEPENDS=	apr1:primary:std
 			libnghttp2:primary:std
 			gdbm:primary:std
 
-USERS=			wwwraven
-GROUPS=			wwwraven
+USERS=			{{WWWOWN}}
+GROUPS=			{{WWWGRP}}
 USERGROUP_SPKG=		primary
 
 RC_SUBR=		apache:primary
+SUB_FILES=		manifest.xml
 
 USES=			autoreconf cpe iconv libtool ssl perl:run zlib
-			expat pcre bdb
+			expat pcre bdb smf:primary
 GNOME_COMPONENTS=	libxml2
 CPE_VENDOR=		apache
 CPE_PRODUCT=		http_server
@@ -196,6 +200,11 @@ CONFIGURE_ENV=		LOCALBASE="{{LOCALBASE}}"
 			CONFIG_SHELL="{{SH}}"
 MAKE_ENV=		EXPR_COMPAT="yes"
 			INSTALL_MAN="{{INSTALL_MAN}}"
+PLIST_SUB=		WWWOWN={{WWWOWN}}
+			WWWGRP={{WWWGRP}}
+			LOGDIR=${WWW_LOGDIR}
+			RUNDIR=${WWW_RUNDIR}
+
 VAR_OPSYS[dragonfly]=	CONFIGURE_ARGS=--enable-proxy-fdpass=shared
 VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=--enable-proxy-fdpass=shared
 VAR_OPSYS[midnightbsd]=	CONFIGURE_ARGS=--enable-proxy-fdpass=shared
@@ -210,9 +219,11 @@ VAR_OPSYS[linux]=	CONFIGURE_ARGS=--enable-proxy-fdpass=shared
 [MPM_EVENT].DESCRIPTION=		Build thread-safe polling web server
 [MPM_EVENT].CONFIGURE_ARGS_ON=		--with-mpm=event
 
+pre-configure:
+	${REINPLACE_CMD} -e "s|%%PREFIX%%|${PREFIX}|g" ${WRKSRC}/config.layout
+
 post-install:
 	${FIND} ${STAGEDIR}${STD_DOCDIR} -type d -empty -delete
-	${FIND} ${STAGEDIR}/var -type d -empty -delete
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/libexec/apache/*.so
 .for binary in ab htdbm htdigest htpasswd httxt2dbm logresolve
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/${binary}
