@@ -1,8 +1,13 @@
 DEF[PORTVERSION]=	2.4.16
+DEF[LOGDIR]=		var/log/cups
+DEF[SPOOLDIR]=		var/spool/cups
+DEF[STATEDIR]=		var/run/cups
+DEF[CACHEDIR]=		var/cache/cups
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		cups
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		print
 VARIANTS=		std
 SDESC[std]=		Common UNIX Printing System
@@ -44,7 +49,7 @@ EXRUN[tools]=		primary
 			libpaper:primary:std
 			dbus:primary:std
 
-USES=			cpe gmake iconv pkgconfig
+USES=			cpe gmake iconv pkgconfig smf:tools
 CPE_VENDOR=		openprinting
 DESTDIRNAME=		DSTROOT
 MUST_CONFIGURE=		gnu
@@ -60,12 +65,18 @@ CONFIGURE_ARGS=		--enable-libpaper
 			--with-rcdir=no
 			--with-optim=" "
 			--with-pam-module="unix"
+			--localstatedir={{PREFIX}}/var
 CONFIGURE_ENV=		ac_cv_path_JAVA=
 			ac_cv_path_PERL=
 			ac_cv_path_PHPCGI=
 			ac_cv_path_PHP=
 			ac_cv_path_PYTHON=
 			ac_cv_header_resolv_h=yes
+SUB_FILES=		manifest.xml
+PLIST_SUB=		LOGDIR=${LOGDIR}
+			SPOOLDIR=${SPOOLDIR}
+			STATEDIR=${STATEDIR}
+			CACHEDIR=${CACHEDIR}
 
 VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=--with-system-groups=wheel
 VAR_OPSYS[dragonfly]=	CONFIGURE_ARGS=--with-system-groups=wheel
@@ -114,4 +125,3 @@ post-install:
 		${STAGEDIR}${STD_EXAMPLESDIR}
 	${RMDIR} ${STAGEDIR}${PREFIX}/share/cups/examples
 	${RM} ${STAGEDIR}${PREFIX}/etc/cups/*.conf
-	${MKDIR} /var/spool/cups /var/cache/cups
