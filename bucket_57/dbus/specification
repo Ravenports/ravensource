@@ -1,10 +1,12 @@
 DEF[PORTVERSION]=	1.16.2
 DEF[SOVERSION]=		3.38.3
+DEF[SVC_RUNDIR]=	var/run/dbus
+DEF[SVC_LIBDIR]=	var/lib/dbus
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		dbus
 VERSION=		${PORTVERSION}
-REVISION=		4
+REVISION=		5
 KEYWORDS=		devel
 VARIANTS=		std
 SDESC[std]=		Message bus system for IPC communication
@@ -42,6 +44,7 @@ MESON_ARGS=		-Dselinux=disabled
 			-Dsystemd=disabled
 			-Dtest_socket_dir="{{WRKDIR}}"
 			-Ddbus_user=dbusmsg
+			--localstatedir="{{PREFIX}}/var"
 SHEBANG_FILES=		tools/GetAllMatchRules.py
 CPE_VENDOR=		freedesktop
 
@@ -52,7 +55,10 @@ USERGROUP_SPKG=		primary
 
 PLIST_SUB=		VERSION="1.0"
 			GROUPS={{GROUPS}}
+			USERS={{USERS}}
 			DTDDIR=share/xml/dbus-1
+			RUNDIR=${SVC_RUNDIR}
+			LIBDIR=${SVC_LIBDIR}
 SUB_FILES=		catalog catalog.xml
 SUB_LIST=		DTDDIR={{PREFIX}}/share/xml/dbus-1
 SOVERSION=		${SOVERSION}
