@@ -3,7 +3,7 @@ DEF[PORTVERSION]=	2.53.0
 
 NAMEBASE=		git
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		devel net
 VARIANTS=		std
 SDESC[std]=		Distributed version control system
@@ -51,6 +51,8 @@ EXRUN[gui]=		gettext:primary:std
 USES=			cpe autoreconf gmake iconv ssl zlib shebangfix
 			curl pcre expat python:build perl:build
 			gettext:build tcl:tk,build
+			smf:primary
+SMF_NAME=		git-daemon
 INSTALL_REQ_TOOLCHAIN=	yes
 BUILD_TARGET=		all strip
 MUST_CONFIGURE=		gnu
@@ -79,6 +81,7 @@ SHEBANG_FILES=		*.perl
 
 RC_SUBR=		git_daemon:primary
 SUB_FILES=		messages-primary.ucl
+			manifest.xml
 
 pre-configure:
 	${REINPLACE_CMD} -e "s,/usr/bin/perl,${PERL}," \
@@ -97,6 +100,10 @@ post-install:
 	# Strip got missed
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/scalar
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/libexec/git-core/scalar
+
+	# git daemon support
+	${MKDIR} ${STAGEDIR}${PREFIX}/srv/git
+	${MKDIR} ${STAGEDIR}${PREFIX}/var/run/gitd
 
 	# p4 support
 	${INSTALL_SCRIPT} ${WRKSRC}/git-p4.py ${STAGEDIR}${PREFIX}/bin/
