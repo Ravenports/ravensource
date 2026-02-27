@@ -37,13 +37,14 @@ BUILDRUN_DEPENDS=	libltdl:primary:std
 			icu:primary:std
 			unixODBC:primary:std
 EXRUN[client]=		openssl30:primary:std
+EXRUN[server]=		client
 
 USERS=			${LDAP_USER}
 GROUPS=			${LDAP_GROUP}
 USERGROUP_SPKG=		server
 
 USES=			cpe gmake libtool ssl:openssl30 mbsdfix
-
+			smf:server
 INSTALL_REQ_TOOLCHAIN=	yes
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-modules
@@ -71,6 +72,7 @@ RC_SUBR=		slapd:server
 SUB_FILES=		messages-client.ucl
 			messages-server.ucl
 			scripts-server.ucl
+			manifest.xml
 SUB_LIST=		LDAP_USER=${LDAP_USER}
 			LDAP_GROUP=${LDAP_GROUP}
 			LDAP_RUN_DIR=${LDAP_RUN_DIR}
@@ -83,8 +85,6 @@ PLIST_SUB=		OPENLDAP_MAJOR=${PORTVERSION:R}
 SOVERSION=		${SOVERSION}
 
 post-patch:
-	${REINPLACE_CMD} -e 's|%LOCALSTATEDIR%/run/|${LDAP_RUN_DIR}/|g' \
-		${SED_MODULES} ${WRKSRC}/servers/slapd/slapd.conf
 	${REINPLACE_CMD} -e 's|^OPT =.*|OPT = ${CFLAGS}|g' \
 		-e 's|^CC =.*|CC = ${CC}|g' \
 		${SED_MODULES} ${WRKSRC}/contrib/slapd-modules/*/Makefile \
@@ -112,8 +112,11 @@ post-install:
 	cd ${STAGEDIR}${PREFIX}/etc/openldap &&\
 		${MV} slapd.ldif.default slapd.ldif.sample &&\
 		${MV} slapd.conf.default slapd.conf.sample
-	# remove provided slapd.conf
+	# fix permissions
+	${CHMOD} 644 ${STAGEDIR}${PREFIX}/etc/openldap/slapd.*.sample
+	# remove future-generated files
 	${RM} ${STAGEDIR}${PREFIX}/etc/openldap/slapd.conf
+	${RM} ${STAGEDIR}${PREFIX}/etc/openldap/slapd.ldif
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/ldap*
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/sbin/slap*
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/libexec/openldap/*.so
