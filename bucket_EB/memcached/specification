@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	1.6.40
 
 NAMEBASE=		memcached
 VERSION=		${PORTVERSION}
+REVISION=		2
 KEYWORDS=		databases
 VARIANTS=		std
 SDESC[std]=		Distributed memory object caching system
@@ -32,7 +33,11 @@ BUILDRUN_DEPENDS=	libevent:primary:std
 
 RC_SUBR=		memcached:primary
 
-USES=			cpe shebangfix
+USERS=			memcache
+GROUPS=			memcache
+USERGROUP_SPKG=		primary
+
+USES=			cpe shebangfix smf:primary
 SHEBANG_FILES=		scripts/memcached-tool
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-libevent={{LOCALBASE}}
@@ -41,11 +46,18 @@ CONFIGURE_ARGS=		--with-libevent={{LOCALBASE}}
 			--enable-sasl
 			--enable-docs
 			--disable-werror
+			--localstatedir={{PREFIX}}/var
+SUB_FILES=		manifest.xml
+SUB_LIST=		USER={{USERS}}
+			GROUP={{GROUPS}}
+PLIST_SUB=		OWN={{USERS}}
+			GRP={{GROUPS}}
 
 VAR_ARCH[x86_64]=	CONFIGURE_ARGS=--enable-64bit
 VAR_ARCH[aarch64]=	CONFIGURE_ARGS=--enable-64bit
 
 post-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/var/run/memcached
 	${INSTALL_SCRIPT} ${WRKSRC}/scripts/memcached-tool \
 		${STAGEDIR}${PREFIX}/bin
 	# docs
