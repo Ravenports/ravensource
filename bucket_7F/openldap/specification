@@ -2,13 +2,14 @@ DEF[PORTVERSION]=	2.6.12
 DEF[SOVERSION]=		2.0.200
 DEF[LDAP_USER]=		ldap
 DEF[LDAP_GROUP]=	ldap
-DEF[LDAP_RUN_DIR]=	/var/run/openldap
-DEF[DATABASE_DIR]=	/var/db/openldap-data
+DEF[LDAP_RUN_DIR]=	var/run/openldap
+DEF[DATABASE_DIR]=	var/db/openldap-data
 DEF[SED_MODULES]=	-e 's/\(moduleload[     ]*back_[a-z]*\)\.la/\1/' -e 's/\# *\(modulepath\)/\1/' -e 's/\# *\(moduleload[         ]*back_bdb\)/\1/'
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		openldap
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		net databases
 VARIANTS=		std
 SDESC[std]=		Lightweight Directory Access Protocol server
@@ -58,7 +59,7 @@ CONFIGURE_ARGS=		--enable-modules
 			--enable-crypt
 			--with-threads=posix
 			--with-tls=openssl
-			--localstatedir=${DATABASE_DIR:H}
+			--localstatedir={{PREFIX}}/var
 			--disable-seqmod
 			--disable-bdb
 			--disable-hdb
@@ -92,10 +93,10 @@ post-patch:
 		${CONFIGURE_WRKSRC}/${CONFIGURE_SCRIPT}
 
 pre-install:
-	${MKDIR} ${STAGEDIR}${DATABASE_DIR}
+	${MKDIR} ${STAGEDIR}${PREFIX}/${DATABASE_DIR}
+	${MKDIR} ${STAGEDIR}${PREFIX}/${LDAP_RUN_DIR}
 
 post-install:
-	${MKDIR} ${STAGEDIR}${LDAP_RUN_DIR}
 	${MKDIR} ${STAGEDIR}${PREFIX}/libexec/openldap
 	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
 	${INSTALL_DATA} ${WRKSRC}/CHANGES ${STAGEDIR}${STD_DOCDIR}
@@ -111,8 +112,6 @@ post-install:
 	cd ${STAGEDIR}${PREFIX}/etc/openldap &&\
 		${MV} slapd.ldif.default slapd.ldif.sample &&\
 		${MV} slapd.conf.default slapd.conf.sample
-	# remove /var/db/run directory
-	${RM} -r ${STAGEDIR}/var/db/run
 	# remove provided slapd.conf
 	${RM} ${STAGEDIR}${PREFIX}/etc/openldap/slapd.conf
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/ldap*
