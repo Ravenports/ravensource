@@ -1,0 +1,33 @@
+#!/bin/sh
+
+. /lib/svc/share/smf_include.sh
+
+PIDFILE=%%PREFIX%%/var/run/dbus/pid
+DEMON=%%PREFIX%%/bin/dbus-daemon
+
+if [ ! -x "${DEMON}" ]; then
+	echo "${DEMON} not found or not executable"
+	exit $SMF_EXIT_ERR_FATAL
+fi
+
+case "$1" in
+'start')
+	if [ -f "${PIDFILE}" ]; then
+	   rm -f "${PIDFILE}"
+	fi
+
+	${DEMON} --system
+	err=$?
+
+	if [ $err -ne 0 ]; then
+		echo "dbus failed to start: error $err"
+		exit $SMF_EXIT_ERR_FATAL
+	fi
+	;;
+*)
+        echo "Usage: $0 { start }"
+	exit $SMF_EXIT_ERR_FATAL
+        ;;
+esac
+
+exit $SMF_EXIT_OK

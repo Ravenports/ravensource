@@ -36,6 +36,7 @@ BUILD_DEPENDS=		minixmlto:single:std
 RUN_DEPENDS=		xmlcatmgr:primary:std
 
 USES=			cpe meson expat python:build shebangfix
+			smf:primary
 GNOME_COMPONENTS=	glib
 XORG_COMPONENTS=	ice sm x11
 MESON_ARGS=		-Dselinux=disabled
@@ -60,7 +61,10 @@ PLIST_SUB=		VERSION="1.0"
 			RUNDIR=${SVC_RUNDIR}
 			LIBDIR=${SVC_LIBDIR}
 SUB_FILES=		catalog catalog.xml
+			manifest.xml
+			dbus_start.sh
 SUB_LIST=		DTDDIR={{PREFIX}}/share/xml/dbus-1
+SMF_METHODS=		dbus_start.sh
 SOVERSION=		${SOVERSION}
 
 VAR_OPSYS[sunos]=	CONFIGURE_ARGS=-Depoll=disabled

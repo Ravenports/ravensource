@@ -1,0 +1,33 @@
+post-install-lua: [{
+     args: ""
+     code: <<EOS
+--  Standalone directories are created after these scripts are run.
+--  So this directory has to be created twice.  Once for the uuidgen command
+--  and the standalone creation which sets the ownership and permissions.
+local libdir  = pkg.prefixed_path("var/lib/dbus")
+local uuidgen = pkg.prefixed_path("bin/dbus-uuidgen")
+local st = pkg.stat("/bin/mkdir")
+if st then
+   pkg.exec({"/bin/mkdir", "-p", libdir})
+   pkg.exec({uuidgen, "--ensure"})
+else
+   st = pkg.stat("/usr/bin/mkdir")
+   if st then
+      pkg.exec({"/usr/bin/mkdir", "-p", libdir})
+      pkg.exec({uuidgen, "--ensure"})
+   else
+      pkg.print_msg("Unable to locate mkdir program, so machine-id won't get created")
+   end
+end
+EOS
+}]
+pre-deinstall-lua: [{
+     args: ""
+     code: <<EOS
+local macid = pkg.prefixed_path("var/lib/dbus/machine-id")
+local st = pkg.stat(macid)
+if st then
+   os.remove(macid)
+end
+EOS
+}]

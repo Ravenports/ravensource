@@ -1,7 +1,5 @@
 #!/bin/sh
 #
-# $FreeBSD: head/devel/dbus/files/dbus.in 431498 2017-01-14 22:48:49Z tijl $
-#
 # PROVIDE: dbus
 # REQUIRE: DAEMON ldconfig
 #
@@ -20,13 +18,7 @@ rcvar=dbus_enable
 command="%%PREFIX%%/bin/dbus-daemon"
 pidfile="%%PREFIX%%/var/run/dbus/pid"
 
-start_precmd="dbus_prestart"
 stop_postcmd="dbus_poststop"
-
-dbus_prestart()
-{
-    %%PREFIX%%/bin/dbus-uuidgen --ensure
-}
 
 dbus_poststop()
 {
