@@ -33,7 +33,7 @@ load_rc_config "${name}"
 : ${nsd_config:=%%ETCDIR%%/nsd.conf}
 
 # Set PID file
-_pidprefix=/var/run/${name}
+_pidprefix=%%PREFIX%%/var/run/${name}
 _cfgpidfile=$(%%PREFIX%%/sbin/nsd-checkconf -f -o pidfile ${nsd_config})
 pidfile=${_cfgpidfile:-${_pidprefix}.pid}
 

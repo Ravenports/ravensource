@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	4.14.1
 
 NAMEBASE=		nsd
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		dns
 VARIANTS=		std
 SDESC[std]=		Fast and lean authoritative DNS Name Server
@@ -30,20 +31,22 @@ BUILD_DEPENDS=		libevent:dev:std
 BUILDRUN_DEPENDS=	libevent:primary:std
 
 RC_SUBR=		nsd:primary
+
 USERS=			nsd
 GROUPS=			nsd
 USERGROUP_SPKG=		primary
 
 USES=			cpe ssl pkgconfig
+			smf:primary
 CPE_VENDOR=		nlnetlabs
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-libevent="{{LOCALBASE}}"
 			--with-user=nsd
 			--with-configdir="{{PREFIX}}/etc/nsd"
-			--localstatedir=/var
+			--localstatedir="{{PREFIX}}/var"
 			--with-dbfile=/var/db/nsd/nsd.db
 			--with-ssl="{{OPENSSLBASE}}"
-			--with-pidfile=/var/run/nsd/nsd.pid
+			--with-pidfile="{{PREFIX}}/var/run/nsd/nsd.pid"
 			--enable-largefile
 			--enable-nsec3
 			--enable-minimal-responses
@@ -53,6 +56,7 @@ CONFIGURE_ARGS=		--with-libevent="{{LOCALBASE}}"
 			--enable-zone-stats
 			--enable-ipv6
 			--disable-dnstap
+SUB_FILES=		manifest.xml
 
 VAR_OPSYS[netbsd]=	CPPFLAGS=-D_NETBSD_SOURCE
 
@@ -69,7 +73,7 @@ VAR_OPSYS[netbsd]=	CPPFLAGS=-D_NETBSD_SOURCE
 [PACKED].CONFIGURE_ENABLE_BOTH=		packed
 
 post-install:
-	${MKDIR} ${STAGEDIR}/var/db/nsd
+	${MKDIR} ${STAGEDIR}${PREFIX}/var/db/nsd
 	${INSTALL_DATA} ${WRKSRC}/nsd.conf.sample \
 		${STAGEDIR}${PREFIX}/etc/nsd/nsd.conf.sample
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/sbin/nsd \
