@@ -50,7 +50,7 @@ eval ": \${${name}_withgroup:=dhcpd}"			# group name to run as
 
 eval ": \${${name}_chroot_enable:=\"NO\"}"		# runs chrooted?
 eval ": \${${name}_devfs_enable:=\"YES\"}"		# devfs if available?
-eval ": \${${name}_chrootdir:=/var/db/${name}}"		# directory to run in
+eval ": \${${name}_chrootdir:=%%PREFIX%%/var/db/${name}}"		# directory to run in
 # dhcpd_includedir=""			# directory for included config files
 
 safe_run ()	# rc command [args...]
@@ -75,8 +75,14 @@ precious ()	# entry...
 
 	_rc=0
 	for _entry; do
-		# do nothing if /dev, /var/run or /var/db
-		echo ${_entry} | egrep -q '^//*(dev|var//*(run|db))?/*$' || _rc=1
+		case "${_entry}" in
+			# Matches /dev, %%PREFIX%%/var/run, %%PREFIX/var/db prefix
+			/dev*|%%PREFIX%%/var/run*|%%PREFIX%%/var/db*)
+				;;
+			*)
+				_rc=1
+				;;
+		esac
 	done
 	debug precious: "$@" rc=${_rc}
 	return ${_rc}
@@ -514,9 +520,8 @@ load_rc_config ${name}
 __dhcpd_uninstall="NO"			# internal use only
 __dhcpd_devdir=/dev			# devices directory
 __dhcpd_etcdir=/etc			# etc directory
-__dhcpd_piddir=/var/run			# pid file directory
-__dhcpd_leasesdir=/var/db		# leases file directory
-#__dhcpd_chrootdir=/var/db/${name}	# root directory
+__dhcpd_piddir=%%PREFIX%%/var/run/dhcpd			# pid file directory
+__dhcpd_leasesdir=%%PREFIX%%/var/db/dhcpd		# leases file directory
 
 dhcpd_check
 dhcpd_rcvar

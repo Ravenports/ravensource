@@ -1,12 +1,23 @@
-post-install: [{
+post-install-lua: [{
      args: ""
      code: <<EOS
-[ -f /var/run/dhclient.leases ] || touch /var/run/dhclient.leases
+local lease = pkg.prefixed_path("var/run/dhcpd/dhclient.leases")
+local st = pkg.stat(lease)
+if not st then
+   local f = io.open(lease, "w")
+   if f then
+      f:close()
+   end
+end
 EOS
 }]
-post-deinstall: [{
+pre-deinstall-lua: [{
      args: ""
      code: <<EOS
-[ -s /var/run/dhclient.leases ] || rm -f /var/run/dhclient.leases
+local lease = pkg.prefixed_path("var/run/dhcpd/dhclient.leases")
+local st = pkg.stat(lease)
+if st and st.size == 0 then
+   os.remove(lease)
+end
 EOS
 }]

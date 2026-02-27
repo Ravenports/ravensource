@@ -3,11 +3,13 @@ DEF[CPE_UPDATE]=	p1
 DEF[DISTRIBUTION]=	${CPE_VERSION}-${CPE_UPDATE:UC}
 DEF[PORTVERSION]=	${DISTRIBUTION:S/-/./}
 DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
+DEF[RUNDIR]=		var/run/dhcpd
+DEF[DATADIR]=		var/db/dhcpd
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		dhcp
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		net
 VARIANTS=		std
 SDESC[std]=		ISC DHCP Server and Relay Agent
@@ -59,10 +61,22 @@ CPPFLAGS=		-D_PATH_DHCLIENT_SCRIPT='\"{{PREFIX}}/sbin/dhclient-script\"'
 			-D_PATH_DHCPD_CONF='\"{{PREFIX}}/etc/dhcpd.conf\"'
 CFLAGS=			-fPIC
 LDFLAGS=		-lssl
-CONFIGURE_ARGS=		--localstatedir=/var
+CONFIGURE_ARGS=		--localstatedir={{PREFIX}}/var
+			--with-srv-pid-file={{PREFIX}}/${RUNDIR}/dhcpd.pid
+			--with-cli-pid-file={{PREFIX}}/${RUNDIR}/dhclient.pid
+			--with-relay-pid-file={{PREFIX}}/${RUNDIR}/dhcrelay.pid
+			--with-srv-lease-file={{PREFIX}}/${DATADIR}/dhcpd.leases
+			--with-srv6-pid-file={{PREFIX}}/${RUNDIR}/dhcpd6.pid
+			--with-cli6-pid-file={{PREFIX}}/${RUNDIR}/dhclient6.pid
+			--with-relay6-pid-file={{PREFIX}}/${RUNDIR}/dhcrelay6.pid
+			--with-srv6-lease-file={{PREFIX}}/${DATADIR}/dhcpd6.leases
 			--enable-paranoia
 			--enable-early-chroot
 			--enable-dhcpv6
+PLIST_SUB=		OWN={{USERS}}
+			GRP={{GROUPS}}
+			RUNDIR=${RUNDIR}
+			DATADIR=${DATADIR}
 
 VAR_OPSYS[sunos]=	CPPFLAGS=-D_XOPEN_SOURCE=600
 			CPPFLAGS=-D__EXTENSIONS__
@@ -102,6 +116,8 @@ post-patch-BIND_SYMBOLS-ON:
 		${WRKSRC}/bind/Makefile.in
 
 post-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/${RUNDIR}
+	${MKDIR} ${STAGEDIR}${PREFIX}/${DATADIR}
 	${INSTALL_SCRIPT} ${WRKSRC}/client/scripts/freebsd \
 		${STAGEDIR}${PREFIX}/sbin/dhclient-script
 
