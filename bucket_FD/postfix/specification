@@ -7,6 +7,7 @@ DEF[DYN_EXT]=		pcre mysql pgsql sqlite ldap cdb lmdb
 
 NAMEBASE=		postfix
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		mail
 VARIANTS=		std
 SDESC[std]=		Fast and robust mail transfer agent
@@ -78,12 +79,11 @@ QMAKE_ARGS=		-DDEF_CONFIG_DIR=\\\"{{PREFIX}}/etc/postfix\\\"
 			-DDEF_MANPAGE_DIR=\\\"{{MANPREFIX}}/man\\\"
 			-DDEF_README_DIR=\\\"{{STD_DOCDIR}}\\\"
 			-DDEF_HTML_DIR=\\\"{{STD_DOCSIR}}\\\"
-			-DDEF_QUEUE_DIR=\\\"/var/spool/postfix\\\"
-			-DDEF_DATA_DIR=\\\"/var/db/postfix\\\"
+			-DDEF_QUEUE_DIR=\\\"{{PREFIX}}/var/spool/postfix\\\"
+			-DDEF_DATA_DIR=\\\"{{PREFIX}}/var/db/postfix\\\"
 			-DDEF_MAIL_OWNER=\\\"postfix\\\"
 			-DDEF_SGID_GROUP=\\\"maildrop\\\"
 			-DDEF_SERVER_SASL_TYPE=\\\"dovecot\\\"
-			-I{{LOCALBASE}}/include
 			-I{{LOCALBASE}}/include/mysql
 			-I{{OPENSSLINC}}
 			-DHAS_CDB
@@ -98,6 +98,10 @@ QMAKE_ARGS=		-DDEF_CONFIG_DIR=\\\"{{PREFIX}}/etc/postfix\\\"
 			-DUSE_SASL_AUTH
 			-DNO_DB
 			-Wmissing-prototypes -Wformat -Wno-comment
+
+VAR_OPSYS[sunos]=	CFLAGS=-D_LARGEFILE_SOURCE
+			CFLAGS=-D_FILE_OFFSET_BITS=64
+			MAKEFILE_LINE=ANYTHING=pie=no
 
 post-extract:
 	${AWK} '/^Eclipse Public License/,/additional accurate notices/' \
@@ -117,14 +121,17 @@ post-patch:
 .endfor
 	${ECHO_CMD} '<HTML><BODY>See <A HREF="header_checks.5.html">header_checks.5.html</A></BODY></HTML>' \
 		> ${WRKSRC}/html/body_checks.5.html
+
+pre-configure:
 	${REINPLACE_CMD} -E -e 's!^(#define DEF_SGID_GROUP[^"]+)"postdrop"$$!\1"maildrop"!' \
 		${WRKSRC}/src/global/mail_params.h
 	${FIND} ${WRKSRC}/README_FILES ${WRKSRC}/conf ${WRKSRC}/man \
 		-type f -a ! \( -name INSTALL -o -name aliases \) -print0| \
-		${XARGS} -0 ${REINPLACE_CMD} -E -e '\
+		${XARGS} -0 ${SED} -i'.docfix' -E -e '\
 		s!^PATH=.*!PATH=/bin:/sbin:/usr/bin:/usr/sbin:${PREFIX}/bin:${PREFIX}/sbin!;\
+		s!/var!${PREFIX}/var!g;\
 		s!(_directory = )/usr/!\1${PREFIX}/!g;\
-		s!^(data_directory = /var/)lib/!\1db/!g;\
+		/data_directory =/ s!/lib/!/db/!g;\
 		s!^\#(mynetworks_style = host)!\1!g;\
 		s!^(sendmail_path =)!\1 ${PREFIX}/sbin/sendmail!g;\
 		s!^(newaliases_path =)!\1 ${PREFIX}/bin/newaliases!g;\
@@ -146,6 +153,7 @@ do-configure:
 	shlib_directory="${SHLIBDIR}" \
 	dynamicmaps=yes \
 	${DYN_AUXLIBS} \
+	${ANYTHING} \
 	AUXLIBS="${AUXLIBS}" && \
 	${ECHO_CMD} "all: default" >> Makefile)
 
