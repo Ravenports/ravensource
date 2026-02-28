@@ -69,9 +69,12 @@ USERGROUP_SPKG=		server
 
 USES=			bison gmake perl:build tcl:build ssl python:build zlib
 			gettext cpe
+			smf:server
 GNOME_COMPONENTS=	libxml2
 CPE_VENDOR=		postgresql
 CPE_PRODUCT=		postgresql
+SMF_NAME=		postgresql
+SMF_METHODS=		pg_command.sh
 DISTNAME=		postgresql-${PORTVERSION}
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-libraries="{{PREFIX}}/lib"
@@ -95,10 +98,21 @@ INSTALL_TARGET=		install-world
 LDFLAGS=		-lpthread
 RC_SUBR=		postgresql:server
 PLIST_SUB=		PGVER=${PORTVERSION:R}
+			OWN=${PG_USER}
+			GRP=${PG_GROUP}
 SUB_FILES=		502.pgsql
+			manifest.xml
+			pg_command.sh
+# Messages needed for Linux, but requires systemd support (?)
+			messages-server-midnightbsd.ucl
+			messages-server-dragonfly.ucl
+			messages-server-freebsd.ucl
+			messages-server-netbsd.ucl
+			messages-server-sunos.ucl
 SUB_LIST=		PG_GROUP=${PG_GROUP}
 			PG_USER=${PG_USER}
 			PG_VERSION=${PORTVERSION:R}
+			MSCRIPT="{{PREFIX}}/lib/svc/method/pg_command.sh"
 
 VAR_OPSYS[sunos]=	CONFIGURE_ENV=ac_cv_search_bind_textdomain_codeset=-lintl
 			CONFIGURE_ARGS=--with-template=solaris
@@ -128,6 +142,8 @@ post-patch-sunos:
 
 post-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/etc/periodic/daily
+	${MKDIR} ${STAGEDIR}${PREFIX}/var/log/postgresql
+	${MKDIR} ${STAGEDIR}${PREFIX}/pgsql/data
 	${INSTALL_SCRIPT} ${WRKDIR}/502.pgsql \
 		${STAGEDIR}${PREFIX}/etc/periodic/daily
 	# install-world doesn't strip (and install-strip won't install enough)

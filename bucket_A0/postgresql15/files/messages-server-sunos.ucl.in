@@ -1,0 +1,53 @@
+server_sunos: {
+  type: install
+  message: <<EOM
+For procedural languages and postgresql functions, please note that
+you might have to update them when updating the server.
+
+The port is set up to use autovacuum for new databases, but you might
+also want to vacuum and perhaps backup your database regularly.
+
+If you plan to access your PostgreSQL server using ODBC, please
+consider running the SQL script %%PREFIX%%/share/postgresql/odbc.sql
+to get the functions required for ODBC compliance.
+
+======================================================================
+
+Before the service can be started using
+
+  svcadm enable postgresql
+
+the database must be initialized.  To do that, run this command:
+
+  sudo -u pgsql initdb -D /raven/pgsql/data
+
+NB. Ravenports's PostgreSQL logs in two places.
+    Internal messages from the database engine are sent to syslog by
+    default.  See %%PREFIX%%/pgsql/data/postgresql.conf to update that
+    setting.  All server output (stdin, stdout) is logged to the
+    %%PREFIX/var/log/postgresql directory in a log with a name starting
+    with "server".
+
+NB. If you're not using a checksumming filesystem like ZFS, you might
+    wish to enable data checksumming. It can be enabled during
+    the initdb phase, by adding the "--data-checksums" flag to
+    the postgresql_initdb_flags rcvar. Otherwise you can enable it later by
+    using pg_checksums.  Check the initdb(1) manpage for more info
+    and make sure you understand the performance implications.
+
+======================================================================
+
+SECURITY ADVICE
+
+If upgrading from a version 15.x < 15.7:
+A security vulnerability was found in the system views pg_stats_ext
+and pg_stats_ext_exprs, potentially allowing authenticated database
+users to see data they shouldn't.  If this is of concern in your
+installation, run the SQL script %%DATADIR%%/fix-CVE-2024-4317.sql
+for each of your databases. For details, see
+https://www.postgresql.org/support/security/CVE-2024-4317/
+
+
+EOM
+}
+
