@@ -1,19 +1,20 @@
 #!/bin/sh
 
 # PROVIDE: postgresql
-# REQUIRE: DAEMON
+# REQUIRE: DAEMON mountlate
 # KEYWORD: shutdown
 #
 # Add the following line to /etc/rc.conf to enable PostgreSQL:
 #
 #  postgresql_enable="YES"
 #  # optional
-#  postgresql_data="/var/db/%%PG_USER%%/data%%PG_VERSION%%"
+#  postgresql_data="%%PREFIX%%/pgsql/data%%PG_VERSION%%"
 #  postgresql_flags="-w -s -m fast"
 #  postgresql_initdb_flags="--encoding=utf-8 --lc-collate=C"
 #  # leave empty to use the login class set in in /etc/passwd:
 #  postgresql_login_class="my_custom_login_class"
 #  postgresql_profiles=""
+#  postgresql_log="%%PREFIX%%/var/log/postgresql/server%%PG_VERSION%%.log"   (override with "/dev/null" ?)
 #
 # See %%PREFIX%%/share/doc/postgresql/README-server for more info
 #
@@ -38,10 +39,11 @@ eval _pgdir="~${postgresql_user}/data%%PG_VERSION%%"
 : ${postgresql_login_class:=""}
 : ${postgresql_initdb_flags:="--encoding=utf-8 --lc-collate=C"}
 : ${postgresql_svcj_options:="net_basic"}
+: ${postgresql_log:="%%PREFIX%%/var/log/postgresql/server%%PG_VERSION%%.log"}
 
 name=postgresql
 rcvar=postgresql_enable
-extra_commands="reload initdb"
+extra_commands="reload initdb promote logrotate"
 
 start_cmd="postgresql_command start"
 stop_cmd="postgresql_command stop"
@@ -49,6 +51,7 @@ restart_cmd="postgresql_command restart"
 reload_cmd="postgresql_command reload"
 status_cmd="postgresql_command status"
 promote_cmd="postgresql_command promote"
+logrotate_cmd="postgresql_command logrotate"
 
 initdb_cmd="postgresql_initdb"
 
@@ -104,10 +107,11 @@ else
 	fi
 fi
 
-command_args="-D ${postgresql_data} ${postgresql_flags}"
+command_args="-l ${postgresql_log} -D ${postgresql_data} ${postgresql_flags}"
 
 postgresql_command()
 {
+    echo "${rc_arg} ${name}"
     ${su_cmd} ${postgresql_login_class:+-c ${postgresql_login_class}} \
 	    -l ${postgresql_user} \
 	    -c "exec ${command} ${command_args} ${rc_arg}"
@@ -115,6 +119,7 @@ postgresql_command()
 
 postgresql_initdb()
 {
+    echo "${rc_arg} ${name}"
     ${su_cmd} ${postgresql_login_class:+-c ${postgresql_login_class}} \
 	    -l ${postgresql_user} \
 	    -c "exec %%PREFIX%%/bin/initdb ${postgresql_initdb_flags} -D ${postgresql_data} -U ${postgresql_user}"
