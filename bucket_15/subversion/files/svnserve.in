@@ -12,9 +12,9 @@
 #  svnserve_enable="YES"
 #  # optional
 #  svnserve_flags="-d --listen-port=3690 --listen-host 0.0.0.0"
-#  svnserve_data="/data/repositories"
-#  svnserve_user="svn"
-#  svnserve_group="svn"
+#  svnserve_data="%%PREFIX%%/%%SVN_REPOS%%"
+#  svnserve_user="%%SVN_USR%%"
+#  svnserve_group="%%SVN_GRP%%"
 #
 # Note:
 # svnserve bind per default at the ipv6 address!
@@ -26,14 +26,15 @@
 # Set some defaults
 svnserve_enable=${svnserve_enable:-"NO"}
 svnserve_flags=${svnserve_flags:-"-d --listen-port=3690 --listen-host 0.0.0.0"}
-svnserve_data=${svnserve_data:-"/home/svn/repos"}
-svnserve_user=${svnserve_user:-"svn"}
-svnserve_group=${svnserve_group:-"svn"}
+svnserve_data=${svnserve_data:-"%%PREFIX%%/%%SVN_REPOS%%"}
+svnserve_user=${svnserve_user:-"%%SVN_USR%%"}
+svnserve_group=${svnserve_group:-"%%SVN_GRP%%"}
+svnserve_pidfile=${svnserve_pidfile:-"%%PREFIX%%/var/run/subversion/svnserve.pid"}
 
 name=svnserve
 rcvar=svnserve_enable
 load_rc_config $name
 command=%%PREFIX%%/bin/svnserve
-command_args="-r ${svnserve_data}"
+command_args="-r ${svnserve_data} --pid-file=${svnserve_pidfile}"
 
 run_rc_command "$1"
