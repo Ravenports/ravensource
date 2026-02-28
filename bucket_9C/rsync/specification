@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	3.4.1
 
 NAMEBASE=		rsync
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		net
 VARIANTS=		std
 SDESC[std]=		Network file distribution/synchronization utility
@@ -20,12 +21,20 @@ SPKGS[std]=		set primary man
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
+LICENSE=		GPLv3+:primary
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/rsync.h
+LICENSE_SCHEME=		solo
+
 FPC_EQUIVALENT=		net/rsync
 
 BUILD_DEPENDS=		xxhash:dev:std
 BUILDRUN_DEPENDS=	xxhash:primary:std
 
 USES=			cpe iconv zstd zlib lz4 shebangfix ssl rootca:primary
+			smf:primary
 SHEBANG_FILES=		support/rrsync
 CPE_VENDOR=		samba
 CPE_PRODUCT=		rsync
@@ -43,6 +52,8 @@ INSTALL_TARGET=		install-strip
 TEST_TARGET=		check
 
 RC_SUBR=		rsyncd:primary
+SUB_FILES=		rsyncd.conf.sample
+			manifest.xml
 SUB_LIST=		NAME=rsyncd
 
 post-patch:
@@ -53,6 +64,8 @@ post-patch:
 		${WRKSRC}/support/rrsync
 
 post-install:
-	@${MKDIR} ${STAGEDIR}${PREFIX}/etc/rsync
-	${INSTALL_DATA} ${FILESDIR}/rsyncd.conf.sample ${STAGEDIR}${PREFIX}/etc/rsync
+	# A rare use of /raven/var/run, rsync drop priv to "nobody", so no "rsyncd" user
+	${MKDIR} ${STAGEDIR}${PREFIX}/var/run
+	${MKDIR} ${STAGEDIR}${PREFIX}/etc/rsync
+	${INSTALL_DATA} ${WRKDIR}/rsyncd.conf.sample ${STAGEDIR}${PREFIX}/etc/rsync
 	${INSTALL_SCRIPT} ${WRKSRC}/support/rrsync ${STAGEDIR}${PREFIX}/sbin
