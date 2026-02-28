@@ -1,4 +1,4 @@
---- src/sthreads.c.orig	2025-06-19 13:33:35 UTC
+--- src/sthreads.c.orig	2025-11-14 12:52:51 UTC
 +++ src/sthreads.c
 @@ -725,7 +725,7 @@ NOEXPORT size_t stack_num(size_t stack_s
      verify_area=(stack_size-STACK_RESERVE)&~(sizeof(TL)-1);

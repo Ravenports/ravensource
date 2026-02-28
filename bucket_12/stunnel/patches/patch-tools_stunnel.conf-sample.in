@@ -5,7 +5,7 @@
  
  ; It is recommended to drop root privileges if stunnel is started by root
 -;setuid = nobody
-+;setuid = stunnel 
++;setuid = stunnel
  ;setgid = @DEFAULT_GROUP@
  
  ; PID file is created inside the chroot jail (if enabled)
@@ -29,3 +29,39 @@
  
  ; **************************************************************************
  ; * Service definitions (remove all services for inetd mode)               *
+@@ -54,7 +54,7 @@
+ 
+ ; ***************************************** Example TLS client mode services
+ 
+-; The following examples use /etc/ssl/certs, which is the common location
++; The following examples use @prefix@/share/certs, which is the common location
+ ; of a hashed directory containing trusted CA certificates.  This is not
+ ; a hardcoded path of the stunnel package, as it is not related to the
+ ; stunnel configuration in @sysconfdir@/stunnel/.
+@@ -64,7 +64,7 @@ client = yes
+ accept = 127.0.0.1:110
+ connect = pop.gmail.com:995
+ verifyChain = yes
+-CApath = /etc/ssl/certs
++CApath = @prefix@/share/certs
+ checkHost = pop.gmail.com
+ OCSPaia = yes
+ 
+@@ -73,7 +73,7 @@ client = yes
+ accept = 127.0.0.1:143
+ connect = imap.gmail.com:993
+ verifyChain = yes
+-CApath = /etc/ssl/certs
++CApath = @prefix@/share/certs
+ checkHost = imap.gmail.com
+ OCSPaia = yes
+ 
+@@ -82,7 +82,7 @@ client = yes
+ accept = 127.0.0.1:25
+ connect = smtp.gmail.com:465
+ verifyChain = yes
+-CApath = /etc/ssl/certs
++CApath = @prefix@/share/certs
+ checkHost = smtp.gmail.com
+ OCSPaia = yes
+ 

@@ -1,4 +1,4 @@
---- src/log.c.orig	2025-03-05 14:52:14 UTC
+--- src/log.c.orig	2025-11-14 12:52:51 UTC
 +++ src/log.c
 @@ -198,7 +198,7 @@ void s_vlog(int level, const char *forma
          len=vsnprintf(NULL, 0, format, ap);

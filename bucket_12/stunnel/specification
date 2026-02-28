@@ -3,7 +3,7 @@ DEF[PORTVERSION]=	5.77
 
 NAMEBASE=		stunnel
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		security
 VARIANTS=		std
 SDESC[std]=		SSL/TLS offloading and load-balancing proxy
@@ -33,6 +33,7 @@ GROUPS=			stunnel
 USERGROUP_SPKG=		primary
 
 USES=			cpe libtool perl:build shebangfix ssl:openssl30
+			smf:primary
 SHEBANG_FILES=		src/stunnel3.in
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--localstatedir={{PREFIX}}/var
@@ -44,6 +45,8 @@ CONFIGURE_ARGS=		--localstatedir={{PREFIX}}/var
 			--enable-ipv6
 LDFLAGS=		-lpthread
 INSTALL_TARGET=		install-strip
+SUB_FILES=		manifest.xml
+			pid.conf
 SUB_LIST=		STUNNEL_USER={{USERS}}
 			STUNNEL_GROUP={{GROUPS}}
 			STUNNEL_PIDFILE={{PREFIX}}/var/run/stunnel/stunnel.pid
@@ -68,7 +71,7 @@ post-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/var/log/stunnel
 	${MKDIR} ${STAGEDIR}${PREFIX}/var/run/stunnel
 	${MKDIR} ${STAGEDIR}${PREFIX}/etc/stunnel/conf.d/
-	${INSTALL_DATA} ${FILESDIR}/pid.conf \
+	${INSTALL_DATA} ${WRKDIR}/pid.conf \
 		${STAGEDIR}${PREFIX}/etc/stunnel/conf.d/00-pid.conf
 	${RM} ${STAGEDIR}${STD_DOCDIR}/COPYING.md
 	${RM} ${STAGEDIR}${STD_DOCDIR}/COPYRIGHT.md
