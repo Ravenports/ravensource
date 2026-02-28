@@ -1,0 +1,31 @@
+--- tools/stunnel.conf-sample.in.orig	2025-01-31 12:36:54 UTC
++++ tools/stunnel.conf-sample.in
+@@ -8,16 +8,16 @@
+ ; **************************************************************************
+ 
+ ; It is recommended to drop root privileges if stunnel is started by root
+-;setuid = nobody
++;setuid = stunnel 
+ ;setgid = @DEFAULT_GROUP@
+ 
+ ; PID file is created inside the chroot jail (if enabled)
+-;pid = @localstatedir@/run/stunnel.pid
++;pid = @localstatedir@/run/stunnel/stunnel.pid
+ 
+ ; Debugging stuff (may be useful for troubleshooting)
+ ;foreground = yes
+ ;debug = info
+-;output = @localstatedir@/log/stunnel.log
++;output = @localstatedir@/log/stunnel/stunnel.log
+ 
+ ; Enable FIPS 140-2 mode if needed for compliance
+ ;fips = yes
+@@ -46,7 +46,7 @@
+ ; * Include all configuration file fragments from the specified folder     *
+ ; **************************************************************************
+ 
+-;include = @sysconfdir@/stunnel/conf.d
++include = @sysconfdir@/stunnel/conf.d
+ 
+ ; **************************************************************************
+ ; * Service definitions (remove all services for inetd mode)               *
