@@ -3,14 +3,13 @@ DEF[NAMEBASE]=		postgresql18
 DEF[SUFFIX]=		${PORTVERSION:R:S/.//}
 DEF[PG_USER]=		pgsql
 DEF[PG_GROUP]=		pgsql
-DEF[PG_UID]=		60000
-DEF[DATADIR]=		data${PORTVERSION:R}0
 DEF[CAT1]=		http://www.oasis-open.org/docbook/xml/
 DEF[CAT2]=		http://docbook.sourceforge.net/release/xsl/current/
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		${NAMEBASE}
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		databases
 VARIANTS=		std
 SDESC[std]=		Powerful, open source object-relational database
@@ -81,9 +80,12 @@ USERGROUP_SPKG=		server
 
 USES=			bison gmake perl:build tcl:build ssl python:build zlib
 			gettext cpe pkgconfig meson
+			smf:server
 GNOME_COMPONENTS=	libxml2 libxslt
 CPE_VENDOR=		postgresql
 CPE_PRODUCT=		postgresql
+SMF_NAME=		postgresql
+SMF_METHODS=		pg_command.sh
 DISTNAME=		postgresql-${PORTVERSION}
 MESON_ARGS=		-Dlibxml=enabled
 			-Dlibxslt=enabled
@@ -101,15 +103,25 @@ MESON_ARGS=		-Dlibxml=enabled
 			-Dsystemd=disabled
 			-Dextra_include_dirs={{PREFIX}}/include,{{TCL_INCLUDEDIR}}
 			-Dextra_lib_dirs={{PREFIX}}/lib
+			--localstatedir="{{PREFIX}}/var"
 INSTALL_TARGET=		install install-man
 RC_SUBR=		postgresql:server
 PLIST_SUB=		PGVER=${PORTVERSION:R}
+			OWN=${PG_USER}
+			GRP=${PG_GROUP}
 SUB_FILES=		502.pgsql
+			manifest.xml
+			pg_command.sh
+# Messages needed for Linux, but requires systemd support (?)
+			messages-server-midnightbsd.ucl
+			messages-server-dragonfly.ucl
+			messages-server-freebsd.ucl
+			messages-server-netbsd.ucl
+			messages-server-sunos.ucl
 SUB_LIST=		PG_GROUP=${PG_GROUP}
 			PG_USER=${PG_USER}
-			PG_UID=${PG_UID}
 			PG_VERSION=${PORTVERSION:R}
-			DATADIR=${DATADIR}
+			MSCRIPT="{{PREFIX}}/lib/svc/method/pg_command.sh"
 
 VAR_OPSYS[sunos]=	CONFIGURE_ARGS=-Duuid=ossp
 			CONFIGURE_ARGS=-Dc_link_args=-lintl
@@ -129,5 +141,7 @@ pre-configure:
 
 post-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/etc/periodic/daily
+	${MKDIR} ${STAGEDIR}${PREFIX}/var/log/postgresql
+	${MKDIR} ${STAGEDIR}${PREFIX}/pgsql/data
 	${INSTALL_SCRIPT} ${WRKDIR}/502.pgsql \
 		${STAGEDIR}${PREFIX}/etc/periodic/daily
