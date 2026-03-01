@@ -9,17 +9,26 @@ getproparg() {
 	svcprop -p $1 $SMF_FMRI 2>/dev/null
 }
 
+pgroup() {
+   svccfg -s "$FMRI" listpg | while read -r PG_NAME PG_TYPE _; do
+      if [ "$PG_TYPE" = "application" ]; then
+         echo "${PG_NAME}"
+      fi
+   done
+}
+
 METHOD=$1
 INSTANCE=$(echo $SMF_FMRI | sed s_.*:__)
 INSTANCE=${INSTANCE:=default}
+PROP=$(pgroup)
 
 LOGDIR="%%PREFIX%%/var/log/tinc"
 RUNDIR="%%PREFIX%%/var/run/tinc"
 LOGFILE="${LOGDIR}/tinc.${INSTANCE}.log"
 PIDFILE="${RUNDIR}/tinc.${INSTANCE}.pid"
-_USER=$(getproparg tinc/user)
-_CHROOT=$(getproparg tinc/chroot)
-_MEMLOCK=$(getproparg tinc/memlock)
+_USER=$(getproparg ${PROP}/user)
+_CHROOT=$(getproparg ${PROP}/chroot)
+_MEMLOCK=$(getproparg ${PROP}/memlock)
 
 USER=%%TINC_USR%%
 
