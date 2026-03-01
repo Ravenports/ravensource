@@ -4,6 +4,7 @@ DEF[PORTVERSION]=	0.4.9.5
 
 NAMEBASE=		tor
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		security net
 VARIANTS=		std
 SDESC[std]=		Anonymizing overlay network for TCP
@@ -46,12 +47,14 @@ CONFIGURE_ARGS=		--with-openssl-dir="{{OPENSSLBASE}}"
 			--enable-lzma
 			--enable-nss
 			--disable-systemd
+			--localstatedir={{PREFIX}}/var
 CONFIGURE_ENV=		TOR_CPPFLAGS_libevent="-I{{LOCALBASE}}/include"
 			TOR_LDFLAGS_libevent="-L{{LOCALBASE}}/lib/"
 			TOR_LIBEVENT_LIBS="-levent"
 			tor_cv_cflags__Wextra_semi=no
 SUB_LIST=		USER="{{USERS}}" GROUP="{{GROUPS}}"
-PLIST_SUB=		USER="{{USERS}}" GROUP="{{GROUPS}}"
+PLIST_SUB=		OWN="{{USERS}}"
+			GRP="{{GROUPS}}"
 
 # CVE-2017-16541 is incorrectly attributed to "tor" when the description makes
 # it's clear that it's talking about "tor_browser", and the CVE was addressed
@@ -65,11 +68,10 @@ post-patch:
 		${WRKSRC}/src/config/torrc.*.in \
 		${WRKSRC}/doc/man/tor.1.* \
 		${WRKSRC}/doc/man/tor.html.in
-	${REINPLACE_CMD} -e '/SOURCE_DATE_EPOCH/d' ${WRKSRC}/doc/asciidoc-helper.sh
 	${REINPLACE_CMD} -e "s@-ltcmalloc@${LOCALBASE}/lib/libtcmalloc.so@" \
 		${WRKSRC}/configure
 
 post-install:
-	${MKDIR} ${STAGEDIR}/var/log/tor \
-		${STAGEDIR}/var/run/tor \
-		${STAGEDIR}/var/db/tor
+	${MKDIR} ${STAGEDIR}${PREFIX}/var/log/tor
+	${MKDIR} ${STAGEDIR}${PREFIX}/var/run/tor
+	${MKDIR} ${STAGEDIR}${PREFIX}/var/db/tor
