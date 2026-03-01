@@ -12,10 +12,10 @@
 # tor_instances (str):	List of instances. Default: ""
 # tor_conf (str):	Points to your torrc file.
 #			Default: %%PREFIX%%/etc/tor/torrc
-# tor_user (str):	Tor daemon user. Default: %%USER%%
-# tor_group (str):	Tor group. Default: %%GROUP%%
-# tor_pidfile (str):	Tor pid file.  Default: /var/run/tor/tor.pid
-# tor_datadir (str):	Tor datadir.  Default: /var/db/tor
+# tor_user (str):	Tor daemon user. Default: %%TOR_USR%%
+# tor_group (str):	Tor group. Default: %%TOR_GRP%%
+# tor_pidfile (str):	Tor pid file.  Default: %%PREFIX%%/var/run/tor/tor.pid
+# tor_datadir (str):	Tor datadir.  Default: %%PREFIX%%/var/db/tor
 # tor_disable_default_instance (str):	Doesn't run the default instance.
 #			Only valid when tor_instances is used.
 #			Default: NO
@@ -36,10 +36,10 @@ load_rc_config ${name}
 : ${tor_enable="NO"}
 : ${tor_instances=""}
 : ${tor_conf="%%PREFIX%%/etc/tor/torrc"}
-: ${tor_user="%%USER%%"}
-: ${tor_group="%%GROUP%%"}
-: ${tor_pidfile="/var/run/tor/tor.pid"}
-: ${tor_datadir="/var/db/tor"}
+: ${tor_user="%%TOR_USR%%"}
+: ${tor_group="%%TOR_GRP%%"}
+: ${tor_pidfile="%%PREFIX%%/var/run/tor/tor.pid"}
+: ${tor_datadir="%%PREFIX%%/var/db/tor"}
 : ${tor_disable_default_instance="NO"}
 : ${tor_setuid="NO"}
 

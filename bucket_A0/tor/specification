@@ -39,6 +39,7 @@ RC_SUBR=		tor:primary
 
 USES=			cpe gmake pkgconfig ssl zlib zstd xz cclibs:primary
 			rootca:primary
+			smf:primary
 CPE_VENDOR=		torproject
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-openssl-dir="{{OPENSSLBASE}}"
@@ -52,7 +53,9 @@ CONFIGURE_ENV=		TOR_CPPFLAGS_libevent="-I{{LOCALBASE}}/include"
 			TOR_LDFLAGS_libevent="-L{{LOCALBASE}}/lib/"
 			TOR_LIBEVENT_LIBS="-levent"
 			tor_cv_cflags__Wextra_semi=no
-SUB_LIST=		USER="{{USERS}}" GROUP="{{GROUPS}}"
+SUB_FILES=		manifest.xml
+SUB_LIST=		TOR_USR="{{USERS}}"
+			TOR_GRP="{{GROUPS}}"
 PLIST_SUB=		OWN="{{USERS}}"
 			GRP="{{GROUPS}}"
 
