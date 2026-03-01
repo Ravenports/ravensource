@@ -4,6 +4,7 @@ DEF[SOVERSION]=		8.3.0
 
 NAMEBASE=		rrdtool
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		databases graphics
 VARIANTS=		std
 SDESC[std]=		Round Robin Database tools
@@ -33,13 +34,22 @@ BUILD_DEPENDS=		groff:primary:std
 			python-setuptools:single:python_used
 RUN_DEPENDS=		fonts-dejavu:single:std
 
+USERS=			rrdtool
+GROUPS=			rrdtool
+USERGROUP_SPKG=		primary
+
 RC_SUBR=		rrdcached:primary
+SUB_FILES=		manifest.xml
+SUB_LIST=		RD_USR={{USERS}}
+			RD_GRP={{GROUPS}}
 
 USES=			autoreconf gmake libtool pkgconfig shebangfix png
 			freetype perl python cpe zlib
+			smf:primary
 GNOME_COMPONENTS=	libxml2 glib cairo pango
 CPE_VENDOR=		rrdtool_project
 CPE_TARGET_SW=		python
+SMF_NAME=		rrdcached
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--disable-tcl
 			--enable-perl
@@ -48,6 +58,7 @@ CONFIGURE_ARGS=		--disable-tcl
 			--enable-mmap
 			--disable-nls
 			--disable-ruby
+			--localstatedir={{PREFIX}}/var
 CPPFLAGS=		-I{{LOCALBASE}}/include/freetype2
 MAKE_ARGS=		PERL_MAKE_OPTIONS='PREFIX="{{PREFIX}}"
 			INSTALLPRIVLIB="{{PREFIX}}/lib"
@@ -57,8 +68,11 @@ SHEBANG_FILES=		examples/stripes.py
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
 PLIST_SUB=		SOEXTENSION={{SOEXTENSION}}
+			OWN={{USERS}}
+			GRP={{GROUPS}}
 
 VAR_OPSYS[linux]=	MAKEFILE_LINE=SOEXTENSION=-x86_64-linux-gnu
 
 post-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/var/run/rrdtool
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/${SITE_ARCH_REL}/auto/RRDs/RRDs.so
