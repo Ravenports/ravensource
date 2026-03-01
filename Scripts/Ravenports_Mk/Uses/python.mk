@@ -180,6 +180,11 @@ PLIST_SUB+=	PYTHON_INCLUDEDIR=${PYTHON_INCLUDEDIR:S;${PREFIX}/;;} \
 
 CMAKE_ARGS+=	-DPython_ADDITIONAL_VERSIONS=${PYTHON_VER}
 
+.  if !target(post-install-module)
+post-install-module:
+	(cd ${STAGEDIR} && ${PYTHON_CMD} -m compileall -d / . ||:)
+.  endif
+
 .  if !target(setuptools-autolist)
 setuptools-autolist:
 # For now, store man pages and bin files in the dev subpackage
