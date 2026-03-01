@@ -1,0 +1,36 @@
+sunos: {
+  type: install
+  message: <<EOM
+===========================================================================
+
+This package supports multiple SMF instances.
+
+By default a 'default' instance is created.  It could have an optional
+configuration file located at %%PREFIX%%/etc/uwsgi/uwsgi-default.ini
+
+Configure using the SMF properties:
+  - socket         (default "/tmp/uwsgi-${instance}.sock"
+  - config_file    (default "%%PREFIX%%/etc/uwsgi/uwsgi-${instance}.ini"
+  - vassels_dir    (default "%%PREFIX%%/etc/uwsgi/vassals-${instance}"
+  - flags          (default "-L)
+  - emperor        (default False)  
+
+Hardcoded properties:
+  - log_file       "%%PREFIX%%/var/log/${instance}.log
+  - pid_file       "%%PREFIX%%/var/run/${instance}.pid
+
+ Review https://uwsgi-docs.readthedocs.io/en/latest/ for information on these settings
+
+ Add a example service instance:
+
+  svccfg -s uwsgi add myappserver
+  svccfg -s uwsgi:myappserver addpg srv1 application
+  svccfg -s uwsgi:myappserver setprop srv1/socket = astring: /tmp/uwsgi-srv1.sock
+  svccfg -s uwsgi:myappserver setprop srv1/config_file = astring: %%PREFIX%%/etc/uwsgi-srv1.ini
+  svccfg -s uwsgi:myappserver setprop srv1/vassals_dir = astring: %%PREFIX%%/etc/uswgi/vassals-srv1  
+  svccfg -s uwsgi:myappserver setprop srv1/flags = astring: -L
+  svccfg -s uwsgi:myappserver setprop srv1/emperor = boolean: false
+
+===========================================================================
+EOM
+}

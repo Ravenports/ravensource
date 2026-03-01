@@ -5,7 +5,7 @@ DEF[RELEASE_TAG]=	${PORTVERSION}
 
 NAMEBASE=		uwsgi
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		3
 KEYWORDS=		python www
 VARIANTS=		std
 SDESC[std]=		Fast, self-healing, application container server
@@ -43,12 +43,23 @@ RC_SUBR=		uwsgi:single
 
 USES=			cpe pkgconfig ssl zlib pcre iconv gettext
 			python:sutools
+			smf:single
 GNOME_COMPONENTS=	libxml2
 CPE_VENDOR=		unbit
+SMF_METHODS=		uwsgi_command.sh
 MAKE_ENV=		CPUCOUNT={{MAKE_JOBS_NUMBER}}
 			UWSGI_EMBED_PLUGINS=cgi
 CPPFLAGS=		-I{{OPENSSLINC}}
 LDFLAGS=		-L{{OPENSSLLIB}} -Wl,-rpath,{{OPENSSLLIB}}
+
+SUB_FILES=		messages-primary-sunos.ucl
+			uwsgi_command.sh
+			manifest.xml
+SUB_LIST=		APP_USR={{USERS}}
+			APP_GRP={{GROUPS}}
+			MSCRIPT="{{PREFIX}}/lib/svc/method/uwsgi_command.sh"
+PLIST_SUB=		OWN={{USERS}}
+			GRP={{GROUPS}}
 
 post-extract:
 	${GREP} License ${WRKSRC}/setup.py > ${WRKDIR}/TERMS
@@ -66,6 +77,7 @@ do-configure:
 do-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/var/log/uwsgi
 	${MKDIR} ${STAGEDIR}${PREFIX}/var/run/uwsgi
+	${MKDIR} ${STAGEDIR}${PREFIX}/etc/uwsgi/vassals-default
 	${MKDIR} ${STAGEDIR}${PYTHON_SITELIBDIR}
 	${INSTALL_PROGRAM} ${WRKSRC}/uwsgi ${STAGEDIR}${PREFIX}/bin/
 	${INSTALL_DATA} ${WRKSRC}/uwsgidecorators.py \

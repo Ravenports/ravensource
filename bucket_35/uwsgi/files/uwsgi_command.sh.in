@@ -1,0 +1,93 @@
+#!/bin/sh
+#
+# Init script for uwsgi (SMF)
+#
+
+. /lib/svc/share/smf_include.sh
+
+getproparg() {
+        svcprop -p $1 $SMF_FMRI 2>/dev/null
+}
+
+pgroup() {
+   svccfg -s "$FMRI" listpg | while read -r PG_NAME PG_TYPE _; do
+      if [ "$PG_TYPE" = "application" ]; then
+         echo "${PG_NAME}"
+      fi
+   done
+}
+
+METHOD=$1
+INSTANCE=$(echo $SMF_FMRI | sed s_.*:__)
+INSTANCE=${INSTANCE:=default}
+PROP=$(pgroup)
+
+LOGDIR="%%PREFIX%%/var/log/uwsgi"
+RUNDIR="%%PREFIX%%/var/run/uwsgi"
+LOGFILE="${LOGDIR}/${INSTANCE}.log"
+PIDFILE="${RUNDIR}/${INSTANCE}.pid"
+
+_FLAGS=$(getproparg ${PROP}/flags)
+_SOCKET=$(getproparg ${PROP}/socket)
+_CONFIG=$(getproparg ${PROP}/config_file)
+_VASDIR=$(getproparg ${PROP}/vassels_dir)
+_EMPEROR=$(getproparg ${PROP}/emperor)
+
+
+if [ -z "$_FLAGS" ]; then
+   _FLAGS="-L"
+fi
+
+if [ -z "$_SOCKET" ]; then
+   _SOCKET="/tmp/uwsgi-${INSTANCE}.sock"
+fi
+
+if [ -z "${_CONFIG}" ]; then
+   _CONFIG="%%PREFIX%%/etc/uwsgi/uwsgi-${INSTANCE}.ini"
+fi
+
+if [ -z "${_VASDIR}" ]; then
+   _VASDIR="%%PREFIX%%/etc/uwsgi/vassals-${INSTANCE}"
+fi
+
+if [ -z "${_EMPEROR}" ]; then
+   _EMPEROR="false"
+fi
+
+
+USR=%%APP_USR%%
+GRP=%%APP_GRP%%
+
+APP_FLAGS="-d ${LOGFILE}"
+
+if [ -f "${_CONFIG}" ]; then
+   APP_FLAGS="${APP_FLAGS} --ini ${_CONFIG}"
+fi
+
+if [ "${_EMPEROR}" = "false" ]; then
+   APP_FLAGS="${APP_FLAGS} --master  --uid ${USR} --gid ${GRP} --pidfile ${PIDFILE}"
+   APP_FLAGS="${APP_FLAGS} -s ${_SOCKET} --chmod-socket=660 --chown-socket=${USR}:${GRP}"
+else
+   APP_FLAGS="${APP_FLAGS} --emperor-pidfile ${PIDFILE} --emperor ${_VASDIR}"
+   APP_FLAGS="${APP_FLAGS} --vassals-set uid=${USR} --vassals-set gid=${GRP}"
+   APP_FLAGS="${APP_FLAGS} --vassals-set chmod-socket=660"
+   APP_FLAGS="${APP_FLAGS} --vassals-set chown-socket=${USR}:${GRP}"
+fi
+APP_FLAGS="${APP_FLAGS} ${_FLAGS}"
+
+
+case ${METHOD} in
+start)
+        %%PREFIX%%/bin/uwsgi ${APP_FLAGS}
+        ;;
+stop)
+        CTID=$(svcprop -p restarter/contract $SMF_FMRI)
+        if [ -n "$CTID" ]; then
+            pkill -INT -c $CTID
+            rm -f ${PIDFILE}
+            rm -f ${_SOCKET}
+        fi	
+        ;;
+esac
+
+exit ${SMF_EXIT_OK}
