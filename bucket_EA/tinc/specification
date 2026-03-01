@@ -34,12 +34,22 @@ USERGROUP_SPKG=		primary
 RC_SUBR=		tincd:primary
 
 USES=			cpe makeinfo ssl zlib lzo
+			smf:primary
 CPE_VENDOR=		tinc-vpn
+SMF_METHODS=		tinc_command.sh
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--localstatedir={{PREFIX}}/var
 INFO=			info:tinc
+SUB_FILES=		manifest.xml
+			tinc_command.sh
+SUB_LIST=		TINC_USR={{USERS}}
+			TINC_GRP={{GROUPS}}
+			MSCRIPT="{{PREFIX}}/lib/svc/method/tinc_command.sh"
 PLIST_SUB=		OWN={{USERS}}
 			GRP={{GROUPS}}
 
 post-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/var/run/tinc
+	${MKDIR} ${STAGEDIR}${PREFIX}/var/log/tinc
+	${MKDIR} ${STAGEDIR}${PREFIX}/etc/tinc/default/hosts
+	${INSTALL_DATA} ${FILESDIR}/tinc.conf.sample ${STAGEDIR}${PREFIX}/etc/tinc/default
