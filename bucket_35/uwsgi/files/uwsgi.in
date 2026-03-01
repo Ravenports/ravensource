@@ -23,9 +23,9 @@
 # uwsgi_vassals_dir (path):	Set the path to the vassals directory
 #				Default is %%PREFIX%%/etc/uwsgi/vassals.
 # uwsgi_logfile (path):		Set the path to the uwsgi log file
-#				Default is /var/log/uwsgi.log.
+#				Default is %%PREFIX%%/var/log/uwsgi/uwsgi.log.
 # uwsgi_pidfile (path):		Set the path to the uwsgi pid file
-#				Default is /var/run/uwsgi.pid.
+#				Default is %%PREFIX%%/var/run/uwsgi/uwsgi.pid.
 # uwsgi_uid (int):		Set the UID of the process to run with
 #				Default is uwsgi.
 # uwsgi_gid (int):		Set the GID of the process to run with
@@ -59,8 +59,8 @@ command=%%PREFIX%%/bin/uwsgi
 : ${uwsgi_socket_owner="uwsgi:www"}
 : ${uwsgi_configfile="%%PREFIX%%/etc/uwsgi/uwsgi.ini"}
 : ${uwsgi_profiles=""}
-: ${uwsgi_logfile="/var/log/${name}.log"}
-: ${uwsgi_pidfile="/var/run/${name}.pid"}
+: ${uwsgi_logfile="%%PREFIX%%/var/log/uwsgi/${name}.log"}
+: ${uwsgi_pidfile="%%PREFIX%%/var/run/uwsgi/${name}.pid"}
 : ${uwsgi_uid="uwsgi"}
 : ${uwsgi_gid="uwsgi"}
 : ${uwsgi_flags="-L"}

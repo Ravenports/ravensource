@@ -5,6 +5,7 @@ DEF[RELEASE_TAG]=	${PORTVERSION}
 
 NAMEBASE=		uwsgi
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		python www
 VARIANTS=		std
 SDESC[std]=		Fast, self-healing, application container server
@@ -63,6 +64,8 @@ do-configure:
 	# don't configure
 
 do-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/var/log/uwsgi
+	${MKDIR} ${STAGEDIR}${PREFIX}/var/run/uwsgi
 	${MKDIR} ${STAGEDIR}${PYTHON_SITELIBDIR}
 	${INSTALL_PROGRAM} ${WRKSRC}/uwsgi ${STAGEDIR}${PREFIX}/bin/
 	${INSTALL_DATA} ${WRKSRC}/uwsgidecorators.py \
