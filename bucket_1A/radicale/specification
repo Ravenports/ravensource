@@ -1,7 +1,7 @@
 # manually maintained due to server support
 # The users won't be able to install version from both pythons due to
 # common files and directories
-DEF[PORTVERSION]=	3.6.0
+DEF[PORTVERSION]=	3.6.1
 DEF[TAG]=		v${PORTVERSION}
 # ------------------------------------------------------------------------
 
@@ -14,18 +14,15 @@ HOMEPAGE=		https://radicale.org/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-# SITES[main]=		PYPI/R/Radicale
-# DISTFILE[1]=		Radicale-${PORTVERSION}.tar.gz:main
 SITES[main]=		GITHUB/Kozea:Radicale:${TAG}
 DISTFILE[1]=		generated:main
+# SITES[main]=		PYPIWHL/0f/6c/38ff9bad1e60d0311d0564d20d7b6d802e89bc5075289cec456d73feae8e
+# DISTFILE[1]=		radicale-${PORTVERSION}-py3-none-any.whl:main
 
 SPKGS[std]=		single
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
-
-# License listed at PyPI
-# GNU GPL v3
 
 LICENSE=		GPLv3+:single
 LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING.md
@@ -34,11 +31,22 @@ LICENSE_AWK=		TERMS:"Radicale WSGI application"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/radicale/app/__init__.py
 LICENSE_SCHEME=		solo
 
-# install_requires extracted from setup.py
+# Requires-Dist extracted from wheel metadata
 # defusedxml
-# passlib
+# libpass>=1.9.3
 # vobject>=0.9.6
-# python-dateutil>=2.7.3
+# pika>=1.1.0
+# requests
+# packaging
+# pytest>=7; extra == "test"
+# waitress; extra == "test"
+# bcrypt; extra == "test"
+# argon2-cffi; extra == "test"
+# bcrypt; extra == "bcrypt"
+# argon2-cffi; extra == "argon2"
+# ldap3; extra == "ldap"
+# pytest; extra == "integ-test"
+# pytest-playwright; extra == "integ-test"
 
 DISTNAME=		Radicale-${PORTVERSION}
 GENERATED=		yes
@@ -50,15 +58,18 @@ USERGROUP_SPKG=		single
 BUILDRUN_DEPENDS=	python-defusedxml:single:python_used
 			python-libpass:single:python_used
 			python-vobject:single:python_used
-			python-python-dateutil:single:python_used
 			python-pika:single:python_used
+			python-requests:single:python_used
+			python-packaging:single:python_used
 
 RC_SUBR=		radicale:single
-SUB_LIST=		USERS="radicale"
-			GROUPS="radicale"
+SUB_FILES=		manifest.xml
+SUB_LIST=		RAD_USR={{USERS}}
+			RAD_GRP={{GROUPS}}
 			PYTHON_CMD="{{PYTHON_CMD}}"
 
-USES=			cpe shebangfix python:sutools
+USES=			cpe shebangfix python:pep517
+			smf:single
 SHEBANG_FILES=		radicale.wsgi
 
 post-extract:
