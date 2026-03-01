@@ -3,7 +3,7 @@ DEF[PORTVERSION]=	1.0.36
 
 NAMEBASE=		tinc
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		net security
 VARIANTS=		std
 SDESC[std]=		Virtual Private Network (VPN) daemon
@@ -36,7 +36,10 @@ RC_SUBR=		tincd:primary
 USES=			cpe makeinfo ssl zlib lzo
 CPE_VENDOR=		tinc-vpn
 MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--localstatedir={{PREFIX}}/var
 INFO=			info:tinc
+PLIST_SUB=		OWN={{USERS}}
+			GRP={{GROUPS}}
 
 post-install:
-	${MKDIR} ${STAGEDIR}${PREFIX}/etc/tinc
+	${MKDIR} ${STAGEDIR}${PREFIX}/var/run/tinc
