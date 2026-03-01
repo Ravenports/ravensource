@@ -9,7 +9,7 @@
 #
 
 snmptrapd_enable=${snmptrapd_enable-"NO"}
-snmptrapd_flags=${snmptrapd_flags-"-p /var/run/snmptrapd.pid"}
+snmptrapd_flags=${snmptrapd_flags-"-p %%PREFIX%%/var/run/net-smnp/snmptrapd.pid"}
 
 . /etc/rc.subr
 
@@ -26,7 +26,7 @@ name=snmptrapd
 rcvar=snmptrapd_enable
 
 command=%%PREFIX%%/sbin/${name}
-pidfile=/var/run/${name}.pid
+pidfile=%%PREFIX%%/var/run/net-snmp/${name}.pid
 
 load_rc_config ${name}
 run_rc_command "$1"

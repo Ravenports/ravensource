@@ -19,7 +19,7 @@ load_rc_config snmpd
 snmpd_enable=${snmpd_enable:-"NO"}
 snmpd_flush_cache=${snmpd_flush_cache-"NO"}
 
-pidfile=${snmpd_pidfile:-"/var/run/net_snmpd.pid"}
+pidfile=${snmpd_pidfile:-"%%PREFIX%%/var/run/net-snmp/net_snmpd.pid"}
 
 command=%%PREFIX%%/sbin/${name}
 
@@ -29,7 +29,7 @@ net_snmpd_precmd () {
 	local flag conffile snmpd_conffile_set
 
 	if checkyesno snmpd_flush_cache; then
-		rm -vf /var/net-snmp/.snmp-exec-cache
+		rm -vf %%PREFIX%%/var/db/net-snmp/.snmp-exec-cache
 	fi
 
 	for flag in ${snmpd_flags}; do

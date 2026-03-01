@@ -1,7 +1,9 @@
 DEF[PORTVERSION]=	5.9.5.2
 DEF[SOVERSION]=		45.0.0
-DEF[NS_LOGFILE]=	/var/log/snmpd.log
-DEF[NS_PERSISTENTDIR]=	/var/net-snmp
+DEF[NS_RUNDIR]=		var/run/net-snmp
+DEF[NS_LOGDIR]=		var/log/net-snmp
+DEF[NS_LOGFILE]=	%{LOGDIR}/snmpd.log
+DEF[NS_PERSISTENTDIR]=	var/db/net-snmp
 DEF[MODULES]=		smux disman/event-mib mibII/mta_sendmail ucd-snmp/diskio
 DEF[NOT_MODULES]=	ucd_snmp host ucd-snmp/memory sctp-mib
 # Do we need a user-definably EXTRACT_INFO function?
@@ -11,6 +13,7 @@ DEF[NS_LOCATION]=	defaultlocation
 
 NAMEBASE=		net-snmp
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		net_mgmt
 VARIANTS=		std
 SDESC[std]=		Extensible SNMP implementation
@@ -47,16 +50,22 @@ CONFIGURE_ARGS=		--enable-shared
 			--without-kmem-usage
 			--with-openssl="{{OPENSSLBASE}}"
 			--with-default-snmp-version="3"
-			--with-logfile="${NS_LOGFILE}"
-			--with-persistent-directory="${NS_PERSISTENTDIR}"
+			--with-logfile="{{PREFIX}}/${NS_LOGFILE}"
+			--with-persistent-directory="{{PREFIX}}/${NS_PERSISTENTDIR}"
 			--with-mib-modules="${MODULES}{{OPSYS_MODS:S/,/ /}}"
 			--with-out-mib-modules="${NOT_MODULES}{{OPSYS_NOMODS:S/,/ /}}"
 			--with-sys-contact="${NS_CONTACT}"
 			--with-sys-location="${NS_LOCATION}"
+			--localstatedir={{PREFIX}}/var
 CONFIGURE_ENV=		PERLPROG="{{PERL}}"
 			SED="{{SED}}"
 INSTALL_REQ_TOOLCHAIN=	yes
 SOVERSION=		${SOVERSION}
+PLIST_SUB=		LOGDIR=${NS_LOGDIR}
+			RUNDIR=${NS_RUNDIR}
+			PERSISTENTDIR=${NS_PERSISTENTDIR}
+			%%OWN%%={{USERS}}
+			%%GROUP%%={{GROUPS}}
 
 # for gcc14
 CFLAGS=			-Wno-declaration-missing-parameter-type
@@ -90,6 +99,9 @@ pre-configure:
 	${WRKSRC}/include/net-snmp/system/midnightbsd3.h \
 
 post-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/${NS_LOGDIR}
+	${MKDIR} ${STAGEDIR}${PREFIX}/${NS_RUNDIR}
+	${MKDIR} ${STAGEDIR}${PREFIX}/${NS_PERSISTENTDIR}
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib*.so
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/sbin/*
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/[ae]*
