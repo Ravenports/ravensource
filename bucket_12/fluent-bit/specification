@@ -36,6 +36,7 @@ RC_SUBR=		fluent-bit:primary
 
 USES=			cpe cmake bison zlib gmake pkgconfig
 			ssl:openssl30 python:build cclibs:primary c++:primary
+			smf:primary
 # Don't use execinfo, keep dependencies down
 
 CPE_VENDOR=		treasuredata
@@ -49,6 +50,7 @@ CMAKE_ARGS=		-DFLB_DEBUG=Off
 			-DFLB_CONFIG_YAML=Off
 			-DFLB_HTTP_SERVER=On
 CFLAGS=			-Wno-deprecated-declarations
+SUB_FILES=		manifest.xml
 SUB_LIST=		SRV_USR={{USERS}}
 			SRV_GRP={{GROUPS}}
 PLIST_SUB=		OWN={{USERS}}
@@ -77,8 +79,8 @@ pre-configure:
 		${WRKSRC}/lib/luajit-*/src/lj_prng.c
 
 post-install:
-	$MKDIR} ${STAGEDIR}${PREFIX}/var/log/fluent-bit
-	$MKDIR} ${STAGEDIR}${PREFIX}/var/run/fluent-bit
+	${MKDIR} ${STAGEDIR}${PREFIX}/var/log/fluent-bit
+	${MKDIR} ${STAGEDIR}${PREFIX}/var/run/fluent-bit
 	${MV} ${STAGEDIR}${ETCDIR}/fluent-bit.conf \
 		${STAGEDIR}${ETCDIR}/fluent-bit.conf.sample
 	${MV} ${STAGEDIR}${ETCDIR}/parsers.conf \
