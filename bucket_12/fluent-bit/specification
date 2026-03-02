@@ -28,6 +28,10 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		sysutils/fluent-bit
 
+USERS=			fluent
+GROUPS=			fluent
+USERGROUP_SPKG=		primary
+
 RC_SUBR=		fluent-bit:primary
 
 USES=			cpe cmake bison zlib gmake pkgconfig
@@ -45,6 +49,10 @@ CMAKE_ARGS=		-DFLB_DEBUG=Off
 			-DFLB_CONFIG_YAML=Off
 			-DFLB_HTTP_SERVER=On
 CFLAGS=			-Wno-deprecated-declarations
+SUB_LIST=		SRV_USR={{USERS}}
+			SRV_GRP={{GROUPS}}
+PLIST_SUB=		OWN={{USERS}}
+			GRP={{GROUPS}}
 
 # For some reason, CMake is clearing this variable, ignoring CMakeList
 # It's only set for *BSD* so dragonfly needs
@@ -69,6 +77,8 @@ pre-configure:
 		${WRKSRC}/lib/luajit-*/src/lj_prng.c
 
 post-install:
+	$MKDIR} ${STAGEDIR}${PREFIX}/var/log/fluent-bit
+	$MKDIR} ${STAGEDIR}${PREFIX}/var/run/fluent-bit
 	${MV} ${STAGEDIR}${ETCDIR}/fluent-bit.conf \
 		${STAGEDIR}${ETCDIR}/fluent-bit.conf.sample
 	${MV} ${STAGEDIR}${ETCDIR}/parsers.conf \
