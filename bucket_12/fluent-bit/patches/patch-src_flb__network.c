@@ -1,11 +1,11 @@
---- src/flb_network.c.orig	2026-02-17 18:22:08 UTC
+--- src/flb_network.c.orig	2026-02-19 03:26:01 UTC
 +++ src/flb_network.c
 @@ -1968,7 +1968,7 @@ static int net_address_unix_socket_peer_
                                                  int output_buffer_size,
                                                  size_t *output_data_size)
  {
 -#if !defined(FLB_SYSTEM_MACOS) && !defined(FLB_SYSTEM_FREEBSD)
-+#if !defined(FLB_SYSTEM_MACOS) && !defined(FLB_SYSTEM_FREEBSD) && !defined(__DragonFly__) && !defined(__NetBSD__)
++#if !defined(FLB_SYSTEM_MACOS) && !defined(FLB_SYSTEM_FREEBSD) && !defined(__DragonFly__) && !defined(__NetBSD__) && !defined(__sun__)
      unsigned int peer_credentials_size;
      struct ucred peer_credentials;
  #endif
@@ -14,14 +14,7 @@
      }
  
 -#if !defined(FLB_SYSTEM_MACOS) && !defined(FLB_SYSTEM_FREEBSD)
-+#if !defined(FLB_SYSTEM_MACOS) && !defined(FLB_SYSTEM_FREEBSD) && !defined(__DragonFly__) && !defined(__NetBSD__)
++#if !defined(FLB_SYSTEM_MACOS) && !defined(FLB_SYSTEM_FREEBSD) && !defined(__DragonFly__) && !defined(__NetBSD__) && !defined(__sun__)
      peer_credentials_size = sizeof(struct ucred);
  
      result = getsockopt(fd,
-@@ -2344,4 +2344,4 @@ uint64_t flb_net_htonll(uint64_t value)
- #else
-     return value;
- #endif
--}
-\ No newline at end of file
-+}
