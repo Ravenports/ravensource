@@ -226,7 +226,7 @@ install_rvn() {
 		echo "install_rvn failed to fetch rvn archive."
 		exit 1
 	fi
-	if ! tar -C /tmp -xf "$LOCAL_ARCHIVE"; then
+	if ! tar -xf "$LOCAL_ARCHIVE" -C /tmp; then
 		echo "install_rvn failed to unzip rvn archive."
 		exit 1
 	fi
