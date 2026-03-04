@@ -36,8 +36,10 @@ SOVERSION=		${SOVERSION}
 MAKE_ARGS=		INSTALL_PREFIX={{PREFIX}}
 MAKEFILE=		Makefile.sharedlibrary
 
+VAR_OPSYS[sunos]=	CFLAGS=-D__EXTENSIONS__
+
 post-build:
-	(cd ${WRKSRC} && ${SETENV} ${MAKE_CMD} ${MAKE_FLAGS} \
+	(cd ${WRKSRC} && ${SETENVI} ${MAKE_ENV} ${MAKE_CMD} ${MAKE_FLAGS} \
 		Makefile.cmdline duk)
 
 post-install:
