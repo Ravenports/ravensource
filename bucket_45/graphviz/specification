@@ -11,7 +11,7 @@ DEF[LIBPPLAN_VER]=	4.0.4
 
 NAMEBASE=		graphviz
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		graphics
 VARIANTS=		std
 SDESC[std]=		Graph visualization tools
@@ -87,7 +87,9 @@ PLIST_SUB=		CDT_SOVERSION=${LIBCDT_VER}
 			CGRAPH_SOMAJOR=${LIBCGRAPH_VER:R:R}
 SET_DEBUGGING_ON=	yes
 
-# VAR_OPSYS[sunos]=	CONFIGURE_ENV=LIBS=-lsocket
+VAR_OPSYS[sunos]=	CFLAGS=-D__EXTENSIONS__
+			LDFLAGS=-lsocket
+			LDFLAGS=-lnsl
 
 pre-configure-freebsd:
 	${REINPLACE_CMD} -e 's|SF_FLAGS|SFIO_FLAGS|g' ${WRKSRC}/lib/sfio/*.[ch]; \
@@ -107,6 +109,18 @@ post-install:
 		${INSTALL_DATA} doc/*.html \
 			${STAGEDIR}${STD_DOCDIR}/html/
 	${RM} ${STAGEDIR}${STD_DOCDIR}/COPYING
+
+	# fix dangling man page symlinks
+.for name in circo fdp neato twopi sfdp
+	${RM} ${STAGEDIR}${PREFIX}/share/man/man1/${name}.1.gz
+	${LN} -s dot.1 ${STAGEDIR}${PREFIX}/share/man/man1/${name}.1
+.endfor
+.for name in gv2gxl dot2gxl gxl2dot
+	${RM} ${STAGEDIR}${PREFIX}/share/man/man1/${name}.1.gz
+	${LN} -s gxl2gv.1 ${STAGEDIR}${PREFIX}/share/man/man1/${name}.1
+.endfor
+	${RM} ${STAGEDIR}${PREFIX}/share/man/man1/gv2gml.1.gz
+	${LN} -s gml2gv.1 ${STAGEDIR}${PREFIX}/share/man/man1/gv2gml.1
 
 	# examples
 	${MKDIR} ${STAGEDIR}${STD_EXAMPLESDIR}/pathplan_data
