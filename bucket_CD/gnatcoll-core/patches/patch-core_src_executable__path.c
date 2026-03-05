@@ -1,6 +1,6 @@
---- core/src/executable_path.c.orig	2026-02-03 02:47:56 UTC
+--- core/src/executable_path.c.orig	2025-11-28 12:36:47 UTC
 +++ core/src/executable_path.c
-@@ -59,11 +59,45 @@ c_executable_path (char *buffer, int siz
+@@ -59,11 +59,63 @@ c_executable_path (char *buffer, int siz
      return readlink("/proc/self/exe", buffer, (size_t) size);
  }
  
@@ -32,8 +32,26 @@
 +c_executable_path (char *buffer, int size)
 +{
 +    ssize_t len;
-+    len = readlink("/proc/curproc/exe", buffer, (size_t) size);
-+    if (len > 0) { return len; }
++    len = readlink("/proc/curproc/exe", buffer, (size_t) size - 1);
++    if (len > 0) {
++        buffer[len] = '\0';
++        return (int)len;
++    }
++    return 0;
++}
++
++#elif defined(__sun__)
++#include <unistd.h>
++#include <sys/types.h>
++int
++c_executable_path(char *buffer, int size)
++{
++    ssize_t len = readlink("/proc/self/path/a.out", buffer, (size_t)size - 1);
++
++    if (len > 0) {
++        buffer[len] = '\0'; // Manually null-terminate for C-string compatibility
++        return (int)len;    // Return length on success
++    }
 +    return 0;
 +}
 +
