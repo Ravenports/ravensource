@@ -1,5 +1,6 @@
 DEF[PORTVERSION]=	EXTRACT_INFO(BOOST_VERSION)
 DEF[REVISION]=		EXTRACT_INFO(BOOST_LIBRARIES_REVISION)
+DEF[GCCMAJOR]=		EXTRACT_INFO(GCCBASE_BRANCH)
 DEF[BOOSTVER]=		${PORTVERSION:S/./_/g}
 DEF[HARDCODE_RPATH]=	{{LOCALBASE}}/lib
 DEF[SOVERSION]=		${PORTVERSION}
@@ -76,9 +77,13 @@ VAR_OPSYS[netbsd]=	MAKE_ARGS=pch=off
 # prg_exec_monitor is broken in mports too
 VAR_OPSYS[midnightbsd]=	MAKE_ARGS=pch=off
 			MAKEFILE_LINE=EXECMON="@comment "
+VAR_OPSYS[sunos]=	MAKE_ARGS=pch=off
 
 post-extract-midnightbsd:
 	${RM} -r ${WRKSRC}/libs/test
+
+post-extract-sunos:
+	echo "using gcc : ${GCCMAJOR} : g++ : <archiver>ar <ranlib>ranlib ;" > /root/user-config.jam
 
 post-patch:
 	${REINPLACE_CMD} -e 's|$$(RPATH)|${HARDCODE_RPATH}|' \
