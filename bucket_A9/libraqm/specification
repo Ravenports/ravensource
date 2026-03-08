@@ -37,6 +37,8 @@ SOVERSION=		${SOVERSION}
 DISTNAME=		raqm-${PORTVERSION}
 GTKDOC_OUTPUT_BASEDIR=	raqm
 
+VAR_OPSYS[sunos]=	CFLAGS=-D__EXTENSIONS__
+
 pre-configure:
 	${REINPLACE_CMD} -e "s|${CAT1}|file://${LOCALBASE}/share/xml/docbook/|" \
 		${WRKSRC}/docs/raqm-docs.xml
