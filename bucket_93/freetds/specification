@@ -48,6 +48,11 @@ CMAKE_ARGS=		-DENABLE_MSDBLIB:BOOL=ON
 			-DBUILD_SHARED_LIBS:BOOL=ON
 			-DCMAKE_INSTALL_SYSCONFDIR={{PREFIX}}/etc/freetds
 
+VAR_OPSYS[sunos]=	CMAKE_ARGS=-DHAVE_NETINET_TCP_H=TRUE
+			CFLAGS=-D_POSIX_PTHREAD_SEMANTICS
+			CFLAGS=-DBSD_COMP
+			LDFLAGS=-lsocket
+
 post-extract:
 	(cd ${WRKSRC} && ${CP} freetds.conf freetds.conf.sample)
 	(cd ${WRKSRC} && ${CP} locales.conf locales.conf.sample)
