@@ -79,7 +79,7 @@ INSTALL_REQ_TOOLCHAIN=	yes
 [LARGE_FILE].CONFIGURE_ENABLE_BOTH=	largefile
 [QUERYTRACE].CONFIGURE_ENABLE_BOTH=	querytrace
 
-post-patch:
+pre-configure:
 	${REINPLACE_CMD} -e "s|/opt/local|${PREFIX}|g" \
 		${WRKSRC}/configure
 
