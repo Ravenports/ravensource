@@ -5,7 +5,7 @@ DEF[SOVERSION]=		1.2000.3
 
 NAMEBASE=		gtk4
 VERSION=		${PORTVERSION}
-REVISION=		2
+REVISION=		3
 KEYWORDS=		x11_toolkits
 VARIANTS=		std
 SDESC[std]=		Gimp Toolkit for X11 GUI
@@ -23,10 +23,13 @@ SPKGS[std]=		set primary dev man nls icon_cache tools
 # Until this is understood and fixed, leave it off by default
 OPTIONS_AVAILABLE=	CUPS BROADWAY INTROSPECTION COLORD
 OPTIONS_STANDARD=	CUPS BROADWAY INTROSPECTION COLORD
-OPT_ON[all]=		CUPS BROADWAY
+OPT_ON[all]=		CUPS
 OPT_ON[freebsd]=	INTROSPECTION
 OPT_ON[midnightbsd]=	INTROSPECTION
 # COLORD is broken again
+# BROADWAY allows applications to be run by webserver instead of desktop window
+# This probably is effectively not used.  It is misbuilding on OmniOS.  Rather
+# than turning off for just OmniOS, let's turn it off everywhere for now
 
 FPC_EQUIVALENT=		x11-toolkits/gtk40
 
@@ -37,6 +40,8 @@ BUILD_DEPENDS=		graphene:dev:std
 			libxkbcommon:dev:std
 			python-docutils:single:python_used
 			sassc:single:std
+			bash:primary:std
+			bash-completion:single:std
 BUILDRUN_DEPENDS=	graphene:primary:std
 			libepoxy:primary:std
 			libxkbcommon:primary:std
@@ -78,8 +83,6 @@ GLIB_SCHEMAS=		org.gtk.gtk4.Settings.EmojiChooser.gschema.xml
 			org.gtk.Demo4.gschema.xml
 
 VAR_OPSYS[sunos]=	LDFLAGS=-lsocket
-			LDFLAGS=-lintl
-			CPPFLAGS=-DO_CLOEXEC=0
 
 [BROADWAY].DESCRIPTION=			Backend for HTML5 and websocket support
 [INTROSPECTION].DESCRIPTION=		Build with introspection files
