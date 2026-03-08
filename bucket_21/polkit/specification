@@ -59,6 +59,10 @@ CFLAGS=			-Wno-deprecated-declarations
 			-Wno-implicit-function-declaration
 			-Wno-int-conversion
 
+VAR_OPSYS[sunos]=	CFLAGS=-D_POSIX_PTHREAD_SEMANTICS
+			CFLAGS=-D__EXTENSIONS__
+			LDFLAGS=-lsocket
+
 pre-configure:
 	${REINPLACE_CMD} -e 's|__DBPATH__|${PREFIX}/share/xsl/docbook/manpages|' \
 	${WRKSRC}/docs/man/meson.build
@@ -67,9 +71,6 @@ pre-configure:
 		${WRKSRC}/src/examples/org.freedesktop.policykit.examples.pkexec.policy.in
 	${REINPLACE_CMD} -e 's|%%LOCALBASE%%|${PREFIX}|g' \
 		${WRKSRC}/docs/man/polkit.xml
-
-post-patch-sunos:
-	${REINPLACE_CMD} -e '/as-needed/ s/^.*$$/NOOP=1/' ${WRKSRC}/configure
 
 post-install:
 	${MKDIR} ${STAGEDIR}/var/lib/polkit-1
