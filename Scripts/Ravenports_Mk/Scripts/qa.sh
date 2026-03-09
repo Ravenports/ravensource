@@ -159,53 +159,50 @@ shebang() {
 }
 
 symlinks() {
-	local l rc symlist link reslink
-
+	local l rc link rel_path
 	rc=0
 
-	# Don't use gnu xargs (DF sees internal polling, reads 1 file
-	# per second on monster and really slow on muscles
-	symlist=$(find "${STAGEDIR}" -type l -print)
+	# Use Heredoc to keep the loop in the current shell so 'rc' persists.
+	# This avoids the 'Argument list too long' error of 'for l in $(...)'.
+	while read -r l; do
+		[ -z "${l}" ] && continue
 
-	if [ -z "${symlist}" ]; then
-		return ${rc};
-	fi
-
-	# analyze found link target wrt stage directory or fake target
-	for l in $symlist; do
 		link=$(readlink "${l}")
-		if [ -n "$link" ]; then
-		    case "${link}" in
+		[ -z "${link}" ] && continue
+
+		rel_path="${l#"${STAGEDIR}"}"
+		case "${link}" in
 			"${STAGEDIR}"/*)
-				err "Bad symlink '${l#"${STAGEDIR}"}' pointing inside the stage directory"
+				err "Bad symlink '${rel_path}' pointing inside the stage directory"
 				rc=1
 				;;
 			/*)	# absolute symlinks
 				if [ -e "${STAGEDIR}${link}" ]; then
 					if [ -e "${link}" ]; then
-						warn "symlink '${l#"${STAGEDIR}"}' points to an absolute stagedir path '${link}'"
+						warn "symlink '${rel_path}' points to an absolute stagedir path '${link}'"
 					else
-						warn "symlink '${l#"${STAGEDIR}"}' points to a non-existent file with absolute stagedir path '${link}'"
-				    fi
+						warn "symlink '${rel_path}' points to a non-existent file with absolute stagedir path '${link}'"
+					fi
 				else
 					# Also warn if the symlink exists nowhere.
 					if [ -e "${link}" ]; then
-						warn "symlink '${l#"${STAGEDIR}"}' points to an absolute localbase path '${link}'"
+						warn "symlink '${rel_path}' points to an absolute localbase path '${link}'"
 					else
-						warn "symlink '${l#"${STAGEDIR}"}' points to a non-existent file with absolute localbase path '${link}'"
+						warn "symlink '${rel_path}' points to a non-existent file with absolute localbase path '${link}'"
 					fi
 				fi
 				;;
 			*)	# relative symlinks
-				# warn if symlink target doesn't exist
-				reslink=$(readlink -f "${l}")
-				if [ ! -e "${reslink}" ]; then
-					warn "symlink '${l#"${STAGEDIR}"}' points to a non-existent file '${link}'"
+				# Optimization: [ -e ] follows the link. If it fails, the target is missing.
+				# This avoids spawning the 'readlink -f' process.
+				if [ ! -e "${l}" ]; then
+					warn "symlink '${rel_path}' points to a non-existent file '${link}'"
 				fi
 				;;
-		    esac
-		fi
-	done
+		esac
+	done <<-EOT
+$(find "${STAGEDIR}" -type l)
+EOT
 
 	return ${rc}
 }
