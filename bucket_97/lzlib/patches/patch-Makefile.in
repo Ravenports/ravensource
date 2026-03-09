@@ -1,0 +1,11 @@
+--- Makefile.in.orig	2024-11-03 19:02:28 UTC
++++ Makefile.in
+@@ -29,7 +29,7 @@ lib$(libname).a : lzlib.o
+ 	$(AR) $(ARFLAGS) $@ $<
+ 
+ lib$(libname).so.$(soversion) : lzlib_sh.o
+-	$(CC) $(CFLAGS) $(LDFLAGS) -fpic -fPIC -shared -Wl,--soname=$@ -o $@ $< || \
++	$(CC) $(CFLAGS) $(LDFLAGS) -fpic -fPIC -shared -Wl,-soname,$@ -o $@ $< || \
+ 	$(CC) $(CFLAGS) $(LDFLAGS) -fpic -fPIC -shared -o $@ $<
+ 
+ bin : $(progname_static) $(progname_shared)
