@@ -8,6 +8,7 @@ DEF[STRIPLIBS]=		bind/filter-a bind/filter-aaaa libdns libisc libisccc libisccfg
 
 NAMEBASE=		bind
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		dns net
 VARIANTS=		std
 SDESC[std]=		Berkeley Internet Name Domain (Domain Name Server)
@@ -43,14 +44,21 @@ BUILDRUN_DEPENDS=	json-c:primary:std
 			liburcu:primary:std
 EXRUN[tools]=		idnkit:primary:std
 
+USERS=			bind
+GROUPS=			bind
+USERGROUP_SPKG=		server
+
 USES=			cclibs:server,tools cpe iconv pkgconfig ssl
 			readline ncurses:build libtool perl:build
+			smf:server
 CPE_VENDOR=		isc
 GNOME_COMPONENTS=	libxml2
+SMF_NAME=		named
+SMF_METHODS=		bind_command.sh
 SINGLE_JOB=		yes
 DISTNAME=		bind-${REALVERSION}
 MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--localstatedir=/var
+CONFIGURE_ARGS=		--localstatedir={{PREFIX}}/var
 			--sysconfdir={{ETCDIR}}
 			--disable-linux-caps
 			--disable-dnstap
@@ -61,10 +69,18 @@ CONFIGURE_ARGS=		--localstatedir=/var
 			STD_CDEFINES="-DDIG_SIGCHASE=1"
 RC_SUBR=		named:server
 SUB_FILES=		named.conf
+			bind_command.sh
+			manifest.xml
+			messages-server.ucl
 SUB_LIST=		NAMED_BEFORE="SERVERS"
 			NAMED_REQUIRE="NETWORKING ldconfig syslogd"
+			SMF_METHOD_SCRIPT=bind_command.sh
+			BIND_USR={{USERS}}
+			BIND_GRP={{GROUPS}}
 PLIST_SUB=		ETCDIR={{BIND_ETCDIR}}
 			LIBVER=${PORTVERSION}
+			OWN={{USERS}}
+			GRP={{GROUPS}}
 INSTALL_REQ_TOOLCHAIN=	yes
 
 [FIXED_RRSET].DESCRIPTION=		Enable fixed rrset ordering
@@ -85,6 +101,7 @@ pre-configure:
 
 post-install:
 	${MKDIR} ${STAGEDIR}${ETCDIR} ${STAGEDIR}${STD_DOCDIR}/arm
+	${MKDIR} ${STAGEDIR}${PREFIX}/var/run/named
 .  for i in dynamic master slave working
 	${MKDIR} ${STAGEDIR}${ETCDIR}/$i
 .  endfor
@@ -101,7 +118,6 @@ post-install:
 		${STAGEDIR}${ETCDIR}/master
 	${INSTALL_DATA} ${FILESDIR}/localhost-reverse.db \
 		${STAGEDIR}${ETCDIR}/master
-	${RM} -r ${STAGEDIR}/var
 
 	# documentation
 	${INSTALL_DATA} ${WRKSRC}/doc/arm/*.rst ${STAGEDIR}${STD_DOCDIR}/arm

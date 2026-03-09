@@ -12,9 +12,10 @@
 # named_program (str):		    Path to named, if you want a different one.
 # named_conf (str):		    Path to the configuration file
 # named_flags (str):		    Use this for flags OTHER than -u and -c
-# named_uid (str):		    User to run named as
+# named_uid (str):		    User to run named as (default "%%BIND_USR%%")
+# named_gid (str):                  Group that owns directory (default "%%BIND_GRP%%)
 # named_chrootdir (str):	    Chroot directory (or "" not to auto-chroot it)
-#				    Historically, was /var/named
+#				    Historically, was %%PREFIX%%/var/named
 # named_chroot_autoupdate (bool):   Automatically install/update chrooted
 # 				    components of named.
 # named_symlink_enable (bool):	    Symlink the chrooted pid file
@@ -44,7 +45,8 @@ named_enable=${named_enable:-"NO"}
 named_program=${named_program:-"%%PREFIX%%/sbin/named"}
 named_conf=${named_conf:-"%%ETCDIR%%/named.conf"}
 named_flags=${named_flags:-""}
-named_uid=${named_uid:-"bind"}
+named_uid=${named_uid:-"%%BIND_USR%%"}
+named_gid=${named_gid:-"%%BIND_GRP%%"}
 named_chrootdir=${named_chrootdir:-""}
 named_chroot_autoupdate=${named_chroot_autoupdate:-"YES"}
 named_symlink_enable=${named_symlink_enable:-"YES"}
@@ -198,7 +200,7 @@ find_pidfile()
 	if get_pidfile_from_conf pid-file ${named_conf}; then
 		pidfile="${_pidfile_from_conf}"
 	else
-		pidfile="/var/run/named/pid"
+		pidfile="%%PREFIX%%/var/run/named/pid"
 	fi
 }
 
@@ -276,7 +278,7 @@ named_prestart()
 
 	piddir=`/usr/bin/dirname ${pidfile}`
 	if [ ! -d ${piddir} ]; then
-		install -d -o ${named_uid} -g ${named_uid} ${piddir}
+		install -d -o ${named_uid} -g ${named_gid} ${piddir}
 	fi
 
 	command_args="-u ${named_uid:=root} -c ${named_conf} ${command_args}"
@@ -329,10 +331,10 @@ named_prestart()
 			return
 		fi
 
-		create_file /var/run/naf-resolv.conf
-		create_file /var/run/auto_forward.conf
+		create_file %%PREFIX%%/var/run/naf-resolv.conf
+		create_file %%PREFIX%%/var/run/auto_forward.conf
 
-		echo '	forwarders {' > /var/run/auto_forward.conf
+		echo '	forwarders {' > %%PREFIX%%/var/run/auto_forward.conf
 
 		while read line; do
 			case "${line}" in
@@ -342,42 +344,42 @@ named_prestart()
 				if [ -z "${firstns}" ]; then
 					if [ ! "${nsip}" = '127.0.0.1' ]; then
 						echo 'nameserver 127.0.0.1'
-						echo "		${nsip};" >> /var/run/auto_forward.conf
+						echo "		${nsip};" >> %%PREFIX%%/var/run/auto_forward.conf
 					fi
 
 					firstns=1
 				else
 					[ "${nsip}" = '127.0.0.1' ] && continue
-					echo "		${nsip};" >> /var/run/auto_forward.conf
+					echo "		${nsip};" >> %%PREFIX%%/var/run/auto_forward.conf
 				fi
 				;;
 			esac
 
 			echo ${line}
-		done < /etc/resolv.conf > /var/run/naf-resolv.conf
+		done < /etc/resolv.conf > %%PREFIX%%/var/run/naf-resolv.conf
 
-		echo '	};' >> /var/run/auto_forward.conf
-		echo '' >> /var/run/auto_forward.conf
+		echo '	};' >> %%PREFIX%%/var/run/auto_forward.conf
+		echo '' >> %%PREFIX%%/var/run/auto_forward.conf
 		if checkyesno named_auto_forward_only; then
-			echo "	forward only;" >> /var/run/auto_forward.conf
+			echo "	forward only;" >> %%PREFIX%%/var/run/auto_forward.conf
 		else
-			echo "	forward first;" >> /var/run/auto_forward.conf
+			echo "	forward first;" >> %%PREFIX%%/var/run/auto_forward.conf
 		fi
 
-		if cmp -s /etc/resolv.conf /var/run/naf-resolv.conf; then
-			unlink /var/run/naf-resolv.conf
+		if cmp -s /etc/resolv.conf %%PREFIX%%/var/run/naf-resolv.conf; then
+			unlink %%PREFIX%%/var/run/naf-resolv.conf
 		else
 			[ -e /etc/resolv.conf ] && unlink /etc/resolv.conf
-			mv /var/run/naf-resolv.conf /etc/resolv.conf
+			mv %%PREFIX%%/var/run/naf-resolv.conf /etc/resolv.conf
 		fi
 
 		if cmp -s ${_named_confdir}/auto_forward.conf \
-		    /var/run/auto_forward.conf; then
-			unlink /var/run/auto_forward.conf
+		    %%PREFIX%%/var/run/auto_forward.conf; then
+			unlink %%PREFIX%%/var/run/auto_forward.conf
 		else
 			[ -e "${_named_confdir}/auto_forward.conf" ] &&
 			    unlink ${_named_confdir}/auto_forward.conf
-			mv /var/run/auto_forward.conf \
+			mv %%PREFIX%%/var/run/auto_forward.conf \
 			    ${_named_confdir}/auto_forward.conf
 		fi
 	else
