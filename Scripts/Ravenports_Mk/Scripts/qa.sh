@@ -344,32 +344,34 @@ listcontains() {
 }
 
 sonames() {
-	[ ! -d "${STAGEDIR}${PREFIX}/lib" ] || [ -n "${BUNDLE_LIBS}" ] && return 0
-	while read -r f; do
-		# No results presents a blank line from heredoc.
-		[ -z "${f}" ] && continue
-		# Ignore symlinks
-		case $(file -b "${f}") in
+	[ ! -d "${STAGEDIR}${PREFIX}/lib" ] && return 0
+
+	# Use "-type f" to exclude symlinks
+	find "${STAGEDIR}${PREFIX}/lib" -type f -name '*.so.*' | while read -r f
+	do
+		case "$(file -b "${f}")" in
 			ELF*shared\ object*) ;;
 			*) continue ;;
 		esac
-		if ! readelf -d "${f}" | grep -q SONAME; then
-			warn "${f} doesn't have a SONAME."
-			warn "rvn(8) will not register it as being provided by the port."
-			warn "If another port depends on it, rvn will not be able to know where it comes from."
+
+		dynamic=$(readelf -d "${f}" 2> /dev/null)
+		case "${dynamic}" in
+		*" (SONAME)"*)
+			;;
+		*)
+			warn "${f} doesn't have a SONAME defined."
+			warn "rvn(8) will not register this as a provided library."
+			warn "This will impact rvn's ability to detect when updates are required."
 			case "${f}" in
-				${STAGEDIR}${PREFIX}/lib/*/*)
-					warn "It is in a subdirectory, it may not be used in another port."
+				"${STAGEDIR}${PREFIX}/lib"/*/*)
+					warn "It is located in a subdirectory that makes discovery difficult."
 					;;
 				*)
-					warn "It is directly in ${PREFIX}/lib, it is probably used by other ports."
+					warn "It is located in a standard location (${PREFIX}/lib)."
 					;;
 			esac
-		fi
-	# Use heredoc to avoid losing rc from find|while subshell
-	done <<-EOT
-	$(find "${STAGEDIR}${PREFIX}/lib" -name '*.so.*')
-	EOT
+		esac
+	done
 }
 
 licterms() {
