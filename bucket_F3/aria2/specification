@@ -3,7 +3,7 @@ DEF[PORTVERSION]=	1.37.0
 
 NAMEBASE=		aria2
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		ftp net www
 VARIANTS=		std
 SDESC[std]=		CLI download for HTTP/S, FTP, BitTorrent, Metalink
@@ -30,10 +30,15 @@ FPC_EQUIVALENT=		www/aria2
 
 EXRUN[tools]=		primary
 
+USERS=			aria2
+GROUPS=			aria2
+USERGROUP_SPKG=		tools
+
 RC_SUBR=		aria2:tools
 
 USES=			cpe libtool pkgconfig ssl sqlite zlib mbsdfix c++:primary
 			rootca:tools
+			smf:tools
 GNOME_COMPONENTS=	libxml2
 CPE_VENDOR=		aria2_project
 INSTALL_TARGET=		install-strip
@@ -67,11 +72,20 @@ CONFIGURE_ARGS=		--disable-epoll
 CONFIGURE_ENV=		OPENSSL_CFLAGS=-I{{OPENSSLINC}}
 			OPENSSL_LIBS="-L{{OPENSSLLIB}} -lcrypto -lssl"
 			ac_cv_path_RST2HTML=no
+SUB_FILES=		manifest.xml
+			aria2.conf.sample
+SUB_LIST=		ARIA2_USR={{USERS}}
+			ARIA2_GRP={{GROUPS}}
+PLIST_SUB=		OWN={{USERS}}
+			GRP={{GROUPS}}
 
 post-patch:
 	${REINPLACE_CMD} -e '/GAI_STRERROR/d' ${WRKSRC}/src/Makefile.in
 
 post-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/etc/bash_completion.d/
+	${MKDIR} ${STAGEDIR}${PREFIX}/var/log/aria2
+	${MKDIR} ${STAGEDIR}${PREFIX}/var/db/aria2
 	${INSTALL_DATA} ${WRKSRC}/doc/bash_completion/aria2c \
 		${STAGEDIR}${PREFIX}/etc/bash_completion.d/
+	${INSTALL_DATA} ${WRKDIR}/aria2.conf.sample ${STAGEDIR}${PREFIX}/etc/
