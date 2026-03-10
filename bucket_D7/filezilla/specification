@@ -70,7 +70,9 @@ CFLAGS=			-Iputty
 PLIST_SUB=		VERSION=${SOVERSION}
 INSTALL_REQ_TOOLCHAIN=	yes
 
-post-patch:
+VAR_OPSYS[sunos]=	CPPFLAGS=-D__EXTENSIONS__
+
+pre-configure:
 	# Use libidn2 instead of libidn
 	${REINPLACE_CMD} \
 		-e 's/idna/idn2/g' \
