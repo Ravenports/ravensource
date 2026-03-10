@@ -77,6 +77,8 @@ SOVERSION=		${SOVERSION}
 
 CVE_FIXED=		CVE-2022-0856
 
+VAR_OPSYS[sunos]=	LDFLAGS=-lsocket
+
 post-extract:
 			${ECHO} "Terms extracted from 'caca/caca.h':" > ${WRKDIR}/TERMS
 			${SED} -n '/more details/!p;//q' ${WRKSRC}/caca/caca.h >> ${WRKDIR}/TERMS
