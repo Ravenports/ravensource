@@ -31,8 +31,9 @@ USES=			gmake perl:build pkgconfig
 
 MAKE_ENV=		COMPONENT_TYPE="lib-shared"
 INSTALL_REQ_TOOLCHAIN=	yes
-
 SOVERSION=		${PORTVERSION}
+
+VAR_OPSYS[sunos]=	CFLAGS=-D__EXTENSIONS__
 
 post-patch:
 	${REINPLACE_CMD} -e '/-Werror/d' ${WRKSRC}/Makefile
