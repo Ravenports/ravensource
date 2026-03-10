@@ -37,6 +37,8 @@ MESON_ARGS=		-Dwith-bot=yes
 LDFLAGS=		{{PERL_RPATH}}
 PLIST_SUB=		MODULE={{BUNDLE:Uso}}
 
+VAR_OPSYS[sunos]=	CFLAGS=-I{{LOCALBASE}}/include/ncurses
+
 pre-configure:
 	${REINPLACE_CMD} -e 's|/usr|${PREFIX}|' -e 's|/etc|${PREFIX}&|' \
 		${WRKSRC}/docs/irssi.1
