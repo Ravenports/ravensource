@@ -1,4 +1,4 @@
---- main.c.orig	2023-05-01 15:27:50 UTC
+--- main.c.orig	2024-07-09 15:39:50 UTC
 +++ main.c
 @@ -20,6 +20,8 @@
  #if HAVE_PTY_H

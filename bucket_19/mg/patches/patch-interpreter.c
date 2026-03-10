@@ -1,4 +1,4 @@
---- interpreter.c.orig	2023-05-01 15:27:50 UTC
+--- interpreter.c.orig	2024-07-09 15:39:50 UTC
 +++ interpreter.c
 @@ -591,7 +591,11 @@ founddef(char *defstr, int blkid, int ex
  		return(dobeep_msgs("Variable/function name clash:", vnamep));

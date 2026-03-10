@@ -1,10 +1,34 @@
---- CMakeLists.txt.orig	2023-10-25 12:33:00 UTC
+--- CMakeLists.txt.orig	2024-07-09 15:39:50 UTC
 +++ CMakeLists.txt
-@@ -22,7 +22,7 @@ if(CMAKE_SYSTEM_NAME MATCHES "Linux")
+@@ -9,20 +9,29 @@ set (MG_SRC autoexec.c basic.c bell.c bu
+ 	cmode.c cscope.c dired.c grep.c tags.c interpreter.c
+ )
+ 
++if(CMAKE_SYSTEM_NAME MATCHES "SunOS")
++  list(APPEND MG_SRC openpty.c)
++endif()
++
+ add_executable (mg ${MG_SRC})
+ 
+ find_package (PkgConfig REQUIRED)
+ pkg_check_modules (NCURSES REQUIRED ncurses)
+ string (REPLACE ";" " -I" NCURSES_FLAGS "${NCURSES_INCLUDE_DIRS}")
+ set (NCURSES_FLAGS "-I${NCURSES_FLAGS}")
+-target_link_libraries (mg ${NCURSES_LIBRARIES} util)
++target_link_libraries (mg ${NCURSES_LIBRARIES})
++
++if(CMAKE_SYSTEM_NAME MATCHES "SunOS")
++  target_link_libraries (mg socket)
++  set (LIBBSD_FLAGS "-Wno-implicit-function-declaration")
++endif()
+ 
+ if(CMAKE_SYSTEM_NAME MATCHES "Linux")
+   pkg_check_modules (BSD REQUIRED libbsd-overlay)
    link_directories (${BSD_LIBRARY_DIRS})
    string (REPLACE ";" " " LIBBSD_FLAGS "${BSD_CFLAGS}")
-   target_link_libraries (mg ${BSD_LIBRARIES})
+-  target_link_libraries (mg ${BSD_LIBRARIES})
 -  set (CMAKE_C_FLAGS "-Wall -DREGEX -D_GNU_SOURCE ${LIBBSD_FLAGS} ${NCURSES_FLAGS} -L${NCURSES_LIBRARY_DIRS}")
++  target_link_libraries (mg util ${BSD_LIBRARIES})
 +  set (CMAKE_C_FLAGS "-Wall -DREGEX -D_GNU_SOURCE -DHAVE_PTY_H ${LIBBSD_FLAGS} ${NCURSES_FLAGS} -L${NCURSES_LIBRARY_DIRS}")
  else()
    set (CMAKE_C_FLAGS "-Wall -DREGEX ${LIBBSD_FLAGS} ${NCURSES_FLAGS} -L${NCURSES_LIBRARY_DIRS}")
