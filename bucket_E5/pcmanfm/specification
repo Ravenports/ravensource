@@ -46,6 +46,8 @@ MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-gtk=3
 			--enable-nls
 
+VAR_OPSYS[sunos]=	LDFLAGS=-lsocket
+
 pre-configure:
 	(cd ${WRKSRC} && ./autogen.sh)
 	${REINPLACE_CMD} -e 's|pcmanfm.conf|pcmanfm.conf.sample|' \
