@@ -4,6 +4,7 @@ DEF[CFFILES]=		GiveConsole TakeConsole Xaccess Xreset Xresources Xservers Xsessi
 
 NAMEBASE=		xdm
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		x11
 VARIANTS=		std
 SDESC[std]=		X.Org display manager (a.k.a. login manager)
@@ -41,14 +42,14 @@ MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-xdmconfigdir={{PREFIX}}/etc/X11/xdm
 			--with-xdmscriptdir={{PREFIX}}/etc/X11/xdm
 			--with-pixmapdir={{PREFIX}}/share/pixmaps
-			--with-authdir=/var/db/xdm
+			--with-authdir={{PREFIX}}/var/db/xdm
 			--with-pam=no
 			--disable-xdm-auth
 CONFIGURE_ENV=		ac_cv_file__usr_share_man_man7_attributes_7=yes
 INSTALL_TARGET=		install-strip
 
 post-install:
-	${MKDIR} ${STAGEDIR}/var/db/xdm
+	${MKDIR} ${STAGEDIR}${PREFIX}/var/db/xdm
 .for f in ${CFFILES}
 	${MV} ${STAGEDIR}${PREFIX}/etc/X11/xdm/${f} \
 		${STAGEDIR}${PREFIX}/etc/X11/xdm/${f}.sample
