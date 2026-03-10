@@ -5,6 +5,7 @@ DEF[SOVERSION]=		0.0.0
 
 NAMEBASE=		libfyaml
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		textproc
 VARIANTS=		std
 SDESC[std]=		Fully feature complete YAML parser and emitter
@@ -17,8 +18,9 @@ DISTFILE[1]=		libfyaml-${PORTVERSION}.tar.gz:main
 
 SPKGS[std]=		set primary dev man tools
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	ALLOCA
+OPTIONS_STANDARD=	ALLOCA
+OPT_ON[sunos]=		ALLOCA
 
 FPC_EQUIVALENT=		textproc/libfyaml
 
@@ -35,7 +37,9 @@ CFLAGS=			-Wno-incompatible-pointer-types
 SOVERSION=		${SOVERSION}
 INSTALL_TARGET=		install-strip
 
-pre-configure:
+[ALLOCA].DESCRIPTION=			Build on OS with <alloca.h> header
+
+pre-configure-ALLOCA-OFF:
 	${GREP} -rl "#include <alloca\\.h>" ${WRKSRC} |\
 	${XARGS} ${REINPLACE_CMD} -E "s|#include <alloca\\.h>|#include <stdlib.h>|"
 
