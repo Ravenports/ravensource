@@ -56,6 +56,8 @@ CONFIGURE_ARGS=		--sysconfdir={{LOCALBASE}}/etc
 CFLAGS=			-Wno-deprecated-declarations
 SOVERSION=		${SOVERSION}
 
+VAR_OPSYS[sunos]=	CFLAGS=-D_POSIX_PTHREAD_SEMANTICS
+
 pre-configure:
 	(cd ${WRKSRC} && ./autogen.sh)
 
