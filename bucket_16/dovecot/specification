@@ -64,6 +64,7 @@ CONFIGURE_ARGS=		--localstatedir=/var
 			--without-icu
 			--without-solr
 			--without-textcat
+			--with-pam=no
 CPPFLAGS=		-I{{OPENSSLINC}}
 LDFLAGS=		-L{{OPENSSLLIB}} {{ICONV_LIB}}
 INSTALL_TARGET=		install-strip
@@ -73,6 +74,9 @@ DISTNAME=		dovecot-${FILEVER}
 
 VAR_OPSYS[dragonfly]=	CONFIGURE_ENV=i_cv_fd_passing=yes
 VAR_OPSYS[netbsd]=	CFLAGS=-D_NETBSD_SOURCE
+VAR_OPSYS[sunos]=	CFLAGS=-D__EXTENSIONS__
+			CONFIGURE_ARGS=--with-ioloop=poll
+			CONFIGURE_ARGS=--with-notify=none
 
 post-patch:
 	${REINPLACE_CMD} \
