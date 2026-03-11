@@ -9,3 +9,11 @@
  		target_link_libraries(mosquitto PRIVATE m)
  	elseif (${CMAKE_SYSTEM_NAME} MATCHES "NetBSD")
  		target_link_libraries(mosquitto PRIVATE m)
+@@ -310,6 +310,7 @@ if(UNIX)
+ 			LINK_FLAGS "-Wl,-exported_symbols_list -Wl,${mosquitto_SOURCE_DIR}/src/linker-macosx.syms"
+ 		)
+ 	elseif (${CMAKE_SYSTEM_NAME} MATCHES "AIX")
++	elseif (CMAKE_SYSTEM_NAME MATCHES "SunOS")
+ 	else()
+ 		set_target_properties(mosquitto PROPERTIES
+ 			LINK_FLAGS "-Wl,-dynamic-list=${mosquitto_SOURCE_DIR}/src/linker.syms"

@@ -1,0 +1,11 @@
+--- lib/CMakeLists.txt.orig	2026-02-09 09:29:46 UTC
++++ lib/CMakeLists.txt
+@@ -127,7 +127,7 @@ set_target_properties(libmosquitto PROPE
+ 	POSITION_INDEPENDENT_CODE 1
+ )
+ 
+-if(UNIX AND NOT APPLE)
++if(UNIX AND NOT APPLE AND NOT CMAKE_SYSTEM_NAME MATCHES "SunOS")
+ 	set_target_properties(libmosquitto PROPERTIES
+ 		LINK_DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/linker.version
+ 		LINK_FLAGS "-Wl,--version-script=${CMAKE_CURRENT_SOURCE_DIR}/linker.version"
