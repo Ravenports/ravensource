@@ -108,6 +108,9 @@ PLIST_SUB=		SO_WIRETAP=${SO_WIRETAP}
 # manually set until a framework fix is found
 MAKE_ARGS=		DESTDIR={{STAGEDIR}}
 
+VAR_OPSYS[sunos]=	CFLAGS=-D__EXTENSIONS__
+			LDFLAGS=-lsocket
+
 pre-configure:
 	${REINPLACE_CMD} -e 's|libssh/libssh.h|libssh/libssh_version.h|' \
 		${WRKSRC}/cmake/modules/FindLIBSSH.cmake
