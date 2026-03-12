@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.2.0
+DEF[PORTVERSION]=	3.2.1
 DEF[API_VERSION]=	1.2
 DEF[MINOR_VERSION]=	${PORTVERSION:R}
 # ----------------------------------------------------------------------------
@@ -49,6 +49,7 @@ do-install:
 	(cd ${WRKSRC}/include && ${COPYTREE_SHARE} . \
 	    ${STAGEDIR}${PREFIX}/include/mdds-${API_VERSION})
 	${FIND} ${STAGEDIR}${PREFIX}/include -name "Makefile.*" -delete
+	${FIND} ${STAGEDIR}${PREFIX}/include -name ".gitignore" -delete
 	${INSTALL_DATA} \
 		${WRKSRC}/misc/mdds-${API_VERSION}.pc \
 		${WRKSRC}/misc/mdds-${MINOR_VERSION}.pc \
