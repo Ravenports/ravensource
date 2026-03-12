@@ -1,5 +1,5 @@
---- libseat/libseat.c.orig	2026-01-05 10:44:28.000000000 +0100
-+++ libseat/libseat.c	2026-02-15 16:12:54.079456000 +0100
+--- libseat/libseat.c.orig	2026-01-05 09:44:28 UTC
++++ libseat/libseat.c
 @@ -12,6 +12,7 @@
  
  extern const struct seat_impl seatd_impl;
@@ -8,7 +8,7 @@
  extern const struct seat_impl builtin_impl;
  extern const struct seat_impl noop_impl;
  
-@@ -22,6 +23,9 @@
+@@ -22,6 +23,9 @@ static const struct named_backend impls[
  #ifdef LOGIND_ENABLED
  	{"logind", &logind_impl},
  #endif
@@ -18,7 +18,7 @@
  #ifdef BUILTIN_ENABLED
  	{"builtin", &builtin_impl},
  #endif
-@@ -30,7 +34,7 @@
+@@ -30,7 +34,7 @@ static const struct named_backend impls[
  	{NULL, NULL},
  };
  
