@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	4.0.3
 
 NAMEBASE=		afdko
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		x11_fonts
 VARIANTS=		std
 SDESC[std]=		Adobe Font Development Kit for OpenType
@@ -32,3 +33,6 @@ GNOME_COMPONENTS=	libxml2
 CMAKE_ARGS=		-DSKBUILD:BOOL=OFF
 
 VAR_OPSYS[sunos]=	CFLAGS=-D_POSIX_PTHREAD_SEMANTICS
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
