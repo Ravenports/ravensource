@@ -1,14 +1,10 @@
 --- CPP/7zip/Archive/Zip/ZipItem.cpp.orig	2024-10-17 08:03:40 UTC
 +++ CPP/7zip/Archive/Zip/ZipItem.cpp
-@@ -425,7 +425,11 @@ void CItem::GetUnicodeString(UString &re
-       size_t dlen = slen * 4;
-       const char* dest = s_utf8.GetBuf_SetEnd(dlen + 1); // (source length * 4) + null termination
+@@ -3,6 +3,7 @@
+ #if (!defined _WIN32) && (!defined __CYGWIN__) && (!defined __APPLE__)
+ #include <iconv.h>
+ #include <locale.h>
++#include <strings.h>
+ #endif
  
-+#if defined(__sun)
-+      size_t done = iconv(cd, (const char**)&src, &slen, (char**)&dest, &dlen);
-+#else
-       size_t done = iconv(cd, (char**)&src, &slen, (char**)&dest, &dlen);
-+#endif
-       bzero((size_t*)dest + done, 1);
- 
-       iconv_close(cd);
+ #include "StdAfx.h"

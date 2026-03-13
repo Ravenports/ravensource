@@ -4,7 +4,7 @@
  
  #include "../7zTypes.h"
  
-+#ifdef __NetBSD__
++#if defined __NetBSD__ || defined __sun
 +#include <stdint.h>
 +#define _UINT64_T_DECLARED
 +#endif
