@@ -1,6 +1,16 @@
---- lib/util.c.orig	2025-05-09 00:07:20 UTC
+--- lib/util.c.orig	2025-06-27 03:40:02 UTC
 +++ lib/util.c
-@@ -1056,6 +1056,7 @@ EXPORTED int parsehex(const char *p, con
+@@ -83,6 +83,9 @@
+ #include "zlib.h"
+ #endif
+ 
++#ifndef LOG_PRI
++#define LOG_PRI(p) ((p) & LOG_PRIMASK)
++#endif
+ 
+ #define BEAUTYBUFSIZE 4096
+ 
+@@ -1056,6 +1059,7 @@ EXPORTED int parsehex(const char *p, con
  
  /* buffer handling functions */
  
