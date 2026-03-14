@@ -1,4 +1,4 @@
---- include/libwebsockets.h.orig	2025-11-29 19:42:32 UTC
+--- include/libwebsockets.h.orig	2025-12-03 06:15:09 UTC
 +++ include/libwebsockets.h
 @@ -167,7 +167,7 @@ typedef int suseconds_t;
  #include <sys/capability.h>
