@@ -1,7 +1,7 @@
---- src/tools/networkTools.cpp.orig	2024-10-09 17:18:52 UTC
+--- src/tools/networkTools.cpp.orig	2025-11-30 15:37:21 UTC
 +++ src/tools/networkTools.cpp
-@@ -44,6 +44,7 @@
- #include <sys/socket.h>
+@@ -45,6 +45,7 @@
+ #include <netinet/in.h>
  #include <net/if.h>
  #include <netdb.h>
 +#include <netinet/in.h>
