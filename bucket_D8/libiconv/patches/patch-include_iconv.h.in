@@ -1,17 +1,17 @@
---- include/iconv.h.in.orig	2024-12-15 12:23:08 UTC
-+++ include/iconv.h.in
+--- include/iconv.h.in.orig	2026-03-14 20:50:30.969703000 +0100
++++ include/iconv.h.in	2026-03-14 20:53:06.718582000 +0100
 @@ -24,8 +24,10 @@
  extern "C" {
  #endif
  
 +#ifndef LIBICONV_PLUG
- #define _LIBICONV_VERSION 0x0112    /* version number: (major<<8) + minor */
+ #define _LIBICONV_VERSION 0x0113    /* version number: (major<<8) + minor */
  extern @DLL_VARIABLE@ int _libiconv_version; /* Likewise */
 +#endif
  
  #ifdef __cplusplus
  }
-@@ -121,12 +123,16 @@ typedef struct {
+@@ -121,12 +123,16 @@
  /* Allocates descriptor for code conversion from encoding ‘fromcode’ to
     encoding ‘tocode’ into preallocated memory. Returns an error indicator
     (0 or -1 with errno set). */
@@ -28,7 +28,7 @@
  extern int iconvctl (iconv_t cd, int request, void* argument);
  
  /* Hook performed after every successful conversion of a Unicode character. */
-@@ -215,7 +221,9 @@ struct iconv_fallbacks {
+@@ -215,7 +221,9 @@
  #define ICONV_SET_DISCARD_NON_IDENTICAL  14  /* const int *argument */
  
  /* Listing of locale independent encodings. */
@@ -38,20 +38,14 @@
  extern void iconvlist (int (*do_one) (unsigned int namescount,
                                        const char * const * names,
                                        void* data),
-@@ -227,6 +235,7 @@ extern const char * iconv_canonicalize (
- 
- /* Support for relocatable packages.  */
- 
-+#ifndef LIBICONV_PLUG
- /* Sets the original and the current installation prefix of the package.
-    Relocation simply replaces a pathname starting with the original prefix
+@@ -232,8 +240,10 @@
     by the corresponding pathname with the current prefix instead.  Both
-@@ -235,6 +244,8 @@ extern const char * iconv_canonicalize (
+    prefixes should be directory names without trailing slash (i.e. use ""
+    instead of "/").  */
++#ifndef LIBICONV_PLUG
  extern void libiconv_set_relocation_prefix (const char *orig_prefix,
                                              const char *curr_prefix);
- 
 +#endif
-+
+ 
  #ifdef __cplusplus
  }
- #endif
