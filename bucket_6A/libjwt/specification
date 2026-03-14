@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	3.2.3
-DEF[SOVERSION]=		14.2.3
+DEF[PORTVERSION]=	3.3.1
+DEF[SOVERSION]=		14.2.5
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libjwt
@@ -25,11 +25,15 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		www/libjwt
 
-BUILD_DEPENDS=		gnutls:dev:std
+BUILD_DEPENDS=		doxygen:primary:std
+			gnutls:dev:std
+			graphviz:tools:std
 			jansson:dev:std
 			bash:primary:std
 BUILDRUN_DEPENDS=	gnutls:primary:std
 			jansson:primary:std
+
+CMAKE_ARGS=		-DWITH_TESTS=off
 
 EXRUN[tools]=		primary
 
