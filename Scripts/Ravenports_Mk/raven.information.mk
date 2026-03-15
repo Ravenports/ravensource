@@ -157,7 +157,7 @@ GTK3_VERSION=			3.0.0
 GTK4_VERSION=			4.0.0
 GTK2_PORT_VERSION=		2.24.33
 GTK3_PORT_VERSION=		3.24.51
-GTK4_PORT_VERSION=		4.20.3
+GTK4_PORT_VERSION=		4.22.0
 
 # ------------------------------------------------------------------------
 # Ravenports binutils
