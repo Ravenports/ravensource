@@ -1,6 +1,6 @@
---- lib/util/gv_find_me.c.orig	2025-12-13 19:25:47 UTC
+--- lib/util/gv_find_me.c.orig	2026-01-24 04:52:08 UTC
 +++ lib/util/gv_find_me.c
-@@ -9,8 +9,8 @@
+@@ -13,8 +13,8 @@
  #endif
  
  #ifdef __FreeBSD__
