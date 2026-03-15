@@ -1,24 +1,13 @@
-Include image_int.hpp for Internal::stringFormat().
-
---- src/futils.cpp.orig	2025-08-31 08:31:02 UTC
-+++ src/futils.cpp
-@@ -6,6 +6,7 @@
- #include "config.h"
- #include "enforce.hpp"
- #include "error.hpp"
-+#include "image_int.hpp"
- #include "utils.hpp"
- 
- // + standard includes
-@@ -33,9 +34,11 @@ namespace fs = std::experimental::filesy
+--- src/futils.cpp.orig	2026-03-15 21:35:48.575499000 +0100
++++ src/futils.cpp	2026-03-15 21:36:46.608386000 +0100
+@@ -35,8 +35,10 @@
  // clang-format on
  #endif
  
 +#ifndef __NetBSD__
  #if __has_include(<libproc.h>)
  #include <libproc.h>
- #endif
 +#endif
+ #endif
  
  #if __has_include(<unistd.h>)
- #include <unistd.h>  // for stat()
