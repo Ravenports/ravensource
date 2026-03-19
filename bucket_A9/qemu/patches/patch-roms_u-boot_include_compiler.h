@@ -1,4 +1,4 @@
---- roms/u-boot/include/compiler.h.orig	2025-12-23 19:49:45 UTC
+--- roms/u-boot/include/compiler.h.orig	2026-02-13 04:46:45 UTC
 +++ roms/u-boot/include/compiler.h
 @@ -14,6 +14,7 @@
      defined(__NetBSD__)  || \
