@@ -1,4 +1,4 @@
---- common/putil.cpp.orig	2025-03-13 18:31:23 UTC
+--- common/putil.cpp.orig	2026-01-08 19:02:41 UTC
 +++ common/putil.cpp
 @@ -2032,11 +2032,6 @@ remapPlatformDependentCodepage(const cha
           */
