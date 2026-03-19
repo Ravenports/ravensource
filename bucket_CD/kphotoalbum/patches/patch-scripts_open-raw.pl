@@ -1,4 +1,4 @@
---- scripts/open-raw.pl.orig	2025-01-06 10:49:15 UTC
+--- scripts/open-raw.pl.orig	2025-10-04 12:57:58 UTC
 +++ scripts/open-raw.pl
 @@ -16,9 +16,16 @@ my @rawExt = (
  );
