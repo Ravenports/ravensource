@@ -4,7 +4,7 @@ Disable libsocket handling on SunOS.  meson cannot handle the fact that this
 library is not provided by pkg-config and refuses to build gdk-pixbuf-loader.
 We already just link against it directly anyway.
 
---- meson.build.orig	2026-02-13 21:19:01 UTC
+--- meson.build.orig	2026-02-28 00:36:50 UTC
 +++ meson.build
 @@ -180,7 +180,7 @@ m_dep = cc.find_library('m', required: f
  # into '-lsocket' and '-lnsl'.  Anything that calls socketpair(), getifaddr(),
