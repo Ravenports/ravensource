@@ -1,4 +1,4 @@
---- main.c.orig	2025-07-07 17:52:37 UTC
+--- main.c.orig	2025-10-23 18:38:48 UTC
 +++ main.c
 @@ -1429,6 +1429,12 @@ main_Init(int argc, char **argv)
  		Global_Set_ReadOnly(".MAKE.UID", buf);
