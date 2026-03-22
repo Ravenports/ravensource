@@ -1,4 +1,4 @@
---- Utilities/cmcurl/lib/curl_setup.h.orig	2026-01-20 14:46:37 UTC
+--- Utilities/cmcurl/lib/curl_setup.h.orig	2026-01-27 16:03:47 UTC
 +++ Utilities/cmcurl/lib/curl_setup.h
 @@ -24,6 +24,7 @@
   *
