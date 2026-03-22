@@ -1,4 +1,4 @@
---- nsd-control.c.orig	2025-12-04 10:17:02 UTC
+--- nsd-control.c.orig	2026-02-24 09:02:38 UTC
 +++ nsd-control.c
 @@ -96,6 +96,10 @@ static void ssl_path_err(const char* s,
  /** timeout to wait for connection over stream, in msec */
