@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	6.0.0
+DEF[PORTVERSION]=	6.2.2
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-croniter
@@ -7,12 +7,12 @@ KEYWORDS=		python
 VARIANTS=		v13 v14
 SDESC[v13]=		Iteration for datetime object like cron (3.13)
 SDESC[v14]=		Iteration for datetime object like cron (3.14)
-HOMEPAGE=		https://github.com/kiorky/croniter
+HOMEPAGE=		https://github.com/pallets-eco/croniter
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/07/4b/290b4c3efd6417a8b0c284896de19b1d5855e6dbdb97d2a35e68fa42de85
-DISTFILE[1]=		croniter-${PORTVERSION}-py2.py3-none-any.whl:main
+SITES[main]=		PYPIWHL/d0/39/783980e78cb92c2d7bdb1fc7dbc86e94ccc6d58224d76a7f1f51b6c51e30
+DISTFILE[1]=		croniter-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
 SPKGS[v13]=		single
@@ -24,19 +24,16 @@ VOPTS[v13]=		PY313=ON PY314=OFF
 VOPTS[v14]=		PY313=OFF PY314=ON
 
 # License listed at PyPI
-# MIT License
+# Not provided.
 
 GENERATED=		yes
 DISTNAME=		croniter-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
 # python-dateutil
-# pytz>2021.1
 
 [PY313].USES_ON=			python:v13,wheel
 [PY313].RUN_DEPENDS_ON=			python-python-dateutil:single:v13
-					python-pytz:single:v13
 [PY314].USES_ON=			python:v14,wheel
 [PY314].RUN_DEPENDS_ON=			python-python-dateutil:single:v14
-					python-pytz:single:v14
 

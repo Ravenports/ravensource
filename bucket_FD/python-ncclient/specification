@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.7.0
+DEF[PORTVERSION]=	0.7.1
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-ncclient
@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/ncclient/ncclient
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/n/ncclient
-DISTFILE[1]=		ncclient-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/5b/7c/c0c06d1696b03b901fa5a854b03e16f35c5c5cc8f00a0f43217dc467cd39
+DISTFILE[1]=		ncclient-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
 SPKGS[v13]=		single
@@ -24,19 +24,25 @@ VOPTS[v13]=		PY313=ON PY314=OFF
 VOPTS[v14]=		PY313=OFF PY314=ON
 
 # License listed at PyPI
-# Apache 2.0
+# Not provided.
 
 GENERATED=		yes
-DISTNAME=		ncclient-${PORTVERSION}
+DISTNAME=		ncclient-${PORTVERSION}.dist-info
 
-# install_requires extracted from setup.py
-# paramiko>=3.2.0
+# Requires-Dist extracted from wheel metadata
 # lxml>=3.3.0
+# paramiko>=3.2.0
+# sphinx; extra == 'docs'
+# ssh-python>=1.1.1; extra == 'libssh'
+# twine; extra == 'release'
+# mock; (python_version < '3.6') and extra == 'test'
+# pytest; extra == 'test'
+# pytest-cov; extra == 'test'
 
-[PY313].USES_ON=			python:v13,sutools
-[PY313].BUILDRUN_DEPENDS_ON=		python-paramiko:single:v13
-					python-lxml:single:v13
-[PY314].USES_ON=			python:v14,sutools
-[PY314].BUILDRUN_DEPENDS_ON=		python-paramiko:single:v14
-					python-lxml:single:v14
+[PY313].USES_ON=			python:v13,wheel
+[PY313].RUN_DEPENDS_ON=			python-lxml:single:v13
+					python-paramiko:single:v13
+[PY314].USES_ON=			python:v14,wheel
+[PY314].RUN_DEPENDS_ON=			python-lxml:single:v14
+					python-paramiko:single:v14
 

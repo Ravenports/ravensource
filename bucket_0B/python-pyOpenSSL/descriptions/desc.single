@@ -43,17 +43,33 @@ https://mail.python.org/mailman/listinfo/cryptography-dev
 Release Information
 ===================
 
-25.4.0 (UNRELEASED)
+26.0.0 (2026-03-15)
 -------------------
 
 Backward-incompatible changes:
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+- Dropped support for Python 3.7.
+- The minimum cryptography version is now 46.0.0.
 
 Deprecations:
 ^^^^^^^^^^^^^
 
 Changes:
 ^^^^^^^^
+
+- Added support for using aws-lc instead of OpenSSL.
+- Properly raise an error if a DTLS cookie callback returned a cookie
+longer than DTLS1_COOKIE_LENGTH bytes. Previously this would result in a
+buffer-overflow. Credit to **dark_haxor** for reporting the issue.
+**CVE-2026-27459**
+- Added ``OpenSSL.SSL.Connection.get_group_name`` to determine which group
+name was negotiated.
+- ``Context.set_tlsext_servername_callback now handles exceptions raised in
+the callback by calling sys.excepthook`` and returning a fatal TLS alert.
+Previously, exceptions were silently swallowed and the handshake would
+proceed as if the callback had succeeded. Credit to **Leury Castillo** for
+reporting this issue. **CVE-2026-27448**
 
 25.3.0 (2025-09-16)
 -------------------
@@ -82,19 +98,3 @@ Deprecations:
 
 Changes:
 ^^^^^^^^
-
-- pyOpenSSL now sets SSL_MODE_ACCEPT_MOVING_WRITE_BUFFER on connections by
-default, matching CPython's behavior.
-- Added ``OpenSSL.SSL.Context.clear_mode``.
-- Added ``OpenSSL.SSL.Context.set_tls13_ciphersuites`` to set the allowed
-TLS 1.3 ciphers.
-- Added ``OpenSSL.SSL.Connection.set_info_callback``
-
-25.1.0 (2025-05-17)
--------------------
-
-Backward-incompatible changes:
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Deprecations:
-^^^^^^^^^^^^^

@@ -39,17 +39,17 @@ Select with where condition::
 
     >>> select.where = user.name == 'foo'
     >>> tuple(select)
-    ('SELECT "a"."id", "a"."name" FROM "user" AS "a" WHERE ("a"."name" =
-%s)', ('foo',))
+    ('SELECT "a"."id", "a"."name" FROM "user" AS "a" WHERE "a"."name" =
+%s', ('foo',))
 
     >>> select.where = (user.name == 'foo') & (user.active == True)
     >>> tuple(select)
-    ('SELECT "a"."id", "a"."name" FROM "user" AS "a" WHERE (("a"."name" =
-%s) AND ("a"."active" = %s))', ('foo', True))
+    ('SELECT "a"."id", "a"."name" FROM "user" AS "a" WHERE ("a"."name" =
+%s) AND ("a"."active" = %s)', ('foo', True))
     >>> select.where = user.name == user.login
     >>> tuple(select)
-    ('SELECT "a"."id", "a"."name" FROM "user" AS "a" WHERE ("a"."name" =
-"a"."login")', ())
+    ('SELECT "a"."id", "a"."name" FROM "user" AS "a" WHERE "a"."name" =
+"a"."login"', ())
 
 Select with join::
 
@@ -58,7 +58,7 @@ Select with join::
     >>> select = join.select(user.name, join.right.group)
     >>> tuple(select)
     ('SELECT "a"."name", "b"."group" FROM "user" AS "a" INNER JOIN
-"user_group" AS "b" ON ("b"."user" = "a"."id")', ())
+"user_group" AS "b" ON "b"."user" = "a"."id"', ())
 
 Select with multiple joins::
 

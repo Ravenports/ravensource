@@ -1,4 +1,4 @@
-# DeepDiff v 8.6.1
+# DeepDiff v 8.6.2
 
 ![Downloads]
 ![Python Versions]
@@ -23,6 +23,11 @@ Tested on Python 3.9+ and PyPy3.
 ## What is new?
 
 Please check the [ChangeLog] file for the detailed information.
+
+DeepDiff 8-6-2
+- **Security (CVE-2025-58367):** Fixed a memory exhaustion DoS
+vulnerability in `_RestrictedUnpickler` by limiting the maximum allocation
+size for `bytes` and `bytearray` during deserialization.
 
 DeepDiff 8-6-1
 - Patched security vulnerability in the Delta class which was vulnerable to
@@ -93,8 +98,3 @@ Install optional packages:
 - [pydantic]
 
 # Documentation
-
-<https://zepworks.com/deepdiff/current/>
-
-### A message from Sep, the creator of DeepDiff
-

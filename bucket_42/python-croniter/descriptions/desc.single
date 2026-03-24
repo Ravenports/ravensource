@@ -1,26 +1,17 @@
 Introduction
 ============
 
-DISCLAIMER
-============
+Pallets Community Ecosystem
+===========================
 
-**UNMAINTAINED/ABANDONED CODE / DO NOT USE**
-
-Due to the new EU Cyber Resilience Act (as European Union), even if it was
-implied because there was no more activity, this repository is now
-explicitly declared unmaintained.
-
-The content does not meet the new regulatory requirements and therefore
-cannot be deployed or distributed, especially in a European context.
-
-This repository now remains online ONLY for public archiving, documentation
-and education purposes and we ask everyone to respect this.
-
-As stated, the maintainers stopped development and therefore all support
-some time ago, and make this declaration on December 15, 2024.
-
-We may also unpublish soon (as in the following monthes) any published
-ressources tied to this project (pypi, the repositories, 
+.. important::
+   This project is part of the Pallets Community Ecosystem. Pallets is the
+open
+   source organization that maintains Flask; Pallets-Eco enables community
+   maintenance of Flask extensions. If you are interested in helping
+maintain
+   this project, please reach out on the [Pallets Discord server
+  ].
 
 Usage
 ============
@@ -98,3 +89,12 @@ Supported added for get_prev method. (>= 0.2.0)::
 You can validate your crons using is_valid class method. (>= 0.3.18)::
 
     >>> croniter.is_valid('0 0 1 * *')  # True
+    >>> croniter.is_valid('0 wrong_value 1 * *')  # False
+
+Strict validation
+-----------------
+
+By default, is_valid and expand only check that each field is within its
+own range
+(e.g. day 1-31, month 1-12). They do not cross-validate fields, so
+expressions like

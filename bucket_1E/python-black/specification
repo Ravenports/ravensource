@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	26.1.0
+DEF[PORTVERSION]=	26.3.1
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-black
@@ -11,7 +11,7 @@ HOMEPAGE=		https://pypi.org/project/black/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/e4/3d/51bdb3ecbfadfaf825ec0c75e1de6077422b4afa2091c6c9ba34fbfc0c2d
+SITES[main]=		PYPIWHL/8e/0d/52d98722666d6fc6c3dd4c76df339501d6efd40e0ff95e6186a7b7f0befd
 DISTFILE[1]=		black-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -35,14 +35,15 @@ DISTNAME=		black-${PORTVERSION}.dist-info
 # packaging>=22.0
 # pathspec>=1.0.0
 # platformdirs>=2
-# pytokens>=0.3.0
+# pytokens~=0.4.0
 # tomli>=1.1.0; python_version < '3.11'
 # typing-extensions>=4.0.1; python_version < '3.11'
 # colorama>=0.4.3; extra == 'colorama'
 # aiohttp>=3.10; extra == 'd'
 # ipython>=7.8.0; extra == 'jupyter'
 # tokenize-rt>=3.2.0; extra == 'jupyter'
-# uvloop>=0.15.2; extra == 'uvloop'
+# uvloop>=0.15.2; (sys_platform != 'win32') and extra == 'uvloop'
+# winloop>=0.5.0; (sys_platform == 'win32') and extra == 'uvloop'
 
 [PY313].USES_ON=			python:v13,wheel
 [PY313].RUN_DEPENDS_ON=			python-click:single:v13

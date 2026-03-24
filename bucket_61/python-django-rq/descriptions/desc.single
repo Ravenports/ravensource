@@ -85,16 +85,16 @@ RQ_EXCEPTION_HANDLERS = ['path.to.my.handler']  # If you need custom
 exception handlers
 ```
 
-- Include `django_rq.urls` in your `urls.py`:
+## Admin Integration
 
-```python
-urlpatterns += [
-    path('django-rq/', include('django_rq.urls'))
-]
-```
+_New in Version 4.0_
 
-## Usage
+Django-RQ automatically integrates with Django's admin interface. Once
+installed, navigate to `/admin/django_rq/dashboard/` to access:
+- Queue statistics and monitoring dashboard
+- Job registry browsers (scheduled, started, finished, failed, deferred)
+- Worker management
+- Prometheus metrics endpoint (if `prometheus_client` is installed)
 
-### Putting jobs in the queue
-
-Django-RQ allows you to easily put jobs into any of the queues defined in
+The views are automatically registered in Django admin and a link to the
+dashboard is added to the admin interface's sidebar. If you want to disable
