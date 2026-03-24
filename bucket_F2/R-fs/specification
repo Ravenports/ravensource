@@ -29,10 +29,9 @@ DISTNAME=		fs
 GENERATED=		yes
 INSTALL_REQ_TOOLCHAIN=	yes
 
+BUILDRUN_DEPENDS=	libuv:primary:std
+
+BUILD_DEPENDS=		libuv:dev:std
 
 
 # iconv:build required for R conf tests (satisfies -liconv)
-
-post-extract:
-	${CP} ${MK_TEMPLATES}/config.guess ${WRKSRC}/src/libuv-*/config.guess
-	${CP} ${MK_TEMPLATES}/config.sub ${WRKSRC}/src/libuv-*/config.sub
