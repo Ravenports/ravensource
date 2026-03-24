@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.47
+DEF[PORTVERSION]=	2.51
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-XML-Parser
@@ -7,7 +7,7 @@ KEYWORDS=		perl
 VARIANTS=		540 542
 SDESC[540]=		Perl module for parsing XML documents (5.40)
 SDESC[542]=		Perl module for parsing XML documents (5.42)
-HOMEPAGE=		https://github.com/toddr/XML-Parser
+HOMEPAGE=		https://github.com/cpan-authors/XML-Parser
 CONTACT=		Perl_Automaton[perl@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
@@ -32,16 +32,19 @@ DISTNAME=		XML-Parser-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |      runtime : LWP::UserAgent
+# |      runtime : File::ShareDir
 # |        build : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
 # |    configure : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
+# |    configure : File::ShareDir::Install
 # |         test : Test::More (perl 5.40 core) (perl 5.42 core)
 # |         test : warnings (perl 5.40 core) (perl 5.42 core)
 
 [PERL_540].USES_ON=			perl:540,configure
-[PERL_540].BUILDRUN_DEPENDS_ON=		perl-libwww-perl:single:540
+[PERL_540].BUILDRUN_DEPENDS_ON=		perl-File-ShareDir:single:540
+[PERL_540].BUILD_DEPENDS_ON=		perl-File-ShareDir-Install:single:540
 [PERL_542].USES_ON=			perl:542,configure
-[PERL_542].BUILDRUN_DEPENDS_ON=		perl-libwww-perl:single:542
+[PERL_542].BUILDRUN_DEPENDS_ON=		perl-File-ShareDir:single:542
+[PERL_542].BUILD_DEPENDS_ON=		perl-File-ShareDir-Install:single:542
 
 USES=			expat
 CONFIGURE_ARGS=		EXPATLIBPATH={{LOCALBASE}}/lib

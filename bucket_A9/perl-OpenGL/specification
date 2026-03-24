@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.7006
+DEF[PORTVERSION]=	0.7009
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-OpenGL
@@ -32,12 +32,15 @@ DISTNAME=		OpenGL-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
+# |      runtime : OpenGL::Modern
 # |        build : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
 # |    configure : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
 # |         test : Test::More (perl 5.40 core) (perl 5.42 core)
 
 [PERL_540].USES_ON=			perl:540,configure
+[PERL_540].BUILDRUN_DEPENDS_ON=		perl-OpenGL-Modern:single:540
 [PERL_542].USES_ON=			perl:542,configure
+[PERL_542].BUILDRUN_DEPENDS_ON=		perl-OpenGL-Modern:single:542
 
 BUILD_DEPENDS=		freeglut:dev:std
 BUILDRUN_DEPENDS=	freeglut:primary:std
