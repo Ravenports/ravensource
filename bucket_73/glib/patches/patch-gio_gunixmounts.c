@@ -1,6 +1,6 @@
---- gio/gunixmounts.c.orig	2026-02-13 19:08:16 UTC
+--- gio/gunixmounts.c.orig	2026-03-16 13:53:50 UTC
 +++ gio/gunixmounts.c
-@@ -74,6 +74,10 @@ extern char* hasmntopt(const struct mnte
+@@ -75,6 +75,10 @@ extern char* hasmntopt(const struct mnte
  #define O_BINARY 0
  #endif
  
@@ -9,5 +9,5 @@
 +#endif
 +
  #include "gunixmounts.h"
+ #include "gunixmounts-private.h"
  #include "gfile.h"
- #include "gfilemonitor.h"

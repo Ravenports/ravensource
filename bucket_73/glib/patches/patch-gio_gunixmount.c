@@ -1,6 +1,6 @@
---- gio/gunixmount.c.orig	2026-02-13 19:08:16 UTC
+--- gio/gunixmount.c.orig	2026-03-16 13:53:50 UTC
 +++ gio/gunixmount.c
-@@ -360,12 +360,17 @@ g_unix_mount_eject (GMount             *
+@@ -365,12 +365,17 @@ g_unix_mount_eject (GMount             *
                      gpointer             user_data)
  {
    GUnixMount *unix_mount = G_UNIX_MOUNT (mount);
