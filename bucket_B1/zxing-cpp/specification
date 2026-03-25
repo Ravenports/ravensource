@@ -1,0 +1,48 @@
+DEF[PORTVERSION]=	3.0.2
+DEF[SOVERSION]=		${PORTVERSION}
+DEF[SOMAJOR]=		4
+DEF[STB_TAG]=		28d546d
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		zxing-cpp
+VERSION=		${PORTVERSION}
+KEYWORDS=		textproc
+VARIANTS=		std
+SDESC[std]=		Zebra Crossing barcode scanning C++ library
+HOMEPAGE=		https://github.com/zxing-cpp/zxing-cpp
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main stb
+SITES[main]=		https://github.com/zxing-cpp/zxing-cpp/releases/download/v${PORTVERSION}/
+SITES[stb]=		GITHUB/nothings:stb:${STB_TAG}:../.build/_deps/stb-src
+DISTFILE[1]=		zxing-cpp-${PORTVERSION}.tar.gz:main
+DISTFILE[2]=		generated:stb
+DF_INDEX=		1 2
+
+SPKGS[std]=		set primary dev tools
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		APACHE20:primary
+LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/core/Version.h.in
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		textproc/zxing-cpp
+
+EXRUN[tools]=		primary
+
+USES=			cmake pkgconfig iconv c++:primary
+CMAKE_ARGS=		-DBUILD_SHARED_LIBS:BOOL=ON
+			-DBUILD_EXAMPLES:BOOL=OFF
+			-DBUILD_BLACKBOX_TESTS:BOOL=OFF
+			-DFETCHCONTENT_FULLY_DISCONNECTED:BOOL=ON
+SOVERSION=		${SOVERSION}
+PLIST_SUB=		ZXING_SOMAJOR=${SOMAJOR}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libZXing.so
