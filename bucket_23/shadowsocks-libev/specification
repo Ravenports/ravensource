@@ -1,14 +1,13 @@
-DEF[PORTVERSION]=	3.3.5
+DEF[PORTVERSION]=	3.3.6
 DEF[TAG_BLOOM]=		437e1ad
 DEF[TAG_CORK]=		074e074
 DEF[TAG_IPSET]=		3ea7fe3
-DEF[TAG]=		9afa3ca
-# Remove cmake minimum argument on next release
+DEF[TAG]=		v${PORTVERSION}
+DEF[SOVERSION]=		2.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		shadowsocks-libev
 VERSION=		${PORTVERSION}
-REVISION=		5
 KEYWORDS=		net
 VARIANTS=		std
 SDESC[std]=		Secure socks5 proxy
@@ -43,22 +42,24 @@ BUILD_DEPENDS=		asciidoc:single:std
 			libsodium:dev:std
 			xmlto:primary:std
 			c-ares:dev:std
-			mbedtls:dev:std
+			mbedtls3:dev:std
 BUILDRUN_DEPENDS=	libev:primary:std
-			mbedtls:primary:std
+			mbedtls3:primary:std
 			libsodium:primary:std
 			c-ares:primary:std
 
 RC_SUBR=		shadowsocks_libev:primary
 
-USES=			cpe cmake pcre
+USES=			cpe cmake pcre2 pkgconfig shebangfix
 CPE_VENDOR=		shadowsocks
+SHEBANG_FILES=		src/ss-nat
 LDFLAGS=		-lpthread
-CFLAGS=			-DMBEDTLS_DECLARE_PRIVATE_IDENTIFIERS
-CMAKE_ARGS=		-DCMAKE_POLICY_VERSION_MINIMUM=3.5
+CMAKE_ARGS=		-Wno-dev
+SOVERSION=		${SOVERSION}
 
 post-install:
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/ss-*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/ss-[lmrt]*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/ss-server
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libshadowsocks-libev.so
 	${MKDIR} ${STAGEDIR}${PREFIX}/etc/shadowsocks-libev
 	${INSTALL_DATA} ${WRKSRC}/debian/config.json \

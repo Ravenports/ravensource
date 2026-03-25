@@ -1,4 +1,4 @@
---- src/udprelay.c.orig	2025-01-20 03:11:47 UTC
+--- src/udprelay.c.orig	2026-02-09 01:15:12 UTC
 +++ src/udprelay.c
 @@ -74,6 +74,11 @@
  #define EWOULDBLOCK EAGAIN

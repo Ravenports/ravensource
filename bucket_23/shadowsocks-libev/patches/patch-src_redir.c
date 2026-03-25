@@ -1,4 +1,4 @@
---- src/redir.c.orig	2025-01-20 03:11:47 UTC
+--- src/redir.c.orig	2026-02-09 01:15:12 UTC
 +++ src/redir.c
 @@ -37,9 +37,15 @@
  #include <unistd.h>
