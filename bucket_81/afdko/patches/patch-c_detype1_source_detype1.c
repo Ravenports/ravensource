@@ -12,7 +12,7 @@
  }
  
  #ifndef _MSC_VER /* Unix */
-+#if !defined(__sun__)
++#if defined(__linux__)
  extern int getopt(int argc, char **argv, char *optstring);
 +#endif
  extern int optind;
