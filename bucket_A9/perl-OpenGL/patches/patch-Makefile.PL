@@ -1,19 +1,19 @@
 Don't check current display for extensions, build all.
 Similar to gentoo portage.
 
---- Makefile.PL.orig	2025-04-14 04:33:29 UTC
+--- Makefile.PL.orig	2026-02-07 18:49:14 UTC
 +++ Makefile.PL
-@@ -181,8 +181,7 @@ WriteMakefile(
-       "lib/OpenGL/Config.pm ".
-       "gl_exclude.h ".
-       "utils/glversion.txt ".
--      "utils/glversion$Config{exe_ext} ".
+@@ -179,8 +179,7 @@ WriteMakefile(
+   clean => {
+     FILES => join(' ',
+       qw(lib/OpenGL/Config.pm gl_exclude.h utils/glversion.txt auto-xs.inc),
+-      "utils/glversion$Config{exe_ext}",
 -      "utils/glversion$Config{obj_ext}"
 +      ""
+     ),
    },
-   %$build_config,
-   INC => $INCS . ' -I'.curdir(),
-@@ -504,47 +503,7 @@ sub get_gldata {
+   depend => {
+@@ -509,47 +508,7 @@ sub get_gldata {
      ($found->{FREEGLUT32} || $found->{FREEGLUT}) ? "GLUT_DEF=HAVE_FREEGLUT " :
      ($found->{GLUT32} || $found->{GLUT}) ? "GLUT_DEF=HAVE_GLUT " :
      '';
@@ -61,7 +61,7 @@ Similar to gentoo portage.
    # Fix GLUT flags based on results
    if ($gldata->{FREEGLUT}) {
      print 'Found FreeGLUT v'.$gldata->{FREEGLUT}."\n";
-@@ -570,12 +529,10 @@ sub generate_excl {
+@@ -575,12 +534,10 @@ sub generate_excl {
      next if ($ext =~ m|^GL_VERSION_|);
      $no_ext->{$ext}++;
    }
