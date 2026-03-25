@@ -37,8 +37,3 @@ DISTNAME=		qrcode-${PORTVERSION}.dist-info
 [PY313].USES_ON=			python:v13,wheel
 [PY314].USES_ON=			python:v14,wheel
 
-pre-install:
-	# Fix python shebangs
-	(cd ${STAGEDIR}${PYTHON_SITELIBDIR}/qrcode &&\
-		${SED} -i'' -e "s|/usr/bin/env python|${LOCALBASE}/bin/python3|" \
-		console_scripts.py)
