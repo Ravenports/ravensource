@@ -77,27 +77,17 @@ CONFIGURE_ARGS=		--enable-progcomp
 CPPFLAGS=		-DDEFAULT_PATH_VALUE='\"{{STANDARD_PATH}}:{{LOCALBASE}}/sbin:{{LOCALBASE}}/bin\"'
 			-DSTANDARD_UTILS_PATH='\"{{STANDARD_PATH}}\"'
 
-# Sun linker exports all symbols by default
-# Mac linker doesn't have -export-dynamic equivalent
-VAR_OPSYS[dragonfly]=	VAR1=-Wl,--export-dynamic
-VAR_OPSYS[freebsd]=	VAR1=-Wl,--export-dynamic
-VAR_OPSYS[netbsd]=	VAR1=-Wl,--export-dynamic
-VAR_OPSYS[linux]=	VAR1=-Wl,--export-dynamic
-
 [NLS].USES_ON=				gettext iconv
 [NLS].CONFIGURE_ENABLE_BOTH=		nls
 [NLS].CONFIGURE_ARGS_ON=		--with-libiconv-prefix={{ICONV_PREFIX}}
-
-# static linking finds clash between readline and tinfo, so static
-# version can't be build with readline capability.
 
 [STATIC].BUILDRUN_DEPENDS_OFF=		ncurses:primary:std
 [STATIC].RUN_DEPENDS_OFF=		ncurses:terminfo:std
 [STATIC].USES_OFF=			makeinfo
 [STATIC].INFO_OFF=			info:bash
+[STATIC].CPPFLAGS_ON=			-fcommon
 [STATIC].CONFIGURE_ARGS_ON=		--enable-static-link
 					--disable-ncurses-terminfo
-
 post-patch:
 	# Ensure y.tab.c is regenerated
 	${TOUCH} ${WRKSRC}/parse.y
