@@ -53,8 +53,8 @@ SOVERSION=		${PORTVERSION}
 post-extract:
 	${ECHO} "Terms extracted from 'src/layouts/toolbarlayout.h':" > ${WRKDIR}/TERMS
 	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/src/layouts/toolbarlayout.h >> ${WRKDIR}/TERMS
-	${ECHO} "Terms extracted from 'src/enums.h':" >> ${WRKDIR}/TERMS
-	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/src/enums.h >> ${WRKDIR}/TERMS
+	${ECHO} "Terms extracted from 'src/controls/enums.h':" >> ${WRKDIR}/TERMS
+	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/src/controls/enums.h >> ${WRKDIR}/TERMS
 
 post-stage:
 	(cd ${STAGEDIR}${PREFIX}/lib && ${STRIP_CMD} libKirigami.so \
