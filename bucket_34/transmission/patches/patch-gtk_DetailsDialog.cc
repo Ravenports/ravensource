@@ -1,6 +1,6 @@
---- gtk/DetailsDialog.cc.orig	2024-05-29 01:38:35 UTC
+--- gtk/DetailsDialog.cc.orig	2026-02-20 00:30:46 UTC
 +++ gtk/DetailsDialog.cc
-@@ -63,6 +63,8 @@
+@@ -64,6 +64,8 @@
  #include <string_view>
  #include <unordered_map>
  
