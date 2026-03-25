@@ -1,11 +1,11 @@
---- libs/gst/helpers/ptp/meson.build.orig	2026-01-27 17:02:33 UTC
+--- libs/gst/helpers/ptp/meson.build.orig	2026-02-26 01:44:06 UTC
 +++ libs/gst/helpers/ptp/meson.build
-@@ -5,7 +5,7 @@ if ptp_helper_option.disabled()
-   subdir_done()
+@@ -6,7 +6,7 @@ if ptp_helper_option.disabled()
  endif
  
--if host_system not in ['linux', 'freebsd', 'openbsd', 'netbsd', 'dragonfly', 'darwin', 'sunos', 'solaris', 'illumos', 'windows', 'gnu']
-+if host_system not in ['linux', 'freebsd', 'openbsd', 'netbsd', 'dragonfly', 'darwin', 'sunos', 'solaris', 'illumos', 'windows', 'gnu', 'midnightbsd']
-   if ptp_helper_option.enabled()
-     error('PTP not supported on this OS')
-   endif
+ ptp_supported = false
+-if host_system in ['linux', 'darwin', 'freebsd', 'openbsd', 'netbsd', 'dragonfly', 'sunos', 'solaris', 'illumos', 'windows', 'gnu']
++if host_system in ['linux', 'darwin', 'freebsd', 'openbsd', 'netbsd', 'dragonfly', 'sunos', 'solaris', 'illumos', 'windows', 'gnu', 'midnightbsd']
+   ptp_supported = true
+   if host_system == 'darwin' and subsystem != 'macos'
+     ptp_supported = false
