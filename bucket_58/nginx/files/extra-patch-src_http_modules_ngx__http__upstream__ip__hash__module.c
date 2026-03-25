@@ -1,4 +1,4 @@
---- src/http/modules/ngx_http_upstream_ip_hash_module.c.orig	2024-04-23 14:04:32 UTC
+--- src/http/modules/ngx_http_upstream_ip_hash_module.c.orig	2026-03-10 15:29:07 UTC
 +++ src/http/modules/ngx_http_upstream_ip_hash_module.c
 @@ -9,6 +9,9 @@
  #include <ngx_core.h>
@@ -10,7 +10,7 @@
  
  typedef struct {
      /* the round robin data must be first */
-@@ -208,6 +211,15 @@ ngx_http_upstream_get_ip_hash_peer(ngx_p
+@@ -227,6 +230,15 @@ ngx_http_upstream_get_ip_hash_peer(ngx_p
              goto next;
          }
  

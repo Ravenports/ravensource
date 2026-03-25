@@ -1,4 +1,4 @@
---- src/http/modules/ngx_http_upstream_hash_module.c.orig	2024-04-23 14:04:32 UTC
+--- src/http/modules/ngx_http_upstream_hash_module.c.orig	2026-03-10 15:29:07 UTC
 +++ src/http/modules/ngx_http_upstream_hash_module.c
 @@ -9,6 +9,9 @@
  #include <ngx_core.h>
@@ -10,7 +10,7 @@
  
  typedef struct {
      uint32_t                            hash;
-@@ -238,6 +241,15 @@ ngx_http_upstream_get_hash_peer(ngx_peer
+@@ -261,6 +264,15 @@ ngx_http_upstream_get_hash_peer(ngx_peer
              goto next;
          }
  
@@ -26,7 +26,7 @@
          if (peer->max_fails
              && peer->fails >= peer->max_fails
              && now - peer->checked <= peer->fail_timeout)
-@@ -560,6 +572,15 @@ ngx_http_upstream_get_chash_peer(ngx_pee
+@@ -655,6 +667,15 @@ ngx_http_upstream_get_chash_peer(ngx_pee
                  continue;
              }
  

@@ -1,4 +1,4 @@
---- src/http/modules/ngx_http_upstream_least_conn_module.c.orig	2024-04-23 14:04:32 UTC
+--- src/http/modules/ngx_http_upstream_least_conn_module.c.orig	2026-03-10 15:29:07 UTC
 +++ src/http/modules/ngx_http_upstream_least_conn_module.c
 @@ -9,6 +9,9 @@
  #include <ngx_core.h>
@@ -10,7 +10,7 @@
  
  static ngx_int_t ngx_http_upstream_init_least_conn_peer(ngx_http_request_t *r,
      ngx_http_upstream_srv_conf_t *us);
-@@ -147,6 +150,16 @@ ngx_http_upstream_get_least_conn_peer(ng
+@@ -161,6 +164,16 @@ ngx_http_upstream_get_least_conn_peer(ng
              continue;
          }
  
@@ -27,7 +27,7 @@
          if (peer->max_fails
              && peer->fails >= peer->max_fails
              && now - peer->checked <= peer->fail_timeout)
-@@ -202,6 +215,16 @@ ngx_http_upstream_get_least_conn_peer(ng
+@@ -216,6 +229,16 @@ ngx_http_upstream_get_least_conn_peer(ng
                  continue;
              }
  
