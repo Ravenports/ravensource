@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.32.5
+DEF[PORTVERSION]=	2.33.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-requests
@@ -7,11 +7,11 @@ KEYWORDS=		python
 VARIANTS=		v13 v14
 SDESC[v13]=		Python HTTP for Humans (3.13)
 SDESC[v14]=		Python HTTP for Humans (3.14)
-HOMEPAGE=		https://requests.readthedocs.io
+HOMEPAGE=		https://github.com/psf/requests
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/1e/db/4254e3eabe8020b458f1a747140d32277ec7a271daf1d235b70dc0b4e6e3
+SITES[main]=		PYPIWHL/56/5d/c814546c2333ceea4ba42262d8c4d55763003e767fa169adc693bd524478
 DISTFILE[1]=		requests-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -32,10 +32,16 @@ DISTNAME=		requests-${PORTVERSION}.dist-info
 # Requires-Dist extracted from wheel metadata
 # charset_normalizer<4,>=2
 # idna<4,>=2.5
-# urllib3<3,>=1.21.1
-# certifi>=2017.4.17
+# urllib3<3,>=1.26
+# certifi>=2023.5.7
 # PySocks!=1.5.7,>=1.5.6; extra == "socks"
-# chardet<6,>=3.0.2; extra == "use-chardet-on-py3"
+# chardet<8,>=3.0.2; extra == "use-chardet-on-py3"
+# pytest-httpbin==2.1.0; extra == "test"
+# pytest-cov; extra == "test"
+# pytest-mock; extra == "test"
+# pytest-xdist; extra == "test"
+# PySocks!=1.5.7,>=1.5.6; extra == "test"
+# pytest>=3; extra == "test"
 
 [PY313].USES_ON=			python:v13,wheel
 [PY313].RUN_DEPENDS_ON=			python-charset-normalizer:single:v13
