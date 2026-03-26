@@ -1,0 +1,34 @@
+--- configure.orig	2025-12-25 23:49:56 UTC
++++ configure
+@@ -13078,7 +13078,7 @@ echo $ECHO_N "checking for an rpath opti
+ 		LD_RPATH_OPT="-Wl,-rpath,"
+ 		;;
+ 	(dragonfly*)
+-		LD_RPATH_OPT="-rpath "
++		LD_RPATH_OPT="-Wl,-rpath "
+ 		;;
+ 	(netbsd*)
+ 		LD_RPATH_OPT="-Wl,-rpath,"
+@@ -13087,7 +13087,7 @@ echo $ECHO_N "checking for an rpath opti
+ 		LD_RPATH_OPT="-rpath "
+ 		;;
+ 	(solaris2*)
+-		LD_RPATH_OPT="-R"
++		LD_RPATH_OPT="Wl,-R"
+ 		;;
+ 	(*)
+ 		;;
+@@ -13699,11 +13699,11 @@ CF_EOF
+ 		# tested with SunOS 5.5.1 (solaris 2.5.1) and gcc 2.7.2
+ 		# tested with SunOS 5.10 (solaris 10) and gcc 3.4.3
+ 		if test "$DFT_LWR_MODEL" = "shared" ; then
+-			LOCAL_LDFLAGS="-R\$(LOCAL_LIBDIR):\${libdir}"
++			LOCAL_LDFLAGS="-Wl,-R\$(LOCAL_LIBDIR):\${libdir}"
+ 			LOCAL_LDFLAGS2="$LOCAL_LDFLAGS"
+ 		fi
+ 		if test "$cf_cv_enable_rpath" = yes ; then
+-			EXTRA_LDFLAGS="-R\${libdir} $EXTRA_LDFLAGS"
++			EXTRA_LDFLAGS="-Wl,-R\${libdir} $EXTRA_LDFLAGS"
+ 		fi
+ 
+ 	test "$cf_cv_shlib_version" = auto && cf_cv_shlib_version=rel

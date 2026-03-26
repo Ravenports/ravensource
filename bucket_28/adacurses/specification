@@ -1,9 +1,8 @@
-DEF[PORTVERSION]=	20211021
+DEF[PORTVERSION]=	20251230
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		adacurses
 VERSION=		${PORTVERSION}
-REVISION=		2
 KEYWORDS=		devel ada
 VARIANTS=		std
 SDESC[std]=		Ada95 bindings for ncurses
@@ -15,7 +14,7 @@ SITES[main]=		https://invisible-mirror.net/archives/AdaCurses/
 			ftp://invisible-island.net/AdaCurses/
 DISTFILE[1]=		AdaCurses-${PORTVERSION}.tgz:main
 
-SPKGS[std]=		set primary man docs
+SPKGS[std]=		set primary dev man docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -26,10 +25,9 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/adacurses
 
-# don't remove, need for bootstrapping between ravenadm 1.92 and 1.93
-BUILD_DEPENDS=		ncurses:dev:std
+BUILD_DEPENDS=		autoconf:primary:std
 
-USES=			autoreconf gmake pkgconfig ncurses
+USES=			gmake pkgconfig ncurses
 DISTNAME=		AdaCurses-${PORTVERSION}
 SINGLE_JOB=		yes
 MUST_CONFIGURE=		gnu
@@ -38,12 +36,11 @@ CONFIGURE_ARGS=		--with-ada-include={{PREFIX}}/include/adacurses
 			--with-ada-objects={{PREFIX}}/lib/adacurses
 			--with-curses-dir={{NCURSESBASE}}
 			--libdir={{PREFIX}}/lib/adacurses
-			--enable-widec
 CONFIGURE_ENV=		ac_cv_sys_file_offset_bits=64
 PLIST_SUB=		atic=adacurses/terminal_interface-curses
 SUB_FILES=		adacurses.gpr
 
-post-patch:
+pre-configure:
 	${REINPLACE_CMD} -e '/(INSTALL_PROG)/d' \
 		-e 's|@ADAGEN_LDFLAGS@||' ${WRKSRC}/gen/Makefile.in
 	${REINPLACE_CMD} -e '/pragma Linker_Options/d' \
@@ -53,11 +50,6 @@ post-patch:
 		${WRKSRC}/gen/terminal_interface-curses-panels.ads.m4
 	${REINPLACE_CMD} -e 's|@LIBS@|@LIBS@ -lmenu -lform -lpanel|' \
 		${WRKSRC}/samples/Makefile.in
-
-post-patch-darwin:
-	${REINPLACE_CMD} -e 's|,-R,|,-rpath,|' \
-		${WRKSRC}/src/library.gpr \
-		${WRKDIR}/adacurses.gpr
 
 post-install:
 	${INSTALL_DATA} ${WRKSRC}/src/*.ali \
@@ -69,3 +61,4 @@ post-install:
 		${STAGEDIR}${PREFIX}/share/gpr
 	(cd ${WRKSRC}/doc && ${SETENV} ${MAKE_ENV} \
 		${MAKE_CMD} ${MAKE_ARGS} THIS=adacurses install.html)
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/libexec/AdaCurses/*
