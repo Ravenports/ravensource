@@ -1,4 +1,4 @@
---- rtgui/thresholdselector.cc.orig	2026-01-13 18:23:55 UTC
+--- rtgui/thresholdselector.cc.orig	2026-03-13 20:14:10 UTC
 +++ rtgui/thresholdselector.cc
 @@ -1035,8 +1035,8 @@ double ThresholdSelector::shapePositionV
          (cursorId == TS_BOTTOMLEFT || cursorId == TS_BOTTOMRIGHT)

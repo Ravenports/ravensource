@@ -1,4 +1,4 @@
---- rtengine/dcraw.cc.orig	2026-01-13 18:23:55 UTC
+--- rtengine/dcraw.cc.orig	2026-03-13 20:14:10 UTC
 +++ rtengine/dcraw.cc
 @@ -2335,7 +2335,9 @@ void CLASS hasselblad_correct()
                                              {bhu-1,0},{bhu-1,bwu/2},{bhu-1,bwu-1}};
@@ -20,7 +20,7 @@
  	cur[c][i] = tot*0xffff;
        }
      }
-@@ -6855,7 +6857,7 @@ guess_cfa_pc:
+@@ -6859,7 +6861,7 @@ guess_cfa_pc:
  	    cblack[4] = cblack[5] = 1;
  	break;
        case 61450:
