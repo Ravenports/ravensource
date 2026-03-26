@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	2.14.2
-DEF[SOVERSION]=		6.20.5
+DEF[PORTVERSION]=	2.14.3
+DEF[SOVERSION]=		6.20.6
 DEF[PORTDOCS]=		reference CHANGES formats.txt LICENSE.TXT raster.txt
 # ----------------------------------------------------------------------------
 
@@ -36,11 +36,11 @@ FPC_EQUIVALENT=		print/freetype2
 EXRUN[dev]=		zlib:dev:std
 			bzip2:dev:std
 
-USES=			cpe gmake libtool zlib pkgconfig bz2
+USES=			cpe zlib pkgconfig bz2 cmake
 MAKE_ENV=		TOP=""
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--without-harfbuzz
-CONFIGURE_WRKSRC=	{{WRKSRC}}/builds/unix
+CMAKE_ARGS=		-DFT_DISABLE_PNG:BOOL=ON
+			-DFT_DISABLE_HARFBUZZ:BOOL=ON
+			-DBUILD_SHARED_LIBS:BOOL=ON
 CPE_PRODUCT=		freetype
 CPE_VENDOR=		freetype
 SOVERSION=		${SOVERSION}
@@ -55,7 +55,7 @@ SOVERSION=		${SOVERSION}
 [LCD_FILTERING].CFLAGS_ON=		-DFT_CONFIG_OPTION_SUBPIXEL_RENDERING
 [V38].MAKEFILE_ON=			SUBPIXEL_HINTING_MODE+=1
 [V40].MAKEFILE_ON=			SUBPIXEL_HINTING_MODE+=2
-[PNG].CONFIGURE_WITH_BOTH=		png
+[PNG].CMAKE_ARGS_OFF=			-DFT_DISABLE_PNG:BOOL=ON
 [PNG].USES_ON=				png
 
 post-patch-TAB_VALIDATION-ON:
@@ -89,13 +89,8 @@ post-patch:
 		${WRKSRC}/include/freetype/config/ftoption.h
 .endif
 
-post-configure:
-	(cd ${BUILD_WRKSRC}; ${SETENV} ${MAKE_ENV} \
-		${MAKE_CMD} ${MAKE_FLAGS} ${MAKEFILE} ${MAKE_ARGS} setup)
-
 post-install:
-	${INSTALL_SCRIPT} ${WRKSRC}/builds/unix/freetype-config \
-		${STAGEDIR}${PREFIX}/bin/
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libfreetype.${LIBEXT}
+	${RM} ${STAGEDIR}${PREFIX}/include/freetype2/freetype/config/ftoption.h.hinting.bak*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libfreetype.so
 	(cd ${WRKSRC}/docs && \
 		${COPYTREE_SHARE} "${PORTDOCS}" ${STAGEDIR}${STD_DOCDIR})

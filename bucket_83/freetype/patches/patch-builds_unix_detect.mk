@@ -1,4 +1,4 @@
---- builds/unix/detect.mk.orig	2025-09-08 02:48:18 UTC
+--- builds/unix/detect.mk.orig	2026-03-11 16:35:37 UTC
 +++ builds/unix/detect.mk
 @@ -22,6 +22,9 @@ ifeq ($(PLATFORM),ansi)
                       $(wildcard /usr/sbin/init) \
