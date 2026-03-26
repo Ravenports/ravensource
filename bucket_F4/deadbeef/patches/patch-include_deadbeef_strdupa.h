@@ -1,4 +1,4 @@
---- include/deadbeef/strdupa.h.orig	2025-03-26 17:38:20 UTC
+--- include/deadbeef/strdupa.h.orig	2026-03-16 15:39:32 UTC
 +++ include/deadbeef/strdupa.h
 @@ -31,7 +31,7 @@
      ({									      \

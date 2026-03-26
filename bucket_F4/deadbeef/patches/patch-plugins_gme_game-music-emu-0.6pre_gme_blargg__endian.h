@@ -1,4 +1,4 @@
---- plugins/gme/game-music-emu-0.6pre/gme/blargg_endian.h.orig	2025-03-26 17:38:20 UTC
+--- plugins/gme/game-music-emu-0.6pre/gme/blargg_endian.h.orig	2026-03-16 15:39:32 UTC
 +++ plugins/gme/game-music-emu-0.6pre/gme/blargg_endian.h
 @@ -23,7 +23,11 @@
  #if !defined (BLARGG_BIG_ENDIAN) && !defined (BLARGG_LITTLE_ENDIAN)
