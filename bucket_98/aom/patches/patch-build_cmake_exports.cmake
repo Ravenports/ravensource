@@ -1,4 +1,4 @@
---- build/cmake/exports.cmake.orig	2025-09-05 22:10:37 UTC
+--- build/cmake/exports.cmake.orig	2026-03-17 23:08:47 UTC
 +++ build/cmake/exports.cmake
 @@ -68,7 +68,7 @@ function(setup_exports_target)
                     APPEND_STRING
