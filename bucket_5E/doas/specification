@@ -1,6 +1,7 @@
-DEF[CPE_VERSION]=	6.3
-DEF[CPE_UPDATE]=	p12
-DEF[PORTVERSION]=	${CPE_VERSION}${CPE_UPDATE}
+DEF[CPE_VERSION]=	6.4
+DEF[CPE_UPDATE]=	p1
+# DEF[PORTVERSION]=	${CPE_VERSION}${CPE_UPDATE}
+DEF[PORTVERSION]=	${CPE_VERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		doas
@@ -8,12 +9,12 @@ VERSION=		${PORTVERSION}
 KEYWORDS=		security
 VARIANTS=		std
 SDESC[std]=		Simple sudo alternative
-HOMEPAGE=		https://github.com/slicer69/doas
+HOMEPAGE=		https://codeberg.org/thejessesmith/doas
 CONTACT=		Omar_Polo[omar.polo@europecom.net]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GITHUB/slicer69:doas:${PORTVERSION}
-DISTFILE[1]=		generated:main
+SITES[main]=		https://codeberg.org/thejessesmith/doas/archive/${PORTVERSION}.tar.gz?dummy=/
+DISTFILE[1]=		doas-${PORTVERSION}.tar.gz:main
 
 SPKGS[std]=		set primary man
 
@@ -33,7 +34,8 @@ BUILDRUN_DEPENDS=	openpam:primary:std
 USES=			cpe gmake
 CPE_VENDOR=		doas_project
 CPE_VERSION=		${CPE_VERSION}
-CPE_UPDATE=		${CPE_UPDATE}
+# CPE_UPDATE=		${CPE_UPDATE}
+DISTNAME=		doas
 
 post-patch:
 	# I'm having trouble escaping GLOBAL_PATH properly, just modify makefile
