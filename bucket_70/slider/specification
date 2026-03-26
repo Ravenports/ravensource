@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	2.06
 
 NAMEBASE=		slider
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		sysutils
 VARIANTS=		std
 SDESC[std]=		HAMMER file system time slider utility
@@ -29,7 +30,7 @@ LICENSE_SCHEME=		solo
 ONLY_FOR_OPSYS=		dragonfly
 
 USES=			gprbuild ncurses
-BUILD_DEPENDS=		adacurses:primary:std
+BUILD_DEPENDS=		adacurses:dev:std
 
 post-patch:
 	${REINPLACE_CMD} -e 's|/usr/local/lib/gnat/||' ${WRKSRC}/slider.gpr
