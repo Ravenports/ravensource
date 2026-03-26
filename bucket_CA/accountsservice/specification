@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	23.13.9
+DEF[PORTVERSION]=	26.12.8
 DEF[FBSD_TAG]=		1ad45945
 DEF[SOVERSION]=		0.0.0
 # ----------------------------------------------------------------------------
@@ -13,7 +13,7 @@ HOMEPAGE=		https://www.freedesktop.org/wiki/Software/AccountsService/
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
 DOWNLOAD_GROUPS=	main freebsd
-SITES[main]=		https://gitlab.freedesktop.org/arrowd/accountsservice/-/archive/${PORTVERSION}/
+SITES[main]=		https://gitlab.freedesktop.org/accountsservice/accountsservice/-/archive/${PORTVERSION}/
 SITES[freebsd]=		https://gitlab.freedesktop.org/arrowd/accountsservice/-/archive/${FBSD_TAG}/
 DISTFILE[1]=		accountsservice-${FBSD_TAG}.tar.gz:freebsd
 DISTFILE[2]=		accountsservice-${PORTVERSION}.tar.gz:main
@@ -56,6 +56,8 @@ CFLAGS=			-Wno-implicit-function-declaration
 [LINUX].DESCRIPTION=			Support for Linux system
 [LINUX].CONFIGURE_ARGS_OFF=		-Dconsolekit=true
 					-Dtests=false
+[LINUX].BUILD_DEPENDS_ON=		json-c:dev:std
+[LINUX].BUILDRUN_DEPENDS_ON=		json-c:primary:std
 
 pre-configure-LINUX-ON:
 	ln -s accountsservice-${PORTVERSION} ${WRKDIR}/accountsservice
