@@ -1,4 +1,4 @@
---- src/llvm-project/llvm/cmake/modules/HandleLLVMOptions.cmake.orig	2026-01-19 16:34:28 UTC
+--- src/llvm-project/llvm/cmake/modules/HandleLLVMOptions.cmake.orig	2026-03-02 23:18:25 UTC
 +++ src/llvm-project/llvm/cmake/modules/HandleLLVMOptions.cmake
 @@ -322,7 +322,7 @@ endif()
  
