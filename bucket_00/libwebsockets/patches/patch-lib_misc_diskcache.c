@@ -1,4 +1,4 @@
---- lib/misc/diskcache.c.orig	2025-12-03 06:15:09 UTC
+--- lib/misc/diskcache.c.orig	2026-03-17 16:35:25 UTC
 +++ lib/misc/diskcache.c
 @@ -280,6 +280,9 @@ lws_diskcache_trim(struct lws_diskcache_
  	size_t trimmed = 0;
