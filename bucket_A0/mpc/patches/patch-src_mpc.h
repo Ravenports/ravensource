@@ -1,4 +1,4 @@
---- src/mpc.h.orig	2022-12-09 14:02:48 UTC
+--- src/mpc.h.orig	2026-03-11 14:11:08 UTC
 +++ src/mpc.h
 @@ -21,6 +21,7 @@ along with this program. If not, see htt
  #ifndef __MPC_H
