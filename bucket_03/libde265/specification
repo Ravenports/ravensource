@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	1.0.16
-DEF[SOVERSION]=		0.1.9
+DEF[PORTVERSION]=	1.0.18
+DEF[SOVERSION]=		0.1.11
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libde265
@@ -30,19 +30,15 @@ FPC_EQUIVALENT=		multimedia/libde265
 
 EXRUN[tools]=		libde265:primary:std
 
-USES=			cpe autoreconf libtool pkgconfig c++:primary
+USES=			cpe cmake pkgconfig c++:primary
 CPE_VENDOR=		struktur
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--disable-sherlock265
-			--disable-dec265
-			--enable-encoder
-INSTALL_TARGET=		install-strip
+CMAKE_ARGS=		-DENABLE_SHERLOCK265:BOOL=OFF
+			-DENABLE_ENCODER:BOOL=OFF
+			-DENABLE_DECODER:BOOL=ON
+			-DENABLE_SDL:BOOL=OFF
 SOVERSION=		${SOVERSION}
+LDFLAGS=		-lpthread
 
-pre-configure:
-	# not sure why pc file isn't getting fully replaced
-	${REINPLACE_CMD} -e 's|@CMAKE_INSTALL_PREFIX@|${PREFIX}|' \
-		-e 's/@CMAKE_INSTALL_LIBDIR@/lib/' \
-		-e 's/@CMAKE_INSTALL_INCLUDEDIR@/include/' \
-		${WRKSRC}/libde265.pc.in
-
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib*.so
