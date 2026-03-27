@@ -1,4 +1,4 @@
---- coreconf/FreeBSD.mk.orig	2026-02-19 09:30:44 UTC
+--- coreconf/FreeBSD.mk.orig	2026-03-19 16:58:13 UTC
 +++ coreconf/FreeBSD.mk
 @@ -5,9 +5,9 @@
  
