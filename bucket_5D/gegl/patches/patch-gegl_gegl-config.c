@@ -1,4 +1,4 @@
---- gegl/gegl-config.c.orig	2025-12-11 20:43:07 UTC
+--- gegl/gegl-config.c.orig	2026-03-24 10:55:24 UTC
 +++ gegl/gegl-config.c
 @@ -44,7 +44,7 @@
  #include <mach/mach.h>
