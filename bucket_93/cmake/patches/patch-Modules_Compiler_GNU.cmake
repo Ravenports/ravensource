@@ -1,4 +1,4 @@
---- Modules/Compiler/GNU.cmake.orig	2026-01-27 16:03:47 UTC
+--- Modules/Compiler/GNU.cmake.orig	2026-03-27 13:08:31 UTC
 +++ Modules/Compiler/GNU.cmake
 @@ -99,7 +99,9 @@ macro(__compiler_gnu lang)
        list(APPEND __lto_flags -flto)
