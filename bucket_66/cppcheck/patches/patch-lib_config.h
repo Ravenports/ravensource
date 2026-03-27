@@ -1,6 +1,6 @@
---- lib/config.h.orig	2026-01-02 16:53:19 UTC
+--- lib/config.h.orig	2026-03-26 14:47:34 UTC
 +++ lib/config.h
-@@ -212,7 +212,7 @@
+@@ -206,7 +206,7 @@
  #define USE_WINDOWS_SEH
  #endif
  
