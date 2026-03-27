@@ -1,8 +1,8 @@
---- src/aclocal.m4.orig	2024-05-10 11:13:55 UTC
+--- src/aclocal.m4.orig	2026-03-27 08:12:03 UTC
 +++ src/aclocal.m4
-@@ -335,7 +335,7 @@ case "${host_os}" in
-                 SONAME="${SHAREDPREFIX}ecl.${SHAREDEXT}.SOVERSION"
-                 SONAME_LDFLAGS="-Wl,-soname,SONAME"
+@@ -354,7 +354,7 @@ case "${host_os}" in
+                 ECL_ADD_FEATURE([unix])
+                 ECL_ADD_FEATURE([bsd])
                  ;;
 -        freebsd*)
 +        freebsd*|midnight*)
