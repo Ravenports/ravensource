@@ -1,4 +1,4 @@
---- library/std/src/sys/fs/unix.rs.orig	2026-03-02 23:18:25 UTC
+--- library/std/src/sys/fs/unix.rs.orig	2026-03-25 01:22:28 UTC
 +++ library/std/src/sys/fs/unix.rs
 @@ -1433,6 +1433,7 @@ impl File {
  

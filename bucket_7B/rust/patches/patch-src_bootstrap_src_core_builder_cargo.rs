@@ -1,4 +1,4 @@
---- src/bootstrap/src/core/builder/cargo.rs.orig	2026-03-02 23:18:25 UTC
+--- src/bootstrap/src/core/builder/cargo.rs.orig	2026-03-25 01:22:28 UTC
 +++ src/bootstrap/src/core/builder/cargo.rs
 @@ -297,12 +297,13 @@ impl Cargo {
                  && !target.contains("xous")
