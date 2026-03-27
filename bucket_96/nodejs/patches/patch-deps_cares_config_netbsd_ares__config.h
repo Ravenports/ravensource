@@ -1,4 +1,4 @@
---- deps/cares/config/netbsd/ares_config.h.orig	2026-03-03 01:28:30 UTC
+--- deps/cares/config/netbsd/ares_config.h.orig	2026-03-24 09:08:02 UTC
 +++ deps/cares/config/netbsd/ares_config.h
 @@ -119,7 +119,7 @@
  /* #undef HAVE_GETRANDOM */
