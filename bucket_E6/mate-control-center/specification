@@ -1,9 +1,8 @@
-DEF[PORTVERSION]=	1.28.0
+DEF[PORTVERSION]=	1.28.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		mate-control-center
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		sysutils
 VARIANTS=		std
 SDESC[std]=		Control center for MATE
@@ -15,7 +14,7 @@ SITES[main]=		GITHUB/mate-desktop:mate-control-center:v${PORTVERSION}
 DISTFILE[1]=		generated:main
 DIST_SUBDIR=		mate
 
-SPKGS[std]=		set primary nls
+SPKGS[std]=		set primary nls man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -46,6 +45,7 @@ BUILD_DEPENDS=		accountsservice:dev:std
 			mate-menus:dev:std
 			polkit:dev:std
 			yelp-tools:single:std
+			freetype:dev:std
 BUILDRUN_DEPENDS=	accountsservice:primary:std
 			dconf:primary:std
 			libayatana-appindicator:primary:std
@@ -59,10 +59,8 @@ BUILDRUN_DEPENDS=	accountsservice:primary:std
 			mate-menus:primary:std
 			polkit:primary:std
 
-USES=			autoreconf desktop-utils:primary gettext gmake
+USES=			desktop-utils:primary gettext meson
 			iconv mime-info:primary pkgconfig
 XORG_COMPONENTS=	ice sm xext xscrnsaver
 GNOME_COMPONENTS=	glib gtk3 librsvg libxml2
-
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--disable-systemd
+LDFLAGS=		-lfreetype
