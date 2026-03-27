@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.4.5
+DEF[PORTVERSION]=	2.4.6
 DEF[VERSION]=		${PORTVERSION:S/./_/g}
 # ----------------------------------------------------------------------------
 
@@ -14,7 +14,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/libharu:libharu:v${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[std]=		set primary dev
+SPKGS[std]=		set primary dev docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -42,7 +42,3 @@ pre-configure:
 
 post-stage:
 	${INSTALL_LIB} ${BUILD_WRKSRC}/src/lib* ${STAGEDIR}${PREFIX}/lib/
-	${RM} ${STAGEDIR}${PREFIX}/share/libharu/README.md
-	${RM} ${STAGEDIR}${PREFIX}/share/libharu/CHANGES
-	${RM} ${STAGEDIR}${PREFIX}/share/libharu/INSTALL
-	${RMDIR} ${STAGEDIR}${PREFIX}/share/libharu
