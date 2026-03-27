@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.4.2
+DEF[PORTVERSION]=	2.4.3
 DEF[DL_FOLDER]=		2.4
 DEF[FILEVER]=		${PORTVERSION}
 # ----------------------------------------------------------------------------
@@ -77,9 +77,3 @@ VAR_OPSYS[netbsd]=	CFLAGS=-D_NETBSD_SOURCE
 VAR_OPSYS[sunos]=	CFLAGS=-D__EXTENSIONS__
 			CONFIGURE_ARGS=--with-ioloop=poll
 			CONFIGURE_ARGS=--with-notify=none
-
-post-patch:
-	${REINPLACE_CMD} \
-		-e 's|/usr/bin|${LOCALBASE}/bin|g' \
-		-e 's|/usr/local|${PREFIX}|g' \
-		${WRKSRC}/src/plugins/fts/decode2text.sh
