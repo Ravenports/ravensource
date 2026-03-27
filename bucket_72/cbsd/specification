@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	15.0.3
+DEF[PORTVERSION]=	15.0.5
 DEF[CBSD_HOME]=		/cbsd
 # ----------------------------------------------------------------------------
 
@@ -35,10 +35,14 @@ BUILD_DEPENDS=		elftoolchain:dev:std
 			file:dev:std
 			libedit:dev:std
 			coreutils:primary:noprefix
+			oniguruma:dev:std
+			jq:dev:std
 BUILDRUN_DEPENDS=	libssh2:primary:std
 			libedit:primary:std
 			file:primary:std
 			curl:primary:std
+			oniguruma:primary:std
+			jq:primary:std
 
 RC_SUBR=		cbsdd:primary
 			cbsdrsyncd:primary
@@ -55,6 +59,7 @@ USERGROUP_SPKG=		primary
 USES=			autoreconf:build pkgconfig:buildrun gmake ssl sqlite
 MAKE_ARGS=		STRIP={{STRIP_CMD}}
 MANDIRS=		{{PREFIX}}/cbsd/man
+LDFLAGS=		-lonig -ljq
 SINGLE_JOB=		yes
 
 VAR_OPSYS[freebsd]=	LDFLAGS=-ljail
