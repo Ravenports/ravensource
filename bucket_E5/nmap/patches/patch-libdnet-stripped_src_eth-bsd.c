@@ -1,6 +1,6 @@
---- libdnet-stripped/src/eth-bsd.c.orig	2025-03-31 19:30:47 UTC
+--- libdnet-stripped/src/eth-bsd.c.orig	2025-06-05 22:22:27 UTC
 +++ libdnet-stripped/src/eth-bsd.c
-@@ -45,7 +45,7 @@ eth_open(const char *device)
+@@ -46,7 +46,7 @@ eth_open(const char *device)
  
  	if ((e = calloc(1, sizeof(*e))) != NULL) {
  		char file[32] = "/dev/bpf";
