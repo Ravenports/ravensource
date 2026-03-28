@@ -1,4 +1,4 @@
---- cpan/ExtUtils-MakeMaker/t/INST_PREFIX.t.orig	2023-12-22 10:47:12 UTC
+--- cpan/ExtUtils-MakeMaker/t/INST_PREFIX.t.orig	2026-01-18 16:32:23 UTC
 +++ cpan/ExtUtils-MakeMaker/t/INST_PREFIX.t
 @@ -11,7 +11,7 @@ BEGIN {
  

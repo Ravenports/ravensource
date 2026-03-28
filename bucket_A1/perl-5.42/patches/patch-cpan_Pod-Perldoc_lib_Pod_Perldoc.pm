@@ -1,6 +1,6 @@
 Put back some non dumb outputter by default
 
---- cpan/Pod-Perldoc/lib/Pod/Perldoc.pm.orig	2023-12-22 10:47:12 UTC
+--- cpan/Pod-Perldoc/lib/Pod/Perldoc.pm.orig	2026-01-18 16:32:24 UTC
 +++ cpan/Pod-Perldoc/lib/Pod/Perldoc.pm
 @@ -486,6 +486,11 @@ sub init_formatter_class_list {
  
