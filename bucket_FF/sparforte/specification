@@ -1,7 +1,8 @@
-DEF[PORTVERSION]=	2.6.4
+DEF[PORTVERSION]=	3.0
 DEF[TAG]=		v${PORTVERSION}
 DEF[SF_SRC]=		{{WRKSRC}}/src
 DEF[SCAL]=		scanner-calendar
+DEF[BUILD_DATE]=	260318
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		sparforte
@@ -175,7 +176,10 @@ post-configure:
 	for f in ${PREPFILES}; do \
 	    echo "gnatprep $$f" ;\
 	    (cd ${WRKSRC}/src && ${SETENV} ${MAKE_ENV} \
-		gnatprep ${SFARG} $$f.orig $$f) ;\
+		gnatprep ${SFARG} \
+		-D configbuilder=\"Ravenports\" \
+		-D configbuildDate=\"${BUILD_DATE}\" \
+		-D configreleased=true $$f.orig $$f) ;\
 	done
 
 post-install:

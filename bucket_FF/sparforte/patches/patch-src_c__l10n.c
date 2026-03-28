@@ -1,4 +1,4 @@
---- src/c_l10n.c.orig	2025-01-16 05:00:59 UTC
+--- src/c_l10n.c.orig	2026-03-18 18:42:11 UTC
 +++ src/c_l10n.c
 @@ -485,7 +485,7 @@ char *langinfo_abmon_12() {
   */

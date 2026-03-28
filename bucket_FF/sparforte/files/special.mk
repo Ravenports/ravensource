@@ -15,6 +15,7 @@ PREPFILES= \
 	pegasoft-user_io-getline.adb \
 	scanner_res.adb \
 	scanner_res.ads \
+	world-deps.ads \
 	world.ads
 
 .if ${SETMYSQL} == "ON" || ${SETPGSQL} == "ON"
