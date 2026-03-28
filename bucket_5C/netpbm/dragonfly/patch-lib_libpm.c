@@ -1,4 +1,4 @@
---- lib/libpm.c.orig	2025-09-27 20:56:22 UTC
+--- lib/libpm.c.orig	2026-02-12 03:48:27 UTC
 +++ lib/libpm.c
 @@ -17,6 +17,7 @@
  #include <unistd.h>
