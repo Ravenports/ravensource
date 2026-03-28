@@ -1,6 +1,6 @@
---- Net/src/SocketImpl.cpp.orig	2025-05-12 09:00:12 UTC
+--- Net/src/SocketImpl.cpp.orig	2026-03-24 10:38:31 UTC
 +++ Net/src/SocketImpl.cpp
-@@ -1273,7 +1273,7 @@ void SocketImpl::initSocket(int af, int
+@@ -1274,7 +1274,7 @@ void SocketImpl::initSocket(int af, int
  	if (_sockfd == POCO_INVALID_SOCKET)
  		error();
  

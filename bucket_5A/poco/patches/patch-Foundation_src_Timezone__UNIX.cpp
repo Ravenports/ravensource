@@ -1,15 +1,15 @@
---- Foundation/src/Timezone_UNIX.cpp.orig	2025-05-12 09:00:11 UTC
+--- Foundation/src/Timezone_UNIX.cpp.orig	2026-03-24 10:38:30 UTC
 +++ Foundation/src/Timezone_UNIX.cpp
-@@ -33,7 +33,7 @@ public:
- 	{
- 		std::lock_guard<std::mutex> lock(_mutex);
+@@ -77,7 +77,7 @@ private:
  
--	#if defined(__APPLE__)  || defined(__FreeBSD__) || defined (__OpenBSD__) || POCO_OS == POCO_OS_ANDROID // no timezone global var
-+	#if defined(__APPLE__)  || defined(__FreeBSD__) || defined (__OpenBSD__) || defined(__DragonFly__) || POCO_OS == POCO_OS_ANDROID // no timezone global var
- 		std::time_t now = std::time(NULL);
- 		struct std::tm t;
- 		gmtime_r(&now, &t);
-@@ -86,7 +86,7 @@ int Timezone::dst(const Poco::Timestamp&
+ 	static int computeTimeZone()
+ 	{
+-#if defined(__APPLE__)  || defined(__FreeBSD__) || defined (__OpenBSD__) || POCO_OS == POCO_OS_ANDROID // no timezone global var
++#if defined(__APPLE__)  || defined(__FreeBSD__) || defined (__OpenBSD__) || defined (__DragonFly__) || POCO_OS == POCO_OS_ANDROID // no timezone global var
+ 		// Get offset from a date when DST is not active.
+ 		// Check both January and July - one of them won't have DST.
+ 		struct std::tm jan = {};
+@@ -140,7 +140,7 @@ int Timezone::dst(const Poco::Timestamp&
  	{
  #if defined(__CYGWIN__)
  		return local.__TM_GMTOFF - utcOffset();

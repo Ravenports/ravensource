@@ -1,4 +1,4 @@
---- Foundation/src/Thread_POSIX.cpp.orig	2025-05-12 09:00:11 UTC
+--- Foundation/src/Thread_POSIX.cpp.orig	2026-03-24 10:38:30 UTC
 +++ Foundation/src/Thread_POSIX.cpp
 @@ -24,7 +24,13 @@
  
@@ -14,7 +14,7 @@
  #    include <pthread_np.h>
  #    include <osreldate.h>
  #endif
-@@ -414,7 +420,11 @@ long ThreadImpl::currentOsTidImpl()
+@@ -362,7 +368,11 @@ long ThreadImpl::currentOsTidImpl()
  #elif POCO_OS == POCO_OS_MAC_OS_X
  	id = ::pthread_mach_thread_np(::pthread_self());
  #elif POCO_OS == POCO_OS_FREE_BSD

@@ -1,4 +1,4 @@
---- Foundation/include/Poco/Platform.h.orig	2025-05-12 09:00:11 UTC
+--- Foundation/include/Poco/Platform.h.orig	2026-03-24 10:38:30 UTC
 +++ Foundation/include/Poco/Platform.h
 @@ -44,7 +44,7 @@
  #define POCO_OS_VMS           0x2001

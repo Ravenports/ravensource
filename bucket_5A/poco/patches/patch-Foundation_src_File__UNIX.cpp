@@ -1,6 +1,6 @@
---- Foundation/src/File_UNIX.cpp.orig	2025-05-12 09:00:11 UTC
+--- Foundation/src/File_UNIX.cpp.orig	2026-03-24 10:38:30 UTC
 +++ Foundation/src/File_UNIX.cpp
-@@ -255,7 +255,7 @@ Timestamp FileImpl::getLastModifiedImpl(
+@@ -292,7 +292,7 @@ Timestamp FileImpl::getLastModifiedImpl(
  	struct stat st;
  	if (::stat(_path.c_str(), &st) == 0)
  	{
