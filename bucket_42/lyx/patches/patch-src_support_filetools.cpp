@@ -1,6 +1,6 @@
---- src/support/filetools.cpp.orig	2025-06-05 21:39:49 UTC
+--- src/support/filetools.cpp.orig	2026-02-08 18:44:53 UTC
 +++ src/support/filetools.cpp
-@@ -64,6 +64,8 @@
+@@ -61,6 +61,8 @@
  #include <sstream>
  #include <vector>
  

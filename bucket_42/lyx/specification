@@ -1,8 +1,8 @@
-DEF[FILEVERSION]=	2.4.4
+DEF[FILEVERSION]=	2.5.0
 DEF[PORTVERSION]=	${FILEVERSION}
 DEF[MAJORVER]=		${PORTVERSION:R}
 # configure.ac date
-DEF[LYX_DATE]=		2025-06-21
+DEF[LYX_DATE]=		2026-02-08
 DEF[XY]=		${MAJORVER:S/.//}
 DEF[DISTVER]=		${PORTVERSION:R}-${PORTVERSION:S|.|/|g:T}
 # ----------------------------------------------------------------------------
@@ -93,9 +93,7 @@ post-extract:
 	${RM} -r ${WRKSRC}/3rdparty/scripts
 	${RM} -r ${WRKSRC}/3rdparty/zlib
 
-post-patch:
-	${GREP} -rl "python -tt" ${WRKSRC} | ${XARGS} \
-		${REINPLACE_CMD} -i'' 's|python -tt|${PYTHON_CMD} -tt|'
+pre-configure:
 	${REINPLACE_CMD} -e 's|/usr/local/|${LOCALBASE}/|g' \
 		-e 's|hunspell-1.2|hunspell-1.7|' \
 		${WRKSRC}/development/cmake/modules/*.cmake
