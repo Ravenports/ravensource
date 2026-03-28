@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	13.0.0
+DEF[PORTVERSION]=	14.0.0
 DEF[TAG]=		v${PORTVERSION}
 DEF[QT6_VER]=		EXTRACT_INFO(QT6_VERSION)
 # ----------------------------------------------------------------------------
@@ -42,6 +42,8 @@ BUILD_DEPENDS=		wayland:dev:std
 			kf6-kguiaddons:dev:std
 			kf6-knotifications:dev:std
 			kf6-kstatusnotifieritem:dev:std
+			qca:dev:qt6
+			qtkeychain:dev:std
 BUILDRUN_DEPENDS=	wayland:primary:std
 			libxkbcommon:primary:std
 			qt6-qtbase:primary:std
@@ -52,11 +54,14 @@ BUILDRUN_DEPENDS=	wayland:primary:std
 			kf6-kguiaddons:primary:std
 			kf6-knotifications:primary:std
 			kf6-kstatusnotifieritem:primary:std
+			qca:primary:qt6
+			qtkeychain:primary:std
 
 USES=			cmake pkgconfig
 XORG_COMPONENTS=	ice sm x11 xext xfixes xtst
 CMAKE_ARGS=		-DWITH_PLUGINS:BOOL=TRUE
 			-DWITH_QT6:BOOL=TRUE
+			-DWITH_AUDIO:BOOL=OFF
 			-DCMAKE_PREFIX_PATH={{PREFIX}}/lib/qt6/cmake
 DISTNAME=		Copyq-${PORTVERSION}
 
