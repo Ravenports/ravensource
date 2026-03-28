@@ -1,5 +1,6 @@
-DEF[PORTVERSION]=	3.0.8
-DEF[SOVERSION]=		0.8.0
+DEF[PORTVERSION]=	3.2.2
+DEF[SOVERSION]=		0.200.2
+DEF[BINVER]=		${PORTVERSION:R}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gimp
@@ -41,6 +42,7 @@ BUILD_DEPENDS=		iso-codes:primary:std
 			openexr:dev:std
 			WebP:dev:std
 			libmypaint:dev:std
+			mypaint-brushes:dev:std
 			openjpeg:dev:std
 			aalib:dev:std
 			json-glib:dev:std
@@ -50,7 +52,6 @@ BUILD_DEPENDS=		iso-codes:primary:std
 			python-gi-docgen:set:python_used
 
 BUILDRUN_DEPENDS=	libmypaint:primary:std
-			mypaint-brushes1:single:std
 			glib-networking:primary:std
 			gegl:primary:std
 			alsa-lib:primary:std
@@ -103,6 +104,7 @@ MESON_ARGS=		-Daa=enabled
 CPE_VENDOR=		gimp
 CPE_PRODUCT=		gimp
 SOVERSION=		${SOVERSION}
+PLIST_SUB=		BINVER=${BINVER}
 
 [LINUX].DESCRIPTION=			Build variations for Linux
 [LINUX].CONFIGURE_ARGS_OFF=		-Dlinux-input=disabled
