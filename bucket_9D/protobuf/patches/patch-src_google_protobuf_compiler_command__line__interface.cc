@@ -1,4 +1,4 @@
---- src/google/protobuf/compiler/command_line_interface.cc.orig	2026-01-29 19:43:18 UTC
+--- src/google/protobuf/compiler/command_line_interface.cc.orig	2026-03-19 19:43:33 UTC
 +++ src/google/protobuf/compiler/command_line_interface.cc
 @@ -45,7 +45,7 @@
  
@@ -9,7 +9,7 @@
  #include <sys/sysctl.h>
  #endif
  
-@@ -227,7 +227,7 @@ bool GetProtocAbsolutePath(std::string*
+@@ -228,7 +228,7 @@ bool GetProtocAbsolutePath(std::string*
      realpath(dirtybuffer, buffer);
      len = strlen(buffer);
    }
