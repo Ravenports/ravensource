@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.10.8
+DEF[PORTVERSION]=	3.11.1
 DEF[DAEMONDIR]=		{{PREFIX}}/libexec/postfix
 DEF[METADIR]=		{{PREFIX}}/etc/postfix
 DEF[SHLIBDIR]=		{{PREFIX}}/lib/postfix
@@ -7,7 +7,6 @@ DEF[DYN_EXT]=		pcre mysql pgsql sqlite ldap cdb lmdb
 
 NAMEBASE=		postfix
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		mail
 VARIANTS=		std
 SDESC[std]=		Fast and robust mail transfer agent
@@ -15,8 +14,7 @@ HOMEPAGE=		http://www.postfix.org/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		https://de.postfix.org/ftpmirror/official/
-			http://cdn.postfix.johnriley.me/mirrors/postfix-release/official/
+SITES[main]=		http://ftp.porcupine.org/mirrors/postfix-release/official/
 			http://mirror.lhsolutions.nl/postfix-release/official/
 DISTFILE[1]=		postfix-${PORTVERSION}.tar.gz:main
 
@@ -98,7 +96,6 @@ QMAKE_ARGS=		-DDEF_CONFIG_DIR=\\\"{{PREFIX}}/etc/postfix\\\"
 			-DHAS_EAI
 			-DUSE_TLS
 			-DUSE_SASL_AUTH
-			-DNO_DB
 			-Wmissing-prototypes -Wformat -Wno-comment
 
 VAR_OPSYS[sunos]=	CFLAGS=-D_LARGEFILE_SOURCE
