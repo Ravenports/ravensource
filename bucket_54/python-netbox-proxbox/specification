@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.0.5
+DEF[PORTVERSION]=	0.0.7
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-netbox-proxbox
@@ -11,7 +11,7 @@ HOMEPAGE=		none
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/bc/11/cac736f66095ca8bc958e596b33b0865aa9c8bc8aa69b6aa2f79c71a3c05
+SITES[main]=		PYPIWHL/de/be/7c91324cb6ec82207e7330520e6197dbcb553fc79c2d88c160b2d17edfa5
 DISTFILE[1]=		netbox_proxbox-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -24,19 +24,34 @@ VOPTS[v13]=		PY313=ON PY314=OFF
 VOPTS[v14]=		PY313=OFF PY314=ON
 
 # License listed at PyPI
-# Apache-2.0
+# Not provided.
 
 GENERATED=		yes
 DISTNAME=		netbox_proxbox-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# proxmoxer (>=2.0.1,<3.0.0)
-# pynetbox (>=7.0.1,<8.0.0)
+# requests>=2.33.0
+# websockets>=16.0
+# aiohttp>=3.12.15; extra == 'cli'
+# click>=8.3.0; extra == 'cli'
+# pydantic>=2.11.7; extra == 'cli'
+# pyyaml>=6.0.3; extra == 'cli'
+# rich>=14.1.0; extra == 'cli'
+# typer>=0.19.2; extra == 'cli'
+# bandit>=1.9.4; extra == 'dev'
+# black>=26.3.1; extra == 'dev'
+# invoke>=2.2.1; extra == 'dev'
+# pydocstyle>=6.3.0; extra == 'dev'
+# pylint-django>=2.7.0; extra == 'dev'
+# pylint>=4.0.5; extra == 'dev'
+# yamllint>=1.38.0; extra == 'dev'
+# pytest-cov>=7.1.0; extra == 'test'
+# pytest>=9.0.2; extra == 'test'
 
 [PY313].USES_ON=			python:v13,wheel
-[PY313].RUN_DEPENDS_ON=			python-proxmoxer:single:v13
-					python-pynetbox:single:v13
+[PY313].RUN_DEPENDS_ON=			python-requests:single:v13
+					python-websockets:single:v13
 [PY314].USES_ON=			python:v14,wheel
-[PY314].RUN_DEPENDS_ON=			python-proxmoxer:single:v14
-					python-pynetbox:single:v14
+[PY314].RUN_DEPENDS_ON=			python-requests:single:v14
+					python-websockets:single:v14
 

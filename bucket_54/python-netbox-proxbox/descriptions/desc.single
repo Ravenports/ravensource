@@ -1,100 +1,100 @@
-<div align="center">
-	
-		[image]
-	
-	<br>
-	
-<div>
-	
-### [New Documentation available!]
-</div>
-<br>
-</div>
+# Proxbox
 
-## Netbox Plugin which integrates [Proxmox] and [Netbox]!
+Proxbox is a NetBox plugin that integrates Proxmox with NetBox through a
+separate FastAPI backend.
 
-> **NOTE:** Although the Proxbox plugin is in development, it only use
-**GET requests** and there is **no risk to harm your Proxmox environment**
-by changing things incorrectly.
+The current repository code is `v0.0.7` and declares support for NetBox
+`4.5.x`:
 
-<br>
+- `min_version = "4.5.0"`
+- `max_version = "4.5.99"`
 
-Proxbox is currently able to get the following information from Proxmox:
+The latest upstream NetBox release I verified for this docs refresh is
+`v4.5.5`, published on `2026-03-17`.
 
-- **Cluster name**
-- **Nodes:**
-  - Status (online / offline)
-  - Name
-- **Virtual Machines and Containers:**
-  - Status (online / offline)
-  - Name
-  - ID
-  - CPU
-  - Disk
-  - Memory
-  - Node (Server)
+## Current Status
 
----
+This repository is ahead of the latest published PyPI release of
+`netbox-proxbox`.
 
-<div align="center">
-	
-### Versions
+- If you want the code documented in this repository, install from source.
+- If you install the older PyPI prerelease, its compatibility notes from
+the old docs do not apply to the current `main` branch anymore.
 
-The following table shows the Netbox and Proxmox versions compatible
-(tested) with Proxbox plugin.
+Proxbox remains read-oriented toward Proxmox. The plugin triggers
+synchronization through the backend and does not directly manage Proxmox
+resources from NetBox.
 
-| netbox version | proxmox version | proxbox version |
-| ------------- |-------------|-------------|
-| >= v3.4.0 | >= v6.2.0  | =v0.0.5 |
-| >= v3.2.0 | >= v6.2.0 | =v0.0.4 |
-| >= v3.0.0 < v3.2 | >= v6.2.0 | =v0.0.3 |
+## Architecture
 
-</div>
+Proxbox has two parts:
 
----
+1. The NetBox plugin in this repository.
+2. A separate FastAPI backend service (`proxbox-api`) that talks to Proxmox
+and NetBox.
 
-### Summary
-[1. Installation]
-- [1.1. Install package]
-  - [1.1.1. Using pip (production use)]
-  - [1.1.2. Using git (development use)]
-- [1.2. Enable the Plugin]
-- [1.3. Configure Plugin]
-  - [1.3.1. Change Netbox 'configuration.py' to add PLUGIN parameters]
-  - [1.3.2. Change Netbox 'settings.py' to include Proxbox Template
-directory]
-- [1.4. Run Database Migrations]
-- [1.5 Restart WSGI Service]
+Inside NetBox, the plugin currently manages:
 
-[2. Configuration Parameters]
+- `ProxmoxEndpoint`
+- `NetBoxEndpoint`
+- `FastAPIEndpoint`
+- `SyncProcess`
+- `VMBackup`
 
-[3. Custom Fields]
-- [3.1. Custom Field Configuration]
-	- [3.1.1. Proxmox ID]
-	- [3.1.2. Proxmox Node]
-	- [3.1.3. Proxmox Type]
-- [3.2. Custom Field Example]
+The UI exposes sync actions for:
 
-[4. Usage]
+- devices
+- virtual machines
+- full update
+- VM backups
 
-[5. Contributing]
+## Supported Workflow
 
-[6. Roadmap]
+For the current codebase, the recommended install path is:
 
----
+1. Install the plugin from this repository into the NetBox virtual
+environment.
+2. Run migrations and collect static files.
+3. Install and start the `proxbox-api` backend separately.
+4. In NetBox, create at least one endpoint object for:
+   - Proxmox API
+   - NetBox API
+   - ProxBox API (FastAPI)
+5. Run `Full Update` from the Proxbox home page.
 
-## 1. Installation
+## Install From Source
 
-The instructions below detail the process for installing and enabling
-Proxbox plugin.
-The plugin is available as a Python package in pypi and can be installed
-with pip.
+```bash
+cd /opt/netbox/netbox
+git clone https://github.com/netdevopsbr/netbox-proxbox.git
 
-### 1.1. Install package
-
-#### 1.1.1. Using pip (production use)
-
-Enter Netbox's virtual environment.
-```
 source /opt/netbox/venv/bin/activate
+pip install -e /opt/netbox/netbox/netbox-proxbox
+
+cd /opt/netbox/netbox
+python3 manage.py migrate netbox_proxbox
+python3 manage.py collectstatic --no-input
+sudo systemctl restart netbox
+```
+
+Enable the plugin in `/opt/netbox/netbox/netbox/configuration.py`:
+
+```python
+PLUGINS = ["netbox_proxbox"]
+```
+
+## Backend Setup
+
+The plugin requires a running `proxbox-api` service. The simplest backend
+install is a separate virtual environment:
+
+```bash
+mkdir -p /opt/proxbox-api
+cd /opt/proxbox-api
+python3 -m venv venv
+source venv/bin/activate
+pip install proxbox-api==0.0.2.post3
+
+/opt/proxbox-api/venv/bin/uvicorn proxbox_api.main:app --host 0.0.0.0
+--port 8800 --app-dir /opt/proxbox-api
 ```
