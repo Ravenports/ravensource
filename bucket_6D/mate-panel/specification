@@ -73,4 +73,4 @@ post-extract:
 	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/libmate-panel-applet/mate-panel-applet.h >> ${WRKDIR}/TERMS
 
 pre-configure:
-	(cd ${WRKSRC} && ${SETENV} ${CONFIGURE_ENV} ${SH} ./autogen.sh)
+	(cd ${WRKSRC} && ${SETENV} MAKE=${MAKE_CMD} ${SH} ./autogen.sh)
