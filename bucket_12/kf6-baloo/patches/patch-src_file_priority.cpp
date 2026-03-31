@@ -12,7 +12,7 @@
  bool lowerIOPriority()
  {
 -#ifdef SYS_ioprio_set
-+#ifdef __linux__
++#if 0
      if (syscall(SYS_ioprio_set, IOPRIO_WHO_PROCESS, 0, ioprio_value(IOPRIO_CLASS_IDLE, 0, IOPRIO_HINT_NONE)) >= 0) {
          return true;
      }
