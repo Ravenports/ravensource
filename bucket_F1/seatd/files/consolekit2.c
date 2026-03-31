@@ -36,6 +36,7 @@ static int dev_is_drm(dev_t device) {
 }
 
 #elif defined(__linux__)
+#include <sys/sysmacros.h>
 
 static int dev_major_is_drm(unsigned int dev_major) {
 	return dev_major == 226;
