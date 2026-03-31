@@ -1,0 +1,11 @@
+--- CMakeLists.txt.orig	2026-03-29 08:20:23 UTC
++++ CMakeLists.txt
+@@ -290,7 +290,7 @@ else()
+   add_custom_target(translations COMMAND true)
+ endif()
+ 
+-if(${CMAKE_SYSTEM_NAME} STREQUAL "FreeBSD")
++if(${CMAKE_SYSTEM_NAME} STREQUAL "SKIP")
+   find_library(EXECINFO_LIB_PATH execinfo /usr/local/lib)
+   check_function_exists(backtrace HAVE_BACKTRACE)
+   list(APPEND EXTRA_LIBS "execinfo")

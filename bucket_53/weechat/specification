@@ -46,7 +46,7 @@ CMAKE_ARGS=		-DENABLE_PYTHON3:BOOL=ON
 
 VAR_OPSYS[netbsd]=	CFLAGS=-D_NETBSD_SOURCE
 
-post-patch:
+pre-configure:
 	${GREP} -l '/usr/local' \
 		${WRKSRC}/CMakeLists.txt \
 		${WRKSRC}/src/CMakeLists.txt \
