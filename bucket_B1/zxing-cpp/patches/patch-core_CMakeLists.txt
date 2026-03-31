@@ -1,0 +1,10 @@
+--- core/CMakeLists.txt.orig	2026-02-17 21:58:16 UTC
++++ core/CMakeLists.txt
+@@ -520,7 +520,6 @@ if (ZXING_READERS OR ZXING_WRITERS_OLD)
+         src/libzueci/zueci.h
+     )
+     set_source_files_properties(${LIBZUECI_FILES} PROPERTIES
+-        COMPILE_FLAGS "$<$<NOT:$<BOOL:${ZXING_READERS}>>:-DZUECI_EMBED_NO_TO_UTF> $<$<NOT:$<BOOL:${ZXING_WRITERS_OLD}>>:-DZUECI_EMBED_NO_TO_ECI>"
+         SKIP_PRECOMPILE_HEADERS ON
+     )
+     target_sources(ZXing PRIVATE ${LIBZUECI_FILES})
