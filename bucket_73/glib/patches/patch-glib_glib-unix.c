@@ -4,7 +4,7 @@
  #include <stdlib.h>   /* for fdwalk */
  #include <string.h>
  #include <sys/types.h>
-+#ifdef __DragonFly__
++#if defined __DragonFly__ || defined __NetBSD__
 +#include <sys/param.h>  /* for MAXPATHLEN */
 +#endif
 +#ifdef __sun
