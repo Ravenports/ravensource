@@ -1,11 +1,13 @@
 DEF[NAMEBASE]=		openmp
 DEF[LLVMBASE]=		llvm
 DEF[CLANGBASE]=		clang
-DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM21_VERSION)
+DEF[LLDBASE]=		lld
+DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM22_VERSION)
 DEF[PORTREVISION]=	0
 DEF[MAJORMIN]=		${LLVM_VERSION:R}
 DEF[MAJOR]=		${LLVM_VERSION:R:R}
-DEF[DSUBDIR]=		llvm21
+DEF[WORKNAME]=		llvm-project-${LLVM_VERSION}.src
+DEF[DSUBDIR]=		llvm22
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		${NAMEBASE}
@@ -18,15 +20,15 @@ CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/llvm/llvm-project/releases/download/llvmorg-${LLVM_VERSION}/
-DISTFILE[1]=		openmp-${LLVM_VERSION}.src.tar.xz:main
-DISTFILE[2]=		cmake-${LLVM_VERSION}.src.tar.xz:main
+DISTFILE[1]=		${WORKNAME}.tar.xz:main
 DIST_SUBDIR=		${DSUBDIR}
-DF_INDEX=		1 2
+DF_INDEX=		1
 
 SPKGS[std]=		set primary dev
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	SUNOS
+OPTIONS_STANDARD=	SUNOS
+OPT_ON[sunos]=		SUNOS
 
 LICENSE=		CUSTOM1:primary
 LICENSE_NAME=		CUSTOM1:"Apache 2.0 License with LLVM Exceptions"
@@ -46,11 +48,14 @@ USES=			cpe cmake perl:build pkgconfig zlib ncurses:dev
 CPE_VENDOR=		llvm
 CPE_PRODUCT=		llvm
 CMAKE_BUILD_TYPE=	Release
-DISTNAME=		openmp-${LLVM_VERSION}.src
-CMAKE_ARGS=		-DCMAKE_INSTALL_RPATH:STRING="{{LOCALBASE}}/llvm/lib"
-			-DLIBOMP_FORTRAN_MODULES:BOOL=ON
+DISTNAME=		${WORKNAME}/openmp
+CMAKE_ARGS=		-DLIBOMP_FORTRAN_MODULES:BOOL=ON
 PLIST_SUB=		LLVM_MAJOR="${MAJOR}"
 			LLVM_MAJORMIN="${MAJORMIN}"
+
+[SUNOS].DESCRIPTION=			Chooses linker based on SunOS
+[SUNOS].BUILD_DEPENDS_OFF=		${LLDBASE}:primary:std
+[SUNOS].CMAKE_ARGS_OFF=			-DLLVM_USE_LINKER=lld
 
 post-extract:
 	${CP} ${WRKDIR}/cmake-${LLVM_VERSION}.src/Modules/* \

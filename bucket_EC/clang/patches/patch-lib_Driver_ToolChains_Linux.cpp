@@ -1,6 +1,6 @@
---- lib/Driver/ToolChains/Linux.cpp.orig	2025-12-01 12:58:50 UTC
+--- lib/Driver/ToolChains/Linux.cpp.orig	2026-03-23 18:46:22 UTC
 +++ lib/Driver/ToolChains/Linux.cpp
-@@ -688,43 +688,7 @@ void Linux::AddClangSystemIncludeArgs(co
+@@ -803,36 +803,7 @@ void Linux::AddClangSystemIncludeArgs(co
  
  void Linux::addLibStdCxxIncludePaths(const llvm::opt::ArgList &DriverArgs,
                                       llvm::opt::ArgStringList &CC1Args) const {
@@ -9,22 +9,15 @@
 -  if (!GCCInstallation.isValid())
 -    return;
 -
--  // Detect Debian g++-multiarch-incdir.diff.
--  StringRef TripleStr = GCCInstallation.getTriple().str();
--  StringRef DebianMultiarch =
--      GCCInstallation.getTriple().getArch() == llvm::Triple::x86
--          ? "i386-linux-gnu"
--          : TripleStr;
--
 -  // Try generic GCC detection first.
--  if (Generic_GCC::addGCCLibStdCxxIncludePaths(DriverArgs, CC1Args,
--                                               DebianMultiarch))
+-  if (Generic_GCC::addGCCLibStdCxxIncludePaths(DriverArgs, CC1Args))
 -    return;
 -
 -  StringRef LibDir = GCCInstallation.getParentLibPath();
 -  const Multilib &Multilib = GCCInstallation.getMultilib();
 -  const GCCVersion &Version = GCCInstallation.getVersion();
 -
+-  StringRef TripleStr = GCCInstallation.getTriple().str();
 -  const std::string LibStdCXXIncludePathCandidates[] = {
 -      // Android standalone toolchain has C++ headers in yet another place.
 -      LibDir.str() + "/../" + TripleStr.str() + "/include/c++/" + Version.Text,

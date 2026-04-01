@@ -1,7 +1,9 @@
 DEF[NAMEBASE]=		compiler-rt
 DEF[LLVMBASE]=		llvm
-DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM21_VERSION)
-DEF[DSUBDIR]=		llvm21
+DEF[LLDBASE]=		lld
+DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM22_VERSION)
+DEF[WORKNAME]=		llvm-project-${LLVM_VERSION}.src
+DEF[DSUBDIR]=		llvm22
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		${NAMEBASE}
@@ -14,22 +16,23 @@ CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/llvm/llvm-project/releases/download/llvmorg-${LLVM_VERSION}/
-DISTFILE[1]=		compiler-rt-${LLVM_VERSION}.src.tar.xz:main
-DISTFILE[2]=		cmake-${LLVM_VERSION}.src.tar.xz:main
+DISTFILE[1]=		${WORKNAME}.tar.xz:main
 DIST_SUBDIR=		${DSUBDIR}
-DF_INDEX=		1 2
+DF_INDEX=		1
 
 SPKGS[std]=		single
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	SUNOS
+OPTIONS_STANDARD=	SUNOS
+OPT_ON[sunos]=		SUNOS
 
 LICENSE=		CUSTOM1:single
 LICENSE_NAME=		CUSTOM1:"University of Illinois/NCSA Open Source License"
 LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/LICENSE.TXT
 LICENSE_SCHEME=		solo
 
-BROKEN[netbsd]=		invalid application of 'sizeof' to incomplete type '__sanitizer::lua_create'
+BROKEN[freebsd]=	Needs sha224.h header
+BROKEN[netbsd]=		missing headers from system root
 
 BUILD_DEPENDS=		${LLVMBASE}:dev:std
 			${LLVMBASE}:tools:std
@@ -45,14 +48,12 @@ USES=			cpe cmake ninja zlib:build ncurses:build
 			python:build c++:single
 CPE_VENDOR=		llvm
 CPE_PRODUCT=		llvm
-DISTNAME=		compiler-rt-${LLVM_VERSION}.src
+DISTNAME=		${WORKNAME}/compiler-rt
 PLIST_SUB=		OPSYSLC={{OPSYS:tl}}
 
-VAR_OPSYS[netbsd]=	CMAKE_ARGS=-DCOMPILER_RT_BUILD_SANITIZERS=OFF
-
-post-extract:
-	${MKDIR} ${WRKDIR}/cmake/Modules
-	${CP} ${WRKDIR}/cmake-${LLVM_VERSION}.src/Modules/* ${WRKDIR}/cmake/Modules/
+[SUNOS].DESCRIPTION=			Chooses linker based on SunOS
+[SUNOS].BUILD_DEPENDS_OFF=		${LLDBASE}:primary:std
+[SUNOS].CMAKE_ARGS_OFF=			-DLLVM_USE_LINKER=lld
 
 post-install:
 	${FIND} ${STAGEDIR}${PREFIX}/lib/ -name "libclang_*.so" -exec ${STRIP_CMD} {} \;

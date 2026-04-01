@@ -1,6 +1,6 @@
---- lib/Driver/ToolChains/Gnu.cpp.orig	2025-12-01 12:58:50 UTC
+--- lib/Driver/ToolChains/Gnu.cpp.orig	2026-03-23 18:46:22 UTC
 +++ lib/Driver/ToolChains/Gnu.cpp
-@@ -371,6 +371,11 @@ void tools::gnutools::Linker::ConstructJ
+@@ -359,6 +359,11 @@ void tools::gnutools::Linker::ConstructJ
    } else if (IsStatic) {
      CmdArgs.push_back("-static");
    } else if (!Args.hasArg(options::OPT_r)) {
@@ -12,7 +12,7 @@
      if (Args.hasArg(options::OPT_rdynamic))
        CmdArgs.push_back("-export-dynamic");
      if (!IsShared) {
-@@ -499,6 +504,8 @@ void tools::gnutools::Linker::ConstructJ
+@@ -487,6 +492,8 @@ void tools::gnutools::Linker::ConstructJ
  
    if (!Args.hasArg(options::OPT_nostdlib, options::OPT_r)) {
      if (!Args.hasArg(options::OPT_nodefaultlibs)) {
@@ -21,7 +21,7 @@
        if (IsStatic || IsStaticPIE)
          CmdArgs.push_back("--start-group");
  
-@@ -2948,6 +2955,8 @@ Generic_GCC::Generic_GCC(const Driver &D
+@@ -3008,6 +3015,8 @@ Generic_GCC::Generic_GCC(const Driver &D
        CudaInstallation(D, Triple, Args), RocmInstallation(D, Triple, Args),
        SYCLInstallation(D, Triple, Args) {
    getProgramPaths().push_back(getDriver().Dir);
@@ -30,14 +30,15 @@
  }
  
  Generic_GCC::~Generic_GCC() {}
-@@ -3319,10 +3328,9 @@ bool Generic_GCC::addGCCLibStdCxxInclude
+@@ -3422,11 +3431,9 @@ bool Generic_GCC::addGCCLibStdCxxInclude
  void
  Generic_GCC::addLibStdCxxIncludePaths(const llvm::opt::ArgList &DriverArgs,
                                        llvm::opt::ArgStringList &CC1Args) const {
--  if (GCCInstallation.isValid()) {
--    addGCCLibStdCxxIncludePaths(DriverArgs, CC1Args,
--                                GCCInstallation.getTriple().str());
--  }
+-  if (!GCCInstallation.isValid())
+-    return;
+-
+-  GCCInstallation.getSelectedInstallation().addGCCLibStdCxxIncludePaths(
+-      getVFS(), DriverArgs, CC1Args, GCCInstallation.getTriple().str());
 +  addSystemInclude(DriverArgs, CC1Args, "@RAVEN_GXX_HEADERS_DIR@");
 +  addSystemInclude(DriverArgs, CC1Args, "@RAVEN_GXX_HEADERS_DIR@/backward");
 +  addSystemInclude(DriverArgs, CC1Args, "@RAVEN_GXX_HEADERS_DIR@/@RAVEN_TRIPLE@");

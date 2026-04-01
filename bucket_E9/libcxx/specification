@@ -1,9 +1,9 @@
 DEF[NAMEBASE]=		libcxx
 DEF[LLVMBASE]=		llvm
+DEF[LLDBASE]=		lld
 DEF[CLANGBASE]=		clang
-DEF[LLVMUNWIND]=	llvm-libunwind
-DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM21_VERSION)
-DEF[DSUBDIR]=		llvm21
+DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM22_VERSION)
+DEF[DSUBDIR]=		llvm22
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		${NAMEBASE}
@@ -22,8 +22,9 @@ DF_INDEX=		1
 
 SPKGS[std]=		set primary dev abi unwind experimental
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	SUNOS
+OPTIONS_STANDARD=	SUNOS
+OPT_ON[sunos]=		SUNOS
 
 LICENSE=		CUSTOM1:primary CUSTOM2:abi CUSTOM3:unwind
 LICENSE_NAME=		CUSTOM1:"University of Illinois/NCSA Open Source License"
@@ -33,8 +34,6 @@ LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/libcxx/LICENSE.TXT
 			CUSTOM2:{{WRKSRC}}/libcxxabi/LICENSE.TXT
 			CUSTOM3:{{WRKSRC}}/libunwind/LICENSE.TXT
 LICENSE_SCHEME=		multi
-
-BROKEN[netbsd]=		Breaks due to missing uselocal() support
 
 BUILD_DEPENDS=		${CLANGBASE}:set:std
 			${LLVMBASE}:dev:std
@@ -55,6 +54,10 @@ INSTALL_TARGET=		install-cxx
 			install-unwind
 DISTNAME=		llvm-project-${LLVM_VERSION}.src
 CMAKE_SOURCE_PATH=	{{WRKSRC}}/runtimes
+
+[SUNOS].DESCRIPTION=			Chooses linker based on SunOS
+[SUNOS].BUILD_DEPENDS_OFF=		${LLDBASE}:primary:std
+[SUNOS].CMAKE_ARGS_OFF=			-DLLVM_USE_LINKER=lld
 
 do-install:
 	(cd ${INSTALL_WRKSRC} && ${SETENV} ${MAKE_ENV} \

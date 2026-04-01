@@ -1,6 +1,6 @@
---- cmake/modules/LLDBConfig.cmake.orig	2025-12-01 12:58:50 UTC
+--- cmake/modules/LLDBConfig.cmake.orig	2026-03-23 18:46:22 UTC
 +++ cmake/modules/LLDBConfig.cmake
-@@ -309,7 +309,7 @@ endif()
+@@ -354,7 +354,7 @@ endif()
  
  # Figure out if lldb could use lldb-server.  If so, then we'll
  # ensure we build lldb-server when an lldb target is being built.

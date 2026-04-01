@@ -1,7 +1,7 @@
 DEF[NAMEBASE]=		lld
 DEF[LLVMBASE]=		llvm
-DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM21_VERSION)
-DEF[DSUBDIR]=		llvm21
+DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM22_VERSION)
+DEF[DSUBDIR]=		llvm22
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		${NAMEBASE}
@@ -14,12 +14,9 @@ CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/llvm/llvm-project/releases/download/llvmorg-${LLVM_VERSION}/
-			http://llvm.org/releases/${LLVM_VERSION}/
-DISTFILE[1]=		lld-${LLVM_VERSION}.src.tar.xz:main
-DISTFILE[2]=		libunwind-${LLVM_VERSION}.src.tar.xz:main
-DISTFILE[3]=		cmake-${LLVM_VERSION}.src.tar.xz:main
+DISTFILE[1]=		llvm-project-${LLVM_VERSION}.src.tar.xz:main
 DIST_SUBDIR=		${DSUBDIR}
-DF_INDEX=		1 2 3
+DF_INDEX=		1
 
 SPKGS[std]=		set primary dev
 
@@ -43,14 +40,9 @@ USES=			cpe cmake c++:primary zlib:build
 CPE_VENDOR=		llvm
 CPE_PRODUCT=		llvm
 CMAKE_BUILD_TYPE=	Release
-CMAKE_ARGS=		-DLLVM_COMMON_CMAKE_UTILS={{WRKDIR}}/cmake-${LLVM_VERSION}.src
-DISTNAME=		lld-${LLVM_VERSION}.src
+DISTNAME=		llvm-project-${LLVM_VERSION}.src/lld
+VAR_OPSYS[sunos]=	VAR1=socket;nsl;
 LDFLAGS=		-lpthread
-
-post-extract:
-	# issues with 12.0.0 - 14.0.3; might not be necessary in future
-	${MV} ${WRKDIR}/libunwind-${LLVM_VERSION}.src/include/mach-o \
-		${WRKSRC}/include/
 
 pre-configure:
 	# statically link zlib
@@ -59,5 +51,3 @@ pre-configure:
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
-	# remove libunwind header hack
-	${RM} -r ${STAGEDIR}${PREFIX}/include/mach-o

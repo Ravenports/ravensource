@@ -1,8 +1,8 @@
---- include/llvm/DebugInfo/CodeView/CodeView.h.orig	2025-12-01 12:58:50 UTC
+--- include/llvm/DebugInfo/CodeView/CodeView.h.orig	2026-03-23 18:46:22 UTC
 +++ include/llvm/DebugInfo/CodeView/CodeView.h
-@@ -17,6 +17,25 @@
+@@ -16,6 +16,25 @@
+ #include "llvm/Support/Compiler.h"
  #include <cinttypes>
- #include <type_traits>
  
 +#ifdef __sun
 +#undef ERR

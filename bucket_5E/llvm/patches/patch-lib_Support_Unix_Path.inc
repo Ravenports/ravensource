@@ -1,6 +1,6 @@
---- lib/Support/Unix/Path.inc.orig	2025-12-01 12:58:50 UTC
+--- lib/Support/Unix/Path.inc.orig	2026-03-23 18:46:22 UTC
 +++ lib/Support/Unix/Path.inc
-@@ -37,6 +37,9 @@
+@@ -40,6 +40,9 @@
  #if __has_include(<sys/clonefile.h>)
  #include <sys/clonefile.h>
  #endif
@@ -10,7 +10,7 @@
  #elif defined(__FreeBSD__)
  #include <osreldate.h>
  #if __FreeBSD_version >= 1300057
-@@ -200,6 +203,17 @@ std::string getMainExecutable(const char
+@@ -205,6 +208,17 @@ std::string getMainExecutable(const char
      if (realpath(exe_path, link_path))
        return link_path;
    }
