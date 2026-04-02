@@ -39,6 +39,7 @@ CONFIGURE_ARGS=		--mandir={{MANPREFIX}}/man
 # DISTNAME=		scrot-debian-${SCROT_VER}
 
 VAR_OPSYS[sunos]=	LDFLAGS=-lrt
+VAR_OPSYS[netbsd]=	CFLAGS=-D_NETBSD_SOURCE=1
 
 pre-configure:
 	(cd ${WRKSRC} && ./autogen.sh)
