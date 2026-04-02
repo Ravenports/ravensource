@@ -19,15 +19,9 @@ DISTFILE[1]=		firefox-${FOXVERSION}.source.tar.xz:main
 
 SPKGS[std]=		single
 
-OPTIONS_AVAILABLE=	MOLD
-OPTIONS_STANDARD=	MOLD
-OPT_ON[linux]=		MOLD
-
-# Unclear if mold linker is practically linux only still
-# OPT_ON[netbsd]=		MOLD
-# OPT_ON[freebsd]=	MOLD
-# OPT_ON[dragonfly]=	MOLD
-# OPT_ON[midnightbsd]=	MOLD
+OPTIONS_AVAILABLE=	SUNOS
+OPTIONS_STANDARD=	SUNOS
+OPT_ON[sunos]=		SUNOS
 
 LICENSE=		MPL:single
 LICENSE_FILE=		MPL:stock
@@ -135,9 +129,9 @@ VAR_OPSYS[netbsd]=	QMAKE_ARGS=--enable-audio-backends=sndio
 			MAKEFILE_LINE=MOZLDFLAGS=-lrt
 VAR_OPSYS[midnightbsd]=	MAKEFILE_LINE=CONFIGURE_TARGET=${MBSD64_TARGET}
 
-[MOLD].DESCRIPTION=			Link Firefox with MOLD rather than ports linker
-[MOLD].BUILD_DEPENDS_ON=		mold:primary:std
-[MOLD].QMAKE_ARGS_ON=			--enable-linker=mold
+[SUNOS].DESCRIPTION=			Chooses linker based on SunOS
+[SUNOS].BUILD_DEPENDS_OFF=		lld:primary:std
+[SUNOS].QMAKE_ARGS_OFF=			--enable-linker=lld
 
 post-extract:
 	${SED} -e 's|@FIREFOX_ICON@|firefox|;s|@MOZILLA@|firefox|' \
