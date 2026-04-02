@@ -9,6 +9,7 @@ DEF[LLVMBASE]=		llvm
 
 NAMEBASE=		thunderbird
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		mail net_im news
 VARIANTS=		std
 SDESC[std]=		Mozilla Thunderbird mail/newsgroup client
@@ -21,8 +22,10 @@ DISTFILE[1]=		thunderbird-${TVER}.source.tar.xz:main
 
 SPKGS[std]=		single
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+
+OPTIONS_AVAILABLE=	SUNOS
+OPTIONS_STANDARD=	SUNOS
+OPT_ON[sunos]=		SUNOS
 
 LICENSE=		MPL:single
 LICENSE_FILE=		MPL:stock
@@ -140,6 +143,11 @@ VAR_OPSYS[netbsd]=	QMAKE_ARGS=--enable-audio-backends=sndio
 			MAKEFILE_LINE=NBSD=-lrt
 VAR_OPSYS[midnightbsd]=	MAKEFILE_LINE=CONFIGURE_TARGET=${MBSD64_TARGET}
 
+[SUNOS].DESCRIPTION=			Chooses linker based on SunOS
+[SUNOS].BUILD_DEPENDS_OFF=		lld:primary:std
+[SUNOS].QMAKE_ARGS_OFF=			--enable-linker=lld
+[SUNOS].MAKEFILE_OFF=			LLDFLAG=-Wl,--undefined-version
+
 post-extract-linux:
 	# remove patch that breaks linux
 	${RM} ${PATCHDIR}/patch-comm_third__party_rust__wgpu-hal_src_vulkan_drm.rs
@@ -176,7 +184,7 @@ post-patch:
 		${ECHO_CMD} ".mozconfig <<  $$arg" ;\
 		${ECHO_CMD} ac_add_options $$arg >> ${WRKSRC}/.mozconfig ;\
 	done
-	@${ECHO_CMD} LDFLAGS=\"-lm ${NBSD} -Wl,-rpath,${PREFIX}/lib/thunderbird\" \
+	@${ECHO_CMD} LDFLAGS=\"-lm ${NBSD} ${LLDFLAG} -Wl,-rpath,${PREFIX}/lib/thunderbird\" \
 		>> ${WRKSRC}/.mozconfig
 
 	# disable rust checksums
