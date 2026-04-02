@@ -7,6 +7,7 @@ DEF[DYN_EXT]=		pcre mysql pgsql sqlite ldap cdb lmdb
 
 NAMEBASE=		postfix
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		mail
 VARIANTS=		std
 SDESC[std]=		Fast and robust mail transfer agent
@@ -96,14 +97,14 @@ QMAKE_ARGS=		-DDEF_CONFIG_DIR=\\\"{{PREFIX}}/etc/postfix\\\"
 			-DHAS_EAI
 			-DUSE_TLS
 			-DUSE_SASL_AUTH
+			-DNO_DB
+			-DDEF_DB_TYPE=\\\"lmbd\\\"
+			-DDEF_CACHE_DB_TYPE=\\\"lmdb\\\"
 			-Wmissing-prototypes -Wformat -Wno-comment
 
 VAR_OPSYS[sunos]=	CFLAGS=-D_LARGEFILE_SOURCE
 			CFLAGS=-D_FILE_OFFSET_BITS=64
 			MAKEFILE_LINE=ANYTHING=pie=no
-VAR_OPSYS[linux]=	QMAKE_ARGS=-DNO_DB
-			QMAKE_ARGS=-DDEF_DB_TYPE=\\\"lmbd\\\"
-			QMAKE_ARGS=-DDEF_CACHE_DB_TYPE=\\\"lmdb\\\"
 
 post-extract:
 	${AWK} '/^Eclipse Public License/,/additional accurate notices/' \
