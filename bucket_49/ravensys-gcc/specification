@@ -197,3 +197,7 @@ post-install:
 
 	# do this for all platforms now
 	${RM} -r ${STAGEDIR}${PREFIX}/lib/gcc/${CONFIGURE_TARGET}/${GCC_VERSION}/include-fixed
+
+post-install-freebsd:
+	# unclear why this is happened on freebsd 14.2.  Remove on next release of ravensys-gcc
+	(cd ${STAGEDIR}${PREFIX}/lib/gcc/${CONFIGURE_TARGET}/${GCC_VERSION} && ${CP} -a crtbegin.o crtbeginT.o)
