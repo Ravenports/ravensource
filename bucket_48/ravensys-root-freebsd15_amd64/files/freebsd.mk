@@ -340,6 +340,12 @@ install-platform: install-common
 		${DESTDIR}${BASE}/usr/share/locale/en_US.UTF-8/
 .  endfor
 
+	# Block SSP completely
+	grep -rl "defined(_FORTIFY_SOURCE)" ${DESTDIR}${BASE}/usr/include |\
+	xargs -I {} sh -c \
+	    'sed -i"" "s/defined(_FORTIFY_SOURCE)/defined(BLOCKED_FORTIFY_SOURCE)/" "$$1" && \
+	     echo "Modified to block SSP: $$1"' _ {}
+
 	# former "post-install" target
 	${BSD_INSTALL_DATA} ../${OPSYS:tl}/etc/group \
 		${DESTDIR}${BASE}/usr/share/group
@@ -349,7 +355,7 @@ install-platform: install-common
 		${DESTDIR}${BASE}/usr/share/rc.conf
 	/usr/sbin/pwd_mkdb -p -d ${DESTDIR}${BASE}/usr/share \
 		${DESTDIR}${BASE}/usr/share/master.passwd
-. if "${MAJOR}" == "14"
+
 	${MKDIR} ${DESTDIR}${BASE}/var/run
 	# handle ldconfig hints
 	${BSD_INSTALL_PROGRAM} ../${OPSYS:tl}/sbin/ldconfig \
@@ -359,7 +365,3 @@ install-platform: install-common
 	mv ${DESTDIR}${BASE}/var/run/ld-elf.so.hints \
 		${DESTDIR}${BASE}/usr/share/
 	rm -rf ${DESTDIR}${BASE}/var
-. else
-	# for QA purposes
-	touch ${DESTDIR}${BASE}/usr/share/ld-elf.so.hints
-. endif
