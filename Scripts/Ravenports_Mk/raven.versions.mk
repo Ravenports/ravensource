@@ -137,7 +137,7 @@ PHP_8.5_VERSION=	8.5.4
 # Format: ID=opsys/arch/stdarch/os-version/os-release/os-major
 #-------------------------------------------------------------------------
 
-PLATFORM_FreeBSD_x86-64=	FreeBSD/amd64/x86_64/1402000/14.2/14
+PLATFORM_FreeBSD_x86-64=	FreeBSD/amd64/x86_64/1500068/15.0/15
 PLATFORM_DragonFly_x86-64=	DragonFly/x86_64/x86_64/600400/6.4/6.4
 PLATFORM_Linux_x86-64=		Linux/x86_64/x86_64/610000/6.1.0/6.1
 PLATFORM_SunOS_x86-64=		SunOS/i86pc/x86_64/151054/5.11/5.11
