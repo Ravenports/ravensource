@@ -355,7 +355,7 @@ install-platform: install-common
 		${DESTDIR}${BASE}/usr/share/rc.conf
 	/usr/sbin/pwd_mkdb -p -d ${DESTDIR}${BASE}/usr/share \
 		${DESTDIR}${BASE}/usr/share/master.passwd
-. if "${MAJOR}" == "14"
+
 	${MKDIR} ${DESTDIR}${BASE}/var/run
 	# handle ldconfig hints
 	${BSD_INSTALL_PROGRAM} ../${OPSYS:tl}/sbin/ldconfig \
@@ -365,7 +365,3 @@ install-platform: install-common
 	mv ${DESTDIR}${BASE}/var/run/ld-elf.so.hints \
 		${DESTDIR}${BASE}/usr/share/
 	rm -rf ${DESTDIR}${BASE}/var
-. else
-	# for QA purposes
-	touch ${DESTDIR}${BASE}/usr/share/ld-elf.so.hints
-. endif
