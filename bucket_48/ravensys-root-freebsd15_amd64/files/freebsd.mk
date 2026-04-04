@@ -74,15 +74,9 @@ static_lib_FreeBSD=\
 	/usr/lib/libpthread.a \
 	/usr/lib/libbsdxml.a \
 	/usr/lib/libcam.a \
-	/usr/lib/libcompat.a \
-	/usr/lib/libdevstat.a \
 	/usr/lib/libgeom.a \
 	/usr/lib/libkvm.a \
-	/usr/lib/libmemstat.a \
-	/usr/lib/libprocstat.a \
 	/usr/lib/libthr.a \
-	/usr/lib/libusb.a \
-	/usr/lib/libusbhid.a \
 	/usr/lib/libjail.a \
 	/usr/lib/libsbuf.a \
 	/usr/lib/libc_nonshared.a \
@@ -97,7 +91,8 @@ static_lib_FreeBSD=\
 dynamic_lib_FreeBSD=\
 	/lib/libc.so.7 \
 	/lib/libm.so.5 \
-	/lib/libutil.so.9 \
+	/lib/libmd.so.7 \
+	/lib/libutil.so.10 \
 	/lib/libcrypt.so.5 \
 	/lib/libkvm.so.7 \
 	/lib/libcam.so.7 \
@@ -109,12 +104,13 @@ dynamic_lib_FreeBSD=\
 	/lib/libdevstat.so.7 \
 	/lib/libjail.so.1 \
 	/lib/libcasper.so.1 \
-	/lib/libnv.so.0 \
-	/usr/lib/libdevinfo.so.6 \
+	/lib/libnv.so.1 \
+	/lib/librt.so.1 \
+	/lib/libsys.so.7 \
+	/usr/lib/libdevinfo.so.7 \
 	/usr/lib/libexecinfo.so.1 \
 	/usr/lib/libmemstat.so.3 \
 	/usr/lib/librpcsvc.so.5\
-	/usr/lib/librt.so.1 \
 	/usr/lib/libprocstat.so.1 \
 	/usr/lib/libusb.so.3 \
 	/usr/lib/libusbhid.so.4 \
@@ -278,9 +274,7 @@ headers_FreeBSD=\
 	jail.h \
 	# end
 
-.if "${OSMAJOR}" == "13"
 headers_FreeBSD+= threads.h
-.endif
 
 pcfiles_FreeBSD=\
 	libusb-0.1.pc \
@@ -304,29 +298,28 @@ install-platform: install-common
 	@echo "==================================="
 	(cd ${DESTDIR}${BASE}/usr/lib && \
 		ln -s libm.so.5 libm.so && \
+		ln -s libnv.so.1 libnv.so && \
 		ln -s librt.so.1 librt.so && \
 		ln -s libkvm.so.7 libkvm.so && \
 		ln -s libmemstat.so.3 libmemstat.so && \
 		ln -s libcam.so.7 libcam.so && \
 		ln -s libcrypt.so.5 libcrypt.so && \
-		ln -s libutil.so.9 libutil.so && \
+		ln -s libutil.so.10 libutil.so && \
 		ln -s librpcsvc.so.5 librpcsvc.so && \
 		ln -s libusb.so.3 libusb.so && \
 		ln -s libusbhid.so.4 libusbhid.so && \
 		ln -s libthr.so.3 libthr.so && \
 		ln -s libbsdxml.so.4 libbsdxml.so && \
 		ln -s libdevstat.so.7 libdevstat.so && \
-		ln -s libdevinfo.so.6 libdevinfo.so && \
+		ln -s libdevinfo.so.7 libdevinfo.so && \
 		ln -s libprocstat.so.1 libprocstat.so && \
 		ln -s libgeom.so.5 libgeom.so && \
-		ln -s ${PREFIX}/lib/libexecinfo.so libexecinfo.so && \
 		ln -s libthr.so libpthread.so && \
 		ln -s libjail.so.1 libjail.so)
 	${BSD_INSTALL_LIB} ../${OPSYS:tl}/lib/libgcc_s.so.1 ${DESTDIR}${BASE}/usr/lib/
 	${BSD_INSTALL_LIB} ../${OPSYS:tl}/lib/libcxxrt.so.1 ${DESTDIR}${BASE}/usr/lib/
-	${BSD_INSTALL_LIB} ../${OPSYS:tl}/usr/lib/libc++.so.1 ${DESTDIR}${BASE}/usr/lib/
-.if "${OSMAJOR}" == "13"
-	${BSD_INSTALL_LIB} ../${OPSYS:tl}/lib/casper/libcap_fileargs.so.1 \
+	${BSD_INSTALL_LIB} ../${OPSYS:tl}/lib/libc++.so.1 ${DESTDIR}${BASE}/usr/lib/
+	${BSD_INSTALL_LIB} ../${OPSYS:tl}/lib/libcap_fileargs.so.1 \
 		${DESTDIR}${BASE}/usr/lib/
 	${BSD_INSTALL_LIB} ../${OPSYS:tl}/usr/lib/libstdthreads.so.0 \
 		${DESTDIR}${BASE}/usr/lib/
@@ -335,18 +328,11 @@ install-platform: install-common
 	(cd ${DESTDIR}${BASE}/usr/lib && \
 		ln -s libstdthreads.so.0 libstdthreads.so \
 	)
-.endif
 	sed -e 's|/lib/libc\.so|/usr/lib/libc.so|'  ../${OPSYS:tl}/usr/lib/libc.so \
 		> ${DESTDIR}${BASE}/usr/lib/libc.so
 	${BSD_INSTALL_SCRIPT} ../${OPSYS:tl}/usr/bin/lorder ${DESTDIR}${BASE}/usr/bin/
 
 	rmdir ${DESTDIR}${BASE}/usr/include/dev/powermac_nvram
-.if "${OSMAJOR}" == "12"
-	rmdir ${DESTDIR}${BASE}/usr/include/dev/nand
-.endif
-.if "${OSMAJOR}" == "13"
-	rmdir ${DESTDIR}${BASE}/usr/include/dev/wi
-.endif
 	
 	# locale information
 .  for LC in COLLATE CTYPE MESSAGES MONETARY NUMERIC TIME
@@ -363,6 +349,7 @@ install-platform: install-common
 		${DESTDIR}${BASE}/usr/share/rc.conf
 	/usr/sbin/pwd_mkdb -p -d ${DESTDIR}${BASE}/usr/share \
 		${DESTDIR}${BASE}/usr/share/master.passwd
+. if "${MAJOR}" == "14"
 	${MKDIR} ${DESTDIR}${BASE}/var/run
 	# handle ldconfig hints
 	${BSD_INSTALL_PROGRAM} ../${OPSYS:tl}/sbin/ldconfig \
@@ -372,7 +359,7 @@ install-platform: install-common
 	mv ${DESTDIR}${BASE}/var/run/ld-elf.so.hints \
 		${DESTDIR}${BASE}/usr/share/
 	rm -rf ${DESTDIR}${BASE}/var
-
-	# support /etc/localtime
-	${BSD_INSTALL_DATA} ../${OPSYS:tl}/usr/share/zoneinfo/UTC \
-		${DESTDIR}${BASE}/usr/share/localtime
+. else
+	# for QA purposes
+	touch ${DESTDIR}${BASE}/usr/share/ld-elf.so.hints
+. endif
