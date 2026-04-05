@@ -122,6 +122,12 @@ pre-build-midnightbsd:
 	# MidnightBSD 3.0 code originates from FreeBSD before the addition of ASLR
 	${REINPLACE_CMD} '/PAXCTL/d' ${WRKSRC}/src/runtime/Config.x86-64-freebsd
 
+pre-build-freebsd:
+	# bootstrap looks for libutil.so.9, but freebsd15 moved to libutil.so.10
+	if [ ! -e "/usr/lib/libutil.so.9" ]; then \
+		${LN} -s /usr/lib/libutil.so.10 ${LOCALBASE}/lib/libutil.so.9 ;\
+	fi
+
 do-build:
 	(cd ${WRKSRC} && ${SETENVI} ${MAKE_ENV} ${SH} make.sh ${CMAKE_ARGS} || ${TRUE})
 
@@ -153,3 +159,6 @@ post-install-SIMD-ON:
 	${MKDIR} ${STAGEDIR}${PREFIX}/lib/sbcl/sb-simd
 	${INSTALL_DATA} ${WRKSRC}/contrib/sb-simd/code/*.[la]* \
 		${STAGEDIR}${PREFIX}/lib/sbcl/sb-simd/
+
+post-install-freebsd:
+	${RM} ${LOCALBASE}/lib/libutil.so.9
