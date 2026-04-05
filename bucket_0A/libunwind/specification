@@ -6,6 +6,7 @@ DEF[SOVERSION]=		8.2.0
 
 NAMEBASE=		libunwind
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		std
 SDESC[std]=		Generic stack unwinding library
@@ -16,7 +17,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/libunwind:libunwind:v${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[std]=		set primary dev man test
+SPKGS[std]=		set primary dev man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -32,12 +33,13 @@ LICENSE_SCHEME=		solo
 ONLY_FOR_OPSYS=		freebsd linux
 # ONLY_FOR_ARCH=	amd64 i386
 
-EXRUN[test]=		primary
+# tests disabled because they don't build with -std-gnu23
 
-USES=			autoreconf cpe libtool pkgconfig cclibs:primary c++:test
+USES=			autoreconf cpe libtool pkgconfig cclibs:primary
 CPE_VENDOR=		libunwind_project
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		ac_cv_path_LATEX2MAN=1
+			--disable-tests
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
 
