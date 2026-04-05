@@ -1,6 +1,6 @@
---- wpa_supplicant/wpa_supplicant.c.orig	2022-01-16 20:51:29 UTC
+--- wpa_supplicant/wpa_supplicant.c.orig	2024-07-20 18:04:37 UTC
 +++ wpa_supplicant/wpa_supplicant.c
-@@ -7311,7 +7311,7 @@ struct wpa_global * wpa_supplicant_init(
+@@ -7983,7 +7983,7 @@ struct wpa_global * wpa_supplicant_init(
  	if (params == NULL)
  		return NULL;
  

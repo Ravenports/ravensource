@@ -1,4 +1,4 @@
---- src/drivers/driver_ndis.c.orig	2022-01-16 20:51:29 UTC
+--- src/drivers/driver_ndis.c.orig	2024-07-20 18:04:37 UTC
 +++ src/drivers/driver_ndis.c
 @@ -2118,7 +2118,11 @@ static int wpa_driver_ndis_get_names(str
  		dlen = dpos - desc;
