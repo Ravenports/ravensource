@@ -54,6 +54,10 @@ CONFIGURE_ARGS=		--with-db-path=/var/db/minidlna
 			--with-os-url="https://www.ravenports.com"
 DISTNAME=		minidlna-${PORTVERSION}
 
+# FreeBSD 15 has inotify (FreeBSD 14 doesn't)
+# Right now both kqueue and inotify are detected.  For now, choose kqueue for both 14 and 15
+VAR_OPSYS[freebsd]=	CONFIGURE_ENV=ac_cv_func_inotify_init=no
+
 post-install:
 	${INSTALL_MAN} ${WRKSRC}/*.5 ${STAGEDIR}${PREFIX}/share/man/man5/
 	${INSTALL_MAN} ${WRKSRC}/*.8 ${STAGEDIR}${PREFIX}/share/man/man8/
