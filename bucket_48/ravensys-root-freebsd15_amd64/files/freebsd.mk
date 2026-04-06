@@ -74,6 +74,7 @@ static_lib_FreeBSD=\
 	/usr/lib/libpthread.a \
 	/usr/lib/libbsdxml.a \
 	/usr/lib/libcam.a \
+	/usr/lib/libcompat.a \
 	/usr/lib/libgeom.a \
 	/usr/lib/libkvm.a \
 	/usr/lib/libthr.a \

@@ -4,6 +4,7 @@ DEF[X_CURRENT]=		EXTRACT_VERSION(PLATFORM_FreeBSD_x86-64)
 
 NAMEBASE=		ravensys-root-freebsd15_amd64
 VERSION=		${PRIME}
+REVISION=		1
 KEYWORDS=		raven
 VARIANTS=		std
 SDESC[std]=		FreeBSD/AMD64 ${PRIME} builder system root
@@ -84,7 +85,7 @@ post-extract:
 	${MV} ${WRKDIR}/${NAMEBASE}_2 ${WRKDIR}/freebsd
 
 pre-patch:
-.for pkg in rescue clibs-dev runtime-dev toolchain
+.for pkg in rescue clibs-dev runtime-dev libcompat-dev toolchain
 	(cd ${WRKDIR}/freebsd && ${TAR} -xf usr/freebsd-packages/offline/FreeBSD-${pkg}-${PRIME}.pkg \
 		--no-same-owner --no-same-permissions)
 .endfor
