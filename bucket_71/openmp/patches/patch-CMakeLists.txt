@@ -1,0 +1,16 @@
+--- CMakeLists.txt.orig	2026-03-23 18:46:22.000000000 -0000
++++ CMakeLists.txt
+@@ -167,11 +167,9 @@ if("${LLVM_DEFAULT_TARGET_TRIPLE}" MATCH
+    "${CMAKE_CXX_COMPILER_TARGET}" MATCHES "^amdgcn|^nvptx")
+   add_subdirectory(device)
+ else()
+-  add_subdirectory(module)
+-
+-  # Build host runtime library, after LIBOMPTARGET variables are set since they
+-  # are needed to enable time profiling support in the OpenMP runtime.
++  # Initialize runtime first so other modules can reference its directory scope
+   add_subdirectory(runtime)
++  add_subdirectory(module)
+ 
+   set(ENABLE_OMPT_TOOLS ON)
+   # Currently tools are not tested well on Windows or MacOS X.
