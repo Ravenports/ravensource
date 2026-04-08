@@ -94,6 +94,7 @@ VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=--with-distro=freebsd
 VAR_OPSYS[dragonfly]=	CONFIGURE_ARGS=--with-distro=freebsd
 VAR_OPSYS[midnightbsd]=	CONFIGURE_ARGS=--with-distro=freebsd
 VAR_OPSYS[linux]=	CONFIGURE_ARGS=--with-distro=debian
+VAR_OPSYS[sunos]=	CONFIGURE_ARGS=--with-distro=none
 
 [BSD].DESCRIPTION=			Build with BSD characteristics
 [LINUX].DESCRIPTION=			Build with Linux characteristics
@@ -101,6 +102,8 @@ VAR_OPSYS[linux]=	CONFIGURE_ARGS=--with-distro=debian
 
 [BSD].CPPFLAGS_ON=			-DHAVE_KQUEUE
 [BSD].LDFLAGS_ON=			-lintl
+
+[SOLARIS].LDFLAGS_ON=			-lintl
 
 PLIST_SUB=		SO_CLIENT=${SO_CLIENT}
 			SO_CLIENT_MAJ=${SO_CLIENT:R:R}
