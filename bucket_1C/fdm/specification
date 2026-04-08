@@ -37,6 +37,8 @@ CFLAGS=			-DPCRE
 LDFLAGS=		-lpcre
 
 VAR_OPSYS[netbsd]=	CFLAGS=-D_OPENBSD_SOURCE
+VAR_OPSYS[sunos]=	CFLAGS=-DMAXHOSTNAMELEN=256
+			LDFLAGS=-lsocket
 
 post-patch:
 	${REINPLACE_CMD} -e 's|/etc|${PREFIX}/etc|g' ${WRKSRC}/*.[15] ${WRKSRC}/MANUAL
