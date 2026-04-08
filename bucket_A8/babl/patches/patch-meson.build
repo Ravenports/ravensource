@@ -1,0 +1,11 @@
+--- meson.build.orig	2026-03-10 15:56:45 UTC
++++ meson.build
+@@ -574,7 +574,7 @@ if build_docs
+ endif
+ subdir('bin')
+ 
+-if not platform_osx and host_cpu_family != 'x86'
++if not platform_osx and host_cpu_family != 'x86' and host_machine.system() != 'sunos'
+   # Verify .def files for Windows linking.
+   # We check this on non-Windows platform  on CI, and on Windows itself.
+   custom_target('check-def-files',
