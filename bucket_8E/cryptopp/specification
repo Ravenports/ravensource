@@ -42,6 +42,8 @@ BUILD_TARGET=		static
 MAKE_ENV=		CRYPTOPP_DATA_DIR=share/cryptopp/
 SOVERSION=		${SOVERSION}
 
+VAR_OPSYS[sunos]=	CPPFLAGS=-DCRYPTOPP_DISABLE_ASM
+
 do-install:
 	${INSTALL_DATA} ${WRKSRC}/libcryptopp.a ${STAGEDIR}${PREFIX}/lib/
 	${INSTALL_LIB} ${WRKSRC}/libcryptopp.so.${SOVERSION} \
