@@ -27,6 +27,8 @@ FPC_EQUIVALENT=		x11/dmenu
 USES=			fontconfig
 XORG_COMPONENTS=	x11 xft xinerama xrender
 
+VAR_OPSYS[sunos]=	CFLAGS=-D__EXTENSIONS__
+
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/dmenu \
 		${STAGEDIR}${PREFIX}/bin/stest
