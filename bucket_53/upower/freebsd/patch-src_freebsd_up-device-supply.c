@@ -1,4 +1,4 @@
---- src/freebsd/up-device-supply.c.orig	2025-11-25 08:39:56 UTC
+--- src/freebsd/up-device-supply.c.orig	2026-02-10 12:01:59.000000000 -0000
 +++ src/freebsd/up-device-supply.c
 @@ -250,7 +250,7 @@ up_device_supply_battery_set_properties
  		      "energy", cap,
