@@ -1,4 +1,4 @@
---- tests/api/test_ossl_rand.c.orig	2026-03-18 23:01:31 UTC
+--- tests/api/test_ossl_rand.c.orig	2026-03-18 23:01:31.000000000 -0000
 +++ tests/api/test_ossl_rand.c
 @@ -21,7 +21,7 @@
  
