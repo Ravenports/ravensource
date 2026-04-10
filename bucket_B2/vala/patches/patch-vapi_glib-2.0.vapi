@@ -1,4 +1,4 @@
---- vapi/glib-2.0.vapi.orig	2024-04-19 10:23:20 UTC
+--- vapi/glib-2.0.vapi.orig	2025-03-02 19:20:12.000000000 -0000
 +++ vapi/glib-2.0.vapi
 @@ -4068,6 +4068,8 @@ namespace GLib {
  		public static FileStream? open (string path, string mode);
@@ -8,4 +8,4 @@
 +		public void reopen (string path, string mode);
  		[CCode (cname = "fprintf")]
  		[PrintfFormat ()]
- 		public void printf (string format, ...);
+ 		public int printf (string format, ...);
