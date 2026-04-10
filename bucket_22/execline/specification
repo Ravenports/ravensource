@@ -46,6 +46,8 @@ CONFIGURE_ARGS=		--prefix={{PREFIX}}
 PLIST_SUB=		SOVERSION=${PORTVERSION}
 			SOMAJOR=${PORTVERSION:R:R}
 
+VAR_OPSYS[sunos]=	CFLAGS=-D__EXTENSIONS__
+
 post-patch:
 	${REINPLACE_CMD} -e "s|usr|${STAGEDIR}${PREFIX}|" ${WRKDIR}/execline-man-pages-v${MANVERSION}/Makefile
 
