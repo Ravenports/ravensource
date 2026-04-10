@@ -25,7 +25,10 @@ LICENSE_SCHEME=		solo
 DISTNAME=		geomyidae-v${PORTVERSION}
 USES=			ssl
 
-post-patch:
+VAR_OPSYS[sunos]=	LDFLAGS=-lsocket
+			LDFLAGS=-lnsl
+
+pre-configure:
 	${REINPLACE_CMD} 's!__PREFIX__!${PREFIX}!g' ${WRKSRC}/Makefile
 
 post-stage:

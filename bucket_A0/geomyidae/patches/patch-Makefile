@@ -1,17 +1,17 @@
---- Makefile.orig	2023-08-26 14:42:28 UTC
+--- Makefile.orig	2025-07-30 07:47:54 UTC
 +++ Makefile
 @@ -5,7 +5,7 @@
  NAME = geomyidae
- VERSION = 0.96
+ VERSION = 0.99
  
 -PREFIX = /usr/local
 +PREFIX = __PREFIX__
  BINDIR = ${PREFIX}/bin
  MANDIR = ${PREFIX}/share/man/man8
  
-@@ -14,8 +14,8 @@ TLS_CFLAGS = -DENABLE_TLS
- # libtls is provided using for example LibreSSL.
- TLS_LDFLAGS = -ltls 
+@@ -16,14 +16,17 @@ TLS_CFLAGS = -DENABLE_TLS
+ TLS_LDFLAGS = -ltls
+ 
  
 -GEOM_CFLAGS = -D_DEFAULT_SOURCE -I. -I/usr/include ${TLS_CFLAGS} ${CFLAGS}
 -GEOM_LDFLAGS = -L/usr/lib -L. ${TLS_LDFLAGS} ${LDFLAGS}
@@ -20,3 +20,12 @@
  
  # FreeBSD
  # GEOM_CFLAGS = -D_DEFAULT_SOURCE -I. -I/usr/local/include ${TLS_CFLAGS} ${CFLAGS}
+ # GEOM_LDFLAGS = -L/usr/local/lib -L. ${TLS_LDFLAGS} ${LDFLAGS}
+ 
+ SRC = main.c ind.c handlr.c
++.if "${OPSYS}" == "SunOS"
++SRC += dprintf.c
++.endif
+ OBJ = ${SRC:.c=.o}
+ 
+ all: ${NAME}
