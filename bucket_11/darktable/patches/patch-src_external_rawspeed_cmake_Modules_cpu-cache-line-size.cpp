@@ -1,6 +1,6 @@
 --- src/external/rawspeed/cmake/Modules/cpu-cache-line-size.cpp.orig	2025-12-11 00:57:45 UTC
 +++ src/external/rawspeed/cmake/Modules/cpu-cache-line-size.cpp
-@@ -11,7 +11,7 @@
+@@ -11,13 +11,17 @@
  #include <elf.h>
  #endif
  
@@ -9,7 +9,17 @@
  static std::optional<int64_t> get_cachelinesize_from_sysconf() {
    long val = ::sysconf(_SC_LEVEL1_DCACHE_LINESIZE);
    if (val == -1) // On error, -1 is returned.
-@@ -39,7 +39,7 @@ static std::optional<int64_t> get_cachel
+     return std::nullopt;
+   return val;
+ }
++#elif defined(__sun)
++static std::optional<int64_t> get_cachelinesize_from_sysconf() {
++  return 64;
++}
+ #else
+ static std::optional<int64_t> get_cachelinesize_from_sysconf() {
+   return std::nullopt;
+@@ -39,7 +43,7 @@ static std::optional<int64_t> get_cachel
  }
  #endif
  
