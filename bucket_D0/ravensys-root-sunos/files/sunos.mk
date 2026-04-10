@@ -73,3 +73,6 @@ install-platform: install-common
 	# install libgcc_s for sysroot programs that need it
 	cp ${LOCALBASE}/toolchain/ravensys-gcc/lib/amd64/libgcc_s.so.1 \
 		${DESTDIR}${BASE}/usr/lib/amd64/libgcc_s.so.1
+
+	# install linker
+	cp ${CPA} ${DESTDIR}${BASE}/usr/bin/ld.sun ${DESTDIR}${BASE}/usr/bin/ld
