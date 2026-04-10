@@ -28,6 +28,8 @@ LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/libsrc/posix.adb
 LICENSE_SCHEME=		solo
 
+BROKEN[sunos]=		Generated posix-c.ads structures overlap and have wrong sizes
+
 USES=			gprbuild gmake ada:primary
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-shared
@@ -44,6 +46,11 @@ post-extract-midnightbsd:
 post-extract-netbsd:
 	${CP} ${WRKSRC}/configs/pconfig.FreeBSD ${WRKSRC}/configs/pconfig.${OPSYS}
 	${ECHO} "#define _NETBSD_SOURCE 1" >> ${WRKSRC}/configs/pconfig.${OPSYS}
+
+post-extract-sunos:
+	${CP} ${WRKSRC}/configs/pconfig.FreeBSD ${WRKSRC}/configs/pconfig.${OPSYS}
+	${ECHO} "#define __EXTENSIONS__" >> ${WRKSRC}/configs/pconfig.${OPSYS}
+	${ECHO} "#define _POSIX_PTHREAD_SEMANTICS" >> ${WRKSRC}/configs/pconfig.${OPSYS}
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libflorist.so
