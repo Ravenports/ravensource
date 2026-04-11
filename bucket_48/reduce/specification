@@ -59,7 +59,7 @@ VAR_OPSYS[netbsd]=	VAR1={{ARCH_STANDARD}}-raven-netbsd{{MAJOR}}
 VAR_OPSYS[linux]=	VAR1={{ARCH_STANDARD}}-raven-linux-gnu{{MAJOR}}
 VAR_OPSYS[sunos]=	VAR1={{ARCH_STANDARD}}-raven-solaris2.10
 
-post-patch:
+pre-configure:
 	${REINPLACE_CMD} -e 's|/usr/pkg/|${LOCALBASE}/|' \
 		-e 's|`./config.guess`|${CONFIGURE_TARGET}|' \
 		${WRKSRC}/scripts/make.sh
@@ -71,8 +71,6 @@ post-patch:
 	${REINPLACE_CMD} -e "s|am__api_version='1.15'|am__api_version='1.16'|" \
 		${WRKSRC}/csl/cslbase/aclocal.m4 \
 		${WRKSRC}/psl/aclocal.m4
-
-pre-configure:
 	(cd ${WRKSRC} && ./autogen.sh --sequential --with-csl)
 
 post-configure:
