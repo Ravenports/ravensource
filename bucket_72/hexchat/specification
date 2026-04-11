@@ -55,6 +55,9 @@ MESON_ARGS=		-Dwith-lua=false
 MAKE_ENV=		GETTEXTDATADIRS={{PREFIX}}/share/gettext/0.20
 LDFLAGS=		{{PERL_RPATH}}
 
+VAR_OPSYS[sunos]=	LDFLAGS=-lsocket
+			LDFLAGS=-lnsl
+
 post-patch:
 	# Do we need to find a way to pass ca_bundle to server.c?
 	# ${REINPLACE_CMD} -e 's|%%CA_BUNDLE%%|${CA_BUNDLE}|' \
