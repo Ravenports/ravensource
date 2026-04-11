@@ -57,6 +57,10 @@ LDFLAGS=		-lpthread
 CMAKE_ARGS=		-Wno-dev
 SOVERSION=		${SOVERSION}
 
+VAR_OPSYS[sunos]=	LDFLAGS=-lsocket
+			CFLAGS=-D__EXTENSIONS__
+			CFLAGS=-D_XOPEN_SOURCE=600
+
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/ss-[lmrt]*
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/ss-server
