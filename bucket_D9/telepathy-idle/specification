@@ -33,3 +33,6 @@ BUILDRUN_DEPENDS=	telepathy-glib:primary:std
 USES=			gmake pkgconfig libtool ssl gettext python:build
 MUST_CONFIGURE=		gnu
 INSTALL_TARGET=		install-strip
+
+VAR_OPSYS[sunos]=	CFLAGS=-D__EXTENSIONS__
+			LDFLAGS=-lsocket
