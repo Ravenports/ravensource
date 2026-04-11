@@ -1,6 +1,14 @@
 --- mpcenc/mpcenc.c.orig	2009-08-26 20:39:06 UTC
 +++ mpcenc/mpcenc.c
-@@ -689,20 +689,20 @@ Quantisierung ( PsyModel * m,
+@@ -21,6 +21,7 @@
+ /* overflow of subband-samples */
+ 
+ #include <memory.h>
++#include <string.h>
+ #include <time.h>
+ #include <errno.h>
+ 
+@@ -689,20 +690,20 @@ Quantisierung ( PsyModel * m,
  
          if ( *resL > 0 ) {
              if ( m->NS_Order_L [Band] > 0 ) {
