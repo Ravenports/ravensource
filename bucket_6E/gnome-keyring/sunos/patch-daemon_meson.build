@@ -1,0 +1,46 @@
+--- daemon/meson.build.orig	2026-03-15 23:11:07 UTC
++++ daemon/meson.build
+@@ -20,24 +20,24 @@ if get_option('ssh-agent')
+ endif
+ 
+ gkr_daemon_deps = [
++  libgkd_control_dep,
++  libgkd_dbus_dep,
++  libgkd_login_dep,
++  libgkm_gnome2_store_dep,
++  libgkm_rpc_layer_dep,
++  libgkm_secret_store_dep,
++  libgkm_ssh_store_dep,
++  libgkm_wrap_layer_dep,
++  libgkm_xdg_store_dep,
++  
+   gio_dep,
+   gio_unix_dep,
+   glib_dep,
+   gobject_dep,
+   libgcrypt_dep,
+   libsystemd_dep,
+-
+-  libegg_dep,
+   libgkm_dep,
+-  libgkm_gnome2_store_dep,
+-  libgkm_rpc_layer_dep,
+-  libgkm_secret_store_dep,
+-  libgkm_ssh_store_dep,
+-  libgkm_wrap_layer_dep,
+-  libgkm_xdg_store_dep,
+-  libgkd_control_dep,
+-  libgkd_dbus_dep,
+-  libgkd_login_dep,
++  libegg_dep,
+ ]
+ 
+ if get_option('ssh-agent')
+@@ -52,6 +52,7 @@ gkr_daemon = executable('gnome-keyring-d
+   gkr_daemon_sources,
+   dependencies: gkr_daemon_deps,
+   include_directories: config_h_inc,
++  link_args: ['-Wl,-z,rescan-now'], 
+   install: true,
+   install_rpath: gkr_pkglibdir,
+ )
