@@ -71,6 +71,9 @@ MESON_ARGS=		-Daspell=true
 SOVERSION=		${SOVERSION}
 SINGLE_JOB=		yes
 
+VAR_OPSYS[sunos]=	LDFLAGS=-lsocket
+			LDFLAGS=-lnsl
+
 # disable systemd support for now (ON should be -Dsystemd=true)
 [LINUX].DESCRIPTION=			Build on Linux systems
 [LINUX].USES_OFF=			iconv
