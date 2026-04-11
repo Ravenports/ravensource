@@ -44,6 +44,10 @@ CONFIGURE_ARGS=		--without-table-db
 			--with-libssl={{OPENSSLBASE}}
 			--sysconfdir={{PREFIX}}/etc/mail
 
+VAR_OPSYS[sunos]=	CFLAGS=-D__EXTENSIONS__
+			CFLAGS=-D_XOPEN_SOURCE=600
+			CFLAGS=-DHAVE_WAITPID
+
 pre-configure:
 	# --with-mantype fails for some reason
 	${REINPLACE_CMD} -e 's/MANTYPE=doc/MANTYPE=man/' \
