@@ -46,6 +46,8 @@ PLIST_SUB=		HW_SOVERSION=${HOGWEED_SOVERSION}
 			HW_SOMAJOR=${HOGWEED_SOVERSION:R}
 DISTNAME=		nettle-${PORTVERSION}
 
+VAR_OPSYS[sunos]=	CFLAGS=-D_REENTRANT
+
 # on macos, libweed.a gets rebuilt unnecessarily.
 # That is broken, so adding toolchain to end is a hack that needs fixing
 # But macos isn't really supported anymore so comment it out
