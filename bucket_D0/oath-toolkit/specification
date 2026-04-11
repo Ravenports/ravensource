@@ -53,6 +53,8 @@ PLIST_SUB=		OATH=${LIBOATH}
 			PSKC=${LIBPSKC}
 			PSKC_MAJ=${LIBPSKC:R:R}
 
+VAR_OPSYS[sunos]=	CFLAGS=-D_POSIX_PTHREAD_SEMANTICS
+
 post-extract:
 	${SED} -n '/SECTION:/!p;//q' ${WRKSRC}/liboath/oath.h >> ${WRKDIR}/TERMS_LIB
 	${SED} -n '/config.h/!p;//q' ${WRKSRC}/oathtool/oathtool.c >> ${WRKDIR}/TERMS_TOOLS
