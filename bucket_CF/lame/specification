@@ -5,7 +5,7 @@ DEF[DOC_FILES]=		API README TODO USAGE
 
 NAMEBASE=		lame
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		audio
 VARIANTS=		std
 SDESC[std]=		Fast MP3 encoder kit
@@ -38,9 +38,10 @@ CONFIGURE_ARGS=		--enable-nasm
 			--disable-gtktest
 SOVERSION=		${SOVERSION}
 
-post-patch:
+pre-configure:
 	${REINPLACE_CMD} -e 's,test -d \.libs || mkdir,mkdir -p,' \
 		${WRKSRC}/libmp3lame/i386/Makefile.in
+	${REINPLACE_CMD} -e '/lame_init_old/d' ${WRKSRC}/include/libmp3lame.sym
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libmp3lame.so.${SOVERSION}
