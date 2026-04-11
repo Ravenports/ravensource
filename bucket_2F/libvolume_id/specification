@@ -31,3 +31,7 @@ LICENSE_SCHEME=		solo
 USES=			gmake
 MAKE_ENV=		E={{TRUE}} RANLIB=ranlib AR={{AR}} Q=
 			prefix={{PREFIX}}
+
+pre-configure-sunos:
+	${REINPLACE_CMD} -e 's|,--version-script,exported_symbols||' \
+		${WRKSRC}/Makefile
