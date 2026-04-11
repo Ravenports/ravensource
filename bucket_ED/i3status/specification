@@ -32,14 +32,17 @@ BUILD_DEPENDS=		asciidoc:single:std
 BUILDRUN_DEPENDS=	libconfuse:primary:std
 			yajl:primary:std
 
+B_DEPS[linux]=		alsa-lib:dev:std
+BR_DEPS[linux]=		alsa-lib:primary:std
+
 USES=			meson pkgconfig perl:build
 MESON_ARGS=		-Ddocs=true
 			-Dmans=true
 			-Dpulseaudio=false
 			-Ddocdir=share/docs/i3status
 
-B_DEPS[linux]=		alsa-lib:dev:std
-BR_DEPS[linux]=		alsa-lib:primary:std
+VAR_OPSYS[sunos]=	CFLAGS=-D__EXTENSIONS__
+			LDFLAGS=-lsocket
 
 pre-configure:
 	${REINPLACE_CMD} -e 's|/etc|${PREFIX}/etc|g' ${WRKSRC}/i3status.c
