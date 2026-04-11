@@ -1,4 +1,4 @@
---- modules/core/src/parallel.cpp.orig	2025-07-02 07:54:13 UTC
+--- modules/core/src/parallel.cpp.orig	2025-12-30 07:52:05 UTC
 +++ modules/core/src/parallel.cpp
 @@ -58,6 +58,7 @@
  

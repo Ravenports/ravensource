@@ -1,4 +1,4 @@
---- modules/core/src/utils/filesystem.cpp.orig	2025-07-02 07:54:13 UTC
+--- modules/core/src/utils/filesystem.cpp.orig	2025-12-30 07:52:05 UTC
 +++ modules/core/src/utils/filesystem.cpp
 @@ -34,7 +34,7 @@
  #include <errno.h>
