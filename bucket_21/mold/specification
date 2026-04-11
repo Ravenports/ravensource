@@ -25,6 +25,9 @@ LICENSE=		MIT:primary
 LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
 
+# In reality, mold might be linux-only ...
+NOT_FOR_OPSYS=		sunos
+
 USES=			cmake ninja zstd zlib ssl c++:primary
 CMAKE_ARGS=		-DMOLD_USE_SYSTEM_MIMALLOC=OFF
 			-DMOLD_USE_SYSTEM_TBB=OFF
