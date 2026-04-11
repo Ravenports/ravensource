@@ -85,6 +85,12 @@ shebangonefile() {
 			badinterp="${interp}"
 		fi
 		;;
+	/sbin/sh)
+		# Only valid for Solaris
+		if [ "${OPSYS}" != "SunOS" ]; then
+			badinterp="${interp}"
+		fi
+		;;
 	/usr/xpg4/bin/sh)
 		# only valid on Solaris
 		if [ "${OPSYS}" != "SunOS" ]; then
