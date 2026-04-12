@@ -29,3 +29,7 @@ USES=			autoreconf ncurses pkgconfig ssl
 
 MUST_CONFIGURE=		gnu
 CFLAGS=			-I{{PREFIX}}/include/ncurses
+
+VAR_OPSYS[sunos]=	CFLAGS=-D_XOPEN_SOURCE=600
+			CFLAGS=-D__EXTENSIONS__
+			LDFLAGS=-lsocket
