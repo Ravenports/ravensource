@@ -1,6 +1,16 @@
---- Makerules.orig	2026-02-05 12:51:12 UTC
+--- Makerules.orig	2026-02-18 16:24:19 UTC
 +++ Makerules
-@@ -236,7 +236,7 @@ ifeq ($(OS),Darwin)
+@@ -108,6 +108,9 @@ endif
+ ifeq ($(OS),Darwin)
+   LDREMOVEUNREACH := -Wl,-dead_strip
+   SO := dylib
++else ifeq ($(OS),SunOS)
++  LDREMOVEUNREACH := -Wl,-z,ignore
++  SO := so
+ else
+   LDREMOVEUNREACH := -Wl,--gc-sections
+   SO := so
+@@ -236,7 +239,7 @@ ifeq ($(OS),Darwin)
  
  else
  
@@ -9,7 +19,7 @@
      HAVE_OBJCOPY := yes
    endif
  
-@@ -331,7 +331,7 @@ else
+@@ -331,7 +334,7 @@ else
    endif
  
    ifeq ($(HAVE_LIBCRYPTO),)
