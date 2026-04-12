@@ -54,5 +54,10 @@ CONFIGURE_ARGS=		--disable-nls
 			HAVE_ISPELL=no
 SOVERSION=		${SOVERSION}
 
+pre-configure:
+	# alloca is not handled, and it's affecting more than a dozen files
+	${GREP} -lr "alloca (" ${WRKSRC}/src ${WRKSRC}/example | ${XARGS} \
+		${REINPLACE_CMD} -e 's|alloca (|__builtin_alloca (|'
+
 pre-configure-netbsd:
 	${REINPLACE_CMD} -e 's/ -ldl//' ${WRKSRC}/src/Makefile.am
