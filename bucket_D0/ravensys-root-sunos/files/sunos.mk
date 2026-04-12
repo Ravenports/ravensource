@@ -76,3 +76,6 @@ install-platform: install-common
 
 	# install linker
 	cp ${CPA} ${DESTDIR}${BASE}/usr/bin/ld.sun ${DESTDIR}${BASE}/usr/bin/ld
+
+	# cover default bourne shell path
+	ln -s ../../bin/sh ${DESTDIR}${BASE}/usr/bin/sh
