@@ -1,18 +1,25 @@
---- src/dumpkeys.c.orig	2025-12-27 08:31:46 UTC
+--- src/dumpkeys.c.orig	2026-03-14 20:44:12 UTC
 +++ src/dumpkeys.c
-@@ -162,7 +162,15 @@ main(int argc, char **argv)
- 	}
- 	original = tcattr;
- 	signal(SIGINT, sigint_handler);
-+#ifdef __sun__
-+	tcattr.c_iflag &= ~(IMAXBEL|IGNBRK|BRKINT|PARMRK|ISTRIP|INLCR|IGNCR|ICRNL|IXON);
-+	tcattr.c_oflag &= ~OPOST;
-+	tcattr.c_lflag &= ~(ECHO|ECHONL|ICANON|ISIG|IEXTEN);
-+	tcattr.c_cflag &= ~(CSIZE|PARENB);
-+	tcattr.c_cflag |= CS8;
-+#else
- 	cfmakeraw(&tcattr);
+@@ -40,6 +40,22 @@
+ #define MODE_APPLICATION_CURSOR_KEYS	1
+ #define MODE_ALTERNATE_SCREEN		1047
+ 
++#if defined(__sun)
++#ifndef IMAXBEL
++#define IMAXBEL 0
 +#endif
- 	if (tcsetattr(STDIN_FILENO, TCSANOW, &tcattr) != 0) {
- 		perror("tcsetattr");
- 		return 1;
++
++static void cfmakeraw(struct termios *t) {
++    t->c_iflag &= ~(IMAXBEL | IXOFF | INPCK | BRKINT | PARMRK | ISTRIP | INLCR | IGNCR | ICRNL | IXON);
++    t->c_oflag &= ~OPOST;
++    t->c_lflag &= ~(ECHO | ECHOE | ECHOK | ECHONL | ICANON | ISIG | IEXTEN | NOFLSH | TOSTOP);
++    t->c_cflag &= ~(CSIZE | PARENB);
++    t->c_cflag |= CS8;
++    t->c_cc[VMIN] = 1;
++    t->c_cc[VTIME] = 0;
++}
++#endif
++
+ enum {
+ 	normal = 0, application = 1
+ } keypad_mode = normal, cursor_mode = normal;

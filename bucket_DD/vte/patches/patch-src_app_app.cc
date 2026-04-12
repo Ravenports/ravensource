@@ -1,18 +1,25 @@
---- src/app/app.cc.orig	2025-12-27 08:31:46 UTC
+--- src/app/app.cc.orig	2026-03-14 20:44:12 UTC
 +++ src/app/app.cc
-@@ -4874,7 +4874,15 @@ main(int argc,
-                struct termios tcattr;
-                if (tcgetattr(STDIN_FILENO, &tcattr) == 0) {
-                        saved_tcattr = tcattr;
-+#ifdef __sun__
-+	tcattr.c_iflag &= ~(IMAXBEL|IGNBRK|BRKINT|PARMRK|ISTRIP|INLCR|IGNCR|ICRNL|IXON);
-+	tcattr.c_oflag &= ~OPOST;
-+	tcattr.c_lflag &= ~(ECHO|ECHONL|ICANON|ISIG|IEXTEN);
-+	tcattr.c_cflag &= ~(CSIZE|PARENB);
-+	tcattr.c_cflag |= CS8;
-+#else
-                        cfmakeraw(&tcattr);
+@@ -82,6 +82,22 @@ enum {
+         VL3
+ }; // Verbosity levels
+ 
++#if defined(__sun)
++#ifndef IMAXBEL
++#define IMAXBEL 0
 +#endif
-                        if (tcsetattr(STDIN_FILENO, TCSANOW, &tcattr) == 0)
-                                reset_termios = true;
-                }
++
++static void cfmakeraw(struct termios *t) {
++    t->c_iflag &= ~(IMAXBEL | IXOFF | INPCK | BRKINT | PARMRK | ISTRIP | INLCR | IGNCR | ICRNL | IXON);
++    t->c_oflag &= ~OPOST;
++    t->c_lflag &= ~(ECHO | ECHOE | ECHOK | ECHONL | ICANON | ISIG | IEXTEN | NOFLSH | TOSTOP);
++    t->c_cflag &= ~(CSIZE | PARENB);
++    t->c_cflag |= CS8;
++    t->c_cc[VMIN] = 1;
++    t->c_cc[VTIME] = 0;
++}
++#endif
++
+ static void
+ fprintln(FILE* fp,
+          int level,
