@@ -100,7 +100,7 @@ do-configure:
 	${CAT} ${WRKSRC}/config.mk.in ${FILESDIR}/config.mk > ${WRKSRC}/config.mk
 
 post-configure-sunos:
-	${ECHO} 'LDSHLIB = -Wl,-Bdynamic,-G,-h,$$(SONAME)' >> ${WRKSRC}/config.mk
+	${ECHO} 'LDSHLIB = -shared -fPIC -m64 -Wl,-h,$$(SONAME)' >> ${WRKSRC}/config.mk
 
 post-build:
 	${MAKE_CMD} \
