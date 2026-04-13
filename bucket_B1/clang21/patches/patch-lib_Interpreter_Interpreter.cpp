@@ -1,4 +1,4 @@
---- lib/Interpreter/Interpreter.cpp.orig	2025-12-01 12:58:50 UTC
+--- lib/Interpreter/Interpreter.cpp.orig	2025-12-12 10:35:47 UTC
 +++ lib/Interpreter/Interpreter.cpp
 @@ -302,7 +302,11 @@ public:
            switch (CI.getFrontendOpts().ProgramAction) {
