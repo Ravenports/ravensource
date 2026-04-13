@@ -64,6 +64,7 @@ CONFIGURE_ARGS=		-system-harfbuzz
 LDFLAGS=		-Wl,-rpath,{{OPENSSLLIB}}
 DISTNAME=		qtbase-everywhere-src-${PORTVERSION}
 SUB_FILES=		qmake.conf
+			solaris.conf
 SUB_LIST=		CC={{CC:Q}}
 			CXX={{CXX:Q}}
 			LDFLAGS={{LDFLAGS:Q}}
@@ -101,9 +102,11 @@ pre-configure:
 		${WRKSRC}/mkspecs/dragonfly-g++/
 	${INSTALL_DATA} ${WRKSRC}/mkspecs/freebsd-g++/qplatformdefs.h \
 		${WRKSRC}/mkspecs/midnightbsd-g++/
-.for MKS in dragonfly-g++ freebsd-g++ linux-g++ solaris-g++-64 netbsd-g++ midnightbsd-g++
+.for MKS in dragonfly-g++ freebsd-g++ linux-g++ netbsd-g++ midnightbsd-g++
 	${INSTALL_DATA} ${WRKDIR}/qmake.conf ${WRKSRC}/mkspecs/${MKS}/
 .endfor
+	${INSTALL_DATA} ${WRKDIR}/solaris.conf \
+		${WRKSRC}/mkspecs/solaris-g++-64/qmake.conf
 	# Clean up files created by patching
 	find ${WRKSRC}/mkspecs/ -name "*.orig" -delete
 
@@ -111,14 +114,6 @@ pre-configure-sunos:
 	# getauxval test triggers false positive on Solaris
 	${REINPLACE_CMD} -e 's|sys/auxv.h|sys/auxvnope.h|' \
 		${WRKSRC}/src/corelib/global/qconfig-bootstrapped.h
-	# sun linker doesn't support -O1
-	${REINPLACE_CMD} -e '/QMAKE_LFLAGS_RELEASE/d' \
-		${WRKSRC}/mkspecs/common/g++-unix.conf
-	# sun linker doesn't support GNU version scripts
-	${REINPLACE_CMD} \
-		-e '/QMAKE_LFLAGS_VERSION_SCRIPT/d' \
-		-e '/QMAKE_LFLAGS_RPATHLINK/d' \
-		${WRKSRC}/mkspecs/common/gcc-base-unix.conf
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/qt5/bin/qmake
