@@ -80,3 +80,7 @@ DISTNAME=		MaxMind-DB-Reader-XS-${PORTVERSION}
 
 BUILD_DEPENDS=		libmaxminddb:dev:std
 BUILDRUN_DEPENDS=	libmaxminddb:primary:std
+
+VAR_OPSYS[sunos]=	CFLAGS=-Doff64_t=off_t
+			CFLAGS=-Duint=int
+			CFLAGS=-D_XOPEN_SOURCE=700
