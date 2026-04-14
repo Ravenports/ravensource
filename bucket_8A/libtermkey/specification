@@ -33,5 +33,7 @@ USES=			gmake libtool:build ncurses pkgconfig
 MAKE_ARGS=		PREFIX={{PREFIX}}
 SOVERSION=		${SOVERSION}
 
+VAR_OPSYS[sunos]=	CFLAGS=-D__EXTENSIONS__
+
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libtermkey.so
