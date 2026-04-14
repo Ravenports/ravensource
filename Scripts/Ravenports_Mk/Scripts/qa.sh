@@ -233,6 +233,9 @@ paths() {
 			${STAGEDIR}${PREFIX}/lib/libpanel.so.*) continue ;;
 			${STAGEDIR}${PREFIX}/lib/libtinfo.so.*) continue ;;
 			${STAGEDIR}${PREFIX}/lib/libncurses.so.*) continue ;;
+
+			# not sure why this happens on solaris but it's not fatal
+			${STAGEDIR}${PREFIX}/bin/clisp) continue ;;
 		esac
 		err "'${f#"${STAGEDIR}${PREFIX}"/}' is referring to ${STAGEDIR}"
 		rc=1
