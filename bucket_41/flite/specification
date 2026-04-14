@@ -6,6 +6,7 @@ DEF[SOMAJOR]=		1
 
 NAMEBASE=		flite
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		audio
 VARIANTS=		std
 SDESC[std]=		Small run-time speech synthesis engine
@@ -39,6 +40,8 @@ CONFIGURE_ARGS=		--enable-shared=yes
 PLIST_SUB=		SOVERSION=${SOVERSION}
 			SOMAJOR=${SOMAJOR}
 
+VAR_OPSYS[sunos]=	LDFLAGS=-lnsl
+
 post-patch:
 	${REINPLACE_CMD} -e 's|-pd|-pR|g' ${WRKSRC}/main/Makefile
 	${REINPLACE_CMD} -e "/-shared -Wl/s/)$$/ -lm)/g" \
@@ -47,4 +50,12 @@ post-patch:
 post-install:
 	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
 	${INSTALL_DATA} ${WRKSRC}/README.md ${STAGEDIR}${STD_DOCDIR}
+	# Shared libraries are a disaster, 3 copies (no symlinks).  Crazy!!
+	(cd ${STAGEDIR}${PREFIX}/lib && ${FIND} . -name "lib*.so" -print0 |\
+		${XARGS} -0 -I {XX} ${SH} -c \
+		'${RM} "$$1" "$$1.${SOMAJOR}" && \
+		 ${LN} -s "$$1.${SOVERSION}" "$$1.${SOMAJOR}" && \
+		 ${LN} -s "$$1.${SOMAJOR}" "$$1"' \
+		 -- {XX})
+
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib*.so
