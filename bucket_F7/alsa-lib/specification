@@ -42,12 +42,20 @@ SOVERSION=		${SOVERSION}
 CPE_VENDOR=		alsa-project
 CPE_PRODUCT=		alsa
 
+VAR_OPSYS[sunos]=	CFLAGS=-Dalloca=__builtin_alloca
+			CFLAGS=-DO_ASYNC=0
+			CFLAGS=-D__EXTENSIONS__
+			CFLAGS=-D_XOPEN_SOURCE=600
+			CFLAGS=-Wno-incompatible-pointer-types
+			LDFLAGS=-lsocket
+			CONFIGURE_ARGS=--with-versioned=no
+
 [LINUX].DESCRIPTION=			Indicates built for Linux
 
-post-patch:
+pre-configure:
 	${REINPLACE_CMD} 's|/etc|${PREFIX}&|g' ${WRKSRC}/src/conf/alsa.conf
 
-post-patch-LINUX-OFF:
+pre-configure-LINUX-OFF:
 	${MKDIR} ${WRKSRC}/include/linux
 	${CP} ${FILESDIR}/byteswap.h ${WRKSRC}/include/
 	${CP} ${FILESDIR}/endian.h ${WRKSRC}/include/
