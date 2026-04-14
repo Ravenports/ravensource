@@ -1,6 +1,6 @@
 --- kde-modules/KDEMetaInfoPlatformCheck.cmake.orig	2026-01-02 17:40:05 UTC
 +++ kde-modules/KDEMetaInfoPlatformCheck.cmake
-@@ -48,6 +48,18 @@ if (NOT "${KF_IGNORE_PLATFORM_CHECK}")
+@@ -48,6 +48,22 @@ if (NOT "${KF_IGNORE_PLATFORM_CHECK}")
                  if (CMAKE_SYSTEM_NAME MATCHES "OpenBSD")
                      set(_MetainfoFoundSupportedPlatform true)
                  endif()
@@ -14,6 +14,10 @@
 +                endif()
 +            elseif (${CMAKE_MATCH_1} STREQUAL "MidnightBSD")
 +                if (CMAKE_SYSTEM_NAME MATCHES "MidnightBSD")
++                    set(_MetainfoFoundSupportedPlatform true)
++                endif()
++            elseif (${CMAKE_MATCH_1} STREQUAL "SunOS")
++                if (CMAKE_SYSTEM_NAME MATCHES "SunOS")
 +                    set(_MetainfoFoundSupportedPlatform true)
 +                endif()
              elseif (${CMAKE_MATCH_1} STREQUAL "Windows")
