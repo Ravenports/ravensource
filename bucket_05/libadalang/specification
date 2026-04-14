@@ -87,6 +87,7 @@ do-configure:
 do-build:
 	(cd ${BUILD_WRKSRC} && ${SETENV} ${MAKE_ENV} \
 		${PYTHON_CMD} -m langkit.scripts.lkm build \
+		--jobs=${MAKE_JOBS_NUMBER} \
 		--library-types=static,static-pic,relocatable)
 
 do-install:
