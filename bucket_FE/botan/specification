@@ -42,6 +42,7 @@ MUST_CONFIGURE=		yes
 CONFIGURE_SCRIPT=	configure.py
 CONFIGURE_ARGS=		--prefix={{PREFIX}}
 			--cc=gcc
+			--cpu=x86_64
 			--with-boost
 			--with-bzip2
 			--with-lzma
@@ -55,6 +56,7 @@ SOVERSION=		${SOVERSION}
 PLIST_SUB=		VERSION=${PORTVERSION}
 
 VAR_OPSYS[midnightbsd]=	CONFIGURE_ARGS=--os=freebsd
+VAR_OPSYS[sunos]=	CONFIGURE_ARGS=--os=sunos
 
 post-install:
 	${MV} ${STAGEDIR}${PREFIX}/share/doc/botan-${PORTVERSION} \
