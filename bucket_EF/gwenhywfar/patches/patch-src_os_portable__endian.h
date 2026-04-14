@@ -1,6 +1,17 @@
 --- src/os/portable_endian.h.orig	2024-04-21 13:51:43 UTC
 +++ src/os/portable_endian.h
-@@ -54,15 +54,6 @@
+@@ -17,6 +17,10 @@
+ 
+ #	include <endian.h>
+ 
++#elif defined(__sun)
++
++#       include <endian.h>
++
+ #elif defined(__APPLE__)
+ 
+ #	include <libkern/OSByteOrder.h>
+@@ -54,15 +58,6 @@
  
  #	include <sys/endian.h>
  
