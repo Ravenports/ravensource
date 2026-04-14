@@ -51,6 +51,9 @@ INSTALL_REQ_TOOLCHAIN=	yes
 PLIST_SUB=		VERSION="${POSTED_VERSION}"
 
 VAR_OPSYS[dragonfly]=	LDFLAGS=-pthread
+VAR_OPSYS[sunos]=	LDFLAGS=-lnsl
+			CONFIGURE_ENV=ac_cv_func_getdomainname=no
+			CONFIGURE_ENV=ac_cv_func_setdomainname=no
 
 post-extract:
 	${CP} ${MK_TEMPLATES}/config.guess ${WRKSRC}/src/build-aux/config.guess
