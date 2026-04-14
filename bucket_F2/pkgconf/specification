@@ -4,6 +4,7 @@ DEF[SOVERSION]=		7.0.0
 
 NAMEBASE=		pkgconf
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		std
 SDESC[std]=		Utility to configure compiler and linker flags
@@ -16,8 +17,9 @@ DISTFILE[1]=		pkgconf-${PORTVERSION}.tar.xz:main
 
 SPKGS[std]=		set primary dev man
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	SUNOS
+OPTIONS_STANDARD=	SUNOS
+OPT_ON[sunos]=		SUNOS
 
 LICENSE=		ISCL:primary
 LICENSE_FILE=		ISCL:{{WRKSRC}}/COPYING
@@ -30,10 +32,13 @@ DISTNAME=		pkgconf-${PORTVERSION}
 MUST_CONFIGURE=		gnu
 INSTALL_TARGET=		install-strip
 TEST_TARGET=		check
-CONFIGURE_ARGS=		--with-pkg-config-dir=/usr/lib/pkgconfig:{{PREFIX}}/lib/pkgconfig
-			--with-system-libdir=/lib:/usr/lib
+CONFIGURE_ARGS=		--with-system-libdir=/lib:/usr/lib
 			--with-system-includedir=/usr/include
 SOVERSION=		${SOVERSION}
+
+[SUNOS].DESCRIPTION=			Build differences based on SunOS platform
+[SUNOS].CONFIGURE_ARGS_OFF=		--with-pkg-config-dir=/usr/lib/pkgconfig:{{PREFIX}}/lib/pkgconfig
+[SUNOS].CONFIGURE_ARGS_ON=		--with-pkg-config-dir=/usr/lib/amd64/pkgconfig:{{PREFIX}}/lib/pkgconfig
 
 pre-configure:
 	${REINPLACE_CMD} -e 's|version_type=sunos|version_type=freebsd-elf|' \
