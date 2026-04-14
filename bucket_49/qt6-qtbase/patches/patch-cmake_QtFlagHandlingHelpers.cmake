@@ -8,3 +8,12 @@
      endif()
  endfunction()
  
+@@ -218,8 +217,6 @@ function(qt_internal_apply_gc_binaries t
+     if ((GCC OR CLANG) AND NOT WASM AND NOT UIKIT AND NOT MSVC)
+         if(APPLE)
+             set(gc_sections_flag "-Wl,-dead_strip")
+-        elseif(SOLARIS)
+-            set(gc_sections_flag "-Wl,-z,ignore")
+         elseif(LINUX OR BSD OR WIN32 OR ANDROID)
+             set(gc_sections_flag "-Wl,--gc-sections")
+         endif()
