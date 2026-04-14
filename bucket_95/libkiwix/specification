@@ -49,6 +49,8 @@ CPE_VENDOR=		kiwix
 CXXFLAGS=		-I{{WRKSRC}}
 SOVERSION=		${PORTVERSION}
 
+VAR_OPSYS[sunos]=	LDFLAGS=-lsocket
+
 post-extract:
 	${CP} ${WRKDIR}/Mustache-${MUSTACHEVERSION}/mustache.hpp \
 		${WRKSRC}
