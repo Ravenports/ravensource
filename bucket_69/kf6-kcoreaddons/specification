@@ -62,6 +62,8 @@ CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt6/cmake
 			-DBUILD_PYTHON_BINDINGS:BOOL=OFF
 SOVERSION=		${PORTVERSION}
 
+VAR_OPSYS[sunos]=	LDFLAGS=-lsocket
+
 post-extract:
 	${ECHO} "Terms extracted from 'src/lib/io/kdirwatch.h':" > ${WRKDIR}/TERMS
 	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/src/lib/io/kdirwatch.h >> ${WRKDIR}/TERMS
