@@ -14,7 +14,7 @@
     PYTHON=python3
     EXE=
  endif
-@@ -118,6 +113,8 @@ endif
+@@ -118,9 +113,11 @@ endif
  	$(GPRBUILD) -P gnat/lsp_3_17.gpr -p $(COVERAGE_BUILD_FLAGS) $(GPRBUILD_CARGS)
  	$(GPRBUILD) -P gnat/tester.gpr -p $(BUILD_FLAGS) $(GPRBUILD_CARGS)
  	$(GPRBUILD) -P gnat/lsp_client.gpr -p $(COVERAGE_BUILD_FLAGS) $(GPRBUILD_CARGS)
@@ -22,7 +22,11 @@
 +		-XVERSION=$(VERSION) -XBUILD_DATE=$(BUILD_DATE)
  ifdef NODE
  	mkdir -p integration/vscode/ada/$(NODE_ARCH_PLATFORM)
- 	cp -v -f $(ALS) integration/vscode/ada/$(NODE_ARCH_PLATFORM)
+-	cp -v -f $(ALS) integration/vscode/ada/$(NODE_ARCH_PLATFORM)
++	cp -f $(ALS) integration/vscode/ada/$(NODE_ARCH_PLATFORM)
+ endif
+ 
+ generate:
 @@ -140,16 +137,20 @@ ifneq ($(COVERAGE),)
  endif
  
