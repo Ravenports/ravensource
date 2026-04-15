@@ -49,7 +49,11 @@ USES=			cmake fortran:primary gmake pkgconfig
 DISTNAME=		${KF6_COMPONENT}-${PORTVERSION}
 CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt6/cmake
 			-DKF_IGNORE_PLATFORM_CHECK:BOOL=TRUE
+			-DOpenMP_C_LIB_NAMES:STRING=""
+			-DOpenMP_CXX_LIB_NAMES:STRING=""
 SOVERSION=		${PORTVERSION}
+
+VAR_OPSYS[sunos]=	LDFLAGS=-Wl,-z,ignore
 
 post-extract:
 	${ECHO} "Terms extracted from 'src/layouts/toolbarlayout.h':" > ${WRKDIR}/TERMS
@@ -58,7 +62,7 @@ post-extract:
 	${SED} -n '/ifndef/!p;//q' ${WRKSRC}/src/controls/enums.h >> ${WRKDIR}/TERMS
 
 post-stage:
-	(cd ${STAGEDIR}${PREFIX}/lib && ${STRIP_CMD} libKirigami.so \
+	(cd ${STAGEDIR}${PREFIX}/lib && ${STRIP_CMD} lib*.so \
 		libKirigamiDelegates.so \
 		libKirigamiPlatform.so \
 		qt6/qml/org/kde/kirigami/delegates/libKirigamiDelegatesplugin.so \
