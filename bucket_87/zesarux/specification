@@ -69,6 +69,8 @@ CONFIGURE_ARGS=		--prefix={{PREFIX}}
 			--enable-visualmem
 			--enable-cpustats
 VAR_OPSYS[netbsd]=	LDFLAGS=-lossaudio
+VAR_OPSYS[sunos]=	LDFLAGS=-lsocket
+			LDFLAGS=-lnsl
 
 post-extract:
 			${ECHO} "Terms extracted from 'src/start.h':" > ${WRKDIR}/TERMS1
