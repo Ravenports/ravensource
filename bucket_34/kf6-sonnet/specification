@@ -47,6 +47,7 @@ USES=			cmake pkgconfig
 
 DISTNAME=		${KF6_COMPONENT}-${PORTVERSION}
 CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt6/cmake
+			-DKF_IGNORE_PLATFORM_CHECK:BOOL=TRUE
 SOVERSION=		${PORTVERSION}
 
 post-extract:
@@ -60,5 +61,6 @@ post-stage:
 		lib/libKF6SonnetCore.so \
 		lib/libKF6SonnetUi.so \
 		lib/qt6/plugins/designer/sonnet6widgets.so \
+		lib/qt6/plugins/kf6/sonnet/sonnet_aspell.so \
 		lib/qt6/plugins/kf6/sonnet/sonnet_hunspell.so \
 		lib/qt6/qml/org/kde/sonnet/libsonnetquickplugin.so)
