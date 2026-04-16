@@ -28,8 +28,6 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		graphics/wayland
 
-ONLY_FOR_OPSYS=		dragonfly freebsd linux midnightbsd netbsd
-
 BUILD_DEPENDS=		libxslt:primary:std
 			libffi:dev:std
 BUILDRUN_DEPENDS=	libffi:primary:std
@@ -41,9 +39,13 @@ USES=			cpe meson pkgconfig expat bsd:epoll
 GNOME_COMPONENTS=	libxml2
 # Graphviz's dot segfaults immediately since DF 5.8
 MESON_ARGS=		-Ddocumentation=false
+			-Dtests=false
 
 INSTALL_REQ_TOOLCHAIN=	yes
 INSTALL_TARGET=		install-strip
 SOVERSION=		${SOVERSION}
 PLIST_SUB=		EGLSOVERSION=${SOEGL}
 			EGLSOMAJOR=${SOEGL:R:R}
+
+VAR_OPSYS[sunos]=	CFLAGS=-D__EXTENSIONS__
+			LDFLAGS=-lsocket
