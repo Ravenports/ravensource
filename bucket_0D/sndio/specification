@@ -4,7 +4,7 @@ DEF[SOVERSION]=		7.3
 
 NAMEBASE=		sndio
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		audio
 VARIANTS=		std
 SDESC[std]=		Small audio and MIDI framework from OpenBSD
@@ -28,7 +28,6 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		audio/sndio
 
-BROKEN[sunos]=		Needs err.h which is not available on Sol10
 B_DEPS[linux]=		alsa-lib:dev:std
 			libbsd:dev:std
 BR_DEPS[linux]=		libbsd:primary:std
@@ -48,14 +47,9 @@ SOVERSION=		${SOVERSION}
 
 VAR_OPSYS[linux]=	CONFIGURE_ARGS=	--with-libbsd
 
-pre-configure:
-	# Make sure sndiod can be started inside jails as root
-	${REINPLACE_CMD} 's|err(1, "setpriority")|warn("setpriority")|' \
-		${WRKSRC}/sndiod/sndiod.c
-
 post-install:
 	${STRIP_CMD} \
-		${STAGEDIR}${PREFIX}/lib/libsndio.${LIBEXT} \
+		${STAGEDIR}${PREFIX}/lib/libsndio.so \
 		${STAGEDIR}${PREFIX}/bin/sndioctl \
 		${STAGEDIR}${PREFIX}/bin/sndiod \
 		${STAGEDIR}${PREFIX}/bin/aucat \
