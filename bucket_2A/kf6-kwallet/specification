@@ -75,6 +75,8 @@ CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt6/cmake
 			-DKF_IGNORE_PLATFORM_CHECK:BOOL=TRUE
 SOVERSION=		${PORTVERSION}
 
+VAR_OPSYS[sunos]=	LDFLAGS=-lsocket
+
 post-extract:
 	${ECHO} "Terms extracted from 'src/runtime/kwalletd/main.cpp':" > ${WRKDIR}/TERMS
 	${SED} -n '/include/!p;//q' ${WRKSRC}/src/runtime/kwalletd/main.cpp >> ${WRKDIR}/TERMS
