@@ -64,6 +64,8 @@ CMAKE_ARGS=		-DBINARY_RELEASE:BOOL=ON
 # Comment out -- might be fixed now
 # VAR_OPSYS[dragonfly]=	CMAKE_ARGS=-DNONET:BOOL=ON
 
+VAR_OPSYS[sunos]=	LDFLAGS=-lsocket
+
 post-extract:
 	${MKDIR} ${BUILD_WRKSRC}/_deps
 	(cd ${BUILD_WRKSRC}/_deps \

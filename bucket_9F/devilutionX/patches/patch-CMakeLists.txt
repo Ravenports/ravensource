@@ -1,4 +1,4 @@
---- CMakeLists.txt.orig	2025-11-07 15:53:10 UTC
+--- CMakeLists.txt.orig	2026-04-17 00:54:35 UTC
 +++ CMakeLists.txt
 @@ -219,7 +219,6 @@ if(PIE)
    set(CMAKE_POSITION_INDEPENDENT_CODE TRUE)
@@ -8,3 +8,12 @@
  if(CCACHE_PROGRAM)
    set(CMAKE_C_COMPILER_LAUNCHER "${CCACHE_PROGRAM}")
    set(CMAKE_CXX_COMPILER_LAUNCHER "${CCACHE_PROGRAM}")
+@@ -250,6 +249,8 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "GNU|Cl
+   add_compile_options("$<$<NOT:$<CONFIG:Debug>>:-ffunction-sections;-fdata-sections>")
+   if(APPLE)
+     add_link_options("$<$<NOT:$<CONFIG:Debug>>:LINKER:-dead_strip>")
++  elseif(CMAKE_SYSTEM_NAME MATCHES "SunOS")
++    add_link_options("$<$<NOT:$<CONFIG:Debug>>:LINKER:-z,ignore>")
+   else()
+     add_link_options("$<$<NOT:$<CONFIG:Debug>>:LINKER:--gc-sections,--as-needed>")
+   endif()
