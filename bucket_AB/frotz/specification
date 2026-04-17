@@ -1,8 +1,10 @@
+# guilty of reroll
 DEF[PORTVERSION]=	2.55
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		frotz
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		games
 VARIANTS=		std
 SDESC[std]=		Infocom-style interactive fiction player
@@ -49,6 +51,8 @@ INSTALL_TARGET=		install-all
 FONTNAME=		zork
 # makefile is wrong
 INSTALL_REQ_TOOLCHAIN=	yes
+
+VAR_OPSYS[sunos]=	CFLAGS=-D__EXTENSIONS__
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*frotz
