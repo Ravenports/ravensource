@@ -1,0 +1,11 @@
+--- CMakeLists.txt.orig	2026-01-20 02:56:03 UTC
++++ CMakeLists.txt
+@@ -1714,7 +1714,7 @@ else()
+         endif()
+     endif()
+ 
+-    if(NOT WIN32 AND NOT APPLE)
++    if(NOT WIN32 AND NOT APPLE AND NOT CMAKE_SYSTEM_NAME MATCHES "SunOS")
+         # FIXME: This doesn't put a dependency on the version script. Changing
+         # the version script will not cause a relink as it should.
+         target_link_options(${IMPL_TARGET} PRIVATE
