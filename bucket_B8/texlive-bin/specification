@@ -31,8 +31,9 @@ SPKGS[std]=		set primary dev man docs bibtex engine_hitex
 			engine_luatex engine_pdftex engine_xetex
 			synctex tlmgr utils xindy
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	NOLUAJIT
+OPTIONS_STANDARD=	NOLUAJIT
+OPT_ON[sunos]=		NOLUAJIT
 
 LICENSE=		CUSTOM1:primary
 LICENSE_NAME=		CUSTOM1:"TeX Live - Multi-license (LPPL, GNU, BSD, etc)"
@@ -178,6 +179,12 @@ PLIST_SUB=		LIBKPATHSEA=${LIBKPATHSEA}
 			LIBTEXLUAJIT=${LIBTEXLUAJIT}
 			LIBTEXLUAJIT_MAJOR=${LIBTEXLUAJIT:R:R}
 
+# LuaJIT is not available on SunOS.  This helper makes it explicit and assists the plists.
+[NOLUAJIT].DESCRIPTION=			Disable LuaJIT functions
+[NOLUAJIT].CONFIGURE_ARGS_ON=		--disable-luajittex
+					--disable-luajithbtex
+					--disable-mfluajit
+					--disable-mfluajit-nowin
 
 post-patch:
 	${CP} ${FILESDIR}/pdftoepdf-poppler0.76.0.cc \
@@ -200,9 +207,15 @@ post-install:
 	for lx in ${PDFTEX_LINKS}; do \
 	   ${LN} -s pdftex ${STAGEDIR}${PREFIX}/bin/$$lx ;\
 	done
-	for x in kpathsea ptexenc synctex texlua53 texluajit; do \
+	for x in kpathsea ptexenc synctex texlua53; do \
 	   ${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib$$x.so ;\
 	done
 	for p in ${PROGRAMS0} ${PROGRAMS1} ${PROGRAMS2}; do \
+	   ${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/$$p ;\
+	done
+
+post-install-NOLUAJIT-OFF:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libtexluajit.so
+	for p in ${PROGRAMS3}; do \
 	   ${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/$$p ;\
 	done

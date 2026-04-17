@@ -13,8 +13,8 @@ PROGRAMS0=	afm2pl afm2tfm aleph autosp axohelp bbox bg5conv \
 		gregorio gsftopk ptekf
 
 PROGRAMS1=	hbf2gf hishrink histretch hitex kpseaccess kpsereadlink \
-		kpsestat kpsewhich lacheck luajittex luatex mag \
-		makeindex makejvf mendex mf mf-nowin mflua mfluajit mft \
+		kpsestat kpsewhich lacheck luatex mag \
+		makeindex makejvf mendex mf mf-nowin mflua mft \
 		mmafm mmpfb mpost msxlint odvicopy odvitype omfonts \
 		otangle otfinfo otftotfm otp2ocp outocp patgen pbibtex \
 		pdfclose pdfopen pdftex pdftosrc pdvitype pfb2pfa pk2bm \
@@ -28,4 +28,6 @@ PROGRAMS2=	ptex ptftopl scor2prt sjisconv synctex t1ascii t1asm \
 		ttf2tfm ttfdump ttftotype42 twill updvitype upbibtex \
 		upmendex upmpost uppltotf uptex uptftopl vftovp vlna \
 		vptovf weave wofm2opl wopl2ofm wovf2ovp wovp2ovf \
-		xdvi-xaw xdvipdfmx xetex luahbtex luajithbtex xml2pmx
+		xdvi-xaw xdvipdfmx xetex luahbtex xml2pmx
+
+PROGRAMS3=	luajittex mfluajit luajithbtex
