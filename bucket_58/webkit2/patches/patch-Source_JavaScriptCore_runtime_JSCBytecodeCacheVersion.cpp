@@ -4,7 +4,7 @@
  #endif
  #endif
  
-+#if defined(__NetBSD__)
++#if defined(__NetBSD__) || defined(__sun)
 +#define NT_GNU_BUILD_ID 3
 +#endif
 +

@@ -16,7 +16,7 @@
      #if defined(SK_BUILD_FOR_MAC) || defined(SK_BUILD_FOR_IOS)
          // TODO: remove the max, when the chrome implementation of malloc_size doesn't return 0.
          completeSize = std::max(malloc_size(addr), size);
-+    #elif defined(__NetBSD__)
++    #elif defined(__NetBSD__) || defined(__sun)
 +	// leave completeSize == size
      #elif defined(SK_BUILD_FOR_ANDROID) && __ANDROID_API__ >= 17
          completeSize = malloc_usable_size(addr);

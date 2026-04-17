@@ -4,7 +4,7 @@
  #include <wtf/text/CString.h>
  #include <wtf/text/WTFString.h>
  
-+#if defined __DragonFly__ || defined __FreeBSD__ || defined __NetBSD__
++#if defined __DragonFly__ || defined __FreeBSD__ || defined __NetBSD__ || defined __sun
 +#  define TREAT_AS_LINUX 0
 +#  define RUNNING_ON_VALGRIND 0
 +#else

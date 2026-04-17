@@ -1,11 +1,13 @@
 --- Source/ThirdParty/libsysprof-capture/sysprof-macros-internal.h.orig	2025-08-11 07:56:49 UTC
 +++ Source/ThirdParty/libsysprof-capture/sysprof-macros-internal.h
-@@ -64,6 +64,13 @@
+@@ -64,6 +64,15 @@
  #ifdef __APPLE__
  # include <libkern/OSByteOrder.h>
  # include <architecture/byte_order.h>
 +#elif defined(__DragonFly__)
 +# include <sys/endian.h>
++#elif defined(__sun)
++# include <endian.h>
 +#elif defined(__FreeBSD__) || defined(__NetBSD__)
 +# include <sys/endian.h>
 +# define __BIG_ENDIAN            _BIG_ENDIAN
