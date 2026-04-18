@@ -40,6 +40,8 @@ USES=			pkgconfig
 XORG_COMPONENTS=	x11
 GNOME_COMPONENTS=	glib cairo gtk3 pango gdkpixbuf
 
+VAR_OPSYS[sunos]=	LDFLAGS=-lsocket
+
 post-patch:
 	${REINPLACE_CMD} -e \
 		'/^PREFIX/s| = /usr/local| = ${PREFIX}| ; \
