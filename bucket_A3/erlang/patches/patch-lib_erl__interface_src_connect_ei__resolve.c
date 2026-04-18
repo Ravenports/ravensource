@@ -1,12 +1,12 @@
 --- lib/erl_interface/src/connect/ei_resolve.c.orig	2026-03-12 15:54:38 UTC
 +++ lib/erl_interface/src/connect/ei_resolve.c
-@@ -433,7 +433,8 @@ struct hostent *ei_gethostbyname_r(const
+@@ -432,6 +432,9 @@ struct hostent *ei_gethostbyname_r(const
+       *h_errnop = err;
  
    return result;
- #else
--  return gethostbyname_r(name,hostp,buffer,buflen,h_errnop);
++#elif defined __NetBSD__
 +  struct hostent *dummy;
 +  return gethostbyname_r(name,hostp,buffer,buflen,&dummy,h_errnop);
+ #else
+   return gethostbyname_r(name,hostp,buffer,buflen,h_errnop);
  #endif
- }
- 

@@ -14,3 +14,15 @@
  #else
  /* We detected TERMCAP support, but could not find the correct headers to include */
  #undef HAVE_TERMCAP
+@@ -835,11 +830,7 @@ static ERL_NIF_TERM tty_tgetstr_nif(ErlN
+ static int tputs_buffer_index;
+ static unsigned char tputs_buffer[1024];
+ 
+-#if defined(__sun) && defined(__SVR4) /* Solaris */
+-static int tty_puts_putc(char c) {
+-#else
+ static int tty_puts_putc(int c) {
+-#endif
+     tputs_buffer[tputs_buffer_index++] = (unsigned char)c;
+     return 0;
+ }
