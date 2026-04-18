@@ -29,13 +29,19 @@ XORG_COMPONENTS=	xext xft xrender
 
 DISTNAME=		st-${PORTVERSION}
 
+VAR_OPSYS[sunos]=	CFLAGS=-D__EXTENSIONS__
+
 # README: Does terminfo really need to be handled? St seems to work well.
 
-post-patch:
+pre-configure:
 	${REINPLACE_CMD} -e '/^PREFIX/s| = /usr/local| = /${PREFIX}| ; \
 		/^X11INC/s|/usr/X11R6/include|${PREFIX}/include/X11| ; \
 		/^X11LIB/s|/usr/X11R6|${PREFIX}|' ${WRKSRC}/config.mk
 	${SED} -e '/tic/d' Makefile
+
+pre-configure-sunos:
+	${REINPLACE_CMD} -e 's|-lutil ||' ${WRKSRC}/config.mk
+
 do-install:
 	( cd ${WRKSRC} ; \
 		${MAKE} DESTDIR=${STAGEDIR} install )
