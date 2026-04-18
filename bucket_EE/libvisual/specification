@@ -4,6 +4,7 @@ DEF[SOVERSION]=		0.0.0
 
 NAMEBASE=		libvisual
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		graphics
 VARIANTS=		std
 SDESC[std]=		Abstraction library between apps and visual plugin
@@ -14,8 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/Libvisual/libvisual/releases/download/libvisual-${PORTVERSION}/
 DISTFILE[1]=		libvisual-${PORTVERSION}.tar.bz2:main
 
-SPKGS[std]=		set primary tools dev man
-# nls (broken)
+SPKGS[std]=		set primary tools dev man nls
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -34,7 +34,7 @@ EXRUN[tools]=		libvisual:primary:std
 USES=			gmake libtool pkgconfig mbsdfix c++:tools
 SDL_COMPONENTS=		sdl1
 MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--disable-nls
+CONFIGURE_ARGS=		--enable-nls
 LDFLAGS=		-lpthread
 
 SOVERSION=		${SOVERSION}
