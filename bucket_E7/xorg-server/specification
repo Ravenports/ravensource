@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	21.1.21
 
 NAMEBASE=		xorg-server
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		x11_servers
 VARIANTS=		std virtual xephyr nest
 SDESC[std]=		X.Org X server and related programs
@@ -50,6 +51,7 @@ BUILD_DEPENDS=		libdrm:dev:std
 			xorg-xkbcomp:dev:std
 RUN_DEPENDS=		xorg-xkeyboard-config:primary:std
 BUILDRUN_DEPENDS=	xorg-xkbcomp:primary:std
+			libdrm:primary:std
 
 EXRUN[dev]=		xorg-pixman:dev:std
 			xorg-pciaccess:dev:std
@@ -77,6 +79,11 @@ VAR_OPSYS[sunos]=	CFLAGS=-DO_CLOEXEC=0
 # #			For reallocarray:
 VAR_OPSYS[netbsd]=	CPPFLAGS=-D_OPENBSD_SOURCE
 			CONFIGURE_ARGS=-Dsecure-rpc=false
+VAR_OPSYS[sunos]=	CFLAGS=-D__EXTENSIONS__
+			CFLAGS=-D_XOPEN_SOURCE=600
+			LDFLAGS=-lsocket
+			LDFLAGS=-lnsl
+			LDFLAGS=-Wl,-z,rescan
 
 [XORG].DESCRIPTION=			Build as X server (don't change setting!)
 [VIRTUAL].DESCRIPTION=			Build as virtual framebuffer server
@@ -89,8 +96,7 @@ VAR_OPSYS[netbsd]=	CPPFLAGS=-D_OPENBSD_SOURCE
 					mesa:dev:std
 					libepoxy:dev:std
 					xorg-xcvt:dev:std
-[XORG].BUILDRUN_DEPENDS_ON=		libdrm:primary:std
-					libepoxy:primary:std
+[XORG].BUILDRUN_DEPENDS_ON=		libepoxy:primary:std
 					mesa:drivers:std
 					xorg-xcvt:primary:std
 
@@ -98,8 +104,7 @@ VAR_OPSYS[netbsd]=	CPPFLAGS=-D_OPENBSD_SOURCE
 					mesa:dev:std
 					libepoxy:dev:std
 					libglvnd:dev:std
-[XEPHYR].BUILDRUN_DEPENDS_ON=		libdrm:primary:std
-					libepoxy:primary:std
+[XEPHYR].BUILDRUN_DEPENDS_ON=		libepoxy:primary:std
 					libglvnd:primary:std
 
 [VIRTUAL].BUILD_DEPENDS_ON=		libepoxy:primary:std

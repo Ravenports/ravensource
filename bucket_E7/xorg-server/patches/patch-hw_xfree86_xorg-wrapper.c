@@ -43,7 +43,7 @@
          gid_t realgid = getgid();
          uid_t realuid = getuid();
  
-+#if !defined(__NetBSD__)
++#if !defined(__NetBSD__) && !defined(__sun)
 +	/* setresgid and setresuid are not implemented on NetBSD */
          if (setresgid(-1, realgid, realgid) != 0) {
              fprintf(stderr, "%s: Could not drop setgid privileges: %s\n",
