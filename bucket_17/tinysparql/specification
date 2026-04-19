@@ -54,5 +54,7 @@ MESON_ARGS=		-Dsystemd_user_services=false
 			-Davahi=disabled
 SOVERSION=		${SOVERSION}
 
+VAR_OPSYS[sunos]=	CFLAGS=-D__EXTENSIONS__
+
 post-install:
 	${MV} ${STAGEDIR}${PREFIX}/share/doc/Tsparql-3.0 ${STAGEDIR}${STD_DOCDIR}
