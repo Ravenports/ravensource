@@ -1,6 +1,6 @@
---- src/amd/common/ac_gpu_info.c.orig	2026-02-19 18:55:18 UTC
+--- src/amd/common/ac_gpu_info.c.orig	2026-03-18 15:54:10 UTC
 +++ src/amd/common/ac_gpu_info.c
-@@ -85,7 +85,7 @@ static void set_custom_cu_en_mask(struct
+@@ -86,7 +86,7 @@ static void set_custom_cu_en_mask(struct
        return;
  
     int size = strlen(cu_env_var);

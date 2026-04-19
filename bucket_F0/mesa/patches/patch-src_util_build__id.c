@@ -1,8 +1,8 @@
 # Elf_ doesn't exist, use Elf32_ or Elf64_
 #
---- src/util/build_id.c.orig	2026-02-19 18:55:18 UTC
+--- src/util/build_id.c.orig	2026-03-18 15:54:10 UTC
 +++ src/util/build_id.c
-@@ -35,7 +35,11 @@
+@@ -43,7 +43,11 @@ struct build_id_note {
  #endif
  
  #ifndef ElfW

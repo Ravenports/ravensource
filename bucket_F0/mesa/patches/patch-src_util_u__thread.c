@@ -1,6 +1,6 @@
---- src/util/u_thread.c.orig	2026-02-19 18:55:18 UTC
+--- src/util/u_thread.c.orig	2026-03-18 15:54:10 UTC
 +++ src/util/u_thread.c
-@@ -154,7 +154,7 @@ util_set_thread_affinity(thrd_t thread,
+@@ -150,7 +150,7 @@ util_set_thread_affinity(thrd_t thread,
  int64_t
  util_thread_get_time_nano(thrd_t thread)
  {

@@ -1,6 +1,6 @@
---- src/gallium/drivers/radeonsi/si_pipe.h.orig	2026-02-19 18:55:18 UTC
+--- src/gallium/drivers/radeonsi/si_pipe.h.orig	2026-03-18 15:54:10 UTC
 +++ src/gallium/drivers/radeonsi/si_pipe.h
-@@ -23,6 +23,10 @@
+@@ -24,6 +24,10 @@
  #include "ac_spm.h"
  #include "si_perfetto.h"
  
