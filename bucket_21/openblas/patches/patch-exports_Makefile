@@ -18,3 +18,13 @@
  
  so : ../$(LIBSONAME)
  
+@@ -259,7 +259,8 @@ ifeq ($(OSNAME), SunOS)
+ 
+ so : ../$(LIBSONAME)
+ 	$(CC) $(CFLAGS) $(LDFLAGS)  -shared -o ../$(LIBSONAME) \
+-	-Wl,--whole-archive ../$(LIBNAME) -Wl,--no-whole-archive $(EXTRALIB)
++	-Wl,--whole-archive ../$(LIBNAME) -Wl,--no-whole-archive \
++	-Wl,-h,$(INTERNALNAME) $(EXTRALIB)
+ 	$(CC) $(CFLAGS) $(LDFLAGS) -w -o linktest linktest.c ../$(LIBSONAME) $(FEXTRALIB) && echo OK.
+ 	rm -f linktest
+ 
