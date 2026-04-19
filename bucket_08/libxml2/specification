@@ -48,6 +48,14 @@ post-patch:
 		${WRKSRC}/${f}
 .endfor
 
+post-build:
+	# assemble PIC library
+	(cd ${WRKSRC}/.libs \
+	 && ${AR} -cq libxml2_pic.a *.o \
+	 && ranlib libxml2_pic.a)
+
 post-install:
 	${RM} -r ${STAGEDIR}${PREFIX}/share/gtk-doc
 	${RM} -r ${STAGEDIR}${STD_DOCDIR}
+	# install our PIC library
+	${INSTALL_DATA} ${WRKSRC}/.libs/libxml2_pic.a ${STAGEDIR}${PREFIX}/lib/
