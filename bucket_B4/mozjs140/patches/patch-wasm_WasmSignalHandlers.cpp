@@ -1,4 +1,4 @@
---- wasm/WasmSignalHandlers.cpp.orig	2026-03-17 09:42:15 UTC
+--- wasm/WasmSignalHandlers.cpp.orig	2026-03-17 09:42:15.000000000 -0000
 +++ wasm/WasmSignalHandlers.cpp
 @@ -38,6 +38,12 @@
  #  include <signal.h>
