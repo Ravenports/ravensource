@@ -24,11 +24,14 @@ install:
 	cp -a /tmp/raven/toolchain/include      ${DESTDIR}${PREFIX}/
 	cp -a /tmp/raven/toolchain/ravensys-gcc ${DESTDIR}${PREFIX}/
 	rm -rf ${DESTDIR}${PREFIX}/ravensys-gcc/share/licenses
-	# create dangling symlinks to ld.mold and ld.lld
-	ln -s ../../bin/mold ${DESTDIR}${PREFIX}/bin/ld.mold
-	ln -s ../../bin/lld  ${DESTDIR}${PREFIX}/bin/ld.lld
 
-.if "${OPSYS}" == "SunOS"
 	rm ${DESTDIR}${PREFIX}/bin/ld
+.if "${OPSYS}" == "SunOS"
 	cp /usr/bin/ld.sun ${DESTDIR}${PREFIX}/bin/ld
+.else
+	cp ${LOCALBASE}/libexec/ld ${DESTDIR}${PREFIX}/bin/ld
+	mkdir -p ${DESTDIR}${PREFIX}/llvm/bin
+	mkdir -p ${DESTDIR}${PREFIX}/llvm/lib
+	cp ${LOCALBASE}/bin/ld.lld ${DESTDIR}${PREFIX}/llvm/bin/
+	cp ${LOCALBASE}/lib/libLLVM.so.${LMAJMIN} ${DESTDIR}${PREFIX}/llvm/lib/
 .endif
