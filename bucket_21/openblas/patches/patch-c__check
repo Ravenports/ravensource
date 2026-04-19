@@ -1,0 +1,11 @@
+--- c_check.orig	2026-03-23 22:53:57 UTC
++++ c_check
+@@ -431,7 +431,7 @@ linker_a=""
+ 
+ link=`$compiler_name $flags -c ctest2.c -o ctest2.o 2>&1 && $compiler_name $flags $openmp -v ctest2.o -o ctest2 2>&1 && rm -f ctest2.o ctest2 ctest2.exe`
+ 
+-link=`echo "$link" | sed 's/\-Y[[:space:]]P\,/\-Y/g'`
++link=`echo "$link" | sed 's/-Y[[:space:]]*P,[^ ]*//g'`
+ 
+ 
+ flags=`echo $link | tr "'[[:space:]],\n" " "`
