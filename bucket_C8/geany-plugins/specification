@@ -160,3 +160,8 @@ USES=			gettext libtool pkgconfig ssl:build
 GNOME_COMPONENTS=	glib gtk3 intltool
 CFLAGS=			-Wno-deprecated-declarations
 INSTALL_REQ_TOOLCHAIN=	yes
+
+pre-configure-sunos:
+	# -lutil is hardcoded
+	${REINPLACE_CMD} -e 's|-lutil ||' ${WRKSRC}/debugger/src/Makefile.in
+	${REINPLACE_CMD} -s 's|-lutil||'  ${WRKSRC}/configure
