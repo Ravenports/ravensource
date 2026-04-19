@@ -1,4 +1,4 @@
---- hw/xfree86/os-support/xf86_OSlib.h.orig	2025-10-28 17:14:33 UTC
+--- hw/xfree86/os-support/xf86_OSlib.h.orig	2025-11-25 09:58:32.000000000 -0000
 +++ hw/xfree86/os-support/xf86_OSlib.h
 @@ -241,7 +241,7 @@ extern _X_HIDDEN char xf86SolarisFbDev[P
  #ifdef SYSCONS_SUPPORT
