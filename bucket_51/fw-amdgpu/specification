@@ -26,14 +26,17 @@ LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/LICENSE.amdgpu
 LICENSE_SCHEME=		solo
 
 ONLY_FOR_OPSYS=		dragonfly
+
+USES=			bfd
 DISTNAME=		amdgpu
 EXTRACT_DIRTY=		1
 BUILD_WRKSRC=		{{WRKDIR}}/_build
+MAKE_ENV=		MODULEDIR={{BUILD_WRKSRC}}
 
 do-build:
 	${MKDIR} ${BUILD_WRKSRC}
 	for file in ${WRKSRC}/amdgpu/*; do \
-	  ${SETENV} MODULEDIR=${BUILD_WRKSRC} ${SH} ${FILESDIR}/wrap-fw_module.sh $$file "${MODPREFIX}" ;\
+	  ${SETENVI} ${MAKE_ENV} ${SH} ${FILESDIR}/wrap-fw_module.sh $$file "${MODPREFIX}" ;\
 	done
 
 do-install:
