@@ -76,7 +76,9 @@ CMAKE_ARGS=		-DKEEPASSXC_BUILD_TYPE:STRING=Release
 			-DWITH_XC_UPDATECHECK:BOOL=OFF
 			-Wno-dev
 
-post-patch:
+VAR_OPSYS[sunos]=	LDFLAGS=-lsocket
+
+pre-configure:
 	${REINPLACE_CMD} -e "s|__PREFIX__|${PREFIX}|" \
 		${WRKSRC}/CMakeLists.txt \
 		${WRKSRC}/src/autotype/CMakeLists.txt

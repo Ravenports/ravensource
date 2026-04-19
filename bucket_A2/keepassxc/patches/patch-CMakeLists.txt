@@ -1,5 +1,14 @@
---- CMakeLists.txt.orig	2025-11-23 22:15:03 UTC
+--- CMakeLists.txt.orig	2026-03-10 00:27:46 UTC
 +++ CMakeLists.txt
+@@ -363,7 +363,7 @@ check_add_gcc_compiler_flag("-Werror=for
+ check_add_gcc_compiler_flag("-Werror=implicit-function-declaration" C)
+ check_add_gcc_compiler_flag("-Wcast-align")
+ 
+-if(UNIX AND NOT APPLE)
++if(UNIX AND NOT APPLE AND NOT CMAKE_SYSTEM_NAME MATCHES "SunOS")
+     check_add_gcc_compiler_flag("-Qunused-arguments")
+     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,--as-needed -Wl,--no-undefined")
+     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,-z,relro,-z,now -pie")
 @@ -515,7 +515,7 @@ if(UNIX AND NOT APPLE)
      if(WITH_XC_X11)
          list(APPEND QT_COMPONENTS X11Extras)
