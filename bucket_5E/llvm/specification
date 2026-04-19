@@ -2,7 +2,7 @@
 # Repology and is thus easily forgotten
 DEF[NAMEBASE]=		llvm
 DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM22_VERSION)
-DEF[PORTREVISION]=	0
+DEF[PORTREVISION]=	1
 DEF[PORTVERSION]=	${LLVM_VERSION}
 DEF[MAJORMIN]=		${PORTVERSION:R}
 DEF[MAJOR]=		${PORTVERSION:R:R}
@@ -38,11 +38,12 @@ LICENSE_NAME=		CUSTOM1:"University of Illinois/NCSA Open Source License"
 LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/LICENSE.TXT
 LICENSE_SCHEME=		solo
 
+BUILD_DEPENDS=		libxml2:dev:std
+
 EXRUN[tools]=		primary
 
-USES=			cmake ninja python:build execinfo zlib ncurses:dev
+USES=			cmake ninja python:build execinfo:build zlib:build ncurses:dev
 			cpe shebangfix c++:primary
-GNOME_COMPONENTS=	libxml2
 CPE_VENDOR=		llvm
 CPE_PRODUCT=		llvm
 DISTNAME=		llvm-project-${PORTVERSION}.src/llvm
@@ -76,12 +77,18 @@ VAR_OPSYS[midnightbsd]=	MAKEFILE_LINE=CONFIGURE_TARGET=${MBSD64_TARGET}
 					-DLLVM_USE_LINKER=gold
 
 pre-configure:
-	# disable detection of shared ncurses/tinfo
+	# disable detection of shared ncurses/tinfo/zlib
 	${RM} ${LOCALBASE}/lib/libtinfo.so
 	${RM} ${LOCALBASE}/lib/libncurses.so
-	# Use PIC versions of ncurses/tinfo instead of static
+	${RM} ${LOCALBASE}/lib/libexecinfo.so
+	${RM} ${LOCALBASE}/lib/libxml2.so
+	${RM} ${LOCALBASE}/lib/libz.so
+	# Use PIC versions of ncurses/tinfo/zlib instead of static
 	${MV} ${LOCALBASE}/lib/libtinfo_pic.a ${LOCALBASE}/lib/libtinfo.a
 	${MV} ${LOCALBASE}/lib/libncurses_pic.a ${LOCALBASE}/lib/libncurses.a
+	${MV} ${LOCALBASE}/lib/libexecinfo_pic.a ${LOCALBASE}/lib/libexecinfo.a
+	${MV} ${LOCALBASE}/lib/libxml2_pic.a ${LOCALBASE}/lib/libxml2.a
+	${MV} ${LOCALBASE}/lib/libz_pic.a ${LOCALBASE}/lib/libz.a
 	# Replace config.(sub|guess)
 	${CP} ${MK_TEMPLATES}/config.guess ${WRKSRC}/cmake/config.guess
 	${CP} ${MK_TEMPLATES}/config.sub ${WRKSRC}/cmake/config.sub
