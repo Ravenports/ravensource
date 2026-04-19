@@ -62,6 +62,7 @@ CONFIGURE_ENV=		PKG_CONFIG_PATH="{{LOCALBASE}}/lib/qt6/pkgconfig"
 
 VAR_OPSYS[freebsd]=	CONFIGURE_ARGS=--enable-precompiled-headers=no
 VAR_OPSYS[midnightbsd]=	CONFIGURE_ARGS=--enable-precompiled-headers=no
+VAR_OPSYS[sunos]=	LDFLAGS=-lintl
 
 post-patch:
 	${FIND} ${WRKSRC} -type f -name "windows\.cpp" -delete
