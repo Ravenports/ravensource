@@ -31,7 +31,7 @@ FPC_EQUIVALENT=		graphics/libvisual04
 
 EXRUN[tools]=		libvisual:primary:std
 
-USES=			gmake libtool pkgconfig mbsdfix c++:tools
+USES=			gmake libtool pkgconfig gettext mbsdfix c++:tools
 SDL_COMPONENTS=		sdl1
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-nls
@@ -39,6 +39,12 @@ LDFLAGS=		-lpthread
 
 SOVERSION=		${SOVERSION}
 PLIST_SUB=		VER=${PORTVERSION:R}
+
+VAR_OPSYS[freebsd]=	LDFLAGS=-lintl
+VAR_OPSYS[dragonfly]=	LDFLAGS=-lintl
+VAR_OPSYS[midnightbsd]=	LDFLAGS=-lintl
+VAR_OPSYS[sunos]=	LDFLAGS=-lintl
+VAR_OPSYS[netbsd]=	LDFLAGS=-lintl
 
 pre-configure-netbsd:
 	${REINPLACE_CMD} -e 's/-no-undefined//' ${WRKSRC}/libvisual/Makefile.in
