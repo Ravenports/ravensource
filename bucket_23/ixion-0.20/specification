@@ -4,6 +4,7 @@ DEF[API]=		0.20
 
 NAMEBASE=		ixion-0.20
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		math
 VARIANTS=		std
 SDESC[std]=		General purpose formula parser and interpreter
@@ -39,6 +40,7 @@ CMAKE_ARGS=		-DMDDS_INCLUDEDIR="{{LOCALBASE}}/include/mdds-1.2"
 LDFLAGS=		-lboost_thread
 			-lboost_program_options
 			-lboost_filesystem
+			-pthread
 VAR_OPSYS[linux]=	LDFLAGS=-ldl
 
 post-install:
