@@ -46,8 +46,10 @@ B_DEPS[dragonfly]=	evdev-proto:single:std
 B_DEPS[netbsd]=		evdev-proto:single:std
 B_DEPS[midnightbsd]=	evdev-proto:single:std
 
+# must link with bfd
+# ld.lld: error: target emulation unknown: -m or at least one .o file required
 USES=			cmake desktop-utils:primary dos2unix ninja
-			fontconfig pkgconfig
+			bfd fontconfig pkgconfig
 XORG_COMPONENTS=	ice sm x11 xext xrender
 DISTNAME=		uTox
 CMAKE_ARGS=		-DENABLE_FILTERAUDIO:BOOL=OFF
