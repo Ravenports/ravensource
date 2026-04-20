@@ -56,6 +56,6 @@ post-install:
 		'${RM} "$$1" "$$1.${SOMAJOR}" && \
 		 ${LN} -s "$$1.${SOVERSION}" "$$1.${SOMAJOR}" && \
 		 ${LN} -s "$$1.${SOMAJOR}" "$$1"' \
-		 -- {XX})
+		 ${SH} {XX})
 
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib*.so
