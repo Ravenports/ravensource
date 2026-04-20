@@ -9,6 +9,7 @@ DEF[SED_MODULES]=	-e 's/\(moduleload[     ]*back_[a-z]*\)\.la/\1/' -e 's/\# *\(m
 
 NAMEBASE=		openldap
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		net databases
 VARIANTS=		std
 SDESC[std]=		Lightweight Directory Access Protocol server
@@ -23,8 +24,9 @@ DISTFILE[1]=		openldap-${PORTVERSION}.tgz:main
 
 SPKGS[std]=		set server client dev man docs
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	SUNOS
+OPTIONS_STANDARD=	SUNOS
+OPT_ON[sunos]=		SUNOS
 
 FPC_EQUIVALENT=		net/openldap26-server
 
@@ -82,6 +84,9 @@ PLIST_SUB=		OPENLDAP_MAJOR=${PORTVERSION:R}
 			LDAP_RUN_DIR=${LDAP_RUN_DIR}
 			DATABASEDIR=${DATABASE_DIR}
 SOVERSION=		${SOVERSION}
+
+[SUNOS].DESCRIPTION=			Modifies build based on SunOS platform
+[SUNOS].LDFLAGS_OFF=			-Wl,--undefined-version
 
 post-patch:
 	${REINPLACE_CMD} -e 's|^OPT =.*|OPT = ${CFLAGS}|g' \
