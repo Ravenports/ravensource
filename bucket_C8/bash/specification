@@ -7,7 +7,7 @@ DEF[STANDARD_PATH]=	/sbin:/bin:/usr/sbin:/usr/bin
 
 NAMEBASE=		bash
 VERSION=		${VERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		shells
 VARIANTS=		std static
 SDESC[std]=		GNU Bourne Again SHell
@@ -86,6 +86,7 @@ CPPFLAGS=		-DDEFAULT_PATH_VALUE='\"{{STANDARD_PATH}}:{{LOCALBASE}}/sbin:{{LOCALB
 [STATIC].USES_OFF=			makeinfo
 [STATIC].INFO_OFF=			info:bash
 [STATIC].CPPFLAGS_ON=			-fcommon
+[STATIC].CONFIGURE_ENV_ON=		ac_cv_func_working_mktime=yes
 [STATIC].CONFIGURE_ARGS_ON=		--enable-static-link
 					--disable-ncurses-terminfo
 post-patch:
