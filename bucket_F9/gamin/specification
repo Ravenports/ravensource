@@ -17,8 +17,9 @@ DISTFILE[1]=		gamin-${PORTVERSION}.tar.gz:main
 
 SPKGS[std]=		set primary dev
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	SUNOS
+OPTIONS_STANDARD=	SUNOS
+OPT_ON[sunos]=		SUNOS
 
 LICENSE=		LGPL20+:primary
 LICENSE_FILE=		LGPL20+:{{WRKSRC}}/COPYING
@@ -47,7 +48,9 @@ CFLAGS=			-Wno-implicit-function-declaration
 PLIST_SUB=		FAMVERSION=${FAMVERSION}
 			FAMMAJOR=${FAMVERSION:R:R}
 
-VAR_OPSYS[sunos]=	LDFLAGS=-lsocket
+[SUNOS].DESCRIPTION=			Build modifications for SunOS platform
+[SUNOS].LDFLAGS_ON=			-lsocket
+[SUNOS].LDFLAGS_OFF=			-Wl,--undefined-version
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so*
