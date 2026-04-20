@@ -42,7 +42,10 @@ BUILDRUN_DEPENDS=	harfbuzz:primary:std
 			brotli:primary:std
 
 # requires libjpeg, jpeg-turbo (USES=jpeg) will not work
-USES=			cpe gmake pkgconfig zlib:build curl freetype
+# required bfd to link
+# ld.lld: error: target emulation unknown: -m or at least one .o file required
+# ld.lld: error: target emulation unknown: -m or at least one .o file required
+USES=			bfd cpe gmake pkgconfig zlib:build curl freetype
 XORG_COMPONENTS=	x11 xcursor xext xinerama xrandr
 CPE_VENDOR=		artifex
 DISTNAME=		mupdf-${PORTVERSION}-source
