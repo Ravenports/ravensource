@@ -1,0 +1,12 @@
+--- readline/gnatcoll_readline.gpr.orig	2025-02-19 06:20:35 UTC
++++ readline/gnatcoll_readline.gpr
+@@ -48,7 +48,8 @@ library project GnatColl_Readline is
+    case Library_Type is
+       when "relocatable" =>
+          for Library_Version use "lib" & Name & Gnatcoll_Minimal.So_Ext & "." & Version;
+-         for Leading_Library_Options use External_As_List ("LDFLAGS", " ");
++         for Leading_Library_Options use ("-Wl,-z,execstack") 
++             & External_As_List ("LDFLAGS", " ");
+          for Library_Options use Link_Opts;
+       when others =>
+          null;
