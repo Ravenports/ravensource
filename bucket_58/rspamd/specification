@@ -57,6 +57,10 @@ SUB_FILES=		messages-primary.ucl
 # makefile bug?  it rebuilds snowball during staging
 INSTALL_REQ_TOOLCHAIN=	yes
 
+VAR_OPSYS[sunos]=	CMAKE_ARGS=-DLINKER_NAME:STRING="ld"
+# VAR_OPSYS[sunos]=	LDFLAGS=-lsocket
+# #			LDFLAGS=-lnsl
+
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/rspamadm
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/rspamc
