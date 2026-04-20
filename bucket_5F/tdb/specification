@@ -4,6 +4,7 @@ DEF[CAT1]=		http://docbook.sourceforge.net/release/xsl/current/
 
 NAMEBASE=		tdb
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		databases
 VARIANTS=		std
 SDESC[std]=		Trivial Database
@@ -17,8 +18,9 @@ DISTFILE[1]=		tdb-${PORTVERSION}.tar.gz:main
 
 SPKGS[std]=		set primary dev tools man
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	SUNOS
+OPTIONS_STANDARD=	SUNOS
+OPT_ON[sunos]=		SUNOS
 
 LICENSE=		LGPL3+:primary
 LICENSE_FILE=		LGPL3+:stock
@@ -46,6 +48,12 @@ CONFIGURE_ARGS=		--prefix={{PREFIX}}
 			--without-gettext
 INSTALL_REQ_TOOLCHAIN=	yes
 SOVERSION=		${PORTVERSION}
+
+# symbol version maps are dynamically generated, including symbols that
+# just aren't defined.  Nasty.  Just ignore them for lld.
+
+[SUNOS].DESCRIPTION=			Handle build differently on SunOS
+[SUNOS].LDFLAGS_OFF=			-Wl,--undefined-version
 
 post-patch:
 	# enable docbook to build manpages
