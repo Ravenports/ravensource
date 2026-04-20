@@ -55,7 +55,9 @@ RUN_DEPENDS=		unrar:primary:std
 			pstotext:primary:std
 			python-mutagen:single:python_default
 
-USES=			bison meson pkgconfig shebangfix
+# link with bfd to hide missing "environ" symbol
+# lld could handle it with -Wl,--allow-shlib-undefined
+USES=			bfd bison meson pkgconfig shebangfix
 			zlib:build python:build
 XORG_COMPONENTS=	x11
 GNOME_COMPONENTS=	libxslt
