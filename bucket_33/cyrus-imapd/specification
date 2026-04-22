@@ -6,6 +6,7 @@ DEF[CYRUS_GROUP]=	cyrus
 
 NAMEBASE=		cyrus-imapd
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		mail
 VARIANTS=		std
 SDESC[std]=		High-performance mail store with IMAP support
@@ -103,6 +104,7 @@ CONFIGURE_ARGS=		--libexecdir={{PREFIX}}/cyrus/libexec
 			--with-mysql=no
 			--with-pgsql=no
 			--with-clamav=no
+LDFLAGS=		-Wl,-z,execstack
 
 post-patch:
 	${REINPLACE_CMD} -e "s|/etc/|${PREFIX}/etc/|" \
