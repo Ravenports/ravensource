@@ -8,7 +8,7 @@ DEF[THIRD_SNAKE]=	${PY3DEFAULT:S|.||}
 
 NAMEBASE=		langkit_support
 VERSION=		${PORTVERSION}
-REVISION=		2
+REVISION=		3
 EPOCH=			1
 KEYWORDS=		ada devel
 VARIANTS=		std
@@ -46,13 +46,11 @@ BUILDRUN_DEPENDS=	gnatcoll-core:primary:std
 			python-docutils:single:python_default
 			python-Mako:single:python_default
 			python-e3-core:single:python_default
-RUN_DEPENDS=		AdaSAT:primary:std
 
 EXRUN[dev]=		gnatcoll-bindings:dev:std
 			gnatcoll-core:dev:std
 			gmp:dev:std
 			prettier-ada:dev:std
-			AdaSAT:dev:std
 
 LICENSE=		APACHE20:primary
 LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
@@ -65,7 +63,7 @@ USES=			gprbuild python:pep517 iconv:build
 INSTALL_REQ_TOOLCHAIN=	yes
 DISTNAME=		${MYDISTNAME}
 SOVERSION=		${PORTVERSION}
-MAKE_ENV=		GPR_PROJECT_PATH={{LOCALBASE}}/share/gpr
+MAKE_ENV=		GPR_PROJECT_PATH={{LOCALBASE}}/share/gpr:{{WRKSRC}}/langkit/support
 
 # BSD SAL auto-initialization doesn't work as of gcc 14.3.0, gcc 15.2.0
 [REGULAR].DESCRIPTION=			Build as regular, not Stand-Alone Library
@@ -105,6 +103,12 @@ do-install:
 		--build-mode=prod \
 		--disable-all-mains \
 		${STAGEDIR}${PREFIX})
+
+	# manually install libAdaSAT for relocatable version
+	${INSTALL_LIB} ${WRKSRC}/langkit/support/lib/relocatable/prod/libadasat.so.${PORTVERSION}\
+		${STAGEDIR}${PREFIX}/lib/langkit_support.relocatable/
+	${LN} -s langkit_support.relocatable/libadasat.so.${PORTVERSION} \
+		${STAGEDIR}${PREFIX}/lib/libadasat.so.${PORTVERSION}
 
 	# Construct python wheels
 	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} python -m build \
