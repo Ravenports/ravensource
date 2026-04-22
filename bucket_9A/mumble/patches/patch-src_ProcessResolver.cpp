@@ -12,7 +12,7 @@
  
  ProcessResolver::ProcessResolver(bool resolveImmediately) : m_processMap() {
  	if (resolveImmediately) {
-@@ -199,7 +204,18 @@ void ProcessResolver::doResolve() {
+@@ -199,7 +204,19 @@ void ProcessResolver::doResolve() {
  
  void ProcessResolver::doResolve() {
  	int n_procs;
@@ -20,11 +20,12 @@
 +	size_t len;
 +	struct kinfo_proc *procs_info;
 +	sysctlbyname ("kern.proc.all", NULL, &len, NULL, 0);
-+        procs_info = (struct kinfo_proc *) malloc (len);
++       procs_info = (struct kinfo_proc *) malloc (len);
 +	if (sysctlbyname ("kern.proc.all", procs_info, &len, NULL, 0)) {
 +		free(procs_info);
 +		return;
 +	}
++       n_procs = static_cast<int>(len / sizeof(struct kinfo_proc));
 +#  else
  	struct kinfo_proc *procs_info = kinfo_getallproc(&n_procs);
 +#  endif
