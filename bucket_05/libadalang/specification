@@ -20,13 +20,15 @@ DISTFILE[1]=		generated:main
 
 SPKGS[std]=		set primary dev tools examples
 
-OPTIONS_AVAILABLE=	DEBUG REGULAR
-OPTIONS_STANDARD=	DEBUG REGULAR
+OPTIONS_AVAILABLE=	DEBUG REGULAR SUNOS
+OPTIONS_STANDARD=	DEBUG REGULAR SUNOS
 # OPT_ON[all]=		DEBUG
 # OPT_ON[netbsd]=	REGULAR
 # OPT_ON[freebsd]=	REGULAR
 # OPT_ON[dragonfly]=	REGULAR
 # OPT_ON[midnightbsd]=	REGULAR
+OPT_ON[sunos]=		SUNOS
+
 
 LICENSE=		APACHE20:primary
 LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE.txt
@@ -67,6 +69,11 @@ VAR_OPSYS[freebsd]=	MAKEFILE_LINE=XTRALIB=,"-lutil"
 [REGULAR].DESCRIPTION=			Build as regular, not Stand-Alone Library
 [REGULAR].MAKEFILE_ON=			SALTYPE=no
 [REGULAR].MAKEFILE_OFF=			SALTYPE=standard
+
+# ignore ld.lld: error: undefined reference: adasat__builders___elabb
+# This is probably happening if libadasat was turned into a standalone library
+[SUNOS].DESCRIPTION=			Modify build based on solaris linker
+[SUNOS].MAKEFILE_OFF=			XTRALIB+=,"-Wl,--allow-shlib-undefined"
 
 do-configure:
 	(cd ${BUILD_WRKSRC} && ${SETENV} ${MAKE_ENV} \
