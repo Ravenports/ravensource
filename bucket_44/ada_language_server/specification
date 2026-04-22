@@ -18,8 +18,9 @@ DISTFILE[1]=		generated:main
 
 SPKGS[std]=		set primary dev
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	SUNOS
+OPTIONS_STANDARD=	SUNOS
+OPT_ON[sunos]=		SUNOS
 
 BUILD_DEPENDS=		ada_libfswatch:single:std
 			gtkada:dev:std
@@ -53,6 +54,14 @@ MAKE_ARGS=		BUILD_MODE=prod
 			PROCESSORS={{MAKE_JOBS_NUMBER}}
 			OS=unix
 INSTALL_REQ_TOOLCHAIN=	yes
+
+# ignore ld.lld: error: undefined reference: adasat__builders___elabb
+# This is probably happening if libadasat was turned into a standalone library
+[SUNOS].DESCRIPTION=			Modify build based on solaris linker
+[SUNOS].MAKEFILE_OFF=			DYNFLAGS="-Wl,--allow-shlib-undefined"
+
+pre-configure:
+	${REINPLACE_CMD} -e 's|@DYNFLAGS@|${DYNFLAGS}|' ${WRKSRC}/gnat/lsp_server.gpr
 
 post-install:
 	${RM} -r ${STAGEDIR}${PREFIX}/share/gpr/manifests

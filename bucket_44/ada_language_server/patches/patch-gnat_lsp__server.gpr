@@ -1,0 +1,11 @@
+--- gnat/lsp_server.gpr.orig	2025-07-02 16:04:06 UTC
++++ gnat/lsp_server.gpr
+@@ -80,7 +80,7 @@ project LSP_Server is
+                   for Switches ("Ada") use ("-static-libstdc++", "-static-libgcc");
+              end case;
+          when "relocatable" =>
+-            null;
++            for Switches ("Ada") use (@DYNFLAGS@);
+       end case;
+    end Linker;
+ 
