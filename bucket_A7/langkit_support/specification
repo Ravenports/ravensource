@@ -51,6 +51,7 @@ EXRUN[dev]=		gnatcoll-bindings:dev:std
 			gnatcoll-core:dev:std
 			gmp:dev:std
 			prettier-ada:dev:std
+			AdaSAT:dev:std
 
 LICENSE=		APACHE20:primary
 LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
@@ -106,9 +107,7 @@ do-install:
 
 	# manually install libAdaSAT for relocatable version
 	${INSTALL_LIB} ${WRKSRC}/langkit/support/lib/relocatable/prod/libadasat.so.${PORTVERSION}\
-		${STAGEDIR}${PREFIX}/lib/langkit_support.relocatable/
-	${LN} -s langkit_support.relocatable/libadasat.so.${PORTVERSION} \
-		${STAGEDIR}${PREFIX}/lib/libadasat.so.${PORTVERSION}
+		${STAGEDIR}${PREFIX}/lib/
 
 	# Construct python wheels
 	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} python -m build \
