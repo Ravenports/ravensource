@@ -1,6 +1,6 @@
---- library/std/src/fs/tests.rs.orig	2026-03-25 01:22:28 UTC
+--- library/std/src/fs/tests.rs.orig	2026-04-14 19:55:32 UTC
 +++ library/std/src/fs/tests.rs
-@@ -215,6 +215,7 @@ fn file_test_io_seek_and_write() {
+@@ -214,6 +214,7 @@ fn file_test_io_seek_and_write() {
          target_os = "aix",
          target_os = "cygwin",
          target_os = "freebsd",
@@ -8,7 +8,7 @@
          target_os = "fuchsia",
          target_os = "hurd",
          target_os = "illumos",
-@@ -248,6 +249,7 @@ fn file_lock_multiple_shared() {
+@@ -247,6 +248,7 @@ fn file_lock_multiple_shared() {
          target_os = "aix",
          target_os = "cygwin",
          target_os = "freebsd",
@@ -16,7 +16,7 @@
          target_os = "fuchsia",
          target_os = "hurd",
          target_os = "illumos",
-@@ -282,6 +284,7 @@ fn file_lock_blocking() {
+@@ -281,6 +283,7 @@ fn file_lock_blocking() {
          target_os = "aix",
          target_os = "cygwin",
          target_os = "freebsd",
@@ -24,7 +24,7 @@
          target_os = "fuchsia",
          target_os = "hurd",
          target_os = "illumos",
-@@ -313,6 +316,7 @@ fn file_lock_drop() {
+@@ -312,6 +315,7 @@ fn file_lock_drop() {
          target_os = "aix",
          target_os = "cygwin",
          target_os = "freebsd",

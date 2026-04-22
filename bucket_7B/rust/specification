@@ -1,9 +1,10 @@
-DEF[PORTVERSION]=	1.94.1
-DEF[RUSTX_BOOT]=	1.93.1
+DEF[PORTVERSION]=	1.95.0
+DEF[RUSTX_BOOT]=	1.94.1
 DEF[CURL_VERSION]=	7.88.0
 DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
 DEF[LIBC_PT1]=		155 158 164
 DEF[LIBC_PT2]=		168 169 171 172 174 175 177
+#  libc-0.2.178[180] doesn't have errno.rs
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		rust
@@ -45,8 +46,9 @@ DF_INDEX=		1 17
 
 SPKGS[std]=		single
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	SUNOS
+OPTIONS_STANDARD=	SUNOS
+OPT_ON[sunos]=		SUNOS
 
 LICENSE=		APACHE20:single MIT:single
 LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE-APACHE
@@ -73,7 +75,7 @@ EXRUN[single]=		ravensys-gcc:compilers:std
 			ravensys-gcc:libs:std
 			ravensys-binutils:single:std
 
-USES=			bfd cpe gmake zlib:build python:build shebangfix
+USES=			cpe gmake zlib:build python:build shebangfix
 			execinfo c++:single dos2unix ssl:build
 			rootca:single
 CPE_VENDOR=		rust-lang
@@ -87,6 +89,8 @@ CONFIGURE_ARGS=		--release-channel=stable
 			--prefix={{PREFIX}}
 			--disable-ninja
 			--default-linker={{LOCALBASE}}/toolchain/ravensys-gcc/bin/cc
+			--set rust.new-symbol-mangling=true
+			--set rust.download-rustc=false
 DISTNAME=		rustc-${PORTVERSION}-src
 MAKE_ENV=		LD_LIBRARY_PATH={{WRKDIR}}/bootstrap/lib
 			LIBSSH2_SYS_USE_PKG_CONFIG=1
@@ -110,6 +114,7 @@ SHEBANG_FILES=		src/llvm-project/compiler-rt/lib/sanitizer_common/symbolizer/scr
 			library/compiler-builtins/ci/r*.sh
 			library/compiler-builtins/ci/bench-icount.sh
 			library/compiler-builtins/ci/miri.sh
+			compiler/rustc_codegen_cranelift/.github/scripts/free-disk-space.sh
 DOS2UNIX_FILES=		vendor/openssl-probe*/src/lib.rs
 
 VAR_OPSYS[dragonfly]=	MAKEFILE_LINE=BOOTSTRAP_RUST=${RUSTX_BOOT}
@@ -120,12 +125,15 @@ VAR_OPSYS[netbsd]=	MAKEFILE_LINE=BOOTSTRAP_RUST=${RUSTX_BOOT}
 			MAKEFILE_LINE=BOOTSTRAP_CARGO=${RUSTX_BOOT}
 VAR_OPSYS[linux]=	MAKEFILE_LINE=BOOTSTRAP_RUST=${RUSTX_BOOT}
 			MAKEFILE_LINE=BOOTSTRAP_CARGO=${RUSTX_BOOT}
-VAR_OPSYS[sunos]=	MAKEFILE_LINE=BOOTSTRAP_RUST=${RUSTX_BOOT}
-			MAKEFILE_LINE=BOOTSTRAP_CARGO=${RUSTX_BOOT}
-			CFLAGS=-D_POSIX_PTHREAD_SEMANTICS
-			CFLAGS=-D__EXTENSIONS__
 VAR_OPSYS[midnightbsd]=	MAKEFILE_LINE=BOOTSTRAP_RUST=${RUSTX_BOOT}
 			MAKEFILE_LINE=BOOTSTRAP_CARGO=${RUSTX_BOOT}
+
+[SUNOS].DESCRIPTION=			Modify build based on SunOS platform
+[SUNOS].CFLAGS_ON=			-D_POSIX_PTHREAD_SEMANTICS
+					-D__EXTENSIONS__
+[SUNOS].MAKEFILE_ON=			BOOTSTRAP_RUST=${RUSTX_BOOT}
+					BOOTSTRAP_CARGO=${RUSTX_BOOT}
+[SUNOS].CONFIGURE_ARGS_OFF=		--enable-lld
 
 post-extract:
 	${CP} ${MK_TEMPLATES}/config.guess ${WRKSRC}/src/llvm-project/llvm/cmake/config.guess
@@ -292,4 +300,6 @@ post-install:
 		${STAGEDIR}${PREFIX}/lib/rustlib/*/bin/ll* \
 		${STAGEDIR}${PREFIX}/lib/rustlib/*/bin/opt \
 		${STAGEDIR}${PREFIX}/lib/rustlib/*/bin/rust-objcopy \
+		${STAGEDIR}${PREFIX}/lib/rustlib/*/bin/rust-lld \
+		${STAGEDIR}${PREFIX}/lib/rustlib/*/bin/self-contained/llvm-bitcode-linker \
 		${STAGEDIR}${PREFIX}/lib/rustlib/*/lib/*.so
