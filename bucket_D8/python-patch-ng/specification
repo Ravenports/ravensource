@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.19.0
+DEF[PORTVERSION]=	1.19.1
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-patch-ng
@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/conan-io/python-patch
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/p/patch-ng
-DISTFILE[1]=		patch-ng-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/2c/ef/c60c07b2f9d973672608815e4c176943146c353d3b60fdab914a6dcd44e8
+DISTFILE[1]=		patch_ng-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
 SPKGS[v13]=		single
@@ -27,11 +27,11 @@ VOPTS[v14]=		PY313=OFF PY314=ON
 # MIT
 
 GENERATED=		yes
-DISTNAME=		patch-ng-${PORTVERSION}
+DISTNAME=		patch_ng-${PORTVERSION}.dist-info
 
-# Requires-Dist extracted from pyproject.toml file
+# Requires-Dist extracted from wheel metadata
 
 
-[PY313].USES_ON=			python:v13,pep517
-[PY314].USES_ON=			python:v14,pep517
+[PY313].USES_ON=			python:v13,wheel
+[PY314].USES_ON=			python:v14,wheel
 
