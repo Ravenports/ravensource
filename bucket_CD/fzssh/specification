@@ -1,0 +1,39 @@
+DEF[PORTVERSION]=	1.2.0
+DEF[SOVERSION]=		11.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		fzssh
+VERSION=		${PORTVERSION}
+KEYWORDS=		ftp
+VARIANTS=		std
+SDESC[std]=		SSH/SFTP library based on libfilezilla
+HOMEPAGE=		https://fzssh.filezilla-project.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://dl2.cdn.filezilla-project.org/fzssh/
+DISTFILE[1]=		fzssh-${PORTVERSION}.tar.xz:main
+
+SPKGS[std]=		set primary dev
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# FPC_EQUIVALENT=
+
+LICENSE=		AGPLv3:primary
+LICENSE_FILE=		AGPLv3:{{WRKSRC}}/agpl3.txt
+LICENSE_TERMS=		primary:{{WRKSRC}}/README
+LICENSE_SCHEME=		solo
+
+BUILD_DEPENDS=		libfilezilla:dev:std
+			argon2:dev:std
+			gnutls:dev:std
+			gmp:dev:std
+BUILDRUN_DEPENDS=	libfilezilla:primary:std
+			argon2:primary:std
+			gnutls:primary:std
+			gmp:primary:std
+
+USES=			meson pkgconfig iconv
+SOVERSION=		${SOVERSION}
