@@ -1,6 +1,6 @@
---- joe/tty.c.orig	2018-01-10 16:28:34 UTC
+--- joe/tty.c.orig	2026-04-01 01:06:07 UTC
 +++ joe/tty.c
-@@ -31,6 +31,10 @@
+@@ -36,6 +36,10 @@
  #include <libutil.h>
  #endif
  
