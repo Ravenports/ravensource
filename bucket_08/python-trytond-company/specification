@@ -1,17 +1,17 @@
-DEF[PORTVERSION]=	7.8.1
+DEF[PORTVERSION]=	8.0.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-trytond-company
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
 VARIANTS=		v13 v14
-SDESC[v13]=		Tryton module with companies and employees (3.13)
-SDESC[v14]=		Tryton module with companies and employees (3.14)
-HOMEPAGE=		http://www.tryton.org/
+SDESC[v13]=		Companies and employees for Tryton (3.13)
+SDESC[v14]=		Companies and employees for Tryton (3.14)
+HOMEPAGE=		https://www.tryton.org/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/62/26/d6f1fe99ddf3f3c90a6d0648e0072653ed981ca33247b5bed2e2056f2cea
+SITES[main]=		PYPIWHL/31/ba/a258fc942f0ca6246d6d0d2b6547ca3708f6d591bbd7de3195d324eeafe4
 DISTFILE[1]=		trytond_company-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -24,17 +24,16 @@ VOPTS[v13]=		PY313=ON PY314=OFF
 VOPTS[v14]=		PY313=OFF PY314=ON
 
 # License listed at PyPI
-# GPL-3
+# Not provided.
 
 GENERATED=		yes
 DISTNAME=		trytond_company-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
 # python-sql>=0.4
-# trytond_currency<7.9,>=7.8
-# trytond_party<7.9,>=7.8
-# trytond<7.9,>=7.8
-# pillow; extra == "image"
+# trytond-currency<8.1,>=8.0
+# trytond-party<8.1,>=8.0
+# trytond<8.1,>=8.0
 
 [PY313].USES_ON=			python:v13,wheel
 [PY313].RUN_DEPENDS_ON=			python-python-sql:single:v13

@@ -1,17 +1,17 @@
-DEF[PORTVERSION]=	7.8.0
+DEF[PORTVERSION]=	8.0.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-trytond-account-product
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
 VARIANTS=		v13 v14
-SDESC[v13]=		Tryton module to add accounting on product (3.13)
-SDESC[v14]=		Tryton module to add accounting on product (3.14)
-HOMEPAGE=		http://www.tryton.org/
+SDESC[v13]=		Accouting for Tryton products (3.13)
+SDESC[v14]=		Accouting for Tryton products (3.14)
+HOMEPAGE=		https://www.tryton.org/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/74/f1/76c28dbf17dc6e70374fbd53993c0d1b3b9ae9572f8ef7c57f8ebc6da9ae
+SITES[main]=		PYPIWHL/00/af/18691b5aec7335a1ba7a95b0744d1d2bf5c99a233424c5070ca11127eabc
 DISTFILE[1]=		trytond_account_product-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -24,17 +24,17 @@ VOPTS[v13]=		PY313=ON PY314=OFF
 VOPTS[v14]=		PY313=OFF PY314=ON
 
 # License listed at PyPI
-# GPL-3
+# Not provided.
 
 GENERATED=		yes
 DISTNAME=		trytond_account_product-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# trytond_account<7.9,>=7.8
-# trytond_company<7.9,>=7.8
-# trytond_product<7.9,>=7.8
-# trytond<7.9,>=7.8
-# trytond_analytic_account<7.9,>=7.8; extra == "test"
+# trytond-account<8.1,>=8.0
+# trytond-company<8.1,>=8.0
+# trytond-product<8.1,>=8.0
+# trytond<8.1,>=8.0
+# trytond-analytic-account<8.1,>=8.0; extra == 'test'
 
 [PY313].USES_ON=			python:v13,wheel
 [PY313].RUN_DEPENDS_ON=			python-trytond-account:single:v13

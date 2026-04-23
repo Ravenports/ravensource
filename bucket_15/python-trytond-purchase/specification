@@ -1,17 +1,17 @@
-DEF[PORTVERSION]=	7.8.1
+DEF[PORTVERSION]=	8.0.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-trytond-purchase
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
 VARIANTS=		v13 v14
-SDESC[v13]=		Tryton module for purchase (3.13)
-SDESC[v14]=		Tryton module for purchase (3.14)
-HOMEPAGE=		http://www.tryton.org/
+SDESC[v13]=		Purchases for Tryton (3.13)
+SDESC[v14]=		Purchases for Tryton (3.14)
+HOMEPAGE=		https://www.tryton.org/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/4d/3c/7b2b570b580fde670d735481b93d1217be3cd4d0baa621d8af7e8fc0da5a
+SITES[main]=		PYPIWHL/47/9d/a816380d13b7ecb5a30615bc3c755b816a996a0e95eb1a24e6bbbed5e919
 DISTFILE[1]=		trytond_purchase-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -24,31 +24,31 @@ VOPTS[v13]=		PY313=ON PY314=OFF
 VOPTS[v14]=		PY313=OFF PY314=ON
 
 # License listed at PyPI
-# GPL-3
+# Not provided.
 
 GENERATED=		yes
 DISTNAME=		trytond_purchase-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# python-sql>=0.4
-# trytond_account<7.9,>=7.8
-# trytond_account_invoice<7.9,>=7.8
-# trytond_account_invoice_stock<7.9,>=7.8
-# trytond_account_product<7.9,>=7.8
-# trytond_company<7.9,>=7.8
-# trytond_currency<7.9,>=7.8
-# trytond_party<7.9,>=7.8
-# trytond_product<7.9,>=7.8
-# trytond_stock<7.9,>=7.8
-# trytond<7.9,>=7.8
-# proteus<7.9,>=7.8; extra == "test"
+# python-sql>=1.4
+# trytond-account-invoice-stock<8.1,>=8.0
+# trytond-account-invoice<8.1,>=8.0
+# trytond-account-product<8.1,>=8.0
+# trytond-account<8.1,>=8.0
+# trytond-company<8.1,>=8.0
+# trytond-currency<8.1,>=8.0
+# trytond-party<8.1,>=8.0
+# trytond-product<8.1,>=8.0
+# trytond-stock<8.1,>=8.0
+# trytond<8.1,>=8.0
+# proteus<8.1,>=8.0; extra == 'test'
 
 [PY313].USES_ON=			python:v13,wheel
 [PY313].RUN_DEPENDS_ON=			python-python-sql:single:v13
-					python-trytond-account:single:v13
-					python-trytond-account-invoice:single:v13
 					python-trytond-account-invoice-stock:single:v13
+					python-trytond-account-invoice:single:v13
 					python-trytond-account-product:single:v13
+					python-trytond-account:single:v13
 					python-trytond-company:single:v13
 					python-trytond-currency:single:v13
 					python-trytond-party:single:v13
@@ -57,10 +57,10 @@ DISTNAME=		trytond_purchase-${PORTVERSION}.dist-info
 					python-trytond:single:v13
 [PY314].USES_ON=			python:v14,wheel
 [PY314].RUN_DEPENDS_ON=			python-python-sql:single:v14
-					python-trytond-account:single:v14
-					python-trytond-account-invoice:single:v14
 					python-trytond-account-invoice-stock:single:v14
+					python-trytond-account-invoice:single:v14
 					python-trytond-account-product:single:v14
+					python-trytond-account:single:v14
 					python-trytond-company:single:v14
 					python-trytond-currency:single:v14
 					python-trytond-party:single:v14

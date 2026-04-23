@@ -1,17 +1,17 @@
-DEF[PORTVERSION]=	7.8.2
+DEF[PORTVERSION]=	8.0.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-trytond-party
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
 VARIANTS=		v13 v14
-SDESC[v13]=		Tryton module with parties and addresses (3.13)
-SDESC[v14]=		Tryton module with parties and addresses (3.14)
-HOMEPAGE=		http://www.tryton.org/
+SDESC[v13]=		Parties and addresses for Tryton (3.13)
+SDESC[v14]=		Parties and addresses for Tryton (3.14)
+HOMEPAGE=		https://www.tryton.org/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/8c/6d/4c9b672480f6fa68e94a43e4af319e164d2847f28a6bc39a3806196bfe73
+SITES[main]=		PYPIWHL/bf/fe/fe575d560c8b302d090d2e67822d2e98983397f09c5508fcba77939d8118
 DISTFILE[1]=		trytond_party-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -24,21 +24,21 @@ VOPTS[v13]=		PY313=ON PY314=OFF
 VOPTS[v14]=		PY313=OFF PY314=ON
 
 # License listed at PyPI
-# GPL-3
+# Not provided.
 
 GENERATED=		yes
 DISTNAME=		trytond_party-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
 # python-sql>=0.4
-# python-stdnum>=1.19
-# trytond_country<7.9,>=7.8
-# trytond<7.9,>=7.8
-# proteus<7.9,>=7.8; extra == "test"
-# phonenumberslite; extra == "test"
-# python-stdnum[SOAP]; extra == "vies"
-# phonenumberslite; extra == "phonenumbers-lite"
-# phonenumbers; extra == "phonenumbers"
+# python-stdnum>=2.2
+# trytond-country<8.1,>=8.0
+# trytond<8.1,>=8.0
+# phonenumbers; extra == 'phonenumbers'
+# phonenumberslite; extra == 'phonenumbers-lite'
+# phonenumberslite; extra == 'test'
+# proteus<8.1,>=8.0; extra == 'test'
+# python-stdnum[soap]; extra == 'vies'
 
 [PY313].USES_ON=			python:v13,wheel
 [PY313].RUN_DEPENDS_ON=			python-python-sql:single:v13

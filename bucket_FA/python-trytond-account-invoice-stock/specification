@@ -1,17 +1,17 @@
-DEF[PORTVERSION]=	7.8.0
+DEF[PORTVERSION]=	8.0.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-trytond-account-invoice-stock
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
 VARIANTS=		v13 v14
-SDESC[v13]=		Tryton module to link stock and invoice (3.13)
-SDESC[v14]=		Tryton module to link stock and invoice (3.14)
-HOMEPAGE=		http://www.tryton.org/
+SDESC[v13]=		Link stock and invoice for Tryton (3.13)
+SDESC[v14]=		Link stock and invoice for Tryton (3.14)
+HOMEPAGE=		https://www.tryton.org/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/e1/54/c85b992689a1761e5534c8795b6598f3b57bb71bc25f820847cf9f192bf7
+SITES[main]=		PYPIWHL/d6/2a/97579b46135273d4dec15e07d89719f34edc3052aa13be8cdcbf9e6a0da3
 DISTFILE[1]=		trytond_account_invoice_stock-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -24,26 +24,26 @@ VOPTS[v13]=		PY313=ON PY314=OFF
 VOPTS[v14]=		PY313=OFF PY314=ON
 
 # License listed at PyPI
-# GPL-3
+# Not provided.
 
 GENERATED=		yes
 DISTNAME=		trytond_account_invoice_stock-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# trytond_account_invoice<7.9,>=7.8
-# trytond_stock<7.9,>=7.8
-# trytond_product<7.9,>=7.8
-# trytond<7.9,>=7.8
-# proteus<7.9,>=7.8; extra == "test"
+# trytond-account-invoice<8.1,>=8.0
+# trytond-product<8.1,>=8.0
+# trytond-stock<8.1,>=8.0
+# trytond<8.1,>=8.0
+# proteus<8.1,>=8.0; extra == 'test'
 
 [PY313].USES_ON=			python:v13,wheel
 [PY313].RUN_DEPENDS_ON=			python-trytond-account-invoice:single:v13
-					python-trytond-stock:single:v13
 					python-trytond-product:single:v13
+					python-trytond-stock:single:v13
 					python-trytond:single:v13
 [PY314].USES_ON=			python:v14,wheel
 [PY314].RUN_DEPENDS_ON=			python-trytond-account-invoice:single:v14
-					python-trytond-stock:single:v14
 					python-trytond-product:single:v14
+					python-trytond-stock:single:v14
 					python-trytond:single:v14
 

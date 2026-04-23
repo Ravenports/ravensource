@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	7.8.6
+DEF[PORTVERSION]=	8.0.1
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-trytond
@@ -7,11 +7,11 @@ KEYWORDS=		python
 VARIANTS=		v13 v14
 SDESC[v13]=		Tryton server (3.13)
 SDESC[v14]=		Tryton server (3.14)
-HOMEPAGE=		http://www.tryton.org/
+HOMEPAGE=		https://www.tryton.org/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/da/6c/42aab5e6b4bf80fac89ca771f85d80522a65975af81689420660adabdf5d
+SITES[main]=		PYPIWHL/8b/0e/42567d8662724449dcd0ac4f38f8c4e031cab25ab77d996305025ff0cbd7
 DISTFILE[1]=		trytond-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -24,63 +24,64 @@ VOPTS[v13]=		PY313=ON PY314=OFF
 VOPTS[v14]=		PY313=OFF PY314=ON
 
 # License listed at PyPI
-# GPL-3
+# Not provided.
 
 GENERATED=		yes
 DISTNAME=		trytond-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
+# backports-entry-points-selectable; python_version < '3.10'
 # defusedxml
+# genshi
 # lxml>=2.0
-# relatorio[fodt]>=0.7.0
-# Genshi
-# python-dateutil
 # polib
-# python-sql>=1.5
+# pwdlib[argon2]>=0.2
+# python-dateutil
+# python-sql>=1.8
+# pytz; python_version < '3.9'
+# relatorio[fodt]>=0.7.0
 # simpleeval
 # werkzeug>=0.12
-# pwdlib[argon2]>=0.2
-# pytz; python_version < "3.9"
-# backports.entry-points-selectable; python_version < "3.10"
-# pillow; extra == "test"
-# pydot; extra == "test"
-# html2text; extra == "test"
-# psycopg2>=2.7.0; extra == "postgresql"
-# pydot; extra == "graphviz"
-# python-Levenshtein; extra == "levenshtein"
-# html2text; extra == "html2text"
-# weasyprint; extra == "weasyprint"
-# gevent>=1.1; extra == "coroutine"
-# pillow; extra == "image"
-# python-barcode[images]; extra == "barcode"
-# qrcode[pil]; extra == "qrcode"
-# webcolors; extra == "qrcode"
-# argcomplete; extra == "completion"
-# email-validator>=2; extra == "email-validation"
-# dnspython; extra == "email-validation"
+# python-barcode[images]; extra == 'barcode'
+# argcomplete; extra == 'completion'
+# gevent>=1.1; extra == 'coroutine'
+# dnspython; extra == 'email-validation'
+# email-validator>=2; extra == 'email-validation'
+# pydot; extra == 'graphviz'
+# html2text; extra == 'html2text'
+# pillow; extra == 'image'
+# python-levenshtein; extra == 'levenshtein'
+# mrml; (python_version < '3.14') and extra == 'mjml'
+# psycopg[pool]>=3; extra == 'postgresql'
+# qrcode[pil]; extra == 'qrcode'
+# webcolors; extra == 'qrcode'
+# html2text; extra == 'test'
+# pillow; extra == 'test'
+# pydot; extra == 'test'
+# weasyprint; extra == 'weasyprint'
 
 [PY313].USES_ON=			python:v13,wheel
 [PY313].RUN_DEPENDS_ON=			python-defusedxml:single:v13
-					python-lxml:single:v13
-					python-relatorio:single:v13
 					python-Genshi:single:v13
-					python-python-dateutil:single:v13
+					python-lxml:single:v13
 					python-polib:single:v13
+					python-pwdlib:single:v13
+					python-python-dateutil:single:v13
 					python-python-sql:single:v13
+					python-relatorio:single:v13
 					python-simpleeval:single:v13
 					python-Werkzeug:single:v13
-					python-pwdlib:single:v13
 [PY314].USES_ON=			python:v14,wheel
 [PY314].RUN_DEPENDS_ON=			python-defusedxml:single:v14
-					python-lxml:single:v14
-					python-relatorio:single:v14
 					python-Genshi:single:v14
-					python-python-dateutil:single:v14
+					python-lxml:single:v14
 					python-polib:single:v14
+					python-pwdlib:single:v14
+					python-python-dateutil:single:v14
 					python-python-sql:single:v14
+					python-relatorio:single:v14
 					python-simpleeval:single:v14
 					python-Werkzeug:single:v14
-					python-pwdlib:single:v14
 
 USES=			cpe
 CPE_VENDOR=		tryton

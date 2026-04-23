@@ -1,17 +1,17 @@
-DEF[PORTVERSION]=	7.8.1
+DEF[PORTVERSION]=	8.0.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-trytond-country
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
 VARIANTS=		v13 v14
-SDESC[v13]=		Tryton module with countries (3.13)
-SDESC[v14]=		Tryton module with countries (3.14)
-HOMEPAGE=		http://www.tryton.org/
+SDESC[v13]=		Countries and subdivisions for Tryton (3.13)
+SDESC[v14]=		Countries and subdivisions for Tryton (3.14)
+HOMEPAGE=		https://www.tryton.org/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/cc/57/457ec856053b233655e3b64e208e4543194ef01641da721d762a939fa054
+SITES[main]=		PYPIWHL/25/9a/3bb14ad4762e2e74815d52a53a28a954e43f96117ab104003121bce2326d
 DISTFILE[1]=		trytond_country-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -24,20 +24,20 @@ VOPTS[v13]=		PY313=ON PY314=OFF
 VOPTS[v14]=		PY313=OFF PY314=ON
 
 # License listed at PyPI
-# GPL-3
+# Not provided.
 
 GENERATED=		yes
 DISTNAME=		trytond_country-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
 # python-sql
-# trytond<7.9,>=7.8
-# pycountry>=16.11.8; extra == "data"
-# proteus<7.9,>=7.8; extra == "data"
-# proteus<7.9,>=7.8; extra == "test"
-# pycountry>=16.11.8; extra == "test"
-# proteus<7.9,>=7.8; extra == "geonames"
-# argcomplete; extra == "completion"
+# trytond<8.1,>=8.0
+# argcomplete; extra == 'completion'
+# proteus<8.1,>=8.0; extra == 'data'
+# pycountry>=16.11.8; extra == 'data'
+# proteus<8.1,>=8.0; extra == 'geonames'
+# proteus<8.1,>=8.0; extra == 'test'
+# pycountry>=16.11.8; extra == 'test'
 
 [PY313].USES_ON=			python:v13,wheel
 [PY313].RUN_DEPENDS_ON=			python-python-sql:single:v13

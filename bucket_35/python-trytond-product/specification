@@ -1,17 +1,17 @@
-DEF[PORTVERSION]=	7.8.1
+DEF[PORTVERSION]=	8.0.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-trytond-product
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
 VARIANTS=		v13 v14
-SDESC[v13]=		Tryton module with products (3.13)
-SDESC[v14]=		Tryton module with products (3.14)
-HOMEPAGE=		http://www.tryton.org/
+SDESC[v13]=		Products for Tryton (3.13)
+SDESC[v14]=		Products for Tryton (3.14)
+HOMEPAGE=		https://www.tryton.org/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/e4/c2/fc2a9a330570725c4bdaf34f2f9b7c85ce9611f2ca0728054c8c41ffda90
+SITES[main]=		PYPIWHL/20/c0/e204bb6021ba9d1be1eed5b9a348dd7fd79c3ae5fea2abda168495340992
 DISTFILE[1]=		trytond_product-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -24,7 +24,7 @@ VOPTS[v13]=		PY313=ON PY314=OFF
 VOPTS[v14]=		PY313=OFF PY314=ON
 
 # License listed at PyPI
-# GPL-3
+# Not provided.
 
 GENERATED=		yes
 DISTNAME=		trytond_product-${PORTVERSION}.dist-info
@@ -32,10 +32,10 @@ DISTNAME=		trytond_product-${PORTVERSION}.dist-info
 # Requires-Dist extracted from wheel metadata
 # python-sql
 # python-stdnum
-# trytond_company<7.9,>=7.8
-# trytond<7.9,>=7.8
-# proteus<7.9,>=7.8; extra == "test"
-# trytond[barcode]<7.9,>=7.8; extra == "test"
+# trytond-company<8.1,>=8.0
+# trytond<8.1,>=8.0
+# proteus<8.1,>=8.0; extra == 'test'
+# trytond[barcode]<8.1,>=8.0; extra == 'test'
 
 [PY313].USES_ON=			python:v13,wheel
 [PY313].RUN_DEPENDS_ON=			python-python-sql:single:v13

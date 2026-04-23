@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.312.2
+DEF[PORTVERSION]=	0.314.3
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-strawberry-graphql
@@ -11,7 +11,7 @@ HOMEPAGE=		https://strawberry.rocks/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/69/6d/f22f1cc6c2faf4307c96f8f2a58a031ebf42a8ee0f9fa046bf6304f3dc0e
+SITES[main]=		PYPIWHL/be/25/13773a2944cc5975d44db58233b3610ddc88d4be49e6576adf7ed4b62250
 DISTFILE[1]=		strawberry_graphql-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -24,56 +24,57 @@ VOPTS[v13]=		PY313=ON PY314=OFF
 VOPTS[v14]=		PY313=OFF PY314=ON
 
 # License listed at PyPI
-# MIT
+# Not provided.
 
 GENERATED=		yes
 DISTNAME=		strawberry_graphql-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# Django (>=3.2) ; extra == "django"
-# aiohttp (>=3.7.4.post0,<4) ; extra == "aiohttp"
-# asgiref (>=3.2) ; extra == "channels"
-# asgiref (>=3.2) ; extra == "django"
-# chalice (>=1.22) ; extra == "chalice"
-# channels (>=3.0.5) ; extra == "channels"
-# cross-web (>=0.4.0)
-# fastapi (>=0.65.2) ; extra == "fastapi"
-# flask (>=1.1) ; extra == "flask"
-# graphql-core (>=3.2.0,<3.4.0)
-# libcst ; extra == "cli"
-# libcst ; extra == "debug"
-# litestar (>=2) ; (python_version ~= "3.10") and (extra == "litestar")
-# opentelemetry-api (<2) ; extra == "opentelemetry"
-# opentelemetry-sdk (<2) ; extra == "opentelemetry"
-# packaging (>=23)
-# pydantic (>1.6.1) ; extra == "pydantic"
-# pygments (>=2.3) ; extra == "cli"
-# pyinstrument (>=4.0.0) ; extra == "pyinstrument"
-# python-dateutil (>=2.7)
-# python-multipart (>=0.0.7) ; extra == "asgi"
-# python-multipart (>=0.0.7) ; extra == "cli"
-# python-multipart (>=0.0.7) ; extra == "fastapi"
-# quart (>=0.19.3) ; extra == "quart"
-# rich (>=12.0.0) ; extra == "cli"
-# rich (>=12.0.0) ; extra == "debug"
-# sanic (>=20.12.2) ; extra == "sanic"
-# starlette (>=0.18.0) ; extra == "asgi"
-# starlette (>=0.18.0) ; extra == "cli"
-# typer (>=0.12.4) ; extra == "cli"
-# typing-extensions (>=4.5.0)
-# uvicorn (>=0.11.6) ; extra == "cli"
-# websockets (>=15.0.1,<16) ; extra == "cli"
+# graphql-core>=3.2.0,<3.4.0
+# typing-extensions>=4.5.0
+# python-dateutil>=2.7
+# packaging>=23
+# cross-web>=0.4.0
+# aiohttp>=3.7.4.post0,<4 ; extra == 'aiohttp'
+# protobuf>=3.20 ; extra == 'apollo-federation'
+# starlette>=0.18.0 ; extra == 'asgi'
+# python-multipart>=0.0.7 ; extra == 'asgi'
+# chalice>=1.22 ; extra == 'chalice'
+# channels>=3.0.5 ; extra == 'channels'
+# asgiref>=3.2 ; extra == 'channels'
+# typer>=0.12.4 ; extra == 'cli'
+# pygments>=2.3 ; extra == 'cli'
+# rich>=12.0.0 ; extra == 'cli'
+# libcst ; extra == 'cli'
+# starlette>=0.18.0 ; extra == 'cli'
+# uvicorn>=0.11.6 ; extra == 'cli'
+# websockets>=15.0.1,<17 ; extra == 'cli'
+# python-multipart>=0.0.7 ; extra == 'cli'
+# rich>=12.0.0 ; extra == 'debug'
+# libcst ; extra == 'debug'
+# django>=3.2 ; extra == 'django'
+# asgiref>=3.2 ; extra == 'django'
+# fastapi>=0.65.2 ; extra == 'fastapi'
+# python-multipart>=0.0.7 ; extra == 'fastapi'
+# flask>=1.1 ; extra == 'flask'
+# litestar>=2 ; python_full_version >= '3.10' and python_full_version < '4' and extra == 'litestar'
+# opentelemetry-api<2 ; extra == 'opentelemetry'
+# opentelemetry-sdk<2 ; extra == 'opentelemetry'
+# pydantic>1.6.1 ; extra == 'pydantic'
+# pyinstrument>=4.0.0 ; extra == 'pyinstrument'
+# quart>=0.19.3 ; extra == 'quart'
+# sanic>=20.12.2 ; extra == 'sanic'
 
 [PY313].USES_ON=			python:v13,wheel
-[PY313].RUN_DEPENDS_ON=			python-cross-web:single:v13
-					python-graphql-core:single:v13
-					python-packaging:single:v13
-					python-python-dateutil:single:v13
+[PY313].RUN_DEPENDS_ON=			python-graphql-core:single:v13
 					python-typing-extensions:single:v13
+					python-python-dateutil:single:v13
+					python-packaging:single:v13
+					python-cross-web:single:v13
 [PY314].USES_ON=			python:v14,wheel
-[PY314].RUN_DEPENDS_ON=			python-cross-web:single:v14
-					python-graphql-core:single:v14
-					python-packaging:single:v14
-					python-python-dateutil:single:v14
+[PY314].RUN_DEPENDS_ON=			python-graphql-core:single:v14
 					python-typing-extensions:single:v14
+					python-python-dateutil:single:v14
+					python-packaging:single:v14
+					python-cross-web:single:v14
 

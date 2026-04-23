@@ -1,17 +1,17 @@
-DEF[PORTVERSION]=	7.8.1
+DEF[PORTVERSION]=	8.0.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-trytond-account-asset
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
 VARIANTS=		v13 v14
-SDESC[v13]=		Tryton module for assets management (3.13)
-SDESC[v14]=		Tryton module for assets management (3.14)
-HOMEPAGE=		http://www.tryton.org/
+SDESC[v13]=		Assets management for Tryton (3.13)
+SDESC[v14]=		Assets management for Tryton (3.14)
+HOMEPAGE=		https://www.tryton.org/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/16/1c/50ed12ba4fbcb74af4dbc23ca0bde9e9728dca33ea8ab8060e971444e675
+SITES[main]=		PYPIWHL/81/c8/faec8d5029b798651b3e0c485ac3c22c96d9a6714c4599d03346baaf1b9c
 DISTFILE[1]=		trytond_account_asset-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -24,7 +24,7 @@ VOPTS[v13]=		PY313=ON PY314=OFF
 VOPTS[v14]=		PY313=OFF PY314=ON
 
 # License listed at PyPI
-# GPL-3
+# Not provided.
 
 GENERATED=		yes
 DISTNAME=		trytond_account_asset-${PORTVERSION}.dist-info
@@ -32,28 +32,28 @@ DISTNAME=		trytond_account_asset-${PORTVERSION}.dist-info
 # Requires-Dist extracted from wheel metadata
 # python-dateutil
 # python-sql
-# trytond_account<7.9,>=7.8
-# trytond_account_product<7.9,>=7.8
-# trytond_product<7.9,>=7.8
-# trytond_account_invoice<7.9,>=7.8
-# trytond<7.9,>=7.8
-# proteus<7.9,>=7.8; extra == "test"
-# trytond_purchase<7.9,>=7.8; extra == "test"
+# trytond-account-invoice<8.1,>=8.0
+# trytond-account-product<8.1,>=8.0
+# trytond-account<8.1,>=8.0
+# trytond-product<8.1,>=8.0
+# trytond<8.1,>=8.0
+# proteus<8.1,>=8.0; extra == 'test'
+# trytond-purchase<8.1,>=8.0; extra == 'test'
 
 [PY313].USES_ON=			python:v13,wheel
 [PY313].RUN_DEPENDS_ON=			python-python-dateutil:single:v13
 					python-python-sql:single:v13
-					python-trytond-account:single:v13
-					python-trytond-account-product:single:v13
-					python-trytond-product:single:v13
 					python-trytond-account-invoice:single:v13
+					python-trytond-account-product:single:v13
+					python-trytond-account:single:v13
+					python-trytond-product:single:v13
 					python-trytond:single:v13
 [PY314].USES_ON=			python:v14,wheel
 [PY314].RUN_DEPENDS_ON=			python-python-dateutil:single:v14
 					python-python-sql:single:v14
-					python-trytond-account:single:v14
-					python-trytond-account-product:single:v14
-					python-trytond-product:single:v14
 					python-trytond-account-invoice:single:v14
+					python-trytond-account-product:single:v14
+					python-trytond-account:single:v14
+					python-trytond-product:single:v14
 					python-trytond:single:v14
 

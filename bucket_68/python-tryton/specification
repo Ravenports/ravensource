@@ -1,17 +1,17 @@
-DEF[PORTVERSION]=	7.8.5
+DEF[PORTVERSION]=	8.0.1
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-tryton
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
 VARIANTS=		v13 v14
-SDESC[v13]=		Tryton desktop client (3.13)
-SDESC[v14]=		Tryton desktop client (3.14)
-HOMEPAGE=		http://www.tryton.org/
+SDESC[v13]=		Desktop client for Tryton (3.13)
+SDESC[v14]=		Desktop client for Tryton (3.14)
+HOMEPAGE=		https://www.tryton.org/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/af/19/c824bf4579ff4d7bfa3452e6d444393172da14c578aa9af7d5e550aec513
+SITES[main]=		PYPIWHL/be/3a/7f48aff4aaf7108f850dd603374d84588e39b31d3af1fca1739f3d897141
 DISTFILE[1]=		tryton-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -24,26 +24,26 @@ VOPTS[v13]=		PY313=ON PY314=OFF
 VOPTS[v14]=		PY313=OFF PY314=ON
 
 # License listed at PyPI
-# GPL-3
+# Not provided.
 
 GENERATED=		yes
 DISTNAME=		tryton-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
 # pycairo
+# pygobject>=3.19
 # python-dateutil
-# PyGObject>=3.19
-# GooCalendar>=0.7; extra == "calendar"
-# playsound3; extra == "sound"
+# goocalendar>=0.7; extra == 'calendar'
+# playsound3; extra == 'sound'
 
 [PY313].USES_ON=			python:v13,wheel
 [PY313].RUN_DEPENDS_ON=			python-pycairo:primary:v13
+					python-pygobject:single:v13
 					python-python-dateutil:single:v13
-					python-PyGObject:primary:v13
 [PY314].USES_ON=			python:v14,wheel
 [PY314].RUN_DEPENDS_ON=			python-pycairo:primary:v14
+					python-pygobject:single:v14
 					python-python-dateutil:single:v14
-					python-PyGObject:primary:v14
 
 USES=			cpe
 CPE_VENDOR=		tryton

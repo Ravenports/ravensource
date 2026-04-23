@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.11.1
+DEF[PORTVERSION]=	2.14.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-cssutils
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/jaraco/cssutils
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/a7/ec/bb273b7208c606890dc36540fe667d06ce840a6f62f9fae7e658fcdc90fb
+SITES[main]=		PYPIWHL/67/d1/b5e96174be14e4657e5dd148a52af48fc42d3fab35b2cd56202b6473ee2e
 DISTFILE[1]=		cssutils-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -30,26 +30,29 @@ GENERATED=		yes
 DISTNAME=		cssutils-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# more-itertools
-# sphinx >=3.5 ; extra == 'doc'
-# jaraco.packaging >=9.3 ; extra == 'doc'
-# rst.linker >=1.9 ; extra == 'doc'
-# furo ; extra == 'doc'
-# sphinx-lint ; extra == 'doc'
-# jaraco.tidelift >=1.4 ; extra == 'doc'
-# pytest !=8.1.*,>=6 ; extra == 'test'
-# pytest-checkdocs >=2.4 ; extra == 'test'
-# pytest-cov ; extra == 'test'
-# pytest-mypy ; extra == 'test'
-# pytest-enabler >=2.2 ; extra == 'test'
-# pytest-ruff >=0.2.1 ; extra == 'test'
-# cssselect ; extra == 'test'
-# jaraco.test >=5.1 ; extra == 'test'
-# lxml ; (python_version < "3.11") and extra == 'test'
-# importlib-resources ; (python_version < "3.9") and extra == 'test'
+# more_itertools
+# encutils
+# pytest!=8.1.*,>=6; extra == "test"
+# lxml; python_version < "3.11" and extra == "test"
+# cssselect; extra == "test"
+# importlib_resources; python_version < "3.9" and extra == "test"
+# jaraco.test>=5.1; extra == "test"
+# sphinx>=3.5; extra == "doc"
+# jaraco.packaging>=9.3; extra == "doc"
+# rst.linker>=1.9; extra == "doc"
+# furo; extra == "doc"
+# sphinx-lint; extra == "doc"
+# jaraco.tidelift>=1.4; extra == "doc"
+# pytest-checkdocs>=2.14; extra == "check"
+# pytest-ruff>=0.2.1; sys_platform != "cygwin" and extra == "check"
+# pytest-cov; extra == "cover"
+# pytest-enabler>=3.4; extra == "enabler"
+# pytest-mypy>=1.0.1; platform_python_implementation != "PyPy" and extra == "type"
 
 [PY313].USES_ON=			python:v13,wheel
 [PY313].RUN_DEPENDS_ON=			python-more-itertools:single:v13
+					python-encutils:single:v13
 [PY314].USES_ON=			python:v14,wheel
 [PY314].RUN_DEPENDS_ON=			python-more-itertools:single:v14
+					python-encutils:single:v14
 
