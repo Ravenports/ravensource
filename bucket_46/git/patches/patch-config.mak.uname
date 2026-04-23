@@ -1,6 +1,6 @@
---- config.mak.uname.orig	2026-02-02 02:26:11 UTC
+--- config.mak.uname.orig	2026-04-20 13:53:04 UTC
 +++ config.mak.uname
-@@ -238,8 +238,6 @@ ifeq ($(uname_S),SunOS)
+@@ -240,8 +240,6 @@ ifeq ($(uname_S),SunOS)
  		NO_SETENV = YesPlease
  		GIT_TEST_CMP = cmp
          endif
@@ -9,7 +9,7 @@
  	BASIC_CFLAGS += -D__EXTENSIONS__ -D__sun__
  endif
  ifeq ($(uname_O),Cygwin)
-@@ -292,12 +290,8 @@ ifeq ($(uname_S),FreeBSD)
+@@ -294,12 +292,8 @@ ifeq ($(uname_S),FreeBSD)
          ifeq ($(shell v=$(uname_R) && test $${v%%.*} -lt 12 && echo 1),1)
  		NO_MEMMEM = UnfortunatelyYes
          endif
@@ -22,7 +22,7 @@
  	HAVE_PATHS_H = YesPlease
  	HAVE_BSD_SYSCTL = YesPlease
  	HAVE_BSD_KERN_PROC_SYSCTL = YesPlease
-@@ -331,8 +325,6 @@ ifeq ($(uname_S),NetBSD)
+@@ -333,8 +327,6 @@ ifeq ($(uname_S),NetBSD)
          ifeq ($(shell expr "$(uname_R)" : '[01]\.'),2)
  		NEEDS_LIBICONV = YesPlease
          endif

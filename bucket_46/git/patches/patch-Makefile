@@ -1,6 +1,6 @@
---- Makefile.orig	2026-02-02 02:26:11 UTC
+--- Makefile.orig	2026-04-20 13:53:04 UTC
 +++ Makefile
-@@ -635,12 +635,12 @@ bash_completion_dir = $(prefix)/share/ba
+@@ -638,12 +638,12 @@ bash_completion_dir = $(prefix)/share/ba
  gitexecdir = libexec/git-core
  mergetoolsdir = $(gitexecdir)/mergetools
  sharedir = $(prefix)/share
@@ -15,7 +15,7 @@
  ETC_GITCONFIG = $(sysconfdir)/gitconfig
  ETC_GITATTRIBUTES = $(sysconfdir)/gitattributes
  lib = lib
-@@ -1832,9 +1832,9 @@ endif
+@@ -1846,9 +1846,9 @@ endif
  
  ifndef NO_OPENSSL
  	OPENSSL_LIBSSL = -lssl
@@ -28,7 +28,7 @@
          else
  		OPENSSL_LINK =
          endif
-@@ -2782,7 +2782,7 @@ git-instaweb: git-instaweb.sh generate-s
+@@ -2798,7 +2798,7 @@ git-instaweb: git-instaweb.sh tools/gene
  	chmod +x $@+ && \
  	mv $@+ $@
  else # NO_PERL
@@ -37,7 +37,7 @@
  	$(QUIET_GEN) \
  	sed -e '1s|#!.*/sh|#!$(SHELL_PATH_SQ)|' \
  	    -e 's|@REASON@|NO_PERL=$(NO_PERL)|g' \
-@@ -3651,12 +3651,12 @@ endif
+@@ -3674,12 +3674,12 @@ endif
  ifndef NO_GETTEXT
  	$(INSTALL) -d -m 755 '$(DESTDIR_SQ)$(localedir_SQ)'
  	(cd po/build/locale && $(TAR) cf - .) | \
@@ -52,7 +52,7 @@
  endif
  ifndef NO_TCLTK
  	$(MAKE) -C gitk-git install
-@@ -3727,7 +3727,7 @@ install-man: install-man-perl
+@@ -3750,7 +3750,7 @@ install-man: install-man-perl
  install-man-perl: man-perl
  	$(INSTALL) -d -m 755 '$(DESTDIR_SQ)$(mandir_SQ)/man3'
  	(cd perl/build/man/man3 && $(TAR) cf - .) | \
