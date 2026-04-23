@@ -2,7 +2,7 @@ $NetBSD: patch-Modules_socketmodule.c,v 1.1 2024/10/09 19:53:20 adam Exp $
 
 SunOS needs _XOPEN_SOURCE for sendmsg bits that are now required.
 
---- Modules/socketmodule.c.orig	2026-02-03 17:53:27 UTC
+--- Modules/socketmodule.c.orig	2026-04-07 18:19:01 UTC
 +++ Modules/socketmodule.c
 @@ -89,6 +89,9 @@ Local naming conventions:
  #  define Py_BUILD_CORE_MODULE 1
