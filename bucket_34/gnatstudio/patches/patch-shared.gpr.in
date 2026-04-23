@@ -20,3 +20,12 @@
  	 when "AddressSanitizer" =>
              for Switches ("Ada") use Common &
                ("-O0", "-gnata", "-gnatVa", "-gnatQ", "-gnatygO",
+@@ -91,7 +91,7 @@ project Shared is
+             for Switches ("Ada") use Linker'Switches ("Ada")
+                & ("-Wl,-headerpad_max_install_names");
+          when others =>
+-            null;
++            for Switches ("Ada") use (@DYNFLAGS@);
+       end case;
+ 
+       case Enable_LTO is

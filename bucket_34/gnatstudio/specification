@@ -20,9 +20,10 @@ DISTFILE[1]=		generated:main
 
 SPKGS[std]=		set primary docs examples
 
-OPTIONS_AVAILABLE=	DEBUG
-OPTIONS_STANDARD=	DEBUG
+OPTIONS_AVAILABLE=	DEBUG SUNOS
+OPTIONS_STANDARD=	DEBUG SUNOS
 OPT_ON[all]=		DEBUG
+OPT_ON[sunos]=		SUNOS
 
 LICENSE=		GPLv3+:primary
 LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING3
@@ -92,12 +93,18 @@ SHEBANG_FILES=		share/support/core/gs_utils/internal/dialogs.py
 [DEBUG].MAKE_ARGS_OFF=			BUILD=Production
 [DEBUG].MAKEFILE_ON=			WITH_DEBUG=yes
 
+# ignore ld.lld: error: undefined reference: adasat__builders___elabb
+# This is probably happening if libadasat was turned into a standalone library
+[SUNOS].DESCRIPTION=			Modify build based on solaris linker
+[SUNOS].MAKEFILE_OFF=			DYNFLAGS="-Wl,--allow-shlib-undefined"
+
 post-extract:
 	echo "${DATE_TXT}" > ${WRKSRC}/DATE.txt
 	echo "${VERSION_TXT}" > ${WRKSRC}/VERSION.txt
 
 pre-configure:
-	${REINPLACE_CMD} -e 's|@PREFIX@|${PREFIX}|g' \
+	${REINPLACE_CMD} -e 's|@PREFIX@|${PREFIX}|g' -e 's|@DYNFLAGS@|${DYNFLAGS}|' \
+		${WRKSRC}/shared.gpr.in \
 		${WRKSRC}/gnatstudio/gps.gpr \
 		${WRKSRC}/gnatdoc/gnatdoc.gpr \
 		${WRKSRC}/widgets/widgets.gpr
