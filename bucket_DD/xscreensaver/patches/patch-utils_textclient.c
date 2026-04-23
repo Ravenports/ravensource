@@ -1,4 +1,4 @@
---- utils/textclient.c.orig	2025-03-07 19:56:45 UTC
+--- utils/textclient.c.orig	2026-01-18 17:14:41 UTC
 +++ utils/textclient.c
 @@ -49,12 +49,14 @@
  # ifdef HAVE_PTY_H
