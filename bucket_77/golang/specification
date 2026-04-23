@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.25.8
+DEF[PORTVERSION]=	1.26.2
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		golang
@@ -13,11 +13,11 @@ DOWNLOAD_GROUPS=	main ravdist
 SITES[main]=		http://golang.org/dl/
 SITES[ravdist]=		https://leaf.dragonflybsd.org/~marino/raven-distfiles/golang/
 DISTFILE[1]=		go${PORTVERSION}.src.tar.gz:main
-DISTFILE[2]=		bootstrap-golang-1.23.7-dragonfly-x86_64.tzst:ravdist
-DISTFILE[3]=		bootstrap-golang-1.23.7-linux-x86_64.tzst:ravdist
-DISTFILE[4]=		bootstrap-golang-1.23.7-midnightbsd-x86_64.tzst:ravdist
-DISTFILE[5]=		bootstrap-golang-1.23.7-netbsd-x86_64.tzst:ravdist
-DISTFILE[6]=		bootstrap-golang-1.23.7-freebsd-x86_64.tzst:ravdist
+DISTFILE[2]=		bootstrap-golang-1.25.8-dragonfly-x86_64.tzst:ravdist
+DISTFILE[3]=		bootstrap-golang-1.25.8-linux-x86_64.tzst:ravdist
+DISTFILE[4]=		bootstrap-golang-1.25.8-midnightbsd-x86_64.tzst:ravdist
+DISTFILE[5]=		bootstrap-golang-1.25.8-netbsd-x86_64.tzst:ravdist
+DISTFILE[6]=		bootstrap-golang-1.25.8-freebsd-x86_64.tzst:ravdist
 DF_INDEX=		1
 
 SPKGS[std]=		single
@@ -55,10 +55,12 @@ SHEBANG_FILES=		src/*.bash
 			lib/time/*.bash
 			src/regexp/syntax/*.pl
 			src/crypto/internal/boring/build.sh
+			src/crypto/internal/boring/*.sh
 			src/go/doc/comment/mkstd.sh
 			src/runtime/race/mkcgo.sh
-			src/crypto/internal/boring/*.sh
 			src/cmd/vendor/golang.org/x/sys/windows/*.bash
+			src/cmd/vendor/golang.org/x/tools/internal/diff/lcs/git.sh
+			src/simd/archsimd/_gen/simdgen/etetest.sh
 SHEBANG_OLD_BASH=	"/usr/bin/env bash"
 SHEBANG_NEW_BASH=	{{SH}}
 DISTNAME=		go
