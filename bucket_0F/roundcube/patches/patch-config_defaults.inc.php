@@ -1,6 +1,6 @@
---- config/defaults.inc.php.orig	2025-02-08 08:47:42 UTC
+--- config/defaults.inc.php.orig	2026-03-29 09:48:47 UTC
 +++ config/defaults.inc.php
-@@ -932,7 +932,7 @@ $config['show_real_foldernames'] = false
+@@ -934,7 +934,7 @@ $config['show_real_foldernames'] = false
  $config['quota_zero_as_unlimited'] = false;
  
  // Make use of the built-in spell checker.
@@ -9,7 +9,7 @@
  
  // Enables spellchecker exceptions dictionary.
  // Setting it to 'shared' will make the dictionary shared by all users.
-@@ -946,10 +946,10 @@ $config['spellcheck_dictionary'] = false
+@@ -948,10 +948,10 @@ $config['spellcheck_dictionary'] = false
  // Since Google shut down their public spell checking service, the default settings
  // connect to https://spell.roundcube.net which is a hosted service provided by Roundcube.
  // You can connect to any other googie-compliant service by setting 'spellcheck_uri' accordingly.

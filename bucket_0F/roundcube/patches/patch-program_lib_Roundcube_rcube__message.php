@@ -1,6 +1,6 @@
---- program/lib/Roundcube/rcube_message.php.orig	2025-02-08 08:47:42 UTC
+--- program/lib/Roundcube/rcube_message.php.orig	2026-03-29 09:48:47 UTC
 +++ program/lib/Roundcube/rcube_message.php
-@@ -912,8 +912,7 @@ class rcube_message
+@@ -915,8 +915,7 @@ class rcube_message
                  else if (
                      preg_match('/^(inline|attach)/', $mail_part->disposition)
                      || !empty($mail_part->headers['content-id'])
