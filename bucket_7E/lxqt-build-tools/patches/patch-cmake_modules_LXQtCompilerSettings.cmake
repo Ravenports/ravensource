@@ -1,4 +1,4 @@
---- cmake/modules/LXQtCompilerSettings.cmake.orig	2025-11-05 11:01:38 UTC
+--- cmake/modules/LXQtCompilerSettings.cmake.orig	2026-04-20 07:03:27 UTC
 +++ cmake/modules/LXQtCompilerSettings.cmake
 @@ -160,6 +160,9 @@ if (CMAKE_COMPILER_IS_GNUCXX OR LXQT_COM
          set(NO_UNDEFINED_FLAGS "-Wl,-undefined,error")
