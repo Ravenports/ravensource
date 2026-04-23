@@ -1,4 +1,4 @@
---- cmake/FindZstd.cmake.orig	2025-10-01 18:48:09 UTC
+--- cmake/FindZstd.cmake.orig	2026-04-19 07:42:30 UTC
 +++ cmake/FindZstd.cmake
 @@ -5,7 +5,7 @@ if(DEPS STREQUAL "DOWNLOAD" OR DEP_ZSTD
    set(_download_zstd TRUE)

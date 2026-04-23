@@ -1,4 +1,4 @@
---- cmake/FindBlake3.cmake.orig	2025-10-01 18:48:09 UTC
+--- cmake/FindBlake3.cmake.orig	2026-04-19 07:42:30 UTC
 +++ cmake/FindBlake3.cmake
 @@ -5,7 +5,7 @@ if(DEP_BLAKE3 STREQUAL "BUNDLED")
    message(STATUS "Using bundled Blake3 as requested")
