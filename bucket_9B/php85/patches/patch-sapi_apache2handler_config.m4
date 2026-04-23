@@ -1,4 +1,4 @@
---- sapi/apache2handler/config.m4.orig	2025-12-16 15:59:07 UTC
+--- sapi/apache2handler/config.m4.orig	2026-04-07 16:24:10 UTC
 +++ sapi/apache2handler/config.m4
 @@ -69,7 +69,7 @@ if test "$PHP_APXS2" != "no"; then
      [AC_MSG_ERROR([Please note that Apache version >= 2.4 is required])])
