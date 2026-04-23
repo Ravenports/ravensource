@@ -2,7 +2,7 @@ $NetBSD: patch-gst_tcp_gsttcpsrcstats.c,v 1.1 2025/07/16 09:17:18 jperkin Exp $
 
 Fix include order.
 
---- gst/tcp/gsttcpsrcstats.c.orig	2026-01-27 17:02:33 UTC
+--- gst/tcp/gsttcpsrcstats.c.orig	2026-04-07 19:02:23 UTC
 +++ gst/tcp/gsttcpsrcstats.c
 @@ -6,8 +6,8 @@
  
