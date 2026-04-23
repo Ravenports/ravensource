@@ -1,4 +1,4 @@
---- src/cast_helpers.h.orig	2025-11-10 00:14:05 UTC
+--- src/cast_helpers.h.orig	2026-04-22 01:39:46 UTC
 +++ src/cast_helpers.h
 @@ -16,6 +16,7 @@
  #error "cast_helpers.h file contains private xmlsec definitions and should not be used outside xmlsec or xmlsec-$crypto libraries"

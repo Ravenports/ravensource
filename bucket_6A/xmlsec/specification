@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	1.3.9
+DEF[PORTVERSION]=	1.3.11
+DEF[SOVERSION]=		10311.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		xmlsec
@@ -62,7 +63,7 @@ LDFLAGS=		-L{{LOCALBASE}}/lib/nss
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
 DISTNAME=		xmlsec1-${PORTVERSION}
-SOVERSION=		${PORTVERSION}
+SOVERSION=		${SOVERSION}
 
 pre-configure:
 	${REINPLACE_CMD} \
@@ -73,11 +74,7 @@ pre-configure:
 		${WRKSRC}/configure
 	${REINPLACE_CMD} -e 's/(CP) -ru/(CP) -r/' -e 's/(CP) -u/(CP)/' \
 		${WRKSRC}/docs/Makefile.am ${WRKSRC}/docs/Makefile.in \
-		${WRKSRC}/docs/api/Makefile.am ${WRKSRC}/docs/api/Makefile.in \
 		${WRKSRC}/man/Makefile.am ${WRKSRC}/man/Makefile.in
 	# Making the xmlsec1 executable multi-threaded to let load -lnss when needed
 	${REINPLACE_CMD} -e 's,^\(xmlsec1_LDADD = \)\\$$,\1 -L${LOCALBASE}/lib -lpthread\\,' \
 		${WRKSRC}/apps/Makefile.in
-
-post-install:
-	${RMDIR} ${STAGEDIR}${PREFIX}/share/doc/xmlsec1/css
