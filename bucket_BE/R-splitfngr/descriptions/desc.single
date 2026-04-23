@@ -1,0 +1,10 @@
+splitfngr: Combined Evaluation and Split Access of Functions
+
+Some R functions, such as optim(), require a function its gradient passed
+as separate arguments. When these are expensive to calculate it may be much
+faster to calculate the function (fn) and gradient (gr) together since they
+often share many calculations (chain rule). This package allows the user to
+pass in a single function that returns both the function and gradient, then
+splits (hence 'splitfngr') them so the results can be accessed separately.
+The functions provided allow this to be done with any number of
+functions/values, not just for functions and gradients.

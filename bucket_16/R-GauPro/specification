@@ -1,0 +1,42 @@
+DEF[PORTVERSION]=	0.2.17
+# ------------------------------------------------------------------------
+
+NAMEBASE=		R-GauPro
+VERSION=		${PORTVERSION}
+KEYWORDS=		cran
+VARIANTS=		std
+SDESC[std]=		Gaussian Process Fitting
+HOMEPAGE=		https://github.com/CollinErickson/GauPro
+CONTACT=		CRAN_Automaton[cran@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CRAN/src/contrib
+			https://loki.dragonflybsd.org/cranfiles/
+DISTFILE[1]=		GauPro_0.2.17.tar.gz:main
+DIST_SUBDIR=		CRAN
+DF_INDEX=		1
+
+SPKGS[std]=		single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# License listed on https://cran.r-project.org/
+# => GPL-3
+
+USES=			cran gmake
+DISTNAME=		GauPro
+GENERATED=		yes
+INSTALL_REQ_TOOLCHAIN=	yes
+
+BUILDRUN_DEPENDS=	R-mixopt:single:std
+			R-numDeriv:single:std
+			R-rmarkdown:single:std
+			R-tidyr:single:std
+			R-ggplot2:single:std
+			R-Rcpp:single:std
+			R-R6:single:std
+			R-lbfgs:single:std
+			R-RcppArmadillo:single:std
+
+
