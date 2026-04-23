@@ -1,4 +1,4 @@
---- ext/socket/ipsocket.c.orig	2026-01-13 02:02:40 UTC
+--- ext/socket/ipsocket.c.orig	2026-04-21 08:16:59 UTC
 +++ ext/socket/ipsocket.c
 @@ -10,6 +10,9 @@
  
