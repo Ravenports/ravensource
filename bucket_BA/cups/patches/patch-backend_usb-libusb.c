@@ -1,6 +1,6 @@
---- backend/usb-libusb.c.orig	2025-11-27 15:21:54 UTC
+--- backend/usb-libusb.c.orig	2026-04-22 11:04:47 UTC
 +++ backend/usb-libusb.c
-@@ -1537,7 +1537,7 @@ open_device(usb_printer_t *printer,	/* I
+@@ -1569,7 +1569,7 @@ open_device(usb_printer_t *printer,	/* I
    * works without the module attached.
    */
  
