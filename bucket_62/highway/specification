@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.3.0
+DEF[PORTVERSION]=	1.4.0
 DEF[SOVERSION]=		${PORTVERSION}
 DEF[RELEASE_TAG]=	${PORTVERSION}
 # ----------------------------------------------------------------------------
@@ -22,22 +22,29 @@ OPTIONS_STANDARD=	none
 
 LICENSE=		BSD3CLAUSE:primary
 			APACHE20:primary
-LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/LICENSE-BSD3
-			APACHE20:{{WRKSRC}}/LICENSE
+LICENSE_FILE=		BSD3CLAUSE:{{WRKDIR}}/LICENSE_BSD3
+			APACHE20:{{WRKDIR}}/LICENSE_APACHE20
 LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
-LICENSE_AWK=		TERMS:"^\#\# Why"
-LICENSE_SOURCE=		TERMS:{{WRKSRC}}/README.md
 LICENSE_SCHEME=		dual
 
 FPC_EQUIVALENT=		devel/highway
 
 # USES=gold fixes link to missing __extendhfsf2 symbol
-# no longer necessary due to included patch
+# no longer necessary due to patch to hwy/contrib/thread_pool/thread_pool.h
+# (patch removed with v1.4.0 because upstream did equivalent fix)
 USES=			cmake c++:primary
 CMAKE_ARGS=		-DBUILD_SHARED_LIBS:BOOL=ON
 			-DHWY_SYSTEM_GTEST:BOOL=ON
 			-DBUILD_TESTING:BOOL=OFF
 SOVERSION=		${SOVERSION}
+
+post-extract:
+	# separate licenses and terms
+	${AWK} '/^------/ {exit}; {print}' ${WRKSRC}/LICENSE > ${WRKDIR}/TERMS
+	${AWK} '/^Apache License 2.0/,/^BSD 3-Clause License/' \
+		${WRKSRC}/LICENSE > ${WRKDIR}/LICENSE_APACHE20
+	${AWK} '/^BSD 3-Clause License/,/^CC0 1.0 Universal/' \
+		${WRKSRC}/LICENSE > ${WRKDIR}/LICENSE_BSD3
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib*.so
