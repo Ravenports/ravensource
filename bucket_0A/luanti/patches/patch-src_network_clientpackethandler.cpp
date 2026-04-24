@@ -1,4 +1,4 @@
---- src/network/clientpackethandler.cpp.orig	2026-02-08 11:42:38 UTC
+--- src/network/clientpackethandler.cpp.orig	2026-04-14 20:04:31 UTC
 +++ src/network/clientpackethandler.cpp
 @@ -1329,7 +1329,7 @@ void Client::handleCommand_HudSetSky(Net
  		skybox.clouds = readU8(is) != 0;

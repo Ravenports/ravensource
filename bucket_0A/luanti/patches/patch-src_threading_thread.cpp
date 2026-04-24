@@ -1,4 +1,4 @@
---- src/threading/thread.cpp.orig	2026-02-08 11:42:38 UTC
+--- src/threading/thread.cpp.orig	2026-04-14 20:04:31 UTC
 +++ src/threading/thread.cpp
 @@ -33,6 +33,8 @@ DEALINGS IN THE SOFTWARE.
  	#include <sys/prctl.h>

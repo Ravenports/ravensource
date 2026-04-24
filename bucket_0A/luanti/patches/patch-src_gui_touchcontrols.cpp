@@ -1,4 +1,4 @@
---- src/gui/touchcontrols.cpp.orig	2026-02-08 11:42:38 UTC
+--- src/gui/touchcontrols.cpp.orig	2026-04-14 20:04:31 UTC
 +++ src/gui/touchcontrols.cpp
 @@ -620,7 +620,7 @@ void TouchControls::translateEvent(const
  					(!m_fixed_joystick && distance_sq > touch_threshold_sq)) {
