@@ -65,11 +65,5 @@ post-install:
 	# remove artifacts from doctemplates fix
 	${FIND} ${STAGEDIR}${PREFIX}/lib/gobject-introspection/giscanner/doctemplates \
 		-type f -name "meson.build*" -delete
-.for base in GLib GModule GObject Gio GioUnix
-	${INSTALL_DATA} ${WRKSRC}/${MESON_BUILD_DIR}/gir/${base}-2.0.typelib \
-		${STAGEDIR}${PREFIX}/lib/girepository-1.0/
-	${INSTALL_DATA} ${WRKSRC}/${MESON_BUILD_DIR}/gir/${base}-2.0.gir \
-		${STAGEDIR}${PREFIX}/share/gir-1.0/
-.endfor
 	# generate python cache to avoid leftover files
 	(cd ${STAGEDIR}${PREFIX}/lib/gobject-introspection/giscanner && python -m compileall -d / . ||:)
