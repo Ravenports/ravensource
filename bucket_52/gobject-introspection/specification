@@ -6,10 +6,11 @@ DEF[PORTVERSION]=	1.86.0
 
 NAMEBASE=		gobject-introspection
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		devel
-VARIANTS=		std
+VARIANTS=		std bootstrap
 SDESC[std]=		Introspection data generator for GObject libraries
+SDESC[bootstrap]=	Version of introspection needed to build glib
 HOMEPAGE=		http://live.gnome.org/GObjectIntrospection
 CONTACT=		nobody
 
@@ -19,9 +20,11 @@ DISTFILE[1]=		gobject-introspection-${PORTVERSION}.tar.xz:main
 DIST_SUBDIR=		gnome3
 
 SPKGS[std]=		set primary dev man
+SPKGS[bootstrap]=	set primary dev man
 
-OPTIONS_AVAILABLE=	CAIRO
-OPTIONS_STANDARD=	CAIRO
+OPTIONS_AVAILABLE=	CAIRO BOOT
+OPTIONS_STANDARD=	CAIRO BOOT
+VOPTS[bootstrap]=	CAIRO=OFF BOOT=ON
 OPT_ON[all]=		CAIRO
 
 LICENSE=		GPLv2+:primary LGPL21+:primary
@@ -34,8 +37,10 @@ FPC_EQUIVALENT=		devel/gobject-introspection
 
 RUN_DEPENDS=		python-setuptools:single:python_used
 
+EXRUN[dev]=		glib:dev:bootstrap/bootstrap
+
 USES=			bison meson pkgconfig shebangfix
-GNOME_COMPONENTS=	glib
+			gettext python:build
 MESON_ARGS=		-Dpython={{PYTHON_CMD}}
 			-Ddoctool=disabled
 			-Dbuild_introspection_data=true
@@ -45,6 +50,12 @@ MOUNT_PROCFS=		yes
 [CAIRO].DESCRIPTION=			Include cairo for tests
 [CAIRO].GNOME_COMPONENTS_ON=		cairo
 [CAIRO].CONFIGURE_ARGS_OFF=		-Dcairo=disabled
+
+[BOOT].DESCRIPTION=			Variant exists to build glib (std)
+[BOOT].BUILD_DEPENDS_ON=		glib:dev:bootstrap
+[BOOT].BUILD_DEPENDS_OFF=		glib:dev:std
+[BOOT].BUILDRUN_DEPENDS_ON=		glib:primary:bootstrap
+[BOOT].BUILDRUN_DEPENDS_OFF=		glib:primary:std
 
 pre-configure:
 	${REINPLACE_CMD} -e 's|%%PYTHON_CMD%%|${PYTHON_CMD}|' \

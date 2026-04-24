@@ -7,8 +7,9 @@ DEF[CAT1]=		http://docbook.sourceforge.net/release/xsl/current/
 NAMEBASE=		glib
 VERSION=		${PORTVERSION}
 KEYWORDS=		devel
-VARIANTS=		std
+VARIANTS=		std bootstrap
 SDESC[std]=		Some useful routines of C programming
+SDESC[bootstrap]=	Glib version solely used for bootstrapping
 HOMEPAGE=		https://www.gtk.org/
 CONTACT=		nobody
 
@@ -18,9 +19,11 @@ DISTFILE[1]=		glib-${PORTVERSION}.tar.xz:main
 DIST_SUBDIR=		gnome2
 
 SPKGS[std]=		set primary dev man nls
+SPKGS[bootstrap]=	set primary dev
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	BOOT
+OPTIONS_STANDARD=	BOOT
+VOPTS[bootstrap]=	BOOT=ON
 
 LICENSE=		LGPL21+:primary
 LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
@@ -42,13 +45,12 @@ EXRUN[dev]=		zlib:dev:std
 			libffi:dev:std
 			python-packaging:single:python_used
 
-USES=			pcre2 gettext gmake libtool perl:build
-			pkgconfig python:build shebangfix zlib meson iconv cpe
+USES=			cpe pcre2 gmake libtool zlib meson iconv shebangfix
+			gettext pkgconfig python:build perl:build
 MESON_ARGS=		-Dselinux=disabled
 			-Dxattr=false
 			-Dlibmount=disabled
 			-Ddtrace=false
-			-Dman=true
 			-Dgtk_doc=false
 			-Db_lundef=false
 			-Dtests=false
@@ -65,6 +67,16 @@ SUB_FILES=		triggers-primary.ucl
 # probably related to the stripping of the binaries, but its not clear
 # why this solves the issue.
 SET_DEBUGGING_ON=	yes
+
+[BOOT].DESCRIPTION=			Variant exists to build introspection
+[BOOT].CONFIGURE_ARGS_ON=		-Dman=false
+					-Dnls=disabled
+					-Dintrospection=disabled
+[BOOT].CONFIGURE_ARGS_OFF=		-Dman=true
+					-Dnls=enabled
+					-Dintrospection=enabled
+[BOOT].BUILD_DEPENDS_OFF=		gobject-introspection:set:bootstrap
+
 
 post-patch:
 	for F in ${pyscripts}; do \
