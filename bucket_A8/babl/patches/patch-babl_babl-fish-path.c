@@ -1,6 +1,6 @@
---- babl/babl-fish-path.c.orig	2026-03-10 15:56:45 UTC
+--- babl/babl-fish-path.c.orig	2026-04-09 18:58:59 UTC
 +++ babl/babl-fish-path.c
-@@ -1539,14 +1539,14 @@ process_conversion_path (BablList   *pat
+@@ -1544,14 +1544,14 @@ process_conversion_path (BablList   *pat
      {
        long j;
  

@@ -1,4 +1,4 @@
---- extensions/sse2-float.c.orig	2026-03-10 15:56:45 UTC
+--- extensions/sse2-float.c.orig	2026-04-09 18:58:59 UTC
 +++ extensions/sse2-float.c
 @@ -397,7 +397,7 @@ static void conv_rgbaF_linear_rgbAF_gamm
                                             float       *dst, 

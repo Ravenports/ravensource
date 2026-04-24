@@ -1,4 +1,4 @@
---- babl/babl-polynomial.c.orig	2026-03-10 15:56:45 UTC
+--- babl/babl-polynomial.c.orig	2026-04-09 18:58:59 UTC
 +++ babl/babl-polynomial.c
 @@ -531,7 +531,7 @@ babl_polynomial_approximate_gamma (BablP
    babl_assert (scale >= BABL_POLYNOMIAL_MIN_SCALE &&
