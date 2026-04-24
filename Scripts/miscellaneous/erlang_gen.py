@@ -116,9 +116,6 @@ def path_to_manifest():
     if not os.path.exists(bin_path):
         return None
 
-    custom_env = os.environ.copy()
-    custom_env["TERM"] = "dumb"
-
     try:
         result = subprocess.run(
             [bin_path, "dev", "info", "G"],
