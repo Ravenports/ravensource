@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.57
+DEF[PORTVERSION]=	2.58
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-XML-Parser
@@ -33,6 +33,7 @@ DISTNAME=		XML-Parser-${PORTVERSION}
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
 # |      runtime : File::ShareDir
+# |      runtime : LWP::UserAgent
 # |        build : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
 # |    configure : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
 # |    configure : File::ShareDir::Install
@@ -41,9 +42,11 @@ DISTNAME=		XML-Parser-${PORTVERSION}
 
 [PERL_540].USES_ON=			perl:540,configure
 [PERL_540].BUILDRUN_DEPENDS_ON=		perl-File-ShareDir:single:540
+					perl-libwww-perl:single:540
 [PERL_540].BUILD_DEPENDS_ON=		perl-File-ShareDir-Install:single:540
 [PERL_542].USES_ON=			perl:542,configure
 [PERL_542].BUILDRUN_DEPENDS_ON=		perl-File-ShareDir:single:542
+					perl-libwww-perl:single:542
 [PERL_542].BUILD_DEPENDS_ON=		perl-File-ShareDir-Install:single:542
 
 USES=			expat

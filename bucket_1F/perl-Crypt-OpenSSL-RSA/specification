@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.38
+DEF[PORTVERSION]=	0.41
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-Crypt-OpenSSL-RSA
@@ -35,15 +35,17 @@ DISTNAME=		Crypt-OpenSSL-RSA-${PORTVERSION}
 # |      runtime : Crypt::OpenSSL::Bignum
 # |      runtime : Crypt::OpenSSL::Random
 # |        build : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
-# |    configure : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
+# |    configure : Crypt::OpenSSL::Guess
 # |         test : Test::More (perl 5.40 core) (perl 5.42 core)
 
 [PERL_540].USES_ON=			perl:540,configure
 [PERL_540].BUILDRUN_DEPENDS_ON=		perl-Crypt-OpenSSL-Bignum:single:540
 					perl-Crypt-OpenSSL-Random:single:540
+[PERL_540].BUILD_DEPENDS_ON=		perl-Crypt-OpenSSL-Guess:single:540
 [PERL_542].USES_ON=			perl:542,configure
 [PERL_542].BUILDRUN_DEPENDS_ON=		perl-Crypt-OpenSSL-Bignum:single:542
 					perl-Crypt-OpenSSL-Random:single:542
+[PERL_542].BUILD_DEPENDS_ON=		perl-Crypt-OpenSSL-Guess:single:542
 
 USES=			ssl
 MAKE_ARGS=		OTHERLDFLAGS="{{LDFLAGS}}"
