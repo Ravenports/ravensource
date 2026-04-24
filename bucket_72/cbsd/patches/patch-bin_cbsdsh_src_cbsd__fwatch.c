@@ -1,4 +1,4 @@
---- bin/cbsdsh/src/cbsd_fwatch.c.orig	2026-04-12 13:46:35 UTC
+--- bin/cbsdsh/src/cbsd_fwatch.c.orig	2026-04-24 14:04:49 UTC
 +++ bin/cbsdsh/src/cbsd_fwatch.c
 @@ -191,7 +191,7 @@ cbsd_fwatchcmd(int argc, char *argv[])
  	return 0;
