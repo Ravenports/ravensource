@@ -1,5 +1,5 @@
 # DEF[PORTVERSION]=	EXTRACT_INFO(M17N_VERSION)
-DEF[PORTVERSION]=	1.8.10
+DEF[PORTVERSION]=	1.8.11
 DEF[GLIBC_VERSION]=	EXTRACT_INFO(GLIBC_VERSION)
 DEF[CHARMAPSDIR]=	glibc-${GLIBC_VERSION}/localedata/charmaps
 # ----------------------------------------------------------------------------
@@ -42,7 +42,6 @@ post-extract:
 	# extract license terms
 	${AWK} '/^\#\# Copyright/,EOF' \
 		${WRKSRC}/README > ${WRKDIR}/TERMS
-
 
 post-patch:
 	${REINPLACE_CMD} -E 's|(m17n_scriptdir = ).*|\1${PREFIX}/bin|' \
