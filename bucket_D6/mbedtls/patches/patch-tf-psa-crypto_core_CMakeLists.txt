@@ -1,8 +1,8 @@
---- tf-psa-crypto/core/CMakeLists.txt.orig	2025-10-01 15:29:27 UTC
+--- tf-psa-crypto/core/CMakeLists.txt.orig	2026-03-27 10:33:06 UTC
 +++ tf-psa-crypto/core/CMakeLists.txt
-@@ -140,6 +140,7 @@ if(USE_STATIC_TF_PSA_CRYPTO_LIBRARY)
+@@ -116,6 +116,7 @@ if(USE_STATIC_TF_PSA_CRYPTO_LIBRARY)
      tf_psa_crypto_set_base_compile_options(${tfpsacrypto_static_target})
-     target_compile_options(${tfpsacrypto_static_target} PRIVATE ${LIBS_C_FLAGS})
+     tf_psa_crypto_set_extra_compile_options(${tfpsacrypto_static_target})
      set_target_properties(${tfpsacrypto_static_target} PROPERTIES OUTPUT_NAME tfpsacrypto)
 +    set_target_properties(${tfpsacrypto_static_target} PROPERTIES POSITION_INDEPENDENT_CODE ON)
      target_link_libraries(${tfpsacrypto_static_target} PUBLIC ${libs})
