@@ -8,7 +8,6 @@ DEF[MY_LOGDIR]=		var/log/mysql
 
 NAMEBASE=		mysql
 VERSION=		${PORTVERSION}
-REVISION=		3
 KEYWORDS=		databases
 VARIANTS=		std
 SDESC[std]=		Multithreaded SQL database (server)
@@ -44,10 +43,12 @@ BUILD_DEPENDS=		libedit:dev:std
 			protobuf321:dev:std
 			icu:dev:std
 			libevent:dev:std
+			curl:dev:std
 
 BUILDRUN_DEPENDS=	libevent:primary:std
 			protobuf321:primary:std
 			icu:primary:std
+			curl:primary:std
 
 EXRUN[client]=		libedit:primary:std
 			zlib:primary:std
@@ -94,7 +95,7 @@ CMAKE_ARGS=		-DINSTALL_PKGCONFIGDIR="{{LOCALBASE}}/lib/pkgconfig"
 			-DWITH_LIBEVENT=system
 			-DWITH_PROTOBUF=system
 			-DWITH_LZ4=system
-			-DWITH_ZLIB=bundled
+			-DWITH_ZLIB=system
 			-DWITH_ZSTD=system
 			-DWITH_ICU=system
 			-DWITH_SSL_PATH={{OPENSSLBASE}}
