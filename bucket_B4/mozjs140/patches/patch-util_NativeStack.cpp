@@ -1,4 +1,4 @@
---- util/NativeStack.cpp.orig	2026-03-17 09:42:14.000000000 -0000
+--- util/NativeStack.cpp.orig	2026-04-15 01:59:54 UTC
 +++ util/NativeStack.cpp
 @@ -17,6 +17,9 @@
  #  if defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__DragonFly__)
