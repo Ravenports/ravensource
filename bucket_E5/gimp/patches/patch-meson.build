@@ -1,6 +1,6 @@
---- meson.build.orig	2026-03-28 08:20:30 UTC
+--- meson.build.orig	2026-04-17 08:37:38 UTC
 +++ meson.build
-@@ -179,6 +179,10 @@ platform_linux = (
+@@ -180,6 +180,10 @@ platform_linux = (
    host_os.contains('linux')
  )
  
@@ -17,9 +17,9 @@
  mscms             = platform_windows ? cc.find_library('mscms') : no_dep
 +realtime          = platform_netbsd ? cc.find_library('rt') : no_dep
  
- atk_minver        = '2.4.0'
- atk               = dependency('atk',                version: '>='+atk_minver)
-@@ -462,9 +467,9 @@ gegl_minver       = '0.4.66'
+ screencapturekit  = platform_osx ? dependency('appleframeworks', modules: 'ScreenCaptureKit', required: false) : no_dep
+ 
+@@ -464,9 +469,9 @@ gegl_minver       = '0.4.66'
  gegl              = dependency('gegl-0.4',           version: '>='+gegl_minver)
  exiv2_minver      = '0.27.4'
  exiv2             = dependency('exiv2',              version: '>='+exiv2_minver)
@@ -32,7 +32,7 @@
  
  gio               = dependency('gio-2.0')
  gio_specific_name = platform_windows ? 'gio-windows-2.0' : 'gio-unix-2.0'
-@@ -1632,6 +1637,7 @@ conf.set('NO_FD_SET',
+@@ -1612,6 +1617,7 @@ conf.set('NO_FD_SET',
    not platform_windows
    and not cc.compiles('''
      #include <sys/types.h>
