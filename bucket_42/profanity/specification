@@ -1,9 +1,8 @@
-DEF[PORTVERSION]=	0.17.0
+DEF[PORTVERSION]=	0.18.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		profanity
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		net net_im
 VARIANTS=		std
 SDESC[std]=		Console based XMPP client
@@ -14,7 +13,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://profanity-im.github.io/tarballs/
 DISTFILE[1]=		profanity-${PORTVERSION}.tar.xz:main
 
-SPKGS[std]=		set primary tools dev man
+SPKGS[std]=		set primary tools dev man docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -41,22 +40,13 @@ BUILDRUN_DEPENDS=	gpgme:primary:std
 
 EXRUN[primary]=		tools
 
-USES=			libtool:build ncurses pkgconfig readline ssl gmake
-			curl autoreconf:build python sqlite expat
+USES=			meson ncurses pkgconfig readline ssl
+			curl python sqlite expat
 GNOME_COMPONENTS=	glib
-MUST_CONFIGURE=		gnu
+MESON_ARGS=		-Dnotifications=enabled
+			-Dc-plugins=enabled
+			-Dotr=enabled
+			-Dpgp=enabled
 CFLAGS=			-I{{NCURSESINC}}
-CONFIGURE_ENV=		LIBS="{{CFLAGS}} -lcrypto"
-CONFIGURE_ARGS=		--enable-c-plugins
-			--enable-notifications
-			--enable-otr
-			--enable-pgp
-			--disable-omemo
-			--with-xscreensaver=no
-INSTALL_TARGET=		install-strip
 
-VAR_OPSYS[linux]=	CFLAGS=-D_XOPEN_SOURCE=700
-
-pre-configure:
-	${MKDIR} ${WRKSRC}/m4
-	(cd ${WRKSRC} && autoreconf -fiv)
+# VAR_OPSYS[linux]=	CFLAGS=-D_XOPEN_SOURCE=700

@@ -1,0 +1,19 @@
+--- meson.build.orig	2026-04-10 16:29:41 UTC
++++ meson.build
+@@ -17,6 +17,7 @@ platform_map = {
+   'openbsd': 'openbsd',
+   'darwin':  'osx',
+   'cygwin':  'cygwin',
++  'midnightbsd': 'freebsd',
+ }
+ platform = platform_map.get(host_system, 'nix')
+ 
+@@ -235,7 +236,7 @@ if get_option('c-plugins').enabled()
+     error('C plugins are not supported on Cygwin')
+   endif
+   
+-  if platform not in ['openbsd', 'freebsd', 'netbsd']
++  if platform in ['linux', 'solaris']
+     dl_dep = cc.find_library('dl', required: true)
+   endif
+   
