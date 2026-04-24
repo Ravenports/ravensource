@@ -1,6 +1,6 @@
---- lib/fmt/src/fmt.cc.orig	2025-11-08 10:22:34 UTC
+--- lib/fmt/src/fmt.cc.orig	2026-04-05 12:50:36 UTC
 +++ lib/fmt/src/fmt.cc
-@@ -60,7 +60,7 @@ module;
+@@ -64,7 +64,7 @@ module;
  #if defined(_MSC_VER) || defined(__MINGW32__)
  #  include <intrin.h>
  #endif

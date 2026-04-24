@@ -1,4 +1,4 @@
---- src/mkvtoolnix-gui/util/sleep_inhibitor.cpp.orig	2025-11-08 10:22:32 UTC
+--- src/mkvtoolnix-gui/util/sleep_inhibitor.cpp.orig	2026-04-05 12:50:33 UTC
 +++ src/mkvtoolnix-gui/util/sleep_inhibitor.cpp
 @@ -6,7 +6,7 @@
  # include "mkvtoolnix-gui/util/sleep_inhibitor/windows.h"
