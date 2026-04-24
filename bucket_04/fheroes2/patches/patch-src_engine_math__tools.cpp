@@ -1,4 +1,4 @@
---- src/engine/math_tools.cpp.orig	2026-02-24 10:45:33 UTC
+--- src/engine/math_tools.cpp.orig	2026-04-12 03:02:21 UTC
 +++ src/engine/math_tools.cpp
 @@ -28,7 +28,7 @@ double fheroes2::GetAngle( const Point &
  {
