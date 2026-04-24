@@ -1,4 +1,4 @@
---- lib/wx/c_src/gen/wxe_wrapper_7.cpp.orig	2026-03-12 15:54:38 UTC
+--- lib/wx/c_src/gen/wxe_wrapper_7.cpp.orig	2026-04-23 10:09:44 UTC
 +++ lib/wx/c_src/gen/wxe_wrapper_7.cpp
 @@ -2341,7 +2341,11 @@ void wxToolBar_AddTool_4(WxeApp *app, wx
      } else        Badarg("Options");

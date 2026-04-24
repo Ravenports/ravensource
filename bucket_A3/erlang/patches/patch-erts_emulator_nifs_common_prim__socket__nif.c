@@ -1,4 +1,4 @@
---- erts/emulator/nifs/common/prim_socket_nif.c.orig	2026-03-12 15:54:38 UTC
+--- erts/emulator/nifs/common/prim_socket_nif.c.orig	2026-04-23 10:09:44 UTC
 +++ erts/emulator/nifs/common/prim_socket_nif.c
 @@ -67,14 +67,17 @@ ERL_NIF_INIT(prim_socket, esock_funcs, o
  
