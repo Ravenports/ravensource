@@ -1,6 +1,6 @@
 Rename structure to avoid name collision on solaris.
 
---- src/nvim/lib/queue_defs.h.orig	2026-03-29 16:16:17 UTC
+--- src/nvim/lib/queue_defs.h.orig	2026-04-22 14:05:55 UTC
 +++ src/nvim/lib/queue_defs.h
 @@ -21,9 +21,9 @@
  

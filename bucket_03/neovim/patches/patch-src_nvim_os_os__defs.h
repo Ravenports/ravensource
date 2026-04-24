@@ -1,4 +1,4 @@
---- src/nvim/os/os_defs.h.orig	2026-03-29 16:16:17 UTC
+--- src/nvim/os/os_defs.h.orig	2026-04-22 14:05:55 UTC
 +++ src/nvim/os/os_defs.h
 @@ -30,6 +30,10 @@
  # define NAME_MAX _XOPEN_NAME_MAX
