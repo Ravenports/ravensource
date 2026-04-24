@@ -48,11 +48,19 @@ FNR==NR {
   #   next
   #}
 
+  # handle crates with hyphens in version name
+  # arwen-codesign-0.0.1-alpha.1
+
   # handle standard crates
   ll++
-  version[ll""] = item[n]
+  limit = n
+  version[ll""] = item[limit]
+  while ((version[ll""] !~ /^[0-9]/) && (limit > 1)) {
+     limit--
+     version[ll""] = item[limit] "-" version[ll""]
+  }
   name[ll""] = item[1]
-  for (j=2; j < n; j++)
+  for (j=2; j < limit; j++)
      name[ll""] = name[ll""] "-" item[j]
   next
 }
