@@ -1,4 +1,4 @@
---- include/lldb/Host/HostInfo.h.orig	2026-03-23 18:46:22 UTC
+--- include/lldb/Host/HostInfo.h.orig	2026-04-21 06:46:41 UTC
 +++ include/lldb/Host/HostInfo.h
 @@ -46,6 +46,9 @@
  #elif defined(__FreeBSD__) || defined(__FreeBSD_kernel__)

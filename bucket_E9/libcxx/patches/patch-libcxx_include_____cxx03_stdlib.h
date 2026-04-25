@@ -1,4 +1,4 @@
---- libcxx/include/__cxx03/stdlib.h.orig	2026-03-23 18:46:22 UTC
+--- libcxx/include/__cxx03/stdlib.h.orig	2026-04-21 06:46:41 UTC
 +++ libcxx/include/__cxx03/stdlib.h
 @@ -141,7 +141,7 @@ _LIBCPP_NODISCARD inline _LIBCPP_HIDE_FR
  // MSVCRT already has the correct prototype in <stdlib.h> if __cplusplus is defined

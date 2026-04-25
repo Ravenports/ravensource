@@ -1,4 +1,4 @@
---- source/Plugins/Process/NetBSD/NativeProcessNetBSD.cpp.orig	2026-03-23 18:46:22 UTC
+--- source/Plugins/Process/NetBSD/NativeProcessNetBSD.cpp.orig	2026-04-21 06:46:41 UTC
 +++ source/Plugins/Process/NetBSD/NativeProcessNetBSD.cpp
 @@ -302,9 +302,9 @@ void NativeProcessNetBSD::MonitorSIGTRAP
        LLDB_LOG(log, "monitoring new thread, pid = {0}, LWP = {1}", pid,
