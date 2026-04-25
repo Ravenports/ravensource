@@ -8,6 +8,10 @@ GOARCH=unknown
 
 .if ${OPSYS} == "MidnightBSD"
 GOSYS=freebsd
+.elif ${OPSYS} == "SunOS"
+GOSYS=illumos
 .else
 GOSYS=${OPSYS:tl}
 .endif
+
+PREPEND_PATH={{WRKDIR}}/bootstrap/go/bin
