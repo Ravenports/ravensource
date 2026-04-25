@@ -1,4 +1,4 @@
---- port/cpl_port.h.orig	2026-03-20 13:31:36 UTC
+--- port/cpl_port.h.orig	2026-04-24 12:05:58 UTC
 +++ port/cpl_port.h
 @@ -581,7 +581,7 @@ static inline char *CPL_afl_friendly_str
  #define CPLIsNan(x) __builtin_isnan(x)
