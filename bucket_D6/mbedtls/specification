@@ -87,3 +87,7 @@ post-install:
 	    ${STRIP_CMD} "$$f"; \
 	  fi; \
 	done
+
+pre-configure-THREAD-ON:
+	${PYTHON_CMD} ${WRKSRC}/scripts/config.py set MBEDTLS_THREADING_C
+	${PYTHON_CMD} ${WRKSRC}/scripts/config.py set MBEDTLS_THREADING_PTHREAD
