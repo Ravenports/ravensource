@@ -1,4 +1,4 @@
---- unoxml/source/dom/documentbuilder.cxx.orig	2026-01-27 21:11:38 UTC
+--- unoxml/source/dom/documentbuilder.cxx.orig	2026-04-09 16:07:27 UTC
 +++ unoxml/source/dom/documentbuilder.cxx
 @@ -21,6 +21,7 @@
  

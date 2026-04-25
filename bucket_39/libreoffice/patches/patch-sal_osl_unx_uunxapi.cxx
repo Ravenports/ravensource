@@ -1,6 +1,6 @@
---- sal/osl/unx/uunxapi.cxx.orig	2026-01-27 21:11:38 UTC
+--- sal/osl/unx/uunxapi.cxx.orig	2026-04-09 16:07:27 UTC
 +++ sal/osl/unx/uunxapi.cxx
-@@ -615,6 +615,7 @@ std::string UnixErrnoString(int nErrno)
+@@ -618,6 +618,7 @@ std::string UnixErrnoString(int nErrno)
  #pragma clang diagnostic ignored "-Wdeprecated-pragma"
  #endif
  #endif
@@ -8,7 +8,7 @@
          case ENOSTR:
  #if defined __clang__
  #if __has_warning("-Wdeprecated-pragma")
-@@ -622,12 +623,14 @@ std::string UnixErrnoString(int nErrno)
+@@ -625,12 +626,14 @@ std::string UnixErrnoString(int nErrno)
  #endif
  #endif
              return "ENOSTR";
@@ -23,7 +23,7 @@
          case ENODATA:
  #if defined __clang__
  #if __has_warning("-Wdeprecated-pragma")
-@@ -635,12 +638,14 @@ std::string UnixErrnoString(int nErrno)
+@@ -638,12 +641,14 @@ std::string UnixErrnoString(int nErrno)
  #endif
  #endif
              return "ENODATA";
@@ -38,7 +38,7 @@
          case ETIME:
  #if defined __clang__
  #if __has_warning("-Wdeprecated-pragma")
-@@ -648,12 +653,14 @@ std::string UnixErrnoString(int nErrno)
+@@ -651,12 +656,14 @@ std::string UnixErrnoString(int nErrno)
  #endif
  #endif
              return "ETIME";
@@ -53,7 +53,7 @@
          case ENOSR:
  #if defined __clang__
  #if __has_warning("-Wdeprecated-pragma")
-@@ -661,6 +668,7 @@ std::string UnixErrnoString(int nErrno)
+@@ -664,6 +671,7 @@ std::string UnixErrnoString(int nErrno)
  #endif
  #endif
              return "ENOSR";

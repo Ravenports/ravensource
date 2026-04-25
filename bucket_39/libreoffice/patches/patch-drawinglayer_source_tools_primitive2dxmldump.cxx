@@ -1,4 +1,4 @@
---- drawinglayer/source/tools/primitive2dxmldump.cxx.orig	2026-01-27 21:11:38 UTC
+--- drawinglayer/source/tools/primitive2dxmldump.cxx.orig	2026-04-09 16:07:27 UTC
 +++ drawinglayer/source/tools/primitive2dxmldump.cxx
 @@ -13,6 +13,7 @@
  #include <rtl/ustrbuf.hxx>
