@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	149.0.1
+DEF[PORTVERSION]=	150.0
 # DEF[CPE_SW_EDITION]=	esr
 # DEF[TVER]=		${PORTVERSION}${CPE_SW_EDITION}
 DEF[TVER]=		${PORTVERSION}
@@ -9,7 +9,6 @@ DEF[LLVMBASE]=		llvm
 
 NAMEBASE=		thunderbird
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		mail net_im news
 VARIANTS=		std
 SDESC[std]=		Mozilla Thunderbird mail/newsgroup client
@@ -108,6 +107,7 @@ QMAKE_ARGS=		--prefix="{{PREFIX}}"
 			--with-system-av1
 			--with-system-webp
 			--with-system-botan
+			--with-system-libvpx
 			--enable-system-ffi
 			--enable-system-pixman
 			--enable-install-strip
@@ -143,8 +143,6 @@ VAR_OPSYS[netbsd]=	QMAKE_ARGS=--enable-audio-backends=sndio
 			MAKEFILE_LINE=NBSD=-lrt
 VAR_OPSYS[midnightbsd]=	MAKEFILE_LINE=CONFIGURE_TARGET=${MBSD64_TARGET}
 
-[SUNOS].BUILD_DEPENDS_OFF=		lld:primary:std
-[SUNOS].QMAKE_ARGS_OFF=			--enable-linker=lld
 [SUNOS].MAKEFILE_OFF=			LLDFLAG=-Wl,--undefined-version
 
 post-extract-linux:
