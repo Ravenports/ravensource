@@ -13,8 +13,9 @@ DEF[SOVERSION]=		4.1.0
 NAMEBASE=		mbedtls
 VERSION=		${PORTVERSION}
 KEYWORDS=		security devel
-VARIANTS=		std
+VARIANTS=		std threaded
 SDESC[std]=		Light-weight cryptographic and SSL/TLS library
+SDESC[threaded]=	Light-weight SSL/TLS library with thread support
 HOMEPAGE=		https://www.trustedfirmware.org/projects/mbed-tls/
 CONTACT=		nobody
 
@@ -36,9 +37,11 @@ SITES[main]=		https://github.com/Mbed-TLS/mbedtls/releases/download/mbedtls-${PO
 DISTFILE[1]=		mbedtls-${PORTVERSION}.tar.bz2:main
 
 SPKGS[std]=		set primary tools dev
+SPKGS[threaded]=	set primary tools dev
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	THREAD
+OPTIONS_STANDARD=	THREAD
+VOPTS[threaded]=	THREAD=ON
 
 FPC_EQUIVALENT=		security/mbedtls3
 
@@ -51,9 +54,8 @@ LICENSE_SOURCE=		TERMS:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		dual
 
 BUILD_DEPENDS=		python-Jinja2:single:python_used
-# #			python-jsonschema:single:python_used
 
-EXRUN[tools]=		mbedtls:primary:std
+EXRUN[tools]=		primary
 
 USES=			cpe cmake perl:build python:build
 CPE_VENDOR=		arm
@@ -68,6 +70,9 @@ PLIST_SUB=		SO_TLS=${SO_TLS}
 SOVERSION=		${SOVERSION}
 
 VAR_OPSYS[sunos]=	LDFLAGS=-lsocket
+
+[THREAD].DESCRIPTION=			Enable multithreading
+[THREAD].CMAKE_ARGS_ON=			-DLINK_WITH_PTHREAD:BOOL=ON
 
 post-install:
 	# correct obvious bug in CMakeList.txt wrt DESTDIR
