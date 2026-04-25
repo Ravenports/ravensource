@@ -1,6 +1,6 @@
---- src/lib/Md5.cc.orig	2026-01-03 06:49:57 UTC
+--- src/lib/Md5.cc.orig	2026-02-15 09:24:51 UTC
 +++ src/lib/Md5.cc
-@@ -11,6 +11,10 @@ extern "C" {
+@@ -12,6 +12,10 @@ extern "C" {
  #include <stdio.h>
  }
  
