@@ -1,4 +1,4 @@
---- f_check.pl.orig	2026-03-23 22:53:57 UTC
+--- f_check.pl.orig	2026-04-23 11:50:46 UTC
 +++ f_check.pl
 @@ -322,13 +322,8 @@ $linker_a = "";
  

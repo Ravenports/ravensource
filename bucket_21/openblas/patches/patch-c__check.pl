@@ -1,4 +1,4 @@
---- c_check.pl.orig	2026-03-23 22:53:57 UTC
+--- c_check.pl.orig	2026-04-23 11:50:46 UTC
 +++ c_check.pl
 @@ -401,7 +401,7 @@ $linker_a = "";
  {
