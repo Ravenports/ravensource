@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	149.0
+DEF[PORTVERSION]=	150.0
 DEF[FOXVERSION]=	${PORTVERSION}
 DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
 DEF[CLANGBASE]=		clang
@@ -19,9 +19,8 @@ DISTFILE[1]=		firefox-${FOXVERSION}.source.tar.xz:main
 
 SPKGS[std]=		single
 
-OPTIONS_AVAILABLE=	SUNOS
-OPTIONS_STANDARD=	SUNOS
-OPT_ON[sunos]=		SUNOS
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
 
 LICENSE=		MPL:single
 LICENSE_FILE=		MPL:stock
@@ -111,6 +110,7 @@ QMAKE_ARGS=		--enable-application=browser
 			--with-system-nss
 			--with-system-png
 			--with-system-zlib
+			--with-system-libvpx
 			--without-wasm-sandboxed-libraries
 CONFIGURE_ENV=		PYTHON3={{PYTHON_CMD}}
 			SETUPTOOLS_USE_DISTUTILS=stdlib
@@ -128,9 +128,6 @@ VAR_OPSYS[linux]=	QMAKE_ARGS=--disable-elf-hack
 VAR_OPSYS[netbsd]=	QMAKE_ARGS=--enable-audio-backends=sndio
 			MAKEFILE_LINE=MOZLDFLAGS=-lrt
 VAR_OPSYS[midnightbsd]=	MAKEFILE_LINE=CONFIGURE_TARGET=${MBSD64_TARGET}
-
-[SUNOS].BUILD_DEPENDS_OFF=		lld:primary:std
-[SUNOS].QMAKE_ARGS_OFF=			--enable-linker=lld
 
 post-extract:
 	${SED} -e 's|@FIREFOX_ICON@|firefox|;s|@MOZILLA@|firefox|' \

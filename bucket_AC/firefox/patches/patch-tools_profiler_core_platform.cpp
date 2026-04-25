@@ -1,11 +1,10 @@
---- tools/profiler/core/platform.cpp.orig	2024-07-04 17:04:30 UTC
+--- tools/profiler/core/platform.cpp.orig	2026-04-17 17:48:12 UTC
 +++ tools/profiler/core/platform.cpp
-@@ -7311,7 +7311,7 @@ void profiler_mark_thread_awake() {
-     cpuId = ebx >> 24;
+@@ -7781,6 +7781,7 @@ void profiler_mark_thread_awake() {
    }
- #  endif
--#else
-+#elsif !defined(__MidnightBSD__)
+ #    endif
+ #  else
++#  elsif !defined(__MidnightBSD__)
    cpuId = sched_getcpu();
+ #  endif
  #endif
- 
