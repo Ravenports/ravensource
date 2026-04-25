@@ -1,0 +1,21 @@
+--- src/SFML/Graphics/CMakeLists.txt.orig	2026-04-16 13:24:07 UTC
++++ src/SFML/Graphics/CMakeLists.txt
+@@ -243,15 +243,11 @@ block()
+ 
+     set(CMAKE_POLICY_DEFAULT_CMP0077 NEW)
+     set(BUILD_SHARED_LIBS OFF)
++    set(SHEENBIDI_LOCAL_PATH "${PROJECT_SOURCE_DIR}/extlibs/sheenbidi")
+ 
+     FetchContent_Declare(SheenBidi
+-        GIT_REPOSITORY https://github.com/Tehreer/SheenBidi.git
+-        GIT_TAG v3.0.0
+-        GIT_SHALLOW ON
+-        # patch out parts we don't want of the SheenBidi CMake configuration
+-        # - disable installation
+-        # - turn the library into an object library so we can merge it into sfml-graphics
+-        PATCH_COMMAND ${CMAKE_COMMAND} -DSHEENBIDI_DIR=${FETCHCONTENT_BASE_DIR}/sheenbidi-src -P ${PROJECT_SOURCE_DIR}/tools/sheenbidi/PatchSheenBidi.cmake)
++	SOURCE_DIR "${SHEENBIDI_LOCAL_PATH}"
++        PATCH_COMMAND ${CMAKE_COMMAND} -DSHEENBIDI_DIR=${SHEENBIDI_LOCAL_PATH} -P ${PROJECT_SOURCE_DIR}/tools/sheenbidi/PatchSheenBidi.cmake)
+     FetchContent_MakeAvailable(SheenBidi)
+ endblock()
+ 

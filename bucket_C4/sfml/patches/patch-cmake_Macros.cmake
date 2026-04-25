@@ -1,6 +1,6 @@
---- cmake/Macros.cmake.orig	2025-04-22 13:06:02 UTC
+--- cmake/Macros.cmake.orig	2026-04-16 13:24:07 UTC
 +++ cmake/Macros.cmake
-@@ -244,7 +244,7 @@ macro(sfml_add_library module)
+@@ -247,7 +247,7 @@ macro(sfml_add_library module)
              "${CMAKE_CURRENT_BINARY_DIR}/tools/pkg-config/${target}.pc"
              @ONLY)
          install(FILES "${CMAKE_CURRENT_BINARY_DIR}/tools/pkg-config/${target}.pc"

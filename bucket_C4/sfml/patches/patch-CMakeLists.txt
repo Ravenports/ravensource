@@ -1,7 +1,21 @@
---- CMakeLists.txt.orig	2025-04-22 13:06:02 UTC
+--- CMakeLists.txt.orig	2026-04-16 13:24:07 UTC
 +++ CMakeLists.txt
-@@ -205,11 +205,8 @@ set_property(GLOBAL PROPERTY PREDEFINED_
- add_subdirectory(src/SFML)
+@@ -80,12 +80,8 @@ endif()
+ # For miscellaneous files
+ if(SFML_OS_WINDOWS OR SFML_OS_IOS)
+     set(DEFAULT_INSTALL_MISC_DIR .)
+-elseif(SFML_OS_LINUX OR SFML_OS_FREEBSD OR SFML_OS_OPENBSD OR SFML_OS_NETBSD)
++else()
+     set(DEFAULT_INSTALL_MISC_DIR share/SFML)
+-elseif(SFML_OS_MACOS)
+-    set(DEFAULT_INSTALL_MISC_DIR /usr/local/share/SFML)
+-elseif(SFML_OS_ANDROID)
+-    set(DEFAULT_INSTALL_MISC_DIR ${CMAKE_ANDROID_NDK}/sources/third_party/sfml)
+ endif()
+ 
+ # force building sfml-window, if sfml-graphics module is built
+@@ -184,11 +180,8 @@ set_property(GLOBAL PROPERTY USE_FOLDERS
+ set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER "CMake")
  
  # on Linux and BSD-like OS, install pkg-config files by default
 -set(SFML_INSTALL_PKGCONFIG_DEFAULT OFF)
@@ -13,7 +27,7 @@
  
  sfml_set_option(SFML_INSTALL_PKGCONFIG_FILES ${SFML_INSTALL_PKGCONFIG_DEFAULT} BOOL "ON to automatically install pkg-config files so other projects can find SFML")
  
-@@ -221,10 +218,6 @@ if(SFML_INSTALL_PKGCONFIG_FILES)
+@@ -200,10 +193,6 @@ if(SFML_INSTALL_PKGCONFIG_FILES)
      # this could be e.g. macports on mac or msys2 on windows etc.
      set(SFML_PKGCONFIG_DIR "${SFML_RELATIVE_INSTALL_LIBDIR}/pkgconfig")
  
