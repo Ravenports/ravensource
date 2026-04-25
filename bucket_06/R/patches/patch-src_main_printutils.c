@@ -1,6 +1,6 @@
---- src/main/printutils.c.orig	2025-03-13 23:02:15 UTC
+--- src/main/printutils.c.orig	2026-04-07 10:15:01 UTC
 +++ src/main/printutils.c
-@@ -744,9 +744,6 @@ const char *EncodeString(SEXP s, int w,
+@@ -752,9 +752,6 @@ const char *EncodeString(SEXP s, int w,
  			*/
  			for(int j = 0; j < res; j++) *q++ = *p++;
  		    } else {

@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	4.5.3
+DEF[PORTVERSION]=	4.6.0
 DEF[SOVERSION]=		${PORTVERSION:R}
 DEF[R_MAJOR]=		${PORTVERSION:R:R}
 DEF[MATRIX]=		Matrix_1.6-1.1
@@ -87,6 +87,8 @@ CONFIGURE_ARGS=		--disable-java
 			--without-lapack
 			rdocdir={{STD_DOCDIR}}
 CONFIGURE_ENV=		r_cv_header_jpeglib_h=yes
+			TZ=UTC
+MAKE_ENV=		TZ=UTC
 LDFLAGS=		-Wl,-rpath,{{PREFIX}}/lib/R/lib
 INSTALL_TARGET=		install-strip install-info
 INSTALL_REQ_TOOLCHAIN=	yes
