@@ -1,4 +1,4 @@
---- cmake/Depends.cmake.orig	2026-03-27 17:06:17 UTC
+--- cmake/Depends.cmake.orig	2026-04-16 16:23:18 UTC
 +++ cmake/Depends.cmake
 @@ -43,6 +43,7 @@ else ()
      set (TFDN_ENABLE_STATIC_LINK ${ENABLE_STATIC} CACHE BOOL "" FORCE)
