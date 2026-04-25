@@ -1,7 +1,7 @@
---- hw/ppc/mac_newworld.c.orig	2025-08-26 18:32:38 UTC
+--- hw/ppc/mac_newworld.c.orig	2026-04-21 19:36:26 UTC
 +++ hw/ppc/mac_newworld.c
 @@ -76,6 +76,11 @@
- #include "hw/sysbus.h"
+ #include "hw/core/sysbus.h"
  #include "trace.h"
  
 +/* FreeBSD headers define this */
