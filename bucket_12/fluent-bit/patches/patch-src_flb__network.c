@@ -1,6 +1,6 @@
---- src/flb_network.c.orig	2026-02-19 03:26:01 UTC
+--- src/flb_network.c.orig	2026-04-14 17:27:00 UTC
 +++ src/flb_network.c
-@@ -1968,7 +1968,7 @@ static int net_address_unix_socket_peer_
+@@ -2016,7 +2016,7 @@ static int net_address_unix_socket_peer_
                                                  int output_buffer_size,
                                                  size_t *output_data_size)
  {
@@ -9,7 +9,7 @@
      unsigned int peer_credentials_size;
      struct ucred peer_credentials;
  #endif
-@@ -1986,7 +1986,7 @@ static int net_address_unix_socket_peer_
+@@ -2034,7 +2034,7 @@ static int net_address_unix_socket_peer_
          return -1;
      }
  
