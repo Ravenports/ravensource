@@ -1,18 +1,23 @@
 --- udev-net.c.orig	2024-09-20 07:46:46 UTC
 +++ udev-net.c
-@@ -27,7 +27,11 @@
+@@ -27,7 +27,16 @@
  
  #include <sys/socket.h>
  #include <sys/stat.h>
 +#if defined(__NetBSD__)
 +#include <net/if_ether.h>
++#elif defined(__sun)
++#include <sys/ethernet.h>
++#ifndef ETHER_ADDR_LEN
++#define ETHER_ADDR_LEN ETHERADDRL
++#endif
 +#else
  #include <net/ethernet.h>
 +#endif
  #include <net/if.h>
  #ifdef HAVE_NET_IF_DL_H
  #include <net/if_dl.h>
-@@ -40,6 +44,10 @@
+@@ -40,6 +49,10 @@
  #define	AF_LINK	AF_PACKET
  #endif
  
