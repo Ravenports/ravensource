@@ -11,7 +11,7 @@
 +#define __LITTLE_ENDIAN _LITTLE_ENDIAN
 +#define __BIG_ENDIAN _BIG_ENDIAN
 + 
-+#elif defined(__linux__) || defined(__ANDROID__) || defined(__FreeBSD__) || defined(__DragonFly__)
++#elif defined(__linux__) || defined(__ANDROID__) || defined(__FreeBSD__) || defined(__DragonFly__) || defined(__sun)
  #include <endian.h>
  
 +#elif defined(__NetBSD__)
