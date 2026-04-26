@@ -1,6 +1,16 @@
 --- lib/xml.c.orig	2020-12-07 18:37:03 UTC
 +++ lib/xml.c
-@@ -38,7 +38,11 @@
+@@ -21,6 +21,9 @@
+ #       define _GNU_SOURCE
+ #   endif
+ #endif
++#if defined(__sun)
++#   define __EXTENSIONS__
++#endif
+ 
+ #include <assert.h>
+ #include <errno.h>
+@@ -38,7 +41,14 @@
  #endif
  #include <sys/stat.h>
  #include <sys/types.h>
@@ -10,15 +20,18 @@
 +#include <dlfcn.h>
 +#elif defined(__NetBSD__)
 +#define _NETBSD_SOURCE
++#include <dlfcn.h>
++#elif defined(__sun)
++#include <sys/mman.h>
  #include <dlfcn.h>
  #elif defined(__APPLE__)
  #define _DARWIN_C_SOURCE
-@@ -2137,7 +2141,7 @@ default_udunits2_xml_path()
+@@ -2137,7 +2147,7 @@ default_udunits2_xml_path()
      if (absXmlPathname[0] == 0) {
          const char* prefix = NULL; // Installation directory
  
 -#       if defined(__APPLE__) || defined(__linux__)
-+#       if defined(__APPLE__) || defined(__linux__) || defined(__FreeBSD__) || defined(__DragonFly__) || defined(__NetBSD__)
++#       if defined(__APPLE__) || defined(__linux__) || defined(__FreeBSD__) || defined(__DragonFly__) || defined(__NetBSD__) || defined(__sun)
              Dl_info     info;
              const char  sep = '/'; // Pathname component separator
              char        buf[PATH_MAX];
