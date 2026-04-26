@@ -15,7 +15,7 @@ _INCLUDE_USES_BSD_MK=	yes
 # -----------------------------------------------------
 # Incorporated in ravenadm
 # -----------------------------------------------------
-#.if opsys in ["freebsd", "dragonfly", "netbsd", "midnightbsd", "openbsd"] 
+#.if opsys in ["freebsd", "dragonfly", "netbsd", "midnightbsd", "openbsd", "sunos"]
 #
 #.  if ${bsd_ARGS:Mepoll}
 # BUILD_DEPENDS+=	libepoll-shim:dev:std
