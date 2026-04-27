@@ -3,7 +3,6 @@ DEF[PORTVERSION]=	1.24.1
 
 NAMEBASE=		video4linux
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		multimedia
 VARIANTS=		std
 SDESC[std]=		Video device drivers
@@ -46,6 +45,8 @@ CONFIGURE_ARGS=		--disable-doxygen-doc
 INSTALL_REQ_TOOLCHAIN=	yes
 INSTALL_TARGET=		install-strip
 SHEBANG_GLOB=		*.pl
+
+VAR_OPSYS[sunos]=	CFLAGS=-D_POSIX_PTHREAD_SEMANTICS
 
 [ARGP].DESCRIPTION=			Build with standalone version of argp from glibc
 [ARGP].BUILD_DEPENDS_ON=		argp-standalone:dev:std
