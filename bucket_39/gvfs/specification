@@ -75,17 +75,18 @@ MESON_ARGS=		-Dsystemduserunitdir="no"
 			-Donedrive=false
 			-Dsftp=false
 			-Dsmb=false
-			-Dudisks2=true
 			-Dburn=true
 LDFLAGS=		-Wl,-rpath,{{PREFIX}}/lib/gvfs
 
 [NO-GUDEV].DESCRIPTION=			Build without gudev support
 [NO-GUDEV].CONFIGURE_ARGS_ON=		-Dgudev=false
 					-Dcdda=false
+					-Dudisks2=false
 [NO-GUDEV].USES_OFF=			iconv bsd:gudev
 [NO-GUDEV].BUILD_DEPENDS_OFF=		libcdio-paranoia:dev:std
 [NO-GUDEV].BUILDRUN_DEPENDS_OFF=	libcdio-paranoia:primary:std
 [NO-GUDEV].CONFIGURE_ARGS_OFF=		-Dgudev=true
 					-Dcdda=true
+					-Dudisks2=true
 
 VAR_OPSYS[sunos]=	LDFLAGS=-lintl
