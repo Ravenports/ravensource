@@ -18,9 +18,8 @@ DIST_SUBDIR=		xfce
 
 SPKGS[std]=		set primary dev man docs nls
 
-OPTIONS_AVAILABLE=	NO-GUDEV
-OPTIONS_STANDARD=	NO-GUDEV
-OPT_ON[sunos]=		NO-GUDEV
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		x11-fm/thunar
 
@@ -60,7 +59,7 @@ BUILDRUN_DEPENDS=	appstream:primary:std
 RUN_DEPENDS=		polkit:primary:std
 
 USES=			cpe desktop-utils:primary fontconfig gmake gtk-doc
-			iconv libtool mbsdfix pkgconfig png
+			iconv libtool mbsdfix pkgconfig png bsd:gudev
 XORG_COMPONENTS=	ice sm x11
 GNOME_COMPONENTS=	cairo gdkpixbuf glib gtk3 intltool introspection
 CPE_VENDOR=		xfce
@@ -78,9 +77,6 @@ INSTALL_REQ_TOOLCHAIN=	yes
 INSTALL_TARGET=		install-strip
 SOVERSION=		${SOVERSION}
 PLIST_SUB=		INTRO="@comment "
-
-[NO-GUDEV].DESCRIPTION=			Build without gudev support
-[NO-GUDEV].USES_OFF=			bsd:gudev
 
 post-install:
 	${MV} ${STAGEDIR}${PREFIX}/share/gtk-doc/html/thunarx \
