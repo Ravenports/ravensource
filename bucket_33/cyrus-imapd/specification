@@ -6,6 +6,7 @@ DEF[CYRUS_GROUP]=	cyrus
 
 NAMEBASE=		cyrus-imapd
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		mail
 VARIANTS=		std
 SDESC[std]=		High-performance mail store with IMAP support
@@ -16,12 +17,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/cyrusimap/cyrus-imapd/releases/download/cyrus-imapd-${PORTVERSION}/
 DISTFILE[1]=		cyrus-imapd-${PORTVERSION}.tar.gz:main
 
-SPKGS[std]=		set primary tools dev man docs examples
+SPKGS[std]=		set primary tools dev man docs
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	SUNOS
+OPTIONS_STANDARD=	SUNOS
+OPT_ON[sunos]=		SUNOS
 
-FPC_EQUIVALENT=		mail/cyrus-imapd32
+FPC_EQUIVALENT=		mail/cyrus-imapd312
 
 LICENSE=		BSD4CLAUSE:primary
 LICENSE_FILE=		BSD4CLAUSE:{{WRKSRC}}/COPYING
@@ -59,6 +61,7 @@ USERGROUP_SPKG=		primary
 
 USES=			cpe gmake libtool perl pkgconfig ssl:openssl30 shebangfix
 			bison sqlite zlib zstd pcre
+			smf:tools
 GNOME_COMPONENTS=	libxml2
 SHEBANG_FILES=		imap/promdatagen
 			tools/config2header
@@ -68,12 +71,17 @@ SHEBANG_FILES=		imap/promdatagen
 			imap/cyr_cd.sh
 CPE_VENDOR=		cyrus
 CPE_PRODUCT=		imapd
+SMF_NAME=		imapd
 RC_SUBR=		imapd:primary
-SUB_FILES=		messages-primary.ucl
-			scripts-primary.ucl
+SUB_FILES=		messages-tools.ucl
+			scripts-tools.ucl
 			cyrus-imapd-man.conf
+			imapd.conf
+			manifest.xml
 SUB_LIST=		CYRUS_USER=${CYRUS_USER}
 			CYRUS_GROUP=${CYRUS_GROUP}
+PLIST_SUB=		OWN={{USERS}}
+			GRP={{GROUPS}}
 MUST_CONFIGURE=		gnu
 SINGLE_JOB=		yes
 INSTALL_TARGET=		install-strip
@@ -83,6 +91,7 @@ MANDIRS=		{{PREFIX}}/cyrus/man
 CONFIGURE_ARGS=		--libexecdir={{PREFIX}}/cyrus/libexec
 			--sbindir={{PREFIX}}/cyrus/sbin
 			--sysconfdir={{PREFIX}}/etc
+			--localstatedir="{{PREFIX}}/var"
 			--with-cyrus-user=${CYRUS_USER}
 			--with-sasl={{LOCALBASE}}
 			--with-sqlite={{LOCALBASE}}
@@ -98,21 +107,23 @@ CONFIGURE_ARGS=		--libexecdir={{PREFIX}}/cyrus/libexec
 			--enable-gssapi={{LOCALBASE}}
 			--enable-http
 			--enable-jmap
-			--disable-backup
 			--disable-replication
 			--with-mysql=no
 			--with-pgsql=no
 			--with-clamav=no
-LDFLAGS=		-Wl,-z,execstack
 
-post-patch:
+[SUNOS].LDFLAGS_OFF=			-Wl,-z,execstack
+
+pre-configure:
 	${REINPLACE_CMD} -e "s|/etc/|${PREFIX}/etc/|" \
 			  -e "s|%%CYRUS_USER%%|${CYRUS_USER}|g" \
 			  -e "s|%%CYRUS_GROUP%%|${CYRUS_GROUP}|g" \
 		${WRKSRC}/tools/mkimap
+.for f in masssievec translatesieve
 	${REINPLACE_CMD} -e "s|/etc/|${PREFIX}/etc/|g" \
-			  -e "s|/usr/sieve|/var/imap/sieve|g" \
-		${WRKSRC}/tools/masssievec
+			  -e "s|/usr/sieve|${PREFIX}/var/db/imap/sieve|g" \
+		${WRKSRC}/tools/${f}
+.endfor
 	${REINPLACE_CMD} \
 		-e 's|$$(mandir)/\(man[1358]\)|${PREFIX}/cyrus/man/\1|g' \
 		${WRKSRC}/Makefile.in
@@ -120,13 +131,17 @@ post-patch:
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/${SITE_ARCH_REL}/auto/Cyrus/IMAP/IMAP.so
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/${SITE_ARCH_REL}/auto/Cyrus/SIEVE/managesieve/managesieve.so
-	${MKDIR} ${STAGEDIR}${STD_EXAMPLESDIR}
 	${MKDIR} ${STAGEDIR}${PREFIX}/etc/man.d
-	${INSTALL_DATA} ${FILESDIR}/imapd.conf \
-		${STAGEDIR}${STD_EXAMPLESDIR}
-	${SED} -e 's,/run/cyrus/socket,/var/imap/socket,' \
+	${MKDIR} ${STAGEDIR}${PREFIX}/var/db/imap/sieve
+	${MKDIR} ${STAGEDIR}${PREFIX}/var/lib/imap
+	${MKDIR} ${STAGEDIR}${PREFIX}/var/run/imap/socket
+	${MKDIR} ${STAGEDIR}${PREFIX}/var/spool/imap
+	${MKDIR} ${STAGEDIR}${PREFIX}/cyrus
+	${INSTALL_DATA} ${WRKDIR}/imapd.conf \
+		${STAGEDIR}${PREFIX}/etc/imapd.conf.sample
+	${SED} -e 's,/run/cyrus/socket,${PREFIX}/var/run/imap/socket,' \
 		${WRKSRC}/doc/examples/cyrus_conf/normal.conf \
-		> ${STAGEDIR}${STD_EXAMPLESDIR}/cyrus.conf
+		> ${STAGEDIR}${PREFIX}/etc/cyrus.conf.sample
 	${INSTALL_SCRIPT} ${WRKSRC}/tools/mkimap \
 		${STAGEDIR}${PREFIX}/cyrus/sbin/mkimap
 	${INSTALL_SCRIPT} ${WRKSRC}/tools/masssievec \

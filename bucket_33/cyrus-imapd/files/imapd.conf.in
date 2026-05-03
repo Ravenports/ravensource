@@ -1,13 +1,10 @@
-#
-# $FreeBSD: head/mail/cyrus-imapd32/files/imapd.conf 435817 2017-03-10 02:05:01Z ume $
-#
 # Sample configurations file for Cyrus IMAPd
 # Most lines in this file are commented; in this case the default is used. 
 # The commented lines (usually) contain the default value
 
 # The pathname of the IMAP configuration directory
 #
-configdirectory: /var/imap
+configdirectory: %%PREFIX%%/var/lib/imap
 
 # The partition name used by default for new mailboxes
 #
@@ -15,7 +12,7 @@ configdirectory: /var/imap
 
 # The directory for the different partitions
 #
-partition-default: /var/spool/imap
+partition-default: %%PREFIX%%/var/spool/imap
 
 # Use the UNIX separator character '/' for delimiting levels of
 # mailbox hierarchy.  The default is to use the netnews separator
@@ -231,7 +228,7 @@ sieveusehomedir: false
 # The active Sieve script is s called "default", placed in the users sieve
 # sieve directory (ie. /var/imap/sieve/u/user).
 #
-sievedir: /var/imap/sieve
+sievedir: %%PREFIX%%/var/db/imap/sieve
 
 # The pathname of the sendmail executable.  Sieve uses sendmail for
 # sending rejections, redirects and vaca- tion responses.
@@ -361,15 +358,15 @@ sasl_pwcheck_method: auxprop
 
 # Unix domain socket that lmtpd listens on, used by deliver(8).
 #
-#lmtpsocket: /var/imap/socket/lmtp
+#lmtpsocket: %%PREFIX%%/var/run/imap/socket/lmtp
 
 # Unix domain socket that idled listens on.
 #
-#idlesocket: /var/imap/socket/idle
+#idlesocket: %%PREFIX%%/var/run/imap/socket/idle
 
 # Unix domain socket that the new mail notification daemon listens on.
 #
-#notifysocket: /var/imap/socket/notify
+#notifysocket: %%PREFIX%%/var/run/imap/socket/notify
 
 #
 # EOF

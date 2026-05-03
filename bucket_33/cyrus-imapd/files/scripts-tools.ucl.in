@@ -1,0 +1,15 @@
+post-install: [{
+     args: ""
+     code: <<EOS
+PKG_BATCH=${BATCH:=NO}
+
+if grep 'sieve' /etc/services; then
+	echo
+else
+	echo
+	echo "** Please add an entry for the sieve protocol (4190/tcp)"
+	echo "   to /etc/services"
+	echo
+fi
+EOS
+}]
