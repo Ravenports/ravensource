@@ -6,7 +6,7 @@ DEF[FILEVER]=		${PORTVERSION}
 
 NAMEBASE=		dovecot
 VERSION=		${PORTVERSION}
-REVISION=		2
+REVISION=		3
 KEYWORDS=		mail
 VARIANTS=		std
 SDESC[std]=		Secure IMAP and POP3 server
@@ -38,14 +38,17 @@ BUILDRUN_DEPENDS=	krb5:primary:std
 
 RC_SUBR=		dovecot:primary
 SUB_FILES=		messages-primary.ucl
+			manifest.xml
 SUB_LIST=		REQUIRE=LOGIN
 
-USERS=			dovecot dovenull
-GROUPS=			dovecot dovenull
+USERS=			dovecot dovenull vmail
+GROUPS=			dovecot dovenull vmail
 USERGROUP_SPKG=		primary
 
 USES=			cpe iconv libtool pkgconfig ssl:openssl30
 			gmake sqlite lz4 zlib perl:build
+			smf:primary
+SMF_NAME=		dovecot
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--localstatedir={{PREFIX}}/var
 			--with-statedir={{PREFIX}}/var/db/dovecot
@@ -73,6 +76,8 @@ INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
 PLIST_SUB=		OWN=dovecot
 			GRP=dovecot
+			VMOWN=vmail
+			VMGRP=vmail
 DISTNAME=		dovecot-${FILEVER}
 
 VAR_OPSYS[dragonfly]=	CONFIGURE_ENV=i_cv_fd_passing=yes
@@ -83,7 +88,13 @@ VAR_OPSYS[sunos]=	CFLAGS=-D__EXTENSIONS__
 
 post-install:
 	# establish sample configuration file
-	${MV} ${STAGEDIR}${PREFIX}/etc/dovecot/dovecot.conf \
-		${STAGEDIR}${PREFIX}/etc/dovecot/dovecot.conf.sample
+	${SED} 's|@PREFIX@|${PREFIX}|; s|@HIBERNATE@|${HIBERNATE}|' \
+		${STAGEDIR}${PREFIX}/etc/dovecot/dovecot.conf \
+		> ${STAGEDIR}${PREFIX}/etc/dovecot/dovecot.conf.sample
+	${RM} ${STAGEDIR}${PREFIX}/etc/dovecot/dovecot.conf
+
 	# create localstatedir
 	${MKDIR} ${STAGEDIR}${PREFIX}/var/db/dovecot
+
+	# create vmail directory
+	${MKDIR} ${STAGEDIR}${PREFIX}/var/mail
