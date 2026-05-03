@@ -29,13 +29,4 @@ command_user="${epmd_user}"
 
 start_precmd="epmd_precmd"
 
-epmd_precmd()
-{
-	if [ ! -d "/var/run/epmd" ]; then
-		install -d -o ${epmd_user} -g ${epmd_user} %%PREFIX%%/var/run/epmd
-	fi
-	# Ensure beam user can write pidfile
-	install -m 644 -g ${epmd_user} -o ${epmd_user} /dev/null ${pidfile}
-}
-
 run_rc_command "$1"
