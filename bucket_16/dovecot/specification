@@ -6,7 +6,7 @@ DEF[FILEVER]=		${PORTVERSION}
 
 NAMEBASE=		dovecot
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		mail
 VARIANTS=		std
 SDESC[std]=		Secure IMAP and POP3 server
@@ -47,8 +47,8 @@ USERGROUP_SPKG=		primary
 USES=			cpe iconv libtool pkgconfig ssl:openssl30
 			gmake sqlite lz4 zlib perl:build
 MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--localstatedir=/var
-			--with-statedir=/var/db/dovecot
+CONFIGURE_ARGS=		--localstatedir={{PREFIX}}/var
+			--with-statedir={{PREFIX}}/var/db/dovecot
 			--with-ssl=openssl
 			--with-gssapi
 			--with-lz4
@@ -71,7 +71,8 @@ CPPFLAGS=		-I{{OPENSSLINC}}
 LDFLAGS=		-L{{OPENSSLLIB}} {{ICONV_LIB}}
 INSTALL_TARGET=		install-strip
 INSTALL_REQ_TOOLCHAIN=	yes
-PLIST_SUB=		REQUIRE="LOGIN"
+PLIST_SUB=		OWN=dovecot
+			GRP=dovecot
 DISTNAME=		dovecot-${FILEVER}
 
 VAR_OPSYS[dragonfly]=	CONFIGURE_ENV=i_cv_fd_passing=yes
@@ -79,3 +80,10 @@ VAR_OPSYS[netbsd]=	CFLAGS=-D_NETBSD_SOURCE
 VAR_OPSYS[sunos]=	CFLAGS=-D__EXTENSIONS__
 			CONFIGURE_ARGS=--with-ioloop=poll
 			CONFIGURE_ARGS=--with-notify=none
+
+post-install:
+	# establish sample configuration file
+	${MV} ${STAGEDIR}${PREFIX}/etc/dovecot/dovecot.conf \
+		${STAGEDIR}${PREFIX}/etc/dovecot/dovecot.conf.sample
+	# create localstatedir
+	${MKDIR} ${STAGEDIR}${PREFIX}/var/db/dovecot
