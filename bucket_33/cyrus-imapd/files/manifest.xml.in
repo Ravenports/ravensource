@@ -16,9 +16,6 @@
         <dependency name="cyrus_configuration_required" grouping="require_all" restart_on="none" type="path">
            <service_fmri value="file://localhost%%PREFIX%%/etc/cyrus.conf"/>
         </dependency>
-        <method_context>
-            <method_credential user="%%CYRUS_USER%%" group="%%CYRUS_GROUP%%"/>
-        </method_context>
         <exec_method type="method" name="start" exec="%%PREFIX%%/cyrus/libexec/master -d -p %%PREFIX%%/var/run/imap/master.pid" timeout_seconds="60"/>
         <exec_method type="method" name="stop" exec=":kill" timeout_seconds="60"/>
         <property_group name="startd" type="framework">
