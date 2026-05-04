@@ -4,6 +4,7 @@ DEF[SOMAJOR]=		21
 
 NAMEBASE=		miniupnpc
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		net
 VARIANTS=		std
 SDESC[std]=		UPnP client library for Internet Gateway Devices
@@ -34,3 +35,7 @@ SOVERSION=		${PORTVERSION}
 PLIST_SUB=		SOMAJOR=${SOMAJOR}
 
 VAR_OPSYS[sunos]=	LDFLAGS=-lsocket
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/upnp*
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libminiupnpc.so
