@@ -4,6 +4,7 @@ DEF[DL_FOLDER]=		1.22
 
 NAMEBASE=		krb5
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		security
 VARIANTS=		std
 SDESC[std]=		MIT Kerberos 5 authentication system
@@ -26,18 +27,21 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		security/krb5
 
 RC_SUBR=		kpropd:primary
+SUB_FILES=		manifest.xml
 
 USES=			cpe gmake perl:build libtool:build pkgconfig ssl:openssl30
 			gettext readline
+			smf:tools
 CPE_VENDOR=		mit
 CPE_VERSION=		5-${PORTVERSION}
 CPE_PRODUCT=		kerberos
+SMF_NAME=		kpropd
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-shared
 			--with-readline
 			--without-system-verto
 			--disable-rpath
-			--localstatedir="{{PREFIX}}/var"
+			--localstatedir="{{PREFIX}}/var/lib"
 			--runstatedir="{{PREFIX}}/var/run"
 DISTNAME=		krb5-${PORTVERSION}/src
 CONFIGURE_ENV=		INSTALL="{{INSTALL}}"
