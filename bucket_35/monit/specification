@@ -32,10 +32,13 @@ BUILD_DEPENDS=		openpam:dev:std
 BUILDRUN_DEPENDS=	openpam:primary:std
 
 SUB_FILES=		messages-primary.ucl
+			manifest.xml
 RC_SUBR=		monit:primary
 
 USES=			cpe ssl:openssl30 bison gmake zlib mbsdfix
+			smf:primary
 CPE_VENDOR=		tildeslash
+SMF_NAME=		monit
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--with-ssl-dir={{OPENSSLBASE}}
 CONFIGURE_ENV=		ax_cv_check_cflags___fstack_protector_all=no
@@ -43,6 +46,6 @@ CONFIGURE_ENV=		ax_cv_check_cflags___fstack_protector_all=no
 INSTALL_REQ_TOOLCHAIN=	yes
 
 post-install:
-	${INSTALL_DATA} ${WRKSRC}/monitrc \
+	${INSTALL} -m 600 ${WRKSRC}/monitrc \
 		${STAGEDIR}${PREFIX}/etc/monitrc.sample
 	${MKDIR} ${STAGEDIR}${PREFIX}/var/run/monit
