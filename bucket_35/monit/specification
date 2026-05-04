@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	5.35.2
 
 NAMEBASE=		monit
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		sysutils
 VARIANTS=		std
 SDESC[std]=		Unix system management and proactive monitoring
@@ -44,3 +45,4 @@ INSTALL_REQ_TOOLCHAIN=	yes
 post-install:
 	${INSTALL_DATA} ${WRKSRC}/monitrc \
 		${STAGEDIR}${PREFIX}/etc/monitrc.sample
+	${MKDIR} ${STAGEDIR}${PREFIX}/var/run/monit
