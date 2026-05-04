@@ -62,11 +62,16 @@ BUILDRUN_DEPENDS=	wxWidgets:primary:std
 
 DISTNAME=		otp-OTP-${PORTVERSION}
 SUB_FILES=		messages-primary.ucl
+			manifest.xml
 SUB_LIST=		TOOLS_VSN={{TOOLS_VSN}}
+			OWN={{USERS}}
+			GRP={{GROUPS}}
 RC_SUBR=		epmd:primary
 
 USES=			cpe gmake ncurses perl:build ssl zlib
+			smf:primary
 XORG_COMPONENTS=	x11
+SMF_NAME=		epmd
 SINGLE_JOB=		yes
 EXTRACT_ONLY=		1 2 3
 MUST_CONFIGURE=		gnu
