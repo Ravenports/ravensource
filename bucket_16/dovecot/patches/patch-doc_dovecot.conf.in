@@ -1,0 +1,31 @@
+@HIBERNATE@ is replaced with either "#" or ""
+Currently only FreeBSD 15 and Linux support it.
+
+--- doc/dovecot.conf.in.orig	2026-03-25 12:35:43 UTC
++++ doc/dovecot.conf.in
+@@ -24,7 +24,7 @@ protocols {
+   lmtp = yes
+ }
+ 
+-mail_home = /srv/mail/%{user}
++mail_home = @PREFIX@/var/mail/%{user}
+ mail_driver = sdbox
+ mail_path = ~/mail
+ 
+@@ -44,7 +44,12 @@ namespace inbox {
+ passdb pam {
+ }
+ 
+-ssl_server {
+-  cert_file = /etc/dovecot/ssl-cert.pem
+-  key_file = /etc/dovecot/ssl-key.pem
+-}
++ssl = no
++#ssl_server {
++#  cert_file = /etc/dovecot/ssl-cert.pem
++#  key_file = /etc/dovecot/ssl-key.pem
++#}
++
++@HIBERNATE@service imap-hibernate {
++@HIBERNATE@  executable = 
++@HIBERNATE@}
