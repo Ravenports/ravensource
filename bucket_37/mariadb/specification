@@ -4,12 +4,12 @@ DEF[PORTVERSION]=	EXTRACT_VERSION(MYSQL_mariadb-BE_VERSION)
 DEF[PORTNAME]=		mariadb
 DEF[FMT_TAG]=		12.1.0
 DEF[FETCH_ID]=		4582483
-DEF[DBDIR]=		var/db/mysql
-DEF[RUNDIR]=		var/run/mysql
-DEF[LOGDIR]=		var/log/mysql
-DEF[SOCK]=		mysql.sock
-DEF[DBUSER]=		mysql
-DEF[DBGROUP]=		mysql
+DEF[DBDIR]=		var/db/mariadb
+DEF[RUNDIR]=		var/run/mariadb
+DEF[LOGDIR]=		var/log/mariadb
+DEF[SOCK]=		maria.sock
+DEF[DBUSER]=		mariadb
+DEF[DBGROUP]=		mariadb
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		${PORTNAME}
@@ -71,9 +71,12 @@ RC_SUBR=		mysql:server
 USES=			cmake zlib readline ncurses pcre2 shebangfix cpe
 			python:build perl:build pkgconfig iconv:translit
 			curl zstd xz lz4 lzo bz2 execinfo ssl:openssl30
+			smf:server
 GNOME_COMPONENTS=	libxml2
 CPE_VENDOR=		mariadb
 CPE_PRODUCT=		mariadb
+SMF_NAME=		mariadb
+SMF_METHODS=		maria_command.sh
 CMAKE_ARGS=		-DCOMPILATION_COMMENT="Ravenports"
 			-DINSTALL_INCLUDEDIR=include/mysql
 			-DINSTALL_PLUGINDIR=lib/mysql/plugin
@@ -125,12 +128,16 @@ PLIST_SUB=		PORTNAME=${PORTNAME}
 SUB_FILES=		my.cnf.sample
 			client.cnf.sample
 			server.cnf.sample
+			manifest.xml
+			maria_command.sh
 SUB_LIST=		MARIADB_DBDIR="{{PREFIX}}/${DBDIR}"
 			MARIADB_RUNDIR="{{PREFIX}}/${RUNDIR}"
 			MARIADB_LOGDIR="{{PREFIX}}/${LOGDIR}"
 			MARIADB_SOCK="${SOCK}"
 			MARIADB_USER="${DBUSER}"
+			MARIADB_GROUP="${DBGROUP}"
 			OPSYS="{{OPSYS}}"
+			SMF_METHOD_SCRIPT=maria_command.sh
 
 # required for Linux (only) for ABI checks
 INSTALL_REQ_TOOLCHAIN=	yes
@@ -177,7 +184,9 @@ post-install:
 	${RM} -r ${STAGEDIR}${PREFIX}/etc/mysql/init.d
 	${RM} -r ${STAGEDIR}${PREFIX}/etc/mysql/logrotate.d
 	${RM} -r ${STAGEDIR}/suite
+	${MKDIR} ${STAGEDIR}${PREFIX}/${DBDIR}
 	${MKDIR} ${STAGEDIR}${PREFIX}/${LOGDIR}
+	${MKDIR} ${STAGEDIR}${PREFIX}/${RUNDIR}
 
 	# strip plugins and libraries
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/mysql/libmariadb.so
