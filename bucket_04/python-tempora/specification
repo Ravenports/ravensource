@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	5.8.1
+DEF[PORTVERSION]=	5.9.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-tempora
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/jaraco/tempora
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/ff/ec/3d106a107646945b65a55a228b871589ee9206e833f5b1cde4a57204c2f8
+SITES[main]=		PYPIWHL/e3/5e/9326e8ec4418ea59c6c290f4f3209d61f790f0737bfc5afcb588cad3fd9f
 DISTFILE[1]=		tempora-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -30,8 +30,11 @@ GENERATED=		yes
 DISTNAME=		tempora-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# jaraco.functools>=1.20
+# jaraco.functools>=4.2
 # python-dateutil
+# jaraco.context
+# more_itertools
+# jaraco.collections>=5.2.1
 # pytest!=8.1.*,>=6; extra == "test"
 # pytest-freezer; extra == "test"
 # backports.zoneinfo; python_version < "3.9" and extra == "test"
@@ -42,17 +45,23 @@ DISTNAME=		tempora-${PORTVERSION}.dist-info
 # furo; extra == "doc"
 # sphinx-lint; extra == "doc"
 # jaraco.tidelift>=1.4; extra == "doc"
-# pytest-checkdocs>=2.4; extra == "check"
+# pytest-checkdocs>=2.14; extra == "check"
 # pytest-ruff>=0.2.1; sys_platform != "cygwin" and extra == "check"
 # pytest-cov; extra == "cover"
-# pytest-enabler>=2.2; extra == "enabler"
-# pytest-mypy; extra == "type"
+# pytest-enabler>=3.4; extra == "enabler"
+# pytest-mypy>=1.0.1; platform_python_implementation != "PyPy" and extra == "type"
 # types-python-dateutil; extra == "type"
 
 [PY313].USES_ON=			python:v13,wheel
 [PY313].RUN_DEPENDS_ON=			python-jaraco.functools:single:v13
 					python-python-dateutil:single:v13
+					python-jaraco.context:single:v13
+					python-more-itertools:single:v13
+					python-jaraco.collections:single:v13
 [PY314].USES_ON=			python:v14,wheel
 [PY314].RUN_DEPENDS_ON=			python-jaraco.functools:single:v14
 					python-python-dateutil:single:v14
+					python-jaraco.context:single:v14
+					python-more-itertools:single:v14
+					python-jaraco.collections:single:v14
 
