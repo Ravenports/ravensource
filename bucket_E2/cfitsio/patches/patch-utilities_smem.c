@@ -1,4 +1,4 @@
---- utilities/smem.c.orig	2025-09-29 02:59:26 UTC
+--- utilities/smem.c.orig	2026-04-27 19:00:54 UTC
 +++ utilities/smem.c
 @@ -1,7 +1,7 @@
  #include <stdio.h>
