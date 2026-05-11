@@ -1,4 +1,4 @@
---- backend/socket.c.orig	2026-04-22 11:04:47 UTC
+--- backend/socket.c.orig	2026-04-27 17:13:21 UTC
 +++ backend/socket.c
 @@ -293,7 +293,6 @@ main(int  argc,				/* I - Number of comm
    */
