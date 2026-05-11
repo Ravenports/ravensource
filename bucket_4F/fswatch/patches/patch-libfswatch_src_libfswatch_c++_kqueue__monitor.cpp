@@ -1,4 +1,4 @@
---- libfswatch/src/libfswatch/c++/kqueue_monitor.cpp.orig	2026-04-19 19:06:24 UTC
+--- libfswatch/src/libfswatch/c++/kqueue_monitor.cpp.orig	2026-05-09 21:51:20 UTC
 +++ libfswatch/src/libfswatch/c++/kqueue_monitor.cpp
 @@ -131,7 +131,7 @@ namespace fsw
      nanoseconds *= 1000000000;
