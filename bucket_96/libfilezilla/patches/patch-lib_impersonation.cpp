@@ -1,4 +1,4 @@
---- lib/impersonation.cpp.orig	2025-03-26 10:07:26 UTC
+--- lib/impersonation.cpp.orig	2026-05-05 09:13:24 UTC
 +++ lib/impersonation.cpp
 @@ -27,7 +27,11 @@ impersonation_token::impersonation_token
  #include <optional>
@@ -22,7 +22,7 @@
  struct shadow_holder {
  	shadow_holder() = default;
  	shadow_holder(shadow_holder const&) = delete;
-@@ -203,7 +207,7 @@ std::vector<gid_t> get_supplementary(std
+@@ -206,7 +210,7 @@ std::vector<gid_t> get_supplementary(std
  
  bool check_auth(native_string const& username, native_string const& password)
  {
