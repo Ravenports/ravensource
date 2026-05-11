@@ -1,6 +1,6 @@
---- amdgpu/amdgpu_device.c.orig	2025-12-11 21:17:34 UTC
+--- amdgpu/amdgpu_device.c.orig	2026-04-27 15:47:19 UTC
 +++ amdgpu/amdgpu_device.c
-@@ -183,7 +183,12 @@ static int _amdgpu_device_initialize(int
+@@ -218,7 +218,12 @@ static int _amdgpu_device_initialize(int
  			return r;
  		}
  		if ((flag_auth) && (!flag_authexist)) {
@@ -13,7 +13,7 @@
  		}
  		*major_version = dev->major_version;
  		*minor_version = dev->minor_version;
-@@ -217,7 +222,12 @@ static int _amdgpu_device_initialize(int
+@@ -252,7 +257,12 @@ static int _amdgpu_device_initialize(int
  		goto cleanup;
  	}
  
