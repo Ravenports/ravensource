@@ -1,6 +1,6 @@
---- src/terminal.c.orig	2023-08-27 07:25:53 UTC
+--- src/terminal.c.orig	2026-05-08 19:40:44 UTC
 +++ src/terminal.c
-@@ -68,14 +68,6 @@ __RCSID("$NetBSD: terminal.c,v 1.46 2023
+@@ -68,14 +68,6 @@ __RCSID("$NetBSD: terminal.c,v 1.47 2025
  #include <term.h>
  #endif
  

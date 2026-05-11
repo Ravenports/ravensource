@@ -1,4 +1,4 @@
---- src/vis.c.orig	2024-05-17 17:08:50 UTC
+--- src/vis.c.orig	2026-05-08 19:38:20 UTC
 +++ src/vis.c
 @@ -85,6 +85,10 @@ __weak_alias(strvisx,_strvisx)
  #include <stdio.h>

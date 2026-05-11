@@ -1,4 +1,4 @@
---- src/sys.h.orig	2024-08-08 18:03:34 UTC
+--- src/sys.h.orig	2026-05-08 19:38:20 UTC
 +++ src/sys.h
 @@ -44,6 +44,10 @@
  #include <sys/types.h>
