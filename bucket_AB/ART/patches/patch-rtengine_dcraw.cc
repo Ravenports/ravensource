@@ -1,4 +1,4 @@
---- rtengine/dcraw.cc.orig	2026-03-13 20:14:10 UTC
+--- rtengine/dcraw.cc.orig	2026-04-27 06:28:28 UTC
 +++ rtengine/dcraw.cc
 @@ -2335,7 +2335,9 @@ void CLASS hasselblad_correct()
                                              {bhu-1,0},{bhu-1,bwu/2},{bhu-1,bwu-1}};

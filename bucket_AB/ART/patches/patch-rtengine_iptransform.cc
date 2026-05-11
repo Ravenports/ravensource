@@ -1,4 +1,4 @@
---- rtengine/iptransform.cc.orig	2026-03-13 20:14:10 UTC
+--- rtengine/iptransform.cc.orig	2026-04-27 06:28:28 UTC
 +++ rtengine/iptransform.cc
 @@ -712,7 +712,7 @@ void calcVignettingParams(int oW, int oH
      maxRadius = sqrt((double)(oW * oW + oH * oH)) / 2.;

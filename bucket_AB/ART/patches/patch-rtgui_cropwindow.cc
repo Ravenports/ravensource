@@ -1,6 +1,6 @@
---- rtgui/cropwindow.cc.orig	2026-03-13 20:14:10 UTC
+--- rtgui/cropwindow.cc.orig	2026-04-27 06:28:28 UTC
 +++ rtgui/cropwindow.cc
-@@ -2386,10 +2386,10 @@ void CropWindow::zoomIn(bool toCursor, i
+@@ -2463,10 +2463,10 @@ void CropWindow::zoomIn(bool toCursor, i
                  int y1 =
                      cropHandler.cropParams.y + cropHandler.cropParams.h / 2;
                  double cropd =
