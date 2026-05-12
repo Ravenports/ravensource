@@ -1,6 +1,6 @@
---- src/skyparams.h.orig	2026-04-14 20:04:31 UTC
+--- src/skyparams.h.orig	2026-05-10 10:10:58 UTC
 +++ src/skyparams.h
-@@ -115,14 +115,14 @@ public:
+@@ -116,14 +116,14 @@ public:
  
  	static const SunParams getSunDefaults()
  	{
