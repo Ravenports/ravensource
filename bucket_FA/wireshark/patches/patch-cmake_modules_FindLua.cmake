@@ -1,6 +1,6 @@
---- cmake/modules/FindLua.cmake.orig	2026-02-25 17:45:46 UTC
+--- cmake/modules/FindLua.cmake.orig	2026-04-29 20:06:32 UTC
 +++ cmake/modules/FindLua.cmake
-@@ -179,7 +179,7 @@ if (LUA_VERSION_STRING)
+@@ -315,7 +315,7 @@ if (Lua_VERSION)
  endif ()
  
  find_library(LUA_LIBRARY
