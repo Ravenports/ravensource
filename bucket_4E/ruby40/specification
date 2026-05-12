@@ -40,6 +40,10 @@ BUILDRUN_DEPENDS=	gdbm:primary:std
 RUN_DEPENDS=		autoselect-ruby:single:std
 
 USES=			autoreconf cpe execinfo ssl ruby:v40,interp zlib
+CPE_VENDOR=		ruby-lang
+CPE_PRODUCT=		ruby
+CPE_VERSION=		${PORTVERSION}
+# CPE_UPDATE=		p${PATCHLEVEL}
 DISTNAME=		ruby-${PORTVERSION}
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-pthread
@@ -59,10 +63,7 @@ CFLAGS=			-Wno-attributes
 PLIST_SUB=		XY={{RUBY_SUFFIX}}
 			XDOTY={{RUBY_VER}}
 			MODULE={{MODULE:Uso}}
-CPE_VENDOR=		ruby-lang
-CPE_PRODUCT=		ruby
-CPE_VERSION=		${PORTVERSION}
-# CPE_UPDATE=		p${PATCHLEVEL}
+MAKE_ENV=		LANG=en_US.UTF-8
 INSTALL_REQ_TOOLCHAIN=	yes
 
 VAR_OPSYS[darwin]=	CONFIGURE_ENV=ac_cv_func_backtrace=no

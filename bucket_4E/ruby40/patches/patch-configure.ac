@@ -1,4 +1,4 @@
---- configure.ac.orig	2026-04-21 08:16:59 UTC
+--- configure.ac.orig	2026-05-11 21:07:52 UTC
 +++ configure.ac
 @@ -1322,6 +1322,8 @@ main()
  		],
@@ -9,7 +9,7 @@
  [aix*],[	LIBS="-lm $LIBS"
  		ac_cv_func_round=no
  		ac_cv_func___builtin_setjmp=no
-@@ -2800,6 +2802,9 @@ AS_CASE([$coroutine_type], [yes|''], [
+@@ -2797,6 +2799,9 @@ AS_CASE([$coroutine_type], [yes|''], [
          [x86_64-dragonfly*], [
              coroutine_type=amd64
          ],
@@ -19,7 +19,7 @@
          [*-haiku*], [
              coroutine_type=pthread
          ],
-@@ -3173,7 +3178,7 @@ AC_SUBST(EXTOBJS)
+@@ -3170,7 +3175,7 @@ AC_SUBST(EXTOBJS)
  	[bsdi3*], [	AS_CASE(["$CC"],
  			[*shlicc*], [	: ${LDSHARED='$(CC) -r'}
  					rb_cv_dlopen=yes])],
@@ -28,7 +28,7 @@
  			: ${LDSHARED='$(CC) -shared'}
  			AS_IF([test "$rb_cv_binary_elf" = yes], [
  			    LDFLAGS="$LDFLAGS -Wl,-export-dynamic"
-@@ -3182,7 +3187,7 @@ AC_SUBST(EXTOBJS)
+@@ -3179,7 +3184,7 @@ AC_SUBST(EXTOBJS)
  	[interix*], [	: ${LDSHARED='$(CC) -shared'}
  			XLDFLAGS="$XLDFLAGS -Wl,-E"
  			rb_cv_dlopen=yes],
@@ -37,7 +37,7 @@
  			: ${LDSHARED='$(CC) -shared'}
  			AS_IF([test "$rb_cv_binary_elf" = yes], [
  			    LDFLAGS="$LDFLAGS -rdynamic"
-@@ -3257,7 +3262,7 @@ AS_IF([test "$rb_cv_dlopen" = yes], [
+@@ -3254,7 +3259,7 @@ AS_IF([test "$rb_cv_dlopen" = yes], [
  
              AC_MSG_CHECKING([whether $flag is accepted for bundle])
              : > conftest.c
@@ -46,7 +46,7 @@
                  test ! -s conftest.err], [
                  AC_MSG_RESULT([yes])
                  RUBY_APPEND_OPTIONS(DLDFLAGS, [$flag])
-@@ -3620,7 +3625,7 @@ AS_CASE("$enable_shared", [yes], [
+@@ -3617,7 +3622,7 @@ AS_CASE("$enable_shared", [yes], [
    ])
  
    AS_CASE(["$target_os"],
@@ -55,7 +55,7 @@
      [
       AS_IF([test "$GCC" = yes], [
         RUBY_TRY_LDFLAGS([${linker_flag}--no-undefined], [no_undefined=yes], [no_undefined=no])
-@@ -3635,7 +3640,7 @@ AS_CASE("$enable_shared", [yes], [
+@@ -3632,7 +3637,7 @@ AS_CASE("$enable_shared", [yes], [
      [sunos4*], [
  	LIBRUBY_ALIASES='$(LIBRUBY_SONAME) lib$(RUBY_SO_NAME).$(SOEXT)'
  	],
@@ -64,7 +64,7 @@
  	RUBY_APPEND_OPTIONS(LIBRUBY_DLDFLAGS, ['-Wl,-soname,$(LIBRUBY_SONAME)' "$LDFLAGS_OPTDIR"])
  	LIBRUBY_ALIASES='$(LIBRUBY_SONAME) lib$(RUBY_SO_NAME).$(SOEXT)'
  	AS_IF([test "$load_relative" = yes], [
-@@ -3644,7 +3649,7 @@ AS_CASE("$enable_shared", [yes], [
+@@ -3641,7 +3646,7 @@ AS_CASE("$enable_shared", [yes], [
  	    LIBRUBY_RELATIVE=yes
  	])
  	],
@@ -73,7 +73,7 @@
  	LIBRUBY_SO='lib$(RUBY_SO_NAME).$(SOEXT).$(MAJOR)$(MINOR)'
  	LIBRUBY_SONAME='$(LIBRUBY_SO)'
  	AS_IF([test "$rb_cv_binary_elf" != "yes" ], [
-@@ -3670,9 +3675,8 @@ AS_CASE("$enable_shared", [yes], [
+@@ -3667,9 +3672,8 @@ AS_CASE("$enable_shared", [yes], [
  	LIBRUBY_SO='lib$(RUBY_SO_NAME).$(SOEXT).$(MAJOR).'`expr ${MINOR} \* 10 + ${TEENY}`
  	],
      [solaris*], [
