@@ -1,9 +1,9 @@
---- src/tools/hunspell.cxx.orig	2022-12-29 20:10:49 UTC
+--- src/tools/hunspell.cxx.orig	2026-05-05 07:19:07 UTC
 +++ src/tools/hunspell.cxx
-@@ -116,9 +116,9 @@
- #include "../parsers/odfparser.hxx"
- 
- #define LIBDIR                \
+@@ -119,9 +119,9 @@
+   DATADIR "/hunspell:"        \
+   DATADIR "/myspell:"         \
+   DATADIR "/myspell/dicts:"   \
 -  "/usr/share/hunspell:"      \
 -  "/usr/share/myspell:"       \
 -  "/usr/share/myspell/dicts:" \
@@ -13,7 +13,7 @@
    "/Library/Spelling"
  #define USEROOODIR {                  \
    ".openoffice.org/3/user/wordbook", \
-@@ -126,18 +126,12 @@
+@@ -129,18 +129,12 @@
    ".openoffice.org2.0/user/wordbook",\
    "Library/Spelling" }
  #define OOODIR                                       \
@@ -38,7 +38,7 @@
  #define HOME getenv("HOME")
  #define DICBASENAME ".hunspell_"
  #define LOGFILE "/tmp/hunspell.log"
-@@ -650,6 +644,12 @@ char* mymkdtemp(char *templ) {
+@@ -663,6 +657,12 @@ char* mymkdtemp(char *templ) {
      return NULL;
    }
    return odftmpdir;
