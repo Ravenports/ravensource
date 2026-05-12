@@ -1,4 +1,4 @@
---- taglib/mp4/mp4atom.cpp.orig	2026-01-31 07:25:47 UTC
+--- taglib/mp4/mp4atom.cpp.orig	2026-05-04 14:43:04 UTC
 +++ taglib/mp4/mp4atom.cpp
 @@ -44,9 +44,9 @@ namespace {
  class MP4::Atom::AtomPrivate
@@ -13,7 +13,7 @@
    TagLib::ByteVector name;
    AtomList children;
  };
-@@ -94,7 +94,7 @@ MP4::Atom::Atom(File *file)
+@@ -94,7 +94,7 @@ MP4::Atom::Atom(File *file, int depth)
    for(auto c : containers) {
      if(d->name == c) {
        if(d->name == "meta") {
@@ -22,7 +22,7 @@
          static constexpr std::array metaChildrenNames {
            "hdlr", "ilst", "mhdr", "ctry", "lang"
          };
-@@ -162,7 +162,7 @@ MP4::Atom::path(MP4::AtomList &path, con
+@@ -172,7 +172,7 @@ MP4::Atom::path(MP4::AtomList &path, con
    return it != d->children.cend() ? (*it)->path(path, name2, name3) : false;
  }
  
@@ -31,7 +31,7 @@
  {
    d->offset += delta;
  }
-@@ -182,12 +182,12 @@ bool MP4::Atom::removeChild(Atom *meta)
+@@ -192,12 +192,12 @@ bool MP4::Atom::removeChild(Atom *meta)
    return false;
  }
  
@@ -46,7 +46,7 @@
  {
    return d->length;
  }
-@@ -215,7 +215,7 @@ MP4::Atoms::Atoms(File *file) :
+@@ -227,7 +227,7 @@ MP4::Atoms::Atoms(File *file) :
    d->atoms.setAutoDelete(true);
  
    file->seek(0, File::End);

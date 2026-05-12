@@ -1,4 +1,4 @@
---- taglib/matroska/matroskasegment.cpp.orig	2026-01-25 11:41:46 UTC
+--- taglib/matroska/matroskasegment.cpp.orig	2026-05-04 14:43:04 UTC
 +++ taglib/matroska/matroskasegment.cpp
 @@ -24,7 +24,7 @@
  

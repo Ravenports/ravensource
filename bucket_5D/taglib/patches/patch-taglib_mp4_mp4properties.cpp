@@ -1,4 +1,4 @@
---- taglib/mp4/mp4properties.cpp.orig	2025-12-24 14:20:54 UTC
+--- taglib/mp4/mp4properties.cpp.orig	2026-05-04 14:43:04 UTC
 +++ taglib/mp4/mp4properties.cpp
 @@ -39,7 +39,7 @@ namespace
    {

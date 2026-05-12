@@ -1,4 +1,4 @@
---- taglib/matroska/matroskaseekhead.cpp.orig	2026-01-25 11:41:46 UTC
+--- taglib/matroska/matroskaseekhead.cpp.orig	2026-05-04 14:43:04 UTC
 +++ taglib/matroska/matroskaseekhead.cpp
 @@ -29,7 +29,7 @@
  
@@ -9,7 +9,7 @@
    Element(static_cast<ID>(EBML::Element::Id::MkSeekHead)),
    segmentDataOffset(segmentDataOffset)
  {
-@@ -58,7 +58,7 @@ void Matroska::SeekHead::addEntry(const
+@@ -57,7 +57,7 @@ void Matroska::SeekHead::addEntry(const
    setNeedsRender(true);
  }
  
@@ -18,7 +18,7 @@
  {
    entries.append({id, offset});
    setNeedsRender(true);
-@@ -95,7 +95,7 @@ void Matroska::SeekHead::sort()
+@@ -110,7 +110,7 @@ void Matroska::SeekHead::sort()
    entries.sort([](const auto &a, const auto &b) { return a.second < b.second; });
  }
  
@@ -27,7 +27,7 @@
  {
    ID callerID = caller.id();
    if(callerID == static_cast<ID>(EBML::Element::Id::MkSegment)) {
-@@ -105,7 +105,7 @@ bool Matroska::SeekHead::sizeChanged(Ele
+@@ -120,7 +120,7 @@ bool Matroska::SeekHead::sizeChanged(Ele
    // The equal case is needed when multiple new elements are added
    // (e.g. Attachments and Tags), they will start with the same offset
    // and are updated via size change handling.

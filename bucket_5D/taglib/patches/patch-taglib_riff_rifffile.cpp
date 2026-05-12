@@ -1,4 +1,4 @@
---- taglib/riff/rifffile.cpp.orig	2025-12-24 14:20:54 UTC
+--- taglib/riff/rifffile.cpp.orig	2026-05-04 14:43:04 UTC
 +++ taglib/riff/rifffile.cpp
 @@ -36,7 +36,7 @@ using namespace TagLib;
  struct Chunk

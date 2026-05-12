@@ -1,4 +1,4 @@
---- taglib/toolkit/tfilestream.cpp.orig	2025-12-24 14:20:54 UTC
+--- taglib/toolkit/tfilestream.cpp.orig	2026-04-06 11:14:41 UTC
 +++ taglib/toolkit/tfilestream.cpp
 @@ -431,7 +431,7 @@ void FileStream::clear()
  #endif
