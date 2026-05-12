@@ -14,6 +14,7 @@ DEF[COMMTESTVERSION]=	1.12.10
 
 NAMEBASE=		coinmp
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		math
 VARIANTS=		std
 SDESC[std]=		Linear Programming solver library
@@ -24,7 +25,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://www.coin-or.org/download/source/CoinMP/
 DISTFILE[1]=		CoinMP-${PORTVERSION}.tgz:main
 
-SPKGS[std]=		single
+SPKGS[std]=		set primary dev tools
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -33,7 +34,9 @@ FPC_EQUIVALENT=		math/coinmp
 
 DISTNAME=		CoinMP-${PORTVERSION}
 
-USES=			libtool pkgconfig c++:single fbsd10fix mbsdfix
+EXRUN[tools]=		primary
+
+USES=			libtool pkgconfig c++:primary fbsd10fix mbsdfix
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--disable-glpk-libcheck
 INSTALL_TARGET=		install-strip
