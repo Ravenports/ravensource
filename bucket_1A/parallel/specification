@@ -1,5 +1,5 @@
 # known to reroll
-DEF[PORTVERSION]=	20260322
+DEF[PORTVERSION]=	20260422
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		parallel
@@ -25,9 +25,11 @@ OPTIONS_STANDARD=	none
 FPC_EQUIVALENT=		sysutils/parallel
 
 BUILD_DEPENDS=		texinfo:primary:std
+			bash:primary:std
 USES=			cpe gmake perl shebangfix
 CPE_VENDOR=		gnu
 MUST_CONFIGURE=		gnu
+MAKE_ARGS=		SHELL={{LOCALBASE}}/bin/bash
 SHEBANG_FILES=		src/sql
 			src/niceload
 			src/parcat
