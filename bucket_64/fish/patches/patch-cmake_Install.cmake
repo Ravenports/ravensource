@@ -1,4 +1,4 @@
---- cmake/Install.cmake.orig	2026-03-28 04:56:37 UTC
+--- cmake/Install.cmake.orig	2026-05-07 16:02:14 UTC
 +++ cmake/Install.cmake
 @@ -126,7 +126,7 @@ fish_create_dirs(
      ${rel_datadir}/fish/vendor_conf.d
