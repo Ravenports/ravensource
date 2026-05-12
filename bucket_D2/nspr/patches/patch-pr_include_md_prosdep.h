@@ -1,6 +1,6 @@
---- pr/include/md/prosdep.h.orig	2025-11-05 10:29:01 UTC
+--- pr/include/md/prosdep.h.orig	2026-05-05 12:48:55 UTC
 +++ pr/include/md/prosdep.h
-@@ -34,6 +34,9 @@ PR_BEGIN_EXTERN_C
+@@ -33,6 +33,9 @@ PR_BEGIN_EXTERN_C
  #elif defined(FREEBSD)
  #include "md/_freebsd.h"
  

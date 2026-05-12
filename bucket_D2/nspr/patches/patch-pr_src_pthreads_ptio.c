@@ -1,6 +1,6 @@
---- pr/src/pthreads/ptio.c.orig	2025-11-05 10:29:01 UTC
+--- pr/src/pthreads/ptio.c.orig	2026-05-05 12:48:55 UTC
 +++ pr/src/pthreads/ptio.c
-@@ -181,6 +181,7 @@ static PRBool _pr_ipv6_v6only_on_by_defa
+@@ -180,6 +180,7 @@ static PRBool _pr_ipv6_v6only_on_by_defa
  #  elif (defined(AIX) && !defined(AIX4_1)) || defined(SOLARIS) ||   \
        defined(HPUX10_30) || defined(HPUX11) || defined(LINUX) ||    \
        defined(__GNU__) || defined(__GLIBC__) || defined(FREEBSD) || \
@@ -8,7 +8,7 @@
        defined(NETBSD) || defined(OPENBSD) || defined(NTO) ||        \
        defined(DARWIN) || defined(RISCOS)
  #    define _PRSelectFdSetArg_t fd_set*
-@@ -3105,6 +3106,7 @@ static PRIOMethods _pr_socketpollfd_meth
+@@ -3104,6 +3105,7 @@ static PRIOMethods _pr_socketpollfd_meth
  #  if defined(SOLARIS) || defined(LINUX) ||     \
        defined(__GNU__) || defined(__GLIBC__) || defined(AIX) ||  \
        defined(FREEBSD) || defined(NETBSD) || defined(OPENBSD) || \
@@ -16,7 +16,7 @@
        defined(NTO) || defined(DARWIN) || defined(RISCOS)
  #    define _PR_FCNTL_FLAGS O_NONBLOCK
  #  else
-@@ -4385,6 +4387,7 @@ PR_Select(PRInt32 unused, PR_fd_set* pr_
+@@ -4384,6 +4386,7 @@ PR_Select(PRInt32 unused, PR_fd_set* pr_
  
    if (timeout == PR_INTERVAL_NO_TIMEOUT) {
      tvp = NULL;

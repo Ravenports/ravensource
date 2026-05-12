@@ -1,6 +1,6 @@
---- pr/include/prcountr.h.orig	2025-11-05 10:29:01 UTC
+--- pr/include/prcountr.h.orig	2026-05-05 12:48:55 UTC
 +++ pr/include/prcountr.h
-@@ -394,7 +394,7 @@ PR_SubtractFromCounter(
+@@ -393,7 +393,7 @@ PR_SubtractFromCounter(
  #define PR_GET_COUNTER(counter,handle)\
      (counter) = PR_GetCounter((handle))
  #else
@@ -9,7 +9,7 @@
  #endif
  
  NSPR_API(PRUint32)
-@@ -468,7 +468,7 @@ PR_SetCounter(
+@@ -467,7 +467,7 @@ PR_SetCounter(
  #define PR_FIND_NEXT_COUNTER_QNAME(next,handle)\
      (next) = PR_FindNextCounterQname((handle))
  #else
@@ -18,9 +18,9 @@
  #endif
  
  NSPR_API(PRCounterHandle)
---- pr/src/misc/pralarm.c.orig	2025-11-05 10:29:01 UTC
+--- pr/src/misc/pralarm.c.orig	2026-05-05 12:48:55 UTC
 +++ pr/src/misc/pralarm.c
-@@ -94,7 +94,7 @@ static void PR_CALLBACK pr_alarmNotifier
+@@ -93,7 +93,7 @@ static void PR_CALLBACK pr_alarmNotifier
    enum { notify, abort, scan } why = scan;
  
    while (why != abort) {
@@ -29,9 +29,9 @@
  
      PR_Lock(alarm->lock);
      while (why == scan) {
---- pr/src/misc/prdtoa.c.orig	2025-11-05 10:29:01 UTC
+--- pr/src/misc/prdtoa.c.orig	2026-05-05 12:48:55 UTC
 +++ pr/src/misc/prdtoa.c
-@@ -2835,8 +2835,8 @@ char** rve;
+@@ -2834,8 +2834,8 @@ char** rve;
       to hold the suppressed trailing zeros.
    */
  

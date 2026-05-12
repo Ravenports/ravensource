@@ -1,6 +1,6 @@
---- pr/src/md/unix/uxrng.c.orig	2025-11-05 10:29:01 UTC
+--- pr/src/md/unix/uxrng.c.orig	2026-05-05 12:48:55 UTC
 +++ pr/src/md/unix/uxrng.c
-@@ -27,6 +27,7 @@ static size_t GetHighResClock(void* buf,
+@@ -26,6 +26,7 @@ static size_t GetHighResClock(void* buf,
  
  #elif (defined(LINUX) || defined(FREEBSD) || defined(__FreeBSD_kernel__) || \
         defined(NETBSD) || defined(__NetBSD_kernel__) || defined(OPENBSD) || \
