@@ -1,4 +1,4 @@
---- coreconf/command.mk.orig	2026-04-16 20:47:01 UTC
+--- coreconf/command.mk.orig	2026-04-23 19:28:50 UTC
 +++ coreconf/command.mk
 @@ -12,7 +12,7 @@ AS            = $(CC)
  ASFLAGS      += $(CFLAGS)
