@@ -1,6 +1,6 @@
---- cargo-crates/platform-info-2.0.5/src/lib_impl.rs.orig	2006-07-24 01:21:28 UTC
-+++ cargo-crates/platform-info-2.0.5/src/lib_impl.rs
-@@ -46,6 +46,8 @@ const HOST_OS_NAME: &str = if cfg!(all(
+--- cargo-crates/platform-info-2.1.0/src/lib_impl.rs.orig	2006-07-24 01:21:28 UTC
++++ cargo-crates/platform-info-2.1.0/src/lib_impl.rs
+@@ -87,6 +87,8 @@ const HOST_OS_NAME: &str = if cfg!(all(
      "NetBSD"
  } else if cfg!(target_os = "openbsd") {
      "OpenBSD"
