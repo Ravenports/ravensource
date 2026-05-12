@@ -1,11 +1,11 @@
---- deps/v8/third_party/abseil-cpp/absl/time/internal/cctz/src/time_zone_format.cc.orig	2026-04-01 02:23:54 UTC
+--- deps/v8/third_party/abseil-cpp/absl/time/internal/cctz/src/time_zone_format.cc.orig	2026-05-06 23:11:58 UTC
 +++ deps/v8/third_party/abseil-cpp/absl/time/internal/cctz/src/time_zone_format.cc
-@@ -19,7 +19,7 @@
+@@ -21,7 +21,7 @@
  #endif
  
- #if defined(HAS_STRPTIME) && HAS_STRPTIME
+ #if HAS_STRPTIME
 -#if !defined(_XOPEN_SOURCE) && !defined(__FreeBSD__) && !defined(__OpenBSD__)
-+#if !defined(_XOPEN_SOURCE) && !defined(__FreeBSD__) && !defined(__OpenBSD__) && !defined(__NetBSD__) && !defined(__DragonFly__)
++#if !defined(_XOPEN_SOURCE) && defined(__linux__)
  #define _XOPEN_SOURCE 500  // Exposes definitions for SUSv2 (UNIX 98).
  #endif
  #endif

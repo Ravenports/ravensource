@@ -1,4 +1,4 @@
---- deps/v8/src/base/platform/platform-posix.cc.orig	2026-04-01 02:23:53 UTC
+--- deps/v8/src/base/platform/platform-posix.cc.orig	2026-05-06 23:11:56 UTC
 +++ deps/v8/src/base/platform/platform-posix.cc
 @@ -60,7 +60,7 @@
  #include <malloc/malloc.h>
@@ -18,7 +18,7 @@
  #define MAP_ANONYMOUS MAP_ANON
  #endif
  
-@@ -155,7 +155,7 @@ int GetFlagsForMemoryPermission(OS::Memo
+@@ -153,7 +153,7 @@ int GetFlagsForMemoryPermission(OS::Memo
    flags |= (page_type == PageType::kShared) ? MAP_SHARED : MAP_PRIVATE;
    if (access == OS::MemoryPermission::kNoAccess ||
        access == OS::MemoryPermission::kNoAccessWillJitLater) {
@@ -27,7 +27,7 @@
      flags |= MAP_NORESERVE;
  #endif  // !V8_OS_AIX && !V8_OS_FREEBSD && !V8_OS_QNX
  #if V8_OS_QNX
-@@ -461,6 +461,13 @@ void* OS::GetRandomMmapAddr() {
+@@ -467,6 +467,13 @@ void* OS::GetRandomMmapAddr() {
  #endif
  #endif
  #endif
@@ -41,7 +41,7 @@
    return reinterpret_cast<void*>(raw_addr);
  }
  
-@@ -626,14 +633,11 @@ bool OS::DiscardSystemPages(void* addres
+@@ -659,14 +666,11 @@ bool OS::DiscardSystemPages(void* addres
      // MADV_FREE_REUSABLE sometimes fails, so fall back to MADV_DONTNEED.
      ret = madvise(address, size, MADV_DONTNEED);
    }
@@ -58,7 +58,7 @@
  #else
    int ret = madvise(address, size, MADV_DONTNEED);
  #endif
-@@ -1206,7 +1210,11 @@ Thread::Thread(const Options& options)
+@@ -1240,7 +1244,11 @@ Thread::Thread(const Options& options)
        stack_size_(options.stack_size()),
        priority_(options.priority()),
        start_semaphore_(nullptr) {
@@ -70,7 +70,7 @@
    if (stack_size_ > 0) stack_size_ = std::max(stack_size_, min_stack_size);
    set_name(options.name());
  }
-@@ -1221,7 +1229,7 @@ static void SetThreadName(const char* na
+@@ -1255,7 +1263,7 @@ static void SetThreadName(const char* na
    pthread_set_name_np(pthread_self(), name);
  #elif V8_OS_NETBSD
    static_assert(Thread::kMaxThreadNameLength <= PTHREAD_MAX_NAMELEN_NP);
@@ -79,7 +79,7 @@
  #elif V8_OS_DARWIN
    // pthread_setname_np is only available in 10.6 or later, so test
    // for it at runtime.
-@@ -1401,6 +1409,7 @@ void Thread::SetThreadLocal(LocalStorage
+@@ -1435,6 +1443,7 @@ void Thread::SetThreadLocal(LocalStorage
  // support it. MacOS and FreeBSD are different here.
  #if !defined(V8_OS_FREEBSD) && !defined(V8_OS_DARWIN) && !defined(_AIX) && \
      !defined(V8_OS_SOLARIS)
@@ -87,7 +87,7 @@
  
  namespace {
  #if DEBUG
-@@ -1463,6 +1472,7 @@ Stack::StackSlot Stack::ObtainCurrentThr
+@@ -1497,6 +1506,7 @@ Stack::StackSlot Stack::ObtainCurrentThr
  #endif  // V8_OS_ZOS
  }
  

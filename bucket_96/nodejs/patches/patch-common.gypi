@@ -1,6 +1,6 @@
---- common.gypi.orig	2026-04-01 02:23:50 UTC
+--- common.gypi.orig	2026-05-06 23:11:52 UTC
 +++ common.gypi
-@@ -492,11 +492,11 @@
+@@ -556,11 +556,11 @@
            'NOMINMAX',
          ],
        }],
