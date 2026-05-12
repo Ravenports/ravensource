@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.6.15
+DEF[PORTVERSION]=	1.7.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		roundcube
@@ -28,10 +28,8 @@ VOPTS[php85]=		P83=OFF P84=OFF P85=ON
 FPC_EQUIVALENT=		mail/roundcube
 
 LICENSE=		GPLv3+:primary
-LICENSE_FILE=		GPLv3+:{{WRKSRC}}/LICENSE
+LICENSE_FILE=		GPLv3+:{{WRKSRC}}/docs/LICENSE.md
 LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
-LICENSE_AWK=		TERMS:"^$$"
-LICENSE_SOURCE=		TERMS:{{WRKSRC}}/index.php
 LICENSE_SCHEME=		solo
 
 SUB_FILES=		newsyslog.conf
@@ -104,10 +102,8 @@ SKIP_BUILD=		yes
 					php85-pdo_pgsql:single:std
 					php85-pdo_mysql:single:std
 
-post-patch:
-	# remove unsupported databases
-	${MV} ${WRKSRC}/SQL/mssql ${WRKDIR}/
-	${MV} ${WRKSRC}/SQL/oracle ${WRKDIR}/
+post-extract:
+	${AWK} '/^LICENSE/,/^CONTRIBUTION/' ${WRKSRC}/README.md > ${WRKDIR}/TERMS
 
 pre-configure:
 	${FIND} ${WRKSRC} -type f -name "*.orig" -delete
@@ -118,11 +114,11 @@ do-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/etc/newsyslog.conf.d
 	cd ${WRKSRC} && \
 		${COPYTREE_BIN} bin ${STAGEDIR}${PREFIX}/www/roundcube
-.for i in SQL config .htaccess index.php installer logs plugins program skins temp vendor
+.for i in SQL config index.php installer logs plugins program skins temp vendor
 	cd ${WRKSRC} && \
 		${COPYTREE_SHARE} ${i} ${STAGEDIR}${PREFIX}/www/roundcube
 .endfor
-.for i in CHANGELOG.md INSTALL README.md UPGRADING
+.for i in CHANGELOG.md README.md
 	${INSTALL_DATA} ${WRKSRC}/${i} ${STAGEDIR}${STD_DOCDIR}/
 .endfor
 	${INSTALL_DATA} ${WRKDIR}/newsyslog.conf \
