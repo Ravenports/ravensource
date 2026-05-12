@@ -1,4 +1,4 @@
---- src/lib/lib.h.orig	2026-03-25 12:35:43 UTC
+--- src/lib/lib.h.orig	2026-05-12 10:48:57 UTC
 +++ src/lib/lib.h
 @@ -1,7 +1,7 @@
  #ifndef LIB_H

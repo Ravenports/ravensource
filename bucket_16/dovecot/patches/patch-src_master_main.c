@@ -1,4 +1,4 @@
---- src/master/main.c.orig	2026-03-27 06:57:10 UTC
+--- src/master/main.c.orig	2026-05-12 10:48:57 UTC
 +++ src/master/main.c
 @@ -933,6 +933,8 @@ int main(int argc, char *argv[])
  	if (!i_failure_have_stdout_logs() &&
