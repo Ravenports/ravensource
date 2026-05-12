@@ -1,4 +1,4 @@
---- makedefs.orig	2026-03-05 15:59:44 UTC
+--- makedefs.orig	2026-05-01 18:55:47 UTC
 +++ makedefs
 @@ -280,35 +280,7 @@ case "$SYSTEM.$RELEASE" in
  	      *) error "Seems to be UnixWare`uname -v`. Untested.";;
@@ -73,7 +73,7 @@
  		: ${CC=cc}
  		: ${SHLIB_SUFFIX=.so}
  		: ${SHLIB_CFLAGS=-fPIC}
-@@ -353,8 +325,6 @@ case "$SYSTEM.$RELEASE" in
+@@ -371,8 +343,6 @@ case "$SYSTEM.$RELEASE" in
  		: ${SHLIB_ENV="LD_LIBRARY_PATH=`pwd`/lib"}
  		: ${PLUGIN_LD="${CC} -shared"}
  		;;
@@ -82,11 +82,11 @@
    OpenBSD.2*)	SYSTYPE=OPENBSD2
  		;;
    OpenBSD.3*)	SYSTYPE=OPENBSD3
-@@ -390,49 +360,7 @@ case "$SYSTEM.$RELEASE" in
+@@ -417,65 +387,7 @@ case "$SYSTEM.$RELEASE" in
  		;;
    ekkoBSD.1*)	SYSTYPE=EKKOBSD1
  		;;
--   NetBSD.1*)	SYSTYPE=NETBSD1
+-   NetBSD.1.*)	SYSTYPE=NETBSD1
 -		;;
 -   NetBSD.2*)	SYSTYPE=NETBSD2
 -		;;
@@ -129,6 +129,22 @@
 -		: ${PLUGIN_LD="${CC-gcc} -shared"}
 -		;;
 -   NetBSD.10*)	SYSTYPE=NETBSD10
+-		: ${SHLIB_SUFFIX=.so}
+-		: ${SHLIB_CFLAGS=-fPIC}
+-		: ${SHLIB_LD="${CC-gcc} -shared"' -Wl,-soname,${LIB}'}
+-		: ${SHLIB_RPATH='-Wl,-rpath,${SHLIB_DIR}'}
+-		: ${SHLIB_ENV="LD_LIBRARY_PATH=`pwd`/lib"}
+-		: ${PLUGIN_LD="${CC-gcc} -shared"}
+-		;;
+-   NetBSD.11*)	SYSTYPE=NETBSD11
+-		: ${SHLIB_SUFFIX=.so}
+-		: ${SHLIB_CFLAGS=-fPIC}
+-		: ${SHLIB_LD="${CC-gcc} -shared"' -Wl,-soname,${LIB}'}
+-		: ${SHLIB_RPATH='-Wl,-rpath,${SHLIB_DIR}'}
+-		: ${SHLIB_ENV="LD_LIBRARY_PATH=`pwd`/lib"}
+-		: ${PLUGIN_LD="${CC-gcc} -shared"}
+-		;;
+-   NetBSD.12*)	SYSTYPE=NETBSD12
 +   NetBSD*)	SYSTYPE=NETBSD
  		: ${SHLIB_SUFFIX=.so}
  		: ${SHLIB_CFLAGS=-fPIC}
