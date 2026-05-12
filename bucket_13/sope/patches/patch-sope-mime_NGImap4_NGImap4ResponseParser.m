@@ -1,4 +1,4 @@
---- sope-mime/NGImap4/NGImap4ResponseParser.m.orig	2026-03-03 11:58:40.000000000 -0000
+--- sope-mime/NGImap4/NGImap4ResponseParser.m.orig	2026-03-03 11:58:40 UTC
 +++ sope-mime/NGImap4/NGImap4ResponseParser.m
 @@ -88,7 +88,7 @@ static NSDictionary *_parseSingleBody(NG
  static NSDictionary *_parseMultipartBody(NGImap4ResponseParser *self,

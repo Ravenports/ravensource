@@ -1,4 +1,4 @@
---- sope-appserver/NGObjWeb/SoObjects/SoClassRegistry.m.orig	2026-03-03 11:58:39.000000000 -0000
+--- sope-appserver/NGObjWeb/SoObjects/SoClassRegistry.m.orig	2026-03-03 11:58:39 UTC
 +++ sope-appserver/NGObjWeb/SoObjects/SoClassRegistry.m
 @@ -126,7 +126,7 @@ static SoClassRegistry *registry = nil;
    
