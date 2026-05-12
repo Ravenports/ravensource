@@ -1,4 +1,4 @@
---- lzma/C/CpuArch.c.orig	2026-04-21 17:29:26 UTC
+--- lzma/C/CpuArch.c.orig	2026-05-03 12:44:56 UTC
 +++ lzma/C/CpuArch.c
 @@ -762,6 +762,31 @@ BoolInt CPU_IsSupported_AES (void) { ret
  
