@@ -1,4 +1,4 @@
---- src/nfpcapd/pcapdump.c.orig	2025-11-09 17:02:56 UTC
+--- src/nfpcapd/pcapdump.c.orig	2026-04-28 10:09:20 UTC
 +++ src/nfpcapd/pcapdump.c
 @@ -41,6 +41,7 @@
  #include <sys/param.h>

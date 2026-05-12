@@ -1,17 +1,17 @@
---- src/collector/expire.c.orig	2026-04-28 10:09:20 UTC
-+++ src/collector/expire.c
-@@ -66,7 +66,7 @@ static uint32_t timeout = 0;
+--- src/tor/torlookup.c.orig	2026-04-28 10:09:20 UTC
++++ src/tor/torlookup.c
+@@ -64,7 +64,7 @@ static void usage(char *name);
  
- static void PrepareDirLists(channel_t *channel);
+ static int traverseTree(char *const argv[]);
  
 -#if defined __FreeBSD__
 +#if defined __FreeBSD__ || defined __DragonFly__
  static int compare(const FTSENT *const *f1, const FTSENT *const *f2);
  #else
  static int compare(const FTSENT **f1, const FTSENT **f2);
-@@ -255,7 +255,7 @@ uint64_t ParseTimeDef(char *s, uint64_t
- 
- }  // End of ParseTimeDef
+@@ -200,7 +200,7 @@ static int processFile(char *torFile) {
+     return 0;
+ }  // End of processFile
  
 -#if defined __FreeBSD__
 +#if defined __FreeBSD__ || defined __DragonFly__

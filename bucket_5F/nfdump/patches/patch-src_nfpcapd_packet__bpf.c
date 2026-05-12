@@ -1,14 +1,14 @@
---- src/nfpcapd/packet_bpf.c.orig	2025-11-09 17:02:56 UTC
+--- src/nfpcapd/packet_bpf.c.orig	2026-04-28 10:09:20 UTC
 +++ src/nfpcapd/packet_bpf.c
-@@ -37,6 +37,7 @@
- #endif
+@@ -34,6 +34,7 @@
+ 
  #include <errno.h>
  #include <fcntl.h>
 +#include <sys/types.h>
  #include <net/bpf.h>
  #include <net/if.h>
  #include <pthread.h>
-@@ -49,7 +50,6 @@
+@@ -47,7 +48,6 @@
  #include <sys/ioctl.h>
  #include <sys/param.h>
  #include <sys/time.h>
