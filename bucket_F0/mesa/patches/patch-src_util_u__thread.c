@@ -1,4 +1,4 @@
---- src/util/u_thread.c.orig	2026-04-15 14:20:41 UTC
+--- src/util/u_thread.c.orig	2026-04-29 20:19:00 UTC
 +++ src/util/u_thread.c
 @@ -150,7 +150,7 @@ util_set_thread_affinity(thrd_t thread,
  int64_t

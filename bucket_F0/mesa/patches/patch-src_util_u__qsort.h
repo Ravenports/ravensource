@@ -1,4 +1,4 @@
---- src/util/u_qsort.h.orig	2026-04-15 14:20:41 UTC
+--- src/util/u_qsort.h.orig	2026-04-29 20:19:00 UTC
 +++ src/util/u_qsort.h
 @@ -56,7 +56,7 @@ util_qsort_r(void *base, size_t nmemb, s
               int (*compar)(const void *, const void *, void *),
