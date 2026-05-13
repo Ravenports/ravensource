@@ -268,6 +268,8 @@ def main():
             if variable:
                 special[variable] = value
 
+    fpri.write("@dir(%%OWN%%,%%GRP%%,0750) var/run/epmd\n")
+
     fexa.close()
     fpri.close()
     fdoc.close()

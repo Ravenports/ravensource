@@ -1,28 +1,32 @@
---- erts/emulator/nifs/common/prim_tty_nif.c.orig	2026-04-23 10:09:44 UTC
+--- erts/emulator/nifs/common/prim_tty_nif.c.orig	2026-05-11 10:28:08 UTC
 +++ erts/emulator/nifs/common/prim_tty_nif.c
-@@ -46,12 +46,7 @@
+@@ -46,17 +46,12 @@
  #include <locale.h>
- #if defined(HAVE_TERMCAP) && (defined(HAVE_TERMCAP_H) || (defined(HAVE_CURSES_H) && defined(HAVE_TERM_H)))
+ #if defined(HAVE_TERMCAP)
  #include <termios.h>
--#ifdef HAVE_TERMCAP_H
--#include <termcap.h>
--#else /* !HAVE_TERMCAP_H */
+-#if defined(HAVE_NCURSES_CURSES_H)
+ #include <ncurses/curses.h>
+ #include <ncurses/term.h>
+-#elif defined(HAVE_CURSES_H) && defined(HAVE_TERM_H)
 -#include <curses.h>
 -#include <term.h>
--#endif
-+#include <ncurses/term.h>
  #else
  /* We detected TERMCAP support, but could not find the correct headers to include */
  #undef HAVE_TERMCAP
-@@ -835,11 +830,7 @@ static ERL_NIF_TERM tty_tgetstr_nif(ErlN
- static int tputs_buffer_index;
- static unsigned char tputs_buffer[1024];
+ #endif
+-#endif
+ #ifndef __WIN32__
+ #include <unistd.h>
+ #include <sys/ioctl.h>
+@@ -892,11 +887,7 @@ static unsigned char static_tputs_buffer
+ #endif
+ static unsigned char *tputs_buffer;
  
 -#if defined(__sun) && defined(__SVR4) /* Solaris */
 -static int tty_puts_putc(char c) {
 -#else
  static int tty_puts_putc(int c) {
 -#endif
-     tputs_buffer[tputs_buffer_index++] = (unsigned char)c;
-     return 0;
- }
+ 
+     /* If we have a terminal that does a lot of padding, then it might be
+        that a lot of text is generated here. Those types of terminals are

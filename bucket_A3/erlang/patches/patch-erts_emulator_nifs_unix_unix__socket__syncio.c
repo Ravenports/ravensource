@@ -1,6 +1,6 @@
---- erts/emulator/nifs/unix/unix_socket_syncio.c.orig	2026-04-23 10:09:44 UTC
+--- erts/emulator/nifs/unix/unix_socket_syncio.c.orig	2026-05-11 10:28:08 UTC
 +++ erts/emulator/nifs/unix/unix_socket_syncio.c
-@@ -33,14 +33,17 @@
+@@ -36,14 +36,17 @@
  
  #ifdef ESOCK_ENABLE
  

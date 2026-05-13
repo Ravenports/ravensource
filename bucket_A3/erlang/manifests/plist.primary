@@ -35,7 +35,6 @@ lib/erlang/bin/typer
 lib/erlang/erts-%%ERTS_VSN%%/bin/beam.smp
 lib/erlang/erts-%%ERTS_VSN%%/bin/ct_run
 lib/erlang/erts-%%ERTS_VSN%%/bin/dialyzer
-lib/erlang/erts-%%ERTS_VSN%%/bin/dyn_erl
 lib/erlang/erts-%%ERTS_VSN%%/bin/epmd
 lib/erlang/erts-%%ERTS_VSN%%/bin/erl
 lib/erlang/erts-%%ERTS_VSN%%/bin/erl.src
@@ -118,6 +117,7 @@ lib/erlang/lib/common_test-%%COMMTEST_VSN%%/ebin/ct_config_xml.beam
 lib/erlang/lib/common_test-%%COMMTEST_VSN%%/ebin/ct_conn_log_h.beam
 lib/erlang/lib/common_test-%%COMMTEST_VSN%%/ebin/ct_cover.beam
 lib/erlang/lib/common_test-%%COMMTEST_VSN%%/ebin/ct_default_gl.beam
+lib/erlang/lib/common_test-%%COMMTEST_VSN%%/ebin/ct_doctest.beam
 lib/erlang/lib/common_test-%%COMMTEST_VSN%%/ebin/ct_event.beam
 lib/erlang/lib/common_test-%%COMMTEST_VSN%%/ebin/ct_framework.beam
 lib/erlang/lib/common_test-%%COMMTEST_VSN%%/ebin/ct_ftp.beam
@@ -164,6 +164,8 @@ lib/erlang/lib/common_test-%%COMMTEST_VSN%%/priv/jquery.tablesorter.min.js
 lib/erlang/lib/common_test-%%COMMTEST_VSN%%/priv/tile1.jpg
 lib/erlang/lib/common_test-%%COMMTEST_VSN%%/proper_ext/ct_proper_ext.beam
 lib/erlang/lib/common_test-%%COMMTEST_VSN%%/proper_ext/ct_proper_ext.erl
+lib/erlang/lib/common_test-%%COMMTEST_VSN%%/proper_ext/ct_quickcheck_ext.beam
+lib/erlang/lib/common_test-%%COMMTEST_VSN%%/proper_ext/ct_quickcheck_ext.erl
 lib/erlang/lib/common_test-%%COMMTEST_VSN%%/src/ct.erl
 lib/erlang/lib/common_test-%%COMMTEST_VSN%%/src/ct_config.erl
 lib/erlang/lib/common_test-%%COMMTEST_VSN%%/src/ct_config_plain.erl
@@ -171,6 +173,7 @@ lib/erlang/lib/common_test-%%COMMTEST_VSN%%/src/ct_config_xml.erl
 lib/erlang/lib/common_test-%%COMMTEST_VSN%%/src/ct_conn_log_h.erl
 lib/erlang/lib/common_test-%%COMMTEST_VSN%%/src/ct_cover.erl
 lib/erlang/lib/common_test-%%COMMTEST_VSN%%/src/ct_default_gl.erl
+lib/erlang/lib/common_test-%%COMMTEST_VSN%%/src/ct_doctest.erl
 lib/erlang/lib/common_test-%%COMMTEST_VSN%%/src/ct_event.erl
 lib/erlang/lib/common_test-%%COMMTEST_VSN%%/src/ct_framework.erl
 lib/erlang/lib/common_test-%%COMMTEST_VSN%%/src/ct_ftp.erl
@@ -220,7 +223,6 @@ lib/erlang/lib/compiler-%%COMPILER_VSN%%/ebin/beam_call_types.beam
 lib/erlang/lib/compiler-%%COMPILER_VSN%%/ebin/beam_clean.beam
 lib/erlang/lib/compiler-%%COMPILER_VSN%%/ebin/beam_core_to_ssa.beam
 lib/erlang/lib/compiler-%%COMPILER_VSN%%/ebin/beam_dict.beam
-lib/erlang/lib/compiler-%%COMPILER_VSN%%/ebin/beam_digraph.beam
 lib/erlang/lib/compiler-%%COMPILER_VSN%%/ebin/beam_disasm.beam
 lib/erlang/lib/compiler-%%COMPILER_VSN%%/ebin/beam_doc.beam
 lib/erlang/lib/compiler-%%COMPILER_VSN%%/ebin/beam_flatten.beam
@@ -283,7 +285,6 @@ lib/erlang/lib/compiler-%%COMPILER_VSN%%/src/beam_call_types.erl
 lib/erlang/lib/compiler-%%COMPILER_VSN%%/src/beam_clean.erl
 lib/erlang/lib/compiler-%%COMPILER_VSN%%/src/beam_core_to_ssa.erl
 lib/erlang/lib/compiler-%%COMPILER_VSN%%/src/beam_dict.erl
-lib/erlang/lib/compiler-%%COMPILER_VSN%%/src/beam_digraph.erl
 lib/erlang/lib/compiler-%%COMPILER_VSN%%/src/beam_disasm.erl
 lib/erlang/lib/compiler-%%COMPILER_VSN%%/src/beam_disasm.hrl
 lib/erlang/lib/compiler-%%COMPILER_VSN%%/src/beam_doc.erl
@@ -977,6 +978,7 @@ lib/erlang/lib/kernel-%%KERNEL_VSN%%/ebin/application_starter.beam
 lib/erlang/lib/kernel-%%KERNEL_VSN%%/ebin/auth.beam
 lib/erlang/lib/kernel-%%KERNEL_VSN%%/ebin/code.beam
 lib/erlang/lib/kernel-%%KERNEL_VSN%%/ebin/code_server.beam
+lib/erlang/lib/kernel-%%KERNEL_VSN%%/ebin/data_publisher.beam
 lib/erlang/lib/kernel-%%KERNEL_VSN%%/ebin/disk_log.beam
 lib/erlang/lib/kernel-%%KERNEL_VSN%%/ebin/disk_log_1.beam
 lib/erlang/lib/kernel-%%KERNEL_VSN%%/ebin/disk_log_server.beam
@@ -1083,6 +1085,7 @@ lib/erlang/lib/kernel-%%KERNEL_VSN%%/src/application_starter.erl
 lib/erlang/lib/kernel-%%KERNEL_VSN%%/src/auth.erl
 lib/erlang/lib/kernel-%%KERNEL_VSN%%/src/code.erl
 lib/erlang/lib/kernel-%%KERNEL_VSN%%/src/code_server.erl
+lib/erlang/lib/kernel-%%KERNEL_VSN%%/src/data_publisher.erl
 lib/erlang/lib/kernel-%%KERNEL_VSN%%/src/disk_log.erl
 lib/erlang/lib/kernel-%%KERNEL_VSN%%/src/disk_log.hrl
 lib/erlang/lib/kernel-%%KERNEL_VSN%%/src/disk_log_1.erl
@@ -1559,6 +1562,8 @@ lib/erlang/lib/public_key-%%PUBKEY_VSN%%/asn1/ECPrivateKey.asn1
 lib/erlang/lib/public_key-%%PUBKEY_VSN%%/asn1/EnrollmentMessageSyntax-2009.asn1
 lib/erlang/lib/public_key-%%PUBKEY_VSN%%/asn1/KEMAlgorithmInformation-2023.asn1
 lib/erlang/lib/public_key-%%PUBKEY_VSN%%/asn1/OCSP-2024-08.asn1
+lib/erlang/lib/public_key-%%PUBKEY_VSN%%/asn1/OTP-PKIX-Relaxed.asn1
+lib/erlang/lib/public_key-%%PUBKEY_VSN%%/asn1/OTP-PKIX-Relaxed.asn1config
 lib/erlang/lib/public_key-%%PUBKEY_VSN%%/asn1/OTP-PKIX.asn1
 lib/erlang/lib/public_key-%%PUBKEY_VSN%%/asn1/OTP-PKIX.asn1config
 lib/erlang/lib/public_key-%%PUBKEY_VSN%%/asn1/PKCS-1.asn1
@@ -1579,6 +1584,7 @@ lib/erlang/lib/public_key-%%PUBKEY_VSN%%/asn1/SLH-DSA-Module-2024.asn1
 lib/erlang/lib/public_key-%%PUBKEY_VSN%%/asn1/Safecurves-pkix-18.asn1
 lib/erlang/lib/public_key-%%PUBKEY_VSN%%/asn1/SecureMimeMessageV3dot1-2009.asn1
 lib/erlang/lib/public_key-%%PUBKEY_VSN%%/asn1/X509-ML-DSA-2025.asn1
+lib/erlang/lib/public_key-%%PUBKEY_VSN%%/asn1/X509-ML-KEM-2025.asn1
 lib/erlang/lib/public_key-%%PUBKEY_VSN%%/ebin/AlgorithmInformation-2009.beam
 lib/erlang/lib/public_key-%%PUBKEY_VSN%%/ebin/AttributeCertificateVersion1-2009.beam
 lib/erlang/lib/public_key-%%PUBKEY_VSN%%/ebin/CMSAesRsaesOaep-2009.beam
@@ -1589,6 +1595,7 @@ lib/erlang/lib/public_key-%%PUBKEY_VSN%%/ebin/ECPrivateKey.beam
 lib/erlang/lib/public_key-%%PUBKEY_VSN%%/ebin/EnrollmentMessageSyntax-2009.beam
 lib/erlang/lib/public_key-%%PUBKEY_VSN%%/ebin/KEMAlgorithmInformation-2023.beam
 lib/erlang/lib/public_key-%%PUBKEY_VSN%%/ebin/OCSP-2024-08.beam
+lib/erlang/lib/public_key-%%PUBKEY_VSN%%/ebin/OTP-PKIX-Relaxed.beam
 lib/erlang/lib/public_key-%%PUBKEY_VSN%%/ebin/OTP-PKIX.beam
 lib/erlang/lib/public_key-%%PUBKEY_VSN%%/ebin/PKCS-1.beam
 lib/erlang/lib/public_key-%%PUBKEY_VSN%%/ebin/PKCS-10.beam
@@ -1608,6 +1615,7 @@ lib/erlang/lib/public_key-%%PUBKEY_VSN%%/ebin/SLH-DSA-Module-2024.beam
 lib/erlang/lib/public_key-%%PUBKEY_VSN%%/ebin/Safecurves-pkix-18.beam
 lib/erlang/lib/public_key-%%PUBKEY_VSN%%/ebin/SecureMimeMessageV3dot1-2009.beam
 lib/erlang/lib/public_key-%%PUBKEY_VSN%%/ebin/X509-ML-DSA-2025.beam
+lib/erlang/lib/public_key-%%PUBKEY_VSN%%/ebin/X509-ML-KEM-2025.beam
 lib/erlang/lib/public_key-%%PUBKEY_VSN%%/ebin/pubkey_cert.beam
 lib/erlang/lib/public_key-%%PUBKEY_VSN%%/ebin/pubkey_cert_records.beam
 lib/erlang/lib/public_key-%%PUBKEY_VSN%%/ebin/pubkey_crl.beam
@@ -1631,6 +1639,7 @@ lib/erlang/lib/public_key-%%PUBKEY_VSN%%/src/ECPrivateKey.erl
 lib/erlang/lib/public_key-%%PUBKEY_VSN%%/src/EnrollmentMessageSyntax-2009.erl
 lib/erlang/lib/public_key-%%PUBKEY_VSN%%/src/KEMAlgorithmInformation-2023.erl
 lib/erlang/lib/public_key-%%PUBKEY_VSN%%/src/OCSP-2024-08.erl
+lib/erlang/lib/public_key-%%PUBKEY_VSN%%/src/OTP-PKIX-Relaxed.erl
 lib/erlang/lib/public_key-%%PUBKEY_VSN%%/src/OTP-PKIX.erl
 lib/erlang/lib/public_key-%%PUBKEY_VSN%%/src/PKCS-1.erl
 lib/erlang/lib/public_key-%%PUBKEY_VSN%%/src/PKCS-10.erl
@@ -1650,6 +1659,7 @@ lib/erlang/lib/public_key-%%PUBKEY_VSN%%/src/SLH-DSA-Module-2024.erl
 lib/erlang/lib/public_key-%%PUBKEY_VSN%%/src/Safecurves-pkix-18.erl
 lib/erlang/lib/public_key-%%PUBKEY_VSN%%/src/SecureMimeMessageV3dot1-2009.erl
 lib/erlang/lib/public_key-%%PUBKEY_VSN%%/src/X509-ML-DSA-2025.erl
+lib/erlang/lib/public_key-%%PUBKEY_VSN%%/src/X509-ML-KEM-2025.erl
 lib/erlang/lib/public_key-%%PUBKEY_VSN%%/src/pubkey_cert.erl
 lib/erlang/lib/public_key-%%PUBKEY_VSN%%/src/pubkey_cert_records.erl
 lib/erlang/lib/public_key-%%PUBKEY_VSN%%/src/pubkey_crl.erl
@@ -2329,7 +2339,9 @@ lib/erlang/lib/stdlib-%%STDLIB_VSN%%/ebin/gen_event.beam
 lib/erlang/lib/stdlib-%%STDLIB_VSN%%/ebin/gen_fsm.beam
 lib/erlang/lib/stdlib-%%STDLIB_VSN%%/ebin/gen_server.beam
 lib/erlang/lib/stdlib-%%STDLIB_VSN%%/ebin/gen_statem.beam
+lib/erlang/lib/stdlib-%%STDLIB_VSN%%/ebin/graph.beam
 lib/erlang/lib/stdlib-%%STDLIB_VSN%%/ebin/io.beam
+lib/erlang/lib/stdlib-%%STDLIB_VSN%%/ebin/io_ansi.beam
 lib/erlang/lib/stdlib-%%STDLIB_VSN%%/ebin/io_lib.beam
 lib/erlang/lib/stdlib-%%STDLIB_VSN%%/ebin/io_lib_format.beam
 lib/erlang/lib/stdlib-%%STDLIB_VSN%%/ebin/io_lib_fread.beam
@@ -2354,12 +2366,12 @@ lib/erlang/lib/stdlib-%%STDLIB_VSN%%/ebin/queue.beam
 lib/erlang/lib/stdlib-%%STDLIB_VSN%%/ebin/rand.beam
 lib/erlang/lib/stdlib-%%STDLIB_VSN%%/ebin/random.beam
 lib/erlang/lib/stdlib-%%STDLIB_VSN%%/ebin/re.beam
+lib/erlang/lib/stdlib-%%STDLIB_VSN%%/ebin/records.beam
 lib/erlang/lib/stdlib-%%STDLIB_VSN%%/ebin/sets.beam
 lib/erlang/lib/stdlib-%%STDLIB_VSN%%/ebin/shell.beam
 lib/erlang/lib/stdlib-%%STDLIB_VSN%%/ebin/shell_default.beam
 lib/erlang/lib/stdlib-%%STDLIB_VSN%%/ebin/shell_docs.beam
 lib/erlang/lib/stdlib-%%STDLIB_VSN%%/ebin/shell_docs_markdown.beam
-lib/erlang/lib/stdlib-%%STDLIB_VSN%%/ebin/shell_docs_test.beam
 lib/erlang/lib/stdlib-%%STDLIB_VSN%%/ebin/slave.beam
 lib/erlang/lib/stdlib-%%STDLIB_VSN%%/ebin/sofs.beam
 lib/erlang/lib/stdlib-%%STDLIB_VSN%%/ebin/stdlib.app
@@ -2430,7 +2442,9 @@ lib/erlang/lib/stdlib-%%STDLIB_VSN%%/src/gen_event.erl
 lib/erlang/lib/stdlib-%%STDLIB_VSN%%/src/gen_fsm.erl
 lib/erlang/lib/stdlib-%%STDLIB_VSN%%/src/gen_server.erl
 lib/erlang/lib/stdlib-%%STDLIB_VSN%%/src/gen_statem.erl
+lib/erlang/lib/stdlib-%%STDLIB_VSN%%/src/graph.erl
 lib/erlang/lib/stdlib-%%STDLIB_VSN%%/src/io.erl
+lib/erlang/lib/stdlib-%%STDLIB_VSN%%/src/io_ansi.erl
 lib/erlang/lib/stdlib-%%STDLIB_VSN%%/src/io_lib.erl
 lib/erlang/lib/stdlib-%%STDLIB_VSN%%/src/io_lib_format.erl
 lib/erlang/lib/stdlib-%%STDLIB_VSN%%/src/io_lib_fread.erl
@@ -2457,17 +2471,18 @@ lib/erlang/lib/stdlib-%%STDLIB_VSN%%/src/queue.erl
 lib/erlang/lib/stdlib-%%STDLIB_VSN%%/src/rand.erl
 lib/erlang/lib/stdlib-%%STDLIB_VSN%%/src/random.erl
 lib/erlang/lib/stdlib-%%STDLIB_VSN%%/src/re.erl
+lib/erlang/lib/stdlib-%%STDLIB_VSN%%/src/records.erl
 lib/erlang/lib/stdlib-%%STDLIB_VSN%%/src/sets.erl
 lib/erlang/lib/stdlib-%%STDLIB_VSN%%/src/shell.erl
 lib/erlang/lib/stdlib-%%STDLIB_VSN%%/src/shell_default.erl
 lib/erlang/lib/stdlib-%%STDLIB_VSN%%/src/shell_docs.erl
 lib/erlang/lib/stdlib-%%STDLIB_VSN%%/src/shell_docs_markdown.erl
-lib/erlang/lib/stdlib-%%STDLIB_VSN%%/src/shell_docs_test.erl
 lib/erlang/lib/stdlib-%%STDLIB_VSN%%/src/slave.erl
 lib/erlang/lib/stdlib-%%STDLIB_VSN%%/src/sofs.erl
 lib/erlang/lib/stdlib-%%STDLIB_VSN%%/src/string.erl
 lib/erlang/lib/stdlib-%%STDLIB_VSN%%/src/supervisor.erl
 lib/erlang/lib/stdlib-%%STDLIB_VSN%%/src/supervisor_bridge.erl
+lib/erlang/lib/stdlib-%%STDLIB_VSN%%/src/swar_ascii.hrl
 lib/erlang/lib/stdlib-%%STDLIB_VSN%%/src/sys.erl
 lib/erlang/lib/stdlib-%%STDLIB_VSN%%/src/timer.erl
 lib/erlang/lib/stdlib-%%STDLIB_VSN%%/src/unicode.erl
@@ -2517,6 +2532,7 @@ lib/erlang/lib/tftp-%%TFTP_VSN%%/src/tftp_logger.erl
 lib/erlang/lib/tftp-%%TFTP_VSN%%/src/tftp_sup.erl
 lib/erlang/lib/tools-%%TOOLS_VSN%%/ebin/cover.beam
 lib/erlang/lib/tools-%%TOOLS_VSN%%/ebin/cprof.beam
+lib/erlang/lib/tools-%%TOOLS_VSN%%/ebin/crashdump.beam
 lib/erlang/lib/tools-%%TOOLS_VSN%%/ebin/eprof.beam
 lib/erlang/lib/tools-%%TOOLS_VSN%%/ebin/fprof.beam
 lib/erlang/lib/tools-%%TOOLS_VSN%%/ebin/lcnt.beam
@@ -2536,16 +2552,15 @@ lib/erlang/lib/tools-%%TOOLS_VSN%%/emacs/README
 lib/erlang/lib/tools-%%TOOLS_VSN%%/emacs/erlang-edoc.el
 lib/erlang/lib/tools-%%TOOLS_VSN%%/emacs/erlang-eunit.el
 lib/erlang/lib/tools-%%TOOLS_VSN%%/emacs/erlang-flymake.el
-lib/erlang/lib/tools-%%TOOLS_VSN%%/emacs/erlang-skels-old.el
 lib/erlang/lib/tools-%%TOOLS_VSN%%/emacs/erlang-skels.el
 lib/erlang/lib/tools-%%TOOLS_VSN%%/emacs/erlang-start.el
 lib/erlang/lib/tools-%%TOOLS_VSN%%/emacs/erlang-test.el
 lib/erlang/lib/tools-%%TOOLS_VSN%%/emacs/erlang.el
-lib/erlang/lib/tools-%%TOOLS_VSN%%/emacs/erlang_appwiz.el
 lib/erlang/lib/tools-%%TOOLS_VSN%%/emacs/erldoc.el
 lib/erlang/lib/tools-%%TOOLS_VSN%%/priv/styles.css
 lib/erlang/lib/tools-%%TOOLS_VSN%%/src/cover.erl
 lib/erlang/lib/tools-%%TOOLS_VSN%%/src/cprof.erl
+lib/erlang/lib/tools-%%TOOLS_VSN%%/src/crashdump.erl
 lib/erlang/lib/tools-%%TOOLS_VSN%%/src/eprof.erl
 lib/erlang/lib/tools-%%TOOLS_VSN%%/src/fprof.erl
 lib/erlang/lib/tools-%%TOOLS_VSN%%/src/lcnt.erl
@@ -3149,4 +3164,5 @@ lib/erlang/releases/%%RELEASE%%/start_clean.script
 lib/erlang/releases/%%RELEASE%%/start_sasl.boot
 lib/erlang/releases/%%RELEASE%%/start_sasl.rel
 lib/erlang/releases/%%RELEASE%%/start_sasl.script
+lib/erlang/releases/%%RELEASE%%/sys.config
 @dir(%%OWN%%,%%GRP%%,0750) var/run/epmd
