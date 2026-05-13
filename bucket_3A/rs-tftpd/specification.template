@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.0.0
+DEF[PORTVERSION]=	%%VERSION%%
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		rs-tftpd
@@ -9,23 +9,13 @@ SDESC[std]=		TFTP server daemon & client implemented in Rust
 HOMEPAGE=		https://github.com/altugbakan/rs-tftpd
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
-DOWNLOAD_GROUPS=	main cr01 cr02 cr03 cr04 cr05 cr06
+%%DOWNLOAD_GROUPS%%
 SITES[main]=		GITHUB/altugbakan:rs-tftpd:${PORTVERSION}
-SITES[cr01]=		CRATES/errno:0.3.14
-SITES[cr02]=		CRATES/libc:0.2.186
-SITES[cr03]=		CRATES/signal-hook:0.4.4
-SITES[cr04]=		CRATES/signal-hook-registry:1.4.8
-SITES[cr05]=		CRATES/windows-link:0.2.1
-SITES[cr06]=		CRATES/windows-sys:0.61.2
+%%CR_SITES%%
 
 DISTFILE[1]=		generated:main
-DISTFILE[2]=		generated:cr01
-DISTFILE[3]=		generated:cr02
-DISTFILE[4]=		generated:cr03
-DISTFILE[5]=		generated:cr04
-DISTFILE[6]=		generated:cr05
-DISTFILE[7]=		generated:cr06
-DF_INDEX=		1 2 3 4 5 6 7
+%%CR_DISTFILES%%
+%%DF_INDEX%%
 
 SPKGS[std]=		set primary client
 
