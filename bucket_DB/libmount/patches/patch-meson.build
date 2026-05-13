@@ -16,7 +16,23 @@
  
  opt = not get_option('build-line').disabled()
  exe = executable(
-@@ -2699,6 +2701,7 @@ if opt and not is_disabler(exe)
+@@ -1662,6 +1664,7 @@ if opt and not is_disabler(exe)
+   bashcompletions += ['dmesg']
+ endif
+ 
++if false
+ exe = executable(
+   'test_dmesg',
+   dmesg_sources,
+@@ -1673,6 +1676,7 @@ exe = executable(
+ if not is_disabler(exe)
+   exes += exe
+ endif
++endif
+ 
+ opt = get_option('build-ctrlaltdel').allowed()
+ exe = executable(
+@@ -2699,6 +2703,7 @@ if opt and not is_disabler(exe)
    bashcompletions += ['scriptlive']
  endif
  
@@ -24,7 +40,7 @@
  exe = executable(
    'scriptreplay',
    scriptreplay_sources,
-@@ -2713,6 +2716,7 @@ if opt and not is_disabler(exe)
+@@ -2713,6 +2718,7 @@ if opt and not is_disabler(exe)
    manadocs += scriptreplay_manadocs
    bashcompletions += ['scriptreplay']
  endif
@@ -32,3 +48,35 @@
  
  opt = not get_option('build-agetty').disabled()
  exe = executable(
+@@ -3298,6 +3304,7 @@ if opt and not is_disabler(exe)
+   bashcompletions += ['pipesz']
+ endif
+ 
++if false
+ exe = executable(
+   'test_cal',
+   cal_sources,
+@@ -3310,6 +3317,7 @@ exe = executable(
+ if not is_disabler(exe)
+   exes += exe
+ endif
++endif
+ 
+ have_posix_fadvise = conf.get('HAVE_POSIX_FADVISE').to_string() == '1'
+ 
+@@ -3528,6 +3536,7 @@ if not is_disabler(exe)
+   exes += exe
+ endif
+ 
++if false
+ exe = executable(
+   'test_colors',
+   'lib/colors.c',
+@@ -3539,6 +3548,7 @@ exe = executable(
+ if not is_disabler(exe)
+   exes += exe
+ endif
++endif
+ 
+ exe = executable(
+   'test_randutils',

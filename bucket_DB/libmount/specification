@@ -1,5 +1,5 @@
 DEF[PORTVERSION]=	EXTRACT_INFO(LINUX_UTILS_VERSION)
-DEF[DLFOLDER]=		2.41
+DEF[DLFOLDER]=		2.42
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libmount
@@ -28,6 +28,7 @@ LICENSE_SCHEME=		solo
 
 BUILD_DEPENDS=		bison:primary:std
 			openpam:dev:std
+			ncurses:set:std
 
 USES=			cpe meson pkgconfig python
 # need by disabled apps ncurses:build zlib
@@ -125,6 +126,9 @@ MESON_ARGS=		-Dprogram-tests=false
 			-Dbuild-exch=disabled
 			-Dbuild-libsmartcols=disabled
 			-Dbuild-bits=disabled
+			-Dbuild-irqtop=disabled
+			-Dbuild-getino=disabled
+			-Dbuild-copyfilerange=disabled
 			-Dcryptsetup=disabled
 
 # Below needed for some of the disabled apps
