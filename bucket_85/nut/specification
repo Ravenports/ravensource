@@ -2,7 +2,7 @@ DEF[PORTVERSION]=	2.8.5
 DEF[FOLDER]=		${PORTVERSION:R}
 DEF[NUT_USER]=		nut
 DEF[NUT_GROUP]=		nut
-DEF[STATEDIR]=		/var/db/nut
+DEF[STATEDIR]=		var/db/nut
 DEF[CGIDIR_REL]=	www/cgi-bin/nut
 DEF[WWWDIR_REL]=	www/nut
 DEF[SOVERSION]=		4.1.0
@@ -66,7 +66,7 @@ CONFIGURE_ARGS=		--sysconfdir={{PREFIX}}/etc/nut
 			--datadir={{PREFIX}}/etc/nut
 			--with-devd-dir={{PREFIX}}/etc/devd
 			--with-drvpath={{PREFIX}}/libexec/nut
-			--localstatedir=${STATEDIR}
+			--localstatedir={{PREFIX}}/${STATEDIR}
 			--with-statepath=${STATEDIR}
 			--with-altpidpath=${STATEDIR}
 			--with-pidpath=${STATEDIR}
@@ -126,7 +126,7 @@ pre-install:
 		${WRKSRC}/scripts/devd/nut-usb.conf
 
 post-install:
-	${MKDIR} ${STAGEDIR}${STATEDIR}
+	${MKDIR} ${STAGEDIR}${PREFIX}/${STATEDIR}
 	${MKDIR} ${STAGEDIR}${PREFIX}/etc/syslog.d
 	${MKDIR} ${STAGEDIR}${PREFIX}/etc/bash_completion.d/
 	${MKDIR} ${STAGEDIR}${STD_DOCDIR}/cables
@@ -147,3 +147,4 @@ post-install:
 		${STAGEDIR}${STD_EXAMPLESDIR}/newsyslog.sample
 	${INSTALL_DATA} ${FILESDIR}/nut_upslog.sample \
 		${STAGEDIR}${STD_EXAMPLESDIR}/nut_upslog.sample
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib*.so
