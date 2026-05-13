@@ -1,8 +1,10 @@
-DEF[PORTVERSION]=	7.2
-DEF[DLFOLDER]=		7.2
-DEF[DATE_HTMLXREF]=	20241223
-DEF[DATE_TEXI2DVI]=	20241223
-DEF[DATE_TEXINFO_TEX]=	20241220
+DEF[PORTVERSION]=	7.3
+DEF[DLFOLDER]=		7.3
+DEF[DATE_HTMLXREF]=	20260302
+DEF[DATE_TEXI2DVI]=	20260302
+DEF[DATE_TEXI2PDF]=	20260302
+DEF[DATE_TEXINFO_TEX]=	20260110
+DEF[SOVERSION]=		1.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		texinfo
@@ -17,13 +19,15 @@ DOWNLOAD_GROUPS=	main dports
 SITES[main]=		GNU/texinfo
 SITES[dports]=		https://leaf.dragonflybsd.org/~marino/dports-src/texinfo/${DLFOLDER}/
 DISTFILE[1]=		texinfo-${PORTVERSION}.tar.xz:main
-DISTFILE[2]=		htmlxref.cnf-${DATE_HTMLXREF}:dports
-DISTFILE[3]=		texinfo.tex-${DATE_TEXINFO_TEX}:dports
-DISTFILE[4]=		texi2dvi-${DATE_TEXI2DVI}:dports
+DISTFILE[2]=		texinfo.tex-${DATE_TEXINFO_TEX}:dports
+DISTFILE[3]=		texi2dvi-${DATE_TEXI2DVI}:dports
+DISTFILE[4]=		texi2pdf-${DATE_TEXI2PDF}:dports
+DISTFILE[5]=		Texinfo_GNU.cnf-${DATE_HTMLXREF}:dports
+DISTFILE[6]=		Texinfo_nonGNU.cnf-${DATE_HTMLXREF}:dports
 DIST_SUBDIR=		texinfo/${DLFOLDER}
-DF_INDEX=		1 2 3 4
+DF_INDEX=		1 2 3 4 5 6
 
-SPKGS[std]=		set primary nls man info
+SPKGS[std]=		set primary dev nls man info
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -55,20 +59,22 @@ INFO=			info:texinfo
 			info:texi2any_internals
 MAKE_ARGS=		TEXMF={{LOCALBASE}}/share/texmf
 			PERL={{LOCALBASE}}/bin/perl
+SOVERSION=		${SOVERSION}
 INSTALL_REQ_TOOLCHAIN=	yes
 
 post-extract:
 	${CHMOD} 755 ${WRKSRC}/build-aux/install-sh
-	${CP} ${DISTDIR}/${DIST_SUBDIR}/texinfo.tex-${DATE_TEXINFO_TEX} \
+	${INSTALL_DATA} ${DISTDIR}/${DIST_SUBDIR}/texinfo.tex-${DATE_TEXINFO_TEX} \
 		${WRKSRC}/doc/texinfo.txt
 	${INSTALL_SCRIPT} ${DISTDIR}/${DIST_SUBDIR}/texi2dvi-${DATE_TEXI2DVI} \
 		${WRKSRC}/util/texi2dvi
-
-pre-configure:
-	${REINPLACE_CMD} -e '/rm -f $$(DESTDIR)/ s|$$| $$(DESTDIR)$$(xsdir)/XSParagraph.*|' \
-		${WRKSRC}/tp/Texinfo/XS/Makefile.in
+	${INSTALL_SCRIPT} ${DISTDIR}/${DIST_SUBDIR}/texi2pdf-${DATE_TEXI2PDF} \
+		${WRKSRC}/util/texi2pdf
+	${INSTALL_SCRIPT} ${DISTDIR}/${DIST_SUBDIR}/Texinfo_GNU.cnf-${DATE_HTMLXREF} \
+		${WRKSRC}/util/htmlxref.d/Texinfo_GNU.cnf
+	${INSTALL_SCRIPT} ${DISTDIR}/${DIST_SUBDIR}/Texinfo_nonGNU.cnf-${DATE_HTMLXREF} \
+		${WRKSRC}/util/htmlxref.d/Texinfo_nonGNU.cnf
 
 post-install:
-	if [ -d "${STAGEDIR}${PREFIX}/lib/texinfo" ]; then \
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/texinfo/*.so ;\
-	fi
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/texi2any/XS_extension/*.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/texi2any/lib/*.so

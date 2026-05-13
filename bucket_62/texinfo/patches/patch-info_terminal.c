@@ -1,6 +1,6 @@
---- info/terminal.c.orig	Tue Jul  1 20:08:05 2025
-+++ info/terminal.c	Tue Jul  1 20:11:15 2025
-@@ -151,11 +151,19 @@
+--- info/terminal.c.orig	2026-03-01 17:03:26 UTC
++++ info/terminal.c
+@@ -154,11 +154,19 @@ char *term_me;
     return its argument, all the code I've looked at (termutils, less)
     does so, so fine.  */
  static int
