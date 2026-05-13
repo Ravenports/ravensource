@@ -1,8 +1,8 @@
 Avoid macro definition collision on sunos.
 
---- src/libstat/backends/redis_backend.cxx.orig	2026-01-08 13:17:41 UTC
+--- src/libstat/backends/redis_backend.cxx.orig	2026-04-05 18:56:32 UTC
 +++ src/libstat/backends/redis_backend.cxx
-@@ -61,8 +61,8 @@ struct redis_stat_ctx {
+@@ -62,8 +62,8 @@ struct redis_stat_ctx {
  
  	ucl_object_t *cur_stat = nullptr;
  

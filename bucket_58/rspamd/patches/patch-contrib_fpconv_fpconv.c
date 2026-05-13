@@ -1,4 +1,4 @@
---- contrib/fpconv/fpconv.c.orig	2026-01-08 13:17:41 UTC
+--- contrib/fpconv/fpconv.c.orig	2026-04-05 18:56:32 UTC
 +++ contrib/fpconv/fpconv.c
 @@ -2,6 +2,14 @@
  #include <string.h>
