@@ -1,6 +1,6 @@
---- drivers/libusb1.c.orig	2025-08-06 15:00:53 UTC
+--- drivers/libusb1.c.orig	2026-03-22 20:48:48 UTC
 +++ drivers/libusb1.c
-@@ -53,7 +53,19 @@ static void nut_libusb_close(libusb_devi
+@@ -62,7 +62,19 @@ static void nut_libusb_close(libusb_devi
   */
  void nut_usb_addvars(void)
  {

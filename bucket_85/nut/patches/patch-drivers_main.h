@@ -1,4 +1,4 @@
---- drivers/main.h.orig	2025-04-19 15:08:33 UTC
+--- drivers/main.h.orig	2026-04-01 14:18:21 UTC
 +++ drivers/main.h
 @@ -1,6 +1,7 @@
  #ifndef NUT_MAIN_H_SEEN
