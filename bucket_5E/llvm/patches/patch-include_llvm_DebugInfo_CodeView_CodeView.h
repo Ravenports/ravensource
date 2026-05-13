@@ -1,4 +1,4 @@
---- include/llvm/DebugInfo/CodeView/CodeView.h.orig	2026-04-21 06:46:41 UTC
+--- include/llvm/DebugInfo/CodeView/CodeView.h.orig	2026-05-04 22:50:13 UTC
 +++ include/llvm/DebugInfo/CodeView/CodeView.h
 @@ -16,6 +16,25 @@
  #include "llvm/Support/Compiler.h"

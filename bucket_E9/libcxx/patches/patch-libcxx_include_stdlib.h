@@ -1,4 +1,4 @@
---- libcxx/include/stdlib.h.orig	2026-04-21 06:46:41 UTC
+--- libcxx/include/stdlib.h.orig	2026-05-04 22:50:13 UTC
 +++ libcxx/include/stdlib.h
 @@ -124,7 +124,7 @@ using std::__math::abs;
  // MSVCRT already has the correct prototype in <stdlib.h> if __cplusplus is defined

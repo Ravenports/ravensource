@@ -1,4 +1,4 @@
---- source/Host/posix/HostThreadPosix.cpp.orig	2026-04-21 06:46:41 UTC
+--- source/Host/posix/HostThreadPosix.cpp.orig	2026-05-04 22:50:13 UTC
 +++ source/Host/posix/HostThreadPosix.cpp
 @@ -40,7 +40,7 @@ Status HostThreadPosix::Join(lldb::threa
  Status HostThreadPosix::Cancel() {

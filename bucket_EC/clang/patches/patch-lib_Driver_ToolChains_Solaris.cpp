@@ -1,4 +1,4 @@
---- lib/Driver/ToolChains/Solaris.cpp.orig	2026-04-21 06:46:41 UTC
+--- lib/Driver/ToolChains/Solaris.cpp.orig	2026-05-04 22:50:13 UTC
 +++ lib/Driver/ToolChains/Solaris.cpp
 @@ -109,12 +109,17 @@ void solaris::Linker::ConstructJob(Compi
      }
