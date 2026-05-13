@@ -1,6 +1,6 @@
---- dependencies/quill/include/quill/backend/ThreadUtilities.h.orig	2026-03-24 10:38:30 UTC
+--- dependencies/quill/include/quill/backend/ThreadUtilities.h.orig	2026-04-16 18:15:35 UTC
 +++ dependencies/quill/include/quill/backend/ThreadUtilities.h
-@@ -46,6 +46,10 @@
+@@ -47,6 +47,10 @@
  #elif defined(__OpenBSD__)
    #include <pthread_np.h>
    #include <unistd.h>
@@ -11,7 +11,7 @@
  #else
    // linux
    #include <pthread.h>
-@@ -213,6 +217,8 @@ QUILL_NODISCARD QUILL_EXPORT QUILL_ATTRI
+@@ -220,6 +224,8 @@ QUILL_NODISCARD QUILL_EXPORT QUILL_ATTRI
    return static_cast<uint32_t>(lwp_gettid());
  #elif defined(__OpenBSD__)
    return static_cast<uint32_t>(getthrid());
