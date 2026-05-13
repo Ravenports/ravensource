@@ -1,4 +1,4 @@
---- xmlsecurity/source/xmlsec/xmldocumentwrapper_xmlsecimpl.cxx.orig	2026-04-09 16:07:27 UTC
+--- xmlsecurity/source/xmlsec/xmldocumentwrapper_xmlsecimpl.cxx.orig	2026-04-24 19:21:51 UTC
 +++ xmlsecurity/source/xmlsec/xmldocumentwrapper_xmlsecimpl.cxx
 @@ -27,6 +27,7 @@
  #include "xmlelementwrapper_xmlsecimpl.hxx"
