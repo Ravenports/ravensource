@@ -1,7 +1,7 @@
 fcntl is portable, flock is not.
 Solaris does not have ifr.ifr_hwaddr.
 
---- libuuid/src/gen_uuid.c.orig	2025-12-15 11:51:15 UTC
+--- libuuid/src/gen_uuid.c.orig	2026-04-01 09:51:16 UTC
 +++ libuuid/src/gen_uuid.c
 @@ -181,7 +181,7 @@ static int get_node_id(unsigned char *no
  	for (i = 0; i < n; i+= ifreq_size(*ifrp) ) {

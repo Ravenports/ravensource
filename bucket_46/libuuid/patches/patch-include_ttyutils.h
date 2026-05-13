@@ -1,6 +1,6 @@
 Define values if missing.
 
---- include/ttyutils.h.orig	2025-12-15 12:25:47 UTC
+--- include/ttyutils.h.orig	2026-04-01 09:51:16 UTC
 +++ include/ttyutils.h
 @@ -100,6 +100,18 @@ extern int get_terminal_name(const char
  static inline void reset_virtual_console(struct termios *tp, int flags)

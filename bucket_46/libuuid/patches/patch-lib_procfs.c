@@ -1,4 +1,4 @@
---- lib/procfs.c.orig	2025-12-15 12:25:47 UTC
+--- lib/procfs.c.orig	2026-04-01 09:52:48 UTC
 +++ lib/procfs.c
 @@ -8,6 +8,10 @@
  #include <unistd.h>
@@ -10,4 +10,4 @@
 +
  #ifdef HAVE_SYS_VFS_H
  # include <sys/vfs.h>
- # include "statfs_magic.h"
+ #endif

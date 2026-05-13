@@ -1,8 +1,8 @@
 Add NAME_MAX compat.
 
---- include/c.h.orig	2025-12-15 12:25:47 UTC
+--- include/c.h.orig	2026-04-01 09:51:16 UTC
 +++ include/c.h
-@@ -39,6 +39,10 @@
+@@ -44,6 +44,10 @@
  
  #define BIT(n)                 (1 << (n))
  
