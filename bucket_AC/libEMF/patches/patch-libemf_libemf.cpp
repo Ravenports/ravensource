@@ -1,10 +1,23 @@
---- libemf/libemf.cpp.orig	2020-06-07 13:10:20 UTC
+--- libemf/libemf.cpp.orig	2026-05-04 19:14:29 UTC
 +++ libemf/libemf.cpp
-@@ -72,8 +72,7 @@ namespace EMF {
+@@ -20,12 +20,12 @@
+  */
+ #include <iostream>
+ #include <climits>
++#include <functional>
+ 
+ #ifdef __APPLE__
+ #include <libkern/OSByteOrder.h>
+ #define bswap_32(x) OSSwapInt32(x)
+ #else
+-#include <byteswap.h>
+ #endif
+ 
+ #include "libemf.h"
+@@ -79,7 +79,7 @@ namespace EMF {
      if ( not bigEndian() ) {
        return a;
      }
--#include <byteswap.h>
 -    return bswap_32(a);
 +    return __builtin_bswap32(a);
    }
