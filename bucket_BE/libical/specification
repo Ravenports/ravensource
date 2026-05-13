@@ -1,4 +1,6 @@
-DEF[PORTVERSION]=	3.0.20
+DEF[PORTVERSION]=	4.0.0
+DEF[SOVERSION]=		${PORTVERSION}
+DEF[API]=		${PORTVERSION:R}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libical
@@ -20,9 +22,9 @@ OPTIONS_STANDARD=	none
 
 LICENSE=		MPL:primary
 			LGPL21:primary
-LICENSE_TERMS=		primary:{{WRKSRC}}/COPYING
-LICENSE_FILE=		MPL:stock
-			LGPL21:stock
+LICENSE_TERMS=		primary:{{WRKSRC}}/LICENSE.txt
+LICENSE_FILE=		MPL:{{WRKSRC}}/LICENSES/MPL-2.0.txt
+			LGPL21:{{WRKSRC}}/LICENSES/LGPL-2.1-only.txt
 LICENSE_SCHEME=		dual
 
 FPC_EQUIVALENT=		devel/libical
@@ -37,8 +39,11 @@ CPE_VENDOR=		libical_project
 SINGLE_JOB=		yes
 CMAKE_ARGS=		-DGOBJECT_INTROSPECTION=true
 			-DICAL_GLIB_VAPI=true
-			-DICAL_BUILD_DOCS=false
-SOVERSION=		${PORTVERSION}
+			-DLIBICAL_BUILD_DOCS=false
+			-DLIBICAL_JAVA_BINDINGS=false
+PLIST_SUB=		API=${API}
+			SOVERSION=${SOVERSION}
+			SOMAJOR=${SOVERSION:R}
 CFLAGS=			-fPIC
 
 post-install:
