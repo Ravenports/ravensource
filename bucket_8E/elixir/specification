@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	1.19.5
+DEF[PORTVERSION]=	1.20.0rc5
+DEF[TAG]=		v1.20.0-rc.5
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		elixir
@@ -10,7 +11,7 @@ HOMEPAGE=		https://elixir-lang.org/
 CONTACT=		Michael_Neumann[mneumann@ntecs.de]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GITHUB/elixir-lang:elixir:v${PORTVERSION}
+SITES[main]=		GITHUB/elixir-lang:elixir:${TAG}
 DISTFILE[1]=		generated:main
 
 SPKGS[std]=		set primary dev man
@@ -19,6 +20,7 @@ OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 USES=			gmake
+BUILD_DEPENDS=		erlang:dev:std
 BUILDRUN_DEPENDS=	erlang:primary:std
 
 FPC_EQUIVALENT=		lang/elixir
