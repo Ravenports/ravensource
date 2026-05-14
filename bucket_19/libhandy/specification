@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	1.8.3
 
 NAMEBASE=		libhandy
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		x11_toolkits
 VARIANTS=		std
 SDESC[std]=		Library with GTK+ widgets for mobile phones
@@ -31,11 +32,10 @@ FPC_EQUIVALENT=		x11-toolkits/libhandy
 BUILD_DEPENDS=		python-gi-docgen:set:python_default
 			vala:primary:std
 			harfbuzz:dev:std
-			glade:dev:std
-BUILDRUN_DEPENDS=	glade:primary:std
 
 USES=			meson pkgconfig
 GNOME_COMPONENTS=	glib gtk3 introspection
 
 MESON_ARGS=		-Dtests=false
 			-Dgtk_doc=true
+			-Dglade_catalog=disabled
