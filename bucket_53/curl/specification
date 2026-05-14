@@ -58,7 +58,7 @@ SOVERSION=		${SOVERSION}
 					--with-mbedtls=no
 [EMBED].CONFIGURE_ARGS_ON=		--with-mbedtls={{LOCALBASE}}
 [EMBED].BUILD_DEPENDS_ON=		libssh2:dev:embed
-					mbedtls:dev:std
+					mbedtls3:dev:std
 
 pre-configure:
 	${REINPLACE_CMD} -e '/^SUBDIRS = / s|$$| docs scripts|; /^DIST_SUBDIRS = / s| docs scripts||; /cd docs &&/d' \
