@@ -1,17 +1,18 @@
 DEF[PORTVERSION]=	EXTRACT_VERSION(MYSQL_mariadb-10.6_VERSION)
 DEF[PORTNAME]=		mariadb106
 DEF[FETCH_ID]=		4554627
-DEF[DBDIR]=		/var/db/mysql
-DEF[RUNDIR]=		/var/run/mysql
-DEF[LOGDIR]=		/var/log/mysql
-DEF[SOCK]=		mysql.sock
-DEF[DBUSER]=		mysql
-DEF[DBGROUP]=		mysql
+DEF[DBDIR]=		var/db/mariadb
+DEF[RUNDIR]=		var/run/mariadb
+DEF[LOGDIR]=		var/log/mariadb
+DEF[SOCK]=		maria.sock
+DEF[DBUSER]=		mariadb
+DEF[DBGROUP]=		mariadb
 # Remove cmake minimum argument on next release
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		${PORTNAME}
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		databases
 VARIANTS=		std
 SDESC[std]=		Fast SQL database server, derived from MySQL
@@ -82,10 +83,10 @@ CMAKE_ARGS=		-DCOMPILATION_COMMENT="Ravenports"
 			-DINSTALL_SCRIPTDIR=bin
 			-DINSTALL_MYSQLTESTDIR=
 			-DINSTALL_SQLBENCHDIR=
-			-DINSTALL_UNIX_ADDRDIR="${RUNDIR}/${SOCK}"
+			-DINSTALL_UNIX_ADDRDIR="{{PREFIX}}/${RUNDIR}/${SOCK}"
 			-DINSTALL_SYSCONFDIR="etc/mysql"
 			-DINSTALL_SYSCONF2DIR="etc/mysql/conf.d"
-			-DINSTALL_MYSQLDATADIR="${DBDIR}"
+			-DINSTALL_MYSQLDATADIR="{{PREFIX}}/${DBDIR}"
 			-DINSTALL_PAMDATADIR="etc/mysql"
 			-DINSTALL_SBINDIR=libexec
 			-DDEFAULT_CHARSET=utf8mb4
@@ -113,7 +114,9 @@ PLIST_SUB=		PORTNAME=${PORTNAME}
 			AUTHSOCKET={{AUTHSOCKET}}
 			MARIADB_USER="${DBUSER}"
 			MARIADB_GROUP="${DBGROUP}"
+			MARIADB_DBDIR="${DBDIR}"
 			MARIADB_LOGDIR="${LOGDIR}"
+			MARIADB_RUNDIR="${RUNDIR}"
 SUB_FILES=		my.cnf.sample
 			client.cnf.sample
 			server.cnf.sample
@@ -173,7 +176,9 @@ post-install:
 	${RM} -r ${STAGEDIR}${PREFIX}/etc/mysql/init.d
 	${RM} -r ${STAGEDIR}${PREFIX}/etc/mysql/logrotate.d
 	${RM} -r ${STAGEDIR}/suite
-	${MKDIR} ${STAGEDIR}${LOGDIR}
+	${MKDIR} ${STAGEDIR}${PREFIX}/${DBDIR}
+	${MKDIR} ${STAGEDIR}${PREFIX}/${LOGDIR}
+	${MKDIR} ${STAGEDIR}${PREFIX}/${RUNDIR}
 
 	# strip plugins and libraries
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/mysql/libmariadb.so
