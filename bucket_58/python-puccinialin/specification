@@ -1,0 +1,48 @@
+DEF[PORTVERSION]=	0.1.11
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-puccinialin
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v13 v14
+SDESC[v13]=		Bootstraps rust-based python modules (3.13)
+SDESC[v14]=		Bootstraps rust-based python modules (3.14)
+HOMEPAGE=		https://pypi.org/project/puccinialin/
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/4c/74/deae6e19aa33b246a074c6960812a988a081fb514aa94acc2d1108fadbd2
+DISTFILE[1]=		puccinialin-${PORTVERSION}-py3-none-any.whl:main
+DIST_SUBDIR=		python-src
+
+SPKGS[v13]=		single
+SPKGS[v14]=		single
+
+OPTIONS_AVAILABLE=	PY313 PY314
+OPTIONS_STANDARD=	none
+VOPTS[v13]=		PY313=ON PY314=OFF
+VOPTS[v14]=		PY313=OFF PY314=ON
+
+# License listed at PyPI
+# Not provided.
+
+GENERATED=		yes
+DISTNAME=		puccinialin-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# filelock>=3.19.1,<4.0.0
+# httpx>=0.28.1,<0.29
+# platformdirs>=4.3.6,<5
+# tqdm>=4.67.1,<5
+
+[PY313].USES_ON=			python:v13,wheel
+[PY313].RUN_DEPENDS_ON=			python-filelock:single:v13
+					python-httpx:single:v13
+					python-platformdirs:single:v13
+					python-tqdm:single:v13
+[PY314].USES_ON=			python:v14,wheel
+[PY314].RUN_DEPENDS_ON=			python-filelock:single:v14
+					python-httpx:single:v14
+					python-platformdirs:single:v14
+					python-tqdm:single:v14
+
