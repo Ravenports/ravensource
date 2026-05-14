@@ -5,6 +5,7 @@ DEF[SOVERSION]=		0.0.0
 
 NAMEBASE=		libxfce4ui
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		x11
 VARIANTS=		std
 SDESC[std]=		Xfce UI library containing various GTK+ widgets
@@ -40,10 +41,8 @@ BUILD_DEPENDS=		harfbuzz:dev:std
 			xfconf:dev:std
 			vala:dev:std
 			vala:primary:std
-			glade:dev:std
 			startup-notification:dev:std
-BUILDRUN_DEPENDS=	glade:primary:std
-			startup-notification:primary:std
+BUILDRUN_DEPENDS=	startup-notification:primary:std
 			xfconf:primary:std
 			libxfce4util:primary:std
 
@@ -55,6 +54,7 @@ XORG_COMPONENTS=	sm
 GNOME_COMPONENTS=	glib gtk3 intltool introspection
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-nls
+			--disable-gladeui2
 			--with-html-dir={{PREFIX}}/share/doc
 INSTALL_REQ_TOOLCHAIN=	yes
 INSTALL_TARGET=		install-strip
