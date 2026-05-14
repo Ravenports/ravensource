@@ -1,3 +1,4 @@
+# Turn HTTP option on by default when cyrus-imapd support libical 4.0
 DEF[PORTVERSION]=	3.12.2
 DEF[SOVERSION]=		0.0.0
 DEF[CYRUS_USER]=	cyrus
@@ -6,7 +7,7 @@ DEF[CYRUS_GROUP]=	cyrus
 
 NAMEBASE=		cyrus-imapd
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		mail
 VARIANTS=		std
 SDESC[std]=		High-performance mail store with IMAP support
@@ -19,8 +20,8 @@ DISTFILE[1]=		cyrus-imapd-${PORTVERSION}.tar.gz:main
 
 SPKGS[std]=		set primary tools dev man docs
 
-OPTIONS_AVAILABLE=	SUNOS
-OPTIONS_STANDARD=	SUNOS
+OPTIONS_AVAILABLE=	SUNOS HTTP
+OPTIONS_STANDARD=	SUNOS HTTP
 OPT_ON[sunos]=		SUNOS
 
 FPC_EQUIVALENT=		mail/cyrus-imapd312
@@ -31,24 +32,17 @@ LICENSE_SCHEME=		solo
 
 SOVERSION=		${SOVERSION}
 
-BUILD_DEPENDS=		brotli:dev:std
-			cyrus-sasl:dev:std
+BUILD_DEPENDS=		cyrus-sasl:dev:std
 			icu:dev:std
 			jansson:dev:std
 			krb5:dev:std
-			libical:dev:std
-			libnghttp2:dev:std
 			vim:xxd:std
-			xapian-core:dev:std
-BUILDRUN_DEPENDS=	brotli:primary:std
-			cyrus-sasl:primary:std
+			libical:dev:std
+BUILDRUN_DEPENDS=	cyrus-sasl:primary:std
 			icu:primary:std
 			jansson:primary:std
 			krb5:primary:std
-			libical:primary:std
-			libnghttp2:primary:std
 			rsync:primary:std
-			xapian-core:primary:std
 
 EXRUN[tools]=		cyrus-imapd:primary:std
 
@@ -60,9 +54,8 @@ GROUPS=			${CYRUS_GROUP}
 USERGROUP_SPKG=		primary
 
 USES=			cpe gmake libtool perl pkgconfig ssl:openssl30 shebangfix
-			bison sqlite zlib zstd pcre
+			bison sqlite zlib pcre2
 			smf:tools
-GNOME_COMPONENTS=	libxml2
 SHEBANG_FILES=		imap/promdatagen
 			tools/config2header
 			tools/masssievec
@@ -103,14 +96,28 @@ CONFIGURE_ARGS=		--libexecdir={{PREFIX}}/cyrus/libexec
 			--enable-idled
 			--enable-murder
 			--enable-squat
-			--enable-xapian
 			--enable-gssapi={{LOCALBASE}}
-			--enable-http
-			--enable-jmap
 			--disable-replication
 			--with-mysql=no
 			--with-pgsql=no
 			--with-clamav=no
+
+# HTTP => CalDAV, CardDAV, WebDAV, RSS, JSON Mail Access
+# libical:dev:std should be part of BUILD_DEPENDS_ON, but apparently these headers
+# are always required, even when http is disabled.
+
+[HTTP].DESCRIPTION=			Support several HTTP/DAV protocols
+[HTTP].BUILD_DEPENDS_ON=		xapian-core:dev:std
+					brotli:dev:std
+					libnghttp2:dev:std
+[HTTP].BUILDRUN_DEPENDS_ON=		libical:primary:std
+					xapian-core:primary:std
+					brotli:primary:std
+					libnghttp2:primary:std
+[HTTP].CONFIGURE_ENABLE_BOTH=		http jmap xapian calalarmd
+[HTTP].CONFIGURE_WITH_BOTH=		brotli nghttp2
+[HTTP].GNOME_COMPONENTS_ON=		libxml2
+[HTTP].USES_ON=				zstd
 
 [SUNOS].LDFLAGS_OFF=			-Wl,-z,execstack
 
