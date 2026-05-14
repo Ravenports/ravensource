@@ -12,6 +12,7 @@ DEF[SOVERSION]=		4.1.0
 
 NAMEBASE=		mbedtls
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		security devel
 VARIANTS=		std threaded
 SDESC[std]=		Light-weight cryptographic and SSL/TLS library
@@ -43,7 +44,7 @@ OPTIONS_AVAILABLE=	THREAD
 OPTIONS_STANDARD=	THREAD
 VOPTS[threaded]=	THREAD=ON
 
-FPC_EQUIVALENT=		security/mbedtls3
+FPC_EQUIVALENT=		security/mbedtls4
 
 LICENSE=		APACHE20:primary GPLv2+:primary
 LICENSE_FILE=		APACHE20:stock
@@ -67,6 +68,7 @@ PLIST_SUB=		SO_TLS=${SO_TLS}
 			SO_CRYPTO=${SO_CRYPTO}
 			SO_TFPSA=${SO_TFPSA}
 			SO_TFPSAMAJ=${SO_TFPSAMAJ}
+CFLAGS=			-fPIC
 SOVERSION=		${SOVERSION}
 
 VAR_OPSYS[sunos]=	LDFLAGS=-lsocket
