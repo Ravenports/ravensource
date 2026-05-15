@@ -3,7 +3,7 @@ DEF[PORTVERSION]=	2.1
 
 NAMEBASE=		surf
 VERSION=		${PORTVERSION}
-REVISION=		7
+REVISION=		8
 KEYWORDS=		www
 VARIANTS=		std
 SDESC[std]=		Simple webkit browser adhering suckless principles
@@ -11,7 +11,8 @@ HOMEPAGE=		https://surf.suckless.org
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		https://dl.suckless.org/surf/
+# SITES[main]=		https://dl.suckless.org/surf/
+SITES[main]=		https://leaf.dragonflybsd.org/~marino/raven-distfiles/
 DISTFILE[1]=		surf-${PORTVERSION}.tar.gz:main
 
 SPKGS[std]=		set primary man
@@ -26,10 +27,10 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		www/surf
 
 BUILD_DEPENDS=		harfbuzz:dev:std
-			libsoup-2.4:dev:std
-			webkit2:dev:api40
+			libsoup:dev:std
+			webkit2:dev:api41
 			gcr3:dev:std
-BUILDRUN_DEPENDS=	webkit2:primary:api40
+BUILDRUN_DEPENDS=	webkit2:primary:api41
 			gcr3:primary:std
 RUN_DEPENDS=		curl:primary:std
 			dmenu:set:std
