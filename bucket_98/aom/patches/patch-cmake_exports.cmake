@@ -1,5 +1,5 @@
---- build/cmake/exports.cmake.orig	2026-03-17 23:08:47 UTC
-+++ build/cmake/exports.cmake
+--- cmake/exports.cmake.orig	2026-05-13 23:13:38 UTC
++++ cmake/exports.cmake
 @@ -68,7 +68,7 @@ function(setup_exports_target)
                     APPEND_STRING
                     PROPERTY LINK_FLAGS "${aom_sym_file}")
