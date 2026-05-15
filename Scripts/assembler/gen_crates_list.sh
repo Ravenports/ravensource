@@ -10,7 +10,6 @@ if [ $# -lt 2 ]; then
    exit 1
 fi
 
-CONSPIR=$(/raven/bin/ravenadm dev info D)
 DPATH=$(dirname $0)
 SCRIPTSDIR=$(cd ${DPATH}/.. && pwd -P)
 RAVENSRC=$(dirname ${SCRIPTSDIR})
