@@ -116,6 +116,8 @@ CARGO_ENV+=	SCCACHE_DIR=${CCACHE_DIR}/sccache
 .if !target(do-configure) && ${CARGO_SKIP_CONFIGURE:tl} == "no"
 # configure hook.  Place a config file for overriding crates-io index
 # by local source directory.
+# If ${FILESDIR}/config.toml exists, append
+# If ${WRKDIR}/config.toml exists, append
 do-configure:
 	@${ECHO_MSG} "===>   Cargo config:"
 	@${MKDIR} ${WRKDIR}/.cargo
@@ -124,6 +126,12 @@ do-configure:
 	@${ECHO_CMD} "directory = '${CARGO_VENDOR_DIR}'" >> ${WRKDIR}/.cargo/config.toml
 	@${ECHO_CMD} "[source.crates-io]" >> ${WRKDIR}/.cargo/config.toml
 	@${ECHO_CMD} "replace-with = 'cargo'" >> ${WRKDIR}/.cargo/config.toml
+	@if [ -f "${FILESDIR}/config.toml" ]; then \
+		${CAT} "${FILESDIR}/config.toml" >> ${WRKDIR}/.cargo/config.toml;\
+	done
+	@if [ -f "${WRKDIR}/config.toml" ]; then \
+		${CAT} "${WRKDIR}/config.toml" >> ${WRKDIR}/.cargo/config.toml;\
+	done
 	@${CAT} ${WRKDIR}/.cargo/config.toml
 
 	@if ! ${GREP} -qF '[profile.release]' ${CARGO_CARGOTOML}; then \
