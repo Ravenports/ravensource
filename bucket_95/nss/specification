@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.123.1
+DEF[PORTVERSION]=	3.124
 DEF[DIST]=		{{WRKDIR}}/nss-${PORTVERSION}/dist
 DEF[BINS_A]=		certutil cmsutil crlutil derdump makepqg mangle
 DEF[BINS_B]=		modutil ocspclnt oidcalc p7content p7env p7sign p7verify
@@ -91,8 +91,6 @@ do-install:
 	${FIND} ${DIST}/public/nss -type l \
 		-exec ${INSTALL_DATA} {} ${STAGEDIR}${PREFIX}/include/nss/nss \;
 	${INSTALL_LIB} ${BINS}/lib/*.${LIBEXT} \
-		${STAGEDIR}${PREFIX}/lib/nss
-	${INSTALL_DATA} ${BINS}/lib/libcrmf.a \
 		${STAGEDIR}${PREFIX}/lib/nss
 .for bin in ${INSTALL_BINS}
 	${INSTALL_PROGRAM} ${BINS}/bin/${bin} \
