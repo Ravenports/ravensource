@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	9.0.0
+DEF[PORTVERSION]=	9.1.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-deepdiff
@@ -11,7 +11,7 @@ HOMEPAGE=		https://zepworks.com/deepdiff/
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/dc/c4/da7089cd7aa4ab554f56e18a7fb08dcfed8fd2ae91fa528f5b1be207a148
+SITES[main]=		PYPIWHL/c7/26/4a2bad8eb430d8d805a4642c4bff25103a37548d74ab346f8b1e024abcc5
 DISTFILE[1]=		deepdiff-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -30,6 +30,7 @@ GENERATED=		yes
 DISTNAME=		deepdiff-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
+# cachebox>=5.2,<6
 # orderly-set>=5.5.0,<6
 # click~=8.3.1 ; extra == "cli"
 # pyyaml~=6.0.3 ; extra == "cli"
@@ -58,13 +59,15 @@ DISTNAME=		deepdiff-${PORTVERSION}.dist-info
 # flake8~=7.3.0 ; extra == "static"
 # flake8-pyproject~=1.2.4 ; extra == "static"
 # pydantic~=2.12.5 ; extra == "static"
-# pytest~=9.0.2 ; extra == "test"
+# pytest~=9.0.3 ; extra == "test"
 # pytest-benchmark~=5.2.3 ; extra == "test"
 # pytest-cov~=7.1.0 ; extra == "test"
 # python-dotenv~=1.2.2 ; extra == "test"
 
 [PY313].USES_ON=			python:v13,wheel
-[PY313].RUN_DEPENDS_ON=			python-orderly-set:single:v13
+[PY313].RUN_DEPENDS_ON=			python-cachebox:single:v13
+					python-orderly-set:single:v13
 [PY314].USES_ON=			python:v14,wheel
-[PY314].RUN_DEPENDS_ON=			python-orderly-set:single:v14
+[PY314].RUN_DEPENDS_ON=			python-cachebox:single:v14
+					python-orderly-set:single:v14
 
