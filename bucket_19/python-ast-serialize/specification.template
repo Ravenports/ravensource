@@ -42,15 +42,6 @@ DISTNAME=		ast_serialize-${PORTVERSION}
 [PY314].BUILD_DEPENDS_ON=		python-maturin:single:v14
 
 USES=			cargo cclibs:single
-CARGO_CARGOTOML=	{{WRKSRC}}/Cargo.toml
-CARGO_CARGOLOCK=	{{WRKSRC}}/Cargo.lock
 CARGO_SKIP_CONFIGURE=	yes
 CARGO_SKIP_BUILD=	yes
 CARGO_SKIP_INSTALL=	yes
-
-post-patch:
-	# ${MKDIR} ${WRKSRC}/.cargo
-	# echo "[source.cargo]" >> ${WRKSRC}/.cargo/config.toml
-	# echo "directory = '${CARGO_VENDOR_DIR}'" >> ${WRKSRC}/.cargo/config.toml
-	# echo "[source.crates-io]" >> ${WRKSRC}/.cargo/config.toml
-	# echo "replace-with = 'cargo'" >> ${WRKSRC}/.cargo/config.toml
