@@ -1,4 +1,4 @@
---- Source/WebCore/platform/network/DNS.h.orig	2025-08-11 07:56:55 UTC
+--- Source/WebCore/platform/network/DNS.h.orig	2026-01-20 14:08:46 UTC
 +++ Source/WebCore/platform/network/DNS.h
 @@ -35,6 +35,9 @@
  #include <ws2tcpip.h>

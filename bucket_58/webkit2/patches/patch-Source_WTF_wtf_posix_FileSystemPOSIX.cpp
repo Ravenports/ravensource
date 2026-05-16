@@ -1,4 +1,4 @@
---- Source/WTF/wtf/posix/FileSystemPOSIX.cpp.orig	2025-08-11 07:56:53 UTC
+--- Source/WTF/wtf/posix/FileSystemPOSIX.cpp.orig	2026-02-23 14:40:54 UTC
 +++ Source/WTF/wtf/posix/FileSystemPOSIX.cpp
 @@ -110,6 +110,9 @@ std::optional<WallTime> fileCreationTime
          return std::nullopt;

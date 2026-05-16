@@ -1,4 +1,4 @@
---- Source/WTF/wtf/unix/MemoryPressureHandlerUnix.cpp.orig	2025-08-11 07:56:53 UTC
+--- Source/WTF/wtf/unix/MemoryPressureHandlerUnix.cpp.orig	2026-02-23 14:40:54 UTC
 +++ Source/WTF/wtf/unix/MemoryPressureHandlerUnix.cpp
 @@ -28,7 +28,11 @@
  #include "config.h"
@@ -12,16 +12,16 @@
  #include <unistd.h>
  #include <wtf/Logging.h>
  #include <wtf/MainThread.h>
-@@ -37,7 +41,7 @@
- 
- #if OS(LINUX)
+@@ -39,7 +43,7 @@
  #include <wtf/linux/CurrentProcessMemoryStatus.h>
+ #elif OS(HAIKU)
+ #include <wtf/haiku/CurrentProcessMemoryStatus.h>
 -#elif OS(FREEBSD)
 +#elif OS(FREEBSD) || defined(__DragonFly__) || defined(__MidnightBSD__)
  #include <sys/sysctl.h>
  #include <sys/types.h>
  #include <sys/user.h>
-@@ -115,7 +119,7 @@ static size_t processMemoryUsage()
+@@ -117,7 +121,7 @@ static size_t processMemoryUsage()
      ProcessMemoryStatus memoryStatus;
      currentProcessMemoryStatus(memoryStatus);
      return (memoryStatus.resident - memoryStatus.shared);
@@ -30,7 +30,7 @@
      static size_t pageSize = sysconf(_SC_PAGE_SIZE);
      struct kinfo_proc info;
      size_t infolen = sizeof(info);
-@@ -129,7 +133,11 @@ static size_t processMemoryUsage()
+@@ -131,7 +135,11 @@ static size_t processMemoryUsage()
      if (sysctl(mib, 4, &info, &infolen, nullptr, 0))
          return 0;
  

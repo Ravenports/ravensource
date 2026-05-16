@@ -2,9 +2,9 @@ $NetBSD: patch-Source_WebKit_CMakeLists.txt,v 1.1 2018/05/16 18:55:45 jperkin Ex
 
 SunOS requires libsocket.
 
---- Source/WebKit/CMakeLists.txt.orig	2025-09-26 13:29:05 UTC
+--- Source/WebKit/CMakeLists.txt.orig	2026-02-27 22:37:23 UTC
 +++ Source/WebKit/CMakeLists.txt
-@@ -765,6 +765,10 @@ if (ATOMICS_REQUIRE_LIBATOMIC)
+@@ -797,6 +797,10 @@ if (ATOMICS_REQUIRE_LIBATOMIC)
      list(APPEND WebKit_PRIVATE_LIBRARIES atomic)
  endif ()
  
@@ -14,4 +14,4 @@ SunOS requires libsocket.
 +
  macro(ADD_WEBKIT_PREFIX_HEADER _target)
      if (WebKit_USE_PREFIX_HEADER)
-         get_target_property(OLD_COMPILE_FLAGS ${_target} COMPILE_FLAGS)
+         target_compile_options(${_target} PRIVATE "$<$<COMPILE_LANGUAGE:C,CXX,OBJC,OBJCXX>:-include>" "$<$<COMPILE_LANGUAGE:C,CXX,OBJC,OBJCXX>:${WEBKIT_DIR}/WebKit2Prefix.h>")

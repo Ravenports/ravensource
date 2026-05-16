@@ -8,20 +8,17 @@
 # SOVERSION   = (111 - 74).(74).(6) = 37.74.6
 # JSSOVERSION = (46 - 28).(28).(8) = 18.28.8
 
-DEF[PORTVERSION]=	2.50.6
-DEF[SOVERSION40]=	37.74.9
-DEF[SOVERSION41]=	0.19.9
-DEF[SOVERSION60]=	4.13.9
-DEF[JSSOVERSION40]=	18.28.11
-DEF[JSSOVERSION41]=	0.9.11
-DEF[JSSOVERSION60]=	1.6.11
+DEF[PORTVERSION]=	2.52.3
+DEF[SOVERSION41]=	0.21.7
+DEF[SOVERSION60]=	4.16.7
+DEF[JSSOVERSION41]=	0.10.11
+DEF[JSSOVERSION60]=	1.7.11
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		webkit2
 VERSION=		${PORTVERSION}
 KEYWORDS=		www
-VARIANTS=		api40 api41 api60
-SDESC[api40]=		Opensource browser engine using GTK+3 (API 4.0)
+VARIANTS=		api41 api60
 SDESC[api41]=		Opensource browser engine using GTK+3 (API 4.1)
 SDESC[api60]=		Opensource browser engine using GTK4 (API 6.0)
 HOMEPAGE=		https://www.webkitgtk.org/
@@ -32,15 +29,13 @@ SITES[main]=		https://www.webkitgtk.org/releases/
 			https://fossies.org/linux/www/
 DISTFILE[1]=		webkitgtk-${PORTVERSION}.tar.xz:main
 
-SPKGS[api40]=		set primary nls dev
 SPKGS[api41]=		set primary nls dev
 SPKGS[api60]=		set primary nls dev
 
-OPTIONS_AVAILABLE=	API40 API41 API60
+OPTIONS_AVAILABLE=	API41 API60
 OPTIONS_STANDARD=	none
-VOPTS[api40]=		API40=ON API41=OFF API60=OFF
-VOPTS[api41]=		API40=OFF API41=ON API60=OFF
-VOPTS[api60]=		API40=OFF API41=OFF API60=ON
+VOPTS[api41]=		API41=ON API60=OFF
+VOPTS[api60]=		API41=OFF API60=ON
 
 LICENSE=		GPLv2+:primary BSD3CLAUSE:primary
 LICENSE_FILE=		GPLv2+:stock
@@ -94,8 +89,7 @@ BUILDRUN_DEPENDS=	enchant:primary:std
 			libavif:primary:std
 			libjxl:primary:std
 
-EXRUN[dev]=		libsoup-2.4:dev:std/api40
-			libsoup:dev:std/api41
+EXRUN[dev]=		libsoup:dev:std/api41
 			libsoup:dev:std/api60
 			glib:dev:std
 
@@ -136,25 +130,10 @@ CMAKE_ARGS=		-DPORT=GTK
 CONFIGURE_ENV=		XDG_CACHE_HOME={{WRKDIR}}
 CXXFLAGS=		-DFIXED_EXECUTABLE_MEMORY_POOL_SIZE_IN_MB=32
 PLIST_SUB=		INTRO="@comment "
+DISTNAME=		webkitgtk-${PORTVERSION}
 INSTALL_REQ_TOOLCHAIN=	yes
 
-# try to make ccache work for all 3 variants
-DISTNAME=		base-webkit2
-
 # VAR_OPSYS[sunos]=	CFLAGS=-D__EXTENSIONS__
-
-[API40].DESCRIPTION=			Build WebKit2 API 4.0 variant
-[API40].BUILD_DEPENDS_ON=		libsoup-2.4:dev:std
-[API40].BUILDRUN_DEPENDS_ON=		libsoup-2.4:primary:std
-[API40].GNOME_COMPONENTS_ON=		gtk3
-[API40].CMAKE_ARGS_ON=			-DUSE_SOUP2=ON
-					-DUSE_GTK4=OFF
-[API40].PLIST_SUB_ON=			JSSOVERSION=${JSSOVERSION40}
-					JSSOMAJOR=${JSSOVERSION40:R:R}
-					SOVERSION=${SOVERSION40}
-					SOMAJOR=${SOVERSION40:R:R}
-					WKAPI=4.0
-					WKAPIMAJOR=4
 
 [API41].DESCRIPTION=			Build WebKit2 API 4.1 variant
 [API41].BUILD_DEPENDS_ON=		libsoup:dev:std
@@ -184,9 +163,6 @@ DISTNAME=		base-webkit2
 					WKAPI=6.0
 					WKAPIMAJOR=6
 
-post-extract:
-	${MV} ${WRKDIR}/webkitgtk-${PORTVERSION} ${WRKDIR}/base-webkit2
-
 post-patch:
 	echo 'add_compile_definitions("U_DEFINE_FALSE_AND_TRUE=1")' \
 		>> ${WRKSRC}/Source/WTF/wtf/CMakeLists.txt
@@ -194,15 +170,6 @@ post-patch:
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so.*.*
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/WebKitWebDriver
-
-post-install-API40-ON:
-	(cd ${STAGEDIR}${PREFIX}/bin && \
-	 ${LN} -s ../libexec/webkit2gtk-4.0/jsc jsc-4.0 && \
-	 ${LN} -s ../libexec/webkit2gtk-4.0/MiniBrowser MiniBrowser-4.0)
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/webkit2gtk-4.0/injected-bundle/*.so
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/libexec/webkit2gtk-4.0/*
-	${MV} ${STAGEDIR}${PREFIX}/bin/WebKitWebDriver \
-		${STAGEDIR}${PREFIX}/bin/WebKitWebDriver-4.0
 
 post-install-API41-ON:
 	(cd ${STAGEDIR}${PREFIX}/bin && \

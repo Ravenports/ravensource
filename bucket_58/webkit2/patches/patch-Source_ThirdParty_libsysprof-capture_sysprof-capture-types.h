@@ -1,4 +1,4 @@
---- Source/ThirdParty/libsysprof-capture/sysprof-capture-types.h.orig	2025-08-11 07:56:49 UTC
+--- Source/ThirdParty/libsysprof-capture/sysprof-capture-types.h.orig	2026-01-20 14:08:34 UTC
 +++ Source/ThirdParty/libsysprof-capture/sysprof-capture-types.h
 @@ -59,6 +59,8 @@
  #include <assert.h>

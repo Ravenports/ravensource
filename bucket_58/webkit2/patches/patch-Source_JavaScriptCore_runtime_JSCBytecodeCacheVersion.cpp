@@ -1,6 +1,6 @@
---- Source/JavaScriptCore/runtime/JSCBytecodeCacheVersion.cpp.orig	2025-08-11 07:56:48 UTC
+--- Source/JavaScriptCore/runtime/JSCBytecodeCacheVersion.cpp.orig	2026-02-23 14:40:52 UTC
 +++ Source/JavaScriptCore/runtime/JSCBytecodeCacheVersion.cpp
-@@ -42,6 +42,10 @@
+@@ -44,6 +44,10 @@
  #endif
  #endif
  

@@ -1,6 +1,6 @@
---- Source/WTF/wtf/MathExtras.h.orig	2026-02-19 21:54:13 UTC
+--- Source/WTF/wtf/MathExtras.h.orig	2026-04-07 13:12:48 UTC
 +++ Source/WTF/wtf/MathExtras.h
-@@ -425,7 +425,7 @@ inline void doubleToInteger(double d, un
+@@ -424,7 +424,7 @@ inline void doubleToInteger(double d, un
          value = 0;
      else {
          // -2^{64} < fmodValue < 2^{64}.

@@ -1,4 +1,4 @@
---- Source/WTF/wtf/simde/arm/neon.h.orig	2025-08-11 07:56:53 UTC
+--- Source/WTF/wtf/simde/arm/neon.h.orig	2026-01-20 14:08:42 UTC
 +++ Source/WTF/wtf/simde/arm/neon.h
 @@ -6811,41 +6811,10 @@ HEDLEY_DIAGNOSTIC_POP
   * will not be defined, so if you can handle that situation sensibly

@@ -1,4 +1,4 @@
---- Source/JavaScriptCore/runtime/PropertyTable.h.orig	2026-02-19 21:54:11 UTC
+--- Source/JavaScriptCore/runtime/PropertyTable.h.orig	2026-02-23 14:40:52 UTC
 +++ Source/JavaScriptCore/runtime/PropertyTable.h
 @@ -181,7 +181,7 @@ private:
      template<typename Index, typename Entry>

@@ -1,4 +1,4 @@
---- Source/WTF/wtf/simde/simde.h.orig	2025-08-11 07:56:53 UTC
+--- Source/WTF/wtf/simde/simde.h.orig	2026-01-20 14:08:42 UTC
 +++ Source/WTF/wtf/simde/simde.h
 @@ -34,6 +34,8 @@
  #endif
