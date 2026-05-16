@@ -1,0 +1,10 @@
+post-install-lua: [{
+    args: ""
+    code: <<EOS
+redir = pkg.prefixed_path("etc/redis")
+cfile = pkg.prefixed_path("etc/redis/sentinel.conf.sample")
+pkg.exec({"/usr/bin/chown", "%%OWN%%:%%GRP%%", redir})
+pkg.exec({"/usr/bin/chown", "%%OWN%%:%%GRP%%", cfile})
+pkg.exec({"/bin/chmod", "664", cfile})
+EOS
+}]

@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<!DOCTYPE service_bundle SYSTEM "/usr/share/lib/xml/dtd/service_bundle.dtd.1">
+<service_bundle type="manifest" name="%%SMF_NAME%%">
+    <service name="%%SMF_PREFIX%%/%%SMF_NAME%%" type="service" version="1">
+        <create_default_instance enabled="false"/>
+        <single_instance/>
+        <dependency name="network" grouping="require_all" restart_on="error" type="service">
+            <service_fmri value="svc:/milestone/network:default"/>
+        </dependency>
+        <dependency name="filesystem" grouping="require_all" restart_on="error" type="service">
+            <service_fmri value="svc:/system/filesystem/local"/>
+        </dependency>
+        <dependency name='config-file' grouping='require_all' restart_on='refresh' type='path'>
+            <service_fmri value='file://localhost/%%PREFIX%%/etc/redis/redis.conf'/>
+        </dependency>
+        <method_context working_directory="%%PREFIX%%/var/db/redis">
+            <method_credential user="%%OWN%%" group="%%GRP%%" />
+        </method_context>
+        <exec_method type="method" name="start" exec="%%PREFIX%%/bin/redis-server %{config_file}" timeout_seconds="60"/>
+        <exec_method type="method" name="stop" exec=":kill" timeout_seconds="30"/>
+        <property_group name="startd" type="framework">
+            <propval name="duration" type="astring" value="contract"/>
+            <propval name="ignore_error" type="astring" value="core,signal"/>
+        </property_group>
+        <property_group name="application" type="application">
+            <propval name="config_file" type="astring" value="%%PREFIX%%/etc/redis/redis.conf"/>
+        </property_group>
+        <stability value="Evolving"/>
+        <template>
+            <common_name>
+                <loctext xml:lang="C">Redis server</loctext>
+            </common_name>
+        </template>
+    </service>
+    <service name="%%SMF_PREFIX%%/sentinel" type="service" version="1">
+        <create_default_instance enabled="false"/>
+        <single_instance/>
+        <dependency name="network" grouping="require_all" restart_on="error" type="service">
+            <service_fmri value="svc:/milestone/network:default"/>
+        </dependency>
+        <dependency name="filesystem" grouping="require_all" restart_on="error" type="service">
+            <service_fmri value="svc:/system/filesystem/local"/>
+        </dependency>
+        <dependency name='config-file' grouping='require_all' restart_on='refresh' type='path'>
+            <service_fmri value='file://localhost/%%PREFIX%%/etc/redis/sentinel.conf'/>
+        </dependency>
+        <method_context working_directory="%%PREFIX%%/var/db/redis">
+            <method_credential user="%%OWN%%" group="%%GRP%%" />
+        </method_context>
+        <exec_method type="method" name="start" exec="%%PREFIX%%/bin/redis-sentinel %{config_file} --daemonize yes --pidfile %{pidfile}" timeout_seconds="60"/>
+        <exec_method type="method" name="stop"  exec="/usr/bin/sh -c '/usr/bin/cat %{pidfile} | /usr/bin/xargs /usr/bin/kill'" timeout_seconds="30"/>
+        <property_group name="startd" type="framework">
+            <propval name="duration" type="astring" value="transient"/>
+            <propval name="ignore_error" type="astring" value="core,signal"/>
+        </property_group>
+        <property_group name="application" type="application">
+            <propval name="config_file" type="astring" value="%%PREFIX%%/etc/redis/sentinel.conf"/>
+            <propval name="pidfile" type="astring" value="%%PREFIX%%/var/run/redis/sentinel.pid"/>
+        </property_group>
+        <stability value="Evolving"/>
+        <template>
+            <common_name>
+                <loctext xml:lang="C">Redis Sentinel service</loctext>
+            </common_name>
+        </template>
+    </service>
+</service_bundle>

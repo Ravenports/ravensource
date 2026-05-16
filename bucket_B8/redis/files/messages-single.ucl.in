@@ -5,7 +5,14 @@ CONFIGURATION NOTE:
 
 To setup "redis" you need to edit the configuration file:
 %%PREFIX%%/etc/redis.conf
+%%PREFIX%%/etc/sentinel.conf
 
-To run redis from startup, add redis_enable="YES" in your /etc/rc.conf.
+To start redis and sentinel as a service:
+BSD
+   add redis_enable="YES" in your /etc/rc.conf file.
+   add sentinel_enable="YES" in your /etc/rc.conf file.
+
+SunOS
+   Use svcadm to enable ravenports/redis and ravenports/sentinel services.
 EOM
 }

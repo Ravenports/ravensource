@@ -3,7 +3,7 @@ DEF[PORTVERSION]=	8.6.3
 
 NAMEBASE=		redis
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		5
 KEYWORDS=		databases
 VARIANTS=		std
 SDESC[std]=		Persistent key-value database with net interface
@@ -37,12 +37,19 @@ USERGROUP_SPKG=		single
 RC_SUBR=		redis:single
 			sentinel:single
 SUB_FILES=		messages-single.ucl
+			scripts-single.ucl
+			manifest.xml
 
 USES=			cpe gmake execinfo pkgconfig c++:single
+			smf:single
 CPE_VENDOR=		redislabs
 CFLAGS=			-Wno-implicit-fallthrough
 LDFLAGS=		-lm -lexecinfo
 MAKE_ENV=		V=yo
+SUB_LIST=		OWN={{USERS}}
+			GRP={{GROUPS}}
+PLIST_SUB=		OWN={{USERS}}
+			GRP={{GROUPS}}
 
 VAR_OPSYS[linux]=	LDFLAGS=-ldl
 # certain release of freebsd and dragonfly will need
@@ -68,10 +75,11 @@ do-install:
 	${INSTALL_PROGRAM} redis-benchmark redis-check-aof redis-check-rdb \
 	redis-cli redis-sentinel redis-server ${STAGEDIR}${PREFIX}/bin/)
 
+	${MKDIR} ${STAGEDIR}${PREFIX}/var/db/redis
+	${MKDIR} ${STAGEDIR}${PREFIX}/var/run/redis
+	${MKDIR} ${STAGEDIR}${PREFIX}/var/log/redis
+	${MKDIR} ${STAGEDIR}${PREFIX}/etc/redis
 	${INSTALL_DATA} ${WRKSRC}/redis.conf \
-		${STAGEDIR}${PREFIX}/etc/redis.conf.sample
+		${STAGEDIR}${PREFIX}/etc/redis/redis.conf.sample
 	${INSTALL_DATA} ${WRKSRC}/sentinel.conf \
-		${STAGEDIR}${PREFIX}/etc/sentinel.conf.sample
-	${MKDIR} ${STAGEDIR}${PREFIX}/var/db/redis \
-		${STAGEDIR}${PREFIX}/var/run/redis \
-		${STAGEDIR}${PREFIX}/var/log/redis
+		${STAGEDIR}${PREFIX}/etc/redis/sentinel.conf.sample

@@ -1,5 +1,4 @@
 #!/bin/sh
-#
 
 # PROVIDE: redis
 # REQUIRE: LOGIN
@@ -29,8 +28,8 @@ pidfile="%%PREFIX%%/var/run/redis/$name.pid"
 # read configuration and set defaults
 load_rc_config "$name"
 : ${redis_enable="NO"}
-: ${redis_user="redis"}
-: ${redis_config="%%PREFIX%%/etc/$name.conf"}
+: ${redis_user="%%OWN%%"}
+: ${redis_config="%%PREFIX%%/etc/redis/$name.conf"}
 
 command_args="${redis_config}"
 required_files="${redis_config}"
