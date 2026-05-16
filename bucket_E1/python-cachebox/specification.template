@@ -1,0 +1,46 @@
+DEF[PORTVERSION]=	%%VERSION%%
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-cachebox
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v13 v14
+SDESC[v13]=		Memoizing and caching library (3.13)
+SDESC[v14]=		Memoizing and caching library (3.14)
+HOMEPAGE=		https://github.com/awolverp/cachebox
+CONTACT=		Python_Automaton[python@ironwolf.systems]
+
+%%DOWNLOAD_GROUPS%%
+SITES[main]=		PYPI/c/cachebox
+%%CR_SITES%%
+
+DISTFILE[1]=		cachebox-${PORTVERSION}.tar.gz:main
+%%CR_DISTFILES%%
+%%DF_INDEX%%
+
+SPKGS[v13]=		single
+SPKGS[v14]=		single
+
+OPTIONS_AVAILABLE=	PY313 PY314
+OPTIONS_STANDARD=	none
+VOPTS[v13]=		PY313=ON PY314=OFF
+VOPTS[v14]=		PY313=OFF PY314=ON
+
+# License listed at PyPI
+# MIT
+
+GENERATED=		yes
+DISTNAME=		cachebox-${PORTVERSION}
+
+# Requires-Dist extracted from pyproject.toml file
+# build: maturin>=1.8,<2.0
+
+[PY313].USES_ON=			python:v13,pep517
+[PY313].BUILD_DEPENDS_ON=		python-maturin:single:v13
+[PY314].USES_ON=			python:v14,pep517
+[PY314].BUILD_DEPENDS_ON=		python-maturin:single:v14
+
+USES=			cargo cclibs:single
+CARGO_SKIP_CONFIGURE=	yes
+CARGO_SKIP_BUILD=	yes
+CARGO_SKIP_INSTALL=	yes
