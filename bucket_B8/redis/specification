@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	8.6.3
 
 NAMEBASE=		redis
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		databases
 VARIANTS=		std
 SDESC[std]=		Persistent key-value database with net interface
@@ -58,6 +59,9 @@ post-extract:
 pre-configure:
 	# skip module tests (at least one requires link fix)
 	${REINPLACE_CMD} -e '/all:/ s/module_tests//' ${WRKSRC}/src/Makefile
+	# adjust localstatedir
+	${REINPLACE_CMD} -e "s|%%PREFIX%%|${PREFIX}|g" \
+		${WRKSRC}/redis.conf ${WRKSRC}/sentinel.conf
 
 do-install:
 	(cd ${WRKSRC}/src && \
@@ -68,6 +72,6 @@ do-install:
 		${STAGEDIR}${PREFIX}/etc/redis.conf.sample
 	${INSTALL_DATA} ${WRKSRC}/sentinel.conf \
 		${STAGEDIR}${PREFIX}/etc/sentinel.conf.sample
-	${MKDIR} ${STAGEDIR}/var/db/redis \
-		${STAGEDIR}/var/run/redis \
-		${STAGEDIR}/var/log/redis
+	${MKDIR} ${STAGEDIR}${PREFIX}/var/db/redis \
+		${STAGEDIR}${PREFIX}/var/run/redis \
+		${STAGEDIR}${PREFIX}/var/log/redis

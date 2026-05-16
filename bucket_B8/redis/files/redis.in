@@ -24,7 +24,7 @@ rcvar="${name}_enable"
 extra_commands="reload"
 
 command="%%PREFIX%%/bin/redis-server"
-pidfile="/var/log/redis/$name.pid"
+pidfile="%%PREFIX%%/var/run/redis/$name.pid"
 
 # read configuration and set defaults
 load_rc_config "$name"
@@ -53,7 +53,7 @@ if [ $# -eq 2 ]; then
 	echo "-- Profile: ${_profile} --"
 	config_file="%%PREFIX%%/etc/${name}-${_profile}.conf"
 	command_args="${config_file}"
-	pidfile="/var/log/redis/${_profile}.pid"
+	pidfile="%%PREFIX%%/var/run/redis/${_profile}.pid"
 	required_files="${config_file}"
 elif [ -n "${redis_profiles}" ]; then
 	_swap=$*; shift; _profiles=$*
