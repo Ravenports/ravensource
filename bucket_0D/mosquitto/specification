@@ -4,6 +4,7 @@ DEF[SOVERSION]=		${PORTVERSION}
 
 NAMEBASE=		mosquitto
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		net
 VARIANTS=		std
 SDESC[std]=		Message broker implementing the MQTT protocol
@@ -48,7 +49,8 @@ EXRUN[cxx]=		mosquitto:primary:std
 
 RC_SUBR=		mosquitto:tools
 USERGROUP_SPKG=		primary
-USERS=			nobody
+USERS=			mqtt
+GROUPS=			mqtt
 
 USES=			cpe cmake ssl zlib sqlite readline
 			c++:cxx rootca:tools
@@ -58,6 +60,10 @@ CMAKE_ARGS=		-DWITH_SRV:BOOL=ON
 			-DWITH_TESTS:BOOL=OFF
 			-DOPENSSL_ROOT_DIR={{OPENSSLBASE}}
 SOVERSION=		${SOVERSION}
+SUB_LIST=		OWN={{USERS}}
+			GRP={{GROUPS}}
+PLIST_SUB=		OWN={{USERS}}
+			GRP={{GROUPS}}
 
 VAR_OPSYS[sunos]=	CFLAGS=-D_POSIX_PTHREAD_SEMANTICS
 			LDFLAGS=-lsocket
@@ -77,3 +83,4 @@ post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/m*
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/sbin/mosquitto
+	${MKDIR} ${STAGEDIR}${PREFIX}/var/run/mosquitto

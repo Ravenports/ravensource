@@ -23,11 +23,11 @@ load_rc_config $name
 
 mosquitto_enable=${mosquitto_enable:="NO"}
 mosquitto_config=${mosquitto_config:="%%PREFIX%%/etc/mosquitto/mosquitto.conf"}
-mosquitto_user=${mosquitto_user:="nobody"}
+mosquitto_user=${mosquitto_user:="%%OWN%%"}
 
 command=%%PREFIX%%/sbin/mosquitto
 command_args="-c ${mosquitto_config} -d"
-pidfile=${mosquitto_pidfile:-"/var/run/mosquitto.pid"}
+pidfile=${mosquitto_pidfile:-"%%PREFIX%%/var/run/mosquitto/mosquitto.pid"}
 required_files=${mosquitto_config}
 
 extra_commands=reload
