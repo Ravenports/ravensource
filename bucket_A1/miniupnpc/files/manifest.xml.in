@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE service_bundle SYSTEM "/usr/share/lib/xml/dtd/service_bundle.dtd.1">
+<service_bundle type="manifest" name="%%SMF_NAME%%">
+    <service name="%%SMF_PREFIX%%/%%SMF_NAME%%" type="service" version="1">
+        <single_instance/>
+        <dependency name="network" grouping="require_all" restart_on="error" type="service">
+            <service_fmri value="svc:/milestone/network:default"/>
+        </dependency>
+        <dependency name="filesystem" grouping="require_all" restart_on="error" type="service">
+            <service_fmri value="svc:/system/filesystem/local"/>
+        </dependency>
+        <exec_method type="method" name="start" exec="%%PREFIX%%/bin/upnpc-static -r %{config/args}" timeout_seconds="60"/>
+        <exec_method type="method" name="stop" exec="%%PREFIX%%/bin/upnpc-static -d %{config/args}" timeout_seconds="60"/>
+        <property_group name="startd" type="framework">
+            <propval name="duration" type="astring" value="transient"/>
+            <propval name="ignore_error" type="astring" value="core,signal"/>
+        </property_group>
+        <instance name="default" enabled="true">
+          <property_group name="config" type="application">
+            <property name="args" type="astring">
+              <astring_list>
+                <value_node value="define,"/>
+                <value_node value="e.g."/>
+                <value_node value="8080"/>
+                <value_node value="TCP"/>
+                <value_node value="9000"/>
+                <value_node value="UDP"/>
+              </astring_list>
+            </property>
+          </property_group>
+        </instance>
+        <stability value="Evolving"/>
+        <template>
+            <common_name>
+                <loctext xml:lang="C">MiniUPnP Internet Gateway Device</loctext>
+            </common_name>
+        </template>
+    </service>
+</service_bundle>

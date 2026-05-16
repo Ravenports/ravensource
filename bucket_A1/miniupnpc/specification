@@ -4,7 +4,7 @@ DEF[SOMAJOR]=		21
 
 NAMEBASE=		miniupnpc
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		net
 VARIANTS=		std
 SDESC[std]=		UPnP client library for Internet Gateway Devices
@@ -29,9 +29,12 @@ FPC_EQUIVALENT=		net/miniupnpc
 EXRUN[tools]=		primary
 
 USES=			cmake
-RC_SUBR=		miniupnpc:primary
+			smf:tools
+RC_SUBR=		miniupnpc:tools
 
 SOVERSION=		${PORTVERSION}
+SUB_FILES=		manifest.xml
+			messages-tools.ucl
 PLIST_SUB=		SOMAJOR=${SOMAJOR}
 
 VAR_OPSYS[sunos]=	LDFLAGS=-lsocket
