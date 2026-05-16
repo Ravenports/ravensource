@@ -54,12 +54,14 @@ GROUPS=			mqtt
 
 USES=			cpe cmake ssl zlib sqlite readline
 			c++:cxx rootca:tools
+			smf:tools
 CPE_VENDOR=		eclipse
 CMAKE_ARGS=		-DWITH_SRV:BOOL=ON
 			-DWITH_WEBSOCKETS:BOOL=ON
 			-DWITH_TESTS:BOOL=OFF
 			-DOPENSSL_ROOT_DIR={{OPENSSLBASE}}
 SOVERSION=		${SOVERSION}
+SUB_FILES=		manifest.xml
 SUB_LIST=		OWN={{USERS}}
 			GRP={{GROUPS}}
 PLIST_SUB=		OWN={{USERS}}
@@ -69,7 +71,8 @@ VAR_OPSYS[sunos]=	CFLAGS=-D_POSIX_PTHREAD_SEMANTICS
 			LDFLAGS=-lsocket
 
 pre-configure:
-	${REINPLACE_CMD} -e 's|%%PREFIX%%|${PREFIX}|g' ${WRKSRC}/mosquitto.conf
+	${REINPLACE_CMD} -e 's|%%PREFIX%%|${PREFIX}|g; s|%%OWN%%|${USERS}|g' \
+		${WRKSRC}/mosquitto.conf
 
 post-install:
 	${MV} ${STAGEDIR}${PREFIX}/etc/mosquitto/pwfile.example \
