@@ -1,6 +1,6 @@
---- src/plugins/platforms/eglfs/deviceintegration/eglfs_kms/qeglfskmsgbmdevice.cpp.orig	2025-11-12 10:17:57 UTC
+--- src/plugins/platforms/eglfs/deviceintegration/eglfs_kms/qeglfskmsgbmdevice.cpp.orig	2026-05-07 07:50:01 UTC
 +++ src/plugins/platforms/eglfs/deviceintegration/eglfs_kms/qeglfskmsgbmdevice.cpp
-@@ -14,6 +14,10 @@
+@@ -16,6 +16,10 @@
  
  #define ARRAY_LENGTH(a) (sizeof (a) / sizeof (a)[0])
  

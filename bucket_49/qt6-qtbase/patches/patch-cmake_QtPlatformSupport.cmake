@@ -1,20 +1,30 @@
---- cmake/QtPlatformSupport.cmake.orig	2025-11-12 10:17:57 UTC
+--- cmake/QtPlatformSupport.cmake.orig	2026-05-07 07:50:01 UTC
 +++ cmake/QtPlatformSupport.cmake
-@@ -18,6 +18,8 @@ qt_set01(QNX CMAKE_SYSTEM_NAME STREQUAL
- qt_set01(OPENBSD CMAKE_SYSTEM_NAME STREQUAL "OpenBSD") # FIXME: How to identify this?
- qt_set01(FREEBSD CMAKE_SYSTEM_NAME STREQUAL "FreeBSD") # FIXME: How to identify this?
- qt_set01(NETBSD CMAKE_SYSTEM_NAME STREQUAL "NetBSD") # FIXME: How to identify this?
-+qt_set01(DRAGONFLY CMAKE_SYSTEM_NAME STREQUAL "DragonFly") # FIXME: How to identify this?
-+qt_set01(MIDNIGHT CMAKE_SYSTEM_NAME STREQUAL "MidnightBSD") # FIXME: How to identify this?
- qt_set01(WASM CMAKE_SYSTEM_NAME STREQUAL "Emscripten" OR EMSCRIPTEN)
- qt_set01(WASM64 QT_QMAKE_TARGET_MKSPEC STREQUAL "wasm-emscripten-64")
- qt_set01(SOLARIS CMAKE_SYSTEM_NAME STREQUAL "SunOS")
-@@ -27,7 +29,7 @@ qt_set01(HURD CMAKE_SYSTEM_NAME STREQUAL
- # compile definition into its generated toolchain.cmake file
- qt_set01(WEBOS CMAKE_CXX_FLAGS MATCHES "-D__WEBOS__")
+@@ -43,6 +43,18 @@ else()
+     set(OPENBSD 0)
+ endif()
  
--qt_set01(BSD APPLE OR OPENBSD OR FREEBSD OR NETBSD)
-+qt_set01(BSD APPLE OR OPENBSD OR FREEBSD OR NETBSD OR DRAGONFLY OR MIDNIGHT)
++if(CMAKE_SYSTEM_NAME STREQUAL "DragonFly")
++    set(DRAGONFLY 1)
++else()
++    set(DRAGONFLY 0)
++endif()
++
++if(CMAKE_SYSTEM_NAME STREQUAL "MidnightBSD")
++    set(MIDNIGHT 1)
++else()
++    set(MIDNIGHT 0)
++endif()
++
+ if(CMAKE_SYSTEM_NAME STREQUAL "FreeBSD")
+     set(FREEBSD 1)
+ else()
+@@ -87,7 +99,7 @@ else()
+     set(WEBOS 0)
+ endif()
  
- qt_set01(IOS APPLE AND CMAKE_SYSTEM_NAME STREQUAL "iOS")
- qt_set01(TVOS APPLE AND CMAKE_SYSTEM_NAME STREQUAL "tvOS")
+-if(APPLE OR OPENBSD OR FREEBSD OR NETBSD)
++if(APPLE OR OPENBSD OR FREEBSD OR NETBSD OR DRAGONFLY OR MIDNIGHT)
+     set(BSD 1)
+ else()
+     set(BSD 0)

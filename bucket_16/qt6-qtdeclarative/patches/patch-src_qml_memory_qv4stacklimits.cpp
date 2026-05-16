@@ -2,9 +2,9 @@ $NetBSD: patch-src_qml_memory_qv4stacklimits.cpp,v 1.3 2023/11/30 20:11:27 adam 
 
 Solaris uses pthread_attr_get_np for stack info.
 
---- src/qml/memory/qv4stacklimits.cpp.orig	2025-11-13 17:42:03 UTC
+--- src/qml/memory/qv4stacklimits.cpp.orig	2026-05-07 20:59:48 UTC
 +++ src/qml/memory/qv4stacklimits.cpp
-@@ -230,7 +230,7 @@ StackProperties stackPropertiesGeneric(q
+@@ -231,7 +231,7 @@ StackProperties stackPropertiesGeneric(q
  
      pthread_t thread = pthread_self();
      pthread_attr_t sattr;

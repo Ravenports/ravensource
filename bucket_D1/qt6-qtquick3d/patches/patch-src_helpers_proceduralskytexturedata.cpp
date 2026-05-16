@@ -1,6 +1,6 @@
---- src/helpers/proceduralskytexturedata.cpp.orig	2025-11-13 21:08:45 UTC
+--- src/helpers/proceduralskytexturedata.cpp.orig	2026-05-08 02:22:24 UTC
 +++ src/helpers/proceduralskytexturedata.cpp
-@@ -408,11 +408,11 @@ QByteArray ProceduralSkyTextureData::gen
+@@ -410,11 +410,11 @@ QByteArray ProceduralSkyTextureData::gen
      sunLinear.g *= m_sunEnergy;
      sunLinear.b *= m_sunEnergy;
  
@@ -16,7 +16,7 @@
  
      auto clamp = [](float value, float min, float max) {
          if (value < min)
-@@ -474,7 +474,7 @@ QByteArray ProceduralSkyTextureData::gen
+@@ -476,7 +476,7 @@ QByteArray ProceduralSkyTextureData::gen
                  color.g *= m_skyEnergy;
                  color.b *= m_skyEnergy;
  

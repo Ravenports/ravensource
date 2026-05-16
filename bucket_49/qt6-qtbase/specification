@@ -115,6 +115,8 @@ VAR_OPSYS[linux]=	VAR1=linux
 					-DFEATURE_wayland_server:BOOL=ON
 [WAYLAND].USES_ON=			bsd:epoll
 [WAYLAND].EXTRA_PATCHES_ON=		extra-patch-src_corelib_configure.cmake
+# No-wayland means broken build:
+# qlogging.cpp:1564:41: error: no match for call to backtraceFramesForLogMessage
 
 [VULKAN].DESCRIPTION=			Build with Vulkan support
 [VULKAN].BUILD_DEPENDS_ON=		vulkan-headers:single:std

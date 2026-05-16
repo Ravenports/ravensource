@@ -1,4 +1,4 @@
---- tests/auto/corelib/plugin/qpluginloader/tst_qpluginloader.cpp.orig	2025-11-12 10:17:57 UTC
+--- tests/auto/corelib/plugin/qpluginloader/tst_qpluginloader.cpp.orig	2026-05-07 07:50:01 UTC
 +++ tests/auto/corelib/plugin/qpluginloader/tst_qpluginloader.cpp
 @@ -78,11 +78,7 @@ using namespace Qt::StringLiterals;
  #endif

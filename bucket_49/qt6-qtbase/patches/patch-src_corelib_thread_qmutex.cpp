@@ -1,4 +1,4 @@
---- src/corelib/thread/qmutex.cpp.orig	2025-11-12 10:17:57 UTC
+--- src/corelib/thread/qmutex.cpp.orig	2026-05-07 07:50:01 UTC
 +++ src/corelib/thread/qmutex.cpp
 @@ -843,7 +843,7 @@ void QBasicMutex::unlockInternal(void *c
      Q_ASSERT(copy); //we must be locked

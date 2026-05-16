@@ -1,6 +1,6 @@
---- src/corelib/plugin/qplugin.h.orig	2025-11-12 10:17:57 UTC
+--- src/corelib/plugin/qplugin.h.orig	2026-05-07 07:50:01 UTC
 +++ src/corelib/plugin/qplugin.h
-@@ -166,15 +166,23 @@ template <auto (&PluginMetaData)> class
+@@ -167,15 +167,23 @@ template <auto (&PluginMetaData)> class
  #  define QT_PLUGIN_METADATAV2_SECTION
      using Payload = StaticPayload;
  #elif defined(Q_OF_ELF)

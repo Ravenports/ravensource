@@ -1,4 +1,4 @@
---- src/configure.cmake.orig	2025-11-13 20:37:17 UTC
+--- src/configure.cmake.orig	2026-05-08 01:18:49 UTC
 +++ src/configure.cmake
 @@ -7,7 +7,7 @@
  

@@ -1,4 +1,4 @@
---- src/corelib/io/qfilesystemengine_unix.cpp.orig	2025-11-12 10:17:57 UTC
+--- src/corelib/io/qfilesystemengine_unix.cpp.orig	2026-05-07 07:50:01 UTC
 +++ src/corelib/io/qfilesystemengine_unix.cpp
 @@ -39,7 +39,9 @@
  
