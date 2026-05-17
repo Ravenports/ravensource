@@ -1,6 +1,6 @@
---- lib/std/zig/LibCInstallation.zig.orig	2025-08-19 23:20:53 UTC
+--- lib/std/zig/LibCInstallation.zig.orig	2026-04-13 18:50:15 UTC
 +++ lib/std/zig/LibCInstallation.zig
-@@ -972,23 +972,29 @@ pub fn resolveCrtPaths(
+@@ -973,23 +973,29 @@ pub fn resolveCrtPaths(
      };
      switch (target.os.tag) {
          .dragonfly => {
