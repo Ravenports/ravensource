@@ -4,6 +4,7 @@ DEF[ASIO_TAG]=		f693a3e
 
 NAMEBASE=		musikcube
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		multimedia audio
 VARIANTS=		std
 SDESC[std]=		Terminal-based music player, server & more
@@ -17,7 +18,7 @@ DISTFILE[1]=		generated:main
 DISTFILE[2]=		generated:asio
 DF_INDEX=		1 2
 
-SPKGS[std]=		set primary dev server in_gme in_openmpt out_alsa out_sndio out_pipewire out_portaudio
+SPKGS[std]=		set primary dev server in_gme in_openmpt out_alsa out_sndio out_portaudio
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -45,7 +46,6 @@ BUILD_DEPENDS=		alsa-lib:dev:std
 			portaudio:primary:std
 			sndio:dev:std
 			taglib:dev:std
-			pipewire:dev:std
 BUILDRUN_DEPENDS=	curl:primary:std
 			ffmpeg:primary:std
 			flac:primary:std
@@ -65,8 +65,6 @@ EXRUN[in_openmpt]=	primary
 			zlib:primary:std
 EXRUN[out_alsa]=	primary
 			alsa-lib:primary:std
-EXRUN[out_pipewire]=	primary
-			pipewire:primary:std
 EXRUN[out_portaudio]=	primary
 			portaudio:primary:std
 EXRUN[out_sndio]=	primary
@@ -79,6 +77,7 @@ CMAKE_ARGS=		-DCMAKE_INSTALL_PREFIX:PATH={{PREFIX}}
 			-DDISABLE_WIDE_NCURSES_LIB_SUFFIXES=true
 			-DLIBSSL={{PREFIX}}/libressl/lib/libssl.so
 			-DLIBCRYPTO={{PREFIX}}/libressl/lib/libcrypto.so
+			-DENABLE_PIPEWIRE:BOOL=FALSE
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/share/musikcube/libmusikcore.so
