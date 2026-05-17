@@ -1,9 +1,9 @@
-DEF[PORTVERSION]=	1.8.6
+DEF[PORTVERSION]=	1.8.6.3
+DEF[TAG]=		1.8.6.3
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		whowatch
 VERSION=		${PORTVERSION}
-REVISION=		2
 KEYWORDS=		sysutils
 VARIANTS=		std
 SDESC[std]=		Display information logged on users
@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/mtsuszycki/whowatch
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		https://github.com/mtsuszycki/whowatch/releases/download/whowatch-${PORTVERSION}/
-DISTFILE[1]=		whowatch-${PORTVERSION}.tar.gz:main
+SITES[main]=		GITHUB/zedai00:whowatch:${TAG}
+DISTFILE[1]=		generated:main
 
 SPKGS[std]=		set primary man
 
@@ -28,14 +28,10 @@ LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
 LICENSE_TERMS=		primary:{{FILESDIR}}/LICENSE
 LICENSE_SCHEME=		solo
 
-# dragonfly is core dumping right now
 FPC_EQUIVALENT=		sysutils/whowatch
 NOT_FOR_OPSYS=		sunos netbsd
 
-USES=			ncurses
+USES=			autoreconf ncurses
 MUST_CONFIGURE=		gnu
 CPPFLAGS=		-I{{NCURSESINC}}
 LDFLAGS=		-ltinfo
-
-post-patch:
-	${REINPLACE_CMD} -e "s|utmp|utmpx|g" ${WRKSRC}/configure

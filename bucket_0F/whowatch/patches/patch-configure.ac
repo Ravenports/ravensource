@@ -1,0 +1,30 @@
+--- configure.ac.orig	2026-03-28 16:48:31 UTC
++++ configure.ac
+@@ -112,9 +112,12 @@ AC_CHECK_MEMBERS([struct kinfo_proc.kp_p
+ 
+ dnl Checks for operating system
+ case "$host_os" in
+-  freebsd*)
++  freebsd*|midnight*)
+     is_freebsd=yes
+     ;;
++  dragonfly*)
++    is_dragonfly=yes
++    ;;
+   linux*)
+     is_linux=yes
+     ;;
+@@ -127,8 +130,12 @@ if test "$is_freebsd" = yes; then
+   AC_CHECK_LIB([procstat], [kinfo_getproc], [LIBS="$LIBS -lprocstat"], [AC_MSG_ERROR([libprocstat not found])])
+ fi
+ 
++if test "$is_dragonfly" = yes; then
++  AC_CHECK_LIB([devinfo], [devinfo_init], [LIBS="$LIBS -ldevinfo"], [AC_MSG_ERROR([libdevinfo not found])])
++fi
++
+ 
+-AM_CONDITIONAL([FREEBSD], [test "x$is_freebsd" = "xyes"])
++AM_CONDITIONAL([FREEBSD], [test "x$is_freebsd" = "xyes" || test "x$is_dragonfly" = "xyes"])
+ AM_CONDITIONAL([LINUX],   [test "x$is_linux"   = "xyes"])
+ AM_CONDITIONAL([DEBUG], [test "x$enable_debug" = "xyes"])
+ AC_ARG_ENABLE([debug],

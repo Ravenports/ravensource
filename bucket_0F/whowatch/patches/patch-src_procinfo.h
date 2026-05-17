@@ -1,6 +1,6 @@
---- src/procinfo.h.orig	2018-04-11 06:10:50 UTC
+--- src/procinfo.h.orig	2026-03-28 16:48:31 UTC
 +++ src/procinfo.h
-@@ -1,6 +1,9 @@
+@@ -22,6 +22,9 @@ along with this program.  If not, see <h
  #ifdef HAVE_PROCESS_SYSCTL
  #include <sys/param.h>
  #include <sys/sysctl.h>
