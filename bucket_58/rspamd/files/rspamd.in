@@ -10,9 +10,9 @@
 # rspamd_enable (bool):		Set to "NO" by default.
 #				Set it to "YES" to enable rspamd.
 #
-# rspamd_user (str):		Default to "rspamd".
+# rspamd_user (str):		Default to "%%OWN%%".
 #
-# rspamd_group (str):		Default to "rspamd".
+# rspamd_group (str):		Default to "%%GRP%%".
 #
 # rspamd_flags (str):		Default to "-c %%PREFIX%%/etc/rspamd.conf".
 
@@ -24,11 +24,11 @@ rcvar=rspamd_enable
 load_rc_config $name
 
 : ${rspamd_enable:="NO"}
-: ${rspamd_user="rspamd"}
-: ${rspamd_group="rspamd"}
+: ${rspamd_user="%%OWN%%"}
+: ${rspamd_group="%%GRP%%"}
 : ${rspamd_flags="-c %%PREFIX%%/etc/rspamd/rspamd.conf"}
 
-pidfile=${rspamd_pidfile:-"/var/run/rspamd/rspamd.pid"}
+pidfile=${rspamd_pidfile:-"%%PREFIX%%/var/run/rspamd/rspamd.pid"}
 
 command=%%PREFIX%%/bin/rspamd
 command_adm=%%PREFIX%%/bin/rspamadm

@@ -4,6 +4,7 @@ DEF[JQUERY]=		3.7.1
 
 NAMEBASE=		rspamd
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		mail
 VARIANTS=		std
 SDESC[std]=		Fast, free and open-source spam filtering system
@@ -41,17 +42,21 @@ USES=			cmake perl:build pkgconfig sqlite ssl:openssl30 zlib pcre2
 			rootca:primary
 GNOME_COMPONENTS=	glib
 CMAKE_ARGS=		-DCONFDIR={{PREFIX}}/etc/rspamd
-			-DLOGDIR=/var/log/rspamd
-			-DDBDIR=/var/db/rspamd
-			-DRUNDIR=/var/run/rspamd
+			-DLOGDIR={{PREFIX}}/var/log/rspamd
+			-DDBDIR={{PREFIX}}/var/db/rspamd
+			-DRUNDIR={{PREFIX}}/var/run/rspamd
 			-DMANDIR={{MANPREFIX}}/man
 			-DCMAKE_INSTALL_PREFIX={{PREFIX}}
 			-DBUILD_PORT=yes
 			-DLIBDIR={{PREFIX}}/lib/rspamd
 PLIST_SUB=		RSPAMDVERSION=${PORTVERSION}
 			JQUERY=${JQUERY}
+			OWN={{USERS}}
+			GRP={{GROUPS}}
 SUB_FILES=		messages-primary.ucl
 			rspamd.newsyslog.conf.sample
+SUB_LIST=		OWN={{USERS}}
+			GRP={{GROUPS}}
 
 # makefile bug?  it rebuilds snowball during staging
 INSTALL_REQ_TOOLCHAIN=	yes
@@ -66,9 +71,9 @@ post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/rspamd
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/rspamd/*.so
 	${MKDIR}\
-		${STAGEDIR}/var/log/rspamd \
-		${STAGEDIR}/var/db/rspamd \
-		${STAGEDIR}/var/run/rspamd \
+		${STAGEDIR}${PREFIX}/var/log/rspamd \
+		${STAGEDIR}${PREFIX}/var/db/rspamd \
+		${STAGEDIR}${PREFIX}/var/run/rspamd \
 		${STAGEDIR}${PREFIX}/etc/newsyslog.conf.d
 	${INSTALL_DATA} ${WRKDIR}/rspamd.newsyslog.conf.sample \
 		${STAGEDIR}${PREFIX}/etc/rspamd/
