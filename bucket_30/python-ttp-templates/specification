@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.5.5
+DEF[PORTVERSION]=	0.5.6
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-ttp-templates
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/dmulyalin/ttp_templates
 CONTACT=		Python_Automaton[python@ironwolf.systems]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/1c/2e/c478d678f98ada294922c8ff71d230496c195632a94af31d636998cdc6a6
+SITES[main]=		PYPIWHL/63/75/42aff2b7e9a2024576ff5f2af89f34f8db95a1c5c2b1707e4b65ab16009f
 DISTFILE[1]=		ttp_templates-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -34,12 +34,15 @@ DISTNAME=		ttp_templates-${PORTVERSION}.dist-info
 # mkdocs-material ; extra == "docs"
 # mkdocs-material-extensions ; extra == "docs"
 # mkdocstrings[python] ; extra == "docs"
+# pydantic (>=2.0)
 # pygments ; extra == "docs"
 # pymdown-extensions ; extra == "docs"
 # ttp (>=0.10.0)
 
 [PY313].USES_ON=			python:v13,wheel
-[PY313].RUN_DEPENDS_ON=			python-ttp:single:v13
+[PY313].RUN_DEPENDS_ON=			python-pydantic:single:v13
+					python-ttp:single:v13
 [PY314].USES_ON=			python:v14,wheel
-[PY314].RUN_DEPENDS_ON=			python-ttp:single:v14
+[PY314].RUN_DEPENDS_ON=			python-pydantic:single:v14
+					python-ttp:single:v14
 
