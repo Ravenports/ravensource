@@ -4,7 +4,7 @@ DEF[JQUERY]=		3.7.1
 
 NAMEBASE=		rspamd
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		mail
 VARIANTS=		std
 SDESC[std]=		Fast, free and open-source spam filtering system
@@ -28,6 +28,7 @@ BUILD_DEPENDS=		libsodium:dev:std
 			libarchive:dev:std
 			luajit-openresty:dev:std
 BUILDRUN_DEPENDS=	icu:primary:std
+			icu:data:std
 			libsodium:primary:std
 			luajit-openresty:primary:std
 			libarchive:primary:std
@@ -40,6 +41,7 @@ RC_SUBR=		rspamd:primary
 
 USES=			cmake perl:build pkgconfig sqlite ssl:openssl30 zlib pcre2
 			rootca:primary
+			smf:primary
 GNOME_COMPONENTS=	glib
 CMAKE_ARGS=		-DCONFDIR={{PREFIX}}/etc/rspamd
 			-DLOGDIR={{PREFIX}}/var/log/rspamd
@@ -55,6 +57,7 @@ PLIST_SUB=		RSPAMDVERSION=${PORTVERSION}
 			GRP={{GROUPS}}
 SUB_FILES=		messages-primary.ucl
 			rspamd.newsyslog.conf.sample
+			manifest.xml
 SUB_LIST=		OWN={{USERS}}
 			GRP={{GROUPS}}
 
