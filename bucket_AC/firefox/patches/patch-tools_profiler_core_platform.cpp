@@ -4,7 +4,7 @@
    }
  #    endif
  #  else
-+#  elsif !defined(__MidnightBSD__)
++#  elif !defined(__MidnightBSD__)
    cpuId = sched_getcpu();
  #  endif
  #endif
