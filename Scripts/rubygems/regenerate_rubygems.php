@@ -366,7 +366,7 @@ KEYWORDS=		ruby
 VARIANTS=		$variants_block
 $comments_block
 HOMEPAGE=		$homepage
-CONTACT=		Ruby_Automaton[ruby@ironwolf.systems]
+CONTACT=		Ruby_Automaton[ruby@ravenports.com]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		RUBYGEMS/
