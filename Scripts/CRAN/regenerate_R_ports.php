@@ -234,7 +234,7 @@ KEYWORDS=		cran
 VARIANTS=		std
 SDESC[std]=		$comment
 HOMEPAGE=		$homepage
-CONTACT=		CRAN_Automaton[cran@ironwolf.systems]
+CONTACT=		CRAN_Automaton[cran@ravenports.com]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		CRAN/src/contrib
