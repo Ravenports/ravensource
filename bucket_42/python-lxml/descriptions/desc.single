@@ -23,33 +23,21 @@ has been established.
 Note that this requires Cython to be installed at an appropriate version
 for the build.
 
-6.1.0 (2026-04-17)
+6.1.1 (2026-05-18)
 ==================
-
-This release fixes a possible external entity injection (XXE) vulnerability
-in
-``iterparse() and the ETCompatXMLParser``.
-
-Features added
---------------
-
-* GH#486: The HTML ARIA accessibility attributes were added to the set of
-safe attributes
-  in ``lxml.html.defs``.  This allows lxml_html_clean to pass them through.
-  Patch by oomsveta.
-
-* The default chunk size for reading from file-likes in ``iterparse() is
-now configurable
-  with a new chunk_size`` argument.
 
 Bugs fixed
 ----------
 
-* LP#2146291: The resolve_entities option was still set to True for
-  iterparse and ETCompatXMLParser, allowing for external entity injection
-(XXE)
-  when using these parsers without setting this option explicitly.
-  The default was now changed to 'internal' only (as for the normal XML and
-HTML parsers
-  since lxml 5.0).
-  Issue found by Sihao Qiu as CVE-2026-41066.
+* The known link attributes in ``lxml.html.defs.link_attrs were missing
+xlink:href``,
+  which can be used for URL bypass attacks in embedded SVG/MathML/etc.
+content.
+ 
+https://github.com/fedora-python/lxml_html_clean/security/advisories/GHSA-4jhm-jv67-739f
+
+* The Linux wheels use a patched libxslt 1.1.43, fixing CVE-2025-7424 and
+CVE-2025-11731.
+
+* The Windows wheels use libxslt 1.1.45, fixing CVE-2025-7424 and
+CVE-2025-11731.

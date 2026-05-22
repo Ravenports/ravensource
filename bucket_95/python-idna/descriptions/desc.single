@@ -1,36 +1,16 @@
 # Internationalized Domain Names in Applications (IDNA)
 
-Support for [Internationalized Domain Names in
-Applications (IDNA)]
-and [Unicode IDNA Compatibility Processing].
-
-The latest versions of these standards supplied here provide
-more comprehensive language coverage and reduce the potential of
-allowing domains with known security vulnerabilities. This library
-is a suitable replacement for the "encodings.idna"
-module that comes with the Python standard library, but which
-only supports an older superseded IDNA specification from 2003.
-
-Basic functions are simply executed:
-
-```pycon
->>> import idna
->>> idna.encode('ドメイン.テスト')
-b'xn--eckwd4c7c.xn--zckzah'
->>> print(idna.decode('xn--eckwd4c7c.xn--zckzah'))
-ドメイン.テスト
-```
-
-## Installation
-
-This package is available for installation from PyPI via the
-typical mechanisms, such as:
-
-```bash
-$ python3 -m pip install idna
-```
+Support for [Internationalized Domain Names in Applications
+(IDNA)] and [Unicode IDNA
+Compatibility Processing]. It
+supersedes the standard library's `encodings.idna`, which only
+implements the 2003 specification, offering broader script coverage and
+limiting domains with known security vulnerabilities.
 
 ## Usage
+
+Package may be installed from [PyPI] via
+the typical methods (e.g. `python3 -m pip install idna`)
 
 For typical usage, the `encode` and `decode` functions will take a
 domain name argument and perform a conversion to ASCII-compatible encoding
@@ -46,12 +26,7 @@ b'xn--eckwd4c7c.xn--zckzah'
 ```
 
 Conversions can be applied at a per-label basis using the `ulabel` or
-`alabel` functions if necessary:
-
-```pycon
->>> idna.alabel('测试')
-b'xn--0zwm56d'
-```
+`alabel` functions for specialized use cases.
 
 ### Compatibility Mapping (UTS #46)
 
@@ -64,10 +39,10 @@ conversion operations. This functionality, known as a
 specification to be a local user-interface issue distinct from IDNA
 conversion functionality.
 
-For example, "Königsgäßchen" is not a permissible label as *LATIN
-CAPITAL LETTER K* is not allowed (nor are capital letters in general).
-UTS 46 will convert this into lower case prior to applying the IDNA
-conversion.
+For example, "Königsgäßchen" is not a permissible label as capital
+letters
+are not allowed. UTS 46 will convert this into lower case prior to applying
+the IDNA conversion.
 
 ```pycon
 >>> import idna
@@ -77,24 +52,49 @@ idna.core.InvalidCodepoint: Codepoint U+004B at position 1 of
 'Königsgäßchen' not allowed
 >>> idna.encode('Königsgäßchen', uts46=True)
 b'xn--knigsgchen-b4a3dun'
->>> print(idna.decode('xn--knigsgchen-b4a3dun'))
-königsgäßchen
+>>> idna.decode('xn--knigsgchen-b4a3dun')
+'königsgäßchen'
 ```
 
 ## Exceptions
 
-All errors raised during the conversion following the specification
-should raise an exception derived from the `idna.IDNAError` base
-class.
+All errors raised during conversion derive from the `idna.IDNAError`
+base class. The more specific exceptions are:
 
-More specific exceptions that may be generated as `idna.IDNABidiError`
-when the error reflects an illegal combination of left-to-right and
-right-to-left characters in a label; `idna.InvalidCodepoint` when
-a specific codepoint is an illegal character in an IDN label (i.e.
-INVALID); and `idna.InvalidCodepointContext` when the codepoint is
-illegal based on its position in the string (i.e. it is CONTEXTO or
-CONTEXTJ
-but the contextual requirements are not satisfied.)
+* `idna.IDNABidiError` — raised when a label contains an illegal
+  combination of left-to-right and right-to-left characters.
+* `idna.InvalidCodepoint` — raised when a label contains a codepoint
+  that is INVALID for IDNA.
+* `idna.InvalidCodepointContext` — raised when a CONTEXTO or CONTEXTJ
+  codepoint appears in a position whose contextual requirements are
+  not satisfied.
 
-## Building and Diagnostics
+## Command-line tool
+
+The package supports command-line usage to convert domain names
+between their Unicode and ASCII-compatible forms. It can be run either
+as a module (`python3 -m idna`) or, once installed (such as with `uv
+tool` or `pipx`), via the `idna` script:
+
+```bash
+$ uv tool install idna
+$ idna xn--e1afmkfd.xn--p1ai
+пример.рф
+$ idna пример.рф
+xn--e1afmkfd.xn--p1ai
+```
+
+With no mode flag the direction is chosen automatically: inputs
+containing an `xn--` label are decoded, anything else is encoded. Pass
+`-e`/`--encode` or `-d`/`--decode` to force a specific direction.
+
+Multiple domains may be supplied at once, either as positional arguments
+or by piping one domain per line on standard input. When more than
+one domain is supplied without explicitly asking to encode or decode,
+the direction is picked from the first input and that mode is applied
+to every remaining input. Use `-e`/`--encode` or `-d`/`--decode` to
+override the heuristic if the first input is ambiguous.
+
+UTS #46 mapping is applied by default, which lets the tool accept
+inputs that aren't strictly valid IDNA 2008 by normalising them first:
 

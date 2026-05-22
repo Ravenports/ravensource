@@ -471,7 +471,7 @@ KEYWORDS=		python
 VARIANTS=		$variants_block
 $comments_block
 HOMEPAGE=		$homepage
-CONTACT=		Python_Automaton[python@ironwolf.systems]
+CONTACT=		Python_Automaton[python@ravenports.com]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		$main_site
