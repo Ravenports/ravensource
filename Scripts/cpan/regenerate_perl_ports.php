@@ -268,7 +268,7 @@ KEYWORDS=		perl
 VARIANTS=		$variants_block
 $comments_block
 HOMEPAGE=		$homepage
-CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+CONTACT=		Perl_Automaton[perl@ravenports.com]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:$port_author

@@ -7,11 +7,11 @@ KEYWORDS=		perl
 VARIANTS=		540 542
 SDESC[540]=		Database of robots.txt-derived permissions (5.40)
 SDESC[542]=		Database of robots.txt-derived permissions (5.42)
-HOMEPAGE=		https://github.com/gisle/www-robotrules
-CONTACT=		Perl_Automaton[perl@ironwolf.systems]
+HOMEPAGE=		https://github.com/libwww-perl/WWW-RobotRules
+CONTACT=		Perl_Automaton[perl@ravenports.com]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		CPAN/ID:G/GA/GAAS
+SITES[main]=		CPAN/ID:O/OA/OALDERS
 DISTFILE[1]=		WWW-RobotRules-${PORTVERSION}.tar.gz:main
 
 SPKGS[540]=		single
@@ -23,20 +23,27 @@ VOPTS[540]=		PERL_540=ON PERL_542=OFF
 VOPTS[542]=		PERL_540=OFF PERL_542=ON
 
 # License listed in CPAN directory:
-# perl
+# perl_5
 
 GENERATED=		yes
 SINGLE_JOB=		yes
 DISTNAME=		WWW-RobotRules-${PORTVERSION}
 
-# ---------------------------------------------
-# |   Prerequisites extracted from META.yml
-# ---------------------------------------------
-# | configure_requires : ExtUtils::MakeMaker (perl 5.40.3 core) (perl 5.42.2 core)
-# |     build_requires : ExtUtils::MakeMaker (perl 5.40.3 core) (perl 5.42.2 core)
-# |           requires : AnyDBM_File (perl 5.40.3 core) (perl 5.42.2 core)
-# |           requires : Fcntl (perl 5.40.3 core) (perl 5.42.2 core)
-# |           requires : URI
+# ----------------------------------------------
+# |   Prerequisites extracted from META.json
+# ----------------------------------------------
+# |      runtime : AnyDBM_File (perl 5.40 core) (perl 5.42 core)
+# |      runtime : Carp (perl 5.40 core) (perl 5.42 core)
+# |      runtime : Fcntl (perl 5.40 core) (perl 5.42 core)
+# |      runtime : URI
+# |      runtime : strict (perl 5.40 core) (perl 5.42 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
+# |         test : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
+# |         test : File::Spec (perl 5.40 core) (perl 5.42 core)
+# |         test : Test::More (perl 5.40 core) (perl 5.42 core)
+# |         test : strict (perl 5.40 core) (perl 5.42 core)
+# |         test : warnings (perl 5.40 core) (perl 5.42 core)
+# |         test : CPAN::Meta (perl 5.40 core) (perl 5.42 core)
 
 [PERL_540].USES_ON=			perl:540,configure
 [PERL_540].BUILDRUN_DEPENDS_ON=		perl-URI:single:540
