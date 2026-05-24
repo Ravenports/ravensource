@@ -1,4 +1,4 @@
---- qtgui/qmkmk.sh.orig	2025-12-21 08:36:11 UTC
+--- qtgui/qmkmk.sh.orig	2025-12-21 08:36:11.000000000 -0000
 +++ qtgui/qmkmk.sh
 @@ -2,6 +2,7 @@
  # This is used with meson for the recoll custom_target().

@@ -1,4 +1,4 @@
---- utils/pxattr.cpp.orig	2025-12-21 08:36:11 UTC
+--- utils/pxattr.cpp.orig	2025-12-21 08:36:11.000000000 -0000
 +++ utils/pxattr.cpp
 @@ -42,7 +42,7 @@
  
