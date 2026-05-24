@@ -1,4 +1,4 @@
---- bindings/python/setup.py.orig	2024-07-29 07:08:58 UTC
+--- bindings/python/setup.py.orig	2024-07-29 07:08:58.000000000 -0000
 +++ bindings/python/setup.py
 @@ -2,10 +2,7 @@
  import os
