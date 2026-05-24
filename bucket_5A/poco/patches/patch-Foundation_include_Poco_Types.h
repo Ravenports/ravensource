@@ -1,4 +1,4 @@
---- Foundation/include/Poco/Types.h.orig	2026-04-16 18:15:35 UTC
+--- Foundation/include/Poco/Types.h.orig	2026-04-16 18:15:35.000000000 -0000
 +++ Foundation/include/Poco/Types.h
 @@ -54,7 +54,7 @@ using UIntPtr = std::uintptr_t;
  		#if defined(__LP64__)

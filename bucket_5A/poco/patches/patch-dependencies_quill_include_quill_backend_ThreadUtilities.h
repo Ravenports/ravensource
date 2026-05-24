@@ -1,4 +1,4 @@
---- dependencies/quill/include/quill/backend/ThreadUtilities.h.orig	2026-04-16 18:15:35 UTC
+--- dependencies/quill/include/quill/backend/ThreadUtilities.h.orig	2026-04-16 18:15:35.000000000 -0000
 +++ dependencies/quill/include/quill/backend/ThreadUtilities.h
 @@ -47,6 +47,10 @@
  #elif defined(__OpenBSD__)

@@ -1,4 +1,4 @@
---- dependencies/quill/include/quill/backend/BackendUtilities.h.orig	2026-04-16 18:15:35 UTC
+--- dependencies/quill/include/quill/backend/BackendUtilities.h.orig	2026-04-16 18:15:35.000000000 -0000
 +++ dependencies/quill/include/quill/backend/BackendUtilities.h
 @@ -39,6 +39,11 @@
    #include <pthread_np.h>

@@ -1,4 +1,4 @@
---- Net/src/SocketImpl.cpp.orig	2026-04-16 18:15:36 UTC
+--- Net/src/SocketImpl.cpp.orig	2026-04-16 18:15:36.000000000 -0000
 +++ Net/src/SocketImpl.cpp
 @@ -1274,7 +1274,7 @@ void SocketImpl::initSocket(int af, int
  	if (_sockfd == POCO_INVALID_SOCKET)
