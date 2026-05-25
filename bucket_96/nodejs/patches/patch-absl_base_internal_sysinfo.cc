@@ -1,4 +1,4 @@
---- deps/v8/third_party/abseil-cpp/absl/base/internal/sysinfo.cc.orig	2026-05-06 23:11:58 UTC
+--- deps/v8/third_party/abseil-cpp/absl/base/internal/sysinfo.cc.orig	2026-05-06 23:11:58.000000000 -0000
 +++ deps/v8/third_party/abseil-cpp/absl/base/internal/sysinfo.cc
 @@ -26,11 +26,11 @@
  #include <unistd.h>
