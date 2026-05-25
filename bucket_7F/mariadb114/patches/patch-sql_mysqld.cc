@@ -1,4 +1,4 @@
---- sql/mysqld.cc.orig	2026-01-31 10:50:14 UTC
+--- sql/mysqld.cc.orig	2026-01-31 10:50:14.000000000 -0000
 +++ sql/mysqld.cc
 @@ -426,7 +426,7 @@ char* opt_secure_file_priv;
  my_bool lower_case_file_system= 0;
