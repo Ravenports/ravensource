@@ -1,4 +1,4 @@
---- lib/Support/Unix/Path.inc.orig	2026-05-04 22:50:13 UTC
+--- lib/Support/Unix/Path.inc.orig	2026-05-04 22:50:13.000000000 -0000
 +++ lib/Support/Unix/Path.inc
 @@ -40,6 +40,9 @@
  #if __has_include(<sys/clonefile.h>)
