@@ -1,4 +1,4 @@
---- storage.c.orig	2025-12-17 00:16:18 UTC
+--- storage.c.orig	2026-03-06 20:46:28.000000000 -0000
 +++ storage.c
 @@ -310,7 +310,11 @@ int storage_get_item(LIBEVENT_THREAD *t,
          }
