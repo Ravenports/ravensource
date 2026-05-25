@@ -1,6 +1,6 @@
 Do not generate debugging symbols (uses lots of disk space).
 
---- node_modules/node-gyp/gyp/pylib/gyp/xcode_emulation.py.orig	1985-10-26 08:15:00 UTC
+--- node_modules/node-gyp/gyp/pylib/gyp/xcode_emulation.py.orig	1985-10-26 08:15:00.000000000 -0000
 +++ node_modules/node-gyp/gyp/pylib/gyp/xcode_emulation.py
 @@ -605,7 +605,7 @@ class XcodeSettings:
  
