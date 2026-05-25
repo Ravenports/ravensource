@@ -1,4 +1,4 @@
---- src/ProcessResolver.cpp.orig	2024-12-06 16:07:53 UTC
+--- src/ProcessResolver.cpp.orig	2025-10-11 18:24:04.352139700 -0000
 +++ src/ProcessResolver.cpp
 @@ -5,6 +5,11 @@
  
@@ -32,7 +32,7 @@
  	if (!procs_info) {
  #	ifndef QT_NO_DEBUG
  		qCritical("ProcessResolver: kinfo_getallproc() failed\n");
-@@ -208,7 +224,11 @@ void ProcessResolver::doResolve() {
+@@ -208,7 +225,11 @@ void ProcessResolver::doResolve() {
  	}
  
  	for (int i = 0; i < n_procs; ++i) {
