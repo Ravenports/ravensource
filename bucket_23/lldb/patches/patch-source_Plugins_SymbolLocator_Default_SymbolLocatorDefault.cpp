@@ -1,4 +1,4 @@
---- source/Plugins/SymbolLocator/Default/SymbolLocatorDefault.cpp.orig	2026-05-04 22:50:13 UTC
+--- source/Plugins/SymbolLocator/Default/SymbolLocatorDefault.cpp.orig	2026-05-04 22:50:13.000000000 -0000
 +++ source/Plugins/SymbolLocator/Default/SymbolLocatorDefault.cpp
 @@ -145,7 +145,7 @@ std::optional<FileSpec> SymbolLocatorDef
        FileSystem::Instance().Resolve(file_spec);

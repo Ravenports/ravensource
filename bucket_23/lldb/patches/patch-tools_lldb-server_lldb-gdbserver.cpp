@@ -1,4 +1,4 @@
---- tools/lldb-server/lldb-gdbserver.cpp.orig	2026-05-04 22:50:13 UTC
+--- tools/lldb-server/lldb-gdbserver.cpp.orig	2026-05-04 22:50:13.000000000 -0000
 +++ tools/lldb-server/lldb-gdbserver.cpp
 @@ -41,6 +41,8 @@
  #include "Plugins/Process/Linux/NativeProcessLinux.h"
