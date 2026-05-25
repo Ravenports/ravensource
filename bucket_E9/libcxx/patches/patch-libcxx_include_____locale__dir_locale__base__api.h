@@ -1,4 +1,4 @@
---- libcxx/include/__locale_dir/locale_base_api.h.orig	2026-05-04 22:50:13 UTC
+--- libcxx/include/__locale_dir/locale_base_api.h.orig	2026-05-04 22:50:13.000000000 -0000
 +++ libcxx/include/__locale_dir/locale_base_api.h
 @@ -108,7 +108,7 @@
  
