@@ -1,4 +1,4 @@
---- amdgpu/amdgpu_asic_id.c.orig	2026-04-27 15:47:19 UTC
+--- amdgpu/amdgpu_asic_id.c.orig	2026-05-29 08:49:42 UTC
 +++ amdgpu/amdgpu_asic_id.c
 @@ -237,7 +237,11 @@ static void split_env_var_free(char **sp
  static char *find_asic_id_table(void)
