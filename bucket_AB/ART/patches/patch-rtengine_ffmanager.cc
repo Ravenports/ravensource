@@ -1,4 +1,4 @@
---- rtengine/ffmanager.cc.orig	2026-04-27 06:28:28 UTC
+--- rtengine/ffmanager.cc.orig	2026-05-27 14:49:13 UTC
 +++ rtengine/ffmanager.cc
 @@ -104,10 +104,10 @@ double ffInfo::distance(const std::strin
      }
