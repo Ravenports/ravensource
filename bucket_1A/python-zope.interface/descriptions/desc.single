@@ -25,6 +25,23 @@ https://zopeinterface.readthedocs.io/en/latest/
 Change log
 ==========
 
+8.5 (2026-05-26)
+----------------
+
+- Build and upload free-threaded (cp314t, cp315t) wheels for all
+  platforms.
+  Expand CI testing for free-threaded Python 3.14t from Linux-only to all
+  platforms (macOS, Windows), and add 3.15t CI.
+  See [issue 374].
+
+- Replace all remaining ``PyDict_GetItem()`` calls in the C extension with
+  exception-safe alternatives (PyDict_Contains, PyDict_GetItemWithError).
+  PyDict_GetItem silently swallows exceptions from __hash__/__eq__,
+  causing ``isOrExtends() to return False instead of raising TypeError``
+  for unhashable objects. Also use ``PyType_GetDict()`` on Python 3.13+ for
+  free-threading safety when accessing the type dict.
+  See [issue 357].
+
 8.4 (2026-04-25)
 ----------------
 
@@ -81,20 +98,3 @@ Linux/arm64.
 ----------------
 
 - Replace pkg_resources namespace with PEP 420 native namespace.
-
-- Drop support for Python 3.8.
-
-- Allow using newer setuptools version.
-  (`#333 <https://github.com/zopefoundation/zope.interface/issues/333>`_)
-
-7.2 (2024-11-28)
-----------------
-
-- Add preliminary support for Python 3.14a2, this means that
-  ``.common.builtins.IByteString and .common.collections.IByteString`` are
-  no longer available from this Python version onwards as Python 3.14
-dropped
-  ``collections.abc.ByteString``.
-
-7.1.1 (2024-10-23)
-------------------
