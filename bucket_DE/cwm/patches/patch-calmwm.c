@@ -1,4 +1,4 @@
---- calmwm.c.orig	2023-07-20 14:39:34 UTC
+--- calmwm.c.orig	2026-05-19 14:19:08 UTC
 +++ calmwm.c
 @@ -231,9 +231,13 @@ sighdlr(int sig)
  void
