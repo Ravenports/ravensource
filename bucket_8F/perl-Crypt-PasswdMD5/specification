@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.42
+DEF[PORTVERSION]=	1.43
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-Crypt-PasswdMD5
@@ -12,7 +12,7 @@ CONTACT=		Perl_Automaton[perl@ravenports.com]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:R/RS/RSAVAGE
-DISTFILE[1]=		Crypt-PasswdMD5-1.42.tgz:main
+DISTFILE[1]=		Crypt-PasswdMD5-1.43.tgz:main
 
 SPKGS[540]=		single
 SPKGS[542]=		single
@@ -32,7 +32,11 @@ DISTNAME=		Crypt-PasswdMD5-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
+# |      runtime : Crypt::URandom
 # |      runtime : Digest::MD5 (perl 5.40 core) (perl 5.42 core)
+# |      runtime : Encode (perl 5.40 core) (perl 5.42 core)
+# |      runtime : Exporter (perl 5.40 core) (perl 5.42 core)
+# |      runtime : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
 # |      runtime : strict (perl 5.40 core) (perl 5.42 core)
 # |      runtime : warnings (perl 5.40 core) (perl 5.42 core)
 # |        build : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
@@ -40,5 +44,7 @@ DISTNAME=		Crypt-PasswdMD5-${PORTVERSION}
 # |         test : Test::More (perl 5.40 core) (perl 5.42 core)
 
 [PERL_540].USES_ON=			perl:540,configure
+[PERL_540].BUILDRUN_DEPENDS_ON=		perl-Crypt-URandom:single:540
 [PERL_542].USES_ON=			perl:542,configure
+[PERL_542].BUILDRUN_DEPENDS_ON=		perl-Crypt-URandom:single:542
 
