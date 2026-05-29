@@ -1,4 +1,4 @@
---- src/engine/serialize.cpp.orig	2026-04-12 03:02:21 UTC
+--- src/engine/serialize.cpp.orig	2026-05-17 15:14:56 UTC
 +++ src/engine/serialize.cpp
 @@ -90,12 +90,14 @@ IStreamBase & IStreamBase::operator>>( c
      return *this;
