@@ -1,4 +1,4 @@
---- bindings/Makefile.am.orig	2024-07-29 07:08:58.000000000 -0000
+--- bindings/Makefile.am.orig	2026-05-25 09:14:16 UTC
 +++ bindings/Makefile.am
 @@ -28,15 +28,15 @@ all-local:  @COMP_PERL@ @COMP_RUBY@ @COM
  install-data-local:
@@ -17,5 +17,5 @@
 -                && $(MAKE) EPREFIX=$(DESTDIR)$(exec_prefix) $(RUBY_MAKE_OPTIONS) install ) \
 +                && $(MAKE) EPREFIX=$(DESTDIR)$(exec_prefix) install ) \
             || true
- 	$(AM_V_GEN)test -d ${builddir}/python/build \
-            && ( cd ${builddir}/python \
+ 	$(AM_V_GEN)test -f ${builddir}/python/dist/*.whl \
+            && ( $(PYTHON) -m pip install --upgrade --no-index --no-deps \
