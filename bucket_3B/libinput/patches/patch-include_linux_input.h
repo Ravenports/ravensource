@@ -1,4 +1,4 @@
---- include/linux/input.h.orig	2026-04-02 01:04:12 UTC
+--- include/linux/input.h.orig	2026-05-14 10:56:17 UTC
 +++ include/linux/input.h
 @@ -1,5 +1,5 @@
  #ifdef __linux__
