@@ -1,0 +1,60 @@
+#!/bin/sh
+
+# PROVIDE: hickory
+# REQUIRE: NETWORKING ldconfig syslogd
+# BEFORE: SERVERS
+# KEYWORD: shutdown
+
+# Add the following lines to /etc/rc.conf to enable Hickory DNS:
+# hickory_enable (bool):            Run the Hickory DNS server (or NO).
+# hickory_program (str):            Path to the Hickory executable, if you want a custom one.
+# hickory_conf (str):               Path to the configuration file (default: %%PREFIX%%/etc/hickory.toml).
+# hickory_workers (int):            Set worker count (default: number of CPU cores).
+# hickory_port (int):               Override DNS port defined in the configuration file.
+# hickory_zonedir (str):            Override zone directory defined in the configuration file.
+
+. /etc/rc.subr
+
+name="hickory"
+desc="Hickory DNS startup script"
+rcvar="hickory_enable"
+extra_commands="reload"
+pidfile="/var/run/hickory/hickory.pid"
+start_precmd=hickory_prestart
+
+: ${hickory_enable:="NO"}
+: ${hickory_program:="%%PREFIX%%/sbin/hickory-dns"}
+: ${hickory_conf:="%%PREFIX%%/etc/hickory.toml"}
+: ${hickory_port:=""}
+: ${hickory_zonedir:=""}
+: ${hickory_workers:=""}
+
+hickory_prestart()
+{
+    pidfile_dir=$(dirname "${pidfile}")
+    if [ ! -d "${pidfile_dir}" ]; then
+        if ! mkdir -p "${pidfile_dir}"; then
+            warn "Failed to create ${pidfile_dir}"
+            return 1
+        fi
+    fi
+
+    local hickory_args="-c ${hickory_conf}"
+    [ -n "${hickory_port}" ] && hickory_args="${hickory_args} -p ${hickory_port}"
+    [ -n "${hickory_zonedir}" ] && hickory_args="${hickory_args} -z ${hickory_zonedir}"
+    [ -n "${hickory_workers}" ] && hickory_args="${hickory_args} --workers ${hickory_workers}"
+
+    command="/usr/sbin/daemon -f -p ${pidfile} ${hickory_program} ${hickory_args}"
+}
+
+hickory_reload()
+{
+    if [ -f "${pidfile}" ]; then
+        kill -HUP $(cat "${pidfile}") 2>/dev/null
+    else
+        warn "PID file ${pidfile} not found; cannot reload"
+    fi
+}
+
+load_rc_config $name
+run_rc_command "$1"

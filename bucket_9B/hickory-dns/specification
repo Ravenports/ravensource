@@ -3,7 +3,7 @@ DEF[PORTVERSION]=	0.26.1
 
 NAMEBASE=		hickory-dns
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		rust dns
 VARIANTS=		std
 SDESC[std]=		Rust-based DNS server with DNSSEC support + utils
@@ -830,15 +830,21 @@ SPKGS[std]=		set primary utils examples
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		APACHE20:set
-			MIT:set
+LICENSE=		APACHE20:primary
+			MIT:primary
 LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE-APACHE
 			MIT:{{WRKSRC}}/LICENSE-MIT
-LICENSE_TERMS=		set:{{WRKSRC}}/copyright.txt
+LICENSE_TERMS=		primary:{{WRKSRC}}/copyright.txt
 LICENSE_SCHEME=		dual
+
+USERS=			hickory
+GROUPS=			hickory
+USERGROUP_SPKG=		primary
 
 USES=			c++:primary,utils cargo
 # CARGO_BUILD_ARGS=	--package hickory-util
+
+RC_SUBR=		hickory:primary
 
 # Override because we need to build twice
 do-build:
@@ -856,3 +862,9 @@ do-install:
 post-install:
 	${RM} ${STAGEDIR}${PREFIX}/.crates*
 	(cd ${WRKSRC}/tests/test-data && ${COPYTREE_SHARE} test_configs ${STAGEDIR}${STD_EXAMPLESDIR}/)
+	${MV} ${STAGEDIR}${PREFIX}/bin/hickory-dns ${STAGEDIR}${PREFIX}/sbin/
+	${MKDIR} -p ${STAGEDIR}${PREFIX}/var/named/default
+.for f in 0.zone 127.0.0.1.zone 255.zone ipv6_1.zone localhost.zone
+	${INSTALL_DATA} ${WRKSRC}/tests/test-data/test_configs/default/${f} ${STAGEDIR}${PREFIX}/var/named/default/
+.endfor
+	${INSTALL_DATA} ${WRKSRC}/tests/test-data/test_configs/example.toml ${STAGEDIR}${PREFIX}/etc/hickory.toml-dist
