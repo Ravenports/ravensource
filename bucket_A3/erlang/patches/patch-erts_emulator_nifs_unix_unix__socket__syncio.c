@@ -1,4 +1,4 @@
---- erts/emulator/nifs/unix/unix_socket_syncio.c.orig	2026-05-11 10:28:08 UTC
+--- erts/emulator/nifs/unix/unix_socket_syncio.c.orig	2026-05-26 14:08:32 UTC
 +++ erts/emulator/nifs/unix/unix_socket_syncio.c
 @@ -36,14 +36,17 @@
  
