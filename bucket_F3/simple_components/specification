@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	4.76
+DEF[PORTVERSION]=	4.80
 DEF[REVISION]=		0
 DEF[DEST]=		{{STAGEDIR}}{{PREFIX}}
 DEF[C]=			components
@@ -61,9 +61,8 @@ do-install:
 		--prefix=${DEST} \
 		--sources-subdir=${DEST}/include/${PORTNAME}/${PROJECT} \
 		--lib-subdir=${DEST}/lib/${PORTNAME}/${PROJECT} \
+		--no-manifests \
 		${PROJECT}.gpr)
 .endfor
 	# end of workaround: remove dummy object file
 	${RM} ${WRKSRC}/strings_edit-text_edit.o
-	# Eject manifests, we don't use them
-	${RM} -r ${DEST}/share/gpr/manifests
