@@ -1,6 +1,6 @@
---- storage/innobase/include/trx0trx.h.orig	2026-01-31 13:27:48.000000000 -0000
+--- storage/innobase/include/trx0trx.h.orig	2026-05-24 09:58:32 UTC
 +++ storage/innobase/include/trx0trx.h
-@@ -673,14 +673,10 @@ public:
+@@ -663,14 +663,10 @@ public:
    {
      ut_ad(!mutex_is_owner());
      mutex.wr_lock();

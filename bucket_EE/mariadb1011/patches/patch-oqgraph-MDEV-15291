@@ -1,6 +1,6 @@
---- storage/oqgraph/oqgraph_judy.cc.orig	2026-01-31 10:47:56.000000000 -0000
+--- storage/oqgraph/oqgraph_judy.cc.orig	2026-05-23 15:01:06 UTC
 +++ storage/oqgraph/oqgraph_judy.cc
-@@ -27,7 +27,7 @@
+@@ -25,7 +25,7 @@
  /*
    Currently the only active code that can return error is:
      judy_bitset::reset()/J1U()
@@ -9,7 +9,7 @@
  
    In most cases errors are either about wrong parameters passed to Judy
    functions or internal structures corruption. These definitely deserve
-@@ -60,7 +60,7 @@ bool open_query::judy_bitset::test(size_
+@@ -58,7 +58,7 @@ bool open_query::judy_bitset::test(size_
    return rc == 1;
  }
  
@@ -18,9 +18,9 @@
  {
    int rc;
    J1S(rc, array, n);
---- storage/oqgraph/oqgraph_judy.h.orig	2026-01-31 10:47:56.000000000 -0000
+--- storage/oqgraph/oqgraph_judy.h.orig	2026-05-23 15:01:06 UTC
 +++ storage/oqgraph/oqgraph_judy.h
-@@ -63,7 +63,7 @@ namespace open_query
+@@ -61,7 +61,7 @@ namespace open_query
        if (!val)
          return reset(n);
        else
@@ -29,7 +29,7 @@
      }
  
      judy_bitset& set(const judy_bitset& src);
-@@ -114,7 +114,7 @@ namespace open_query
+@@ -112,7 +112,7 @@ namespace open_query
    private:
      mutable void* array;
  

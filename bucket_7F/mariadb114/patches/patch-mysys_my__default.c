@@ -1,4 +1,4 @@
---- mysys/my_default.c.orig	2026-01-31 10:50:14.000000000 -0000
+--- mysys/my_default.c.orig	2026-05-23 19:43:00 UTC
 +++ mysys/my_default.c
 @@ -629,7 +629,7 @@ static int search_default_file_with_ext(
    {

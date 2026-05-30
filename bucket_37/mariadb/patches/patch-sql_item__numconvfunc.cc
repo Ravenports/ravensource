@@ -1,4 +1,4 @@
---- sql/item_numconvfunc.cc.orig	2026-02-06 17:11:17 UTC
+--- sql/item_numconvfunc.cc.orig	2026-05-26 19:21:07 UTC
 +++ sql/item_numconvfunc.cc
 @@ -50,10 +50,10 @@ public:
    class Single_char_token

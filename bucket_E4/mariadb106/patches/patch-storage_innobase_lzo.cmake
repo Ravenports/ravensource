@@ -1,4 +1,4 @@
---- storage/innobase/lzo.cmake.orig	2026-01-27 21:45:34.000000000 -0000
+--- storage/innobase/lzo.cmake.orig	2026-05-23 14:57:00 UTC
 +++ storage/innobase/lzo.cmake
 @@ -17,13 +17,17 @@ SET(WITH_INNODB_LZO AUTO CACHE STRING
  
