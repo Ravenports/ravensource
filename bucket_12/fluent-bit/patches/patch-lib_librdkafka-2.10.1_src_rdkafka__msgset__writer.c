@@ -1,4 +1,4 @@
---- lib/librdkafka-2.10.1/src/rdkafka_msgset_writer.c.orig	2026-04-14 17:27:00 UTC
+--- lib/librdkafka-2.10.1/src/rdkafka_msgset_writer.c.orig	2026-05-21 14:55:56 UTC
 +++ lib/librdkafka-2.10.1/src/rdkafka_msgset_writer.c
 @@ -1039,7 +1039,7 @@ static int rd_kafka_msgset_writer_compre
          int comp_level =
