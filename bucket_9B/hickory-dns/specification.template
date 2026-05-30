@@ -5,7 +5,7 @@ NAMEBASE=		hickory-dns
 VERSION=		${PORTVERSION}
 KEYWORDS=		rust dns
 VARIANTS=		std
-SDESC[std]=		Rust based DNS server with DNSSEC support
+SDESC[std]=		Rust-based DNS server with DNSSEC support + utils
 HOMEPAGE=		https://hickory-dns.org/
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
@@ -16,26 +16,34 @@ DISTFILE[1]=		generated:main
 %%CR_DISTFILES%%
 %%DF_INDEX%%
 
-SPKGS[std]=		single
+SPKGS[std]=		set primary utils examples
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		APACHE20:single
-			MIT:single
+LICENSE=		APACHE20:set
+			MIT:set
 LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE-APACHE
 			MIT:{{WRKSRC}}/LICENSE-MIT
-LICENSE_TERMS=		single:{{WRKSRC}}/copyright.txt
+LICENSE_TERMS=		set:{{WRKSRC}}/copyright.txt
 LICENSE_SCHEME=		dual
 
-USES=			c++:single cargo
-CARGO_BUILD_ARGS=	--package hickory-dns
+USES=			c++:primary,utils cargo
+# CARGO_BUILD_ARGS=	--package hickory-dns
+
+# Override because we need to build twice
+do-build:
+	(cd ${WRKSRC} && ${CARGO_CARGO_RUN} build --package hickory-dns --release \
+		--verbose &&  ${CARGO_CARGO_RUN} build --package hickory-util \
+		--release --verbose)
 
 # Override as cargo.mk does currently hard-code --path to . and this
-# means it doesn't support projects that use Rust workspaces
+# means it doesn't support projects that use Rust workspaces; we also install twice
 do-install:
 	(cd ${WRKSRC} && ${CARGO_CARGO_RUN} install --path bin --root \
-		"${STAGEDIR}${PREFIX}" --verbose)
+		"${STAGEDIR}${PREFIX}" --verbose && ${CARGO_CARGO_RUN} \
+		install --path util --root "${STAGEDIR}${PREFIX}" --verbose)
 
 post-install:
 	${RM} ${STAGEDIR}${PREFIX}/.crates*
+	${COPYTREE_SHARE} ${WRKSRC}/tests/test-data/test_configs ${STAGEDIR}${STD_EXAMPLESDIR}/
