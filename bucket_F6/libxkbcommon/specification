@@ -1,6 +1,6 @@
-DEF[PORTVERSION]=	1.13.1
+DEF[PORTVERSION]=	1.13.2
 DEF[TAG]=		xkbcommon-${PORTVERSION}
-DEF[SOVERSION]=		0.13.1
+DEF[SOVERSION]=		0.13.2
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libxkbcommon
@@ -33,6 +33,8 @@ XORG_COMPONENTS=	xcb xorgproto
 GNOME_COMPONENTS=	libxml2
 CPE_VENDOR=		xkbcommon
 MESON_ARGS=		-Dx-locale-root={{PREFIX}}/lib/X11/locale
+			-Dxkb-config-unversioned-extensions-path={{PREFIX}}/share/X11/xkb/xkeyboard-config.d
+			-Dxkb-config-versioned-extensions-path={{PREFIX}}/share/X11/xkb.d
 			-Ddefault-rules=xorg
 			-Denable-wayland=false
 			-Denable-docs=false
