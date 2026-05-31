@@ -1,4 +1,4 @@
---- vendor/lzma-sys-0.1.20/config.h.orig	2026-04-14 19:55:32 UTC
+--- vendor/lzma-sys-0.1.20/config.h.orig	2026-05-25 23:21:07 UTC
 +++ vendor/lzma-sys-0.1.20/config.h
 @@ -35,7 +35,6 @@
      // change to `MYTHREAD_WIN95` if targeting Windows XP or earlier

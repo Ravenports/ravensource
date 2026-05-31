@@ -1,6 +1,6 @@
---- src/bootstrap/src/core/build_steps/tool.rs.orig	2026-04-14 19:55:32 UTC
+--- src/bootstrap/src/core/build_steps/tool.rs.orig	2026-05-25 23:21:07 UTC
 +++ src/bootstrap/src/core/build_steps/tool.rs
-@@ -710,6 +710,57 @@ impl Step for Rustdoc {
+@@ -716,6 +716,57 @@ impl Step for Rustdoc {
          }
  
          // If stage is higher, we build rustdoc instead

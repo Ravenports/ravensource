@@ -1,7 +1,7 @@
 Resolve this issue on lld and dragonfly:
 fatal runtime error: assertion failed: key as usize != KEY_SENTVAL, aborting
 
---- library/std/src/sys/thread_local/key/racy.rs.orig	2026-04-14 19:55:32 UTC
+--- library/std/src/sys/thread_local/key/racy.rs.orig	2026-05-25 23:21:07 UTC
 +++ library/std/src/sys/thread_local/key/racy.rs
 @@ -21,14 +21,19 @@ pub struct LazyKey {
  

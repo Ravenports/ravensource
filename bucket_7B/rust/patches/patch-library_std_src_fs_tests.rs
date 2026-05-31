@@ -1,4 +1,4 @@
---- library/std/src/fs/tests.rs.orig	2026-04-14 19:55:32 UTC
+--- library/std/src/fs/tests.rs.orig	2026-05-25 23:21:07 UTC
 +++ library/std/src/fs/tests.rs
 @@ -214,6 +214,7 @@ fn file_test_io_seek_and_write() {
          target_os = "aix",
