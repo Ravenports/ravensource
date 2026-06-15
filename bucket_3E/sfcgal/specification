@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	2.2.0
-DEF[SOVERSION]=		2.2.0
+DEF[PORTVERSION]=	2.3.0
+DEF[SOVERSION]=		2.3.0
 DEF[V]=			v${PORTVERSION}
 # ----------------------------------------------------------------------------
 
@@ -31,13 +31,14 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		databases/sfcgal
 
-BUILD_DEPENDS=		gmp:dev:std
-			mpfr:dev:std
-			boost-libraries:dev:std
+BUILD_DEPENDS=		boost-libraries:dev:std
 			cgal:dev:std
-BUILDRUN_DEPENDS=	gmp:primary:std
+			gmp:dev:std
+			mpfr:dev:std
+			nlohmann-json:single:std
+BUILDRUN_DEPENDS=	boost-libraries:primary:std
+			gmp:primary:std
 			mpfr:primary:std
-			boost-libraries:primary:std
 
 USES=			cmake libtool
 CMAKE_ARGS=		-DBUILD_SHARED_LIBS:BOOL=ON
