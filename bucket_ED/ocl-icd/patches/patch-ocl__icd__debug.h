@@ -1,4 +1,4 @@
---- ocl_icd_debug.h.orig	2025-04-02 20:16:06 UTC
+--- ocl_icd_debug.h.orig	2025-09-18 17:35:10 UTC
 +++ ocl_icd_debug.h
 @@ -69,9 +69,9 @@ extern int debug_ocl_icd_mask;
  	return ret; \
