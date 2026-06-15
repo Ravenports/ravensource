@@ -13,9 +13,9 @@ Closes: https://gitlab.gnome.org/GNOME/polari/-/issues/133
  src/chatView.js                   | 3 ++-
  4 files changed, 13 insertions(+), 1 deletion(-)
 
---- data/org.gnome.Polari.gschema.xml.orig
+--- data/org.gnome.Polari.gschema.xml.orig	2025-11-09 21:18:22 UTC
 +++ data/org.gnome.Polari.gschema.xml
-@@ -36,6 +36,11 @@ SPDX-FileCopyrightText: 2015 Florian Müllner <fmuellner@gnome.or>
+@@ -36,6 +36,11 @@ SPDX-FileCopyrightText: 2015 Florian Mü
        <summary>Last active channel</summary>
        <description>Last active (selected) channel</description>
      </key>
@@ -27,9 +27,9 @@ Closes: https://gitlab.gnome.org/GNOME/polari/-/issues/133
    </schema>
  
    <schema id="org.gnome.Polari.Account">
---- data/ui/main-window.ui.orig
+--- data/ui/main-window.ui.orig	2025-11-09 21:18:22 UTC
 +++ data/ui/main-window.ui
-@@ -21,6 +21,10 @@ SPDX-License-Identifier: GPL-2.0-or-later
+@@ -21,6 +21,10 @@ SPDX-License-Identifier: GPL-2.0-or-late
          <attribute name="action">app.run-in-background</attribute>
          <attribute name="label" translatable="yes">Run in Background</attribute>
        </item>
@@ -40,9 +40,9 @@ Closes: https://gitlab.gnome.org/GNOME/polari/-/issues/133
      </section>
      <section>
        <item>
---- src/application.js.orig
+--- src/application.js.orig	2025-11-09 21:18:22 UTC
 +++ src/application.js
-@@ -361,6 +361,8 @@ class Application extends Adw.Application {
+@@ -361,6 +361,8 @@ class Application extends Adw.Applicatio
          this._settings = new Gio.Settings({schema_id: 'org.gnome.Polari'});
          let action = this._settings.create_action('run-in-background');
          this.add_action(action);
@@ -51,9 +51,9 @@ Closes: https://gitlab.gnome.org/GNOME/polari/-/issues/133
  
          action = this.lookup_action('user-list');
          action.connect('notify::enabled', () => {
---- src/chatView.js.orig
+--- src/chatView.js.orig	2025-11-09 21:18:22 UTC
 +++ src/chatView.js
-@@ -1305,7 +1305,8 @@ class ChatView extends Gtk.ScrolledWindow {
+@@ -1305,7 +1305,8 @@ class ChatView extends Gtk.ScrolledWindo
              this._insertWithTags(iter,
                  url.name, tags.concat(this._lookupTag('url'), tag));
  

@@ -11,9 +11,9 @@ Closes: https://gitlab.gnome.org/GNOME/polari/-/issues/233
  src/mainWindow.js | 23 +++++++++++++----------
  1 file changed, 13 insertions(+), 10 deletions(-)
 
---- src/mainWindow.js.orig
+--- src/mainWindow.js.orig	2025-11-09 21:18:22 UTC
 +++ src/mainWindow.js
-@@ -96,49 +96,50 @@ class MainWindow extends Adw.ApplicationWindow {
+@@ -96,8 +96,8 @@ class MainWindow extends Adw.Application
              }
          });
  
@@ -24,9 +24,7 @@ Closes: https://gitlab.gnome.org/GNOME/polari/-/issues/233
              this.add_css_class('test-instance');
          if (GLib.get_application_name().toLowerCase().includes('snapshot'))
              this.add_css_class('snapshot');
- 
-         const actions = [{
-             name: 'search',
+@@ -107,7 +107,7 @@ class MainWindow extends Adw.Application
              handler: () => this._searchButton.activate(),
          }];
          actions.forEach(a => {
@@ -35,23 +33,7 @@ Closes: https://gitlab.gnome.org/GNOME/polari/-/issues/233
          });
  
          this._roomStack.connect('notify::view-height',
-             () => this.notify('view-height'));
- 
-         this._accountsMonitor = AccountsMonitor.getDefault();
-         this._accountsChangedId = this._accountsMonitor.connect(
-             'accounts-changed', this._onAccountsChanged.bind(this));
-         this._onAccountsChanged(this._accountsMonitor);
- 
-         this._accountReachableId = this._accountsMonitor.connect(
-             'account-reachable-changed', this._onAccountsReachableChanged.bind(this));
-         this._onAccountsReachableChanged();
- 
-         this._roomManager = RoomManager.getDefault();
-         this._roomsLoadedId = this._roomManager.connect('rooms-loaded',
-             this._onRoomsLoaded.bind(this));
-         this._roomRemovedId = this._roomManager.connect('room-removed',
-             this._onRoomRemoved.bind(this));
-         this._onRoomsLoaded();
+@@ -131,14 +131,15 @@ class MainWindow extends Adw.Application
  
          this._updateUserListLabel();
  
@@ -74,7 +56,7 @@ Closes: https://gitlab.gnome.org/GNOME/polari/-/issues/233
          this._userListPopover.connect('notify::visible', () => {
              if (!this._userListPopover.visible)
                  this._userListAction.change_state(GLib.Variant.new('b', false));
-@@ -207,6 +208,8 @@ class MainWindow extends Adw.ApplicationWindow {
+@@ -207,6 +208,8 @@ class MainWindow extends Adw.Application
  
          this._roomManager.disconnect(this._roomsLoadedId);
          this._roomManager.disconnect(this._roomRemovedId);
