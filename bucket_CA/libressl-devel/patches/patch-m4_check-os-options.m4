@@ -1,6 +1,6 @@
---- m4/check-os-options.m4.orig	2025-09-30 14:06:54 UTC
+--- m4/check-os-options.m4.orig	2025-10-28 13:16:11 UTC
 +++ m4/check-os-options.m4
-@@ -58,18 +58,15 @@ char buf[1]; getentropy(buf, 1);
+@@ -73,18 +73,15 @@ char buf[1]; getentropy(buf, 1);
  		# Not available on iOS
  		AC_CHECK_HEADER([arpa/telnet.h], [], [BUILD_NC=no])
  		;;
