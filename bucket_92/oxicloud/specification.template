@@ -1,0 +1,32 @@
+DEF[PORTVERSION]=	%%VERSION%%
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		oxicloud
+VERSION=		${PORTVERSION}
+KEYWORDS=		rust www
+VARIANTS=		std
+SDESC[std]=		Secure, light cloud application written in Rust
+HOMEPAGE=		https://atalayalabs.github.io/OxiCloud/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+%%DOWNLOAD_GROUPS%%
+SITES[main]=		GITHUB/AtalayaLabs:OxiCloud:v${PORTVERSION}
+%%CR_SITES%%
+DISTFILE[1]=		generated:main
+%%CR_DISTFILES%%
+%%DF_INDEX%%
+
+SPKGS[std]=		single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+USES=			cargo
+INSTALL_REQ_TOOLCHAIN=	yes
+
+post-install:
+	${RM} ${STAGEDIR}${PREFIX}/.crates2.json
