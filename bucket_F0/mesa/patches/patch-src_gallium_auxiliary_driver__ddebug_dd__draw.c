@@ -1,6 +1,6 @@
---- src/gallium/auxiliary/driver_ddebug/dd_draw.c.orig	2026-04-29 20:19:00 UTC
+--- src/gallium/auxiliary/driver_ddebug/dd_draw.c.orig	2026-05-14 07:49:34 UTC
 +++ src/gallium/auxiliary/driver_ddebug/dd_draw.c
-@@ -91,7 +91,7 @@ dd_parse_apitrace_marker(const char *str
+@@ -92,7 +92,7 @@ dd_parse_apitrace_marker(const char *str
        return;
  
     /* Make it zero-terminated. */
