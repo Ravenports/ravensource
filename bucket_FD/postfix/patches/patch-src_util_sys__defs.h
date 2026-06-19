@@ -1,4 +1,4 @@
---- src/util/sys_defs.h.orig	2026-05-01 18:55:47.000000000 -0000
+--- src/util/sys_defs.h.orig	2026-05-15 17:31:55 UTC
 +++ src/util/sys_defs.h
 @@ -36,10 +36,7 @@
      || defined(OPENBSD2) || defined(OPENBSD3) || defined(OPENBSD4) \
