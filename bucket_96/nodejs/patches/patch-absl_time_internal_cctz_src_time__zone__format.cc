@@ -1,4 +1,4 @@
---- deps/v8/third_party/abseil-cpp/absl/time/internal/cctz/src/time_zone_format.cc.orig	2026-05-20 08:13:57 UTC
+--- deps/v8/third_party/abseil-cpp/absl/time/internal/cctz/src/time_zone_format.cc.orig	2026-06-01 07:22:40 UTC
 +++ deps/v8/third_party/abseil-cpp/absl/time/internal/cctz/src/time_zone_format.cc
 @@ -21,7 +21,7 @@
  #endif
