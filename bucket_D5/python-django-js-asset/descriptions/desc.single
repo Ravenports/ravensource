@@ -6,7 +6,23 @@ django-js-asset -- JS, CSS and JSON support for django.forms.Media
 <https://docs.djangoproject.com/en/dev/topics/forms/media/#script-objects>`__.
 This library has a slightly different API and also supports much older
 versions
-of Django, *and* it also supports CSS and JSON tags.
+of Django, *and* it also supports CSS and JSON tags. As of the next version
+JS and CSS actually *produce* Django's own Script and Stylesheet
+objects (backported on Django versions that lack them), so js_asset assets,
+plain path strings and Django's native assets share the same de-duplication
+buckets in ``forms.Media`` -- see `Deduplication`_ below.
+
+.. warning::
+
+   **Upgrading from 3.x?** django-js-asset 4.0 is somewhat different,
+especially
+   if you use **import maps**: the global importmap object and its context
+   processor have been removed in favour of merging ImportMap objects
+   through the new ``js_asset.Media`` class (see `Import maps`_ below).
+Read the
+   [change log
+  ] before
+   upgrading.
 
 Usage
 =====
@@ -39,7 +55,7 @@ accessed inside ``asset.js``:
 
 .. code-block:: javascript
 
-    var answer = document.querySelector("#asset-script").dataset.answer;
+    let answer = document.querySelector("#asset-script").dataset.answer;
 
 Also, because the implementation of static differs between supported
 Django versions (older do not take the presence of
@@ -82,19 +98,3 @@ type="application/json">{"configuration": 42}</script>
 
 Compatibility
 =============
-
-At the time of writing this app is compatible with Django 4.2 and better
-(up to and including the Django main branch), but have a look at the
-[tox configuration
-] for
-definitive answers.
-
-Extremely experimental importmap support
-========================================
-
-django-js-asset ships an extremely experimental implementation adding
-support
-for using [importmaps
-].
-
-One of the reasons why importmaps are useful when used with Django is that

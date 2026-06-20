@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.1.0
+DEF[PORTVERSION]=	1.1.1
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-python-debian
@@ -11,7 +11,7 @@ HOMEPAGE=		https://salsa.debian.org/python-debian-team/python-debian
 CONTACT=		Python_Automaton[python@ravenports.com]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/0a/66/af49103279c07900b89b7ebac53111910aa8eb6d898be0b47220036b0b03
+SITES[main]=		PYPIWHL/6e/47/e184f0004e63dbc49c4bad5e811218f66bece1b519f80b06a619b42e6ec3
 DISTFILE[1]=		python_debian-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -24,18 +24,16 @@ VOPTS[v13]=		PY313=ON PY314=OFF
 VOPTS[v14]=		PY313=OFF PY314=ON
 
 # License listed at PyPI
-# GPL-2.0-or-later
+# Not provided.
 
 GENERATED=		yes
 DISTNAME=		python_debian-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# charset-normalizer
+# charset-normalizer; extra == "encodings"
 # pytest; extra == "test"
 # pytest-cov; extra == "test"
 
 [PY313].USES_ON=			python:v13,wheel
-[PY313].RUN_DEPENDS_ON=			python-charset-normalizer:single:v13
 [PY314].USES_ON=			python:v14,wheel
-[PY314].RUN_DEPENDS_ON=			python-charset-normalizer:single:v14
 

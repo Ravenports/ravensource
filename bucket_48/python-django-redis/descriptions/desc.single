@@ -39,8 +39,8 @@ example)
 Requirements
 ~~~~~~~~~~~~
 
-- `Python`_ 3.9+
-- `Django`_ 4.2+
+- `Python`_ 3.10+
+- `Django`_ 5.2+
 - `redis-py`_ 4.0.2+
 - `Redis server`_ 2.8+
 
@@ -74,9 +74,6 @@ something like:
         "default": {
             "BACKEND": "django_redis.cache.RedisCache",
             "LOCATION": "redis://127.0.0.1:6379/1",
-            "OPTIONS": {
-                "CLIENT_CLASS": "django_redis.client.DefaultClient",
-            }
         }
     }
 
@@ -98,3 +95,6 @@ Three URL schemes are supported:
 
 There are several ways to specify a database number:
 
+- A db querystring option, e.g. ``redis://localhost?db=0``
+- If using the ``redis://`` scheme, the path argument of the URL, e.g.
+  ``redis://localhost/0``

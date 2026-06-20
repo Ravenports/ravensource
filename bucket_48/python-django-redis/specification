@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	6.0.0
+DEF[PORTVERSION]=	7.0.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-django-redis
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/jazzband/django-redis
 CONTACT=		Python_Automaton[python@ravenports.com]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/7e/79/055dfcc508cfe9f439d9f453741188d633efa9eab90fc78a67b0ab50b137
+SITES[main]=		PYPIWHL/7e/9f/09cdb9a1eebe8533b02a7694ca787acfc1e4d93b5b6175ff99366d4e6d64
 DISTFILE[1]=		django_redis-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -24,15 +24,19 @@ VOPTS[v13]=		PY313=ON PY314=OFF
 VOPTS[v14]=		PY313=OFF PY314=ON
 
 # License listed at PyPI
-# BSD-3-Clause
+# Not provided.
 
 GENERATED=		yes
 DISTNAME=		django_redis-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# Django>=4.2
+# Django<7.0,>=5.2
 # redis>=4.0.2
+# typing_extensions>=4.12; python_version <= "3.12"
 # redis[hiredis]>=4.0.2; extra == "hiredis"
+# lz4>=0.15; extra == "lz4"
+# msgpack>=0.6.0; extra == "msgpack"
+# pyzstd>=0.15; extra == "pyzstd"
 
 [PY313].USES_ON=			python:v13,wheel
 [PY313].RUN_DEPENDS_ON=			python-Django:single:v13
