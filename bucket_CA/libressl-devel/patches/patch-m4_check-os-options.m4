@@ -1,4 +1,4 @@
---- m4/check-os-options.m4.orig	2025-10-28 13:16:11 UTC
+--- m4/check-os-options.m4.orig	2026-02-07 22:51:39 UTC
 +++ m4/check-os-options.m4
 @@ -73,18 +73,15 @@ char buf[1]; getentropy(buf, 1);
  		# Not available on iOS
