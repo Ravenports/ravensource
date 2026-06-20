@@ -1,7 +1,6 @@
-DEF[PORTVERSION]=	2026.1
+DEF[PORTVERSION]=	2026.2
 DEF[TAG]=		v${PORTVERSION}
 # same as "vulkan-sdk-1.4.341.1" (leading v breaks automove)
-DEF[HEADERS_TAG]=	04f10f6
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		spirv-tools
@@ -12,12 +11,9 @@ SDESC[std]=		API and commands for processing SPIR-V modules
 HOMEPAGE=		https://github.com/KhronosGroup/SPIRV-Tools
 CONTACT=		nobody
 
-DOWNLOAD_GROUPS=	main headers
+DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/KhronosGroup:SPIRV-Tools:${TAG}
-SITES[headers]=		GITHUB/KhronosGroup:SPIRV-Headers:${HEADERS_TAG}:external/spirv-headers
 DISTFILE[1]=		generated:main
-DISTFILE[2]=		generated:headers
-DF_INDEX=		1 2
 
 SPKGS[std]=		set primary dev
 
@@ -33,12 +29,19 @@ LICENSE_AWK=		TERMS:"SOURCE_SPIRV_CONSTANT_H_"
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/source/spirv_constant.h
 LICENSE_SCHEME=		solo
 
+BUILD_DEPENDS=		spirv-headers:single:std
+
 USES=			cmake shebangfix python:build c++:primary
 SHEBANG_FILES=		tools/lesspipe/spirv-lesspipe.sh
 CMAKE_ARGS=		-DSPIRV_SKIP_TESTS:BOOL=ON
+			-DSPIRV-Headers_SOURCE_DIR={{PREFIX}}
+
+post-patch:
+	# De-vendor headers
+	${REINPLACE_CMD} '/examples/d;/third_party/d' ${WRKSRC}/CMakeLists.txt
 
 post-install:
-.for tool in as cfg dis link lint objdump opt reduce val
+.for tool in as cfg dis link lint objdump opt reduce diff val
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/spirv-${tool}
 .endfor
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libSPIRV-Tools-shared.so
