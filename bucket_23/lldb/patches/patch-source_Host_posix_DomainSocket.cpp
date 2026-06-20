@@ -1,4 +1,4 @@
---- source/Host/posix/DomainSocket.cpp.orig	2026-05-14 07:31:46 UTC
+--- source/Host/posix/DomainSocket.cpp.orig	2026-06-01 07:23:32 UTC
 +++ source/Host/posix/DomainSocket.cpp
 @@ -48,6 +48,7 @@ static bool SetSockAddr(llvm::StringRef
          offsetof(struct sockaddr_un, sun_path) + name_offset + name.size();
