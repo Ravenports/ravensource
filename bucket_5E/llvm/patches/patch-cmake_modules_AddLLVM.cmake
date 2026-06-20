@@ -1,4 +1,4 @@
---- cmake/modules/AddLLVM.cmake.orig	2026-05-14 07:31:46 UTC
+--- cmake/modules/AddLLVM.cmake.orig	2026-06-01 07:23:32 UTC
 +++ cmake/modules/AddLLVM.cmake
 @@ -238,14 +238,10 @@ if (NOT DEFINED LLVM_LINKER_DETECTED AND
        set(LLVM_LINKER_DETECTED YES CACHE INTERNAL "")
