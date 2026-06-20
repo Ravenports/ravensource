@@ -1,0 +1,30 @@
+DEF[PORTVERSION]=	1.4.350.1
+# Must use hash rather than tag name since the "v" breaks automove
+DEF[TAG]=		ad9184e
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		spirv-headers
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		std
+SDESC[std]=		SPIRV Headers
+HOMEPAGE=		https://github.com/KhronosGroup/SPIRV-Headers
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/KhronosGroup:SPIRV-Headers:${TAG}
+DISTFILE[1]=		generated:main
+
+SPKGS[std]=		single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# All source files are covered either under MIT or PUBDOM / MIT.
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSES/MIT.txt
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		graphics/spirv-headers
+
+USES=			cmake
