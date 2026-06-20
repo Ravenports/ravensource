@@ -1,0 +1,43 @@
+DEF[PORTVERSION]=	1.4.354
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		vulkan-loader
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		std
+SDESC[std]=		Driver loader for the Vulkan graphics API
+HOMEPAGE=		https://github.com/KhronosGroup/Vulkan-Loader
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/KhronosGroup:Vulkan-Loader:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[std]=		set primary dev
+
+# Wayland support could get added if there's demand for it
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		APACHE20:primary
+LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSES/Apache-2.0.txt
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		graphics/vulkan-loader
+
+USES=			cmake pkgconfig python:build
+XORG_COMPONENTS=	x11 xau xcb xdmcp xrandr xorgproto
+
+BUILD_DEPENDS=		vulkan-headers:single:std
+
+CMAKE_ARGS=		-DXCB_INCLUDE_DIRS:PATH={{LOCALBASE}}/include/xcb
+			-DXLIB_INCLUDE_DIRS:PATH={{LOCALBASE}}/include/x11
+
+CFLAGS=			-std=c17
+
+post-extract:
+	(cd ${WRKSRC} && ${HEAD} -n 3 LICENSE.txt > ../TERMS)
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libvulkan.so
