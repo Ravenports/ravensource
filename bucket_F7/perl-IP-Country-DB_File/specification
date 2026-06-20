@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.03
+DEF[PORTVERSION]=	4.00
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-IP-Country-DB_File
@@ -23,23 +23,28 @@ VOPTS[540]=		PERL_540=ON PERL_542=OFF
 VOPTS[542]=		PERL_540=OFF PERL_542=ON
 
 # License listed in CPAN directory:
-# perl
+# perl_5
 
 GENERATED=		yes
 SINGLE_JOB=		yes
 DISTNAME=		IP-Country-DB_File-${PORTVERSION}
 
-# ---------------------------------------------
-# |   Prerequisites extracted from META.yml
-# ---------------------------------------------
-# | configure_requires : ExtUtils::MakeMaker (perl 5.40.3 core) (perl 5.42.2 core)
-# |           requires : DB_File (perl 5.40.3 core) (perl 5.42.2 core)
-# |           requires : Math::Int64
-# |           requires : Net::FTP (perl 5.40.3 core) (perl 5.42.2 core)
-# |           requires : Socket (perl 5.40.3 core) (perl 5.42.2 core)
+# ----------------------------------------------
+# |   Prerequisites extracted from META.json
+# ----------------------------------------------
+# |      runtime : DB_File (perl 5.40 core) (perl 5.42 core)
+# |      runtime : LWP::Protocol::https
+# |      runtime : LWP::UserAgent
+# |      runtime : Math::Int64
+# |      runtime : Socket (perl 5.40 core) (perl 5.42 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
 
 [PERL_540].USES_ON=			perl:540,configure
-[PERL_540].BUILDRUN_DEPENDS_ON=		perl-Math-Int64:single:540
+[PERL_540].BUILDRUN_DEPENDS_ON=		perl-LWP-Protocol-https:single:540
+					perl-libwww-perl:single:540
+					perl-Math-Int64:single:540
 [PERL_542].USES_ON=			perl:542,configure
-[PERL_542].BUILDRUN_DEPENDS_ON=		perl-Math-Int64:single:542
+[PERL_542].BUILDRUN_DEPENDS_ON=		perl-LWP-Protocol-https:single:542
+					perl-libwww-perl:single:542
+					perl-Math-Int64:single:542
 
