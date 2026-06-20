@@ -1,0 +1,38 @@
+DEF[PORTVERSION]=	8.4.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-natsort
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v13 v14
+SDESC[v13]=		Simple yet flexible natural sorting (3.13)
+SDESC[v14]=		Simple yet flexible natural sorting (3.14)
+HOMEPAGE=		https://github.com/SethMMorton/natsort
+CONTACT=		Python_Automaton[python@ravenports.com]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/ef/82/7a9d0550484a62c6da82858ee9419f3dd1ccc9aa1c26a1e43da3ecd20b0d
+DISTFILE[1]=		natsort-${PORTVERSION}-py3-none-any.whl:main
+DIST_SUBDIR=		python-src
+
+SPKGS[v13]=		single
+SPKGS[v14]=		single
+
+OPTIONS_AVAILABLE=	PY313 PY314
+OPTIONS_STANDARD=	none
+VOPTS[v13]=		PY313=ON PY314=OFF
+VOPTS[v14]=		PY313=OFF PY314=ON
+
+# License listed at PyPI
+# MIT
+
+GENERATED=		yes
+DISTNAME=		natsort-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# fastnumbers (>=2.0.0) ; extra == 'fast'
+# PyICU (>=1.0.0) ; extra == 'icu'
+
+[PY313].USES_ON=			python:v13,wheel
+[PY314].USES_ON=			python:v14,wheel
+
