@@ -1,4 +1,4 @@
---- contrib/libev/ev.c.orig	2026-04-05 18:56:32 UTC
+--- contrib/libev/ev.c.orig	2026-06-19 14:57:05 UTC
 +++ contrib/libev/ev.c
 @@ -236,6 +236,9 @@
  
@@ -10,7 +10,7 @@
  #ifdef EV_H
  # include EV_H
  #else
-@@ -4812,6 +4815,20 @@ infy_add (EV_P_ ev_stat *w)
+@@ -4840,6 +4843,20 @@ infy_add (EV_P_ ev_stat *w)
  
        if (!fs_2625)
          w->timer.repeat = w->interval ? w->interval : DEF_STAT_INTERVAL;
@@ -31,7 +31,7 @@
        else if (!statfs (w->path, &sfs)
                 && (sfs.f_type == 0x1373 /* devfs */
                     || sfs.f_type == 0x4006 /* fat */
-@@ -4828,6 +4845,7 @@ infy_add (EV_P_ ev_stat *w)
+@@ -4856,6 +4873,7 @@ infy_add (EV_P_ ev_stat *w)
          w->timer.repeat = 0.; /* filesystem is local, kernel new enough */
        else
          w->timer.repeat = w->interval ? w->interval : NFS_STAT_INTERVAL; /* remote, use reduced frequency */
