@@ -1,4 +1,4 @@
---- network.h.orig	2025-09-25 16:14:00 UTC
+--- network.h.orig	2026-06-09 16:37:08 UTC
 +++ network.h
 @@ -43,7 +43,7 @@
  #endif

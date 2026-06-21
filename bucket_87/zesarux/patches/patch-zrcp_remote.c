@@ -1,7 +1,7 @@
---- zrcp/remote.c.orig	2025-09-25 16:14:00 UTC
+--- zrcp/remote.c.orig	2026-06-09 16:37:08 UTC
 +++ zrcp/remote.c
 @@ -105,7 +105,7 @@ int zrcp_command_close_all_menus=0;
- 	#include <arpa/inet.h>
+     #include <arpa/inet.h>
  #endif
  
 -#ifdef __FreeBSD__
