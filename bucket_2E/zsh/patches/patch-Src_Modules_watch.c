@@ -1,4 +1,4 @@
---- Src/Modules/watch.c.orig	2022-05-08 06:18:22 UTC
+--- Src/Modules/watch.c.orig	2026-05-31 18:18:32 UTC
 +++ Src/Modules/watch.c
 @@ -30,9 +30,21 @@
  #include "watch.mdh"

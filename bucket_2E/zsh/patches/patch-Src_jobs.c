@@ -1,6 +1,6 @@
---- Src/jobs.c.orig	2022-05-08 06:18:22 UTC
+--- Src/jobs.c.orig	2026-05-31 18:18:32 UTC
 +++ Src/jobs.c
-@@ -729,6 +729,12 @@ printhhmmss(double secs)
+@@ -727,6 +727,12 @@ printhhmmss(double secs)
  	fprintf(stderr,           "%.3f",              secs);
  }
  
@@ -13,7 +13,7 @@
  static void
  printtime(struct timeval *real, child_times_t *ti, char *desc)
  {
-@@ -753,15 +759,20 @@ printtime(struct timeval *real, child_ti
+@@ -751,15 +757,20 @@ printtime(struct timeval *real, child_ti
      /* go ahead and compute these, since almost every TIMEFMT will have them */
      elapsed_time = real->tv_sec + real->tv_usec / 1000000.0;
  
@@ -35,15 +35,15 @@
  	user_time    = ti->ut / (double) clktck;
  	system_time  = ti->st / (double) clktck;
  	percent      =  100.0 * (ti->ut + ti->st)
-@@ -891,7 +902,11 @@ printtime(struct timeval *real, child_ti
+@@ -894,7 +905,11 @@ printtime(struct timeval *real, child_ti
+ # define MAXRSS_IN_KB(x) (x)
  #endif
- #ifdef HAVE_STRUCT_RUSAGE_RU_MAXRSS
  	    case 'M':
-+# if ravBSD
-+               fprintf(stderr, "%ld", ti->ru_maxrss);
-+# else
- 		fprintf(stderr, "%ld", ti->ru_maxrss / 1024);
-+# endif
++#if ravBSD
+ 		fprintf(stderr, "%ld", MAXRSS_IN_KB(ti->ru_maxrss));
++#else
++		fprintf(stderr, "%ld", MAXRSS_IN_KB(ti->ru_maxrss / 1024));
++#endif
  		break;
  #endif
  #ifdef HAVE_STRUCT_RUSAGE_RU_MAJFLT
