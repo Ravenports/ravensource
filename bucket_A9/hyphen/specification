@@ -1,6 +1,7 @@
-DEF[PORTVERSION]=	2.8.8
-DEF[SOVERSION]=		0.3.0
+DEF[PORTVERSION]=	2.8.9
+DEF[SOVERSION]=		0.4.0
 DEF[USALIASES]=		en_AG en_AU en_BS en_BW en_BZ en_CA en_DK en_GB en_GH en_HK en_IE en_IN en_JM en_NA en_NZ en_PH en_SG en_TT en_ZA en_ZW
+DEF[TAG]=		v${PORTVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		hyphen
@@ -12,8 +13,8 @@ HOMEPAGE=		https://github.com/hunspell/hyphen
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		SF/hunspell/Hyphen/${PORTVERSION:R}
-DISTFILE[1]=		hyphen-${PORTVERSION}.tar.gz:main
+SITES[main]=		GITHUB/hunspell:hyphen:${TAG}
+DISTFILE[1]=		generated:main
 
 SPKGS[std]=		set primary dev tools
 
@@ -38,7 +39,7 @@ FPC_EQUIVALENT=		textproc/hyphen
 
 BUILD_DEPENDS=		gawk:primary:std
 
-USES=			libtool perl shebangfix mbsdfix
+USES=			autoreconf libtool perl shebangfix
 SHEBANG_FILES=		substrings.pl
 MUST_CONFIGURE=		gnu
 INSTALL_TARGET=		install-strip
