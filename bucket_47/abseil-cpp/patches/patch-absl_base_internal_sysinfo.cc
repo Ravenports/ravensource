@@ -1,4 +1,4 @@
---- absl/base/internal/sysinfo.cc.orig	2026-01-07 19:26:27 UTC
+--- absl/base/internal/sysinfo.cc.orig	2026-06-01 18:50:32 UTC
 +++ absl/base/internal/sysinfo.cc
 @@ -26,11 +26,11 @@
  #include <unistd.h>
@@ -14,7 +14,7 @@
  #include <sys/sysctl.h>
  #endif
  
-@@ -444,6 +444,10 @@ pid_t GetTID() {
+@@ -443,6 +443,10 @@ pid_t GetTID() {
    return static_cast<pid_t>(tid);
  }
  
