@@ -1,4 +1,4 @@
---- src/iop/channelmixerrgb.c.orig	2026-02-04 20:20:09 UTC
+--- src/iop/channelmixerrgb.c.orig	2026-06-21 08:20:23 UTC
 +++ src/iop/channelmixerrgb.c
 @@ -16,23 +16,6 @@
    along with darktable.  If not, see <http://www.gnu.org/licenses/>.

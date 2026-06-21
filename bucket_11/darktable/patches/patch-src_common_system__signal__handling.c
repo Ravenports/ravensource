@@ -1,4 +1,4 @@
---- src/common/system_signal_handling.c.orig	2026-02-04 20:20:09 UTC
+--- src/common/system_signal_handling.c.orig	2026-06-21 08:20:23 UTC
 +++ src/common/system_signal_handling.c
 @@ -76,7 +76,9 @@ static void _dt_sigsegv_handler(int para
    if((fout = g_file_open_tmp("darktable_bt_XXXXXX.txt", &name_used, NULL)) == -1)

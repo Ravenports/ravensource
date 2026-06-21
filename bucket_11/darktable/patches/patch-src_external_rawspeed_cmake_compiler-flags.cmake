@@ -1,4 +1,4 @@
---- src/external/rawspeed/cmake/compiler-flags.cmake.orig	2025-12-11 00:57:45 UTC
+--- src/external/rawspeed/cmake/compiler-flags.cmake.orig	2026-05-27 17:48:21 UTC
 +++ src/external/rawspeed/cmake/compiler-flags.cmake
 @@ -34,8 +34,10 @@ set(CMAKE_C_VISIBILITY_PRESET hidden)
  set(CMAKE_CXX_VISIBILITY_PRESET hidden)
