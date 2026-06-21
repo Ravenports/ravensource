@@ -1,4 +1,4 @@
---- upnp/src/genlib/net/uri/uri.c.orig	2026-04-22 19:28:40 UTC
+--- upnp/src/genlib/net/uri/uri.c.orig	2026-06-17 23:51:02 UTC
 +++ upnp/src/genlib/net/uri/uri.c
 @@ -45,10 +45,12 @@
  #include <assert.h>
