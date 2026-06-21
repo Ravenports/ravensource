@@ -1,6 +1,6 @@
---- xdelta3.h.orig	2016-01-08 07:58:54 UTC
+--- xdelta3.h.orig	2026-06-21 04:37:32 UTC
 +++ xdelta3.h
-@@ -24,9 +24,11 @@
+@@ -22,9 +22,11 @@
  #ifndef _XDELTA3_H_
  #define _XDELTA3_H_
  

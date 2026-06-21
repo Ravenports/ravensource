@@ -1,20 +1,22 @@
-DEF[PORTVERSION]=	3.1.0
+DEF[PORTVERSION]=	3.2.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		xdelta3
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		misc devel
 VARIANTS=		std
 SDESC[std]=		Binary delta generator and RCS replacement library
 HOMEPAGE=		https://xdelta.org/
 CONTACT=		nobody
 
-DOWNLOAD_GROUPS=	main
+DOWNLOAD_GROUPS=	main blake
 SITES[main]=		GITHUB/jmacd:xdelta:v${PORTVERSION}
+SITES[blake]=		GITHUB/BLAKE3-team:BLAKE3:1.8.5:third_party/blake3
 DISTFILE[1]=		generated:main
+DISTFILE[2]=		generated:blake
+DF_INDEX=		1 2
 
-SPKGS[std]=		set primary man
+SPKGS[std]=		set primary dev man
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -22,7 +24,7 @@ OPTIONS_STANDARD=	none
 # Program was re-licensed APACHE20 by the author after 3.1.0 but no new release
 # happened since then. So the source in this tarball is still effectively GPLv20+.
 LICENSE=		GPLv2+:primary
-LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/LICENSE
 LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
 LICENSE_SOURCE=		TERMS:{{WRKSRC}}/xdelta3.h
 LICENSE_AWK=		TERMS:"_XDELTA3_H_"
@@ -30,6 +32,5 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		misc/xdelta3
 
-USES=			autoreconf gmake
-MUST_CONFIGURE=		gnu
+USES=			cmake xz
 DISTNAME=		xdelta-${PORTVERSION}/xdelta3

@@ -1,0 +1,16 @@
+--- CMakeLists.txt.orig	2026-06-21 04:37:32 UTC
++++ CMakeLists.txt
+@@ -236,10 +236,10 @@ endfunction()
+ set(XD3_ARMOR_LIBRARIES "")
+ if(XD3_ARMOR)
+   include(FetchContent)
++  set(XD3_BLAKE3_SOURCE_DIR "${CMAKE_SOURCE_DIR}/third_party/blake3" CACHE PATH
++    "Local BLAKE3 checkout (matching XD3_BLAKE3_TAG) used instead of fetching from git")
+   FetchContent_Declare(blake3
+-    GIT_REPOSITORY https://github.com/BLAKE3-team/BLAKE3.git
+-    GIT_TAG ${XD3_BLAKE3_TAG}
+-    GIT_SHALLOW TRUE
++    SOURCE_DIR ${XD3_BLAKE3_SOURCE_DIR}
+     SOURCE_SUBDIR c
+     ${XD3_FETCHCONTENT_EXCLUDE})
+   FetchContent_MakeAvailable(blake3)
