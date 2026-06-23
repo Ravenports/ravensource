@@ -1,0 +1,47 @@
+DEF[PORTVERSION]=	%%VERSION%%
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		forgejo-cli
+VERSION=		${PORTVERSION}
+KEYWORDS=		rust devel
+VARIANTS=		std
+SDESC[std]=		CLI client for Forgejo
+HOMEPAGE=		https://codeberg.org/forgejo-contrib/forgejo-cli
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+%%DOWNLOAD_GROUPS%%
+SITES[main]=		https://codeberg.org/forgejo-contrib/forgejo-cli/archive/v${PORTVERSION}.tar.gz?dummy=/
+%%CR_SITES%%
+DISTFILE[1]=		forgejo-cli-${PORTVERSION}.tar.gz:main
+%%CR_DISTFILES%%
+%%DF_INDEX%%
+
+SPKGS[std]=		single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:single
+			APACHE20:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE-MIT
+			APACHE20:{{WRKSRC}}/LICENSE-APACHE
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_SCHEME=		dual
+
+FPC_EQUIVALENT=		devel/forgejo-cli
+
+BUILD_DEPENDS=		libgit2:dev:std
+			libssh2:dev:std
+
+BUILDRUN_DEPENDS=	libgit2:primary:std
+			libssh2:primary:std
+
+USES=			cargo pkgconfig ssl
+
+DISTNAME=		forgejo-cli
+
+post-extract:
+	${HEAD} -n 7 ${WRKSRC}/README.md > ${WRKDIR}/TERMS
+
+post-install:
+	${RM} ${STAGEDIR}${PREFIX}/.crates2.json
