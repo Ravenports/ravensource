@@ -64,7 +64,7 @@ def check_arguments():
                 print(f"${sys.argv[1]} is not valid port name.")
         except (subprocess.CalledProcessError, OSError):
             print(f"Failed to call ravenadm locate {sys.argv[1]}")
-        
+
     return (None, None, None)
 
 
@@ -75,11 +75,16 @@ def read_lockfile(lockfile):
     """
     crates = []
     repos = {}
+    gitrepos = {}
     name = None
     version = None
+    found = False
     repo_pattern = re.compile(
         r'github\.com/(?P<org>[^/]+)/(?P<project>[^?#"]+).*tag=(?P<tag>[^#"]+)'
     )
+    git_pattern = re.compile(
+        r'github\.com/(?P<org>[^/]+)/(?P<project>[^?#"]+?)\.git#(?P<tag>[^#"]+)'
+        )
     with open(lockfile, "r", encoding="utf-8") as fin:
         for line in fin:
             sline = line.rstrip("\n")
@@ -96,18 +101,31 @@ def read_lockfile(lockfile):
                     name = None
                     version = None
                 elif source.startswith("git+"):
-                    match = repo_pattern.search(source)
-                    if match and name is not None and version is not None:
-                        data = match.groupdict()
-                        key = f"https://github.com/{data['org']}/{data['project']}"
-                        if key in repos:
-                            repos[key]["crates"].append(name)
-                        else:
-                            data["crates"] = [name]
-                            repos[key] = data
+                    if name is not None and version is not None:
+                        found = False
+                        match = repo_pattern.search(source)
+                        if match:
+                            found = True
+                            data = match.groupdict()
+                            key = f"https://github.com/{data['org']}/{data['project']}"
+                            if key in repos:
+                                repos[key]["crates"].append(name)
+                            else:
+                                data["crates"] = [name]
+                                repos[key] = data
+                        if not found:
+                            match = git_pattern.search(source)
+                        if match:
+                            data = match.groupdict()
+                            key = f"https://github.com/{data['org']}/{data['project']}"
+                            if key in gitrepos:
+                                gitrepos[key]["crates"].append(name)
+                            else:
+                                data["crates"] = [name]
+                                gitrepos[key] = data
                     name = None
-                    version = None                     
-    return (crates, repos)
+                    version = None
+    return (crates, repos, gitrepos)
 
 
 def gh_crate_path(project, tag, name):
@@ -120,7 +138,7 @@ def gh_crate_path(project, tag, name):
     if len(tag) > 1 and tag[0] == "v" and tag[1].isdigit():
         new_tag = tag[1:]  # Strips the first character ('v')
     return f"/construction/{sys.argv[1]}/{project}-{new_tag}/crates/{name}"
-    
+
 
 def create_extra_config_toml(folder, repos):
     """
@@ -147,7 +165,7 @@ def create_extra_config_toml(folder, repos):
                 fout.write(f'{name} = {{path = "{path}"}}\n')
 
 
-def download_groups(crates, repos):
+def download_groups(crates, repos, gitrepos):
     """
     return the download groups block.
     All crates start with "cr", and the followed by an ordinal number starting with 1.
@@ -169,11 +187,16 @@ def download_groups(crates, repos):
         index = index + 1
         chunk = f"\n\t\t\tgh{index:02d}" if (counter - 1) % 10 == 0 else f" gh{index:02d}"
         block = block + chunk
+    for repo in gitrepos:
+        counter = counter + 1
+        index = index + 1
+        chunk = f"\n\t\t\tgh{index:02d}" if (counter - 1) % 10 == 0 else f" gh{index:02d}"
+        block = block + chunk
     block = block + "\n"
     return block
 
 
-def cr_sites(crates, repos):
+def cr_sites(crates, repos, gitrepos):
     """
     Return the site definitions for the download groups defined in download_groups()
     """
@@ -190,10 +213,17 @@ def cr_sites(crates, repos):
         tag = repos[repo]["tag"]
         chunk = f"SITES[gh{index:02d}]=\t\tGITHUB/{org}:{project}:{tag}\n"
         block = block + chunk
-    return block     
+    for repo in gitrepos:
+        index = index + 1
+        org = gitrepos[repo]["org"]
+        project = gitrepos[repo]["project"]
+        tag = gitrepos[repo]["tag"]
+        chunk = f"SITES[gh{index:02d}]=\t\tGITHUB/{org}:{project}:{tag}\n"
+        block = block + chunk
+    return block
 
 
-def cr_distfiles(crates, repos):
+def cr_distfiles(crates, repos, gitrepos):
     """
     return "generated" distfile information for each crate and distfile
     """
@@ -210,10 +240,15 @@ def cr_distfiles(crates, repos):
         counter = counter + 1
         chunk = f"DISTFILE[{counter}]=\t\tgenerated:gh{index:02d}\n"
         block = block + chunk
+    for repo in gitrepos:
+        index = index + 1
+        counter = counter + 1
+        chunk = f"DISTFILE[{counter}]=\t\tgenerated:gh{index:02d}\n"
+        block = block + chunk
     return block
 
 
-def df_index(crates, repos):
+def df_index(crates, repos, gitrepos):
     """
     return block of DF index definitions
     """
@@ -230,11 +265,16 @@ def df_index(crates, repos):
         index = index + 1
         chunk = f"\n\t\t\t{index}" if (counter - 1) % 10 == 0 else f" {index}"
         block = block + chunk
+    for repo in gitrepos:
+        counter = counter + 1
+        index = index + 1
+        chunk = f"\n\t\t\t{index}" if (counter - 1) % 10 == 0 else f" {index}"
+        block = block + chunk
     block = block + "\n"
     return block
 
 
-def generate_spec_sheet(crates, repos, folder, version):
+def generate_spec_sheet(crates, repos, gitrepos, folder, version):
     """
     Create a new specsheet by taking the template and replacing the "%%" variables.
     Delete any crates.list file found
@@ -250,13 +290,13 @@ def generate_spec_sheet(crates, repos, folder, version):
                 if "%%VERSION%%" in line:
                     spec.write(line.replace("%%VERSION%%", version))
                 elif "%%DOWNLOAD_GROUPS%%" in line:
-                    spec.write(download_groups(crates, repos))
+                    spec.write(download_groups(crates, repos, gitrepos))
                 elif "%%CR_SITES%%" in line:
-                    spec.write(cr_sites(crates, repos))
+                    spec.write(cr_sites(crates, repos, gitrepos))
                 elif "%%CR_DISTFILES%%" in line:
-                    spec.write(cr_distfiles(crates, repos))
+                    spec.write(cr_distfiles(crates, repos, gitrepos))
                 elif "%%DF_INDEX%%" in line:
-                    spec.write(df_index(crates, repos))
+                    spec.write(df_index(crates, repos, gitrepos))
                 else:
                     spec.write(line)
 
@@ -268,9 +308,9 @@ def main():
     (folder, version, lockfile) = check_arguments()
     if folder is None:
         return 1
-    (crates, repos) = read_lockfile(lockfile)
+    (crates, repos, gitrepos) = read_lockfile(lockfile)
     create_extra_config_toml(folder, repos)
-    generate_spec_sheet(crates, repos, folder, version)
+    generate_spec_sheet(crates, repos, gitrepos, folder, version)
 
 
 if __name__ == "__main__":
