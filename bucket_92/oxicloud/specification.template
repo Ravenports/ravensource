@@ -1,4 +1,8 @@
 DEF[PORTVERSION]=	%%VERSION%%
+# On update, you have to manually add the download group "static" back as well
+# as add an additional distfile "oxicloud-static-${PORTVERSION}.txz:static".
+# The static tarball needs to be built by hand by running npm to generate
+# the static-dist directory (can't do it in RP as it needs Internet access).
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		oxicloud
@@ -11,6 +15,7 @@ CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
 %%DOWNLOAD_GROUPS%%
 SITES[main]=		GITHUB/AtalayaLabs:OxiCloud:v${PORTVERSION}
+SITES[static]=		http://ravenports.elderlinux.org/distcache/
 %%CR_SITES%%
 DISTFILE[1]=		generated:main
 %%CR_DISTFILES%%
@@ -25,8 +30,23 @@ LICENSE=		MIT:single
 LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
 
-USES=			cargo
+USERS=			oxicloud
+GROUPS=			oxicloud
+USERGROUP_SPKG=		single
+SUB_FILES=		messages-single.ucl
+
+USES=			cargo cclibs:single
 INSTALL_REQ_TOOLCHAIN=	yes
+
+post-patch:
+	${REINPLACE_CMD} -e \
+		's|OXICLOUD_STATIC_PATH=./static|OXICLOUD_STATIC_PATH=${PREFIX}/share/oxicloud/static-dist|g' \
+		${WRKSRC}/example.env
 
 post-install:
 	${RM} ${STAGEDIR}${PREFIX}/.crates2.json
+	cd ${STAGEDIR}${PREFIX} && \
+		${MKDIR} -p share/oxicloud var/db/oxicloud
+	${INSTALL_DATA} ${WRKSRC}/example.env ${STAGEDIR}${PREFIX}/share/oxicloud
+	cd ${WRKSRC} && \
+		${COPYTREE_SHARE} static-dist ${STAGEDIR}${PREFIX}/share/oxicloud/
