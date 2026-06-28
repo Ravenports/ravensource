@@ -1,4 +1,4 @@
---- filan.c.orig	2025-12-08 07:44:32 UTC
+--- filan.c.orig	2026-02-12 13:37:55 UTC
 +++ filan.c
 @@ -989,6 +989,7 @@ int tcpan(int fd, FILE *outfile) {
  #if WITH_TCP && defined(TCP_INFO)
