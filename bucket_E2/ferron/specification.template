@@ -1,0 +1,38 @@
+DEF[PORTVERSION]=	%%VERSION%%
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		ferron
+VERSION=		${PORTVERSION}
+KEYWORDS=		rust www
+VARIANTS=		std
+SDESC[std]=		Fast, memory-safe web server written in Rust
+HOMEPAGE=		https://ferron.sh/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+%%DOWNLOAD_GROUPS%%
+SITES[main]=		GITHUB/ferronweb:ferron:${PORTVERSION}
+%%CR_SITES%%
+DISTFILE[1]=		generated:main
+%%CR_DISTFILES%%
+%%DF_INDEX%%
+
+SPKGS[std]=		single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+ONLY_FOR_OPSYS=		linux freebsd
+
+USES=			cargo clang cmake:build
+
+MAKE_ENV=		LIBCLANG_PATH={{PREFIX}}/lib
+
+do-install:
+	cd ${WRKSRC} && ${CARGO_CARGO_RUN} install --path ferron --root \
+		"${STAGEDIR}${PREFIX}" --verbose
+	${RM} ${STAGEDIR}${PREFIX}/.crates2.json
+	${RM} ${STAGEDIR}${PREFIX}/.crates.toml
