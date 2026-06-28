@@ -1,4 +1,4 @@
---- lib/chunkio/src/cio_scan.c.orig	2026-05-21 14:55:56 UTC
+--- lib/chunkio/src/cio_scan.c.orig	2026-06-05 21:45:51 UTC
 +++ lib/chunkio/src/cio_scan.c
 @@ -21,6 +21,9 @@
  #include <stdlib.h>
@@ -34,7 +34,7 @@
              continue;
          }
  
-@@ -129,6 +141,10 @@ int cio_scan_streams(struct cio_ctx *ctx
+@@ -130,6 +142,10 @@ int cio_scan_streams(struct cio_ctx *ctx
      DIR *dir;
      struct dirent *ent;
      struct cio_stream *st;
@@ -45,7 +45,7 @@
  
      dir = opendir(ctx->options.root_path);
      if (!dir) {
-@@ -145,7 +161,12 @@ int cio_scan_streams(struct cio_ctx *ctx
+@@ -146,7 +162,12 @@ int cio_scan_streams(struct cio_ctx *ctx
          }
  
          /* Look just for directories */
