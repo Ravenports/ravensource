@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.4.354
+DEF[PORTVERSION]=	1.4.355
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		vulkan-loader
@@ -35,6 +35,7 @@ CMAKE_ARGS=		-DXCB_INCLUDE_DIRS:PATH={{LOCALBASE}}/include/xcb
 			-DXLIB_INCLUDE_DIRS:PATH={{LOCALBASE}}/include/x11
 
 CFLAGS=			-std=c17
+SOVERSION=		${PORTVERSION}
 
 post-extract:
 	(cd ${WRKSRC} && ${HEAD} -n 3 LICENSE.txt > ../TERMS)
