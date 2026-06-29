@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	7.2.0
+DEF[PORTVERSION]=	8.0.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		ruby-rdoc
@@ -11,7 +11,7 @@ CONTACT=		Ruby_Automaton[ruby@ravenports.com]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		RUBYGEMS/
-DISTFILE[1]=		rdoc-7.2.0.gem:main
+DISTFILE[1]=		rdoc-8.0.0.gem:main
 DIST_SUBDIR=		ruby
 
 SPKGS[v40]=		single
@@ -24,16 +24,18 @@ VOPTS[v40]=		RUBY40=ON
 # => UNSET
 
 # Requirements according to gem specification:
-#   psych (>= 4.0.0)
 #   erb (>= 0)
 #   tsort (>= 0)
+#   prism (>= 1.6.0)
+#   rbs (>= 4.0.0)
 
 DISTNAME=		rdoc-${PORTVERSION}
 GENERATED=		yes
 
 [RUBY40].USES_ON=			gem:v40
-[RUBY40].BUILDRUN_DEPENDS_ON=		ruby-psych:single:v40
-					ruby-tsort:single:v40
+[RUBY40].BUILDRUN_DEPENDS_ON=		ruby-tsort:single:v40
+					ruby-prism:single:v40
+					ruby-rbs:single:v40
 
 USES=			cpe
 CPE_VENDOR=		ruby-lang
