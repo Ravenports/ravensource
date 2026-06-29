@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.0.4
+DEF[PORTVERSION]=	2.1.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-django-pglocks
@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/Xof/django-pglocks
 CONTACT=		Python_Automaton[python@ravenports.com]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/d/django-pglocks
-DISTFILE[1]=		django-pglocks-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/e6/22/270a612d34239b86af9a80a01d06d1ea2fac39b6c65bb176a2472efb58b4
+DISTFILE[1]=		django_pglocks-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
 SPKGS[v13]=		single
@@ -24,16 +24,19 @@ VOPTS[v13]=		PY313=ON PY314=OFF
 VOPTS[v14]=		PY313=OFF PY314=ON
 
 # License listed at PyPI
-# MIT
+# Not provided.
 
 GENERATED=		yes
-DISTNAME=		django-pglocks-${PORTVERSION}
+DISTNAME=		django_pglocks-${PORTVERSION}.dist-info
 
-# install_requires extracted from setup.py
-# six>=1.0.0
+# Requires-Dist extracted from wheel metadata
+# django-pgware>=1.0.0
+# django>=4.2
 
-[PY313].USES_ON=			python:v13,sutools
-[PY313].BUILDRUN_DEPENDS_ON=		python-six:single:v13
-[PY314].USES_ON=			python:v14,sutools
-[PY314].BUILDRUN_DEPENDS_ON=		python-six:single:v14
+[PY313].USES_ON=			python:v13,wheel
+[PY313].RUN_DEPENDS_ON=			python-django-pgware:single:v13
+					python-Django:single:v13
+[PY314].USES_ON=			python:v14,wheel
+[PY314].RUN_DEPENDS_ON=			python-django-pgware:single:v14
+					python-Django:single:v14
 

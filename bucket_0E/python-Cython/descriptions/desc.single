@@ -30,71 +30,35 @@ to install an uncompiled (slower) version of Cython with::
 
 .. _Pyrex: https://www.cosc.canterbury.ac.nz/greg.ewing/python/Pyrex/
 
-3.2.5 (2026-05-23)
+3.2.6 (2026-06-24)
 ==================
 
 Bugs fixed
 ----------
 
-* A compile failure was fixed when using the walrus operator inside of
-try-except.
-  (Github issue https://github.com/cython/cython/issues/7462)
+* ``@functools.wraps()`` was broken in Py3.14+ for Cython compiled
+functions.
+  (Github issue https://github.com/cython/cython/issues/7675)
 
-* Expressions with side-effects as object argument to ``isinstance()``
-could get
-  evaluated multiple times, e.g. when they use the walrus operator.
-  (Github issue https://github.com/cython/cython/issues/7670)
+* A double-free in the t-string code was fixed.
+  (Github issue https://github.com/cython/cython/issues/7712)
 
-* Several problems generating the shared utility module were resolved,
-including
-  a performance regression with memory views.
-  (Github issues https://github.com/cython/cython/issues/7487,
-https://github.com/cython/cython/issues/7497,
-https://github.com/cython/cython/issues/7504,
-https://github.com/cython/cython/issues/7558)
+* The ``- operator declarations for iterators in libcpp.vector`` we
+corrected.
+  Patch by Vadim Markovtsev.  (Github issue
+https://github.com/cython/cython/issues/7717)
 
-* Some GC and refcounting issues were resolved for Cython functions in the
-Limited API.
-  (Github issue https://github.com/cython/cython/issues/7594)
+* The shared utility code module no longer uses a temporary file path that
+  changed the C code on each generation.
+  (Github issue https://github.com/cython/cython/issues/7723)
 
-* Refcounting errors and error handling issues were resolved in some rare
-error handling cases.
-  (Github issues https://github.com/cython/cython/issues/7597,
-https://github.com/cython/cython/issues/7599,
-https://github.com/cython/cython/issues/7612,
-https://github.com/cython/cython/issues/7673)
+* On 32 bit platforms, cached constants are no longer made immortal during
+module import.
+  (Github issue https://github.com/cython/cython/issues/7744)
 
-* Using ``cython.pymutex in an extension type with cdef methods generated
-  invalid C code missing the required PyMutex`` declarations.
-  (Github issue https://github.com/cython/cython/issues/6995)
+Other changes
+-------------
 
-* Calling ``.get_frame()`` on Cython coroutines could crash in
-freethreading Python.
-  (Github issue https://github.com/cython/cython/issues/7632)
-
-* The vectorcall protocol was not used correctly in ``.throw()`` of Cython
-coroutines
-  when raising the exception only by type (without value or traceback).
-  (Github issue https://github.com/cython/cython/issues/7677)
-
-* A problem with cpdef enums in the Limited API of Python 3.11+ was
-resolved.
-  (Github issue https://github.com/cython/cython/issues/7503)
-
-* Unicode predicates like ``.isdigit()`` are now allowed to fail in the
-Limited API.
-  (Github issue https://github.com/cython/cython/issues/7602)
-
-* Conditional expressions mixing Python float and int object types could
-accidentally
-  infer float as the common result type, instead of treating both
-independently.
-
-* Using ``sizeof() in the size declarations of extern`` arrays failed.
-  (Github issue https://github.com/cython/cython/issues/7451)
-
-* Enabling profiling generated invalid C code for non-Python return tuples.
-  (Github issue https://github.com/cython/cython/issues/7580)
-
-* ``abs() on C long long`` values could generate invalid C code.
-
+* Binary wheels are now built with ``-DNDEBUG`` to discard runtime
+assertions from CPython's
+  inline functions.
