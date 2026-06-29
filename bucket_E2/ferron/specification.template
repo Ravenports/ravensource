@@ -27,6 +27,11 @@ LICENSE_SCHEME=		solo
 
 ONLY_FOR_OPSYS=		linux freebsd
 
+USERS=			wwwraven
+GROUPS=			wwwraven
+USERGROUP_SPKG=		single
+RC_SUBR=		ferron:single
+
 USES=			cargo clang cmake:build
 
 MAKE_ENV=		LIBCLANG_PATH={{PREFIX}}/lib
@@ -34,5 +39,7 @@ MAKE_ENV=		LIBCLANG_PATH={{PREFIX}}/lib
 do-install:
 	cd ${WRKSRC} && ${CARGO_CARGO_RUN} install --path ferron --root \
 		"${STAGEDIR}${PREFIX}" --verbose
+
+post-install:
 	${RM} ${STAGEDIR}${PREFIX}/.crates2.json
 	${RM} ${STAGEDIR}${PREFIX}/.crates.toml

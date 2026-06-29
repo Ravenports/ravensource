@@ -1,0 +1,52 @@
+#!/bin/sh
+
+# PROVIDE: ferron
+# REQUIRE: LOGIN cleanvar
+# KEYWORD: shutdown
+
+# Add the following lines to /etc/rc.conf to enable the Ferron Web server:
+#
+# ferron_enable (bool):         Set to "NO" by default. Set it to "YES" to enable Ferron.
+# ferron_program (str):         Path to the Ferron executable, if you want a custom one.
+# ferron_conf (str):            Path to the configuration file (default: %%PREFIX%%/etc/ferron.kdl).
+# ferron_user (str):		User to run as; if you don't need ports < 1024, you can switch
+#				to an unprivileged user such as 'wwwraven' (default: root).
+
+. /etc/rc.subr
+
+name="ferron"
+desc="Ferron Web server startup script"
+rcvar="ferron_enable"
+extra_commands="reload"
+pidfile="/var/run/ferron/ferron.pid"
+start_precmd=ferron_prestart
+
+: ${ferron_enable:="NO"}
+: ${ferron_program:="%%PREFIX%%/bin/ferron"}
+: ${ferron_conf:="%%PREFIX%%/etc/ferron.kdl"}
+: ${ferron_user:="root"}
+
+ferron_prestart()
+{
+    pidfile_dir=$(dirname "${pidfile}")
+    if [ ! -d "${pidfile_dir}" ]; then
+        if ! mkdir -p "${pidfile_dir}"; then
+            warn "Failed to create ${pidfile_dir}"
+            return 1
+        fi
+    fi
+
+    command="/usr/sbin/daemon -f -u ${ferron_user} -p ${pidfile} ${ferron_program} -c ${ferron_conf}"
+}
+
+ferron_reload()
+{
+    if [ -f "${pidfile}" ]; then
+        kill -HUP $(cat "${pidfile}") 2>/dev/null
+    else
+        warn "PID file ${pidfile} not found; cannot reload"
+    fi
+}
+
+load_rc_config $name
+run_rc_command "$1"
