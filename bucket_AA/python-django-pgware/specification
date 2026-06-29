@@ -1,0 +1,41 @@
+DEF[PORTVERSION]=	1.0.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-django-pgware
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v13 v14
+SDESC[v13]=		PostgreSQL utilities for Django (3.13)
+SDESC[v14]=		PostgreSQL utilities for Django (3.14)
+HOMEPAGE=		https://github.com/Xof/django-pgware
+CONTACT=		Python_Automaton[python@ravenports.com]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/06/8a/f474e1b215cfc9c254a3b77377d780082dcbeb9320bd4c98492980c6aee8
+DISTFILE[1]=		django_pgware-${PORTVERSION}-py3-none-any.whl:main
+DIST_SUBDIR=		python-src
+
+SPKGS[v13]=		single
+SPKGS[v14]=		single
+
+OPTIONS_AVAILABLE=	PY313 PY314
+OPTIONS_STANDARD=	none
+VOPTS[v13]=		PY313=ON PY314=OFF
+VOPTS[v14]=		PY313=OFF PY314=ON
+
+# License listed at PyPI
+# Not provided.
+
+GENERATED=		yes
+DISTNAME=		django_pgware-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# django>=4.2
+# psycopg2; extra == 'psycopg2'
+# psycopg[binary]; extra == 'psycopg3'
+
+[PY313].USES_ON=			python:v13,wheel
+[PY313].RUN_DEPENDS_ON=			python-Django:single:v13
+[PY314].USES_ON=			python:v14,wheel
+[PY314].RUN_DEPENDS_ON=			python-Django:single:v14
+
