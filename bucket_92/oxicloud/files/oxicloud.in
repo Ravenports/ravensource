@@ -1,0 +1,49 @@
+#!/bin/sh
+
+# PROVIDE: oxicloud
+# REQUIRE: LOGIN cleanvar postgresql
+# KEYWORD: shutdown
+
+# Add the following lines to /etc/rc.conf to enable OxiCloud:
+#
+# oxicloud_enable (bool):       Set to "NO" by default. Set it to "YES" to enable OxiCloud.
+# oxicloud_program (str):       Path to the OxiCloud executable, if you want a custom one.
+# oxicloud_conf (str):          Path to the configuration file (default: %%PREFIX%%/var/db/oxicloud/.env).
+
+. /etc/rc.subr
+
+name="oxicloud"
+desc="OxiCloud startup script"
+rcvar="oxicloud_enable"
+extra_commands="reload"
+pidfile="/var/run/oxicloud/oxicloud.pid"
+start_precmd=oxicloud_prestart
+
+: ${oxicloud_enable:="NO"}
+: ${oxicloud_program:="%%PREFIX%%/bin/oxicloud"}
+: ${oxicloud_conf:="%%PREFIX%%/var/db/oxicloud/.env"}
+
+oxicloud_prestart()
+{
+    pidfile_dir=$(dirname "${pidfile}")
+    if [ ! -d "${pidfile_dir}" ]; then
+        if ! mkdir -p "${pidfile_dir}"; then
+            warn "Failed to create ${pidfile_dir}"
+            return 1
+        fi
+    fi
+
+    command="/usr/sbin/daemon -f -u oxicloud -p ${pidfile} ${oxicloud_program} --config ${oxicloud_conf}"
+}
+
+oxicloud_reload()
+{
+    if [ -f "${pidfile}" ]; then
+        kill -HUP $(cat "${pidfile}") 2>/dev/null
+    else
+        warn "PID file ${pidfile} not found; cannot reload"
+    fi
+}
+
+load_rc_config $name
+run_rc_command "$1"

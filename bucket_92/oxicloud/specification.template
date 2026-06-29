@@ -34,6 +34,7 @@ USERS=			oxicloud
 GROUPS=			oxicloud
 USERGROUP_SPKG=		single
 SUB_FILES=		messages-single.ucl
+RC_SUBR=		oxicloud:single
 
 USES=			cargo cclibs:single
 INSTALL_REQ_TOOLCHAIN=	yes
@@ -41,6 +42,7 @@ INSTALL_REQ_TOOLCHAIN=	yes
 post-patch:
 	${REINPLACE_CMD} -e \
 		's|OXICLOUD_STATIC_PATH=./static|OXICLOUD_STATIC_PATH=${PREFIX}/share/oxicloud/static-dist|g' \
+		-e 's|OXICLOUD_STORAGE_PATH=./storage|OXICLOUD_STORAGE_PATH=${PREFIX}/var/db/oxicloud/storage|g' \
 		${WRKSRC}/example.env
 
 post-install:

@@ -7,6 +7,7 @@ DEF[PORTVERSION]=	0.8.0
 
 NAMEBASE=		oxicloud
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		rust www
 VARIANTS=		std
 SDESC[std]=		Secure, light cloud application written in Rust
@@ -1631,6 +1632,7 @@ USERS=			oxicloud
 GROUPS=			oxicloud
 USERGROUP_SPKG=		single
 SUB_FILES=		messages-single.ucl
+RC_SUBR=		oxicloud:single
 
 USES=			cargo cclibs:single
 INSTALL_REQ_TOOLCHAIN=	yes
@@ -1638,6 +1640,7 @@ INSTALL_REQ_TOOLCHAIN=	yes
 post-patch:
 	${REINPLACE_CMD} -e \
 		's|OXICLOUD_STATIC_PATH=./static|OXICLOUD_STATIC_PATH=${PREFIX}/share/oxicloud/static-dist|g' \
+		-e 's|OXICLOUD_STORAGE_PATH=./storage|OXICLOUD_STORAGE_PATH=${PREFIX}/var/db/oxicloud/storage|g' \
 		${WRKSRC}/example.env
 
 post-install:
