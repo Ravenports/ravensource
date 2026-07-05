@@ -30,35 +30,28 @@ to install an uncompiled (slower) version of Cython with::
 
 .. _Pyrex: https://www.cosc.canterbury.ac.nz/greg.ewing/python/Pyrex/
 
-3.2.6 (2026-06-24)
+3.2.8 (2026-06-30)
 ==================
 
 Bugs fixed
 ----------
 
-* ``@functools.wraps()`` was broken in Py3.14+ for Cython compiled
-functions.
-  (Github issue https://github.com/cython/cython/issues/7675)
+* Assigning a Python 3.14+ ``.__annotate__`` function to a Cython compiled
+function no longer
+  evaluates annotations eagerly.  Fixes a regression with
+``@functools.wraps()`` in Cython 3.2.6.
+  Patch by Jelle Zijlstra.  (Github issue
+https://github.com/cython/cython/issues/7767)
 
-* A double-free in the t-string code was fixed.
-  (Github issue https://github.com/cython/cython/issues/7712)
+* In freethreading Python, the necessary object keep-alive while executing
+user code in
+  ``.__dealloc__()`` uses a safer scheme.
+  Patch by Yaxing Cai.  (Github issue
+https://github.com/cython/cython/issues/7769)
 
-* The ``- operator declarations for iterators in libcpp.vector`` we
-corrected.
-  Patch by Vadim Markovtsev.  (Github issue
-https://github.com/cython/cython/issues/7717)
+* The local function state used by ``sys.monitoring`` read from
+uninitialised memory.
+  (Github issue https://github.com/cython/cython/issues/7774)
 
-* The shared utility code module no longer uses a temporary file path that
-  changed the C code on each generation.
-  (Github issue https://github.com/cython/cython/issues/7723)
-
-* On 32 bit platforms, cached constants are no longer made immortal during
-module import.
-  (Github issue https://github.com/cython/cython/issues/7744)
-
-Other changes
--------------
-
-* Binary wheels are now built with ``-DNDEBUG`` to discard runtime
-assertions from CPython's
-  inline functions.
+* The ``.ag_running`` flag attribute of async generators was always false
+on big-endian systems.
