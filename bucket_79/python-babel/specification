@@ -1,0 +1,45 @@
+DEF[PORTVERSION]=	2.18.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-babel
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v13 v14
+SDESC[v13]=		Internationalization utilities (3.13)
+SDESC[v14]=		Internationalization utilities (3.14)
+HOMEPAGE=		https://babel.pocoo.org/
+CONTACT=		Python_Automaton[python@ravenports.com]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/77/f5/21d2de20e8b8b0408f0681956ca2c69f1320a3848ac50e6e7f39c6159675
+DISTFILE[1]=		babel-${PORTVERSION}-py3-none-any.whl:main
+DIST_SUBDIR=		python-src
+
+SPKGS[v13]=		single
+SPKGS[v14]=		single
+
+OPTIONS_AVAILABLE=	PY313 PY314
+OPTIONS_STANDARD=	none
+VOPTS[v13]=		PY313=ON PY314=OFF
+VOPTS[v14]=		PY313=OFF PY314=ON
+
+# License listed at PyPI
+# BSD-3-Clause
+
+GENERATED=		yes
+DISTNAME=		babel-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# pytz>=2015.7; python_version < "3.9"
+# tzdata; sys_platform == "win32" and extra == "dev"
+# backports.zoneinfo; python_version < "3.9" and extra == "dev"
+# freezegun~=1.0; extra == "dev"
+# jinja2>=3.0; extra == "dev"
+# pytest-cov; extra == "dev"
+# pytest>=6.0; extra == "dev"
+# pytz; extra == "dev"
+# setuptools; extra == "dev"
+
+[PY313].USES_ON=			python:v13,wheel
+[PY314].USES_ON=			python:v14,wheel
+
