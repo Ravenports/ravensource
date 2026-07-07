@@ -1,4 +1,4 @@
---- utils/pathut.cpp.orig	2026-03-23 08:09:57.000000000 -0000
+--- utils/pathut.cpp.orig	2026-03-23 08:09:57 UTC
 +++ utils/pathut.cpp
 @@ -63,6 +63,8 @@
  #include <stdio.h>

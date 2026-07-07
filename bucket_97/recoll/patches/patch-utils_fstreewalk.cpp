@@ -1,4 +1,4 @@
---- utils/fstreewalk.cpp.orig	2026-02-12 12:31:20.000000000 -0000
+--- utils/fstreewalk.cpp.orig	2026-02-12 12:31:20 UTC
 +++ utils/fstreewalk.cpp
 @@ -22,6 +22,9 @@
  #include <errno.h>
