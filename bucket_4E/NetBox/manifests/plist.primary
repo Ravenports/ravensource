@@ -70,6 +70,7 @@ share/netbox/circuits/tests/__init__.py
 share/netbox/circuits/tests/test_api.py
 share/netbox/circuits/tests/test_filtersets.py
 share/netbox/circuits/tests/test_models.py
+share/netbox/circuits/tests/test_signals.py
 share/netbox/circuits/tests/test_tables.py
 share/netbox/circuits/tests/test_views.py
 share/netbox/circuits/ui/__init__.py
@@ -165,8 +166,12 @@ share/netbox/core/tests/test_api.py
 share/netbox/core/tests/test_changelog.py
 share/netbox/core/tests/test_data_backends.py
 share/netbox/core/tests/test_filtersets.py
+share/netbox/core/tests/test_jobs.py
+share/netbox/core/tests/test_management_command_coverage.py
+share/netbox/core/tests/test_management_commands.py
 share/netbox/core/tests/test_models.py
 share/netbox/core/tests/test_openapi_schema.py
+share/netbox/core/tests/test_signals.py
 share/netbox/core/tests/test_tables.py
 share/netbox/core/tests/test_views.py
 share/netbox/core/ui/__init__.py
@@ -291,6 +296,7 @@ share/netbox/dcim/migrations/0230_devicebay_modulebay_enabled.py
 share/netbox/dcim/migrations/0231_interface_rf_channel_frequency_precision.py
 share/netbox/dcim/migrations/0232_default_ordering_indexes.py
 share/netbox/dcim/migrations/0233_device_render_config_permission.py
+share/netbox/dcim/migrations/0234_cablepath_nodes_index.py
 share/netbox/dcim/migrations/__init__.py
 share/netbox/dcim/migrations/initial_data/module_type_profiles/cpu.json
 share/netbox/dcim/migrations/initial_data/module_type_profiles/expansion_card.json
@@ -330,8 +336,10 @@ share/netbox/dcim/tests/test_cablepaths.py
 share/netbox/dcim/tests/test_cablepaths2.py
 share/netbox/dcim/tests/test_filtersets.py
 share/netbox/dcim/tests/test_forms.py
+share/netbox/dcim/tests/test_management_commands.py
 share/netbox/dcim/tests/test_models.py
 share/netbox/dcim/tests/test_natural_ordering.py
+share/netbox/dcim/tests/test_signals.py
 share/netbox/dcim/tests/test_tables.py
 share/netbox/dcim/tests/test_views.py
 share/netbox/dcim/tests/utils.py
@@ -484,8 +492,11 @@ share/netbox/extras/tests/test_dashboard.py
 share/netbox/extras/tests/test_event_rules.py
 share/netbox/extras/tests/test_filtersets.py
 share/netbox/extras/tests/test_forms.py
+share/netbox/extras/tests/test_jobs.py
+share/netbox/extras/tests/test_management_commands.py
 share/netbox/extras/tests/test_models.py
 share/netbox/extras/tests/test_scripts.py
+share/netbox/extras/tests/test_signals.py
 share/netbox/extras/tests/test_tables.py
 share/netbox/extras/tests/test_tags.py
 share/netbox/extras/tests/test_utils.py
@@ -584,8 +595,10 @@ share/netbox/ipam/tests/test_api.py
 share/netbox/ipam/tests/test_filtersets.py
 share/netbox/ipam/tests/test_forms.py
 share/netbox/ipam/tests/test_lookups.py
+share/netbox/ipam/tests/test_management_commands.py
 share/netbox/ipam/tests/test_models.py
 share/netbox/ipam/tests/test_ordering.py
+share/netbox/ipam/tests/test_signals.py
 share/netbox/ipam/tests/test_tables.py
 share/netbox/ipam/tests/test_views.py
 share/netbox/ipam/ui/__init__.py
@@ -644,6 +657,7 @@ share/netbox/netbox/config/parameters.py
 share/netbox/netbox/forms/__init__.py
 share/netbox/netbox/forms/bulk_edit.py
 share/netbox/netbox/forms/bulk_import.py
+share/netbox/netbox/forms/bulk_rename.py
 share/netbox/netbox/forms/filtersets.py
 share/netbox/netbox/forms/mixins.py
 share/netbox/netbox/forms/model_forms.py
@@ -711,6 +725,7 @@ share/netbox/netbox/tests/dummy_plugin/template_content.py
 share/netbox/netbox/tests/dummy_plugin/urls.py
 share/netbox/netbox/tests/dummy_plugin/views.py
 share/netbox/netbox/tests/dummy_plugin/webhook_callbacks.py
+share/netbox/netbox/tests/dummy_plugin/widgets.py
 share/netbox/netbox/tests/dummy_plugin/api/serializers.py
 share/netbox/netbox/tests/dummy_plugin/api/urls.py
 share/netbox/netbox/tests/dummy_plugin/api/views.py
@@ -1284,6 +1299,7 @@ share/netbox/templates/users/user.html
 share/netbox/templates/users/attrs/full_name.html
 share/netbox/templates/users/inc/new_token_banner.html
 share/netbox/templates/users/inc/user_activity.html
+share/netbox/templates/users/inc/v1_token_warning.html
 share/netbox/templates/users/panels/actions.html
 share/netbox/templates/users/panels/object_types.html
 share/netbox/templates/users/panels/token_example.html
@@ -1459,6 +1475,7 @@ share/netbox/users/tests/test_api.py
 share/netbox/users/tests/test_filtersets.py
 share/netbox/users/tests/test_models.py
 share/netbox/users/tests/test_preferences.py
+share/netbox/users/tests/test_signals.py
 share/netbox/users/tests/test_tables.py
 share/netbox/users/tests/test_views.py
 share/netbox/users/ui/__init__.py
@@ -1602,6 +1619,7 @@ share/netbox/utilities/tests/test_data.py
 share/netbox/utilities/tests/test_filter_modifiers.py
 share/netbox/utilities/tests/test_filters.py
 share/netbox/utilities/tests/test_forms.py
+share/netbox/utilities/tests/test_management_commands.py
 share/netbox/utilities/tests/test_managers.py
 share/netbox/utilities/tests/test_ordering.py
 share/netbox/utilities/tests/test_permissions.py
@@ -1674,6 +1692,7 @@ share/netbox/virtualization/tests/__init__.py
 share/netbox/virtualization/tests/test_api.py
 share/netbox/virtualization/tests/test_filtersets.py
 share/netbox/virtualization/tests/test_models.py
+share/netbox/virtualization/tests/test_signals.py
 share/netbox/virtualization/tests/test_tables.py
 share/netbox/virtualization/tests/test_views.py
 share/netbox/virtualization/ui/__init__.py
@@ -1782,6 +1801,8 @@ share/netbox/wireless/tables/wirelesslink.py
 share/netbox/wireless/tests/__init__.py
 share/netbox/wireless/tests/test_api.py
 share/netbox/wireless/tests/test_filtersets.py
+share/netbox/wireless/tests/test_models.py
+share/netbox/wireless/tests/test_signals.py
 share/netbox/wireless/tests/test_tables.py
 share/netbox/wireless/tests/test_views.py
 share/netbox/wireless/ui/__init__.py
