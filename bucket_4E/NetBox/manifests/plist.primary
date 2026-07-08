@@ -67,8 +67,10 @@ share/netbox/circuits/tables/columns.py
 share/netbox/circuits/tables/providers.py
 share/netbox/circuits/tables/virtual_circuits.py
 share/netbox/circuits/tests/__init__.py
+share/netbox/circuits/tests/query_counts.json
 share/netbox/circuits/tests/test_api.py
 share/netbox/circuits/tests/test_filtersets.py
+share/netbox/circuits/tests/test_forms.py
 share/netbox/circuits/tests/test_models.py
 share/netbox/circuits/tests/test_signals.py
 share/netbox/circuits/tests/test_tables.py
@@ -162,6 +164,7 @@ share/netbox/core/tables/plugins.py
 share/netbox/core/tables/tasks.py
 share/netbox/core/tables/template_code.py
 share/netbox/core/tests/__init__.py
+share/netbox/core/tests/query_counts.json
 share/netbox/core/tests/test_api.py
 share/netbox/core/tests/test_changelog.py
 share/netbox/core/tests/test_data_backends.py
@@ -297,6 +300,8 @@ share/netbox/dcim/migrations/0231_interface_rf_channel_frequency_precision.py
 share/netbox/dcim/migrations/0232_default_ordering_indexes.py
 share/netbox/dcim/migrations/0233_device_render_config_permission.py
 share/netbox/dcim/migrations/0234_cablepath_nodes_index.py
+share/netbox/dcim/migrations/0235_cabletermination_circuit_site_cache.py
+share/netbox/dcim/migrations/0236_moduletype_component_counts.py
 share/netbox/dcim/migrations/__init__.py
 share/netbox/dcim/migrations/initial_data/module_type_profiles/cpu.json
 share/netbox/dcim/migrations/initial_data/module_type_profiles/expansion_card.json
@@ -330,6 +335,7 @@ share/netbox/dcim/tables/racks.py
 share/netbox/dcim/tables/sites.py
 share/netbox/dcim/tables/template_code.py
 share/netbox/dcim/tests/__init__.py
+share/netbox/dcim/tests/query_counts.json
 share/netbox/dcim/tests/test_api.py
 share/netbox/dcim/tests/test_cable_profiles.py
 share/netbox/dcim/tests/test_cablepaths.py
@@ -483,6 +489,7 @@ share/netbox/extras/templatetags/custom_links.py
 share/netbox/extras/templatetags/dashboard.py
 share/netbox/extras/templatetags/log_levels.py
 share/netbox/extras/tests/__init__.py
+share/netbox/extras/tests/query_counts.json
 share/netbox/extras/tests/test_api.py
 share/netbox/extras/tests/test_conditions.py
 share/netbox/extras/tests/test_custom_validation.py
@@ -574,6 +581,7 @@ share/netbox/ipam/migrations/0086_gfk_indexes.py
 share/netbox/ipam/migrations/0087_add_asn_role.py
 share/netbox/ipam/migrations/0088_rename_vlangroup_total_vlan_ids.py
 share/netbox/ipam/migrations/0089_default_ordering_indexes.py
+share/netbox/ipam/migrations/0090_vlangroup_recompute_total_vlan_ids.py
 share/netbox/ipam/migrations/__init__.py
 share/netbox/ipam/models/__init__.py
 share/netbox/ipam/models/asns.py
@@ -591,6 +599,7 @@ share/netbox/ipam/tables/template_code.py
 share/netbox/ipam/tables/vlans.py
 share/netbox/ipam/tables/vrfs.py
 share/netbox/ipam/tests/__init__.py
+share/netbox/ipam/tests/query_counts.json
 share/netbox/ipam/tests/test_api.py
 share/netbox/ipam/tests/test_filtersets.py
 share/netbox/ipam/tests/test_forms.py
@@ -701,7 +710,9 @@ share/netbox/netbox/tests/test_forms.py
 share/netbox/netbox/tests/test_graphql.py
 share/netbox/netbox/tests/test_import.py
 share/netbox/netbox/tests/test_jobs.py
+share/netbox/netbox/tests/test_migrations.py
 share/netbox/netbox/tests/test_model_features.py
+share/netbox/netbox/tests/test_model_test_coverage.py
 share/netbox/netbox/tests/test_models.py
 share/netbox/netbox/tests/test_object_actions.py
 share/netbox/netbox/tests/test_plugins.py
@@ -737,6 +748,7 @@ share/netbox/netbox/ui/actions.py
 share/netbox/netbox/ui/attrs.py
 share/netbox/netbox/ui/layout.py
 share/netbox/netbox/ui/panels.py
+share/netbox/netbox/ui/utils.py
 share/netbox/netbox/views/__init__.py
 share/netbox/netbox/views/errors.py
 share/netbox/netbox/views/htmx.py
@@ -898,8 +910,6 @@ share/netbox/project-static/src/stores/objectDepth.ts
 share/netbox/project-static/src/stores/previousPkCheck.ts
 share/netbox/project-static/src/stores/rackImages.ts
 share/netbox/project-static/src/stores/secret.ts
-share/netbox/project-static/src/tables/index.ts
-share/netbox/project-static/src/tables/interfaceTable.ts
 share/netbox/project-static/styles/_variables.scss
 share/netbox/project-static/styles/external.scss
 share/netbox/project-static/styles/netbox.scss
@@ -1041,6 +1051,7 @@ share/netbox/templates/dcim/sitegroup.html
 share/netbox/templates/dcim/virtualchassis_add_member.html
 share/netbox/templates/dcim/virtualchassis_edit.html
 share/netbox/templates/dcim/virtualchassis_remove_member.html
+share/netbox/templates/dcim/attrs/total_weight.html
 share/netbox/templates/dcim/buttons/bulk_add_components.html
 share/netbox/templates/dcim/buttons/bulk_disconnect.html
 share/netbox/templates/dcim/device/base.html
@@ -1048,7 +1059,6 @@ share/netbox/templates/dcim/device/interfaces.html
 share/netbox/templates/dcim/device/attrs/ipaddress.html
 share/netbox/templates/dcim/device/attrs/parent_device.html
 share/netbox/templates/dcim/device/attrs/rack.html
-share/netbox/templates/dcim/device/attrs/total_weight.html
 share/netbox/templates/dcim/device/inc/interface_table_controls.html
 share/netbox/templates/dcim/devicetype/base.html
 share/netbox/templates/dcim/devicetype/attrs/height.html
@@ -1087,7 +1097,6 @@ share/netbox/templates/dcim/powerfeed/attrs/utilization.html
 share/netbox/templates/dcim/rack/base.html
 share/netbox/templates/dcim/rack/non_racked_devices.html
 share/netbox/templates/dcim/rack/reservations.html
-share/netbox/templates/dcim/rack/attrs/total_weight.html
 share/netbox/templates/dcim/trace/attachment.html
 share/netbox/templates/dcim/trace/cable.html
 share/netbox/templates/dcim/trace/circuit.html
@@ -1377,6 +1386,7 @@ share/netbox/tenancy/tables/contacts.py
 share/netbox/tenancy/tables/template_code.py
 share/netbox/tenancy/tables/tenants.py
 share/netbox/tenancy/tests/__init__.py
+share/netbox/tenancy/tests/query_counts.json
 share/netbox/tenancy/tests/test_api.py
 share/netbox/tenancy/tests/test_filtersets.py
 share/netbox/tenancy/tests/test_models.py
@@ -1471,6 +1481,7 @@ share/netbox/users/models/preferences.py
 share/netbox/users/models/tokens.py
 share/netbox/users/models/users.py
 share/netbox/users/tests/__init__.py
+share/netbox/users/tests/query_counts.json
 share/netbox/users/tests/test_api.py
 share/netbox/users/tests/test_filtersets.py
 share/netbox/users/tests/test_models.py
@@ -1607,6 +1618,8 @@ share/netbox/utilities/testing/__init__.py
 share/netbox/utilities/testing/api.py
 share/netbox/utilities/testing/base.py
 share/netbox/utilities/testing/filtersets.py
+share/netbox/utilities/testing/mixins.py
+share/netbox/utilities/testing/query_counts.py
 share/netbox/utilities/testing/tables.py
 share/netbox/utilities/testing/utils.py
 share/netbox/utilities/testing/views.py
@@ -1624,7 +1637,9 @@ share/netbox/utilities/tests/test_managers.py
 share/netbox/utilities/tests/test_ordering.py
 share/netbox/utilities/tests/test_permissions.py
 share/netbox/utilities/tests/test_prefetch.py
+share/netbox/utilities/tests/test_query_counts.py
 share/netbox/utilities/tests/test_request.py
+share/netbox/utilities/tests/test_rqworker.py
 share/netbox/utilities/tests/test_serialization.py
 share/netbox/utilities/tests/test_templatetags.py
 share/netbox/utilities/tests/test_utils.py
@@ -1689,6 +1704,7 @@ share/netbox/virtualization/tables/clusters.py
 share/netbox/virtualization/tables/template_code.py
 share/netbox/virtualization/tables/virtualmachines.py
 share/netbox/virtualization/tests/__init__.py
+share/netbox/virtualization/tests/query_counts.json
 share/netbox/virtualization/tests/test_api.py
 share/netbox/virtualization/tests/test_filtersets.py
 share/netbox/virtualization/tests/test_models.py
@@ -1745,6 +1761,7 @@ share/netbox/vpn/tables/crypto.py
 share/netbox/vpn/tables/l2vpn.py
 share/netbox/vpn/tables/tunnels.py
 share/netbox/vpn/tests/__init__.py
+share/netbox/vpn/tests/query_counts.json
 share/netbox/vpn/tests/test_api.py
 share/netbox/vpn/tests/test_filtersets.py
 share/netbox/vpn/tests/test_models.py
@@ -1799,6 +1816,7 @@ share/netbox/wireless/tables/__init__.py
 share/netbox/wireless/tables/wirelesslan.py
 share/netbox/wireless/tables/wirelesslink.py
 share/netbox/wireless/tests/__init__.py
+share/netbox/wireless/tests/query_counts.json
 share/netbox/wireless/tests/test_api.py
 share/netbox/wireless/tests/test_filtersets.py
 share/netbox/wireless/tests/test_models.py
