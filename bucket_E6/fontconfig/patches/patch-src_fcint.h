@@ -1,4 +1,4 @@
---- src/fcint.h.orig	2026-05-21 13:29:58 UTC
+--- src/fcint.h.orig	2026-06-02 11:51:50 UTC
 +++ src/fcint.h
 @@ -135,15 +135,7 @@ extern pfnSHGetFolderPathA          pSHG
  #endif

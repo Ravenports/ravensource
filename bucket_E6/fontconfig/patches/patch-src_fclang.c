@@ -1,4 +1,4 @@
---- src/fclang.c.orig	2026-05-21 13:29:58 UTC
+--- src/fclang.c.orig	2026-06-02 11:51:50 UTC
 +++ src/fclang.c
 @@ -175,6 +175,7 @@ FcLangNormalize (const FcChar8 *lang)
  {
