@@ -302,6 +302,7 @@ share/netbox/dcim/migrations/0233_device_render_config_permission.py
 share/netbox/dcim/migrations/0234_cablepath_nodes_index.py
 share/netbox/dcim/migrations/0235_cabletermination_circuit_site_cache.py
 share/netbox/dcim/migrations/0236_moduletype_component_counts.py
+share/netbox/dcim/migrations/0237_module_remove_local_context_data.py
 share/netbox/dcim/migrations/__init__.py
 share/netbox/dcim/migrations/initial_data/module_type_profiles/cpu.json
 share/netbox/dcim/migrations/initial_data/module_type_profiles/expansion_card.json
@@ -414,6 +415,7 @@ share/netbox/extras/forms/reports.py
 share/netbox/extras/forms/scripts.py
 share/netbox/extras/graphql/__init__.py
 share/netbox/extras/graphql/enums.py
+share/netbox/extras/graphql/filter_lookups.py
 share/netbox/extras/graphql/filter_mixins.py
 share/netbox/extras/graphql/filters.py
 share/netbox/extras/graphql/mixins.py
@@ -470,6 +472,7 @@ share/netbox/extras/migrations/0135_configtemplate_debug.py
 share/netbox/extras/migrations/0136_customfield_validation_schema.py
 share/netbox/extras/migrations/0137_default_ordering_indexes.py
 share/netbox/extras/migrations/0138_customfieldchoiceset_choice_colors.py
+share/netbox/extras/migrations/0139_alter_customfieldchoiceset_extra_choices.py
 share/netbox/extras/migrations/__init__.py
 share/netbox/extras/models/__init__.py
 share/netbox/extras/models/configs.py
@@ -500,6 +503,7 @@ share/netbox/extras/tests/test_event_rules.py
 share/netbox/extras/tests/test_filtersets.py
 share/netbox/extras/tests/test_forms.py
 share/netbox/extras/tests/test_jobs.py
+share/netbox/extras/tests/test_lookups.py
 share/netbox/extras/tests/test_management_commands.py
 share/netbox/extras/tests/test_models.py
 share/netbox/extras/tests/test_scripts.py
@@ -582,6 +586,8 @@ share/netbox/ipam/migrations/0087_add_asn_role.py
 share/netbox/ipam/migrations/0088_rename_vlangroup_total_vlan_ids.py
 share/netbox/ipam/migrations/0089_default_ordering_indexes.py
 share/netbox/ipam/migrations/0090_vlangroup_recompute_total_vlan_ids.py
+share/netbox/ipam/migrations/0091_alter_service_index_and_ordering.py
+share/netbox/ipam/migrations/0092_iprange_host_indexes.py
 share/netbox/ipam/migrations/__init__.py
 share/netbox/ipam/models/__init__.py
 share/netbox/ipam/models/asns.py
@@ -601,12 +607,14 @@ share/netbox/ipam/tables/vrfs.py
 share/netbox/ipam/tests/__init__.py
 share/netbox/ipam/tests/query_counts.json
 share/netbox/ipam/tests/test_api.py
+share/netbox/ipam/tests/test_fields.py
 share/netbox/ipam/tests/test_filtersets.py
 share/netbox/ipam/tests/test_forms.py
 share/netbox/ipam/tests/test_lookups.py
 share/netbox/ipam/tests/test_management_commands.py
 share/netbox/ipam/tests/test_models.py
 share/netbox/ipam/tests/test_ordering.py
+share/netbox/ipam/tests/test_querysets.py
 share/netbox/ipam/tests/test_signals.py
 share/netbox/ipam/tests/test_tables.py
 share/netbox/ipam/tests/test_views.py
@@ -998,6 +1006,7 @@ share/netbox/templates/core/inc/datafile_panel.html
 share/netbox/templates/core/inc/plugin_installation.html
 share/netbox/templates/core/job/base.html
 share/netbox/templates/core/job/log.html
+share/netbox/templates/core/job/log_entries.html
 share/netbox/templates/core/job/attrs/object_type.html
 share/netbox/templates/core/job/attrs/scheduled.html
 share/netbox/templates/core/objectchange/attrs/changed_object.html
@@ -1233,6 +1242,7 @@ share/netbox/templates/ipam/rir.html
 share/netbox/templates/ipam/role.html
 share/netbox/templates/ipam/service.html
 share/netbox/templates/ipam/vlan.html
+share/netbox/templates/ipam/vlan_bulk_add.html
 share/netbox/templates/ipam/vlan_edit.html
 share/netbox/templates/ipam/vlangroup.html
 share/netbox/templates/ipam/aggregate/base.html
@@ -1245,6 +1255,7 @@ share/netbox/templates/ipam/inc/max_depth.html
 share/netbox/templates/ipam/inc/max_length.html
 share/netbox/templates/ipam/inc/prefix_edit_header.html
 share/netbox/templates/ipam/inc/toggle_available.html
+share/netbox/templates/ipam/inc/vlan_edit_header.html
 share/netbox/templates/ipam/inc/panels/fhrp_groups.html
 share/netbox/templates/ipam/ipaddress/base.html
 share/netbox/templates/ipam/ipaddress/attrs/assigned_object.html
@@ -1625,6 +1636,7 @@ share/netbox/utilities/testing/utils.py
 share/netbox/utilities/testing/views.py
 share/netbox/utilities/tests/__init__.py
 share/netbox/utilities/tests/test_api.py
+share/netbox/utilities/tests/test_api_graphql.py
 share/netbox/utilities/tests/test_choices.py
 share/netbox/utilities/tests/test_conversions.py
 share/netbox/utilities/tests/test_counters.py
