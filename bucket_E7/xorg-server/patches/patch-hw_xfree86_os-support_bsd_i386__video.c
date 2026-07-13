@@ -1,4 +1,4 @@
---- hw/xfree86/os-support/bsd/i386_video.c.orig	2026-04-14 13:32:43 UTC
+--- hw/xfree86/os-support/bsd/i386_video.c.orig	2026-06-02 00:10:30 UTC
 +++ hw/xfree86/os-support/bsd/i386_video.c
 @@ -32,6 +32,7 @@
  #include "xf86Priv.h"
