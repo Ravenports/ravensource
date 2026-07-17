@@ -39,6 +39,11 @@ RC_SUBR=		oxicloud:single
 USES=			cargo cclibs:single
 INSTALL_REQ_TOOLCHAIN=	yes
 
+# Override because we need to build with features
+do-build:
+	(cd ${WRKSRC} && ${CARGO_CARGO_RUN} build --release --features plugins \
+		--verbose)
+
 post-patch:
 	${REINPLACE_CMD} -e \
 		's|OXICLOUD_STATIC_PATH=./static|OXICLOUD_STATIC_PATH=${PREFIX}/share/oxicloud/static-dist|g' \
