@@ -16,12 +16,12 @@ DISTFILE[1]=		generated:main
 %%CR_DISTFILES%%
 %%DF_INDEX%%
 
-SPKGS[std]=		single
+SPKGS[std]=		set primary tools
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		MIT:single
+LICENSE=		MIT:primary
 LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
 
@@ -29,16 +29,32 @@ ONLY_FOR_OPSYS=		linux freebsd
 
 USERS=			wwwraven
 GROUPS=			wwwraven
-USERGROUP_SPKG=		single
-RC_SUBR=		ferron:single
+USERGROUP_SPKG=		primary
+RC_SUBR=		ferron:primary
+
+BUILD_DEPENDS=		sccache:primary:std
 
 USES=			cargo clang cmake:build
 
 MAKE_ENV=		LIBCLANG_PATH={{PREFIX}}/lib
 
+# Override because we need to build multiple times
+do-build:
+	(cd ${WRKSRC} && ${CARGO_CARGO_RUN} build --package ferron --release \
+		--verbose && ${CARGO_CARGO_RUN} build --package ferron-passwd \
+		--release --verbose && ${CARGO_CARGO_RUN} build  --package \
+		ferron-yaml2kdl --release --verbose && ${CARGO_CARGO_RUN} \
+		build --package ferron-precompress --release --verbose)
+
+# Override as cargo.mk does currently hard-code --path to . and this means it
+# doesn't support projects that use Rust workspaces; we also install multiple times
 do-install:
-	cd ${WRKSRC} && ${CARGO_CARGO_RUN} install --path ferron --root \
-		"${STAGEDIR}${PREFIX}" --verbose
+	(cd ${WRKSRC} && ${CARGO_CARGO_RUN} install --path ferron --root \
+		"${STAGEDIR}${PREFIX}" --verbose && ${CARGO_CARGO_RUN} install \
+		--path ferron-passwd --root "${STAGEDIR}${PREFIX}" --verbose && \
+		${CARGO_CARGO_RUN} install --path ferron-yaml2kdl --root \
+		"${STAGEDIR}${PREFIX}" --verbose && ${CARGO_CARGO_RUN} install \
+		--path ferron-precompress --root "${STAGEDIR}${PREFIX}" --verbose)
 
 post-install:
 	${RM} ${STAGEDIR}${PREFIX}/.crates2.json
