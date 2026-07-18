@@ -35,13 +35,14 @@ USERGROUP_SPKG=		primary
 USES=			c++:primary,utils cargo
 # CARGO_BUILD_ARGS=	--package hickory-dns
 
+INSTALL_REQ_TOOLCHAIN=	yes
 RC_SUBR=		hickory:primary
 
 # Override because we need to build twice
 do-build:
 	(cd ${WRKSRC} && ${CARGO_CARGO_RUN} build --package hickory-dns --release \
-		--verbose &&  ${CARGO_CARGO_RUN} build --package hickory-util \
-		--release --verbose)
+		--features recursor --verbose && ${CARGO_CARGO_RUN} build --package \
+		hickory-util --release --verbose)
 
 # Override as cargo.mk does currently hard-code --path to . and this
 # means it doesn't support projects that use Rust workspaces; we also install twice
@@ -55,7 +56,7 @@ post-install:
 	${COPYTREE_SHARE} ${WRKSRC}/tests/test-data/test_configs ${STAGEDIR}${STD_EXAMPLESDIR}/
 	${MV} ${STAGEDIR}${PREFIX}/bin/hickory-dns ${STAGEDIR}${PREFIX}/sbin/
 	${MKDIR} -p ${STAGEDIR}${PREFIX}/var/named/default
-.for f in 0.zone 127.0.0.1.zone 255.zone ipv6_1.zone localhost.zone
+.for f in 0.zone 127.0.0.1.zone 255.zone ipv6_1.zone localhost.zone root.zone
 	${INSTALL_DATA} ${WRKSRC}/tests/test-data/test_configs/default/${f} ${STAGEDIR}${PREFIX}/var/named/default/
 .endfor
 	${INSTALL_DATA} ${WRKSRC}/tests/test-data/test_configs/example.toml ${STAGEDIR}${PREFIX}/etc/hickory.toml-dist
