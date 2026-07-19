@@ -1,4 +1,4 @@
---- coreconf/location.mk.orig	2026-05-15 14:57:13 UTC
+--- coreconf/location.mk.orig	2026-06-11 17:41:34 UTC
 +++ coreconf/location.mk
 @@ -37,7 +37,7 @@ ifdef NSPR_INCLUDE_DIR
  endif
