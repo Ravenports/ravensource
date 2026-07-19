@@ -1,10 +1,10 @@
 - Define ETIME if missing
 
---- src/amd/vulkan/winsys/amdgpu/radv_amdgpu_cs.c.orig	2026-05-27 17:02:08 UTC
+--- src/amd/vulkan/winsys/amdgpu/radv_amdgpu_cs.c.orig	2026-05-06 19:06:23 UTC
 +++ src/amd/vulkan/winsys/amdgpu/radv_amdgpu_cs.c
-@@ -42,6 +42,10 @@
- 
- enum { VIRTUAL_BUFFER_HASH_TABLE_SIZE = 1024 };
+@@ -40,6 +40,10 @@
+ /* Maximum allowed total number of submitted IBs. */
+ #define RADV_MAX_IBS_PER_SUBMIT 192
  
 +#ifndef ETIME
 +#define ETIME ETIMEDOUT

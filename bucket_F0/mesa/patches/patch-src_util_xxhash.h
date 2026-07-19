@@ -1,4 +1,4 @@
---- src/util/xxhash.h.orig	2026-05-27 17:02:08 UTC
+--- src/util/xxhash.h.orig	2026-05-06 19:06:23 UTC
 +++ src/util/xxhash.h
 @@ -1704,7 +1704,7 @@ struct XXH64_state_s {
  
