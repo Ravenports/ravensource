@@ -1,4 +1,4 @@
---- ../../js/src/jit/ProcessExecutableMemory.h.orig	2026-05-15 15:10:49 UTC
+--- ../../js/src/jit/ProcessExecutableMemory.h.orig	2026-06-09 18:34:09 UTC
 +++ ../../js/src/jit/ProcessExecutableMemory.h
 @@ -14,7 +14,7 @@ namespace jit {
  
