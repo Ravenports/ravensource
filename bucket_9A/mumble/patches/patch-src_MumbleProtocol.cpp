@@ -1,6 +1,6 @@
 Fix build with protobuf 34.x
 
---- src/MumbleProtocol.cpp.orig	2025-10-11 18:24:04.352139700 -0000
+--- src/MumbleProtocol.cpp.orig	2026-05-17 12:09:23 UTC
 +++ src/MumbleProtocol.cpp
 @@ -54,7 +54,7 @@ namespace Protocol {
  
