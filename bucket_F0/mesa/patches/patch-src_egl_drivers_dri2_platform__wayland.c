@@ -1,4 +1,4 @@
---- src/egl/drivers/dri2/platform_wayland.c.orig	2026-05-06 19:06:23 UTC
+--- src/egl/drivers/dri2/platform_wayland.c.orig	2026-05-19 14:27:16 UTC
 +++ src/egl/drivers/dri2/platform_wayland.c
 @@ -2300,6 +2300,7 @@ registry_handle_global_drm(void *data, s
        dri2_dpy->wl_drm_name = name;
