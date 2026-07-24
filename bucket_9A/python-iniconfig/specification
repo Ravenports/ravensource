@@ -1,0 +1,37 @@
+DEF[PORTVERSION]=	2.3.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-iniconfig
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v13 v14
+SDESC[v13]=		Brain-dead simple config-ini parsing (3.13)
+SDESC[v14]=		Brain-dead simple config-ini parsing (3.14)
+HOMEPAGE=		https://github.com/pytest-dev/iniconfig
+CONTACT=		Python_Automaton[python@ravenports.com]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/cb/b1/3846dd7f199d53cb17f49cba7e651e9ce294d8497c8c150530ed11865bb8
+DISTFILE[1]=		iniconfig-${PORTVERSION}-py3-none-any.whl:main
+DIST_SUBDIR=		python-src
+
+SPKGS[v13]=		single
+SPKGS[v14]=		single
+
+OPTIONS_AVAILABLE=	PY313 PY314
+OPTIONS_STANDARD=	none
+VOPTS[v13]=		PY313=ON PY314=OFF
+VOPTS[v14]=		PY313=OFF PY314=ON
+
+# License listed at PyPI
+# Not provided.
+
+GENERATED=		yes
+DISTNAME=		iniconfig-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+
+
+[PY313].USES_ON=			python:v13,wheel
+[PY314].USES_ON=			python:v14,wheel
+
