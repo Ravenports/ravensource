@@ -1,0 +1,60 @@
+DEF[PORTVERSION]=	0.0.11
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-nab-python
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v13 v14
+SDESC[v13]=		Nab package index provider (3.13)
+SDESC[v14]=		Nab package index provider (3.14)
+HOMEPAGE=		https://github.com/notatallshaw/nab
+CONTACT=		Python_Automaton[python@ravenports.com]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/3a/3f/79932bac990c85a1cf85fa34db9b2a0b98e9bc467203ad233f982ebeeb76
+DISTFILE[1]=		nab_python-${PORTVERSION}-py3-none-any.whl:main
+DIST_SUBDIR=		python-src
+
+SPKGS[v13]=		single
+SPKGS[v14]=		single
+
+OPTIONS_AVAILABLE=	PY313 PY314
+OPTIONS_STANDARD=	none
+VOPTS[v13]=		PY313=ON PY314=OFF
+VOPTS[v14]=		PY313=OFF PY314=ON
+
+# License listed at PyPI
+# Not provided.
+
+GENERATED=		yes
+DISTNAME=		nab_python-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# build>=1.2
+# installer>=0.7
+# nab-index==0.0.11
+# nab-resolver==0.0.11
+# pyproject-hooks>=1.2
+# tomli-w>=1.2
+# tomli>=2.0
+# typing-extensions>=4.6
+
+[PY313].USES_ON=			python:v13,wheel
+[PY313].RUN_DEPENDS_ON=			python-build:single:v13
+					python-installer:single:v13
+					python-nab-index:single:v13
+					python-nab-resolver:single:v13
+					python-pyproject-hooks:single:v13
+					python-tomli-w:single:v13
+					python-tomli:single:v13
+					python-typing-extensions:single:v13
+[PY314].USES_ON=			python:v14,wheel
+[PY314].RUN_DEPENDS_ON=			python-build:single:v14
+					python-installer:single:v14
+					python-nab-index:single:v14
+					python-nab-resolver:single:v14
+					python-pyproject-hooks:single:v14
+					python-tomli-w:single:v14
+					python-tomli:single:v14
+					python-typing-extensions:single:v14
+

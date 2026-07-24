@@ -1,0 +1,49 @@
+DEF[PORTVERSION]=	0.0.11
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-nab-index
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v13 v14
+SDESC[v13]=		Simple-API client and on-disk cache (3.13)
+SDESC[v14]=		Simple-API client and on-disk cache (3.14)
+HOMEPAGE=		https://github.com/notatallshaw/nab
+CONTACT=		Python_Automaton[python@ravenports.com]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/fe/00/0816a27374957bc87468e77b9c5f224a8e6d546939d8d672589f7240785e
+DISTFILE[1]=		nab_index-${PORTVERSION}-py3-none-any.whl:main
+DIST_SUBDIR=		python-src
+
+SPKGS[v13]=		single
+SPKGS[v14]=		single
+
+OPTIONS_AVAILABLE=	PY313 PY314
+OPTIONS_STANDARD=	none
+VOPTS[v13]=		PY313=ON PY314=OFF
+VOPTS[v14]=		PY313=OFF PY314=ON
+
+# License listed at PyPI
+# Not provided.
+
+GENERATED=		yes
+DISTNAME=		nab_index-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# packaging>=24.0
+# truststore>=0.10
+# typing-extensions>=4.6
+# urllib3>=2.0
+# httpx[http2]>=0.28; extra == 'httpx'
+
+[PY313].USES_ON=			python:v13,wheel
+[PY313].RUN_DEPENDS_ON=			python-packaging:single:v13
+					python-truststore:single:v13
+					python-typing-extensions:single:v13
+					python-urllib3:single:v13
+[PY314].USES_ON=			python:v14,wheel
+[PY314].RUN_DEPENDS_ON=			python-packaging:single:v14
+					python-truststore:single:v14
+					python-typing-extensions:single:v14
+					python-urllib3:single:v14
+
