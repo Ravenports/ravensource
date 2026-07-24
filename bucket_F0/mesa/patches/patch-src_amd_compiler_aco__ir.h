@@ -1,4 +1,4 @@
---- src/amd/compiler/aco_ir.h.orig	2026-05-14 07:49:34 UTC
+--- src/amd/compiler/aco_ir.h.orig	2026-05-19 14:27:16 UTC
 +++ src/amd/compiler/aco_ir.h
 @@ -25,6 +25,10 @@
  #include <memory>

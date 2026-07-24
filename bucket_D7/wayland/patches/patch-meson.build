@@ -1,6 +1,6 @@
---- meson.build.orig	2025-07-06 12:11:26 UTC
+--- meson.build.orig	2026-03-19 16:03:08 UTC
 +++ meson.build
-@@ -16,7 +16,7 @@ config_h.set_quoted('PACKAGE', meson.pro
+@@ -20,7 +20,7 @@ config_h.set_quoted('PACKAGE', meson.pro
  config_h.set_quoted('PACKAGE_VERSION', meson.project_version())
  
  cc_args = []
@@ -9,7 +9,7 @@
  	cc_args += ['-D_POSIX_C_SOURCE=200809L']
  endif
  add_project_arguments(cc_args, language: 'c')
-@@ -52,7 +52,7 @@ foreach f: have_funcs
+@@ -57,7 +57,7 @@ foreach f: have_funcs
  endforeach
  config_h.set10('HAVE_XUCRED_CR_PID', cc.has_member('struct xucred', 'cr_pid', prefix : '#include <sys/ucred.h>'))
  have_broken_msg_cmsg_cloexec = false
@@ -18,7 +18,7 @@
  	have_broken_msg_cmsg_cloexec = not cc.compiles('''
  #include <sys/param.h> /* To get __FreeBSD_version. */
  #if __FreeBSD_version < 1300502 || \
-@@ -69,7 +69,7 @@ endif
+@@ -74,7 +74,7 @@ endif
  config_h.set10('HAVE_BROKEN_MSG_CMSG_CLOEXEC', have_broken_msg_cmsg_cloexec)
  
  if get_option('libraries')

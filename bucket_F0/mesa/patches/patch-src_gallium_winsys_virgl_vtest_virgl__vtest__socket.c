@@ -1,4 +1,4 @@
---- src/gallium/winsys/virgl/vtest/virgl_vtest_socket.c.orig	2026-05-14 07:49:34 UTC
+--- src/gallium/winsys/virgl/vtest/virgl_vtest_socket.c.orig	2026-05-19 14:27:16 UTC
 +++ src/gallium/winsys/virgl/vtest/virgl_vtest_socket.c
 @@ -21,6 +21,7 @@
   * USE OR OTHER DEALINGS IN THE SOFTWARE.

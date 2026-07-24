@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.20.14.1
+DEF[PORTVERSION]=	2.20.17
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		dasm
@@ -10,7 +10,7 @@ HOMEPAGE=		https://dasm-assembler.github.io
 CONTACT=		Todd_Martin[warfox@sdf.org]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GITHUB/dasm-assembler:dasm:${PORTVERSION}
+SITES[main]=		GITHUB/dasm-assembler:dasm:v${PORTVERSION}
 DISTFILE[1]=		generated:main
 
 SPKGS[std]=		single
@@ -29,5 +29,9 @@ FPC_EQUIVALENT=		devel/dasm
 
 USES=			gmake
 
-post-stage:
+do-install:
+	${INSTALL_PROGRAM} ${WRKSRC}/src/dasm ${STAGEDIR}${PREFIX}/bin
+	${INSTALL_PROGRAM} ${WRKSRC}/src/ftohex ${STAGEDIR}${PREFIX}/bin
+
+post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*

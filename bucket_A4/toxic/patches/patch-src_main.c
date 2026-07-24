@@ -1,8 +1,8 @@
 The dns function is not implemented anywhere.
 
---- src/main.c.orig	2025-01-09 14:41:43 UTC
+--- src/main.c.orig	2026-02-12 15:23:42 UTC
 +++ src/main.c
-@@ -477,7 +477,6 @@ static void init_tox_options(const Run_O
+@@ -478,7 +478,6 @@ static void init_tox_options(const Run_O
      tox_options_set_tcp_port(tox_opts, run_opts->tcp_port);
      tox_options_set_local_discovery_enabled(tox_opts, !run_opts->disable_local_discovery);
      tox_options_set_experimental_groups_persistence(tox_opts, true);
@@ -10,7 +10,7 @@ The dns function is not implemented anywhere.
  
      if (run_opts->logging) {
          tox_options_set_log_callback(tox_opts, cb_toxcore_logger);
-@@ -508,9 +507,6 @@ static void init_tox_options(const Run_O
+@@ -509,9 +508,6 @@ static void init_tox_options(const Run_O
      }
  
      if (!tox_options_get_udp_enabled(tox_opts)) {

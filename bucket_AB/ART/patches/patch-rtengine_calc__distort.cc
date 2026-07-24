@@ -1,4 +1,4 @@
---- rtengine/calc_distort.cc.orig	2026-05-27 14:49:13 UTC
+--- rtengine/calc_distort.cc.orig	2026-06-15 12:55:53 UTC
 +++ rtengine/calc_distort.cc
 @@ -59,7 +59,7 @@ int calcDistortion(unsigned char *img1,
      fl = KLTCreateFeatureList(N_FEATURES * nfactor);

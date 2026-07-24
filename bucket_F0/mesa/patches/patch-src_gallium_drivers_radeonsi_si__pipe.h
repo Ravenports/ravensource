@@ -1,8 +1,8 @@
---- src/gallium/drivers/radeonsi/si_pipe.h.orig	2026-05-14 07:49:34 UTC
+--- src/gallium/drivers/radeonsi/si_pipe.h.orig	2026-05-19 14:27:16 UTC
 +++ src/gallium/drivers/radeonsi/si_pipe.h
-@@ -24,6 +24,10 @@
- #include "ac_spm.h"
- #include "si_perfetto.h"
+@@ -29,6 +29,10 @@
+ #endif
+ #include "u_stub.h"
  
 +#if defined(__sun__)
 +#include <alloca.h>

@@ -1,4 +1,4 @@
---- src/ck.h.orig	2026-06-14 19:47:14 UTC
+--- src/ck.h.orig	2026-06-17 23:07:59 UTC
 +++ src/ck.h
 @@ -23,6 +23,7 @@
  #define _RSIZE_T_DEFINED

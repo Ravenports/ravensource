@@ -1,4 +1,4 @@
---- src/ProcessResolver.cpp.orig	2025-10-11 18:24:04.352139700 -0000
+--- src/ProcessResolver.cpp.orig	2026-05-17 12:09:23 UTC
 +++ src/ProcessResolver.cpp
 @@ -5,6 +5,11 @@
  

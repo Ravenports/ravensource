@@ -1,4 +1,4 @@
---- vendor/openssl-probe-0.1.6/src/lib.rs.orig	2026-05-30 23:42:07 UTC
+--- vendor/openssl-probe-0.1.6/src/lib.rs.orig	2026-07-06 19:43:42 UTC
 +++ vendor/openssl-probe-0.1.6/src/lib.rs
 @@ -31,11 +31,8 @@ pub fn candidate_cert_dirs() -> impl Ite
      [

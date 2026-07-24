@@ -1,4 +1,4 @@
---- src/util/u_thread.h.orig	2026-05-14 07:49:34 UTC
+--- src/util/u_thread.h.orig	2026-05-19 14:27:16 UTC
 +++ src/util/u_thread.h
 @@ -50,7 +50,7 @@
   * but not with __thread

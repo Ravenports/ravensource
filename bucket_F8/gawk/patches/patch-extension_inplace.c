@@ -1,4 +1,4 @@
---- extension/inplace.c.orig	2025-03-09 19:42:46 UTC
+--- extension/inplace.c.orig	2025-07-30 04:20:31 UTC
 +++ extension/inplace.c
 @@ -27,12 +27,14 @@
  #include <config.h>
