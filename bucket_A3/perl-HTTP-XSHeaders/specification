@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.000001
+DEF[PORTVERSION]=	1.000002
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-HTTP-XSHeaders
@@ -34,6 +34,7 @@ DISTNAME=		HTTP-XSHeaders-${PORTVERSION}
 # ----------------------------------------------
 # |      runtime : Exporter (perl 5.40 core) (perl 5.42 core)
 # |      runtime : HTTP::Date
+# |      runtime : HTTP::Headers
 # |      runtime : XSLoader (perl 5.40 core) (perl 5.42 core)
 # |        build : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
 # |    configure : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
@@ -41,6 +42,8 @@ DISTNAME=		HTTP-XSHeaders-${PORTVERSION}
 
 [PERL_540].USES_ON=			perl:540,configure
 [PERL_540].BUILDRUN_DEPENDS_ON=		perl-HTTP-Date:single:540
+					perl-HTTP-Message:single:540
 [PERL_542].USES_ON=			perl:542,configure
 [PERL_542].BUILDRUN_DEPENDS_ON=		perl-HTTP-Date:single:542
+					perl-HTTP-Message:single:542
 
