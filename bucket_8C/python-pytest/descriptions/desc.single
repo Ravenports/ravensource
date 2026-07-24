@@ -1,0 +1,100 @@
+   :align: center
+   :height: 200
+   :alt: pytest
+
+------
+
+    :alt: Code coverage Status
+
+   :alt: pre-commit.ci status
+
+    :alt: Documentation Status
+
+    :alt: Discord
+
+    :alt: Libera chat
+
+The pytest framework makes it easy to write small tests, yet
+scales to support complex functional testing for applications and
+libraries.
+
+An example of a simple test:
+
+.. code-block:: python
+
+    # content of test_sample.py
+    def inc(x):
+        return x + 1
+
+    def test_answer():
+        assert inc(3) == 5
+
+To execute it::
+
+    $ pytest
+    ============================= test session starts
+=============================
+    collected 1 items
+
+    test_sample.py F
+
+    ================================== FAILURES
+===================================
+    _________________________________ test_answer
+_________________________________
+
+        def test_answer():
+    >       assert inc(3) == 5
+    E       assert 4 == 5
+    E        +  where 4 = inc(3)
+
+    test_sample.py:5: AssertionError
+    ========================== 1 failed in 0.04 seconds
+===========================
+
+Thanks to pytest's detailed assertion introspection, you can simply use
+plain assert statements. See `getting-started
+<https://docs.pytest.org/en/stable/getting-started.html#our-first-test-run>`_
+for more examples.
+
+Features
+--------
+
+- Detailed info on failing [assert statements] (no need to remember
+``self.assert*`` names)
+
+- `Auto-discovery
+ 
+<https://docs.pytest.org/en/stable/explanation/goodpractices.html#python-test-discovery>`_
+  of test modules and functions
+
+- [Modular fixtures] for
+  managing small or parametrized long-lived test resources
+
+- Can run [unittest] (or trial)
+  test suites out of the box
+
+- Python 3.10+ or PyPy3
+
+- Rich plugin architecture, with over 1300+ [external plugins] and thriving
+community
+
+Documentation
+-------------
+
+For full documentation, including installation, tutorials and PDF
+documents, please see https://docs.pytest.org/en/stable/.
+
+Bugs/Requests
+-------------
+
+Please use the [GitHub issue tracker] to submit bugs or request features.
+
+Changelog
+---------
+
+Consult the [Changelog] page for fixes and enhancements of each version.
+
+Support pytest
+--------------
+

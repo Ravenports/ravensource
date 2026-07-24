@@ -1,0 +1,58 @@
+DEF[PORTVERSION]=	9.1.1
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-pytest
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v13 v14
+SDESC[v13]=		Pytest: simple powerful testing with Python (3.13)
+SDESC[v14]=		Pytest: simple powerful testing with Python (3.14)
+HOMEPAGE=		https://docs.pytest.org/en/latest/
+CONTACT=		Python_Automaton[python@ravenports.com]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f
+DISTFILE[1]=		pytest-${PORTVERSION}-py3-none-any.whl:main
+DIST_SUBDIR=		python-src
+
+SPKGS[v13]=		single
+SPKGS[v14]=		single
+
+OPTIONS_AVAILABLE=	PY313 PY314
+OPTIONS_STANDARD=	none
+VOPTS[v13]=		PY313=ON PY314=OFF
+VOPTS[v14]=		PY313=OFF PY314=ON
+
+# License listed at PyPI
+# Not provided.
+
+GENERATED=		yes
+DISTNAME=		pytest-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# colorama>=0.4; sys_platform == "win32"
+# exceptiongroup>=1; python_version < "3.11"
+# iniconfig>=1.0.1
+# packaging>=22
+# pluggy<2,>=1.5
+# pygments>=2.7.2
+# tomli>=1; python_version < "3.11"
+# argcomplete; extra == "dev"
+# attrs>=19.2; extra == "dev"
+# hypothesis>=3.56; extra == "dev"
+# mock; extra == "dev"
+# requests; extra == "dev"
+# setuptools; extra == "dev"
+# xmlschema; extra == "dev"
+
+[PY313].USES_ON=			python:v13,wheel
+[PY313].RUN_DEPENDS_ON=			python-iniconfig:single:v13
+					python-packaging:single:v13
+					python-pluggy:single:v13
+					python-Pygments:single:v13
+[PY314].USES_ON=			python:v14,wheel
+[PY314].RUN_DEPENDS_ON=			python-iniconfig:single:v14
+					python-packaging:single:v14
+					python-pluggy:single:v14
+					python-Pygments:single:v14
+
