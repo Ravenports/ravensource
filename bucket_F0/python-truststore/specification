@@ -1,0 +1,37 @@
+DEF[PORTVERSION]=	0.10.4
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-truststore
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v13 v14
+SDESC[v13]=		Certificate verification module (3.13)
+SDESC[v14]=		Certificate verification module (3.14)
+HOMEPAGE=		https://github.com/sethmlarson/truststore
+CONTACT=		Python_Automaton[python@ravenports.com]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/19/97/56608b2249fe206a67cd573bc93cd9896e1efb9e98bce9c163bcdc704b88
+DISTFILE[1]=		truststore-${PORTVERSION}-py3-none-any.whl:main
+DIST_SUBDIR=		python-src
+
+SPKGS[v13]=		single
+SPKGS[v14]=		single
+
+OPTIONS_AVAILABLE=	PY313 PY314
+OPTIONS_STANDARD=	none
+VOPTS[v13]=		PY313=ON PY314=OFF
+VOPTS[v14]=		PY313=OFF PY314=ON
+
+# License listed at PyPI
+# Not provided.
+
+GENERATED=		yes
+DISTNAME=		truststore-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+
+
+[PY313].USES_ON=			python:v13,wheel
+[PY314].USES_ON=			python:v14,wheel
+
