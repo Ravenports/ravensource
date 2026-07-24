@@ -23,8 +23,10 @@ NMS Cloud provisioning
 - **VM Snapshots** — Point-in-time snapshots for recovery
 - **VM Backups** — Backup jobs and restore points
 - **Storage** — Datastores and storage content
-- **Network Interfaces and IPs** — Network interfaces and IP addresses
-assigned to VMs and containers
+- **Network Interfaces and IPs** — Proxmox NICs (`net0`, `net1`) as core
+NetBox VM interfaces, optional guest-OS interfaces (`ens18`, `eth0`) as
+plugin `GuestVMInterface` rows, and IP addresses assigned to VMs and
+containers
 - **Backup Routines** — Backup job definitions from Proxmox
 - **Replications** — Replication job status and configuration
 
@@ -96,5 +98,3 @@ PLUGINS = [
 
 Run migrations for the selected plugins, preserving the same order:
 
-```bash
-cd /opt/netbox/netbox

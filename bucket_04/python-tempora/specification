@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	5.9.0
+DEF[PORTVERSION]=	5.12.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-tempora
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/jaraco/tempora
 CONTACT=		Python_Automaton[python@ravenports.com]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/e3/5e/9326e8ec4418ea59c6c290f4f3209d61f790f0737bfc5afcb588cad3fd9f
+SITES[main]=		PYPIWHL/ec/9e/4d84da6edba51bab06be6ff8b1ccf93cc19b0ef4ab6ffcab1f873134bec3
 DISTFILE[1]=		tempora-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -30,38 +30,32 @@ GENERATED=		yes
 DISTNAME=		tempora-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# jaraco.functools>=4.2
-# python-dateutil
-# jaraco.context
-# more_itertools
-# jaraco.collections>=5.2.1
-# pytest!=8.1.*,>=6; extra == "test"
 # pytest-freezer; extra == "test"
 # backports.zoneinfo; python_version < "3.9" and extra == "test"
 # tzdata; platform_system == "Windows" and extra == "test"
-# sphinx>=3.5; extra == "doc"
-# jaraco.packaging>=9.3; extra == "doc"
-# rst.linker>=1.9; extra == "doc"
-# furo; extra == "doc"
-# sphinx-lint; extra == "doc"
-# jaraco.tidelift>=1.4; extra == "doc"
-# pytest-checkdocs>=2.14; extra == "check"
-# pytest-ruff>=0.2.1; sys_platform != "cygwin" and extra == "check"
-# pytest-cov; extra == "cover"
-# pytest-enabler>=3.4; extra == "enabler"
-# pytest-mypy>=1.0.1; platform_python_implementation != "PyPy" and extra == "type"
-# types-python-dateutil; extra == "type"
+# types-python-dateutil; extra == "test"
+# python-dateutil
+# jaraco.collections
+# jaraco.context
+# jaraco.functools
+# typing_extensions
+# freezegun; extra=="test"
+# pytest; extra=="test"
 
 [PY313].USES_ON=			python:v13,wheel
-[PY313].RUN_DEPENDS_ON=			python-jaraco.functools:single:v13
-					python-python-dateutil:single:v13
-					python-jaraco.context:single:v13
-					python-more-itertools:single:v13
+[PY313].RUN_DEPENDS_ON=			python-python-dateutil:single:v13
 					python-jaraco.collections:single:v13
+					python-jaraco.context:single:v13
+					python-jaraco.functools:single:v13
+					python-typing-extensions:single:v13
+					python-freezegun:single:v13
+					python-pytest:single:v13
 [PY314].USES_ON=			python:v14,wheel
-[PY314].RUN_DEPENDS_ON=			python-jaraco.functools:single:v14
-					python-python-dateutil:single:v14
-					python-jaraco.context:single:v14
-					python-more-itertools:single:v14
+[PY314].RUN_DEPENDS_ON=			python-python-dateutil:single:v14
 					python-jaraco.collections:single:v14
+					python-jaraco.context:single:v14
+					python-jaraco.functools:single:v14
+					python-typing-extensions:single:v14
+					python-freezegun:single:v14
+					python-pytest:single:v14
 

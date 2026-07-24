@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.1.1
+DEF[PORTVERSION]=	4.1.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-pipdeptree
@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/tox-dev/pipdeptree
 CONTACT=		Python_Automaton[python@ravenports.com]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/d5/20/b1115907eec2fd06b97523a65c31630d7d20fe9b2008748d8c442c97c1d8
-DISTFILE[1]=		pipdeptree-${PORTVERSION}-py3-none-any.whl:main
+SITES[main]=		PYPI/p/pipdeptree
+DISTFILE[1]=		pipdeptree-${PORTVERSION}.tar.gz:main
 DIST_SUBDIR=		python-src
 
 SPKGS[v13]=		single
@@ -27,29 +27,22 @@ VOPTS[v14]=		PY313=OFF PY314=ON
 # Not provided.
 
 GENERATED=		yes
-DISTNAME=		pipdeptree-${PORTVERSION}.dist-info
+DISTNAME=		pipdeptree-${PORTVERSION}
 
-# Requires-Dist extracted from wheel metadata
-# packaging>=26
-# tomli>=2; python_version < '3.11'
-# graphviz>=0.21; extra == 'graphviz'
-# nab-index>=0.0.4; extra == 'index'
-# nab-python>=0.0.4; extra == 'index'
-# pip-requirements-parser>=32; extra == 'index'
-# rich>=14.3.3; extra == 'rich'
-# covdefaults>=2.3; extra == 'test'
-# diff-cover>=9.7.1; extra == 'test'
-# nab-index>=0.0.4; extra == 'test'
-# nab-python>=0.0.4; extra == 'test'
-# pip-requirements-parser>=32; extra == 'test'
-# pytest-cov>=7; extra == 'test'
-# pytest-mock>=3.15.1; extra == 'test'
-# pytest-subprocess>=1.5; extra == 'test'
-# pytest>=8.4.2; extra == 'test'
-# virtualenv<21,>=20.34; extra == 'test'
+# Requires-Dist extracted from pyproject.toml file
+# build: meson-python>=0.20
+# build: ninja>=1.13
+# buildrun: nab-index>=0.0.11
+# buildrun: nab-python>=0.0.11
 
-[PY313].USES_ON=			python:v13,wheel
-[PY313].RUN_DEPENDS_ON=			python-packaging:single:v13
-[PY314].USES_ON=			python:v14,wheel
-[PY314].RUN_DEPENDS_ON=			python-packaging:single:v14
+[PY313].USES_ON=			python:v13,pep517
+[PY313].BUILD_DEPENDS_ON=		python-meson-python:single:v13
+					python-ninja:single:v13
+[PY313].BUILDRUN_DEPENDS_ON=		python-nab-index:single:v13
+					python-nab-python:single:v13
+[PY314].USES_ON=			python:v14,pep517
+[PY314].BUILD_DEPENDS_ON=		python-meson-python:single:v14
+					python-ninja:single:v14
+[PY314].BUILDRUN_DEPENDS_ON=		python-nab-index:single:v14
+					python-nab-python:single:v14
 
