@@ -1,0 +1,38 @@
+DEF[PORTVERSION]=	1.0.4
+DEF[SOVERSION]=		0.0.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		sdl2_gfx
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		std
+SDESC[std]=		SDL2 drawing primitives & support functions
+HOMEPAGE=		https://www.ferzkopp.net/Software/SDL_gfx-2.0/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://www.ferzkopp.net/Software/SDL2_gfx/
+DISTFILE[1]=		SDL2_gfx-1.0.4.tar.gz:main
+
+SPKGS[std]=		set primary dev
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# License is ZLIB, but it's not in the distribution tarball
+# LICENSE=		ZLIB:primary
+# LICENSE_FILE=		ZLIB:missing
+# LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		graphics/sdl2_gfx
+
+DISTNAME=		SDL2_gfx-${PORTVERSION}
+MUST_CONFIGURE=		gnu
+SOVERSION=		${SOVERSION}
+INSTALL_TARGET=		install-strip
+
+USES=			libtool fbsd10fix
+SDL_COMPONENTS=		sdl2
+
+post-patch:
+	${TOUCH} -mr ${WRKSRC}/configure.in ${WRKSRC}/aclocal.m4
