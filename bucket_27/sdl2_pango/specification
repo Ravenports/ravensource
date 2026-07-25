@@ -1,0 +1,37 @@
+DEF[PORTVERSION]=	2.1.5
+DEF[SOVERSION]=		4.1.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		sdl2_pango
+VERSION=		${PORTVERSION}
+KEYWORDS=		x11_toolkits
+VARIANTS=		std
+SDESC[std]=		Render internationalized and tagged text in SDL2
+HOMEPAGE=		https://github.com/markuskimius/SDL2_Pango
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/markuskimius:SDL2_Pango:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[std]=		set primary dev
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL21+:primary
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/SDL2_Pango.h
+LICENSE_AWK=		TERMS:"@file"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		x11-toolkits/sdl2_pango
+
+SOVERSION=		${SOVERSION}
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
+
+USES=			gettext libtool pkgconfig
+GNOME_COMPONENTS=	pango
+SDL_COMPONENTS=		sdl2
