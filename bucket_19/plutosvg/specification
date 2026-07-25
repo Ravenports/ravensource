@@ -1,0 +1,32 @@
+DEF[PORTVERSION]=	0.0.8
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		plutosvg
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		std
+SDESC[std]=		Tiny SVG rendering library in C
+HOMEPAGE=		https://github.com/sammycage/plutosvg/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/sammycage:plutosvg:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[std]=		set primary dev
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:primary
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		graphics/plutosvg
+
+BUILD_DEPENDS=		plutovg:dev:std
+BUILDRUN_DEPENDS=	plutovg:primary:std
+
+SOVERSION=		${PORTVERSION}
+
+USES=			freetype meson pkgconfig
