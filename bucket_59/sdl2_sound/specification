@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	2.0.6
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		sdl2_sound
+VERSION=		${PORTVERSION}
+KEYWORDS=		audio
+VARIANTS=		std
+SDESC[std]=		Abstract SDL soundfile decoder
+HOMEPAGE=		https://github.com/icculus/SDL_sound
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/icculus:SDL_sound:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[std]=		set primary dev tools
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		ZLIB:primary
+LICENSE_FILE=		ZLIB:{{WRKSRC}}/LICENSE.txt
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		audio/sdl2_sound
+
+SOVERSION=		${PORTVERSION}
+
+USES=			cmake
+SDL_COMPONENTS=		sdl2
+
+CMAKE_ARGS=		-DSDLSOUND_DECODER_MIDI=TRUE
+
+post-install:
+	(cd ${STAGEDIR}${PREFIX} && ${MV} bin/playsound bin/playsound2 && \
+		${STRIP_CMD} bin/playsound2 lib/libSDL2_sound.so)
