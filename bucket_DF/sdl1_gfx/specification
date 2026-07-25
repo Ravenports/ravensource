@@ -1,0 +1,34 @@
+DEF[PORTVERSION]=	2.0.27
+DEF[SOVERSION]=		16.9.1
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		sdl1_gfx
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		std
+SDESC[std]=		SDL drawing primitives & other support functions
+HOMEPAGE=		https://www.ferzkopp.net/Software/SDL_gfx-2.0/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		http://www.ferzkopp.net/Software/SDL_gfx-2.0/
+DISTFILE[1]=		SDL_gfx-${PORTVERSION}.tar.gz:main
+
+SPKGS[std]=		set primary dev
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		ZLIB:primary
+LICENSE_FILE=		ZLIB:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		graphics/sdl_gfx
+
+DISTNAME=		SDL_gfx-${PORTVERSION}
+SOVERSION=		${SOVERSION}
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
+
+USES=			autoreconf libtool
+SDL_COMPONENTS=		sdl1
