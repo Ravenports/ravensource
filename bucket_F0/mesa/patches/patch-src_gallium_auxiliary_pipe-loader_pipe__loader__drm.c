@@ -1,4 +1,4 @@
---- src/gallium/auxiliary/pipe-loader/pipe_loader_drm.c.orig	2026-06-03 08:37:14 UTC
+--- src/gallium/auxiliary/pipe-loader/pipe_loader_drm.c.orig	2026-06-18 06:44:14 UTC
 +++ src/gallium/auxiliary/pipe-loader/pipe_loader_drm.c
 @@ -36,6 +36,7 @@
  #include <xf86drm.h>

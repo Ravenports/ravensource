@@ -1,4 +1,4 @@
---- src/egl/main/eglglobals.c.orig	2026-06-03 08:37:14 UTC
+--- src/egl/main/eglglobals.c.orig	2026-06-18 06:44:14 UTC
 +++ src/egl/main/eglglobals.c
 @@ -40,6 +40,10 @@
  #include "util/macros.h"
