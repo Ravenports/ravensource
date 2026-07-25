@@ -1,0 +1,68 @@
+DEF[PORTVERSION]=	4.4.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		xiphos
+VERSION=		${PORTVERSION}
+KEYWORDS=		misc
+VARIANTS=		std
+SDESC[std]=		GTK Bible study tool
+HOMEPAGE=		https://xiphos.org/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/crosswire:xiphos:${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[std]=		set primary man nls docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:primary
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/main/configs.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		misc/xiphos
+
+BUILD_DEPENDS=		appstream:dev:std
+			biblesync:dev:std
+			enchant1:dev:std
+			gsettings-desktop-schemas:dev:std
+			gtkhtml4:dev:std
+			icu:dev:std
+			iso-codes:primary:std
+			itstool:single:std
+			libsoup-2.4:dev:std
+			libuuid:dev:std
+			libuuid:tools:std
+			minizip:dev:std
+			python-lxml:single:python_used
+			speech-dispatcher:dev:std
+			sword:dev:std
+			webkit2:dev:api41
+			yelp-tools:single:std
+			zip:primary:std
+BUILDRUN_DEPENDS=	appstream:primary:std
+			biblesync:primary:std
+			gtkhtml4:primary:std
+			icu:primary:std
+			libsoup-2.4:primary:std
+			libuuid:primary:std
+			minizip:primary:std
+			speech-dispatcher:primary:std
+			sword:primary:std
+			webkit2:primary:api41
+
+USES=			cmake gmake desktop-utils:primary gettext pkgconfig
+			python:build
+GNOME_COMPONENTS=	libxml2 libxslt gtk3
+
+# Epub is off because it causes an obscure "Error 4"
+CMAKE_ARGS=		-DEPUB=OFF
+			-DGTKHTML=ON
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
