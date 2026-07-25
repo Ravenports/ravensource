@@ -1,0 +1,51 @@
+DEF[PORTVERSION]=	4.10.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		gtkhtml4
+VERSION=		${PORTVERSION}
+KEYWORDS=		www
+VARIANTS=		std
+SDESC[std]=		Lightweight HTML rendering/printing/editing engine
+HOMEPAGE=		https://www.gnome.org/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://download.gnome.org/sources/gtkhtml/${PORTVERSION:R}/
+DISTFILE[1]=		gtkhtml-${PORTVERSION}.tar.xz:main
+DIST_SUBDIR=		gnome3
+
+SPKGS[std]=		primary dev nls tools
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		LGPL20+:primary
+LICENSE_FILE=		LGPL20+:{{WRKSRC}}/COPYING.LIB
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/gtkhtml/gtkhtml.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		www/gtkhtml4
+
+DISTNAME=		gtkhtml-${PORTVERSION}
+MUST_CONFIGURE=		gnu
+INSTALL_TARGET=		install-strip
+
+BUILD_DEPENDS=		enchant1:dev:std
+			libsoup-2.4:dev:std
+			gsettings-desktop-schemas:dev:std
+			iso-codes:primary:std
+BUILDRUN_DEPENDS=	enchant1:primary:std
+			libsoup-2.4:primary:std
+			gsettings-desktop-schemas:primary:std
+
+USES=			gettext gmake libtool pkgconfig
+GNOME_COMPONENTS=	gtk3 intltool
+INSTALL_REQ_TOOLCHAIN=	yes
+
+CFLAGS=			-Wno-error=incompatible-pointer-types
+
+post-patch:
+	${REINPLACE_CMD} -e 's|-Wmissing-include-dirs||g' \
+		${WRKSRC}/configure
