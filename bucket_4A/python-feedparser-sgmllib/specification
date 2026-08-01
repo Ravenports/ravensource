@@ -1,0 +1,37 @@
+DEF[PORTVERSION]=	2.0.1
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-feedparser-sgmllib
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v13 v14
+SDESC[v13]=		Sgmllib from Python 2.7 for feedparser (3.13)
+SDESC[v14]=		Sgmllib from Python 2.7 for feedparser (3.14)
+HOMEPAGE=		https://github.com/python-syndication/feedparser-sgmllib
+CONTACT=		Python_Automaton[python@ravenports.com]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/44/ce/35ac725a2b0e6b3f4e03bb68167501cdecf3935132927c61342747f734a9
+DISTFILE[1]=		feedparser_sgmllib-${PORTVERSION}-py3-none-any.whl:main
+DIST_SUBDIR=		python-src
+
+SPKGS[v13]=		single
+SPKGS[v14]=		single
+
+OPTIONS_AVAILABLE=	PY313 PY314
+OPTIONS_STANDARD=	none
+VOPTS[v13]=		PY313=ON PY314=OFF
+VOPTS[v14]=		PY313=OFF PY314=ON
+
+# License listed at PyPI
+# Not provided.
+
+GENERATED=		yes
+DISTNAME=		feedparser_sgmllib-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+
+
+[PY313].USES_ON=			python:v13,wheel
+[PY314].USES_ON=			python:v14,wheel
+
