@@ -1,0 +1,37 @@
+DEF[PORTVERSION]=	%%VERSION%%
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		ripgrep
+VERSION=		${PORTVERSION}
+KEYWORDS=		rust textproc
+VARIANTS=		std
+SDESC[std]=		Search tool like ag but at the speed of grep
+HOMEPAGE=		https://github.com/BurntSushi/ripgrep/
+CONTACT=		Jay_Leno[jay@aarp.org]
+
+%%DOWNLOAD_GROUPS%%
+SITES[main]=		GITHUB/BurntSushi:ripgrep:${PORTVERSION}
+%%CR_SITES%%
+DISTFILE[1]=		generated:main
+%%CR_DISTFILES%%
+%%DF_INDEX%%
+
+SPKGS[std]=		single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:single
+			CUSTOM1:single
+LICENSE_NAME=		CUSTOM1:"The Unlicense"
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE-MIT
+			CUSTOM1:{{WRKSRC}}/UNLICENSE
+LICENSE_TERMS=		single:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		dual
+
+FPC_EQUIVALENT=		textproc/ripgrep
+
+USES=			cargo
+
+post-install:
+	${RM} ${STAGEDIR}${PREFIX}/.crates2.json
