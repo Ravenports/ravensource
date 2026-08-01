@@ -1,4 +1,4 @@
---- lib/stdlib/src/calendar.erl.orig	2026-06-09 14:24:52 UTC
+--- lib/stdlib/src/calendar.erl.orig	2026-07-02 08:00:07 UTC
 +++ lib/stdlib/src/calendar.erl
 @@ -506,11 +506,19 @@ The return value is a list of 0, 1, or 2
        DateTime1 :: datetime1970(),
