@@ -13,9 +13,8 @@ https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API
 Built on top of asyncio, Python's standard asynchronous I/O framework, the
 default implementation provides an elegant coroutine-based API.
 
-An implementation on top of threading and a Sans-I/O implementation are
-also
-available.
+Implementations on top of threading and trio are also provided, as well
+as a Sans-I/O layer for integration in third-party projects.
 
 `Documentation is available on Read the Docs.
 <https://websockets.readthedocs.io/>`_
@@ -36,8 +35,8 @@ Here's an echo server with the asyncio API:
             await websocket.send(message)
 
     async def main():
-        async with serve(echo, "localhost", 8765) as server:
-            await server.serve_forever()
+        server = await serve(echo, "localhost", 8765)
+        await server.serve_forever()
 
     asyncio.run(main())
 
@@ -98,3 +97,4 @@ Why shouldn't I use websockets?
 
 * If you prefer callbacks over coroutines: websockets was created to
   provide the best coroutine-based API to manage WebSocket connections in
+  Python. Pick another library for a callback-based API.
