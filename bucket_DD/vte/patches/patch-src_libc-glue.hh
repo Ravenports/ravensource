@@ -1,4 +1,4 @@
---- src/libc-glue.hh.orig	2025-12-27 08:31:46 UTC
+--- src/libc-glue.hh.orig	2026-03-14 20:44:12 UTC
 +++ src/libc-glue.hh
 @@ -220,7 +220,13 @@ fd_dup_cloexec(int oldfd,
  {
