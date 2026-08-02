@@ -1,0 +1,62 @@
+# Manually maintained (pep517 + rust)
+DEF[PORTVERSION]=	%%VERSION%%
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-pipdeptree
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v13 v14
+SDESC[v13]=		Utility to show package dependency tree (3.13)
+SDESC[v14]=		Utility to show package dependency tree (3.14)
+HOMEPAGE=		https://github.com/tox-dev/pipdeptree
+CONTACT=		Python_Automaton[python@ravenports.com]
+
+%%DOWNLOAD_GROUPS%%
+SITES[main]=		PYPI/p/pipdeptree
+%%CR_SITES%%
+
+DISTFILE[1]=		pipdeptree-${PORTVERSION}.tar.gz:main
+%%CR_DISTFILES%%
+%%DF_INDEX%%
+
+SPKGS[v14]=		single
+SPKGS[v13]=		single
+
+OPTIONS_AVAILABLE=	PY314 PY313
+OPTIONS_STANDARD=	none
+VOPTS[v14]=		PY314=ON PY313=OFF
+VOPTS[v13]=		PY314=OFF PY313=ON
+
+# License listed at PyPI
+# Not provided.
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+GENERATED=		yes
+DISTNAME=		pipdeptree-${PORTVERSION}
+
+CARGO_SKIP_CONFIGURE=	yes
+CARGO_SKIP_BUILD=	yes
+CARGO_SKIP_INSTALL=	yes
+
+# Requires-Dist extracted from pyproject.toml file
+# build: meson-python>=0.20
+# build: ninja>=1.13
+# buildrun: nab-index>=0.0.11
+# buildrun: nab-python>=0.0.11
+
+USES=			cargo cclibs:single
+
+[PY313].USES_ON=			python:v13,pep517
+[PY313].BUILD_DEPENDS_ON=		python-maturin:single:v13
+					python-meson-python:single:v13
+[PY313].BUILDRUN_DEPENDS_ON=		python-nab-index:single:v13
+					python-nab-python:single:v13
+
+[PY314].USES_ON=			python:v14,pep517
+[PY314].BUILD_DEPENDS_ON=		python-maturin:single:v14
+					python-meson-python:single:v14
+[PY314].BUILDRUN_DEPENDS_ON=		python-nab-index:single:v14
+					python-nab-python:single:v14
