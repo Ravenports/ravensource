@@ -5,7 +5,7 @@ just disable it on DragonFly for now and observe.
 
 Also seen on MidnightBSD
 
---- src/graph.cc.orig	2025-06-18 12:08:38 UTC
+--- src/graph.cc.orig	2025-11-20 16:26:20 UTC
 +++ src/graph.cc
 @@ -343,6 +343,7 @@ bool DependencyScan::RecomputeOutputDirt
                               output->path().c_str());
