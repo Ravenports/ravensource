@@ -1,4 +1,4 @@
---- atspi/atspi-event-listener.c.orig	2026-05-23 13:19:40 UTC
+--- atspi/atspi-event-listener.c.orig	2026-06-27 14:36:14 UTC
 +++ atspi/atspi-event-listener.c
 @@ -22,6 +22,9 @@
   * Boston, MA 02110-1301, USA.
