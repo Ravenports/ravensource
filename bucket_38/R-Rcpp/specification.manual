@@ -1,4 +1,6 @@
 post-patch:
+	${REINPLACE_CMD} -i'' -e "s|#!/bin/env |#!${LOCALBASE}/bin/|" \
+		${WRKSRC}/inst/discovery/cxx0x.R
 	${REINPLACE_CMD} -i'' -e "s|#!/bin/bash|#!${LOCALBASE}/bin/bash|" \
 		${WRKSRC}/inst/examples/ConvolveBenchmarks/buildAndRun.sh \
 		${WRKSRC}/inst/examples/ConvolveBenchmarks/overhead.sh
