@@ -1,6 +1,6 @@
 - Define CLOCK_MONOTONIC_RAW if missing
 
---- src/amd/vulkan/radv_device.c.orig	2026-07-01 14:16:13 UTC
+--- src/amd/vulkan/radv_device.c.orig	2026-07-15 20:03:19 UTC
 +++ src/amd/vulkan/radv_device.c
 @@ -427,6 +427,14 @@ radv_parse_force_vrs_config_file(const c
  
