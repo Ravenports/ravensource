@@ -1,11 +1,11 @@
-DEF[PORTVERSION]=	8.1.2
-DEF[SO_AVCODEC]=	62.28.102
-DEF[SO_AVDEVICE]=	62.3.102
-DEF[SO_AVFILTER]=	11.14.102
-DEF[SO_AVFORMAT]=	62.12.102
-DEF[SO_AVUTIL]=		60.26.102
-DEF[SO_SWRESAMPLE]=	6.3.102
-DEF[SO_SCALE]=		9.5.102
+DEF[PORTVERSION]=	9.0
+DEF[SO_AVCODEC]=	63.1.100
+DEF[SO_AVDEVICE]=	63.1.100
+DEF[SO_AVFILTER]=	12.1.100
+DEF[SO_AVFORMAT]=	63.1.100
+DEF[SO_AVUTIL]=		61.1.100
+DEF[SO_SWRESAMPLE]=	7.1.100
+DEF[SO_SCALE]=		10.1.100
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ffmpeg
@@ -121,7 +121,6 @@ CONFIGURE_ARGS=		--cc="{{CC}}"
 			--disable-libbs2b
 			--disable-libcaca
 			--disable-libcdio
-			--disable-libcelt
 			--disable-chromaprint
 			--disable-libdc1394
 			--disable-debug
@@ -221,7 +220,7 @@ post-patch-sunos:
 
 post-install:
 	@${MKDIR} ${STAGEDIR}${STD_DOCDIR}
-.for DF in CREDITS LICENSE.md MAINTAINERS README.md RELEASE_NOTES
+.for DF in CREDITS LICENSE.md MAINTAINERS README.md
 	${INSTALL_DATA} ${WRKSRC}/${DF} ${STAGEDIR}${STD_DOCDIR}
 .endfor
 	${INSTALL_DATA} ${WRKSRC}/doc/APIchanges ${STAGEDIR}${STD_DOCDIR}
