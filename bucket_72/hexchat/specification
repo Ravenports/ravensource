@@ -1,10 +1,10 @@
-DEF[PORTVERSION]=	2.16.2
+DEF[PORTVERSION]=	3.0.2
 DEF[CA_BUNDLE]=		{{LOCALBASE}}/share/certs/ca-root-nss.crt
+DEF[COMMIT_HASH]=	c5283be0080dd99b3a6255932576df96ac685430
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		hexchat
 VERSION=		${PORTVERSION}
-REVISION=		3
 KEYWORDS=		irc
 VARIANTS=		std
 SDESC[std]=		Graphical IRC client based on XChat
@@ -12,8 +12,8 @@ HOMEPAGE=		https://hexchat.github.io
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		https://github.com/hexchat/hexchat/releases/download/v${PORTVERSION}/
-DISTFILE[1]=		hexchat-${PORTVERSION}.tar.xz:main
+SITES[main]=		https://gitlab.com/bgermann/hexchat/-/archive/v${PORTVERSION}/
+DISTFILE[1]=		hexchat-${PORTVERSION}.tar.bz2:main
 
 SPKGS[std]=		set primary dev nls man
 
@@ -45,11 +45,13 @@ BUILDRUN_DEPENDS=	dbus-glib:primary:std
 USES=			ssl cpe meson perl pkgconfig python shebangfix
 			bdb:build desktop-utils:primary gnome-icons:primary
 			rootca:primary
-GNOME_COMPONENTS=	glib intltool pango gtk2
+GNOME_COMPONENTS=	glib intltool pango gtk3
 CPE_VENDOR=		hexchat_project
 SHEBANG_FILES=		meson_post_install.py
 			plugins/perl/generate_header.py
 			src/common/make-te.py
+
+DISTNAME=		hexchat-v${PORTVERSION}-${COMMIT_HASH}
 MESON_ARGS=		-Dwith-lua=false
 			-Dwith-python=false
 MAKE_ENV=		GETTEXTDATADIRS={{PREFIX}}/share/gettext/0.20
