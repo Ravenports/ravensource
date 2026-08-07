@@ -1,4 +1,4 @@
---- src/fccfg.c.orig	2026-06-02 11:51:50 UTC
+--- src/fccfg.c.orig	2026-07-09 09:30:10 UTC
 +++ src/fccfg.c
 @@ -3237,7 +3237,7 @@ FcConfigFileInfoIterGet (FcConfig
      if (name)
