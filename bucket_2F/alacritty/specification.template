@@ -1,0 +1,79 @@
+DEF[PORTVERSION]=	%%VERSION%%
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		alacritty
+VERSION=		${PORTVERSION}
+KEYWORDS=		rust x11
+VARIANTS=		std
+SDESC[std]=		Cross-platform, GPU-accelerated terminal emulator
+HOMEPAGE=		https://alacritty.org/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+%%DOWNLOAD_GROUPS%%
+SITES[main]=		GITHUB/alacritty:alacritty:v${PORTVERSION}
+%%CR_SITES%%
+DISTFILE[1]=		generated:main
+%%CR_DISTFILES%%
+%%DF_INDEX%%
+
+SPKGS[std]=		set primary man completions
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# Parts of the project are dual-licensed MIT or APACHE20
+LICENSE=		APACHE20:primary
+LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE-APACHE
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		x11/alacritty
+
+BUILD_DEPENDS=		libxkbcommon:dev:std
+			scdoc:primary:std
+BUILDRUN_DEPENDS=	libxkbcommon:primary:std
+
+USES=			cargo fontconfig freetype pkgconfig
+XORG_COMPONENTS=	xcb xcursor xi xrandr
+
+post-extract:
+	( cd ${WRKSRC} && tail -n 5 README.md > ../TERMS )
+
+do-build:
+	( cd ${WRKSRC} && cargo build --release --features x11 )
+
+post-build:
+	scdoc < ${WRKSRC}/extra/man/alacritty.1.scd > ${WRKSRC}/alacritty.1
+	scdoc < ${WRKSRC}/extra/man/alacritty-msg.1.scd > ${WRKSRC}/alacritty-msg.1
+	scdoc < ${WRKSRC}/extra/man/alacritty.5.scd > ${WRKSRC}/alacritty.5
+	scdoc < ${WRKSRC}/extra/man/alacritty-bindings.5.scd > ${WRKSRC}/alacritty-bindings.5
+
+do-install:
+	${INSTALL_PROGRAM} ${WRKSRC}/target/release/alacritty \
+		${STAGEDIR}${PREFIX}/bin
+	${MKDIR} ${STAGEDIR}${DESKTOPDIR}
+	${INSTALL_DATA} ${WRKSRC}/extra/linux/Alacritty.desktop \
+		${STAGEDIR}${DESKTOPDIR}
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/pixmaps
+	${INSTALL_DATA} ${WRKSRC}/extra/logo/alacritty-term.svg \
+		${STAGEDIR}${PREFIX}/share/pixmaps/Alacritty.svg
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/metainfo
+	${INSTALL_DATA} ${WRKSRC}/extra/linux/org.alacritty.Alacritty.appdata.xml \
+		${STAGEDIR}${PREFIX}/share/metainfo
+	${MKDIR} ${STAGEDIR}${PREFIX}/etc/bash_completion.d
+	${INSTALL_DATA} ${WRKSRC}/extra/completions/alacritty.bash \
+		${STAGEDIR}${PREFIX}/etc/bash_completion.d
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/fish/completions
+	${INSTALL_DATA} ${WRKSRC}/extra/completions/alacritty.fish \
+		${STAGEDIR}${PREFIX}/share/fish/completions
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/zsh/site-functions
+	${INSTALL_DATA} ${WRKSRC}/extra/completions/_alacritty \
+		${STAGEDIR}${PREFIX}/share/zsh/site-functions
+	${INSTALL_MAN} ${WRKSRC}/alacritty.1 \
+		${STAGEDIR}${PREFIX}/share/man/man1/alacritty.1
+	${INSTALL_MAN} ${WRKSRC}/alacritty-msg.1 \
+		${STAGEDIR}${PREFIX}/share/man/man1/alacritty-msg.1
+	${INSTALL_MAN} ${WRKSRC}/alacritty.5 \
+		${STAGEDIR}${PREFIX}/share/man/man5/alacritty.5
+	${INSTALL_MAN} ${WRKSRC}/alacritty-bindings.5 \
+		${STAGEDIR}${PREFIX}/share/man/man5/alacritty-bindings.5
