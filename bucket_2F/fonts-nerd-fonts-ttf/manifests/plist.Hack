@@ -1,0 +1,13 @@
+share/fonts/nerd-fonts/Hack/HackNerdFont-Bold.ttf
+share/fonts/nerd-fonts/Hack/HackNerdFont-BoldItalic.ttf
+share/fonts/nerd-fonts/Hack/HackNerdFont-Italic.ttf
+share/fonts/nerd-fonts/Hack/HackNerdFont-Regular.ttf
+share/fonts/nerd-fonts/Hack/HackNerdFontMono-Bold.ttf
+share/fonts/nerd-fonts/Hack/HackNerdFontMono-BoldItalic.ttf
+share/fonts/nerd-fonts/Hack/HackNerdFontMono-Italic.ttf
+share/fonts/nerd-fonts/Hack/HackNerdFontMono-Regular.ttf
+share/fonts/nerd-fonts/Hack/HackNerdFontPropo-Bold.ttf
+share/fonts/nerd-fonts/Hack/HackNerdFontPropo-BoldItalic.ttf
+share/fonts/nerd-fonts/Hack/HackNerdFontPropo-Italic.ttf
+share/fonts/nerd-fonts/Hack/HackNerdFontPropo-Regular.ttf
+share/licenses/nerd-fonts/Hack/LICENSE.md
