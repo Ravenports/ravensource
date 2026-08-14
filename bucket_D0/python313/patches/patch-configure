@@ -1,6 +1,6 @@
---- configure.orig	2026-04-07 18:19:01 UTC
-+++ configure
-@@ -7010,7 +7010,7 @@ case $ac_sys_system in #(
+--- configure.orig	2026-08-05 14:25:43.000000000 +0200
++++ configure	2026-08-14 18:11:04.116984000 +0200
+@@ -7010,7 +7010,7 @@
      MULTIARCH="" ;; #(
    iOS) :
      MULTIARCH="" ;; #(
@@ -9,7 +9,7 @@
      MULTIARCH="" ;; #(
    *) :
      MULTIARCH=$($CC --print-multiarch 2>/dev/null)
-@@ -7587,7 +7587,7 @@ printf "%s\n" "#define Py_ENABLE_SHARED
+@@ -7587,7 +7587,7 @@
          PY3LIBRARY=libpython3.so
        fi
        ;;
@@ -18,7 +18,7 @@
        LDLIBRARY='libpython$(LDVERSION).so'
        BLDLIBRARY='-L. -lpython$(LDVERSION)'
        RUNSHARED=LD_LIBRARY_PATH=`pwd`${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
-@@ -13047,7 +13047,7 @@ then
+@@ -13104,7 +13104,7 @@
  				   ;;
  				esac
  		fi;;
@@ -27,7 +27,7 @@
  		LDSHARED='$(CC) -shared'
  		LDCXXSHARED='$(CXX) -shared';;
  	OpenUNIX*|UnixWare*)
-@@ -13113,7 +13113,7 @@ then :
+@@ -13170,7 +13170,7 @@
  			CCSHARED="-fPIC"
  
  fi;;
@@ -36,7 +36,7 @@
  	Haiku*) CCSHARED="-fPIC";;
  	OpenUNIX*|UnixWare*)
  		if test "$GCC" = "yes"
-@@ -13176,7 +13176,7 @@ printf "%s\n" "#define THREAD_STACK_SIZE
+@@ -13233,7 +13233,7 @@
  	OpenUNIX*|UnixWare*) LINKFORSHARED="-Wl,-Bexport";;
  	SCO_SV*) LINKFORSHARED="-Wl,-Bexport";;
  	ReliantUNIX*) LINKFORSHARED="-W1 -Blargedynsym";;
@@ -45,13 +45,14 @@
  		if [ "`$CC -dM -E - </dev/null | grep __ELF__`" != "" ]
  		then
  			LINKFORSHARED="-Wl,--export-dynamic"
-@@ -13834,14 +13834,6 @@ then :
+@@ -13891,15 +13891,6 @@
  
  fi
  
--# gh-124228: While the libuuid library is available on NetBSD, it supports only UUID version 4.
+-# gh-124228: While the libuuid library is available on NetBSD and OpenBSD,
+-# it supports only UUID version 4.
 -# This restriction inhibits the proper generation of time-based UUIDs.
--if test "$ac_sys_system" = "NetBSD"; then
+-if test "$ac_sys_system" = "NetBSD" || test "$ac_sys_system" = "OpenBSD"; then
 -  have_uuid=missing
 -  printf "%s\n" "#define HAVE_UUID_H 0" >>confdefs.h
 -
@@ -60,7 +61,7 @@
  if test "x$have_uuid" = xmissing
  then :
    have_uuid=no
-@@ -16065,7 +16057,7 @@ then :
+@@ -16123,7 +16114,7 @@
  fi
  
  case $ac_sys_system in #(
@@ -69,7 +70,7 @@
  
      if test -n "$PKG_CONFIG" && \
      { { printf "%s\n" "$as_me:${as_lineno-$LINENO}: \$PKG_CONFIG --exists --print-errors \"x11\""; } >&5
-@@ -29038,7 +29030,7 @@ case $ac_sys_system in #(
+@@ -29453,7 +29444,7 @@
  
      py_cv_module__scproxy=n/a
   ;; #(
