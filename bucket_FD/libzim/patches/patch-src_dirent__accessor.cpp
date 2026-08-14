@@ -1,4 +1,4 @@
---- src/dirent_accessor.cpp.orig	2026-06-17 08:05:50 UTC
+--- src/dirent_accessor.cpp.orig	2026-07-11 13:50:37 UTC
 +++ src/dirent_accessor.cpp
 @@ -57,16 +57,16 @@ std::shared_ptr<const Dirent> DirectDire
    return dirent;
