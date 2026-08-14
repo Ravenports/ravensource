@@ -1,4 +1,4 @@
---- include/myisam.h.orig	2026-04-07 16:08:28 UTC
+--- include/myisam.h.orig	2026-06-03 12:21:17 UTC
 +++ include/myisam.h
 @@ -60,7 +60,7 @@
    The following defines can be increased if necessary.
