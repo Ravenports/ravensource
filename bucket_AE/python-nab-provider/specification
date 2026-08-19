@@ -1,0 +1,42 @@
+DEF[PORTVERSION]=	0.0.14
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-nab-provider
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v13 v14
+SDESC[v13]=		IO-free resolution core for nab (3.13)
+SDESC[v14]=		IO-free resolution core for nab (3.14)
+HOMEPAGE=		https://github.com/notatallshaw/nab
+CONTACT=		Python_Automaton[python@ravenports.com]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/d4/b5/b04d04939aea500af2b43b2e7e75f4dd70bba2c12998defb821b06659d5e
+DISTFILE[1]=		nab_provider-${PORTVERSION}-py3-none-any.whl:main
+DIST_SUBDIR=		python-src
+
+SPKGS[v13]=		single
+SPKGS[v14]=		single
+
+OPTIONS_AVAILABLE=	PY313 PY314
+OPTIONS_STANDARD=	none
+VOPTS[v13]=		PY313=ON PY314=OFF
+VOPTS[v14]=		PY313=OFF PY314=ON
+
+# License listed at PyPI
+# Not provided.
+
+GENERATED=		yes
+DISTNAME=		nab_provider-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# nab-resolver==0.0.14
+# typing-extensions>=4.6
+
+[PY313].USES_ON=			python:v13,wheel
+[PY313].RUN_DEPENDS_ON=			python-nab-resolver:single:v13
+					python-typing-extensions:single:v13
+[PY314].USES_ON=			python:v14,wheel
+[PY314].RUN_DEPENDS_ON=			python-nab-resolver:single:v14
+					python-typing-extensions:single:v14
+
