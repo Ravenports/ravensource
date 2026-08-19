@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	7.2.2
+DEF[PORTVERSION]=	7.4.1
 # ------------------------------------------------------------------------
 
 NAMEBASE=		ruby-haml
@@ -13,7 +13,7 @@ CONTACT=		Ruby_Automaton[ruby@ravenports.com]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		RUBYGEMS/
-DISTFILE[1]=		haml-7.2.2.gem:main
+DISTFILE[1]=		haml-7.4.1.gem:main
 DIST_SUBDIR=		ruby
 
 SPKGS[v33]=		single
@@ -30,6 +30,7 @@ VOPTS[v40]=		RUBY33=OFF RUBY34=OFF RUBY40=ON
 # => UNSET
 
 # Requirements according to gem specification:
+#   prism (>= 1.1.0)
 #   temple (>= 0.8.2)
 #   thor (>= 0)
 #   tilt (>= 0)
@@ -50,15 +51,18 @@ DISTNAME=		haml-${PORTVERSION}
 GENERATED=		yes
 
 [RUBY33].USES_ON=			gem:v33
-[RUBY33].BUILDRUN_DEPENDS_ON=		ruby-temple:single:v33
+[RUBY33].BUILDRUN_DEPENDS_ON=		ruby-prism:single:v33
+					ruby-temple:single:v33
 					ruby-thor:single:v33
 					ruby-tilt:single:v33
 [RUBY34].USES_ON=			gem:v34
-[RUBY34].BUILDRUN_DEPENDS_ON=		ruby-temple:single:v34
+[RUBY34].BUILDRUN_DEPENDS_ON=		ruby-prism:single:v34
+					ruby-temple:single:v34
 					ruby-thor:single:v34
 					ruby-tilt:single:v34
 [RUBY40].USES_ON=			gem:v40
-[RUBY40].BUILDRUN_DEPENDS_ON=		ruby-temple:single:v40
+[RUBY40].BUILDRUN_DEPENDS_ON=		ruby-prism:single:v40
+					ruby-temple:single:v40
 					ruby-thor:single:v40
 					ruby-tilt:single:v40
 
