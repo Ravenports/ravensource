@@ -1,5 +1,5 @@
---- src/minizip/ioapi.h.orig	2024-02-09 14:23:29 UTC
-+++ src/minizip/ioapi.h
+--- src/libxlsxwriter/third_party/minizip/ioapi.h.orig	2026-04-08 17:47:28 UTC
++++ src/libxlsxwriter/third_party/minizip/ioapi.h
 @@ -56,7 +56,7 @@
  #define ftello64 ftell
  #define fseeko64 fseek

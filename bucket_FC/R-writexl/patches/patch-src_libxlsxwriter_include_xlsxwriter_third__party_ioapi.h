@@ -1,5 +1,5 @@
---- src/include/xlsxwriter/third_party/ioapi.h.orig	2024-02-09 14:22:57 UTC
-+++ src/include/xlsxwriter/third_party/ioapi.h
+--- src/libxlsxwriter/include/xlsxwriter/third_party/ioapi.h.orig	2026-04-08 17:47:28 UTC
++++ src/libxlsxwriter/include/xlsxwriter/third_party/ioapi.h
 @@ -56,7 +56,7 @@
  #define ftello64 ftell
  #define fseeko64 fseek
