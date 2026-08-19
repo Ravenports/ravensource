@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.5.1
+DEF[PORTVERSION]=	0.6.1
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-webencodings
@@ -7,12 +7,12 @@ KEYWORDS=		python
 VARIANTS=		v13 v14
 SDESC[v13]=		Legacy web character encoding aliases (3.13)
 SDESC[v14]=		Legacy web character encoding aliases (3.14)
-HOMEPAGE=		https://github.com/SimonSapin/python-webencodings
+HOMEPAGE=		https://github.com/CourtBouillon/webencodings
 CONTACT=		Python_Automaton[python@ravenports.com]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/f4/24/2a3e3df732393fed8b3ebf2ec078f05546de641fe1b667ee316ec1dcf3b7
-DISTFILE[1]=		webencodings-${PORTVERSION}-py2.py3-none-any.whl:main
+SITES[main]=		PYPIWHL/77/c6/040cbc72480d789a5f40d63fb484d3106554c4dfa2d2b70ad5022057750f
+DISTFILE[1]=		webencodings-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
 SPKGS[v13]=		single
@@ -24,13 +24,16 @@ VOPTS[v13]=		PY313=ON PY314=OFF
 VOPTS[v14]=		PY313=OFF PY314=ON
 
 # License listed at PyPI
-# BSD
+# Not provided.
 
 GENERATED=		yes
 DISTNAME=		webencodings-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-
+# sphinx ; extra == "doc"
+# furo ; extra == "doc"
+# pytest ; extra == "test"
+# ruff ; extra == "test"
 
 [PY313].USES_ON=			python:v13,wheel
 [PY314].USES_ON=			python:v14,wheel

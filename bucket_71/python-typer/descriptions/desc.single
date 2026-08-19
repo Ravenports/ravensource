@@ -56,17 +56,23 @@ don't use Typer internally.
 
 ## Installation
 
-Create and activate a [virtual environment] and then install **Typer**:
+First, [install `uv`], and then add **Typer** to your project:
 
 <div class="termy">
 
 ```console
-$ pip install typer
+$ uv add typer
 ---> 100%
-Successfully installed typer rich shellingham
 ```
 
 </div>
+
+This installs both the Typer library and the `typer` command in the
+project's virtual environment. To use `typer` directly with shell
+completion, [activate the project environment and install completion].
+
+If you prefer to use `pip`, install `typer` inside a virtual environment.
+See the [installation guide] for the alternative steps.
 
 ## Example
 
@@ -92,9 +98,3 @@ Run your application with the `typer` command:
 // Run your application
 $ typer main.py run
 
-// You get a nice error, you are missing 'name'
-Usage: typer [PATH_OR_MODULE] run [OPTIONS] {name}
-Try 'typer [PATH_OR_MODULE] run --help' for help.
-╭─ Error
-───────────────────────────────────────────╮
-│ Missing argument 'name'.                          │

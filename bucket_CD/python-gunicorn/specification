@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	26.0.0
+DEF[PORTVERSION]=	26.1.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-gunicorn
@@ -11,7 +11,7 @@ HOMEPAGE=		https://gunicorn.org
 CONTACT=		Python_Automaton[python@ravenports.com]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/e6/40/9c2384fc2be4ad25dd4a49decd5ad9ea5a3639814c11bd40ab77cb9f0a14
+SITES[main]=		PYPIWHL/19/dc/7a55fc605543fd5cb11c003fbbb21a1911d5e88a582cce6c5e063bf5c176
 DISTFILE[1]=		gunicorn-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -30,25 +30,25 @@ GENERATED=		yes
 DISTNAME=		gunicorn-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# packaging
 # gevent>=24.10.1; extra == "gevent"
-# tornado>=6.5.0; extra == "tornado"
+# packaging; extra == "gevent"
+# tornado>=6.5.7; extra == "tornado"
 # setproctitle; extra == "setproctitle"
-# h2>=4.1.0; extra == "http2"
-# gunicorn_h1c>=0.6.5; extra == "fast"
+# h2>=4.4.1; extra == "http2"
+# gunicorn_h1c>=0.6.6; extra == "fast"
 # gevent>=24.10.1; extra == "testing"
-# h2>=4.1.0; extra == "testing"
+# h2>=4.4.1; extra == "testing"
 # coverage; extra == "testing"
-# pytest; extra == "testing"
+# packaging; extra == "testing"
+# pytest>=9.0.3; extra == "testing"
 # pytest-cov; extra == "testing"
 # pytest-asyncio; extra == "testing"
 # uvloop>=0.19.0; extra == "testing"
-# httpx[http2]; extra == "testing"
+# httpx[http2]>=0.23.0; extra == "testing"
+# inotify>=0.2.10; sys_platform == "linux" and extra == "testing"
 
 [PY313].USES_ON=			python:v13,wheel
-[PY313].RUN_DEPENDS_ON=			python-packaging:single:v13
 [PY314].USES_ON=			python:v14,wheel
-[PY314].RUN_DEPENDS_ON=			python-packaging:single:v14
 
 USES=			cpe
 CPE_VENDOR=		gunicorn

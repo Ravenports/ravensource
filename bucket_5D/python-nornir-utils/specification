@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.2.0
+DEF[PORTVERSION]=	0.3.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-nornir-utils
@@ -7,11 +7,11 @@ KEYWORDS=		python
 VARIANTS=		v13 v14
 SDESC[v13]=		Collection of simple plugins for nornir (3.13)
 SDESC[v14]=		Collection of simple plugins for nornir (3.14)
-HOMEPAGE=		none
+HOMEPAGE=		https://pypi.org/project/nornir-utils/
 CONTACT=		Python_Automaton[python@ravenports.com]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/5d/14/89c3097801544249052c6a89ad5a9a65035ccddb3aae1948854545ea8f2e
+SITES[main]=		PYPIWHL/a9/b2/d2f0c26ce1af32f9f689def9071efa3e2c0fa1b61093b4b1bfeb893bea12
 DISTFILE[1]=		nornir_utils-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -24,19 +24,19 @@ VOPTS[v13]=		PY313=ON PY314=OFF
 VOPTS[v14]=		PY313=OFF PY314=ON
 
 # License listed at PyPI
-# Apache-2.0
+# Not provided.
 
 GENERATED=		yes
 DISTNAME=		nornir_utils-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# colorama (>=0.4.3,<0.5.0)
-# nornir (>=3,<4)
+# nornir>=3.0.0a0,<4
+# colorama>=0.4.3,<0.5
 
 [PY313].USES_ON=			python:v13,wheel
-[PY313].RUN_DEPENDS_ON=			python-colorama:single:v13
-					python-nornir:single:v13
+[PY313].RUN_DEPENDS_ON=			python-nornir:single:v13
+					python-colorama:single:v13
 [PY314].USES_ON=			python:v14,wheel
-[PY314].RUN_DEPENDS_ON=			python-colorama:single:v14
-					python-nornir:single:v14
+[PY314].RUN_DEPENDS_ON=			python-nornir:single:v14
+					python-colorama:single:v14
 
