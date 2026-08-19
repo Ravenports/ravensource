@@ -6,7 +6,7 @@ DEF[VER_DIST_INFO]=	${PORTVERSION:R}
 
 NAMEBASE=		python-e3-core
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 KEYWORDS=		python
 VARIANTS=		v13 v14
 SDESC[v13]=		Adacore testing and building tools (3.13)
@@ -114,7 +114,12 @@ pre-build:
 	(cd ${WRKSRC}/tools/rlimit && ${SETENV} ${MAKE_ENV} ${SH} ./build_rlimit.sh)
 
 do-build:
-	(cd ${WRKSRC} && pip install --no-build-isolation --verbose .)
+	${MKDIR} /root/.cache/pip/wheels
+	(cd ${WRKSRC} && pip wheel --no-build-isolation --verbose --no-deps \
+		--wheel-dir=/root/.cache/pip/wheels .)
+	pip install --no-index --no-deps --verbose --disable-pip-version-check \
+		--find-links=/root/.cache/pip/wheels e3-core
+
 
 do-install:
 	whl=$$(find /root/.cache/pip/wheels -name "*.whl");\
