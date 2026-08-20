@@ -1,4 +1,4 @@
---- taglib/matroska/matroskaelement.cpp.orig	2026-05-04 14:43:04 UTC
+--- taglib/matroska/matroskaelement.cpp.orig	2026-07-05 08:55:01 UTC
 +++ taglib/matroska/matroskaelement.cpp
 @@ -34,8 +34,8 @@ public:
    ~ElementPrivate() = default;
@@ -47,7 +47,7 @@
  {
    e->size = size;
  }
-@@ -160,7 +160,7 @@ bool Matroska::Element::needsRender() co
+@@ -165,7 +165,7 @@ bool Matroska::Element::needsRender() co
    return e->needsRender;
  }
  
@@ -56,7 +56,7 @@
  {
    for(const auto element : e->sizeListeners) {
      if(!element->sizeChanged(*this, delta))
-@@ -169,7 +169,7 @@ bool Matroska::Element::emitSizeChanged(
+@@ -174,7 +174,7 @@ bool Matroska::Element::emitSizeChanged(
    return true;
  }
  
@@ -65,7 +65,7 @@
  {
    // The equal case is needed when multiple new elements are added
    // (e.g. Attachments and Tags), they will start with the same offset
-@@ -180,9 +180,9 @@ bool Matroska::Element::sizeChanged(Elem
+@@ -185,9 +185,9 @@ bool Matroska::Element::sizeChanged(Elem
    return true;
  }
  

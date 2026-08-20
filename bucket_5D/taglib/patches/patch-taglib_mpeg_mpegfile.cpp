@@ -1,6 +1,6 @@
---- taglib/mpeg/mpegfile.cpp.orig	2025-12-24 14:20:54 UTC
+--- taglib/mpeg/mpegfile.cpp.orig	2026-05-17 12:40:31 UTC
 +++ taglib/mpeg/mpegfile.cpp
-@@ -381,7 +381,7 @@ bool MPEG::File::strip(int tags, bool fr
+@@ -383,7 +383,7 @@ bool MPEG::File::strip(int tags, bool fr
    return true;
  }
  
@@ -9,7 +9,7 @@
  {
    ByteVector frameSyncBytes(2, '\0');
  
-@@ -404,7 +404,7 @@ offset_t MPEG::File::nextFrameOffset(off
+@@ -406,7 +406,7 @@ offset_t MPEG::File::nextFrameOffset(off
    }
  }
  
@@ -18,7 +18,7 @@
  {
    ByteVector frameSyncBytes(2, '\0');
  
-@@ -428,7 +428,7 @@ offset_t MPEG::File::previousFrameOffset
+@@ -430,7 +430,7 @@ offset_t MPEG::File::previousFrameOffset
    return -1;
  }
  
@@ -27,7 +27,7 @@
  {
    offset_t position = 0;
  
-@@ -438,7 +438,7 @@ offset_t MPEG::File::firstFrameOffset()
+@@ -440,7 +440,7 @@ offset_t MPEG::File::firstFrameOffset()
    return nextFrameOffset(position);
  }
  
@@ -36,7 +36,7 @@
  {
    offset_t position;
  
-@@ -510,7 +510,7 @@ void MPEG::File::read(bool readPropertie
+@@ -512,7 +512,7 @@ void MPEG::File::read(bool readPropertie
    ID3v1Tag(true);
  }
  

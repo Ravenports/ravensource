@@ -1,6 +1,6 @@
---- taglib/matroska/ebml/ebmlvoidelement.cpp.orig	2026-01-25 11:41:46 UTC
+--- taglib/matroska/ebml/ebmlvoidelement.cpp.orig	2026-05-17 12:40:31 UTC
 +++ taglib/matroska/ebml/ebmlvoidelement.cpp
-@@ -25,12 +25,12 @@
+@@ -27,12 +27,12 @@
  
  using namespace TagLib;
  
@@ -15,7 +15,7 @@
    Element(Id::VoidElement, sizeLength, dataSize)
  {
  }
-@@ -42,10 +42,10 @@ EBML::VoidElement::VoidElement():
+@@ -44,10 +44,10 @@ EBML::VoidElement::VoidElement():
  
  ByteVector EBML::VoidElement::render()
  {
@@ -28,7 +28,7 @@
    bytesNeeded -= sizeLength;
    dataSize = bytesNeeded;
    buffer.append(renderVINT(dataSize, sizeLength));
-@@ -55,17 +55,17 @@ ByteVector EBML::VoidElement::render()
+@@ -57,17 +57,17 @@ ByteVector EBML::VoidElement::render()
    return buffer;
  }
  

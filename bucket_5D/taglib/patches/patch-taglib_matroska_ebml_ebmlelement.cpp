@@ -1,7 +1,7 @@
---- taglib/matroska/ebml/ebmlelement.cpp.orig	2026-05-01 06:56:46 UTC
+--- taglib/matroska/ebml/ebmlelement.cpp.orig	2026-07-11 07:04:18 UTC
 +++ taglib/matroska/ebml/ebmlelement.cpp
 @@ -44,7 +44,7 @@ using namespace TagLib;
- std::unique_ptr<EBML::Element> EBML::Element::factory(File &file)
+ std::unique_ptr<EBML::Element> EBML::Element::factory(File &file, offset_t maxOffset)
  {
    // Get the element ID
 -  const offset_t offset = file.tell();
@@ -9,7 +9,7 @@
    unsigned int uintId = readId(file);
    if(!uintId) {
      debug("Failed to parse EMBL ElementID");
-@@ -151,12 +151,12 @@ unsigned int EBML::Element::readId(File
+@@ -160,12 +160,12 @@ unsigned int EBML::Element::readId(File
    return buffer.toUInt(true);
  }
  
@@ -24,7 +24,7 @@
    id(id), sizeLength(sizeLength), dataSize(dataSize)
  {
  }
-@@ -179,12 +179,12 @@ EBML::Element::Id EBML::Element::getId()
+@@ -188,12 +188,12 @@ EBML::Element::Id EBML::Element::getId()
    return id;
  }
  
