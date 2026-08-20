@@ -1,4 +1,4 @@
---- osdep-dragonfly.c.orig	2023-05-22 08:53:49 UTC
+--- osdep-dragonfly.c.orig	2026-04-03 09:57:03 UTC
 +++ osdep-dragonfly.c
 @@ -28,6 +28,8 @@
  #include <string.h>
