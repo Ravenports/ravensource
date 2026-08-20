@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.0.23.post1
+DEF[PORTVERSION]=	0.0.24
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-netbox-proxbox
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/emersonfelipesp/netbox-proxbox
 CONTACT=		Python_Automaton[python@ravenports.com]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/09/82/e382a48efe9f50219ef3c46e2ce1a717b65c9cece6d4682ff0f3e142e04b
+SITES[main]=		PYPIWHL/8b/af/7d5920e08be77b7ee066e220c547e342c9fc9ce7121c69a28d9452d8f237
 DISTFILE[1]=		netbox_proxbox-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -31,10 +31,11 @@ DISTNAME=		netbox_proxbox-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
 # cryptography>=48.0.1
+# packaging>=23.0
 # pydantic<2.14.0,>=2.13.3
 # requests>=2.33.0
 # websockets>=16.0
-# aiohttp>=3.14.1; extra == 'cli'
+# aiohttp>=3.14.3; extra == 'cli'
 # click>=8.3.0; extra == 'cli'
 # pyyaml>=6.0.3; extra == 'cli'
 # rich>=14.1.0; extra == 'cli'
@@ -54,15 +55,19 @@ DISTNAME=		netbox_proxbox-${PORTVERSION}.dist-info
 # playwright>=1.58.0; extra == 'screenshot'
 # requests>=2.33.0; extra == 'screenshot'
 # pytest-cov>=7.1.0; extra == 'test'
+# pytest-django>=4.11.1; extra == 'test'
 # pytest>=9.0.2; extra == 'test'
+# pyyaml>=6.0.3; extra == 'test'
 
 [PY313].USES_ON=			python:v13,wheel
 [PY313].RUN_DEPENDS_ON=			python-cryptography:single:v13
+					python-packaging:single:v13
 					python-pydantic:single:v13
 					python-requests:single:v13
 					python-websockets:single:v13
 [PY314].USES_ON=			python:v14,wheel
 [PY314].RUN_DEPENDS_ON=			python-cryptography:single:v14
+					python-packaging:single:v14
 					python-pydantic:single:v14
 					python-requests:single:v14
 					python-websockets:single:v14
