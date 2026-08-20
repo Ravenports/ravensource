@@ -1,4 +1,4 @@
---- src/intel/common/xe/intel_gem.c.orig	2026-07-29 17:31:27 UTC
+--- src/intel/common/xe/intel_gem.c.orig	2026-08-12 15:22:27 UTC
 +++ src/intel/common/xe/intel_gem.c
 @@ -71,7 +71,7 @@ xe_gem_read_correlate_cpu_gpu_timestamp(
     case CLOCK_MONOTONIC_RAW:
