@@ -1,4 +1,4 @@
---- libavutil/common.h.orig	2026-06-17 02:17:51 UTC
+--- libavutil/common.h.orig	2026-08-03 22:14:48 UTC
 +++ libavutil/common.h
 @@ -52,6 +52,10 @@
  #   include "mem.h"
