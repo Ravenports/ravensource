@@ -1,6 +1,6 @@
---- src/usage.cpp.orig	2026-01-01 05:43:43 UTC
+--- src/usage.cpp.orig	2026-08-01 15:27:43 UTC
 +++ src/usage.cpp
-@@ -17,6 +17,9 @@
+@@ -19,6 +19,9 @@
  #else
  	#include <sys/ioctl.h>
  #endif
