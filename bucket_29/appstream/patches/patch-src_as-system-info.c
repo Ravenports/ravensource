@@ -1,4 +1,4 @@
---- src/as-system-info.c.orig	2025-10-02 18:11:50 UTC
+--- src/as-system-info.c.orig	2026-07-24 18:28:22 UTC
 +++ src/as-system-info.c
 @@ -49,7 +49,7 @@
  
@@ -9,7 +9,7 @@
  #include <sys/types.h>
  #include <sys/sysctl.h>
  #elif defined(__GNU__)
-@@ -476,7 +476,7 @@ as_get_physical_memory_total (void)
+@@ -481,7 +481,7 @@ as_get_physical_memory_total (void)
  	if (si.mem_unit > 0)
  		return (si.totalram * si.mem_unit) / MB_IN_BYTES;
  	return 0;

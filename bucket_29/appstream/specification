@@ -1,6 +1,6 @@
-DEF[PORTVERSION]=	1.1.2
+DEF[PORTVERSION]=	1.1.5
 DEF[SO_MAJOR]=		5
-DEF[CAT1]=		http://docbook.sourceforge.net/release/xsl/current/
+DEF[CAT1]=		http://docbook.sourceforge.net/release/xsl-ns/current/
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		appstream
@@ -55,6 +55,7 @@ DISTNAME=		AppStream-${PORTVERSION}
 CONFIGURE_ENV=		PKG_CONFIG_PATH={{LOCALBASE}}/libressl/lib/pkgconfig
 MESON_ARGS=		-Dsystemd=false
 			-Dvapi=true
+			-Ddisplay-detection=none
 CFLAGS=			-D__BSD_VISIBLE=1
 SOVERSION=		${PORTVERSION}
 PLIST_SUB=		SO_MAJOR=${SO_MAJOR}
@@ -66,7 +67,5 @@ post-extract:
 	${INSTALL_SCRIPT} ${FILESDIR}/hack.sh ${WRKSRC}/data
 
 pre-configure:
-	${REINPLACE_CMD} -e "s|${CAT1}|file://${LOCALBASE}/share/xsl/docbook/|" \
-		${WRKSRC}/data/meson.build
 	${REINPLACE_CMD} -e "s|${CAT1}|file://${LOCALBASE}/share/xsl/docbook/|" \
 		${WRKSRC}/docs/meson.build
