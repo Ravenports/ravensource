@@ -1,6 +1,6 @@
 Avoid macro definition collision on sunos.
 
---- src/libstat/backends/redis_backend.cxx.orig	2026-07-21 17:53:03 UTC
+--- src/libstat/backends/redis_backend.cxx.orig	2026-08-15 10:50:53 UTC
 +++ src/libstat/backends/redis_backend.cxx
 @@ -62,8 +62,8 @@ struct redis_stat_ctx {
  
