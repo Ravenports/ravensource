@@ -1,4 +1,4 @@
---- dragonflybsd/Platform.c.orig	2026-04-28 13:55:47 UTC
+--- dragonflybsd/Platform.c.orig	2026-07-18 15:03:18 UTC
 +++ dragonflybsd/Platform.c
 @@ -262,9 +262,33 @@ void Platform_setSwapValues(Meter* this)
  }
