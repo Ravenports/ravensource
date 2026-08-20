@@ -1,9 +1,8 @@
-DEF[PORTVERSION]=	2.0.3
+DEF[PORTVERSION]=	2.0.4
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		lua-stdlib-normalize
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		devel
 VARIANTS=		lua52 lua53 lua54 lua55
 SDESC[lua52]=		Collection of normalized functions for Lua 5.2
@@ -29,7 +28,7 @@ VOPTS[lua53]=		LUA52=OFF LUA53=ON LUA54=OFF LUA55=OFF
 VOPTS[lua54]=		LUA52=OFF LUA53=OFF LUA54=ON LUA55=OFF
 VOPTS[lua55]=		LUA52=OFF LUA53=OFF LUA54=OFF LUA55=ON
 
-FPC_EQUIVALENT=		devel/lua-stdlib-debug
+FPC_EQUIVALENT=		devel/lua-stdlib-normalize
 
 SKIP_BUILD=		yes
 
@@ -51,12 +50,6 @@ SKIP_BUILD=		yes
 
 do-install:
 	${MKDIR} ${STAGEDIR}${LUA_MODSHAREDIR}/std/normalize
-	${INSTALL_DATA} ${WRKSRC}/lib/std/normalize/_base.lua \
-		${STAGEDIR}${LUA_MODSHAREDIR}/std/normalize
-	${INSTALL_DATA} ${WRKSRC}/lib/std/normalize/_strict.lua \
-		${STAGEDIR}${LUA_MODSHAREDIR}/std/normalize
-	${INSTALL_DATA} ${WRKSRC}/lib/std/normalize/_typecheck.lua \
-		${STAGEDIR}${LUA_MODSHAREDIR}/std/normalize
 	${INSTALL_DATA} ${WRKSRC}/lib/std/normalize/init.lua \
 		${STAGEDIR}${LUA_MODSHAREDIR}/std/normalize
 	${INSTALL_DATA} ${WRKSRC}/lib/std/normalize/version.lua \
