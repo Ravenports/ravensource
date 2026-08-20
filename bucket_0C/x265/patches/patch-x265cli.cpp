@@ -1,6 +1,6 @@
---- x265cli.cpp.orig	2026-04-19 06:29:17 UTC
+--- x265cli.cpp.orig	2026-07-31 11:16:44 UTC
 +++ x265cli.cpp
-@@ -1152,7 +1152,7 @@ namespace X265_NS {
+@@ -1163,7 +1163,7 @@ namespace X265_NS {
          }
  
          rewind(zoneFile);
@@ -9,7 +9,7 @@
          param->rc.zones = x265_zone_alloc(param->rc.zonefileCount, 1);;
          for (int i = 0; i < param->rc.zonefileCount; i++)
          {
-@@ -1508,4 +1508,4 @@ namespace X265_NS {
+@@ -1519,4 +1519,4 @@ namespace X265_NS {
  
  #ifdef __cplusplus
  }
