@@ -1,6 +1,6 @@
---- http.c.orig	2026-04-20 13:53:04 UTC
+--- http.c.orig	2026-06-29 16:32:26 UTC
 +++ http.c
-@@ -2377,7 +2377,11 @@ static int http_request_recoverable(cons
+@@ -2450,7 +2450,11 @@ static int http_request_recoverable(cons
  				return HTTP_START_FAILED;
  			}
  			rewind(f);
