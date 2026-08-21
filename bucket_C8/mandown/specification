@@ -1,0 +1,48 @@
+DEF[PORTVERSION]=	1.1.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		mandown
+VERSION=		${PORTVERSION}
+KEYWORDS=		rust textproc
+VARIANTS=		std
+SDESC[std]=		Create man pages from markdown markup
+HOMEPAGE=		https://gitlab.com/kornelski/mandown/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main cr01 cr02 cr03 cr04 cr05 cr06 cr07 cr08
+SITES[main]=		https://gitlab.com/kornelski/mandown/-/archive/v${PORTVERSION}/
+SITES[cr01]=		CRATES/bitflags:2.9.0
+SITES[cr02]=		CRATES/deunicode:1.6.1
+SITES[cr03]=		CRATES/getopts:0.2.21
+SITES[cr04]=		CRATES/memchr:2.7.4
+SITES[cr05]=		CRATES/pulldown-cmark:0.13.0
+SITES[cr06]=		CRATES/pulldown-cmark-escape:0.11.0
+SITES[cr07]=		CRATES/unicase:2.8.1
+SITES[cr08]=		CRATES/unicode-width:0.1.14
+DISTFILE[1]=		mandown-v${PORTVERSION}.bz2:main
+DISTFILE[2]=		generated:cr01
+DISTFILE[3]=		generated:cr02
+DISTFILE[4]=		generated:cr03
+DISTFILE[5]=		generated:cr04
+DISTFILE[6]=		generated:cr05
+DISTFILE[7]=		generated:cr06
+DISTFILE[8]=		generated:cr07
+DISTFILE[9]=		generated:cr08
+DF_INDEX=		1 2 3 4 5 6 7 8 9
+
+SPKGS[std]=		single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# Licensing is probably invalid; a license file with proper copyright exists,
+# but there are no terms.
+# LICENSE=		APACHE20:single
+# LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE
+# LICENSE_SCHEME=		solo
+
+USES=			cargo
+DISTNAME=		mandown-v${PORTVERSION}
+
+post-install:
+	${RM} ${STAGEDIR}${PREFIX}/.crates2.json

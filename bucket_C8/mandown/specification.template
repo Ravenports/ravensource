@@ -1,0 +1,37 @@
+DEF[PORTVERSION]=	%%VERSION%%
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		mandown
+VERSION=		${PORTVERSION}
+KEYWORDS=		rust textproc
+VARIANTS=		std
+SDESC[std]=		Create man pages from markdown markup
+HOMEPAGE=		https://gitlab.com/kornelski/mandown/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+%%DOWNLOAD_GROUPS%%
+SITES[main]=		https://gitlab.com/kornelski/mandown/-/archive/v${PORTVERSION}/
+%%CR_SITES%%
+DISTFILE[1]=		mandown-v${PORTVERSION}.bz2:main
+%%CR_DISTFILES%%
+%%DF_INDEX%%
+
+SPKGS[std]=		single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# Licensing is probably invalid; a license file with proper copyright exists,
+# but there are no terms.
+# LICENSE=		APACHE20:single
+# LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE
+# LICENSE_SCHEME=		solo
+
+USES=			cargo
+DISTNAME=		mandown-v${PORTVERSION}
+
+do-build:
+	cd ${WRKSRC} && cargo build --release --path 
+
+post-install:
+	${RM} ${STAGEDIR}${PREFIX}/.crates2.json
