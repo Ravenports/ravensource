@@ -1,11 +1,11 @@
---- lib/monkey/mk_core/deps/libevent/kqueue.c.orig	2026-06-05 21:45:51 UTC
+--- lib/monkey/mk_core/deps/libevent/kqueue.c.orig	2026-08-15 03:52:07 UTC
 +++ lib/monkey/mk_core/deps/libevent/kqueue.c
-@@ -50,7 +50,7 @@
- /* Some platforms apparently define the udata field of struct kevent as
-  * intptr_t, whereas others define it as void*.  There doesn't seem to be an
-  * easy way to tell them apart via autoconf, so we need to use OS macros. */
--#if defined(EVENT__HAVE_INTTYPES_H) && !defined(__OpenBSD__) && !defined(__FreeBSD__) && !defined(__darwin__) && !defined(__APPLE__) && !defined(__CloudABI__)
-+#if defined(EVENT__HAVE_INTTYPES_H) && !defined(__OpenBSD__) && !defined(__FreeBSD__) && !defined(__darwin__) && !defined(__APPLE__) && !defined(__CloudABI__) && !defined(__DragonFly__) && !defined(__NetBSD__)
+@@ -54,7 +54,7 @@
+ #if defined(__NetBSD__)
+ #define PTR_TO_UDATA(x) ((__typeof__(((struct kevent *)0)->udata))(x))
+ #define INT_TO_UDATA(x) ((__typeof__(((struct kevent *)0)->udata))(intptr_t)(x))
+-#elif defined(EVENT__HAVE_INTTYPES_H) && !defined(__OpenBSD__) && !defined(__FreeBSD__) && !defined(__darwin__) && !defined(__APPLE__) && !defined(__CloudABI__)
++#elif defined(EVENT__HAVE_INTTYPES_H) && !defined(__OpenBSD__) && !defined(__FreeBSD__) && !defined(__darwin__) && !defined(__APPLE__) && !defined(__CloudABI__) && !defined(__DragonFly__)
  #define PTR_TO_UDATA(x)	((intptr_t)(x))
  #define INT_TO_UDATA(x) ((intptr_t)(x))
  #else

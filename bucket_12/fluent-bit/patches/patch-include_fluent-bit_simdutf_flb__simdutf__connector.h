@@ -1,4 +1,4 @@
---- include/fluent-bit/simdutf/flb_simdutf_connector.h.orig	2026-06-05 21:45:51 UTC
+--- include/fluent-bit/simdutf/flb_simdutf_connector.h.orig	2026-08-15 03:52:07 UTC
 +++ include/fluent-bit/simdutf/flb_simdutf_connector.h
 @@ -24,7 +24,7 @@
  extern "C" {

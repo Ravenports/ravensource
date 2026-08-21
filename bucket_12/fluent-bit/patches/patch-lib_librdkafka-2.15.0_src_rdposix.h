@@ -1,5 +1,5 @@
---- lib/librdkafka-2.10.1/src/rdposix.h.orig	2026-06-05 21:45:51 UTC
-+++ lib/librdkafka-2.10.1/src/rdposix.h
+--- lib/librdkafka-2.15.0/src/rdposix.h.orig	2026-08-15 03:52:07 UTC
++++ lib/librdkafka-2.15.0/src/rdposix.h
 @@ -65,12 +65,12 @@
  /**
   * Allocation
