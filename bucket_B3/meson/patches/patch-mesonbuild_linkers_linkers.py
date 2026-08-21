@@ -1,6 +1,6 @@
---- mesonbuild/linkers/linkers.py.orig	2025-08-24 17:28:31 UTC
+--- mesonbuild/linkers/linkers.py.orig	2026-08-21 01:29:42 UTC
 +++ mesonbuild/linkers/linkers.py
-@@ -687,7 +687,7 @@ class GnuLikeDynamicLinkerMixin(DynamicL
+@@ -731,7 +731,7 @@ class GnuLikeDynamicLinkerMixin(DynamicL
          return ['-pthread']
  
      def no_undefined_args(self) -> T.List[str]:
@@ -9,7 +9,7 @@
  
      def fatal_warnings(self) -> T.List[str]:
          return self._apply_prefix('--fatal-warnings')
-@@ -1488,7 +1488,12 @@ class SolarisDynamicLinker(PosixDynamicL
+@@ -1604,7 +1604,12 @@ class SolarisDynamicLinker(PosixDynamicL
      def get_link_whole_for(self, args: T.List[str]) -> T.List[str]:
          if not args:
              return args

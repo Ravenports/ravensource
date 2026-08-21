@@ -1,6 +1,6 @@
---- mesonbuild/envconfig.py.orig	2025-12-09 16:59:30 UTC
+--- mesonbuild/envconfig.py.orig	2026-08-21 01:29:42 UTC
 +++ mesonbuild/envconfig.py
-@@ -360,7 +360,7 @@ class MachineInfo(HoldableObject):
+@@ -379,7 +379,7 @@ class MachineInfo(HoldableObject):
  
      def is_freebsd(self) -> bool:
          """Machine is FreeBSD?"""
@@ -9,7 +9,7 @@
  
      def is_sunos(self) -> bool:
          """Machine is illumos or Solaris?"""
-@@ -579,6 +579,8 @@ def detect_cpu_family(compilers: T.Dict[
+@@ -602,6 +602,8 @@ def detect_cpu_family(compilers: Compile
          trial = detect_windows_arch(compilers)
      elif mesonlib.is_freebsd() or mesonlib.is_netbsd() or mesonlib.is_openbsd() or mesonlib.is_qnx() or mesonlib.is_aix():
          trial = platform.processor().lower()
@@ -18,7 +18,7 @@
      else:
          trial = platform.machine().lower()
      if trial.startswith('i') and trial.endswith('86'):
-@@ -645,6 +647,8 @@ def detect_cpu(compilers: T.Dict[str, Co
+@@ -668,6 +670,8 @@ def detect_cpu(compilers: CompilerDict)
          trial = detect_windows_arch(compilers)
      elif mesonlib.is_freebsd() or mesonlib.is_netbsd() or mesonlib.is_openbsd() or mesonlib.is_aix():
          trial = platform.processor().lower()

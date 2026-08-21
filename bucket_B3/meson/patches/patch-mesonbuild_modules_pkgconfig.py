@@ -1,7 +1,7 @@
---- mesonbuild/modules/pkgconfig.py.orig	2025-08-24 17:28:31 UTC
+--- mesonbuild/modules/pkgconfig.py.orig	2026-08-21 01:33:01 UTC
 +++ mesonbuild/modules/pkgconfig.py
-@@ -716,7 +716,7 @@ class PkgConfigModule(NewExtensionModule
-         pkgroot = pkgroot_name = kwargs['install_dir'] or default_install_dir
+@@ -780,7 +780,7 @@ class PkgConfigModule(NewExtensionModule
+             pkgroot_name = pkgroot.optname
          if pkgroot is None:
              m = state.environment.machines.host
 -            if m.is_freebsd():
