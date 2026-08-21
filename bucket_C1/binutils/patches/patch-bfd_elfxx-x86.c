@@ -1,4 +1,4 @@
---- bfd/elfxx-x86.c.orig	2026-02-08 00:00:00 UTC
+--- bfd/elfxx-x86.c.orig	2026-07-25 23:00:00 UTC
 +++ bfd/elfxx-x86.c
 @@ -26,8 +26,8 @@
     section.  */
