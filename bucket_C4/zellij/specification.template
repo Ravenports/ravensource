@@ -1,0 +1,55 @@
+DEF[PORTVERSION]=	%%VERSION%%
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		zellij
+VERSION=		${PORTVERSION}
+KEYWORDS=		rust sysutils
+VARIANTS=		std
+SDESC[std]=		Pluggable terminal workspace / multiplexer
+HOMEPAGE=		https://zellij.dev/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+%%DOWNLOAD_GROUPS%%
+SITES[main]=		GITHUB/zellij-org:zellij:v${PORTVERSION}
+%%CR_SITES%%
+DISTFILE[1]=		generated:main
+%%CR_DISTFILES%%
+%%DF_INDEX%%
+
+SPKGS[std]=		set primary completions docs man
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:primary
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE.md
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		sysutils/zellij
+
+BUILD_DEPENDS=		mandown:single:std
+
+USES=			cargo gmake perl:build ssl
+
+post-build:
+	${WRKDIR}/target/release/zellij setup --generate-completion bash > ${WRKDIR}/zellij.bash
+	${WRKDIR}/target/release/zellij setup --generate-completion fish > ${WRKDIR}/zellij.fish
+	${WRKDIR}/target/release/zellij setup --generate-completion zsh > ${WRKDIR}/zellij.zsh
+	mandown ${WRKSRC}/docs/MANPAGE.md > ${WRKDIR}/zellij.1
+
+post-install:
+	${RM} ${STAGEDIR}${PREFIX}/.crates2.json
+	${INSTALL_DATA} ${WRKDIR}/zellij.1 ${STAGEDIR}${PREFIX}/share/man/man1/
+	${MKDIR} -p ${STAGEDIR}${STD_DOCDIR} ${STAGEDIR}${PREFIX}/share/bash-completion/completions \
+		${STAGEDIR}${PREFIX}/share/fish/vendor_completions.d \
+		${STAGEDIR}${PREFIX}/share/zsh/site-functions \
+		${STAGEDIR}${PREFIX}/share/pixmaps \
+		${STAGEDIR}${PREFIX}/share/applications
+	${INSTALL_DATA} ${WRKSRC}/docs/*.md ${STAGEDIR}${STD_DOCDIR}/
+# Remove manpage source file
+	${RM} ${STAGEDIR}${STD_DOCDIR}/MANPAGE.md
+	${INSTALL_DATA} ${WRKDIR}/zellij.bash ${STAGEDIR}${PREFIX}/share/bash-completion/completions/zellij
+	${INSTALL_DATA} ${WRKDIR}/zellij.fish ${STAGEDIR}${PREFIX}/share/fish/vendor_completions.d/
+	${INSTALL_DATA} ${WRKDIR}/zellij.zsh ${STAGEDIR}${PREFIX}/share/zsh/site-functions/_zellij
+	${INSTALL_DATA} ${WRKSRC}/assets/logo.png ${STAGEDIR}${PREFIX}/share/pixmaps/zellij.png
+	${INSTALL_DATA} ${WRKSRC}/assets/zellij.desktop ${STAGEDIR}${PREFIX}/share/applications/zellij.desktop
