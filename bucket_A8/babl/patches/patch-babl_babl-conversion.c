@@ -1,4 +1,4 @@
---- babl/babl-conversion.c.orig	2026-04-09 18:58:59 UTC
+--- babl/babl-conversion.c.orig	2026-08-07 18:26:08 UTC
 +++ babl/babl-conversion.c
 @@ -52,8 +52,8 @@ babl_conversion_planar_process (const Ba
    const BablImage *source = (void*)src;
