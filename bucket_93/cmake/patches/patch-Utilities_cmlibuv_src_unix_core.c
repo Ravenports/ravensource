@@ -1,7 +1,7 @@
---- Utilities/cmlibuv/src/unix/core.c.orig	2026-05-21 18:32:22 UTC
+--- Utilities/cmlibuv/src/unix/core.c.orig	2026-07-31 13:01:06 UTC
 +++ Utilities/cmlibuv/src/unix/core.c
-@@ -86,6 +86,11 @@ extern char** environ;
- # include <sys/cpuset.h>
+@@ -85,6 +85,11 @@ extern char** environ;
+ # endif
  #endif
  
 +#if defined(__DragonFly__) || defined(__NetBSD__)
