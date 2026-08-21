@@ -1,4 +1,4 @@
---- port/cpl_spawn.cpp.orig	2026-06-05 10:32:14 UTC
+--- port/cpl_spawn.cpp.orig	2026-08-18 09:14:00 UTC
 +++ port/cpl_spawn.cpp
 @@ -41,7 +41,7 @@
  #include <crt_externs.h>
