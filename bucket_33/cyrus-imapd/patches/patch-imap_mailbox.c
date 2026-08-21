@@ -1,4 +1,4 @@
---- imap/mailbox.c.orig	2026-03-29 22:54:00 UTC
+--- imap/mailbox.c.orig	2026-07-15 01:09:36 UTC
 +++ imap/mailbox.c
 @@ -6046,6 +6046,10 @@ static void mailbox_delete_files(const c
      struct dirent *f;

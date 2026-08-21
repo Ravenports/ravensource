@@ -1,4 +1,4 @@
---- imap/jmap_mail_submission.c.orig	2026-03-29 22:54:00 UTC
+--- imap/jmap_mail_submission.c.orig	2026-07-15 01:09:36 UTC
 +++ imap/jmap_mail_submission.c
 @@ -224,7 +224,7 @@ static int _emailsubmission_address_pars
              if (holduntil) {

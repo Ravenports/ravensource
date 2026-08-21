@@ -1,4 +1,4 @@
---- imap/httpd.h.orig	2026-03-29 22:54:00 UTC
+--- imap/httpd.h.orig	2026-07-15 01:09:36 UTC
 +++ imap/httpd.h
 @@ -280,7 +280,7 @@ typedef int (*encode_proc_t)(struct tran
  

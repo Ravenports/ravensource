@@ -1,4 +1,4 @@
---- lib/util.c.orig	2026-03-29 22:54:00 UTC
+--- lib/util.c.orig	2026-07-15 01:04:35 UTC
 +++ lib/util.c
 @@ -83,6 +83,9 @@
  #include "zlib.h"
