@@ -3,9 +3,11 @@ DEF[PORTVERSION]=	2.9.3
 
 NAMEBASE=		gnustep-make
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
-VARIANTS=		std
+VARIANTS=		std bootstrap
 SDESC[std]=		GNUstep Makefile package
+SDESC[bootstrap]=	GNUstep Makefile (without Obj-C support)
 HOMEPAGE=		https://gnustep.github.io/
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
@@ -15,9 +17,11 @@ DISTFILE[1]=		make-${PORTVERSION:S/./_/g}.tar.gz:main
 DIST_SUBDIR=		gnustep
 
 SPKGS[std]=		set primary man
+SPKGS[bootstrap]=	single
 
-OPTIONS_AVAILABLE=	none
-OPTIONS_STANDARD=	none
+OPTIONS_AVAILABLE=	BOOT
+OPTIONS_STANDARD=	BOOT
+VOPTS[bootstrap]=	BOOT=ON
 
 FPC_EQUIVALENT=		devel/gnustep-make
 
@@ -28,21 +32,25 @@ LICENSE_SOURCE=		TERMS:{{WRKSRC}}/Master/tool.make
 LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		libobjc2:dev:std
-			gnustep-make-bootstrap:primary:std
-BUILDRUN_DEPENDS=	libobjc2:primary:std
-
 USES=			clang gmake pkgconfig shebangfix
 SHEBANG_FILES=		bake_debian_files.sh
 
 MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--enable-native-objc-exceptions
-			--with-config-file={{PREFIX}}/etc/GNUstep/GNUstep.conf
-			--with-layout=fhs
-			--with-library-combo=ng-gnu-gnu
-			--with-thread-lib=-pthread
+CONFIGURE_ARGS=		--with-layout=fhs
 
 DISTNAME=		tools-make-make-${PORTVERSION:S/./_/g}
 MAKEFILE=		GNUmakefile
 CONFIGURE_ENV=		INSTALL_PROGRAM="install -c"
 			INSTALL_DATA="install -c"
+
+[BOOT].DESCRIPTION=			Variant exists to build libobjc2
+[BOOT].CONFIGURE_ARGS_OFF=		--enable-native-objc-exceptions
+					--with-config-file={{PREFIX}}/etc/GNUstep/GNUstep.conf
+					--with-library-combo=ng-gnu-gnu
+					--with-thread-lib=-pthread
+[BOOT].BUILD_DEPENDS_OFF=		libobjc2:dev:std
+					gnustep-make:single:bootstrap
+[BOOT].BUILDRUN_DEPENDS_OFF=		libobjc2:primary:std
+
+post-install-BOOT-ON:
+	${RM} -r ${STAGEDIR}${PREFIX}/share/man
