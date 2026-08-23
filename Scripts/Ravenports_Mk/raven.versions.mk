@@ -118,7 +118,7 @@ MYSQL_innovation_VERSION=	9.7.2
 MYSQL_mariadb-10.6_VERSION=	10.6.28
 MYSQL_mariadb-10.11_VERSION=	10.11.19
 MYSQL_mariadb-11.4_VERSION=	11.4.13
-MYSQL_mariadb-11.8_VERSION=	11.8.8
+MYSQL_mariadb-11.8_VERSION=	11.8.9
 MYSQL_mariadb-BE_VERSION=	12.3.2		# Bleeding Edge
 
 #-------------------------------------------------------------------------
