@@ -1,4 +1,4 @@
---- lib/header.cc.orig	2025-12-10 13:48:29 UTC
+--- lib/header.cc.orig	2026-07-16 13:34:05 UTC
 +++ lib/header.cc
 @@ -15,6 +15,9 @@
  #include <atomic>

@@ -1,4 +1,4 @@
---- misc/fts.c.orig	2025-12-10 13:48:29 UTC
+--- misc/fts.c.orig	2026-07-16 13:34:05 UTC
 +++ misc/fts.c
 @@ -37,12 +37,14 @@ static char sccsid[] = "@(#)fts.c	8.6 (B
  #endif
