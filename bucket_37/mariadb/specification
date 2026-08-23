@@ -2,8 +2,7 @@
 
 DEF[PORTVERSION]=	EXTRACT_VERSION(MYSQL_mariadb-BE_VERSION)
 DEF[PORTNAME]=		mariadb
-DEF[FMT_TAG]=		12.1.0
-DEF[FETCH_ID]=		4716022
+DEF[FMT_TAG]=		12.2.0
 DEF[DBDIR]=		var/db/mariadb
 DEF[RUNDIR]=		var/run/mariadb
 DEF[LOGDIR]=		var/log/mariadb
@@ -21,7 +20,7 @@ HOMEPAGE=		https://mariadb.org/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main fmtsrc
-SITES[main]=		https://dlm.mariadb.com/${FETCH_ID}/MariaDB/mariadb-${PORTVERSION}/source/
+SITES[main]=		https://archive.mariadb.org/mariadb-${PORTVERSION}/source/
 SITES[fmtsrc]=		https://github.com/fmtlib/fmt/releases/download/${FMT_TAG}/
 DISTFILE[1]=		mariadb-${PORTVERSION}.tar.gz:main
 DISTFILE[2]=		fmt-${FMT_TAG}.zip:fmtsrc
@@ -191,6 +190,7 @@ post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/mysql/libmariadb.so
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/mysql/libmariadbd.so
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/mysql/*/*.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/mysql/plugin/test_pam_modules/pam_mariadb_mtr.so
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/mysql/plugin/auth_pam_tool_dir/auth_pam_tool
 	# strip binaries
 	@flist=$$(${FIND} ${STAGEDIR}${PREFIX}/bin -type f -perm /111 -print) ;\
