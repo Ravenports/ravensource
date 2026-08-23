@@ -1,4 +1,4 @@
---- src/gallium/drivers/llvmpipe/lp_scene.c.orig	2026-08-12 15:22:27 UTC
+--- src/gallium/drivers/llvmpipe/lp_scene.c.orig	2026-08-19 18:40:15 UTC
 +++ src/gallium/drivers/llvmpipe/lp_scene.c
 @@ -25,6 +25,10 @@
   *

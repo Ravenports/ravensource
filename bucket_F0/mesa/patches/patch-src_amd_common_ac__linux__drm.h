@@ -1,4 +1,4 @@
---- src/amd/common/ac_linux_drm.h.orig	2026-08-12 15:22:27 UTC
+--- src/amd/common/ac_linux_drm.h.orig	2026-08-19 18:40:15 UTC
 +++ src/amd/common/ac_linux_drm.h
 @@ -9,6 +9,10 @@
  #include <stdbool.h>

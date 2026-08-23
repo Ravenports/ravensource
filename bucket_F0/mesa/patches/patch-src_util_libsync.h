@@ -1,4 +1,4 @@
---- src/util/libsync.h.orig	2026-08-12 15:22:27 UTC
+--- src/util/libsync.h.orig	2026-08-19 18:40:15 UTC
 +++ src/util/libsync.h
 @@ -43,6 +43,10 @@
  #include "util/detect_os.h"
