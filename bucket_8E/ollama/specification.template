@@ -1,0 +1,64 @@
+DEF[PORTVERSION]=	%%VERSION%%
+DEF[GGML]=		0.20.2
+DEF[LLAMA]=		0.1.2
+#
+# This port is CPU-only for now. The next step will be to add vulkan support
+# for GPU acceleration.
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		ollama
+VERSION=		${PORTVERSION}
+KEYWORDS=		misc
+VARIANTS=		std
+SDESC[std]=		Create, run and share large language models (LLMs)
+HOMEPAGE=		https://ollama.com/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+%%DOWNLOAD_GROUPS%%
+SITES[main]=		GITHUB/ollama:ollama:v${PORTVERSION}
+%%MD_SITES%%
+DISTFILE[1]=		generated:main
+%%MD_DISTFILES%%
+DIST_SUBDIR=		golang/ollama
+%%DF_INDEX%%
+
+SPKGS[std]=		single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# A version for FreeBSD exists, too, but let's start small
+FPC_EQUIVALENT=		misc/ollama
+ONLY_FOR_OPSYS=		linux
+
+BUILD_DEPENDS=		golang:single:std
+
+USES=			c++:single cmake
+CMAKE_ARGS=		-DOLLAMA_LLAMA_BACKENDS=""
+
+MAKE_ENV=		CGO_CPPFLAGS="{{CPPFLAGS}}"
+			CGO_CFLAGS="{{CFLAGS}}"
+			CGO_CXXFLAGS="{{CXXFLAGS}}"
+			CGO_LDFLAGS="{{LDFLAGS}}"
+			GOPATH="{{WRKSRC}}"
+			GOFLAGS="-buildmode=pie '-ldflags=-linkmode=external -compressdwarf=false -X=github.com/ollama/ollama/version.Version=$pkgver -X=github.com/ollama/ollama/server.mode=release'"
+INSTALL_REQ_TOOLCHAIN=	yes
+
+PLIST_SUB=		GGML=${GGML}
+			GGML_MAJ=${GGML:R:R}
+			GGML_BASE=${GGML}
+			GGML_BASE_MAJ=${GGML:R:R}
+			LLAMA=${LLAMA}
+			LLAMA_MAJ=${LLAMA:R:R}
+			LLAMA_COMMON=${LLAMA}
+			LLAMA_COMMON_MAJ=${LLAMA:R:R}
+			MTMD=${LLAMA}
+			MTMD_MAJ=${LLAMA:R:R}
+
+post-patch:
+	${CP} ${FILESDIR}/modules.txt ${WRKSRC}/vendor/
+
+# No idea why CMake installs the project twice; just delete the second one
+post-stage:
+	${RM} -r ${STAGEDIR}/construction
+	cd ${STAGEDIR}${PREFIX}/lib/ollama && ${STRIP_CMD} *.so llama-quantize llama-server
