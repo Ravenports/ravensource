@@ -1,8 +1,8 @@
 - Define ETIME if missing
 
---- src/amd/vulkan/winsys/amdgpu/radv_amdgpu_cs.c.orig	2026-08-19 18:40:15 UTC
+--- src/amd/vulkan/winsys/amdgpu/radv_amdgpu_cs.c.orig	2026-08-05 21:14:26 UTC
 +++ src/amd/vulkan/winsys/amdgpu/radv_amdgpu_cs.c
-@@ -40,6 +40,10 @@
+@@ -39,6 +39,10 @@
  /* Maximum allowed total number of submitted IBs. */
  #define RADV_MAX_IBS_PER_SUBMIT 192
  
