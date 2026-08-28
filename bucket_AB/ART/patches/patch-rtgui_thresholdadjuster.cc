@@ -1,4 +1,4 @@
---- rtgui/thresholdadjuster.cc.orig	2026-06-15 12:55:53 UTC
+--- rtgui/thresholdadjuster.cc.orig	2026-07-13 09:04:23 UTC
 +++ rtgui/thresholdadjuster.cc
 @@ -203,7 +203,7 @@ double ThresholdAdjuster::shapeValue(dou
  {
