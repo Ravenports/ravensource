@@ -1,5 +1,4 @@
-DEF[PORTVERSION]=	0.40
-# Remove cmake minimum argument on next release
+DEF[PORTVERSION]=	0.41
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		bsdisks
@@ -29,15 +28,14 @@ FPC_EQUIVALENT=		sysutils/bsdisks
 
 ONLY_FOR_OPSYS=		freebsd midnightbsd
 
-BUILD_DEPENDS=		polkit-qt-1:dev:qt5
-			qt5-qtbase:dev:std
-BUILDRUN_DEPENDS=	polkit-qt-1:primary:qt5
-			qt5-qtbase:primary:std
+BUILD_DEPENDS=		polkit-qt-1:dev:qt6
+			qt6-qtbase:dev:std
+BUILDRUN_DEPENDS=	polkit-qt-1:primary:qt6
+			qt6-qtbase:primary:std
 
 USES=			cmake
 
-CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt5/cmake
-			-DCMAKE_POLICY_VERSION_MINIMUM=3.5
+CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt6/cmake
 
 post-stage:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/bsdisks
