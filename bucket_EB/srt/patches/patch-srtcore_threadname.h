@@ -1,4 +1,4 @@
---- srtcore/threadname.h.orig	2026-04-17 06:56:57 UTC
+--- srtcore/threadname.h.orig	2026-07-20 14:12:08 UTC
 +++ srtcore/threadname.h
 @@ -104,7 +104,7 @@ class ThreadName
      #if defined(__APPLE__)
