@@ -1,6 +1,6 @@
---- cmake/FindXxhash.cmake.orig	2026-04-19 07:42:30 UTC
+--- cmake/FindXxhash.cmake.orig	2026-05-04 17:00:39 UTC
 +++ cmake/FindXxhash.cmake
-@@ -39,7 +39,7 @@ if(_download_xxhash)
+@@ -43,7 +43,7 @@ if(_download_xxhash)
    include(FetchContent)
    FetchContent_Declare(
      Xxhash

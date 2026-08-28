@@ -1,6 +1,6 @@
---- cmake/FindZstd.cmake.orig	2026-04-19 07:42:30 UTC
+--- cmake/FindZstd.cmake.orig	2026-05-04 17:00:39 UTC
 +++ cmake/FindZstd.cmake
-@@ -5,7 +5,7 @@ if(DEPS STREQUAL "DOWNLOAD" OR DEP_ZSTD
+@@ -9,7 +9,7 @@ if(DEPS STREQUAL "DOWNLOAD" OR DEP_ZSTD
    set(_download_zstd TRUE)
  else()
    find_path(ZSTD_INCLUDE_DIR zstd.h)

@@ -1,6 +1,6 @@
---- cmake/FindBlake3.cmake.orig	2026-04-19 07:42:30 UTC
+--- cmake/FindBlake3.cmake.orig	2026-05-04 17:00:39 UTC
 +++ cmake/FindBlake3.cmake
-@@ -5,7 +5,7 @@ if(DEP_BLAKE3 STREQUAL "BUNDLED")
+@@ -9,7 +9,7 @@ if(DEP_BLAKE3 STREQUAL "BUNDLED")
    message(STATUS "Using bundled Blake3 as requested")
  else()
    find_path(BLAKE3_INCLUDE_DIR blake3.h)
