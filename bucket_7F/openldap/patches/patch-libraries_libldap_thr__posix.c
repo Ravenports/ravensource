@@ -3,7 +3,7 @@ $NetBSD: patch-libraries_libldap_thr__posix.c,v 1.2 2025/07/09 09:18:01 jperkin 
 Fix for systems lacking pthread_attr_setstacksize().
 Correct includes for thr_yield().
 
---- libraries/libldap/thr_posix.c.orig	2026-01-29 22:21:21 UTC
+--- libraries/libldap/thr_posix.c.orig	2026-08-06 17:17:48 UTC
 +++ libraries/libldap/thr_posix.c
 @@ -25,6 +25,7 @@
  #endif

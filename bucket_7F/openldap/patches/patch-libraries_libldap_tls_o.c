@@ -1,9 +1,9 @@
 Fix build with LibreSSL.
 
---- libraries/libldap/tls_o.c.orig	2026-01-29 22:21:21 UTC
+--- libraries/libldap/tls_o.c.orig	2026-08-06 17:17:48 UTC
 +++ libraries/libldap/tls_o.c
-@@ -48,7 +48,7 @@
- #include <openssl/dh.h>
+@@ -51,7 +51,7 @@
+ #endif
  #endif
  
 -#if OPENSSL_VERSION_NUMBER >= 0x10100000
@@ -11,7 +11,7 @@ Fix build with LibreSSL.
  #define ASN1_STRING_data(x)	ASN1_STRING_get0_data(x)
  #endif
  
-@@ -131,7 +131,7 @@ static void tlso_thr_init( void ) {}
+@@ -134,7 +134,7 @@ static void tlso_thr_init( void ) {}
  #endif
  #endif /* OpenSSL 1.1 */
  
@@ -20,7 +20,7 @@ Fix build with LibreSSL.
  /*
   * OpenSSL 1.1 API and later makes the BIO method concrete types internal.
   */
-@@ -222,7 +222,7 @@ tlso_init( void )
+@@ -230,7 +230,7 @@ tlso_init( void )
  	(void) tlso_seed_PRNG( lo->ldo_tls_randfile );
  #endif
  
@@ -29,7 +29,7 @@ Fix build with LibreSSL.
  	SSL_load_error_strings();
  	SSL_library_init();
  	OpenSSL_add_all_digests();
-@@ -275,7 +275,7 @@ static void
+@@ -283,7 +283,7 @@ static void
  tlso_ctx_ref( tls_ctx *ctx )
  {
  	tlso_ctx *c = (tlso_ctx *)ctx;
@@ -38,7 +38,7 @@ Fix build with LibreSSL.
  #define	SSL_CTX_up_ref(ctx)	CRYPTO_add( &(ctx->references), 1, CRYPTO_LOCK_SSL_CTX )
  #endif
  	SSL_CTX_up_ref( c );
-@@ -758,7 +758,7 @@ tlso_session_my_dn( tls_session *sess, s
+@@ -931,7 +931,7 @@ tlso_session_my_dn( tls_session *sess, s
  	if (!x) return LDAP_INVALID_CREDENTIALS;
  	
  	xn = X509_get_subject_name(x);
@@ -47,7 +47,7 @@ Fix build with LibreSSL.
  	der_dn->bv_len = i2d_X509_NAME( xn, NULL );
  	der_dn->bv_val = xn->bytes->data;
  #else
-@@ -794,7 +794,7 @@ tlso_session_peer_dn( tls_session *sess,
+@@ -967,7 +967,7 @@ tlso_session_peer_dn( tls_session *sess,
  		return LDAP_INVALID_CREDENTIALS;
  
  	xn = X509_get_subject_name(x);
@@ -56,7 +56,7 @@ Fix build with LibreSSL.
  	der_dn->bv_len = i2d_X509_NAME( xn, NULL );
  	der_dn->bv_val = xn->bytes->data;
  #else
-@@ -1237,7 +1237,7 @@ struct tls_data {
+@@ -1418,7 +1418,7 @@ struct tls_data {
  	Sockbuf_IO_Desc		*sbiod;
  };
  
