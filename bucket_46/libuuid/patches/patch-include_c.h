@@ -1,6 +1,6 @@
 Add NAME_MAX compat.
 
---- include/c.h.orig	2026-04-01 09:51:16 UTC
+--- include/c.h.orig	2026-06-16 11:39:44 UTC
 +++ include/c.h
 @@ -44,6 +44,10 @@
  
