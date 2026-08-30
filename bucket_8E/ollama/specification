@@ -1,6 +1,6 @@
-DEF[PORTVERSION]=	0.33.0
-DEF[GGML]=		0.20.2
-DEF[LLAMA]=		0.1.2
+DEF[PORTVERSION]=	0.33.1
+DEF[GGML]=		0.22.0
+DEF[LLAMA]=		0.3.0
 #
 # This port is CPU-only for now. The next step will be to add vulkan support
 # for GPU acceleration.
@@ -119,8 +119,8 @@ SITES[md91]=		GITHUB/protocolbuffers:protobuf-go:4a76e11653e368b9331815e1eb98e0c
 SITES[md92]=		GITHUB/go-yaml:yaml:v3.0.1:vendor/gopkg.in/yaml.v3
 SITES[md93]=		GITHUB/gorgonia:vecf32:v0.9.0:vendor/gorgonia.org/vecf32
 SITES[md94]=		GITHUB/gorgonia:vecf64:v0.9.0:vendor/gorgonia.org/vecf64
-SITES[md95]=		GITHUB/ggml-org:llama.cpp:b10488
-SITES[md96]=		GITHUB/ml-explore:mlx:27fec909a3df9e572f5195607a453e273e7d80d0
+SITES[md95]=		GITHUB/ggml-org:llama.cpp:b10630
+SITES[md96]=		GITHUB/ml-explore:mlx:c793734eb715dbcfdb1ced58e348ec53c2d7ed85
 SITES[md97]=		GITHUB/ml-explore:mlx-c:fba4470b89073180056c9ea46c443051375f7399
 DISTFILE[1]=		generated:main
 DISTFILE[2]=		generated:md01
@@ -244,7 +244,7 @@ BUILD_DEPENDS=		golang:single:std
 
 USES=			c++:single cmake
 CMAKE_ARGS=		-DOLLAMA_LLAMA_BACKENDS=""
-			-DFETCHCONTENT_SOURCE_DIR_LLAMA_CPP=../llama.cpp-b10488
+			-DFETCHCONTENT_SOURCE_DIR_LLAMA_CPP=../llama.cpp-b10630
 
 MAKE_ENV=		CGO_CPPFLAGS="{{CPPFLAGS}}"
 			CGO_CFLAGS="{{CFLAGS}}"
@@ -266,7 +266,7 @@ PLIST_SUB=		GGML=${GGML}
 			MTMD_MAJ=${LLAMA:R:R}
 
 post-patch:
-	cd ${WRKDIR}/llama.cpp-b10488 && patch -i ${WRKSRC}/llama/compat/001-llama-cpp-hooks.patch
+	cd ${WRKDIR}/llama.cpp-b10630 && patch -i ${WRKSRC}/llama/compat/001-llama-cpp-hooks.patch
 	${LN} -s ${WRKSRC}/vendor/github.com/apache/arrow/go/arrow+subdir/go/arrow ${WRKSRC}/vendor/github.com/apache/arrow/go/arrow
 	${LN} -s ${WRKSRC}/vendor/github.com/bytedance/sonic/loader+subdir/loader ${WRKSRC}/vendor/github.com/bytedance/sonic/loader
 	${LN} -s ${WRKSRC}/vendor/github.com/charmbracelet/x/ansi+subdir/ansi ${WRKSRC}/vendor/github.com/charmbracelet/x/ansi
