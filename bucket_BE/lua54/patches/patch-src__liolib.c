@@ -1,4 +1,4 @@
---- src/liolib.c.orig	2024-06-13 22:15:09 UTC
+--- src/liolib.c.orig	2026-08-10 09:22:22 UTC
 +++ src/liolib.c
 @@ -16,6 +16,7 @@
  #include <stdio.h>
