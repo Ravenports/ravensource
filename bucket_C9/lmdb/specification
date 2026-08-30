@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	0.9.35
+DEF[PORTVERSION]=	1.0.1
+DEF[SOVERSION]=		1.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		lmdb
@@ -32,8 +33,10 @@ MAKE_ARGS=		CC="{{CC}}"
 			INSTALL_LIB="{{INSTALL_LIB}}"
 			INSTALL_DATA="{{INSTALL_DATA}}"
 			INSTALL_MAN="{{INSTALL_MAN}}"
+SOVERSION=		${SOVERSION}
 
 VAR_OPSYS[sunos]=	CFLAGS=-DMDB_FDATASYNC=fsync
+VAR_OPSYS[linux]=	MAKE_ARGS=LDL=-ldl
 
 post-install:
 	${LN} -sf liblmdb.so.0 ${STAGEDIR}${PREFIX}/lib/liblmdb.so
