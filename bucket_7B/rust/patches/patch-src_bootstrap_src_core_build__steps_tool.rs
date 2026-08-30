@@ -1,4 +1,4 @@
---- src/bootstrap/src/core/build_steps/tool.rs.orig	2026-05-25 23:21:07 UTC
+--- src/bootstrap/src/core/build_steps/tool.rs.orig	2026-07-14 15:13:08 UTC
 +++ src/bootstrap/src/core/build_steps/tool.rs
 @@ -716,6 +716,57 @@ impl Step for Rustdoc {
          }

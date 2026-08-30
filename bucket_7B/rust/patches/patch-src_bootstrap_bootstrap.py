@@ -1,4 +1,4 @@
---- src/bootstrap/bootstrap.py.orig	2026-05-25 23:21:07 UTC
+--- src/bootstrap/bootstrap.py.orig	2026-07-14 15:13:08 UTC
 +++ src/bootstrap/bootstrap.py
 @@ -324,6 +324,7 @@ def default_build_triple(verbose):
          "Darwin": "apple-darwin",
