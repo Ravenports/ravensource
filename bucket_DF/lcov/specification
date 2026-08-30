@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.4
+DEF[PORTVERSION]=	2.5
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		lcov
@@ -13,7 +13,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		GITHUB/linux-test-project:lcov:v${PORTVERSION}
 DISTFILE[1]=		generated:main
 
-SPKGS[std]=		set primary man examples
+SPKGS[std]=		set primary man examples docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -27,6 +27,8 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/lcov
 
+BUILD_DEPENDS=		python-Sphinx:single:python_used
+			python-sphinx-rtd-theme:single:python_used
 BUILDRUN_DEPENDS=	bash:primary:std
 
 USES=			gmake perl python shebangfix
@@ -43,7 +45,7 @@ SHEBANG_FILES=		bin/xml2lcovutil.py
 			bin/perl2lcov
 
 post-patch:
-	${REINPLACE_CMD} 's|/bin/env perl|${PERL_CMD}|' \
+	# ${REINPLACE_CMD} 's|/bin/env perl|${PERL_CMD}|' \
 		${WRKSRC}/tests/gendiffcov/simple/annotate.sh
 
 do-install:
