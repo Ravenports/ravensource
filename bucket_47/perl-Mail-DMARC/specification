@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.20260724
+DEF[PORTVERSION]=	2.20260827
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-Mail-DMARC
@@ -23,7 +23,7 @@ VOPTS[540]=		PERL_540=ON PERL_542=OFF
 VOPTS[542]=		PERL_540=OFF PERL_542=ON
 
 # License listed in CPAN directory:
-# unknown
+# perl_5
 
 GENERATED=		yes
 SINGLE_JOB=		yes
@@ -32,60 +32,45 @@ DISTNAME=		Mail-DMARC-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |      runtime : CPAN (perl 5.40 core) (perl 5.42 core)
 # |      runtime : Carp (perl 5.40 core) (perl 5.42 core)
 # |      runtime : Config::Tiny
 # |      runtime : DBD::SQLite
 # |      runtime : DBIx::Simple
 # |      runtime : Data::Dumper (perl 5.40 core) (perl 5.42 core)
 # |      runtime : Email::MIME
-# |      runtime : Email::Sender
 # |      runtime : Email::Sender::Simple
 # |      runtime : Email::Simple
 # |      runtime : Encode (perl 5.40 core) (perl 5.42 core)
-# |      runtime : English (perl 5.40 core) (perl 5.42 core)
 # |      runtime : File::ShareDir
 # |      runtime : Getopt::Long (perl 5.40 core) (perl 5.42 core)
 # |      runtime : HTTP::Tiny (perl 5.40 core) (perl 5.42 core)
 # |      runtime : IO::Compress::Gzip (perl 5.40 core) (perl 5.42 core)
 # |      runtime : IO::Compress::Zip (perl 5.40 core) (perl 5.42 core)
 # |      runtime : IO::File (perl 5.40 core) (perl 5.42 core)
-# |      runtime : IO::Socket::SSL
 # |      runtime : IO::Uncompress::Gunzip (perl 5.40 core) (perl 5.42 core)
 # |      runtime : IO::Uncompress::Unzip (perl 5.40 core) (perl 5.42 core)
 # |      runtime : Module::Load (perl 5.40 core) (perl 5.42 core)
 # |      runtime : Net::DNS::Resolver
-# |      runtime : Net::IP
-# |      runtime : Net::SSLeay
 # |      runtime : POSIX (perl 5.40 core) (perl 5.42 core)
 # |      runtime : Pod::Usage (perl 5.40 core) (perl 5.42 core)
-# |      runtime : Regexp::Common
 # |      runtime : Socket (perl 5.40 core) (perl 5.42 core)
-# |      runtime : Socket6
 # |      runtime : Sys::Hostname (perl 5.40 core) (perl 5.42 core)
 # |      runtime : Sys::Syslog (perl 5.40 core) (perl 5.42 core)
 # |      runtime : URI
 # |      runtime : XML::LibXML
-# |      runtime : CGI
 # |      runtime : GeoIP2
-# |      runtime : HTTP::Request
 # |      runtime : JSON
-# |      runtime : LWP::UserAgent
-# |      runtime : Mail::DKIM::PrivateKey
-# |      runtime : Mail::DKIM::Signer
-# |      runtime : Mail::DKIM::TextWrap
-# |      runtime : Net::HTTP
-# |      runtime : Net::SMTPS
+# |      runtime : Mail::DKIM
+# |      runtime : Net::IMAP::Simple
 # |      runtime : Net::Server::HTTP
-# |    configure : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
+# |        build : Module::Build
 # |    configure : File::ShareDir::Install
+# |    configure : Module::Build
 # |         test : Net::DNS::Resolver::Mock
 # |         test : Test::Exception
 # |         test : Test::File::ShareDir
 # |         test : Test::More (perl 5.40 core) (perl 5.42 core)
 # |         test : Test::Output
-# |         test : XML::SAX::ParserFactory
-# |         test : XML::Validator::Schema
 
 [PERL_540].USES_ON=			perl:540,buildmod,run
 [PERL_540].BUILDRUN_DEPENDS_ON=		perl-Config-Tiny:single:540
@@ -95,23 +80,15 @@ DISTNAME=		Mail-DMARC-${PORTVERSION}
 					perl-Email-Sender:single:540
 					perl-Email-Simple:single:540
 					perl-File-ShareDir:single:540
-					perl-IO-Socket-SSL:single:540
 					perl-Net-DNS:single:540
-					perl-Net-IP:single:540
-					perl-Net-SSLeay:single:540
-					perl-Regexp-Common:single:540
-					perl-Socket6:single:540
 					perl-URI:single:540
 					perl-XML-LibXML:single:540
-					perl-CGI:single:540
-					perl-HTTP-Message:single:540
 					perl-JSON:single:540
-					perl-libwww-perl:single:540
 					perl-Mail-DKIM:single:540
-					perl-Net-HTTP:single:540
-					perl-Net-SMTPS:single:540
+					perl-Net-IMAP-Simple:single:540
 					perl-Net-Server:single:540
-[PERL_540].BUILD_DEPENDS_ON=		perl-File-ShareDir-Install:single:540
+[PERL_540].BUILD_DEPENDS_ON=		perl-Module-Build:single:540
+					perl-File-ShareDir-Install:single:540
 [PERL_542].USES_ON=			perl:542,buildmod,run
 [PERL_542].BUILDRUN_DEPENDS_ON=		perl-Config-Tiny:single:542
 					perl-DBD-SQLite:single:542
@@ -120,21 +97,13 @@ DISTNAME=		Mail-DMARC-${PORTVERSION}
 					perl-Email-Sender:single:542
 					perl-Email-Simple:single:542
 					perl-File-ShareDir:single:542
-					perl-IO-Socket-SSL:single:542
 					perl-Net-DNS:single:542
-					perl-Net-IP:single:542
-					perl-Net-SSLeay:single:542
-					perl-Regexp-Common:single:542
-					perl-Socket6:single:542
 					perl-URI:single:542
 					perl-XML-LibXML:single:542
-					perl-CGI:single:542
-					perl-HTTP-Message:single:542
 					perl-JSON:single:542
-					perl-libwww-perl:single:542
 					perl-Mail-DKIM:single:542
-					perl-Net-HTTP:single:542
-					perl-Net-SMTPS:single:542
+					perl-Net-IMAP-Simple:single:542
 					perl-Net-Server:single:542
-[PERL_542].BUILD_DEPENDS_ON=		perl-File-ShareDir-Install:single:542
+[PERL_542].BUILD_DEPENDS_ON=		perl-Module-Build:single:542
+					perl-File-ShareDir-Install:single:542
 
