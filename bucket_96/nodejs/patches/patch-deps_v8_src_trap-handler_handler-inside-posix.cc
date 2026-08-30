@@ -1,4 +1,4 @@
---- deps/v8/src/trap-handler/handler-inside-posix.cc.orig	2026-08-05 09:31:10 UTC
+--- deps/v8/src/trap-handler/handler-inside-posix.cc.orig	2026-08-25 23:43:39 UTC
 +++ deps/v8/src/trap-handler/handler-inside-posix.cc
 @@ -28,7 +28,7 @@
  
