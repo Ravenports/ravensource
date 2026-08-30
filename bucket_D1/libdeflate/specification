@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.25
+DEF[PORTVERSION]=	1.26
 DEF[RELEASE_TAG]=	v${PORTVERSION}
 # ----------------------------------------------------------------------------
 
@@ -29,9 +29,6 @@ EXRUN[tools]=		libdeflate:primary:std
 
 USES=			cmake
 CMAKE_ARGS=		-DLIBDEFLATE_USE_SHARED_LIB:BOOL=ON
-
-post-patch:
-	${REINPLACE_CMD} -e '/-O2 -DNDEBUG/d' ${WRKSRC}/CMakeLists.txt
 
 post-install:
 	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
