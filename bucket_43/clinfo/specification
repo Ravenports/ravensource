@@ -1,0 +1,32 @@
+DEF[PORTVERSION]=	3.0.25.02.14
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		clinfo
+VERSION=		${PORTVERSION}
+KEYWORDS=		devel
+VARIANTS=		std
+SDESC[std]=		Print information about available OpenCL devices
+HOMEPAGE=		https://github.com/Oblomov/clinfo/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/Oblomov:clinfo:${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[std]=		set primary man
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# Licensed under CC0, but the actual license document is missing from the repo
+
+FPC_EQUIVALENT=		devel/clinfo
+
+BUILD_DEPENDS=		opencl-headers:single:std
+			ocl-icd:dev:std
+BUILDRUN_DEPENDS=	ocl-icd:primary:std
+
+USES=			gmake
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/clinfo
