@@ -1,6 +1,8 @@
-DEF[PORTVERSION]=	1.26.24
+DEF[PORTVERSION]=	1.26.29
 DEF[TAG]=		VeraCrypt_${PORTVERSION:S/p/./}
 DEF[WXCONFIG]=		/bin/wx-config
+# work around gawk/nawk issue with 1.26.29
+DEF[SDE]=		1780963200
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		veracrypt
@@ -51,6 +53,7 @@ CONFIGURE_ARGS=		--wxWidgets-build=0
 			--wxWidgets-unicode=1
 CONFIGURE_ENV=		WX_CONFIG="{{LOCALBASE}}${WXCONFIG}"
 MAKE_ENV=		WX_CONFIG="{{LOCALBASE}}${WXCONFIG}"
+			SOURCE_DATE_EPOCH=${SDE}
 SUB_FILES=		messages-primary-freebsd.ucl
 
 # std::byte clashes with src/Common/Tcdefs.h typedef
