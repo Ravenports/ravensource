@@ -1,0 +1,44 @@
+DEF[PORTVERSION]=	1.7.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		clblast
+VERSION=		${PORTVERSION}
+KEYWORDS=		math
+VARIANTS=		std
+SDESC[std]=		Light, performant and tunable OpenCL BLAS library
+HOMEPAGE=		https://github.com/CNugteren/CLBlast
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/CNugteren:CLBlast:${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[std]=		set primary tools dev docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		APACHE20:primary
+LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/cupp11.hpp
+LICENSE_AWK=		TERMS:"IWYU"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		math/clblast
+
+BUILD_DEPENDS=		opencl-headers:single:std
+			ocl-icd:dev:std
+BUILDRUN_DEPENDS=	ocl-icd:primary:std
+
+USES=			c++:primary cmake
+
+SOVERSION=		${PORTVERSION}
+
+EXRUN[tools]=		primary
+
+post-install:
+	${MKDIR} -p ${STAGEDIR}${STD_DOCDIR}
+	${INSTALL_DATA} ${WRKSRC}/doc/*.md ${STAGEDIR}${STD_DOCDIR}/
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libclblast.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/clblast_tuner*
