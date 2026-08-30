@@ -1,4 +1,4 @@
---- cargo-crates/polling-2.2.0/src/kqueue.rs.orig	2026-04-05 23:16:50 UTC
+--- cargo-crates/polling-2.2.0/src/kqueue.rs.orig	1973-11-29 21:33:09 UTC
 +++ cargo-crates/polling-2.2.0/src/kqueue.rs
 @@ -85,6 +85,7 @@ impl Poller {
                  fflags: 0,
