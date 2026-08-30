@@ -1,6 +1,6 @@
---- lib/plat/unix/unix-spawn.c.orig	2026-03-17 16:35:25 UTC
+--- lib/plat/unix/unix-spawn.c.orig	2026-07-26 14:15:43 UTC
 +++ lib/plat/unix/unix-spawn.c
-@@ -603,7 +603,7 @@ lws_spawn_piped(const struct lws_spawn_p
+@@ -663,7 +663,7 @@ lws_spawn_piped(const struct lws_spawn_p
  	if (lsp->info.disable_ctrlc)
  		/* stops non-daemonized main processess getting SIGINT
  		 * from TTY */

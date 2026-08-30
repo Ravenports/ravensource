@@ -1,6 +1,6 @@
---- include/libwebsockets.h.orig	2026-03-17 16:35:25 UTC
+--- include/libwebsockets.h.orig	2026-07-26 14:15:43 UTC
 +++ include/libwebsockets.h
-@@ -167,7 +167,7 @@ typedef int suseconds_t;
+@@ -218,7 +218,7 @@ typedef pthread_mutex_t lws_mutex_t;
  #include <sys/capability.h>
  #endif
  
@@ -9,7 +9,7 @@
  #include <sys/socket.h>
  #include <netinet/in.h>
  #endif
-@@ -200,7 +200,7 @@ typedef int suseconds_t;
+@@ -251,7 +251,7 @@ typedef pthread_mutex_t lws_mutex_t;
  #endif
  #endif
  
