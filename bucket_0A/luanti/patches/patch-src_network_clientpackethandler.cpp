@@ -1,6 +1,6 @@
---- src/network/clientpackethandler.cpp.orig	2026-05-10 10:10:58 UTC
+--- src/network/clientpackethandler.cpp.orig	2026-08-20 17:08:34 UTC
 +++ src/network/clientpackethandler.cpp
-@@ -1372,7 +1372,7 @@ void Client::handleCommand_HudSetSky(Net
+@@ -1374,7 +1374,7 @@ void Client::handleCommand_HudSetSky(Net
  		skybox.clouds = readU8(is) != 0;
  
  		// Use default skybox settings:
@@ -9,7 +9,7 @@
  		MoonParams moon = SkyboxDefaults::getMoonDefaults();
  		StarParams stars = SkyboxDefaults::getStarDefaults();
  
-@@ -1383,8 +1383,8 @@ void Client::handleCommand_HudSetSky(Net
+@@ -1385,8 +1385,8 @@ void Client::handleCommand_HudSetSky(Net
  			skybox.fog_moon_tint = video::SColor(255, 255, 255, 255);
  			skybox.fog_sun_tint = video::SColor(255, 255, 255, 255);
  		} else {
@@ -20,7 +20,7 @@
  			moon.visible = false;
  			stars.visible = false;
  		}
-@@ -1397,7 +1397,7 @@ void Client::handleCommand_HudSetSky(Net
+@@ -1399,7 +1399,7 @@ void Client::handleCommand_HudSetSky(Net
  
  		ClientEvent *sun_event = new ClientEvent();
  		sun_event->type = CE_SET_SUN;
@@ -29,7 +29,7 @@
  		m_client_event_queue.push(sun_event);
  
  		ClientEvent *moon_event = new ClientEvent();
-@@ -1461,14 +1461,14 @@ void Client::handleCommand_HudSetSky(Net
+@@ -1463,14 +1463,14 @@ void Client::handleCommand_HudSetSky(Net
  
  void Client::handleCommand_HudSetSun(NetworkPacket *pkt)
  {

@@ -1,4 +1,4 @@
---- src/skyparams.h.orig	2026-05-10 10:10:58 UTC
+--- src/skyparams.h.orig	2026-08-20 17:08:34 UTC
 +++ src/skyparams.h
 @@ -116,14 +116,14 @@ public:
  

@@ -1,4 +1,4 @@
---- src/porting.cpp.orig	2026-05-10 10:10:58 UTC
+--- src/porting.cpp.orig	2026-08-20 17:08:34 UTC
 +++ src/porting.cpp
 @@ -14,6 +14,9 @@
  	#include <sys/types.h>
