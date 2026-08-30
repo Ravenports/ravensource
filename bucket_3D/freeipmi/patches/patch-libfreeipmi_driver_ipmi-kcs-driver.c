@@ -1,4 +1,4 @@
---- libfreeipmi/driver/ipmi-kcs-driver.c.orig	2024-01-27 21:42:53 UTC
+--- libfreeipmi/driver/ipmi-kcs-driver.c.orig	2026-08-12 22:14:51 UTC
 +++ libfreeipmi/driver/ipmi-kcs-driver.c
 @@ -145,7 +145,7 @@
  

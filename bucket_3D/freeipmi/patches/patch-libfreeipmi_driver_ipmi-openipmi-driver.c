@@ -1,4 +1,4 @@
---- libfreeipmi/driver/ipmi-openipmi-driver.c.orig	2026-01-06 18:56:34 UTC
+--- libfreeipmi/driver/ipmi-openipmi-driver.c.orig	2026-08-12 22:14:51 UTC
 +++ libfreeipmi/driver/ipmi-openipmi-driver.c
 @@ -128,7 +128,7 @@ struct ipmi_recv
  #define IPMI_IOC_MAGIC             'i'

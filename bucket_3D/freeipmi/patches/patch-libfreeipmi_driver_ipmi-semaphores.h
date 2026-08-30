@@ -1,4 +1,4 @@
---- libfreeipmi/driver/ipmi-semaphores.h.orig	2023-06-05 22:58:26 UTC
+--- libfreeipmi/driver/ipmi-semaphores.h.orig	2026-08-12 22:14:51 UTC
 +++ libfreeipmi/driver/ipmi-semaphores.h
 @@ -30,7 +30,7 @@
  #include <sys/ipc.h>
