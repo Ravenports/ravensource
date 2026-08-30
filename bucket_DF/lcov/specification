@@ -44,9 +44,5 @@ SHEBANG_FILES=		bin/xml2lcovutil.py
 			bin/lcov
 			bin/perl2lcov
 
-post-patch:
-	# ${REINPLACE_CMD} 's|/bin/env perl|${PERL_CMD}|' \
-		${WRKSRC}/tests/gendiffcov/simple/annotate.sh
-
 do-install:
 	( cd ${WRKSRC} && gmake DESTDIR="${STAGEDIR}" PREFIX="${PREFIX}" install )
