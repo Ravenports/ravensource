@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	1.6.5
+DEF[SOVERSION]=		1.0.0
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		pdfio
+VERSION=		${PORTVERSION}
+KEYWORDS=		print graphics textproc
+VARIANTS=		std
+SDESC[std]=		C library for reading and writing PDF files
+HOMEPAGE=		https://www.msweet.org/pdfio/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://github.com/michaelrsweet/pdfio/releases/download/v${PORTVERSION}/
+DISTFILE[1]=		pdfio-${PORTVERSION}.tar.gz:main
+
+SPKGS[std]=		set primary dev man docs examples
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# FPC_EQUIVALENT
+
+LICENSE=		APACHE20:primary
+LICENSE_TERMS=		primary:{{WRKSRC}}/NOTICE
+LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+USES=			png zlib
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--disable-static
+			--enable-shared
+SOVERSION=		${SOVERSION}
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libpdfio.so
