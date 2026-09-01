@@ -1,0 +1,45 @@
+DEF[PORTVERSION]=	1.4.361
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		vulkan-tools
+VERSION=		${PORTVERSION}
+KEYWORDS=		graphics
+VARIANTS=		std
+SDESC[std]=		Tools and demos for the Vulkan graphics API
+HOMEPAGE=		https://github.com/KhronosGroup/Vulkan-Tools/
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/KhronosGroup:Vulkan-Tools:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[std]=		single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		APACHE20:single
+LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE.txt
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/vulkaninfo/vulkaninfo.h
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		graphics/vulkan-tools
+
+BUILD_DEPENDS=		evdev-proto:single:std
+			vulkan-headers:single:std
+			wayland:dev:std
+			wayland:tools:std
+			wayland-protocols:single:std
+BUILDRUN_DEPENDS=	wayland:primary:std
+RUN_DEPENDS=		vulkan-loader:primary:std
+
+USES=			bsd:epoll c++:single cmake pkgconfig
+XORG_COMPONENTS=	x11 xcb xrandr
+
+CMAKE_ARGS=		-DBUILD_ICD=OFF
+			-DCMAKE_BUILD_TYPE=Release
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
