@@ -4,6 +4,7 @@ DEF[SOVERSION]=		1.0
 
 NAMEBASE=		lmdb
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		databases
 VARIANTS=		std
 SDESC[std]=		Lightning Memory-Mapped Database
@@ -39,4 +40,4 @@ VAR_OPSYS[sunos]=	CFLAGS=-DMDB_FDATASYNC=fsync
 VAR_OPSYS[linux]=	MAKE_ARGS=LDL=-ldl
 
 post-install:
-	${LN} -sf liblmdb.so.0 ${STAGEDIR}${PREFIX}/lib/liblmdb.so
+	${LN} -sf liblmdb.so.1 ${STAGEDIR}${PREFIX}/lib/liblmdb.so
