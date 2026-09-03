@@ -1,0 +1,38 @@
+DEF[PORTVERSION]=	0.0.16
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-nab-markersets
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v13 v14
+SDESC[v13]=		PEP 508 marker algebra (3.13)
+SDESC[v14]=		PEP 508 marker algebra (3.14)
+HOMEPAGE=		https://github.com/notatallshaw/nab
+CONTACT=		Python_Automaton[python@ravenports.com]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/e1/36/c095d5fef21fd6075cf15ee1d78e98840d2d11061c5ec1b5bfc1ee2a8644
+DISTFILE[1]=		nab_markersets-${PORTVERSION}-py3-none-any.whl:main
+DIST_SUBDIR=		python-src
+
+SPKGS[v13]=		single
+SPKGS[v14]=		single
+
+OPTIONS_AVAILABLE=	PY313 PY314
+OPTIONS_STANDARD=	none
+VOPTS[v13]=		PY313=ON PY314=OFF
+VOPTS[v14]=		PY313=OFF PY314=ON
+
+# License listed at PyPI
+# Not provided.
+
+GENERATED=		yes
+DISTNAME=		nab_markersets-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# nab-provider==0.0.16; extra == 'nab-vendored-packaging'
+# packaging>=26.3; extra == 'packaging'
+
+[PY313].USES_ON=			python:v13,wheel
+[PY314].USES_ON=			python:v14,wheel
+
