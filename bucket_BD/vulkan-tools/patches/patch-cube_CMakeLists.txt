@@ -1,0 +1,47 @@
+--- cube/CMakeLists.txt.orig	2026-08-28 03:05:46 UTC
++++ cube/CMakeLists.txt
+@@ -75,7 +75,7 @@ endif()
+ 
+ option(BUILD_WSI_DISPLAY_SUPPORT "Build DISPLAY WSI support" ${WSI_DISPLAY_DEFAULT_SETTING})
+ 
+-if (CMAKE_SYSTEM_NAME MATCHES "Linux|BSD|GNU")
++if (CMAKE_SYSTEM_NAME MATCHES "Linux|BSD|GNU|Dragon")
+     option(BUILD_WSI_XCB_SUPPORT "Build XCB WSI support" ON)
+     option(BUILD_WSI_XLIB_SUPPORT "Build Xlib WSI support" ON)
+     option(BUILD_WSI_WAYLAND_SUPPORT "Build Wayland WSI support" ON)
+@@ -179,7 +179,7 @@ elseif(ANDROID)
+     list(APPEND ENABLED_CUBE_PLATFORMS VK_USE_PLATFORM_ANDROID_KHR)
+ elseif(APPLE)
+     list(APPEND ENABLED_CUBE_PLATFORMS VK_USE_PLATFORM_METAL_EXT)
+-elseif(CMAKE_SYSTEM_NAME MATCHES "Linux|BSD|GNU")
++elseif(CMAKE_SYSTEM_NAME MATCHES "Linux|BSD|GNU|Dragon")
+     if(BUILD_WSI_XCB_SUPPORT)
+         list(APPEND ENABLED_CUBE_PLATFORMS VK_USE_PLATFORM_XCB_KHR)
+     endif()
+@@ -230,7 +230,7 @@ endif()
+ # a missing dependency on libpthread. While newer Ubuntu versions use a glibc version where libpthread
+ # is integrated into libc, older ubuntu's do not so we need to link threads directly in order for
+ # validation layers to be loadable.
+-if (CMAKE_SYSTEM_NAME MATCHES "Linux|BSD|GNU")
++if (CMAKE_SYSTEM_NAME MATCHES "Linux|BSD|GNU|Dragon")
+     find_package(Threads REQUIRED)
+ endif()
+ 
+@@ -246,7 +246,7 @@ elseif (ANDROID)
+ 
+     add_subdirectory(android)
+ 
+-elseif(CMAKE_SYSTEM_NAME MATCHES "Linux|BSD|GNU")
++elseif(CMAKE_SYSTEM_NAME MATCHES "Linux|BSD|GNU|Dragon")
+     add_executable(vkcube)
+     target_sources(vkcube PRIVATE
+         cube.c
+@@ -318,7 +318,7 @@ endif()
+ 
+ if(APPLE)
+     add_subdirectory(macOS/cubepp)
+-elseif(CMAKE_SYSTEM_NAME MATCHES "Linux|BSD|GNU")
++elseif(CMAKE_SYSTEM_NAME MATCHES "Linux|BSD|GNU|Dragon")
+     add_executable(vkcubepp
+                    cube.cpp
+                    ${PROJECT_SOURCE_DIR}/cube/cube.vert
