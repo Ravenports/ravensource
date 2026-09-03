@@ -1,11 +1,10 @@
-DEF[PORTVERSION]=	3.100
+DEF[PORTVERSION]=	4.0
 DEF[SOVERSION]=		0.0.0
 DEF[DOC_FILES]=		API README TODO USAGE
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		lame
 VERSION=		${PORTVERSION}
-REVISION=		2
 KEYWORDS=		audio
 VARIANTS=		std
 SDESC[std]=		Fast MP3 encoder kit
@@ -13,7 +12,7 @@ HOMEPAGE=		http://lame.sourceforge.net
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		SF/lame/lame/3.100
+SITES[main]=		SF/lame/lame/4.0
 DISTFILE[1]=		lame-${PORTVERSION}.tar.gz:main
 
 SPKGS[std]=		set primary dev man docs
@@ -30,21 +29,18 @@ FPC_EQUIVALENT=		audio/lame
 
 BUILD_DEPENDS=		nasm:primary:std
 
-USES=			cpe gmake iconv libtool mbsdfix
+USES=			cpe gmake iconv libtool pkgconfig
 CPE_VENDOR=		lame_project
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-nasm
 			--enable-mp3rtp
 			--disable-gtktest
+			--disable-decoder
+CFLAGS=			-Wno-incompatible-pointer-types
 SOVERSION=		${SOVERSION}
 
-pre-configure:
-	${REINPLACE_CMD} -e 's,test -d \.libs || mkdir,mkdir -p,' \
-		${WRKSRC}/libmp3lame/i386/Makefile.in
-	${REINPLACE_CMD} -e '/lame_init_old/d' ${WRKSRC}/include/libmp3lame.sym
-
 post-install:
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libmp3lame.so.${SOVERSION}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libmp3lame.so
 	${MKDIR} ${STAGEDIR}${PREFIX}/share/doc/lame
 .for file in ${DOC_FILES}
 	${INSTALL_DATA} ${WRKSRC}/${file} ${STAGEDIR}${PREFIX}/share/doc/lame
