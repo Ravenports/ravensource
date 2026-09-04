@@ -1,6 +1,6 @@
---- src/tools/process_stub/main.cpp.orig	2026-05-11 09:32:22 UTC
+--- src/tools/process_stub/main.cpp.orig	2026-07-28 01:35:35 UTC
 +++ src/tools/process_stub/main.cpp
-@@ -28,6 +28,11 @@
+@@ -29,6 +29,11 @@
  #include <sys/prctl.h>
  #endif
  
@@ -12,7 +12,7 @@
  #include <iostream>
  
  Q_LOGGING_CATEGORY(log, "qtc.process_stub", QtWarningMsg);
-@@ -259,6 +264,9 @@ void onInferiorStarted()
+@@ -262,6 +267,9 @@ void onInferiorStarted()
      // In debug mode we use the poll timer to send the pid.
      if (!debugMode)
          sendPid(inferiorId);
@@ -22,7 +22,7 @@
  #elif defined(Q_OS_LINUX)
      if (debugMode) {
          qCInfo(log) << "Waiting for SIGTRAP from inferiors execve ...";
-@@ -293,6 +301,11 @@ void setupUnixInferior()
+@@ -296,6 +304,11 @@ void setupUnixInferior()
              // Suspend ourselves ...
              raise(SIGSTOP);
          });
