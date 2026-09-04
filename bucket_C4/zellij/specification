@@ -1161,7 +1161,8 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		sysutils/zellij
 
-USES=			cargo gmake perl:build ssl
+ONLY_FOR_OPSYS=         freebsd linux
+USES=			cargo gmake perl:build ssl zlib
 
 post-build:
 	${WRKDIR}/target/release/zellij setup --generate-completion bash > ${WRKDIR}/zellij.bash
