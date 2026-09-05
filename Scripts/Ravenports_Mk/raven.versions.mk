@@ -29,6 +29,7 @@ PERL5_DEFAULT?=		5.40
 
 PERL_5.40_VERSION=	5.40.3
 PERL_5.42_VERSION=	5.42.2
+PERL_5.44_VERSION=	5.44.0
 
 #-------------------------------------------------------------------------
 # RUBY
@@ -115,7 +116,7 @@ MYSQL_DEFAULT=			oracle-8.0
 MYSQL_oracle-8.0_VERSION=	8.0.46
 MYSQL_oracle-8.4_VERSION=	8.4.11
 MYSQL_oracle-9.7_VERSION=	9.7.2
-MYSQL_innovation_VERSION=	9.7.2
+MYSQL_innovation_VERSION=	26.7.0
 MYSQL_mariadb-10.6_VERSION=	10.6.28
 MYSQL_mariadb-10.11_VERSION=	10.11.19
 MYSQL_mariadb-11.4_VERSION=	11.4.13
