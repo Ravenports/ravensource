@@ -1,9 +1,9 @@
-DEF[PORTVERSION]=	0.33.2
+DEF[PORTVERSION]=	0.33.3
 DEF[GGML]=		0.22.0
 DEF[LLAMA]=		0.3.0
 #
-# This port is CPU-only for now. The next step will be to add vulkan support
-# for GPU acceleration.
+# This port just supports CPU-only or OpenCL-accelerated inference for now.
+# The next step will be to add vulkan support for better GPU acceleration.
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ollama
@@ -72,7 +72,7 @@ SITES[md44]=		GITHUB/leodido:go-urn:d725923fe33ce69c89b9e2033d069099b498224f:ven
 SITES[md45]=		GITHUB/lucasb-eyer:go-colorful:v1.2.0:vendor/github.com/lucasb-eyer/go-colorful
 SITES[md46]=		GITHUB/mailru:easyjson:v0.7.7:vendor/github.com/mailru/easyjson
 SITES[md47]=		GITHUB/mattn:go-isatty:a7c02353c47bc4ec6b30dc9628154ae4fe760c11:vendor/github.com/mattn/go-isatty
-SITES[md48]=		GITHUB/mattn:go-localereader:v0.0.1:vendor/github.com/mattn/go-localereader
+SITES[md48]=		GITHUB/mattn:go-localereader:6bae6c923850ab5e0da9f36f69811ffe17064228:vendor/github.com/mattn/go-localereader
 SITES[md49]=		GITHUB/mattn:go-pointer:v0.0.1:vendor/github.com/mattn/go-pointer
 SITES[md50]=		GITHUB/mattn:go-runewidth:6ceadc68530e7bfea8cba17d6523bed32912d4fa:vendor/github.com/mattn/go-runewidth
 SITES[md51]=		GITHUB/mattn:go-sqlite3:846fea6c1443e8cc366fc1966fe078d7f825f6a9:vendor/github.com/mattn/go-sqlite3
@@ -119,9 +119,9 @@ SITES[md91]=		GITHUB/protocolbuffers:protobuf-go:4a76e11653e368b9331815e1eb98e0c
 SITES[md92]=		GITHUB/go-yaml:yaml:v3.0.1:vendor/gopkg.in/yaml.v3
 SITES[md93]=		GITHUB/gorgonia:vecf32:v0.9.0:vendor/gorgonia.org/vecf32
 SITES[md94]=		GITHUB/gorgonia:vecf64:v0.9.0:vendor/gorgonia.org/vecf64
-SITES[md95]=		GITHUB/ggml-org:llama.cpp:b10630
-SITES[md96]=		GITHUB/ml-explore:mlx:c793734eb715dbcfdb1ced58e348ec53c2d7ed85
-SITES[md97]=		GITHUB/ml-explore:mlx-c:fba4470b89073180056c9ea46c443051375f7399
+SITES[md95]=		GITHUB/ggml-org:llama.cpp:b10760
+SITES[md96]=		GITHUB/ml-explore:mlx:37c26e5755da637255d57ea34b4879196a485301
+SITES[md97]=		GITHUB/ml-explore:mlx-c:c74db5307cc8ce122f48d97ef951b30578674e7f
 DISTFILE[1]=		generated:main
 DISTFILE[2]=		generated:md01
 DISTFILE[3]=		generated:md02
@@ -241,10 +241,14 @@ FPC_EQUIVALENT=		misc/ollama
 ONLY_FOR_OPSYS=		linux
 
 BUILD_DEPENDS=		golang:single:std
+			ocl-icd:dev:std
+			opencl-headers:single:std
+BUILDRUN_DEPENDS=	ocl-icd:primary:std
 
-USES=			c++:single cmake cpe
+USES=			c++:single cmake cpe python:build
 CMAKE_ARGS=		-DOLLAMA_LLAMA_BACKENDS=""
-			-DFETCHCONTENT_SOURCE_DIR_LLAMA_CPP=../llama.cpp-b10630
+			-DFETCHCONTENT_SOURCE_DIR_LLAMA_CPP=../llama.cpp-b10760
+			-DGGML_OPENCL=ON
 
 MAKE_ENV=		CGO_CPPFLAGS="{{CPPFLAGS}}"
 			CGO_CFLAGS="{{CFLAGS}}"
@@ -266,7 +270,7 @@ PLIST_SUB=		GGML=${GGML}
 			MTMD_MAJ=${LLAMA:R:R}
 
 post-patch:
-	cd ${WRKDIR}/llama.cpp-b10630 && patch -i ${WRKSRC}/llama/compat/001-llama-cpp-hooks.patch
+	cd ${WRKDIR}/llama.cpp-b10760 && patch -i ${WRKSRC}/llama/compat/001-llama-cpp-hooks.patch
 	${LN} -s ${WRKSRC}/vendor/github.com/apache/arrow/go/arrow+subdir/go/arrow ${WRKSRC}/vendor/github.com/apache/arrow/go/arrow
 	${LN} -s ${WRKSRC}/vendor/github.com/bytedance/sonic/loader+subdir/loader ${WRKSRC}/vendor/github.com/bytedance/sonic/loader
 	${LN} -s ${WRKSRC}/vendor/github.com/charmbracelet/x/ansi+subdir/ansi ${WRKSRC}/vendor/github.com/charmbracelet/x/ansi

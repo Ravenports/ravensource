@@ -2,8 +2,8 @@ DEF[PORTVERSION]=	%%VERSION%%
 DEF[GGML]=		0.22.0
 DEF[LLAMA]=		0.3.0
 #
-# This port is CPU-only for now. The next step will be to add vulkan support
-# for GPU acceleration.
+# This port just supports CPU-only or OpenCL-accelerated inference for now.
+# The next step will be to add vulkan support for better GPU acceleration.
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ollama
@@ -32,9 +32,13 @@ FPC_EQUIVALENT=		misc/ollama
 ONLY_FOR_OPSYS=		linux
 
 BUILD_DEPENDS=		golang:single:std
+			ocl-icd:dev:std
+			opencl-headers:single:std
+BUILDRUN_DEPENDS=	ocl-icd:primary:std
 
-USES=			c++:single cmake cpe
+USES=			c++:single cmake cpe python:build
 CMAKE_ARGS=		-DOLLAMA_LLAMA_BACKENDS=""
+			-DGGML_OPENCL=ON
 
 MAKE_ENV=		CGO_CPPFLAGS="{{CPPFLAGS}}"
 			CGO_CFLAGS="{{CFLAGS}}"
