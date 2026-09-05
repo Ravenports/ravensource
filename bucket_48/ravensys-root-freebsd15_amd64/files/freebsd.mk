@@ -127,9 +127,13 @@ headers_FreeBSD_dirs=\
 	machine \
 	net \
 	net80211 \
+	netgraph \
 	netipsec \
 	netinet \
 	netinet6 \
+	netlink \
+	netpfil \
+	netsmb \
 	nfsclient \
 	rpc \
 	rpcsvc \
