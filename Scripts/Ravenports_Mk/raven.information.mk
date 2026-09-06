@@ -165,7 +165,7 @@ GTK4_PORT_VERSION=		4.22.4
 
 BINUTILS_VERSION=		2.47
 BINUTILS_GOLD_VERSION=		2.46.1
-RPBASE_BINUTILS=		2.43.1
+RPBASE_BINUTILS=		2.46.1
 
 # ------------------------------------------------------------------------
 # aspell
