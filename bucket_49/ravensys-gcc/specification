@@ -5,12 +5,10 @@ DEF[MS_SUBDIR]=		EXTRACT_INFO(GCCBASE_MS_SUBDIR)
 DEF[IDENTIFICATION]=	EXTRACT_INFO(GCCBASE_IDENTIFICATION)
 DEF[GCC_VERSION]=	EXTRACT_INFO(GCCBASE_VERSION)
 DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
-DEF[STDCXX_VERSION]=	6.0.33
+DEF[STDCXX_VERSION]=	6.0.34
 DEF[TOOLCHAIN]=		{{LOCALBASE}}/toolchain
-DEF[DRACO_TAG]=		14.2.0-rev1
-DEF[DRACO_DIR]=		patches-14.2.0
-DEF[DRACO3_TAG]=	14.3.0-base
-DEF[DRACO3_DIR]=	patches-14.3.0
+DEF[DRACO_TAG]=		15.2.0-rev4
+DEF[DRACO_DIR]=		patches-15.2.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		ravensys-gcc
@@ -21,17 +19,16 @@ SDESC[std]=		GNU Compiler collection (GCC), Series ${BRANCH}
 HOMEPAGE=		https://gcc.gnu.org/
 CONTACT=		John_Marino[draco@marino.st]
 
-DOWNLOAD_GROUPS=	main draco draco3
+DOWNLOAD_GROUPS=	main draco
 SITES[main]=		GCC/${MS_SUBDIR}
 SITES[draco]=		https://raw.githubusercontent.com/jrmarino/draco/${DRACO_TAG}/generated/${DRACO_DIR}/
-SITES[draco3]=		https://raw.githubusercontent.com/jrmarino/draco/${DRACO3_TAG}/generated/${DRACO3_DIR}/
 DISTFILE[1]=		${IDENTIFICATION}.tar.xz:main
-DISTFILE[2]=		patch-diff-ada:draco3
+DISTFILE[2]=		patch-diff-ada:draco
 DISTFILE[3]=		patch-diff-core:draco
 DISTFILE[4]=		patch-diff-cxx:draco
 DISTFILE[5]=		patch-diff-ada-testsuite:draco
 DISTFILE[6]=		patch-diff-gcc-testsuite:draco
-DIST_SUBDIR=		ravensys-gcc_mixed
+DIST_SUBDIR=		ravensys-gcc
 
 SPKGS[std]=		set compilers ada_run cxx_run fortran_run libs infopages
 
@@ -47,7 +44,7 @@ LICENSE_FILE=		GPLv3+:{{WRKSRC}}/COPYING3
 LICENSE_TERMS=		compilers:{{WRKDIR}}/TERMS
 LICENSE_SCHEME=		multi
 
-FPC_EQUIVALENT=		lang/gcc14
+FPC_EQUIVALENT=		lang/gcc15
 
 BUILD_DEPENDS=		gmp:dev:std
 			mpfr:dev:std
@@ -177,21 +174,11 @@ post-patch:
 	${REINPLACE_CMD} -e 's|/usr/ccs/bin/elfdump|/usr/bin/elfdump|' \
 		${WRKSRC}/contrib/make_sunver.pl
 
-post-patch-linux:
-	# undo BSD thin socket modification
-	${MV} ${WRKSRC}/gcc/ada/libgnat/g-socthi.ads.orig \
-		${WRKSRC}/gcc/ada/libgnat/g-socthi.ads
-
-post-patch-sunos:
-	# undo BSD thin socket modification
-	${MV} ${WRKSRC}/gcc/ada/libgnat/g-socthi.ads.orig \
-		${WRKSRC}/gcc/ada/libgnat/g-socthi.ads
-
 post-install:
 	cp ${STAGEDIR}${PREFIX}/bin/gcc ${STAGEDIR}${PREFIX}/bin/cc
 	${RM} ${STAGEDIR}${MANPREFIX}/man/man7/*
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/gcc/${CONFIGURE_TARGET}/${GCC_VERSION}/adalib/libgnarl.${LIBEXT}
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/gcc/${CONFIGURE_TARGET}/${GCC_VERSION}/adalib/libgnat.${LIBEXT}
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/gcc/${CONFIGURE_TARGET}/${GCC_VERSION}/adalib/libgnarl.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/gcc/${CONFIGURE_TARGET}/${GCC_VERSION}/adalib/libgnat.so
 	# remove when info pages re-enabled
 	${RM} ${STAGEDIR}${PREFIX}/share/info/libitm.info
 	${RM} ${STAGEDIR}${PREFIX}/share/info/libgomp.info
@@ -199,7 +186,3 @@ post-install:
 
 	# do this for all platforms now
 	${RM} -r ${STAGEDIR}${PREFIX}/lib/gcc/${CONFIGURE_TARGET}/${GCC_VERSION}/include-fixed
-
-post-install-freebsd:
-	# unclear why this is happened on freebsd 14.2.  Remove on next release of ravensys-gcc
-	(cd ${STAGEDIR}${PREFIX}/lib/gcc/${CONFIGURE_TARGET}/${GCC_VERSION} && ${CP} -a crtbegin.o crtbeginT.o)
