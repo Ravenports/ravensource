@@ -2,10 +2,13 @@ DEF[PORTVERSION]=	1.15.3
 DEF[SOVERSION]=		123
 DEF[LIBS]=		ActiveRecord Crypto Data DataMySQL DataODBC DataPostgreSQL DataSQLite Encodings Foundation JSON JWT MongoDB Net NetSSL Prometheus Redis Util XML Zip
 DEF[UTILS]=		cpspc f2cpsp poco-arc
+DEF[PG_DEFAULT]=	EXTRACT_VERSION(PGSQL_DEFAULT)
+DEF[MY_DEFAULT]=	84
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		poco
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel net
 VARIANTS=		std
 SDESC[std]=		C++ libraries with a network / internet focus
@@ -30,10 +33,10 @@ FPC_EQUIVALENT=		devel/poco
 
 DISTNAME=		poco-${PORTVERSION}-all
 
-BUILD_DEPENDS=		mysql80:dev:std
-			mysql80:client:std
-			postgresql16:dev:std
-			postgresql16:client:std
+BUILD_DEPENDS=		mysql${MY_DEFAULT}:dev:std
+			mysql${MY_DEFAULT}:client:std
+			postgresql${PG_DEFAULT}:dev:std
+			postgresql${PG_DEFAULT}:client:std
 			unixODBC:dev:std
 			unixODBC:primary:std
 			utf8proc:dev:std
@@ -41,11 +44,11 @@ BUILDRUN_DEPENDS=	utf8proc:primary:std
 
 # We don't have MongoDB, yet, so don't handle this spkg for now
 EXRUN[mysql]=		primary
-			mysql80:client:std
+			mysql${MY_DEFAULT}:client:std
 EXRUN[odbc]=		primary
 			unixODBC:primary:std
 EXRUN[pgsql]=		primary
-			postgresql16:client:std
+			postgresql${PG_DEFAULT}:client:std
 EXRUN[redis]=		primary
 			redis:single:std
 
