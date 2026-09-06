@@ -300,6 +300,8 @@ post-install:
 		${STAGEDIR}${PREFIX}/lib/rustlib/*/bin/ll* \
 		${STAGEDIR}${PREFIX}/lib/rustlib/*/bin/opt \
 		${STAGEDIR}${PREFIX}/lib/rustlib/*/bin/rust-objcopy \
-		${STAGEDIR}${PREFIX}/lib/rustlib/*/bin/rust-lld \
 		${STAGEDIR}${PREFIX}/lib/rustlib/*/bin/self-contained/llvm-bitcode-linker \
 		${STAGEDIR}${PREFIX}/lib/rustlib/*/lib/*.so
+
+post-install-SUNOS-OFF:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/rustlib/*/bin/rust-lld
