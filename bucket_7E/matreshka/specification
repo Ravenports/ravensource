@@ -6,7 +6,7 @@ DEF[GPRFLAGS]=		--no-manifest
 
 NAMEBASE=		matreshka
 VERSION=		${PORTVERSION}
-REVISION=		2
+REVISION=		3
 KEYWORDS=		devel
 VARIANTS=		std
 SDESC[std]=		Ada framework for information systems development
@@ -21,7 +21,7 @@ SPKGS[std]=		single
 
 OPTIONS_AVAILABLE=	SQLITE PGSQL MYSQL AMF
 OPTIONS_STANDARD=	SQLITE PGSQL MYSQL AMF
-OPT_ON[all]=		SQLITE PGSQL MYSQL AMF
+OPT_ON[all]=		SQLITE PGSQL AMF
 
 USES=			gmake pkgconfig gprbuild ada:single
 MUST_CONFIGURE=		yes
@@ -43,6 +43,8 @@ DISTNAME=		matreshka-${PORTVERSION}/matreshka
 [PGSQL].CONFIGURE_ENABLE_BOTH=		postgresql
 [MYSQL].CONFIGURE_ENABLE_BOTH=		mysql
 [AMF].CONFIGURE_ENABLE_BOTH=		amf
+
+[MYSQL].BROKEN_ON=			Requires MySQL 8.0 which is EOL
 
 pre-configure:
 	# Remove obnoxious library naming based on ravensys-gcc
