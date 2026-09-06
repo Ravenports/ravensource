@@ -99,10 +99,9 @@ PGSQL_18_VERSION=	18.6	# EOL 14 NOV 2030
 
 #-------------------------------------------------------------------------
 # MYSQL and derivatives
-# Possible values: oracle-(8.4,9.7),innovation,mariadb(,-10.11, -11.[48])
+# Possible values: oracle-(8.4,9.7),innovation,mariadb(,-10.11, -11.[48], 12.3)
 #
 # MariaDB releases:
-#   MariaDB 10.6   EOL 06 JUL 2026 (STABLE-LTS)
 #   MariaDB 10.11  EOL 16 Feb 2028 (STABLE-LTS)
 #   MariaDB 11.4   EOL 29 May 2029 (STABLE-LTS)
 #   MariaDB 11.8   EOL 04 JUN 2028 (STABLE-LTS)
@@ -117,7 +116,6 @@ MYSQL_oracle-8.0_VERSION=	8.0.46
 MYSQL_oracle-8.4_VERSION=	8.4.11
 MYSQL_oracle-9.7_VERSION=	9.7.2
 MYSQL_innovation_VERSION=	26.7.0
-MYSQL_mariadb-10.6_VERSION=	10.6.28
 MYSQL_mariadb-10.11_VERSION=	10.11.19
 MYSQL_mariadb-11.4_VERSION=	11.4.13
 MYSQL_mariadb-11.8_VERSION=	11.8.9
