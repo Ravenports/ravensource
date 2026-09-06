@@ -78,6 +78,12 @@ pre-configure:
 	${MV} ${WRKSRC}/python3/gnatcoll_python.gpr \
 		${WRKSRC}/python3/gnatcoll_python3.gpr
 
+pre-configure-sunos:
+	# The execstack is gnu-linker only.
+	# Solaris linker defaults to executable, so it's not needed here
+	${REINPLACE_CMD} -s 's/-Wl,-z,execstack//' \
+		${WRKSRC}/readline/gnatcoll_readline.gpr
+
 do-build:
 .for component in ${COMPONENTS}
 .  for libtype in ${LIBTYPES}
