@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.304
 NAMEBASE=		perl-HTTP-Proxy
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		540 542
-SDESC[540]=		Pure Perl HTTP proxy (5.40)
+VARIANTS=		542 544
 SDESC[542]=		Pure Perl HTTP proxy (5.42)
+SDESC[544]=		Pure Perl HTTP proxy (5.44)
 HOMEPAGE=		https://github.com/book/HTTP-Proxy
 CONTACT=		Perl_Automaton[perl@ravenports.com]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:B/BO/BOOK
 DISTFILE[1]=		HTTP-Proxy-${PORTVERSION}.tar.gz:main
 
-SPKGS[540]=		single
 SPKGS[542]=		single
+SPKGS[544]=		single
 
-OPTIONS_AVAILABLE=	PERL_540 PERL_542
+OPTIONS_AVAILABLE=	PERL_542 PERL_544
 OPTIONS_STANDARD=	none
-VOPTS[540]=		PERL_540=ON PERL_542=OFF
-VOPTS[542]=		PERL_540=OFF PERL_542=ON
+VOPTS[542]=		PERL_542=ON PERL_544=OFF
+VOPTS[544]=		PERL_542=OFF PERL_544=ON
 
 # License listed in CPAN directory:
 # perl_5
@@ -32,48 +32,48 @@ DISTNAME=		HTTP-Proxy-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |      runtime : Carp (perl 5.40 core) (perl 5.42 core)
-# |      runtime : Exporter (perl 5.40 core) (perl 5.42 core)
-# |      runtime : Fcntl (perl 5.40 core) (perl 5.42 core)
-# |      runtime : File::Path (perl 5.40 core) (perl 5.42 core)
-# |      runtime : File::Spec (perl 5.40 core) (perl 5.42 core)
-# |      runtime : File::Temp (perl 5.40 core) (perl 5.42 core)
+# |      runtime : Carp (perl 5.42 core) (perl 5.44 core)
+# |      runtime : Exporter (perl 5.42 core) (perl 5.44 core)
+# |      runtime : Fcntl (perl 5.42 core) (perl 5.44 core)
+# |      runtime : File::Path (perl 5.42 core) (perl 5.44 core)
+# |      runtime : File::Spec (perl 5.42 core) (perl 5.44 core)
+# |      runtime : File::Temp (perl 5.42 core) (perl 5.44 core)
 # |      runtime : HTTP::Daemon
 # |      runtime : HTTP::Date
 # |      runtime : HTTP::Headers::Util
-# |      runtime : IO::Handle (perl 5.40 core) (perl 5.42 core)
-# |      runtime : IO::Select (perl 5.40 core) (perl 5.42 core)
+# |      runtime : IO::Handle (perl 5.42 core) (perl 5.44 core)
+# |      runtime : IO::Select (perl 5.42 core) (perl 5.44 core)
 # |      runtime : LWP::ConnCache
 # |      runtime : LWP::UserAgent
-# |      runtime : POSIX (perl 5.40 core) (perl 5.42 core)
-# |      runtime : Socket (perl 5.40 core) (perl 5.42 core)
-# |      runtime : Sys::Hostname (perl 5.40 core) (perl 5.42 core)
-# |      runtime : constant (perl 5.40 core) (perl 5.42 core)
-# |      runtime : strict (perl 5.40 core) (perl 5.42 core)
-# |      runtime : vars (perl 5.40 core) (perl 5.42 core)
-# |    configure : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
-# |         test : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
-# |         test : File::Find (perl 5.40 core) (perl 5.42 core)
-# |         test : File::Spec (perl 5.40 core) (perl 5.42 core)
-# |         test : File::Spec::Functions (perl 5.40 core) (perl 5.42 core)
+# |      runtime : POSIX (perl 5.42 core) (perl 5.44 core)
+# |      runtime : Socket (perl 5.42 core) (perl 5.44 core)
+# |      runtime : Sys::Hostname (perl 5.42 core) (perl 5.44 core)
+# |      runtime : constant (perl 5.42 core) (perl 5.44 core)
+# |      runtime : strict (perl 5.42 core) (perl 5.44 core)
+# |      runtime : vars (perl 5.42 core) (perl 5.44 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.42 core) (perl 5.44 core)
+# |         test : ExtUtils::MakeMaker (perl 5.42 core) (perl 5.44 core)
+# |         test : File::Find (perl 5.42 core) (perl 5.44 core)
+# |         test : File::Spec (perl 5.42 core) (perl 5.44 core)
+# |         test : File::Spec::Functions (perl 5.42 core) (perl 5.44 core)
 # |         test : HTML::Parser
 # |         test : HTTP::Headers
 # |         test : HTTP::Request
 # |         test : HTTP::Request::Common
-# |         test : IO::Socket::INET (perl 5.40 core) (perl 5.42 core)
-# |         test : Test::More (perl 5.40 core) (perl 5.42 core)
-# |         test : base (perl 5.40 core) (perl 5.42 core)
-# |         test : warnings (perl 5.40 core) (perl 5.42 core)
-# |         test : CPAN::Meta (perl 5.40 core) (perl 5.42 core)
+# |         test : IO::Socket::INET (perl 5.42 core) (perl 5.44 core)
+# |         test : Test::More (perl 5.42 core) (perl 5.44 core)
+# |         test : base (perl 5.42 core) (perl 5.44 core)
+# |         test : warnings (perl 5.42 core) (perl 5.44 core)
+# |         test : CPAN::Meta (perl 5.42 core) (perl 5.44 core)
 
-[PERL_540].USES_ON=			perl:540,configure
-[PERL_540].BUILDRUN_DEPENDS_ON=		perl-HTTP-Daemon:single:540
-					perl-HTTP-Date:single:540
-					perl-HTTP-Message:single:540
-					perl-libwww-perl:single:540
 [PERL_542].USES_ON=			perl:542,configure
 [PERL_542].BUILDRUN_DEPENDS_ON=		perl-HTTP-Daemon:single:542
 					perl-HTTP-Date:single:542
 					perl-HTTP-Message:single:542
 					perl-libwww-perl:single:542
+[PERL_544].USES_ON=			perl:544,configure
+[PERL_544].BUILDRUN_DEPENDS_ON=		perl-HTTP-Daemon:single:544
+					perl-HTTP-Date:single:544
+					perl-HTTP-Message:single:544
+					perl-libwww-perl:single:544
 

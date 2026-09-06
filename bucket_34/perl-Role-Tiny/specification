@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	2.002005
 NAMEBASE=		perl-Role-Tiny
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		540 542
-SDESC[540]=		Roles: small slice of Moose (5.40)
+VARIANTS=		542 544
 SDESC[542]=		Roles: small slice of Moose (5.42)
+SDESC[544]=		Roles: small slice of Moose (5.44)
 HOMEPAGE=		https://github.com/moose/Role-Tiny
 CONTACT=		Perl_Automaton[perl@ravenports.com]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:H/HA/HAARG
 DISTFILE[1]=		Role-Tiny-${PORTVERSION}.tar.gz:main
 
-SPKGS[540]=		single
 SPKGS[542]=		single
+SPKGS[544]=		single
 
-OPTIONS_AVAILABLE=	PERL_540 PERL_542
+OPTIONS_AVAILABLE=	PERL_542 PERL_544
 OPTIONS_STANDARD=	none
-VOPTS[540]=		PERL_540=ON PERL_542=OFF
-VOPTS[542]=		PERL_540=OFF PERL_542=ON
+VOPTS[542]=		PERL_542=ON PERL_544=OFF
+VOPTS[544]=		PERL_542=OFF PERL_544=ON
 
 # License listed in CPAN directory:
 # perl_5
@@ -32,12 +32,12 @@ DISTNAME=		Role-Tiny-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |      runtime : Exporter (perl 5.40 core) (perl 5.42 core)
+# |      runtime : Exporter (perl 5.42 core) (perl 5.44 core)
 # |      runtime : Class::Method::Modifiers
-# |         test : Test::More (perl 5.40 core) (perl 5.42 core)
+# |         test : Test::More (perl 5.42 core) (perl 5.44 core)
 
-[PERL_540].USES_ON=			perl:540,configure
-[PERL_540].BUILDRUN_DEPENDS_ON=		perl-Class-Method-Modifiers:single:540
 [PERL_542].USES_ON=			perl:542,configure
 [PERL_542].BUILDRUN_DEPENDS_ON=		perl-Class-Method-Modifiers:single:542
+[PERL_544].USES_ON=			perl:544,configure
+[PERL_544].BUILDRUN_DEPENDS_ON=		perl-Class-Method-Modifiers:single:544
 

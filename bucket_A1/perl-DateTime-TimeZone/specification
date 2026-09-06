@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	2.69
 NAMEBASE=		perl-DateTime-TimeZone
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		540 542
-SDESC[540]=		Time zone object base class and factory (5.40)
+VARIANTS=		542 544
 SDESC[542]=		Time zone object base class and factory (5.42)
+SDESC[544]=		Time zone object base class and factory (5.44)
 HOMEPAGE=		https://github.com/houseabsolute/DateTime-TimeZone
 CONTACT=		Perl_Automaton[perl@ravenports.com]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:D/DR/DROLSKY
 DISTFILE[1]=		DateTime-TimeZone-${PORTVERSION}.tar.gz:main
 
-SPKGS[540]=		single
 SPKGS[542]=		single
+SPKGS[544]=		single
 
-OPTIONS_AVAILABLE=	PERL_540 PERL_542
+OPTIONS_AVAILABLE=	PERL_542 PERL_544
 OPTIONS_STANDARD=	none
-VOPTS[540]=		PERL_540=ON PERL_542=OFF
-VOPTS[542]=		PERL_540=OFF PERL_542=ON
+VOPTS[542]=		PERL_542=ON PERL_544=OFF
+VOPTS[544]=		PERL_542=OFF PERL_544=ON
 
 # License listed in CPAN directory:
 # perl_5
@@ -33,46 +33,39 @@ DISTNAME=		DateTime-TimeZone-${PORTVERSION}
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
 # |      runtime : Class::Singleton
-# |      runtime : Cwd (perl 5.40 core) (perl 5.42 core)
-# |      runtime : File::Basename (perl 5.40 core) (perl 5.42 core)
-# |      runtime : File::Compare (perl 5.40 core) (perl 5.42 core)
-# |      runtime : File::Find (perl 5.40 core) (perl 5.42 core)
-# |      runtime : File::Spec (perl 5.40 core) (perl 5.42 core)
-# |      runtime : List::Util (perl 5.40 core) (perl 5.42 core)
+# |      runtime : Cwd (perl 5.42 core) (perl 5.44 core)
+# |      runtime : File::Basename (perl 5.42 core) (perl 5.44 core)
+# |      runtime : File::Compare (perl 5.42 core) (perl 5.44 core)
+# |      runtime : File::Find (perl 5.42 core) (perl 5.44 core)
+# |      runtime : File::Spec (perl 5.42 core) (perl 5.44 core)
+# |      runtime : List::Util (perl 5.42 core) (perl 5.44 core)
 # |      runtime : Module::Runtime
 # |      runtime : Params::ValidationCompiler
 # |      runtime : Specio::Library::Builtins
 # |      runtime : Specio::Library::String
 # |      runtime : Try::Tiny
-# |      runtime : constant (perl 5.40 core) (perl 5.42 core)
+# |      runtime : constant (perl 5.42 core) (perl 5.44 core)
 # |      runtime : namespace::autoclean
-# |      runtime : parent (perl 5.40 core) (perl 5.42 core)
-# |      runtime : strict (perl 5.40 core) (perl 5.42 core)
-# |      runtime : warnings (perl 5.40 core) (perl 5.42 core)
-# |    configure : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
-# |         test : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
-# |         test : File::Copy (perl 5.40 core) (perl 5.42 core)
-# |         test : File::Path (perl 5.40 core) (perl 5.42 core)
-# |         test : File::Spec (perl 5.40 core) (perl 5.42 core)
-# |         test : File::Spec::Functions (perl 5.40 core) (perl 5.42 core)
-# |         test : File::Temp (perl 5.40 core) (perl 5.42 core)
-# |         test : Storable (perl 5.40 core) (perl 5.42 core)
-# |         test : Sys::Hostname (perl 5.40 core) (perl 5.42 core)
+# |      runtime : parent (perl 5.42 core) (perl 5.44 core)
+# |      runtime : strict (perl 5.42 core) (perl 5.44 core)
+# |      runtime : warnings (perl 5.42 core) (perl 5.44 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.42 core) (perl 5.44 core)
+# |         test : ExtUtils::MakeMaker (perl 5.42 core) (perl 5.44 core)
+# |         test : File::Copy (perl 5.42 core) (perl 5.44 core)
+# |         test : File::Path (perl 5.42 core) (perl 5.44 core)
+# |         test : File::Spec (perl 5.42 core) (perl 5.44 core)
+# |         test : File::Spec::Functions (perl 5.42 core) (perl 5.44 core)
+# |         test : File::Temp (perl 5.42 core) (perl 5.44 core)
+# |         test : Storable (perl 5.42 core) (perl 5.44 core)
+# |         test : Sys::Hostname (perl 5.42 core) (perl 5.44 core)
 # |         test : Test::Fatal
-# |         test : Test::More (perl 5.40 core) (perl 5.42 core)
+# |         test : Test::More (perl 5.42 core) (perl 5.44 core)
 # |         test : Test::Requires
-# |         test : base (perl 5.40 core) (perl 5.42 core)
-# |         test : lib (perl 5.40 core) (perl 5.42 core)
-# |         test : overload (perl 5.40 core) (perl 5.42 core)
-# |         test : CPAN::Meta (perl 5.40 core) (perl 5.42 core)
+# |         test : base (perl 5.42 core) (perl 5.44 core)
+# |         test : lib (perl 5.42 core) (perl 5.44 core)
+# |         test : overload (perl 5.42 core) (perl 5.44 core)
+# |         test : CPAN::Meta (perl 5.42 core) (perl 5.44 core)
 
-[PERL_540].USES_ON=			perl:540,configure
-[PERL_540].BUILDRUN_DEPENDS_ON=		perl-Class-Singleton:single:540
-					perl-Module-Runtime:single:540
-					perl-Params-ValidationCompiler:single:540
-					perl-Specio:single:540
-					perl-Try-Tiny:single:540
-					perl-namespace-autoclean:single:540
 [PERL_542].USES_ON=			perl:542,configure
 [PERL_542].BUILDRUN_DEPENDS_ON=		perl-Class-Singleton:single:542
 					perl-Module-Runtime:single:542
@@ -80,4 +73,11 @@ DISTNAME=		DateTime-TimeZone-${PORTVERSION}
 					perl-Specio:single:542
 					perl-Try-Tiny:single:542
 					perl-namespace-autoclean:single:542
+[PERL_544].USES_ON=			perl:544,configure
+[PERL_544].BUILDRUN_DEPENDS_ON=		perl-Class-Singleton:single:544
+					perl-Module-Runtime:single:544
+					perl-Params-ValidationCompiler:single:544
+					perl-Specio:single:544
+					perl-Try-Tiny:single:544
+					perl-namespace-autoclean:single:544
 

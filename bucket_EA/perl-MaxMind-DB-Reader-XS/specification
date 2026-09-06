@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	1.000009
 NAMEBASE=		perl-MaxMind-DB-Reader-XS
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		540 542
-SDESC[540]=		Fast XS implementation of MaxMind DB reader (5.40)
+VARIANTS=		542 544
 SDESC[542]=		Fast XS implementation of MaxMind DB reader (5.42)
+SDESC[544]=		Fast XS implementation of MaxMind DB reader (5.44)
 HOMEPAGE=		https://github.com/maxmind/MaxMind-DB-Reader-XS
 CONTACT=		Perl_Automaton[perl@ravenports.com]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:M/MA/MAXMIND
 DISTFILE[1]=		MaxMind-DB-Reader-XS-${PORTVERSION}.tar.gz:main
 
-SPKGS[540]=		single
 SPKGS[542]=		single
+SPKGS[544]=		single
 
-OPTIONS_AVAILABLE=	PERL_540 PERL_542
+OPTIONS_AVAILABLE=	PERL_542 PERL_544
 OPTIONS_STANDARD=	none
-VOPTS[540]=		PERL_540=ON PERL_542=OFF
-VOPTS[542]=		PERL_540=OFF PERL_542=ON
+VOPTS[542]=		PERL_542=ON PERL_544=OFF
+VOPTS[544]=		PERL_542=OFF PERL_544=ON
 
 # License listed in CPAN directory:
 # artistic_2
@@ -38,37 +38,29 @@ DISTNAME=		MaxMind-DB-Reader-XS-${PORTVERSION}
 # |      runtime : MaxMind::DB::Reader::Role::HasMetadata
 # |      runtime : MaxMind::DB::Types
 # |      runtime : Moo
-# |      runtime : XSLoader (perl 5.40 core) (perl 5.42 core)
+# |      runtime : XSLoader (perl 5.42 core) (perl 5.44 core)
 # |      runtime : namespace::autoclean
-# |      runtime : strict (perl 5.40 core) (perl 5.42 core)
-# |      runtime : warnings (perl 5.40 core) (perl 5.42 core)
+# |      runtime : strict (perl 5.42 core) (perl 5.44 core)
+# |      runtime : warnings (perl 5.42 core) (perl 5.44 core)
 # |        build : Module::Build
 # |    configure : Module::Build
-# |         test : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
-# |         test : File::Spec (perl 5.40 core) (perl 5.42 core)
+# |         test : ExtUtils::MakeMaker (perl 5.42 core) (perl 5.44 core)
+# |         test : File::Spec (perl 5.42 core) (perl 5.44 core)
 # |         test : MaxMind::DB::Reader
 # |         test : Module::Implementation
 # |         test : Net::Works::Network
 # |         test : Path::Class
 # |         test : Test::Fatal
 # |         test : Test::MaxMind::DB::Common::Util
-# |         test : Test::More (perl 5.40 core) (perl 5.42 core)
+# |         test : Test::More (perl 5.42 core) (perl 5.44 core)
 # |         test : Test::Number::Delta
 # |         test : Test::Requires
-# |         test : autodie (perl 5.40 core) (perl 5.42 core)
-# |         test : lib (perl 5.40 core) (perl 5.42 core)
-# |         test : utf8 (perl 5.40 core) (perl 5.42 core)
-# |         test : version (perl 5.40 core) (perl 5.42 core)
-# |         test : CPAN::Meta (perl 5.40 core) (perl 5.42 core)
+# |         test : autodie (perl 5.42 core) (perl 5.44 core)
+# |         test : lib (perl 5.42 core) (perl 5.44 core)
+# |         test : utf8 (perl 5.42 core) (perl 5.44 core)
+# |         test : version (perl 5.42 core) (perl 5.44 core)
+# |         test : CPAN::Meta (perl 5.42 core) (perl 5.44 core)
 
-[PERL_540].USES_ON=			perl:540,buildmod,run
-[PERL_540].BUILDRUN_DEPENDS_ON=		perl-Math-Int128:single:540
-					perl-Math-Int64:single:540
-					perl-MaxMind-DB-Common:single:540
-					perl-MaxMind-DB-Reader:single:540
-					perl-Moo:single:540
-					perl-namespace-autoclean:single:540
-[PERL_540].BUILD_DEPENDS_ON=		perl-Module-Build:single:540
 [PERL_542].USES_ON=			perl:542,buildmod,run
 [PERL_542].BUILDRUN_DEPENDS_ON=		perl-Math-Int128:single:542
 					perl-Math-Int64:single:542
@@ -77,6 +69,14 @@ DISTNAME=		MaxMind-DB-Reader-XS-${PORTVERSION}
 					perl-Moo:single:542
 					perl-namespace-autoclean:single:542
 [PERL_542].BUILD_DEPENDS_ON=		perl-Module-Build:single:542
+[PERL_544].USES_ON=			perl:544,buildmod,run
+[PERL_544].BUILDRUN_DEPENDS_ON=		perl-Math-Int128:single:544
+					perl-Math-Int64:single:544
+					perl-MaxMind-DB-Common:single:544
+					perl-MaxMind-DB-Reader:single:544
+					perl-Moo:single:544
+					perl-namespace-autoclean:single:544
+[PERL_544].BUILD_DEPENDS_ON=		perl-Module-Build:single:544
 
 BUILD_DEPENDS=		libmaxminddb:dev:std
 BUILDRUN_DEPENDS=	libmaxminddb:primary:std

@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.060
 NAMEBASE=		perl-Object-Array
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		540 542
-SDESC[540]=		Array references with accessors (5.40)
+VARIANTS=		542 544
 SDESC[542]=		Array references with accessors (5.42)
+SDESC[544]=		Array references with accessors (5.44)
 HOMEPAGE=		none
 CONTACT=		Perl_Automaton[perl@ravenports.com]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:H/HD/HDP
 DISTFILE[1]=		Object-Array-${PORTVERSION}.tar.gz:main
 
-SPKGS[540]=		single
 SPKGS[542]=		single
+SPKGS[544]=		single
 
-OPTIONS_AVAILABLE=	PERL_540 PERL_542
+OPTIONS_AVAILABLE=	PERL_542 PERL_544
 OPTIONS_STANDARD=	none
-VOPTS[540]=		PERL_540=ON PERL_542=OFF
-VOPTS[542]=		PERL_540=OFF PERL_542=ON
+VOPTS[542]=		PERL_542=ON PERL_544=OFF
+VOPTS[544]=		PERL_542=OFF PERL_544=ON
 
 # License listed in CPAN directory:
 # perl
@@ -32,21 +32,21 @@ DISTNAME=		Object-Array-${PORTVERSION}
 # ---------------------------------------------
 # |   Prerequisites extracted from META.yml
 # ---------------------------------------------
-# |     build_requires : Test::More (perl 5.40.3 core) (perl 5.42.2 core)
+# |     build_requires : Test::More (perl 5.42.2 core) (perl 5.44.0 core)
 # |           requires : List::MoreUtils
 # |           requires : Module::Pluggable
-# |           requires : Scalar::Util (perl 5.40.3 core) (perl 5.42.2 core)
+# |           requires : Scalar::Util (perl 5.42.2 core) (perl 5.44.0 core)
 # |           requires : Sub::Exporter
 # |           requires : Sub::Install
 
-[PERL_540].USES_ON=			perl:540,configure
-[PERL_540].BUILDRUN_DEPENDS_ON=		perl-List-MoreUtils:single:540
-					perl-Module-Pluggable:single:540
-					perl-Sub-Exporter:single:540
-					perl-Sub-Install:single:540
 [PERL_542].USES_ON=			perl:542,configure
 [PERL_542].BUILDRUN_DEPENDS_ON=		perl-List-MoreUtils:single:542
 					perl-Module-Pluggable:single:542
 					perl-Sub-Exporter:single:542
 					perl-Sub-Install:single:542
+[PERL_544].USES_ON=			perl:544,configure
+[PERL_544].BUILDRUN_DEPENDS_ON=		perl-List-MoreUtils:single:544
+					perl-Module-Pluggable:single:544
+					perl-Sub-Exporter:single:544
+					perl-Sub-Install:single:544
 

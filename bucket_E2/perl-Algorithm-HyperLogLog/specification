@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.24
 NAMEBASE=		perl-Algorithm-HyperLogLog
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		540 542
-SDESC[540]=		Cardinality estimation algorithm (5.40)
+VARIANTS=		542 544
 SDESC[542]=		Cardinality estimation algorithm (5.42)
+SDESC[544]=		Cardinality estimation algorithm (5.44)
 HOMEPAGE=		https://github.com/hideo55/p5-Algorithm-HyperLogLog
 CONTACT=		Perl_Automaton[perl@ravenports.com]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:H/HI/HIDEAKIO
 DISTFILE[1]=		Algorithm-HyperLogLog-${PORTVERSION}.tar.gz:main
 
-SPKGS[540]=		single
 SPKGS[542]=		single
+SPKGS[544]=		single
 
-OPTIONS_AVAILABLE=	PERL_540 PERL_542
+OPTIONS_AVAILABLE=	PERL_542 PERL_544
 OPTIONS_STANDARD=	none
-VOPTS[540]=		PERL_540=ON PERL_542=OFF
-VOPTS[542]=		PERL_540=OFF PERL_542=ON
+VOPTS[542]=		PERL_542=ON PERL_544=OFF
+VOPTS[544]=		PERL_542=OFF PERL_544=ON
 
 # License listed in CPAN directory:
 # perl_5
@@ -32,23 +32,23 @@ DISTNAME=		Algorithm-HyperLogLog-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |      runtime : Carp (perl 5.40 core) (perl 5.42 core)
+# |      runtime : Carp (perl 5.42 core) (perl 5.44 core)
 # |      runtime : Digest::MurmurHash3::PurePerl
-# |      runtime : XSLoader (perl 5.40 core) (perl 5.42 core)
-# |        build : File::Temp (perl 5.40 core) (perl 5.42 core)
+# |      runtime : XSLoader (perl 5.42 core) (perl 5.44 core)
+# |        build : File::Temp (perl 5.42 core) (perl 5.44 core)
 # |        build : Test::Fatal
-# |        build : Test::More (perl 5.40 core) (perl 5.42 core)
+# |        build : Test::More (perl 5.42 core) (perl 5.44 core)
 # |    configure : Module::Build
 # |    configure : Module::Build::XSUtil
 
-[PERL_540].USES_ON=			perl:540,buildmod,run
-[PERL_540].BUILDRUN_DEPENDS_ON=		perl-Digest-MurmurHash3-PurePerl:single:540
-[PERL_540].BUILD_DEPENDS_ON=		perl-Test-Fatal:single:540
-					perl-Module-Build:single:540
-					perl-Module-Build-XSUtil:single:540
 [PERL_542].USES_ON=			perl:542,buildmod,run
 [PERL_542].BUILDRUN_DEPENDS_ON=		perl-Digest-MurmurHash3-PurePerl:single:542
 [PERL_542].BUILD_DEPENDS_ON=		perl-Test-Fatal:single:542
 					perl-Module-Build:single:542
 					perl-Module-Build-XSUtil:single:542
+[PERL_544].USES_ON=			perl:544,buildmod,run
+[PERL_544].BUILDRUN_DEPENDS_ON=		perl-Digest-MurmurHash3-PurePerl:single:544
+[PERL_544].BUILD_DEPENDS_ON=		perl-Test-Fatal:single:544
+					perl-Module-Build:single:544
+					perl-Module-Build-XSUtil:single:544
 

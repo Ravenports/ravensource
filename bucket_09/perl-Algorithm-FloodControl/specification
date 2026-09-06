@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	2.001000
 NAMEBASE=		perl-Algorithm-FloodControl
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		540 542
-SDESC[540]=		Limit event processing to count/time ratio (5.40)
+VARIANTS=		542 544
 SDESC[542]=		Limit event processing to count/time ratio (5.42)
+SDESC[544]=		Limit event processing to count/time ratio (5.44)
 HOMEPAGE=		none
 CONTACT=		Perl_Automaton[perl@ravenports.com]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:G/GU/GUGU
 DISTFILE[1]=		Algorithm-FloodControl-${PORTVERSION}.tar.gz:main
 
-SPKGS[540]=		single
 SPKGS[542]=		single
+SPKGS[544]=		single
 
-OPTIONS_AVAILABLE=	PERL_540 PERL_542
+OPTIONS_AVAILABLE=	PERL_542 PERL_544
 OPTIONS_STANDARD=	none
-VOPTS[540]=		PERL_540=ON PERL_542=OFF
-VOPTS[542]=		PERL_540=OFF PERL_542=ON
+VOPTS[542]=		PERL_542=ON PERL_544=OFF
+VOPTS[544]=		PERL_542=OFF PERL_544=ON
 
 # License listed in CPAN directory:
 # perl
@@ -33,22 +33,22 @@ DISTNAME=		Algorithm-FloodControl-${PORTVERSION}
 # |   Prerequisites extracted from META.yml
 # ---------------------------------------------
 # |     build_requires : Cache::FastMmap
-# |     build_requires : File::Temp (perl 5.40.3 core) (perl 5.42.2 core)
-# |     build_requires : Test::More (perl 5.40.3 core) (perl 5.42.2 core)
+# |     build_requires : File::Temp (perl 5.42.2 core) (perl 5.44.0 core)
+# |     build_requires : Test::More (perl 5.42.2 core) (perl 5.44.0 core)
 # |           requires : Class::Accessor::Fast
 # |           requires : Module::Install
-# |           requires : Module::Load (perl 5.40.3 core) (perl 5.42.2 core)
+# |           requires : Module::Load (perl 5.42.2 core) (perl 5.44.0 core)
 # |           requires : Params::Validate
-# |           requires : version (perl 5.40.3 core) (perl 5.42.2 core)
+# |           requires : version (perl 5.42.2 core) (perl 5.44.0 core)
 
-[PERL_540].USES_ON=			perl:540,configure
-[PERL_540].BUILDRUN_DEPENDS_ON=		perl-Class-Accessor:single:540
-					perl-Module-Install:single:540
-					perl-Params-Validate:single:540
-[PERL_540].BUILD_DEPENDS_ON=		perl-Cache-FastMmap:single:540
 [PERL_542].USES_ON=			perl:542,configure
 [PERL_542].BUILDRUN_DEPENDS_ON=		perl-Class-Accessor:single:542
 					perl-Module-Install:single:542
 					perl-Params-Validate:single:542
 [PERL_542].BUILD_DEPENDS_ON=		perl-Cache-FastMmap:single:542
+[PERL_544].USES_ON=			perl:544,configure
+[PERL_544].BUILDRUN_DEPENDS_ON=		perl-Class-Accessor:single:544
+					perl-Module-Install:single:544
+					perl-Params-Validate:single:544
+[PERL_544].BUILD_DEPENDS_ON=		perl-Cache-FastMmap:single:544
 

@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.56
 NAMEBASE=		perl-Devel-MAT
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		540 542
-SDESC[540]=		Perl Memory Analysis Tool (5.40)
+VARIANTS=		542 544
 SDESC[542]=		Perl Memory Analysis Tool (5.42)
+SDESC[544]=		Perl Memory Analysis Tool (5.44)
 HOMEPAGE=		none
 CONTACT=		Perl_Automaton[perl@ravenports.com]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:P/PE/PEVANS
 DISTFILE[1]=		Devel-MAT-${PORTVERSION}.tar.gz:main
 
-SPKGS[540]=		single
 SPKGS[542]=		single
+SPKGS[544]=		single
 
-OPTIONS_AVAILABLE=	PERL_540 PERL_542
+OPTIONS_AVAILABLE=	PERL_542 PERL_544
 OPTIONS_STANDARD=	none
-VOPTS[540]=		PERL_540=ON PERL_542=OFF
-VOPTS[542]=		PERL_540=OFF PERL_542=ON
+VOPTS[542]=		PERL_542=ON PERL_544=OFF
+VOPTS[544]=		PERL_542=OFF PERL_544=ON
 
 # License listed in CPAN directory:
 # perl_5
@@ -36,32 +36,19 @@ DISTNAME=		Devel-MAT-${PORTVERSION}
 # |      runtime : Devel::MAT::Dumper
 # |      runtime : Feature::Compat::Try
 # |      runtime : File::ShareDir
-# |      runtime : File::Spec (perl 5.40 core) (perl 5.42 core)
+# |      runtime : File::Spec (perl 5.42 core) (perl 5.44 core)
 # |      runtime : Heap
-# |      runtime : List::Util (perl 5.40 core) (perl 5.42 core)
+# |      runtime : List::Util (perl 5.42 core) (perl 5.44 core)
 # |      runtime : List::UtilsBy
 # |      runtime : Module::Pluggable
 # |      runtime : String::Tagged
 # |      runtime : String::Tagged::Terminal
 # |      runtime : Struct::Dumb
 # |      runtime : Syntax::Keyword::Match
-# |        build : ExtUtils::CBuilder (perl 5.40 core) (perl 5.42 core)
+# |        build : ExtUtils::CBuilder (perl 5.42 core) (perl 5.44 core)
 # |    configure : Module::Build
-# |         test : Test2::V0 (perl 5.40 core) (perl 5.42 core)
+# |         test : Test2::V0 (perl 5.42 core) (perl 5.44 core)
 
-[PERL_540].USES_ON=			perl:540,buildmod,run
-[PERL_540].BUILDRUN_DEPENDS_ON=		perl-Commandable:single:540
-					perl-Devel-MAT-Dumper:single:540
-					perl-Feature-Compat-Try:single:540
-					perl-File-ShareDir:single:540
-					perl-Heap:single:540
-					perl-List-UtilsBy:single:540
-					perl-Module-Pluggable:single:540
-					perl-String-Tagged:single:540
-					perl-String-Tagged-Terminal:single:540
-					perl-Struct-Dumb:single:540
-					perl-Syntax-Keyword-Match:single:540
-[PERL_540].BUILD_DEPENDS_ON=		perl-Module-Build:single:540
 [PERL_542].USES_ON=			perl:542,buildmod,run
 [PERL_542].BUILDRUN_DEPENDS_ON=		perl-Commandable:single:542
 					perl-Devel-MAT-Dumper:single:542
@@ -75,4 +62,17 @@ DISTNAME=		Devel-MAT-${PORTVERSION}
 					perl-Struct-Dumb:single:542
 					perl-Syntax-Keyword-Match:single:542
 [PERL_542].BUILD_DEPENDS_ON=		perl-Module-Build:single:542
+[PERL_544].USES_ON=			perl:544,buildmod,run
+[PERL_544].BUILDRUN_DEPENDS_ON=		perl-Commandable:single:544
+					perl-Devel-MAT-Dumper:single:544
+					perl-Feature-Compat-Try:single:544
+					perl-File-ShareDir:single:544
+					perl-Heap:single:544
+					perl-List-UtilsBy:single:544
+					perl-Module-Pluggable:single:544
+					perl-String-Tagged:single:544
+					perl-String-Tagged-Terminal:single:544
+					perl-Struct-Dumb:single:544
+					perl-Syntax-Keyword-Match:single:544
+[PERL_544].BUILD_DEPENDS_ON=		perl-Module-Build:single:544
 

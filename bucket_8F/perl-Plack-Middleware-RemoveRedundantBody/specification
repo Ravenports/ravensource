@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.09
 NAMEBASE=		perl-Plack-Middleware-RemoveRedundantBody
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		540 542
-SDESC[540]=		Plack::Middleware to remove HTTP body (5.40)
+VARIANTS=		542 544
 SDESC[542]=		Plack::Middleware to remove HTTP body (5.42)
+SDESC[544]=		Plack::Middleware to remove HTTP body (5.44)
 HOMEPAGE=		https://github.com/upasana-me/Plack-Middleware-RemoveRedundantBody
 CONTACT=		Perl_Automaton[perl@ravenports.com]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:S/SW/SWEETKID
 DISTFILE[1]=		Plack-Middleware-RemoveRedundantBody-${PORTVERSION}.tar.gz:main
 
-SPKGS[540]=		single
 SPKGS[542]=		single
+SPKGS[544]=		single
 
-OPTIONS_AVAILABLE=	PERL_540 PERL_542
+OPTIONS_AVAILABLE=	PERL_542 PERL_544
 OPTIONS_STANDARD=	none
-VOPTS[540]=		PERL_540=ON PERL_542=OFF
-VOPTS[542]=		PERL_540=OFF PERL_542=ON
+VOPTS[542]=		PERL_542=ON PERL_544=OFF
+VOPTS[544]=		PERL_542=OFF PERL_544=ON
 
 # License listed in CPAN directory:
 # perl_5
@@ -34,17 +34,17 @@ DISTNAME=		Plack-Middleware-RemoveRedundantBody-${PORTVERSION}
 # ----------------------------------------------
 # |      runtime : Plack::Middleware
 # |      runtime : Plack::Util
-# |      runtime : parent (perl 5.40 core) (perl 5.42 core)
-# |      runtime : strict (perl 5.40 core) (perl 5.42 core)
-# |      runtime : warnings (perl 5.40 core) (perl 5.42 core)
-# |    configure : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
+# |      runtime : parent (perl 5.42 core) (perl 5.44 core)
+# |      runtime : strict (perl 5.42 core) (perl 5.44 core)
+# |      runtime : warnings (perl 5.42 core) (perl 5.44 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.42 core) (perl 5.44 core)
 # |         test : HTTP::Request::Common
 # |         test : Plack::Builder
 # |         test : Plack::Test
-# |         test : Test::More (perl 5.40 core) (perl 5.42 core)
+# |         test : Test::More (perl 5.42 core) (perl 5.44 core)
 
-[PERL_540].USES_ON=			perl:540,configure
-[PERL_540].BUILDRUN_DEPENDS_ON=		perl-Plack:single:540
 [PERL_542].USES_ON=			perl:542,configure
 [PERL_542].BUILDRUN_DEPENDS_ON=		perl-Plack:single:542
+[PERL_544].USES_ON=			perl:544,configure
+[PERL_544].BUILDRUN_DEPENDS_ON=		perl-Plack:single:544
 

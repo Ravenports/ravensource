@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.1.2
 NAMEBASE=		perl-Algorithm-VectorClocks
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		540 542
-SDESC[540]=		Generates a partial ordering of events (5.40)
+VARIANTS=		542 544
 SDESC[542]=		Generates a partial ordering of events (5.42)
+SDESC[544]=		Generates a partial ordering of events (5.44)
 HOMEPAGE=		none
 CONTACT=		Perl_Automaton[perl@ravenports.com]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:T/TA/TAKERU
 DISTFILE[1]=		Algorithm-VectorClocks-v0.1.2.tar.gz:main
 
-SPKGS[540]=		single
 SPKGS[542]=		single
+SPKGS[544]=		single
 
-OPTIONS_AVAILABLE=	PERL_540 PERL_542
+OPTIONS_AVAILABLE=	PERL_542 PERL_544
 OPTIONS_STANDARD=	none
-VOPTS[540]=		PERL_540=ON PERL_542=OFF
-VOPTS[542]=		PERL_540=OFF PERL_542=ON
+VOPTS[542]=		PERL_542=ON PERL_544=OFF
+VOPTS[544]=		PERL_542=OFF PERL_544=ON
 
 # License listed in CPAN directory:
 # perl
@@ -33,25 +33,17 @@ DISTNAME=		Algorithm-VectorClocks-v0.1.2
 # |   Prerequisites extracted from META.yml
 # ---------------------------------------------
 # | configure_requires : Module::Build
-# |     build_requires : Test::More (perl 5.40.3 core) (perl 5.42.2 core)
+# |     build_requires : Test::More (perl 5.42.2 core) (perl 5.44.0 core)
 # |     build_requires : Test::NoWarnings
 # |           requires : Class::Accessor::Fast
 # |           requires : Class::Data::Inheritable
 # |           requires : JSON::Any
 # |           requires : List::MoreUtils
-# |           requires : List::Util (perl 5.40.3 core) (perl 5.42.2 core)
+# |           requires : List::Util (perl 5.42.2 core) (perl 5.44.0 core)
 # |           requires : Perl6::Export::Attrs
-# |           requires : Sys::Hostname (perl 5.40.3 core) (perl 5.42.2 core)
-# |           requires : version (perl 5.40.3 core) (perl 5.42.2 core)
+# |           requires : Sys::Hostname (perl 5.42.2 core) (perl 5.44.0 core)
+# |           requires : version (perl 5.42.2 core) (perl 5.44.0 core)
 
-[PERL_540].USES_ON=			perl:540,buildmod,run
-[PERL_540].BUILDRUN_DEPENDS_ON=		perl-Class-Accessor:single:540
-					perl-Class-Data-Inheritable:single:540
-					perl-JSON-Any:single:540
-					perl-List-MoreUtils:single:540
-					perl-Perl6-Export-Attrs:single:540
-[PERL_540].BUILD_DEPENDS_ON=		perl-Module-Build:single:540
-					perl-Test-NoWarnings:single:540
 [PERL_542].USES_ON=			perl:542,buildmod,run
 [PERL_542].BUILDRUN_DEPENDS_ON=		perl-Class-Accessor:single:542
 					perl-Class-Data-Inheritable:single:542
@@ -60,4 +52,12 @@ DISTNAME=		Algorithm-VectorClocks-v0.1.2
 					perl-Perl6-Export-Attrs:single:542
 [PERL_542].BUILD_DEPENDS_ON=		perl-Module-Build:single:542
 					perl-Test-NoWarnings:single:542
+[PERL_544].USES_ON=			perl:544,buildmod,run
+[PERL_544].BUILDRUN_DEPENDS_ON=		perl-Class-Accessor:single:544
+					perl-Class-Data-Inheritable:single:544
+					perl-JSON-Any:single:544
+					perl-List-MoreUtils:single:544
+					perl-Perl6-Export-Attrs:single:544
+[PERL_544].BUILD_DEPENDS_ON=		perl-Module-Build:single:544
+					perl-Test-NoWarnings:single:544
 

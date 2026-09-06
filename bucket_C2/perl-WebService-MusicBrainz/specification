@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	1.0.10
 NAMEBASE=		perl-WebService-MusicBrainz
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		540 542
-SDESC[540]=		Web service API to MusicBrainz database (5.40)
+VARIANTS=		542 544
 SDESC[542]=		Web service API to MusicBrainz database (5.42)
+SDESC[544]=		Web service API to MusicBrainz database (5.44)
 HOMEPAGE=		none
 CONTACT=		Perl_Automaton[perl@ravenports.com]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:B/BF/BFAIST
 DISTFILE[1]=		WebService-MusicBrainz-${PORTVERSION}.tar.gz:main
 
-SPKGS[540]=		single
 SPKGS[542]=		single
+SPKGS[544]=		single
 
-OPTIONS_AVAILABLE=	PERL_540 PERL_542
+OPTIONS_AVAILABLE=	PERL_542 PERL_544
 OPTIONS_STANDARD=	none
-VOPTS[540]=		PERL_540=ON PERL_542=OFF
-VOPTS[542]=		PERL_540=OFF PERL_542=ON
+VOPTS[542]=		PERL_542=ON PERL_544=OFF
+VOPTS[544]=		PERL_542=OFF PERL_544=ON
 
 # License listed in CPAN directory:
 # perl_5
@@ -36,12 +36,12 @@ DISTNAME=		WebService-MusicBrainz-${PORTVERSION}
 # |      runtime : Mojo::UserAgent::Role::Retry
 # |    configure : Module::Build
 
-[PERL_540].USES_ON=			perl:540,buildmod,run
-[PERL_540].BUILDRUN_DEPENDS_ON=		perl-Mojolicious:single:540
-					perl-Mojo-UserAgent-Role-Retry:single:540
-[PERL_540].BUILD_DEPENDS_ON=		perl-Module-Build:single:540
 [PERL_542].USES_ON=			perl:542,buildmod,run
 [PERL_542].BUILDRUN_DEPENDS_ON=		perl-Mojolicious:single:542
 					perl-Mojo-UserAgent-Role-Retry:single:542
 [PERL_542].BUILD_DEPENDS_ON=		perl-Module-Build:single:542
+[PERL_544].USES_ON=			perl:544,buildmod,run
+[PERL_544].BUILDRUN_DEPENDS_ON=		perl-Mojolicious:single:544
+					perl-Mojo-UserAgent-Role-Retry:single:544
+[PERL_544].BUILD_DEPENDS_ON=		perl-Module-Build:single:544
 

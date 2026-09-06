@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.06
 NAMEBASE=		perl-MusicBrainz-DiscID
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		540 542
-SDESC[540]=		Interface for MusicBrainz libdiscid library (5.40)
+VARIANTS=		542 544
 SDESC[542]=		Interface for MusicBrainz libdiscid library (5.42)
+SDESC[544]=		Interface for MusicBrainz libdiscid library (5.44)
 HOMEPAGE=		https://github.com/njh/perl-musicbrainz-discid
 CONTACT=		Perl_Automaton[perl@ravenports.com]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:N/NJ/NJH
 DISTFILE[1]=		MusicBrainz-DiscID-${PORTVERSION}.tar.gz:main
 
-SPKGS[540]=		single
 SPKGS[542]=		single
+SPKGS[544]=		single
 
-OPTIONS_AVAILABLE=	PERL_540 PERL_542
+OPTIONS_AVAILABLE=	PERL_542 PERL_544
 OPTIONS_STANDARD=	none
-VOPTS[540]=		PERL_540=ON PERL_542=OFF
-VOPTS[542]=		PERL_540=OFF PERL_542=ON
+VOPTS[542]=		PERL_542=ON PERL_544=OFF
+VOPTS[544]=		PERL_542=OFF PERL_544=ON
 
 # License listed in CPAN directory:
 # mit
@@ -32,14 +32,14 @@ DISTNAME=		MusicBrainz-DiscID-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |        build : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
-# |    configure : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
-# |         test : Test (perl 5.40 core) (perl 5.42 core)
-# |         test : Test::More (perl 5.40 core) (perl 5.42 core)
+# |        build : ExtUtils::MakeMaker (perl 5.42 core) (perl 5.44 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.42 core) (perl 5.44 core)
+# |         test : Test (perl 5.42 core) (perl 5.44 core)
+# |         test : Test::More (perl 5.42 core) (perl 5.44 core)
 # |         test : Test::Pod
 
-[PERL_540].USES_ON=			perl:540,configure
 [PERL_542].USES_ON=			perl:542,configure
+[PERL_544].USES_ON=			perl:544,configure
 
 USES=			pkgconfig
 BUILD_DEPENDS=		libdiscid:dev:std

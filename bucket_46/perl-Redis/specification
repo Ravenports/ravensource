@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	2.000
 NAMEBASE=		perl-Redis
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		540 542
-SDESC[540]=		Perl binding for Redis database (5.40)
+VARIANTS=		542 544
 SDESC[542]=		Perl binding for Redis database (5.42)
+SDESC[544]=		Perl binding for Redis database (5.44)
 HOMEPAGE=		https://github.com/PerlRedis/perl-redis
 CONTACT=		Perl_Automaton[perl@ravenports.com]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:D/DA/DAMS
 DISTFILE[1]=		Redis-${PORTVERSION}.tar.gz:main
 
-SPKGS[540]=		single
 SPKGS[542]=		single
+SPKGS[544]=		single
 
-OPTIONS_AVAILABLE=	PERL_540 PERL_542
+OPTIONS_AVAILABLE=	PERL_542 PERL_544
 OPTIONS_STANDARD=	none
-VOPTS[540]=		PERL_540=ON PERL_542=OFF
-VOPTS[542]=		PERL_540=OFF PERL_542=ON
+VOPTS[542]=		PERL_542=ON PERL_544=OFF
+VOPTS[544]=		PERL_542=OFF PERL_544=ON
 
 # License listed in CPAN directory:
 # artistic_2
@@ -34,26 +34,26 @@ DISTNAME=		Redis-${PORTVERSION}
 # ----------------------------------------------
 # |      runtime : IO::Socket::Timeout
 # |      runtime : Try::Tiny
-# |    configure : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.42 core) (perl 5.44 core)
 # |    configure : Module::Build::Tiny
-# |         test : Digest::SHA (perl 5.40 core) (perl 5.42 core)
-# |         test : File::Spec (perl 5.40 core) (perl 5.42 core)
-# |         test : IO::Handle (perl 5.40 core) (perl 5.42 core)
+# |         test : Digest::SHA (perl 5.42 core) (perl 5.44 core)
+# |         test : File::Spec (perl 5.42 core) (perl 5.44 core)
+# |         test : IO::Handle (perl 5.42 core) (perl 5.44 core)
 # |         test : IO::String
-# |         test : IPC::Cmd (perl 5.40 core) (perl 5.42 core)
-# |         test : IPC::Open3 (perl 5.40 core) (perl 5.42 core)
+# |         test : IPC::Cmd (perl 5.42 core) (perl 5.44 core)
+# |         test : IPC::Open3 (perl 5.42 core) (perl 5.44 core)
 # |         test : Test::Deep
 # |         test : Test::Fatal
-# |         test : Test::More (perl 5.40 core) (perl 5.42 core)
+# |         test : Test::More (perl 5.42 core) (perl 5.44 core)
 # |         test : Test::SharedFork
 # |         test : Test::TCP
 
-[PERL_540].USES_ON=			perl:540,buildmodtiny,run
-[PERL_540].BUILDRUN_DEPENDS_ON=		perl-IO-Socket-Timeout:single:540
-					perl-Try-Tiny:single:540
-[PERL_540].BUILD_DEPENDS_ON=		perl-Module-Build-Tiny:single:540
 [PERL_542].USES_ON=			perl:542,buildmodtiny,run
 [PERL_542].BUILDRUN_DEPENDS_ON=		perl-IO-Socket-Timeout:single:542
 					perl-Try-Tiny:single:542
 [PERL_542].BUILD_DEPENDS_ON=		perl-Module-Build-Tiny:single:542
+[PERL_544].USES_ON=			perl:544,buildmodtiny,run
+[PERL_544].BUILDRUN_DEPENDS_ON=		perl-IO-Socket-Timeout:single:544
+					perl-Try-Tiny:single:544
+[PERL_544].BUILD_DEPENDS_ON=		perl-Module-Build-Tiny:single:544
 

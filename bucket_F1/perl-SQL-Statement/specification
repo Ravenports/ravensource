@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	1.414
 NAMEBASE=		perl-SQL-Statement
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		540 542
-SDESC[540]=		SQL parsing and processing engine (5.40)
+VARIANTS=		542 544
 SDESC[542]=		SQL parsing and processing engine (5.42)
+SDESC[544]=		SQL parsing and processing engine (5.44)
 HOMEPAGE=		https://github.com/perl5-dbi/SQL-Statement
 CONTACT=		Perl_Automaton[perl@ravenports.com]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:R/RE/REHSACK
 DISTFILE[1]=		SQL-Statement-${PORTVERSION}.tar.gz:main
 
-SPKGS[540]=		single
 SPKGS[542]=		single
+SPKGS[544]=		single
 
-OPTIONS_AVAILABLE=	PERL_540 PERL_542
+OPTIONS_AVAILABLE=	PERL_542 PERL_544
 OPTIONS_STANDARD=	none
-VOPTS[540]=		PERL_540=ON PERL_542=OFF
-VOPTS[542]=		PERL_540=OFF PERL_542=ON
+VOPTS[542]=		PERL_542=ON PERL_544=OFF
+VOPTS[544]=		PERL_542=OFF PERL_544=ON
 
 # License listed in CPAN directory:
 # perl_5
@@ -32,33 +32,33 @@ DISTNAME=		SQL-Statement-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |      runtime : Carp (perl 5.40 core) (perl 5.42 core)
+# |      runtime : Carp (perl 5.42 core) (perl 5.44 core)
 # |      runtime : Clone
-# |      runtime : Data::Dumper (perl 5.40 core) (perl 5.42 core)
+# |      runtime : Data::Dumper (perl 5.42 core) (perl 5.44 core)
 # |      runtime : Module::Runtime
 # |      runtime : Params::Util
-# |      runtime : Scalar::Util (perl 5.40 core) (perl 5.42 core)
-# |      runtime : Text::Balanced (perl 5.40 core) (perl 5.42 core)
+# |      runtime : Scalar::Util (perl 5.42 core) (perl 5.44 core)
+# |      runtime : Text::Balanced (perl 5.42 core) (perl 5.44 core)
 # |      runtime : Math::Base::Convert
-# |      runtime : Math::Complex (perl 5.40 core) (perl 5.42 core)
+# |      runtime : Math::Complex (perl 5.42 core) (perl 5.44 core)
 # |      runtime : Text::Soundex
-# |    configure : ExtUtils::MakeMaker (perl 5.40 core) (perl 5.42 core)
+# |    configure : ExtUtils::MakeMaker (perl 5.42 core) (perl 5.44 core)
 # |         test : Math::Base::Convert
-# |         test : Math::Complex (perl 5.40 core) (perl 5.42 core)
+# |         test : Math::Complex (perl 5.42 core) (perl 5.44 core)
 # |         test : Test::Deep
-# |         test : Test::More (perl 5.40 core) (perl 5.42 core)
+# |         test : Test::More (perl 5.42 core) (perl 5.44 core)
 # |         test : Text::Soundex
 
-[PERL_540].USES_ON=			perl:540,configure
-[PERL_540].BUILDRUN_DEPENDS_ON=		perl-Clone:single:540
-					perl-Module-Runtime:single:540
-					perl-Params-Util:single:540
-					perl-Math-Base-Convert:single:540
-					perl-Text-Soundex:single:540
 [PERL_542].USES_ON=			perl:542,configure
 [PERL_542].BUILDRUN_DEPENDS_ON=		perl-Clone:single:542
 					perl-Module-Runtime:single:542
 					perl-Params-Util:single:542
 					perl-Math-Base-Convert:single:542
 					perl-Text-Soundex:single:542
+[PERL_544].USES_ON=			perl:544,configure
+[PERL_544].BUILDRUN_DEPENDS_ON=		perl-Clone:single:544
+					perl-Module-Runtime:single:544
+					perl-Params-Util:single:544
+					perl-Math-Base-Convert:single:544
+					perl-Text-Soundex:single:544
 

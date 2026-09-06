@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	2.20260827
 NAMEBASE=		perl-Mail-DMARC
 VERSION=		${PORTVERSION}
 KEYWORDS=		perl
-VARIANTS=		540 542
-SDESC[540]=		Perl implementation of DMARC (5.40)
+VARIANTS=		542 544
 SDESC[542]=		Perl implementation of DMARC (5.42)
+SDESC[544]=		Perl implementation of DMARC (5.44)
 HOMEPAGE=		https://github.com/msimerson/mail-dmarc
 CONTACT=		Perl_Automaton[perl@ravenports.com]
 
@@ -14,13 +14,13 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:M/MS/MSIMERSON
 DISTFILE[1]=		Mail-DMARC-${PORTVERSION}.tar.gz:main
 
-SPKGS[540]=		single
 SPKGS[542]=		single
+SPKGS[544]=		single
 
-OPTIONS_AVAILABLE=	PERL_540 PERL_542
+OPTIONS_AVAILABLE=	PERL_542 PERL_544
 OPTIONS_STANDARD=	none
-VOPTS[540]=		PERL_540=ON PERL_542=OFF
-VOPTS[542]=		PERL_540=OFF PERL_542=ON
+VOPTS[542]=		PERL_542=ON PERL_544=OFF
+VOPTS[544]=		PERL_542=OFF PERL_544=ON
 
 # License listed in CPAN directory:
 # perl_5
@@ -32,30 +32,30 @@ DISTNAME=		Mail-DMARC-${PORTVERSION}
 # ----------------------------------------------
 # |   Prerequisites extracted from META.json
 # ----------------------------------------------
-# |      runtime : Carp (perl 5.40 core) (perl 5.42 core)
+# |      runtime : Carp (perl 5.42 core) (perl 5.44 core)
 # |      runtime : Config::Tiny
 # |      runtime : DBD::SQLite
 # |      runtime : DBIx::Simple
-# |      runtime : Data::Dumper (perl 5.40 core) (perl 5.42 core)
+# |      runtime : Data::Dumper (perl 5.42 core) (perl 5.44 core)
 # |      runtime : Email::MIME
 # |      runtime : Email::Sender::Simple
 # |      runtime : Email::Simple
-# |      runtime : Encode (perl 5.40 core) (perl 5.42 core)
+# |      runtime : Encode (perl 5.42 core) (perl 5.44 core)
 # |      runtime : File::ShareDir
-# |      runtime : Getopt::Long (perl 5.40 core) (perl 5.42 core)
-# |      runtime : HTTP::Tiny (perl 5.40 core) (perl 5.42 core)
-# |      runtime : IO::Compress::Gzip (perl 5.40 core) (perl 5.42 core)
-# |      runtime : IO::Compress::Zip (perl 5.40 core) (perl 5.42 core)
-# |      runtime : IO::File (perl 5.40 core) (perl 5.42 core)
-# |      runtime : IO::Uncompress::Gunzip (perl 5.40 core) (perl 5.42 core)
-# |      runtime : IO::Uncompress::Unzip (perl 5.40 core) (perl 5.42 core)
-# |      runtime : Module::Load (perl 5.40 core) (perl 5.42 core)
+# |      runtime : Getopt::Long (perl 5.42 core) (perl 5.44 core)
+# |      runtime : HTTP::Tiny (perl 5.42 core) (perl 5.44 core)
+# |      runtime : IO::Compress::Gzip (perl 5.42 core) (perl 5.44 core)
+# |      runtime : IO::Compress::Zip (perl 5.42 core) (perl 5.44 core)
+# |      runtime : IO::File (perl 5.42 core) (perl 5.44 core)
+# |      runtime : IO::Uncompress::Gunzip (perl 5.42 core) (perl 5.44 core)
+# |      runtime : IO::Uncompress::Unzip (perl 5.42 core) (perl 5.44 core)
+# |      runtime : Module::Load (perl 5.42 core) (perl 5.44 core)
 # |      runtime : Net::DNS::Resolver
-# |      runtime : POSIX (perl 5.40 core) (perl 5.42 core)
-# |      runtime : Pod::Usage (perl 5.40 core) (perl 5.42 core)
-# |      runtime : Socket (perl 5.40 core) (perl 5.42 core)
-# |      runtime : Sys::Hostname (perl 5.40 core) (perl 5.42 core)
-# |      runtime : Sys::Syslog (perl 5.40 core) (perl 5.42 core)
+# |      runtime : POSIX (perl 5.42 core) (perl 5.44 core)
+# |      runtime : Pod::Usage (perl 5.42 core) (perl 5.44 core)
+# |      runtime : Socket (perl 5.42 core) (perl 5.44 core)
+# |      runtime : Sys::Hostname (perl 5.42 core) (perl 5.44 core)
+# |      runtime : Sys::Syslog (perl 5.42 core) (perl 5.44 core)
 # |      runtime : URI
 # |      runtime : XML::LibXML
 # |      runtime : GeoIP2
@@ -69,26 +69,9 @@ DISTNAME=		Mail-DMARC-${PORTVERSION}
 # |         test : Net::DNS::Resolver::Mock
 # |         test : Test::Exception
 # |         test : Test::File::ShareDir
-# |         test : Test::More (perl 5.40 core) (perl 5.42 core)
+# |         test : Test::More (perl 5.42 core) (perl 5.44 core)
 # |         test : Test::Output
 
-[PERL_540].USES_ON=			perl:540,buildmod,run
-[PERL_540].BUILDRUN_DEPENDS_ON=		perl-Config-Tiny:single:540
-					perl-DBD-SQLite:single:540
-					perl-DBIx-Simple:single:540
-					perl-Email-MIME:single:540
-					perl-Email-Sender:single:540
-					perl-Email-Simple:single:540
-					perl-File-ShareDir:single:540
-					perl-Net-DNS:single:540
-					perl-URI:single:540
-					perl-XML-LibXML:single:540
-					perl-JSON:single:540
-					perl-Mail-DKIM:single:540
-					perl-Net-IMAP-Simple:single:540
-					perl-Net-Server:single:540
-[PERL_540].BUILD_DEPENDS_ON=		perl-Module-Build:single:540
-					perl-File-ShareDir-Install:single:540
 [PERL_542].USES_ON=			perl:542,buildmod,run
 [PERL_542].BUILDRUN_DEPENDS_ON=		perl-Config-Tiny:single:542
 					perl-DBD-SQLite:single:542
@@ -106,4 +89,21 @@ DISTNAME=		Mail-DMARC-${PORTVERSION}
 					perl-Net-Server:single:542
 [PERL_542].BUILD_DEPENDS_ON=		perl-Module-Build:single:542
 					perl-File-ShareDir-Install:single:542
+[PERL_544].USES_ON=			perl:544,buildmod,run
+[PERL_544].BUILDRUN_DEPENDS_ON=		perl-Config-Tiny:single:544
+					perl-DBD-SQLite:single:544
+					perl-DBIx-Simple:single:544
+					perl-Email-MIME:single:544
+					perl-Email-Sender:single:544
+					perl-Email-Simple:single:544
+					perl-File-ShareDir:single:544
+					perl-Net-DNS:single:544
+					perl-URI:single:544
+					perl-XML-LibXML:single:544
+					perl-JSON:single:544
+					perl-Mail-DKIM:single:544
+					perl-Net-IMAP-Simple:single:544
+					perl-Net-Server:single:544
+[PERL_544].BUILD_DEPENDS_ON=		perl-Module-Build:single:544
+					perl-File-ShareDir-Install:single:544
 
