@@ -9,7 +9,7 @@
    Element(static_cast<ID>(EBML::Element::Id::MkSeekHead)),
    segmentDataOffset(segmentDataOffset)
  {
-@@ -60,7 +60,7 @@ void Matroska::SeekHead::addEntry(const
+@@ -60,13 +60,13 @@ void Matroska::SeekHead::addEntry(const
    setNeedsRender(true);
  }
  
@@ -18,6 +18,22 @@
  {
    entries.append({id, offset});
    setNeedsRender(true);
+ }
+ 
+-void Matroska::SeekHead::updateEntry(ID id, offset_t newOffset)
++void Matroska::SeekHead::updateEntry(ID id, TagLib::offset_t newOffset)
+ {
+   for(auto &entry : entries) {
+     if(entry.first == id) {
+@@ -77,7 +77,7 @@ void Matroska::SeekHead::updateEntry(ID
+   }
+ }
+ 
+-const List<std::pair<unsigned int, offset_t>> &Matroska::SeekHead::entryList() const
++const List<std::pair<unsigned int, TagLib::offset_t>> &Matroska::SeekHead::entryList() const
+ {
+   return entries;
+ }
 @@ -113,7 +113,7 @@ void Matroska::SeekHead::sort()
    entries.sort([](const auto &a, const auto &b) { return a.second < b.second; });
  }

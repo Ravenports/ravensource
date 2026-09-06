@@ -9,7 +9,7 @@
    Element(static_cast<ID>(EBML::Element::Id::MkSegment)),
    sizeLength(sizeLength), dataSize(dataSize)
  {
-@@ -58,14 +58,14 @@ bool Matroska::Segment::render()
+@@ -58,19 +58,19 @@ bool Matroska::Segment::render()
    return true;
  }
  
@@ -25,4 +25,10 @@
 +TagLib::offset_t Matroska::Segment::dataOffset() const
  {
    return offset() + sizeLength;
+ }
+ 
+-offset_t Matroska::Segment::endOffset() const
++TagLib::offset_t Matroska::Segment::endOffset() const
+ {
+   return dataOffset() + dataSize;
  }
