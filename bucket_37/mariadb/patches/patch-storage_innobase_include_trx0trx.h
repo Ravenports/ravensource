@@ -1,4 +1,4 @@
---- storage/innobase/include/trx0trx.h.orig	2026-05-26 19:21:07 UTC
+--- storage/innobase/include/trx0trx.h.orig	2026-05-26 19:57:21 UTC
 +++ storage/innobase/include/trx0trx.h
 @@ -663,14 +663,10 @@ public:
    {

@@ -1,6 +1,6 @@
 $NetBSD: patch-mysys_my__largepage.c,v 1.2 2025/10/27 20:56:37 nia Exp $
 
---- mysys/my_largepage.c.orig	2026-05-26 19:21:07 UTC
+--- mysys/my_largepage.c.orig	2026-05-26 19:57:21 UTC
 +++ mysys/my_largepage.c
 @@ -28,6 +28,7 @@
  #endif
