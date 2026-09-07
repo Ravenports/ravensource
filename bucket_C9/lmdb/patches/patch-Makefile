@@ -31,12 +31,14 @@
 -	for f in $(IPROGS); do cp $$f $(DESTDIR)$(bindir); done
 -	for f in $(ILIBS); do cp $$f $(DESTDIR)$(libdir); done
 -	for f in $(ILIBS2); do cp $$f $(DESTDIR)$(libdir); \
+-		i=`basename -s .$(ABIVER) $$f`; rm -f $(DESTDIR)$(libdir)/$$i; \
 +	for f in $(IPROGS); do ${INSTALL_PROGRAM} $$f $(DESTDIR)$(bindir); done
 +	for f in $(ILIBS); do $(INSTALL_LIB) $$f $(DESTDIR)$(libdir); done
 +	for f in $(ILIBS2); do ${INSTALL_LIB} $$f $(DESTDIR)$(libdir); \
- 		i=`basename -s .$(ABIVER) $$f`; rm -f $(DESTDIR)$(libdir)/$$i; \
++		i=`basename $$f .$(ABIVER)`; rm -f $(DESTDIR)$(libdir)/$$i; \
  		ln -s $$f $(DESTDIR)$(libdir)/$$i; \
- 		i=`basename -s .$(LIBVER) $$i`; rm -f $(DESTDIR)$(libdir)/$$i; \
+-		i=`basename -s .$(LIBVER) $$i`; rm -f $(DESTDIR)$(libdir)/$$i; \
++		i=`basename $$i .$(LIBVER)`; rm -f $(DESTDIR)$(libdir)/$$i; \
  		ln -s $$f $(DESTDIR)$(libdir)/$$i; done
 -	for f in $(IHDRS); do cp $$f $(DESTDIR)$(includedir); done
 -	for f in $(IDOCS); do cp $$f $(DESTDIR)$(mandir)/man1; done
