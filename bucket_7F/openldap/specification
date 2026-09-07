@@ -9,6 +9,7 @@ DEF[SED_MODULES]=	-e 's/\(moduleload[     ]*back_[a-z]*\)\.la/\1/' -e 's/\# *\(m
 
 NAMEBASE=		openldap
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		net databases
 VARIANTS=		std
 SDESC[std]=		Lightweight Directory Access Protocol server
@@ -67,6 +68,7 @@ CONFIGURE_ARGS=		--enable-modules
 			--without-fetch
 			--without-cyrus-sasl
 			--without-systemd
+CFLAGS=			-std=gnu17
 
 RC_SUBR=		slapd:server
 SUB_FILES=		messages-client.ucl
