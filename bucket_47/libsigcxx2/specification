@@ -54,3 +54,7 @@ post-install:
 	${MV} ${STAGEDIR}${PREFIX}/share/doc/libsigc* \
 		${STAGEDIR}${STD_DOCDIR}
 	${RM} -r ${STAGEDIR}${PREFIX}/share/devhelp
+
+post-build-netbsd:
+	# dot is apparently crashing.  Treat the symptom
+	${FIND} ${WRKSRC} -name dot.core -delete
