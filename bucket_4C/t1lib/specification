@@ -45,8 +45,9 @@ INSTALL_REQ_TOOLCHAIN=	yes
 SOVERSION=		${SOVERSION}
 SINGLE_JOB=		yes
 
-# gcc14
+# gcc14 and gcc15
 CFLAGS=			-Wno-implicit-int
+			-std=gnu17
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.so
