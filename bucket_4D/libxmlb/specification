@@ -4,6 +4,7 @@ DEF[SOVERSION]=		2.0.0
 
 NAMEBASE=		libxmlb
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		textproc
 VARIANTS=		std
 SDESC[std]=		Library to help create and query binary XML blobs
@@ -31,6 +32,9 @@ FPC_EQUIVALENT=		textproc/libxmlb
 BUILD_DEPENDS=		gtk-doc:single:std
 			snowball:dev:std
 BUILDRUN_DEPENDS=	snowball:libstemmer_c:std
+
+EXRUN[dev]=		xz:dev:std
+			zstd:dev:std
 
 USES=			meson pkgconfig xz zstd gtk-doc
 GNOME_COMPONENTS=	glib introspection
