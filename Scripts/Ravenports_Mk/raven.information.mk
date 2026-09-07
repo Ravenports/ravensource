@@ -30,22 +30,6 @@ BOOST_LIBRARIES_REVISION=	0
 # Only keep the open branches of GCC
 # ------------------------------------------------------------------------
 # ------------------------------------------------------------------------
-# gcc13
-# ------------------------------------------------------------------------
-
-GCC13_BRANCH=			13
-GCC13_POINT=			4.0
-GCC13_VERSION=			${GCC13_BRANCH}.${GCC13_POINT}
-GCC13_REVISION=			2
-GCC13_GNATCROSS_REVISION=	0
-GCC13_BOOTSTRAP_REVISION=	0
-
-GCC13_PORTVERSION=		${GCC13_VERSION}
-GCC13_IDENTIFICATION=		gcc-${GCC13_VERSION}
-GCC13_MS_SUBDIR=		releases/gcc-${GCC13_VERSION}
-GCC13_PHASE=			release
-
-# ------------------------------------------------------------------------
 # gcc14
 # ------------------------------------------------------------------------
 
