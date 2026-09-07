@@ -40,6 +40,7 @@ XORG_COMPONENTS=	ice sm x11 xaw xext xi xmu xpm xt
 MAKE_ENV=		ROOT="{{STAGEDIR}}"
 			MANDIR="share/man"
 MAKE_ARGS=		JSRC=""
+CFLAGS=			-std=gnu17
 
 post-patch:
 	${REINPLACE_CMD} -e 's|netstat -ant|netstat -an|' \
