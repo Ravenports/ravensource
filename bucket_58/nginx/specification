@@ -2,7 +2,7 @@
 # however, odd releases 1.13.x, 1.15.x, etc are called "mainline" and
 # considered more reliable
 DEF[PORTVERSION]=	1.31.4
-DEF[REVISION]=		0
+DEF[REVISION]=		1
 DEF[NGINX_VARDIR]=	{{PREFIX}}/var
 DEF[NGINX_LOGDIR]=	${NGINX_VARDIR}/log/nginx
 DEF[NGINX_RUNDIR]=	${NGINX_VARDIR}/run/nginx
@@ -12,7 +12,7 @@ DEF[NGINX_ERRORLOG]=	${NGINX_LOGDIR}/error.log
 DEF[HTTP_PORT]=		80
 DEF[TAG_GEOIP2]=	3.4
 DEF[TAG_NOTICE]=	3c95966
-DEF[TAG_PUSH]=		v1.3.1
+DEF[TAG_PUSH]=		v1.3.8
 # 0.5.5 + patch
 DEF[TAG_PUSH_STREAM]=	8c02220
 DEF[TAG_SUBS_FILTER]=	c6f825f
@@ -39,7 +39,7 @@ DEF[TAG_SRCACHE]=	be22ac0
 DEF[TAG_XSS]=		v0.06
 DEF[TAG_ARRAYVAR]=	v0.05
 DEF[TAG_DEVEL_KIT]=	v0.3.2
-DEF[TAG_NJS]=		0.8.0
+DEF[TAG_NJS]=		1.0.1
 DEF[TAG_DAV_EXT]=	v3.0.0
 DEF[TAG_FOOTER]=	1.2.2
 DEF[TAG_STUB_JSON]=	0.1
@@ -50,7 +50,7 @@ DEF[TAG_ZIP]=		1.3.0
 DEF[TAG_DYN_UPSTREAM]=	2.3.3
 DEF[TAG_LET]=		v0.0.4
 DEF[TAG_RTMP]=		v1.2.2
-DEF[TAG_VOD]=		1.31
+DEF[TAG_VOD]=		1.33
 DEF[TAG_ICONV]=		v0.14
 DEF[TAG_FORMINPUT]=	v0.12
 DEF[TAG_CPURGE]=	a84b0f3
@@ -301,11 +301,12 @@ VAR_OPSYS[dragonfly]=	CONFIGURE_ARGS=--with-file-aio
 					--add-dynamic-module={{WRKDIR}}/mod_zip-${TAG_ZIP}
 					--add-dynamic-module={{WRKDIR}}/ngx_dynamic_upstream-${TAG_DYN_UPSTREAM:S/v//}
 					--add-dynamic-module={{WRKDIR}}/nginx-rtmp-module-${TAG_RTMP:S/v//}
-					--add-dynamic-module={{WRKDIR}}/nginx-vod-module-${TAG_VOD:S/v//}
 					--add-dynamic-module={{WRKDIR}}/iconv-nginx-module-${TAG_ICONV:S/v//}
 					--add-dynamic-module={{WRKDIR}}/form-input-nginx-module-${TAG_FORMINPUT:S/v//}
 					--add-dynamic-module={{WRKDIR}}/ngx-fancyindex-${TAG_FANCYINDEX:S/v//}
 					--add-dynamic-module={{WRKDIR}}/naxsi-${TAG_NAXSI}/naxsi_src
+# vod doesn't seem to be maintained anymore and it's not gcc15 friendly.  300 unresolved issues.
+# --add-dynamic-module={{WRKDIR}}/nginx-vod-module-${TAG_VOD:S/v//}
 # --add-dynamic-module={{WRKDIR}}/
 # | nginx-ct-${TAG_CERT_TRANS:S/v//}
 # --add-dynamic-module={{WRKDIR}}/
