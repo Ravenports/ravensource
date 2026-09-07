@@ -3,6 +3,7 @@ DEF[PORTVERSION]=	1.4.5
 
 NAMEBASE=		irssi
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		irc
 VARIANTS=		std
 SDESC[std]=		Modular IRC client with many features
@@ -35,6 +36,7 @@ MESON_ARGS=		-Dwith-bot=yes
 			-Denable-true-color=yes
 			-Dwith-perl-lib=site
 LDFLAGS=		{{PERL_RPATH}}
+CFLAGS=			-std=gnu17
 PLIST_SUB=		MODULE={{BUNDLE:Uso}}
 
 VAR_OPSYS[sunos]=	CFLAGS=-I{{LOCALBASE}}/include/ncurses
