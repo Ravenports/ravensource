@@ -1,5 +1,14 @@
 --- Instant/Makefile.orig	1996-06-17 03:50:29 UTC
 +++ Instant/Makefile
+@@ -74,7 +74,7 @@ DEFINES		= -DDEF_TPT_LIB=\"$(TPTLIB)\" $
+ CC	= gcc
+ 
+ OPT	= -g
+-CFLAGS	= $(OPT) $(REGEX_INC) $(DEFINES)
++CFLAGS	= $(OPT) $(REGEX_INC) $(DEFINES) -std=gnu17
+ LDFLAGS	= $(OPT)
+ REGEX	= -L$(REGEX_LIB) -ltptregexp
+ 
 @@ -94,7 +94,7 @@ instant: $(OBJ)
  	$(CC) -o $@ $(LDFLAGS) $(OBJ) $(REGEX)
  
