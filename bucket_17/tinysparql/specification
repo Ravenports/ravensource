@@ -1,10 +1,12 @@
 DEF[PORTVERSION]=	3.11.1
 DEF[DL_FOLDER]=		${PORTVERSION:R}
 DEF[SOVERSION]=		0.1101.0
+DEF[NEWLIB]=		libtracker-sparql-3.0.so
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		tinysparql
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		databases
 VARIANTS=		std
 SDESC[std]=		Low-footprint RDF triple store (SPARQL 1.1)
@@ -21,6 +23,11 @@ OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 FPC_EQUIVALENT=		devel/tinysparql
+
+LICENSE=		LGPL21+:primary
+LICENSE_TERMS=		primary:{{WRKSRC}}/COPYING
+LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING.LGPL
+LICENSE_SCHEME=		solo
 
 BUILD_DEPENDS=		vala:primary:std
 			asciidoc:single:std
@@ -58,3 +65,10 @@ VAR_OPSYS[sunos]=	CFLAGS=-D__EXTENSIONS__
 
 post-install:
 	${MV} ${STAGEDIR}${PREFIX}/share/doc/Tsparql-3.0 ${STAGEDIR}${STD_DOCDIR}
+
+	# symlink-libtracker-sparql.sh is malfunctioning.
+	# It was patched out. handle it manually
+	${CP} ${STAGEDIR}${PREFIX}/lib/libtinysparql-3.0.so.${SOVERSION} \
+		${STAGEDIR}${PREFIX}/lib/${NEWLIB}.${SOVERSION}
+	${LN} -s ${NEWLIB}.${SOVERSION}     ${STAGEDIR}${PREFIX}/lib/${NEWLIB}.${SOVERSION:R:R}
+	${LN} -s ${NEWLIB}.${SOVERSION:R:R} ${STAGEDIR}${PREFIX}/lib/${NEWLIB}
