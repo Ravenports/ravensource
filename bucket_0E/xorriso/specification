@@ -1,0 +1,54 @@
+DEF[XVERSION]=		1.5.8
+DEF[PLEVEL]=		02
+DEF[PORTVERSION]=	${XVERSION}.pl${PLEVEL}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		xorriso
+VERSION=		${PORTVERSION}
+KEYWORDS=		sysutils
+VARIANTS=		std
+SDESC[std]=		ISO 9660 Rock Ridge Filesystem Manipulator
+HOMEPAGE=		https://www.gnu.org/software/xorriso/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://www.gnu.org/software/xorriso/
+DISTFILE[1]=		xorriso-${PORTVERSION}.tar.gz:main
+
+SPKGS[std]=		set primary man info
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		sysutils/xorriso
+
+LICENSE=		GPLv2+:primary
+LICENSE_TERMS=		primary:{{WRKSRC}}/COPYRIGHT
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_SCHEME=		solo
+
+BUILD_DEPENDS=		libcdio:dev:std
+BUILDRUN_DEPENDS=	libcdio:primary:std
+
+USES=			gmake iconv libtool pkgconfig readline zlib
+MUST_CONFIGURE=		gnu
+CONFIGURE_ARGS=		--enable-libcdio
+			--enable-libacl
+			--enable-libreadline
+			--enable-xattr
+			--enable-zlib
+INSTALL_TARGET=		install-strip
+DISTNAME=		xorriso-${XVERSION}
+INFO=			info:xorriso-dd-target
+			info:xorriso
+			info:xorrisofs
+			info:xorrecord
+
+pre-configure:
+	${REINPLACE_CMD} 's/-liconv/${ICONV_LIB}/' ${WRKSRC}/configure
+
+post-install:
+	# drop tcltk support
+	${RM} ${STAGEDIR}${PREFIX}/bin/xorriso-tcltk
+	${RM} ${STAGEDIR}${PREFIX}/share/man/man1/xorriso-tcltk.1
+	${RM} ${STAGEDIR}${PREFIX}/share/info/xorriso-tcltk.info
