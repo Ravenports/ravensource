@@ -39,6 +39,8 @@ CONFIGURE_ARGS=		--prefix="{{PREFIX}}"
 			--docdir="{{PREFIX}}/share/doc/clisp"
 			--fsstnd=bsd
 			--disable-nls
+# build segfaults with gcc15 unless optimization level 0 is set (as debug does)
+			--with-debug
 
 # The FreeBSD port has a lot of options that could be added here, too.
 BUILD_DEPENDS=		libsigsegv:dev:std
