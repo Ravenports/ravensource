@@ -5,7 +5,7 @@
  // limitations under the License.
  
 -//go:build linux || darwin || freebsd
-+//go:build linux || darwin || freebsd || dragonfly
++//go:build linux || darwin || freebsd || netbsd || dragonfly
  
  package index
  
