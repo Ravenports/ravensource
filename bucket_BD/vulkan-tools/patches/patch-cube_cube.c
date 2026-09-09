@@ -5,7 +5,7 @@
      }
  }
 -#elif defined(__linux__) || defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__QNX__) || defined(__GNU__)
-+#elif defined(__linux__) || defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__QNX__) || defined(__GNU__) || defined(__DragonFly__)
++#elif defined(__linux__) || defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__QNX__) || defined(__GNU__) || defined(__DragonFly__) || defined(__NetBSD__)
  int main(int argc, char **argv) {
      struct demo demo;
  

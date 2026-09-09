@@ -4,7 +4,7 @@
  }
  
  #elif defined(__linux__) || defined(__FreeBSD__) || defined(__OpenBSD__) || defined(__QNX__) || defined(__GNU__) || \
-+    defined(__DragonFly__) || \
++    defined(__DragonFly__) || defined(__NetBSD__) || \
      defined(__Fuchsia__)
  
  template <WsiPlatform WSI_PLATFORM>
