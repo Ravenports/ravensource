@@ -4,7 +4,7 @@
  
  #include <errno.h>
  #include <fcntl.h>
-+#   if defined(__linux__) || defined(__DragonFly__)
++#   if defined(__linux__) || defined(__DragonFly__) || defined(__NetBSD__)
 +#if __has_include(<sys/syscall.h>)
 +#include <sys/syscall.h>
 +#endif
