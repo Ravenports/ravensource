@@ -28,6 +28,9 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		sysutils/pciutils
 
+# These tools are likely not useful for omnios users.
+NOT_FOR_OPSYS=		sunos
+
 USES=			gmake
 
 RUN_DEPENDS=		pciids:single:std
@@ -41,10 +44,6 @@ SOVERSION=		${SOVERSION}
 PLIST_SUB=		LIBNAME={{LIBNAME:Ulibpci}}
 
 VAR_OPSYS[netbsd]=	MAKEFILE_LINE=LIBNAME=libpciutils
-
-pre-configure-sunos:
-	# avoid symbol map
-	${REINPLACE_CMD} -e '/--version-script/d' ${WRKSRC}/lib/configure
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libpc*.so
