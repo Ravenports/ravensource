@@ -63,6 +63,7 @@ GNOME_COMPONENTS=	libxml2 libxslt gtk3
 # Epub is off because it causes an obscure "Error 4"
 CMAKE_ARGS=		-DEPUB=OFF
 			-DGTKHTML=ON
+VAR_OPSYS[sunos]=	LDFLAGS=-lsocket
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
