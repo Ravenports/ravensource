@@ -1,0 +1,11 @@
+--- meson.build.orig	2026-08-07 18:26:08 UTC
++++ meson.build
+@@ -611,7 +611,7 @@ if build_docs or build_gi_docgen
+ endif
+ subdir('bin')
+ 
+-if host_machine.system() != 'emscripten'
++if host_machine.system() == 'skip'
+   nm = find_program('nm', required: false)
+ 
+   # Verify .def files for Windows linking (and for macOS too when -Wl,-exported_symbols_list is used).
