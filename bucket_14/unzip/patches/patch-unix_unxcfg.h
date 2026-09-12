@@ -1,9 +1,10 @@
-$NetBSD: patch-unix_unxcfg.h,v 1.2 2014/05/03 11:24:19 ryoon Exp $
+$NetBSD: patch-unix_unxcfg.h,v 1.4 2025/07/03 09:59:10 jperkin Exp $
 
 * Fix build on Debian GNU/kFreeBSD.
 * Fix build under OpenBSD 5.5
   Patch from OpenBSD Ports
   "timeb was already well deprecated on 4.4BSD"
+* Remove K&R prototype for gmtime()
 
 --- unix/unxcfg.h.orig	2009-04-16 18:36:12 UTC
 +++ unix/unxcfg.h
@@ -15,7 +16,7 @@ $NetBSD: patch-unix_unxcfg.h,v 1.2 2014/05/03 11:24:19 ryoon Exp $
  
  #ifdef NO_OFF_T
    typedef long zoff_t;
-@@ -111,7 +112,9 @@ typedef struct stat z_stat;
+@@ -111,16 +112,17 @@ typedef struct stat z_stat;
  
  #ifdef BSD
  #  include <sys/time.h>
@@ -25,4 +26,23 @@ $NetBSD: patch-unix_unxcfg.h,v 1.2 2014/05/03 11:24:19 ryoon Exp $
 +#  endif
  #  if (defined(_AIX) || defined(__GLIBC__) || defined(__GNU__))
  #    include <time.h>
+ #  endif
+ #else
+ #  include <time.h>
+-   struct tm *gmtime(), *localtime();
+ #endif
+ 
+-#if (defined(BSD4_4) || (defined(SYSV) && defined(MODERN)))
++#if (defined(BSD4_4) || defined(__sun__) || (defined(SYSV) && defined(MODERN)))
+ #  include <unistd.h>           /* this includes utime.h on SGIs */
+ #  if (defined(BSD4_4) || defined(linux) || defined(__GLIBC__))
+ #    include <utime.h>
+@@ -130,7 +132,7 @@ typedef struct stat z_stat;
+ #    include <utime.h>
+ #    define GOT_UTIMBUF
+ #  endif
+-#  if (!defined(GOT_UTIMBUF) && defined(__GNU__))
++#  if (!defined(GOT_UTIMBUF) && (defined(__GNU__) || defined(__sun__)))
+ #    include <utime.h>
+ #    define GOT_UTIMBUF
  #  endif
