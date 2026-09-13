@@ -36,6 +36,10 @@ SOVERSION=		${PORTVERSION}
 
 CMAKE_ARGS=		-DCMAKE_POLICY_VERSION_MINIMUM=3.5
 
+pre-configure:
+	# Remove patch backups.  They get installed.
+	${FIND} ${WRKSRC} -name "*.orig" -delete
+
 post-install:
 	${INSTALL_PROGRAM} ${WRKDIR}/.build/woff2_* ${STAGEDIR}${PREFIX}/bin
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/*.${LIBEXT}
