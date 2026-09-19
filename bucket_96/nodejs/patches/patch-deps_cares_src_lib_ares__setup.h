@@ -1,4 +1,4 @@
---- deps/cares/src/lib/ares_setup.h.orig	2026-08-25 23:43:36 UTC
+--- deps/cares/src/lib/ares_setup.h.orig	2026-08-26 18:21:43 UTC
 +++ deps/cares/src/lib/ares_setup.h
 @@ -108,9 +108,6 @@
  #  include <sys/types.h>
