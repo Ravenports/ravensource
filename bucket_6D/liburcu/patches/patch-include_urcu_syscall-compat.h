@@ -1,4 +1,4 @@
---- include/urcu/syscall-compat.h.orig	2025-11-06 13:59:11 UTC
+--- include/urcu/syscall-compat.h.orig	2026-01-23 14:33:50 UTC
 +++ include/urcu/syscall-compat.h
 @@ -16,6 +16,7 @@
  
