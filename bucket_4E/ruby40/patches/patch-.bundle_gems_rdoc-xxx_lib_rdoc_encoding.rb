@@ -2,7 +2,7 @@ From NetBSD (ruby 3.4)
 
 * Always convert "\r\n" to "\n" since it cause rdoc processing error.
 
---- .bundle/gems/rdoc-7.0.4/lib/rdoc/encoding.rb.orig	2026-05-19 23:22:56 UTC
+--- .bundle/gems/rdoc-7.0.4/lib/rdoc/encoding.rb.orig	2026-07-14 00:22:12 UTC
 +++ .bundle/gems/rdoc-7.0.4/lib/rdoc/encoding.rb
 @@ -31,7 +31,7 @@ module RDoc::Encoding
  
