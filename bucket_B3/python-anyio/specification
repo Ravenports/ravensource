@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	4.14.2
+DEF[PORTVERSION]=	4.15.1
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-anyio
@@ -11,7 +11,7 @@ HOMEPAGE=		https://pypi.org/project/anyio/
 CONTACT=		Python_Automaton[python@ravenports.com]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/da/35/f2287558c17e29fafc8ef3daf819bb9834061cfa43bff8014f7df7f63bdc
+SITES[main]=		PYPIWHL/12/b8/4bd346e22b28902df4d651910f5242c28d84e4a5c2435ca5c3f797ed7e2e
 DISTFILE[1]=		anyio-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -32,11 +32,13 @@ DISTNAME=		anyio-${PORTVERSION}.dist-info
 # Requires-Dist extracted from wheel metadata
 # exceptiongroup>=1.0.2; python_version < "3.11"
 # idna>=2.8
-# typing_extensions>=4.5; python_version < "3.13"
+# typing_extensions>=4.16.0; python_version < "3.15"
 # trio>=0.32.0; extra == "trio"
 
 [PY313].USES_ON=			python:v13,wheel
 [PY313].RUN_DEPENDS_ON=			python-idna:single:v13
+					python-typing-extensions:single:v13
 [PY314].USES_ON=			python:v14,wheel
 [PY314].RUN_DEPENDS_ON=			python-idna:single:v14
+					python-typing-extensions:single:v14
 

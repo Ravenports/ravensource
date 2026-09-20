@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.20.0
+DEF[PORTVERSION]=	0.21.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-vdirsyncer
@@ -11,7 +11,7 @@ HOMEPAGE=		none
 CONTACT=		Python_Automaton[python@ravenports.com]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/60/64/ba1083f60274f91f2d54190a134dada95fb22fa8e4b44d318efe9463fa45
+SITES[main]=		PYPIWHL/d0/4e/7cd98d24a9ac5673ab63bfabdfea11b6d7ff1825227ad88813942e027fd1
 DISTFILE[1]=		vdirsyncer-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -33,8 +33,9 @@ DISTNAME=		vdirsyncer-${PORTVERSION}.dist-info
 # click<9.0,>=5.0
 # click-log<0.5.0,>=0.3.0
 # requests>=2.20.0
-# aiohttp<4.0.0,>=3.8.2
+# aiohttp<4.0.0,>=3.9.0
 # aiostream<0.8.0,>=0.4.3
+# tenacity>=9.0.0
 # aiohttp-oauthlib; extra == "google"
 # hypothesis<7.0.0,>=6.72.0; extra == "test"
 # pytest; extra == "test"
@@ -43,6 +44,14 @@ DISTNAME=		vdirsyncer-${PORTVERSION}.dist-info
 # trustme; extra == "test"
 # pytest-asyncio; extra == "test"
 # aioresponses; extra == "test"
+# sphinx!=1.4.7; extra == "docs"
+# sphinx_rtd_theme; extra == "docs"
+# setuptools_scm; extra == "docs"
+# mypy; extra == "check"
+# ruff; extra == "check"
+# types-docutils; extra == "check"
+# types-requests; extra == "check"
+# types-setuptools; extra == "check"
 
 [PY313].USES_ON=			python:v13,wheel
 [PY313].RUN_DEPENDS_ON=			python-click:single:v13
@@ -50,12 +59,14 @@ DISTNAME=		vdirsyncer-${PORTVERSION}.dist-info
 					python-requests:single:v13
 					python-aiohttp:single:v13
 					python-aiostream:single:v13
+					python-tenacity:single:v13
 [PY314].USES_ON=			python:v14,wheel
 [PY314].RUN_DEPENDS_ON=			python-click:single:v14
 					python-click-log:single:v14
 					python-requests:single:v14
 					python-aiohttp:single:v14
 					python-aiostream:single:v14
+					python-tenacity:single:v14
 
 # For google calender support
 BUILDRUN_DEPENDS=	python-requests-oauthlib:single:python_used

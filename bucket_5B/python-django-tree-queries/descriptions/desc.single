@@ -67,12 +67,13 @@ Usage
   additional fields respectively the CTE.
 - Call the ``order_siblings_by("field_name")`` queryset method if you want
 to
-  order tree siblings by a specific model field. Note that Django's
-standard
-  ``order_by()`` method isn't supported -- nodes are returned according to
-the
-  `depth-first search algorithm
-  <https://en.wikipedia.org/wiki/Depth-first_search>`__.
+  order tree siblings by a specific model field. By default, nodes are
+returned
+  according to the `depth-first search algorithm
+  <https://en.wikipedia.org/wiki/Depth-first_search>`__; an explicit
+  ``order_by()`` replaces that ordering (which generally means you're no
+longer
+  getting a tree, just a list of nodes with tree fields attached).
 - Use ``tree_filter() and tree_exclude()`` for better performance when
   working with large tables - these filter the base table before building
   the tree structure.
@@ -97,4 +98,3 @@ agreeable utilities and a model validation method that prevents loops in
 the
 tree structure. The common table expression could be hardened against such
 loops but this would involve a performance hit which we don't want -- this
-is a

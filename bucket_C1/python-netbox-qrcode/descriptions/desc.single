@@ -1,100 +1,76 @@
-# Netbox QR Code Plugin
+# NetBox QR Code
 
-A [NetBox] plugin used to generate QR codes for objects: Device, Module,
-Cable, Powerfeed, Powerpanel, Location 
+This [NetBox] plugin generates printable QR code labels for objects in
+NetBox. Labels are rendered directly on an object's detail view, and each
+object type can carry several independent label designs — different
+sizes, different content, or different layouts for the same device.
 
-This plugin depends on [qrcode] and [Pillow] python library
-
-[Downloads]
-[Downloads]
-[Downloads]
-
-## Compatibility
+Supported object types are Device, Module, Rack, Cable, Location, Power
+Feed, and Power Panel, plus Asset when [netbox-inventory] is installed.
 
 See the [compatibility matrix] for supported NetBox versions.
 
+[Downloads]
+[Downloads]
+[Downloads]
+
+![Device QR Code]
+
 ## Installation
 
-If Netbox was installed according to the standard installation
-instructions. It may be necessary to activate the virtual environment.
+Brief installation instructions are provided below. For a complete
+installation guide, please refer to the included [documentation].
+
+1. Activate the NetBox virtual environment:
 
 ```
-source /opt/netbox/venv/bin/activate
-`
-
-The plugin is available as a Python package in pypi and can be installed
-with pip
-
-`
-pip install netbox-qrcode
+$ source /opt/netbox/venv/bin/activate
 ```
-Enable the plugin in /opt/netbox/netbox/netbox/configuration.py:
+
+2. Install the plugin from [PyPI]:
+
 ```
-PLUGINS = ['netbox_qrcode']
+$ pip install netbox-qrcode
 ```
-Restart NetBox and add `netbox-qrcode` to your local_requirements.txt
 
-## Configuration
+3. Add `netbox_qrcode` to `PLUGINS` in `configuration.py`:
 
-### Label Design
+```python
+PLUGINS = [
+    # ...
+    'netbox_qrcode',
+]
+```
 
-Extensive label customisation is possible, it's also possible to include
-different labels for each object type, for example 2 labels for the Device
-view.
+4. Add `netbox-qrcode` to `local_requirements.txt` so the plugin survives
+future upgrades, then restart NetBox:
 
-For advice on configuration please see the two links below:
+```
+$ sudo systemctl restart netbox netbox-rq
+```
 
-- [General Configuration >>]
-- [Configuration Examples  >>]
+This plugin requires no database migrations.
 
-![Cable QR Code]
+## Documentation
 
-### Printing
+* [Introduction] — what the plugin does and how labels are assembled
+* [Installation] — full installation guide
+* [Configuration] — reference for every configuration parameter
+* [Label Examples] — worked label designs you can copy
+* [Printing] — printer and browser settings for accurate output
+* [Change Log]
 
-#### Setting the label printer 
+## Contributing
 
-If the print does not look like the preview in the Netbox, first try to get
-a perfect print using Word. As many printer settings also have an influence
-on the print result. Borderless printing is possible if the printer (e.g.
-thermal transfer printer) supports this.
+Issues and pull requests are welcomed. Please note that pull requests are
+accepted only for approved issues.
 
-![ShowImage]
+This repository follows the same two-branch model as NetBox itself:
 
-Here is an example of what needs to be considered to print borderless from
-a Word document. [Go to: Example Zebra ZM400 300dpi label printer and a
-label 56x32mm. >>]
+* `feature` — active development of future releases. **Base your pull
+requests on this branch.**
+* `main` — the released code. Releases are cut from here; `feature` is
+merged into `main` to release.
 
-#### Setting Browser Print Settings
-
-When you press the “Print” button, there are some print properties that
-are added by the browser. However, these interfere with the print result.
-They should therefore be deactivated.
-
-##### Firefox:
-
-| Parameter                                      | Value                   
-    |
-| ---------------------------------------------  |
----------------------------  |
-| Orientation                                    | Portrait                
-    |  
-| Paper size                                     | User defined            
-    |
-| Margins                                        | none                    
-    |
-| Scale                                          | Fit to page width or
-100%    |
-| Options --> Print headers and footers          | disable                 
-    |
-| Options --> Print backgrounds                  | disable                 
-    |
-
-##### Chrome:
-Chrome can alter settings between printing and the print preview, therefore
-the below settings are recomended
-
-| Parameter                                      | Value                   
-    |
-| ---------------------------------------------  |
----------------------------  |
-| Layout                                         | Portrait                
+GitHub defaults the base branch to `main`, so remember to switch the base
+to `feature` when opening a pull request.

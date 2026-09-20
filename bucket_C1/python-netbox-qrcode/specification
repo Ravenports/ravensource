@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.0.21
+DEF[PORTVERSION]=	1.0.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-netbox-qrcode
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/netbox-community/netbox-qrcode
 CONTACT=		Python_Automaton[python@ravenports.com]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/19/a5/560cc5f6fb798b38fca7a5c4ab86650f0ff9567a0696738811096838d3b0
+SITES[main]=		PYPIWHL/c6/d7/c188eb3c31f09dfdcfe01cf0b79bcc51a02ae7f0f2c5fc0be4ebdfe57313
 DISTFILE[1]=		netbox_qrcode-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -24,7 +24,7 @@ VOPTS[v13]=		PY313=ON PY314=OFF
 VOPTS[v14]=		PY313=OFF PY314=ON
 
 # License listed at PyPI
-# Not provided.
+# Apache-2.0
 
 GENERATED=		yes
 DISTNAME=		netbox_qrcode-${PORTVERSION}.dist-info
@@ -32,11 +32,16 @@ DISTNAME=		netbox_qrcode-${PORTVERSION}.dist-info
 # Requires-Dist extracted from wheel metadata
 # qrcode
 # Pillow
+# packaging
+# Django<6.1,>=6.0; extra == "test"
+# mkdocs-material<10.0,>=9.5; extra == "docs"
 
 [PY313].USES_ON=			python:v13,wheel
 [PY313].RUN_DEPENDS_ON=			python-qrcode:single:v13
 					python-pillow:single:v13
+					python-packaging:single:v13
 [PY314].USES_ON=			python:v14,wheel
 [PY314].RUN_DEPENDS_ON=			python-qrcode:single:v14
 					python-pillow:single:v14
+					python-packaging:single:v14
 
