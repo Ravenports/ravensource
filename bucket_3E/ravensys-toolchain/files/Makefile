@@ -29,7 +29,11 @@ install:
 .if "${OPSYS}" == "SunOS"
 	cp /usr/bin/ld.sun ${DESTDIR}${PREFIX}/bin/ld
 .else
+.  if "${OPSYS}" == "NetBSD"
+	cp ${DESTDIR}/bin/ld.bfd ${DESTDIR}${PREFIX}/bin/ld
+.  else
 	cp ${LOCALBASE}/libexec/ld ${DESTDIR}${PREFIX}/bin/ld
+.  endif
 	mkdir -p ${DESTDIR}${PREFIX}/llvm/bin
 	mkdir -p ${DESTDIR}${PREFIX}/llvm/lib
 	cp ${LOCALBASE}/bin/ld.lld ${DESTDIR}${PREFIX}/llvm/bin/
