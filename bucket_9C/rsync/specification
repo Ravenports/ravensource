@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.5.0
+DEF[PORTVERSION]=	3.5.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		rsync
@@ -29,8 +29,10 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		net/rsync
 
-BUILD_DEPENDS=		xxhash:dev:std
-BUILDRUN_DEPENDS=	xxhash:primary:std
+BUILD_DEPENDS=		libidn2:dev:std
+			xxhash:dev:std
+BUILDRUN_DEPENDS=	libidn2:primary:std
+			xxhash:primary:std
 
 USES=			cpe iconv zstd zlib lz4 shebangfix ssl rootca:primary
 			smf:primary
