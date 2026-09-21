@@ -1,4 +1,4 @@
---- src/lj_ccallback.c.orig	2026-07-24 08:20:02 UTC
+--- src/lj_ccallback.c.orig	2026-08-24 08:06:16 UTC
 +++ src/lj_ccallback.c
 @@ -20,6 +20,7 @@
  #include "lj_mcode.h"
