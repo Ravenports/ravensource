@@ -1,4 +1,4 @@
---- lib/expr/exgram.h.orig	2026-08-05 09:21:58 UTC
+--- lib/expr/exgram.h.orig	2026-08-14 10:18:18 UTC
 +++ lib/expr/exgram.h
 @@ -19,7 +19,7 @@ extern "C" {
   * with both yacc and bison
