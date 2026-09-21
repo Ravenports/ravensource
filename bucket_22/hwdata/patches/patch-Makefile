@@ -1,4 +1,4 @@
---- Makefile.orig	2026-06-02 07:48:17 UTC
+--- Makefile.orig	2026-07-31 06:54:45 UTC
 +++ Makefile
 @@ -48,12 +48,8 @@ install: Makefile.inc hwdata.pc
  	for foo in $(IDFILES) ; do \
@@ -15,8 +15,11 @@
  
  commit:
  	git commit -vas ||:
-@@ -171,4 +167,3 @@ pnp.ids: pnp.ids.orig pnp.ids.patch
+@@ -171,7 +167,6 @@ pnp.ids: pnp.ids.orig pnp.ids.patch
  	else \
  	    cat $?; \
  	fi | sed 's/\s\+$$//' >$@
 -
+ update-usb-patches:
+ 	@echo "Regenerating USB patches with updated line numbers..."
+ 	@if [ ! -f usb.ids.converted ]; then \
