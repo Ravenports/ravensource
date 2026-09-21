@@ -1,7 +1,7 @@
 LOCAL_CREDS path appears broken on NetBSD...
 set_local_creds() is missing on FreeBSD
 
---- egg/egg-unix-credentials.c.orig	2025-03-18 08:38:44 UTC
+--- egg/egg-unix-credentials.c.orig	2026-03-15 23:11:07 UTC
 +++ egg/egg-unix-credentials.c
 @@ -48,6 +48,10 @@
  #include <ucred.h>
