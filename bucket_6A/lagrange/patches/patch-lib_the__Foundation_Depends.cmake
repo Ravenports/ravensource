@@ -1,6 +1,6 @@
---- lib/the_Foundation/Depends.cmake.orig	2026-08-28 15:43:48.068735000 +0200
-+++ lib/the_Foundation/Depends.cmake	2026-08-28 15:46:13.279670000 +0200
-@@ -84,24 +84,7 @@
+--- lib/the_Foundation/Depends.cmake.orig	2026-08-26 15:50:00 UTC
++++ lib/the_Foundation/Depends.cmake
+@@ -84,24 +84,7 @@ if (NOT IOS AND NOT ANDROID)
          if (TFDN_ENABLE_TLSREQUEST)
              set (OPENSSL_FOUND NO)
              set (iHaveOpenSSL NO)

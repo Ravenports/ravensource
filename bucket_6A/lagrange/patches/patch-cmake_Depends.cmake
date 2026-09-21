@@ -1,6 +1,6 @@
---- cmake/Depends.cmake.orig	2026-08-28 15:39:26.481797000 +0200
-+++ cmake/Depends.cmake	2026-08-28 15:41:03.279168000 +0200
-@@ -69,6 +69,7 @@
+--- cmake/Depends.cmake.orig	2026-08-26 15:48:45 UTC
++++ cmake/Depends.cmake
+@@ -69,6 +69,7 @@ else ()
          find_package (OpenSSL QUIET)
          find_package (ZLIB QUIET)
      endif ()
