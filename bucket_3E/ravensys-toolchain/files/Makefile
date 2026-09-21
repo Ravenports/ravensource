@@ -30,7 +30,7 @@ install:
 	cp /usr/bin/ld.sun ${DESTDIR}${PREFIX}/bin/ld
 .else
 .  if "${OPSYS}" == "NetBSD"
-	cp ${DESTDIR}/bin/ld.bfd ${DESTDIR}${PREFIX}/bin/ld
+	cp ${DESTDIR}${PREFIX}/bin/ld.bfd ${DESTDIR}${PREFIX}/bin/ld
 .  else
 	cp ${LOCALBASE}/libexec/ld ${DESTDIR}${PREFIX}/bin/ld
 .  endif
