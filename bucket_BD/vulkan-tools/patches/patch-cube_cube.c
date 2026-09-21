@@ -1,4 +1,4 @@
---- cube/cube.c.orig	2026-08-28 03:05:46 UTC
+--- cube/cube.c.orig	2026-09-04 03:25:51 UTC
 +++ cube/cube.c
 @@ -5108,7 +5108,7 @@ void android_main(struct android_app *ap
          }

@@ -1,4 +1,4 @@
---- cube/cube.cpp.orig	2026-08-28 03:05:46 UTC
+--- cube/cube.cpp.orig	2026-09-04 03:25:51 UTC
 +++ cube/cube.cpp
 @@ -4153,6 +4153,7 @@ int WINAPI WinMain(HINSTANCE hInstance,
  }
