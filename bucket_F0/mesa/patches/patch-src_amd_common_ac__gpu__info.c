@@ -1,4 +1,4 @@
---- src/amd/common/ac_gpu_info.c.orig	2026-08-05 21:14:26 UTC
+--- src/amd/common/ac_gpu_info.c.orig	2026-08-20 08:57:40 UTC
 +++ src/amd/common/ac_gpu_info.c
 @@ -83,7 +83,7 @@ static void set_custom_cu_en_mask(struct
        return;
