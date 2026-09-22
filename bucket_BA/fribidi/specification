@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.0.16
+DEF[PORTVERSION]=	1.0.17
 DEF[SOVERSION]=		0.4.0
 # ----------------------------------------------------------------------------
 
@@ -30,7 +30,9 @@ FPC_EQUIVALENT=		converters/fribidi
 
 EXRUN[tools]=		primary
 
-USES=			cpe gmake libtool mbsdfix
+BUILD_DEPENDS=		help2man:primary:std
+
+USES=			cpe gmake libtool mbsdfix pkgconfig
 INSTALL_TARGET=		install-strip
 MUST_CONFIGURE=		gnu
 CONFIGURE_ARGS=		--enable-static
