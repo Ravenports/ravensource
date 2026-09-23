@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.34.2
+DEF[PORTVERSION]=	0.34.3
 DEF[GGML]=		0.24.0
 DEF[LLAMA]=		0.4.1
 #
@@ -33,7 +33,7 @@ SITES[md07]=		GITHUB/bytedance:sonic:51ea135322cab599c287fe6418df4c2e3c32b65e:ve
 SITES[md08]=		GITHUB/charmbracelet:bubbletea:9edf69c677c7353eca5fae6d3ea3986af39717b7:vendor/github.com/charmbracelet/bubbletea
 SITES[md09]=		GITHUB/charmbracelet:colorprofile:f60798e515dc58606db01ed1c66a7bdd51e9fe34:vendor/github.com/charmbracelet/colorprofile
 SITES[md10]=		GITHUB/charmbracelet:lipgloss:f0e45475a64ee60d712b81145172d3739db36a93:vendor/github.com/charmbracelet/lipgloss
-SITES[md11]=		GITHUB/charmbracelet:x:38fb69db254fb15a39427143e76768fe176e8b9b:vendor/github.com/charmbracelet/x/ansi+subdir
+SITES[md11]=		GITHUB/charmbracelet:x:38fb69db254fb15a39427143e76768fe176e8b9b:vendor/github.com/charmbracelet/x/ansi
 SITES[md12]=		GITHUB/charmbracelet:x:2c3ea96c31dd322b1ce0beb495e9a72fce04f6ef:vendor/github.com/charmbracelet/x/cellbuf+subdir
 SITES[md13]=		GITHUB/charmbracelet:x:66d4aed428d9330a4b1a97b3d6fcd985b08cfaeb:vendor/github.com/charmbracelet/x/term+subdir
 SITES[md14]=		GITHUB/cloudwego:base64x:aa02bf235e2a286ef3a99bacefb460195fc5a16b:vendor/github.com/cloudwego/base64x
@@ -84,7 +84,7 @@ SITES[md58]=		GITHUB/tkrajina:typescriptify-golang-structs:0a75b3461d57022aac17f
 SITES[md59]=		GITHUB/tree-sitter:go-tree-sitter:adc13ffd8b2c0b01b878fda9f7c422ce0df5fad3:vendor/github.com/tree-sitter/go-tree-sitter
 SITES[md60]=		GITHUB/tree-sitter:tree-sitter-cpp:f41e1a044c8a84ea9fa8577fdd2eab92ec96de02:vendor/github.com/tree-sitter/tree-sitter-cpp
 SITES[md61]=		GITHUB/twitchyliquid64:golang-asm:v0.15.1:vendor/github.com/twitchyliquid64/golang-asm
-SITES[md62]=		GITHUB/ugorji:go:43b79bfcab412eeb73e92181a2190e97a5520566:vendor/github.com/ugorji/go/codec+subdir
+SITES[md62]=		GITHUB/ugorji:go:43b79bfcab412eeb73e92181a2190e97a5520566:vendor/github.com/ugorji/go/codec
 SITES[md63]=		GITHUB/wk8:go-ordered-map:85ca4a2b29d3241fa4513f82be3d38fe2392a791:vendor/github.com/wk8/go-ordered-map/v2
 SITES[md64]=		GITHUB/xo:terminfo:abceb7e1c41eed2857facd9bbdaaa5ff8137d901:vendor/github.com/xo/terminfo
 SITES[md65]=		GITHUB/golang:arch:5d0b1102bee052ce00bf47f9cfef8f73d2ac6d46:vendor/golang.org/x/arch
@@ -232,10 +232,8 @@ PLIST_SUB=		GGML=${GGML}
 post-patch:
 	cd ${WRKDIR}/llama.cpp-b10969 && patch -i ${WRKSRC}/llama/compat/001-llama-cpp-hooks.patch
 	${LN} -s ${WRKSRC}/vendor/github.com/bytedance/sonic/loader+subdir/loader ${WRKSRC}/vendor/github.com/bytedance/sonic/loader
-	${LN} -s ${WRKSRC}/vendor/github.com/charmbracelet/x/ansi+subdir/ansi ${WRKSRC}/vendor/github.com/charmbracelet/x/ansi
 	${LN} -s ${WRKSRC}/vendor/github.com/charmbracelet/x/cellbuf+subdir/cellbuf ${WRKSRC}/vendor/github.com/charmbracelet/x/cellbuf
 	${LN} -s ${WRKSRC}/vendor/github.com/charmbracelet/x/term+subdir/term ${WRKSRC}/vendor/github.com/charmbracelet/x/term
-	${LN} -s ${WRKSRC}/vendor/github.com/ugorji/go/codec+subdir/codec ${WRKSRC}/vendor/github.com/ugorji/go/codec
 	${CP} ${FILESDIR}/modules.txt ${WRKSRC}/vendor/
 
 # No idea why CMake installs the project twice; just delete the second one
