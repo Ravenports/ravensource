@@ -7,7 +7,7 @@ DEF[INTERNAL_VERSION]=	${POSTED_VERSION}-2018-02-18
 
 NAMEBASE=		clisp
 VERSION=		${PORTVERSION}
-REVISION=		1
+REVISION=		2
 EPOCH=			1
 KEYWORDS=		lang
 VARIANTS=		std
@@ -41,6 +41,7 @@ CONFIGURE_ARGS=		--prefix="{{PREFIX}}"
 			--disable-nls
 # build segfaults with gcc15 unless optimization level 0 is set (as debug does)
 			--with-debug
+CFLAGS=			-std=gnu17
 
 # The FreeBSD port has a lot of options that could be added here, too.
 BUILD_DEPENDS=		libsigsegv:dev:std
