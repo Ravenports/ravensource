@@ -1,4 +1,4 @@
---- configure.orig	2025-05-23 14:44:45 UTC
+--- configure.orig	2026-09-03 07:29:53 UTC
 +++ configure
 @@ -1,4 +1,4 @@
 -
@@ -6,3 +6,12 @@
  # This configure script finds OpenSSL and Abseil, optionally building
  # Abseil if not found.
  
+@@ -70,7 +70,7 @@ export PKG_CONFIG_PATH="${PKG_CONFIG_PAT
+ echo "** Using PKG_CONFIG_PATH=${PKG_CONFIG_PATH}"
+ 
+ if [ -z "$S2_FORCE_BUNDLED_ABSEIL" ]; then
+-  S2_FORCE_BUNDLED_ABSEIL=true
++  S2_FORCE_BUNDLED_ABSEIL=false
+ fi
+ 
+ if [ "$S2_FORCE_BUNDLED_ABSEIL" = "false" ] && pkg-config absl_s2 --libs >/dev/null 2>/dev/null; then
