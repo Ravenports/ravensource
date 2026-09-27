@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.34.3
+DEF[PORTVERSION]=	0.34.4
 DEF[GGML]=		0.24.0
 DEF[LLAMA]=		0.4.1
 #
@@ -99,8 +99,8 @@ SITES[md73]=		GITHUB/golang:term:3a0828a6667fd19fb680702513ff01f7afe76772:vendor
 SITES[md74]=		GITHUB/golang:text:c6abd0305e90ada9293824462268d0ec20d02e5e:vendor/golang.org/x/text
 SITES[md75]=		GITHUB/protocolbuffers:protobuf-go:4a76e11653e368b9331815e1eb98e0cedc28997f:vendor/google.golang.org/protobuf
 SITES[md76]=		GITHUB/go-yaml:yaml:v3.0.1:vendor/gopkg.in/yaml.v3
-SITES[md77]=		GITHUB/ggml-org:llama.cpp:b10969
-SITES[md78]=		GITHUB/ml-explore:mlx:d9add9d11f3154111a4c85f267ec2fd307ecd18e
+SITES[md77]=		GITHUB/ggml-org:llama.cpp:b11081
+SITES[md78]=		GITHUB/ml-explore:mlx:59d600b5e64c238427d0f8d897ab7c682ef4d3d2
 SITES[md79]=		GITHUB/ml-explore:mlx-c:ebc88f10caa1b625e6b581437a8dea6df8a70085
 DISTFILE[1]=		generated:main
 DISTFILE[2]=		generated:md01
@@ -208,7 +208,7 @@ BUILDRUN_DEPENDS=	ocl-icd:primary:std
 USES=			c++:single cmake cpe python:build
 CMAKE_ARGS=		-DOLLAMA_LLAMA_BACKENDS=""
 			-DGGML_OPENCL=ON
-			-DFETCHCONTENT_SOURCE_DIR_LLAMA_CPP=../llama.cpp-b10969
+			-DFETCHCONTENT_SOURCE_DIR_LLAMA_CPP=../llama.cpp-b11081
 
 MAKE_ENV=		CGO_CPPFLAGS="{{CPPFLAGS}}"
 			CGO_CFLAGS="{{CFLAGS}}"
@@ -230,7 +230,7 @@ PLIST_SUB=		GGML=${GGML}
 			MTMD_MAJ=${LLAMA:R:R}
 
 post-patch:
-	cd ${WRKDIR}/llama.cpp-b10969 && patch -i ${WRKSRC}/llama/compat/001-llama-cpp-hooks.patch
+	cd ${WRKDIR}/llama.cpp-b11081 && patch -i ${WRKSRC}/llama/compat/001-llama-cpp-hooks.patch
 	${LN} -s ${WRKSRC}/vendor/github.com/bytedance/sonic/loader+subdir/loader ${WRKSRC}/vendor/github.com/bytedance/sonic/loader
 	${LN} -s ${WRKSRC}/vendor/github.com/charmbracelet/x/ansi+subdir/ansi ${WRKSRC}/vendor/github.com/charmbracelet/x/ansi
 	${LN} -s ${WRKSRC}/vendor/github.com/charmbracelet/x/cellbuf+subdir/cellbuf ${WRKSRC}/vendor/github.com/charmbracelet/x/cellbuf
