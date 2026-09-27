@@ -1,6 +1,6 @@
---- Foundation/src/Timezone_UNIX.cpp.orig	2026-04-16 18:15:35.000000000 -0000
+--- Foundation/src/Timezone_UNIX.cpp.orig	2026-05-20 16:41:39 UTC
 +++ Foundation/src/Timezone_UNIX.cpp
-@@ -77,7 +77,7 @@ private:
+@@ -109,7 +109,7 @@ private:
  
  	static int computeTimeZone()
  	{
@@ -9,7 +9,7 @@
  		// Get offset from a date when DST is not active.
  		// Check both January and July - one of them won't have DST.
  		struct std::tm jan = {};
-@@ -140,7 +140,7 @@ int Timezone::dst(const Poco::Timestamp&
+@@ -174,7 +174,7 @@ int Timezone::dst(const Poco::Timestamp&
  	{
  #if defined(__CYGWIN__)
  		return local.__TM_GMTOFF - utcOffset();
