@@ -1,6 +1,6 @@
 # expose getline in FreeBSD's stdio.h
 #
---- src/intel/tools/aubinator_error_decode.c.orig	2026-08-20 08:57:40 UTC
+--- src/intel/tools/aubinator_error_decode.c.orig	2026-09-02 15:40:02 UTC
 +++ src/intel/tools/aubinator_error_decode.c
 @@ -22,6 +22,9 @@
   *

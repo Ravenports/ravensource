@@ -1,4 +1,4 @@
---- src/amd/llvm/ac_llvm_build.h.orig	2026-08-20 08:57:40 UTC
+--- src/amd/llvm/ac_llvm_build.h.orig	2026-09-02 15:40:02 UTC
 +++ src/amd/llvm/ac_llvm_build.h
 @@ -15,6 +15,10 @@
  
