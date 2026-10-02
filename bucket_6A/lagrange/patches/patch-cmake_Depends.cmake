@@ -1,4 +1,4 @@
---- cmake/Depends.cmake.orig	2026-08-26 15:48:45 UTC
+--- cmake/Depends.cmake.orig	2026-09-03 05:47:07 UTC
 +++ cmake/Depends.cmake
 @@ -69,6 +69,7 @@ else ()
          find_package (OpenSSL QUIET)
