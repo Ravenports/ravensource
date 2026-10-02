@@ -1,4 +1,4 @@
---- src/gallium/auxiliary/driver_ddebug/dd_draw.c.orig	2026-09-02 15:40:02 UTC
+--- src/gallium/auxiliary/driver_ddebug/dd_draw.c.orig	2026-09-16 20:05:19 UTC
 +++ src/gallium/auxiliary/driver_ddebug/dd_draw.c
 @@ -92,7 +92,7 @@ dd_parse_apitrace_marker(const char *str
        return;
