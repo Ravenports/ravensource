@@ -56,6 +56,18 @@ To install netmiko, simply use pip:
 $ pip install netmiko
 ```
 
+To install with Paramiko 4 compatibility:
+
+```
+$ pip install "netmiko[par4]"
+```
+
+To install the bulk-encryption CLI and its optional dependency:
+
+```
+$ pip install "netmiko[bulk-encrypt]"
+```
+
 <br />
 
 ## API-Documentation
@@ -86,15 +98,3 @@ Answers to some [common_questions]
 
 Supported device_types can be found in [ssh_dispatcher.py], see
 CLASS_MAPPER keys.
-```py
-from netmiko import ConnectHandler
-
-cisco_881 = {
-    'device_type': 'cisco_ios',
-    'host':   '10.10.10.10',
-    'username': 'test',
-    'password': 'password',
-    'port' : 8022,          # optional, defaults to 22
-    'secret': 'secret',     # optional, defaults to ''
-}
-

@@ -3,7 +3,7 @@
 Proxbox is a NetBox plugin that synchronizes Proxmox infrastructure data
 into NetBox. It keeps your DCIM up-to-date with real Proxmox clusters,
 nodes, virtual machines, containers, backups, and Firecracker micro-VM
-inventory used by the NMS Cloud runtime.
+inventory.
 
 ![netbox-proxbox architecture]
 
@@ -16,10 +16,13 @@ Proxbox discovers and syncs the following from Proxmox into NetBox:
 Each node includes online status, IP address, CPU usage, memory usage, and
 uptime at sync time. Optionally link to NetBox Cluster and Device objects.
 - **Virtual Machines** — VM status, resources, and configuration
+- **Standalone browser console** — a permission-gated Console tab on
+synchronized NetBox virtual machines, with QEMU noVNC/terminal and LXC
+terminal access relayed through proxbox-api without another management UI
+or browser-visible Proxmox credentials
 - **Containers (LXC)** — Container details and settings
 - **Firecracker Cloud inventory** — Host pools, host-agent VMs, image
-templates, and provisioned micro-VMs exposed separately from QEMU/LXC for
-NMS Cloud provisioning
+templates, and provisioned micro-VMs exposed separately from QEMU/LXC
 - **VM Snapshots** — Point-in-time snapshots for recovery
 - **VM Backups** — Backup jobs and restore points
 - **Storage** — Datastores and storage content
@@ -29,6 +32,10 @@ plugin `GuestVMInterface` rows, and IP addresses assigned to VMs and
 containers
 - **Backup Routines** — Backup job definitions from Proxmox
 - **Replications** — Replication job status and configuration
+- **Data Protection Calendar** — Month and ISO-week views for backups,
+  snapshots, replications, and routines, with a combined permission-aware
+page
+  and cluster, node, virtual-machine, date-range, and event-kind filters
 - **Opt-in service monitoring** — Proxmox endpoint systemd service state
 collected through the optional `netbox-rpc` procedure
 `os.linux.proxmox.show_systemctl_services`
@@ -61,10 +68,12 @@ submit a key explicitly for manual rotation or recovery.
 Proxbox can be extended with standalone companion plugins. Install only the
 plugins you need; `netbox-proxbox` remains the base plugin and must be
 enabled
-before any companion plugin. The infrastructure inventory plugins declare
-`netbox-proxbox>=0.0.18` as a dependency, while `netbox-packer` and
-`netbox-rpc` follow the same operational conventions for the Proxbox plugin
-family. `netbox-rpc` is an *operational* companion: when it is installed,
+before any companion plugin. The Ceph, PBS, and PDM inventory companions
+declare `netbox-proxbox>=0.0.25.post2,<0.1.0`; `netbox-packer` and
+`netbox-rpc`
+follow the same operational conventions without declaring that package
+floor.
+`netbox-rpc` is an *operational* companion: when it is installed,
 netbox-proxbox can run audited SSH procedures against Proxmox hosts (for
 example installing the proxbox-api cloud-image-build SSH key on a node, or
 collecting systemd service status for an endpoint) through the netbox-rpc
@@ -89,12 +98,3 @@ recovery and key mutation remain blocked until its encrypted-field schema
 is
 upgraded.
 
-| Package | NetBox plugin | What it adds |
-|---------|---------------|--------------|
-| [`netbox-pdm`] | `netbox_pdm` | Inventories Proxmox Datacenter Manager
-endpoints and the PVE/PBS remotes managed by PDM. It links PDM remotes back
-to Proxbox Proxmox endpoints and, when installed, `netbox-pbs` backup
-servers. |
-| [`netbox-pbs`] | `netbox_pbs` | Inventories Proxmox Backup Server
-infrastructure, including PBS servers, datastores, backup snapshots, and
-scheduled job history. |

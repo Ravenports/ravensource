@@ -1,23 +1,29 @@
 # GraphQL-core 3
 
-GraphQL-core 3 is a Python 3.7+ port of [GraphQL.js],
+GraphQL-core 3 is a Python 3.10+ port of [GraphQL.js],
 the JavaScript reference implementation for [GraphQL],
 a query language for APIs created by Facebook.
 
 [PyPI version]
 [Documentation Status]
-![Test Status]
-![Lint Status]
-[Code Style]
+[Test Status]
+[Lint Status]
+[CodSpeed]
+[Code style]
 
-The current version 3.2.12 of GraphQL-core is up-to-date with GraphQL.js
-version 16.14.2.
+An extensive test suite with over 3000 unit tests and 100% coverage
+replicates the
+complete test suite of GraphQL.js, ensuring that this port is reliable and
+compatible
+with GraphQL.js.
 
-An extensive test suite with over 2500 unit tests and 100% coverage
-comprises a
-replication of the complete test suite of GraphQL.js, making sure this port
-is
-reliable and compatible with GraphQL.js.
+The current stable version 3.3.0 of GraphQL-core is up-to-date with
+GraphQL.js
+version 17.0.2 and supports Python versions 3.10 to 3.15.
+
+If you need compatibility with GraphQL.js 16 or support for Python 3.7 to
+3.9,
+you can use the latest version 3.2.13 from the 3.2 branch.
 
 Note that for various reasons, GraphQL-core does not use SemVer like
 GraphQL.js.
@@ -26,13 +32,13 @@ version of
 GraphQL-core instead. This means there can be breaking changes in the API
 when the minor version changes, and only patch releases are fully backward
 compatible.
-Therefore, we recommend using something like `~= 3.2.0` as the version
+Therefore, we recommend using something like `~= 3.3.0` as the version
 specifier
 when including GraphQL-core as a dependency.
 
 ## Documentation
 
-A more detailed documentation for GraphQL-core 3 can be found at
+More detailed documentation for GraphQL-core 3 can be found at
 [graphql-core-3.readthedocs.io].
 
 The documentation for GraphQL.js can be found at [graphql.org/graphql-js/].
@@ -46,22 +52,26 @@ examples.
 
 A general overview of GraphQL is available in the
 [README] for the
-[Specification for GraphQL]. That overview
-describes a simple set of GraphQL examples that exist as [tests] in this
-repository. A good way to get started with this repository is to walk
-through that
-README and the corresponding tests in parallel.
+[Specification for GraphQL]. This overview
+includes a simple set of GraphQL examples that are also available as
+[tests]
+in this repository. A good way to get started with this repository is to
+walk through
+that README and the corresponding tests in parallel.
 
 ## Installation
 
 GraphQL-core 3 can be installed from PyPI using the built-in pip command:
 
-    python -m pip install graphql-core
+```sh
+python -m pip install graphql-core
+```
 
-You can also use [poetry] for installation
-in a virtual environment:
+Or, if you prefer [uv]:
 
-    poetry install
+```sh
+uv pip install graphql-core
+```
 
 ## Usage
 
@@ -88,13 +98,3 @@ schema = GraphQLSchema(
 This defines a simple schema, with one type and one field, that resolves to
 a fixed
 value. The `resolve` function can return a value, a co-routine object or a
-list of
-these. It takes two positional arguments; the first one provides the root
-or the
-resolved parent field, the second one provides a `GraphQLResolveInfo`
-object which
-contains information about the execution state of the query, including a
-`context`
-attribute holding per-request state such as authentication information or
-database
-session. Any GraphQL arguments are passed to the `resolve` functions as

@@ -14,6 +14,12 @@ Library Reference (``datetime.tzinfo``).
 
 Almost all of the Olson timezones are supported.
 
+.. caution::
+
+    Deprecated. This library fails for dates starting 2038.
+    Use modern Python and the Python standard library.
+    Updates continue to be made for legacy systems.
+
 .. note::
 
     Projects using Python 3.9 or later should use the standard library 
@@ -92,9 +98,3 @@ information):
 >>> loc_dt = eastern.localize(datetime(2002, 10, 27, 6, 0, 0))
 >>> print(loc_dt.strftime(fmt))
 2002-10-27 06:00:00 EST-0500
-
-The second way of building a localized time is by converting an existing
-localized time using the standard ``astimezone()`` method:
-
->>> ams_dt = loc_dt.astimezone(amsterdam)
->>> ams_dt.strftime(fmt)

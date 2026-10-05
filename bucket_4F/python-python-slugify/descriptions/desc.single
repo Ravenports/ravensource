@@ -5,12 +5,13 @@ choices.
 
 [CI]
 [PyPI]
+[Maintained with Dojo]
 
 ## Quickstart
 
-**9.0.0 is available on [PyPI].**
-Legacy behavior remains the default; improved rules require
-`algorithm='modern'`.
+**[9+ releases] ship the modern algorithm.**
+Legacy behavior remains the default; use `algorithm='modern'` for the
+latest rules.
 See the [migration guide] before changing persisted URLs or keys.
 
 Install **python-slugify**, import **slugify**. Other similarly named
@@ -23,9 +24,18 @@ python -m pip install --upgrade python-slugify
 `python
 from slugify import slugify
 
+# Use the modern algorithm for the latest rules.
+assert slugify("C'est déjà l'été.", algorithm='modern') ==
+'c-est-deja-l-ete'
+assert slugify('影師嗎', backend='text-unidecode', algorithm='modern')
+== 'ying-shi-ma'
+assert slugify('影師嗎', allow_unicode=True, algorithm='modern') ==
+'影師嗎'
+
+# Calling slugify() without algorithm uses the legacy pipeline (the old
+default),
+# kept unchanged for backward compatibility.
 assert slugify("C'est déjà l'été.") == 'c-est-deja-l-ete'
-assert slugify('影師嗎', backend='text-unidecode') == 'ying-shi-ma'
-assert slugify('影師嗎', allow_unicode=True) == '影師嗎'
 `
 
 `sh
@@ -37,8 +47,7 @@ slugify --regex-pattern '[^-a-z0-9_]+' '___This is a test___'
 # ___this-is-a-test___
 ```
 
-The examples above work with the published 9.0.0 release. Python 3.10 or
-newer is required.
+The examples above work with 9+ releases. Python 3.10 or newer is required.
 
 ## Python support
 
@@ -89,12 +98,3 @@ options are keyword-only.
 
 ```python
 slugify(
-    text, entities=True, decimal=True, hexadecimal=True,
-    max_length=0, word_boundary=False, separator='-', save_order=False,
-    stopwords=(), regex_pattern=None, lowercase=True, replacements=(),
-    allow_unicode=False, *, replacement_stage='both', backend='auto',
-    algorithm='legacy',
-)
-```
-
-- `algorithm`: `'legacy'` is the permanent default, preserving the

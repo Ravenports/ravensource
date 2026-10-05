@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	4.7.0
+DEF[PORTVERSION]=	4.8.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-netmiko
@@ -7,11 +7,11 @@ KEYWORDS=		python
 VARIANTS=		v13 v14
 SDESC[v13]=		Simplify CLI connections to network devices (3.13)
 SDESC[v14]=		Simplify CLI connections to network devices (3.14)
-HOMEPAGE=		https://github.com/ktbyers/netmiko
+HOMEPAGE=		https://pypi.org/project/netmiko/
 CONTACT=		Python_Automaton[python@ravenports.com]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/d8/6d/7464ecd76316b40b875fd8a8e3128871dc8d24183cfb42b8f76527d8662d
+SITES[main]=		PYPIWHL/0c/0d/796ef54d10e5af8a9af12a431ad278d74d9139c4888599c2073b2eec814d
 DISTFILE[1]=		netmiko-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -30,14 +30,15 @@ GENERATED=		yes
 DISTNAME=		netmiko-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# ntc-templates (>=3.1.0)
-# paramiko (>=3.5.0,<5.0)
-# pyserial (>=3.3)
-# pyyaml (>=6.0.2)
-# rich (>=13.8)
-# ruamel.yaml (>=0.17)
-# scp (>=0.13.6)
-# textfsm (>=1.1.3)
+# ntc-templates>=3.1.0
+# paramiko>=3.5.1
+# pyserial>=3.3
+# pyyaml>=6.0.2
+# rich>=13.8
+# scp>=0.13.6
+# textfsm>=1.1.3
+# ruamel-yaml>=0.17; extra == 'bulk-encrypt'
+# paramiko<5.0,>=4.0; extra == 'par4'
 
 [PY313].USES_ON=			python:v13,wheel
 [PY313].RUN_DEPENDS_ON=			python-ntc-templates:single:v13
@@ -45,7 +46,6 @@ DISTNAME=		netmiko-${PORTVERSION}.dist-info
 					python-pyserial:single:v13
 					python-PyYAML:single:v13
 					python-rich:single:v13
-					python-ruamel.yaml:single:v13
 					python-scp:single:v13
 					python-textfsm:single:v13
 [PY314].USES_ON=			python:v14,wheel
@@ -54,7 +54,6 @@ DISTNAME=		netmiko-${PORTVERSION}.dist-info
 					python-pyserial:single:v14
 					python-PyYAML:single:v14
 					python-rich:single:v14
-					python-ruamel.yaml:single:v14
 					python-scp:single:v14
 					python-textfsm:single:v14
 

@@ -1,100 +1,100 @@
+# Deprecated Decorator
 
-Deprecated Library
-------------------
+![Deprecated: a price tag reading "@deprecated, best before: next major"]
 
-Deprecated is Easy to Use
+Python `@deprecated` decorator to deprecate old python classes, functions
+or methods.
+
+[license]
+[GitHub release]
+[PyPI]
+[GitHub Workflow Status]
+[Coveralls branch]
+[Read the Docs (version)]
+
+Removing a function from a library breaks the code of its users.
+Deprecating it first gives
+them time to migrate: the Deprecated library marks classes, functions,
+methods and parameters
+as deprecated, emits a warning that points at the calling code, and can
+document the deprecation
+in the docstring.
+
+## Installation
+
+`shell
+pip install Deprecated
 `
 
-If you need to mark a function or a method as deprecated,
-you can use the ``@deprecated`` decorator:
+Deprecated requires Python 3.12+ and [wrapt].
 
-Save in a hello.py:
+## Usage
 
-.. code:: python
+Decorate a deprecated function, method or class with `@deprecated`:
 
-    from deprecated import deprecated
+```python
+from deprecated import deprecated
 
-    @deprecated(version='1.2.1', reason="You should use another function")
-    def some_old_function(x, y):
-        return x + y
+@deprecated(reason="use new_function", version="2.1.0")
+def some_old_function(x, y):
+    return x + y
 
-    class SomeClass(object):
-        @deprecated(version='1.3.0', reason="This method is deprecated")
-        def some_old_method(self, x, y):
-            return x + y
-
-    some_old_function(12, 34)
-    obj = SomeClass()
-    obj.some_old_method(5, 8)
-
-And Easy to Setup
-`
-
-And run it:
-
-.. code:: bash
-
-    $ pip install Deprecated
-    $ python hello.py
-    hello.py:15: DeprecationWarning: Call to deprecated function (or
-staticmethod) some_old_function.
-    (You should use another function) -- Deprecated since version 1.2.0.
-      some_old_function(12, 34)
-    hello.py:17: DeprecationWarning: Call to deprecated method
-some_old_method.
-    (This method is deprecated) -- Deprecated since version 1.3.0.
-      obj.some_old_method(5, 8)
-
-You can document your code
-``
-
-Have you ever wonder how to document that some functions, classes, methods,
-etc. are deprecated?
-This is now possible with the integrated Sphinx directives:
-
-For instance, in hello_sphinx.py:
-
-.. code:: python
-
-    from deprecated.sphinx import deprecated
-    from deprecated.sphinx import versionadded
-    from deprecated.sphinx import versionchanged
-
-    @versionadded(version='1.0', reason="This function is new")
-    def function_one():
-        '''This is the function one'''
-
-    @versionchanged(version='1.0', reason="This function is modified")
-    def function_two():
-        '''This is the function two'''
-
-    @deprecated(version='1.0', reason="This function will be removed soon")
-    def function_three():
-        '''This is the function three'''
-
-    function_one()
-    function_two()
-    function_three()  # warns
-
-    help(function_one)
-    help(function_two)
-    help(function_three)
-
-The result it immediate
+some_old_function(1, 2)
 ```
 
-Run it:
+Each call emits a warning located at the calling line:
 
-.. code:: bash
+```text
+example.py:9: DeprecationWarning: Call to deprecated function (or
+staticmethod) some_old_function. (use new_function) -- Deprecated since
+version 2.1.0.
+```
 
-    $ python hello_sphinx.py
+`@deprecated` can also be used without arguments, and accepts other
+options:
+`category` (e.g. `FutureWarning` instead of `DeprecationWarning`), `action`
+(a local warning
+filter, e.g. `"error"`) and `extra_stacklevel` (for wrappers of deprecated
+functions).
 
-    hello_sphinx.py:23: DeprecationWarning: Call to deprecated function (or
-staticmethod) function_three.
-    (This function will be removed soon) -- Deprecated since version 1.0.
-      function_three()  # warns
+To deprecate a *parameter* rather than the whole function, use
+`@deprecated_params`:
 
-    Help on function function_one in module __main__:
+```python
+from deprecated import deprecated_params
 
-    function_one()
-        This is the function one
+@deprecated_params("color", reason="'color' is ignored, use 'style'")
+def draw(shape, color=None, style=None):
+    ...
+```
+
+Calling `draw("circle", color="red")` emits `DeprecationWarning: 'color' is
+ignored, use 'style'`.
+
+## Documenting the life cycle
+
+The Deprecated library can also document the life cycle of your functions
+and classes:
+the `@deprecated`, `@versionadded` and `@versionchanged` decorators update
+the docstring,
+according to your docstring format:
+
+- `deprecated.sphinx`: reStructuredText directives (`.. deprecated::
+1.2.0`),
+- `deprecated.google`: Google style sections (`Deprecated:`),
+- `deprecated.numpy`: NumPy style sections (`Deprecated` underlined with
+hyphens).
+
+```python
+from deprecated.google import deprecated
+from deprecated.google import versionadded
+
+@deprecated(reason="use another function", version="1.2.0")
+@versionadded(version="1.0.0")
+def some_old_function(x, y):
+    """Add two numbers.
+
+    Args:
+        x: first number.
+        y: second number.
+    """

@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	4.36.0
+DEF[PORTVERSION]=	5.1.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-breathe
@@ -11,7 +11,7 @@ HOMEPAGE=		https://www.breathe-doc.org/
 CONTACT=		Python_Automaton[python@ravenports.com]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/2c/bc/d67ef1e11ed6e6343c135bf605aa9d5734ff0cc77eb42a2a41f182abc9d9
+SITES[main]=		PYPIWHL/76/7c/ff68c2846946ed17daca3355e47d49fcb8422ad373627d2b56488d6bd484
 DISTFILE[1]=		breathe-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -31,17 +31,18 @@ DISTNAME=		breathe-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
 # Sphinx>=7.2
+# setuptools>=80.9.0 ; extra == "build"
 # furo ; extra == "docs"
 # sphinx-copybutton ; extra == "docs"
 # sphinxcontrib-spelling ; extra == "docs"
-# ruff==0.9.2 ; extra == "lint"
-# mypy>=1 ; extra == "lint"
+# ruff==0.16.8 ; extra == "lint"
+# mypy>=1,<1.10 ; extra == "lint"
 # types-docutils ; extra == "lint"
 # types-Pygments ; extra == "lint"
-# pytest>=8.0 ; extra == "lint"
+# pytest>=8.0,<9 ; extra == "lint"
 # sphinxcontrib-phpdomain ; extra == "lint"
-# sphinx-csharp ; extra == "lint"
-# pytest>=8.0 ; extra == "test"
+# pytest>=8.0,<9 ; extra == "test"
+# Sphinx[test] ; extra == "test"
 
 [PY313].USES_ON=			python:v13,wheel
 [PY313].RUN_DEPENDS_ON=			python-Sphinx:single:v13
