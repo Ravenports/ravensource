@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	8.0.3
+DEF[PORTVERSION]=	8.2.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-trytond-purchase
@@ -11,7 +11,7 @@ HOMEPAGE=		https://www.tryton.org/
 CONTACT=		Python_Automaton[python@ravenports.com]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/00/16/c2e3af11b990160e8f3a7484b6f47baa9742b489c47bbe6ba6f22d02f943
+SITES[main]=		PYPIWHL/fc/eb/ddbd73599b5a3be57ca67b0a8487c4cb7a455071aa47da85df4a0ed4e9e9
 DISTFILE[1]=		trytond_purchase-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -30,21 +30,23 @@ GENERATED=		yes
 DISTNAME=		trytond_purchase-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
+# python-dateutil
 # python-sql>=1.4
-# trytond-account-invoice-stock<8.1,>=8.0
-# trytond-account-invoice<8.1,>=8.0
-# trytond-account-product<8.1,>=8.0
-# trytond-account<8.1,>=8.0
-# trytond-company<8.1,>=8.0
-# trytond-currency<8.1,>=8.0
-# trytond-party<8.1,>=8.0
-# trytond-product<8.1,>=8.0
-# trytond-stock<8.1,>=8.0
-# trytond<8.1,>=8.0
-# proteus<8.1,>=8.0; extra == 'test'
+# trytond-account-invoice-stock<8.3,>=8.2
+# trytond-account-invoice<8.3,>=8.2
+# trytond-account-product<8.3,>=8.2
+# trytond-account<8.3,>=8.2
+# trytond-company<8.3,>=8.2
+# trytond-currency<8.3,>=8.2
+# trytond-party<8.3,>=8.2
+# trytond-product<8.3,>=8.2
+# trytond-stock<8.3,>=8.2
+# trytond<8.3,>=8.2
+# proteus<8.3,>=8.2; extra == 'test'
 
 [PY313].USES_ON=			python:v13,wheel
-[PY313].RUN_DEPENDS_ON=			python-python-sql:single:v13
+[PY313].RUN_DEPENDS_ON=			python-python-dateutil:single:v13
+					python-python-sql:single:v13
 					python-trytond-account-invoice-stock:single:v13
 					python-trytond-account-invoice:single:v13
 					python-trytond-account-product:single:v13
@@ -56,7 +58,8 @@ DISTNAME=		trytond_purchase-${PORTVERSION}.dist-info
 					python-trytond-stock:single:v13
 					python-trytond:single:v13
 [PY314].USES_ON=			python:v14,wheel
-[PY314].RUN_DEPENDS_ON=			python-python-sql:single:v14
+[PY314].RUN_DEPENDS_ON=			python-python-dateutil:single:v14
+					python-python-sql:single:v14
 					python-trytond-account-invoice-stock:single:v14
 					python-trytond-account-invoice:single:v14
 					python-trytond-account-product:single:v14
