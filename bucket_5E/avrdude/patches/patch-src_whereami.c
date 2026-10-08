@@ -1,6 +1,6 @@
---- src/whereami.c.orig	2026-07-11 11:11:28 UTC
+--- src/whereami.c.orig	2026-09-11 07:19:44 UTC
 +++ src/whereami.c
-@@ -24,6 +24,7 @@ extern "C" {
+@@ -25,6 +25,7 @@ extern "C" {
  
  #if !defined(WAI_MALLOC) || !defined(WAI_FREE) || !defined(WAI_REALLOC)
  #include <stdlib.h>

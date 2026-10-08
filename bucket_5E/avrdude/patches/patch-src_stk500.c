@@ -1,4 +1,4 @@
---- src/stk500.c.orig	2026-07-11 11:11:28 UTC
+--- src/stk500.c.orig	2026-09-11 07:19:44 UTC
 +++ src/stk500.c
 @@ -1001,7 +1001,7 @@ static int set_memchr_a_div(const PROGRA
  
