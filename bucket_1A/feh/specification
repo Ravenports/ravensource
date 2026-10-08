@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.12.4
+DEF[PORTVERSION]=	3.13.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		feh
@@ -45,10 +45,8 @@ VAR_OPSYS[netbsd]=	CFLAGS=-D_NETBSD_SOURCE
 VAR_OPSYS[linux]=	CFLAGS=-D_DEFAULT_SOURCE
 
 post-patch:
-	${REINPLACE_CMD} \
-		-e 's|install-doc||' \
-		-e 's|install-examples||' \
-		${WRKSRC}/Makefile
+	${REINPLACE_CMD} -e '/INSTALL_TARGETS =/ s| doc||; s| examples||' \
+		${WRKSRC}/config.mk
 
 post-patch-dragonfly:
 	${REINPLACE_CMD} -e '/std/d' ${WRKSRC}/config.mk
