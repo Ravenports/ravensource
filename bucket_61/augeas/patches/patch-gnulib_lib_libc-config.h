@@ -1,4 +1,4 @@
---- gnulib/lib/libc-config.h.orig	2023-07-14 23:39:13 UTC
+--- gnulib/lib/libc-config.h.orig	2026-09-29 22:03:49 UTC
 +++ gnulib/lib/libc-config.h
 @@ -35,6 +35,11 @@
  

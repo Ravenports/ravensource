@@ -1,13 +1,10 @@
-DEF[PORTVERSION]=	1.14.1
+DEF[PORTVERSION]=	1.15.0
 DEF[SOVERSION]=		0.25.0
 DEF[FA_VERSION]=	1.5.3
-DEF[TAG]=		release-${PORTVERSION}
-DEF[GNULIB_HASH]=	2f7479a16a3395f1429c7795f10c5d19b9b4453e
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		augeas
 VERSION=		${PORTVERSION}
-REVISION=		3
 KEYWORDS=		textproc
 VARIANTS=		std
 SDESC[std]=		Configuration editing tool and API
@@ -17,11 +14,6 @@ CONTACT=		nobody
 DOWNLOAD_GROUPS=	main savannah
 SITES[main]=		https://github.com/hercules-team/augeas/releases/download/release-${PORTVERSION}/
 DISTFILE[1]=		augeas-${PORTVERSION}.tar.gz:main
-# SITES[main]=		GITHUB/hercules-team:augeas:${TAG}
-# SITES[savannah]=	https://git.savannah.gnu.org/cgit/gnulib.git/snapshot/
-# DISTFILE[1]=		generated:main
-# DISTFILE[2]=		gnulib-${GNULIB_HASH}.tar.gz:savannah
-# DF_INDEX=		1 2
 
 SPKGS[std]=		set primary dev tools man
 
@@ -44,10 +36,8 @@ PLIST_SUB=		FA_SOVERSION=${FA_VERSION}
 			FA_SOMAJOR=${FA_VERSION:R:R}
 SOVERSION=		${SOVERSION}
 
-CVE_FIXED=		CVE-2025-2588
-
-# post-extract:
-# #	${MV} ${WRKDIR}/gnulib-${GNULIB_HASH} ${WRKSRC}/gnulib
+# CVE addressed with v.1.15.0
+# CVE_FIXED=		CVE-2025-2588
 
 post-patch:
 	${TOUCH} -r ${WRKSRC}/gnulib/m4/gnulib-common.m4.orig \

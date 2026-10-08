@@ -1,4 +1,4 @@
---- gnulib/m4/gnulib-common.m4.orig	2023-07-14 23:39:14 UTC
+--- gnulib/m4/gnulib-common.m4.orig	2026-09-29 22:03:50 UTC
 +++ gnulib/m4/gnulib-common.m4
 @@ -345,11 +345,7 @@ AC_DEFUN([gl_COMMON_BODY], [
     _GL_ATTRIBUTE_NONNULL () declares that all pointer arguments must not be

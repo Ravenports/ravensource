@@ -1,4 +1,4 @@
---- gnulib/tests/localename.c.orig	2023-07-14 23:39:16 UTC
+--- gnulib/tests/localename.c.orig	2026-09-29 22:03:51 UTC
 +++ gnulib/tests/localename.c
 @@ -45,7 +45,7 @@
  # if defined __sun
