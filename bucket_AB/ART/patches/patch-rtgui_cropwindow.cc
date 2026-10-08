@@ -1,4 +1,4 @@
---- rtgui/cropwindow.cc.orig	2026-07-13 09:04:23 UTC
+--- rtgui/cropwindow.cc.orig	2026-09-15 13:19:35 UTC
 +++ rtgui/cropwindow.cc
 @@ -2463,10 +2463,10 @@ void CropWindow::zoomIn(bool toCursor, i
                  int y1 =

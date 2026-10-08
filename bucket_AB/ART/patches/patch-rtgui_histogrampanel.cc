@@ -1,4 +1,4 @@
---- rtgui/histogrampanel.cc.orig	2026-07-13 09:04:23 UTC
+--- rtgui/histogrampanel.cc.orig	2026-09-15 13:19:35 UTC
 +++ rtgui/histogrampanel.cc
 @@ -1415,7 +1415,7 @@ void HistogramArea::updateNonRaw(Cairo::
  
