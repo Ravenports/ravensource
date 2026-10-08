@@ -1,7 +1,7 @@
---- modules/ssl/ssl_private.h.orig	2025-11-06 09:09:18 UTC
+--- modules/ssl/ssl_private.h.orig	2026-09-18 06:54:37 UTC
 +++ modules/ssl/ssl_private.h
-@@ -145,7 +145,7 @@
- #define MODSSL_SSL_METHOD_CONST
+@@ -151,7 +151,7 @@
+ #define MODSSL_X509_EXT_CONST
  #endif
  
 -#if defined(LIBRESSL_VERSION_NUMBER)
