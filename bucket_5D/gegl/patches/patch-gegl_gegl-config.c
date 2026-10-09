@@ -1,4 +1,4 @@
---- gegl/gegl-config.c.orig	2026-03-24 10:55:24 UTC
+--- gegl/gegl-config.c.orig	2026-09-07 02:51:56 UTC
 +++ gegl/gegl-config.c
 @@ -44,7 +44,7 @@
  #include <mach/mach.h>
@@ -9,7 +9,7 @@
  #include <sys/types.h>
  #include <sys/sysctl.h>
  #endif
-@@ -286,6 +286,21 @@ gegl_config_class_init (GeglConfigClass
+@@ -294,6 +294,21 @@ gegl_config_class_init (GeglConfigClass
                               ) * page_size;
        mach_port_deallocate (mach_task_self (), host);
      }
@@ -31,7 +31,7 @@
  #elif defined(__FreeBSD__)
      bool ok = true;
  
-@@ -320,7 +335,11 @@ gegl_config_class_init (GeglConfigClass
+@@ -328,7 +343,11 @@ gegl_config_class_init (GeglConfigClass
      }
  #else
      mem_total = (uint64_t) sysconf (_SC_PHYS_PAGES) * sysconf (_SC_PAGESIZE);
