@@ -1,4 +1,4 @@
---- gtk-doc.xsl.orig	2025-10-03 07:52:15 UTC
+--- gtk-doc.xsl.orig	2026-09-26 11:47:16 UTC
 +++ gtk-doc.xsl
 @@ -8,7 +8,7 @@
    <!-- http://www.sagehill.net/docbookxsl/Chunking.html#FastChunking says we should use
