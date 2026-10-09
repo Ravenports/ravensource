@@ -1,4 +1,4 @@
---- gio/glocalfile.c.orig	2026-06-25 13:35:18 UTC
+--- gio/glocalfile.c.orig	2026-10-06 15:22:44 UTC
 +++ gio/glocalfile.c
 @@ -1278,6 +1278,7 @@ g_local_file_query_info (GFile
   * https://docs.oracle.com/cd/E86824_01/html/E54765/faccessat-2.html
@@ -8,7 +8,7 @@
      !defined(__OpenBSD__) && !defined(__sun__)
  static gboolean
  g_local_file_query_exists (GFile        *file,
-@@ -3280,6 +3281,7 @@ g_local_file_file_iface_init (GFileIface
+@@ -3377,6 +3378,7 @@ g_local_file_file_iface_init (GFileIface
    iface->monitor_file = g_local_file_monitor_file;
    iface->measure_disk_usage = g_local_file_measure_disk_usage;
  #if defined(HAVE_FACCESSAT) && !defined(__FreeBSD__) && !defined(__ANDROID__) && \
