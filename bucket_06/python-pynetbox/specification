@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	7.8.0
+DEF[PORTVERSION]=	7.9.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-pynetbox
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/netbox-community/pynetbox
 CONTACT=		Python_Automaton[python@ravenports.com]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/96/ec/bf45fc25fa1e41840a1240cd90851cc4ae9c32bbeab74512582fa7394ac3
+SITES[main]=		PYPIWHL/4f/ce/7dbb8a2ec85161af46d2004f8669f8ae22eb133c7b45247aa884a62f16ae
 DISTFILE[1]=		pynetbox-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -24,19 +24,32 @@ VOPTS[v13]=		PY313=ON PY314=OFF
 VOPTS[v14]=		PY313=OFF PY314=ON
 
 # License listed at PyPI
-# Apache2
+# Not provided.
 
 GENERATED=		yes
 DISTNAME=		pynetbox-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# requests<3.0,>=2.20.0
 # packaging
+# requests<3.0,>=2.32.3
+# urllib3<3,>=2.2.3
+# build; extra == "dev"
+# mkdocstrings[python]==1.0.6; extra == "dev"
+# pre-commit; extra == "dev"
+# pymdown-extensions>=10.0; extra == "dev"
+# pytest; extra == "dev"
+# pytest-docker; extra == "dev"
+# PyYAML; extra == "dev"
+# ruff==0.15.20; extra == "dev"
+# twine; extra == "dev"
+# zensical==0.0.57; extra == "dev"
 
 [PY313].USES_ON=			python:v13,wheel
-[PY313].RUN_DEPENDS_ON=			python-requests:single:v13
-					python-packaging:single:v13
+[PY313].RUN_DEPENDS_ON=			python-packaging:single:v13
+					python-requests:single:v13
+					python-urllib3:single:v13
 [PY314].USES_ON=			python:v14,wheel
-[PY314].RUN_DEPENDS_ON=			python-requests:single:v14
-					python-packaging:single:v14
+[PY314].RUN_DEPENDS_ON=			python-packaging:single:v14
+					python-requests:single:v14
+					python-urllib3:single:v14
 
