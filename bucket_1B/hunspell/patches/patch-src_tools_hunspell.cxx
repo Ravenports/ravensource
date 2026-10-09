@@ -1,6 +1,6 @@
---- src/tools/hunspell.cxx.orig	2026-05-05 07:19:07 UTC
+--- src/tools/hunspell.cxx.orig	2026-10-04 18:42:59 UTC
 +++ src/tools/hunspell.cxx
-@@ -119,9 +119,9 @@
+@@ -126,9 +126,9 @@
    DATADIR "/hunspell:"        \
    DATADIR "/myspell:"         \
    DATADIR "/myspell/dicts:"   \
@@ -11,10 +11,10 @@
 +  "%%PREFIX%%/share/myspell:"       \
 +  "%%PREFIX%%/share/myspell/dicts:" \
    "/Library/Spelling"
- #define USEROOODIR {                  \
-   ".openoffice.org/3/user/wordbook", \
-@@ -129,18 +129,12 @@
-   ".openoffice.org2.0/user/wordbook",\
+ #define USEROOODIR {                       \
+   ".openoffice.org/3/user/wordbook",       \
+@@ -137,18 +137,12 @@
+   ".config/libreoffice/4/user/wordbook",   \
    "Library/Spelling" }
  #define OOODIR                                       \
 -  "/opt/openoffice.org/basis3.0/share/dict/ooo:"     \
@@ -36,9 +36,9 @@
 +  "%%PREFIX%%/openoffice.org2.1/share/dict/ooo:"           \
 +  "%%PREFIX%%/openoffice.org2.0/share/dict/ooo"
  #define HOME getenv("HOME")
- #define DICBASENAME ".hunspell_"
- #define LOGFILE "/tmp/hunspell.log"
-@@ -663,6 +657,12 @@ char* mymkdtemp(char *templ) {
+ #define LODIR                                       \
+   "/opt/libreoffice/share/extensions:"              \
+@@ -714,6 +708,12 @@ char* mymkdtemp(char *templ) {
      return NULL;
    }
    return odftmpdir;
