@@ -1,6 +1,5 @@
-DEF[PORTVERSION]=	1.4.5
+DEF[PORTVERSION]=	1.4.7
 DEF[SOVERSION]=		5.0.0
-# Remove cmake minimum argument on next release
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libebml
@@ -29,12 +28,14 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		textproc/libebml
 
+BUILD_DEPENDS=		utf8cpp:single:std
+
 SOVERSION=		${SOVERSION}
 
 USES=			cpe cmake c++:primary
 CPE_VENDOR=		matroska
 CMAKE_ARGS=		-DBUILD_SHARED_LIBS:BOOL=ON
-			-DCMAKE_POLICY_VERSION_MINIMUM=3.5
+			-Wno-policy
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libebml.so
