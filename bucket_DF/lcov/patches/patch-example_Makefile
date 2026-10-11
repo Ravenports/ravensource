@@ -1,0 +1,11 @@
+--- example/Makefile.orig	2026-09-29 23:30:59 UTC
++++ example/Makefile
+@@ -22,7 +22,7 @@ endif
+ 
+ # MC/DC enabled in gcc/14 and above.  Ask $(CC):  everything here is C, so
+ #   $(CXX) does not decide what these objects can be built with.
+-ENABLE_MCDC := $(shell test `$(CC) -dumpversion | cut -d. -f1` -ge 14 && echo 1 || echo 0)
++ENABLE_MCDC := 1
+ 
+ ifeq ($(ENABLE_MCDC), 1)
+ CFLAGS += -fcondition-coverage

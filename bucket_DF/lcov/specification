@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.5
+DEF[PORTVERSION]=	2.6
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		lcov
@@ -29,6 +29,8 @@ FPC_EQUIVALENT=		devel/lcov
 
 BUILD_DEPENDS=		python-Sphinx:single:python_used
 			python-sphinx-rtd-theme:single:python_used
+			perl-Capture-Tiny:single:perl_default
+			perl-DateTime:single:perl_default
 BUILDRUN_DEPENDS=	bash:primary:std
 
 USES=			gmake perl python shebangfix
@@ -43,6 +45,9 @@ SHEBANG_FILES=		bin/xml2lcovutil.py
 			bin/geninfo
 			bin/lcov
 			bin/perl2lcov
+			tests/lcov/parallel_parse/gen_info.pl
+BUILD_TARGET=		xs_lib doc
+MAKE_ARGS=		PREFIX="{{PREFIX}}"
 
-do-install:
-	( cd ${WRKSRC} && gmake DESTDIR="${STAGEDIR}" PREFIX="${PREFIX}" install )
+pre-configure:
+	${FIND} ${WRKSRC} -name "*.orig" -delete
