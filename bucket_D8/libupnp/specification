@@ -1,6 +1,6 @@
-DEF[PORTVERSION]=	2.0.2
-DEF[IXML]=		11.1.8
-DEF[UPNP]=		22.0.2
+DEF[PORTVERSION]=	22.1.8
+DEF[IXML]=		22.1.8
+DEF[UPNP]=		22.1.8
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libupnp
@@ -15,7 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/pupnp/pupnp/releases/download/release-${PORTVERSION}/
 DISTFILE[1]=		libupnp-${PORTVERSION}.tar.bz2:main
 
-SPKGS[std]=		set primary dev
+SPKGS[std]=		set primary dev tools
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -26,24 +26,11 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		devel/upnp
 
-USES=			cpe libtool ssl
+USES=			cpe ssl cmake pkgconfig
 CPE_VENDOR=		libupnp_project
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--enable-blocking_tcp_connections
-			--enable-client
-			--enable-device
-			--enable-gena
-			--enable-largefile
-			--enable-optssdp
-			--enable-reuseaddr
-			--enable-scriptsupport
-			--enable-soap
-			--enable-ssdp
-			--enable-ssl
-			--enable-tools
-			--enable-webserver
-INSTALL_REQ_TOOLCHAIN=	yes
-INSTALL_TARGET=		install-strip
+CMAKE_ARGS=		-DUPNP_ENABLE_BLOCKING_TCP_CONNECTIONS:BOOL=ON
+			-DUPNP_ENABLE_OPEN_SSL:BOOL=ON
+# #-DOPENSSL_ROOT_DIR:STRING="{{OPENSSLLIB}}"
 
 PLIST_SUB=		IXML=${IXML}
 			IXMLMAJ=${IXML:R:R}

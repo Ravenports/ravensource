@@ -1,7 +1,7 @@
---- upnp/src/genlib/net/uri/uri.c.orig	2026-06-17 23:51:02 UTC
+--- upnp/src/genlib/net/uri/uri.c.orig	2026-09-30 19:45:59 UTC
 +++ upnp/src/genlib/net/uri/uri.c
-@@ -45,10 +45,12 @@
- #include <assert.h>
+@@ -55,10 +55,12 @@
+ #include <string.h>
  
  #ifdef __FreeBSD__
 +# ifndef __MidnightBSD__
