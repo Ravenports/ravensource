@@ -1,6 +1,6 @@
 $NetBSD: patch-mysys_my__largepage.c,v 1.2 2025/10/27 20:56:37 nia Exp $
 
---- mysys/my_largepage.c.orig	2026-05-26 19:57:21 UTC
+--- mysys/my_largepage.c.orig	2026-09-10 13:53:25 UTC
 +++ mysys/my_largepage.c
 @@ -28,6 +28,7 @@
  #endif
@@ -10,7 +10,7 @@ $NetBSD: patch-mysys_my__largepage.c,v 1.2 2025/10/27 20:56:37 nia Exp $
  #if defined(__sun__) && defined(__GNUC__) && defined(__cplusplus) \
      && defined(_XOPEN_SOURCE)
  /* memcntl exist within sys/mman.h, but under-defines what is need to use it */
-@@ -203,7 +204,6 @@ int my_init_large_pages(void)
+@@ -204,7 +205,6 @@ int my_init_large_pages(void)
    my_get_large_page_sizes(my_large_page_sizes);
  
  #ifdef HAVE_SOLARIS_LARGE_PAGES
