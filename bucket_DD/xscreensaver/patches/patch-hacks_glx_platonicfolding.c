@@ -1,6 +1,6 @@
---- hacks/glx/platonicfolding.c.orig	2026-03-06 19:57:41 UTC
+--- hacks/glx/platonicfolding.c.orig	2026-07-11 19:54:02 UTC
 +++ hacks/glx/platonicfolding.c
-@@ -933,7 +933,7 @@ static inline double get_current_julian_
+@@ -936,7 +936,7 @@ static inline double get_current_julian_
     mathematical rigor: Mathematical setup, application and extension of a
     formula based on the subsolar point and atan2 function. Renewable Energy
     172:1333-1340, 2021. */
@@ -9,7 +9,7 @@
  {
    double n, utc;
    double l, g, gr, lambda, lambdar, epsilon, epsilonr;
-@@ -956,10 +956,10 @@ static inline void get_sun_direction(dou
+@@ -959,10 +959,10 @@ static inline void get_sun_direction(dou
    lon = -15.0*(utc-12.0+eot*(4.0/60.0));
    latr = (float)rad(lat);
    lonr = (float)rad(lon);
