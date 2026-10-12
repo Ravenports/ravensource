@@ -1,6 +1,6 @@
---- src/sthreads.c.orig	2026-07-29 10:52:09 UTC
+--- src/sthreads.c.orig	2026-09-17 07:52:57 UTC
 +++ src/sthreads.c
-@@ -711,7 +711,7 @@ NOEXPORT size_t stack_num(size_t stack_s
+@@ -868,7 +868,7 @@ NOEXPORT size_t stack_num(size_t stack_s
      verify_area=(stack_size-STACK_RESERVE)&~(sizeof(TL)-1);
      verify_num=verify_area/sizeof(TL);
      test_value=(TL)0x1337deadbeef1337;
