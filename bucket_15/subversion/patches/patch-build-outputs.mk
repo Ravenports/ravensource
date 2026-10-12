@@ -1,8 +1,8 @@
---- build-outputs.mk.orig	2024-09-25 09:21:23 UTC
+--- build-outputs.mk.orig	2026-09-24 10:40:22 UTC
 +++ build-outputs.mk
-@@ -1390,11 +1390,11 @@ install-swig-rb-lib: subversion/bindings
+@@ -1400,11 +1400,11 @@ install-swig-rb-lib: subversion/bindings
  
- install-tools: tools/diff/diff$(EXEEXT) tools/diff/diff3$(EXEEXT) tools/diff/diff4$(EXEEXT) tools/dev/fsfs-access-map$(EXEEXT) tools/server-side/mod_dontdothat/mod_dontdothat.la tools/client-side/svn-mergeinfo-normalizer/svn-mergeinfo-normalizer$(EXEEXT) tools/server-side/svn-populate-node-origins-index$(EXEEXT) tools/server-side/svnauthz$(EXEEXT) tools/server-side/svnauthz-validate$(EXEEXT) tools/client-side/svnconflict/svnconflict$(EXEEXT) tools/dev/svnmover/svnmover$(EXEEXT) tools/dev/svnraisetreeconflict/svnraisetreeconflict$(EXEEXT) tools/dev/x509-parser$(EXEEXT)
+ install-tools: tools/diff/diff$(EXEEXT) tools/diff/diff3$(EXEEXT) tools/diff/diff4$(EXEEXT) tools/dev/fsfs-access-map$(EXEEXT) tools/server-side/mod_dontdothat/mod_dontdothat.la tools/client-side/svn-mergeinfo-normalizer/svn-mergeinfo-normalizer$(EXEEXT) tools/server-side/svn-populate-node-origins-index$(EXEEXT) tools/server-side/svnauthz$(EXEEXT) tools/server-side/svnauthz-validate$(EXEEXT) tools/client-side/svnconflict/svnconflict$(EXEEXT) tools/dev/svnraisetreeconflict/svnraisetreeconflict$(EXEEXT) tools/dev/x509-parser$(EXEEXT)
  	$(MKDIR) $(DESTDIR)$(toolsdir)
 -	cd tools/diff ; $(INSTALL_TOOLS) diff$(EXEEXT) $(DESTDIR)$(toolsdir)/diff$(EXEEXT)
 +	cd tools/diff ; $(INSTALL_TOOLS) diff$(EXEEXT) $(DESTDIR)$(toolsdir)/svndiff$(EXEEXT)
