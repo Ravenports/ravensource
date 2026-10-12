@@ -1,6 +1,6 @@
---- xdelta3-main.h.orig	2026-06-21 04:37:32 UTC
+--- xdelta3-main.h.orig	2026-10-08 05:38:25 UTC
 +++ xdelta3-main.h
-@@ -126,7 +126,9 @@ int xsnprintf_func(char *str, size_t n,
+@@ -129,7 +129,9 @@ int xsnprintf_func(char *str, size_t n,
  #if defined(__linux__)
  #include <sys/ioctl.h>
  #include <linux/fs.h> /* BLKGETSIZE64 */
