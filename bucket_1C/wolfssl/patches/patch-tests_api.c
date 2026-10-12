@@ -1,6 +1,6 @@
---- tests/api.c.orig	2026-04-08 19:41:40 UTC
+--- tests/api.c.orig	2026-09-25 20:18:05 UTC
 +++ tests/api.c
-@@ -52,7 +52,7 @@
+@@ -55,7 +55,7 @@
  
  #include <stdlib.h>
  
