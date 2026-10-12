@@ -1,6 +1,6 @@
---- examples/echoserver/echoserver.c.orig	2026-04-20 16:06:58 UTC
+--- examples/echoserver/echoserver.c.orig	2026-10-05 17:53:17 UTC
 +++ examples/echoserver/echoserver.c
-@@ -71,9 +71,13 @@
+@@ -78,9 +78,13 @@
      #ifdef HAVE_PTY_H
          #include <pty.h>
      #endif
