@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	7.0.0
+DEF[PORTVERSION]=	7.1.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-multidict
@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/aio-libs/multidict
 CONTACT=		Python_Automaton[python@ravenports.com]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPI/m/multidict
-DISTFILE[1]=		multidict-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/d0/86/a3de309c5e28ee85b314d0e3ba0e0dea6fd361c313322a05e67be4656e1e
+DISTFILE[1]=		multidict-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
 SPKGS[v13]=		single
@@ -27,11 +27,11 @@ VOPTS[v14]=		PY313=OFF PY314=ON
 # Not provided.
 
 GENERATED=		yes
-DISTNAME=		multidict-${PORTVERSION}
+DISTNAME=		multidict-${PORTVERSION}.dist-info
 
-# Requires-Dist extracted from pyproject.toml file
+# Requires-Dist extracted from wheel metadata
+# typing-extensions>=4.1.0; python_version < "3.11"
 
-
-[PY313].USES_ON=			python:v13,pep517
-[PY314].USES_ON=			python:v14,pep517
+[PY313].USES_ON=			python:v13,wheel
+[PY314].USES_ON=			python:v14,wheel
 
