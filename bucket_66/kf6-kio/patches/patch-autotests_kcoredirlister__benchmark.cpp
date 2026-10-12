@@ -1,4 +1,4 @@
---- autotests/kcoredirlister_benchmark.cpp.orig	2026-03-07 20:31:18 UTC
+--- autotests/kcoredirlister_benchmark.cpp.orig	2026-10-02 13:20:17 UTC
 +++ autotests/kcoredirlister_benchmark.cpp
 @@ -40,15 +40,15 @@ public:
      {
