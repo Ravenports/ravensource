@@ -164,7 +164,7 @@ ASPELL_INSTALL_VERSION=		0.60
 
 APR1_VERSION=			1.7.6
 APR1_UTIL_VERSION=		1.6.5
-SUBVERSION_VERSION=		1.14.5
+SUBVERSION_VERSION=		1.15.0
 
 # ------------------------------------------------------------------------
 # Miscellaneous master versions
