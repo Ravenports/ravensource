@@ -1,4 +1,4 @@
---- data/hack.sh.orig	2026-08-30 19:59:28 UTC
+--- data/hack.sh.orig	2026-10-13 18:02:20 UTC
 +++ data/hack.sh
 @@ -1,4 +1,4 @@
 -#/bin/sh
