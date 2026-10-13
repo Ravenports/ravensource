@@ -1,4 +1,4 @@
---- src/develop/blends/blendif_rgb_hsl.c.orig	2026-06-21 08:20:23 UTC
+--- src/develop/blends/blendif_rgb_hsl.c.orig	2026-10-04 11:50:40 UTC
 +++ src/develop/blends/blendif_rgb_hsl.c
 @@ -16,15 +16,6 @@
      along with darktable.  If not, see <http://www.gnu.org/licenses/>.

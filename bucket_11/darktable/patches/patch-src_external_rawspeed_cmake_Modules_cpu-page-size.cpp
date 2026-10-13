@@ -1,4 +1,4 @@
---- src/external/rawspeed/cmake/Modules/cpu-page-size.cpp.orig	2026-05-27 17:48:21 UTC
+--- src/external/rawspeed/cmake/Modules/cpu-page-size.cpp.orig	2026-07-28 15:14:13 UTC
 +++ src/external/rawspeed/cmake/Modules/cpu-page-size.cpp
 @@ -4,7 +4,7 @@
  #include <unistd.h>
