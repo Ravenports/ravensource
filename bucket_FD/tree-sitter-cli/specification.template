@@ -1,0 +1,34 @@
+DEF[PORTVERSION]=	%%VERSION%%
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		tree-sitter-cli
+VERSION=		${PORTVERSION}
+KEYWORDS=		rust devel
+VARIANTS=		std
+SDESC[std]=		Command-line interface for Tree-sitter
+HOMEPAGE=		https://tree-sitter.github.io/tree-sitter/
+CONTACT=		Ryan_Olejnik[oryan@stellar.garden]
+
+%%DOWNLOAD_GROUPS%%
+SITES[main]=		https://crates.io/api/v1/crates/tree-sitter-cli/${PORTVERSION}/download?dummy=/
+%%CR_SITES%%
+DISTFILE[1]=		tree-sitter-cli-${PORTVERSION}.tar.gz:main
+%%CR_DISTFILES%%
+%%DF_INDEX%%
+
+SPKGS[std]=		single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:single
+LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
+LICENSE_SCHEME=		solo
+
+USES=			cargo cclibs:single
+BUILD_DEPENDS=		clang:dynlibs:std
+			clang:compiler:std
+MAKE_ENV=		LIBCLANG_PATH={{LOCALBASE}}/lib
+
+post-install:
+	${RM} ${STAGEDIR}${PREFIX}/.crates2.json
