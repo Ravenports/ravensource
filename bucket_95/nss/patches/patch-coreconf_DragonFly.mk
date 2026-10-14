@@ -1,4 +1,4 @@
---- /dev/null	2026-08-30 10:28:03 UTC
+--- /dev/null	2026-10-14 19:31:34 UTC
 +++ coreconf/DragonFly.mk
 @@ -0,0 +1,54 @@
 +#

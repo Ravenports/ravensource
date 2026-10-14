@@ -1,4 +1,4 @@
---- coreconf/arch.mk.orig	2026-08-13 15:35:32 UTC
+--- coreconf/arch.mk.orig	2026-10-06 19:04:05 UTC
 +++ coreconf/arch.mk
 @@ -63,6 +63,14 @@ ifeq ($(OS_ARCH),Linux)
      include $(CORE_DEPTH)/coreconf/Linux.mk
