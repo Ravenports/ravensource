@@ -1,6 +1,6 @@
---- src/libserver/symcache/symcache_impl.cxx.orig	2026-08-15 10:50:53 UTC
+--- src/libserver/symcache/symcache_impl.cxx.orig	2026-09-18 11:48:48 UTC
 +++ src/libserver/symcache/symcache_impl.cxx
-@@ -1040,7 +1040,7 @@ auto symcache::counters() const -> ucl_o
+@@ -1262,7 +1262,7 @@ auto symcache::counters() const -> ucl_o
  {
  	auto *top = ucl_object_typed_new(UCL_ARRAY);
  	constexpr const auto round_float = [](const auto x, const int digits) -> auto {
