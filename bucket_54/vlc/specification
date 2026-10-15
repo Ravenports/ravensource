@@ -1,6 +1,6 @@
 # gst subpackage disabled, broken by gst 1.28.0
 # upnp subpackage disabled, broken by recent update
-DEF[PORTVERSION]=	3.0.23
+DEF[PORTVERSION]=	3.0.24
 DEF[SO_LIBVLC]=		5.6.1
 DEF[SO_LIBVLCCORE]=	9.0.1
 DEF[SO_LIBVLCVDPAU]=	0.0.0
@@ -9,7 +9,6 @@ DEF[SO_LIBXCBE]=	0.0.0
 
 NAMEBASE=		vlc
 VERSION=		${PORTVERSION}
-REVISION=		2
 KEYWORDS=		multimedia
 VARIANTS=		std
 SDESC[std]=		Qt based multimedia player and streaming server
@@ -21,7 +20,7 @@ SITES[main]=		http://download.videolan.org/pub/videolan/vlc/${PORTVERSION}/
 DISTFILE[1]=		vlc-${PORTVERSION}.tar.xz:main
 
 SPKGS[std]=		set primary dev man nls docs a52 alsa aom asciiart ass avahi
-			bluray caca chromap chromec dav1d dca dbus dirac dvbpsi dvdnav
+			bluray caca chromap chromec dav1d dca dbus dvbpsi dvdnav
 			dvdread faad ffmpeg flac fluidsynth gcrypt gme gnutls goom
 			kate mad mkv mod mpc mpeg2 mpg123 mtp ogg opus oss
 			samplerate secret sndio soxr speex srt taglib theora twolame
@@ -108,7 +107,6 @@ BUILD_DEPENDS=		a52dec:set:std
 			qt5-qtx11extras:dev:std
 			qt5-qtxmlpatterns:dev:std
 			readline:dev:std
-			schroedinger:set:std
 			sndio:set:std
 			speexdsp:dev:std
 			speex:set:std
@@ -248,7 +246,6 @@ CONFIGURE_ARGS=		--enable-a52
 			--enable-realrtsp
 			--disable-rpi-omxil
 			--enable-samplerate
-			--enable-schroedinger
 			--enable-screen
 			--enable-sdl-image
 			--enable-secret
@@ -329,7 +326,6 @@ EXRUN[chromec]=		primary abseil-cpp:primary:std protobuf:primary:std
 EXRUN[dav1d]=		primary dav1d:primary:std
 EXRUN[dca]=		primary libdca:primary:std
 EXRUN[dbus]=		primary dbus:primary:std
-EXRUN[dirac]=		primary schroedinger:primary:std
 EXRUN[dvbpsi]=		primary libdvbpsi:primary:std
 EXRUN[dvdnav]=		primary libdvdnav:primary:std
 EXRUN[dvdread]=		primary libdvdread:primary:std
