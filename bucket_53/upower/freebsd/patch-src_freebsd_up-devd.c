@@ -1,4 +1,4 @@
---- src/freebsd/up-devd.c.orig	2026-07-02 07:39:04 UTC
+--- src/freebsd/up-devd.c.orig	2026-09-09 07:59:00 UTC
 +++ src/freebsd/up-devd.c
 @@ -195,7 +195,7 @@ up_devd_event_cb (GIOChannel *source, GI
  		event[terminator] = 0;
