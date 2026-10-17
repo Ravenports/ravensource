@@ -1,4 +1,4 @@
---- libdnet-stripped/src/intf.c.orig	2026-03-19 17:39:59 UTC
+--- libdnet-stripped/src/intf.c.orig	2026-08-05 21:12:13 UTC
 +++ libdnet-stripped/src/intf.c
 @@ -179,7 +179,11 @@ intf_open(void)
  		if ((intf->fd6 = socket(AF_INET6, SOCK_DGRAM, 0)) < 0) {

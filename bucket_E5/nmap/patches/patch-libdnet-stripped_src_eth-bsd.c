@@ -1,4 +1,4 @@
---- libdnet-stripped/src/eth-bsd.c.orig	2025-06-05 22:22:27 UTC
+--- libdnet-stripped/src/eth-bsd.c.orig	2026-08-05 21:12:13 UTC
 +++ libdnet-stripped/src/eth-bsd.c
 @@ -46,7 +46,7 @@ eth_open(const char *device)
  
