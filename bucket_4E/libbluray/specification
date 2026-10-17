@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.5.0
+DEF[PORTVERSION]=	1.5.1
 DEF[SOVERSION]=		4.0.0
 # ----------------------------------------------------------------------------
 
@@ -11,8 +11,8 @@ HOMEPAGE=		https://www.videolan.org/developers/libbluray.html
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		https://downloads.videolan.org/pub/videolan/libbluray/${PORTVERSION}/
-DISTFILE[1]=		libbluray-${PORTVERSION}.tar.xz:main
+SITES[main]=		https://code.videolan.org/videolan/libbluray/-/archive/${PORTVERSION}/
+DISTFILE[1]=		libbluray-${PORTVERSION}.tar.bz2:main
 
 SPKGS[std]=		set primary tools dev
 
@@ -27,6 +27,9 @@ LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		multimedia/libbluray
+
+BUILD_DEPENDS=		libudfread:dev:std
+BUILDRUN_DEPENDS=	libudfread:primary:std
 
 USES=			cpe fontconfig freetype pkgconfig meson
 GNOME_COMPONENTS=	libxml2
