@@ -1,4 +1,4 @@
---- lib/onigmo/regint.h.orig	2026-09-30 22:37:34 UTC
+--- lib/onigmo/regint.h.orig	2026-09-04 19:47:55 UTC
 +++ lib/onigmo/regint.h
 @@ -223,7 +223,7 @@
  # define xsnprintf   sprintf_s

@@ -1,4 +1,4 @@
---- plugins/out_plot/plot.c.orig	2026-09-30 22:37:34 UTC
+--- plugins/out_plot/plot.c.orig	2026-09-04 19:47:55 UTC
 +++ plugins/out_plot/plot.c
 @@ -27,6 +27,8 @@
  #include <sys/types.h>

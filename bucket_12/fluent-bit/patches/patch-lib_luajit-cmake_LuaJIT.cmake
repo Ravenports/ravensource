@@ -1,4 +1,4 @@
---- lib/luajit-cmake/LuaJIT.cmake.orig	2026-09-30 22:37:34 UTC
+--- lib/luajit-cmake/LuaJIT.cmake.orig	2026-09-04 19:47:55 UTC
 +++ lib/luajit-cmake/LuaJIT.cmake
 @@ -351,6 +351,10 @@ elseif(${CMAKE_SYSTEM_NAME} STREQUAL Hai
    set(TARGET_OS_FLAGS ${TARGET_OS_FLAGS} -DLUAJIT_OS=LUAJIT_OS_POSIX -DTARGET_OS_IPHONE=0)
