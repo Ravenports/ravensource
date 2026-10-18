@@ -1,10 +1,9 @@
-DEF[PORTVERSION]=	0.40.0
+DEF[PORTVERSION]=	51.0
 DEF[SOVERSION]=		1.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		dconf
 VERSION=		${PORTVERSION}
-REVISION=		2
 KEYWORDS=		devel
 VARIANTS=		std
 SDESC[std]=		Configuration database system for GNOME
@@ -14,6 +13,7 @@ CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 DOWNLOAD_GROUPS=	main
 SITES[main]=		http://ftp.gnome.org/pub/GNOME/sources/dconf/${PORTVERSION:R}/
 DISTFILE[1]=		dconf-${PORTVERSION}.tar.xz:main
+DIST_SUBDIR=		gnome4
 
 SPKGS[std]=		set primary dev man
 # docs
@@ -40,13 +40,12 @@ BUILDRUN_DEPENDS=	dbus:primary:std
 # Culprit unclear.  Does not appear to be meson.  Disable
 # docs until reason understood and fix arrives (or it self fixes)
 
-USES=			gmake meson pkgconfig shebangfix
+USES=			gmake meson pkgconfig
 # gtk-doc
 GNOME_COMPONENTS=	glib libxslt
 MESON_ARGS=		-Dgtk_doc=false
 			-Dbash_completion=false
 INSTALL_REQ_TOOLCHAIN=	yes
-SHEBANG_FILES=		meson_post_install.py
 SOVERSION=		${SOVERSION}
 
 pre-configure:
