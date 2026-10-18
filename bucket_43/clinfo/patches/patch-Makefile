@@ -1,6 +1,6 @@
---- Makefile.orig	2025-02-14 16:39:10 UTC
-+++ Makefile
-@@ -62,11 +62,12 @@ LDFLAGS_Android += -Wl,-rpath-link=${AND
+--- Makefile.orig	2026-10-18 11:11:16.483262000 +0200
++++ Makefile	2026-10-18 11:12:25.618775000 +0200
+@@ -63,12 +63,12 @@
  LDFLAGS += $(LDFLAGS_$(OS))
  
  # Common library includes
@@ -10,6 +10,7 @@
  # OS-specific library includes
  LDLIBS_Darwin = -framework OpenCL
  LDLIBS_Darwin_exclude = -lOpenCL
+-LDLIBS_Windows_NT_exclude = -ldl
 +LDLIBS_Linux = -ldl
  
  LDLIBS += $(LDLIBS_${OS}) $(LDLIBS__common:$(LDLIBS_${OS}_exclude)=)
