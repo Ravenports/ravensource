@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	1.60.2
+DEF[PORTVERSION]=	1.62.0
+DEF[CAT1]=		http://docbook.sourceforge.net/release/xsl/current/
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		gvfs
@@ -14,7 +15,7 @@ SITES[main]=		GNOME/gvfs/${PORTVERSION:R}/
 DISTFILE[1]=		gvfs-${PORTVERSION}.tar.xz:main
 DIST_SUBDIR=		gnome4
 
-SPKGS[std]=		set primary nls
+SPKGS[std]=		set primary nls man
 
 OPTIONS_AVAILABLE=	NO-GUDEV
 OPTIONS_STANDARD=	NO-GUDEV
@@ -29,30 +30,36 @@ LICENSE_AWK=		TERMS:"^$$"
 LICENSE_SCHEME=		solo
 
 BUILD_DEPENDS=		dbus:dev:std
+			docbook-xsl:primary:std
 			gcr:dev:std
 			gsettings-desktop-schemas:dev:std
 			libarchive:dev:std
+			libbluray:dev:std
 			libgpg-error:dev:std
+			libmtp:dev:std
 			libsecret:dev:std
 			libsoup:dev:std
+			libudfread:dev:std
 			libudisks:dev:std
 			p11-kit:dev:std
 BUILDRUN_DEPENDS=	dbus:primary:std
 			gcr:primary:std
 			libarchive:primary:std
+			libbluray:primary:std
+			libmtp:primary:std
 			libsecret:primary:std
 			libsoup:primary:std
 			libudisks:primary:std
 			p11-kit:primary:std
 
-USES=			cpe meson pkgconfig ssl:build
+USES=			cpe fontconfig freetype meson pkgconfig ssl:build
 			schemas:primary
 GNOME_COMPONENTS=	glib libxml2
 CPE_VENDOR=		gnome
 GLIB_SCHEMAS=		org.gnome.system.gvfs.enums.xml
 			org.gnome.system.wsdd.gschema.xml
 
-# LibUSB deactivated for now; FreeBSD has it built-in but for 11.1
+# LibUSB deactivated for now; FreeBSD has it built-in but for 15.0
 # the base system ships with a version too old for GVFS...
 #
 # More backends can be added as more required libs become available.
@@ -61,20 +68,30 @@ MESON_ARGS=		-Dsystemduserunitdir="no"
 			-Dtmpfilesdir="no"
 			-Dadmin=false
 			-Dafc=false
-			-Dbluray=false
+			-Dafp=true
+			-Darchive=true
+			-Dbluray=true
+			-Dcdda=true
 			-Ddnssd=false
 			-Dfuse=false
+			-Dgcr=true
+			-Dgcrypt=true
 			-Dgoa=false
 			-Dgoogle=false
 			-Dgphoto2=false
+			-Dgudev=true
+			-Dhttp=true
+			-Dkeyring=true
 			-Dlibusb=false
 			-Dlogind=false
-			-Dmtp=false
+			-Dmtp=true
 			-Dnfs=false
 			-Donedrive=false
 			-Dsftp=false
 			-Dsmb=false
-			-Dburn=true
+			-Dudisks2=true
+			-Dwsdd=true
+			-Dman=true
 LDFLAGS=		-Wl,-rpath,{{PREFIX}}/lib/gvfs
 
 [NO-GUDEV].DESCRIPTION=			Build without gudev support
@@ -89,3 +106,7 @@ LDFLAGS=		-Wl,-rpath,{{PREFIX}}/lib/gvfs
 					-Dudisks2=true
 
 VAR_OPSYS[sunos]=	LDFLAGS=-lintl
+
+pre-configure:
+	${REINPLACE_CMD} -e "s|${CAT1}|file://${LOCALBASE}/share/xsl/docbook/|" \
+		${WRKSRC}/man/meson.build
