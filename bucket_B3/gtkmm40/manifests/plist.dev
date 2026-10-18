@@ -37,6 +37,8 @@ include/gtkmm-%%API%%/gdkmm/gltexturebuilder.h
 include/gtkmm-%%API%%/gdkmm/graphene_point.h
 include/gtkmm-%%API%%/gdkmm/graphene_rect.h
 include/gtkmm-%%API%%/gdkmm/graphene_size.h
+include/gtkmm-%%API%%/gdkmm/graphene_vec2.h
+include/gtkmm-%%API%%/gdkmm/keymapkey.h
 include/gtkmm-%%API%%/gdkmm/memorytexture.h
 include/gtkmm-%%API%%/gdkmm/memorytexturebuilder.h
 include/gtkmm-%%API%%/gdkmm/monitor.h
@@ -96,6 +98,8 @@ include/gtkmm-%%API%%/gdkmm/private/gltexturebuilder_p.h
 include/gtkmm-%%API%%/gdkmm/private/graphene_point_p.h
 include/gtkmm-%%API%%/gdkmm/private/graphene_rect_p.h
 include/gtkmm-%%API%%/gdkmm/private/graphene_size_p.h
+include/gtkmm-%%API%%/gdkmm/private/graphene_vec2_p.h
+include/gtkmm-%%API%%/gdkmm/private/keymapkey_p.h
 include/gtkmm-%%API%%/gdkmm/private/memorytexture_p.h
 include/gtkmm-%%API%%/gdkmm/private/memorytexturebuilder_p.h
 include/gtkmm-%%API%%/gdkmm/private/monitor_p.h
@@ -119,11 +123,21 @@ include/gtkmm-%%API%%/gdkmm/private/toplevel_p.h
 include/gtkmm-%%API%%/gdkmm/private/toplevellayout_p.h
 include/gtkmm-%%API%%/gdkmm/private/toplevelsize_p.h
 include/gtkmm-%%API%%/gskmm/enums.h
+include/gtkmm-%%API%%/gskmm/path.h
+include/gtkmm-%%API%%/gskmm/pathbuilder.h
+include/gtkmm-%%API%%/gskmm/pathmeasure.h
+include/gtkmm-%%API%%/gskmm/pathpoint.h
 include/gtkmm-%%API%%/gskmm/roundedrect.h
+include/gtkmm-%%API%%/gskmm/stroke.h
 include/gtkmm-%%API%%/gskmm/transform.h
 include/gtkmm-%%API%%/gskmm/wrap_init.h
 include/gtkmm-%%API%%/gskmm/private/enums_p.h
+include/gtkmm-%%API%%/gskmm/private/path_p.h
+include/gtkmm-%%API%%/gskmm/private/pathbuilder_p.h
+include/gtkmm-%%API%%/gskmm/private/pathmeasure_p.h
+include/gtkmm-%%API%%/gskmm/private/pathpoint_p.h
 include/gtkmm-%%API%%/gskmm/private/roundedrect_p.h
+include/gtkmm-%%API%%/gskmm/private/stroke_p.h
 include/gtkmm-%%API%%/gskmm/private/transform_p.h
 include/gtkmm-%%API%%/gtkmm/aboutdialog.h
 include/gtkmm-%%API%%/gtkmm/accelerator.h
@@ -212,6 +226,8 @@ include/gtkmm-%%API%%/gtkmm/emojichooser.h
 include/gtkmm-%%API%%/gtkmm/entry.h
 include/gtkmm-%%API%%/gtkmm/entrybuffer.h
 include/gtkmm-%%API%%/gtkmm/entrycompletion.h
+include/gtkmm-%%API%%/gtkmm/enumlist.h
+include/gtkmm-%%API%%/gtkmm/enumlistitem.h
 include/gtkmm-%%API%%/gtkmm/enums.h
 include/gtkmm-%%API%%/gtkmm/error.h
 include/gtkmm-%%API%%/gtkmm/eventcontroller.h
@@ -375,6 +391,7 @@ include/gtkmm-%%API%%/gtkmm/stringsorter.h
 include/gtkmm-%%API%%/gtkmm/stylecontext.h
 include/gtkmm-%%API%%/gtkmm/styleprovider.h
 include/gtkmm-%%API%%/gtkmm/svg.h
+include/gtkmm-%%API%%/gtkmm/svgwidget.h
 include/gtkmm-%%API%%/gtkmm/switch.h
 include/gtkmm-%%API%%/gtkmm/symbolicpaintable.h
 include/gtkmm-%%API%%/gtkmm/text.h
@@ -500,6 +517,8 @@ include/gtkmm-%%API%%/gtkmm/private/emojichooser_p.h
 include/gtkmm-%%API%%/gtkmm/private/entry_p.h
 include/gtkmm-%%API%%/gtkmm/private/entrybuffer_p.h
 include/gtkmm-%%API%%/gtkmm/private/entrycompletion_p.h
+include/gtkmm-%%API%%/gtkmm/private/enumlist_p.h
+include/gtkmm-%%API%%/gtkmm/private/enumlistitem_p.h
 include/gtkmm-%%API%%/gtkmm/private/enums_p.h
 include/gtkmm-%%API%%/gtkmm/private/error_p.h
 include/gtkmm-%%API%%/gtkmm/private/eventcontroller_p.h
@@ -660,6 +679,7 @@ include/gtkmm-%%API%%/gtkmm/private/stringsorter_p.h
 include/gtkmm-%%API%%/gtkmm/private/stylecontext_p.h
 include/gtkmm-%%API%%/gtkmm/private/styleprovider_p.h
 include/gtkmm-%%API%%/gtkmm/private/svg_p.h
+include/gtkmm-%%API%%/gtkmm/private/svgwidget_p.h
 include/gtkmm-%%API%%/gtkmm/private/switch_p.h
 include/gtkmm-%%API%%/gtkmm/private/symbolicpaintable_p.h
 include/gtkmm-%%API%%/gtkmm/private/text_p.h
@@ -703,7 +723,6 @@ lib/gtkmm-%%API%%/include/gdkmmconfig.h
 lib/gtkmm-%%API%%/include/gskmmconfig.h
 lib/gtkmm-%%API%%/include/gtkmmconfig.h
 lib/gtkmm-%%API%%/proc/m4/class_gtkobject.m4
-lib/gtkmm-%%API%%/proc/m4/class_shared.m4
 lib/gtkmm-%%API%%/proc/m4/convert.m4
 lib/gtkmm-%%API%%/proc/m4/convert_gdk.m4
 lib/gtkmm-%%API%%/proc/m4/convert_gsk.m4
