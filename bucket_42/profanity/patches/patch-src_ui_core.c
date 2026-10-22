@@ -1,4 +1,4 @@
---- src/ui/core.c.orig	2026-05-15 13:09:38 UTC
+--- src/ui/core.c.orig	2026-06-08 10:42:55 UTC
 +++ src/ui/core.c
 @@ -29,6 +29,10 @@
  #include <curses.h>
