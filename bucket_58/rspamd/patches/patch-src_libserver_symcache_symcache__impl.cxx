@@ -1,4 +1,4 @@
---- src/libserver/symcache/symcache_impl.cxx.orig	2026-09-18 11:48:48 UTC
+--- src/libserver/symcache/symcache_impl.cxx.orig	2026-10-10 21:41:28 UTC
 +++ src/libserver/symcache/symcache_impl.cxx
 @@ -1262,7 +1262,7 @@ auto symcache::counters() const -> ucl_o
  {

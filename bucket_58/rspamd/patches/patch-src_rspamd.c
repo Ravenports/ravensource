@@ -1,4 +1,4 @@
---- src/rspamd.c.orig	2026-09-18 11:48:48 UTC
+--- src/rspamd.c.orig	2026-10-10 21:41:28 UTC
 +++ src/rspamd.c
 @@ -469,7 +469,7 @@ systemd_get_socket(struct rspamd_main *r
  	union {
