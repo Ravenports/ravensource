@@ -1,4 +1,4 @@
---- src/term.c.orig	2026-09-30 20:57:50 UTC
+--- src/term.c.orig	2026-10-14 19:55:55 UTC
 +++ src/term.c
 @@ -30,6 +30,7 @@
  #  include <termios.h>	    // seems to be required for some Linux
