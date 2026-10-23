@@ -1,4 +1,4 @@
---- router/src/harness/include/mysql/harness/net_ts/internet.h.orig	2026-06-03 21:54:08 UTC
+--- router/src/harness/include/mysql/harness/net_ts/internet.h.orig	2026-06-30 16:11:51 UTC
 +++ router/src/harness/include/mysql/harness/net_ts/internet.h
 @@ -45,6 +45,7 @@
  #include <arpa/inet.h>    // inet_ntop
