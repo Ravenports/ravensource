@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	1.0.93
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		toluapp
+VERSION=		${PORTVERSION}
+KEYWORDS=		lang
+VARIANTS=		std
+SDESC[std]=		Extended tolua, integrate C/C++ code with Lua
+HOMEPAGE=		https://github.com/LuaDist/toluapp
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/LuaDist:toluapp:${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[std]=		set primary dev docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		MIT:primary
+LICENSE_FILE=		MIT:{{WRKSRC}}/COPYRIGHT
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		lang/tolua++
+
+BUILD_DEPENDS=		lua51:dev:std
+BUILDRUN_DEPENDS=	lua51:primary:std
+
+USES=			cmake
+
+CMAKE_ARGS=		-DCMAKE_POLICY_VERSION_MINIMUM=3.5
+
+post-stage:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/toluapp
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libtoluapp.so
