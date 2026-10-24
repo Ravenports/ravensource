@@ -1,0 +1,65 @@
+DEF[PORTVERSION]=	3.3.2
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		stratagus
+VERSION=		${PORTVERSION}
+KEYWORDS=		games
+VARIANTS=		std
+SDESC[std]=		Free cross-platform real-time strategy game engine
+HOMEPAGE=		https://stratagus.com/stratagus.html
+CONTACT=		Michael_Reim[kraileth@elderlinux.org]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		GITHUB/Wargus:stratagus:v${PORTVERSION}
+DISTFILE[1]=		generated:main
+
+SPKGS[std]=		set primary dev man docs
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2:primary
+LICENSE_FILE=		GPLv2:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/src/stratagus/stratagus.cpp
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		games/stratagus
+
+BUILD_DEPENDS=		bzip2:dev:std
+			doxygen:primary:std
+			graphviz:dev:std
+			graphviz:primary:std
+			graphviz:tools:std
+			libmng:dev:std
+			libogg:dev:std
+			libtheora:dev:std
+			libvorbis:dev:std
+			lua51:dev:std
+			lua51:tools:std
+			toluapp:dev:std
+BUILDRUN_DEPENDS=	bzip2:primary:std
+			libmng:primary:std
+			libtheora:primary:std
+			libvorbis:primary:std
+			lua51:primary:std
+			toluapp:primary:std
+RUN_DEPENDS=		zenity:primary:std
+
+USES=			cmake jpeg pkgconfig png zlib
+XORG_COMPONENTS=	x11
+SDL_COMPONENTS=		sdl2 image2 mixer2
+
+CMAKE_ARGS=		-DCMAKE_POLICY_VERSION_MINIMUM=3.5
+			-DGAMEDIR:STRING="bin"
+			-DWITH_MNG:BOOL=TRUE
+			-DWITH_OGGVORBIS:BOOL=TRUE
+			-DWITH_THEORA:BOOL=TRUE
+			-DENABLE_DEV:BOOL=ON
+			-DENABLE_STRIP:BOOL=ON
+			-DEAGER_LOAD:BOOL=ON
+			-DENABLE_DOC:BOOL=ON
+
+CXXFLAGS=		-std=c++17
+INSTALL_REQ_TOOLCHAIN=	yes

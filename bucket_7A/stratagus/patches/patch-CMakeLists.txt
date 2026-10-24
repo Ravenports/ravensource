@@ -1,0 +1,36 @@
+--- CMakeLists.txt.orig	2022-08-10 20:13:08.000000000 +0200
++++ CMakeLists.txt	2026-10-24 18:51:00.691816000 +0200
+@@ -920,10 +920,10 @@
+ check_function_exists("strcasestr" HAVE_STRCASESTR)
+ check_function_exists("strnlen" HAVE_STRNLEN)
+ check_function_exists("getopt" HAVE_GETOPT)
+-
+-# mingw-w64 does not have strcat_s in any include file, but function symbol in library exists
+-# so rather check if we have strcat_s in string.h file
+-check_symbol_exists("strcat_s" "string.h" HAVE_STRCATS)
++check_symbol_exists("strcat_s" "string.h" HAVE_STRCATS)
++check_symbol_exists("aligned_alloc" "stdlib.h" HAVE_ALIGNED_ALLOC)
++check_symbol_exists("posix_memalign" "stdlib.h" HAVE_POSIX_MEMALIGN)
++check_symbol_exists("memalign" "malloc.h" HAVE_MEMALIGN)
+ 
+ if(HAVE_ERRNOT)
+ 	add_definitions(-DHAVE_ERRNOT)
+@@ -951,6 +951,18 @@
+ 
+ if(HAVE_GETOPT)
+ 	add_definitions(-DHAVE_GETOPT)
++endif()
++
++if(HAVE_ALIGNED_ALLOC)
++       add_definitions(-DHAVE_ALIGNED_ALLOC)
++endif()
++
++if(HAVE_POSIX_MEMALIGN)
++       add_definitions(-DHAVE_POSIX_MEMALIGN)
++endif()
++
++if(HAVE_MEMALIGN)
++       add_definitions(-DHAVE_MEMALIGN)
+ endif()
+ 
+ if(CMAKE_BUILD_TYPE STREQUAL "Debug")
