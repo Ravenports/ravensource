@@ -1,4 +1,4 @@
---- src/common/os.h.orig	2026-05-24 12:38:16 UTC
+--- src/common/os.h.orig	2026-10-18 13:16:29 UTC
 +++ src/common/os.h
 @@ -21,7 +21,7 @@
  #else
