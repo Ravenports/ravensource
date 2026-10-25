@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	7.3.6
+DEF[PORTVERSION]=	8.0.3
 # ------------------------------------------------------------------------
 
 NAMEBASE=		ruby-net-ssh
@@ -13,7 +13,7 @@ CONTACT=		Ruby_Automaton[ruby@ravenports.com]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		RUBYGEMS/
-DISTFILE[1]=		net-ssh-7.3.6.gem:main
+DISTFILE[1]=		net-ssh-8.0.3.gem:main
 DIST_SUBDIR=		ruby
 
 SPKGS[v33]=		single
@@ -30,14 +30,13 @@ VOPTS[v40]=		RUBY33=OFF RUBY34=OFF RUBY40=ON
 # => UNSET
 
 # Requirements according to gem specification:
+#   logger (>= 0)
+#   openssl (>= 3.2.0)
 #   bcrypt_pbkdf (~> 1.0, development)
-#   ed25519 (~> 1.2, development)
-#   x25519 (>= 0, development)
-#   rbnacl (~> 7.1, development)
 #   base64 (>= 0, development)
 #   bundler (>= 1.17, development)
 #   minitest (~> 5.19, development)
-#   mocha (~> 2.1.0, development)
+#   mocha (>= 2.1, < 4, development)
 #   ostruct (>= 0, development)
 #   rake (~> 12.0, development)
 #   rubocop (~> 1.28.0, development)
@@ -46,8 +45,14 @@ DISTNAME=		net-ssh-${PORTVERSION}
 GENERATED=		yes
 
 [RUBY33].USES_ON=			gem:v33
+[RUBY33].BUILDRUN_DEPENDS_ON=		ruby-logger:single:v33
+					ruby-openssl:single:v33
 [RUBY34].USES_ON=			gem:v34
+[RUBY34].BUILDRUN_DEPENDS_ON=		ruby-logger:single:v34
+					ruby-openssl:single:v34
 [RUBY40].USES_ON=			gem:v40
+[RUBY40].BUILDRUN_DEPENDS_ON=		ruby-logger:single:v40
+					ruby-openssl:single:v40
 
 USES=			cpe shebangfix
 SHEBANG_FILES=		support/ssh_tunnel_bug.rb
