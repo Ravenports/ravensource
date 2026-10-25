@@ -1,6 +1,6 @@
---- rtengine/dfmanager.cc.orig	2026-09-15 13:19:35 UTC
-+++ rtengine/dfmanager.cc
-@@ -101,8 +101,8 @@ double DFInfo::distance(const std::strin
+--- src/engine/dfmanager.cc.orig	2026-10-15 13:01:50 UTC
++++ src/engine/dfmanager.cc
+@@ -100,8 +100,8 @@ double DFInfo::distance(const std::strin
          return INFINITY;
      }
  

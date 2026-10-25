@@ -1,6 +1,6 @@
---- rtengine/dcraw.cc.orig	2026-09-15 13:19:35 UTC
-+++ rtengine/dcraw.cc
-@@ -2335,7 +2335,9 @@ void CLASS hasselblad_correct()
+--- src/engine/dcraw.cc.orig	2026-10-15 13:01:50 UTC
++++ src/engine/dcraw.cc
+@@ -2337,7 +2337,9 @@ void CLASS hasselblad_correct()
                                              {bhu-1,0},{bhu-1,bwu/2},{bhu-1,bwu-1}};
              for (col = 0; col < bw; col++) {
                  for (i = 0; i < 9; i++) {
@@ -11,7 +11,7 @@
                      ushort weight = dist > maxdist ? 0 : maxdist - dist;
                      corners_weight[9*(row*bw+col)+i] = weight;
                  }
-@@ -3029,7 +3031,7 @@ void CLASS lossy_dng_load_raw()
+@@ -3031,7 +3033,7 @@ void CLASS lossy_dng_load_raw()
  	coeff[i] = getreal(12);
        for (i=0; i < 256; i++) {
  	for (tot=j=0; j <= deg; j++)
@@ -20,7 +20,7 @@
  	cur[c][i] = tot*0xffff;
        }
      }
-@@ -6859,7 +6861,7 @@ guess_cfa_pc:
+@@ -6861,7 +6863,7 @@ guess_cfa_pc:
  	    cblack[4] = cblack[5] = 1;
  	break;
        case 61450:
