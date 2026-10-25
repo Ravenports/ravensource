@@ -1,33 +1,24 @@
---- libjbig/Makefile.orig	2014-03-27 18:47:15 UTC
+--- libjbig/Makefile.orig	2026-10-09 22:28:59 UTC
 +++ libjbig/Makefile
-@@ -1,12 +1,21 @@
+@@ -1,12 +1,14 @@
  # Unix makefile for the JBIG-KIT library
  
--# Select an ANSI/ISO C compiler here, GNU gcc is recommended
+ # Select an ANSI/ISO C compiler here, GNU gcc is recommended
 -CC = gcc
--
+ 
  # Options for the compiler: A high optimization level is suggested
 -CFLAGS = -g -O -W -Wall -ansi -pedantic # --coverage
-+CFLAGS += -W -Wall -ansi -pedantic # --coverage
  
--all: libjbig.a libjbig85.a tstcodec tstcodec85
-+.if "${OPSYS}" == "Darwin"
-+more_targets=	libjbig.dylib libjbig85.dylib
-+more_install=	libjbig.2.dylib libjbig85.1.dylib
-+.else
-+more_targets=	libjbig.so libjbig85.so
-+more_install=	libjbig.so.2 libjbig85.so.1
-+.endif
-+
-+all: libjbig.a libjbig85.a tstcodec tstcodec85 ${more_targets}
+-all: libjbig.a libjbig85.a tstcodec tstcodec85 tstjoint
++all: libjbig.a libjbig85.a tstcodec tstcodec85 tstjoint libjbig.so libjbig85.so
 +
 +.SUFFIXES: .c .So
 +.c.So:
 +	$(CC) -c -fpic -DPIC ${CFLAGS} ${.IMPSRC} -o ${.TARGET}
  
  tstcodec: tstcodec.o jbig.o jbig_ar.o
- 	$(CC) $(CFLAGS) -o tstcodec tstcodec.o jbig.o jbig_ar.o
-@@ -19,17 +28,52 @@ libjbig.a: jbig.o jbig_ar.o
+ 	$(CC) $(LDFLAGS) $(CFLAGS) -o tstcodec tstcodec.o jbig.o jbig_ar.o
+@@ -23,17 +25,38 @@ libjbig.a: jbig.o jbig_ar.o
  	ar rc libjbig.a jbig.o jbig_ar.o
  	-ranlib libjbig.a
  
@@ -36,13 +27,6 @@
 +	$(CC) -o ${.TARGET} ${LDFLAGS} -shared -Wl,-soname,${.TARGET} ${.ALLSRC}
 +
 +libjbig.so: libjbig.so.2
-+	ln -sf ${.ALLSRC} ${.TARGET}
-+
-+libjbig.2.dylib: jbig.So jbig_ar.So
-+	rm -f ${.TARGET}
-+	$(CC) -o ${.TARGET} ${LDFLAGS} -dynamiclib -install_name ${PREFIX}/lib/${.TARGET} ${.ALLSRC}
-+
-+libjbig.dylib: libjbig.2.dylib
 +	ln -sf ${.ALLSRC} ${.TARGET}
 +
  libjbig85.a: jbig85.o jbig_ar.o
@@ -57,13 +41,6 @@
 +libjbig85.so: libjbig85.so.1
 +	ln -sf ${.ALLSRC} ${.TARGET}
 +
-+libjbig85.1.dylib: jbig85.So jbig_ar.So
-+	rm -f ${.TARGET}
-+	$(CC) -o ${.TARGET} ${LDFLAGS} -dynamiclib -install_name ${PREFIX}/lib/${.TARGET} ${.ALLSRC}
-+
-+libjbig85.dylib: libjbig85.1.dylib
-+	ln -sf ${.ALLSRC} ${.TARGET}
-+
  jbig.o: jbig.c jbig.h jbig_ar.h
  jbig85.o: jbig85.c jbig85.h jbig_ar.h
  jbig_ar.o: jbig_ar.c jbig_ar.h
@@ -74,8 +51,8 @@
 +	${BSD_INSTALL_DATA} *.h ${DESTDIR}${PREFIX}/include/
 +	${BSD_INSTALL_DATA} libjbig.a ${DESTDIR}${PREFIX}/lib
 +	${BSD_INSTALL_DATA} libjbig85.a ${DESTDIR}${PREFIX}/lib
-+	cp -pRP ${more_targets} ${DESTDIR}${PREFIX}/lib
-+	${BSD_INSTALL_LIB} ${more_install} ${DESTDIR}${PREFIX}/lib
++	cp -pRP libjbig.so libjbig85.so ${DESTDIR}${PREFIX}/lib
++	${BSD_INSTALL_LIB} libjbig.so.2 libjbig85.so.1 ${DESTDIR}${PREFIX}/lib
 +
  update-po: jbig.c jbig85.c Makefile
  	xgettext -ojbig.pot -k_ \
