@@ -1,4 +1,4 @@
---- gi/js-value-inl.h.orig	2026-03-14 03:48:09 UTC
+--- gi/js-value-inl.h.orig	2026-10-12 00:01:17 UTC
 +++ gi/js-value-inl.h
 @@ -106,6 +106,22 @@ inline bool js_value_to_c<unsigned short
      return JS::ToUint32(cx, value, out);
