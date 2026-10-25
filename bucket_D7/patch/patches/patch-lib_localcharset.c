@@ -1,4 +1,4 @@
---- lib/localcharset.c.orig	2025-02-27 13:35:02 UTC
+--- lib/localcharset.c.orig	2026-10-21 15:05:09 UTC
 +++ lib/localcharset.c
 @@ -92,7 +92,7 @@ struct table_entry
  /* Table of platform-dependent mappings, sorted in ascending order.  */
@@ -9,7 +9,7 @@
    /*{ "ARMSCII-8",  "ARMSCII-8" },*/
      { "Big5",       "BIG5" },
      { "C",          "ASCII" },
-@@ -583,7 +583,7 @@ struct table_entry
+@@ -544,7 +544,7 @@ struct table_entry
  /* Table of platform-dependent mappings, sorted in ascending order.  */
  static const struct table_entry locale_table[] =
    {
