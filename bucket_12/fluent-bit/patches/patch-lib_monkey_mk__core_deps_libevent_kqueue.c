@@ -1,4 +1,4 @@
---- lib/monkey/mk_core/deps/libevent/kqueue.c.orig	2026-09-04 19:47:55 UTC
+--- lib/monkey/mk_core/deps/libevent/kqueue.c.orig	2026-10-21 03:51:46 UTC
 +++ lib/monkey/mk_core/deps/libevent/kqueue.c
 @@ -54,7 +54,7 @@
  #if defined(__NetBSD__)

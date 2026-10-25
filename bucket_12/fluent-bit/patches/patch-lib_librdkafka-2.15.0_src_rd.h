@@ -1,4 +1,4 @@
---- lib/librdkafka-2.15.0/src/rd.h.orig	2026-09-04 19:47:55 UTC
+--- lib/librdkafka-2.15.0/src/rd.h.orig	2026-10-21 03:51:46 UTC
 +++ lib/librdkafka-2.15.0/src/rd.h
 @@ -40,6 +40,10 @@
  #define _DARWIN_C_SOURCE /* for strlcpy, pthread_setname_np, etc */

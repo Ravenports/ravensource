@@ -1,4 +1,4 @@
---- lib/chunkio/src/cio_scan.c.orig	2026-09-04 19:47:55 UTC
+--- lib/chunkio/src/cio_scan.c.orig	2026-10-21 03:51:46 UTC
 +++ lib/chunkio/src/cio_scan.c
 @@ -21,6 +21,9 @@
  #include <stdlib.h>

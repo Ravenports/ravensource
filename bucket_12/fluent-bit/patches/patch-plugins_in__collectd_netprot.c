@@ -1,6 +1,6 @@
---- plugins/in_collectd/netprot.c.orig	2026-09-04 19:47:55 UTC
+--- plugins/in_collectd/netprot.c.orig	2026-10-21 03:51:46 UTC
 +++ plugins/in_collectd/netprot.c
-@@ -34,6 +34,16 @@
+@@ -35,6 +35,16 @@
  #include "netprot.h"
  #include "typesdb.h"
  
@@ -14,6 +14,6 @@
 +#define le64toh(x) LE_64(x)
 +#endif
 +
- #define be16read(x) (be16toh(*(uint16_t *) (x)))
- #define be32read(x) (be32toh(*(uint32_t *) (x)))
- #define be64read(x) (be64toh(*(uint64_t *) (x)))
+ /* Packet fields may start at any byte offset. */
+ static uint16_t be16read(const void *ptr)
+ {
