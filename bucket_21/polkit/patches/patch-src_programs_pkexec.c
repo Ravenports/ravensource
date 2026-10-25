@@ -1,6 +1,6 @@
 Provide solaris header for LOG_AUTHPRIV
 
---- src/programs/pkexec.c.orig	2025-12-17 16:14:53 UTC
+--- src/programs/pkexec.c.orig	2026-10-15 15:22:30 UTC
 +++ src/programs/pkexec.c
 @@ -47,6 +47,9 @@
  

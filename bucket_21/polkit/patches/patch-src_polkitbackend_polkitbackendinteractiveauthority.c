@@ -3,7 +3,7 @@ $NetBSD: patch-src_polkitbackend_polkitbackendinteractiveauthority.c,v 1.5 2025/
 * for *BSD netgroup functions
 https://github.com/polkit-org/polkit/pull/624
 
---- src/polkitbackend/polkitbackendinteractiveauthority.c.orig	2025-12-17 16:14:53 UTC
+--- src/polkitbackend/polkitbackendinteractiveauthority.c.orig	2026-10-15 15:22:30 UTC
 +++ src/polkitbackend/polkitbackendinteractiveauthority.c
 @@ -25,8 +25,13 @@
  #ifdef HAVE_NETGROUP_H
@@ -19,7 +19,7 @@ https://github.com/polkit-org/polkit/pull/624
  #include <string.h>
  #include <glib/gstdio.h>
  #include <locale.h>
-@@ -2383,7 +2388,7 @@ get_users_in_net_group (PolkitIdentity
+@@ -2477,7 +2482,7 @@ get_users_in_net_group (PolkitIdentity
  
    name = polkit_unix_netgroup_get_name (POLKIT_UNIX_NETGROUP (group));
  
