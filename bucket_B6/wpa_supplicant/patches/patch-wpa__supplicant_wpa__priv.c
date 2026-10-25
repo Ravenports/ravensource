@@ -1,4 +1,4 @@
---- wpa_supplicant/wpa_priv.c.orig	2024-07-20 18:04:37 UTC
+--- wpa_supplicant/wpa_priv.c.orig	2026-08-07 13:10:53 UTC
 +++ wpa_supplicant/wpa_priv.c
 @@ -1210,6 +1210,7 @@ static void usage(void)
  int main(int argc, char *argv[])

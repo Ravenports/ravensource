@@ -1,6 +1,6 @@
---- wpa_supplicant/main.c.orig	2024-07-20 18:04:37 UTC
+--- wpa_supplicant/main.c.orig	2026-08-07 13:10:53 UTC
 +++ wpa_supplicant/main.c
-@@ -67,7 +67,7 @@ static void usage(void)
+@@ -70,7 +70,7 @@ static void usage(void)
  	       "  -c = Configuration file\n"
  	       "  -C = ctrl_interface parameter (only used if -c is not)\n"
  	       "  -d = increase debugging verbosity (-dd even more)\n"
@@ -9,17 +9,7 @@
  	       "  -e = entropy file\n"
  #ifdef CONFIG_DEBUG_FILE
  	       "  -f = log output to debug file instead of stdout\n"
-@@ -106,8 +106,7 @@ static void usage(void)
- 	       "  -W = wait for a control interface monitor before starting\n");
- 
- 	printf("example:\n"
--	       "  wpa_supplicant -D%s -iwlan0 -c/etc/wpa_supplicant.conf\n",
--	       wpa_drivers[0] ? wpa_drivers[0]->name : "nl80211");
-+                "  wpa_supplicant -Dbsd -iwlan0 -c/etc/wpa_supplicant.conf\n");
- #endif /* CONFIG_NO_STDOUT_DEBUG */
- }
- 
-@@ -200,6 +199,11 @@ int main(int argc, char *argv[])
+@@ -211,6 +211,11 @@ int main(int argc, char *argv[])
  
  	wpa_supplicant_fd_workaround(1);
  
@@ -30,4 +20,4 @@
 +
  	for (;;) {
  		c = getopt(argc, argv,
- 			   "b:Bc:C:D:de:f:g:G:hi:I:KLMm:No:O:p:P:qsTtuvW");
+ 			   "b:Bc:C:D:de:f:g:G:hi:I:KLMm:No:O:p:P:qsTtuvWyz:");

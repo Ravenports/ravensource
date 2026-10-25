@@ -1,6 +1,6 @@
---- src/drivers/driver_ndis.c.orig	2024-07-20 18:04:37 UTC
+--- src/drivers/driver_ndis.c.orig	2026-08-07 13:10:53 UTC
 +++ src/drivers/driver_ndis.c
-@@ -2118,7 +2118,11 @@ static int wpa_driver_ndis_get_names(str
+@@ -2121,7 +2121,11 @@ static int wpa_driver_ndis_get_names(str
  		dlen = dpos - desc;
  	else
  		dlen = os_strlen(desc);
@@ -13,7 +13,7 @@
  	os_free(b);
  	if (drv->adapter_desc == NULL)
  		return -1;
-@@ -2286,7 +2290,11 @@ static int wpa_driver_ndis_get_names(str
+@@ -2289,7 +2293,11 @@ static int wpa_driver_ndis_get_names(str
  	} else {
  		dlen = os_strlen(desc[i]);
  	}

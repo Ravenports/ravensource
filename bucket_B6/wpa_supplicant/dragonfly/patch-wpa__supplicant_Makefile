@@ -1,4 +1,4 @@
---- wpa_supplicant/Makefile.orig	2024-07-20 18:04:37 UTC
+--- wpa_supplicant/Makefile.orig	2026-08-07 13:10:53 UTC
 +++ wpa_supplicant/Makefile
 @@ -140,6 +140,14 @@ OBJS += ../src/utils/os_$(CONFIG_OS).o
  OBJS_p += ../src/utils/os_$(CONFIG_OS).o
@@ -15,3 +15,12 @@
  ifdef CONFIG_WPA_TRACE
  CFLAGS += -DWPA_TRACE
  OBJS += ../src/utils/trace.o
+@@ -2105,7 +2113,7 @@ libwpa_client.a: $(LIBCTRL)
+ 
+ libwpa_client.so: $(LIBCTRLSO)
+ 	@$(E) "  CC  $@ ($^)"
+-	$(Q)$(CC) $(LDFLAGS) -o $@ $(CFLAGS) -shared -fPIC $^
++	$(Q)$(CC) $(LDFLAGS) -o $@ $(CFLAGS) -Wl,-soname,$@.2 -shared -fPIC $^
+ 
+ OBJS_wpatest := libwpa_test.o
+ _OBJS_VAR := OBJS_wpatest
