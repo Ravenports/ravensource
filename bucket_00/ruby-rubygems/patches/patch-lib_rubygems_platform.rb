@@ -1,4 +1,4 @@
---- lib/rubygems/platform.rb.orig	2026-09-30 07:51:02 UTC
+--- lib/rubygems/platform.rb.orig	2026-10-14 04:15:57 UTC
 +++ lib/rubygems/platform.rb
 @@ -111,6 +111,7 @@ class Gem::Platform
                          @cpu = "x86" if @cpu.nil? && os.end_with?("32")
