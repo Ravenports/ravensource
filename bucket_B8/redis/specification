@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	8.8.1
+DEF[PORTVERSION]=	8.10.2
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		redis
@@ -39,20 +39,17 @@ SUB_FILES=		messages-single.ucl
 			scripts-single.ucl
 			manifest.xml
 
-USES=			cpe gmake execinfo pkgconfig c++:single
+USES=			cpe gmake execinfo pkgconfig bfd c++:single
 			smf:single
 CPE_VENDOR=		redislabs
-CFLAGS=			-Wno-implicit-fallthrough
-LDFLAGS=		-lm -lexecinfo
-MAKE_ENV=		V=yo
+MAKE_ENV=		OPTIMIZATION=
+			V=yo
 SUB_LIST=		OWN={{USERS}}
 			GRP={{GROUPS}}
 PLIST_SUB=		OWN={{USERS}}
 			GRP={{GROUPS}}
 
 VAR_OPSYS[linux]=	LDFLAGS=-ldl
-# certain release of freebsd and dragonfly will need
-# -DNO_MALLOC_USABLE_SIZE
 
 post-extract:
 	${SED} -n '/Redis Source Available License 2.0 (RSALv2)/!p;//q' \
@@ -63,8 +60,8 @@ post-extract:
 		${WRKSRC}/LICENSE.txt > ${WRKDIR}/SSPL
 
 pre-configure:
-	# skip module tests (at least one requires link fix)
-	${REINPLACE_CMD} -e '/all:/ s/module_tests//' ${WRKSRC}/src/Makefile
+	${REINPLACE_CMD} -e 's|^cloned=.*|cloned=""|g' \
+		${WRKSRC}/scripts/build.sh
 	# adjust localstatedir
 	${REINPLACE_CMD} -e "s|%%PREFIX%%|${PREFIX}|g" \
 		${WRKSRC}/redis.conf ${WRKSRC}/sentinel.conf
