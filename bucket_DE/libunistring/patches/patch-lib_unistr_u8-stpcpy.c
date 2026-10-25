@@ -1,4 +1,4 @@
---- lib/unistr/u8-stpcpy.c.orig	2025-01-22 21:41:11 UTC
+--- lib/unistr/u8-stpcpy.c.orig	2026-02-23 17:39:20 UTC
 +++ lib/unistr/u8-stpcpy.c
 @@ -33,7 +33,7 @@
  /* Specification.  */

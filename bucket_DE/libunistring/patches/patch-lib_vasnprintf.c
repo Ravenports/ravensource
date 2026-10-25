@@ -1,6 +1,6 @@
---- lib/vasnprintf.c.orig	2025-09-23 23:01:32 UTC
+--- lib/vasnprintf.c.orig	2026-10-15 12:08:52 UTC
 +++ lib/vasnprintf.c
-@@ -259,7 +259,7 @@
+@@ -285,7 +285,7 @@
  #define remainder rem
  
  #if (!USE_SNPRINTF || !HAVE_SNPRINTF_RETVAL_C99 || USE_MSVC__SNPRINTF || (PTRDIFF_MAX > INT_MAX)) && !WIDE_CHAR_VERSION
