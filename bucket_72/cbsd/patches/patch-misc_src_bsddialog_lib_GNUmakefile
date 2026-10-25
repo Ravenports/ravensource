@@ -1,0 +1,13 @@
+--- misc/src/bsddialog/lib/GNUmakefile.orig	2026-09-23 15:21:28 UTC
++++ misc/src/bsddialog/lib/GNUmakefile
+@@ -16,8 +16,8 @@ ifneq ($(ENABLEDEBUG),)
+ CFLAGS += -g
+ endif
+ CFLAGS += -D_XOPEN_SOURCE_EXTENDED -D_XOPEN_SOURCE -D_GNU_SOURCE \
+-	-I/usr/include/ncursesw -Wall -Wextra -Werror -fpic
+-LDFLAGS += -lncursesw -ltinfo
++	-I$(PREFIX)/include/ncurses -Wall -Wextra -Werror -fpic
++LDFLAGS += -lncurses -ltinfo
+ LIBFLAG = -shared
+ 
+ INSTALL = install

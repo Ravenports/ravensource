@@ -1,0 +1,16 @@
+--- misc/src/bsddialog/utility/GNUmakefile.orig	2026-09-23 15:21:28 UTC
++++ misc/src/bsddialog/utility/GNUmakefile
+@@ -12,11 +12,11 @@ LIBPATH ?= ../lib
+ ifneq ($(ENABLEDEBUG),)
+ CFLAGS += -g
+ endif
+-CFLAGS += -D_GNU_SOURCE -Wall -Wextra -I$(LIBPATH)
++CFLAGS += -D_GNU_SOURCE -Wall -Wextra -I$(LIBPATH) -I$(PREFIX)/include/ncurses
+ 
+ STATIC ?=
+ ifneq ($(STATIC),)
+-LDFLAGS += $(LIBPATH)/libbsddialog.a -ltinfo -lncursesw
++LDFLAGS += $(LIBPATH)/libbsddialog.a -ltinfo -lncurses
+ else
+ ifneq ($(DISABLERPATH),)
+ LDFLAGS += -ltinfo -L$(LIBPATH) -lbsddialog
