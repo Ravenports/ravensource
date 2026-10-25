@@ -1,4 +1,4 @@
---- mesonbuild/modules/pkgconfig.py.orig	2026-08-21 01:33:01 UTC
+--- mesonbuild/modules/pkgconfig.py.orig	2026-10-25 23:27:56 UTC
 +++ mesonbuild/modules/pkgconfig.py
 @@ -780,7 +780,7 @@ class PkgConfigModule(NewExtensionModule
              pkgroot_name = pkgroot.optname

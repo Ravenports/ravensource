@@ -1,4 +1,4 @@
---- mesonbuild/linkers/linkers.py.orig	2026-09-05 18:01:49 UTC
+--- mesonbuild/linkers/linkers.py.orig	2026-10-25 23:27:56 UTC
 +++ mesonbuild/linkers/linkers.py
 @@ -731,7 +731,7 @@ class GnuLikeDynamicLinkerMixin(DynamicL
          return ['-pthread']

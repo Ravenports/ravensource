@@ -1,4 +1,4 @@
---- mesonbuild/scripts/depfixer.py.orig	2026-08-21 01:26:13 UTC
+--- mesonbuild/scripts/depfixer.py.orig	2026-10-25 23:27:56 UTC
 +++ mesonbuild/scripts/depfixer.py
 @@ -824,8 +824,7 @@ def fix_rpath(fname: str, rpath_dirs_to_
              return

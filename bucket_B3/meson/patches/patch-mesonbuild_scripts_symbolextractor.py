@@ -1,4 +1,4 @@
---- mesonbuild/scripts/symbolextractor.py.orig	2026-08-21 01:29:42 UTC
+--- mesonbuild/scripts/symbolextractor.py.orig	2026-10-25 23:27:56 UTC
 +++ mesonbuild/scripts/symbolextractor.py
 @@ -302,6 +302,8 @@ def gen_symbols(libfilename: str, impfil
          openbsd_syms(libfilename, outfilename)
