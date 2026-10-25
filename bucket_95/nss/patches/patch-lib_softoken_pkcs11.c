@@ -1,4 +1,4 @@
---- lib/softoken/pkcs11.c.orig	2026-10-06 19:04:05 UTC
+--- lib/softoken/pkcs11.c.orig	2026-10-21 18:20:38 UTC
 +++ lib/softoken/pkcs11.c
 @@ -4094,8 +4094,8 @@ loser:
          char buf[200];

@@ -1,4 +1,4 @@
---- lib/freebl/verified/internal/Hacl_Bignum_Base.h.orig	2026-10-06 19:04:05 UTC
+--- lib/freebl/verified/internal/Hacl_Bignum_Base.h.orig	2026-10-21 18:20:38 UTC
 +++ lib/freebl/verified/internal/Hacl_Bignum_Base.h
 @@ -68,7 +68,7 @@ Hacl_Bignum_Convert_bn_from_bytes_be_uin
    uint32_t bnLen = (len - (uint32_t)1U) / (uint32_t)8U + (uint32_t)1U;
