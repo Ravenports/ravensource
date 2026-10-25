@@ -50,11 +50,13 @@ simple to install and deploy.
 Which version of C does pycparser support?
 ------------------------------------------
 
-**pycparser** aims to support the full C99 language (according to the
-standard
-ISO/IEC 9899). Some features from C11 are also supported, and patches to
-support
-more are welcome.
+**pycparser** aims to support the full C11 language, including earlier
+revisions like C99.
+
+C23 support is conditional on a ``dialect="c23"`` setting, since this
+revision
+introduces new keywords like bool that would conflict with existing C code
+if not handled properly.
 
 **pycparser** supports very few GCC extensions, but it's fairly easy to set
 things up so that it parses code with a lot of GCC-isms successfully. See
@@ -95,6 +97,4 @@ for details.
 
 Installation process
 --------------------
-
-The recommended way to install **pycparser** is with pip::
 

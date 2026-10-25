@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.0.1
+DEF[PORTVERSION]=	2.0.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-sphinxcontrib-jsmath
@@ -7,12 +7,12 @@ KEYWORDS=		python
 VARIANTS=		v13 v14
 SDESC[v13]=		Sphinx extension: Math via javascript (3.13)
 SDESC[v14]=		Sphinx extension: Math via javascript (3.14)
-HOMEPAGE=		http://sphinx-doc.org/
+HOMEPAGE=		https://www.sphinx-doc.org/
 CONTACT=		Python_Automaton[python@ravenports.com]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/c2/42/4c8646762ee83602e3fb3fbe774c2fac12f317deb0b5dbeeedd2d3ba4b77
-DISTFILE[1]=		sphinxcontrib_jsmath-${PORTVERSION}-py2.py3-none-any.whl:main
+SITES[main]=		PYPIWHL/da/c2/2965c35b39587d4b7a397f65a9c7d4b942b031061e7ac1ce91782f394a0d
+DISTFILE[1]=		sphinxcontrib_jsmath-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
 SPKGS[v13]=		single
@@ -24,15 +24,17 @@ VOPTS[v13]=		PY313=ON PY314=OFF
 VOPTS[v14]=		PY313=OFF PY314=ON
 
 # License listed at PyPI
-# BSD
+# Not provided.
 
 GENERATED=		yes
 DISTNAME=		sphinxcontrib_jsmath-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# pytest ; extra == 'test'
-# flake8 ; extra == 'test'
-# mypy ; extra == 'test'
+# ruff==0.5.5 ; extra == "lint"
+# mypy ; extra == "lint"
+# types-docutils ; extra == "lint"
+# Sphinx>=5 ; extra == "standalone"
+# pytest ; extra == "test"
 
 [PY313].USES_ON=			python:v13,wheel
 [PY314].USES_ON=			python:v14,wheel

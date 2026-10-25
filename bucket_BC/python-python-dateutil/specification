@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.9.0.post0
+DEF[PORTVERSION]=	3.0.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-python-dateutil
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/dateutil/dateutil
 CONTACT=		Python_Automaton[python@ravenports.com]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/ec/57/56b9bcc3c9c6a792fcbaf139543cee77261f3651ca9da0c93f5c1221264b
+SITES[main]=		PYPIWHL/5a/17/cebee01d1c0c1441174cf0456ddc91b280d79acb65340c05e41d77866ee8
 DISTFILE[1]=		python_dateutil-${PORTVERSION}-py2.py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -30,10 +30,13 @@ GENERATED=		yes
 DISTNAME=		python_dateutil-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# six >=1.5
+# six>=1.6
+# tzdata
 
 [PY313].USES_ON=			python:v13,wheel
 [PY313].RUN_DEPENDS_ON=			python-six:single:v13
+					python-tzdata:single:v13
 [PY314].USES_ON=			python:v14,wheel
 [PY314].RUN_DEPENDS_ON=			python-six:single:v14
+					python-tzdata:single:v14
 

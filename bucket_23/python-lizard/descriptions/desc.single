@@ -48,12 +48,12 @@ It counts
 
 -  the nloc (lines of code without comments),
 -  CCN (cyclomatic complexity number),
--  token count of functions.
+-  token count of functions,
 -  parameter count of functions.
 
-You can set limitation for CCN (-C), the number of parameters (-a).
-Functions that exceed these limitations will generate warnings. The exit
-code of lizard will be none-Zero if there are warnings.
+You can set limits for CCN (-C) and the number of parameters (-a).
+Functions that exceed these limits will generate warnings. The exit
+code of lizard will be non-zero if there are warnings.
 
 This tool actually calculates how complex the code 'looks' rather than
 how complex the code really 'is'. People will need this tool because it's
@@ -61,12 +61,34 @@ often very hard to get all the included folders and files right when
 they are complicated. But we don't really need that kind of accuracy for
 cyclomatic complexity.
 
-It requires python3.8 or above (early versions are not verified).
+It requires Python 3.8 or above. The test suite runs on Python 3.8 and
+3.10,
+on Linux and Windows, in continuous integration; other versions are not
+verified.
+
+JavaScript and TypeScript defaults
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Each default parameter or destructuring initializer adds 1 to CCN, because
+the initializer runs only when the supplied value is undefined. For
+example,
+``function f(a = 1, b = a + 1) { return a + b; }`` has CCN 3: the base
+complexity of 1 plus two defaults. Defaults in object and array
+destructuring
+also count, including nested defaults and destructuring inside a function
+body.
+Explicit decisions within an initializer, such as a ternary expression or
+``&&`` / ``||``, contribute separately.
+
+This also applies to JSX and TSX. Existing CCN scores can increase for
+functions
+that use defaults, which may cause them to exceed a configured CCN
+threshold.
 
 Installation
 ------------
 
-lizard.py can be used as a stand alone Python script, most
+lizard.py can be used as a standalone Python script, most
 functionalities are there. You can always use it without any
 installation. To acquire all the functionalities of lizard, you will
 need a proper install.
@@ -76,25 +98,3 @@ need a proper install.
    python lizard.py
 
 If you want a proper install:
-
-::
-
-   [sudo] pip install lizard
-
-Or if you've got the source:
-
-::
-
-   [sudo] python setup.py install --prefix=/path/to/installation/directory/
-
-Usage
------
-
-::
-
-   lizard [options] [PATH or FILE] [PATH] ...
-
-Run for the code under current folder (recursively):
-
-::
-

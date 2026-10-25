@@ -15,24 +15,32 @@ Python 3.10+, zero runtime dependencies, works on PyPy.
 
 ## Why chardet 7?
 
-**99.7% accuracy** on 3,125 test files. **312x faster** than chardet 6.0.0,
-and **+13.1pp more accurate** than charset-normalizer 3.5.0 while being
-1.3x faster. **Language detection** for every result. **MIME type
+**99.7% accuracy** on 3,138 test files. **359x faster** than chardet 6.0.0,
+and **+13.1pp more accurate** than charset-normalizer 3.5.2 while being
+1.3x faster. **Language detection** for every text result. **MIME type
 detection** for
 binary files. **0BSD licensed.**
 
-|                        | chardet 7.6.0 (compiled) | chardet 6.0.0 |
-[charset-normalizer] 3.5.0 |
+Large inputs don't need a byte cap: `detect(data, max_bytes=len(data))` on
+a
+272 MiB file finishes in about 0.2 to 0.5 s, and the UTF-8 verdict is
+validated
+over every byte examined, never sampled. See
+[the performance docs]
+for the full large-input tables.
+
+|                        | chardet 7.7.0 (compiled) | chardet 6.0.0 |
+[charset-normalizer] 3.5.2 |
 | ---------------------- | :--------------------: | :-----------: |
 :-------------------------: |
-| Accuracy (3,125 files) |       **99.7%**        |     84.5%     |        
+| Accuracy (3,138 files) |       **99.7%**        |     84.4%     |        
    86.6%            |
-| Speed                  | **2,793 files/s** (647 pure) |  10 files/s   |  
-     2,210 files/s        |
-| Language detection     |       **91.8%**        |     38.5%     |        
-   54.6%            |
-| Peak memory            |     **27.7 MiB**       |      n/a      |        
- 71.7 MiB           |
+| Speed                  | **3,125 files/s** (771 pure) |  9 files/s   |   
+    2,438 files/s        |
+| Language detection     |       **93.0%**        |     38.7%     |        
+   54.8%            |
+| Peak memory            |     **28.2 MiB**       |      n/a      |        
+ 71.0 MiB           |
 | Streaming detection    |        **yes**         |      yes      |        
     no              |
 | Encoding era filtering |        **yes**         |      no       |        
@@ -81,20 +89,12 @@ entier."
 results = chardet.detect_all(text.encode("windows-1252"))
 for r in results[:4]:
     print(r["encoding"], round(r["confidence"], 2))
-# Windows-1252 0.32
-# iso8859-15 0.32
-# ISO-8859-1 0.32
-# MacRoman 0.31
+# Windows-1252 0.31
+# iso8859-15 0.31
+# ISO-8859-1 0.31
+# MacRoman 0.3
 ```
 
 ### Streaming Detection
 
 For large files or network streams, use `UniversalDetector` to feed data
-incrementally:
-
-```python
-from chardet import UniversalDetector
-
-detector = UniversalDetector()
-with open("unknown.txt", "rb") as f:
-    for line in f:
