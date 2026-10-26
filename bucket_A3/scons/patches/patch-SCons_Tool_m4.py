@@ -1,6 +1,6 @@
---- SCons/Tool/m4.py.orig	2024-09-22 01:25:14 UTC
+--- SCons/Tool/m4.py.orig	2026-01-23 02:53:44 UTC
 +++ SCons/Tool/m4.py
-@@ -49,7 +49,7 @@ def generate(env) -> None:
+@@ -48,7 +48,7 @@ def generate(env) -> None:
      # file and run from there.
      # The src_suffix setup is like so: file.c.m4 -> file.c,
      # file.cpp.m4 -> file.cpp etc.
