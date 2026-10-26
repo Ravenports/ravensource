@@ -1,6 +1,6 @@
-DEF[PORTVERSION]=	4.3.1
-DEF[SOVERSION]=		2.0.0
-DEF[MF_SOVERSION]=	3.0.0
+DEF[PORTVERSION]=	4.4.0
+DEF[SOVERSION]=		11.0.0
+DEF[MF_SOVERSION]=	11.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		hdf
@@ -15,7 +15,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://github.com/HDFGroup/hdf4/releases/download/hdf${PORTVERSION}/
 DISTFILE[1]=		hdf${PORTVERSION}.tar.gz:main
 
-SPKGS[std]=		set primary dev man tools
+SPKGS[std]=		set primary dev tools
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -28,16 +28,17 @@ LICENSE_SCHEME=		solo
 
 EXRUN[tools]=		primary
 
-USES=			jpeg libtool zlib mbsdfix
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--enable-shared
-			--with-jpeg={{LOCALBASE}}
-CFLAGS=			-std=gnu17
-INSTALL_TARGET=		install-strip
-INSTALL_REQ_TOOLCHAIN=	yes
+USES=			cmake jpeg zlib
+DISTNAME=		hdf${PORTVERSION}
 SOVERSION=		${SOVERSION}
 PLIST_SUB=		MF_SOVERSION=${MF_SOVERSION}
 			MF_SOMAJOR=${MF_SOVERSION:R:R}
 
-pre-configure-sunos:
-	${RM} ${WRKSRC}/config/solaris2.x
+post-install:
+	${RM} ${STAGEDIR}${PREFIX}/share/COPYING
+	${RM} ${STAGEDIR}${PREFIX}/share/RELEASE.txt
+	${RM} ${STAGEDIR}${PREFIX}/share/USING_HDF4_CMake.txt
+	# strip
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libhdf.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libmfhdf.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/h[dr]*
