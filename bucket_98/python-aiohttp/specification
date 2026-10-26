@@ -1,44 +1,65 @@
-# maintained manually due to PYPI download location
-DEF[PORTVERSION]=	3.13.5
-DEF[FOLDER]=		77/9a/152096d4808df8e4268befa55fba462f440f14beab85e8ad9bf990516918
-
+DEF[PORTVERSION]=	3.14.5
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-aiohttp
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v14 v13
-SDESC[v14]=		Async http client/server framework (3.14)
+VARIANTS=		v13 v14
 SDESC[v13]=		Async http client/server framework (3.13)
+SDESC[v14]=		Async http client/server framework (3.14)
 HOMEPAGE=		https://github.com/aio-libs/aiohttp
 CONTACT=		Python_Automaton[python@ravenports.com]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		https://files.pythonhosted.org/packages/${FOLDER}/
-DISTFILE[1]=		aiohttp-${PORTVERSION}.tar.gz:main
+SITES[main]=		PYPIWHL/68/30/173960c42b05a6c59f7558e4b12a4b0d9ba376cf6aa9bde7f9e08a30ca8d
+DISTFILE[1]=		aiohttp-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
-SPKGS[v14]=		single
 SPKGS[v13]=		single
+SPKGS[v14]=		single
 
-OPTIONS_AVAILABLE=	PY314 PY313
+OPTIONS_AVAILABLE=	PY313 PY314
 OPTIONS_STANDARD=	none
-VOPTS[v14]=		PY314=ON PY313=OFF
-VOPTS[v13]=		PY314=OFF PY313=ON
+VOPTS[v13]=		PY313=ON PY314=OFF
+VOPTS[v14]=		PY313=OFF PY314=ON
 
 # License listed at PyPI
-# Apache-2.0 AND MIT
+# Not provided.
 
 GENERATED=		yes
-DISTNAME=		aiohttp-${PORTVERSION}
+DISTNAME=		aiohttp-${PORTVERSION}.dist-info
 
-# Requires-Dist extracted from pyproject.toml file
-# build: pkgconfig
+# Requires-Dist extracted from wheel metadata
+# aiohappyeyeballs>=2.5.0
+# aiosignal>=1.4.0
+# async-timeout<6.0,>=4.0; python_version < "3.11"
+# attrs>=17.3.0
+# frozenlist>=1.1.1
+# multidict<8.0,>=4.5
+# propcache>=0.2.0
+# typing_extensions>=4.4; python_version < "3.13"
+# yarl<2.0,>=1.25.1
+# aiodns>=3.3.0; (sys_platform != "android" and sys_platform != "ios") and extra == "speedups"
+# Brotli>=1.2; (platform_python_implementation == "CPython" and sys_platform != "android" and sys_platform != "ios") and extra == "speedups"
+# brotlicffi>=1.2; platform_python_implementation != "CPython" and extra == "speedups"
+# backports.zstd; (platform_python_implementation == "CPython" and python_version < "3.14" and sys_platform != "android" and sys_platform != "ios") and extra == "speedups"
 
-[PY314].USES_ON=			python:v14,pep517
-[PY314].BUILD_DEPENDS_ON=		python-pkgconfig:single:v14
-[PY313].USES_ON=			python:v13,pep517
-[PY313].BUILD_DEPENDS_ON=		python-pkgconfig:single:v13
+[PY313].USES_ON=			python:v13,wheel
+[PY313].RUN_DEPENDS_ON=			python-aiohappyeyeballs:single:v13
+					python-aiosignal:single:v13
+					python-attrs:single:v13
+					python-frozenlist:single:v13
+					python-multidict:single:v13
+					python-propcache:single:v13
+					python-yarl:single:v13
+[PY314].USES_ON=			python:v14,wheel
+[PY314].RUN_DEPENDS_ON=			python-aiohappyeyeballs:single:v14
+					python-aiosignal:single:v14
+					python-attrs:single:v14
+					python-frozenlist:single:v14
+					python-multidict:single:v14
+					python-propcache:single:v14
+					python-yarl:single:v14
 
 USES=			cpe
 CPE_VENDOR=		aiohttp
