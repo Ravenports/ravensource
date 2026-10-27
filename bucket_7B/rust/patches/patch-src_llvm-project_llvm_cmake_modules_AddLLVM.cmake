@@ -1,9 +1,9 @@
---- src/llvm-project/llvm/cmake/modules/AddLLVM.cmake.orig	2026-08-18 19:58:58 UTC
+--- src/llvm-project/llvm/cmake/modules/AddLLVM.cmake.orig	2026-10-13 01:48:49 UTC
 +++ src/llvm-project/llvm/cmake/modules/AddLLVM.cmake
-@@ -2565,7 +2565,7 @@ function(llvm_setup_rpath name)
-   elseif(UNIX)
-     set(_build_rpath "\$ORIGIN/../lib${LLVM_LIBDIR_SUFFIX}" ${extra_libdir})
-     set(_install_rpath "\$ORIGIN/../lib${LLVM_LIBDIR_SUFFIX}")
+@@ -2709,7 +2709,7 @@ function(llvm_setup_rpath name)
+       list(APPEND _build_rpath "\$ORIGIN/../lib${LLVM_LIBDIR_SUFFIX}/${LLVM_DEFAULT_TARGET_TRIPLE}")
+       list(APPEND _install_rpath "\$ORIGIN/../lib${LLVM_LIBDIR_SUFFIX}/${LLVM_DEFAULT_TARGET_TRIPLE}")
+     endif()
 -    if("${CMAKE_SYSTEM_NAME}" MATCHES "(FreeBSD|DragonFly)")
 +    if("${CMAKE_SYSTEM_NAME}" MATCHES "(FreeBSD|DragonFly|MidnightBSD)")
        set_property(TARGET ${name} APPEND_STRING PROPERTY

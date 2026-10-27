@@ -1,6 +1,6 @@
---- src/bootstrap/src/core/builder/cargo.rs.orig	2026-08-18 19:58:58 UTC
+--- src/bootstrap/src/core/builder/cargo.rs.orig	2026-10-13 01:48:49 UTC
 +++ src/bootstrap/src/core/builder/cargo.rs
-@@ -314,12 +314,13 @@ impl Cargo {
+@@ -335,12 +335,13 @@ impl Cargo {
                  && !target.contains("xous")
              {
                  self.rustflags.arg("-Clink-args=-Wl,-z,origin");
@@ -16,7 +16,7 @@
              }
          }
  
-@@ -353,7 +354,7 @@ impl Cargo {
+@@ -374,7 +375,7 @@ impl Cargo {
                  // Do not enable Zlib compression on:
                  // - Windows, because MSVC/PDB doesn't support it
                  // - macOS, because its linker doesn't know the flag

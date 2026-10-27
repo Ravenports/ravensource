@@ -1,8 +1,8 @@
---- src/bootstrap/src/core/build_steps/install.rs.orig	2026-08-18 19:58:58 UTC
+--- src/bootstrap/src/core/build_steps/install.rs.orig	2026-10-13 01:48:49 UTC
 +++ src/bootstrap/src/core/build_steps/install.rs
-@@ -15,9 +15,9 @@ use crate::utils::helpers::t;
+@@ -15,9 +15,9 @@ use crate::utils::exec::command;
+ use crate::utils::helpers::t;
  use crate::utils::tarball::GeneratedTarball;
- use crate::{Compiler, Kind};
  
 -#[cfg(target_os = "illumos")]
 +#[cfg(any(target_os = "illumos", target_os = "netbsd"))]
