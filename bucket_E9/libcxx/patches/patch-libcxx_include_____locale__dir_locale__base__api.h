@@ -1,6 +1,6 @@
---- libcxx/include/__locale_dir/locale_base_api.h.orig	2026-06-01 07:23:32 UTC
+--- libcxx/include/__locale_dir/locale_base_api.h.orig	2026-10-19 23:57:12 UTC
 +++ libcxx/include/__locale_dir/locale_base_api.h
-@@ -108,7 +108,7 @@
+@@ -110,7 +110,7 @@
  
  #  if defined(__APPLE__)
  #    include <__locale_dir/support/apple.h>

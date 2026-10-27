@@ -1,6 +1,6 @@
---- tools/lldb-server/lldb-gdbserver.cpp.orig	2026-06-01 07:23:32 UTC
+--- tools/lldb-server/lldb-gdbserver.cpp.orig	2026-10-19 23:57:12 UTC
 +++ tools/lldb-server/lldb-gdbserver.cpp
-@@ -41,6 +41,8 @@
+@@ -46,6 +46,8 @@
  #include "Plugins/Process/Linux/NativeProcessLinux.h"
  #elif defined(__FreeBSD__)
  #include "Plugins/Process/FreeBSD/NativeProcessFreeBSD.h"
@@ -9,7 +9,7 @@
  #elif defined(__NetBSD__)
  #include "Plugins/Process/NetBSD/NativeProcessNetBSD.h"
  #elif defined(_WIN32)
-@@ -66,6 +68,8 @@ namespace {
+@@ -73,6 +75,8 @@ namespace {
  typedef process_linux::NativeProcessLinux::Manager NativeProcessManager;
  #elif defined(__FreeBSD__)
  typedef process_freebsd::NativeProcessFreeBSD::Manager NativeProcessManager;

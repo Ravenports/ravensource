@@ -1,4 +1,4 @@
---- lib/Driver/ToolChains/NetBSD.cpp.orig	2026-06-01 07:23:32 UTC
+--- lib/Driver/ToolChains/NetBSD.cpp.orig	2026-10-19 23:57:12 UTC
 +++ lib/Driver/ToolChains/NetBSD.cpp
 @@ -278,10 +278,15 @@ void netbsd::Linker::ConstructJob(Compil
    bool NeedsXRayDeps = addXRayRuntime(ToolChain, Args, CmdArgs);
@@ -81,7 +81,7 @@
    return ToolChain::CST_Libstdcxx;
  }
  
-@@ -518,8 +500,9 @@ void NetBSD::addLibCxxIncludePaths(const
+@@ -497,8 +479,9 @@ void NetBSD::AddClangSystemIncludeArgs(
  
  void NetBSD::addLibStdCxxIncludePaths(const llvm::opt::ArgList &DriverArgs,
                                        llvm::opt::ArgStringList &CC1Args) const {

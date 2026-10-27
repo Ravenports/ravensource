@@ -436,10 +436,10 @@ Status NativeProcessDragonFly::GetMemoryRegionInfo(lldb::addr_t load_addr,
       range_info.GetRange().SetRangeBase(load_addr);
       range_info.GetRange().SetByteSize(
           proc_entry_info.GetRange().GetRangeBase() - load_addr);
-      range_info.SetReadable(MemoryRegionInfo::OptionalBool::eNo);
-      range_info.SetWritable(MemoryRegionInfo::OptionalBool::eNo);
-      range_info.SetExecutable(MemoryRegionInfo::OptionalBool::eNo);
-      range_info.SetMapped(MemoryRegionInfo::OptionalBool::eNo);
+      range_info.SetReadable(eLazyBoolNo);
+      range_info.SetWritable(eLazyBoolNo);
+      range_info.SetExecutable(eLazyBoolNo);
+      range_info.SetMapped(eLazyBoolNo);
       return error;
     } else if (proc_entry_info.GetRange().Contains(load_addr)) {
       // The target address is within the memory region we're processing here.
@@ -454,10 +454,10 @@ Status NativeProcessDragonFly::GetMemoryRegionInfo(lldb::addr_t load_addr,
   // load address and the end of the memory as size.
   range_info.GetRange().SetRangeBase(load_addr);
   range_info.GetRange().SetRangeEnd(LLDB_INVALID_ADDRESS);
-  range_info.SetReadable(MemoryRegionInfo::OptionalBool::eNo);
-  range_info.SetWritable(MemoryRegionInfo::OptionalBool::eNo);
-  range_info.SetExecutable(MemoryRegionInfo::OptionalBool::eNo);
-  range_info.SetMapped(MemoryRegionInfo::OptionalBool::eNo);
+  range_info.SetReadable(eLazyBoolNo);
+  range_info.SetWritable(eLazyBoolNo);
+  range_info.SetExecutable(eLazyBoolNo);
+  range_info.SetMapped(eLazyBoolNo);
   return error;
 }
 
@@ -506,7 +506,7 @@ Status NativeProcessDragonFly::GetLoadedModuleFileSpec(const char *module_path,
   }
   return Status::FromErrorStringWithFormat(
     "Module file (%s) not found in process' memory map!",
-    module_file_spec.GetFilename().AsCString());
+    module_file_spec.GetFilename());
 }
 
 Status

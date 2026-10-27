@@ -1,6 +1,6 @@
---- lib/Driver/ToolChains/Gnu.cpp.orig	2026-06-01 07:23:32 UTC
+--- lib/Driver/ToolChains/Gnu.cpp.orig	2026-10-19 23:57:12 UTC
 +++ lib/Driver/ToolChains/Gnu.cpp
-@@ -359,6 +359,11 @@ void tools::gnutools::Linker::ConstructJ
+@@ -356,6 +356,11 @@ void tools::gnutools::Linker::ConstructJ
    } else if (IsStatic) {
      CmdArgs.push_back("-static");
    } else if (!Args.hasArg(options::OPT_r)) {
@@ -12,7 +12,7 @@
      if (Args.hasArg(options::OPT_rdynamic))
        CmdArgs.push_back("-export-dynamic");
      if (!IsShared) {
-@@ -487,6 +492,8 @@ void tools::gnutools::Linker::ConstructJ
+@@ -485,6 +490,8 @@ void tools::gnutools::Linker::ConstructJ
  
    if (!Args.hasArg(options::OPT_nostdlib, options::OPT_r)) {
      if (!Args.hasArg(options::OPT_nodefaultlibs)) {
@@ -21,7 +21,7 @@
        if (IsStatic || IsStaticPIE)
          CmdArgs.push_back("--start-group");
  
-@@ -3008,6 +3015,8 @@ Generic_GCC::Generic_GCC(const Driver &D
+@@ -3048,6 +3055,8 @@ Generic_GCC::Generic_GCC(const Driver &D
        CudaInstallation(D, Triple, Args), RocmInstallation(D, Triple, Args),
        SYCLInstallation(D, Triple, Args) {
    getProgramPaths().push_back(getDriver().Dir);
@@ -30,7 +30,7 @@
  }
  
  Generic_GCC::~Generic_GCC() {}
-@@ -3422,11 +3431,9 @@ bool Generic_GCC::addGCCLibStdCxxInclude
+@@ -3464,11 +3473,9 @@ bool Generic_GCC::addGCCLibStdCxxInclude
  void
  Generic_GCC::addLibStdCxxIncludePaths(const llvm::opt::ArgList &DriverArgs,
                                        llvm::opt::ArgStringList &CC1Args) const {

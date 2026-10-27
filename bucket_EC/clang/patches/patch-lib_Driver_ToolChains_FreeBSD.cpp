@@ -1,6 +1,6 @@
---- lib/Driver/ToolChains/FreeBSD.cpp.orig	2026-06-01 07:23:32 UTC
+--- lib/Driver/ToolChains/FreeBSD.cpp.orig	2026-10-19 23:57:12 UTC
 +++ lib/Driver/ToolChains/FreeBSD.cpp
-@@ -281,6 +281,16 @@ void freebsd::Linker::ConstructJob(Compi
+@@ -280,6 +280,16 @@ void freebsd::Linker::ConstructJob(Compi
    addLinkerCompressDebugSectionsOption(ToolChain, Args, CmdArgs);
    AddLinkerInputs(ToolChain, Inputs, Args, CmdArgs, JA);
  
@@ -17,7 +17,7 @@
    unsigned Major = ToolChain.getTriple().getOSMajorVersion();
    bool Profiling = Args.hasArg(options::OPT_pg) && Major != 0 && Major < 14;
    if (!Args.hasArg(options::OPT_nostdlib, options::OPT_nodefaultlibs,
-@@ -397,6 +407,8 @@ FreeBSD::FreeBSD(const Driver &D, const
+@@ -396,6 +406,8 @@ FreeBSD::FreeBSD(const Driver &D, const
      getFilePaths().push_back(concat(getDriver().SysRoot, "/usr/lib32"));
    else
      getFilePaths().push_back(concat(getDriver().SysRoot, "/usr/lib"));
@@ -26,21 +26,8 @@
  }
  
  void FreeBSD::AddClangSystemIncludeArgs(
-@@ -433,23 +445,19 @@ void FreeBSD::AddClangSystemIncludeArgs(
+@@ -432,15 +444,11 @@ void FreeBSD::AddClangSystemIncludeArgs(
                            concat(D.SysRoot, "/usr/include"));
- }
- 
-+void FreeBSD::addLibStdCxxIncludePaths(const llvm::opt::ArgList &DriverArgs,
-+                                    llvm::opt::ArgStringList &CC1Args) const {
-+  addSystemInclude(DriverArgs, CC1Args, "@RAVEN_GXX_HEADERS_DIR@");
-+  addSystemInclude(DriverArgs, CC1Args, "@RAVEN_GXX_HEADERS_DIR@/backward");
-+  addSystemInclude(DriverArgs, CC1Args, "@RAVEN_GXX_HEADERS_DIR@/@RAVEN_TRIPLE@");
-+}
-+
- void FreeBSD::addLibCxxIncludePaths(const llvm::opt::ArgList &DriverArgs,
-                                     llvm::opt::ArgStringList &CC1Args) const {
-   addSystemInclude(DriverArgs, CC1Args,
-                    concat(getDriver().SysRoot, "/usr/include/c++/v1"));
  }
  
 -void FreeBSD::AddCXXStdlibLibArgs(const ArgList &Args,
@@ -52,8 +39,11 @@
 -    std::replace_if(
 -        CmdArgs.begin(), CmdArgs.end(),
 -        [](const char *S) { return StringRef(S) == "-lc++"; }, "-lc++_p");
--}
--
++void FreeBSD::addLibStdCxxIncludePaths(const llvm::opt::ArgList &DriverArgs,
++                                    llvm::opt::ArgStringList &CC1Args) const {
++  addSystemInclude(DriverArgs, CC1Args, "@RAVEN_GXX_HEADERS_DIR@");
++  addSystemInclude(DriverArgs, CC1Args, "@RAVEN_GXX_HEADERS_DIR@/backward");
++  addSystemInclude(DriverArgs, CC1Args, "@RAVEN_GXX_HEADERS_DIR@/@RAVEN_TRIPLE@");
+ }
+ 
  void FreeBSD::AddCudaIncludeArgs(const ArgList &DriverArgs,
-                                  ArgStringList &CC1Args) const {
-   CudaInstallation->AddCudaIncludeArgs(DriverArgs, CC1Args);

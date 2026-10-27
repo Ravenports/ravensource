@@ -1,6 +1,6 @@
---- source/Plugins/Process/NetBSD/NativeProcessNetBSD.cpp.orig	2026-06-01 07:23:32 UTC
+--- source/Plugins/Process/NetBSD/NativeProcessNetBSD.cpp.orig	2026-10-19 23:57:12 UTC
 +++ source/Plugins/Process/NetBSD/NativeProcessNetBSD.cpp
-@@ -302,9 +302,9 @@ void NativeProcessNetBSD::MonitorSIGTRAP
+@@ -299,9 +299,9 @@ void NativeProcessNetBSD::MonitorSIGTRAP
        LLDB_LOG(log, "monitoring new thread, pid = {0}, LWP = {1}", pid,
                 pst.pe_lwp);
        NativeThreadNetBSD &t = AddThread(pst.pe_lwp);
@@ -12,7 +12,7 @@
          LLDB_LOG(log, "failed to copy watchpoints to new thread {0}: {1}",
                   pst.pe_lwp, error);
          SetState(StateType::eStateInvalid);
-@@ -489,8 +489,10 @@ Status NativeProcessNetBSD::Resume(const
+@@ -486,8 +486,10 @@ Status NativeProcessNetBSD::Resume(const
  
    Expected<ptrace_siginfo_t> siginfo =
        ComputeSignalInfo(m_threads, resume_actions);

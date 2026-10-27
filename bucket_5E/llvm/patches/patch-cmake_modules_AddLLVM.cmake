@@ -1,6 +1,6 @@
---- cmake/modules/AddLLVM.cmake.orig	2026-06-01 07:23:32 UTC
+--- cmake/modules/AddLLVM.cmake.orig	2026-10-19 23:57:12 UTC
 +++ cmake/modules/AddLLVM.cmake
-@@ -238,14 +238,10 @@ if (NOT DEFINED LLVM_LINKER_DETECTED AND
+@@ -323,14 +323,10 @@ if (NOT DEFINED LLVM_LINKER_DETECTED AND
        set(LLVM_LINKER_DETECTED YES CACHE INTERNAL "")
        set(LLVM_LINKER_IS_GNULD YES CACHE INTERNAL "")
        message(STATUS "Linker detection: GNU ld")
@@ -16,10 +16,10 @@
      endif()
    endif()
  
-@@ -2565,7 +2561,7 @@ function(llvm_setup_rpath name)
-   elseif(UNIX)
-     set(_build_rpath "\$ORIGIN/../lib${LLVM_LIBDIR_SUFFIX}" ${extra_libdir})
-     set(_install_rpath "\$ORIGIN/../lib${LLVM_LIBDIR_SUFFIX}")
+@@ -2709,7 +2705,7 @@ function(llvm_setup_rpath name)
+       list(APPEND _build_rpath "\$ORIGIN/../lib${LLVM_LIBDIR_SUFFIX}/${LLVM_DEFAULT_TARGET_TRIPLE}")
+       list(APPEND _install_rpath "\$ORIGIN/../lib${LLVM_LIBDIR_SUFFIX}/${LLVM_DEFAULT_TARGET_TRIPLE}")
+     endif()
 -    if("${CMAKE_SYSTEM_NAME}" MATCHES "(FreeBSD|DragonFly)")
 +    if("${CMAKE_SYSTEM_NAME}" MATCHES "(FreeBSD|DragonFly|MidnightBSD)")
        set_property(TARGET ${name} APPEND_STRING PROPERTY

@@ -1,7 +1,7 @@
 DEF[NAMEBASE]=		clang
 DEF[LLVMBASE]=		llvm
 DEF[LLDBASE]=		lld
-DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM22_VERSION)
+DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM23_VERSION)
 DEF[PORTREVISION]=	0
 DEF[MAJORMIN]=		${LLVM_VERSION:R}
 DEF[MAJOR]=		${LLVM_VERSION:R:R}
@@ -11,7 +11,7 @@ DEF[GXX_INCLUDE]=	toolchain/ravensys-gcc/include/c++/${GCC_VERSION}
 DEF[GCC_TARGET_LIB]=	toolchain/ravensys-gcc/lib/gcc/{{CONFIGURE_TARGET}}/${GCC_VERSION}
 DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
 DEF[WORKNAME]=		llvm-project-${LLVM_VERSION}.src
-DEF[DSUBDIR]=		llvm22
+DEF[DSUBDIR]=		llvm23
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		${NAMEBASE}
@@ -175,7 +175,8 @@ post-install:
 .for F in amdgpu-arch clang++ clang-${MAJOR} clang-check clang-cl clang-cpp \
 	clang-extdef-mapping clang-format clang-installapi clang-linker-wrapper \
 	clang-nvlink-wrapper clang-offload-bundler clang-refactor clang-repl \
-	clang-scan-deps clang-sycl-linker diagtool offload-arch nvptx-arch
+	clang-scan-deps clang-sycl-linker diagtool offload-arch nvptx-arch \
+	clang-ssaf-analyzer clang-ssaf-format clang-ssaf-linker
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/${F}
 .endfor
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libclang.so

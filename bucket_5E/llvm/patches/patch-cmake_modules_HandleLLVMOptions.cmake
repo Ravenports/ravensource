@@ -1,6 +1,6 @@
---- cmake/modules/HandleLLVMOptions.cmake.orig	2026-06-01 07:23:32 UTC
+--- cmake/modules/HandleLLVMOptions.cmake.orig	2026-10-19 23:57:12 UTC
 +++ cmake/modules/HandleLLVMOptions.cmake
-@@ -326,7 +326,7 @@ endif()
+@@ -336,7 +336,7 @@ endif()
  
  # Pass -Wl,-z,defs. This makes sure all symbols are defined. Otherwise a DSO
  # build might work on ELF but fail on MachO/COFF.

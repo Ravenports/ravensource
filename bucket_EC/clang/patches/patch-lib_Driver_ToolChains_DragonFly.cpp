@@ -1,4 +1,4 @@
---- lib/Driver/ToolChains/DragonFly.cpp.orig	2026-06-01 07:23:32 UTC
+--- lib/Driver/ToolChains/DragonFly.cpp.orig	2026-10-19 23:57:12 UTC
 +++ lib/Driver/ToolChains/DragonFly.cpp
 @@ -76,7 +76,7 @@ void dragonfly::Linker::ConstructJob(Com
        CmdArgs.push_back("-shared");
@@ -9,19 +9,13 @@
      }
      CmdArgs.push_back("--hash-style=gnu");
      CmdArgs.push_back("--enable-new-dtags");
-@@ -121,18 +121,29 @@ void dragonfly::Linker::ConstructJob(Com
-     CmdArgs.push_back(Args.MakeArgString(ToolChain.GetFilePath(crtbegin)));
-   }
- 
-+  if (D.isUsingLTO()) {
-+    addLTOOptions(ToolChain, Args, CmdArgs, Output, Inputs,
-+                  D.getLTOMode() == LTOK_Thin);
-+  }
-+
-   Args.addAllArgs(CmdArgs, {options::OPT_L, options::OPT_T_Group,
+@@ -125,14 +125,23 @@ void dragonfly::Linker::ConstructJob(Com
                              options::OPT_s, options::OPT_t});
    ToolChain.AddFilePathLibArgs(Args, CmdArgs);
  
++  if (auto LTO = ToolChain.getLTOMode(Args); LTO != LTOK_None)
++    addLTOOptions(ToolChain, Args, CmdArgs, Output, Inputs, LTO == LTOK_Thin);
++
    AddLinkerInputs(ToolChain, Inputs, Args, CmdArgs, JA);
  
 +  CmdArgs.push_back("-L@RAVEN_GCC@");
@@ -43,7 +37,7 @@
  
      // Use the static OpenMP runtime with -static-openmp
      bool StaticOpenMP = Args.hasArg(options::OPT_static_openmp) && !Static;
-@@ -168,16 +179,7 @@ void dragonfly::Linker::ConstructJob(Com
+@@ -168,16 +177,7 @@ void dragonfly::Linker::ConstructJob(Com
          CmdArgs.push_back("-lgcc");
          CmdArgs.push_back("-lgcc_eh");
      } else {
@@ -61,7 +55,7 @@
      }
    }
  
-@@ -211,7 +213,8 @@ DragonFly::DragonFly(const Driver &D, co
+@@ -211,7 +211,8 @@ DragonFly::DragonFly(const Driver &D, co
  
    getFilePaths().push_back(getDriver().Dir + "/../lib");
    getFilePaths().push_back(concat(getDriver().SysRoot, "/usr/lib"));
@@ -71,7 +65,7 @@
  }
  
  void DragonFly::AddClangSystemIncludeArgs(
-@@ -237,8 +240,9 @@ void DragonFly::AddClangSystemIncludeArg
+@@ -237,8 +238,9 @@ void DragonFly::AddClangSystemIncludeArg
  
  void DragonFly::addLibStdCxxIncludePaths(const llvm::opt::ArgList &DriverArgs,
                                           llvm::opt::ArgStringList &CC1Args) const {
@@ -83,7 +77,7 @@
  }
  
  Tool *DragonFly::buildAssembler() const {
-@@ -248,3 +252,5 @@ Tool *DragonFly::buildAssembler() const
+@@ -248,3 +250,5 @@ Tool *DragonFly::buildAssembler() const
  Tool *DragonFly::buildLinker() const {
    return new tools::dragonfly::Linker(*this);
  }

@@ -1,6 +1,6 @@
---- lib/Basic/Targets/OSTargets.h.orig	2026-06-01 07:23:32 UTC
+--- lib/Basic/Targets/OSTargets.h.orig	2026-10-19 23:57:12 UTC
 +++ lib/Basic/Targets/OSTargets.h
-@@ -212,6 +212,7 @@ protected:
+@@ -219,6 +219,7 @@ protected:
      if (CCVersion == 0U)
        CCVersion = Release * 100000U + 1U;
  

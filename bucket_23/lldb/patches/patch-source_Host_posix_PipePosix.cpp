@@ -1,4 +1,4 @@
---- source/Host/posix/PipePosix.cpp.orig	2026-06-01 07:23:32 UTC
+--- source/Host/posix/PipePosix.cpp.orig	2026-10-19 23:57:12 UTC
 +++ source/Host/posix/PipePosix.cpp
 @@ -34,6 +34,7 @@ enum PIPES { READ, WRITE }; // Constants
  // pipe2 is supported by a limited set of platforms
