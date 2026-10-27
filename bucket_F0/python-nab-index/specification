@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.0.22
+DEF[PORTVERSION]=	0.0.23
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-nab-index
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/notatallshaw/nab
 CONTACT=		Python_Automaton[python@ravenports.com]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/c0/58/c06ada29934a78479b989675829f26083972f38bf1e8a2503e01101cb970
+SITES[main]=		PYPIWHL/21/72/c5a97b2cd8130099fcbc9817ff52bb1a069fde8e792ea016a27c9938baa2
 DISTFILE[1]=		nab_index-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -30,7 +30,8 @@ GENERATED=		yes
 DISTNAME=		nab_index-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# nab-provider==0.0.22
+# nab-provider==0.0.23
+# nab-resolver==0.0.23
 # packaging>=24.0
 # truststore>=0.10
 # typing-extensions>=4.6
@@ -40,12 +41,14 @@ DISTNAME=		nab_index-${PORTVERSION}.dist-info
 
 [PY313].USES_ON=			python:v13,wheel
 [PY313].RUN_DEPENDS_ON=			python-nab-provider:single:v13
+					python-nab-resolver:single:v13
 					python-packaging:single:v13
 					python-truststore:single:v13
 					python-typing-extensions:single:v13
 					python-urllib3:single:v13
 [PY314].USES_ON=			python:v14,wheel
 [PY314].RUN_DEPENDS_ON=			python-nab-provider:single:v14
+					python-nab-resolver:single:v14
 					python-packaging:single:v14
 					python-truststore:single:v14
 					python-typing-extensions:single:v14

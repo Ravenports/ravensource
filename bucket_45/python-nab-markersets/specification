@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.0.22
+DEF[PORTVERSION]=	0.0.23
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-nab-markersets
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/notatallshaw/nab
 CONTACT=		Python_Automaton[python@ravenports.com]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/5e/9e/9744adff3a66633a811f8253faaa8b91a447c99199edba16f2790e3647ea
+SITES[main]=		PYPIWHL/eb/ae/502e31f0fc9d2cf31f57af561eb5f4bd96d0df788b57a8e69a31322224d1
 DISTFILE[1]=		nab_markersets-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -30,9 +30,12 @@ GENERATED=		yes
 DISTNAME=		nab_markersets-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# nab-provider==0.0.22; extra == 'nab-vendored-packaging'
+# nab-resolver==0.0.23
+# nab-provider==0.0.23; extra == 'nab-vendored-packaging'
 # packaging>=26.3; extra == 'packaging'
 
 [PY313].USES_ON=			python:v13,wheel
+[PY313].RUN_DEPENDS_ON=			python-nab-resolver:single:v13
 [PY314].USES_ON=			python:v14,wheel
+[PY314].RUN_DEPENDS_ON=			python-nab-resolver:single:v14
 
