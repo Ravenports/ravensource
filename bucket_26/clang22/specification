@@ -1,0 +1,187 @@
+DEF[NAMEBASE]=		clang22
+DEF[LLVMBASE]=		llvm22
+DEF[LLDBASE]=		lld22
+DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM22_VERSION)
+DEF[PORTREVISION]=	0
+DEF[MAJORMIN]=		${LLVM_VERSION:R}
+DEF[MAJOR]=		${LLVM_VERSION:R:R}
+DEF[GCC_VERSION]=	EXTRACT_INFO(GCCBASE_VERSION)
+DEF[GCC_LIB]=		toolchain/ravensys-gcc/{{ASLIB}}
+DEF[GXX_INCLUDE]=	toolchain/ravensys-gcc/include/c++/${GCC_VERSION}
+DEF[GCC_TARGET_LIB]=	toolchain/ravensys-gcc/lib/gcc/{{CONFIGURE_TARGET}}/${GCC_VERSION}
+DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
+DEF[WORKNAME]=		llvm-project-${LLVM_VERSION}.src
+DEF[DSUBDIR]=		llvm22
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		${NAMEBASE}
+VERSION=		${LLVM_VERSION}
+REVISION=		${PORTREVISION}
+KEYWORDS=		lang
+VARIANTS=		std
+SDESC[std]=		C language family frontend for LLVM ${MAJORMIN}
+HOMEPAGE=		http://llvm.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://github.com/llvm/llvm-project/releases/download/llvmorg-${LLVM_VERSION}/
+DISTFILE[1]=		${WORKNAME}.tar.xz:main
+DIST_SUBDIR=		${DSUBDIR}
+DF_INDEX=		1
+
+SPKGS[std]=		set compiler dynlibs man extradev extra
+
+OPTIONS_AVAILABLE=	SUNOS
+OPTIONS_STANDARD=	SUNOS
+OPT_ON[sunos]=		SUNOS
+OPT_ON[netbsd]=		SUNOS
+
+LICENSE=		CUSTOM1:compiler
+LICENSE_NAME=		CUSTOM1:"University of Illinois/NCSA Open Source License"
+LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/LICENSE.TXT
+LICENSE_SCHEME=		solo
+
+BUILD_DEPENDS=		${LLVMBASE}:dev:std
+			${LLVMBASE}:tools:std
+BUILDRUN_DEPENDS=	${LLVMBASE}:primary:std
+
+EXRUN[extra]=		dynlibs
+EXRUN[compiler]=	dynlibs
+EXRUN[dynlibs]=		${LLVMBASE}:primary:std
+
+USES=			cmake ninja ncurses zlib execinfo
+			cpe shebangfix python:build
+			c++:compiler,extra
+GNOME_COMPONENTS=	libxml2
+CPE_VENDOR=		llvm
+CPE_PRODUCT=		llvm
+CMAKE_BUILD_TYPE=	Release
+DISTNAME=		${WORKNAME}/clang
+SHEBANG_FILES=		utils/hmaptool/hmaptool
+			tools/scan-view/bin/scan-view
+			tools/clang-format/git-clang-format
+			tools/clang-format/clang-format-diff.py
+			tools/scan-build-py/bin/analyze-build
+			tools/scan-build-py/bin/intercept-build
+			tools/scan-build-py/bin/scan-build
+			tools/scan-build-py/libexec/analyze-cc
+			tools/scan-build-py/libexec/analyze-c++
+			tools/scan-build-py/libexec/intercept-cc
+			tools/scan-build-py/libexec/intercept-c++
+			tools/extra/clang-include-fixer/find-all-symbols/tool/run-find-all-symbols.py
+			tools/extra/clang-tidy/tool/clang-tidy-diff.py
+			tools/extra/clang-tidy/tool/run-clang-tidy.py
+CFLAGS=			-O2 -pipe -DNDEBUG
+CXXFLAGS=		-O2 -pipe -DNDEBUG
+CMAKE_ARGS=		-DLLVM_BUILD_LLVM_DYLIB=ON
+			-DLLVM_LINK_LLVM_DYLIB=ON
+			-DLLVM_PARALLEL_LINK_JOBS=1
+			-DLLVM_PARALLEL_COMPILE_JOBS={{MAKE_JOBS_NUMBER}}
+			-DLLVM_INCLUDE_TESTS:BOOL=OFF
+			-DLLVM_BUILD_32_BITS:BOOL=OFF
+			-DLLVM_ENABLE_RTTI=ON
+			-DPython3_EXECUTABLE={{PYTHON_CMD}}
+PLIST_SUB=		LLVM_RELEASE="${LLVM_VERSION}"
+			LLVM_MAJOR="${MAJOR}"
+			LLVM_MAJORMIN="${MAJORMIN}"
+			LLVM_SOVERSION="${LLVM_VERSION:R}"
+
+VAR_OPSYS[midnightbsd]=	CMAKE_ARGS=-DLLVM_DEFAULT_TARGET_TRIPLE=${MBSD64_TARGET}
+			CMAKE_ARGS=-DLLVM_HOST_TRIPLE=${MBSD64_TARGET}
+			MAKEFILE_LINE=CONFIGURE_TARGET=${MBSD64_TARGET}
+
+[SUNOS].BUILD_DEPENDS_OFF=		${LLDBASE}:primary:std
+[SUNOS].CMAKE_ARGS_OFF=			-DLLVM_USE_LINKER=lld
+
+post-extract:
+	# force clang-tools-extra to build with clang
+	${LN} -s ../../clang-tools-extra ${WRKSRC}/tools/extra
+
+pre-configure:
+	${REINPLACE_CMD} -e 's,/usr/local/,${LOCALBASE}/,' \
+		${WRKSRC}/lib/Driver/ToolChains/CommonArgs.cpp
+	${REINPLACE_CMD} \
+		-e 's|@LOCALBASE@|${LOCALBASE}|' \
+		-e 's|@RAVEN_GCC@|${LOCALBASE}/${GCC_LIB}|' \
+		-e 's|@RAVEN_GCC_TARGET@|${LOCALBASE}/${GCC_TARGET_LIB}|' \
+		-e 's|@RAVEN_GXX_HEADERS_DIR@|${LOCALBASE}/${GXX_INCLUDE}|' \
+		-e 's|@RAVEN_TRIPLE@|${CONFIGURE_TARGET}|' \
+		${WRKSRC}/lib/Driver/ToolChains/Solaris.cpp \
+		${WRKSRC}/lib/Driver/ToolChains/DragonFly.cpp \
+		${WRKSRC}/lib/Driver/ToolChains/FreeBSD.cpp \
+		${WRKSRC}/lib/Driver/ToolChains/NetBSD.cpp \
+		${WRKSRC}/lib/Driver/ToolChains/Gnu.cpp \
+		${WRKSRC}/lib/Lex/InitHeaderSearch.cpp
+
+pre-configure-freebsd:
+	# Remove headers that conflict with /usr/include
+	${REINPLACE_CMD} \
+		-e '/ limits.h/d' \
+		-e '/ stdalign.h/d' \
+		-e '/ stdarg.h/d' \
+		-e '/ stdatomic.h/d' \
+		-e '/ stdbool.h/d' \
+		-e '/ stddef.h/d' \
+		-e '/ stdint.h/d' \
+		-e '/ stdnoreturn.h/d' \
+		-e '/ varargs.h/d' \
+		${WRKSRC}/lib/Headers/CMakeLists.txt
+
+pre-configure-dragonfly:
+	# Remove headers that conflict with /usr/include
+	${REINPLACE_CMD} \
+		-e '/ limits.h/d' \
+		-e '/ stdalign.h/d' \
+		-e '/ stdarg.h/d' \
+		-e '/ stdbool.h/d' \
+		-e '/ stddef.h/d' \
+		-e '/ stdint.h/d' \
+		-e '/ stdnoreturn.h/d' \
+		${WRKSRC}/lib/Headers/CMakeLists.txt
+
+pre-configure-netbsd:
+	# Remove headers that conflict with /usr/include
+	${REINPLACE_CMD} \
+		-e '/ limits.h/d' \
+		-e '/ stdalign.h/d' \
+		-e '/ stdarg.h/d' \
+		-e '/ stdbool.h/d' \
+		-e '/ stddef.h/d' \
+		-e '/ stdint.h/d' \
+		-e '/ stdnoreturn.h/d' \
+		${WRKSRC}/lib/Headers/CMakeLists.txt
+
+pre-configure-midnightbsd:
+	# Remove headers that conflict with /usr/include
+	${REINPLACE_CMD} \
+		-e '/ limits.h/d' \
+		-e '/ stdalign.h/d' \
+		-e '/ stdarg.h/d' \
+		-e '/ stdatomic.h/d' \
+		-e '/ stdbool.h/d' \
+		-e '/ stddef.h/d' \
+		-e '/ stdint.h/d' \
+		-e '/ stdnoreturn.h/d' \
+		-e '/ varargs.h/d' \
+		${WRKSRC}/lib/Headers/CMakeLists.txt
+	# Activate __MidnightBSD__ macro
+	${REINPLACE_CMD} -e '/__MidnightBSD__/ s|//|  |' \
+		${WRKSRC}/lib/Basic/Targets/OSTargets.h
+
+post-install:
+	${FIND} ${STAGEDIR}${PREFIX}/include -type d -empty -delete
+	${INSTALL_PROGRAM} ${WRKDIR}/.build/bin/clang-tblgen \
+		${STAGEDIR}${PREFIX}/bin/
+.for F in amdgpu-arch clang++ clang-${MAJOR} clang-check clang-cl clang-cpp \
+	clang-extdef-mapping clang-format clang-installapi clang-linker-wrapper \
+	clang-nvlink-wrapper clang-offload-bundler clang-refactor clang-repl \
+	clang-scan-deps clang-sycl-linker diagtool offload-arch nvptx-arch
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/${F}
+.endfor
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libclang.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libclang-cpp.so
+.for F in clang-apply-replacements clang-change-namespace clang-doc  clang-include-cleaner \
+	clang-include-fixer clang-move clang-query clang-reorder-fields clang-tidy \
+	clangd find-all-symbols modularize pp-trace
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/${F}
+.endfor
