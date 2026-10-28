@@ -1,4 +1,4 @@
---- Utilities/cmlibuv/src/unix/core.c.orig	2026-10-02 15:29:10 UTC
+--- Utilities/cmlibuv/src/unix/core.c.orig	2026-10-27 15:28:05 UTC
 +++ Utilities/cmlibuv/src/unix/core.c
 @@ -85,6 +85,11 @@ extern char** environ;
  # endif
