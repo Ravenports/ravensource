@@ -1,7 +1,7 @@
---- lib/std/zig/LibCInstallation.zig.orig	2026-04-13 18:50:15 UTC
+--- lib/std/zig/LibCInstallation.zig.orig	2026-10-01 22:02:33 UTC
 +++ lib/std/zig/LibCInstallation.zig
-@@ -973,23 +973,29 @@ pub fn resolveCrtPaths(
-     };
+@@ -1012,23 +1012,29 @@ pub fn resolveCrtPaths(
+ 
      switch (target.os.tag) {
          .dragonfly => {
 -            const gccv: []const u8 = if (target.os.version_range.semver.isAtLeast(.{
@@ -42,4 +42,4 @@
 +                .crtend = if (crt_basenames.crtend) |basename| try gcc_dir_path.join(arena, basename) else null,
              };
          },
-         .haiku => {
+         .haiku, .serenity, .linux => {

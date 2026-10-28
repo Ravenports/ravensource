@@ -1,6 +1,6 @@
---- build.zig.orig	2026-04-13 18:50:15 UTC
+--- build.zig.orig	2026-10-01 22:02:33 UTC
 +++ build.zig
-@@ -857,6 +857,7 @@ fn addCmakeCfgOptionsToExe(
+@@ -1001,6 +1001,7 @@ fn addCmakeCfgOptionsToExe(
                      else => |e| return e,
                  };
                  mod.linkSystemLibrary("unwind", .{});
@@ -8,7 +8,7 @@
              },
              .driverkit, .ios, .maccatalyst, .macos, .tvos, .visionos, .watchos => {
                  mod.link_libcpp = true;
-@@ -864,20 +865,10 @@ fn addCmakeCfgOptionsToExe(
+@@ -1008,20 +1009,10 @@ fn addCmakeCfgOptionsToExe(
              .windows => {
                  if (target.abi != .msvc) mod.link_libcpp = true;
              },

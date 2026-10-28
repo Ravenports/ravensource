@@ -1,11 +1,11 @@
-DEF[PORTVERSION]=	0.16.0
+DEF[PORTVERSION]=	0.17.0
 DEF[GCC_VERSION]=	EXTRACT_INFO(GCCBASE_VERSION)
 DEF[GCC_LIB]=		toolchain/ravensys-gcc/{{ASLIB}}
 DEF[GCC_TARGET_LIB]=	toolchain/ravensys-gcc/lib/gcc/{{CONFIGURE_TARGET}}/${GCC_VERSION}
 DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
-DEF[LLVMBASE]=		llvm21
-DEF[CLANGBASE]=		clang21
-DEF[LLDBASE]=		lld21
+DEF[LLVMBASE]=		llvm22
+DEF[CLANGBASE]=		clang22
+DEF[LLDBASE]=		lld22
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		zig
@@ -35,6 +35,7 @@ FPC_EQUIVALENT=		lang/zig
 ONLY_FOR_OPSYS=		freebsd dragonfly netbsd linux midnightbsd
 
 BROKEN[midnightbsd]=	error: UnknownOperatingSystem
+BROKEN[dragonfly]=	stage 3 configure locks up
 
 BUILD_DEPENDS=		${CLANGBASE}:compiler:std
 			${LLDBASE}:dev:std
@@ -47,6 +48,7 @@ USES=			cmake ncurses execinfo zlib
 GNOME_COMPONENTS=	libxml2
 MAKE_ARGS=		-DZIG_TARGET_MCPU=baseline
 INSTALL_REQ_TOOLCHAIN=	yes
+BLOCK_WATCHDOG=		yes
 
 VAR_OPSYS[midnightbsd]=	MAKEFILE_LINE=CONFIGURE_TARGET=${MBSD64_TARGET}
 
