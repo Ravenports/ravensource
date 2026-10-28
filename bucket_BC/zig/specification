@@ -21,12 +21,12 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://ziglang.org/download/${PORTVERSION}/
 DISTFILE[1]=		zig-${PORTVERSION}.tar.xz:main
 
-SPKGS[std]=		single
+SPKGS[std]=		set primary docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-LICENSE=		MIT:single
+LICENSE=		MIT:primary
 LICENSE_FILE=		MIT:{{WRKSRC}}/LICENSE
 LICENSE_SCHEME=		solo
 
@@ -81,4 +81,7 @@ post-install:
 		lib/zig/libtsan \
 		lib/zig/libunwind \
 	\( -type f -o -type l \) 2>/dev/null | ${SORT}) \
-	>> ${WRKDIR}/.manifest.single.mktmp
+	>> ${WRKDIR}/.manifest.primary.mktmp
+	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
+	${MV} ${STAGEDIR}${PREFIX}/doc/* ${STAGEDIR}${STD_DOCDIR}/
+	${RM} -r ${STAGEDIR}${PREFIX}/doc
