@@ -1,4 +1,4 @@
---- lib/pidfd-utils.c.orig	2026-06-16 11:39:44 UTC
+--- lib/pidfd-utils.c.orig	2026-08-04 10:59:56 UTC
 +++ lib/pidfd-utils.c
 @@ -6,7 +6,11 @@
   */

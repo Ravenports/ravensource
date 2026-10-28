@@ -1,4 +1,4 @@
---- lib/procfs.c.orig	2026-06-16 11:39:44 UTC
+--- lib/procfs.c.orig	2026-08-04 10:59:56 UTC
 +++ lib/procfs.c
 @@ -8,6 +8,10 @@
  #include <unistd.h>
