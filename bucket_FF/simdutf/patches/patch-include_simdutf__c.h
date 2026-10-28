@@ -2,7 +2,7 @@ Modern c++ compilers have char16_t as a reserved keyword.
 Since NetBSD doesn't have /usr/include/uchar, it runs this deleted macro and
 breaks with invalid conversion errors.
 
---- include/simdutf_c.h.orig	2026-10-17 03:05:59 UTC
+--- include/simdutf_c.h.orig	2026-10-27 23:10:33 UTC
 +++ include/simdutf_c.h
 @@ -12,18 +12,6 @@
  #include <stdbool.h>
