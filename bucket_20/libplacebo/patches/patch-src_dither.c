@@ -2,7 +2,7 @@ $NetBSD: patch-src_dither.c,v 1.1 2024/02/16 08:24:33 nia Exp $
 
 Avoid use of reserved _t name, helps build on SunOS.
 
---- src/dither.c.orig	2026-02-09 13:40:06 UTC
+--- src/dither.c.orig	2026-10-25 17:55:23 UTC
 +++ src/dither.c
 @@ -58,20 +58,20 @@ void pl_generate_bayer_matrix(float *dat
  #define MAX_SIZE (1 << MAX_SIZEB)
