@@ -1,4 +1,4 @@
---- gtk/DetailsDialog.cc.orig	2026-06-01 23:15:44 UTC
+--- gtk/DetailsDialog.cc.orig	2026-06-29 23:12:56 UTC
 +++ gtk/DetailsDialog.cc
 @@ -64,6 +64,8 @@
  #include <string_view>
