@@ -1,4 +1,4 @@
---- src/library/tools/R/install.R.orig	2026-04-10 10:15:01 UTC
+--- src/library/tools/R/install.R.orig	2026-06-11 10:15:01 UTC
 +++ src/library/tools/R/install.R
 @@ -756,7 +756,7 @@ if(FALSE) {
                                nzchar(Sys.which("otool")) &&
