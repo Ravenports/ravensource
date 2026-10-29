@@ -1,4 +1,4 @@
---- net/tap-bsd.c.orig	2026-08-27 12:23:32 UTC
+--- net/tap-bsd.c.orig	2026-09-29 13:33:21 UTC
 +++ net/tap-bsd.c
 @@ -30,9 +30,16 @@
  
