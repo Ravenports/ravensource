@@ -1,4 +1,4 @@
---- src/inspector_agent.cc.orig	2026-10-07 07:39:49 UTC
+--- src/inspector_agent.cc.orig	2026-10-14 07:50:50 UTC
 +++ src/inspector_agent.cc
 @@ -105,7 +105,7 @@ static int StartWatchdogThread() {
    CHECK_EQ(0, uv_sem_init(&start_io_thread_semaphore, 0));
