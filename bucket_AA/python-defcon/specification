@@ -1,0 +1,41 @@
+DEF[PORTVERSION]=	0.12.2
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-defcon
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v13 v14
+SDESC[v13]=		Flexible objects for representing UFO data (3.13)
+SDESC[v14]=		Flexible objects for representing UFO data (3.14)
+HOMEPAGE=		https://github.com/robotools/defcon
+CONTACT=		Python_Automaton[python@ravenports.com]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/42/36/2c16fe791c8f97fb7512f84843b72947139934c30843e5ce03a8e92a1268
+DISTFILE[1]=		defcon-${PORTVERSION}-py3-none-any.whl:main
+DIST_SUBDIR=		python-src
+
+SPKGS[v13]=		single
+SPKGS[v14]=		single
+
+OPTIONS_AVAILABLE=	PY313 PY314
+OPTIONS_STANDARD=	none
+VOPTS[v13]=		PY313=ON PY314=OFF
+VOPTS[v14]=		PY313=OFF PY314=ON
+
+# License listed at PyPI
+# MIT
+
+GENERATED=		yes
+DISTNAME=		defcon-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# fonttools[ufo,unicode]>=4.59.0
+# fontPens>=0.1.0; extra == "pens"
+# fonttools[lxml]>=4.59.0; extra == "lxml"
+
+[PY313].USES_ON=			python:v13,wheel
+[PY313].RUN_DEPENDS_ON=			python-fonttools:single:v13
+[PY314].USES_ON=			python:v14,wheel
+[PY314].RUN_DEPENDS_ON=			python-fonttools:single:v14
+
