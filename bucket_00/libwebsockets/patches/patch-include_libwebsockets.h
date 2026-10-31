@@ -1,6 +1,6 @@
---- include/libwebsockets.h.orig	2026-07-26 14:15:43 UTC
+--- include/libwebsockets.h.orig	2026-10-30 11:39:27 UTC
 +++ include/libwebsockets.h
-@@ -218,7 +218,7 @@ typedef pthread_mutex_t lws_mutex_t;
+@@ -249,7 +249,7 @@ typedef char lws_mutex_t;
  #include <sys/capability.h>
  #endif
  
@@ -9,7 +9,7 @@
  #include <sys/socket.h>
  #include <netinet/in.h>
  #endif
-@@ -251,7 +251,7 @@ typedef pthread_mutex_t lws_mutex_t;
+@@ -282,7 +282,7 @@ typedef char lws_mutex_t;
  #endif
  #endif
  
