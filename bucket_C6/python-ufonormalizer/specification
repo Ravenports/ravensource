@@ -1,0 +1,37 @@
+DEF[PORTVERSION]=	0.6.3
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-ufonormalizer
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v13 v14
+SDESC[v13]=		Normalization of XML data of a UFO (3.13)
+SDESC[v14]=		Normalization of XML data of a UFO (3.14)
+HOMEPAGE=		https://github.com/unified-font-object/ufoNormalizer
+CONTACT=		Python_Automaton[python@ravenports.com]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/e9/5b/b6751a54387344cb7cef779a231df68dea77b7adbbab924f5e4f2056cedb
+DISTFILE[1]=		ufonormalizer-${PORTVERSION}-py3-none-any.whl:main
+DIST_SUBDIR=		python-src
+
+SPKGS[v13]=		single
+SPKGS[v14]=		single
+
+OPTIONS_AVAILABLE=	PY313 PY314
+OPTIONS_STANDARD=	none
+VOPTS[v13]=		PY313=ON PY314=OFF
+VOPTS[v14]=		PY313=OFF PY314=ON
+
+# License listed at PyPI
+# Not provided.
+
+GENERATED=		yes
+DISTNAME=		ufonormalizer-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+
+
+[PY313].USES_ON=			python:v13,wheel
+[PY314].USES_ON=			python:v14,wheel
+
