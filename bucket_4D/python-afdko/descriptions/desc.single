@@ -13,6 +13,14 @@ Adobe Font Development Kit for OpenType (AFDKO)
 The AFDKO is a set of tools for building OpenType font files from
 PostScript and TrueType font data.
 
+Note: This version of the toolkit has been restructured and what was C code
+has been
+partially ported to C++. For now these changes are considered experimental
+and
+there may be significant bugs. However, the new code can do more or less
+what
+the older code did and passes our test suite.
+
 This repository contains the data files, Python scripts, and sources for
 the command line programs that comprise the AFDKO. The project uses the
 [Apache 2.0 Open Source license].
@@ -32,31 +40,27 @@ related
 projects.
 
 📣 Recent News
-------------
-**The Python port of psautohint was (re)integrated into the AFDKO
-repository as "otfautohint"**
+--------------
 
-More information can be found in [docs/otfautohint_Notes.md]
+**AFDKO 5.0.0** is a major release featuring:
+
+- Unified command interface: [afdko] syntax
+- Variable font support in `addfeatures` (replaces `makeotfexe`)
+- Extensive C→C++ codebase modernization
+
+See [NEWS.md] for full release notes and migration guide.
 
 Installation
 ------------
 
-The AFDKO requires [Python] 3.9
-or later. It should work with any Python > 3.9, but occasionally
+The AFDKO requires [Python] 3.10
+or later. It should work with any Python > 3.10, but occasionally
 tool-chain components and dependencies don't keep pace with major
 Python releases, so there might be some lag time while they catch up.
 
 Releases are available on the [Python Package
 Index] (PyPI) and can be installed
 with [pip].
-
-Note for macOS users: we recommend that you do **not** use the system
-Python. Among other reasons, some versions of macOS ship with Python 2
-and the latest version of the AFDKO is only available for Python 3. You
-can find instructions for using Brew to install Python 3 on macOS here:
-[Installing Python 3 on Mac OS X].
-Also: [pyenv] is a great tool for
-installing and managing multiple Python versions on macOS.
 
 Note for all users: we **STRONGLY** recommend the use of a Python virtual
 environment ([`venv`])
@@ -74,7 +78,7 @@ libuuid are installed. See [build from source] below.
 
 ### Installing
 
-**Option 1 (Recommended)**
+#### Option 1 (Recommended)
 
 - Create a virtual environment:
 
@@ -84,17 +88,13 @@ libuuid are installed. See [build from source] below.
 
 - Activate the virtual environment:
 
-    - macOS & Linux
+  - macOS & Linux
 
-        ```sh
-        source afdko_env/bin/activate
-        ```
+    ```sh
+    source afdko_env/bin/activate
+    ```
 
-    - Windows
+  - Windows
 
-        ```sh
-        afdko_env\Scripts\activate.bat
-        ```
-
-- Install [afdko]:
-
+    ```sh
+    afdko_env\Scripts\activate.bat

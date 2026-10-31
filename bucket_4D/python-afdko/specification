@@ -1,48 +1,78 @@
-# manually maintained
-DEF[PORTVERSION]=	4.0.2
+# Manually maintained (due to weird defcon, fonttools notation) and antlr/libxml deps
+DEF[PORTVERSION]=	5.0.1
+DEF[ANTLR4_TAG]=	df4d68c
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-afdko
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v14 v13
-SDESC[v14]=		Adobe Font Development Kit for OpenType (3.14)
+VARIANTS=		v13 v14
 SDESC[v13]=		Adobe Font Development Kit for OpenType (3.13)
-HOMEPAGE=		https://github.com/adobe-type-tools/afdko
+SDESC[v14]=		Adobe Font Development Kit for OpenType (3.14)
+HOMEPAGE=		https://pypi.org/project/afdko/
 CONTACT=		Python_Automaton[python@ravenports.com]
 
-DOWNLOAD_GROUPS=	main
+DOWNLOAD_GROUPS=	main antlr4
 SITES[main]=		PYPI/a/afdko
+SITES[antlr4]=		GITHUB/antlr:antlr4:${ANTLR4_TAG}
 DISTFILE[1]=		afdko-${PORTVERSION}.tar.gz:main
+DISTFILE[2]=		generated:antlr4
 DIST_SUBDIR=		python-src
+DF_INDEX=		1 2
 
-SPKGS[v14]=		single
 SPKGS[v13]=		single
+SPKGS[v14]=		single
 
-OPTIONS_AVAILABLE=	PY314 PY313
+OPTIONS_AVAILABLE=	PY313 PY314
 OPTIONS_STANDARD=	none
-VOPTS[v14]=		PY314=ON PY313=OFF
-VOPTS[v13]=		PY314=OFF PY313=ON
+VOPTS[v13]=		PY313=ON PY314=OFF
+VOPTS[v14]=		PY313=OFF PY314=ON
 
 # License listed at PyPI
-# Apache License, Version 2.0
+# Not provided.
 
 GENERATED=		yes
 DISTNAME=		afdko-${PORTVERSION}
 
 # Requires-Dist extracted from pyproject.toml file
-# build: setuptools_scm
-# build: scikit-build
-# build: cmake
-# build: ninja
+# build: scikit-build-core
+# build: setuptools-scm
+# build: cython
+# buildrun: typing_extensions >= 4.0; python_version < '3.11'
+# buildrun: lxml >= 6.0.0
+# buildrun: booleanOperations >= 0.9.0
+# buildrun: defcon[lxml,pens] >= 0.10.3
+# buildrun: fontMath >= 0.9.4
+# buildrun: fontTools[unicode,woff,lxml,ufo] >= 4.59.0
+# buildrun: tqdm >= 4.66.1
+# buildrun: ufonormalizer >= 0.6.2
+# buildrun: ufoProcessor >= 1.13.1
 
-[PY314].USES_ON=			python:v14,pep517
-[PY314].BUILD_DEPENDS_ON=		python-setuptools-scm:single:v14
 [PY313].USES_ON=			python:v13,pep517
-[PY313].BUILD_DEPENDS_ON=		python-setuptools-scm:single:v13
+[PY313].BUILD_DEPENDS_ON=		python-scikit-build-core:single:v13
+					python-setuptools-scm:single:v13
+					python-Cython:single:v13
+[PY313].BUILDRUN_DEPENDS_ON=		python-lxml:single:v13
+					python-booleanOperations:single:v13
+					python-defcon:single:v13
+					python-fontMath:single:v13
+					python-fonttools:single:v13
+					python-tqdm:single:v13
+					python-ufonormalizer:single:v13
+					python-ufoProcessor:single:v13
+[PY314].USES_ON=			python:v14,pep517
+[PY314].BUILD_DEPENDS_ON=		python-scikit-build-core:single:v14
+					python-setuptools-scm:single:v14
+					python-Cython:single:v14
+[PY314].BUILDRUN_DEPENDS_ON=		python-lxml:single:v14
+					python-booleanOperations:single:v14
+					python-defcon:single:v14
+					python-fontMath:single:v14
+					python-fonttools:single:v14
+					python-tqdm:single:v14
+					python-ufonormalizer:single:v14
+					python-ufoProcessor:single:v14
+[PY313].MAKEFILE_ON=			ANTREP="{{WRKDIR}}/antlr4-${ANTLR4_TAG}"
+[PY314].MAKEFILE_ON=			ANTREP="{{WRKDIR}}/antlr4-${ANTLR4_TAG}"
 
-RUN_DEPENDS=		afdko:single:std
-
-post-patch:
-	${RM} ${WRKSRC}/CMakeLists.txt
-	${RM} -r ${WRKSRC}/c/ ${WRKSRC}/cmake/
+GNOME_COMPONENTS=	libxml2
