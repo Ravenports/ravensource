@@ -1,0 +1,45 @@
+DEF[PORTVERSION]=	3.0.1
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-MutatorMath
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v13 v14
+SDESC[v13]=		Linear interpolations in n-dimensions (3.13)
+SDESC[v14]=		Linear interpolations in n-dimensions (3.14)
+HOMEPAGE=		https://github.com/LettError/MutatorMath
+CONTACT=		Python_Automaton[python@ravenports.com]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/02/61/e3e6190a8d94c6a99d9605c721e1e38ebae19dc194059477affa57f6e111
+DISTFILE[1]=		MutatorMath-${PORTVERSION}-py2.py3-none-any.whl:main
+DIST_SUBDIR=		python-src
+
+SPKGS[v13]=		single
+SPKGS[v14]=		single
+
+OPTIONS_AVAILABLE=	PY313 PY314
+OPTIONS_STANDARD=	none
+VOPTS[v13]=		PY313=ON PY314=OFF
+VOPTS[v14]=		PY313=OFF PY314=ON
+
+# License listed at PyPI
+# BSD 3 Clause
+
+GENERATED=		yes
+DISTNAME=		MutatorMath-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# fonttools (>=3.32.0)
+# defcon (>=0.3.5)
+# fontMath (>=0.4.8)
+
+[PY313].USES_ON=			python:v13,wheel
+[PY313].RUN_DEPENDS_ON=			python-fonttools:single:v13
+					python-defcon:single:v13
+					python-fontMath:single:v13
+[PY314].USES_ON=			python:v14,wheel
+[PY314].RUN_DEPENDS_ON=			python-fonttools:single:v14
+					python-defcon:single:v14
+					python-fontMath:single:v14
+

@@ -1,0 +1,48 @@
+DEF[PORTVERSION]=	1.1.1
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-fontParts
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v13 v14
+SDESC[v13]=		Font interaction API (3.13)
+SDESC[v14]=		Font interaction API (3.14)
+HOMEPAGE=		https://pypi.org/project/fontParts/
+CONTACT=		Python_Automaton[python@ravenports.com]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/4d/23/e563e22db847b713f48107c91215f846071e1ce5f36280d8b0cd66e17427
+DISTFILE[1]=		fontparts-${PORTVERSION}-py3-none-any.whl:main
+DIST_SUBDIR=		python-src
+
+SPKGS[v13]=		single
+SPKGS[v14]=		single
+
+OPTIONS_AVAILABLE=	PY313 PY314
+OPTIONS_STANDARD=	none
+VOPTS[v13]=		PY313=ON PY314=OFF
+VOPTS[v14]=		PY313=OFF PY314=ON
+
+# License listed at PyPI
+# Not provided.
+
+GENERATED=		yes
+DISTNAME=		fontparts-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# FontTools[lxml,ufo,unicode]>=4.60.2
+# fontMath>=0.9.4
+# defcon[pens]>=0.12.2
+# booleanOperations>=0.10.0
+
+[PY313].USES_ON=			python:v13,wheel
+[PY313].RUN_DEPENDS_ON=			python-fonttools:single:v13
+					python-fontMath:single:v13
+					python-defcon:single:v13
+					python-booleanOperations:single:v13
+[PY314].USES_ON=			python:v14,wheel
+[PY314].RUN_DEPENDS_ON=			python-fonttools:single:v14
+					python-fontMath:single:v14
+					python-defcon:single:v14
+					python-booleanOperations:single:v14
+

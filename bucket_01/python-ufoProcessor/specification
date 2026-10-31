@@ -1,0 +1,51 @@
+DEF[PORTVERSION]=	1.14.1
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-ufoProcessor
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v13 v14
+SDESC[v13]=		Generate UFOs with designspace data (3.13)
+SDESC[v14]=		Generate UFOs with designspace data (3.14)
+HOMEPAGE=		https://github.com/LettError/ufoProcessor
+CONTACT=		Python_Automaton[python@ravenports.com]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/45/15/60f9933bcaa1c525d130fd4675053ab471274822913f9c57a324c519f3ae
+DISTFILE[1]=		ufoprocessor-${PORTVERSION}-py2.py3-none-any.whl:main
+DIST_SUBDIR=		python-src
+
+SPKGS[v13]=		single
+SPKGS[v14]=		single
+
+OPTIONS_AVAILABLE=	PY313 PY314
+OPTIONS_STANDARD=	none
+VOPTS[v13]=		PY313=ON PY314=OFF
+VOPTS[v14]=		PY313=OFF PY314=ON
+
+# License listed at PyPI
+# MIT
+
+GENERATED=		yes
+DISTNAME=		ufoprocessor-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# defcon[lxml]>=0.6.0
+# fontMath>=0.4.9
+# fontParts>=0.8.2
+# fontTools[lxml,ufo]>=3.32.0
+# mutatorMath>=2.1.2
+
+[PY313].USES_ON=			python:v13,wheel
+[PY313].RUN_DEPENDS_ON=			python-defcon:single:v13
+					python-fontMath:single:v13
+					python-fontParts:single:v13
+					python-fonttools:single:v13
+					python-MutatorMath:single:v13
+[PY314].USES_ON=			python:v14,wheel
+[PY314].RUN_DEPENDS_ON=			python-defcon:single:v14
+					python-fontMath:single:v14
+					python-fontParts:single:v14
+					python-fonttools:single:v14
+					python-MutatorMath:single:v14
+
