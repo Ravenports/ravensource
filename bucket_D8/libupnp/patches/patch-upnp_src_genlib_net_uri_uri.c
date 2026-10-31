@@ -1,4 +1,4 @@
---- upnp/src/genlib/net/uri/uri.c.orig	2026-09-30 19:45:59 UTC
+--- upnp/src/genlib/net/uri/uri.c.orig	2026-10-29 20:17:58 UTC
 +++ upnp/src/genlib/net/uri/uri.c
 @@ -55,10 +55,12 @@
  #include <string.h>
