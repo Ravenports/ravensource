@@ -1,23 +1,30 @@
-DEF[PORTVERSION]=	4.0.3
+DEF[PORTVERSION]=	5.0.1
+DEF[ANTLR4_TAG]=	df4d68c
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		afdko
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		x11_fonts
-VARIANTS=		std
-SDESC[std]=		Adobe Font Development Kit for OpenType
+VARIANTS=		v13 v14
+SDESC[v13]=		Adobe Font Development Kit for OpenType (3.13)
+SDESC[v14]=		Adobe Font Development Kit for OpenType (3.14)
 HOMEPAGE=		https://adobe-type-tools.github.io/afdko/
 CONTACT=		nobody
 
-DOWNLOAD_GROUPS=	main
+DOWNLOAD_GROUPS=	main antlr4
 SITES[main]=		https://github.com/adobe-type-tools/afdko/releases/download/${PORTVERSION}/
+SITES[antlr4]=		GITHUB/antlr:antlr4:${ANTLR4_TAG}
 DISTFILE[1]=		afdko-${PORTVERSION}.tar.gz:main
+DISTFILE[2]=		generated:antlr4
+DF_INDEX=		1 2
 
-SPKGS[std]=		single
+SPKGS[v13]=		single
+SPKGS[v14]=		single
 
-OPTIONS_AVAILABLE=	none
+OPTIONS_AVAILABLE=	PY314 PY313
 OPTIONS_STANDARD=	none
+VOPTS[v13]=		PY314=OFF PY313=ON
+VOPTS[v14]=		PY314=ON PY313=OFF
 
 FPC_EQUIVALENT=		x11-fonts/afdko
 
@@ -28,11 +35,23 @@ LICENSE_SOURCE=		TERMS:{{WRKSRC}}/LICENSE.md
 LICENSE_AWK=		TERMS:"^------"
 LICENSE_SCHEME=		solo
 
-USES=			cmake
+USES=			cmake c++:single
 GNOME_COMPONENTS=	libxml2
 CMAKE_ARGS=		-DSKBUILD:BOOL=OFF
+			-DANTLR4_ZIP_REPOSITORY="{{WRKDIR}}/antlr4-${ANTLR4_TAG}"
+			-DCMAKE_FIND_PACKAGE_TARGETS_GLOBAL:BOOL=ON
+			-DFETCHCONTENT_TRY_FIND_PACKAGE_MODE=ALWAYS
+			-DCMAKE_REQUIRE_FIND_PACKAGE_LibXml2:BOOL=ON
+			-DLibXml2_DIR:STRING="{{LOCALBASE}}/lib/cmake/libxml2"
 
 VAR_OPSYS[sunos]=	CFLAGS=-D_POSIX_PTHREAD_SEMANTICS
 
+[PY313].USES_ON=			python:v13,build
+[PY314].USES_ON=			python:v14,build
+
+[PY313].BUILD_DEPENDS_ON=		python-Cython:single:v13
+[PY314].BUILD_DEPENDS_ON=		python-Cython:single:v14
+
 post-install:
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/*
+	${STRIP_CMD} ${STAGEDIR}${PYTHON_SITELIBDIR}/afdko/*.so
+
