@@ -1,5 +1,5 @@
---- components/library_mysys/my_system_api/my_system_api_apple.cc.orig	2026-07-10 11:18:36 UTC
-+++ components/library_mysys/my_system_api/my_system_api_apple.cc
+--- components/library_mysys/my_system_api/my_system_api_macos.cc.orig	2026-10-06 06:57:52 UTC
++++ components/library_mysys/my_system_api/my_system_api_macos.cc
 @@ -36,7 +36,11 @@
  uint32_t num_vcpus_using_affinity() { return 0; }
  

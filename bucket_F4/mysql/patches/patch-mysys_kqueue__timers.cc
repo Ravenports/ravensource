@@ -3,7 +3,7 @@ $NetBSD: patch-mysys_kqueue__timers.cc,v 1.1 2021/05/13 15:25:20 jdolecek Exp $
 * support pre NetBSD 10 __intptr_t udata type
 * Fix for systems whcich do not define EVFILT_USER
 
---- mysys/kqueue_timers.cc.orig	2026-07-10 11:18:36 UTC
+--- mysys/kqueue_timers.cc.orig	2026-10-06 06:57:52 UTC
 +++ mysys/kqueue_timers.cc
 @@ -41,6 +41,18 @@
  #include "mysys_err.h"

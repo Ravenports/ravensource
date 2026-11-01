@@ -1,6 +1,6 @@
---- storage/ndb/include/mgmapi/mgmapi.h.orig	2026-07-10 11:18:36 UTC
+--- storage/ndb/include/mgmapi/mgmapi.h.orig	2026-10-06 06:57:52 UTC
 +++ storage/ndb/include/mgmapi/mgmapi.h
-@@ -33,6 +33,7 @@
+@@ -35,6 +35,7 @@
  #include <netinet/in.h>
  #endif
  

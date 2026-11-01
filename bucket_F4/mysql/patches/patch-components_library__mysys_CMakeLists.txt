@@ -1,15 +1,15 @@
---- components/library_mysys/CMakeLists.txt.orig	2026-07-10 11:18:36 UTC
+--- components/library_mysys/CMakeLists.txt.orig	2026-10-06 06:57:52 UTC
 +++ components/library_mysys/CMakeLists.txt
-@@ -36,10 +36,10 @@ ENDIF()
- IF(LINUX)
+@@ -45,7 +45,11 @@ ELSEIF(APPLE)
    LIST(APPEND MY_SYSTEM_SOURCES
-     my_system_api/my_system_api_linux.cc)
--ELSEIF(APPLE)
-+ELSEIF(CMAKE_SYSTEM_NAME MATCHES "Darwin|DragonFly|NetBSD")
-   LIST(APPEND MY_SYSTEM_SOURCES
-     my_system_api/my_system_api_apple.cc)
+     my_system_api/my_system_api_macos.cc
+     my_system_api/system_info_macos.cc)
 -ELSEIF(FREEBSD)
++ELSEIF(CMAKE_SYSTEM_NAME MATCHES "DragonFly|NetBSD")
++  LIST(APPEND MY_SYSTEM_SOURCES
++    my_system_api/my_system_api_macos.cc
++    my_system_api/system_info_unsupported.cc)
 +ELSEIF(CMAKE_SYSTEM_NAME MATCHES "FreeBSD|MidnightBSD")
    LIST(APPEND MY_SYSTEM_SOURCES
-     my_system_api/my_system_api_freebsd.cc)
- ELSEIF(SOLARIS)
+     my_system_api/my_system_api_freebsd.cc
+     my_system_api/system_info_unsupported.cc)

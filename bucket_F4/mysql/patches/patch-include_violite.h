@@ -4,9 +4,9 @@ pthread_t on NetBSD is a pointer to a struct. To account for the
 C++ type system we need to use an actual NULL pointer rather than
 an incompatible integer type.
 
---- include/violite.h.orig	2026-07-10 11:18:36 UTC
+--- include/violite.h.orig	2026-10-06 06:57:52 UTC
 +++ include/violite.h
-@@ -356,7 +356,11 @@ struct Vio {
+@@ -341,7 +341,11 @@ struct Vio {
      It is initialized to 0 here, meaning don't attempt to send a signal, to
      keep non-server code unaffected.
    */

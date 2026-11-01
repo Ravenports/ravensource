@@ -1,4 +1,4 @@
---- router/src/mysql_rest_service/include/helper/string/contains.h.orig	2026-07-10 11:18:36 UTC
+--- router/src/mysql_rest_service/include/helper/string/contains.h.orig	2026-10-06 06:57:52 UTC
 +++ router/src/mysql_rest_service/include/helper/string/contains.h
 @@ -85,7 +85,12 @@ bool index(const std::string &value, con
  inline bool index(const char *value, const char *search_for, uint32_t *idx) {

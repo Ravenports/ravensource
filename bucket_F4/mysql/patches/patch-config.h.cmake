@@ -1,4 +1,4 @@
---- config.h.cmake.orig	2026-07-10 11:18:36 UTC
+--- config.h.cmake.orig	2026-10-06 06:57:52 UTC
 +++ config.h.cmake
 @@ -80,6 +80,7 @@
  #cmakedefine HAVE_FDATASYNC 1
