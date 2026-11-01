@@ -1,4 +1,4 @@
---- meson.build.orig	2026-08-20 08:57:40 UTC
+--- meson.build.orig	2026-10-28 15:17:44 UTC
 +++ meson.build
 @@ -159,7 +159,7 @@ pre_args += '-DHAVE_OPENGL_ES_2=@0@'.for
  
@@ -29,9 +29,9 @@
      _trial_c += ['-Werror=thread-safety']
    endif
  
-@@ -1640,34 +1640,34 @@ foreach f, prefix: functions_to_detect
- endforeach
- 
+@@ -1642,34 +1642,34 @@ endforeach
+ # Meson adds -fpermissive to GCC C++ checks, which would allow GNU qsort_r to
+ # compile against a BSD prototype (not good)
  if cpp.links('''
 -    #define _GNU_SOURCE
      #include <stdlib.h>
@@ -46,7 +46,7 @@
 +      qsort_r((void*)&arr[0], 1, 1, t, dcomp);
        return (0);
      }''',
-     args : pre_args,
+     args : pre_args + cpp.get_supported_arguments('-fno-permissive'),
 -    name : 'GNU qsort_r')
 -  pre_args += '-DHAVE_GNU_QSORT_R'
 +    name : 'BSD qsort_r')
