@@ -1,6 +1,6 @@
---- src/lib/OpenEXRCore/internal_xdr.h.orig	2026-10-02 04:36:03 UTC
+--- src/lib/OpenEXRCore/internal_xdr.h.orig	2026-10-30 22:49:53 UTC
 +++ src/lib/OpenEXRCore/internal_xdr.h
-@@ -69,6 +69,21 @@
+@@ -75,6 +75,21 @@
  #    include <sys/endian.h>
  #    define EXR_HOST_IS_NOT_LITTLE_ENDIAN (__BYTE_ORDER != __LITTLE_ENDIAN)
  
