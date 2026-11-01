@@ -1,4 +1,4 @@
---- src/tor/torlookup.c.orig	2026-04-28 10:09:20 UTC
+--- src/tor/torlookup.c.orig	2026-09-07 15:40:59 UTC
 +++ src/tor/torlookup.c
 @@ -64,7 +64,7 @@ static void usage(char *name);
  
@@ -9,7 +9,7 @@
  static int compare(const FTSENT *const *f1, const FTSENT *const *f2);
  #else
  static int compare(const FTSENT **f1, const FTSENT **f2);
-@@ -200,7 +200,7 @@ static int processFile(char *torFile) {
+@@ -207,7 +207,7 @@ static int processFile(char *torFile) {
      return 0;
  }  // End of processFile
  

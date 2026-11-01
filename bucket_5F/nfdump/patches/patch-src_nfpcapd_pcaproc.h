@@ -1,4 +1,4 @@
---- src/nfpcapd/pcaproc.h.orig	2026-04-28 10:09:20 UTC
+--- src/nfpcapd/pcaproc.h.orig	2026-09-07 15:40:59 UTC
 +++ src/nfpcapd/pcaproc.h
 @@ -38,6 +38,7 @@
  #include <stdint.h>

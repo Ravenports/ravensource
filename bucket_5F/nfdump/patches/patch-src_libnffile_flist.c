@@ -1,4 +1,4 @@
---- src/libnffile/flist.c.orig	2026-04-28 10:09:20 UTC
+--- src/libnffile/flist.c.orig	2026-09-07 15:40:59 UTC
 +++ src/libnffile/flist.c
 @@ -221,7 +221,7 @@ static int CheckTimeWindow(char *filenam
  

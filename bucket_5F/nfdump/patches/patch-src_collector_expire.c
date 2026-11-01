@@ -1,4 +1,4 @@
---- src/collector/expire.c.orig	2026-04-28 10:09:20 UTC
+--- src/collector/expire.c.orig	2026-09-07 15:40:59 UTC
 +++ src/collector/expire.c
 @@ -66,7 +66,7 @@ static uint32_t timeout = 0;
  
