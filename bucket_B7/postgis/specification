@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.6.4
+DEF[PORTVERSION]=	3.7.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		postgis
@@ -33,11 +33,13 @@ BUILD_DEPENDS=		geos:dev:std
 			json-c:dev:std
 			protobuf-c:dev:std
 			protobuf-c:tools:std
+			gmp:dev:std
 BUILDRUN_DEPENDS=	gdal:primary:std
 			geos:primary:std
 			json-c:primary:std
 			proj:primary:std
 			protobuf-c:primary:std
+			gmp:primary:std
 
 USES=			autoreconf:build gmake iconv libtool:build pkgconfig pcre
 			gettext:build perl:build shebangfix cpe pgsql:server,contrib
@@ -64,19 +66,14 @@ PLIST_SUB=		VERSION=${PORTVERSION}
 [SFCGAL].BUILDRUN_DEPENDS_ON=		sfcgal:primary:std
 [SFCGAL].BUILD_DEPENDS_ON=		sfcgal:dev:std
 
-post-patch:
-	${FIND} ${WRKSRC}/extras/tiger_geocoder ${WRKSRC}/utils \
-		\( -name "*.orig" -o -name "*.bak" \) -delete
-
 pre-configure:
+	${FIND} ${WRKSRC} \( -name "*.orig" -o -name "*.bak" \) -delete
 	(cd ${WRKSRC} && ${SH} ./autogen.sh)
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/[rs]*
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/pgsql2shp
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/postgresql/*.so
-	(cd ${WRKSRC}/extras/tiger_geocoder && \
-		${COPYTREE_SHARE} . ${STAGEDIR}${PREFIX}/share/postgis/tiger_geocoder )
 	(cd ${WRKSRC}/utils/ && \
 		${COPYTREE_SHARE} . ${STAGEDIR}${PREFIX}/share/postgis/utils )
 	# remove single readme that's not even in STD_DOCDIR
