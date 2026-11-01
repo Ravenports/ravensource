@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	3.0.0
+DEF[PORTVERSION]=	4.0.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-python-dateutil
@@ -11,8 +11,8 @@ HOMEPAGE=		https://github.com/dateutil/dateutil
 CONTACT=		Python_Automaton[python@ravenports.com]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/5a/17/cebee01d1c0c1441174cf0456ddc91b280d79acb65340c05e41d77866ee8
-DISTFILE[1]=		python_dateutil-${PORTVERSION}-py2.py3-none-any.whl:main
+SITES[main]=		PYPIWHL/2f/a9/52b89563d154433d79b51ed1eb4842bf7334cb2696891a7fe135618853d7
+DISTFILE[1]=		python_dateutil-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
 SPKGS[v13]=		single
@@ -24,19 +24,16 @@ VOPTS[v13]=		PY313=ON PY314=OFF
 VOPTS[v14]=		PY313=OFF PY314=ON
 
 # License listed at PyPI
-# Dual License
+# Not provided.
 
 GENERATED=		yes
 DISTNAME=		python_dateutil-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# six>=1.6
 # tzdata
 
 [PY313].USES_ON=			python:v13,wheel
-[PY313].RUN_DEPENDS_ON=			python-six:single:v13
-					python-tzdata:single:v13
+[PY313].RUN_DEPENDS_ON=			python-tzdata:single:v13
 [PY314].USES_ON=			python:v14,wheel
-[PY314].RUN_DEPENDS_ON=			python-six:single:v14
-					python-tzdata:single:v14
+[PY314].RUN_DEPENDS_ON=			python-tzdata:single:v14
 
