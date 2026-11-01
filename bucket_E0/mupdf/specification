@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.27.2
+DEF[PORTVERSION]=	1.28.6
 # known to re-roll distfiles
 # ----------------------------------------------------------------------------
 
@@ -55,11 +55,6 @@ MAKE_ARGS=		build=release
 			mandir={{MANPREFIX}}/man
 			verbose=yes
 			SOVERSION=${PORTVERSION}
-CFLAGS=			`pkg-config --cflags libopenjp2`
-			-I{{WRKSRC}}/include/mupdf
-			-I{{LOCALBASE}}/include/freetype2
-			-I{{LOCALBASE}}/include/harfbuzz
-VAR_ARCH[x86_64]=	CFLAGS=-fPIC
 
 post-extract:
 	${RM} -r ${WRKSRC}/thirdparty/curl \
