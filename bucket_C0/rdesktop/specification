@@ -1,20 +1,17 @@
-DEF[PORTVERSION]=	1.9.0
+DEF[PORTVERSION]=	1.9.1
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		rdesktop
 VERSION=		${PORTVERSION}
-REVISION=		6
 KEYWORDS=		net comms
 VARIANTS=		std
 SDESC[std]=		RDP client - Windows NT/2000/2003 Terminal Server
-# First homepage has an expired cert
-# HOMEPAGE=		https://www.rdesktop.org/
-HOMEPAGE=		https://github.com/rdesktop/rdesktop
+HOMEPAGE=		https://salsa.debian.org/debian/rdesktop
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		https://github.com/rdesktop/rdesktop/releases/download/v${PORTVERSION}/
-DISTFILE[1]=		rdesktop-${PORTVERSION}.tar.gz:main
+SITES[main]=		https://salsa.debian.org/debian/rdesktop/-/archive/upstream/${PORTVERSION}/
+DISTFILE[1]=		rdesktop-upstream-${PORTVERSION}.tar.bz2:main
 
 SPKGS[std]=		set primary docs man
 
@@ -45,12 +42,12 @@ BUILDRUN_DEPENDS=	gnutls:primary:std
 USES=			autoreconf cpe gmake iconv pkgconfig ssl zlib
 XORG_COMPONENTS=	x11 xcursor xrandr
 MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--disable-credssp
-			--with-ipv6
+CONFIGURE_ARGS=		--with-ipv6
 			--with-sound=libao
 			--with-openssl={{OPENSSLBASE}}
 			{{ICONV_CONFIGURE_ARG}}
 LDFLAGS=		-pthread
+DISTNAME=		rdesktop-upstream-${PORTVERSION}
 
 do-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/share/rdesktop/keymaps
