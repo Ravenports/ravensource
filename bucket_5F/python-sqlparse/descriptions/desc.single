@@ -7,6 +7,29 @@
 [Python versions]
 [License]
 
+> [!IMPORTANT]
+> **Project Status: End of Maintenance**
+>
+> sqlparse is no longer actively maintained. Version 0.6.1 was its final
+release.
+>
+> No further bug fixes, feature updates, or security fixes are planned. The
+repository and published packages will remain available, but users should
+not expect ongoing maintenance or security support.
+>
+> Software Supply Chain Security: To minimize supply chain risks, I will
+retain control of the sqlparse project on PyPI and this GitHub repository.
+There are no plans to transfer ownership or grant publishing or commit
+access to third parties.
+>
+> After many years of maintaining sqlparse as a volunteer, I have decided
+to bring the project to a close. A more detailed explanation of this
+decision is available separately.
+>
+> THANKS TO ALL USERS AND CONTRIBUTORS!
+> I would like to thank everyone who has contributed to sqlparse over the
+years.
+
 A non-validating SQL parser for Python. Split scripts into statements,
 format
 them, and walk their token tree.
@@ -75,26 +98,3 @@ for token in statement.tokens:
 SELECT
 Token.Keyword.DML    select
 IdentifierList       id, name
-Token.Keyword        from
-Identifier           users
-Where                where active = 1
-```
-
-Tokens with a `ttype` are leaves. The others are groups you can descend
-into,
-which is how nested constructs like subqueries and `CASE` expressions are
-represented. See
-[Analyzing SQL statements]
-for the traversal API.
-
-## Command line
-
-Installing sqlparse also provides the `sqlformat` command. It reads from
-stdin
-when the filename is `-`, writes to stdout by default, and rewrites files
-in
-place with `--in-place`:
-
-```bash
-sqlformat --reindent --keywords upper query.sql
-```
