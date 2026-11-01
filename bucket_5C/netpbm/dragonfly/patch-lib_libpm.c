@@ -1,4 +1,4 @@
---- lib/libpm.c.orig	2026-03-31 00:09:30 UTC
+--- lib/libpm.c.orig	2026-09-18 15:08:13 UTC
 +++ lib/libpm.c
 @@ -17,6 +17,7 @@
  #include <unistd.h>
@@ -8,7 +8,7 @@
  #include <string.h>
  #include <errno.h>
  #include <setjmp.h>
-@@ -837,7 +838,7 @@ pm_arg0toprogname(const char arg0[]) {
+@@ -897,7 +898,7 @@ pm_arg0toprogname(const char arg0[]) {
  unsigned int
  pm_randseed(void) {
  
