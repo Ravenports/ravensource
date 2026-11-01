@@ -14,10 +14,10 @@
  metadata = {
      # sys.implementation.name can differ from platform.python_implementation(), for example
      # Pyston has sys.implementation.name == "pyston" while platform.python_implementation() == cpython
-@@ -30,9 +37,9 @@ metadata = {
-     "interpreter": platform.python_implementation().lower(),
+@@ -31,9 +38,9 @@ metadata = {
      "ext_suffix": ext_suffix,
      "soabi": sysconfig.get_config_var("SOABI") or None,
+     "soabi_platform": sysconfig.get_config_var("SOABI_PLATFORM") or None,
 -    "platform": sysconfig.get_platform(),
 +    "platform": myplatform,
      # This one isn't technically necessary, but still very useful for sanity checks
