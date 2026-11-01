@@ -1,6 +1,6 @@
---- capplets/common/mate-theme-info.c.orig	2024-02-22 17:36:56 UTC
+--- capplets/common/mate-theme-info.c.orig	2026-08-31 06:23:13 UTC
 +++ capplets/common/mate-theme-info.c
-@@ -1853,7 +1853,7 @@ mate_theme_init ()
+@@ -1908,7 +1908,7 @@ mate_theme_init ()
    g_strfreev (search_path);
  
    /* if there's a separate xcursors dir, add that as well */
