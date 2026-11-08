@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.7.12
+DEF[PORTVERSION]=	2.8.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		keepassxc
@@ -50,46 +50,38 @@ BUILD_DEPENDS=		argon2:dev:std
 			libsodium:dev:std
 			minizip:dev:std
 			ruby-asciidoctor:single:ruby_default
-			qt5-qttools:set:std
-			qt5-qtx11extras:dev:std
-			qt5-qtsvg:dev:std
-			quazip:dev:qt5
+			qt6-qttools:set:std
+			qt6-qtsvg:dev:std
+			quazip:dev:qt6
 			qrencode:dev:std
+			pcsc-lite:dev:std
 BUILDRUN_DEPENDS=	argon2:primary:std
 			botan:primary:std
 			libsodium:primary:std
 			minizip:tools:std
 			qrencode:primary:std
-			qt5-qtbase:primary:std
-			qt5-qtsvg:primary:std
-			qt5-qtx11extras:primary:std
-			quazip:primary:qt5
-
-USES=			cmake pkgconfig qt5 zlib desktop-utils:primary
-			mime-info:primary cpe
+			qt6-qtbase:primary:std
+			qt6-qtsvg:primary:std
+			quazip:primary:qt6
+			pcsc-lite:primary:std
+USES=			cmake pkgconfig qt6 zlib desktop-utils:primary
+			mime-info:primary cpe ncurses readline
 XORG_COMPONENTS=	x11 xi xtst
 CMAKE_ARGS=		-DKEEPASSXC_BUILD_TYPE:STRING=Release
-			-DWITH_XC_BROWSER:BOOL=ON
-			-DWITH_XC_KEESHARE:BOOL=ON
-			-DWITH_XC_NETWORKING:BOOL=ON
-			-DWITH_XC_SSHAGENT:BOOL=ON
-			-DWITH_XC_UPDATECHECK:BOOL=OFF
+			-DCMAKE_PREFIX_PATH:PATH={{PREFIX}}/lib/qt6/cmake
 			-Wno-dev
 
 VAR_OPSYS[sunos]=	LDFLAGS=-lsocket
 
 pre-configure:
 	${REINPLACE_CMD} -e "s|__PREFIX__|${PREFIX}|" \
-		${WRKSRC}/CMakeLists.txt \
-		${WRKSRC}/src/autotype/CMakeLists.txt
-
+		${WRKSRC}/CMakeLists.txt
 do-install:
 	(cd ${WRKDIR}/.build ; \
 	${MAKE_CMD} DESTDIR=${STAGEDIR} install)
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/keepassxc
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/keepassxc-cli
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/keepassxc-proxy
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/keepassxc/libkeepassxc-autotype-xcb.so
 	# relocate docs
 	${MKDIR} ${STAGEDIR}${STD_DOCDIR}
 	${MV} ${STAGEDIR}${PREFIX}/share/keepassxc/docs/* \

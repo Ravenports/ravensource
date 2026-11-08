@@ -1,4 +1,4 @@
---- src/core/Totp.cpp.orig	2026-03-10 00:27:46 UTC
+--- src/core/Totp.cpp.orig	2026-10-21 20:21:09 UTC
 +++ src/core/Totp.cpp
 @@ -284,7 +284,8 @@ QString Totp::generateTotp(const QShared
          direction = 1;

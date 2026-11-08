@@ -1,6 +1,6 @@
---- CMakeLists.txt.orig	2026-03-10 00:27:46 UTC
+--- CMakeLists.txt.orig	2026-10-21 20:21:09 UTC
 +++ CMakeLists.txt
-@@ -363,7 +363,7 @@ check_add_gcc_compiler_flag("-Werror=for
+@@ -309,7 +309,7 @@ check_add_gcc_compiler_flag("-Werror=for
  check_add_gcc_compiler_flag("-Werror=implicit-function-declaration" C)
  check_add_gcc_compiler_flag("-Wcast-align")
  
@@ -9,12 +9,12 @@
      check_add_gcc_compiler_flag("-Qunused-arguments")
      set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,--as-needed -Wl,--no-undefined")
      set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,-z,relro,-z,now -pie")
-@@ -515,7 +515,7 @@ if(UNIX AND NOT APPLE)
-     if(WITH_XC_X11)
-         list(APPEND QT_COMPONENTS X11Extras)
-     endif()
--    find_package(Qt5 COMPONENTS ${QT_COMPONENTS} DBus REQUIRED)
-+    find_package(Qt5 COMPONENTS ${QT_COMPONENTS} DBus REQUIRED HINTS /__PREFIX__/lib/qt5/cmake ENV PATH)
+@@ -444,7 +444,7 @@ endif()
+ # Find Qt
+ set(QT_COMPONENTS Core Network Concurrent Gui Svg Widgets Test LinguistTools)
+ if(UNIX AND NOT APPLE)
+-    find_package(Qt6 COMPONENTS ${QT_COMPONENTS} DBus REQUIRED)
++    find_package(Qt6 COMPONENTS ${QT_COMPONENTS} DBus REQUIRED HINTS /__PREFIX__/lib/qt5/cmake ENV PATH)
  elseif(APPLE)
-     find_package(Qt5 COMPONENTS ${QT_COMPONENTS} REQUIRED HINTS
-             /usr/local/opt/qt@5/lib/cmake
+     find_package(Qt6 COMPONENTS ${QT_COMPONENTS} REQUIRED HINTS
+             /usr/local/opt/qt/lib/cmake

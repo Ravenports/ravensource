@@ -1,6 +1,6 @@
---- src/core/Alloc.cpp.orig	2026-03-10 00:27:46 UTC
+--- src/core/Alloc.cpp.orig	2026-10-21 20:21:09 UTC
 +++ src/core/Alloc.cpp
-@@ -20,7 +20,7 @@
+@@ -21,7 +21,7 @@
  #include <cstdlib>
  #if defined(Q_OS_MACOS)
  #include <malloc/malloc.h>
