@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.1.2
+DEF[PORTVERSION]=	v0.1.2
 # ------------------------------------------------------------------------
 
 NAMEBASE=		perl-Algorithm-VectorClocks
@@ -12,7 +12,7 @@ CONTACT=		Perl_Automaton[perl@ravenports.com]
 
 DOWNLOAD_GROUPS=	main
 SITES[main]=		CPAN/ID:T/TA/TAKERU
-DISTFILE[1]=		Algorithm-VectorClocks-v0.1.2.tar.gz:main
+DISTFILE[1]=		Algorithm-VectorClocks-${PORTVERSION}.tar.gz:main
 
 SPKGS[542]=		single
 SPKGS[544]=		single
@@ -23,41 +23,16 @@ VOPTS[542]=		PERL_542=ON PERL_544=OFF
 VOPTS[544]=		PERL_542=OFF PERL_544=ON
 
 # License listed in CPAN directory:
-# perl
+# Not provided (perl module has no META files)
 
 GENERATED=		yes
 SINGLE_JOB=		yes
-DISTNAME=		Algorithm-VectorClocks-v0.1.2
+DISTNAME=		Algorithm-VectorClocks-${PORTVERSION}
 
-# ---------------------------------------------
-# |   Prerequisites extracted from META.yml
-# ---------------------------------------------
-# | configure_requires : Module::Build
-# |     build_requires : Test::More (perl 5.42.2 core) (perl 5.44.0 core)
-# |     build_requires : Test::NoWarnings
-# |           requires : Class::Accessor::Fast
-# |           requires : Class::Data::Inheritable
-# |           requires : JSON::Any
-# |           requires : List::MoreUtils
-# |           requires : List::Util (perl 5.42.2 core) (perl 5.44.0 core)
-# |           requires : Perl6::Export::Attrs
-# |           requires : Sys::Hostname (perl 5.42.2 core) (perl 5.44.0 core)
-# |           requires : version (perl 5.42.2 core) (perl 5.44.0 core)
+# ------------------------------------------------------------------
+# |   No meta files available, therefore no dependencies defined
+# ------------------------------------------------------------------
 
 [PERL_542].USES_ON=			perl:542,buildmod,run
-[PERL_542].BUILDRUN_DEPENDS_ON=		perl-Class-Accessor:single:542
-					perl-Class-Data-Inheritable:single:542
-					perl-JSON-Any:single:542
-					perl-List-MoreUtils:single:542
-					perl-Perl6-Export-Attrs:single:542
-[PERL_542].BUILD_DEPENDS_ON=		perl-Module-Build:single:542
-					perl-Test-NoWarnings:single:542
 [PERL_544].USES_ON=			perl:544,buildmod,run
-[PERL_544].BUILDRUN_DEPENDS_ON=		perl-Class-Accessor:single:544
-					perl-Class-Data-Inheritable:single:544
-					perl-JSON-Any:single:544
-					perl-List-MoreUtils:single:544
-					perl-Perl6-Export-Attrs:single:544
-[PERL_544].BUILD_DEPENDS_ON=		perl-Module-Build:single:544
-					perl-Test-NoWarnings:single:544
 
