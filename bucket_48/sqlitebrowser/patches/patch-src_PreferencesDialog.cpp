@@ -1,6 +1,6 @@
---- src/PreferencesDialog.cpp.orig	2024-10-15 07:36:40 UTC
+--- src/PreferencesDialog.cpp.orig	2026-11-07 00:41:11 UTC
 +++ src/PreferencesDialog.cpp
-@@ -505,8 +505,7 @@ void PreferencesDialog::createBuiltinExt
+@@ -414,8 +414,7 @@ void PreferencesDialog::createBuiltinExt
  
  void PreferencesDialog::fillLanguageBox()
  {
@@ -8,5 +8,5 @@
 -                         "sqlb_*.qm");
 +    QDir translationsDir("%%DATADIR%%/translations", "sqlb_*.qm");
  
-     QLocale systemLocale = QLocale::system();
+     QLocale systemLocale(Settings::systemLanguage());
  

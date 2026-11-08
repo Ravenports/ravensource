@@ -1,5 +1,7 @@
-DEF[PORTVERSION]=	3.13.1
-# Remove cmake minimum argument on next release
+# Move to snapshot like FreeBSD to get Qt6 support
+DEF[PORTVERSION]=	3.13.99
+# 5 commits behind current "continuous", 6 NOV 2026
+DEF[TAG]=		efe03c0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		sqlitebrowser
@@ -11,7 +13,7 @@ HOMEPAGE=		https://sqlitebrowser.org/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GITHUB/sqlitebrowser:sqlitebrowser:v${PORTVERSION}
+SITES[main]=		GITHUB/sqlitebrowser:sqlitebrowser:${TAG}
 DISTFILE[1]=		generated:main
 
 SPKGS[std]=		single
@@ -29,16 +31,21 @@ LICENSE_SCHEME=		dual
 
 FPC_EQUIVALENT=		databases/sqlitebrowser
 
-BUILD_DEPENDS=		qt5-qttools:set:std
-			qscintilla:dev:qt5
-BUILDRUN_DEPENDS=	qscintilla:primary:qt5
+BUILD_DEPENDS=		qt6-qttools:set:std
+			qt6-qt5compat:dev:std
+			qscintilla:dev:qt6
+BUILDRUN_DEPENDS=	qt6-qt5compat:primary:std
+			qscintilla:primary:qt6
 
-USES=			cmake sqlite desktop-utils:single gnome-icons:single
-CMAKE_ARGS=		-DFORCE_INTERNAL_ANTLR:BOOL=ON
-			-DQT_INCLUDE_DIR:PATH="{{PREFIX}}/include/qt5"
-			-DQT_LIBRARY_DIR:PATH="{{PREFIX}}/lib/qt5"
-			-DCMAKE_PREFIX_PATH:PATH="{{PREFIX}}/lib/qt5/cmake/"
-			-DCMAKE_POLICY_VERSION_MINIMUM=3.5
+USES=			cmake sqlite qt6
+			desktop-utils:single
+			gnome-icons:single
+MAKE_ENV=		LANG=en_US.UTF-8
+CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH="{{PREFIX}}/lib/qt6/cmake/"
+			-DQSCINTILLA_INCLUDE_DIR={{LOCALBASE}}/include/qt6/Qsci
+			-DQSCINTILLA_LIBRARY={{LOCALBASE}}/lib/qt6/libqscintilla2_qt6.so
+			-DQT_MAJOR=Qt6
+			-Wno-author
 
 post-patch:
 	${REINPLACE_CMD} -e 's|%%DATADIR%%|${PREFIX}/share/${NAMEBASE}|' \
