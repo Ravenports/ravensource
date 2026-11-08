@@ -1,4 +1,7 @@
-DEF[PORTVERSION]=	1.6.7
+# Stable versions are 1.6.x, 1.8.x, etc
+# Normally stick to stable, but make an exception for 1.7.x to
+# hasten transition from Qt5 to Qt6
+DEF[PORTVERSION]=	1.7.4
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		scribus
@@ -10,10 +13,11 @@ HOMEPAGE=		https://www.scribus.net/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		SF/scribus/scribus/${PORTVERSION}
+# SITES[main]=		SF/scribus/scribus/${PORTVERSION}
+SITES[main]=		SF/scribus/scribus-devel/${PORTVERSION}
 DISTFILE[1]=		scribus-${PORTVERSION}.tar.xz:main
 
-SPKGS[std]=		set primary man docs
+SPKGS[std]=		set primary dev man docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -27,7 +31,9 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		print/scribus
 
-BUILD_DEPENDS=		qt5-qttools:set:std
+BUILD_DEPENDS=		qt6-qttools:set:std
+			qt6-qt5compat:dev:std
+			qt6-qtsvg:dev:std
 			poppler:dev:std
 			poppler:cpp:std
 			poppler:cppdev:std
@@ -43,7 +49,9 @@ BUILD_DEPENDS=		qt5-qttools:set:std
 			libwpg:dev:std
 			hunspell:dev:std
 			libvisio:dev:std
-BUILDRUN_DEPENDS=	qt5-qtbase:primary:std
+BUILDRUN_DEPENDS=	qt6-qtbase:primary:std
+			qt6-qt5compat:primary:std
+			qt6-qtsvg:primary:std
 			lcms2:primary:std
 			boost-libraries:primary:std
 			hunspell:primary:std
@@ -72,18 +80,15 @@ CMAKE_ARGS=		-DWANT_HUNSPELL=YES
 			-DWANT_CPP17:BOOL=ON
 			-DCMAKE_COLOR_MAKEFILE:BOOL=ON
 			-DWANT_GRAPHICSMAGICK=1
-			-DCMAKE_PREFIX_PATH:PATH="{{PREFIX}}/lib/qt5/cmake/"
-			-DQt5Core_DIR="{{PREFIX}}/lib/qt5/cmake/Qt5Core"
-			-DQt5Widgets_DIR="{{PREFIX}}/lib/qt5/cmake/Qt5Widgets"
-			-DQt5Xml_DIR="{{PREFIX}}/lib/qt5/cmake/Qt5Xml"
-			-DQt5Network_DIR="{{PREFIX}}/lib/qt5/cmake/Qt5Network"
-			-DQt5OpenGL_DIR="{{PREFIX}}/lib/qt5/cmake/Qt5OpenGL"
-			-DQt5LinguistTools_DIR="{{PREFIX}}/lib/qt5/cmake/Qt5LinguistTools"
-			-DQt5PrintSupport_DIR="{{PREFIX}}/lib/qt5/cmake/Qt5PrintSupport"
+			-DQT_PREFIX="{{LOCALBASE}}/lib/qt6"
 			-DWITH_PODOFO:BOOL=OFF
 			-DLIBPODOFO_CONFIG_H="{{LOCALBASE}}/include/podofo/auxiliary/podofo_config.h"
+MAKE_ENV=		LANG=en_US.UTF-8
 
 post-install:
+	# remove duplicate license
+	${RM} -r ${STAGEDIR}${PREFIX}/share/ads
+	# strip
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/scribus
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/scribus/plugins/*.so
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/scribus/plugins/gettext/*.so

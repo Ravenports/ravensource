@@ -1,4 +1,4 @@
---- scribus/third_party/lib2geom/isnan.h.orig	2026-10-28 21:18:13 UTC
+--- scribus/third_party/lib2geom/isnan.h.orig	2026-11-08 21:19:01 UTC
 +++ scribus/third_party/lib2geom/isnan.h
 @@ -34,7 +34,7 @@
  #elif defined(WIN32) || defined(_isnan)
