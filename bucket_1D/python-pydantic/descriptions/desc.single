@@ -83,7 +83,7 @@ See our [security policy].
 <!-- markdownlint-disable descriptive-link-text -->
 <!-- markdownlint-disable-next-line first-line-heading -->
 
-## v2.14.2 (2026-10-29)
+## v2.14.3 (2026-11-04)
 
 [GitHub release]
 
@@ -91,10 +91,10 @@ See our [security policy].
 
 #### Packaging
 
-* Bump PyO3 to 0.30.1, jiter to 0.18.0, use `PyFrozenDict` by [@Viicos] in
-[#14003]
-* Bump speedate to v0.18.0 by [@Viicos] in [#14007]
-* Publish `pydantic-core` wheels for PyPy 8.0 (`pp80` ABI) by [@Viicos] in
-[#14083]
+* Build wheels for GraalPy 3.13 by [@msimacek] in [#14136].
 
-#### Performance
+  The previous v2.14.2 release published GraalPy 3.11 wheels, which were
+not working due to a PyO3 version bump. A CI workflow issue
+  made it so that the wheel wasn't tested before publishing. This is now
+fixed: starting in v2.14.3, we no longer publish GraalPy 3.11
+  wheels, and GraalPy 3.13 wheels are now published together with the

@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	5.6.2
+DEF[PORTVERSION]=	5.7.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-kombu
@@ -11,7 +11,7 @@ HOMEPAGE=		https://kombu.readthedocs.io
 CONTACT=		Python_Automaton[python@ravenports.com]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/fb/0f/834427d8c03ff1d7e867d3db3d176470c64871753252b21b4f4897d1fa45
+SITES[main]=		PYPIWHL/84/20/f73d8e0bff9708b0f2337220be1b5d7ebd738bc3a89b63cf44d257157014
 DISTFILE[1]=		kombu-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -30,42 +30,39 @@ GENERATED=		yes
 DISTNAME=		kombu-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# amqp<6.0.0,>=5.1.1
+# amqp>=5.4.2
 # vine==5.1.0
-# tzdata>=2025.2
-# packaging
-# msgpack==1.1.2; extra == "msgpack"
-# PyYAML>=3.10; extra == "yaml"
-# redis!=4.5.5,!=5.0.2,<6.5,>=4.5.2; extra == "redis"
-# pymongo==4.15.3; extra == "mongodb"
+# tzdata>=2026.2; sys_platform == "win32"
+# msgpack==1.2.3; extra == "msgpack"
+# PyYAML==6.0.3; extra == "yaml"
+# redis<9.0.0,>=6.4.0; extra == "redis"
+# packaging==26.3; extra == "redis"
+# pymongo==4.18.3; extra == "mongodb"
 # boto3>=1.26.143; extra == "sqs"
 # pycurl>=7.43.0.5; (sys_platform != "win32" and platform_python_implementation == "CPython") and extra == "sqs"
 # urllib3>=1.26.16; extra == "sqs"
-# google-cloud-pubsub>=2.18.4; extra == "gcpubsub"
-# google-cloud-monitoring>=2.16.0; extra == "gcpubsub"
-# grpcio==1.75.1; extra == "gcpubsub"
-# protobuf==6.32.1; extra == "gcpubsub"
-# kazoo>=2.8.0; extra == "zookeeper"
-# sqlalchemy<2.1,>=1.4.48; extra == "sqlalchemy"
+# google-cloud-pubsub==2.43.0; extra == "gcpubsub"
+# google-cloud-monitoring==2.32.0; extra == "gcpubsub"
+# grpcio==1.85.1; extra == "gcpubsub"
+# protobuf==7.36.2; extra == "gcpubsub"
+# kazoo==2.11.0; extra == "zookeeper"
+# sqlalchemy<2.2,>=1.4.54; extra == "sqlalchemy"
 # librabbitmq>=2.0.0; python_version < "3.11" and extra == "librabbitmq"
 # pyro4==4.82; extra == "pyro"
 # softlayer_messaging>=1.0.3; extra == "slmq"
-# azure-storage-queue>=12.6.0; extra == "azurestoragequeues"
-# azure-identity>=1.12.0; extra == "azurestoragequeues"
-# azure-servicebus>=7.10.0; extra == "azureservicebus"
+# azure-storage-queue==12.18.0; extra == "azurestoragequeues"
+# azure-identity==1.27.0; extra == "azurestoragequeues"
+# azure-servicebus==7.15.0; extra == "azureservicebus"
 # qpid-python==1.36.0-1; extra == "qpid"
 # qpid-tools==1.36.0-1; extra == "qpid"
 # python-consul2==0.1.5; extra == "consul"
-# confluent-kafka>=2.2.0; extra == "confluentkafka"
+# confluent-kafka==2.15.1; extra == "confluentkafka"
+# pgmq==1.1.4; extra == "pgmq"
 
 [PY313].USES_ON=			python:v13,wheel
 [PY313].RUN_DEPENDS_ON=			python-amqp:single:v13
 					python-vine:single:v13
-					python-tzdata:single:v13
-					python-packaging:single:v13
 [PY314].USES_ON=			python:v14,wheel
 [PY314].RUN_DEPENDS_ON=			python-amqp:single:v14
 					python-vine:single:v14
-					python-tzdata:single:v14
-					python-packaging:single:v14
 

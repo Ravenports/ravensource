@@ -57,7 +57,7 @@ from django.db import models
 from solo.models import SingletonModel
 
 class SiteConfiguration(SingletonModel):
-    site_name = models.CharField(max_length=255, default='Site Name')
+    site_name = models.CharField(max_length=255, default="Site Name")
     maintenance_mode = models.BooleanField(default=False)
 
     def __str__(self):
@@ -80,6 +80,7 @@ admin.site.register(SiteConfiguration, SingletonModelAdmin)
 `python
 # There is only one item in the table, you can get it this way:
 from .models import SiteConfiguration
+
 config = SiteConfiguration.objects.get()
 
 # get_solo will create the item if it does not already exist
@@ -97,4 +98,3 @@ the row in the database for django-solo to use. This can be done by setting
 
 ```python
 class SiteConfiguration(SingletonModel):
-    singleton_instance_id = 24
