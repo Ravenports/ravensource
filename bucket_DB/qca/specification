@@ -5,10 +5,10 @@ DEF[PLUGINS]=		botan cyrus-sasl gcrypt gnupg logger nss softstore
 
 NAMEBASE=		qca
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		devel
-VARIANTS=		qt5 qt6
-SDESC[qt5]=		Cross-platform crypto API for Qt 5
-SDESC[qt6]=		Cross-platform crypto API for Qt 6
+VARIANTS=		std
+SDESC[std]=		Cross-platform crypto API for Qt 6
 HOMEPAGE=		https://userbase.kde.org/QCA
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
@@ -16,13 +16,10 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://download.kde.org/stable/qca/${PORTVERSION}/
 DISTFILE[1]=		qca-${PORTVERSION}.tar.xz:main
 
-SPKGS[qt5]=		set primary dev man tools
-SPKGS[qt6]=		set primary dev man tools
+SPKGS[std]=		set primary dev man tools
 
-OPTIONS_AVAILABLE=	QT5 QT6
+OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
-VOPTS[qt5]=		QT5=ON QT6=OFF
-VOPTS[qt6]=		QT5=OFF QT6=ON
 
 FPC_EQUIVALENT=		devel/qca
 
@@ -32,10 +29,14 @@ BUILD_DEPENDS=		botan:dev:std
 			nss:dev:std
 			nss:caroot:std
 			cyrus-sasl:dev:std
+			qt6-qt5compat:dev:std
+			qt6-qtbase:dev:std
 BUILDRUN_DEPENDS=	botan:primary:std
 			cyrus-sasl:primary:std
 			gnupg:primary:std
 			nss:primary:std
+			qt6-qt5compat:primary:std
+			qt6-qtbase:primary:std
 
 EXRUN[tools]=		primary
 
@@ -45,11 +46,13 @@ EXRUN[tools]=		primary
 # Disabling it for now but leaving the lines in, commented out.
 # USES=			cmake pkgconfig ssl:openssl30 qt5
 
-USES=			cmake pkgconfig qt5 rootca:tools
+USES=			cmake pkgconfig qt6 rootca:tools
 
 CMAKE_ARGS=		-DBUILD_PLUGINS=none
 			-DBUILD_TESTS=no
 			-DQT4_BUILD=OFF
+			-DQT5=OFF
+			-DQT6=ON
 			-DWITH_botan_PLUGIN=yes
 			-DWITH_cyrus-sasl_PLUGIN=yes
 			-DWITH_gcrypt_PLUGIN=yes
@@ -60,40 +63,14 @@ CMAKE_ARGS=		-DBUILD_PLUGINS=none
 			-DWITH_pkcs11_PLUGIN=no
 			-DWITH_softstore_PLUGIN=yes
 			-DQCA_MAN_INSTALL_DIR={{PREFIX}}/share/man
+			-DCMAKE_PREFIX_PATH={{PREFIX}}/lib/qt6/cmake
+			-DQCA_FEATURE_INSTALL_DIR={{PREFIX}}/lib/qt6/mkspecs/features
 CONFIGURE_ENV=		QC_CERTSTORE_PATH={{LOCALBASE}}/share/certs/ca-root-nss.crt
 
 SOVERSION=		${SOVERSION}
 
-[QT5].DESCRIPTION=			Built Qt5 variant
-[QT5].BUILD_DEPENDS_ON=			qt5-qtbase:dev:std
-[QT5].BUILDRUN_DEPENDS_ON=		qt5-qtbase:primary:std
-[QT5].CMAKE_ARGS_ON=			-DQT5=ON
-					-DQT6=OFF
-					-DCMAKE_PREFIX_PATH={{PREFIX}}/lib/qt5/cmake
-					-DQCA_FEATURE_INSTALL_DIR={{PREFIX}}/lib/qt5/mkspecs/features
-
-[QT6].DESCRIPTION=			Built Qt6 variant
-[QT6].BUILD_DEPENDS_ON=			qt6-qt5compat:dev:std
-					qt6-qtbase:dev:std
-[QT6].BUILDRUN_DEPENDS_ON=		qt6-qt5compat:primary:std
-					qt6-qtbase:primary:std
-[QT6].CMAKE_ARGS_ON=			-DQT5=OFF
-					-DQT6=ON
-					-DCMAKE_PREFIX_PATH={{PREFIX}}/lib/qt6/cmake
-					-DQCA_FEATURE_INSTALL_DIR={{PREFIX}}/lib/qt6/mkspecs/features
-
 do-install:
 	cd ${WRKDIR}/.build && make DESTDIR="${STAGEDIR}" install
-
-post-install-QT5-ON:
-	(cd ${STAGEDIR}${PREFIX} && ${STRIP_CMD} bin/mozcerts-qt5 \
-		bin/qcatool-qt5 \
-		lib/libqca-qt5.so.${SOVERSION})
-.for PLUGIN in ${PLUGINS}
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/qca-qt5/crypto/libqca-${PLUGIN}.so
-.endfor
-
-post-install-QT6-ON:
 	(cd ${STAGEDIR}${PREFIX} && ${STRIP_CMD} bin/mozcerts-qt6 \
 		bin/qcatool-qt6 \
 		lib/libqca-qt6.so.${SOVERSION})
