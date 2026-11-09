@@ -1,4 +1,4 @@
---- src/core/core-crypto.c.orig	2026-10-31 08:39:33 UTC
+--- src/core/core-crypto.c.orig	2026-11-09 12:20:23 UTC
 +++ src/core/core-crypto.c
 @@ -53,6 +53,10 @@
  #define BE_INT64 htobe64
