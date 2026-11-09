@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	9.2.1250
+DEF[PORTVERSION]=	9.2.1310
 DEF[VIM_VER]=		vim${PORTVERSION:R:S|.||g}
 # ----------------------------------------------------------------------------
 
@@ -53,9 +53,13 @@ SHEBANG_FILES=		runtime/tools/demoserver.py
 			runtime/tools/efm_perl.pl
 CFLAGS=			-I{{NCURSESINC}}
 
+# tcl droppped from LOADED, see https://github.com/vim/vim/issues/15769
+# Despite being reported 2 years ago, vim isn't compatible with tcl 9.0
+
 [LOADED].DESCRIPTION=			Turn on all options including X support
 [LOADED].USES_ON=			gnome-icons
-					lua perl python ruby tcl zlib:build
+					lua perl python ruby zlib:build
+# #					tcl:9.0
 [LOADED].XORG_COMPONENTS_ON=		ice sm x11 xpm xt
 [LOADED].GNOME_COMPONENTS_ON=		cairo gdkpixbuf gtk3
 [LOADED].BUILD_DEPENDS_ON=		harfbuzz:dev:std
@@ -76,7 +80,7 @@ CFLAGS=			-I{{NCURSESINC}}
 					--enable-rubyinterp
 					--enable-tclinterp
 					--with-lua-prefix={{LOCALBASE}}
-					--with-tclsh=tclsh{{TCL_VER}}
+# #					--with-tclsh=tclsh{{TCL_VER}}
 
 post-extract:
 	${AWK} '/\*manual-copyright\*/,/\|iccf\|/' \
