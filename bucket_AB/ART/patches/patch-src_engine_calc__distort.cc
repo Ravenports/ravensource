@@ -1,6 +1,6 @@
---- src/engine/calc_distort.cc.orig	2026-10-15 13:01:50 UTC
+--- src/engine/calc_distort.cc.orig	2026-11-10 09:54:54 UTC
 +++ src/engine/calc_distort.cc
-@@ -62,7 +62,7 @@ int calcDistortion(unsigned char *img1,
+@@ -63,7 +63,7 @@ int calcDistortion(unsigned char *img1,
      fl = KLTCreateFeatureList(N_FEATURES * nfactor);
      ft = KLTCreateFeatureTable(2, N_FEATURES * nfactor);
  

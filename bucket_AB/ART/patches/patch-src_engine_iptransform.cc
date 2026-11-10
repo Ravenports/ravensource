@@ -1,6 +1,6 @@
---- src/engine/iptransform.cc.orig	2026-10-15 13:01:50 UTC
+--- src/engine/iptransform.cc.orig	2026-11-10 09:54:54 UTC
 +++ src/engine/iptransform.cc
-@@ -719,7 +719,7 @@ void calcVignettingParams(int oW, int oH
+@@ -720,7 +720,7 @@ void calcVignettingParams(int oW, int oH
      maxRadius = sqrt((double)(oW * oW + oH * oH)) / 2.;
  
      // vignette variables with applied strength

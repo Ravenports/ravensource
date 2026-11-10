@@ -1,6 +1,6 @@
---- src/gui/thresholdselector.cc.orig	2026-10-15 13:01:50 UTC
+--- src/gui/thresholdselector.cc.orig	2026-11-10 09:54:54 UTC
 +++ src/gui/thresholdselector.cc
-@@ -1039,8 +1039,8 @@ double ThresholdSelector::shapePositionV
+@@ -1040,8 +1040,8 @@ double ThresholdSelector::shapePositionV
          (cursorId == TS_BOTTOMLEFT || cursorId == TS_BOTTOMRIGHT)
              ? precisionBottom
              : precisionTop;

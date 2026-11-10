@@ -1,6 +1,6 @@
---- src/gui/thresholdadjuster.cc.orig	2026-10-15 13:01:50 UTC
+--- src/gui/thresholdadjuster.cc.orig	2026-11-10 09:54:54 UTC
 +++ src/gui/thresholdadjuster.cc
-@@ -207,7 +207,7 @@ double ThresholdAdjuster::shapeValue(dou
+@@ -208,7 +208,7 @@ double ThresholdAdjuster::shapeValue(dou
  {
  
      unsigned int digit = tSelector.getPrecision();
