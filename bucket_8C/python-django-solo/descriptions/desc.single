@@ -85,6 +85,10 @@ config = SiteConfiguration.objects.get()
 
 # get_solo will create the item if it does not already exist
 config = SiteConfiguration.get_solo()
+
+# In async code, use aget_solo instead of wrapping get_solo with
+sync_to_async
+config = await SiteConfiguration.aget_solo()
 ```
 
 In your model, note how you did not have to provide a `verbose_name_plural`
@@ -94,7 +98,3 @@ That's because Django Solo uses the `verbose_name` instead.
 If you're changing an existing model (which already has some objects stored
 in the database) to a singleton model, you can explicitly provide the id of
 the row in the database for django-solo to use. This can be done by setting
-`singleton_instance_id` property on the model:
-
-```python
-class SiteConfiguration(SingletonModel):

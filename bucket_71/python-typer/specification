@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.28.0
+DEF[PORTVERSION]=	0.29.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-typer
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/fastapi/typer
 CONTACT=		Python_Automaton[python@ravenports.com]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/19/98/8ef60c7cd773dbab9d276a4c7bff505913a25b61acd8a9ef01ceeb70f554
+SITES[main]=		PYPIWHL/c1/3d/cc08d3cb257764101c71c47f18e2f547782d013928edc877f155cb99229d
 DISTFILE[1]=		typer-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -30,17 +30,20 @@ GENERATED=		yes
 DISTNAME=		typer-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
+# pydantic>=2.5.3
 # shellingham>=1.3.0
 # rich>=13.8.0
 # annotated-doc>=0.0.2
 # colorama; platform_system == "Windows"
 
 [PY313].USES_ON=			python:v13,wheel
-[PY313].RUN_DEPENDS_ON=			python-shellingham:single:v13
+[PY313].RUN_DEPENDS_ON=			python-pydantic:single:v13
+					python-shellingham:single:v13
 					python-rich:single:v13
 					python-annotated-doc:single:v13
 [PY314].USES_ON=			python:v14,wheel
-[PY314].RUN_DEPENDS_ON=			python-shellingham:single:v14
+[PY314].RUN_DEPENDS_ON=			python-pydantic:single:v14
+					python-shellingham:single:v14
 					python-rich:single:v14
 					python-annotated-doc:single:v14
 
