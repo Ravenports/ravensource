@@ -1,27 +1,16 @@
---- pty_termios.c.orig	2024-10-11 12:41:34 UTC
+--- pty_termios.c.orig	2026-11-09 20:14:22 UTC
 +++ pty_termios.c
-@@ -77,6 +77,16 @@ with openpty which supports 4000 while p
- #include <sys/sysmacros.h>
- #endif
+@@ -190,7 +190,13 @@ static char slave_name[MAXPTYNAMELEN];
+ #endif /* HAVE_SCO_CLIST_PTYS */
  
-+#ifdef HAVE_OPENPTY
+ #ifdef HAVE_OPENPTY
 +# ifdef __linux__
-+# include <pty.h>
+ #include <pty.h>
 +# elif defined(__NetBSD__)
 +# include <util.h>
 +# else
 +# include <libutil.h>
 +# endif
-+#endif
-+
- #ifdef HAVE_PTYTRAP
- #include <sys/ptyio.h>
+ static char master_name[64];
+ static char slave_name[64];
  #endif
-@@ -102,6 +112,7 @@ with openpty which supports 4000 while p
- #include "exp_tty_in.h"
- #include "exp_rename.h"
- #include "exp_pty.h"
-+#include "exp_int.h"
- 
- void expDiagLog();
- void expDiagLogPtr();

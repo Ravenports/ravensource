@@ -1,4 +1,4 @@
---- exp_win.c.orig	2018-02-02 19:15:52 UTC
+--- exp_win.c.orig	2026-11-09 20:14:22 UTC
 +++ exp_win.c
 @@ -32,6 +32,9 @@ conflicts with sys/ioctl.h
  
