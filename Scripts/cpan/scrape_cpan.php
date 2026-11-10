@@ -664,7 +664,12 @@ function finish_port_nometa (&$port) {
     } else {
         $tarparts = explode("-", $port["pkgname"]);
         $numparts = count($tarparts);
-        $port["version"] = $tarparts[$numparts - 1];
+        $tmpversion = $tarparts[$numparts - 1];
+        if (substr($tmpversion, 0, 1) == "v") {
+            $port["version"] = substr($tmpversion, 1);
+        } else {
+            $port["version"] = $tmpversion;
+        }
     }
 
     # Don't bother with license
