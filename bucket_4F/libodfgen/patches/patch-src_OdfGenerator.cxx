@@ -1,4 +1,4 @@
---- src/OdfGenerator.cxx.orig	2021-01-06 10:16:44 UTC
+--- src/OdfGenerator.cxx.orig	2026-11-10 12:02:15 UTC
 +++ src/OdfGenerator.cxx
 @@ -32,6 +32,7 @@
  
@@ -6,5 +6,5 @@
  
 +#include <cstdint>
  #include <cctype>
+ #include <cstdint>
  #include <limits>
- #include <memory>
