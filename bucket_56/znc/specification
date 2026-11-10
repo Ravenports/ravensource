@@ -6,6 +6,7 @@ DEF[CCTZ_TAG]=		49ba88f
 
 NAMEBASE=		znc
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		irc
 VARIANTS=		std
 SDESC[std]=		Advanced IRC bouncer
@@ -38,8 +39,10 @@ FPC_EQUIVALENT=		irc/znc
 BUILD_DEPENDS=		swig:primary:std
 			icu:dev:std
 			cyrus-sasl:dev:std
+			argon2:dev:std
 BUILDRUN_DEPENDS=	icu:primary:std
 			cyrus-sasl:primary:std
+			argon2:primary:std
 
 USERS=			znc
 GROUPS=			znc
@@ -48,10 +51,8 @@ USERGROUP_SPKG=		primary
 RC_SUBR=		znc:primary
 SUB_FILES=		messages-primary.ucl
 
-USES=			cpe cmake iconv pkgconfig ssl:openssl30 tcl perl python zlib
-CMAKE_ARGS=		-DCYRUS:BOOL=ON
-			-DZLIB:BOOL=ON
-			-DWANT_TCL:BOOL=TRUE
+USES=			cpe cmake iconv pkgconfig ssl:openssl30 tcl:9.0 perl python zlib
+CMAKE_ARGS=		-DWANT_TCL:BOOL=TRUE
 			-DWANT_PERL:BOOL=TRUE
 			-DWANT_PYTHON:BOOL=TRUE
 
@@ -62,3 +63,4 @@ post-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/etc/znc
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/znc
 	${FIND} ${STAGEDIR}${PREFIX}/lib -name "*.so" | ${XARGS} ${STRIP_CMD}
+
