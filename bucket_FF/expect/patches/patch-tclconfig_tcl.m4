@@ -1,6 +1,22 @@
 --- tclconfig/tcl.m4.orig	2026-11-09 20:14:22 UTC
 +++ tclconfig/tcl.m4
-@@ -1628,26 +1628,21 @@ dnl AC_CHECK_TOOL(AR, ar)
+@@ -1530,6 +1530,7 @@ dnl AC_CHECK_TOOL(AR, ar)
+ 
+ 	    # TEA specific: use LDFLAGS_DEFAULT instead of LDFLAGS
+ 	    SHLIB_LD='${CC} -shared ${CFLAGS} ${LDFLAGS_DEFAULT}'
++	    SHLIB_LD_LIBS="${SHLIB_LD_LIBS} -Wl,-soname,libexpect.so.1"
+ 	    LDFLAGS="$LDFLAGS -Wl,--export-dynamic"
+ 	    AS_IF([test $doRpath = yes], [
+ 		CC_SEARCH_FLAGS='-Wl,-rpath,${LIB_RUNTIME_DIR}'])
+@@ -1608,6 +1609,7 @@ dnl AC_CHECK_TOOL(AR, ar)
+ 	    # NetBSD 2.* has ELF and can use 'cc -shared' to build shared libs
+ 	    SHLIB_CFLAGS="-fPIC"
+ 	    SHLIB_LD='${CC} -shared ${SHLIB_CFLAGS}'
++	    SHLIB_LD_LIBS="${SHLIB_LD_LIBS} -Wl,-soname,libexpect.so.1"
+ 	    SHLIB_SUFFIX=".so"
+ 	    LDFLAGS="$LDFLAGS -export-dynamic"
+ 	    AS_IF([test $doRpath = yes], [
+@@ -1628,26 +1630,21 @@ dnl AC_CHECK_TOOL(AR, ar)
  		;;
  	    esac
  	    ;;
@@ -30,7 +46,15 @@
  	    ;;
  	Darwin-*)
  	    CFLAGS_OPTIMIZE="-Os"
-@@ -1968,7 +1963,7 @@ dnl # preprocessing tests use only CPPFL
+@@ -1858,6 +1855,7 @@ dnl AC_CHECK_TOOL(AR, ar)
+ 		[Do we really want to follow the standard? Yes we do!])
+ 
+ 	    SHLIB_CFLAGS="-KPIC"
++	    SHLIB_LD_LIBS="${SHLIB_LD_LIBS} -Wl,-h,libexpect.so.1"
+ 
+ 	    # Check to enable 64-bit flags for compiler/linker
+ 	    AS_IF([test "$do64bit" = yes], [
+@@ -1968,7 +1966,7 @@ dnl # preprocessing tests use only CPPFL
  	    BSD/OS*) ;;
  	    CYGWIN_*) ;;
  	    IRIX*) ;;
