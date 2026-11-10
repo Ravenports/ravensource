@@ -66,10 +66,9 @@ pre-configure:
 	     s|@TCL_SRC_DIR@|${PREFIX}/include/tcl${TCL_VER}|' \
 	     ${PATCH_WRKSRC}/unix/tclConfig.sh.in
 
-post-configure:
-	${REINPLACE_CMD} \
-		-e 's,-DNO_MEMMOVE=1,,' -e 's,-DNO_STRING_H=1,,' \
-		-e 's,^COMPAT_OBJS.*,,' ${BUILD_WRKSRC}/Makefile
+post-build:
+	# fix private header
+	${REINPLACE_CMD} 's|../unix/||' ${WRKSRC}/generic/tclPort.h
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib${NAMEBASE}.so

@@ -1,4 +1,4 @@
---- unix/tclUnixCompat.c.orig	2025-11-11 16:22:57 UTC
+--- unix/tclUnixCompat.c.orig	2026-05-28 18:27:07 UTC
 +++ unix/tclUnixCompat.c
 @@ -102,7 +102,7 @@ static Tcl_Mutex compatLock;
  static int		CopyGrp(struct group *tgtPtr, char *buf, int buflen);
