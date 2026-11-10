@@ -1,4 +1,4 @@
---- lib/krb5/os/addr.c.orig	2026-01-29 23:18:10 UTC
+--- lib/krb5/os/addr.c.orig	2026-11-06 23:01:49 UTC
 +++ lib/krb5/os/addr.c
 @@ -62,10 +62,10 @@ k5_sockaddr_to_address(const struct sock
          }

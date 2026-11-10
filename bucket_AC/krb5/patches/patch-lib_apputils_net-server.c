@@ -1,4 +1,4 @@
---- lib/apputils/net-server.c.orig	2026-01-29 23:18:10 UTC
+--- lib/apputils/net-server.c.orig	2026-11-06 23:01:49 UTC
 +++ lib/apputils/net-server.c
 @@ -938,7 +938,7 @@ setup_addresses(verto_ctx *ctx, void *ha
      size_t i;

@@ -1,4 +1,4 @@
---- lib/krad/packet.c.orig	2025-08-20 19:44:32 UTC
+--- lib/krad/packet.c.orig	2026-11-06 23:01:49 UTC
 +++ lib/krad/packet.c
 @@ -33,6 +33,10 @@
  

@@ -1,6 +1,6 @@
---- lib/krb5/os/locate_kdc.c.orig	2026-01-29 23:18:10 UTC
+--- lib/krb5/os/locate_kdc.c.orig	2026-11-06 23:01:49 UTC
 +++ lib/krb5/os/locate_kdc.c
-@@ -297,16 +297,16 @@ locate_srv_conf_1(krb5_context context,
+@@ -296,16 +296,16 @@ locate_srv_conf_1(krb5_context context,
  
  #ifndef _WIN32
          if (hostspec[0] == '/') {
