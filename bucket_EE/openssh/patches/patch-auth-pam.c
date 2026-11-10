@@ -1,4 +1,4 @@
---- auth-pam.c.orig	2026-10-06 08:45:31 UTC
+--- auth-pam.c.orig	2026-11-04 23:57:26 UTC
 +++ auth-pam.c
 @@ -68,11 +68,7 @@
  #endif
