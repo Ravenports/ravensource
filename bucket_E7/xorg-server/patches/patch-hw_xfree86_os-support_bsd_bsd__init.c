@@ -1,4 +1,4 @@
---- hw/xfree86/os-support/bsd/bsd_init.c.orig	2026-10-07 01:40:18 UTC
+--- hw/xfree86/os-support/bsd/bsd_init.c.orig	2026-11-10 14:44:45 UTC
 +++ hw/xfree86/os-support/bsd/bsd_init.c
 @@ -48,6 +48,8 @@ static int devConsoleFd = -1;
  #if defined (SYSCONS_SUPPORT) || defined (PCVT_SUPPORT)
