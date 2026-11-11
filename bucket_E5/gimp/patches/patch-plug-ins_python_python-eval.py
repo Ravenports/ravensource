@@ -1,4 +1,4 @@
---- plug-ins/python/python-eval.py.orig	2026-04-17 08:37:38 UTC
+--- plug-ins/python/python-eval.py.orig	2026-11-02 18:02:54 UTC
 +++ plug-ins/python/python-eval.py
 @@ -41,6 +41,7 @@ def code_eval(procedure, run_mode, code,
      try:
