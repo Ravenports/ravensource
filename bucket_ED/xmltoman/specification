@@ -1,0 +1,44 @@
+DEF[PORTVERSION]=	0.4
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		xmltoman
+VERSION=		${PORTVERSION}
+KEYWORDS=		converters textproc
+VARIANTS=		std
+SDESC[std]=		Scripts for converting XML to roff or HTML
+HOMEPAGE=		https://sourceforge.net/projects/xmltoman/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		SF/xmltoman/xmltoman/xmltoman-0.4.tar.gz
+DISTFILE[1]=		xmltoman-${PORTVERSION}.tar.gz:main
+
+SPKGS[std]=		set primary man
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		GPLv2+:primary
+LICENSE_FILE=		GPLv2+:{{WRKSRC}}/COPYING
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_AWK=		TERMS:"XML::Parser"
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/xmltoman
+LICENSE_SCHEME=		solo
+
+BUILDRUN_DEPENDS=	perl-XML-Parser:single:perl_used
+
+USES=			gmake perl shebangfix
+SHEBANG_FILES=		xmltoman
+			xmlmantohtml
+MAKE_ARGS=		PREFIX={{PREFIX}}
+SINGLE_JOB=		yes
+
+pre-configure:
+	${REINPLACE_CMD} -e 's,/usr/share,${PREFIX}/share,g;' \
+		-e 's,doc/xmltoman/examples,examples/xmltoman,g' \
+		${WRKSRC}/xml/xml*
+
+post-install:
+	${MKDIR} ${STAGEDIR}${STD_EXAMPLESDIR}
+	${INSTALL_MAN} ${WRKSRC}/*.1 ${STAGEDIR}${PREFIX}/share/man/man1/
+	${INSTALL_DATA} ${WRKSRC}/xml/*.xml ${STAGEDIR}${STD_EXAMPLESDIR}/
