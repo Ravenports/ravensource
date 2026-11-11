@@ -1,8 +1,8 @@
 Disable assertions always
 
---- src/cpp.c.orig	2012-12-19 07:37:55 UTC
+--- src/cpp.c.orig	2026-11-03 14:29:47 UTC
 +++ src/cpp.c
-@@ -2373,7 +2373,7 @@ static int parse_opt(int argc, char *arg
+@@ -2733,7 +2733,7 @@ static int parse_opt(int argc, char *arg
  	char *filename = 0;
  	int with_std_incpath = 1;
  	int print_version = 0, print_defs = 0, print_asserts = 0;
