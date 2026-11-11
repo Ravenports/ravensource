@@ -1,6 +1,6 @@
---- avahi-core/socket.c.orig	2020-02-18 06:51:47 UTC
+--- avahi-core/socket.c.orig	2026-06-25 12:51:26 UTC
 +++ avahi-core/socket.c
-@@ -542,7 +542,8 @@ int avahi_send_dns_packet_ipv4(
+@@ -543,7 +543,8 @@ int avahi_send_dns_packet_ipv4(
      }
  #elif defined(IP_MULTICAST_IF)
      if (src_address) {

@@ -1,4 +1,4 @@
---- avahi-core/fdutil.c.orig	2015-04-01 04:58:14 UTC
+--- avahi-core/fdutil.c.orig	2026-06-25 12:51:26 UTC
 +++ avahi-core/fdutil.c
 @@ -23,6 +23,7 @@
  
