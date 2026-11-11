@@ -1,4 +1,4 @@
---- src/compositor/configure.cmake.orig	2026-05-08 01:18:49 UTC
+--- src/compositor/configure.cmake.orig	2026-09-26 14:26:43 UTC
 +++ src/compositor/configure.cmake
 @@ -7,7 +7,7 @@
  

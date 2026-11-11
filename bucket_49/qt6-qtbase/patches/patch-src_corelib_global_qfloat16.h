@@ -1,6 +1,6 @@
---- src/corelib/global/qfloat16.h.orig	2026-05-07 07:50:01 UTC
+--- src/corelib/global/qfloat16.h.orig	2026-06-04 16:29:11 UTC
 +++ src/corelib/global/qfloat16.h
-@@ -102,7 +102,11 @@ public:
+@@ -111,7 +111,11 @@ public:
      // Support for std::numeric_limits<qfloat16>
  #ifdef __STDCPP_FLOAT16_T__
  private:

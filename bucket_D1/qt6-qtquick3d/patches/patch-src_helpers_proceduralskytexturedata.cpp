@@ -1,4 +1,4 @@
---- src/helpers/proceduralskytexturedata.cpp.orig	2026-05-08 02:22:24 UTC
+--- src/helpers/proceduralskytexturedata.cpp.orig	2026-09-26 14:59:00 UTC
 +++ src/helpers/proceduralskytexturedata.cpp
 @@ -410,11 +410,11 @@ QByteArray ProceduralSkyTextureData::gen
      sunLinear.g *= m_sunEnergy;

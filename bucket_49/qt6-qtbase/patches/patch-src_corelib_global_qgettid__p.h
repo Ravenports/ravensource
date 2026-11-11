@@ -1,4 +1,4 @@
---- src/corelib/global/qgettid_p.h.orig	2026-05-07 07:50:01 UTC
+--- src/corelib/global/qgettid_p.h.orig	2026-06-04 16:29:11 UTC
 +++ src/corelib/global/qgettid_p.h
 @@ -41,6 +41,12 @@ static inline int qt_gettid()
      pthread_threadid_np(NULL, &tid);

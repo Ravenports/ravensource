@@ -1,4 +1,4 @@
---- src/3rdparty/assimp/src/contrib/unzip/ioapi.c.orig	2026-05-08 02:22:24 UTC
+--- src/3rdparty/assimp/src/contrib/unzip/ioapi.c.orig	2026-09-26 14:59:00 UTC
 +++ src/3rdparty/assimp/src/contrib/unzip/ioapi.c
 @@ -14,7 +14,7 @@
          #define _CRT_SECURE_NO_WARNINGS

@@ -1,6 +1,6 @@
---- src/corelib/thread/qmutex.cpp.orig	2026-05-07 07:50:01 UTC
+--- src/corelib/thread/qmutex.cpp.orig	2026-06-04 16:29:11 UTC
 +++ src/corelib/thread/qmutex.cpp
-@@ -843,7 +843,7 @@ void QBasicMutex::unlockInternal(void *c
+@@ -847,7 +847,7 @@ void QBasicMutex::unlockInternal(void *c
      Q_ASSERT(copy); //we must be locked
      Q_ASSERT(copy != dummyLocked()); // testAndSetRelease(dummyLocked(), 0) failed
  

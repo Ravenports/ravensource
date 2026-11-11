@@ -1,6 +1,6 @@
---- cmake/QtFlagHandlingHelpers.cmake.orig	2026-05-07 07:50:01 UTC
+--- cmake/QtFlagHandlingHelpers.cmake.orig	2026-06-04 16:29:11 UTC
 +++ cmake/QtFlagHandlingHelpers.cmake
-@@ -187,7 +187,6 @@ function(qt_internal_add_link_flags_no_u
+@@ -189,7 +189,6 @@ function(qt_internal_add_link_flags_no_u
                  "Target:\"${target}\". "
                  "Test errors: \n ${test_output_undefined_error} \n ${test_output_no_undefined}")
          endif()
@@ -8,7 +8,7 @@
      endif()
  endfunction()
  
-@@ -219,8 +218,6 @@ function(qt_internal_apply_gc_binaries t
+@@ -221,8 +220,6 @@ function(qt_internal_apply_gc_binaries t
           AND NOT (MSVC OR CMAKE_CXX_SIMULATE_ID STREQUAL "MSVC"))
          if(APPLE)
              set(gc_sections_flag "-Wl,-dead_strip")

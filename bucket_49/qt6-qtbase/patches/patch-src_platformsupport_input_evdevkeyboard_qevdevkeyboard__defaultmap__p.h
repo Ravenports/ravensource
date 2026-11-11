@@ -1,4 +1,4 @@
---- src/platformsupport/input/evdevkeyboard/qevdevkeyboard_defaultmap_p.h.orig	2026-05-07 07:50:01 UTC
+--- src/platformsupport/input/evdevkeyboard/qevdevkeyboard_defaultmap_p.h.orig	2026-06-04 16:29:11 UTC
 +++ src/platformsupport/input/evdevkeyboard/qevdevkeyboard_defaultmap_p.h
 @@ -19,11 +19,7 @@
  #include <QtInputSupport/private/qkeyboardmap_p.h>

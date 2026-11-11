@@ -1,6 +1,6 @@
---- cmake/FindFFmpeg.cmake.orig	2026-07-03 07:13:40 UTC
+--- cmake/FindFFmpeg.cmake.orig	2026-09-26 16:30:55 UTC
 +++ cmake/FindFFmpeg.cmake
-@@ -344,7 +344,7 @@ foreach (_component ${FFmpeg_FIND_COMPON
+@@ -299,7 +299,7 @@ foreach (_component ${FFmpeg_FIND_COMPON
              target_link_libraries(${_target} INTERFACE "${${_component}_LIBRARY}")
  
              __ffmpeg_internal_set_dependencies(${_component})

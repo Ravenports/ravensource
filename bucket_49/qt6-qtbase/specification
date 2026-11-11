@@ -4,7 +4,6 @@ DEF[MINOR_VER]=		${PORTVERSION:R}
 
 NAMEBASE=		qt6-qtbase
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		x11_toolkits devel
 VARIANTS=		std
 SDESC[std]=		Qt6 - QtBase component
@@ -115,9 +114,6 @@ VAR_OPSYS[linux]=	VAR1=linux
 					-DFEATURE_wayland_client:BOOL=ON
 					-DFEATURE_wayland_server:BOOL=ON
 [WAYLAND].USES_ON=			bsd:epoll
-[WAYLAND].EXTRA_PATCHES_ON=		extra-patch-src_corelib_configure.cmake
-# No-wayland means broken build:
-# qlogging.cpp:1564:41: error: no match for call to backtraceFramesForLogMessage
 
 [VULKAN].DESCRIPTION=			Build with Vulkan support
 [VULKAN].BUILD_DEPENDS_ON=		vulkan-headers:single:std
@@ -155,9 +151,13 @@ post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/qt6/*.so
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/qt6/plugins/*/*.so
 .for F in androiddeployqt androidtestrunner qdbuscpp2xml \
-	qdbusxml2cpp qmake qmake6 qtpaths qtpaths6
+	qdbusxml2cpp qmake qmake6 qtpaths qtpaths6 harmonydeployqt harmonydeployqt6 \
+	harmonyostestrunner wasmdeployqt wasmdeployqt6
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/qt6/bin/${F}
 .endfor
 .for F in cmake_automoc_parser moc qlalr rcc uic qvkgen tracegen syncqt tracepointgen
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/libexec/qt6/${F}
 .endfor
+
+post-install-WAYLAND-ON:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/libexec/qt6/qtwaylandscanner

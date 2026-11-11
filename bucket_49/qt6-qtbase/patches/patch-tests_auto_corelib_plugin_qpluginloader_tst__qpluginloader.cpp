@@ -1,6 +1,6 @@
---- tests/auto/corelib/plugin/qpluginloader/tst_qpluginloader.cpp.orig	2026-05-07 07:50:01 UTC
+--- tests/auto/corelib/plugin/qpluginloader/tst_qpluginloader.cpp.orig	2026-06-04 16:29:11 UTC
 +++ tests/auto/corelib/plugin/qpluginloader/tst_qpluginloader.cpp
-@@ -78,11 +78,7 @@ using namespace Qt::StringLiterals;
+@@ -83,11 +83,7 @@ using namespace Qt::StringLiterals;
  #endif
  
  #if defined(Q_OF_ELF)

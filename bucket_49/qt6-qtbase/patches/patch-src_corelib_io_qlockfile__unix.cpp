@@ -1,6 +1,6 @@
---- src/corelib/io/qlockfile_unix.cpp.orig	2026-05-07 07:50:01 UTC
+--- src/corelib/io/qlockfile_unix.cpp.orig	2026-06-04 16:29:11 UTC
 +++ src/corelib/io/qlockfile_unix.cpp
-@@ -253,9 +253,15 @@ QString QLockFilePrivate::processNameByP
+@@ -371,9 +371,15 @@ QString QLockFilePrivate::processNameByP
          return QString();
      QString name = QFile::decodeName(kp.p_comm);
  # else
