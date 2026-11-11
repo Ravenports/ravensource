@@ -1,10 +1,11 @@
-DEF[PORTVERSION]=	1.5.939
-DEF[SOVERSION]=		1.5.0
+# 1.6.x RC2, moved to release candidate for Qt6
+DEF[PORTVERSION]=	1.6.1001
+DEF[SOVERSION]=		1.6.0
+DEF[FOLDER]=		v1.6.0-alpha2
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		mumble
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		audio
 VARIANTS=		std
 SDESC[std]=		Low latency, high quality voice chat software
@@ -12,7 +13,7 @@ HOMEPAGE=		https://www.mumble.info/
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		https://github.com/mumble-voip/mumble/releases/download/v${PORTVERSION}/
+SITES[main]=		https://github.com/mumble-voip/mumble/releases/download/${FOLDER}/
 DISTFILE[1]=		mumble-${PORTVERSION}.tar.gz:main
 
 SPKGS[std]=		set client server man
@@ -56,16 +57,15 @@ BUILDRUN_DEPENDS=	avahi:primary:std
 			utf8proc:primary:std
 
 USES=			cmake desktop-utils:client execinfo expat gmake pcre2
-			pkgconfig python:build shebangfix ssl zlib cpe
+			pkgconfig python:build shebangfix ssl zlib cpe sqlite
 XORG_COMPONENTS=	x11 xext xi
 
 B_DEPS[linux]=		alsa-lib:dev:std
 BR_DEPS[linux]=		alsa-lib:primary:std
 
-CMAKE_ARGS=		-DCMAKE_PREFIX_PATH={{PREFIX}}/lib/qt5/cmake
+CMAKE_ARGS=		-DCMAKE_PREFIX_PATH={{PREFIX}}/lib/qt6/cmake
 			-Doverlay-xcompile=off
 			-Dice=off
-			-Dbundled-gsl=off
 			-Dbundled-json=off
 			-Dbundled-speex=off
 			-Dbundle-qt-translations=off
@@ -83,6 +83,11 @@ CMAKE_ARGS=		-DCMAKE_PREFIX_PATH={{PREFIX}}/lib/qt5/cmake
 			-Dspeechd=off
 			-Dpulseaudio=off
 			-Dpipewire=off
+			-Dtests=off
+			-Dbenchmarks=off
+			-Denable-mysql=off
+			-Denable-postgresql=off
+			-Denable-sqlite=on
 
 SHEBANG_FILES=		auxiliary_files/run_scripts/mumble-overlay.in
 CONFIGURE_ENV=		MUMBLE_PYTHON={{PYTHON_CMD}}
@@ -92,6 +97,7 @@ SOVERSION=		${SOVERSION}
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/mumble
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/mumble-server
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/mumble/plugins/liblink.so
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/mumble/libmumbleoverlay.so.${SOVERSION}
 
