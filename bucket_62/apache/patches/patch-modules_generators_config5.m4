@@ -1,4 +1,4 @@
---- modules/generators/config5.m4.orig	2026-11-03 15:50:09 UTC
+--- modules/generators/config5.m4.orig	2026-11-09 03:07:05 UTC
 +++ modules/generators/config5.m4
 @@ -51,8 +51,7 @@ if test $cgid_needed = "yes"; then
                ;;

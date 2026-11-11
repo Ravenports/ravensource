@@ -1,4 +1,4 @@
---- modules/ssl/ssl_private.h.orig	2026-11-03 15:50:09 UTC
+--- modules/ssl/ssl_private.h.orig	2026-11-09 03:07:05 UTC
 +++ modules/ssl/ssl_private.h
 @@ -151,7 +151,7 @@
  #define MODSSL_X509_EXT_CONST
