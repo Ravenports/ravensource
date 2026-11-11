@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	2.4.0
-DEF[SOVERSION]=		17.0.0
+DEF[PORTVERSION]=	2.5.0
+DEF[SOVERSION]=		18.0.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libfm-qt
@@ -39,11 +39,19 @@ BUILDRUN_DEPENDS=	libexif:primary:std
 			qt6-qtbase:primary:std
 
 USES=			cmake pkgconfig mime-info:primary perl:build
+			gettext
 XORG_COMPONENTS=	x11 xcb
 GNOME_COMPONENTS=	glib
 SOVERSION=		${SOVERSION}
 CMAKE_ARGS=		-DCMAKE_PREFIX_PATH:PATH="{{PREFIX}}/lib/qt6/cmake/"
 LDFLAGS=		-pthread
+
+VAR_OPSYS[freebsd]=	LDFLAGS=-lintl
+VAR_OPSYS[dragonfly]=	LDFLAGS=-lintl
+VAR_OPSYS[midnightbsd]=	LDFLAGS=-lintl
+VAR_OPSYS[sunos]=	LDFLAGS=-lintl
+VAR_OPSYS[netbsd]=	LDFLAGS=-lintl
+
 
 post-install:
 	${RM} -r ${STAGEDIR}${PREFIX}/include/libfm-qt6/tests
