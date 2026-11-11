@@ -1,6 +1,6 @@
---- src/engine/serialize.h.orig	2026-05-17 15:14:56 UTC
+--- src/engine/serialize.h.orig	2026-11-08 12:34:15 UTC
 +++ src/engine/serialize.h
-@@ -180,7 +180,9 @@ public:
+@@ -181,7 +181,9 @@ public:
  
      IStreamBase & operator>>( bool & v );
      IStreamBase & operator>>( char & v );
@@ -10,7 +10,7 @@
      IStreamBase & operator>>( uint8_t & v );
      IStreamBase & operator>>( int16_t & v );
      IStreamBase & operator>>( uint16_t & v );
-@@ -314,7 +316,9 @@ public:
+@@ -331,7 +333,9 @@ public:
  
      OStreamBase & operator<<( const bool v );
      OStreamBase & operator<<( const char v );
