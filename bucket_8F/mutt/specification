@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	2.3.3
+DEF[PORTVERSION]=	2.4.3
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		mutt
@@ -78,5 +78,14 @@ INFO=			info:mutt
 
 CVE_FIXED=		CVE-2011-1429
 
+pre-configure:
+	# Stop make from setgid mutt_dotlock
+	${REINPLACE_CMD} \
+		-e '/if test.*mutt_dotlock.*DOTLOCK_GROUP/s/if/if ${FALSE} \&\&/' \
+		${WRKSRC}/Makefile.in
+
 post-install:
-	${RM} ${STAGEDIR}${PREFIX}/etc/mime.types
+	${RM} ${STAGEDIR}${PREFIX}/etc/mime.types*
+	${RM} ${STAGEDIR}${PREFIX}/etc/Muttrc
+	${MV} ${STAGEDIR}${PREFIX}/etc/Muttrc.dist \
+		${STAGEDIR}${PREFIX}/etc/Muttrc.sample
