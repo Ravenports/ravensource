@@ -1,8 +1,8 @@
---- configure.orig	2026-05-08 19:18:44 UTC
+--- configure.orig	2026-09-25 17:06:06 UTC
 +++ configure
-@@ -5199,9 +5199,13 @@ fi
- fi
+@@ -5529,9 +5529,13 @@ fi
  
+ fi
  	    ;;
 -	Linux*|GNU*|NetBSD-Debian|DragonFly-*|FreeBSD-*)
 +	Linux*|GNU*|NetBSD-*|DragonFly-*|FreeBSD-*|SunOS-*|MidnightBSD-*)
@@ -15,7 +15,7 @@
  
  	    CFLAGS_OPTIMIZE="-O2"
  	    # egcs-2.91.66 on Redhat Linux 6.0 generates lots of warnings
-@@ -5210,12 +5214,16 @@ fi
+@@ -5540,16 +5544,19 @@ fi
  	    #CFLAGS_OPTIMIZE="${CFLAGS_OPTIMIZE} -D__NO_STRING_INLINES -D__NO_MATH_INLINES"
  
  	    SHLIB_LD='${CC} ${CFLAGS} ${LDFLAGS} -shared'
@@ -31,11 +31,15 @@
 +	        LDFLAGS="$LDFLAGS -Wl,--export-dynamic"
 +		;;
 +	    DragonFly-*|FreeBSD-*|NetBSD-*|MidnightBSD-*)
-+	        LDFLAGS="$LDFLAGS -Wl,--export-dynamic"
- 		if test "${TCL_THREADS}" = "1"; then
+ 		# The -pthread needs to go in the LDFLAGS, not LIBS
+ 		LIBS=`echo $LIBS | sed s/-pthread//`
+ 		CFLAGS="$CFLAGS $PTHREAD_CFLAGS"
+-		LDFLAGS="$LDFLAGS $PTHREAD_LIBS"
++		LDFLAGS="$LDFLAGS -Wl,--export-dynamic $PTHREAD_LIBS"
+ 	    ;;
+ 	    esac
  
- 		    # The -pthread needs to go in the LDFLAGS, not LIBS
-@@ -5391,7 +5399,7 @@ fi
+@@ -5667,7 +5674,7 @@ fi
  	    UNSHARED_LIB_SUFFIX='${TCL_TRIM_DOTS}.a'
  	    TCL_LIB_VERSIONS_OK=nodots
  	    ;;

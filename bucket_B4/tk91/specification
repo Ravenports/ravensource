@@ -1,5 +1,5 @@
-DEF[NAMEBASE]=		tk86
-DEF[TK_VERSION]=	8.6.18
+DEF[NAMEBASE]=		tk91
+DEF[TK_VERSION]=	9.1.0
 DEF[FOLDER]=		${TK_VERSION}
 DEF[TK_VER]=		${TK_VERSION:R}
 DEF[SHORT_TK_VER]=	${TK_VER:S/.//g}
@@ -17,6 +17,7 @@ CONTACT=		nobody
 DOWNLOAD_GROUPS=	main
 SITES[main]=		SF/tcl/Tcl/${FOLDER}
 DISTFILE[1]=		tk${TK_VERSION}-src.tar.gz:main
+DIST_SUBDIR=		tcltk
 
 SPKGS[std]=		set primary tools dev demos man
 
@@ -28,18 +29,20 @@ LICENSE_NAME=		CUSTOM1:"Tcl/Tk License"
 LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/license.terms
 LICENSE_SCHEME=		solo
 
-FPC_EQUIVALENT=		x11-toolkits/tk86
+FPC_EQUIVALENT=		x11-toolkits/tk91
 
-EXRUN[dev]=		tcl86:dev:std
-EXRUN[tools]=		tcl86:tools:std
+BUILD_DEPENDS=		zip:primary:std
+
+EXRUN[dev]=		tcl91:dev:std
+EXRUN[tools]=		tcl91:tools:std
 			primary
 
-USES=			tcl:${TK_VER},build,tea fontconfig
+USES=			tcl:${TK_VER},build,tea fontconfig gmake
 XORG_COMPONENTS=	x11 xext xft xrender xscrnsaver
 CONFIGURE_ARGS=		--enable-xss
 			--enable-xft
-			--enable-threads
 			--enable-man-suffix=.${NAMEBASE}
+			--disable-bidi
 			--includedir={{PREFIX}}/include/tk${TK_VER}
 CFLAGS=			-I{{TCL_INCLUDEDIR}}
 MAKE_ENV=		SHORT_TK_VER=${SHORT_TK_VER}
@@ -48,8 +51,9 @@ INSTALL_TARGET=		install-strip install-doc install-demos
 PLIST_SUB=		TK_VER=${TK_VER}
 			SHORT_TK_VER=${SHORT_TK_VER}
 			NAMEBASE=${NAMEBASE}
+SINGLE_JOB=		yes
 
-post-patch:
+pre-configure:
 	${REINPLACE_CMD} -e \
 	    's|@TK_BUILD_LIB_SPEC@|@TK_LIB_SPEC@|; \
 	     s|@TK_BUILD_STUB_LIB_SPEC@|@TK_STUB_LIB_SPEC@|; \
@@ -59,5 +63,10 @@ post-patch:
 	${REINPLACE_CMD} -e '/^Requires/s|tcl|tcl${SHORT_TK_VER}|' \
 	    ${WRKSRC}/tk.pc.in
 
-post-install:
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libtk86.so
+pre-build:
+	${LN} -s libtcl9tk${SHORT_TK_VER}.so.1 ${WRKSRC}/libtcl9tk${SHORT_TK_VER}.so
+
+post-stage:
+	${LN} -s libtcl9tk${SHORT_TK_VER}.so.1 ${STAGEDIR}${PREFIX}/lib/libtk${SHORT_TK_VER}.so.1
+	${LN} -s libtk${SHORT_TK_VER}.so.1 ${STAGEDIR}${PREFIX}/lib/libtk${SHORT_TK_VER}.so
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libtk${SHORT_TK_VER}.so
