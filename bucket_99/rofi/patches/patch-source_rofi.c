@@ -1,6 +1,6 @@
---- source/rofi.c.orig	2025-09-01 18:22:18 UTC
+--- source/rofi.c.orig	2026-11-10 17:07:26 UTC
 +++ source/rofi.c
-@@ -38,6 +38,9 @@
+@@ -39,6 +39,9 @@
  #include <string.h>
  #include <sys/stat.h>
  #include <sys/types.h>
