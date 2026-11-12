@@ -1,4 +1,4 @@
---- cmake/Modules/ECMGeneratePriFile.cmake.orig	2026-04-29 16:10:01 UTC
+--- cmake/Modules/ECMGeneratePriFile.cmake.orig	2026-11-10 14:30:45 UTC
 +++ cmake/Modules/ECMGeneratePriFile.cmake
 @@ -112,7 +112,7 @@ if(KDE_INSTALL_USE_QT_SYS_PATHS OR _shou
    endif()
