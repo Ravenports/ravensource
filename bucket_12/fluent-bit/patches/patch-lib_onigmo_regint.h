@@ -1,6 +1,6 @@
---- lib/onigmo/regint.h.orig	2026-10-21 03:51:46 UTC
+--- lib/onigmo/regint.h.orig	2026-11-09 01:39:57 UTC
 +++ lib/onigmo/regint.h
-@@ -223,7 +223,7 @@
+@@ -234,7 +234,7 @@
  # define xsnprintf   sprintf_s
  # define xstrcat(dest,src,size)   strcat_s(dest,size,src)
  #else
