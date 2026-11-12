@@ -1,4 +1,4 @@
---- src/os/portable_endian.h.orig	2024-04-21 13:51:43 UTC
+--- src/os/portable_endian.h.orig	2026-01-10 18:01:35 UTC
 +++ src/os/portable_endian.h
 @@ -17,6 +17,10 @@
  
