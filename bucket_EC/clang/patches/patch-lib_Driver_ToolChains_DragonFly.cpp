@@ -1,4 +1,4 @@
---- lib/Driver/ToolChains/DragonFly.cpp.orig	2026-10-19 23:57:12 UTC
+--- lib/Driver/ToolChains/DragonFly.cpp.orig	2026-11-02 10:45:15 UTC
 +++ lib/Driver/ToolChains/DragonFly.cpp
 @@ -76,7 +76,7 @@ void dragonfly::Linker::ConstructJob(Com
        CmdArgs.push_back("-shared");

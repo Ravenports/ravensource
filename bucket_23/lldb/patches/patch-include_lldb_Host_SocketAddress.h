@@ -1,4 +1,4 @@
---- include/lldb/Host/SocketAddress.h.orig	2026-10-19 23:57:12 UTC
+--- include/lldb/Host/SocketAddress.h.orig	2026-11-02 10:45:15 UTC
 +++ include/lldb/Host/SocketAddress.h
 @@ -22,7 +22,7 @@ typedef ADDRESS_FAMILY sa_family_t;
  #include <sys/socket.h>
