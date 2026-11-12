@@ -59,7 +59,6 @@ CFLAGS=			-I{{NCURSESINC}}
 [LOADED].DESCRIPTION=			Turn on all options including X support
 [LOADED].USES_ON=			gnome-icons
 					lua perl python ruby zlib:build
-# #					tcl:9.0
 [LOADED].XORG_COMPONENTS_ON=		ice sm x11 xpm xt
 [LOADED].GNOME_COMPONENTS_ON=		cairo gdkpixbuf gtk3
 [LOADED].BUILD_DEPENDS_ON=		harfbuzz:dev:std
@@ -80,7 +79,6 @@ CFLAGS=			-I{{NCURSESINC}}
 					--enable-rubyinterp
 					--enable-tclinterp
 					--with-lua-prefix={{LOCALBASE}}
-# #					--with-tclsh=tclsh{{TCL_VER}}
 
 post-extract:
 	${AWK} '/\*manual-copyright\*/,/\|iccf\|/' \
