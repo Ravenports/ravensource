@@ -1,6 +1,6 @@
---- termbox2.h.orig	2024-12-28 02:24:19 UTC
+--- termbox2.h.orig	2026-11-07 04:53:32 UTC
 +++ termbox2.h
-@@ -63,6 +63,18 @@ SOFTWARE.
+@@ -60,6 +60,18 @@ SOFTWARE.
  extern "C" {
  #endif
  
@@ -18,4 +18,4 @@
 +
  // __ffi_start
  
- #define TB_VERSION_STR "2.5.0"
+ #define TB_VERSION_STR "2.7.0"
