@@ -1,7 +1,7 @@
 No libbbsd on solaris, so add support for err.h
 err=>warn: Make sure sndiod can be started inside jails as root
 
---- sndiod/sndiod.c.orig	2024-08-01 15:36:54 UTC
+--- sndiod/sndiod.c.orig	2026-10-15 10:05:00 UTC
 +++ sndiod/sndiod.c
 @@ -19,7 +19,11 @@
  #include <sys/resource.h>
@@ -53,7 +53,7 @@ err=>warn: Make sure sndiod can be started inside jails as root
  void sigint(int);
  void sighup(int);
  void opt_ch(int *, int *);
-@@ -691,7 +726,7 @@ main(int argc, char **argv)
+@@ -643,7 +678,7 @@ main(int argc, char **argv)
  	}
  	if (pw != NULL) {
  		if (setpriority(PRIO_PROCESS, 0, SNDIO_PRIO) == -1)

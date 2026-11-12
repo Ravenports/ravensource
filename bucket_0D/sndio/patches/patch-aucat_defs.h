@@ -1,4 +1,4 @@
---- aucat/defs.h.orig	2022-07-16 09:38:24 UTC
+--- aucat/defs.h.orig	2026-10-15 10:05:00 UTC
 +++ aucat/defs.h
 @@ -17,6 +17,12 @@
  #ifndef DEFS_H

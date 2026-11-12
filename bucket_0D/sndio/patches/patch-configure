@@ -1,31 +1,30 @@
---- configure.orig	2024-08-01 15:36:54 UTC
+--- configure.orig	2026-10-15 10:05:00 UTC
 +++ configure
-@@ -70,9 +70,9 @@ case `uname` in
- 	Linux)
+@@ -71,9 +71,9 @@ case `uname` in
  		alsa=yes
+ 		libbsd=yes
  		ldadd="-lrt -lm"
 -		user=sndiod
--		so_link="libsndio.so libsndio.so.\${MAJ} libsndio.so.\${MAJ}.0"
--		so_ldflags="-Wl,-soname=libsndio.so.\${MAJ}"
 +		user=_sndio
-+		so_link="libsndio.so libsndio.so.\${MAJ}"
+ 		so_link="libsndio.so libsndio.so.\${MAJ}"
+-		so_ldflags="-Wl,-soname=libsndio.so.\${MAJ}"
 +		so_ldflags="-Wl,-soname=libsndio.so.\${MAJ}.\${MIN}"
- 		defs='-D_GNU_SOURCE -DHAVE_SOCK_CLOEXEC -DHAVE_CLOCK_GETTIME'
+ 		defs='-D_GNU_SOURCE -DHAVE_SOCK_CLOEXEC'
  		;;
  	GNU/kFreeBSD) # OSS output support on kFreeBSD, but otherwise like linux
-@@ -97,7 +97,8 @@ case `uname` in
- 		sun=no
+@@ -99,7 +99,8 @@ case `uname` in
+ 		ldadd="-lossaudio -lm"
  		rmidi=yes
  		user=_sndio
 -		so_link="libsndio.so"
 +		so_link="libsndio.so libsndio.so.\${MAJ}"
 +		so_ldflags="-Wl,-soname=libsndio.so.\${MAJ}.\${MIN}"
- 		defs='-DHAVE_ARC4RANDOM -DHAVE_GETPEEREID -DHAVE_ISSETUGID \\\
- 		-DHAVE_STRLCAT -DHAVE_STRLCPY \\\
- 		-DHAVE_SOCK_CLOEXEC -DHAVE_CLOCK_GETTIME'
-@@ -110,16 +111,27 @@ case `uname` in
- 		-DHAVE_STRLCAT -DHAVE_STRLCPY -DHAVE_STRTONUM \\\
- 		-DHAVE_SOCK_CLOEXEC -DHAVE_CLOCK_GETTIME'
+ 		defs='-D_OPENBSD_SOURCE -DHAVE_ISSETUGID -DHAVE_SOCK_CLOEXEC'
+ 		;;
+ 	OpenBSD)
+@@ -108,14 +109,25 @@ case `uname` in
+ 		user=_sndiop
+ 		defs='-DHAVE_ISSETUGID -DHAVE_SOCK_CLOEXEC'
  		;;
 -	DragonFly|FreeBSD)
 +	DragonFly|FreeBSD|MidnightBSD)
@@ -35,9 +34,7 @@
  		so_ldflags="-Wl,-soname=libsndio.so.\${MAJ}.\${MIN}"
 -		so_link="libsndio.so"
 +		so_link="libsndio.so libsndio.so.\${MAJ}"
- 		defs='-DHAVE_ARC4RANDOM -DHAVE_GETPEEREID -DHAVE_ISSETUGID \\\
- 		-DHAVE_STRLCAT -DHAVE_STRLCPY -DHAVE_STRTONUM \\\
- 		-DHAVE_SOCK_CLOEXEC -DHAVE_CLOCK_GETTIME'
+ 		defs='-DHAVE_ISSETUGID -DHAVE_SOCK_CLOEXEC'
  		;;
 +	SunOS)
 +		ldadd="-lrt -lsocket"
