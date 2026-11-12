@@ -1,4 +1,4 @@
---- src/amd/common/nir/ac_nir_lower_image_tex.c.orig	2026-10-28 15:17:44 UTC
+--- src/amd/common/nir/ac_nir_lower_image_tex.c.orig	2026-11-11 16:03:52 UTC
 +++ src/amd/common/nir/ac_nir_lower_image_tex.c
 @@ -99,7 +99,7 @@ replace_with_formatted_load_buffer_amd(n
                                           .dest_type = dest_type);

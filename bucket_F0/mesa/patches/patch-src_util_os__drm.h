@@ -1,4 +1,4 @@
---- src/util/os_drm.h.orig	2026-10-28 15:17:44 UTC
+--- src/util/os_drm.h.orig	2026-11-11 16:03:52 UTC
 +++ src/util/os_drm.h
 @@ -14,6 +14,7 @@
  #error "Windows shouldn't include this."
