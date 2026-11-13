@@ -46,7 +46,7 @@ RUBY_4.0_VERSION=	4.0.9
 # Possible values: 3.13, 314
 #-------------------------------------------------------------------------
 
-PYTHON3_DEFAULT?=	3.13
+PYTHON3_DEFAULT?=	3.14
 
 PYTHON_3.13_VERSION=	3.13.18
 PYTHON_3.14_VERSION=	3.14.10
