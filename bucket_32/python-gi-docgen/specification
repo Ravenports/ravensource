@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	2026.1
 NAMEBASE=		python-gi-docgen
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v13 v14
-SDESC[v13]=		Documentation tool for GObject-based libs (3.13)
+VARIANTS=		v14 v15
 SDESC[v14]=		Documentation tool for GObject-based libs (3.14)
+SDESC[v15]=		Documentation tool for GObject-based libs (3.15)
 HOMEPAGE=		https://gitlab.gnome.org/GNOME/gi-docgen
 CONTACT=		Python_Automaton[python@ravenports.com]
 
@@ -15,13 +15,13 @@ SITES[main]=		PYPIWHL/b2/fe/b15e5cdbced9b3ff9790362b207102bbedb53f99bbf7cc8bfd4a
 DISTFILE[1]=		gi_docgen-${PORTVERSION}-py2.py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
-SPKGS[v13]=		set primary dev
 SPKGS[v14]=		set primary dev
+SPKGS[v15]=		set primary dev
 
-OPTIONS_AVAILABLE=	PY313 PY314
+OPTIONS_AVAILABLE=	PY314 PY315
 OPTIONS_STANDARD=	none
-VOPTS[v13]=		PY313=ON PY314=OFF
-VOPTS[v14]=		PY313=OFF PY314=ON
+VOPTS[v14]=		PY314=ON PY315=OFF
+VOPTS[v15]=		PY314=OFF PY315=ON
 
 # License listed at PyPI
 # GPL-3.0-or-later AND Apache-2.0 AND CC0-1.0
@@ -38,13 +38,6 @@ DISTNAME=		gi_docgen-${PORTVERSION}.dist-info
 # tomli; python_version < "3.11"
 # typogrify
 
-[PY313].USES_ON=			python:v13,wheel
-[PY313].RUN_DEPENDS_ON=			python-Markdown:single:v13
-					python-MarkupSafe:single:v13
-					python-Pygments:single:v13
-					python-Jinja2:single:v13
-					python-packaging:single:v13
-					python-typogrify:single:v13
 [PY314].USES_ON=			python:v14,wheel
 [PY314].RUN_DEPENDS_ON=			python-Markdown:single:v14
 					python-MarkupSafe:single:v14
@@ -52,6 +45,13 @@ DISTNAME=		gi_docgen-${PORTVERSION}.dist-info
 					python-Jinja2:single:v14
 					python-packaging:single:v14
 					python-typogrify:single:v14
+[PY315].USES_ON=			python:v15,wheel
+[PY315].RUN_DEPENDS_ON=			python-Markdown:single:v15
+					python-MarkupSafe:single:v15
+					python-Pygments:single:v15
+					python-Jinja2:single:v15
+					python-packaging:single:v15
+					python-typogrify:single:v15
 
 pre-install:
 	${MV} ${STAGEDIR}${PREFIX}/share/pkgconfig/gi-docgen.pc ${STAGEDIR}${PREFIX}/lib/pkgconfig/gi-docgen.pc

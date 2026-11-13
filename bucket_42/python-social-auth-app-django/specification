@@ -1,27 +1,27 @@
-DEF[PORTVERSION]=	8.0.0
+DEF[PORTVERSION]=	8.1.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-social-auth-app-django
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v13 v14
-SDESC[v13]=		Social authentication for Django (3.13)
+VARIANTS=		v14 v15
 SDESC[v14]=		Social authentication for Django (3.14)
+SDESC[v15]=		Social authentication for Django (3.15)
 HOMEPAGE=		https://github.com/python-social-auth/social-app-django
 CONTACT=		Python_Automaton[python@ravenports.com]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/22/ac/949e4e9d6f1dea91bf88546bccf9add54d4b97e041ff4ba2c32f28f6c089
+SITES[main]=		PYPIWHL/a2/bc/90fb8ba368a95e25110e2d0edc6f419eeb276e3b7b7ac193759fa73a8faa
 DISTFILE[1]=		social_auth_app_django-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
-SPKGS[v13]=		single
 SPKGS[v14]=		single
+SPKGS[v15]=		single
 
-OPTIONS_AVAILABLE=	PY313 PY314
+OPTIONS_AVAILABLE=	PY314 PY315
 OPTIONS_STANDARD=	none
-VOPTS[v13]=		PY313=ON PY314=OFF
-VOPTS[v14]=		PY313=OFF PY314=ON
+VOPTS[v14]=		PY314=ON PY315=OFF
+VOPTS[v15]=		PY314=OFF PY315=ON
 
 # License listed at PyPI
 # Not provided.
@@ -32,7 +32,7 @@ DISTNAME=		social_auth_app_django-${PORTVERSION}.dist-info
 # Requires-Dist extracted from wheel metadata
 # asgiref>=3.8.1
 # Django>=5.2
-# social-auth-core<8.0.0,>=7.0.0
+# social-auth-core<8.0.0,>=7.2.0
 # coverage>=3.6; extra == "dev"
 # django-stubs-ext==6.0.9; extra == "dev"
 # django-stubs==6.0.9; extra == "dev"
@@ -41,12 +41,12 @@ DISTNAME=		social_auth_app_django-${PORTVERSION}.dist-info
 # pyright==1.1.414; extra == "dev"
 # tox; extra == "dev"
 
-[PY313].USES_ON=			python:v13,wheel
-[PY313].RUN_DEPENDS_ON=			python-asgiref:single:v13
-					python-Django:single:v13
-					python-social-auth-core:single:v13
 [PY314].USES_ON=			python:v14,wheel
 [PY314].RUN_DEPENDS_ON=			python-asgiref:single:v14
 					python-Django:single:v14
 					python-social-auth-core:single:v14
+[PY315].USES_ON=			python:v15,wheel
+[PY315].RUN_DEPENDS_ON=			python-asgiref:single:v15
+					python-Django:single:v15
+					python-social-auth-core:single:v15
 

@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	2.2
 NAMEBASE=		python-python-stdnum
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v13 v14
-SDESC[v13]=		Handles standardized numbers and codes (3.13)
+VARIANTS=		v14 v15
 SDESC[v14]=		Handles standardized numbers and codes (3.14)
+SDESC[v15]=		Handles standardized numbers and codes (3.15)
 HOMEPAGE=		https://arthurdejong.org/python-stdnum/
 CONTACT=		Python_Automaton[python@ravenports.com]
 
@@ -15,13 +15,13 @@ SITES[main]=		PYPIWHL/2f/61/aa32d9c79f83a2fae033cd6496fb2a24aba918d31c73704271df
 DISTFILE[1]=		python_stdnum-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
-SPKGS[v13]=		single
 SPKGS[v14]=		single
+SPKGS[v15]=		single
 
-OPTIONS_AVAILABLE=	PY313 PY314
+OPTIONS_AVAILABLE=	PY314 PY315
 OPTIONS_STANDARD=	none
-VOPTS[v13]=		PY313=ON PY314=OFF
-VOPTS[v14]=		PY313=OFF PY314=ON
+VOPTS[v14]=		PY314=ON PY315=OFF
+VOPTS[v15]=		PY314=OFF PY315=ON
 
 # License listed at PyPI
 # LGPL
@@ -32,6 +32,6 @@ DISTNAME=		python_stdnum-${PORTVERSION}.dist-info
 # Requires-Dist extracted from wheel metadata
 # zeep; extra == "soap"
 
-[PY313].USES_ON=			python:v13,wheel
 [PY314].USES_ON=			python:v14,wheel
+[PY315].USES_ON=			python:v15,wheel
 

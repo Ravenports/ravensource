@@ -1,36 +1,37 @@
-# Manually maintained since pypi stopped updating
 DEF[PORTVERSION]=	1.2.10
-DEF[TAG]=		${PORTVERSION}
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-rubymarshal
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v13 v14
-SDESC[v13]=		Read and write Ruby-marshalled data (3.13)
+VARIANTS=		v14 v15
 SDESC[v14]=		Read and write Ruby-marshalled data (3.14)
-HOMEPAGE=		https://github.com/d9pouces/RubyMarshal
+SDESC[v15]=		Read and write Ruby-marshalled data (3.15)
+HOMEPAGE=		https://pypi.org/project/rubymarshal/
 CONTACT=		Python_Automaton[python@ravenports.com]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GITHUB/d9pouces:RubyMarshal:${TAG}
-DISTFILE[1]=		generated:main
+SITES[main]=		PYPIWHL/7c/c2/a52d6d66a878d16e6cfa8f89ba0395540decf37e0e81fa2d7e1a80e6fb3b
+DISTFILE[1]=		rubymarshal-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
-SPKGS[v13]=		single
 SPKGS[v14]=		single
+SPKGS[v15]=		single
 
-OPTIONS_AVAILABLE=	PY313 PY314
+OPTIONS_AVAILABLE=	PY314 PY315
 OPTIONS_STANDARD=	none
-VOPTS[v13]=		PY313=ON PY314=OFF
-VOPTS[v14]=		PY313=OFF PY314=ON
+VOPTS[v14]=		PY314=ON PY315=OFF
+VOPTS[v15]=		PY314=OFF PY315=ON
 
 # License listed at PyPI
-# WTFPL
+# Not provided.
 
 GENERATED=		yes
+DISTNAME=		rubymarshal-${PORTVERSION}.dist-info
 
-# install_requires extracted from setup.py
+# Requires-Dist extracted from wheel metadata
 
-[PY313].USES_ON=			python:v13,sutools
-[PY314].USES_ON=			python:v14,sutools
+
+[PY314].USES_ON=			python:v14,wheel
+[PY315].USES_ON=			python:v15,wheel
+

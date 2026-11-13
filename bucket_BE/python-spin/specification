@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.19
 NAMEBASE=		python-spin
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v13 v14
-SDESC[v13]=		Developer tool for scientific libraries (3.13)
+VARIANTS=		v14 v15
 SDESC[v14]=		Developer tool for scientific libraries (3.14)
+SDESC[v15]=		Developer tool for scientific libraries (3.15)
 HOMEPAGE=		https://github.com/scientific-python/spin
 CONTACT=		Python_Automaton[python@ravenports.com]
 
@@ -15,13 +15,13 @@ SITES[main]=		PYPIWHL/79/25/892cfe2b68ecc8c805c910ffe362c14ca2b1b783a832dc5a3063
 DISTFILE[1]=		spin-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
-SPKGS[v13]=		single
 SPKGS[v14]=		single
+SPKGS[v15]=		single
 
-OPTIONS_AVAILABLE=	PY313 PY314
+OPTIONS_AVAILABLE=	PY314 PY315
 OPTIONS_STANDARD=	none
-VOPTS[v13]=		PY313=ON PY314=OFF
-VOPTS[v14]=		PY313=OFF PY314=ON
+VOPTS[v14]=		PY314=ON PY315=OFF
+VOPTS[v15]=		PY314=OFF PY315=ON
 
 # License listed at PyPI
 # Not provided.
@@ -37,10 +37,10 @@ DISTNAME=		spin-${PORTVERSION}.dist-info
 # pre-commit==4.6.2; extra == "lint"
 # changelist==0.5; extra == "dev"
 
-[PY313].USES_ON=			python:v13,wheel
-[PY313].RUN_DEPENDS_ON=			python-click:single:v13
-					python-importlib-metadata:single:v13
 [PY314].USES_ON=			python:v14,wheel
 [PY314].RUN_DEPENDS_ON=			python-click:single:v14
 					python-importlib-metadata:single:v14
+[PY315].USES_ON=			python:v15,wheel
+[PY315].RUN_DEPENDS_ON=			python-click:single:v15
+					python-importlib-metadata:single:v15
 

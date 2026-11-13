@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	9.8.1
 NAMEBASE=		python-mkdocs-material
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v13 v14
-SDESC[v13]=		Documentation that simply works (3.13)
+VARIANTS=		v14 v15
 SDESC[v14]=		Documentation that simply works (3.14)
+SDESC[v15]=		Documentation that simply works (3.15)
 HOMEPAGE=		https://github.com/squidfunk/mkdocs-material
 CONTACT=		Python_Automaton[python@ravenports.com]
 
@@ -15,13 +15,13 @@ SITES[main]=		PYPIWHL/70/05/a4011d6a6af86cd03059a5b165cd69a3695ef4bd7bd477c66bef
 DISTFILE[1]=		mkdocs_material-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
-SPKGS[v13]=		single
 SPKGS[v14]=		single
+SPKGS[v15]=		single
 
-OPTIONS_AVAILABLE=	PY313 PY314
+OPTIONS_AVAILABLE=	PY314 PY315
 OPTIONS_STANDARD=	none
-VOPTS[v13]=		PY313=ON PY314=OFF
-VOPTS[v14]=		PY313=OFF PY314=ON
+VOPTS[v14]=		PY314=ON PY315=OFF
+VOPTS[v15]=		PY314=OFF PY315=ON
 
 # License listed at PyPI
 # Not provided.
@@ -48,18 +48,6 @@ DISTNAME=		mkdocs_material-${PORTVERSION}.dist-info
 # pillow>=13.0.0; extra == 'imaging'
 # mkdocs-minify-plugin>=0.7; extra == 'recommended'
 
-[PY313].USES_ON=			python:v13,wheel
-[PY313].RUN_DEPENDS_ON=			python-babel:single:v13
-					python-backrefs:single:v13
-					python-colorama:single:v13
-					python-Jinja2:single:v13
-					python-Markdown:single:v13
-					python-mkdocs-material-extensions:single:v13
-					python-mkdocs:single:v13
-					python-paginate:single:v13
-					python-Pygments:single:v13
-					python-pymdown-extensions:single:v13
-					python-requests:single:v13
 [PY314].USES_ON=			python:v14,wheel
 [PY314].RUN_DEPENDS_ON=			python-babel:single:v14
 					python-backrefs:single:v14
@@ -72,4 +60,16 @@ DISTNAME=		mkdocs_material-${PORTVERSION}.dist-info
 					python-Pygments:single:v14
 					python-pymdown-extensions:single:v14
 					python-requests:single:v14
+[PY315].USES_ON=			python:v15,wheel
+[PY315].RUN_DEPENDS_ON=			python-babel:single:v15
+					python-backrefs:single:v15
+					python-colorama:single:v15
+					python-Jinja2:single:v15
+					python-Markdown:single:v15
+					python-mkdocs-material-extensions:single:v15
+					python-mkdocs:single:v15
+					python-paginate:single:v15
+					python-Pygments:single:v15
+					python-pymdown-extensions:single:v15
+					python-requests:single:v15
 

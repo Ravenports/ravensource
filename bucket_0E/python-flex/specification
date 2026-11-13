@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	6.14.1
 NAMEBASE=		python-flex
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v13 v14
-SDESC[v13]=		Swagger Schema validation (3.13)
+VARIANTS=		v14 v15
 SDESC[v14]=		Swagger Schema validation (3.14)
+SDESC[v15]=		Swagger Schema validation (3.15)
 HOMEPAGE=		https://github.com/pipermerriam/flex
 CONTACT=		Python_Automaton[python@ravenports.com]
 
@@ -15,13 +15,13 @@ SITES[main]=		PYPI/f/flex
 DISTFILE[1]=		flex-${PORTVERSION}.tar.gz:main
 DIST_SUBDIR=		python-src
 
-SPKGS[v13]=		single
 SPKGS[v14]=		single
+SPKGS[v15]=		single
 
-OPTIONS_AVAILABLE=	PY313 PY314
+OPTIONS_AVAILABLE=	PY314 PY315
 OPTIONS_STANDARD=	none
-VOPTS[v13]=		PY313=ON PY314=OFF
-VOPTS[v14]=		PY313=OFF PY314=ON
+VOPTS[v14]=		PY314=ON PY315=OFF
+VOPTS[v15]=		PY314=OFF PY315=ON
 
 # License listed at PyPI
 # BSD
@@ -39,15 +39,6 @@ DISTNAME=		flex-${PORTVERSION}
 # click>=3.3
 # jsonpointer>=1.7
 
-[PY313].USES_ON=			python:v13,sutools
-[PY313].BUILDRUN_DEPENDS_ON=		python-six:single:v13
-					python-PyYAML:single:v13
-					python-validate_email:single:v13
-					python-rfc3987:single:v13
-					python-requests:single:v13
-					python-strict-rfc3339:single:v13
-					python-click:single:v13
-					python-jsonpointer:single:v13
 [PY314].USES_ON=			python:v14,sutools
 [PY314].BUILDRUN_DEPENDS_ON=		python-six:single:v14
 					python-PyYAML:single:v14
@@ -57,4 +48,13 @@ DISTNAME=		flex-${PORTVERSION}
 					python-strict-rfc3339:single:v14
 					python-click:single:v14
 					python-jsonpointer:single:v14
+[PY315].USES_ON=			python:v15,sutools
+[PY315].BUILDRUN_DEPENDS_ON=		python-six:single:v15
+					python-PyYAML:single:v15
+					python-validate_email:single:v15
+					python-rfc3987:single:v15
+					python-requests:single:v15
+					python-strict-rfc3339:single:v15
+					python-click:single:v15
+					python-jsonpointer:single:v15
 

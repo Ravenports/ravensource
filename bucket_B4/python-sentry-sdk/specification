@@ -1,27 +1,27 @@
-DEF[PORTVERSION]=	2.74.0
+DEF[PORTVERSION]=	2.75.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-sentry-sdk
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v13 v14
-SDESC[v13]=		Sentry client (3.13)
+VARIANTS=		v14 v15
 SDESC[v14]=		Sentry client (3.14)
+SDESC[v15]=		Sentry client (3.15)
 HOMEPAGE=		https://github.com/getsentry/sentry-python
 CONTACT=		Python_Automaton[python@ravenports.com]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/55/b1/736d4b4b308694b0071844a533522ac06669ad61751687b94edfbf863f17
+SITES[main]=		PYPIWHL/ec/ee/fbfe67386d64a7218013c8346b88b89d72f279b4ddb434ed5e94bea3d389
 DISTFILE[1]=		sentry_sdk-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
-SPKGS[v13]=		single
 SPKGS[v14]=		single
+SPKGS[v15]=		single
 
-OPTIONS_AVAILABLE=	PY313 PY314
+OPTIONS_AVAILABLE=	PY314 PY315
 OPTIONS_STANDARD=	none
-VOPTS[v13]=		PY313=ON PY314=OFF
-VOPTS[v14]=		PY313=OFF PY314=ON
+VOPTS[v14]=		PY314=ON PY315=OFF
+VOPTS[v15]=		PY314=OFF PY315=ON
 
 # License listed at PyPI
 # Not provided.
@@ -86,10 +86,10 @@ DISTNAME=		sentry_sdk-${PORTVERSION}.dist-info
 # UnleashClient>=6.0.1; extra == "unleash"
 # google-genai>=1.29.0; extra == "google-genai"
 
-[PY313].USES_ON=			python:v13,wheel
-[PY313].RUN_DEPENDS_ON=			python-urllib3:single:v13
-					python-certifi:single:v13
 [PY314].USES_ON=			python:v14,wheel
 [PY314].RUN_DEPENDS_ON=			python-urllib3:single:v14
 					python-certifi:single:v14
+[PY315].USES_ON=			python:v15,wheel
+[PY315].RUN_DEPENDS_ON=			python-urllib3:single:v15
+					python-certifi:single:v15
 

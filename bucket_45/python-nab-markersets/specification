@@ -1,27 +1,27 @@
-DEF[PORTVERSION]=	0.0.28
+DEF[PORTVERSION]=	0.0.29
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-nab-markersets
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v13 v14
-SDESC[v13]=		PEP 508 marker algebra (3.13)
+VARIANTS=		v14 v15
 SDESC[v14]=		PEP 508 marker algebra (3.14)
+SDESC[v15]=		PEP 508 marker algebra (3.15)
 HOMEPAGE=		https://github.com/notatallshaw/nab
 CONTACT=		Python_Automaton[python@ravenports.com]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/6d/b2/44decf52f1877731c2a611134199bc25cde2ec37d33a348cccfb76e2fe5d
+SITES[main]=		PYPIWHL/24/0c/006d10659a96a86788b80f9434fa21cf7e50293fa577d6f8b542190f255d
 DISTFILE[1]=		nab_markersets-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
-SPKGS[v13]=		single
 SPKGS[v14]=		single
+SPKGS[v15]=		single
 
-OPTIONS_AVAILABLE=	PY313 PY314
+OPTIONS_AVAILABLE=	PY314 PY315
 OPTIONS_STANDARD=	none
-VOPTS[v13]=		PY313=ON PY314=OFF
-VOPTS[v14]=		PY313=OFF PY314=ON
+VOPTS[v14]=		PY314=ON PY315=OFF
+VOPTS[v15]=		PY314=OFF PY315=ON
 
 # License listed at PyPI
 # Not provided.
@@ -30,12 +30,12 @@ GENERATED=		yes
 DISTNAME=		nab_markersets-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# nab-resolver==0.0.28
-# nab-provider==0.0.28; extra == 'nab-vendored-packaging'
+# nab-resolver==0.0.29
+# nab-provider==0.0.29; extra == 'nab-vendored-packaging'
 # packaging>=26.3; extra == 'packaging'
 
-[PY313].USES_ON=			python:v13,wheel
-[PY313].RUN_DEPENDS_ON=			python-nab-resolver:single:v13
 [PY314].USES_ON=			python:v14,wheel
 [PY314].RUN_DEPENDS_ON=			python-nab-resolver:single:v14
+[PY315].USES_ON=			python:v15,wheel
+[PY315].RUN_DEPENDS_ON=			python-nab-resolver:single:v15
 

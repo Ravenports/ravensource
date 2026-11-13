@@ -1,27 +1,27 @@
-DEF[PORTVERSION]=	1.44.1
+DEF[PORTVERSION]=	1.44.2
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-botocore
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v13 v14
-SDESC[v13]=		Low-level, data-driven core of boto 3 (3.13)
+VARIANTS=		v14 v15
 SDESC[v14]=		Low-level, data-driven core of boto 3 (3.14)
+SDESC[v15]=		Low-level, data-driven core of boto 3 (3.15)
 HOMEPAGE=		https://github.com/boto/botocore
 CONTACT=		Python_Automaton[python@ravenports.com]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/4d/45/ea4a91a51d6cafd6a7f7b0b8b88767c6d7054dc588ffcb7d1e11e9402e69
+SITES[main]=		PYPIWHL/ee/de/c9df76a63d82203a335b2ab02e5a976758747c9a5960b096dbc00c22f8eb
 DISTFILE[1]=		botocore-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
-SPKGS[v13]=		single
 SPKGS[v14]=		single
+SPKGS[v15]=		single
 
-OPTIONS_AVAILABLE=	PY313 PY314
+OPTIONS_AVAILABLE=	PY314 PY315
 OPTIONS_STANDARD=	none
-VOPTS[v13]=		PY313=ON PY314=OFF
-VOPTS[v14]=		PY313=OFF PY314=ON
+VOPTS[v14]=		PY314=ON PY315=OFF
+VOPTS[v15]=		PY314=OFF PY315=ON
 
 # License listed at PyPI
 # Apache-2.0
@@ -35,12 +35,12 @@ DISTNAME=		botocore-${PORTVERSION}.dist-info
 # urllib3 (!=2.2.0,<3,>=1.25.4)
 # awscrt (==0.38.0) ; extra == 'crt'
 
-[PY313].USES_ON=			python:v13,wheel
-[PY313].RUN_DEPENDS_ON=			python-jmespath:single:v13
-					python-python-dateutil:single:v13
-					python-urllib3:single:v13
 [PY314].USES_ON=			python:v14,wheel
 [PY314].RUN_DEPENDS_ON=			python-jmespath:single:v14
 					python-python-dateutil:single:v14
 					python-urllib3:single:v14
+[PY315].USES_ON=			python:v15,wheel
+[PY315].RUN_DEPENDS_ON=			python-jmespath:single:v15
+					python-python-dateutil:single:v15
+					python-urllib3:single:v15
 

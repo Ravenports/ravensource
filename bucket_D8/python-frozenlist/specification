@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	1.8.0
 NAMEBASE=		python-frozenlist
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v13 v14
-SDESC[v13]=		Mutable lists until Freeze set (3.13)
+VARIANTS=		v14 v15
 SDESC[v14]=		Mutable lists until Freeze set (3.14)
+SDESC[v15]=		Mutable lists until Freeze set (3.15)
 HOMEPAGE=		https://github.com/aio-libs/frozenlist
 CONTACT=		Python_Automaton[python@ravenports.com]
 
@@ -15,13 +15,13 @@ SITES[main]=		PYPIWHL/9a/9a/e35b4a917281c0b8419d4207f4334c8e8c5dbf4f3f5f9ada7395
 DISTFILE[1]=		frozenlist-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
-SPKGS[v13]=		single
 SPKGS[v14]=		single
+SPKGS[v15]=		single
 
-OPTIONS_AVAILABLE=	PY313 PY314
+OPTIONS_AVAILABLE=	PY314 PY315
 OPTIONS_STANDARD=	none
-VOPTS[v13]=		PY313=ON PY314=OFF
-VOPTS[v14]=		PY313=OFF PY314=ON
+VOPTS[v14]=		PY314=ON PY315=OFF
+VOPTS[v15]=		PY314=OFF PY315=ON
 
 # License listed at PyPI
 # Apache-2.0
@@ -32,6 +32,6 @@ DISTNAME=		frozenlist-${PORTVERSION}.dist-info
 # Requires-Dist extracted from wheel metadata
 
 
-[PY313].USES_ON=			python:v13,wheel
 [PY314].USES_ON=			python:v14,wheel
+[PY315].USES_ON=			python:v15,wheel
 

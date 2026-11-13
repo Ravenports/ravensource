@@ -1,27 +1,27 @@
-DEF[PORTVERSION]=	1.44.1
+DEF[PORTVERSION]=	1.44.2
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-boto3
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v13 v14
-SDESC[v13]=		AWS SDK for Python (Boto3) (3.13)
+VARIANTS=		v14 v15
 SDESC[v14]=		AWS SDK for Python (Boto3) (3.14)
+SDESC[v15]=		AWS SDK for Python (Boto3) (3.15)
 HOMEPAGE=		https://github.com/boto/boto3
 CONTACT=		Python_Automaton[python@ravenports.com]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/36/5a/8af6cf092d9212091b8fc9bbf559bd04916094883a3c79a2464e715a1adf
+SITES[main]=		PYPIWHL/72/ac/d6fb4b50f688b106a9be682d5146829d717bddafef04b061b6ef43d1a859
 DISTFILE[1]=		boto3-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
-SPKGS[v13]=		single
 SPKGS[v14]=		single
+SPKGS[v15]=		single
 
-OPTIONS_AVAILABLE=	PY313 PY314
+OPTIONS_AVAILABLE=	PY314 PY315
 OPTIONS_STANDARD=	none
-VOPTS[v13]=		PY313=ON PY314=OFF
-VOPTS[v14]=		PY313=OFF PY314=ON
+VOPTS[v14]=		PY314=ON PY315=OFF
+VOPTS[v15]=		PY314=OFF PY315=ON
 
 # License listed at PyPI
 # Apache-2.0
@@ -30,17 +30,17 @@ GENERATED=		yes
 DISTNAME=		boto3-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# botocore (<1.45.0,>=1.44.1)
+# botocore (<1.45.0,>=1.44.2)
 # jmespath (<2.0.0,>=0.7.1)
 # s3transfer (<0.20.0,>=0.19.0)
 # botocore[crt] (<2.0a0,>=1.21.0) ; extra == 'crt'
 
-[PY313].USES_ON=			python:v13,wheel
-[PY313].RUN_DEPENDS_ON=			python-botocore:single:v13
-					python-jmespath:single:v13
-					python-s3transfer:single:v13
 [PY314].USES_ON=			python:v14,wheel
 [PY314].RUN_DEPENDS_ON=			python-botocore:single:v14
 					python-jmespath:single:v14
 					python-s3transfer:single:v14
+[PY315].USES_ON=			python:v15,wheel
+[PY315].RUN_DEPENDS_ON=			python-botocore:single:v15
+					python-jmespath:single:v15
+					python-s3transfer:single:v15
 

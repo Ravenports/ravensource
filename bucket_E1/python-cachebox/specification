@@ -4,8 +4,8 @@ DEF[PORTVERSION]=	6.2.10
 NAMEBASE=		python-cachebox
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v13 v14
-SDESC[v13]=		Memoizing and caching library (3.13)
+VARIANTS=		v15 v14
+SDESC[v15]=		Memoizing and caching library (3.15)
 SDESC[v14]=		Memoizing and caching library (3.14)
 HOMEPAGE=		https://github.com/awolverp/cachebox
 CONTACT=		Python_Automaton[python@ravenports.com]
@@ -134,13 +134,13 @@ DF_INDEX=		1 2 3 4 5 6 7 8 9 10
 			41 42 43 44 45 46 47 48 49 50
 			51 52 53 54 55
 
-SPKGS[v13]=		single
+SPKGS[v15]=		single
 SPKGS[v14]=		single
 
-OPTIONS_AVAILABLE=	PY313 PY314
+OPTIONS_AVAILABLE=	PY315 PY314
 OPTIONS_STANDARD=	none
-VOPTS[v13]=		PY313=ON PY314=OFF
-VOPTS[v14]=		PY313=OFF PY314=ON
+VOPTS[v15]=		PY315=ON PY314=OFF
+VOPTS[v14]=		PY315=OFF PY314=ON
 
 # License listed at PyPI
 # MIT
@@ -151,8 +151,8 @@ DISTNAME=		cachebox-${PORTVERSION}
 # Requires-Dist extracted from pyproject.toml file
 # build: maturin>=1.8,<2.0
 
-[PY313].USES_ON=			python:v13,pep517
-[PY313].BUILD_DEPENDS_ON=		python-maturin:single:v13
+[PY315].USES_ON=			python:v15,pep517
+[PY315].BUILD_DEPENDS_ON=		python-maturin:single:v15
 [PY314].USES_ON=			python:v14,pep517
 [PY314].BUILD_DEPENDS_ON=		python-maturin:single:v14
 

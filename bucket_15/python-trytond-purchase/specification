@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	8.2.0
 NAMEBASE=		python-trytond-purchase
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v13 v14
-SDESC[v13]=		Purchases for Tryton (3.13)
+VARIANTS=		v14 v15
 SDESC[v14]=		Purchases for Tryton (3.14)
+SDESC[v15]=		Purchases for Tryton (3.15)
 HOMEPAGE=		https://www.tryton.org/
 CONTACT=		Python_Automaton[python@ravenports.com]
 
@@ -15,13 +15,13 @@ SITES[main]=		PYPIWHL/fc/eb/ddbd73599b5a3be57ca67b0a8487c4cb7a455071aa47da85df4a
 DISTFILE[1]=		trytond_purchase-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
-SPKGS[v13]=		single
 SPKGS[v14]=		single
+SPKGS[v15]=		single
 
-OPTIONS_AVAILABLE=	PY313 PY314
+OPTIONS_AVAILABLE=	PY314 PY315
 OPTIONS_STANDARD=	none
-VOPTS[v13]=		PY313=ON PY314=OFF
-VOPTS[v14]=		PY313=OFF PY314=ON
+VOPTS[v14]=		PY314=ON PY315=OFF
+VOPTS[v15]=		PY314=OFF PY315=ON
 
 # License listed at PyPI
 # Not provided.
@@ -44,19 +44,6 @@ DISTNAME=		trytond_purchase-${PORTVERSION}.dist-info
 # trytond<8.3,>=8.2
 # proteus<8.3,>=8.2; extra == 'test'
 
-[PY313].USES_ON=			python:v13,wheel
-[PY313].RUN_DEPENDS_ON=			python-python-dateutil:single:v13
-					python-python-sql:single:v13
-					python-trytond-account-invoice-stock:single:v13
-					python-trytond-account-invoice:single:v13
-					python-trytond-account-product:single:v13
-					python-trytond-account:single:v13
-					python-trytond-company:single:v13
-					python-trytond-currency:single:v13
-					python-trytond-party:single:v13
-					python-trytond-product:single:v13
-					python-trytond-stock:single:v13
-					python-trytond:single:v13
 [PY314].USES_ON=			python:v14,wheel
 [PY314].RUN_DEPENDS_ON=			python-python-dateutil:single:v14
 					python-python-sql:single:v14
@@ -70,4 +57,17 @@ DISTNAME=		trytond_purchase-${PORTVERSION}.dist-info
 					python-trytond-product:single:v14
 					python-trytond-stock:single:v14
 					python-trytond:single:v14
+[PY315].USES_ON=			python:v15,wheel
+[PY315].RUN_DEPENDS_ON=			python-python-dateutil:single:v15
+					python-python-sql:single:v15
+					python-trytond-account-invoice-stock:single:v15
+					python-trytond-account-invoice:single:v15
+					python-trytond-account-product:single:v15
+					python-trytond-account:single:v15
+					python-trytond-company:single:v15
+					python-trytond-currency:single:v15
+					python-trytond-party:single:v15
+					python-trytond-product:single:v15
+					python-trytond-stock:single:v15
+					python-trytond:single:v15
 

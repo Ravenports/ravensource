@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	2.8.3
 NAMEBASE=		python-junos-eznc
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v13 v14
-SDESC[v13]=		Junos 'EZ' automation for non-programmers (3.13)
+VARIANTS=		v14 v15
 SDESC[v14]=		Junos 'EZ' automation for non-programmers (3.14)
+SDESC[v15]=		Junos 'EZ' automation for non-programmers (3.15)
 HOMEPAGE=		https://www.github.com/Juniper/py-junos-eznc
 CONTACT=		Python_Automaton[python@ravenports.com]
 
@@ -15,13 +15,13 @@ SITES[main]=		PYPIWHL/10/47/dd428f4306c29af4685de5f238ae5a4695ef24e0eda1a1db0af8
 DISTFILE[1]=		junos_eznc-${PORTVERSION}-py2.py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
-SPKGS[v13]=		single
 SPKGS[v14]=		single
+SPKGS[v15]=		single
 
-OPTIONS_AVAILABLE=	PY313 PY314
+OPTIONS_AVAILABLE=	PY314 PY315
 OPTIONS_STANDARD=	none
-VOPTS[v13]=		PY313=ON PY314=OFF
-VOPTS[v14]=		PY313=OFF PY314=ON
+VOPTS[v14]=		PY314=ON PY315=OFF
+VOPTS[v15]=		PY314=OFF PY315=ON
 
 # License listed at PyPI
 # Apache 2.0
@@ -42,18 +42,6 @@ DISTNAME=		junos_eznc-${PORTVERSION}.dist-info
 # pyparsing
 # transitions
 
-[PY313].USES_ON=			python:v13,wheel
-[PY313].RUN_DEPENDS_ON=			python-lxml:single:v13
-					python-ncclient:single:v13
-					python-scp:single:v13
-					python-Jinja2:single:v13
-					python-PyYAML:single:v13
-					python-paramiko:single:v13
-					python-six:single:v13
-					python-pyserial:single:v13
-					python-yamlloader:single:v13
-					python-pyparsing:single:v13
-					python-transitions:single:v13
 [PY314].USES_ON=			python:v14,wheel
 [PY314].RUN_DEPENDS_ON=			python-lxml:single:v14
 					python-ncclient:single:v14
@@ -66,4 +54,16 @@ DISTNAME=		junos_eznc-${PORTVERSION}.dist-info
 					python-yamlloader:single:v14
 					python-pyparsing:single:v14
 					python-transitions:single:v14
+[PY315].USES_ON=			python:v15,wheel
+[PY315].RUN_DEPENDS_ON=			python-lxml:single:v15
+					python-ncclient:single:v15
+					python-scp:single:v15
+					python-Jinja2:single:v15
+					python-PyYAML:single:v15
+					python-paramiko:single:v15
+					python-six:single:v15
+					python-pyserial:single:v15
+					python-yamlloader:single:v15
+					python-pyparsing:single:v15
+					python-transitions:single:v15
 

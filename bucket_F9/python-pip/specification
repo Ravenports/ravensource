@@ -6,28 +6,28 @@
 # pip 25.2 from /raven/lib/python3.11/site-packages/pip (python 3.13)
 # pip 25.2 from /raven/lib/python3.11/site-packages/pip (python 3.14)
 #
-DEF[PORTVERSION]=	EXTRACT_VERSION(PIP_3.14_VERSION)
+DEF[PORTVERSION]=	EXTRACT_VERSION(PIP_3.15_VERSION)
 DEF[EXMTREE]=		/etc/mtree.preconfig.exclude
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-pip
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v13 v14
-SDESC[v13]=		Tool for installing python packages (3.13)
+VARIANTS=		v15 v14
+SDESC[v15]=		Tool for installing python packages (3.15)
 SDESC[v14]=		Tool for installing python packages (3.14)
 HOMEPAGE=		https://pip.pypa.io/
 CONTACT=		Python_Automaton[python@ravenports.com]
 
 DOWNLOAD_GROUPS=	none
 
-SPKGS[v13]=		single
+SPKGS[v15]=		single
 SPKGS[v14]=		single
 
-OPTIONS_AVAILABLE=	PY313 PY314
+OPTIONS_AVAILABLE=	PY315 PY314
 OPTIONS_STANDARD=	none
-VOPTS[v13]=		PY313=ON PY314=OFF
-VOPTS[v14]=		PY313=OFF PY314=ON
+VOPTS[v15]=		PY315=ON PY314=OFF
+VOPTS[v14]=		PY315=OFF PY314=ON
 
 # License listed at PyPI
 # MIT
@@ -40,8 +40,8 @@ USES=			cpe
 CPE_VENDOR=		pypa
 CPE_PRODUCT=		pip
 
-[PY313].USES_ON=			python:v13
-[PY313].MAKEFILE_ON=			POST_PLIST_TARGET+=setuptools-autolist
+[PY315].USES_ON=			python:v15
+[PY315].MAKEFILE_ON=			POST_PLIST_TARGET+=setuptools-autolist
 [PY314].USES_ON=			python:v14
 [PY314].MAKEFILE_ON=			POST_PLIST_TARGET+=setuptools-autolist
 

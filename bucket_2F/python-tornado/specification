@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	6.6.1
 NAMEBASE=		python-tornado
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v13 v14
-SDESC[v13]=		Web framework and asynchronous networking (3.13)
+VARIANTS=		v14 v15
 SDESC[v14]=		Web framework and asynchronous networking (3.14)
+SDESC[v15]=		Web framework and asynchronous networking (3.15)
 HOMEPAGE=		http://www.tornadoweb.org/
 CONTACT=		Python_Automaton[python@ravenports.com]
 
@@ -15,13 +15,13 @@ SITES[main]=		PYPI/t/tornado
 DISTFILE[1]=		tornado-${PORTVERSION}.tar.gz:main
 DIST_SUBDIR=		python-src
 
-SPKGS[v13]=		single
 SPKGS[v14]=		single
+SPKGS[v15]=		single
 
-OPTIONS_AVAILABLE=	PY313 PY314
+OPTIONS_AVAILABLE=	PY314 PY315
 OPTIONS_STANDARD=	none
-VOPTS[v13]=		PY313=ON PY314=OFF
-VOPTS[v14]=		PY313=OFF PY314=ON
+VOPTS[v14]=		PY314=ON PY315=OFF
+VOPTS[v15]=		PY314=OFF PY315=ON
 
 # License listed at PyPI
 # Apache-2.0
@@ -32,8 +32,8 @@ DISTNAME=		tornado-${PORTVERSION}
 # Requires-Dist extracted from pyproject.toml file
 
 
-[PY313].USES_ON=			python:v13,pep517
 [PY314].USES_ON=			python:v14,pep517
+[PY315].USES_ON=			python:v15,pep517
 
 USES=			cpe
 CPE_VENDOR=		tornadoweb

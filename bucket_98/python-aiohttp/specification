@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	3.14.5
 NAMEBASE=		python-aiohttp
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v13 v14
-SDESC[v13]=		Async http client/server framework (3.13)
+VARIANTS=		v14 v15
 SDESC[v14]=		Async http client/server framework (3.14)
+SDESC[v15]=		Async http client/server framework (3.15)
 HOMEPAGE=		https://github.com/aio-libs/aiohttp
 CONTACT=		Python_Automaton[python@ravenports.com]
 
@@ -15,13 +15,13 @@ SITES[main]=		PYPIWHL/68/30/173960c42b05a6c59f7558e4b12a4b0d9ba376cf6aa9bde7f9e0
 DISTFILE[1]=		aiohttp-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
-SPKGS[v13]=		single
 SPKGS[v14]=		single
+SPKGS[v15]=		single
 
-OPTIONS_AVAILABLE=	PY313 PY314
+OPTIONS_AVAILABLE=	PY314 PY315
 OPTIONS_STANDARD=	none
-VOPTS[v13]=		PY313=ON PY314=OFF
-VOPTS[v14]=		PY313=OFF PY314=ON
+VOPTS[v14]=		PY314=ON PY315=OFF
+VOPTS[v15]=		PY314=OFF PY315=ON
 
 # License listed at PyPI
 # Not provided.
@@ -44,14 +44,6 @@ DISTNAME=		aiohttp-${PORTVERSION}.dist-info
 # brotlicffi>=1.2; platform_python_implementation != "CPython" and extra == "speedups"
 # backports.zstd; (platform_python_implementation == "CPython" and python_version < "3.14" and sys_platform != "android" and sys_platform != "ios") and extra == "speedups"
 
-[PY313].USES_ON=			python:v13,wheel
-[PY313].RUN_DEPENDS_ON=			python-aiohappyeyeballs:single:v13
-					python-aiosignal:single:v13
-					python-attrs:single:v13
-					python-frozenlist:single:v13
-					python-multidict:single:v13
-					python-propcache:single:v13
-					python-yarl:single:v13
 [PY314].USES_ON=			python:v14,wheel
 [PY314].RUN_DEPENDS_ON=			python-aiohappyeyeballs:single:v14
 					python-aiosignal:single:v14
@@ -60,6 +52,14 @@ DISTNAME=		aiohttp-${PORTVERSION}.dist-info
 					python-multidict:single:v14
 					python-propcache:single:v14
 					python-yarl:single:v14
+[PY315].USES_ON=			python:v15,wheel
+[PY315].RUN_DEPENDS_ON=			python-aiohappyeyeballs:single:v15
+					python-aiosignal:single:v15
+					python-attrs:single:v15
+					python-frozenlist:single:v15
+					python-multidict:single:v15
+					python-propcache:single:v15
+					python-yarl:single:v15
 
 USES=			cpe
 CPE_VENDOR=		aiohttp

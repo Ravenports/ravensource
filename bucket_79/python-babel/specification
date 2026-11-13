@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	2.18.0
 NAMEBASE=		python-babel
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v13 v14
-SDESC[v13]=		Internationalization utilities (3.13)
+VARIANTS=		v14 v15
 SDESC[v14]=		Internationalization utilities (3.14)
+SDESC[v15]=		Internationalization utilities (3.15)
 HOMEPAGE=		https://babel.pocoo.org/
 CONTACT=		Python_Automaton[python@ravenports.com]
 
@@ -15,13 +15,13 @@ SITES[main]=		PYPIWHL/77/f5/21d2de20e8b8b0408f0681956ca2c69f1320a3848ac50e6e7f39
 DISTFILE[1]=		babel-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
-SPKGS[v13]=		single
 SPKGS[v14]=		single
+SPKGS[v15]=		single
 
-OPTIONS_AVAILABLE=	PY313 PY314
+OPTIONS_AVAILABLE=	PY314 PY315
 OPTIONS_STANDARD=	none
-VOPTS[v13]=		PY313=ON PY314=OFF
-VOPTS[v14]=		PY313=OFF PY314=ON
+VOPTS[v14]=		PY314=ON PY315=OFF
+VOPTS[v15]=		PY314=OFF PY315=ON
 
 # License listed at PyPI
 # BSD-3-Clause
@@ -40,8 +40,8 @@ DISTNAME=		babel-${PORTVERSION}.dist-info
 # pytz; extra == "dev"
 # setuptools; extra == "dev"
 
-[PY313].USES_ON=			python:v13,wheel
 [PY314].USES_ON=			python:v14,wheel
+[PY315].USES_ON=			python:v15,wheel
 
 USES=			cpe
 CPE_VENDOR=		pocoo

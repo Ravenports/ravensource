@@ -4,9 +4,9 @@ DEF[PORTVERSION]=	0.19.1
 NAMEBASE=		python-ufoLib2
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v13 v14
-SDESC[v13]=		UfoLib2 is a UFO font processing library (3.13)
+VARIANTS=		v14 v15
 SDESC[v14]=		UfoLib2 is a UFO font processing library (3.14)
+SDESC[v15]=		UfoLib2 is a UFO font processing library (3.15)
 HOMEPAGE=		https://github.com/fonttools/ufoLib2
 CONTACT=		Python_Automaton[python@ravenports.com]
 
@@ -15,13 +15,13 @@ SITES[main]=		PYPIWHL/37/1f/26f79ba4d104e3588859b35566442c1945a3bb2802846ea10f5a
 DISTFILE[1]=		ufolib2-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
-SPKGS[v13]=		single
 SPKGS[v14]=		single
+SPKGS[v15]=		single
 
-OPTIONS_AVAILABLE=	PY313 PY314
+OPTIONS_AVAILABLE=	PY314 PY315
 OPTIONS_STANDARD=	none
-VOPTS[v13]=		PY313=ON PY314=OFF
-VOPTS[v14]=		PY313=OFF PY314=ON
+VOPTS[v14]=		PY314=ON PY315=OFF
+VOPTS[v15]=		PY314=OFF PY315=ON
 
 # License listed at PyPI
 # Not provided.
@@ -39,10 +39,10 @@ DISTNAME=		ufolib2-${PORTVERSION}.dist-info
 # cattrs>=25.1.1; extra == "msgpack"
 # msgpack; extra == "msgpack"
 
-[PY313].USES_ON=			python:v13,wheel
-[PY313].RUN_DEPENDS_ON=			python-attrs:single:v13
-					python-fonttools:single:v13
 [PY314].USES_ON=			python:v14,wheel
 [PY314].RUN_DEPENDS_ON=			python-attrs:single:v14
 					python-fonttools:single:v14
+[PY315].USES_ON=			python:v15,wheel
+[PY315].RUN_DEPENDS_ON=			python-attrs:single:v15
+					python-fonttools:single:v15
 

@@ -1,27 +1,27 @@
-DEF[PORTVERSION]=	7.17.2
+DEF[PORTVERSION]=	7.17.3
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-coverage
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v13 v14
-SDESC[v13]=		Code coverage measurement for Python (3.13)
+VARIANTS=		v14 v15
 SDESC[v14]=		Code coverage measurement for Python (3.14)
+SDESC[v15]=		Code coverage measurement for Python (3.15)
 HOMEPAGE=		https://github.com/coveragepy/coveragepy
 CONTACT=		Python_Automaton[python@ravenports.com]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/da/91/1805cc144497d76a436f66a21fa57492bee7ed1257826fb992f03b9b2b6f
+SITES[main]=		PYPIWHL/d1/8e/f7d7e69e2ad34ce08595b787eb578f669c00fd57d432ed4c7cfd71666f36
 DISTFILE[1]=		coverage-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
-SPKGS[v13]=		single
 SPKGS[v14]=		single
+SPKGS[v15]=		single
 
-OPTIONS_AVAILABLE=	PY313 PY314
+OPTIONS_AVAILABLE=	PY314 PY315
 OPTIONS_STANDARD=	none
-VOPTS[v13]=		PY313=ON PY314=OFF
-VOPTS[v14]=		PY313=OFF PY314=ON
+VOPTS[v14]=		PY314=ON PY315=OFF
+VOPTS[v15]=		PY314=OFF PY315=ON
 
 # License listed at PyPI
 # Apache-2.0
@@ -32,6 +32,6 @@ DISTNAME=		coverage-${PORTVERSION}.dist-info
 # Requires-Dist extracted from wheel metadata
 
 
-[PY313].USES_ON=			python:v13,wheel
 [PY314].USES_ON=			python:v14,wheel
+[PY315].USES_ON=			python:v15,wheel
 

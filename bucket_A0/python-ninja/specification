@@ -6,9 +6,9 @@ DEF[TAG]=		v${PORTVERSION}
 NAMEBASE=		python-ninja
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v14 v13
+VARIANTS=		v14 v15
 SDESC[v14]=		Small build system with a focus on speed (3.14)
-SDESC[v13]=		Small build system with a focus on speed (3.13)
+SDESC[v15]=		Small build system with a focus on speed (3.15)
 HOMEPAGE=		https://ninja-build.org/
 CONTACT=		Python_Automaton[python@ravenports.com]
 
@@ -18,12 +18,12 @@ DISTFILE[1]=		generated:main
 DIST_SUBDIR=		python-src
 
 SPKGS[v14]=		single
-SPKGS[v13]=		single
+SPKGS[v15]=		single
 
-OPTIONS_AVAILABLE=	PY314 PY313
+OPTIONS_AVAILABLE=	PY314 PY315
 OPTIONS_STANDARD=	none
-VOPTS[v14]=		PY314=ON PY313=OFF
-VOPTS[v13]=		PY314=OFF PY313=ON
+VOPTS[v14]=		PY314=ON PY315=OFF
+VOPTS[v15]=		PY314=OFF PY315=ON
 
 LICENSE=		APACHE20:single
 LICENSE_FILE=		APACHE20:{{WRKSRC}}/COPYING
@@ -40,7 +40,7 @@ CMAKE_ARGS=		-DBUILD_TESTING:BOOL=FALSE
 INSTALL_REQ_TOOLCHAIN=	yes
 
 [PY314].BUILDRUN_DEPENDS_ON=		python314:primary:std
-[PY313].BUILDRUN_DEPENDS_ON=		python313:primary:std
+[PY315].BUILDRUN_DEPENDS_ON=		python315:primary:std
 
 post-stage:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/ninja

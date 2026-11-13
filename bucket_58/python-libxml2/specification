@@ -8,8 +8,8 @@ NAMEBASE=		python-libxml2
 VERSION=		${PORTVERSION}
 REVISION=		${PORTREVISION}
 KEYWORDS=		python textproc
-VARIANTS=		v13 v14
-SDESC[v13]=		Python bindings for libxml2 (3.13)
+VARIANTS=		v15 v14
+SDESC[v15]=		Python bindings for libxml2 (3.15)
 SDESC[v14]=		Python bindings for libxml2 (3.14)
 HOMEPAGE=		http://xmlsoft.org/
 CONTACT=		nobody
@@ -19,13 +19,13 @@ SITES[main]=		GNOME/libxml2/${FOLDER}
 DISTFILE[1]=		libxml2-${PORTVERSION}.tar.xz:main
 DIST_SUBDIR=		gnome2
 
-SPKGS[v13]=		single
+SPKGS[v15]=		single
 SPKGS[v14]=		single
 
-OPTIONS_AVAILABLE=	PY313 PY314
+OPTIONS_AVAILABLE=	PY315 PY314
 OPTIONS_STANDARD=	none
-VOPTS[v13]=		PY313=ON PY314=OFF
-VOPTS[v14]=		PY313=OFF PY314=ON
+VOPTS[v15]=		PY315=ON PY314=OFF
+VOPTS[v14]=		PY315=OFF PY314=ON
 
 FPC_EQUIVALENT=		textproc/py-libxml2
 
@@ -48,8 +48,8 @@ PLIST_SUB=		LNX={{LNX}}
 
 VAR_OPSYS[linux]=	MAKEFILE_LINE=LNX=-x86_64-linux-gnu
 
-[PY313].USES_ON=			python:v13
 [PY314].USES_ON=			python:v14
+[PY315].USES_ON=			python:v15
 
 pre-build:
 	(cd ${WRKSRC}/doc && ${SETENVI} ${MAKE_ENV} ${MAKE_CMD})

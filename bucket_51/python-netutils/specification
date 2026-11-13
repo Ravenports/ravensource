@@ -4,8 +4,7 @@ DEF[PORTVERSION]=	1.19.2
 NAMEBASE=		python-netutils
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
-VARIANTS=		v13 v14
-SDESC[v13]=		Network automation helper functions (3.13)
+VARIANTS=		v14
 SDESC[v14]=		Network automation helper functions (3.14)
 HOMEPAGE=		https://netutils.readthedocs.io
 CONTACT=		Python_Automaton[python@ravenports.com]
@@ -15,13 +14,11 @@ SITES[main]=		PYPIWHL/f6/26/0ec1ec7a792e09d29b907a4ad86f3f258af3b8fb685f75621ab0
 DISTFILE[1]=		netutils-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
-SPKGS[v13]=		single
 SPKGS[v14]=		single
 
-OPTIONS_AVAILABLE=	PY313 PY314
+OPTIONS_AVAILABLE=	PY314
 OPTIONS_STANDARD=	none
-VOPTS[v13]=		PY313=ON PY314=OFF
-VOPTS[v14]=		PY313=OFF PY314=ON
+VOPTS[v14]=		PY314=ON
 
 # License listed at PyPI
 # Apache-2.0
@@ -37,6 +34,5 @@ DISTNAME=		netutils-${PORTVERSION}.dist-info
 # napalm (>=5.0.0,<6.0.0) ; (python_version >= "3.14") and (extra == "optionals")
 # rpds-py (>=0.28.0) ; extra == "optionals"
 
-[PY313].USES_ON=			python:v13,wheel
 [PY314].USES_ON=			python:v14,wheel
 

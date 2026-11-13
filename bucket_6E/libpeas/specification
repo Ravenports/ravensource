@@ -6,9 +6,9 @@ DEF[SOVERSION]=		0.200.1
 NAMEBASE=		libpeas
 VERSION=		${PORTVERSION}
 KEYWORDS=		devel
-VARIANTS=		v14 v13
+VARIANTS=		v14 v15
 SDESC[v14]=		GObject-based plugins engine (3.14)
-SDESC[v13]=		GObject-based plugins engine (3.13)
+SDESC[v15]=		GObject-based plugins engine (3.15)
 HOMEPAGE=		https://wiki.gnome.org/Projects/Libpeas
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
@@ -17,12 +17,12 @@ SITES[main]=		GNOME/libpeas/${PORTVERSION:R}/
 DISTFILE[1]=		libpeas-${PORTVERSION}.tar.xz:main
 
 SPKGS[v14]=		set primary dev python nls docs
-SPKGS[v13]=		set primary dev python nls docs
+SPKGS[v15]=		set primary dev python nls docs
 
-OPTIONS_AVAILABLE=	PY314 PY313 INTROSPECTION
+OPTIONS_AVAILABLE=	PY314 PY315 INTROSPECTION
 OPTIONS_STANDARD=	INTROSPECTION
-VOPTS[v14]=		PY314=ON PY313=OFF INTROSPECTION=OFF
-VOPTS[v13]=		PY314=OFF PY313=ON INTROSPECTION=OFF
+VOPTS[v14]=		PY314=ON PY315=OFF INTROSPECTION=OFF
+VOPTS[v15]=		PY314=OFF PY315=ON INTROSPECTION=OFF
 
 LICENSE=		LGPL21+:primary
 LICENSE_FILE=		LGPL21+:{{WRKSRC}}/COPYING
@@ -55,7 +55,7 @@ CXXFLAGS=		-DXP_UNIX
 VAR_OPSYS[sunos]=	LDFLAGS=-lintl
 
 [PY314].USES_ON=			python:v14
-[PY313].USES_ON=			python:v13
+[PY315].USES_ON=			python:v15
 
 [INTROSPECTION].DESCRIPTION=		Build documentation with introspection
 [INTROSPECTION].GNOME_COMPONENTS_ON=	introspection
