@@ -1,4 +1,4 @@
---- cmake/config.h.cmake.orig	2025-02-27 16:29:06 UTC
+--- cmake/config.h.cmake.orig	2026-11-12 16:15:25 UTC
 +++ cmake/config.h.cmake
 @@ -24,7 +24,8 @@
  # define __EXTENSIONS__
