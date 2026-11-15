@@ -62,13 +62,13 @@ battle-tested implementations
 
 ### Setup environment
 
-We use [uv] to manage the development environment and production build, and
-[just] to manage command shortcuts. Ensure they are installed on your
-system.
+Install [uv] and [just]. Use Python 3.11 or newer for Zensical and
+pre-commit.
+
+Install the development dependencies and pre-commit hooks with `just
+install`.
 
 ### Run unit tests
-
-You can run all the tests with:
 
 `bash
 just test
@@ -76,25 +76,25 @@ just test
 
 ### Format the code
 
-Execute the following command to apply linting and check typing:
+Run Ruff to format and lint the code, then check types with ty.
 
 `bash
-hatch run lint
+just lint
 `
 
-### Publish a new version
+Use `just lint-check` to run the same checks without editing files.
 
-You can bump the version, create a commit and associated tag with one
-command:
+### Publishing a release
 
-`bash
-hatch version patch
-`
-
-`bash
-hatch version minor
-`
-
-`bash
-hatch version major
-`
+1. Commit the release notes under `Unreleased` in [CHANGELOG.md].
+   From a clean release branch with Git signing configured, run `just
+version patch`,
+   `just version minor`, or `just version major`. The recipe updates the
+version,
+   changelog, and lockfile, then opens your Git editor for the signed
+commit.
+2. Preview the release notes with `just release-notes <version>`, then push
+the
+   branch and merge the release PR into `main`.
+3. With the GitHub CLI authenticated, run `just release <PR number>`. This
+signs
