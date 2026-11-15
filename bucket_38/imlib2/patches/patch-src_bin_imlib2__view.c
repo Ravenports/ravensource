@@ -1,6 +1,6 @@
 Include sys/time.h for timeval.
 
---- src/bin/imlib2_view.c.orig	2026-08-28 05:14:53 UTC
+--- src/bin/imlib2_view.c.orig	2026-11-02 16:29:21 UTC
 +++ src/bin/imlib2_view.c
 @@ -3,6 +3,7 @@
  
