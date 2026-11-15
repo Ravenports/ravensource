@@ -1,4 +1,4 @@
---- src/file/kinotify.cpp.orig	2026-03-07 20:28:47 UTC
+--- src/file/kinotify.cpp.orig	2026-11-07 15:23:20 UTC
 +++ src/file/kinotify.cpp
 @@ -28,6 +28,10 @@
  #include <cerrno>

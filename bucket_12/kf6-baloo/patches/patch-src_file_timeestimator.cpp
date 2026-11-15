@@ -1,4 +1,4 @@
---- src/file/timeestimator.cpp.orig	2026-03-07 20:28:47 UTC
+--- src/file/timeestimator.cpp.orig	2026-11-07 15:23:20 UTC
 +++ src/file/timeestimator.cpp
 @@ -24,7 +24,7 @@ uint TimeEstimator::calculateTimeLeft()
  
