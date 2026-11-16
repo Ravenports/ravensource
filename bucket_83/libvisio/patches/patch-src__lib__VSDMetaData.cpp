@@ -1,4 +1,4 @@
---- src/lib/VSDMetaData.cpp.orig	2024-10-22 15:15:20 UTC
+--- src/lib/VSDMetaData.cpp.orig	2026-09-01 10:22:32 UTC
 +++ src/lib/VSDMetaData.cpp
 @@ -313,7 +313,7 @@ bool libvisio::VSDMetaData::parseTimes(l
    uint32_t firstDirSectorLocation = readU32(input);
