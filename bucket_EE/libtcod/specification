@@ -1,7 +1,9 @@
-DEF[PORTVERSION]=	2.2.2
-DEF[SOVERSION]=		2.0.2
+DEF[PORTVERSION]=	2.3.2
+DEF[SOVERSION]=		2.3.2
 DEF[JQUERY]=		EXTRACT_INFO(LATEST_JQUERY)
 DEF[UNDERSCORE]=	EXTRACT_INFO(SPHINX_UNDERSCORE)
+DEF[STB_HASH]=		4e9b368
+DEF[PNG_HASH]=		7b2893e
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		libtcod
@@ -12,9 +14,14 @@ SDESC[std]=		Roguelike game development library
 HOMEPAGE=		https://github.com/libtcod/libtcod
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
-DOWNLOAD_GROUPS=	main
+DOWNLOAD_GROUPS=	main stb lodepng
 SITES[main]=		GITHUB/libtcod:libtcod:${PORTVERSION}
+SITES[stb]=		GITHUB/nothings:stb:${STB_HASH}
+SITES[lodepng]=		GITHUB/lvandeve:lodepng:${PNG_HASH}
 DISTFILE[1]=		generated:main
+DISTFILE[2]=		generated:stb
+DISTFILE[3]=		generated:lodepng
+DF_INDEX=		1 2 3
 
 # Drop samples, they don't build on linux (drop docs too, see below)
 SPKGS[std]=		set primary dev
@@ -23,46 +30,34 @@ OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
 LICENSE=		BSD3CLAUSE:primary
-LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/../../LICENSE.txt
+LICENSE_FILE=		BSD3CLAUSE:{{WRKSRC}}/LICENSE.txt
 LICENSE_SCHEME=		solo
 
-BUILD_DEPENDS=		python-Sphinx:single:python_used
-			python-sphinx-rtd-theme:single:python_used
-			python-breathe:single:python_used
-			python-exhale:single:python_used
-			python-myst-parser:single:python_used
-			python-recommonmark:single:python_used
-			doxygen:primary:std
-			sdl3:dev:std
+BUILD_DEPENDS=		utf8proc:dev:std
+BUILDRUN_DEPENDS=	utf8proc:primary:std
 
-USES=			autoreconf c++:primary gmake libtool pkgconfig
-			python:build shebangfix zlib
-XORG_COMPONENTS=	x11
-SDL_COMPONENTS=		sdl2
-SHEBANG_FILES=		get_version.py
+USES=			cmake pkgconfig zlib c++:primary
+# XORG_COMPONENTS=	x11
+SDL_COMPONENTS=		sdl3
 
-DISTNAME=		libtcod-${PORTVERSION}/buildsys/autotools
-MUST_CONFIGURE=		gnu
-CONFIGURE_ARGS=		--enable-samples=no
+CMAKE_ARGS=		-DLIBTCOD_SAMPLES:BOOL=OFF
+			-DLIBTCOD_SDL3:BOOL=ON
+			-DLIBTCOD_ZLIB:BOOL=ON
+			-DBUILD_SHARED_LIBS:BOOL=ON
+			-DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=ON
+			-DFETCHCONTENT_SOURCE_DIR_STB={{WRKDIR}}/stb-${STB_HASH}
+			-DFETCHCONTENT_SOURCE_DIR_LODEPNG-C={{WRKDIR}}/lodepng-${PNG_HASH}
 PLIST_SUB=		JQUERY=${JQUERY}
 			UNDERSCORE=${UNDERSCORE}
 SOVERSION=		${SOVERSION}
 
-# Doc generation is kind of broken in version 1.15.
-# But among the garbage due to missing data there's some useful info, too.
-# Broken on Midnight BSD: AttributeError: 'PosixPath' object has no attribute 'rstrip'
-# so just kill the problematic docs
-# post-build:
-# #	(cd ${WRKSRC}/../../docs && gmake html)
+
+post-patch:
+	(cd ${WRKDIR}/stb-${STB_HASH} && ${PATCH} -p1 < ${WRKSRC}/cmake/stb.patch)
+	(cd ${WRKDIR}/lodepng-${PNG_HASH} && ${PATCH} -p1 < ${WRKSRC}/cmake/lodepng-c.patch)
 
 post-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/share/libtcod
-# #	${MV} ${WRKSRC}/../../docs/_build/html ${STAGEDIR}${STD_DOCDIR}
-# #	${RM} -r ${STAGEDIR}${STD_DOCDIR}/_sources
-# #	(cd ${WRKSRC}/../../samples && \
-# #		${COPYTREE_SHARE} . ${STAGEDIR}${STD_EXAMPLESDIR})
-	(cd ${WRKSRC}/../../ && \
-		${COPYTREE_SHARE} data ${STAGEDIR}${PREFIX}/share/libtcod/)
-	${INSTALL_DATA} ${WRKSRC}/../../terminal.png \
-		${STAGEDIR}${PREFIX}/share/libtcod/
+	(cd ${WRKSRC} && ${COPYTREE_SHARE} data ${STAGEDIR}${PREFIX}/share/libtcod/)
+	${INSTALL_DATA} ${WRKSRC}/terminal.png ${STAGEDIR}${PREFIX}/share/libtcod/
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libtcod.so
