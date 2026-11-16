@@ -1,3 +1,4 @@
+# version 2.3.4 doesn't seem to build
 DEF[PORTVERSION]=	2.3.3
 DEF[SOMAJOR]=		21
 # ----------------------------------------------------------------------------
@@ -28,10 +29,12 @@ FPC_EQUIVALENT=		net/miniupnpc
 
 EXRUN[tools]=		primary
 
-USES=			cmake
-			smf:tools
 RC_SUBR=		miniupnpc:tools
 
+USES=			cmake
+			smf:tools
+CMAKE_ARGS=		-DUPNPC_BUILD_TESTS:BOOL=OFF
+			-DUPNPC_BUILD_SAMPLE:BOOL=ON
 SOVERSION=		${PORTVERSION}
 SUB_FILES=		manifest.xml
 			messages-tools.ucl
