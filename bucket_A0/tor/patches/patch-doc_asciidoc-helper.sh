@@ -1,4 +1,4 @@
---- doc/asciidoc-helper.sh.orig	2026-11-04 13:55:43 UTC
+--- doc/asciidoc-helper.sh.orig	2026-11-13 17:26:51 UTC
 +++ doc/asciidoc-helper.sh
 @@ -12,11 +12,6 @@ if [ $# != 3 ]; then
      exit 1
