@@ -39,7 +39,10 @@ pip install ConfigArgParse
 - user can provide a config file via a normal-looking command line arg
   (eg. -c path/to/config.txt) rather than the argparse-style @config.txt
 - one or more default config file paths can be specified
-  (eg. `['/etc/bla.conf', '~/.my_config']`)
+  (eg. `['/etc/bla.conf', '~/.my_config']`). They are read in order, so
+values
+  in later files take precedence, and a wildcard path such as
+  `/etc/app/conf.d/*.conf` reads the files it matches in alphabetical order
 - all argparse functionality is fully supported, so this module can
   serve as a drop-in replacement (verified by argparse unittests).
 - env vars and config file keys & syntax are automatically documented
@@ -95,6 +98,3 @@ config file to give it:
 
 ```python
 # settings for config_test.py
-genome = HCMV     # cytomegalovirus genome
-dbsnp = /data/dbsnp/variants.vcf
-```

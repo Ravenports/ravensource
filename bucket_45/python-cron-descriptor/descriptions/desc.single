@@ -26,6 +26,14 @@ Using PIP
 pip install cron-descriptor
 ```
 
+Babel is installed automatically. The selected `locale_code` controls
+sentence
+translations and weekday/month names without changing the process locale.
+Missing message catalogs fall back to English. Custom catalogs with a
+locale
+identifier unknown to Babel retain their messages and use English calendar
+names.
+
 ## Usage example
 
 ### Simple
@@ -64,37 +72,29 @@ descriptor = ExpressionDescriptor("*/10 * * * *", options)
 print(descriptor.get_description(DescriptionTypeEnum.FULL))
 ```
 
-## Languages Available
+### Expressions with six fields
 
-| Language            | Locale Code | Contributor                          
-                  |
-|---------------------|-------------|---------------------------------------------------------|
-| English             | en          | [Brady Holt]              |
-| Chinese Simplified  | zh_CN       | [Star Peng]                |
-| Chinese Traditional | zh_TW       | [Ricky Chiang]             |
-| Czech               | cs_CZ       | [Adam Schubert]             |
-| Danish              | da_DK       | [Rasmus Melchior Jacobsen]     |
-| Dutch               | nl_NL       | [TotalMace]               |
-| Finnish             | fi_FI       | [Mikael Rosenberg]           |
-| French              | fr_FR       | [Arnaud TAMAILLON]         |
-| German              | de_DE       | [Michael Schuler]          |
-| Hebrew              | he_IL       | [Ariel Deil]              |
-| Hungarian           | hu_HU       | [Varga Miklós]            |
-| Italian             | it_IT       | [rinaldihno]             |
-| Japanese            | ja_JP       | [Tho Nguyen]           |
-| Korean              | ko_KR       | [KyuJoo Han]                 |
-| Norwegian           | nb_NO       | [Siarhei Khalipski]|
-| Persian             | fa_IR       | [A. Bahrami]             |
-| Polish              | pl_PL       | [foka]                         |
-| Portuguese          | pt_PT       | [Renato Lima]               |
-| Portuguese (Brazil) | pt_BR       | [Renato Lima]               |
-| Romanian            | ro_RO       | [Illegitimis]           |
-| Russian             | ru_RU       | [LbISS]                       |
-| Slovenian           | sl_SI       | [Jani Bevk]                   |
-| Spanish             | es_ES       | [Ivan Santos]                |
-| Spanish (Mexico)    | es_MX       | [Ion Mincu]                |
-| Swedish             | sv_SE       | [Åke Engelbrektson]          |
-| Vietnamese          | vi_VN       | [Nguyen Duc Son]              |
-| Tamil               | ta_IN       | [Sankar Hari]            |
-| Thai                | th_TH       | [Michael Lyons]       |
-| Turkish             | tr_TR       | [Mustafa SADEDİL]           |
+Set `six_field_expression_has_seconds` to select the format:
+
+- `None` (default): Use the existing automatic format detection.
+- `True`: Read the fields as seconds, minutes, hours, day of month, month,
+and day of week.
+- `False`: Read the fields as minutes, hours, day of month, month, day of
+week, and year.
+
+This option applies only to expressions with six fields.
+
+```python
+from cron_descriptor import ExpressionDescriptor, Options, get_description
+
+options = Options(locale_code="en_US",
+six_field_expression_has_seconds=False)
+print(get_description("* * * * * *", options))  # Every minute
+
+# Set the option with an ExpressionDescriptor keyword argument.
+descriptor = ExpressionDescriptor(
+    "* * * * * *",
+    locale_code="en_US",
+    six_field_expression_has_seconds=False,
+)
+print(descriptor.get_description())  # Every minute
