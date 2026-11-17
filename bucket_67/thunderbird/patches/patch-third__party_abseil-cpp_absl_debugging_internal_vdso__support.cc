@@ -1,6 +1,6 @@
---- third_party/abseil-cpp/absl/debugging/internal/vdso_support.cc.orig	2026-07-28 12:57:55 UTC
+--- third_party/abseil-cpp/absl/debugging/internal/vdso_support.cc.orig	2026-11-07 02:40:20 UTC
 +++ third_party/abseil-cpp/absl/debugging/internal/vdso_support.cc
-@@ -26,11 +26,15 @@
+@@ -28,11 +28,15 @@
  
  #include <errno.h>
  #include <fcntl.h>
@@ -18,7 +18,7 @@
  #include <unistd.h>
  
  #if !defined(__UCLIBC__) && defined(__GLIBC__) && \
-@@ -54,7 +58,7 @@
+@@ -56,7 +60,7 @@
  using Elf32_auxv_t = Aux32Info;
  using Elf64_auxv_t = Aux64Info;
  #endif

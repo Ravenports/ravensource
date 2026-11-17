@@ -1,4 +1,4 @@
---- third_party/llama.cpp/ggml/src/ggml-c.c.orig	2025-10-16 03:20:40 UTC
+--- third_party/llama.cpp/ggml/src/ggml-c.c.orig	2026-11-07 02:40:21 UTC
 +++ third_party/llama.cpp/ggml/src/ggml-c.c
 @@ -16,7 +16,7 @@
  

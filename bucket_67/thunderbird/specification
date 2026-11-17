@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	153.0.1
+DEF[PORTVERSION]=	160.0
 # DEF[CPE_SW_EDITION]=	esr
 # DEF[TVER]=		${PORTVERSION}${CPE_SW_EDITION}
 DEF[TVER]=		${PORTVERSION}
@@ -28,7 +28,9 @@ OPT_ON[sunos]=		SUNOS
 
 LICENSE=		MPL:single
 LICENSE_FILE=		MPL:stock
-LICENSE_TERMS=		single:{{WRKSRC}}/toolkit/content/license.html
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/toolkit/content/license.html.mako
+LICENSE_AWK=		TERMS:"DOCTYPE"
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		mail/thunderbird
@@ -61,7 +63,6 @@ BUILDRUN_DEPENDS=	aom:primary:std
 			dav1d:primary:std
 			dbus-glib:primary:std
 			ffmpeg:primary:std
-			harfbuzz:primary:std
 			icu:primary:std
 			libcanberra:primary:std
 			libevent:primary:std
@@ -101,8 +102,6 @@ QMAKE_ARGS=		--prefix="{{PREFIX}}"
 			--with-system-png
 			--with-system-jpeg
 			--with-system-libevent
-			--with-system-harfbuzz
-			--with-system-graphite2
 			--with-system-av1
 			--with-system-webp
 			--with-system-botan
@@ -154,11 +153,7 @@ post-extract-netbsd:
 
 post-patch:
 	${REINPLACE_CMD} -e 's|%%LOCALBASE%%|${LOCALBASE}|g' \
-		${WRKSRC}/comm/mail/app/nsMailApp.cpp \
-		${WRKSRC}/browser/app/nsBrowserApp.cpp
-	(cd ${WRKSRC}/gfx/angle/checkout/src/compiler/translator && \
-		${REINPLACE_CMD} -e 's|<math.h>|<cmath>|' \
-		InfoSink.h IntermNode.cpp)
+		${WRKSRC}/comm/mail/app/nsMailApp.cpp
 
 	# disable SCTP
 	${REINPLACE_CMD} -e 's|MOZ_SCTP|MOZ_DISABLE_SCTP|' \
