@@ -1,35 +1,100 @@
-Pika
-====
-Pika is a RabbitMQ (AMQP 0-9-1) client library for Python.
+<h1 align='center'>Pika</h1>
 
-|Version| |Python versions| |Actions Status| |Coverage| |License| |Docs|
+<p align='center'><I>RabbitMQ (AMQP 0-9-1) client library for
+Python</I></p>
 
-Introduction
-------------
+<p align='center'>
+  [image]
+  [image]
+  [image]
+  [image]
+  [image]
+  [image]
+  [image]
+</p>
+
+<p align='center'>
+  <strong>Introduction</strong> ·
+  <strong>Documentation</strong> ·
+  <strong>Example</strong> ·
+  <strong>Examples</strong> ·
+  <strong>Adapters</strong> ·
+  <strong>Contributing</strong>
+</p>
+
+## Introduction
+
 Pika is a pure-Python implementation of the AMQP 0-9-1 protocol including
 RabbitMQ's extensions.
 
-- Supports Python 3.7+ (CPython and PyPy; versions are listed on
-  [PyPI]). Pika 1.1.0 was the last release
-  that supported Python 2.7.
+- Supports Python 3.7+ (CPython and PyPy; versions are listed on [PyPI]).
+Pika 1.1.0 was the last release that supported Python 2.7.
 - Since threads aren't appropriate to every situation, it doesn't require
-  threads. Pika core takes care not to forbid them, either. The same goes
-for
-  greenlets, callbacks, continuations, and generators. An instance of
-Pika's
-  built-in connection adapters isn't thread-safe, however.
-- People may be using direct sockets, plain old ``select()``, or any of the
-  wide variety of ways of getting network events to and from a Python
-  application. Pika tries to stay compatible with all of these, and to make
-  adapting it to a new environment as simple as possible.
+threads. Pika core takes care not to forbid them, either. The same goes for
+greenlets, callbacks, continuations, and generators. Most connection
+adapters are single-threaded; use `Connection` when you need to publish or
+consume from multiple threads.
+- People may be using direct sockets, plain old `select()`, or any of the
+wide variety of ways of getting network events to and from a Python
+application. Pika tries to stay compatible with all of these, and to make
+adapting it to a new environment as simple as possible.
 
-Documentation
--------------
-Pika's documentation can be found at https://pika.readthedocs.io.
+## Documentation
 
-Example
--------
-Here is the most simple example of use, sending a message with the
-``pika.BlockingConnection`` adapter:
+Pika's documentation can be found [here].
 
-   :alt: Documentation Status
+## Example
+
+Sending a message with `pika.Connection`, which is thread-safe and runs its
+own IOLoop on a background thread:
+
+```python
+import pika
+
+connection = pika.Connection(pika.ConnectionParameters())
+channel = connection.channel()
+
+# RabbitMQ 4.3 and later refuse a queue that is neither durable nor
+exclusive.
+channel.queue_declare('test', durable=True)
+channel.basic_publish(exchange='', routing_key='test', body=b'Test
+message.')
+connection.close()
+
+```
+
+And consuming, where each delivery is dispatched on a per-channel worker
+thread, so slow processing does not stall heartbeats and `basic_ack` needs
+no `add_callback_threadsafe`:
+
+```python
+import threading
+
+import pika
+
+connection = pika.Connection(pika.ConnectionParameters())
+channel = connection.channel()
+channel.queue_declare('test', durable=True)
+
+def on_message(ch, method_frame, properties, body):
+    print(method_frame, properties, body)
+    ch.basic_ack(method_frame.delivery_tag)
+
+channel.basic_consume('test', on_message)
+
+try:
+    # The IOLoop already runs in the background; block until interrupted.
+    threading.Event().wait()
+except KeyboardInterrupt:
+    connection.close()
+
+```
+
+## Adapters
+
+Pika provides the following adapters:
+
+- `pika.Connection` - thread-safe, runs SelectConnection's IOLoop in a
+background thread. All channel methods are safe to call from any thread
+simultaneously.
+- `pika.SelectConnection` - asynchronous adapter without third-party
