@@ -1,8 +1,8 @@
---- src/lib/OpenEXRCore/internal_posix_file_impl.h.orig	2026-10-30 22:49:53 UTC
+--- src/lib/OpenEXRCore/internal_posix_file_impl.h.orig	2026-11-09 20:21:31 UTC
 +++ src/lib/OpenEXRCore/internal_posix_file_impl.h
-@@ -21,6 +21,10 @@
- #include <stdlib.h>
- #include <string.h>
+@@ -32,6 +32,10 @@ _Static_assert (
+     "OpenEXRCore needs a 64-bit off_t: compile with -D_FILE_OFFSET_BITS=64");
+ #endif
  
 +#ifndef O_CLOEXEC
 +#define O_CLOEXEC 0
