@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	153.0.1
+DEF[PORTVERSION]=	160.0
 DEF[FOXVERSION]=	${PORTVERSION}
 DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
 DEF[CLANGBASE]=		clang
@@ -24,7 +24,9 @@ OPTIONS_STANDARD=	none
 
 LICENSE=		MPL:single
 LICENSE_FILE=		MPL:stock
-LICENSE_TERMS=		single:{{WRKSRC}}/toolkit/content/license.html
+LICENSE_TERMS=		single:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/toolkit/content/license.html.mako
+LICENSE_AWK=		TERMS:"DOCTYPE"
 LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		www/firefox
@@ -34,7 +36,6 @@ BUILD_DEPENDS=		cbindgen:single:std
 			dav1d:dev:std
 			evdev-proto:single:std
 			ffmpeg:dev:std
-			harfbuzz:dev:std
 			icu:dev:std
 			libcanberra:dev:std
 			libevent:dev:std
@@ -52,7 +53,6 @@ BUILD_DEPENDS=		cbindgen:single:std
 BUILDRUN_DEPENDS=	dav1d:primary:std
 			dbus-glib:primary:std
 			ffmpeg:primary:std
-			harfbuzz:primary:std
 			icu:primary:std
 			libcanberra:primary:std
 			libdrm:primary:std
@@ -137,9 +137,6 @@ post-extract:
 post-patch:
 	${REINPLACE_CMD} -e 's|%%LOCALBASE%%|${LOCALBASE}|g' \
 		${WRKSRC}/browser/app/nsBrowserApp.cpp
-	(cd ${WRKSRC}/gfx/angle/checkout/src/compiler/translator && \
-		${REINPLACE_CMD} -e 's|<math.h>|<cmath>|' \
-		InfoSink.h IntermNode.cpp)
 	# disable SCTP
 	${REINPLACE_CMD} -e 's|MOZ_SCTP|MOZ_DISABLE_SCTP|' \
 		${WRKSRC}/netwerk/moz.build

@@ -1,14 +1,6 @@
---- third_party/abseil-cpp/absl/base/config.h.orig	2026-07-28 12:57:54 UTC
+--- third_party/abseil-cpp/absl/base/config.h.orig	2026-11-07 02:40:19 UTC
 +++ third_party/abseil-cpp/absl/base/config.h
-@@ -373,6 +373,7 @@ static_assert(ABSL_INTERNAL_INLINE_NAMES
- #ifdef ABSL_HAVE_MMAP
- #error ABSL_HAVE_MMAP cannot be directly set
- #elif defined(__linux__) || defined(__APPLE__) || defined(__FreeBSD__) ||    \
-+    defined(__DragonFly__) ||                                                \
-     defined(_AIX) || defined(__ros__) || defined(__native_client__) ||       \
-     defined(__asmjs__) || defined(__EMSCRIPTEN__) || defined(__Fuchsia__) || \
-     defined(__sun) || defined(__myriad2__) || defined(__HAIKU__) ||          \
-@@ -388,6 +389,7 @@ static_assert(ABSL_INTERNAL_INLINE_NAMES
+@@ -355,6 +355,7 @@ static_assert(ABSL_INTERNAL_INLINE_NAMES
  #ifdef ABSL_HAVE_PTHREAD_GETSCHEDPARAM
  #error ABSL_HAVE_PTHREAD_GETSCHEDPARAM cannot be directly set
  #elif defined(__linux__) || defined(__APPLE__) || defined(__FreeBSD__) || \
