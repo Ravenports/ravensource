@@ -1,4 +1,4 @@
---- imap/src/c-client/netmsg.c.orig	2022-06-03 00:14:00 UTC
+--- imap/src/c-client/netmsg.c.orig	2026-05-03 00:48:18 UTC
 +++ imap/src/c-client/netmsg.c
 @@ -29,6 +29,7 @@
  
