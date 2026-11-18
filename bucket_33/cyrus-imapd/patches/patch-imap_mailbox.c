@@ -1,6 +1,6 @@
---- imap/mailbox.c.orig	2026-09-09 01:06:41 UTC
+--- imap/mailbox.c.orig	2026-11-16 20:48:32 UTC
 +++ imap/mailbox.c
-@@ -6046,6 +6046,10 @@ static void mailbox_delete_files(const c
+@@ -6074,6 +6074,10 @@ static void mailbox_delete_files(const c
      struct dirent *f;
      char buf[MAX_MAILBOX_PATH+1];
      char *tail;
@@ -11,7 +11,7 @@
  
      strlcpy(buf, path, sizeof(buf));
  
-@@ -6062,7 +6066,12 @@ static void mailbox_delete_files(const c
+@@ -6090,7 +6094,12 @@ static void mailbox_delete_files(const c
      dirp = opendir(path);
      if (dirp) {
          while ((f = readdir(dirp))!=NULL) {

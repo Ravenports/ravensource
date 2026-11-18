@@ -1,4 +1,4 @@
---- lib/ptrarray.c.orig	2026-09-09 00:51:55 UTC
+--- lib/ptrarray.c.orig	2026-11-16 17:30:34 UTC
 +++ lib/ptrarray.c
 @@ -44,6 +44,7 @@
   */

@@ -1,4 +1,4 @@
---- lib/util.c.orig	2026-09-09 00:51:55 UTC
+--- lib/util.c.orig	2026-11-16 17:30:34 UTC
 +++ lib/util.c
 @@ -83,6 +83,9 @@
  #include "zlib.h"
@@ -10,7 +10,7 @@
  
  #define BEAUTYBUFSIZE 4096
  
-@@ -1056,6 +1059,7 @@ EXPORTED int parsehex(const char *p, con
+@@ -1072,6 +1075,7 @@ EXPORTED int parsehex(const char *p, con
  
  /* buffer handling functions */
  
