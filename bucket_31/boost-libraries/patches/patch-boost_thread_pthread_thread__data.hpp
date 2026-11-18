@@ -1,4 +1,4 @@
---- boost/thread/pthread/thread_data.hpp.orig	2025-12-03 13:46:47 UTC
+--- boost/thread/pthread/thread_data.hpp.orig	2026-08-05 17:09:15 UTC
 +++ boost/thread/pthread/thread_data.hpp
 @@ -32,6 +32,7 @@
  # endif

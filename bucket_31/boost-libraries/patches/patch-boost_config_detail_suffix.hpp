@@ -1,6 +1,6 @@
 $NetBSD: patch-boost_config_detail_suffix.hpp,v 1.1 2017/08/24 19:31:32 adam Exp $
 
---- boost/config/detail/suffix.hpp.orig	2025-12-03 13:46:39 UTC
+--- boost/config/detail/suffix.hpp.orig	2026-08-05 17:09:08 UTC
 +++ boost/config/detail/suffix.hpp
 @@ -264,7 +264,7 @@
  //
