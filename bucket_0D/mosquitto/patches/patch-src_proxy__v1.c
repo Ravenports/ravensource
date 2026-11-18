@@ -1,4 +1,4 @@
---- src/proxy_v1.c.orig	2026-02-09 09:29:46 UTC
+--- src/proxy_v1.c.orig	2026-11-17 13:53:43 UTC
 +++ src/proxy_v1.c
 @@ -2,6 +2,7 @@
  #  include <winsock2.h>
