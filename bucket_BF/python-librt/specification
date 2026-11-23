@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.16.0
+DEF[PORTVERSION]=	0.17.0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-librt
@@ -30,8 +30,10 @@ GENERATED=		yes
 DISTNAME=		librt-${PORTVERSION}
 
 # Requires-Dist extracted from pyproject.toml file
-
+# buildrun: mypy_extensions>=1.2.0
 
 [PY314].USES_ON=			python:v14,pep517
+[PY314].BUILDRUN_DEPENDS_ON=		python-mypy-extensions:single:v14
 [PY315].USES_ON=			python:v15,pep517
+[PY315].BUILDRUN_DEPENDS_ON=		python-mypy-extensions:single:v15
 

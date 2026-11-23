@@ -1,5 +1,6 @@
   :alt: Build Status
   :alt: Code Coverage
+  :alt: Tidelift
 
 This is a backport of the BaseExceptionGroup and ExceptionGroup classes
 from
@@ -43,6 +44,14 @@ groups.
 
 .. _standard library documentation:
 https://docs.python.org/3/library/exceptions.html
+
+License
+=======
+
+This project includes code under the MIT License and code copied from the
+Python standard library under the Python Software Foundation License
+Version 2.
+The full notices and terms for both licenses are in the LICENSE file.
 
 Catching exceptions
 ===================
@@ -88,13 +97,4 @@ would be written with this backport like this:
     def value_key_err_handler(excgroup: BaseExceptionGroup) -> None:
         for exc in excgroup.exceptions:
             print('Caught exception:', type(exc))
-
-    def runtime_err_handler(exc: BaseExceptionGroup) -> None:
-        print('Caught runtime error')
-
-    with catch({
-        (ValueError, KeyError): value_key_err_handler,
-        RuntimeError: runtime_err_handler
-    }):
-        ...
 

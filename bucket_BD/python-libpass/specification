@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	1.9.4
+DEF[PORTVERSION]=	1.9.5.post0
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-libpass
@@ -11,7 +11,7 @@ HOMEPAGE=		https://github.com/notypecheck/passlib
 CONTACT=		Python_Automaton[python@ravenports.com]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/be/35/d08a8175f20cb453b3133845afce81378437730f5cd402bb411a5fd54841
+SITES[main]=		PYPIWHL/20/74/cdd364649f56c64253c1649a2e9b2a43e6e1c44bf28e720ccfe7da40ac7f
 DISTFILE[1]=		libpass-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -24,16 +24,16 @@ VOPTS[v14]=		PY314=ON PY315=OFF
 VOPTS[v15]=		PY314=OFF PY315=ON
 
 # License listed at PyPI
-# BSD
+# Not provided.
 
 GENERATED=		yes
 DISTNAME=		libpass-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# argon2-cffi>=18.2.0; extra == 'argon2'
-# bcrypt>=3.1.0; extra == 'bcrypt'
-# cryptography>=43.0.1; extra == 'totp'
+# passlib==1.9.5
 
 [PY314].USES_ON=			python:v14,wheel
+[PY314].RUN_DEPENDS_ON=			python-passlib:single:v14
 [PY315].USES_ON=			python:v15,wheel
+[PY315].RUN_DEPENDS_ON=			python-passlib:single:v15
 
