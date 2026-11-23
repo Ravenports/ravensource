@@ -1,4 +1,4 @@
---- src/bootstrap/src/core/build_steps/install.rs.orig	2026-10-13 01:48:49 UTC
+--- src/bootstrap/src/core/build_steps/install.rs.orig	2026-11-09 22:11:55 UTC
 +++ src/bootstrap/src/core/build_steps/install.rs
 @@ -15,9 +15,9 @@ use crate::utils::exec::command;
  use crate::utils::helpers::t;

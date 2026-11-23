@@ -1,9 +1,9 @@
-DEF[PORTVERSION]=	1.99.1
-DEF[RUSTX_BOOT]=	1.98.0
+DEF[PORTVERSION]=	1.100.0
+DEF[RUSTX_BOOT]=	1.99.1
 DEF[CURL_VERSION]=	7.88.0
 DEF[MBSD64_TARGET]=	EXTRACT_INFO(MIDNIGHT64_CC_TARGET)
 DEF[LIBC_PT1]=		155 158 164
-DEF[LIBC_PT2]=		168 169 172
+DEF[LIBC_PT2]=		169 172
 #  libc-0.2.178+ doesn't have errno.rs
 # ----------------------------------------------------------------------------
 
@@ -115,6 +115,7 @@ SHEBANG_FILES=		src/llvm-project/compiler-rt/lib/sanitizer_common/symbolizer/scr
 			library/compiler-builtins/ci/bench-icount.sh
 			library/compiler-builtins/ci/miri.sh
 			library/compiler-builtins/ci/install-bench-deps.sh
+			library/compiler-builtins/ci/install-test-deps.sh
 			compiler/rustc_codegen_cranelift/.github/scripts/free-disk-space.sh
 DOS2UNIX_FILES=		vendor/openssl-probe*/src/lib.rs
 
@@ -199,6 +200,15 @@ pre-build-dragonfly:
 	${REINPLACE_CMD} -e '/__errno_location/d' \
 	${WRKSRC}/vendor/libc-0.2.${libcver}/src/unix/bsd/freebsdlike/dragonfly/errno.rs
 .endfor
+	# temporary hack: remove for 1.100.1 and later
+	(cd ${WRKDIR}/bootstrap/lib/rustlib//x86_64-unknown-dragonfly/lib/ && \
+		mv librustc_demangle-* /tmp && \
+		mv librustc_literal_escaper-* /tmp && \
+		mv librustc_std_workspace_alloc-* /tmp && \
+		mv librustc_std_workspace_core-* /tmp && \
+		mv librustc_std_workspace_std-* /tmp && \
+		rm librustc_* && \
+		mv /tmp/librustc_* .)
 
 pre-build-freebsd:
 	${LN} -s ${LOCALBASE}/toolchain/ravensys-gcc/lib/libstdc++.so \
@@ -261,7 +271,7 @@ post-install:
 	# Actually we remove the entire share/doc/rust contents.
 	# We also need to dedup the entries in the generated PLIST, because
 	# both components manifests list them.
-	for f in ${STAGEDIR}${PREFIX}/lib/rustlib/manifest-*; do \
+	for f in "${STAGEDIR}${PREFIX}"/lib/rustlib/manifest-*; do \
 	    ${SED} -i'' -E \
 		-e '/share\/doc\//d' \
 		-e '/bash_completion/d' \
@@ -280,13 +290,13 @@ post-install:
 	            system("find ${STAGEDIR}" dir " -type f | ${SED} -E -e \"s|${STAGEDIR}||\""); \
 	        }' \
 	        $$f >> ${WRKDIR}/.manifest.gen.unsorted; \
-	    ${RM} $$f; \
+	    printf '%s\n' "$${f#"${STAGEDIR}${PREFIX}/"}" >> ${WRKDIR}/.manifest.gen.unsorted; \
 	done
 	${SORT} -u ${WRKDIR}/.manifest.gen.unsorted > ${WRKDIR}/.manifest.gen.sorted
 	${CAT} ${WRKDIR}/.manifest.gen.sorted >> ${WRKDIR}/.manifest.single.mktmp
 
 	# Strip binaries and libraries
-	${STRIP_CMD} \
+	${STRIP_CMD} --strip-unneeded \
 		${STAGEDIR}${PREFIX}/bin/cargo \
 		${STAGEDIR}${PREFIX}/bin/cargo-clippy \
 		${STAGEDIR}${PREFIX}/bin/cargo-fmt \
@@ -304,4 +314,4 @@ post-install:
 		${STAGEDIR}${PREFIX}/lib/rustlib/*/lib/*.so
 
 post-install-SUNOS-OFF:
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/rustlib/*/bin/rust-lld
+	${STRIP_CMD} --strip-unneeded ${STAGEDIR}${PREFIX}/lib/rustlib/*/bin/rust-lld

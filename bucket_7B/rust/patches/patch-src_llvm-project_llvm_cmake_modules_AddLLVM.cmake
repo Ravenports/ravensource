@@ -1,4 +1,4 @@
---- src/llvm-project/llvm/cmake/modules/AddLLVM.cmake.orig	2026-10-13 01:48:49 UTC
+--- src/llvm-project/llvm/cmake/modules/AddLLVM.cmake.orig	2026-11-09 22:11:55 UTC
 +++ src/llvm-project/llvm/cmake/modules/AddLLVM.cmake
 @@ -2709,7 +2709,7 @@ function(llvm_setup_rpath name)
        list(APPEND _build_rpath "\$ORIGIN/../lib${LLVM_LIBDIR_SUFFIX}/${LLVM_DEFAULT_TARGET_TRIPLE}")

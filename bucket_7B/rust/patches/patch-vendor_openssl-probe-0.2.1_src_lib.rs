@@ -1,4 +1,4 @@
---- vendor/openssl-probe-0.2.1/src/lib.rs.orig	2026-10-27 00:43:05 UTC
+--- vendor/openssl-probe-0.2.1/src/lib.rs.orig	2026-11-18 17:13:17 UTC
 +++ vendor/openssl-probe-0.2.1/src/lib.rs
 @@ -139,32 +139,22 @@ const CERTIFICATE_DIRS: &[&str] = &[
      "/etc/ssl/certs",             // SLES 10, SLES 11
