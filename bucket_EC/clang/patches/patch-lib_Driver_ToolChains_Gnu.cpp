@@ -1,4 +1,4 @@
---- lib/Driver/ToolChains/Gnu.cpp.orig	2026-11-02 10:45:15 UTC
+--- lib/Driver/ToolChains/Gnu.cpp.orig	2026-11-16 12:46:15 UTC
 +++ lib/Driver/ToolChains/Gnu.cpp
 @@ -356,6 +356,11 @@ void tools::gnutools::Linker::ConstructJ
    } else if (IsStatic) {

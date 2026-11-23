@@ -1,4 +1,4 @@
---- lib/Basic/Targets/OSTargets.h.orig	2026-11-02 10:45:15 UTC
+--- lib/Basic/Targets/OSTargets.h.orig	2026-11-16 12:46:15 UTC
 +++ lib/Basic/Targets/OSTargets.h
 @@ -219,6 +219,7 @@ protected:
      if (CCVersion == 0U)

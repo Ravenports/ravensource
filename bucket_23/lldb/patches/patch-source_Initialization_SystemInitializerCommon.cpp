@@ -1,4 +1,4 @@
---- source/Initialization/SystemInitializerCommon.cpp.orig	2026-11-02 10:45:15 UTC
+--- source/Initialization/SystemInitializerCommon.cpp.orig	2026-11-16 12:46:15 UTC
 +++ source/Initialization/SystemInitializerCommon.cpp
 @@ -19,6 +19,7 @@
  #include "lldb/Version/Version.h"

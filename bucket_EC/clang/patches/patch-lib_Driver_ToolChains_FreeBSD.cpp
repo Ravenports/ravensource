@@ -1,4 +1,4 @@
---- lib/Driver/ToolChains/FreeBSD.cpp.orig	2026-11-02 10:45:15 UTC
+--- lib/Driver/ToolChains/FreeBSD.cpp.orig	2026-11-16 12:46:15 UTC
 +++ lib/Driver/ToolChains/FreeBSD.cpp
 @@ -280,6 +280,16 @@ void freebsd::Linker::ConstructJob(Compi
    addLinkerCompressDebugSectionsOption(ToolChain, Args, CmdArgs);
