@@ -1,11 +1,14 @@
 DEF[PORTVERSION]=	26.2.7
-DEF[CLANGBASE]=		clang
-DEF[LLVMBASE]=		llvm
+DEF[CLANGBASE]=		clang22
+DEF[LLVMBASE]=		llvm22
+DEF[LIBCLCBASE]=	libclc22
+DEF[SLTRANSBASE]=	spirv-llvm-translator22
 DEF[SOVERSION]=		${PORTVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		mesa
 VERSION=		${PORTVERSION}
+REVISION=		1
 KEYWORDS=		graphics
 VARIANTS=		std
 SDESC[std]=		Mesa 3D Graphics Library
@@ -114,14 +117,14 @@ VAR_OPSYS[sunos]=	CPPFLAGS=-D__EXTENSIONS__=1
 [LLVMPIPE].DESCRIPTION=			Build LLVM-based drivers and libraries
 [WAYLAND].DESCRIPTION=			Build Vulkan drivers for Wayland platform
 
-[LLVMPIPE].BUILD_DEPENDS_ON=		libclc:single:std
+[LLVMPIPE].BUILD_DEPENDS_ON=		${LIBCLCBASE}:single:std
 					opencl-headers:single:std
 					ocl-icd:dev:std
 					${LLVMBASE}:tools:std
 					${LLVMBASE}:dev:std
 					${CLANGBASE}:set:std
 					spirv-tools:set:std
-					spirv-llvm-translator:set:std
+					${SLTRANSBASE}:set:std
 [LLVMPIPE].BUILDRUN_DEPENDS_ON=		${LLVMBASE}:primary:std
 					ocl-icd:primary:std
 [LLVMPIPE].RUN_DEPENDS_ON=		${CLANGBASE}:dynlibs:std

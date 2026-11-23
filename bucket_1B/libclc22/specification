@@ -1,0 +1,47 @@
+DEF[NAMEBASE]=		libclc22
+DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM22_VERSION)
+DEF[LLVMBASE]=		llvm22
+DEF[CLANGBASE]=		clang22
+DEF[SPIRVBASE]=		spirv-llvm-translator22
+DEF[WORKNAME]=		llvm-project-${LLVM_VERSION}.src
+DEF[DSUBDIR]=		llvm22
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		${NAMEBASE}
+VERSION=		${LLVM_VERSION}
+KEYWORDS=		devel
+VARIANTS=		std
+SDESC[std]=		Required library functions for OpenCL C language
+HOMEPAGE=		http://libclc.llvm.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://github.com/llvm/llvm-project/releases/download/llvmorg-${LLVM_VERSION}/
+DISTFILE[1]=		${WORKNAME}.tar.xz:main
+DIST_SUBDIR=		${DSUBDIR}
+
+SPKGS[std]=		single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+LICENSE=		CUSTOM1:single
+LICENSE_NAME=		CUSTOM1:"Apache 2.0 License with LLVM Exceptions"
+LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/LICENSE.TXT
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		devel/libclc
+
+BUILD_DEPENDS=		libedit:dev:std
+			libedit:primary:std
+			${LLVMBASE}:dev:std
+			${LLVMBASE}:tools:std
+			${CLANGBASE}:set:std
+			${SPIRVBASE}:primary:std
+			${SPIRVBASE}:dev:std
+
+USES=			python:build cmake
+MAKE_ENV=		MAKE=make
+# Force ccache to work with clang
+			CCACHE_CPP2=yes
+DISTNAME=		${WORKNAME}/libclc

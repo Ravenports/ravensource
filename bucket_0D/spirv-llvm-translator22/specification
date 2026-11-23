@@ -1,0 +1,59 @@
+DEF[NAMEBASE]=		spirv-llvm-translator22
+DEF[LLVMBASE]=		llvm22
+DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM22_VERSION)
+DEF[PORTVERSION]=	22.1.8
+DEF[RELEASE_TAG]=	v${PORTVERSION}
+# DEF[HEAD_TAG]=		vulkan-sdk-1.4.350.1
+DEF[HEAD_TAG]=		fef168c
+DEF[MAJORMIN]=		${PORTVERSION:R}
+DEF[DSUBDIR]=		llvm22
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		${NAMEBASE}
+VERSION=		${PORTVERSION}
+KEYWORDS=		lang
+VARIANTS=		std
+SDESC[std]=		LLVM to SPIRV Translator
+HOMEPAGE=		https://github.com/KhronosGroup/SPIRV-LLVM-Translator
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main headers
+SITES[main]=		GITHUB/KhronosGroup:SPIRV-LLVM-Translator:${RELEASE_TAG}
+SITES[headers]=		GITHUB/KhronosGroup:SPIRV-Headers:${HEAD_TAG}
+DISTFILE[1]=		generated:main
+DISTFILE[2]=		generated:headers
+DIST_SUBDIR=		${DSUBDIR}
+DF_INDEX=		1 2
+
+SPKGS[std]=		set primary dev
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+FPC_EQUIVALENT=		devel/spirv-llvm-translator
+
+BUILD_DEPENDS=		${LLVMBASE}:dev:std
+			${LLVMBASE}:tools:std
+BUILDRUN_DEPENDS=	${LLVMBASE}:primary:std
+
+USES=			cmake
+CMAKE_ARGS=		-DBUILD_SHARED_LIBS:BOOL=ON
+			-DLLVM_BUILD_TOOLS:BOOL=ON
+			-DLLVM_EXTERNAL_SPIRV_HEADERS_SOURCE_DIR={{WRKDIR}}/SPIRV-Headers-${HEAD_TAG}
+SOVERSION=		${LLVM_VERSION}
+PLIST_SUB=		SOMAJORMIN=${MAJORMIN}
+
+post-extract:
+	# match headers
+	${REINPLACE_CMD} -e 's|ConstFunctionPointerINTEL|ConstantFunctionPointerINTEL|g' \
+		${WRKSRC}/lib/SPIRV/SPIRVReader.cpp \
+		${WRKSRC}/lib/SPIRV/SPIRVWriter.cpp \
+		${WRKSRC}/lib/SPIRV/libSPIRV/SPIRVFunction.h \
+		${WRKSRC}/lib/SPIRV/libSPIRV/SPIRVModule.h \
+		${WRKSRC}/lib/SPIRV/libSPIRV/SPIRVModule.cpp \
+		${WRKSRC}/lib/SPIRV/libSPIRV/SPIRVOpCode.h \
+		${WRKSRC}/lib/SPIRV/libSPIRV/SPIRVOpCodeEnum.h
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/llvm-spirv
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libLLVMSPIRVLib.so
