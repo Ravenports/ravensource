@@ -1,0 +1,20 @@
+post-install-lua: [{
+     args: ""
+     code: <<EOS
+cfg = pkg.prefixed_path("include/php%%SUFFIX%%/ext/php_config.h")
+file=io.open(cfg, "w")
+file:close()
+EOS
+}]
+pre-deinstall-lua: [{
+     args: ""
+     code: <<EOS
+cfg = pkg.prefixed_path("include/php%%SUFFIX%%/ext/php_config.h")
+st = pkg.stat(cfg)
+if st ~= nil then
+   if st.size == 0 then
+      os.remove(cfg)
+   end
+end
+EOS
+}]
