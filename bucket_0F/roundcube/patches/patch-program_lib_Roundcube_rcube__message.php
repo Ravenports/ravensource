@@ -1,4 +1,4 @@
---- program/lib/Roundcube/rcube_message.php.orig	2026-11-09 10:39:09 UTC
+--- program/lib/Roundcube/rcube_message.php.orig	2026-11-23 11:02:56 UTC
 +++ program/lib/Roundcube/rcube_message.php
 @@ -1015,8 +1015,7 @@ class rcube_message
                  elseif (

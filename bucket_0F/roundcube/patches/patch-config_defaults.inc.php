@@ -1,4 +1,4 @@
---- config/defaults.inc.php.orig	2026-11-09 10:39:09 UTC
+--- config/defaults.inc.php.orig	2026-11-23 11:02:56 UTC
 +++ config/defaults.inc.php
 @@ -995,7 +995,7 @@ $config['show_real_foldernames'] = false
  $config['quota_zero_as_unlimited'] = false;
