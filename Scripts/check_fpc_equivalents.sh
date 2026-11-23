@@ -19,45 +19,66 @@ while read ravenport version fpc_port; do
 	musl-fts) ;;		# linux only
 	libgudev) ;;		# linux only
 	libnftnl) ;;		# linux only
+	libseccomp) ;;		# linux only
+	libmount) ;;		# linux only
+	libtirpc) ;;		# linux only
+	rpcbind) ;;		# linux only
+	unfs3) ;;		# linux only
+	kmod) ;;		# linux only
 
 	ravenports) ;;		# unique to ravenports
-	libdl) ;;		# unique to ravenports
-	ravensys-root) ;;	# unique to ravenports
+	ravensys-root*) ;;	# unique to ravenports
 	ravensys-toolchain) ;;	# unique to ravenports
-	ravensys-uname) ;;	# unique to ravenports
-	ravensys-selector) ;;	# unique to ravenports
 	ravensys-utils) ;;	# unique to ravenports
-	bmake-mk-files) ;;	# unique to ravenports
+	ravensys-vuln) ;;	# unique to ravenports
 	ravenadm) ;;		# unique to ravenports
 	autoselect-*) ;;	# unique to ravenports
-	ravensw) ;;		# unique to ravenports
+	rvn) ;;			# unique to ravenports
 
 	bc) ;;			# for sysroot
 	ed) ;;			# for sysroot
 	xz) ;;			# for sysroot, deleted from FPC
 
+	fw-amdgpu) ;;		# dragonfly only
+
 	zlib) ;;		# deleted from FPC
 	aflex*) ;;		# deleted from FPC
-	go14) ;;		# ditto
-	ede) ;;			# ditto
+	zip-ada) ;;		# deleted from FPC
+	booch95) ;;		# deleted from FPC
+	anet) ;;		# deleted from FPC
+	alog) ;;		# deleted from FPC
+	pcsc-ada) ;;		# deleted from FPC
+	apq-*) ;;		# deleted from FPC
+	words) ;;		# deleted from FPC
+	adasockets) ;;		# deleted from FPC
+	sparforte) ;;		# deleted from FPC
+	libsparkcrypto) ;;	# deleted from FPC
+	PragmARC) ;;		# deleted from FPC
+	XML_EZ_Out) ;;		# deleted from FPC
+	generic_image_dec*) ;;	# deleted from FPC
+	simple_components) ;;	# deleted from FPC
+	templates-parser) ;;	# deleted from FPC
+	excel-writer) ;;	# deleted from FPC
+	matreshka) ;;		# deleted from FPC
+	langkit) ;;		# deleted from FPC
+	gtkada) ;;		# deleted from FPC
+	adabase) ;;		# deleted from FPC
+	gps|gnatstudio) ;;	# deleted from FPC (stupidly)
+	ironsides) ;;		# deleted from FPC
+	florist) ;;		# deleted from FPC
+	lua-ada) ;;		# deleted from FPC
+	aunit) ;;		# deleted from FPC
+	ahven) ;;		# deleted from FPC
+	ede) ;;			# deleted from FPC
 
 	fetch) ;;		# From DragonFly
-	makewhatis) ;;		# From DragonFly
-	mtree) ;;		# From DragonFly
-	rpcgen) ;;		# From DragonFly
-	sha256) ;;		# From DragonFly
-	bsd-patch) ;;		# From DragonFly/FreeBSD
-	bsd-which) ;;		# From DragonFly/FreeBSD
-
 	libedit) ;;		# Different version scheme from FPC
-	gnat-util) ;;		# Different version scheme from FPC
 	gprbuild) ;;		# Different version scheme from FPC
 	apr1|apr-util) ;;	# Different version scheme from FPC
 	aom) ;;                 # ditto
 	rtmpdump) ;;		# ditto
 	libzen) ;;		# ditto
 	compiler-rt) ;;		# ditto
-	mariadb102) ;;		# ditto
 	ImageMagick) ;;		# W.X.Y.Z rather than W.X.Y-Z
 	irssi) ;;		# fake version
 	libcdio-paranoia) ;;	# Symbols in version fake as older
@@ -68,6 +89,7 @@ while read ravenport version fpc_port; do
 	fonts-gentium-basic) ;;	# ditto
 	libdbusmenu-qt) ;;	# ditto
 	fontconfig) ;;          # FPC tracking beta versions
+	re2) ;;			# different date punctuation
 
 	aspell-el) ;;		# requires EPOCH, 0.08 > 0.50 actually
 	aspell-pl) ;;		# incorrectly identifies as newer (scheme difference)
@@ -76,44 +98,40 @@ while read ravenport version fpc_port; do
 	openjade) ;;            # FreeBSD uses dev version, ravenports has release
 	python-*) ;;            # manual python port
 	ncurses) ;;		# FreeBSD uses dev version now
-	ncurses60) ;;		# required for 1 or 2 apps
 	gsfonts) ;;		# noschema (8.11 vs 8.11pre)
 	norm) ;;		# fails to recognize 1.5.8 > 1.5r6
 	double-conversion) ;;	# garbage version, recheck periodically
 	w3m) ;;			# Different version scheme (we use OpenBSD now)
 	webkitgtk) ;;		# older branch
+	fonts-anonymous-pro) ;;	# version comparison problem 1.002 vs 1_003
+	xclip) ;;		# freebsd fake version
+	clisp) ;;		# fake version 2.49.95+20241228
+	nvi) ;;			# freebsd uses a different version with same namebase
 
 	libexecinfo) ;;		# Different source from FPC
 	doas) ;;		# ditto
 
-	qt5-qtbase) ;;		# FreeBSD splits these packages into sep one
-	qt5-qttools) ;;		#
-	qt5-qtdeclarative) ;;	#
 	gstreamer1-*-xshm) ;;   # FreeBSD combined with plugins-x
-	qt6-*) ;;		# QT6 isn't on freebsd yet
 	gtkmm40) ;;		# check periodically
 	gtk4) ;;		# check periodically
 	
 	usb-modeswitch-data) ;;	# combined with sysutils/usb_modeswitch
-	rustless-firefox) ;;	# currently like www/firefox-esr, but RP is frozen
 
-	gps|gnatstudio) ;;	# removed from FPC (stupidly)
 	GeoIP) ;;		# removed from FPC
 	libcxx) ;;		# removed from FPC
 	warsow*) ;;		# removed
-	XML_EZ_Out) ;;		# removed
-	libsparkcrypto) ;;	# removed
-	langkit) ;;		# removed
-	sparforte) ;;		# removed
 	aucatctl) ;;		# removed
-	simple_components) ;;	# removed
-	py27-pygobject) ;;	# removed
-	py27-setuptools) ;;	# removed
 	aws) ;;			# removed
 	db6) ;;			# removed
+	cairomm10) ;;		# removed
+	wmctrl) ;;		# removed
+	libcddb) ;;		# removed
+	tcsh) ;;		# removed
+	pangomm14) ;;		# removed
+	db4) ;;			# removed
 
-	mdds-1.5) ;;		# latest for libreoffice
-	mdds) ;;
+	mdds-3.0|mdds-3.1) ;;	# freebsd only matches with mdds-3.2
+	php8?-openssl) ;;	# not sure why this is missing from FPC
 
 	libadalang*) ;;		# Rest are ports that FPC doesn't have yet
 	ada_libfswatch) ;;
@@ -127,7 +145,6 @@ while read ravenport version fpc_port; do
 	lua-penlight) ;;
 	quex) ;;
 	slider) ;;
-	firebird30) ;;
 	fuse3) ;;
 	aspell-mg | aspell-hus) ;;
 	gnatcross*) ;;
@@ -136,14 +153,12 @@ while read ravenport version fpc_port; do
 	AdaYaml) ;;
 	libuuid) ;;
 	stterm)  ;;
-	bezitopo) ;;
 	pekwm-themepack) ;;
 	libxmlxx) ;;			# check libxml++ occ.
 	guile) ;;			# check occasionally
 	libsigcxx) ;;			# check occasionally
-	hardlink-osx) ;;
 	gnatcoll-*) ;;
-	openmp|clang|lld|llvm-libunwind) ;;
+	llvm*|openmp*|clang*|lld*) ;;
 	ldoc) ;;
 	corefonts) ;;
 	precomp) ;;
@@ -171,6 +186,48 @@ while read ravenport version fpc_port; do
 	dos2unix) ;;
 	msgpack-cxx) ;;
 	libmd) ;;
+	xmltoman) ;;
+	xorg-dmx) ;;
+	ferron) ;;
+	blogc) ;;
+	libusb-compat) ;;
+	zxcvbn-c) ;;
+	libart-trinity) ;;
+	mandown) ;;
+	fzssh) ;;
+	AdaID) ;;
+	ada-markdown) ;;
+	oxicloud) ;;
+	hickory-dns) ;;
+	geomyidae) ;;
+	fonts-VTCGoblinHand-ttf) ;;
+	linux-api-headers) ;;
+	prettier-ada) ;;
+	gnatformat) ;;
+	gnatdoc) ;;
+	AdaSAT) ;;
+	gpr2tools) ;;
+	lal-refactor) ;;
+	libxdiff_ada) ;;
+	vss-*) ;;
+	zesarux) ;;
+	telescope) ;;
+	l3afpad) ;;
+	ssvnc) ;;
+	postgresql-libversion) ;;
+	pdfio) ;;
+	libtiger) ;;
+	rs-tftpd) ;;
+	unifdef) ;;
+	libvolume_id) ;;
+	xsecurelock) ;;	
+	libppd) ;;
+	projectm-eval) ;;
+	edlin) ;;
+	freedit) ;;
+	p7zip) ;;
+	lua-alt-getopt) ;;
+	vo-aacenc) ;;
 	*) echo "${ravenport} ${version}"
    esac
 done < ${tmpfile}
