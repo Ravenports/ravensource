@@ -1,14 +1,14 @@
 DEF[NAMEBASE]=		libclc
-DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM21_VERSION)
+DEF[LLVM_VERSION]=	EXTRACT_INFO(LLVM22_VERSION)
 DEF[LLVMBASE]=		llvm
 DEF[CLANGBASE]=		clang
 DEF[SPIRVBASE]=		spirv-llvm-translator
-DEF[PORTVERSION]=	${LLVM_VERSION}
-DEF[DSUBDIR]=		llvm21
+DEF[WORKNAME]=		llvm-project-${LLVM_VERSION}.src
+DEF[DSUBDIR]=		llvm
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		${NAMEBASE}
-VERSION=		${PORTVERSION}
+VERSION=		${LLVM_VERSION}
 KEYWORDS=		devel
 VARIANTS=		std
 SDESC[std]=		Required library functions for OpenCL C language
@@ -16,8 +16,8 @@ HOMEPAGE=		http://libclc.llvm.org/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		https://github.com/llvm/llvm-project/releases/download/llvmorg-${PORTVERSION}/
-DISTFILE[1]=		libclc-${PORTVERSION}.src.tar.xz:main
+SITES[main]=		https://github.com/llvm/llvm-project/releases/download/llvmorg-${LLVM_VERSION}/
+DISTFILE[1]=		${WORKNAME}.tar.xz:main
 DIST_SUBDIR=		${DSUBDIR}
 
 SPKGS[std]=		single
@@ -39,10 +39,9 @@ BUILD_DEPENDS=		libedit:dev:std
 			${CLANGBASE}:set:std
 			${SPIRVBASE}:primary:std
 			${SPIRVBASE}:dev:std
-# #			rocm-device-libs:single:std
 
 USES=			python:build cmake
 MAKE_ENV=		MAKE=make
 # Force ccache to work with clang
 			CCACHE_CPP2=yes
-DISTNAME=		libclc-${PORTVERSION}.src/
+DISTNAME=		${WORKNAME}/libclc
