@@ -1,0 +1,36 @@
+DEF[PORTVERSION]=	0.2.2
+# ------------------------------------------------------------------------
+
+NAMEBASE=		R-watcher
+VERSION=		${PORTVERSION}
+KEYWORDS=		cran
+VARIANTS=		std
+SDESC[std]=		Watch the File System for Changes
+HOMEPAGE=		https://watcher.r-lib.org
+CONTACT=		CRAN_Automaton[cran@ravenports.com]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		CRAN/src/contrib
+			https://loki.dragonflybsd.org/cranfiles/
+DISTFILE[1]=		watcher_0.2.2.tar.gz:main
+DIST_SUBDIR=		CRAN
+DF_INDEX=		1
+
+SPKGS[std]=		single
+
+OPTIONS_AVAILABLE=	none
+OPTIONS_STANDARD=	none
+
+# License listed on https://cran.r-project.org/
+# => MIT + file LICENSE
+
+USES=			cran gmake
+DISTNAME=		watcher
+GENERATED=		yes
+INSTALL_REQ_TOOLCHAIN=	yes
+
+BUILDRUN_DEPENDS=	R-later:single:std
+			R-R6:single:std
+			R-rlang:single:std
+
+
