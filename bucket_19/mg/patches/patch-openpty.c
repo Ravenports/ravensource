@@ -2,7 +2,7 @@ $NetBSD: patch-openpty.c,v 1.1 2025/05/23 09:28:50 jperkin Exp $
 
 Implement openpty() for illumos.  Based on jclulow's patches for neovim.
 
---- /dev/null	2026-04-05 20:49:40 UTC
+--- /dev/null	2026-11-24 00:26:18 UTC
 +++ openpty.c
 @@ -0,0 +1,175 @@
 +#include <sys/types.h>

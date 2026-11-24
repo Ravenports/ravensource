@@ -1,4 +1,4 @@
---- tty.c.orig	2024-07-09 15:39:50 UTC
+--- tty.c.orig	2026-07-19 15:45:19 UTC
 +++ tty.c
 @@ -35,6 +35,9 @@
  #include <stdio.h>

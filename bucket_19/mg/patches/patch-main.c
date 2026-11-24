@@ -1,4 +1,4 @@
---- main.c.orig	2024-07-09 15:39:50 UTC
+--- main.c.orig	2026-07-19 15:45:19 UTC
 +++ main.c
 @@ -20,6 +20,8 @@
  #if HAVE_PTY_H
@@ -8,4 +8,4 @@
 +#include <libutil.h>
  #elif HAVE_UTIL_H
  #include <util.h>
- #endif
+ #elif HAVE_LIBUTIL_H

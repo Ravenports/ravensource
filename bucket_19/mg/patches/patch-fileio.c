@@ -2,9 +2,9 @@ $NetBSD: patch-fileio.c,v 1.1 2025/05/23 09:28:50 jperkin Exp $
 
 Support systems that lack DT_DIR and friends.
 
---- fileio.c.orig	2024-07-09 15:39:50 UTC
+--- fileio.c.orig	2026-07-19 15:45:19 UTC
 +++ fileio.c
-@@ -528,21 +528,28 @@ make_file_list(char *buf)
+@@ -527,21 +527,28 @@ make_file_list(char *buf)
  	last = NULL;
  
  	while ((dent = readdir(dirp)) != NULL) {

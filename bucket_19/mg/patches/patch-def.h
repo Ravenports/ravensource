@@ -1,6 +1,6 @@
 For bcopy on SunOS
 
---- def.h.orig	2024-07-09 15:39:50 UTC
+--- def.h.orig	2026-07-19 15:45:19 UTC
 +++ def.h
 @@ -12,6 +12,7 @@
  
