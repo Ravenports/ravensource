@@ -1,4 +1,4 @@
---- src/3rdparty/eigen/Eigen/src/Core/util/Memory.h.orig	2026-09-26 16:30:55 UTC
+--- src/3rdparty/eigen/Eigen/src/Core/util/Memory.h.orig	2026-11-17 05:28:17 UTC
 +++ src/3rdparty/eigen/Eigen/src/Core/util/Memory.h
 @@ -646,11 +646,7 @@ EIGEN_DEVICE_FUNC T* smart_move(T* start
  // you can overwrite Eigen's default behavior regarding alloca by defining EIGEN_ALLOCA

@@ -1,4 +1,4 @@
---- cmake/QtPlatformSupport.cmake.orig	2026-06-04 16:29:11 UTC
+--- cmake/QtPlatformSupport.cmake.orig	2026-10-28 14:12:28 UTC
 +++ cmake/QtPlatformSupport.cmake
 @@ -43,6 +43,18 @@ else()
      set(OPENBSD 0)

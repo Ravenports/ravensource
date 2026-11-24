@@ -1,4 +1,4 @@
---- src/qml/common/qv4alloca_p.h.orig	2026-09-26 10:47:59 UTC
+--- src/qml/common/qv4alloca_p.h.orig	2026-11-16 16:52:01 UTC
 +++ src/qml/common/qv4alloca_p.h
 @@ -44,7 +44,7 @@
  

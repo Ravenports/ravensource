@@ -1,4 +1,4 @@
---- src/3rdparty/forkfd/forkfd.c.orig	2026-06-04 16:29:11 UTC
+--- src/3rdparty/forkfd/forkfd.c.orig	2026-10-28 14:12:28 UTC
 +++ src/3rdparty/forkfd/forkfd.c
 @@ -77,8 +77,12 @@
  #  define HAVE_EVENTFD 1

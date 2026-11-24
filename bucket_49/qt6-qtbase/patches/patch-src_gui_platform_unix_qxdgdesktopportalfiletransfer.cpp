@@ -1,4 +1,4 @@
---- src/gui/platform/unix/qxdgdesktopportalfiletransfer.cpp.orig	2026-06-04 16:29:11 UTC
+--- src/gui/platform/unix/qxdgdesktopportalfiletransfer.cpp.orig	2026-10-28 14:12:28 UTC
 +++ src/gui/platform/unix/qxdgdesktopportalfiletransfer.cpp
 @@ -17,6 +17,10 @@
  #include <unistd.h>

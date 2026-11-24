@@ -1,4 +1,4 @@
---- cmake/QtFlagHandlingHelpers.cmake.orig	2026-06-04 16:29:11 UTC
+--- cmake/QtFlagHandlingHelpers.cmake.orig	2026-10-28 14:12:28 UTC
 +++ cmake/QtFlagHandlingHelpers.cmake
 @@ -189,7 +189,6 @@ function(qt_internal_add_link_flags_no_u
                  "Target:\"${target}\". "
