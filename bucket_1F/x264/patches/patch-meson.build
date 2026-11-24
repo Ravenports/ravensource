@@ -1,0 +1,89 @@
+--- meson.build.orig	2026-08-06 13:57:36 UTC
++++ meson.build
+@@ -1,13 +1,13 @@
+ project('x264', 'c',
+-  version: run_command(find_program('version.py'), '--package-version', check: true).stdout().strip(),
+-  default_options: ['optimization=2', 'c_std=c11'],
++  version: '%%DISTVERSION%%',
++  default_options: ['c_std=c11'],
+   meson_version: '>= 1.6.0'
+ )
+ 
+ x264_ver = meson.project_version()
+ x264_rev = meson.project_version().split('.')[2]
+ x264_build = meson.project_version().split('.')[1]
+-x264_commit = run_command(find_program('version.py'), '--commit-hash', check: true).stdout().strip()
++x264_commit = '%%GIT_COMMIT_HASH%%'
+ 
+ message('build: ' + x264_build)
+ message('commit: ' + x264_commit)
+@@ -115,7 +115,7 @@ if compiler_style == 'GNU'
+   # and the _GNU_SOURCE macro for GNU extensions (for CPU_COUNT)
+   # Unfortunately, using _POSIX_C_SOURCE triggers the requirement to use
+   # _DARWIN_C_SOURCE too
+-  add_project_arguments(['-D_POSIX_C_SOURCE=200112L'], language: 'c')
++  # add_project_arguments(['-D_POSIX_C_SOURCE=200112L'], language: 'c')
+   if ['darwin', 'ios'].contains(host_system)
+     add_project_arguments(['-D_DARWIN_C_SOURCE'], language: 'c')
+   else
+@@ -218,20 +218,20 @@ if ['x86', 'x86_64'].contains(host_cpu)
+     asflags += ['-DARCH_X86_64=1']
+     stack_alignment = 16
+   endif
+-elif host_cpu.startswith('ppc')
+-  cdata.set10('altivec', true)
++elif host_cpu.startswith('ppc') and asm_allowed
++  cdata.set10('HAVE_ALTIVEC', true)
+ 
+   if host_system == 'darwin'
+     add_project_arguments('-faltivec', '-fastf', '-mcpu=G4', language: 'c')
+   else
+-    add_project_arguments('-maltivec', '-mabi=altivec', language: 'c')
+-    cdata.set10('altivec_h', true)
++    add_project_arguments('-maltivec', language: 'c')
++    cdata.set10('HAVE_ALTIVEC_H', true)
+   endif
+ 
+   if not get_option('vsx').disabled()
+-    if cc.has_argument('-mvsx')
++    if cc.compiles('int main(void){return 0;}', args: ['-maltivec', '-mvsx'], name: 'VSX with AltiVec')
+       add_project_arguments('-mvsx', language: 'c')
+-      cdata.set10('vsx', true)
++      cdata.set10('HAVE_VSX', true)
+     endif
+   endif
+ elif host_cpu == 'aarch64'
+@@ -568,7 +568,7 @@ if not get_option('avs').disabled()
+     dl_dep = cc.find_library('dl', required: get_option('avs'))
+     have_avs = dl_dep.found()
+     avs_deps = [dl_dep]
+-  elif ['freebsd', 'openbsd', 'netbsd', 'haiku'].contains(host_system)
++  elif ['freebsd', 'openbsd', 'netbsd', 'haiku', 'dragonfly'].contains(host_system)
+     have_avs = true
+     # dlopen is exported from libc on both *BSD and Haiku
+   endif
+@@ -793,8 +793,14 @@ elif cc.has_function('_fseeki64')
+   cdata.set('ftell', '_ftelli64')
+ endif
+ 
+-if host_system == 'bsd' # one to rule them all apparently
++if ['freebsd', 'midnightbsd'].contains(host_system)
+   cdata.set10('SYS_FREEBSD', true)
++elif ['netbsd'].contains(host_system)
++  cdata.set10('SYS_NETBSD', true)
++elif ['openbsd'].contains(host_system)
++  cdata.set10('SYS_OPENBSD', true)
++elif ['dragonfly'].contains(host_system)
++  cdata.set10('SYS_DRAGONFLY', true)
+ elif ['darwin', 'ios'].contains(host_system)
+   cdata.set10('SYS_MACOSX', true)
+ elif host_system == 'sunos' or host_system == 'solaris'
+@@ -955,7 +961,7 @@ if asm_allowed
+   elif host_cpu.startswith('ppc')
+     sources_x += files(
+       'common/ppc/dct.c',
+-      'common/ppc/debloc4k.c',
++      'common/ppc/deblock.c',
+       'common/ppc/mc.c',
+       'common/ppc/pixel.c',
+       'common/ppc/predict.c',

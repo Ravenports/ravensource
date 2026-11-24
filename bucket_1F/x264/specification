@@ -1,7 +1,7 @@
-DEF[X264_BUILD]=	164
-DEF[X264_REV]=		3095
-DEF[X264_COMMIT]=	baee400fa9ced6f5481a728138fed6e867b0ff7f
-DEF[X264_GITVER]=	baee400
+DEF[X264_BUILD]=	165
+DEF[X264_REV]=		3223
+DEF[X264_COMMIT]=	00852f599572d10798b2dafd2c5286213d0ce795
+DEF[X264_GITVER]=	00852f5
 DEF[PORTVERSION]=	0.${X264_BUILD}.${X264_REV}
 # NOTES
 # We use tarballs from the *stable* branch of the upstream git repository.
@@ -13,22 +13,25 @@ DEF[PORTVERSION]=	0.${X264_BUILD}.${X264_REV}
 
 NAMEBASE=		x264
 VERSION=		${PORTVERSION}
-REVISION=		1
 KEYWORDS=		multimedia
 VARIANTS=		std
 SDESC[std]=		H.264/MPEG-4 AVC Video Encoder
 HOMEPAGE=		https://www.videolan.org/developers/x264.html
 CONTACT=		nobody
 
+# Requires human interaction.  Locally host it.
+# https://gitlab.freedesktop.org/gstreamer/meson-ports/x264/-/archive/<hash>/x264-<hash>.tar.gz
+# old location: https://code.videolan.org/videolan/x264/-/archive/${X264_GITVER}/
+
 DOWNLOAD_GROUPS=	main
-SITES[main]=		https://code.videolan.org/videolan/x264/-/archive/${X264_GITVER}/
-DISTFILE[1]=		${X264_GITVER}.tar.bz2:main
+SITES[main]=		https://leaf.dragonflybsd.org/~marino/raven-distfiles/
+DISTFILE[1]=		x264-${X264_COMMIT}.tar.gz:main
 DIST_SUBDIR=		x264
 
 SPKGS[std]=		set primary dev tools
 
-OPTIONS_AVAILABLE=	H10P ASM
-OPTIONS_STANDARD=	H10P ASM
+OPTIONS_AVAILABLE=	ASM
+OPTIONS_STANDARD=	ASM
 OPT_ON[x86_64]=		ASM
 OPT_ON[i386]=		ASM
 
@@ -41,46 +44,34 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		multimedia/x264
 
-BUILD_DEPENDS=		bash:primary:std
-			l-smash:dev:std
+BUILD_DEPENDS=		l-smash:dev:std
 BUILDRUN_DEPENDS=	l-smash:primary:std
+			bash-completion:single:std
 
-USES=			pkgconfig gmake shebangfix
-SHEBANG_FILES=		configure
-INSTALL_REQ_TOOLCHAIN=	yes
-MUST_CONFIGURE=		gnu
+USES=			meson pkgconfig shebangfix
+SHEBANG_GLOB=		*.py
 PLIST_SUB=		X264_BUILD=${X264_BUILD}
-DISTNAME=		x264-${X264_GITVER}-${X264_COMMIT}
-CFLAGS=			-I{{LOCALBASE}}/include/libav
-			-Wno-implicit-function-declaration
-LDFLAGS=		-L{{LOCALBASE}}/lib/libav
-			-Wl,-rpath,{{LOCALBASE}}/lib/libav
-CONFIGURE_ARGS=		--host="{{CONFIGURE_TARGET}}"
-			--extra-cflags="{{CPPFLAGS}} {{CFLAGS}}"
-			--extra-ldflags="{{LDFLAGS}}"
-			--enable-static
-			--enable-shared
-			--enable-strip
-			--disable-bashcompletion
-			--disable-gpac
-			--disable-ffms
-			--disable-avs
-# lavf requires ffmpeg causing circular dependency failure
-			--disable-lavf
+DISTNAME=		x264-${X264_COMMIT}
 
-[H10P].DESCRIPTION=			Enable High 10 Profile 10-bit encoding
-[H10P].BUILD_DEPENDS_OFF=		opencl-headers:single:std
-[H10P].CONFIGURE_ARGS_ON=		--bit-depth=10
+# lavf requires ffmpeg causing circular dependency failure
+MESON_ARGS=		-Dlavf=disabled
+			-Dgpac=disabled
+			-Dffms=disabled
+			-Dswscale=disabled
+			-Dlsmash=enabled
+
 
 [ASM].BUILD_DEPENDS_ON=			nasm:primary:std
-[ASM].CONFIGURE_ARGS_OFF=		--disable-asm
+[ASM].CONFIGURE_ARGS_OFF=		-Dasm=disabled
+					-Dvsx=disabled
 
-post-patch:
-	${REINPLACE_CMD} -e ' \
-		s|gpac_static|gpac|g' \
-		${WRKSRC}/configure
-	${REINPLACE_CMD} -e ' \
-		s|bash|sh|; \
-		s|VER="x"|VER="${X264_REV} ${X264_GITVER}"|; \
-		s|VERSION=""|VERSION=" r${X264_REV} ${X264_GITVER}"|' \
-		${WRKSRC}/version.sh
+pre-configure:
+	${REINPLACE_CMD} -e 's|%%DISTVERSION%%|${PORTVERSION}|g' \
+	    ${PATCH_WRKSRC}/meson.build
+	${REINPLACE_CMD} -e 's|%%GIT_COMMIT_HASH%%|${X264_COMMIT}|g' \
+	    ${PATCH_WRKSRC}/meson.build
+
+post-install:
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/bash-completion/completions
+	${INSTALL_SCRIPT} ${WRKSRC}/tools/bash-autocomplete.sh \
+		${STAGEDIR}${PREFIX}/share/bash-completion/completions/x264
