@@ -1,4 +1,4 @@
---- gui/cpp/api.h.orig	2023-07-27 22:01:05 UTC
+--- gui/cpp/api.h.orig	2026-11-18 22:41:17 UTC
 +++ gui/cpp/api.h
 @@ -12,7 +12,7 @@
  
