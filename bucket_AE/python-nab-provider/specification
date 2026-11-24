@@ -1,17 +1,17 @@
-DEF[PORTVERSION]=	0.0.30
+DEF[PORTVERSION]=	0.0.31
 # ------------------------------------------------------------------------
 
 NAMEBASE=		python-nab-provider
 VERSION=		${PORTVERSION}
 KEYWORDS=		python
 VARIANTS=		v14 v15
-SDESC[v14]=		IO-free resolution core for nab (3.14)
-SDESC[v15]=		IO-free resolution core for nab (3.15)
+SDESC[v14]=		Nab package candidate selector (3.14)
+SDESC[v15]=		Nab package candidate selector (3.15)
 HOMEPAGE=		https://github.com/notatallshaw/nab
 CONTACT=		Python_Automaton[python@ravenports.com]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		PYPIWHL/c8/be/b2b67f3abb76b5c18d164b36c5afbd852247bb173d7fd5d689df2f82dcce
+SITES[main]=		PYPIWHL/d0/da/53da6633437343cb963a7b8f701efda4e96ac956f5022343e97625af6bfb
 DISTFILE[1]=		nab_provider-${PORTVERSION}-py3-none-any.whl:main
 DIST_SUBDIR=		python-src
 
@@ -30,16 +30,19 @@ GENERATED=		yes
 DISTNAME=		nab_provider-${PORTVERSION}.dist-info
 
 # Requires-Dist extracted from wheel metadata
-# nab-markersets==0.0.30
-# nab-resolver==0.0.30
+# nab-markersets==0.0.31
+# nab-resolver==0.0.31
+# packaging>=26.4
 # typing-extensions>=4.6
 
 [PY314].USES_ON=			python:v14,wheel
 [PY314].RUN_DEPENDS_ON=			python-nab-markersets:single:v14
 					python-nab-resolver:single:v14
+					python-packaging:single:v14
 					python-typing-extensions:single:v14
 [PY315].USES_ON=			python:v15,wheel
 [PY315].RUN_DEPENDS_ON=			python-nab-markersets:single:v15
 					python-nab-resolver:single:v15
+					python-packaging:single:v15
 					python-typing-extensions:single:v15
 
