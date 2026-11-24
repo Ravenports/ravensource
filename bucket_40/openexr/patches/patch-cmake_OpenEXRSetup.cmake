@@ -1,4 +1,4 @@
---- cmake/OpenEXRSetup.cmake.orig	2026-11-09 20:21:31 UTC
+--- cmake/OpenEXRSetup.cmake.orig	2026-11-20 20:27:19 UTC
 +++ cmake/OpenEXRSetup.cmake
 @@ -112,7 +112,7 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
  # (if you should choose to install those)
