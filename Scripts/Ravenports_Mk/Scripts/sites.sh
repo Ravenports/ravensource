@@ -117,22 +117,6 @@ expand_GITLAB()
     echo "https://gitlab.com/api/v4/projects/${1}%2F${2}/repository/archive?sha=${3}&dummy=/"
 }
 
-expand_GITHUB_CLOUD()
-{
-    # pattern [element]/%ACCOUNT%/%PROJECT%/
-    local SUBDIR
-    if [ ${2} -eq 1 ]; then
-	SUBDIR=${1##GITHUB_CLOUD/}
-    else
-	SUBDIR=${1##GHC/}
-    fi
-    OLD_IFS=${IFS}
-    IFS=:
-    set -- ${SUBDIR}
-    IFS=${OLD_IFS}
-    echo "https://cloud.github.com/downloads/${1}/${2}/"
-}
-
 expand_GITHUB_PRIVATE()
 {
     # Google takes security access token and generates a new TOKEN
@@ -531,8 +515,6 @@ process_site()
 	FREELOCAL/*)               expand_FREELOCAL "${1}" ;;
 	GCC/*)                     expand_GCC "${1}" ;;
 	GITHUB/*)                  expand_GITHUB "${1}" ;;
-	GITHUB_CLOUD/*)            expand_GITHUB_CLOUD "${1}" 1 ;;
-	GHC/*)                     expand_GITHUB_CLOUD "${1}" 2 ;;
 	GIMP/*)                    expand_GIMP "${1}" ;;
 	GITHUB_PRIVATE/*)          expand_GITHUB_PRIVATE "${1}" 1 ;;
 	GITLAB/*)                  expand_GITLAB "${1}" ;;
