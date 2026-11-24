@@ -1,4 +1,4 @@
---- lib/ortho/trapezoid.c.orig	2026-11-08 17:52:43 UTC
+--- lib/ortho/trapezoid.c.orig	2026-11-21 02:18:22 UTC
 +++ lib/ortho/trapezoid.c
 @@ -35,6 +35,11 @@
  #include <util/unreachable.h>
