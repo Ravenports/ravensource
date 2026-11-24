@@ -1,4 +1,4 @@
---- src/util/build_config.h.orig	2022-11-10 16:29:39 UTC
+--- src/util/build_config.h.orig	2026-03-12 15:29:33 UTC
 +++ src/util/build_config.h
 @@ -40,6 +40,8 @@
  #define OS_WIN 1
@@ -24,4 +24,4 @@
 +    defined(OS_DRAGONFLY) || \
      defined(OS_FREEBSD) || defined(OS_LINUX) || defined(OS_MACOSX) || \
      defined(OS_NACL) || defined(OS_NETBSD) || defined(OS_OPENBSD) ||  \
-     defined(OS_QNX) || defined(OS_SOLARIS) || defined(OS_HAIKU) || \
+     defined(OS_QNX) || defined(OS_SOLARIS) || defined(OS_HAIKU) ||    \

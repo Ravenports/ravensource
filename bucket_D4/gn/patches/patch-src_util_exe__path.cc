@@ -1,4 +1,4 @@
---- src/util/exe_path.cc.orig	2022-11-10 16:29:39 UTC
+--- src/util/exe_path.cc.orig	2026-03-12 15:29:33 UTC
 +++ src/util/exe_path.cc
 @@ -15,7 +15,7 @@
  #include <windows.h>

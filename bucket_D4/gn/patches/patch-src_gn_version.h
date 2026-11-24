@@ -1,4 +1,4 @@
---- src/gn/version.h.orig	2022-11-10 16:29:39 UTC
+--- src/gn/version.h.orig	2026-03-12 15:29:33 UTC
 +++ src/gn/version.h
 @@ -15,6 +15,15 @@
  #undef minor

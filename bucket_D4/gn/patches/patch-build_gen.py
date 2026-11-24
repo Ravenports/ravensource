@@ -1,6 +1,6 @@
 .git/ is missing in archive, so use version from environment
 
---- build/gen.py.orig	2024-06-11 05:22:10 UTC
+--- build/gen.py.orig	2026-03-12 15:29:33 UTC
 +++ build/gen.py
 @@ -47,6 +47,10 @@ class Platform(object):
        self._platform = 'fuchsia'
@@ -13,7 +13,7 @@
      elif self._platform.startswith('netbsd'):
        self._platform = 'netbsd'
      elif self._platform.startswith('openbsd'):
-@@ -241,25 +245,16 @@ def is_gcc(cxx):
+@@ -245,25 +249,16 @@ def is_gcc(cxx):
    return ret.returncode == 0 and "#define __GNUC__" in ret.stdout and not "#define __clang__" in ret.stdout
  
  def GenerateLastCommitPosition(host, header):
@@ -41,7 +41,7 @@
  
    # Only write/touch this file if the commit position has changed.
    old_contents = ''
-@@ -303,6 +298,8 @@ def WriteGenericNinja(path, static_libra
+@@ -307,6 +302,8 @@ def WriteGenericNinja(path, static_libra
        'darwin': 'build_mac.ninja.template',
        'linux': 'build_linux.ninja.template',
        'freebsd': 'build_linux.ninja.template',
