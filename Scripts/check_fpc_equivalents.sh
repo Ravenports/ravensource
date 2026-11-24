@@ -107,6 +107,7 @@ while read ravenport version fpc_port; do
 	xclip) ;;		# freebsd fake version
 	clisp) ;;		# fake version 2.49.95+20241228
 	nvi) ;;			# freebsd uses a different version with same namebase
+	musepack) ;;		# version mismatch version=r475 freebsd=2011.08.10
 
 	libexecinfo) ;;		# Different source from FPC
 	doas) ;;		# ditto
@@ -116,6 +117,9 @@ while read ravenport version fpc_port; do
 	gtk4) ;;		# check periodically
 	
 	usb-modeswitch-data) ;;	# combined with sysutils/usb_modeswitch
+	spirv-llvm-trans*22) ;; # FreeBSD doesn't have older versions
+	tk90|tcl90) ;;		# FreeBSD doesn't have older versions
+	ffmpeg8) ;;		# FreeBSD doesn't have older versions
 
 	GeoIP) ;;		# removed from FPC
 	libcxx) ;;		# removed from FPC
@@ -129,6 +133,11 @@ while read ravenport version fpc_port; do
 	tcsh) ;;		# removed
 	pangomm14) ;;		# removed
 	db4) ;;			# removed
+	giblib) ;;		# removed
+	bmake) ;;		# removed
+	libkate) ;;		# removed
+	libtorrent-rasterbar) ;;      # removed
+	xorg-driver-video-i740) ;;    # removed
 
 	mdds-3.0|mdds-3.1) ;;	# freebsd only matches with mdds-3.2
 	php8?-openssl) ;;	# not sure why this is missing from FPC
