@@ -1,4 +1,4 @@
---- lib/mkmf.rb.orig	2026-10-23 03:17:41 UTC
+--- lib/mkmf.rb.orig	2026-11-18 21:52:31 UTC
 +++ lib/mkmf.rb
 @@ -222,7 +222,7 @@ module MakeMakefile
    end
