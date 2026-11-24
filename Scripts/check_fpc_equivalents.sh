@@ -108,6 +108,7 @@ while read ravenport version fpc_port; do
 	clisp) ;;		# fake version 2.49.95+20241228
 	nvi) ;;			# freebsd uses a different version with same namebase
 	musepack) ;;		# version mismatch version=r475 freebsd=2011.08.10
+	getopt) ;;		# freebsd getopt is based on util-linux
 
 	libexecinfo) ;;		# Different source from FPC
 	doas) ;;		# ditto
@@ -133,14 +134,17 @@ while read ravenport version fpc_port; do
 	tcsh) ;;		# removed
 	pangomm14) ;;		# removed
 	db4) ;;			# removed
+	kyua) ;;		# removed
 	giblib) ;;		# removed
 	bmake) ;;		# removed
 	libkate) ;;		# removed
+	nginx-unit) ;;		# removed
 	libtorrent-rasterbar) ;;      # removed
 	xorg-driver-video-i740) ;;    # removed
 
 	mdds-3.0|mdds-3.1) ;;	# freebsd only matches with mdds-3.2
 	php8?-openssl) ;;	# not sure why this is missing from FPC
+	php8[56]-opcache) ;;	# only php84-opcache exists
 
 	libadalang*) ;;		# Rest are ports that FPC doesn't have yet
 	ada_libfswatch) ;;
