@@ -1,8 +1,8 @@
---- cmake/libfmt.cmake.orig	2026-08-23 19:58:56.009043000 +0200
-+++ cmake/libfmt.cmake	2026-08-23 19:59:43.955755000 +0200
-@@ -12,15 +12,8 @@
-     SET(fmt_byproducts BUILD_BYPRODUCTS ${LIBFMT_INCLUDE_DIR}/fmt/format-inl.h)
-   ENDIF()
+--- cmake/libfmt.cmake.orig	2026-11-09 19:26:05 UTC
++++ cmake/libfmt.cmake
+@@ -10,15 +10,8 @@ MACRO(BUNDLE_LIBFMT)
+ 
+   SET(fmt_byproducts BUILD_BYPRODUCTS ${LIBFMT_INCLUDE_DIR}/fmt/format-inl.h)
  
 -  IF(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" AND CMAKE_CXX_COMPILER_VERSION VERSION_LESS "4.9")
 -    # it's for RHEL-7, gcc 4.8.5

@@ -1,6 +1,6 @@
---- cmake/libfmt.cmake.orig	2026-08-23 20:05:57.298171000 +0200
-+++ cmake/libfmt.cmake	2026-08-23 20:06:26.796251000 +0200
-@@ -12,15 +12,8 @@
+--- cmake/libfmt.cmake.orig	2026-11-05 14:56:56 UTC
++++ cmake/libfmt.cmake
+@@ -12,15 +12,8 @@ MACRO(BUNDLE_LIBFMT)
      SET(fmt_byproducts BUILD_BYPRODUCTS ${LIBFMT_INCLUDE_DIR}/fmt/format-inl.h)
    ENDIF()
  

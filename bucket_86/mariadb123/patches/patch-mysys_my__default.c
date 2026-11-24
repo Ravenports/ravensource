@@ -1,4 +1,4 @@
---- mysys/my_default.c.orig	2026-05-26 19:21:07 UTC
+--- mysys/my_default.c.orig	2026-11-09 20:14:19 UTC
 +++ mysys/my_default.c
 @@ -634,7 +634,7 @@ static int search_default_file_with_ext(
    {
@@ -24,7 +24,7 @@
    while (mysql_file_fgets(buff, sizeof(buff) - 1, fp))
    {
      line++;
-@@ -948,7 +956,8 @@ void my_print_default_files(const char *
+@@ -955,7 +963,8 @@ void my_print_default_files(const char *
            if (name[0] == FN_HOMELIB)	/* Add . to filenames in home */
              *end++= '.';
            strxmov(end, conf_file, *ext, " ", NullS);
@@ -34,7 +34,7 @@
          }
        }
      }
-@@ -1075,13 +1084,10 @@ static const char **init_default_directo
+@@ -1082,13 +1091,10 @@ static const char **init_default_directo
  
  #else
  

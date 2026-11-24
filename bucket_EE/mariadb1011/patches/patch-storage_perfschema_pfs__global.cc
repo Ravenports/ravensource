@@ -1,4 +1,4 @@
---- storage/perfschema/pfs_global.cc.orig	2026-05-23 15:01:06 UTC
+--- storage/perfschema/pfs_global.cc.orig	2026-11-05 14:56:58 UTC
 +++ storage/perfschema/pfs_global.cc
 @@ -49,6 +49,9 @@
  #ifdef HAVE_NETINET_IN_H

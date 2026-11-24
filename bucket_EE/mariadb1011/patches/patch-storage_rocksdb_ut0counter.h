@@ -1,4 +1,4 @@
---- storage/rocksdb/ut0counter.h.orig	2026-05-23 15:01:06 UTC
+--- storage/rocksdb/ut0counter.h.orig	2026-11-05 14:56:58 UTC
 +++ storage/rocksdb/ut0counter.h
 @@ -30,6 +30,12 @@ Created 2012/04/12 by Sunny Bains
  

@@ -1,4 +1,4 @@
---- plugin/auth_pam/auth_pam_base.c.orig	2026-05-24 09:58:32 UTC
+--- plugin/auth_pam/auth_pam_base.c.orig	2026-11-09 19:49:48 UTC
 +++ plugin/auth_pam/auth_pam_base.c
 @@ -128,11 +128,7 @@ static int conv(int n, const struct pam_
  
