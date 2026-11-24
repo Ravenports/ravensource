@@ -1,6 +1,6 @@
---- pr/include/md/_freebsd.h.orig	2026-08-05 04:57:49 UTC
+--- pr/include/md/_freebsd.h.orig	2026-11-18 18:00:24 UTC
 +++ pr/include/md/_freebsd.h
-@@ -58,7 +58,15 @@
+@@ -60,7 +60,15 @@
  #define _PR_HAVE_LARGE_OFF_T
  
  #if defined(_PR_PTHREADS)
@@ -17,7 +17,7 @@
  /*
   * libc_r before this version of FreeBSD doesn't have poll().
   * Although libc has poll(), it is not thread-safe so we can't
-@@ -67,7 +75,7 @@
+@@ -69,7 +77,7 @@
  #define _PR_POLL_AVAILABLE
  #endif
  #else
@@ -26,7 +26,7 @@
  #define _PR_POLL_AVAILABLE
  #define _PR_USE_POLL
  #endif
-@@ -76,7 +84,7 @@
+@@ -78,7 +86,7 @@
  #define _PR_HAVE_SYSV_SEMAPHORES
  #define PR_HAVE_SYSV_NAMED_SHARED_MEMORY
  

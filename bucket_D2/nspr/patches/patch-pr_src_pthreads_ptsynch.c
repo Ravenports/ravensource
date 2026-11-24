@@ -1,4 +1,4 @@
---- pr/src/pthreads/ptsynch.c.orig	2026-08-05 04:57:49 UTC
+--- pr/src/pthreads/ptsynch.c.orig	2026-11-18 18:00:24 UTC
 +++ pr/src/pthreads/ptsynch.c
 @@ -929,6 +929,7 @@ PR_DeleteSemaphore(const char* name)
   */
