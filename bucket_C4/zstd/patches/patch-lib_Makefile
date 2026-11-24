@@ -1,4 +1,4 @@
---- lib/Makefile.orig	2025-02-19 00:04:24 UTC
+--- lib/Makefile.orig	2026-11-23 22:40:52 UTC
 +++ lib/Makefile
 @@ -51,6 +51,8 @@ endif
  ZSTD_LOCAL_SRC := $(notdir $(ZSTD_FILES))
@@ -44,15 +44,6 @@
  
  
  # note : do not define lib-mt or lib-release as .PHONY
-@@ -268,7 +278,7 @@ clean:
- #-----------------------------------------------------------------------------
- # make install is validated only for below listed environments
- #-----------------------------------------------------------------------------
--ifneq (,$(filter Linux Darwin GNU/kFreeBSD GNU OpenBSD FreeBSD NetBSD DragonFly SunOS Haiku AIX MSYS_NT% CYGWIN_NT%,$(UNAME)))
-+ifneq (,$(filter Linux Darwin GNU/kFreeBSD GNU OpenBSD FreeBSD NetBSD DragonFly MidnightBSD SunOS Haiku AIX MSYS_NT% CYGWIN_NT%,$(UNAME)))
- 
- lib: libzstd.pc
- 
 @@ -355,6 +365,7 @@ install-static:
  	[ -e $(DESTDIR)$(LIBDIR) ] || $(INSTALL) -d -m 755 $(DESTDIR)$(LIBDIR)/
  	@echo Installing static library
