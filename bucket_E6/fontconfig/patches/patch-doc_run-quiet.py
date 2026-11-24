@@ -1,4 +1,4 @@
---- doc/run-quiet.py.orig	2026-08-06 06:05:15 UTC
+--- doc/run-quiet.py.orig	2026-11-18 11:53:03 UTC
 +++ doc/run-quiet.py
 @@ -31,6 +31,8 @@ if len(sys.argv) < 2:
    sys.exit('Usage: {} PROGRAM [ARGS..]'.format(sys.argv[0]))
