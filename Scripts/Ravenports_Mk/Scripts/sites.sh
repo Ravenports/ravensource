@@ -261,10 +261,8 @@ expand_PYPIWHL()
 {
     # pattern [element]/%SUBDIR%/
     local SUBDIR=${1##PYPIWHL/}
-    local cluster="https://files.pythonhosted.org/packages"
-    for site in ${cluster}; do
-	echo ${site}/${SUBDIR}/
-    done
+    local site="https://files.pythonhosted.org/packages"
+    echo ${site}/${SUBDIR}/
 }
 
 expand_FREELOCAL()
@@ -447,10 +445,8 @@ expand_PHP()
     # Mirror program discontinued 1 April 2019
     # https://github.com/php/web-php/commit/b2b48ca1e053eae9ed0ace036b69ff3ab6926869
     local SUBDIR=${1##PHP/}
-    local cluster="https://www.php.net"
-    for site in ${cluster}; do
-	echo ${site}/${SUBDIR}/
-    done
+    local site="https://www.php.net"
+    echo ${site}/${SUBDIR}/
 }
 
 expand_TOR()
@@ -485,11 +481,8 @@ expand_SAVANNAH()
 {
     # pattern [element]/%SUBDIR%/
     local SUBDIR=${1##SAVANNAH/}
-    local cluster="\
-    http://download-mirror.savannah.gnu.org/releases"
-    for site in ${cluster}; do
-	echo ${site}/${SUBDIR}/
-    done
+    local site="http://download-mirror.savannah.gnu.org/releases"
+    echo ${site}/${SUBDIR}/
 }
 
 expand_ISC()
@@ -548,11 +541,8 @@ expand_GIMP()
 {
     # pattern [element]/%SUBDIR%/
     local SUBDIR=${1##GIMP/}
-    local cluster="\
-    https://download.gimp.org/pub"
-    for site in ${cluster}; do
-	echo ${site}/${SUBDIR}/
-    done
+    local site="https://download.gimp.org/pub"
+    echo ${site}/${SUBDIR}/
 }
 
 expand_CRAN()
@@ -581,10 +571,8 @@ expand_ADACORE()
 {
     # pattern [element]/%SUBDIR%/
     local SUBDIR=${1##ADACORE/}
-    local cluster="https://community.download.adacore.com/v1"
-    for site in ${cluster}; do
-	echo ${site}/${SUBDIR}/
-    done
+    local site="https://community.download.adacore.com/v1"
+    echo ${site}/${SUBDIR}/
 }
 
 
