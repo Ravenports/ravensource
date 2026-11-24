@@ -1,4 +1,4 @@
---- ui/qt/utils/qt_ui_utils.cpp.orig	2026-08-12 17:18:56 UTC
+--- ui/qt/utils/qt_ui_utils.cpp.orig	2026-11-18 20:20:26 UTC
 +++ ui/qt/utils/qt_ui_utils.cpp
 @@ -44,6 +44,10 @@
  #include <QtDBus/QDBusUnixFileDescriptor>
