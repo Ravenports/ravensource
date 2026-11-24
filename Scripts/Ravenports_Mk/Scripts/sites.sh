@@ -281,6 +281,24 @@ expand_FREELOCAL()
     done
 }
 
+expand_LEAFDIST()
+{
+    # pattern [element]/%SUBDIR%/
+    local SUBDIR=${1##LEAFDIST/}
+    local site="https://leaf.dragonflybsd.org/~marino/raven-distfiles"
+    echo ${site}/${SUBDIR}/
+}
+
+
+expand_ORPHANED()
+{
+    # pattern [element]/%SUBDIR%/
+    local SUBDIR=${1##ORPHANED/}
+    local site="https://leaf.dragonflybsd.org/~marino/orphaned-distfiles"
+    echo ${site}/${SUBDIR}/
+}
+
+
 expand_GNUPG()
 {
     # pattern [element]/%SUBDIR%/
@@ -468,7 +486,6 @@ expand_SAVANNAH()
     # pattern [element]/%SUBDIR%/
     local SUBDIR=${1##SAVANNAH/}
     local cluster="\
-    http://download.savannah.gnu.org/releases \
     http://download-mirror.savannah.gnu.org/releases"
     for site in ${cluster}; do
 	echo ${site}/${SUBDIR}/
@@ -618,9 +635,11 @@ process_site()
 	GNUPG/*)                   expand_GNUPG "${1}" ;;
 	ISC/*)                     expand_ISC "${1}" ;;
 	KERNEL_ORG/*)              expand_KERNEL_ORG "${1}" ;;
+	LEAFDIST/*)                expand_LEAFDIST "${1}" ;;
 	MOZILLA/*)                 expand_MOZILLA "${1}" ;;
 	MYSQL/*)                   expand_MYSQL "${1}" ;;
 	OPENBSD/*)                 expand_OPENBSD "${1}" ;;
+	ORPHANED/*)                expand_ORPHANED "${1}" ;;
 	PGSQL/*)                   expand_PGSQL "${1}" ;;
 	PHP/*)                     expand_PHP "${1}" ;;
 	PYPI/*)			   expand_PYPI "${1}" ;;
