@@ -1,4 +1,4 @@
---- coreconf/command.mk.orig	2026-11-04 15:57:58 UTC
+--- coreconf/command.mk.orig	2026-11-18 20:46:23 UTC
 +++ coreconf/command.mk
 @@ -12,7 +12,7 @@ AS            = $(CC)
  ASFLAGS      += $(CFLAGS)
@@ -8,4 +8,4 @@
 +CFLAGS       += $(OPTIMIZER) $(OS_CFLAGS) $(WARNING_CFLAGS) $(XP_DEFINE) \
                  $(DEFINES) $(INCLUDES) $(XCFLAGS)
  CSTD          = -std=c99
- CXXSTD        = -std=c++11
+ CXXSTD        = -std=c++17
