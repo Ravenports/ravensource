@@ -10,15 +10,8 @@ apache_cluster="\
   	http://www.apache.org/dist \
 	http://archive.apache.org/dist \
 	http://ftp.twaren.net/Unix/Web/apache \
-	http://apache.mirror.uber.com.au \
-	http://apache.spd.co.il \
 	http://ftp.mirrorservice.org/sites/ftp.apache.org \
 	http://ftp-stud.hs-esslingen.de/pub/Mirrors/ftp.apache.org/dist \
-	ftp://mir1.ovh.net/ftp.apache.org/dist \
-	ftp://ftp.forthnet.gr/pub/www/apache \
-	ftp://xenia.sote.hu/pub/mirrors/www.apache.org \
-	ftp://ftp.heanet.ie/mirrors/www.apache.org/dist \
-	ftp://ftp.sunet.se/pub/www/servers/apache/dist \
 	http://mirrors.ircam.fr/pub/apache"
 
 # keep in order
@@ -65,9 +58,8 @@ expand_APACHE_JAKARTA()
 {
     # pattern [element]/jakarta/%SUBDIR%/
     local SUBDIR=${1##APACHE_JAKARTA/}
-    for site in ${apache_cluster}; do
-	echo ${site}/jakarta/${SUBDIR}/
-    done
+    local site="http://archive.apache.org/dist"
+    echo ${site}/jakarta/${SUBDIR}/
 }
 
 expand_SOURCEFORGE()
@@ -82,12 +74,8 @@ expand_SOURCEFORGE()
     fi
     local cluster="\
     http://freefr.dl.sourceforge.net/project \
-    http://jaist.dl.sourceforge.net/project \
-    http://netcologne.dl.sourceforge.net/project \
     http://netix.dl.sourceforge.net/project \
-    http://ufpr.dl.sourceforge.net/project \
-    http://excellmedia.dl.sourceforge.net/project \
-    http://nchc.dl.sourceforge.net/project"
+    http://excellmedia.dl.sourceforge.net/project"
     for site in ${cluster}; do
 	echo ${site}/${SUBDIR}/
     done
@@ -171,9 +159,7 @@ expand_OPENBSD()
     https://ftp.OpenBSD.org/pub/OpenBSD/ \
     https://ftp.eu.openbsd.org/pub/OpenBSD/ \
     https://ftp3.usa.openbsd.org/pub/OpenBSD/ \
-    https://openbsd.hk/pub/OpenBSD/ \
-    https://mirror.aarnet.edu.au/pub/OpenBSD/ \
-    https://mirrors.evowise.com/pub/OpenBSD/"
+    https://mirror.aarnet.edu.au/pub/OpenBSD/"
     for site in ${cluster}; do
 	echo ${site}/${SUBDIR}/
     done
@@ -189,17 +175,11 @@ expand_CPAN()
     local cluster="\
     http://cpan.metacpan.org \
     http://www.cpan.org \
-    ftp://ftp.cpan.org/pub/CPAN \
-    http://www.cpan.dk \
-    ftp://ftp.kddlabs.co.jp/lang/perl/CPAN \
     http://ftp.jaist.ac.jp/pub/CPAN \
-    ftp://ftp.sunet.se/pub/lang/perl/CPAN \
     ftp://ftp.mirrorservice.org/sites/cpan.perl.org/CPAN \
-    ftp://ftp.auckland.ac.nz/pub/perl/CPAN \
     http://backpan.perl.org \
     ftp://ftp.funet.fi/pub/languages/perl/CPAN \
-    http://ftp.twaren.net/Unix/Lang/CPAN \
-    ftp://ftp.cpan.org"
+    http://ftp.twaren.net/Unix/Lang/CPAN"
 
     if [ "${AUTHID}" != "${1}" ]; then
 	for site in ${cluster}; do
@@ -219,7 +199,6 @@ expand_SOURCEWARE()
     local SUBDIR=${1##SOURCEWARE/}
     local cluster="\
     http://mirrors.kernel.org/sourceware \
-    http://gd.tuwien.ac.at/gnu/sourceware \
     ftp://ftp.funet.fi/pub/mirrors/sourceware.org/pub"
     for site in ${cluster}; do
 	echo ${site}/${SUBDIR}/
@@ -233,13 +212,8 @@ expand_GCC()
     local cluster="\
         http://mirrors.kernel.org/sourceware/gcc \
         http://mirror.koddos.net/gcc \
-        https://ftp.nluug.nl/languages/gcc \
         https://mirrorservice.org/sites/sourceware.org/pub/gcc \
-        https://bigsearcher.com/mirrors/gcc \
-	http://gcc.cybermirror.org \
-	http://robotlab.itk.ppke.hu/gcc \
-	http://ftp-stud.hs-esslingen.de/pub/Mirrors/sourceware.org/gcc \
-	http://mirrors.concertpass.com/gcc"
+        http://ftp-stud.hs-esslingen.de/pub/Mirrors/sourceware.org/gcc"
     for site in ${cluster}; do
 	echo ${site}/${SUBDIR}/
     done
@@ -303,17 +277,8 @@ expand_GNUPG()
     local SUBDIR=${1##GNUPG/}
     local cluster="\
     https://gnupg.org/ftp/gcrypt \
-    http://ftp.heanet.ie/mirrors/ftp.gnupg.org/gcrypt \
-    ftp://ftp.sunet.se/pub/security/gnupg \
-    ftp://ftp.franken.de/pub/crypt/mirror/ftp.gnupg.org/gcrypt \
-    ftp://mirror.switch.ch/mirror/gnupg \
-    http://gd.tuwien.ac.at/privacy/gnupg \
     http://mirrors.dotsrc.org/gcrypt \
-    ftp://ftp.crysys.hu/pub/gnupg \
-    http://www.mirrorservice.org/sites/ftp.gnupg.org/gcrypt \
-    http://artfiles.org/gnupg.org \
-    ftp://ftp.gnupg.org/gcrypt \
-    http://mirror.tje.me.uk/pub/mirrors/ftp.gnupg.org"
+    http://www.mirrorservice.org/sites/ftp.gnupg.org/gcrypt"
     for site in ${cluster}; do
 	echo ${site}/${SUBDIR}/
     done
@@ -325,8 +290,7 @@ expand_PGSQL()
     local SUBDIR=${1##PGSQL/}
     local cluster="\
     http://ftp.postgresql.org/pub \
-    https://ftp.postgresql.org/pub \
-    ftp://ftp.postgresql.org/pub"
+    https://ftp.postgresql.org/pub"
     for site in ${cluster}; do
 	echo ${site}/${SUBDIR}/
     done
@@ -336,12 +300,13 @@ expand_MYSQL()
 {
     # pattern [element]/%SUBDIR%/
     local SUBDIR=${1##MYSQL/}
-    local cluster="\
-    https://cdn.mysql.com/Downloads \
-    https://cdn.mysql.com/archives"
-    for site in ${cluster}; do
-	echo ${site}/${SUBDIR}/
-    done
+    # Archive directories use a lowercase mysql- prefix.
+    local ARCHIVE_SUBDIR=${SUBDIR}
+    case ${SUBDIR} in
+        MySQL-*) ARCHIVE_SUBDIR=mysql-${SUBDIR#MySQL-} ;;
+    esac
+    echo https://cdn.mysql.com/Downloads/${SUBDIR}/
+    echo https://cdn.mysql.com/archives/${ARCHIVE_SUBDIR}/
 }
 
 expand_MOZILLA()
@@ -363,7 +328,6 @@ expand_UBUNTU()
     local cluster="\
     http://mirrors.kernel.org/ubuntu/pool/main \
     http://nl.archive.ubuntu.com/ubuntu/pool/main \
-    http://ubuntu.mirrors.tds.net/ubuntu/pool/main \
     http://de.archive.ubuntu.com/ubuntu/pool/main \
     http://mirrors.xmission.com/ubuntu/pool/main"
     for site in ${cluster}; do
@@ -377,20 +341,10 @@ expand_XORG()
     local SUBDIR=${1##XORG/}
     local cluster="\
     http://xorg.freedesktop.org/releases \
-    http://xorg.mirrors.pair.com \
-    http://mirror.us.leaseweb.net/xorg \
     http://mirror.csclub.uwaterloo.ca/x.org \
-    http://artfiles.org/x.org/pub \
-    http://ftp.gwdg.de/pub/x11/x.org/pub \
-    http://mi.mirror.garr.it/mirrors/x.org \
-    http://mirror.switch.ch/ftp/mirror/X11/pub \
     http://mirrors.ircam.fr/pub/x.org \
     http://www.mirrorservice.org/sites/ftp.x.org/pub \
-    http://www.portal-to-web.de/pub/mirrors/x.org \
-    http://xorg.mirror.solnet.ch/pub \
-    http://gd.tuwien.ac.at/X11 \
-    http://ftp.yz.yamagata-u.ac.jp/pub/X11/x.org \
-    http://ftp.kaist.ac.kr/x.org"
+    http://ftp.yz.yamagata-u.ac.jp/pub/X11/x.org"
     for site in ${cluster}; do
 	echo ${site}/${SUBDIR}/
     done
@@ -417,11 +371,7 @@ expand_RUBY()
     local SUBDIR=${1##RUBY/}
     local cluster="\
     http://cache.ruby-lang.org/pub/ruby \
-    http://ftp.ruby-lang.org/pub/ruby \
-    ftp://ftp.ruby-lang.org/pub/ruby \
-    ftp://ftp.fu-berlin.de/unix/languages/ruby \
-    ftp://ftp.kr.FreeBSD.org/pub/ruby \
-    ftp://ftp.iDaemons.org/pub/mirror/ftp.ruby-lang.org/ruby"
+    http://ftp.ruby-lang.org/pub/ruby"
     for site in ${cluster}; do
 	echo ${site}/${SUBDIR}/
     done
@@ -432,8 +382,7 @@ expand_RUBYGEMS()
     # pattern [element]/%SUBDIR%/
     # local SUBDIR=${1##RUBYGEMS/}
     local cluster="\
-    https://rubygems.org/downloads \
-    https://rubygems.global.ssl.fastly.net/gems"
+    https://rubygems.org/downloads"
     for site in ${cluster}; do
 	echo ${site}/
     done
@@ -456,22 +405,7 @@ expand_TOR()
     local cluster="\
     https://www.torproject.org/dist \
     https://archive.torproject.org/tor-package-archive \
-    ftp://ftp.bit.nl/mirror/tor \
-    http://cyberside.net.ee/tor \
-    http://ftp.bit.nl/mirror/tor \
-    http://mirror.hessmo.com/tor/dist \
-    http://mirror.host4site.co.il/torproject.org/dist \
-    http://mirror.open-networx.org/torproject.org/dist \
-    http://mirror.tor.hu/dist \
-    https://mirror.torland.me/torproject.org/dist \
-    http://mirrors.chaos-darmstadt.de/tor-mirror/dist \
-    http://theonionrouter.com/dist \
-    https://www.coevoet.nl/tor/dist \
-    http://www.oignon.net/dist \
-    http://www.torproject.nl/dist \
-    http://www.torproject.org.nyud.net/dist \
-    http://www.torproject.us/dist \
-    http://www.torservers.net/mirrors/torproject.org/dist"
+    http://cyberside.net.ee/tor"
     for site in ${cluster}; do
 	echo ${site}/${SUBDIR}/
     done
@@ -481,7 +415,7 @@ expand_SAVANNAH()
 {
     # pattern [element]/%SUBDIR%/
     local SUBDIR=${1##SAVANNAH/}
-    local site="http://download-mirror.savannah.gnu.org/releases"
+    local site="https://download-mirror.savannah.gnu.org/releases"
     echo ${site}/${SUBDIR}/
 }
 
@@ -492,16 +426,9 @@ expand_ISC()
     local cluster="\
     http://ftp.isc.org/isc \
     ftp://ftp.isc.org/isc \
-    ftp://ftp.ciril.fr/pub/isc \
     ftp://ftp.iij.ad.jp/pub/network/isc \
-    ftp://ftp.dti.ad.jp/pub/net/isc \
-    ftp://ftp.u-aizu.ac.jp/pub/net/isc \
-    ftp://ftp.task.gda.pl/mirror/ftp.isc.org/isc \
-    ftp://ftp.sunet.se/pub/network/isc \
     ftp://ftp.mirrorservice.org/sites/ftp.isc.org/isc \
-    ftp://ftp.nominum.com/pub/isc \
     ftp://ftp.ripe.net/mirrors/sites/ftp.isc.org/isc \
-    ftp://ftp.ntua.gr/pub/net/isc/isc \
     ftp://ftp.funet.fi/pub/mirrors/ftp.isc.org/isc"
     for site in ${cluster}; do
 	echo ${site}/${SUBDIR}/
@@ -552,15 +479,10 @@ expand_CRAN()
     local cluster="\
     https://cloud.r-project.org \
     https://stat.ethz.ch/CRAN \
-    http://cran.utstat.utoronto.ca \
-    https://cran.cnr.berkeley.edu \
     https://cran.csiro.au \
     https://mirrors.tuna.tsinghua.edu.cn/CRAN \
-    http://camoruco.ing.uc.edu.ve/cran \
     https://mirror.las.iastate.edu/CRAN \
-    https://cran.ma.imperial.ac.uk \
-    https://cran.gis-lab.info \
-    https://cran.ism.ac.jp"
+    https://cran.ma.imperial.ac.uk"
     for site in ${cluster}; do
 	echo ${site}/${SUBDIR}/
     done
@@ -583,13 +505,10 @@ expand_KERNEL_ORG()
     local cluster="\
     https://cdn.kernel.org/pub \
     https://www.kernel.org/pub \
-    https://download.xs4all.nl/ftp.kernel.org/pub \
     https://mirrors.mit.edu/kernel \
     http://ftp.nara.wide.ad.jp/pub/kernel.org \
     http://ftp.yandex.ru/pub \
-    http://ftp.heanet.ie/pub/kernel.org/pub \
-    ftp://ftp.ntu.edu.tw \
-    ftp://ftp.riken.jp/Linux/kernel.org"
+    ftp://ftp.ntu.edu.tw"
     for site in ${cluster}; do
 	echo ${site}/${SUBDIR}/
     done
