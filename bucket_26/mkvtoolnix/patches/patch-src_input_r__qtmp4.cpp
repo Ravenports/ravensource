@@ -1,4 +1,4 @@
---- src/input/r_qtmp4.cpp.orig	2026-10-18 13:16:29 UTC
+--- src/input/r_qtmp4.cpp.orig	2026-11-22 13:28:25 UTC
 +++ src/input/r_qtmp4.cpp
 @@ -1636,7 +1636,7 @@ qtmp4_reader_c::handle_display_matrix(qt
      dmx.yaw = 180;
