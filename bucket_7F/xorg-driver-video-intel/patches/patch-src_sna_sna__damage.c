@@ -3,7 +3,7 @@ $NetBSD: patch-src_sna_sna__damage.c,v 1.1 2022/03/15 18:53:42 tnn Exp $
 https://gitlab.freedesktop.org/xorg/driver/xf86-video-intel/-/issues/171
 https://gitlab.freedesktop.org/E5ten/xf86-video-intel/-/commit/a92ccaf05efe8f11b3c5cd217d48ad3cf4caa090
 
---- src/sna/sna_damage.c.orig	2021-01-15 20:59:05 UTC
+--- src/sna/sna_damage.c.orig	2025-03-21 21:10:23 UTC
 +++ src/sna/sna_damage.c
 @@ -215,7 +215,7 @@ static void __sna_damage_reduce(struct s
  	int n, nboxes;

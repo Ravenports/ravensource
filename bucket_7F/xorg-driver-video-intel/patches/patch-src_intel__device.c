@@ -1,7 +1,7 @@
 i915 requires KMS, so FreeBSD uses suffix to distinguish drm1 and drm2 drivers.
 drm-kmod kept the same name at the cost of conflict with in-base drm2.
 
---- src/intel_device.c.orig	2021-01-15 20:59:05 UTC
+--- src/intel_device.c.orig	2025-03-21 21:10:23 UTC
 +++ src/intel_device.c
 @@ -204,6 +204,7 @@ static inline struct intel_device *intel
  }

@@ -1,4 +1,4 @@
---- src/sna/sna_accel.c.orig	2023-02-01 18:07:58 UTC
+--- src/sna/sna_accel.c.orig	2025-03-21 21:10:23 UTC
 +++ src/sna/sna_accel.c
 @@ -8912,7 +8912,7 @@ sna_copy_plane(DrawablePtr src, Drawable
  		}

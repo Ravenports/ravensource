@@ -1,7 +1,7 @@
 https://gitlab.freedesktop.org/xorg/driver/xf86-video-intel/-/issues/171
 https://gitlab.freedesktop.org/E5ten/xf86-video-intel/-/commit/a92ccaf05efe8f11b3c5cd217d48ad3cf4caa090
 
---- src/sna/kgem.c.orig	2021-01-15 20:59:05 UTC
+--- src/sna/kgem.c.orig	2025-03-21 21:10:23 UTC
 +++ src/sna/kgem.c
 @@ -71,7 +71,11 @@ search_snoop_cache(struct kgem *kgem, un
  #define DBG_NO_USERPTR 0

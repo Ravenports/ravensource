@@ -1,8 +1,8 @@
 Add hyphen to RANDR output names for consistency with modesetting(4x)
 
---- src/sna/sna_display.c.orig	2021-01-15 20:59:05 UTC
+--- src/sna/sna_display.c.orig	2025-03-21 21:10:23 UTC
 +++ src/sna/sna_display.c
-@@ -467,7 +467,7 @@ static inline uint32_t fb_id(struct kgem
+@@ -472,7 +472,7 @@ static inline uint32_t fb_id(struct kgem
  
  unsigned sna_crtc_count_sprites(xf86CrtcPtr crtc)
  {
@@ -11,7 +11,7 @@ Add hyphen to RANDR output names for consistency with modesetting(4x)
  	unsigned count;
  
  	count = 0;
-@@ -479,7 +479,7 @@ unsigned sna_crtc_count_sprites(xf86Crtc
+@@ -484,7 +484,7 @@ unsigned sna_crtc_count_sprites(xf86Crtc
  
  static struct plane *lookup_sprite(struct sna_crtc *crtc, unsigned idx)
  {
@@ -20,7 +20,7 @@ Add hyphen to RANDR output names for consistency with modesetting(4x)
  
  	list_for_each_entry(sprite, &crtc->sprites, link)
  		if (idx-- == 0)
-@@ -1727,7 +1727,7 @@ static bool wait_for_shadow(struct sna *
+@@ -1733,7 +1733,7 @@ static bool wait_for_shadow(struct sna *
  
  	if ((flags & MOVE_WRITE) == 0) {
  		if ((flags & __MOVE_SCANOUT) == 0) {
@@ -29,7 +29,7 @@ Add hyphen to RANDR output names for consistency with modesetting(4x)
  
  			list_for_each_entry(crtc, &sna->mode.shadow_crtc, shadow_link) {
  				if (overlap(&sna->mode.shadow_region.extents,
-@@ -1768,7 +1768,7 @@ static bool wait_for_shadow(struct sna *
+@@ -1774,7 +1774,7 @@ static bool wait_for_shadow(struct sna *
  
  	flip_active = sna->mode.flip_active;
  	if (flip_active) {
@@ -38,7 +38,7 @@ Add hyphen to RANDR output names for consistency with modesetting(4x)
  		list_for_each_entry(crtc, &sna->mode.shadow_crtc, shadow_link)
  			flip_active -= crtc->flip_pending;
  		DBG(("%s: %d flips still pending, shadow flip_active=%d\n",
-@@ -3263,7 +3263,7 @@ static void
+@@ -3270,7 +3270,7 @@ static void
  sna_crtc_destroy(xf86CrtcPtr crtc)
  {
  	struct sna_crtc *sna_crtc = to_sna_crtc(crtc);
@@ -47,7 +47,7 @@ Add hyphen to RANDR output names for consistency with modesetting(4x)
  
  	if (sna_crtc == NULL)
  		return;
-@@ -3652,7 +3652,7 @@ bool sna_has_sprite_format(struct sna *s
+@@ -3659,7 +3659,7 @@ bool sna_has_sprite_format(struct sna *s
  
  	for (i = 0; i < sna->mode.num_real_crtc; i++) {
  		struct sna_crtc *sna_crtc = to_sna_crtc(config->crtc[i]);
@@ -56,7 +56,7 @@ Add hyphen to RANDR output names for consistency with modesetting(4x)
  
  		list_for_each_entry(plane, &sna_crtc->sprites, link) {
  			struct local_mode_get_plane p;
-@@ -8639,7 +8639,7 @@ sna_mode_disable_secondary_planes(struct
+@@ -8588,7 +8588,7 @@ sna_mode_disable_secondary_planes(struct
  	for (c = 0; c < sna->mode.num_real_crtc; c++) {
  		xf86CrtcPtr crtc = config->crtc[c];
  		struct sna_crtc *sna_crtc = to_sna_crtc(crtc);
@@ -65,7 +65,7 @@ Add hyphen to RANDR output names for consistency with modesetting(4x)
  
  		list_for_each_entry(plane, &sna_crtc->sprites, link) {
  			struct local_mode_get_plane p;
-@@ -8737,7 +8737,7 @@ static bool
+@@ -8686,7 +8686,7 @@ static bool
  sna_crtc_hide_planes(struct sna *sna, struct sna_crtc *crtc)
  {
  	struct local_mode_set_plane s;
@@ -74,7 +74,7 @@ Add hyphen to RANDR output names for consistency with modesetting(4x)
  
  	if (crtc->primary.id == 0)
  		return false;
-@@ -8774,7 +8774,7 @@ void sna_mode_reset(struct sna *sna)
+@@ -8723,7 +8723,7 @@ void sna_mode_reset(struct sna *sna)
  
  	for (i = 0; i < sna->mode.num_real_crtc; i++) {
  		struct sna_crtc *sna_crtc = to_sna_crtc(config->crtc[i]);
@@ -83,9 +83,9 @@ Add hyphen to RANDR output names for consistency with modesetting(4x)
  
  		assert(sna_crtc != NULL);
  
---- src/uxa/intel_display.c.orig	2021-01-15 20:59:05 UTC
+--- src/uxa/intel_display.c.orig	2025-03-21 21:10:23 UTC
 +++ src/uxa/intel_display.c
-@@ -1872,7 +1872,7 @@ intel_drm_abort_one(struct intel_drm_que
+@@ -1874,7 +1874,7 @@ intel_drm_abort_one(struct intel_drm_que
  void
  intel_drm_abort(ScrnInfoPtr scrn, Bool (*match)(void *data, void *match_data), void *match_data)
  {
@@ -94,7 +94,7 @@ Add hyphen to RANDR output names for consistency with modesetting(4x)
  
  	list_for_each_entry(q, &intel_drm_queue, list) {
  		if (match(q->data, match_data)) {
-@@ -1888,7 +1888,7 @@ intel_drm_abort(ScrnInfoPtr scrn, Bool (
+@@ -1890,7 +1890,7 @@ intel_drm_abort(ScrnInfoPtr scrn, Bool (
  void
  intel_drm_abort_seq(ScrnInfoPtr scrn, uint32_t seq)
  {
@@ -103,7 +103,7 @@ Add hyphen to RANDR output names for consistency with modesetting(4x)
  
  	list_for_each_entry(q, &intel_drm_queue, list) {
  		if (q->seq == seq) {
-@@ -1905,7 +1905,7 @@ intel_drm_abort_seq(ScrnInfoPtr scrn, ui
+@@ -1907,7 +1907,7 @@ intel_drm_abort_seq(ScrnInfoPtr scrn, ui
  static void
  intel_drm_abort_scrn(ScrnInfoPtr scrn)
  {
@@ -112,7 +112,7 @@ Add hyphen to RANDR output names for consistency with modesetting(4x)
  
  	list_for_each_entry_safe(q, tmp, &intel_drm_queue, list) {
  		if (q->scrn == scrn)
-@@ -1994,7 +1994,7 @@ static void
+@@ -1996,7 +1996,7 @@ static void
  intel_drm_handler(int fd, uint32_t frame, uint32_t sec, uint32_t usec, void *user_ptr)
  {
  	uint32_t user_data = (intptr_t)user_ptr;

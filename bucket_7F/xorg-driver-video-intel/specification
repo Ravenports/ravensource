@@ -1,22 +1,23 @@
-DEF[PORTVERSION]=	2.99.917.923
-DEF[TAG]=		b74b67f0f321875492968f7097b9d6e82a66d7df
+DEF[PORTVERSION]=	2.99.917.939
+DEF[TAG]=		4a64400ec6a7d8c0aba0e6a39b16a5e86d0af843
 DEF[XNAME]=		driver-video-intel
 DEF[ALTNAME]=		xf86-video-intel
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		xorg-${XNAME}
 VERSION=		${PORTVERSION}
-REVISION=		2
 EPOCH=			1
 KEYWORDS=		x11_drivers
 VARIANTS=		std
 SDESC[std]=		X.org legacy driver for Intel graphic chipsets
-HOMEPAGE=		https://www.x.org/
+HOMEPAGE=		https://gitlab.freedesktop.org/xorg/driver/xf86-video-intel
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		https://gitlab.freedesktop.org/xorg/driver/xf86-video-intel/-/archive/
-DISTFILE[1]=		${TAG}.tar.bz2:main
+# Download requires human interaction so self-host
+# SITES[main]=		https://gitlab.freedesktop.org/xorg/driver/xf86-video-intel/-/archive/
+SITES[main]=		https://leaf.dragonflybsd.org/~marino/raven-distfiles/
+DISTFILE[1]=		xf86-video-intel-${TAG}.tar.gz:main
 
 SPKGS[std]=		set primary dev man
 
@@ -36,11 +37,13 @@ FPC_EQUIVALENT=		x11-drivers/${ALTNAME}
 
 BUILD_DEPENDS=		libdrm:dev:std
 			xorg-server:dev:std
+			xorg-xshmfence:dev:std
 BUILDRUN_DEPENDS=	libdrm:primary:std
 			xorg-server:primary:std
+			xorg-xshmfence:primary:std
 
 USES=			mesa libtool cpe autoreconf
-XORG_COMPONENTS=	xorgproto x11 xfont2 xvmc xcb
+XORG_COMPONENTS=	xorgproto x11 xfont2 xvmc xcb xinerama
 DISTNAME=		xf86-video-intel-${TAG}
 MUST_CONFIGURE=		gnu
 CONFIGURE_ENV=		ac_cv_header_sys_sysinfo_h=no

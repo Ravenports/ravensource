@@ -7,7 +7,7 @@ access that singleton, no matter what.
 November 2013 patch from NetBSD xsrc:
 http://mail-index.netbsd.org/source-changes/2013/11/14/msg049188.html
 
---- src/legacy/i810/i810_dri.c.orig	2021-01-15 20:59:05 UTC
+--- src/legacy/i810/i810_dri.c.orig	2025-03-21 21:10:23 UTC
 +++ src/legacy/i810/i810_dri.c
 @@ -1104,10 +1104,17 @@ I810DRIMoveBuffers(WindowPtr pParent, DD
  	    while ((pboxNext >= pbox) && (pboxBase->y1 == pboxNext->y1))

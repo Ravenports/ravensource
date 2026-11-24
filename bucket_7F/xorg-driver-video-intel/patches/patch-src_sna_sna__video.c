@@ -1,4 +1,4 @@
---- src/sna/sna_video.c.orig	2021-01-15 20:59:05 UTC
+--- src/sna/sna_video.c.orig	2025-03-21 21:10:23 UTC
 +++ src/sna/sna_video.c
 @@ -59,7 +59,7 @@
  #include "intel_options.h"
