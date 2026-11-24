@@ -1,6 +1,6 @@
---- GNUmakefile.orig	2026-06-03 00:22:25 UTC
+--- GNUmakefile.orig	2026-10-17 07:25:01 UTC
 +++ GNUmakefile
-@@ -311,12 +311,12 @@ C_OTHER_OBJECTS = $(C_OTHER_SOURCES:.c=.
+@@ -332,12 +332,12 @@ C_OTHER_OBJECTS = $(C_OTHER_SOURCES:.c=.
  JAVA_CLASSES = $(JAVA_SOURCES:.java=.class)
  JAVA_RUNTIME_CLASSES=$(JAVA_RUNTIME_SOURCES:.java=.class)
  
@@ -16,13 +16,13 @@
  
  algorithms.mk: GNUmakefile libstemmer/mkalgorithms.pl $(MODULES)
  	libstemmer/mkalgorithms.pl algorithms.mk $(MODULES)
-@@ -426,6 +426,9 @@ libstemmer/libstemmer.o: libstemmer/modu
+@@ -447,6 +447,9 @@ libstemmer/libstemmer.o: libstemmer/modu
  libstemmer.a: libstemmer/libstemmer.o $(RUNTIME_OBJECTS) $(C_LIB_OBJECTS)
- 	$(AR) $(ARFLAGS) $@ $^
+ 	$(AR) $(ARFLAGS_)$@ $^
  
 +libstemmer.so: libstemmer/libstemmer.o $(RUNTIME_OBJECTS) $(C_LIB_OBJECTS)
 +	$(CC) $(CFLAGS) -shared $(LDFLAGS) -Wl,-soname,libstemmer.so.0,-version-script,libstemmer/symbol.map -o $@.0.0.0 $^
 + 
  examples/%.o: examples/%.c
- 	$(CC) $(CFLAGS) $(INCLUDES) $(CPPFLAGS) -c -o $@ $<
+ 	$(CC) $(CFLAGS) $(INCLUDES) $(CPPFLAGS) -c $(o_for_obj) $@ $<
  
