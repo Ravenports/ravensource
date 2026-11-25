@@ -1,6 +1,6 @@
---- mdb.c.orig	2026-08-06 17:11:09 UTC
+--- mdb.c.orig	2026-10-21 18:37:48 UTC
 +++ mdb.c
-@@ -197,6 +197,8 @@ typedef SSIZE_T	ssize_t;
+@@ -206,6 +206,8 @@ typedef SSIZE_T	ssize_t;
  #elif defined(__HAIKU__)
  # define MDB_USE_POSIX_SEM	1
  # define MDB_FDATASYNC		fsync
