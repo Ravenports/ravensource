@@ -1,4 +1,4 @@
---- utils/pathut.cpp.orig	2026-03-23 08:09:57 UTC
+--- utils/pathut.cpp.orig	2026-10-23 07:49:11 UTC
 +++ utils/pathut.cpp
 @@ -63,6 +63,8 @@
  #include <stdio.h>
@@ -20,8 +20,8 @@
 +#endif
  
  #ifdef _WIN32
- 
-@@ -541,10 +548,20 @@ std::string path_which(const std::string
+ static bool onwindows = true;
+@@ -546,10 +553,20 @@ std::string path_which(const std::string
  std::string path_thisexecdir()
  {
      char pathbuf[PATH_MAX];
