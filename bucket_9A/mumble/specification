@@ -102,6 +102,7 @@ post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/mumble/libmumbleoverlay.so.${SOVERSION}
 
 post-install-linux:
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/mumble/plugins/*.so
 	(cd ${STAGEDIR}${PREFIX}/etc/sysusers.d && \
 		${MV} mumble-server.conf mumble-server.conf.sample)
 	(cd ${STAGEDIR}${PREFIX}/etc/tmpfiles.d && \
