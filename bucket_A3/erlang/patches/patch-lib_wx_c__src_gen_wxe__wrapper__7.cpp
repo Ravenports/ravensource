@@ -1,6 +1,6 @@
 Fox Wx version >= 3.1.6
 
---- lib/wx/c_src/gen/wxe_wrapper_7.cpp.orig	2026-10-14 11:53:41 UTC
+--- lib/wx/c_src/gen/wxe_wrapper_7.cpp.orig	2026-11-23 20:09:04 UTC
 +++ lib/wx/c_src/gen/wxe_wrapper_7.cpp
 @@ -2343,7 +2343,7 @@ void wxToolBar_AddTool_4(WxeApp *app, wx
    if(!enif_get_int(env, tpl[1], (int *) &kind)) Badarg("kind"); // enum

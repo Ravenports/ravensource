@@ -1,4 +1,4 @@
---- erts/emulator/drivers/common/inet_drv.c.orig	2026-10-14 11:53:41 UTC
+--- erts/emulator/drivers/common/inet_drv.c.orig	2026-11-23 20:09:04 UTC
 +++ erts/emulator/drivers/common/inet_drv.c
 @@ -24,6 +24,10 @@
  #include "config.h"
