@@ -1,4 +1,4 @@
-DEF[PORTVERSION]=	0.19.0
+DEF[PORTVERSION]=	0.20.0
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		profanity
@@ -13,7 +13,7 @@ DOWNLOAD_GROUPS=	main
 SITES[main]=		https://profanity-im.github.io/tarballs/
 DISTFILE[1]=		profanity-${PORTVERSION}.tar.xz:main
 
-SPKGS[std]=		set primary tools dev man docs
+SPKGS[std]=		set primary man docs
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
@@ -26,27 +26,20 @@ LICENSE_SCHEME=		solo
 FPC_EQUIVALENT=		net-im/profanity
 
 BUILD_DEPENDS=		autoconf-archive:primary:std
-			libnotify:dev:std
 			gpgme:dev:std
 			libgcrypt:dev:std
 			libuuid:dev:std
 			libstrophe:dev:std
 			libotr:dev:std
 BUILDRUN_DEPENDS=	gpgme:primary:std
-			libnotify:primary:std
 			libotr:primary:std
 			libuuid:primary:std
 			libstrophe:primary:std
-
-EXRUN[primary]=		tools
 
 USES=			meson ncurses pkgconfig readline ssl
 			curl python sqlite expat
 GNOME_COMPONENTS=	glib
 MESON_ARGS=		-Dnotifications=enabled
-			-Dc-plugins=enabled
 			-Dotr=enabled
 			-Dpgp=enabled
 CFLAGS=			-I{{NCURSESINC}}
-
-# VAR_OPSYS[linux]=	CFLAGS=-D_XOPEN_SOURCE=700
