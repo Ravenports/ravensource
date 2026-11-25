@@ -319,6 +319,19 @@ expand_MYSQL()
     site_directory_url "https://cdn.mysql.com/archives" "${ARCHIVE_SUBDIR}"
 }
 
+expand_MARIADB()
+{
+    # pattern [element]/%SUBDIR%/
+    local SUBDIR="mariadb-${1##MARIADB/}/source"
+    local cluster="\
+    https://mariadb.mirror.globo.tech \
+    https://archive.mariadb.org"
+    local site
+    for site in ${cluster}; do
+	site_directory_url "${site}" "${SUBDIR}"
+    done
+}
+
 expand_MOZILLA()
 {
     # pattern [element]/%SUBDIR%/
@@ -564,6 +577,7 @@ process_site()
 	ISC/*)                     expand_ISC "${1}" ;;
 	KERNEL_ORG/*)              expand_KERNEL_ORG "${1}" ;;
 	LEAFDIST/*)                expand_LEAFDIST "${1}" ;;
+	MARIADB/*)                 expand_MARIADB "${1}" ;;
 	MOZILLA/*)                 expand_MOZILLA "${1}" ;;
 	MYSQL/*)                   expand_MYSQL "${1}" ;;
 	OPENBSD/*)                 expand_OPENBSD "${1}" ;;
