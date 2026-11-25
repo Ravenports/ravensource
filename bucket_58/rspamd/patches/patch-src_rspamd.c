@@ -1,6 +1,6 @@
---- src/rspamd.c.orig	2026-10-10 21:41:28 UTC
+--- src/rspamd.c.orig	2026-11-22 20:23:13 UTC
 +++ src/rspamd.c
-@@ -469,7 +469,7 @@ systemd_get_socket(struct rspamd_main *r
+@@ -486,7 +486,7 @@ systemd_get_socket(struct rspamd_main *r
  	union {
  		struct sockaddr_storage ss;
  		struct sockaddr sa;

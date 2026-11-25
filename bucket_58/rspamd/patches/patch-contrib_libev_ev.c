@@ -1,4 +1,4 @@
---- contrib/libev/ev.c.orig	2026-10-10 21:41:28 UTC
+--- contrib/libev/ev.c.orig	2026-11-22 20:23:13 UTC
 +++ contrib/libev/ev.c
 @@ -236,6 +236,9 @@
  

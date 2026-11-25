@@ -1,4 +1,4 @@
---- src/libutil/fpconv_format.c.orig	2026-10-10 21:41:28 UTC
+--- src/libutil/fpconv_format.c.orig	2026-11-22 20:23:13 UTC
 +++ src/libutil/fpconv_format.c
 @@ -6,6 +6,14 @@
  #include "fpconv_format.h"

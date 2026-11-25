@@ -38,6 +38,9 @@ etc/rspamd/maps.d/exe_clickbait.inc
 etc/rspamd/maps.d/maillist.inc
 etc/rspamd/maps.d/mid.inc
 etc/rspamd/maps.d/mime_types.inc
+etc/rspamd/maps.d/phishing_rewrite_domains.inc
+etc/rspamd/maps.d/phishing_rewrite_redirectors.inc
+etc/rspamd/maps.d/phishing_trusted_redirectors.inc
 etc/rspamd/maps.d/redirectors.inc
 etc/rspamd/maps.d/spf_dkim_whitelist.inc
 etc/rspamd/maps.d/surbl-whitelist.inc
@@ -185,6 +188,7 @@ share/rspamd/lualib/lua_clickhouse.lua
 share/rspamd/lualib/lua_crypto_addresses.lua
 share/rspamd/lualib/lua_cta.lua
 share/rspamd/lualib/lua_dkim_tools.lua
+share/rspamd/lualib/lua_dynconf.lua
 share/rspamd/lualib/lua_extras.lua
 share/rspamd/lualib/lua_feedback_parsers.lua
 share/rspamd/lualib/lua_fuzzy.lua
@@ -204,6 +208,7 @@ share/rspamd/lualib/lua_redis.lua
 share/rspamd/lualib/lua_settings.lua
 share/rspamd/lualib/lua_smtp.lua
 share/rspamd/lualib/lua_stat.lua
+share/rspamd/lualib/lua_task_profile.lua
 share/rspamd/lualib/lua_tcp_sync.lua
 share/rspamd/lualib/lua_url_filter.lua
 share/rspamd/lualib/lua_urls_compose.lua
@@ -220,6 +225,10 @@ share/rspamd/lualib/lua_content/pptx.lua
 share/rspamd/lualib/lua_content/svg.lua
 share/rspamd/lualib/lua_content/vcard.lua
 share/rspamd/lualib/lua_content/xlsx.lua
+share/rspamd/lualib/lua_dynconf/file.lua
+share/rspamd/lualib/lua_dynconf/json.lua
+share/rspamd/lualib/lua_dynconf/legacy.lua
+share/rspamd/lualib/lua_dynconf/redis.lua
 share/rspamd/lualib/lua_ffi/common.lua
 share/rspamd/lualib/lua_ffi/dkim.lua
 share/rspamd/lualib/lua_ffi/init.lua
@@ -383,6 +392,7 @@ share/rspamd/rules/misc.lua
 share/rspamd/rules/parts.lua
 share/rspamd/rules/rspamd.lua
 share/rspamd/rules/subject_checks.lua
+share/rspamd/rules/controller/dynconf.lua
 share/rspamd/rules/controller/fuzzy.lua
 share/rspamd/rules/controller/init.lua
 share/rspamd/rules/controller/maps.lua
