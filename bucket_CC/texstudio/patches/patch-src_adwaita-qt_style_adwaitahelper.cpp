@@ -1,4 +1,4 @@
---- src/adwaita-qt/style/adwaitahelper.cpp.orig	2026-10-23 15:18:34 UTC
+--- src/adwaita-qt/style/adwaitahelper.cpp.orig	2026-11-18 17:59:47 UTC
 +++ src/adwaita-qt/style/adwaitahelper.cpp
 @@ -1526,10 +1526,10 @@ void Helper::renderProgressBarBusyConten
      QRectF contentRect;
