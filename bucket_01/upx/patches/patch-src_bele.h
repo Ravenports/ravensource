@@ -1,4 +1,4 @@
---- src/bele.h.orig	2026-06-08 13:58:57 UTC
+--- src/bele.h.orig	2026-10-28 14:48:17 UTC
 +++ src/bele.h
 @@ -262,12 +262,12 @@ forceinline bele_constexpr upx_uint64_t
  

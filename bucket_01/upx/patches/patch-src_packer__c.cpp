@@ -1,6 +1,6 @@
---- src/packer_c.cpp.orig	2026-06-08 13:58:57 UTC
+--- src/packer_c.cpp.orig	2026-10-28 14:48:17 UTC
 +++ src/packer_c.cpp
-@@ -258,7 +258,7 @@ void Packer::defineDecompressorSymbols()
+@@ -276,7 +276,7 @@ void Packer::defineDecompressorSymbols()
          upx_uint32_t properties = // lc, lp, pb, dummy
              (res->lit_context_bits << 0) | (res->lit_pos_bits << 8) | (res->pos_bits << 16);
          if (bele->isBE()) // big endian - bswap32
