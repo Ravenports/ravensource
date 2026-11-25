@@ -1,4 +1,4 @@
---- src/dumpkeys.c.orig	2026-03-14 20:44:12 UTC
+--- src/dumpkeys.c.orig	2026-11-16 22:47:08 UTC
 +++ src/dumpkeys.c
 @@ -40,6 +40,22 @@
  #define MODE_APPLICATION_CURSOR_KEYS	1

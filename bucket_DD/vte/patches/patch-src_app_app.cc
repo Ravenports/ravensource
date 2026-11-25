@@ -1,6 +1,6 @@
---- src/app/app.cc.orig	2026-03-14 20:44:12 UTC
+--- src/app/app.cc.orig	2026-11-16 22:47:08 UTC
 +++ src/app/app.cc
-@@ -82,6 +82,22 @@ enum {
+@@ -85,6 +85,22 @@ enum {
          VL3
  }; // Verbosity levels
  

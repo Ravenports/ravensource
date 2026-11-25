@@ -1,4 +1,4 @@
---- src/pty.cc.orig	2026-03-14 20:44:12 UTC
+--- src/pty.cc.orig	2026-11-16 22:47:08 UTC
 +++ src/pty.cc
 @@ -77,6 +77,10 @@
  
