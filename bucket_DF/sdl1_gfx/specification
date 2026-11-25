@@ -1,5 +1,6 @@
-DEF[PORTVERSION]=	2.0.27
-DEF[SOVERSION]=		16.9.1
+DEF[PORTVERSION]=	2.0.28
+DEF[SOVERSION]=		16.9.2
+DEF[TAG]=		v${PORTVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		sdl1_gfx
@@ -11,8 +12,8 @@ HOMEPAGE=		https://www.ferzkopp.net/Software/SDL_gfx-2.0/
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		http://www.ferzkopp.net/Software/SDL_gfx-2.0/
-DISTFILE[1]=		SDL_gfx-${PORTVERSION}.tar.gz:main
+SITES[main]=		GITHUB/ferzkopp:SDL_gfx:${TAG}
+DISTFILE[1]=		generated:main
 
 SPKGS[std]=		set primary dev
 
@@ -25,10 +26,14 @@ LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		graphics/sdl_gfx
 
-DISTNAME=		SDL_gfx-${PORTVERSION}
-SOVERSION=		${SOVERSION}
-MUST_CONFIGURE=		gnu
-INSTALL_TARGET=		install-strip
-
-USES=			autoreconf libtool
+USES=			cmake
 SDL_COMPONENTS=		sdl1
+SOVERSION=		${SOVERSION}
+CMAKE_ARGS=		-DSDLGFX_DEMOS:BOOL=OFF
+			-DSDLGFX_TESTS:BOOL=OFF
+			-DSDLGFX_WERROR:BOOL=OFF
+			-DSDLGFX_DOCS:BOOL=OFF
+
+post-install:
+	# remove duplicate license
+	${RM} -r ${STAGEDIR}${PREFIX}/share/licenses
