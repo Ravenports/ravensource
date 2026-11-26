@@ -121,7 +121,7 @@ expand_GITHUB()
     set -f
     IFS=:
     set -- ${SUBDIR}
-    [ "$#" -eq 3 ] && [ -n "$1" ] && [ -n "$2" ] && [ -n "$3" ] || return 1
+    [ "$#" -ge 3 ] && [ -n "$1" ] && [ -n "$2" ] && [ -n "$3" ] || return 1
     printf '%s\n' "https://codeload.github.com/${1}/${2}/tar.gz/${3}?dummy=/"
 )
 
@@ -135,7 +135,7 @@ expand_GITHUB_PRIVATE()
     set -f
     IFS=:
     set -- ${SUBDIR}
-    [ "$#" -eq 5 ] && [ -n "$1" ] && [ -n "$2" ] &&
+    [ "$#" -ge 5 ] && [ -n "$1" ] && [ -n "$2" ] &&
         [ -n "$3" ] && [ -n "$5" ] || return 1
     printf '%s\n' "https://api.github.com/repos/${1}/${2}/tarball/${3}?access_token=${5}&dummy=/"
 )
