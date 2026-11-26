@@ -1,4 +1,4 @@
---- lib/librdkafka-2.15.0/src/rdkafka_msgset_reader.c.orig	2026-11-09 01:39:57 UTC
+--- lib/librdkafka-2.15.0/src/rdkafka_msgset_reader.c.orig	2026-11-24 16:22:45 UTC
 +++ lib/librdkafka-2.15.0/src/rdkafka_msgset_reader.c
 @@ -408,7 +408,7 @@ rd_kafka_msgset_reader_decompress(rd_kaf
                                              /* @warning Will modify compressed

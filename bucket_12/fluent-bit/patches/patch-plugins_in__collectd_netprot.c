@@ -1,4 +1,4 @@
---- plugins/in_collectd/netprot.c.orig	2026-11-09 01:39:57 UTC
+--- plugins/in_collectd/netprot.c.orig	2026-11-24 16:22:45 UTC
 +++ plugins/in_collectd/netprot.c
 @@ -35,6 +35,16 @@
  #include "netprot.h"

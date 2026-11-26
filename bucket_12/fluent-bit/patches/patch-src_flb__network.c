@@ -1,4 +1,4 @@
---- src/flb_network.c.orig	2026-11-09 01:39:57 UTC
+--- src/flb_network.c.orig	2026-11-24 16:22:45 UTC
 +++ src/flb_network.c
 @@ -2150,7 +2150,7 @@ static int net_address_unix_socket_peer_
                                                  int output_buffer_size,
