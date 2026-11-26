@@ -1,4 +1,4 @@
---- src/p_lx_exc.cpp.orig	2026-10-28 14:48:17 UTC
+--- src/p_lx_exc.cpp.orig	2026-11-26 13:18:29 UTC
 +++ src/p_lx_exc.cpp
 @@ -373,7 +373,7 @@ PackLinuxI386::buildLinuxLoader(
              (res->lit_pos_bits << 8) |
