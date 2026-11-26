@@ -1,4 +1,4 @@
---- misc.c.orig	2025-05-15 15:31:27 UTC
+--- misc.c.orig	2026-07-11 12:23:46 UTC
 +++ misc.c
 @@ -34,6 +34,10 @@
  #include <sys/types.h>

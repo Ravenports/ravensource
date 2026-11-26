@@ -1,4 +1,4 @@
---- misc.h.orig	2025-05-15 15:31:27 UTC
+--- misc.h.orig	2026-07-11 12:23:46 UTC
 +++ misc.h
 @@ -28,6 +28,9 @@ void  xsetegid  (int);
  int   AddXChar (char *, int);
