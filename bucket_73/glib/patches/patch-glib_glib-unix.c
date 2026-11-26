@@ -1,4 +1,4 @@
---- glib/glib-unix.c.orig	2026-10-06 15:22:44 UTC
+--- glib/glib-unix.c.orig	2026-11-25 14:25:19 UTC
 +++ glib/glib-unix.c
 @@ -50,6 +50,12 @@
  #include <stdlib.h>   /* for fdwalk */

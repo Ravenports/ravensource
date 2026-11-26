@@ -1,4 +1,4 @@
---- gio/glocalfile.c.orig	2026-10-06 15:22:44 UTC
+--- gio/glocalfile.c.orig	2026-11-25 14:25:19 UTC
 +++ gio/glocalfile.c
 @@ -1278,6 +1278,7 @@ g_local_file_query_info (GFile
   * https://docs.oracle.com/cd/E86824_01/html/E54765/faccessat-2.html

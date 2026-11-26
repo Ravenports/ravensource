@@ -1,4 +1,4 @@
---- glib/gthread.c.orig	2026-10-06 15:22:44 UTC
+--- glib/gthread.c.orig	2026-11-25 14:25:19 UTC
 +++ glib/gthread.c
 @@ -1187,7 +1187,7 @@ g_get_num_processors (void)
          pcore_count > 0)
