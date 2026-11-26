@@ -41,10 +41,19 @@ post-install:
 		${STAGEDIR}${PREFIX}/share/fish/vendor_completions.d \
 		${STAGEDIR}${PREFIX}/share/zsh/site-functions \
 		${STAGEDIR}${PREFIX}/share/pixmaps \
-		${STAGEDIR}${PREFIX}/share/applications
+		${STAGEDIR}${PREFIX}/share/applications \
+		${STAGEDIR}${PREFIX}/share/metainfo \
+		${STAGEDIR}${PREFIX}/share/icons/hicolor/128x128/apps \
+		${STAGEDIR}${PREFIX}/share/icons/hicolor/256x256/apps \
+		${STAGEDIR}${PREFIX}/share/icons/hicolor/512x512/apps
 	${INSTALL_DATA} ${WRKSRC}/docs/*.md ${STAGEDIR}${STD_DOCDIR}/
+	${RM} ${STAGEDIR}${PREFIX}/share/doc/zellij/PACKAGING_DESKTOP.md
 	${INSTALL_DATA} ${WRKDIR}/zellij.bash ${STAGEDIR}${PREFIX}/share/bash-completion/completions/zellij
 	${INSTALL_DATA} ${WRKDIR}/zellij.fish ${STAGEDIR}${PREFIX}/share/fish/vendor_completions.d/
 	${INSTALL_DATA} ${WRKDIR}/zellij.zsh ${STAGEDIR}${PREFIX}/share/zsh/site-functions/_zellij
 	${INSTALL_DATA} ${WRKSRC}/assets/logo.png ${STAGEDIR}${PREFIX}/share/pixmaps/zellij.png
-	${INSTALL_DATA} ${WRKSRC}/assets/zellij.desktop ${STAGEDIR}${PREFIX}/share/applications/zellij.desktop
+	${INSTALL_DATA} ${WRKSRC}/assets/dev.zellij.Zellij.desktop ${STAGEDIR}${PREFIX}/share/applications/dev.zellij.Zellij.desktop
+	${INSTALL_DATA} ${WRKSRC}/assets/dev.zellij.Zellij.metainfo.xml ${STAGEDIR}${PREFIX}/share/metainfo/dev.zellij.Zellij.metainfo.xml
+	${INSTALL_DATA} ${WRKSRC}/zellij-utils/assets/icons/logo128.png ${STAGEDIR}${PREFIX}/share/icons/hicolor/128x128/apps/dev.zellij.Zellij.png
+	${INSTALL_DATA} ${WRKSRC}/zellij-utils/assets/icons/logo256.png ${STAGEDIR}${PREFIX}/share/icons/hicolor/256x256/apps/dev.zellij.Zellij.png
+	${INSTALL_DATA} ${WRKSRC}/zellij-utils/assets/icons/logo512.png ${STAGEDIR}${PREFIX}/share/icons/hicolor/512x512/apps/dev.zellij.Zellij.png
