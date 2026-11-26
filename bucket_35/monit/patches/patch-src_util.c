@@ -1,6 +1,6 @@
---- src/util.c.orig	2026-06-15 08:40:52 UTC
+--- src/util.c.orig	2026-11-18 15:36:33 UTC
 +++ src/util.c
-@@ -323,7 +323,7 @@ static void printevents(unsigned int eve
+@@ -256,7 +256,7 @@ static void printevents(const EventSet_T
  /**
   * PAM conversation
   */
