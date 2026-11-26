@@ -261,10 +261,10 @@ expand_FREELOCAL()
     done
 }
 
-expand_LEAFDIST()
+expand_RAVEN()
 {
     # pattern [element]/%SUBDIR%/
-    local SUBDIR="${1##LEAFDIST/}"
+    local SUBDIR="${1##RAVEN/}"
     local site="https://leaf.dragonflybsd.org/~marino/raven-distfiles"
     site_directory_url "${site}" "${SUBDIR}"
 }
@@ -576,7 +576,6 @@ process_site()
 	GNUPG/*)                   expand_GNUPG "${1}" ;;
 	ISC/*)                     expand_ISC "${1}" ;;
 	KERNEL_ORG/*)              expand_KERNEL_ORG "${1}" ;;
-	LEAFDIST/*)                expand_LEAFDIST "${1}" ;;
 	MARIADB/*)                 expand_MARIADB "${1}" ;;
 	MOZILLA/*)                 expand_MOZILLA "${1}" ;;
 	MYSQL/*)                   expand_MYSQL "${1}" ;;
@@ -586,6 +585,7 @@ process_site()
 	PHP/*)                     expand_PHP "${1}" ;;
 	PYPI/*)			   expand_PYPI "${1}" ;;
 	PYPIWHL/*)		   expand_PYPIWHL "${1}" ;;
+	RAVEN/*)                   expand_RAVEN "${1}" ;;
 	RUBY/*)			   expand_RUBY "${1}" ;;
 	RUBYGEMS/*)                expand_RUBYGEMS "${1}" ;;
 	SAVANNAH/*)                expand_SAVANNAH "${1}" ;;
