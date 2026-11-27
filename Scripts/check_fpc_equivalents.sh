@@ -71,44 +71,11 @@ while read ravenport version fpc_port; do
 	ahven) ;;		# deleted from FPC
 	ede) ;;			# deleted from FPC
 
-	fetch) ;;		# From DragonFly
-	libedit) ;;		# Different version scheme from FPC
-	gprbuild) ;;		# Different version scheme from FPC
-	apr1|apr-util) ;;	# Different version scheme from FPC
-	aom) ;;                 # ditto
-	rtmpdump) ;;		# ditto
-	libzen) ;;		# ditto
-	compiler-rt) ;;		# ditto
-	ImageMagick) ;;		# W.X.Y.Z rather than W.X.Y-Z
-	irssi) ;;		# fake version
-	libcdio-paranoia) ;;	# Symbols in version fake as older
-	libunwind) ;;		# ditto
-	unrar) ;;		# ditto
-	autoconf213) ;;		# ditto
-	cwm) ;;			# ditto
-	fonts-gentium-basic) ;;	# ditto
-	libdbusmenu-qt) ;;	# ditto
-	fontconfig) ;;          # FPC tracking beta versions
-	re2) ;;			# different date punctuation
-
-	aspell-el) ;;		# requires EPOCH, 0.08 > 0.50 actually
-	aspell-pl) ;;		# incorrectly identifies as newer (scheme difference)
-	hunspell-pt*) ;;	# Freebsd combines BR/PT, but raven splits them up
-	bash) ;;		# incorrectly identifies as different and older (5.1.p4 vs 5.1.4)
-	openjade) ;;            # FreeBSD uses dev version, ravenports has release
 	python-*) ;;            # manual python port
-	ncurses) ;;		# FreeBSD uses dev version now
-	gsfonts) ;;		# noschema (8.11 vs 8.11pre)
-	norm) ;;		# fails to recognize 1.5.8 > 1.5r6
-	double-conversion) ;;	# garbage version, recheck periodically
-	w3m) ;;			# Different version scheme (we use OpenBSD now)
-	webkitgtk) ;;		# older branch
-	fonts-anonymous-pro) ;;	# version comparison problem 1.002 vs 1_003
-	xclip) ;;		# freebsd fake version
-	clisp) ;;		# fake version 2.49.95+20241228
-	nvi) ;;			# freebsd uses a different version with same namebase
-	musepack) ;;		# version mismatch version=r475 freebsd=2011.08.10
 	getopt) ;;		# freebsd getopt is based on util-linux
+	libunwind) ;;		# freebsd version based on llvm, incomparable
+	unrar) ;;		# freebsd packages binary instead of building from source
+	nvi) ;;                 # freebsd renamed nvi2 as nvi, DF still uses nvi
 
 	libexecinfo) ;;		# Different source from FPC
 	doas) ;;		# ditto
@@ -139,6 +106,7 @@ while read ravenport version fpc_port; do
 	bmake) ;;		# removed
 	libkate) ;;		# removed
 	nginx-unit) ;;		# removed
+	apr-util) ;;            # removed (combined with apr1)
 	libtorrent-rasterbar) ;;      # removed
 	xorg-driver-video-i740) ;;    # removed
 
