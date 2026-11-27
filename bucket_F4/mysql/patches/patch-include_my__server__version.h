@@ -1,6 +1,6 @@
 Avoid collision with DragonFly's <unistd.h>
 
---- include/my_server_version.h.orig	2026-10-06 06:57:52 UTC
+--- include/my_server_version.h.orig	2026-11-06 09:09:05 UTC
 +++ include/my_server_version.h
 @@ -26,6 +26,13 @@
  

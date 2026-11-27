@@ -1,4 +1,4 @@
---- libmysql/dns_srv.cc.orig	2026-09-30 19:39:58 UTC
+--- libmysql/dns_srv.cc.orig	2026-11-09 13:46:20 UTC
 +++ libmysql/dns_srv.cc
 @@ -32,7 +32,7 @@
  

@@ -1,4 +1,4 @@
---- sql/resourcegroups/platform/thread_attrs_api_solaris.cc.orig	2026-09-30 19:39:58 UTC
+--- sql/resourcegroups/platform/thread_attrs_api_solaris.cc.orig	2026-11-09 13:46:20 UTC
 +++ sql/resourcegroups/platform/thread_attrs_api_solaris.cc
 @@ -33,112 +33,41 @@
  
