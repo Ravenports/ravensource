@@ -14,7 +14,7 @@ index 8f951683e8dc..9ea26c340961 100644
  //  Based on original Protocol Buffers design by
  //  Sanjay Ghemawat, Jeff Dean, and others.
  
-+#if !defined(__FreeBSD__) && !defined(__DragonFly__)
++#if !defined(SKIP_CHRISTMAS)
  // We request posix_close if available. See the comment on "robust_close".
  #define _POSIX_C_SOURCE 202405L
 +#endif
