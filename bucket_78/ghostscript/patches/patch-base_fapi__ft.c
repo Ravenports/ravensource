@@ -1,4 +1,4 @@
---- base/fapi_ft.c.orig	2026-05-19 11:20:27 UTC
+--- base/fapi_ft.c.orig	2026-09-08 08:42:14 UTC
 +++ base/fapi_ft.c
 @@ -60,6 +60,10 @@
  #include FT_MULTIPLE_MASTERS_H
