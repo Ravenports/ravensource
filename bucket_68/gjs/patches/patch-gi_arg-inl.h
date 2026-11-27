@@ -1,4 +1,4 @@
---- gi/arg-inl.h.orig	2026-10-12 00:01:17 UTC
+--- gi/arg-inl.h.orig	2026-11-27 04:21:15 UTC
 +++ gi/arg-inl.h
 @@ -125,6 +125,16 @@ constexpr decltype(auto) gjs_arg_member(
      }

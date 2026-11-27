@@ -1,4 +1,4 @@
---- gi/arg-types-inl.h.orig	2026-10-12 00:01:17 UTC
+--- gi/arg-types-inl.h.orig	2026-11-27 04:21:15 UTC
 +++ gi/arg-types-inl.h
 @@ -50,6 +50,18 @@ struct MarshallingInfo<bool> {
      static constexpr const char* name = "bool";

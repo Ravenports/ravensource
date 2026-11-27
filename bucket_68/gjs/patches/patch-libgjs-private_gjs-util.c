@@ -1,4 +1,4 @@
---- libgjs-private/gjs-util.c.orig	2026-10-12 00:01:17 UTC
+--- libgjs-private/gjs-util.c.orig	2026-11-27 04:21:15 UTC
 +++ libgjs-private/gjs-util.c
 @@ -6,6 +6,10 @@
  
