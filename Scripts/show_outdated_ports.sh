@@ -55,6 +55,7 @@ known_mismatch()
       yasm) ;;			# DF 1.3.0, FPC 1.3.0.109
       docopt-cpp) ;;		# DF 0.6.3, FPC 0.6.3.5
       bash) ;;			# DF 5.3.p20, FPC 5.3.20
+      libb64) ;;		# DF 2.0.0.1, FPC 2.0.0.15
       *) RESULT=1
    esac
    return ${RESULT}
