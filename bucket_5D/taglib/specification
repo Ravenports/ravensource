@@ -1,5 +1,5 @@
-DEF[PORTVERSION]=	2.3.1
-DEF[SOVERSION]=		2.3.1
+DEF[PORTVERSION]=	2.3.2
+DEF[SOVERSION]=		2.3.2
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		taglib
@@ -39,6 +39,15 @@ CMAKE_ARGS=		-DWITH_ASF:BOOL=ON
 CPE_VENDOR=		scott_wheeler
 SOVERSION=		${SOVERSION}
 CXXFLAGS=		-I{{LOCALBASE}}/include/utf8cpp
+
+pre-configure:
+	# Naming a type "offset_t" was very poorly thought out
+	${GREP} -rl "offset_t>" ${WRKSRC} |\
+		 ${XARGS} ${SED} -i'' -e "s|offset_t>|shift_t>|g"
+	${GREP} -rlF '(offset_t ' ${WRKSRC} |\
+		 ${XARGS} ${SED} -i'' -e "s|(offset_t |(shift_t |g"
+	${GREP} -rlF 'offset_t' ${WRKSRC} |\
+		 ${XARGS} ${SED} -i'' -e "s|offset_t|shift_t|g"
 
 post-install:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/lib*.so
