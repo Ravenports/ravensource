@@ -41,6 +41,7 @@ known_mismatch()
       mg) ;;			# DF 20260719, FPC 20261020 (different source)
       libisofs) ;;		# DF 1.5.8.pl02, FPC 1.5.8.02
       vde) ;;			# DF 2.3.3, FPC 2.3.3.86
+      vde2) ;;			# DF 2.3.3, FPC 2.3.3.86
       dhcp) ;;			# DF 4.4.3.P1, FPC 4.4.3P1
       libsearpc) ;;		# DF 3.3.0, FPC 3.3.20260612
       libsndfile) ;;		# DF 1.2.2, FPC 1.2.2.20251216
@@ -53,6 +54,7 @@ known_mismatch()
       id3lib) ;;		# DF 3.8.3, FPC 3.8.3.20240114
       yasm) ;;			# DF 1.3.0, FPC 1.3.0.109
       docopt-cpp) ;;		# DF 0.6.3, FPC 0.6.3.5
+      bash) ;;			# DF 5.3.p20, FPC 5.3.20
       *) RESULT=1
    esac
    return ${RESULT}
