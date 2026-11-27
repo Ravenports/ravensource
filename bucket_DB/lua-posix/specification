@@ -1,4 +1,5 @@
-DEF[PORTVERSION]=	37.0
+DEF[PORTVERSION]=	39
+DEF[TAG]=		v${PORTVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		lua-posix
@@ -36,9 +37,6 @@ FPC_EQUIVALENT=		devel/lua-posix
 
 # Using %%LUA_MODSHAREDIR%% in manifest does not work for some reason...
 
-USES=			shebangfix
-SHEBANG_FILES=		build-aux/luke
-
 VAR_OPSYS[dragonfly]=	CFLAGS=-D__BSD_VISIBLE=1
 VAR_OPSYS[midnightbsd]=	CFLAGS=-D__BSD_VISIBLE=1
 VAR_OPSYS[sunos]=	CFLAGS=-D_XOPEN_SOURCE=700
@@ -46,32 +44,40 @@ VAR_OPSYS[sunos]=	CFLAGS=-D_XOPEN_SOURCE=700
 
 [LUA52].DESCRIPTION=			Build with Lua 5.2
 [LUA52].USES_ON=			lua:5.2,tools
+[LUA52].BUILD_DEPENDS_ON=		lua-luarocks:single:lua52
+					luarocks-build-luke:single:lua52
 [LUA52].RUN_DEPENDS_ON=			lua-stdlib-normalize:single:lua52
 
 [LUA53].DESCRIPTION=			Build with Lua 5.3
 [LUA53].USES_ON=			lua:5.3,tools
+[LUA53].BUILD_DEPENDS_ON=		lua-luarocks:single:lua53
+					luarocks-build-luke:single:lua53
 [LUA53].RUN_DEPENDS_ON=			lua-stdlib-normalize:single:lua53
 
 [LUA54].DESCRIPTION=			Build with Lua 5.4
 [LUA54].USES_ON=			lua:5.4,tools
+[LUA54].BUILD_DEPENDS_ON=		lua-luarocks:single:lua54
+					luarocks-build-luke:single:lua54
 [LUA54].RUN_DEPENDS_ON=			lua-stdlib-normalize:single:lua54
 
 [LUA55].DESCRIPTION=			Build with Lua 5.5
 [LUA55].USES_ON=			lua:5.5,tools
+[LUA55].BUILD_DEPENDS_ON=		lua-luarocks:single:lua55
+					luarocks-build-luke:single:lua55
 [LUA55].RUN_DEPENDS_ON=			lua-stdlib-normalize:single:lua55
 
 do-build:
-	cd ${WRKSRC} && build-aux/luke all \
-		CFLAGS="${CFLAGS}" \
-		LUA="${LOCALBASE}/bin/${LUA_CMD}" \
-		LUA_INCDIR="${LUA_INCDIR}" \
-		PREFIX="${PREFIX}" \
-		version="${PORTVERSION}"
+	cd ${WRKSRC} && ${SETENV} \
+		CC="${CC}" \
+		CFLAGS="${CFLAGS}"\
+		${LOCALBASE}/bin/luarocks-${LUA_VER} \
+		--lua-version=${LUA_VER} make \
+		--deps-mode=none \
+		--tree=${WRKSRC}/.tree \
+		${WRKSRC}/luaposix-${PORTVERSION}-1.rockspec
 
 do-install:
-	cd ${WRKSRC} && build-aux/luke install \
-		INST_LIBDIR="${STAGEDIR}${LUA_MODLIBDIR}" \
-		INST_LUADIR="${STAGEDIR}${LUA_MODSHAREDIR}"
-
-post-install:
-	${FIND} ${STAGEDIR}${LUA_MODLIBDIR} -name '*.so' -exec ${STRIP_CMD} {} +
+	${MKDIR} ${STAGEDIR}${LUA_MODLIBDIR} ${STAGEDIR}${LUA_MODSHAREDIR}
+	cd ${WRKSRC}/.tree/lib/lua/${LUA_VER} && ${COPYTREE_SHARE} posix ${STAGEDIR}${LUA_MODLIBDIR}
+	cd ${WRKSRC}/.tree/share/lua/${LUA_VER} && ${COPYTREE_SHARE} posix ${STAGEDIR}${LUA_MODSHAREDIR}
+	${FIND} ${STAGEDIR}${LUA_MODLIBDIR}/posix -name '*.so' -exec ${STRIP_CMD} {} +
