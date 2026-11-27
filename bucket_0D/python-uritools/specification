@@ -1,0 +1,37 @@
+DEF[PORTVERSION]=	7.0.1
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-uritools
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v14 v15
+SDESC[v14]=		URI parsing, classification and composition (3.14)
+SDESC[v15]=		URI parsing, classification and composition (3.15)
+HOMEPAGE=		https://github.com/tkem/uritools/
+CONTACT=		Python_Automaton[python@ravenports.com]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/a0/20/075b0b5bed54848fd685b1354fe130983ed3b3b008c6818c8b1ef135181e
+DISTFILE[1]=		uritools-${PORTVERSION}-py3-none-any.whl:main
+DIST_SUBDIR=		python-src
+
+SPKGS[v14]=		single
+SPKGS[v15]=		single
+
+OPTIONS_AVAILABLE=	PY314 PY315
+OPTIONS_STANDARD=	none
+VOPTS[v14]=		PY314=ON PY315=OFF
+VOPTS[v15]=		PY314=OFF PY315=ON
+
+# License listed at PyPI
+# Not provided.
+
+GENERATED=		yes
+DISTNAME=		uritools-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+
+
+[PY314].USES_ON=			python:v14,wheel
+[PY315].USES_ON=			python:v15,wheel
+

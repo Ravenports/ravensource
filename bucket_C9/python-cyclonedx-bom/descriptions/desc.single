@@ -1,0 +1,100 @@
+# CycloneDX Python SBOM Generation Tool
+
+[![shield_pypi-version]][link_pypi]
+[![shield_docker-version]][link_docker]
+[![shield_rtfd]][link_rtfd]
+[![shield_gh-workflow-test]][link_gh-workflow-test]
+[![shield_coverage]][link_codacy]
+[![shield_ossf-best-practices]][link_ossf-best-practices]
+[![shield_license]][license_file]  
+[![shield_website]][link_website]
+[![shield_slack]][link_slack]
+[![shield_groups]][link_discussion]
+[![shield_twitter-follow]][link_twitter]
+
+----
+
+This tool generates Software Bill of material (SBOM) documents in OWASP
+[CycloneDX] format.  
+This is probably the most accurate, complete SBOM generator for any
+python-related projects.
+ 
+Supported data sources are:
+* Python (virtual) environment
+* `Poetry` manifest and lockfile
+* `Pipenv` manifest and lockfile
+* Pip's `requirements.txt` format
+* `PDM` manifest and lockfile are not explicitly supported.  
+  However, PDM's Python virtual environments are fully supported. See the
+docs for an example.
+* `uv` manifest and lockfile are not explicitly supported.  
+  However, uv's Python virtual environments are fully supported. See the
+docs for an example.
+* `Conda` as a package manager is no longer supported since version 4.  
+  However, conda's Python environments are fully supported via the methods
+listed above. See the docs for an example.
+
+Based on [OWASP Software Component Verification Standard for Software Bill
+of Materials]'
+criteria, this tool is capable of producing SBOM documents almost passing
+Level-2 (only signing needs to be done externally).
+
+The resulting SBOM documents follow [official specifications and
+standards],
+and might have properties following 
+[`cdx:python` Namespace Taxonomy],
+[`cdx:pipenv` Namespace Taxonomy],
+[`cdx:poetry` Namespace Taxonomy]
+.
+
+Read the full [documentation][link_rtfd] for more details.
+
+## Requirements
+
+* Python `>=3.9,<4`
+
+However, there are older versions of this tool available, which
+support Python `>=2.7`.
+
+## Installation
+
+Install this from [Python Package Index (PyPI)][link_pypi] using your
+preferred Python package manager.
+
+install via one of commands:
+
+```shell
+python -m pip install cyclonedx-bom   # install via pip
+pipx install cyclonedx-bom            # install via pipx
+poetry add cyclonedx-bom              # install via poetry
+uv tool install cyclonedx-bom         # install via uv
+# ... you get the hang
+```
+
+## Usage
+
+Call via one of commands:
+
+```shell
+cyclonedx-py             # call script
+python3 -m cyclonedx_py  # call python module CLI
+```
+
+### Basic usage
+
+```shellSession
+$ cyclonedx-py --help
+usage: cyclonedx-py [-h] [--version] <command> ...
+
+Creates CycloneDX Software Bill of Materials (SBOM) from Python projects
+and environments.
+
+positional arguments:
+  <command>
+    environment (env, venv)
+                        Build an SBOM from Python (virtual) environment
+    requirements        Build an SBOM from Pip requirements
+    pipenv              Build an SBOM from Pipenv manifest
+    poetry              Build an SBOM from Poetry project
+
+options:

@@ -1,0 +1,65 @@
+DEF[PORTVERSION]=	2023.10.7
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-sbom
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v14 v15
+SDESC[v14]=		Tree shaking for the minimal viable SBOM (3.14)
+SDESC[v15]=		Tree shaking for the minimal viable SBOM (3.15)
+HOMEPAGE=		https://git.sr.ht/~sthagen/sbom
+CONTACT=		Python_Automaton[python@ravenports.com]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/f4/5a/5b74c4a1bc5e73e9156fd3f3cb1e1dfb669483f40fa04fc7494811e3450d
+DISTFILE[1]=		sbom-${PORTVERSION}-py3-none-any.whl:main
+DIST_SUBDIR=		python-src
+
+SPKGS[v14]=		single
+SPKGS[v15]=		single
+
+OPTIONS_AVAILABLE=	PY314 PY315
+OPTIONS_STANDARD=	none
+VOPTS[v14]=		PY314=ON PY315=OFF
+VOPTS[v15]=		PY314=OFF PY315=ON
+
+# License listed at PyPI
+# Not provided.
+
+GENERATED=		yes
+DISTNAME=		sbom-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# attrs >=23.1.0
+# cyclonedx-bom >=3.11.2
+# jsonschema >=4.19.1
+# referencing >=0.30.2
+# spdx-tools >=0.8.1
+# typer >=0.9.0
+# xmlschema >=2.5.0
+# black ; extra == 'dev'
+# coverage ; extra == 'dev'
+# hypothesis ; extra == 'dev'
+# mypy ; extra == 'dev'
+# pytest ; extra == 'dev'
+# pytest-cov ; extra == 'dev'
+# pytest-flake8 ; extra == 'dev'
+# ruff ; extra == 'dev'
+
+[PY314].USES_ON=			python:v14,wheel
+[PY314].RUN_DEPENDS_ON=			python-attrs:single:v14
+					python-cyclonedx-bom:single:v14
+					python-jsonschema:single:v14
+					python-referencing:single:v14
+					python-spdx-tools:single:v14
+					python-typer:single:v14
+					python-xmlschema:single:v14
+[PY315].USES_ON=			python:v15,wheel
+[PY315].RUN_DEPENDS_ON=			python-attrs:single:v15
+					python-cyclonedx-bom:single:v15
+					python-jsonschema:single:v15
+					python-referencing:single:v15
+					python-spdx-tools:single:v15
+					python-typer:single:v15
+					python-xmlschema:single:v15
+

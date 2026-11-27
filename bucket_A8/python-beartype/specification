@@ -1,0 +1,132 @@
+DEF[PORTVERSION]=	0.23.1
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-beartype
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v14 v15
+SDESC[v14]=		Bare metal type checker (3.14)
+SDESC[v15]=		Bare metal type checker (3.15)
+HOMEPAGE=		https://pypi.org/project/beartype/
+CONTACT=		Python_Automaton[python@ravenports.com]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/1c/cb/2f6aa982e2860c1156830db3da7f823b71784ed7d533ca289ea9b6c6347a
+DISTFILE[1]=		beartype-${PORTVERSION}-py3-none-any.whl:main
+DIST_SUBDIR=		python-src
+
+SPKGS[v14]=		single
+SPKGS[v15]=		single
+
+OPTIONS_AVAILABLE=	PY314 PY315
+OPTIONS_STANDARD=	none
+VOPTS[v14]=		PY314=ON PY315=OFF
+VOPTS[v15]=		PY314=OFF PY315=ON
+
+# License listed at PyPI
+# Not provided.
+
+GENERATED=		yes
+DISTNAME=		beartype-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# autoapi>=0.9.0; extra == 'dev'
+# celery; extra == 'dev'
+# click; extra == 'dev'
+# coverage>=5.5; extra == 'dev'
+# crosshair-tool; extra == 'dev'
+# equinox; (sys_platform == 'linux' and python_version < '3.15.0') and extra == 'dev'
+# fastmcp>=4.0.0; (python_version < '3.16.0') and extra == 'dev'
+# jax[cpu]; (sys_platform == 'linux' and python_version < '3.15.0') and extra == 'dev'
+# jaxtyping; (sys_platform == 'linux') and extra == 'dev'
+# langchain; (python_version < '3.15.0' and sys_platform != 'darwin' and platform_python_implementation != 'PyPy') and extra == 'dev'
+# mypy>=0.800; (platform_python_implementation != 'PyPy') and extra == 'dev'
+# nuitka>=1.2.6; (sys_platform == 'linux' and python_version < '3.15.0') and extra == 'dev'
+# numba; (python_version < '3.15.0') and extra == 'dev'
+# numpy; (python_version < '3.15.0' and sys_platform != 'darwin' and platform_python_implementation != 'PyPy') and extra == 'dev'
+# pandera>=0.26.0; (python_version < '3.15.0') and extra == 'dev'
+# poetry; extra == 'dev'
+# polars; (python_version < '3.15.0') and extra == 'dev'
+# pydata-sphinx-theme<=0.7.2; extra == 'dev'
+# pygments; extra == 'dev'
+# pyinstaller; extra == 'dev'
+# pyright>=1.1.370; extra == 'dev'
+# pytest>=6.2.0; extra == 'dev'
+# redis; extra == 'dev'
+# rich-click; extra == 'dev'
+# setuptools; extra == 'dev'
+# sphinx<6.0.0,>=4.2.0; extra == 'dev'
+# sphinxext-opengraph>=0.7.5; extra == 'dev'
+# sqlalchemy[asyncio]; extra == 'dev'
+# torch; (sys_platform == 'linux' and python_version < '3.15.0') and extra == 'dev'
+# tox>=3.20.1; extra == 'dev'
+# typer; extra == 'dev'
+# typing-extensions>=3.10.0.0; extra == 'dev'
+# xarray; (python_version < '3.15.0') and extra == 'dev'
+# mkdocstrings-python-xref>=2.1.1; extra == 'doc-ghp'
+# mkdocstrings-python>=2.0.3; extra == 'doc-ghp'
+# zensical>=0.0.43; extra == 'doc-ghp'
+# autoapi>=0.9.0; extra == 'doc-rtd'
+# pydata-sphinx-theme<=0.7.2; extra == 'doc-rtd'
+# setuptools; extra == 'doc-rtd'
+# sphinx<6.0.0,>=4.2.0; extra == 'doc-rtd'
+# sphinxext-opengraph>=0.7.5; extra == 'doc-rtd'
+# celery; extra == 'test'
+# click; extra == 'test'
+# coverage>=5.5; extra == 'test'
+# crosshair-tool; extra == 'test'
+# equinox; (sys_platform == 'linux' and python_version < '3.15.0') and extra == 'test'
+# fastmcp>=4.0.0; (python_version < '3.16.0') and extra == 'test'
+# jax[cpu]; (sys_platform == 'linux' and python_version < '3.15.0') and extra == 'test'
+# jaxtyping; (sys_platform == 'linux') and extra == 'test'
+# langchain; (python_version < '3.15.0' and sys_platform != 'darwin' and platform_python_implementation != 'PyPy') and extra == 'test'
+# mypy>=0.800; (platform_python_implementation != 'PyPy') and extra == 'test'
+# nuitka>=1.2.6; (sys_platform == 'linux' and python_version < '3.15.0') and extra == 'test'
+# numba; (python_version < '3.15.0') and extra == 'test'
+# numpy; (python_version < '3.15.0' and sys_platform != 'darwin' and platform_python_implementation != 'PyPy') and extra == 'test'
+# pandera>=0.26.0; (python_version < '3.15.0') and extra == 'test'
+# poetry; extra == 'test'
+# polars; (python_version < '3.15.0') and extra == 'test'
+# pygments; extra == 'test'
+# pyinstaller; extra == 'test'
+# pyright>=1.1.370; extra == 'test'
+# pytest>=6.2.0; extra == 'test'
+# redis; extra == 'test'
+# rich-click; extra == 'test'
+# sqlalchemy[asyncio]; extra == 'test'
+# torch; (sys_platform == 'linux' and python_version < '3.15.0') and extra == 'test'
+# tox>=3.20.1; extra == 'test'
+# typer; extra == 'test'
+# typing-extensions>=3.10.0.0; extra == 'test'
+# xarray; (python_version < '3.15.0') and extra == 'test'
+# celery; extra == 'test-tox'
+# click; extra == 'test-tox'
+# crosshair-tool; extra == 'test-tox'
+# equinox; (sys_platform == 'linux' and python_version < '3.15.0') and extra == 'test-tox'
+# fastmcp>=4.0.0; (python_version < '3.16.0') and extra == 'test-tox'
+# jax[cpu]; (sys_platform == 'linux' and python_version < '3.15.0') and extra == 'test-tox'
+# jaxtyping; (sys_platform == 'linux') and extra == 'test-tox'
+# langchain; (python_version < '3.15.0' and sys_platform != 'darwin' and platform_python_implementation != 'PyPy') and extra == 'test-tox'
+# mypy>=0.800; (platform_python_implementation != 'PyPy') and extra == 'test-tox'
+# nuitka>=1.2.6; (sys_platform == 'linux' and python_version < '3.15.0') and extra == 'test-tox'
+# numba; (python_version < '3.15.0') and extra == 'test-tox'
+# numpy; (python_version < '3.15.0' and sys_platform != 'darwin' and platform_python_implementation != 'PyPy') and extra == 'test-tox'
+# pandera>=0.26.0; (python_version < '3.15.0') and extra == 'test-tox'
+# poetry; extra == 'test-tox'
+# polars; (python_version < '3.15.0') and extra == 'test-tox'
+# pygments; extra == 'test-tox'
+# pyinstaller; extra == 'test-tox'
+# pyright>=1.1.370; extra == 'test-tox'
+# pytest>=6.2.0; extra == 'test-tox'
+# redis; extra == 'test-tox'
+# rich-click; extra == 'test-tox'
+# sqlalchemy[asyncio]; extra == 'test-tox'
+# torch; (sys_platform == 'linux' and python_version < '3.15.0') and extra == 'test-tox'
+# typer; extra == 'test-tox'
+# typing-extensions>=3.10.0.0; extra == 'test-tox'
+# xarray; (python_version < '3.15.0') and extra == 'test-tox'
+# coverage>=5.5; extra == 'test-tox-coverage'
+
+[PY314].USES_ON=			python:v14,wheel
+[PY315].USES_ON=			python:v15,wheel
+

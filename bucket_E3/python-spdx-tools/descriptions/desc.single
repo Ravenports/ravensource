@@ -1,0 +1,100 @@
+# Python library to parse, validate and create SPDX documents
+
+CI status (Linux, macOS and Windows): [![Install and Test][1]][2]
+
+[1]:
+https://github.com/spdx/tools-python/actions/workflows/install_and_test.yml/badge.svg
+[2]:
+https://github.com/spdx/tools-python/actions/workflows/install_and_test.yml
+
+## Breaking changes v0.7 -> v0.8
+
+Please be aware that the upcoming 0.8 release has undergone a significant
+refactoring in preparation for the upcoming
+SPDX v3.0 release, leading to breaking changes in the API.
+Please refer to the [migration guide]
+to update your existing code.
+
+The main features of v0.8 are:
+
+- full validation of SPDX documents against the v2.2 and v2.3 specification
+- support for SPDX's RDF format with all v2.3 features
+- experimental support for the upcoming SPDX v3 specification. Note,
+however, that support is neither complete nor
+  stable at this point, as the spec is still evolving. SPDX3-related code
+is contained in a separate subpackage "spdx3"
+  and its use is optional. We do not recommend using it in production code
+yet.
+
+Note that v0.8 only supports **writing**, not **reading** SPDX 3.0
+documents.
+See [#760] for details.
+
+## Information
+
+This library implements SPDX parsers, convertors, validators and handlers
+in Python.
+
+- Home: <https://github.com/spdx/tools-python>
+- Issues: <https://github.com/spdx/tools-python/issues>
+- PyPI: <https://pypi.python.org/pypi/spdx-tools>
+- Browse the API: <https://spdx.github.io/tools-python>
+
+Important updates regarding this library are shared via
+the SPDX tech mailing list: <https://lists.spdx.org/g/Spdx-tech>.
+
+## License
+
+[Apache-2.0]
+
+## Features
+
+- API to create and manipulate SPDX v2.2 and v2.3 documents
+- Parse, convert, create and validate SPDX files
+- Supported formats: Tag/Value, RDF, JSON, YAML, XML
+- Visualize the structure of a SPDX document by creating an `AGraph`.
+  Note: This is an optional feature and requires
+  additional installation of optional dependencies
+
+## Experimental support for SPDX 3.0
+
+- Create v3.0 elements and payloads
+- Convert v2.2/v2.3 documents to v3.0
+- Serialize to JSON-LD
+
+See [Quickstart to SPDX 3.0] below.
+The implementation is based on the descriptive Markdown files in the
+repository
+<https://github.com/spdx/spdx-3-model>
+(commit: a5372a3c145dbdfc1381fc1f791c68889aafc7ff).
+The latest SPDX 3.0 model is available at
+<https://spdx.github.io/spdx-spec/v3.0/serializations/>.
+
+## Installation
+
+As always you should work in a virtualenv (venv). You can install a local
+clone
+of this repo with `yourenv/bin/pip install .` or install it from PyPI
+(check for the [newest release] and install it like
+`yourenv/bin/pip install spdx-tools==0.8.3`). Note that on Windows it would
+be `Scripts`
+instead of `bin`.
+
+## How to use
+
+### Command-line usage
+
+1. **PARSING/VALIDATING** (for parsing any format):
+
+    - Use `pyspdxtools -i <filename>` where `<filename>` is the location of
+the file. The input format is inferred automatically from the file ending.
+
+    - If you are using a source distribution, try running:
+      `pyspdxtools -i tests/spdx/data/SPDXJSONExample-v2.3.spdx.json`
+
+2. **CONVERTING** (for converting one format to another):
+
+    - Use `pyspdxtools -i <input_file> -o <output_file>` where
+`<input_file>` is the location of the file to be converted
+      and `<output_file>` is the location of the output file. The input and
+output formats are inferred automatically from the file endings.

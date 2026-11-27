@@ -1,0 +1,77 @@
+DEF[PORTVERSION]=	0.8.5
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-spdx-tools
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v14 v15
+SDESC[v14]=		SPDX parser and tools (3.14)
+SDESC[v15]=		SPDX parser and tools (3.15)
+HOMEPAGE=		https://github.com/spdx/tools-python
+CONTACT=		Python_Automaton[python@ravenports.com]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/88/f5/1ac402e1f8d253fa60ac167c4a1fb7eeb0f29a04942788e2d43c984cd749
+DISTFILE[1]=		spdx_tools-${PORTVERSION}-py3-none-any.whl:main
+DIST_SUBDIR=		python-src
+
+SPKGS[v14]=		single
+SPKGS[v15]=		single
+
+OPTIONS_AVAILABLE=	PY314 PY315
+OPTIONS_STANDARD=	none
+VOPTS[v14]=		PY314=ON PY315=OFF
+VOPTS[v15]=		PY314=OFF PY315=ON
+
+# License listed at PyPI
+# Not provided.
+
+GENERATED=		yes
+DISTNAME=		spdx_tools-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# beartype
+# click
+# license_expression
+# ply
+# pyyaml
+# rdflib
+# semantic_version
+# uritools
+# xmltodict
+# pyshacl; extra == "test"
+# pytest; extra == "test"
+# tzdata; extra == "test"
+# black; extra == "code-style"
+# flake8; extra == "code-style"
+# isort; extra == "code-style"
+# networkx; extra == "graph-generation"
+# pygraphviz; extra == "graph-generation"
+# black; extra == "development"
+# flake8; extra == "development"
+# isort; extra == "development"
+# networkx; extra == "development"
+# pyshacl; extra == "development"
+# pytest; extra == "development"
+
+[PY314].USES_ON=			python:v14,wheel
+[PY314].RUN_DEPENDS_ON=			python-beartype:single:v14
+					python-click:single:v14
+					python-license-expression:single:v14
+					python-ply:single:v14
+					python-PyYAML:single:v14
+					python-rdflib:single:v14
+					python-semantic-version:single:v14
+					python-uritools:single:v14
+					python-xmltodict:single:v14
+[PY315].USES_ON=			python:v15,wheel
+[PY315].RUN_DEPENDS_ON=			python-beartype:single:v15
+					python-click:single:v15
+					python-license-expression:single:v15
+					python-ply:single:v15
+					python-PyYAML:single:v15
+					python-rdflib:single:v15
+					python-semantic-version:single:v15
+					python-uritools:single:v15
+					python-xmltodict:single:v15
+
