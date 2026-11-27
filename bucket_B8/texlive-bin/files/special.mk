@@ -28,6 +28,7 @@ PROGRAMS2=	ptex ptftopl scor2prt sjisconv synctex t1ascii t1asm \
 		ttf2tfm ttfdump ttftotype42 twill updvitype upbibtex \
 		upmendex upmpost uppltotf uptex uptftopl vftovp vlna \
 		vptovf weave wofm2opl wopl2ofm wovf2ovp wovp2ovf \
-		xdvi-xaw xdvipdfmx xetex luahbtex xml2pmx
+		xdvi-xaw xdvipdfmx xetex luahbtex xml2pmx \
+		texprof texprofile
 
 PROGRAMS3=	luajittex mfluajit luajithbtex

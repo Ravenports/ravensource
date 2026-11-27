@@ -1,8 +1,8 @@
 # Update together with texlive-texmf when the annual release happens
-DEF[YEAR]=		2025
-DEF[PORTVERSION]=	${YEAR}0308
-DEF[LIBKPATHSEA]=	6.4.1
-DEF[LIBPTEXENC]=	1.5.1
+DEF[YEAR]=		2026
+DEF[PORTVERSION]=	${YEAR}0301
+DEF[LIBKPATHSEA]=	6.4.2
+DEF[LIBPTEXENC]=	1.5.2
 DEF[LIBSYNCTEX]=	2.0.0
 DEF[LIBTEXLUA53]=	5.3.6
 DEF[LIBTEXLUAJIT]=	2.1.81742
@@ -17,7 +17,7 @@ HOMEPAGE=		https://www.tug.org/texlive
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
 DOWNLOAD_GROUPS=	main copying lppl
-SITES[main]=		ftp://ftp.tug.org/texlive/historic/${YEAR}/
+SITES[main]=		TEXLIVE/2026
 SITES[copying]=		https://www.tug.org/texlive/
 SITES[lppl]=		https://www.latex-project.org/
 DISTFILE[1]=		texlive-${PORTVERSION}-source.tar.xz:main
@@ -78,6 +78,7 @@ BUILDRUN_DEPENDS=	gmp:primary:std
 			poppler:primary:std
 			potrace:primary:std
 			zziplib:primary:std
+			ghostscript:primary:std
 RUN_DEPENDS=		texlive-texmf:primary:std
 
 USES=			cpe gmake libtool ncurses perl readline shebangfix mbsdfix
@@ -97,6 +98,7 @@ CONFIGURE_ARGS=		--with-banner-add="/Ravenports"
 			--disable-native-texlive-build
 			--disable-static
 			--disable-xindy-rules
+			--disable-xdvipsk
 			--enable-luatex
 			--enable-shared
 			--enable-xindy
@@ -215,6 +217,9 @@ post-install:
 	for p in ${PROGRAMS0} ${PROGRAMS1} ${PROGRAMS2}; do \
 	   ${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/$$p ;\
 	done
+	# avoid conflict (not sure why two ports install them)
+	${RM} -r ${STAGEDIR}${PREFIX}/share/texmf-dist/scripts/runtexfile
+	${RM} -r ${STAGEDIR}${PREFIX}/share/texmf-dist/scripts/show-pdf-tags
 
 post-install-NOLUAJIT-OFF:
 	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libtexluajit.so

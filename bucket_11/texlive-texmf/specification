@@ -1,6 +1,6 @@
 # Update together with texlive-bin when the annual release happens
-DEF[YEAR]=		2025
-DEF[PORTVERSION]=	${YEAR}0308
+DEF[YEAR]=		2026
+DEF[PORTVERSION]=	${YEAR}0301
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		texlive-texmf
@@ -12,7 +12,7 @@ HOMEPAGE=		https://www.tug.org/texlive
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
 DOWNLOAD_GROUPS=	main copying lppl
-SITES[main]=		ftp://ftp.tug.org/texlive/historic/${YEAR}/
+SITES[main]=		TEXLIVE/${YEAR}
 SITES[copying]=		https://www.tug.org/texlive/
 SITES[lppl]=		https://www.latex-project.org/
 DISTFILE[1]=		texlive-${PORTVERSION}-texmf.tar.xz:main
@@ -60,7 +60,6 @@ SHEBANG_FILES=		texmf-dist/doc/cstex/cspsfonts-gen/mkf
 			texmf-dist/doc/latex/comprehensive/source/maketitlepage
 			texmf-dist/doc/latex/comprehensive/source/patch-idx
 			texmf-dist/doc/latex/comprehensive/source/prune-idx
-			texmf-dist/doc/latex/ctable/inst
 			texmf-dist/doc/latex/hepnames/mkmacrotables
 			texmf-dist/doc/latex/tlc-article/bin/deploy
 			texmf-dist/doc/latex/ucs/unsupported/u2ps
@@ -69,7 +68,11 @@ SHEBANG_FILES=		texmf-dist/doc/cstex/cspsfonts-gen/mkf
 			texmf-dist/scripts/logicpuzzle/createlpsudoku
 			texmf-dist/scripts/logicpuzzle/lpsmag
 
-post-patch:
+post-extract:
+	# remove compiled binary that probably shouldn't have been shipped
+	${RM} ${WRKSRC}/texmf-dist/doc/optex/opbible/txs-gen/mod2tex
+
+pre-configure:
 	${REINPLACE_CMD} -e 's!/usr/bin/luatex!${PREFIX}/bin/luatex!' \
 		${WRKSRC}/texmf-dist/tex/generic/pgfplots/lua/prepcontour.lua \
 		${WRKSRC}/texmf-dist/tex/generic/pgfplots/lua/prepcontour_cli.lua
