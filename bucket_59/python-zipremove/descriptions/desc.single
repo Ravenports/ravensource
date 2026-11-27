@@ -1,0 +1,100 @@
+![PyPI version]
+![Python Versions]
+![Status]
+![License]
+[Downloads]
+
+[Pull request]
+[Pull request]
+[Pull request]
+[Pull request]
+[Pull request]
+
+This package extends the native `zipfile` module with remove-related
+capabilities. The same codebase is currently being integrated into the
+CPython
+standard library and is scheduled to be available natively in Python 3.16.
+This
+package serves as a backport to support these future features today.
+
+## Usage
+
+* Install this package:
+
+  `sh
+  pip install zipremove
+  `
+
+* Import and use it as a drop-in replacement for the native `zipfile`
+module:
+
+  ```python
+  import zipremove as zipfile
+
+  with zipfile.ZipFile('archive', 'a') as fh:
+      fh.remove('subfile')
+  ```
+
+* Alternatively, this package automatically monkeypatches the native
+`zipfile`
+  module upon import.  The extended features will become available globally
+on
+  the built-in `zipfile` classes:
+
+  ```python
+  from zipfile import ZipFile
+
+  import zipremove as _
+
+  with ZipFile('archive', 'a') as fh:
+      fh.remove('subfile')
+  ```
+
+## API
+
+* `ZipFile.remove(zinfo_or_arcname)`
+
+   Removes a member entry from the archive's central directory.
+   *zinfo_or_arcname* may be the full path of the member or a `ZipInfo`
+   instance.  If multiple members share the same path and a string is
+   provided, only one unspecified entry is removed; pass a specific
+   `ZipInfo` instance to guarantee which member is removed.
+
+   The archive must be opened with mode 'w', 'x' or 'a'.
+
+   Returns the removed `ZipInfo` instance.
+
+   Calling `remove` on a closed ZipFile will raise a `ValueError`.
+
+   > **Note:** 
+   > This method only removes the member's entry from the central
+directory,
+   > making it inaccessible to most tools.  The member's local file entry,
+   > including content and metadata, remains in the archive and is still
+   > forensically recoverable.  To completely delete the data and reclaim
+   > space, call `repack` afterwards (preferably passing the returned
+`ZipInfo`
+   > instance).
+
+* `ZipFile.repack(removed=None, *, strict_descriptor=True[, chunk_size])`
+
+   Rewrites the archive to remove unreferenced local file entries,
+shrinking
+   its file size.  The archive must be opened with mode 'a'.
+
+   If *removed* is provided, it must be a sequence of `ZipInfo` objects
+   representing the recently removed members, and only their corresponding
+   local file entries will be removed.  This is the most efficient and
+reliable
+   way to reclaim space.  A brief example looks like:
+
+   ```python
+   with ZipFile('spam.zip', 'a') as myzip:
+       removed = [myzip.remove(name) for name in ('ham.txt', 'eggs.txt')]
+       myzip.repack(removed)
+   ```
+
+   If *removed* is omitted, the archive is scanned to locate and remove
+local
+   file entries that are no longer referenced in the central directory.
+

@@ -1,0 +1,54 @@
+DEF[PORTVERSION]=	0.5.0
+# ------------------------------------------------------------------------
+
+NAMEBASE=		python-python-sbom
+VERSION=		${PORTVERSION}
+KEYWORDS=		python
+VARIANTS=		v14 v15
+SDESC[v14]=		Write PEP 770 CycloneDX SBOMs into wheels (3.14)
+SDESC[v15]=		Write PEP 770 CycloneDX SBOMs into wheels (3.15)
+HOMEPAGE=		https://github.com/tox-dev/python-sbom
+CONTACT=		Python_Automaton[python@ravenports.com]
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		PYPIWHL/76/14/fe9bb28561fdf76f3385446814e28683be7dce32ae1d2fe525a2d370a75d
+DISTFILE[1]=		python_sbom-${PORTVERSION}-py3-none-any.whl:main
+DIST_SUBDIR=		python-src
+
+SPKGS[v14]=		single
+SPKGS[v15]=		single
+
+OPTIONS_AVAILABLE=	PY314 PY315
+OPTIONS_STANDARD=	none
+VOPTS[v14]=		PY314=ON PY315=OFF
+VOPTS[v15]=		PY314=OFF PY315=ON
+
+# License listed at PyPI
+# Not provided.
+
+GENERATED=		yes
+DISTNAME=		python_sbom-${PORTVERSION}.dist-info
+
+# Requires-Dist extracted from wheel metadata
+# installer>=1.1
+# packageurl-python>=0.11.1
+# packaging>=26.3
+# zipremove>=0.10
+# hatchling>=1.28; extra == 'hatch'
+# pdm-backend>=2.4; extra == 'pdm'
+# setuptools>=77; extra == 'setuptools'
+# jsonschema-rs>=0.60.3; extra == 'validate'
+# license-expression>=30; extra == 'validate'
+# spdx-tools>=0.8.5; extra == 'validate'
+
+[PY314].USES_ON=			python:v14,wheel
+[PY314].RUN_DEPENDS_ON=			python-installer:single:v14
+					python-packageurl-python:single:v14
+					python-packaging:single:v14
+					python-zipremove:single:v14
+[PY315].USES_ON=			python:v15,wheel
+[PY315].RUN_DEPENDS_ON=			python-installer:single:v15
+					python-packageurl-python:single:v15
+					python-packaging:single:v15
+					python-zipremove:single:v15
+
