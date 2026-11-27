@@ -1,4 +1,4 @@
---- crypto/compat/arc4random.c.orig	2026-05-24 10:26:25 UTC
+--- crypto/compat/arc4random.c.orig	2026-11-11 01:56:38 UTC
 +++ crypto/compat/arc4random.c
 @@ -91,7 +91,7 @@ _rs_stir(void)
  	uint32_t rekey_fuzz = 0;
