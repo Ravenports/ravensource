@@ -1,0 +1,111 @@
+# Override the upstream SO major version 4 with 104
+# We're seeing potential clashes with rtld of FreeBSD and OmniOS
+DEF[PORTVERSION]=	4.1.0
+DEF[SOVERSION]=		104
+DEF[NAMEBASE]=		openssl4
+DEF[BASE]=		{{PREFIX}}/${NAMEBASE}
+# ----------------------------------------------------------------------------
+
+NAMEBASE=		${NAMEBASE}
+VERSION=		${PORTVERSION}
+KEYWORDS=		security devel
+VARIANTS=		std
+SDESC[std]=		SSL and crypto library
+HOMEPAGE=		https://www.openssl.org/
+CONTACT=		nobody
+
+DOWNLOAD_GROUPS=	main
+SITES[main]=		https://github.com/openssl/openssl/releases/download/openssl-${PORTVERSION}/
+DISTFILE[1]=		openssl-${PORTVERSION}.tar.gz:main
+
+SPKGS[std]=		set primary dev man docs
+
+OPTIONS_AVAILABLE=	ASM EC SSE2 SSL3 I386 THREADS ZLIB
+OPTIONS_STANDARD=	ASM EC SSE2 SSL3 I386 THREADS ZLIB
+OPT_ON[all]=		SSE2 THREADS
+OPT_ON[x86_64]=		ASM EC
+OPT_ON[i386]=		I386
+
+LICENSE=		APACHE20:primary
+LICENSE_FILE=		APACHE20:{{WRKSRC}}/LICENSE.txt
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/ssl/ssl_rsa.c
+LICENSE_AWK=		TERMS:"^$$"
+LICENSE_SCHEME=		solo
+
+FPC_EQUIVALENT=		security/openssl
+
+RUN_DEPENDS=		autoselect-ssl:single:std
+
+USES=			cpe perl:build
+CPE_VENDOR=		openssl
+CPE_PRODUCT=		openssl
+DISTNAME=		openssl-${PORTVERSION}
+MUST_CONFIGURE=		yes
+CONFIGURE_SCRIPT=	config
+CONFIGURE_ENV=		PERL="{{PERL}}"
+CONFIGURE_ARGS=		--openssldir={{PREFIX}}/etc/${NAMEBASE}
+			--prefix=${BASE}
+			--libdir=lib
+			no-md2
+			no-rc5
+			no-rfc3779
+			no-sctp
+			no-rmd160
+			no-idea
+			no-mdc2
+			no-devcryptoeng
+			-Wl,-rpath,${BASE}/lib
+MAKE_ENV=		GREP_OPTIONS=
+MAKE_ARGS=		MANSUFFIX=
+SOVERSION=		${SOVERSION}
+
+VAR_OPSYS[sunos]=	CONFIGURE_ARGS=-lrt
+
+[ASM].CONFIGURE_ARGS_OFF=		no-asm
+
+[EC].DESCRIPTION=			Optimize NIST elliptic curves
+[EC].CONFIGURE_ARGS_ON=			enable-ec_nistp_64_gcc_128
+
+[SSE2].DESCRIPTION=			Runtime SSE2 detection
+[SSE2].CONFIGURE_ARGS_OFF=		no-sse2
+
+[SSL3].DESCRIPTION=			SSLv3 protocol support
+[SSL3].CONFIGURE_ARGS_ON=		enable-ssl3 enable-ssl3-method
+
+[THREADS].CONFIGURE_ARGS_OFF=		no-threads
+
+[I386].DESCRIPTION=			Optimize for i386 (instead of i486+)
+[I386].CONFIGURE_ARGS_ON=		386
+
+[ZLIB].DESCRIPTION=			zlib compression support
+[ZLIB].CONFIGURE_ARGS_ON=		zlib-dynamic
+
+pre-configure:
+	# Handle document and man page installation changes
+	${REINPLACE_CMD} \
+		-e 's|^MANDIR=.*$$|MANDIR=${MANPREFIX}/man|' \
+		-e 's| install_html_docs$$||' \
+		${WRKSRC}/Configurations/unix-Makefile.tmpl
+	# Override SONAME extension of so.4
+	${REINPLACE_CMD} -e '/SHLIB_VERSION=/ s|4|${SOVERSION}|' \
+		${WRKSRC}/VERSION.dat
+
+post-install:
+	${STRIP_CMD} ${STAGEDIR}${BASE}/bin/openssl
+	${RM} ${STAGEDIR}${PREFIX}/etc/${NAMEBASE}/openssl.cnf
+	${RM} ${STAGEDIR}${PREFIX}/etc/${NAMEBASE}/ct_log_list.cnf
+
+	# Handle man pages
+	${MKDIR} ${STAGEDIR}${PREFIX}/etc/man.d
+	${ECHO_CMD} "MANPATH ${PREFIX}/${NAMEBASE}/share/man" \
+		>> ${STAGEDIR}${PREFIX}/etc/man.d/${NAMEBASE}.conf
+
+	# strip
+	${STRIP_CMD} ${STAGEDIR}${BASE}/lib/lib*.so
+	${STRIP_CMD} ${STAGEDIR}${BASE}/lib/ossl-modules/legacy.so
+
+	# Relocation documentation to standard
+	${MKDIR} ${STAGEDIR}${PREFIX}/share/doc
+	${MV} ${STAGEDIR}${BASE}/share/doc/openssl ${STAGEDIR}${STD_DOCDIR}
+	${RM} -r ${STAGEDIR}${BASE}/share/doc
