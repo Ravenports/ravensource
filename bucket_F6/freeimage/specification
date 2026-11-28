@@ -1,6 +1,6 @@
-DEF[PORTVERSION]=	3.18.0
-DEF[DISTVERSION]=	3180
-DEF[SOVERSION]=		3.18.0
+DEF[PORTVERSION]=	3.19.33
+DEF[SOVERSION]=		3.19.33
+DEF[TAG]=		${PORTVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		freeimage
@@ -12,54 +12,45 @@ HOMEPAGE=		https://freeimage.sourceforge.io/
 CONTACT=		Michael_Reim[kraileth@elderlinux.org]
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		SF/freeimage/Source%20Distribution/${PORTVERSION}
-DISTFILE[1]=		FreeImage${DISTVERSION}.zip:main
+SITES[main]=		GITHUB/danoli3:FreeImage:${TAG}
+DISTFILE[1]=		generated:main
 
 SPKGS[std]=		set primary dev
 
 OPTIONS_AVAILABLE=	none
 OPTIONS_STANDARD=	none
 
-# Licensing is probably invalid; source files contain references to "this license"
-# but do not actually define which license that is. The Whatsnew.txt file states
-# that the code is dual-licensed: "FI-License and the GPL license" which is vague
-# at best. As the project bundles several other libraries, overall its license
-# scheme is definitely multi. I've prepared a license block but will leave it
-# commented due to the absence of any proper terms.
-
-# LICENSE=		GPLv2:primary
-# #			GPLv3:primary
-# #			CUSTOM1:primary
-# LICENSE_FILE=		GPLv2:{{WRKSRC}}/license-gplv2.txt
-# #			GPLv3:{{WRKSRC}}/license-gplv3.txt
-# #			CUSTOM1:{{WRKSRC}}/license-fi.txt
-# LICENSE_NAME=		CUSTOM1:"FreeImage Public License - Version 1.0"
-# LICENSE_SCHEME=	multi
+LICENSE=		CUSTOM1:primary
+LICENSE_FILE=		CUSTOM1:{{WRKSRC}}/license-fi.txt
+LICENSE_NAME=		CUSTOM1:"FreeImage Public License - Version 1.0"
+LICENSE_TERMS=		primary:{{WRKDIR}}/TERMS
+LICENSE_SOURCE=		TERMS:{{WRKSRC}}/Source/FreeImage.h
+LICENSE_AWK=		TERMS:"FREEIMAGE_H"
+LICENSE_SCHEME=		solo
 
 FPC_EQUIVALENT=		graphics/freeimage
 
-USES=			c++:primary dos2unix gmake cpe
+BUILD_DEPENDS=		openjpeg:dev:std
+			jpeg-turbo:dev:std
+			openexr:dev:std
+			libraw:dev:std
+			WebP:dev:std
+BUILDRUN_DEPENDS=	openjpeg:primary:std
+			jpeg-turbo:primary:std
+			openexr:primary:std
+			libraw:primary:std
+			WebP:primary:std
+
+USES=			c++:primary dos2unix cmake cpe
+			zlib png tiff jpeg pkgconfig
 CPE_VENDOR=		freeimage_project
 CPE_PRODUCT=		freeimage
-DISTNAME=		FreeImage
+CMAKE_ARGS=		-DBUILD_SHARED_LIBS:BOOL=ON
+			-DUSE_LIBJPEG_TURBO:BOOL=ON
+			-DFREEIMAGE_USE_SYSTEM_LIBS:BOOL=ON
 SUB_FILES=		freeimage.pc
 SUB_LIST=		VERSION="${PORTVERSION}"
-
-CFLAGS=			-DPNG_ARM_NEON_OPT=0 -fexceptions -fvisibility=hidden -fPIC
-CXXFLAGS=		-DPNG_ARM_NEON_OPT=0 -fexceptions -fvisibility=hidden -fPIC -std=c++14
-MAKE_ARGS=		CC="{{CC}}" CPP="{{CPP}}" CXX="{{CXX}}"
 SOVERSION=		${SOVERSION}
 
-pre-configure:
-	${REINPLACE_CMD} -e 's|/usr|${PREFIX}| ; s|-o root -g root || ; \
-		/^-fPIC/d' ${WRKSRC}/Makefile.gnu ${WRKSRC}/Makefile.fip
-
-post-build:
-	${SETENVI} ${WRK_ENV} ${MAKE_ENV} ${MAKE_CMD} -f Makefile.fip ${_MAKE_JOBS} \
-		${MAKE_ARGS} -C ${BUILD_WRKSRC}
-
 post-install:
-	${SETENVI} ${WRK_ENV} ${MAKE_ENV} ${MAKE_CMD} -f Makefile.fip ${MAKE_ARGS} \
-		-C ${INSTALL_WRKSRC} ${INSTALL_TARGET}
-	${MKDIR} -p ${STAGEDIR}${PREFIX}/lib/pkgconfig
-	${INSTALL_DATA} ${WRKDIR}/freeimage.pc ${STAGEDIR}${PREFIX}/lib/pkgconfig
+	${STRIP_CMD} ${STAGEDIR}${PREFIX}/lib/libFreeImage.so
