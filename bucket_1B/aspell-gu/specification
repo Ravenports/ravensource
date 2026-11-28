@@ -1,15 +1,15 @@
-DEF[PORTVERSION]=	0.03
+DEF[PORTVERSION]=	0.06
 DEF[DISTPREFIX]=	aspell6
 DEF[DIST_ITERATION]=	0
 DEF[LANGUAGE]=		Gujarati
 DEF[SUFFIX]=		gu
 DEF[CORE_VERSION]=	EXTRACT_INFO(ASPELL_CORE_VERSION)
 DEF[VERINST]=		EXTRACT_INFO(ASPELL_INSTALL_VERSION)
+DEF[TAG]=		${PORTVERSION}
 # ----------------------------------------------------------------------------
 
 NAMEBASE=		aspell-${SUFFIX}
 VERSION=		${PORTVERSION}.${DIST_ITERATION}
-REVISION=		1
 KEYWORDS=		textproc
 VARIANTS=		std
 SDESC[std]=		Aspell ${LANGUAGE} dictionary
@@ -17,8 +17,8 @@ HOMEPAGE=		http://aspell.net/
 CONTACT=		nobody
 
 DOWNLOAD_GROUPS=	main
-SITES[main]=		GNU/aspell/dict/${SUFFIX}
-DISTFILE[1]=		${DISTPREFIX}-${SUFFIX}-${PORTVERSION}-${DIST_ITERATION}.tar.bz2:main
+SITES[main]=		GITHUB/kartikm:aspell-gu:${TAG}
+DISTFILE[1]=		generated:main
 
 SPKGS[std]=		single
 
@@ -32,4 +32,3 @@ BUILD_DEPENDS=		aspell:tools:std
 USES=			gmake
 MUST_CONFIGURE=		yes
 PLIST_SUB=		VER=${VERINST}
-DISTNAME=		${DISTPREFIX}-${SUFFIX}-${PORTVERSION}-${DIST_ITERATION}
