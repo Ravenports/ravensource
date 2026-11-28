@@ -1,38 +1,29 @@
---- modules/dnn/src/layers/cpu_kernels/fast_gemm_kernels.simd.hpp.orig	2025-12-30 07:52:05 UTC
+--- modules/dnn/src/layers/cpu_kernels/fast_gemm_kernels.simd.hpp.orig	2026-11-05 11:18:05 UTC
 +++ modules/dnn/src/layers/cpu_kernels/fast_gemm_kernels.simd.hpp
-@@ -586,7 +586,7 @@ void fastGemmKernel(int M, int N, int K,
-     int total_tiles = m_tiles * n_tiles;
+@@ -698,7 +698,7 @@ void fastGemmKernel(size_t M, size_t N,
+     size_t total_tiles = m_tiles * n_tiles;
  
      auto fn = [&](const Range &r) {
 -        char* packed_a = (char*)(use_stackbuff ? alloca(buff_size) : malloc(buff_size));
 +        char* packed_a = (char*)(use_stackbuff ? __builtin_alloca(buff_size) : malloc(buff_size));
          char* packed_b = packed_a + KC * MC * esz;
-         int start = r.start;
-         int end = r.end;
-@@ -674,7 +674,7 @@ void fastGemmKernel(int M, int N, int K,
-     int total_tiles = m_tiles * n_tiles;
+         size_t start = r.start;
+         size_t end = r.end;
+@@ -788,7 +788,7 @@ void fastGemmKernel(size_t M, size_t N,
+     size_t total_tiles = m_tiles * n_tiles;
  
      auto fn = [&](const Range &r) {
 -        char* packed_a = (char*)(use_stackbuff ? alloca(buff_size) : malloc(buff_size)); // TODO: use AutoBuffer
 +        char* packed_a = (char*)(use_stackbuff ? __builtin_alloca(buff_size) : malloc(buff_size)); // TODO: use AutoBuffer
          const char *packed_b_ = packed_B;
-         int start = r.start;
-         int end = r.end;
-@@ -753,7 +753,7 @@ void fastGemmBatchKernel(size_t batch, c
-     int total_tiles = m_tiles * n_tiles;
+         size_t start = r.start;
+         size_t end = r.end;
+@@ -872,7 +872,7 @@ void fastGemmBatchKernel(size_t batch, c
+     size_t total_tiles = m_tiles * n_tiles;
  
      auto fn = [&](const Range &r) {
 -        char* packed_a = (char*)(use_stackbuff ? alloca(buff_size) : malloc(buff_size));
 +        char* packed_a = (char*)(use_stackbuff ? __builtin_alloca(buff_size) : malloc(buff_size));
          char* packed_b = packed_a + KC * MC * esz;
-         int start = r.start;
-         int end = r.end;
-@@ -843,7 +843,7 @@ void fastGemmBatchKernel(size_t batch, c
-     int total_tiles = m_tiles * n_tiles;
- 
-     auto fn = [&](const Range &r) {
--        char* packed_a = (char*)(use_stackbuff ? alloca(buff_size) : malloc(buff_size));
-+        char* packed_a = (char*)(use_stackbuff ? __builtin_alloca(buff_size) : malloc(buff_size));
-         const char *packed_b = packed_B;
-         int start = r.start;
-         int end = r.end;
+         size_t start = r.start;
+         size_t end = r.end;

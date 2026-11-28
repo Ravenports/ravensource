@@ -1,6 +1,6 @@
---- modules/dnn/src/int8layers/convolution_layer.cpp.orig	2025-12-30 07:52:05 UTC
+--- modules/dnn/src/int8layers/convolution_layer.cpp.orig	2026-11-05 11:18:05 UTC
 +++ modules/dnn/src/int8layers/convolution_layer.cpp
-@@ -1050,15 +1050,15 @@ public:
+@@ -1084,15 +1084,15 @@ public:
                                                  out_j = outW1 - out_delta;
                                              }
                                              int in_j = out_j * stride_w - pad_l;
@@ -25,7 +25,7 @@
  
                                              vout0 = vout1 = vout2 = vout3 = vbias;
                                              v_expand_mul_add(v00, vw00, vout0, vout1, vout2, vout3);
-@@ -1419,12 +1419,12 @@ public:
+@@ -1455,12 +1455,12 @@ public:
                                            vs12 = v_setzero_s32(), vs13 = v_setzero_s32();
                                  for( k = 0; k < vsz; k += 16, rptr += 16 )
                                  {

@@ -1,6 +1,6 @@
---- modules/dnn/src/int8layers/fully_connected_layer.cpp.orig	2025-12-30 07:52:05 UTC
+--- modules/dnn/src/int8layers/fully_connected_layer.cpp.orig	2026-11-05 11:18:05 UTC
 +++ modules/dnn/src/int8layers/fully_connected_layer.cpp
-@@ -327,11 +327,11 @@ public:
+@@ -374,11 +374,11 @@ public:
  
                          for( k = 0; k < vecsize; k += 16 )
                          {

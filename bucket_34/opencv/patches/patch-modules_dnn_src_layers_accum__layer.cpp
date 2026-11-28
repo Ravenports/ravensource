@@ -1,4 +1,4 @@
---- modules/dnn/src/layers/accum_layer.cpp.orig	2025-12-30 07:52:05 UTC
+--- modules/dnn/src/layers/accum_layer.cpp.orig	2026-11-05 11:18:05 UTC
 +++ modules/dnn/src/layers/accum_layer.cpp
 @@ -64,8 +64,8 @@ public:
              }

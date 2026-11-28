@@ -1,4 +1,4 @@
---- modules/core/src/utils/filesystem.cpp.orig	2025-12-30 07:52:05 UTC
+--- modules/core/src/utils/filesystem.cpp.orig	2026-11-05 11:18:05 UTC
 +++ modules/core/src/utils/filesystem.cpp
 @@ -34,7 +34,7 @@
  #include <errno.h>
@@ -36,7 +36,7 @@
  
  struct FileLock::Impl
  {
-@@ -457,7 +457,7 @@ cv::String getCacheDirectory(const char*
+@@ -464,7 +464,7 @@ cv::String getCacheDirectory(const char*
              default_cache_path = "/tmp/";
              CV_LOG_WARNING(NULL, "Using world accessible cache directory. This may be not secure: " << default_cache_path);
          }
